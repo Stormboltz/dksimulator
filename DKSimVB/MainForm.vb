@@ -147,7 +147,7 @@ Public Partial Class MainForm
 	End Sub
 	
 	Sub MainFormLoad(sender As Object, e As EventArgs)
-		lblversion.Text = Application.ProductName & " " & Application.ProductVersion
+		lblversion.Text = "Version " & Application.ProductVersion
 		loadTemplate
 		loadConfig
 		LoadEPOptions
@@ -230,13 +230,6 @@ Public Partial Class MainForm
 		root.AppendChild(newElem)
 		
 		
-		'Dispaly dps
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "displaydps", "")
-		newElem.InnerText = chkShowDps.Checked
-		root = doc.DocumentElement
-		root.AppendChild(newElem)
-		
-		
 		'Smooth
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "smooth", "")
 		newElem.InnerText = chkLissage.Checked
@@ -288,7 +281,6 @@ Public Partial Class MainForm
 		txtSimtime.Text = doc.SelectSingleNode("//config/simtime").InnerText
 		chkCombatLog.Checked = doc.SelectSingleNode("//config/log").InnerText
 		ckLogRP.Checked = doc.SelectSingleNode("//config/logdetail").InnerText
-		chkShowDps.Checked = doc.SelectSingleNode("//config/displaydps").InnerText
 		chkLissage.Checked = doc.SelectSingleNode("//config/smooth").InnerText
 		chkGhoulHaste.Checked = doc.SelectSingleNode("//config/ghoulhaste").InnerText
 		chkWaitFC.Checked = doc.SelectSingleNode("//config/WaitFC").InnerText

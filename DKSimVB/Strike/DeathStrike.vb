@@ -90,6 +90,8 @@ Friend Module DeathStrike
 				total = total + dégat
 				TryMHCinderglacier
 				TryMHFallenCrusader
+				TryMjolRune
+				TryGrimToll
 			End If
 			If OHHit Then
 
@@ -106,7 +108,8 @@ Friend Module DeathStrike
 				total = total + dégat
 				TryOHCinderglacier
 				TryOHFallenCrusader
-				
+				TryMjolRune
+				TryGrimToll
 			End If
 
 

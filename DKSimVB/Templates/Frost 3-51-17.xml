@@ -1,7 +1,7 @@
 <Talents>
-  <URL>http://talent.mmo-champion.com/?deathknight=0000000000000000000000000000320053503520030123000331013512302003050020000000000000000000&amp;glyph=171813000000&amp;version=10048</URL>
+  <URL>http://talent.mmo-champion.com/?deathknight=0300000000000000000000000000320153003522031023000330013512302003050020000000000000000000&amp;glyph=171813000000&amp;version=10147</URL>
   <Butchery>0</Butchery>
-  <Subversion>0</Subversion>
+  <Subversion>3</Subversion>
   <BladeBarrier>0</BladeBarrier>
   <BladedArmor>0</BladedArmor>
   <ScentOfBlood>0</ScentOfBlood>
@@ -31,19 +31,19 @@
   <ImprovedIcyTouch>3</ImprovedIcyTouch>
   <RPM>2</RPM>
   <Toughness>0</Toughness>
-  <IcyReach>0</IcyReach>
+  <IcyReach>1</IcyReach>
   <BlackIce>5</BlackIce>
   <NervesofColdSteel>3</NervesofColdSteel>
-  <IcyTalons>5</IcyTalons>
+  <IcyTalons>0</IcyTalons>
   <LichBorne>0</LichBorne>
   <Annihilation>3</Annihilation>
-  <KillingMachine>4</KillingMachine>
+  <KillingMachine>5</KillingMachine>
   <ChillOfTheGrave>2</ChillOfTheGrave>
-  <EndlessWinter>0</EndlessWinter>
+  <EndlessWinter>2</EndlessWinter>
   <Frigid>0</Frigid>
   <GlacierRot>3</GlacierRot>
-  <Deathchill>0</Deathchill>
-  <ImprovedIcyTalons>1</ImprovedIcyTalons>
+  <Deathchill>1</Deathchill>
+  <ImprovedIcyTalons>0</ImprovedIcyTalons>
   <MercilessCombat>2</MercilessCombat>
   <Rime>3</Rime>
   <ChillBlains>0</ChillBlains>
@@ -51,7 +51,7 @@
   <IFrostPresence>0</IFrostPresence>
   <ThreatOfThassarian>3</ThreatOfThassarian>
   <BloodoftheNorth>3</BloodoftheNorth>
-  <UnbreakableArmor>1</UnbreakableArmor>
+  <UnbreakableArmor>0</UnbreakableArmor>
   <Acclimatation>0</Acclimatation>
   <FrostStrike>1</FrostStrike>
   <GuileOfGorefiend>3</GuileOfGorefiend>
@@ -68,7 +68,7 @@
   <Necrosis>5</Necrosis>
   <CorpseExplosion>0</CorpseExplosion>
   <PaleHorse>0</PaleHorse>
-  <BloodCakedBlade>3</BloodCakedBlade>
+  <BloodCakedBlade>2</BloodCakedBlade>
   <NightoftheDead>0</NightoftheDead>
   <UnholyBlight>0</UnholyBlight>
   <Impurity>0</Impurity>

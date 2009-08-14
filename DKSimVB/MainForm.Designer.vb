@@ -33,6 +33,7 @@ Partial Class MainForm
 	''' not be able to load this method if it was changed manually.
 	''' </summary>
 	Private Sub InitializeComponent()
+		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainForm))
 		Me.button1 = New System.Windows.Forms.Button
 		Me.PBsim = New System.Windows.Forms.ProgressBar
 		Me.btEP = New System.Windows.Forms.Button
@@ -52,6 +53,15 @@ Partial Class MainForm
 		Me.HtmlReport = New System.Windows.Forms.TabPage
 		Me.webBrowser1 = New System.Windows.Forms.WebBrowser
 		Me.tabPage3 = New System.Windows.Forms.TabPage
+		Me.label17 = New System.Windows.Forms.Label
+		Me.label15 = New System.Windows.Forms.Label
+		Me.txtInterruptAmount = New System.Windows.Forms.TextBox
+		Me.txtInterruptCd = New System.Windows.Forms.TextBox
+		Me.label16 = New System.Windows.Forms.Label
+		Me.label14 = New System.Windows.Forms.Label
+		Me.txtAMScd = New System.Windows.Forms.TextBox
+		Me.txtAMSrp = New System.Windows.Forms.TextBox
+		Me.label13 = New System.Windows.Forms.Label
 		Me.chkGhoulHaste = New System.Windows.Forms.CheckBox
 		Me.chkLissage = New System.Windows.Forms.CheckBox
 		Me.txtLatency = New System.Windows.Forms.TextBox
@@ -63,7 +73,6 @@ Partial Class MainForm
 		Me.cmdEditTemplate = New System.Windows.Forms.Button
 		Me.ckLogRP = New System.Windows.Forms.CheckBox
 		Me.ckPet = New System.Windows.Forms.CheckBox
-		Me.chkShowDps = New System.Windows.Forms.CheckBox
 		Me.chkCombatLog = New System.Windows.Forms.CheckBox
 		Me.label8 = New System.Windows.Forms.Label
 		Me.cmbRuneOH = New System.Windows.Forms.ComboBox
@@ -177,7 +186,8 @@ Partial Class MainForm
 		Me.lblVersion.Name = "lblVersion"
 		Me.lblVersion.Size = New System.Drawing.Size(218, 19)
 		Me.lblVersion.TabIndex = 8
-		Me.lblVersion.Text = "DK SIM"
+		Me.lblVersion.Text = "Version "
+		Me.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
 		'
 		'lblDPS
 		'
@@ -327,6 +337,15 @@ Partial Class MainForm
 		'
 		'tabPage3
 		'
+		Me.tabPage3.Controls.Add(Me.label17)
+		Me.tabPage3.Controls.Add(Me.label15)
+		Me.tabPage3.Controls.Add(Me.txtInterruptAmount)
+		Me.tabPage3.Controls.Add(Me.txtInterruptCd)
+		Me.tabPage3.Controls.Add(Me.label16)
+		Me.tabPage3.Controls.Add(Me.label14)
+		Me.tabPage3.Controls.Add(Me.txtAMScd)
+		Me.tabPage3.Controls.Add(Me.txtAMSrp)
+		Me.tabPage3.Controls.Add(Me.label13)
 		Me.tabPage3.Controls.Add(Me.chkGhoulHaste)
 		Me.tabPage3.Controls.Add(Me.chkLissage)
 		Me.tabPage3.Controls.Add(Me.txtLatency)
@@ -338,7 +357,6 @@ Partial Class MainForm
 		Me.tabPage3.Controls.Add(Me.cmdEditTemplate)
 		Me.tabPage3.Controls.Add(Me.ckLogRP)
 		Me.tabPage3.Controls.Add(Me.ckPet)
-		Me.tabPage3.Controls.Add(Me.chkShowDps)
 		Me.tabPage3.Controls.Add(Me.chkCombatLog)
 		Me.tabPage3.Controls.Add(Me.label8)
 		Me.tabPage3.Controls.Add(Me.cmbRuneOH)
@@ -365,12 +383,95 @@ Partial Class MainForm
 		Me.tabPage3.Text = "Configuration"
 		Me.tabPage3.UseVisualStyleBackColor = true
 		'
+		'label17
+		'
+		Me.label17.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
+		Me.label17.Location = New System.Drawing.Point(6, 423)
+		Me.label17.Name = "label17"
+		Me.label17.Size = New System.Drawing.Size(116, 13)
+		Me.label17.TabIndex = 32
+		Me.label17.Text = "Interrupt fighting every"
+		'
+		'label15
+		'
+		Me.label15.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
+		Me.label15.Location = New System.Drawing.Point(278, 423)
+		Me.label15.Name = "label15"
+		Me.label15.Size = New System.Drawing.Size(16, 13)
+		Me.label15.TabIndex = 31
+		Me.label15.Text = "s"
+		'
+		'txtInterruptAmount
+		'
+		Me.txtInterruptAmount.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
+		Me.txtInterruptAmount.Enabled = false
+		Me.txtInterruptAmount.Location = New System.Drawing.Point(222, 420)
+		Me.txtInterruptAmount.Name = "txtInterruptAmount"
+		Me.txtInterruptAmount.Size = New System.Drawing.Size(50, 20)
+		Me.txtInterruptAmount.TabIndex = 30
+		Me.txtInterruptAmount.Text = "0"
+		'
+		'txtInterruptCd
+		'
+		Me.txtInterruptCd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
+		Me.txtInterruptCd.Enabled = false
+		Me.txtInterruptCd.Location = New System.Drawing.Point(128, 420)
+		Me.txtInterruptCd.Name = "txtInterruptCd"
+		Me.txtInterruptCd.Size = New System.Drawing.Size(50, 20)
+		Me.txtInterruptCd.TabIndex = 29
+		Me.txtInterruptCd.Text = "0"
+		'
+		'label16
+		'
+		Me.label16.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
+		Me.label16.Location = New System.Drawing.Point(184, 423)
+		Me.label16.Name = "label16"
+		Me.label16.Size = New System.Drawing.Size(32, 13)
+		Me.label16.TabIndex = 28
+		Me.label16.Text = "s for"
+		'
+		'label14
+		'
+		Me.label14.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
+		Me.label14.Location = New System.Drawing.Point(171, 449)
+		Me.label14.Name = "label14"
+		Me.label14.Size = New System.Drawing.Size(20, 13)
+		Me.label14.TabIndex = 27
+		Me.label14.Text = "s"
+		'
+		'txtAMScd
+		'
+		Me.txtAMScd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
+		Me.txtAMScd.Location = New System.Drawing.Point(115, 446)
+		Me.txtAMScd.Name = "txtAMScd"
+		Me.txtAMScd.Size = New System.Drawing.Size(50, 20)
+		Me.txtAMScd.TabIndex = 26
+		Me.txtAMScd.Text = "60"
+		'
+		'txtAMSrp
+		'
+		Me.txtAMSrp.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
+		Me.txtAMSrp.Location = New System.Drawing.Point(6, 446)
+		Me.txtAMSrp.Name = "txtAMSrp"
+		Me.txtAMSrp.Size = New System.Drawing.Size(50, 20)
+		Me.txtAMSrp.TabIndex = 25
+		Me.txtAMSrp.Text = "0"
+		'
+		'label13
+		'
+		Me.label13.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
+		Me.label13.Location = New System.Drawing.Point(62, 449)
+		Me.label13.Name = "label13"
+		Me.label13.Size = New System.Drawing.Size(47, 13)
+		Me.label13.TabIndex = 24
+		Me.label13.Text = "rp every"
+		'
 		'chkGhoulHaste
 		'
 		Me.chkGhoulHaste.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.chkGhoulHaste.Location = New System.Drawing.Point(477, 399)
+		Me.chkGhoulHaste.Location = New System.Drawing.Point(491, 392)
 		Me.chkGhoulHaste.Name = "chkGhoulHaste"
-		Me.chkGhoulHaste.Size = New System.Drawing.Size(163, 24)
+		Me.chkGhoulHaste.Size = New System.Drawing.Size(194, 24)
 		Me.chkGhoulHaste.TabIndex = 23
 		Me.chkGhoulHaste.Text = "Ghoul double dips haste buff"
 		Me.chkGhoulHaste.UseVisualStyleBackColor = true
@@ -379,9 +480,9 @@ Partial Class MainForm
 		'chkLissage
 		'
 		Me.chkLissage.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.chkLissage.Location = New System.Drawing.Point(477, 376)
+		Me.chkLissage.Location = New System.Drawing.Point(306, 392)
 		Me.chkLissage.Name = "chkLissage"
-		Me.chkLissage.Size = New System.Drawing.Size(104, 24)
+		Me.chkLissage.Size = New System.Drawing.Size(179, 24)
 		Me.chkLissage.TabIndex = 22
 		Me.chkLissage.Text = "Smooth Results"
 		Me.chkLissage.UseVisualStyleBackColor = true
@@ -390,38 +491,38 @@ Partial Class MainForm
 		'txtLatency
 		'
 		Me.txtLatency.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-		Me.txtLatency.Location = New System.Drawing.Point(3, 403)
+		Me.txtLatency.Location = New System.Drawing.Point(88, 394)
 		Me.txtLatency.Name = "txtLatency"
-		Me.txtLatency.Size = New System.Drawing.Size(100, 20)
+		Me.txtLatency.Size = New System.Drawing.Size(50, 20)
 		Me.txtLatency.TabIndex = 21
-		Me.txtLatency.Text = "0"
+		Me.txtLatency.Text = "150"
 		AddHandler Me.txtLatency.TextChanged, AddressOf Me.TxtLatencyTextChanged
 		'
 		'txtSimtime
 		'
 		Me.txtSimtime.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-		Me.txtSimtime.Location = New System.Drawing.Point(3, 446)
+		Me.txtSimtime.Location = New System.Drawing.Point(112, 368)
 		Me.txtSimtime.Name = "txtSimtime"
-		Me.txtSimtime.Size = New System.Drawing.Size(100, 20)
+		Me.txtSimtime.Size = New System.Drawing.Size(50, 20)
 		Me.txtSimtime.TabIndex = 6
-		Me.txtSimtime.Text = "24"
+		Me.txtSimtime.Text = "100"
 		'
 		'chkWaitFC
 		'
 		Me.chkWaitFC.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.chkWaitFC.Checked = true
 		Me.chkWaitFC.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkWaitFC.Location = New System.Drawing.Point(477, 419)
+		Me.chkWaitFC.Location = New System.Drawing.Point(306, 444)
 		Me.chkWaitFC.Name = "chkWaitFC"
-		Me.chkWaitFC.Size = New System.Drawing.Size(199, 24)
+		Me.chkWaitFC.Size = New System.Drawing.Size(179, 24)
 		Me.chkWaitFC.TabIndex = 20
-		Me.chkWaitFC.Text = "Wait for FC proc for GG and DRW"
+		Me.chkWaitFC.Text = "Wait for FC proc for GG/DRW"
 		Me.chkWaitFC.UseVisualStyleBackColor = true
 		'
 		'cmdEditRot
 		'
 		Me.cmdEditRot.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdEditRot.Location = New System.Drawing.Point(643, 156)
+		Me.cmdEditRot.Location = New System.Drawing.Point(643, 151)
 		Me.cmdEditRot.Name = "cmdEditRot"
 		Me.cmdEditRot.Size = New System.Drawing.Size(42, 23)
 		Me.cmdEditRot.TabIndex = 19
@@ -432,7 +533,7 @@ Partial Class MainForm
 		'cmdEditPrio
 		'
 		Me.cmdEditPrio.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdEditPrio.Location = New System.Drawing.Point(643, 113)
+		Me.cmdEditPrio.Location = New System.Drawing.Point(643, 111)
 		Me.cmdEditPrio.Name = "cmdEditPrio"
 		Me.cmdEditPrio.Size = New System.Drawing.Size(42, 23)
 		Me.cmdEditPrio.TabIndex = 19
@@ -466,9 +567,9 @@ Partial Class MainForm
 		'
 		Me.ckLogRP.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
 		Me.ckLogRP.Enabled = false
-		Me.ckLogRP.Location = New System.Drawing.Point(139, 425)
+		Me.ckLogRP.Location = New System.Drawing.Point(491, 444)
 		Me.ckLogRP.Name = "ckLogRP"
-		Me.ckLogRP.Size = New System.Drawing.Size(149, 24)
+		Me.ckLogRP.Size = New System.Drawing.Size(194, 24)
 		Me.ckLogRP.TabIndex = 18
 		Me.ckLogRP.Text = "Very detailled combat log"
 		Me.ckLogRP.UseVisualStyleBackColor = true
@@ -479,31 +580,20 @@ Partial Class MainForm
 		Me.ckPet.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.ckPet.Checked = true
 		Me.ckPet.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.ckPet.Location = New System.Drawing.Point(477, 442)
+		Me.ckPet.Location = New System.Drawing.Point(306, 418)
 		Me.ckPet.Name = "ckPet"
-		Me.ckPet.Size = New System.Drawing.Size(199, 24)
+		Me.ckPet.Size = New System.Drawing.Size(179, 24)
 		Me.ckPet.TabIndex = 17
 		Me.ckPet.Text = "Use Pets(Ghoul, Gargoyle)"
 		Me.ckPet.UseVisualStyleBackColor = true
 		AddHandler Me.ckPet.CheckedChanged, AddressOf Me.CkPetCheckedChanged
 		'
-		'chkShowDps
-		'
-		Me.chkShowDps.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-		Me.chkShowDps.Location = New System.Drawing.Point(139, 446)
-		Me.chkShowDps.Name = "chkShowDps"
-		Me.chkShowDps.Size = New System.Drawing.Size(163, 20)
-		Me.chkShowDps.TabIndex = 16
-		Me.chkShowDps.Text = "Display DPS(Slow the sim)"
-		Me.chkShowDps.UseVisualStyleBackColor = true
-		AddHandler Me.chkShowDps.CheckedChanged, AddressOf Me.ChkShowDpsCheckedChanged
-		'
 		'chkCombatLog
 		'
 		Me.chkCombatLog.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-		Me.chkCombatLog.Location = New System.Drawing.Point(139, 403)
+		Me.chkCombatLog.Location = New System.Drawing.Point(491, 418)
 		Me.chkCombatLog.Name = "chkCombatLog"
-		Me.chkCombatLog.Size = New System.Drawing.Size(149, 24)
+		Me.chkCombatLog.Size = New System.Drawing.Size(194, 24)
 		Me.chkCombatLog.TabIndex = 16
 		Me.chkCombatLog.Text = "Generate Combat Log"
 		Me.chkCombatLog.UseVisualStyleBackColor = true
@@ -512,7 +602,7 @@ Partial Class MainForm
 		'label8
 		'
 		Me.label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.label8.Location = New System.Drawing.Point(419, 273)
+		Me.label8.Location = New System.Drawing.Point(390, 257)
 		Me.label8.Name = "label8"
 		Me.label8.Size = New System.Drawing.Size(100, 13)
 		Me.label8.TabIndex = 15
@@ -522,7 +612,7 @@ Partial Class MainForm
 		'
 		Me.cmbRuneOH.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbRuneOH.FormattingEnabled = true
-		Me.cmbRuneOH.Location = New System.Drawing.Point(390, 294)
+		Me.cmbRuneOH.Location = New System.Drawing.Point(390, 273)
 		Me.cmbRuneOH.Name = "cmbRuneOH"
 		Me.cmbRuneOH.Size = New System.Drawing.Size(250, 21)
 		Me.cmbRuneOH.TabIndex = 14
@@ -530,7 +620,7 @@ Partial Class MainForm
 		'
 		'label7
 		'
-		Me.label7.Location = New System.Drawing.Point(6, 273)
+		Me.label7.Location = New System.Drawing.Point(6, 257)
 		Me.label7.Name = "label7"
 		Me.label7.Size = New System.Drawing.Size(100, 13)
 		Me.label7.TabIndex = 13
@@ -539,15 +629,15 @@ Partial Class MainForm
 		'cmbRuneMH
 		'
 		Me.cmbRuneMH.FormattingEnabled = true
-		Me.cmbRuneMH.Location = New System.Drawing.Point(6, 294)
+		Me.cmbRuneMH.Location = New System.Drawing.Point(6, 273)
 		Me.cmbRuneMH.Name = "cmbRuneMH"
-		Me.cmbRuneMH.Size = New System.Drawing.Size(269, 21)
+		Me.cmbRuneMH.Size = New System.Drawing.Size(250, 21)
 		Me.cmbRuneMH.TabIndex = 12
 		AddHandler Me.cmbRuneMH.SelectedIndexChanged, AddressOf Me.CmbRuneMHSelectedIndexChanged
 		'
 		'label6
 		'
-		Me.label6.Location = New System.Drawing.Point(6, 142)
+		Me.label6.Location = New System.Drawing.Point(6, 137)
 		Me.label6.Name = "label6"
 		Me.label6.Size = New System.Drawing.Size(100, 13)
 		Me.label6.TabIndex = 11
@@ -558,7 +648,7 @@ Partial Class MainForm
 		Me.cmbRotation.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbRotation.FormattingEnabled = true
-		Me.cmbRotation.Location = New System.Drawing.Point(6, 158)
+		Me.cmbRotation.Location = New System.Drawing.Point(6, 153)
 		Me.cmbRotation.Name = "cmbRotation"
 		Me.cmbRotation.Size = New System.Drawing.Size(634, 21)
 		Me.cmbRotation.TabIndex = 10
@@ -566,7 +656,7 @@ Partial Class MainForm
 		'
 		'label5
 		'
-		Me.label5.Location = New System.Drawing.Point(6, 221)
+		Me.label5.Location = New System.Drawing.Point(6, 217)
 		Me.label5.Name = "label5"
 		Me.label5.Size = New System.Drawing.Size(100, 13)
 		Me.label5.TabIndex = 9
@@ -577,7 +667,7 @@ Partial Class MainForm
 		Me.cmbSigils.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbSigils.FormattingEnabled = true
-		Me.cmbSigils.Location = New System.Drawing.Point(6, 242)
+		Me.cmbSigils.Location = New System.Drawing.Point(6, 233)
 		Me.cmbSigils.Name = "cmbSigils"
 		Me.cmbSigils.Size = New System.Drawing.Size(634, 21)
 		Me.cmbSigils.TabIndex = 8
@@ -586,24 +676,24 @@ Partial Class MainForm
 		'label10
 		'
 		Me.label10.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-		Me.label10.Location = New System.Drawing.Point(6, 387)
+		Me.label10.Location = New System.Drawing.Point(6, 397)
 		Me.label10.Name = "label10"
-		Me.label10.Size = New System.Drawing.Size(97, 13)
+		Me.label10.Size = New System.Drawing.Size(76, 13)
 		Me.label10.TabIndex = 7
 		Me.label10.Text = "Latency in ms"
 		'
 		'label4
 		'
 		Me.label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-		Me.label4.Location = New System.Drawing.Point(6, 430)
+		Me.label4.Location = New System.Drawing.Point(6, 371)
 		Me.label4.Name = "label4"
-		Me.label4.Size = New System.Drawing.Size(162, 13)
+		Me.label4.Size = New System.Drawing.Size(100, 13)
 		Me.label4.TabIndex = 7
-		Me.label4.Text = "Simulation time in hour"
+		Me.label4.Text = "Simulated time in h"
 		'
 		'label3
 		'
-		Me.label3.Location = New System.Drawing.Point(6, 182)
+		Me.label3.Location = New System.Drawing.Point(6, 177)
 		Me.label3.Name = "label3"
 		Me.label3.Size = New System.Drawing.Size(100, 13)
 		Me.label3.TabIndex = 5
@@ -614,7 +704,7 @@ Partial Class MainForm
 		Me.cmdPresence.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmdPresence.FormattingEnabled = true
-		Me.cmdPresence.Location = New System.Drawing.Point(6, 197)
+		Me.cmdPresence.Location = New System.Drawing.Point(6, 193)
 		Me.cmdPresence.Name = "cmdPresence"
 		Me.cmdPresence.Size = New System.Drawing.Size(634, 21)
 		Me.cmdPresence.TabIndex = 4
@@ -838,7 +928,6 @@ Partial Class MainForm
 		Me.groupBox1.TabIndex = 2
 		Me.groupBox1.TabStop = false
 		Me.groupBox1.Text = "Common stats"
-
 		'
 		'chkEPSMHSpeed
 		'
@@ -988,7 +1077,6 @@ Partial Class MainForm
 		Me.grpBuff.TabIndex = 0
 		Me.grpBuff.TabStop = false
 		Me.grpBuff.Text = "Buffs/Debuffs"
-
 		'
 		'chkBloodlust
 		'
@@ -1011,7 +1099,6 @@ Partial Class MainForm
 		Me.chkDraeni.TabIndex = 0
 		Me.chkDraeni.Text = "Draenei"
 		Me.chkDraeni.UseVisualStyleBackColor = true
-
 		'
 		'chkBStatMulti
 		'
@@ -1222,8 +1309,9 @@ Partial Class MainForm
 		Me.Controls.Add(Me.tabControl1)
 		Me.Controls.Add(Me.PBsim)
 		Me.Controls.Add(Me.button1)
+		Me.Icon = CType(resources.GetObject("$this.Icon"),System.Drawing.Icon)
 		Me.Name = "MainForm"
-		Me.Text = "DKSIMVB"
+		Me.Text = "Kahorie's DK Simulator"
 		AddHandler Load, AddressOf Me.MainFormLoad
 		AddHandler Closing, AddressOf Me.MainFormClose
 		Me.tbTools.ResumeLayout(false)
@@ -1241,6 +1329,15 @@ Partial Class MainForm
 		Me.grpBuff.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Friend txtInterruptAmount As System.Windows.Forms.TextBox
+	Friend txtInterruptCd As System.Windows.Forms.TextBox
+	Private label16 As System.Windows.Forms.Label
+	Private label15 As System.Windows.Forms.Label
+	Private label17 As System.Windows.Forms.Label
+	Private label13 As System.Windows.Forms.Label
+	Friend txtAMSrp As System.Windows.Forms.TextBox
+	Friend txtAMScd As System.Windows.Forms.TextBox
+	Private label14 As System.Windows.Forms.Label
 	Private chkBStatMulti As System.Windows.Forms.CheckBox
 	Private chkBStatAdd As System.Windows.Forms.CheckBox
 	Private chkBSpHitTaken As System.Windows.Forms.CheckBox
@@ -1298,7 +1395,6 @@ Partial Class MainForm
 	Friend txtLatency As System.Windows.Forms.TextBox
 	Private label10 As System.Windows.Forms.Label
 	Friend chkWaitFC As System.Windows.Forms.CheckBox
-	Friend chkShowDps As System.Windows.Forms.CheckBox
 	Friend lblDPS As System.Windows.Forms.Label
 	Friend cmbCharacter As System.Windows.Forms.ComboBox
 	Private label9 As System.Windows.Forms.Label
@@ -1337,10 +1433,4 @@ Partial Class MainForm
 	Private PBsim As System.Windows.Forms.ProgressBar
 	Private button1 As System.Windows.Forms.Button
 	
-
-	
-	
-	
-	
-
 End Class

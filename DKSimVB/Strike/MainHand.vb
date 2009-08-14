@@ -3,7 +3,7 @@ Friend module MainHand
 	Friend _NextWhiteMainHit As integer
 	Friend total As Long
 	
-		Friend TotalHit As Long
+	Friend TotalHit As Long
 	Friend TotalCrit as Long
 
 	Friend MissCount As Integer
@@ -23,8 +23,8 @@ Friend module MainHand
 		_NextWhiteMainHit = 0
 		TotalHit = 0
 		TotalCrit = 0
-
 	End Sub
+	
 	Function ApplyDamage(T As long) As boolean
 		Dim dégat As long
 		Dim BCB As Double
@@ -94,8 +94,6 @@ Friend module MainHand
 		If Lissage Then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance-MeleeGlacingChance) + AvrgNonCrit(T)* (MeleeGlacingChance)*0.7 
 		total = total + dégat
 
-		
-
 		If Talentfrost.KillingMachine > 0 Then
 			RNG = RandomNumberGenerator.NextDouble()
 			If RNG < (Talentfrost.KillingMachine)*MainStat.MHWeaponSpeed/60 Then
@@ -114,6 +112,8 @@ Friend module MainHand
 		End If
 		TryMHCinderglacier
 		TryMHFallenCrusader
+		TryMjolRune
+		TryGrimToll
 		
 		If proc.ScentOfBloodProc > 0 Then
 			proc.ScentOfBloodProc  = proc.ScentOfBloodProc  -1
@@ -134,7 +134,7 @@ Friend module MainHand
 
 	End Function
 	Function CritChance() As Double
-		CritChance = MainStat.crit
+		CritChance = MainStat.critAutoattack
 	End Function
 	Function AvrgCrit(T As long) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)

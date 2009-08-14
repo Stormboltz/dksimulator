@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 <Priority>
 	<FrostFever></FrostFever>
-	<FrostStrike></FrostStrike>
-	<Rime></Rime>
+	<BloodPlague></BloodPlague>
+    <DeathCoilMaxRp></DeathCoilMaxRp>
 	<Obliterate></Obliterate>
 	<BloodStrike></BloodStrike>
+	<DeathCoil></DeathCoil>
 </Priority>

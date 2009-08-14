@@ -80,6 +80,8 @@ Friend module BloodStrike
 				TryMHCinderglacier
 				TryMHFallenCrusader
 				TryT92PDPS
+				TryMjolRune
+				TryGrimToll
 		End If
 		If OHHit Then
 				dim dégat as Integer
@@ -95,13 +97,15 @@ Friend module BloodStrike
 				TryOHCinderglacier
 				TryOHFallenCrusader
 				TryT92PDPS
+				TryMjolRune
+				TryGrimToll
 		End If
 		
 		
 		if sigils.HauntedDreams then
 			RNG = RandomNumberGenerator.NextDouble()
 			if RNG <= 0.15 then
-				HauntedDreamsFade = T+1000
+				HauntedDreamsFade = T + 10 * 100
 			end if
 		End If
 		If rng < 0.05*talentblood.SuddenDoom Then

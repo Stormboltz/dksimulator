@@ -53,7 +53,7 @@ Friend Module RuneForge
 		If MHFallenCrusader Then
 			RNG = RandomNumberGenerator.NextDouble()
 			If RNG < 2*MainStat.MHWeaponSpeed/60 Then
-				FallenCrusaderActiveUntil = sim.TimeStamp + 1500
+				FallenCrusaderActiveUntil = sim.TimeStamp + 15 * 100
 				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Fallen Crusader proc on Main hand")
 			End If
 		End If
@@ -63,7 +63,7 @@ Friend Module RuneForge
 		If OHFallenCrusader Then
 			RNG = RandomNumberGenerator.NextDouble()
 			If RNG < 2*MainStat.OHWeaponSpeed/60 Then
-				FallenCrusaderActiveUntil = sim.TimeStamp + 1500
+				FallenCrusaderActiveUntil = sim.TimeStamp + 15 * 100
 				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Fallen Crusader proc on Off hand")
 			End If
 		End If

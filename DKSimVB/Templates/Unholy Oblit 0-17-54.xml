@@ -1,14 +1,14 @@
 <Talents>
-  <URL>http://talent.mmo-champion.com/?deathknight=2305020530000000000000000000320050503520031123002031013510000000000000000000000000000000&amp;glyph=131718000000&amp;version=10048</URL>
-  <Butchery>2</Butchery>
-  <Subversion>3</Subversion>
+  <URL>http://talent.mmo-champion.com/?deathknight=0000000000000000000000000000320150013020000000000000000002302303020032152003150103133051&amp;glyph=000000000000&amp;version=10192</URL>
+  <Butchery>0</Butchery>
+  <Subversion>0</Subversion>
   <BladeBarrier>0</BladeBarrier>
-  <BladedArmor>5</BladedArmor>
+  <BladedArmor>0</BladedArmor>
   <ScentOfBlood>0</ScentOfBlood>
-  <Weapspec>2</Weapspec>
+  <Weapspec>0</Weapspec>
   <RuneTap>0</RuneTap>
-  <Darkconv>5</Darkconv>
-  <DRM>3</DRM>
+  <Darkconv>0</Darkconv>
+  <DRM>0</DRM>
   <IRuneTap>0</IRuneTap>
   <SpellDeflection>0</SpellDeflection>
   <Vendetta>0</Vendetta>
@@ -31,71 +31,71 @@
   <ImprovedIcyTouch>3</ImprovedIcyTouch>
   <RPM>2</RPM>
   <Toughness>0</Toughness>
-  <IcyReach>0</IcyReach>
+  <IcyReach>1</IcyReach>
   <BlackIce>5</BlackIce>
   <NervesofColdSteel>0</NervesofColdSteel>
-  <IcyTalons>5</IcyTalons>
-  <LichBorne>0</LichBorne>
+  <IcyTalons>0</IcyTalons>
+  <LichBorne>1</LichBorne>
   <Annihilation>3</Annihilation>
-  <KillingMachine>5</KillingMachine>
+  <KillingMachine>0</KillingMachine>
   <ChillOfTheGrave>2</ChillOfTheGrave>
   <EndlessWinter>0</EndlessWinter>
   <Frigid>0</Frigid>
-  <GlacierRot>3</GlacierRot>
-  <Deathchill>1</Deathchill>
-  <ImprovedIcyTalons>1</ImprovedIcyTalons>
-  <MercilessCombat>2</MercilessCombat>
-  <Rime>3</Rime>
+  <GlacierRot>0</GlacierRot>
+  <Deathchill>0</Deathchill>
+  <ImprovedIcyTalons>0</ImprovedIcyTalons>
+  <MercilessCombat>0</MercilessCombat>
+  <Rime>0</Rime>
   <ChillBlains>0</ChillBlains>
   <HungeringCold>0</HungeringCold>
-  <IFrostPresence>2</IFrostPresence>
+  <IFrostPresence>0</IFrostPresence>
   <ThreatOfThassarian>0</ThreatOfThassarian>
-  <BloodoftheNorth>3</BloodoftheNorth>
-  <UnbreakableArmor>1</UnbreakableArmor>
+  <BloodoftheNorth>0</BloodoftheNorth>
+  <UnbreakableArmor>0</UnbreakableArmor>
   <Acclimatation>0</Acclimatation>
-  <FrostStrike>1</FrostStrike>
-  <GuileOfGorefiend>3</GuileOfGorefiend>
-  <TundraStalker>5</TundraStalker>
-  <HowlingBlast>1</HowlingBlast>
-  <ViciousStrikes>0</ViciousStrikes>
-  <Virulence>0</Virulence>
+  <FrostStrike>0</FrostStrike>
+  <GuileOfGorefiend>0</GuileOfGorefiend>
+  <TundraStalker>0</TundraStalker>
+  <HowlingBlast>0</HowlingBlast>
+  <ViciousStrikes>2</ViciousStrikes>
+  <Virulence>3</Virulence>
   <Anticipation>0</Anticipation>
-  <Epidemic>0</Epidemic>
-  <Morbidity>0</Morbidity>
+  <Epidemic>2</Epidemic>
+  <Morbidity>3</Morbidity>
   <UnholyCommand>0</UnholyCommand>
-  <RavenousDead>0</RavenousDead>
+  <RavenousDead>3</RavenousDead>
   <Outbreak>0</Outbreak>
-  <Necrosis>0</Necrosis>
+  <Necrosis>2</Necrosis>
   <CorpseExplosion>0</CorpseExplosion>
   <PaleHorse>0</PaleHorse>
-  <BloodCakedBlade>0</BloodCakedBlade>
-  <NightoftheDead>0</NightoftheDead>
-  <UnholyBlight>0</UnholyBlight>
-  <Impurity>0</Impurity>
-  <Dirge>0</Dirge>
+  <BloodCakedBlade>3</BloodCakedBlade>
+  <NightoftheDead>2</NightoftheDead>
+  <UnholyBlight>1</UnholyBlight>
+  <Impurity>5</Impurity>
+  <Dirge>2</Dirge>
   <Desecration>0</Desecration>
   <MagicSuppression>0</MagicSuppression>
-  <Reaping>0</Reaping>
-  <MasterOfGhouls>0</MasterOfGhouls>
-  <Desolation>0</Desolation>
+  <Reaping>3</Reaping>
+  <MasterOfGhouls>1</MasterOfGhouls>
+  <Desolation>5</Desolation>
   <AMZ>0</AMZ>
-  <ImprovedUnholyPresence>0</ImprovedUnholyPresence>
+  <ImprovedUnholyPresence>1</ImprovedUnholyPresence>
   <GhoulFrenzy>0</GhoulFrenzy>
-  <CryptFever>0</CryptFever>
-  <BoneShield>0</BoneShield>
-  <WanderingPlague>0</WanderingPlague>
-  <EbonPlaguebringer>0</EbonPlaguebringer>
+  <CryptFever>3</CryptFever>
+  <BoneShield>1</BoneShield>
+  <WanderingPlague>3</WanderingPlague>
+  <EbonPlaguebringer>3</EbonPlaguebringer>
   <ScourgeStrike>0</ScourgeStrike>
-  <RageofRivendare>0</RageofRivendare>
-  <SummonGargoyle>0</SummonGargoyle>
+  <RageofRivendare>5</RageofRivendare>
+  <SummonGargoyle>1</SummonGargoyle>
   <Glyphs>
     <BloodStrike>0</BloodStrike>
     <DarkDeath>0</DarkDeath>
     <DeathStrike>0</DeathStrike>
-    <FrostStrike>1</FrostStrike>
+    <FrostStrike>0</FrostStrike>
     <HowlingBlast>0</HowlingBlast>
-    <IcyTouch>1</IcyTouch>
-    <Obliterate>1</Obliterate>
+    <IcyTouch>0</IcyTouch>
+    <Obliterate>0</Obliterate>
     <PlagueStrike>0</PlagueStrike>
     <ScourgeStrike>0</ScourgeStrike>
     <UnholyBlight>0</UnholyBlight>

@@ -19,7 +19,6 @@ Friend Module GhoulStat
 		Ghoul.total = 0
 		ghoul.TotalHit = 0
 		ghoul.TotalCrit = 0
-
 		If TalentUnholy.MasterOfGhouls Then 
 			Ghoul.ActiveUntil = sim.MaxTime
 			Ghoul.cd = sim.MaxTime
@@ -29,7 +28,6 @@ Friend Module GhoulStat
 		End If
 	end Sub
 	Function BaseAP() As Integer
-
 		return 1167 
      	'tmp = (tmp + Character.Strength * 2 + Character.AttackPower + 220) * (1 + Buff.AttackPowerPc / 10)
 		'return tmp
@@ -39,31 +37,23 @@ Friend Module GhoulStat
 	End Function
 	function Base_Str as integer
 	
-	
 	end function
-	
-	
 	Function Strength as integer
 		if glyph.ghoul then
 				return 331 + (Character.Strength * (talentunholy.ravenousdead*0.7))+ (Character.Strength * .4) 
 			else
 				return 331 + (Character.Strength * (talentunholy.ravenousdead*0.7))
 		end if
-		
 	end function
-	
 	Function crit() As System.Double
 		Dim tmp As Double
 		tmp = 5  'BaseCrit
-		'tmp = tmp + Character.CritRating / 45.91
-'		tmp = tmp + Character.Agility / 62.5
 		tmp = tmp + 5 * Buff.MeleeCrit
 		tmp = tmp + 3 * Buff.CritChanceTaken
 		crit = tmp / 100
 	End Function
 	Function SpellCrit() As Single
 		Dim tmp As Double
-		'tmp = Character.SpellCritRating / 45.91
 		tmp = tmp + 3 * Buff.CritChanceTaken
 		tmp = tmp + 5 * Buff.SpellCrit
 		tmp = tmp + 5  * Buff.SpellCritTaken
@@ -71,15 +61,13 @@ Friend Module GhoulStat
 	End Function
 	Function Haste() As Double
 		Dim tmp As Double
-		tmp = Character.HasteRating / 32.79 / 100
-		'tmp = tmp * 1.3 ' Haste change for 3.1
+		tmp = Character.HasteRating / 32.79 / 100 'Haste change for 3.1 ?
 		tmp = tmp + UnholyPresence * 0.15
 		tmp = tmp + 0.05 * talentfrost.ImprovedIcyTalons
 		tmp = tmp + 0.2 * Buff.MeleeHaste
 		tmp = tmp + 0.03 * Buff.Haste
 		Haste = tmp
 	End Function
-	
 	Function SpellHaste() As Double
 		Dim tmp As Double
 		If MainStat.UnholyPresence = 1 Then
@@ -91,22 +79,19 @@ Friend Module GhoulStat
 			tmp = tmp + 0.03 * Buff.Haste
 			SpellHaste = tmp
 		End If
-		
-		
-		
 	End Function
-	
 	Function Expertise() As Double
+		Dim tmp As Double
+		tmp = Character.HitRating / 32.79
 		
-		return 0
-		
+		return tmp / 100
 	End Function
-	
 	
 	Function Hit() As Double
 		Dim tmp As Double
-		tmp = (Character.HitRating / 32.79)
+		tmp = Character.HitRating / 32.79
 		tmp = tmp + Draenei
+		
 		return tmp / 100
 	End Function
 	
@@ -115,19 +100,22 @@ Friend Module GhoulStat
 		tmp = Character.SpellHitRating / 26.23
 		tmp = tmp + Buff.SpellHitTaken * 3
 		tmp = tmp + Draenei
+		
 		SpellHit = tmp / 100
 	End Function
 	
 	Function MHBaseDamage() As Double
 		Dim tmp As Double
 		tmp = (MHWeaponDPS + (AP / 14)) * MHWeaponSpeed
+		
 		return tmp
 	End Function
 
 	Function ArmorPen As Double
 		Dim tmp As Double
 		'tmp = character.ArmorPenetrationRating/15.39
-		tmp = tmp *1.25
+		'tmp = tmp *1.25
+		
 		return tmp
 	End Function
 	
@@ -138,6 +126,7 @@ Friend Module GhoulStat
 		tmp = tmp * (1- 5 * buff.ArmorMinor / 100)
 		tmp = tmp * (1 - ArmorPen / 100)
 		tmp = (tmp /((467.5*83)+tmp-22167.5))
+		
 		Return tmp
 	End Function
 	
@@ -147,6 +136,7 @@ Friend Module GhoulStat
 		tmp = tmp * (1 - ArmorMitigation)
 		tmp = tmp * (1 + 0.03 * Buff.PcDamage)
 		tmp = tmp * (1 + 0.02 * Buff.PhysicalVuln)
+		
 		return tmp
 	End Function
 	
@@ -155,8 +145,7 @@ Friend Module GhoulStat
 		tmp = 1
 		tmp = tmp * (1 + 0.03 * Buff.PcDamage)
 		tmp = tmp * (1 + 0.13 * Buff.SpellDamageTaken)
-		return tmp
+		
+		Return tmp
 	End Function
-	
-	
 End Module

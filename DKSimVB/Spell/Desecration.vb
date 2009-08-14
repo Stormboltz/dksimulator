@@ -34,7 +34,7 @@ Friend Module Desolation
 		
 	End Function
 	Function Apply(T As long) As Boolean
-		FadeAt = T + 2000
+		FadeAt = T + 20 * 100
 		return true
 	End Function
 End Module

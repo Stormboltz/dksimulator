@@ -92,7 +92,7 @@ Friend Module HowlingBlast
 		AvrgNonCrit = tmp
 	End Function
 	Function CritCoef() As Double
-		CritCoef = 1 * (1 + Talentfrost.GuileOfGorefiend * 15 / 100) 
+		CritCoef = 1 * (1 + Talentfrost.GuileOfGorefiend * 0.5 * 15 / 100) 'GoG works off the 1.5 spell crit modifier or something like that
 		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
 	End Function
 	Function CritChance() As Double

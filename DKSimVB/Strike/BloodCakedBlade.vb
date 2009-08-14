@@ -40,9 +40,13 @@ Friend Module BloodCakedBlade
 		If MH Then
 			TryMHCinderglacier
 			TryMHFallenCrusader
+			TryMjolRune
+			TryGrimToll
 		Else
 			TryOHCinderglacier
 			TryOHFallenCrusader
+			TryMjolRune
+			TryGrimToll
 		End If
 		
 		
@@ -53,11 +57,9 @@ Friend Module BloodCakedBlade
 	Function AvrgNonCrit(T as long, MH as Boolean) As Double
 		Dim tmp As Double
 		If MH Then
-			'tmp = MainStat.NormalisedMHDamage
 			tmp = MainStat.MHBaseDamage
 		Else
 			tmp = MainStat.OHBaseDamage
-			'tmp = MainStat.NormalisedOHDamage
 			tmp = tmp * 0.5
 			tmp = tmp * (1 + TalentFrost.NervesofColdSteel * 5 / 100)
 		End If

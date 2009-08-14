@@ -103,6 +103,8 @@ Friend Module FrostStrike
 					total = total + dégat
 					TryMHCinderglacier
 					TryMHFallenCrusader
+					TryMjolRune
+					TryGrimToll
 				End If
 				If OHHit Then
 					If RNG < ccT Then
@@ -116,6 +118,8 @@ Friend Module FrostStrike
 					total = total + dégat
 					TryOHCinderglacier
 					TryOHFallenCrusader
+					TryMjolRune
+					TryGrimToll
 				End If
 				proc.KillingMachine  = False
 				Return True

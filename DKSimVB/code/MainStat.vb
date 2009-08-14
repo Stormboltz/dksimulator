@@ -18,8 +18,9 @@ Friend Module MainStat
 	Friend UnholyPresence As Integer
 	Friend FrostPresence As Integer
 	
-	Friend CSD as integer
-	
+	Friend CSD As Integer
+	Friend MjolRune As Integer
+	Friend GrimToll As Integer
 	
 	Function DualW As Boolean
 		return character.Dual
@@ -39,14 +40,12 @@ Friend Module MainStat
 		OHWeaponDPS = (XmlDoc.SelectSingleNode("//character/weapon/offhand/dps").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
 		OHWeaponSpeed = (XmlDoc.SelectSingleNode("//character/weapon/offhand/speed").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
 		BossArmor = 10643
+		
+		CSD = XmlDoc.SelectSingleNode("//character/ChaoticSkyflareDiamond").InnerText
+		MjolRune = XmlDoc.SelectSingleNode("//character/MjolnirRunestone").InnerText
+		GrimToll = XmlDoc.SelectSingleNode("//character/GrimToll").InnerText
 
-
-
-
-
-
-	on error resume next
-
+		on error resume next
 
 		Select Case sim.EPStat
 			Case "0T7"
@@ -105,32 +104,42 @@ Friend Module MainStat
 				T92PDPS = XmlDoc.SelectSingleNode("//character/Set/T92PDPS").InnerText
 				T94PDPS = XmlDoc.SelectSingleNode("//character/Set/T94PDPS").InnerText
 		End Select
-		
-		
-		
-	
-
-		
-		CSD = XmlDoc.SelectSingleNode("//character/ChaoticSkyflareDiamond").InnerText
-		
-		
-		
 	End Sub
+	
 	Function BaseAP() As Integer
 		dim tmp as integer
 		if Sigils.Strife then
 			if proc.StrifeFade >= sim.TimeStamp then tmp = 120
-		end if
-		tmp = (tmp + Character.Strength * 2 + Character.AttackPower + 220) * (1 + Buff.AttackPowerPc / 10)
+		End If
+		'Why +220 ?
+		tmp = (tmp + Character.Strength * 2 + Character.AttackPower + 550) * (1 + Buff.AttackPowerPc / 10)
 		return tmp
 	End Function
+	
 	Function AP() As Integer
 		return  BaseAP
 	End Function
 	
 	Function crit() As System.Double
 		Dim tmp As Double
-		tmp = 5  'BaseCrit
+		tmp = 5  'BaseCrit. What base crit?
+		tmp = tmp + Character.CritRating / 45.91
+		if Sigils.HauntedDreams then
+			if proc.HauntedDreamsFade >= sim.TimeStamp then tmp = tmp + 173/45.91
+		end if
+		tmp = tmp + Character.Agility*0.016
+		tmp = tmp + 5 * Buff.MeleeCrit
+		tmp = tmp + 3 * Buff.CritChanceTaken
+		tmp = tmp + TalentBlood.Darkconv
+		tmp = tmp + TalentUnholy.EbonPlaguebringer
+		tmp = tmp + talentfrost.Annihilation
+		tmp = tmp - 4.8 'Crit malus vs bosses
+		
+		return tmp / 100
+	End Function
+	Function critAutoattack() As System.Double 'No Annihilation for autoattacks
+		Dim tmp As Double
+		tmp = 5  'BaseCrit. What base crit?
 		tmp = tmp + Character.CritRating / 45.91
 		if Sigils.HauntedDreams then
 			if proc.HauntedDreamsFade >= sim.TimeStamp then tmp = tmp + 173/45.91
@@ -140,7 +149,8 @@ Friend Module MainStat
 		tmp = tmp + 3 * Buff.CritChanceTaken
 		tmp = tmp + TalentBlood.Darkconv
 		tmp = tmp + TalentUnholy.EbonPlaguebringer
-		tmp = tmp + talentfrost.Annihilation
+		tmp = tmp - 4.8 'Crit malus vs bosses
+		
 		return tmp / 100
 	End Function
 	Function SpellCrit() As Single
@@ -154,47 +164,43 @@ Friend Module MainStat
 		tmp = tmp + 5 * Buff.SpellCritTaken
 		tmp = tmp + TalentBlood.Darkconv
 		tmp = tmp + TalentUnholy.EbonPlaguebringer
+		tmp = tmp - 2.1 'Spell crit malus vs bosses
+		
 		return  tmp / 100
 	End Function
 	Function Haste() As Double
 		Dim tmp As Double
-		tmp = 1.3 * Character.HasteRating / 32.79 / 100
+		tmp = Character.HasteRating / (32.79/1.3) / 100 '1.3 is the buff haste rating received
 		tmp = tmp + UnholyPresence * 0.15
 		tmp = tmp + 0.05 * talentfrost.ImprovedIcyTalons
 		tmp = tmp + 0.2 * Buff.MeleeHaste
 		tmp = tmp + 0.03 * Buff.Haste
-		if Bloodlust.IsActive(sim.TimeStamp) then	tmp = tmp + 0.3
+		If Bloodlust.IsActive(sim.TimeStamp) Then tmp = tmp + 0.3
+		
 		return tmp
 	End Function
-	
 	Function SpellHaste() As Double
 		Dim tmp As Double
 		If MainStat.UnholyPresence = 1 Then
 			SpellHaste = 0.5
 		Else
 			tmp = Character.SpellHasteRating / 32.79 / 100
-			'tmp = tmp + 0.05 * talentfrost.ImprovedIcyTalons
 			tmp = tmp + 0.05 * Buff.SpellHaste
 			tmp = tmp + 0.03 * Buff.Haste
 			If Bloodlust.IsActive(sim.TimeStamp)  Then	tmp = tmp + 0.3
+			
 			return tmp
 		End If
-		
-		
-		
 	End Function
-	
 	Function Expertise() As Double
 		Dim tmp As Double
-		tmp = (Character.ExpertiseRating/32.79)
+		tmp = Character.ExpertiseRating / 32.79
 		tmp = tmp + 0.25 * talentblood.Vot3W*2
 		tmp = tmp + 0.25 * talentfrost.TundraStalker
 		tmp = tmp + 0.25 * talentunholy.RageofRivendare
-		return  tmp / 100
 		
+		return  tmp / 100
 	End Function
-	
-	
 	Function Hit() As Double
 		Dim tmp As Double
 		tmp = (Character.HitRating / 32.79)
@@ -202,7 +208,6 @@ Friend Module MainStat
 		tmp = tmp + Draenei
 		Hit = tmp / 100
 	End Function
-	
 	Function SpellHit() As Double
 		Dim tmp As Double
 		tmp = Character.SpellHitRating / 26.23
@@ -211,7 +216,6 @@ Friend Module MainStat
 		tmp = tmp + Draenei
 		SpellHit = tmp / 100
 	End Function
-	
 	Function NormalisedMHDamage() As Double
 		Dim tmp As Double
 		tmp =  MHWeaponSpeed * MHWeaponDPS
@@ -223,15 +227,12 @@ Friend Module MainStat
 		End If
 		return tmp
 	End Function
-	
 	Function NormalisedOHDamage() As Double
 		Dim tmp As Double
 		tmp =  OHWeaponSpeed * OHWeaponDPS
 		tmp =  tmp + 2.4*(AP / 14)
 		return tmp
 	End Function
-	
-	
 	Function MHBaseDamage() As Double
 		Dim tmp As Double
 		tmp = (MHWeaponDPS + (AP / 14)) * MHWeaponSpeed
@@ -241,14 +242,12 @@ Friend Module MainStat
 	Function OHBaseDamage() As Double
 		OHBaseDamage = (OHWeaponDPS + (AP / 14)) * OHWeaponSpeed
 	End Function
-	
 	Function ArmorPen As Double
 		Dim tmp As Double
 		tmp = character.ArmorPenetrationRating/1539
 		tmp = tmp *1.25
 		return tmp
 	End Function
-	
 	Function ArmorMitigation() As Double
 		Dim tmp As Double
 
@@ -288,11 +287,9 @@ Friend Module MainStat
 		dim l_constant as double  = 15232.5
 		l_bossArmor = 10643
 		
-		
-		
 		Dim l_personalArpPercent As Double = ArmorPen
 		l_personalArpPercent = l_personalArpPercent + (TalentBlood.BloodGorged * 2 / 100)
-		
+		If l_personalArpPercent > 1 Then l_personalArpPercent = 1
 		
 		dim l_debuffPercent as double = 0.0
 		dim l_sunder as double = 1.0
@@ -314,59 +311,63 @@ Friend Module MainStat
 		
 		dim l_answer  as double = l_constant / (l_tempA - l_tempB)
 		
-		return (1.0 - Math.max(0.0, l_answer))
+		If MjolRuneFade > sim.TimeStamp And GrimTollFade > sim.TimeStamp Then
+			Debug.Print( "l_personalArpPercent = " & l_personalArpPercent & " l_answer = " & l_answer & " (1.0 - Math.max(0.0, l_answer)) = " & (1.0 - Math.max(0.0, l_answer)) & sim.TimeStamp)
+		End If
 		
+		'Debug.Print( "l_personalArpPercent = " & l_personalArpPercent & " l_answer = " & l_answer & " (1.0 - Math.max(0.0, l_answer)) = " & (1.0 - Math.max(0.0, l_answer)) & sim.TimeStamp)
+		return l_answer
 	End Function
 	Function WhiteHitDamageMultiplier(T as long) As Double
 		dim tmp as Double
 		tmp = 1
-		tmp = tmp * (1 + 2 * TalentBlood.BloodyVengeance/ 100)
-		tmp = tmp * (1 + 2 * TalentBlood.BloodGorged / 100)
-		tmp = tmp * (1 + 2 * TalentUnholy.BoneShield / 100)
 		tmp = tmp * (1 + MainStat.BloodPresence * 0.15)
-		tmp = tmp * (1 - MainStat.getMitigation)
 		tmp = tmp * (1 + 0.03 * Buff.PcDamage)
-		tmp = tmp * (1 + 0.04 * Buff.PhysicalVuln)
 		If Desolation.isActive(T) Then tmp = tmp * (1+Desolation.Bonus)
+		tmp = tmp * (1 + 0.02 * TalentUnholy.BoneShield)
+		tmp = tmp * (1 + 0.02 * TalentBlood.BloodGorged)
+		
+		tmp = tmp * MainStat.getMitigation
+		tmp = tmp * (1 + 0.04 * Buff.PhysicalVuln)
+		tmp = tmp * (1 + 0.02 * TalentBlood.BloodyVengeance)
 		if Hysteria.IsActive(T) then tmp = tmp * 1.2
+		
 		return tmp
 	End Function
-	
-	
 	Function StandardPhysicalDamageMultiplier(T as long) As Double
 		dim tmp as Double
 		tmp = 1
-		tmp = tmp * (1 + 2 * TalentBlood.BloodyVengeance/ 100)
-		tmp = tmp * (1 + 2 * TalentBlood.BloodGorged / 100)
-		If FrostFever.isActive(T) Then	tmp = tmp * (1 + 3 * TalentFrost.TundraStalker / 100)
-		If BloodPlague.isActive(T) Then tmp = tmp * (1 + 2 * talentunholy.RageofRivendare / 100)
-		'TODO Hysteria
-		'If Hysteria.isActive(T) Then tmp = tmp * (1 + 20 * talentunholy.RageofRivendare / 100)
-		tmp = tmp * (1 + 2 * TalentUnholy.BoneShield / 100)
 		tmp = tmp * (1 + MainStat.BloodPresence * 0.15)
-		tmp = tmp * (1 - MainStat.getMitigation)
 		tmp = tmp * (1 + 0.03 * Buff.PcDamage)
-		tmp = tmp * (1 + 0.04 * Buff.PhysicalVuln)
 		If Desolation.isActive(T) Then tmp = tmp * (1+Desolation.Bonus)
-		if Hysteria.IsActive(T) then tmp = tmp * 1.2
+		tmp = tmp * (1 + 0.02 * TalentUnholy.BoneShield)
+		tmp = tmp * (1 + 0.02 * TalentBlood.BloodGorged)
+		
+		tmp = tmp * MainStat.getMitigation
+		tmp = tmp * (1 + 0.04 * Buff.PhysicalVuln)
+		tmp = tmp * (1 + 0.02 * TalentBlood.BloodyVengeance)
+		If Hysteria.IsActive(T) Then tmp = tmp * 1.2
+		
+		If FrostFever.isActive(T) Then	tmp = tmp * (1 + 0.03 * TalentFrost.TundraStalker)
+		If BloodPlague.isActive(T) Then tmp = tmp * (1 + 0.02 * talentunholy.RageofRivendare)
+		
 		return tmp
 	End Function
-	
 	Function StandardMagicalDamageMultiplier(T as long) As Double
 		Dim tmp As Double
 		tmp = 1
 		tmp = tmp * (1 + MainStat.BloodPresence * 0.15)
-		tmp = tmp * (1 + 2 * TalentBlood.BloodGorged / 100)
-		If FrostFever.isActive(T) Then	tmp = tmp * (1 + 3 * TalentFrost.TundraStalker / 100)
-		If BloodPlague.isActive(T) Then tmp = tmp * (1 + 2 * talentunholy.RageofRivendare / 100)
-		tmp = tmp * (1 + 2 * TalentUnholy.BoneShield / 100)
 		tmp = tmp * (1 + 0.03 * Buff.PcDamage)
-		tmp = tmp * (1 + 0.13 * Buff.SpellDamageTaken)
 		If Desolation.isActive(T) Then tmp = tmp * (1+Desolation.Bonus)
-		tmp = tmp * (1-0.05) ' average partial resist
+		tmp = tmp * (1 + 0.02 * TalentUnholy.BoneShield)
+		tmp = tmp * (1 + 0.02 * TalentBlood.BloodGorged)
+		
+		If FrostFever.isActive(T) Then	tmp = tmp * (1 + 0.03 * TalentFrost.TundraStalker)
+		If BloodPlague.isActive(T) Then tmp = tmp * (1 + 0.02 * talentunholy.RageofRivendare)
+		
+		tmp = tmp * (1 + 0.13 * Buff.SpellDamageTaken)
+		tmp = tmp * (1-0.05) 'Average partial resist
 		
 		return tmp
 	End Function
-	
-	
 End Module

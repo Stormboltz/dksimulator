@@ -1,74 +1,74 @@
 <Talents>
-  <URL>http://talent.mmo-champion.com/?deathknight=2305020530003303231123001351000000000000000000000000000002302303040030000000000000000000&amp;glyph=100806000000&amp;version=10048</URL>
-  <Butchery>2</Butchery>
-  <Subversion>3</Subversion>
+  <URL>http://talent.mmo-champion.com/?deathknight=0000000000000000000000000000320053503520030123000331013512302003050020000000000000000000&amp;glyph=171813000000&amp;version=10147</URL>
+  <Butchery>0</Butchery>
+  <Subversion>0</Subversion>
   <BladeBarrier>0</BladeBarrier>
-  <BladedArmor>5</BladedArmor>
+  <BladedArmor>0</BladedArmor>
   <ScentOfBlood>0</ScentOfBlood>
-  <Weapspec>2</Weapspec>
+  <Weapspec>0</Weapspec>
   <RuneTap>0</RuneTap>
-  <Darkconv>5</Darkconv>
-  <DRM>3</DRM>
+  <Darkconv>0</Darkconv>
+  <DRM>0</DRM>
   <IRuneTap>0</IRuneTap>
   <SpellDeflection>0</SpellDeflection>
   <Vendetta>0</Vendetta>
-  <BloodyStrikes>3</BloodyStrikes>
-  <Vot3W>3</Vot3W>
+  <BloodyStrikes>0</BloodyStrikes>
+  <Vot3W>0</Vot3W>
   <MarkBlood>0</MarkBlood>
-  <BloodyVengeance>3</BloodyVengeance>
-  <AbominationMight>2</AbominationMight>
-  <BloodWorms>3</BloodWorms>
-  <Hysteria>1</Hysteria>
-  <IBloodPresence>1</IBloodPresence>
-  <ImprovedDeathStrike>2</ImprovedDeathStrike>
-  <SuddenDoom>3</SuddenDoom>
+  <BloodyVengeance>0</BloodyVengeance>
+  <AbominationMight>0</AbominationMight>
+  <BloodWorms>0</BloodWorms>
+  <Hysteria>0</Hysteria>
+  <IBloodPresence>0</IBloodPresence>
+  <ImprovedDeathStrike>0</ImprovedDeathStrike>
+  <SuddenDoom>0</SuddenDoom>
   <Vampiric>0</Vampiric>
   <WillNecropolis>0</WillNecropolis>
-  <HeartStrike>1</HeartStrike>
-  <MightofMograine>3</MightofMograine>
-  <BloodGorged>5</BloodGorged>
-  <DRW>1</DRW>
-  <ImprovedIcyTouch>0</ImprovedIcyTouch>
-  <RPM>0</RPM>
+  <HeartStrike>0</HeartStrike>
+  <MightofMograine>0</MightofMograine>
+  <BloodGorged>0</BloodGorged>
+  <DRW>0</DRW>
+  <ImprovedIcyTouch>3</ImprovedIcyTouch>
+  <RPM>2</RPM>
   <Toughness>0</Toughness>
   <IcyReach>0</IcyReach>
-  <BlackIce>0</BlackIce>
-  <NervesofColdSteel>0</NervesofColdSteel>
-  <IcyTalons>0</IcyTalons>
+  <BlackIce>5</BlackIce>
+  <NervesofColdSteel>3</NervesofColdSteel>
+  <IcyTalons>5</IcyTalons>
   <LichBorne>0</LichBorne>
-  <Annihilation>0</Annihilation>
-  <KillingMachine>0</KillingMachine>
-  <ChillOfTheGrave>0</ChillOfTheGrave>
+  <Annihilation>3</Annihilation>
+<KillingMachine>5</KillingMachine>
+  <ChillOfTheGrave>2</ChillOfTheGrave>
   <EndlessWinter>0</EndlessWinter>
   <Frigid>0</Frigid>
-  <GlacierRot>0</GlacierRot>
+  <GlacierRot>3</GlacierRot>
   <Deathchill>0</Deathchill>
-  <ImprovedIcyTalons>0</ImprovedIcyTalons>
-  <MercilessCombat>0</MercilessCombat>
-  <Rime>0</Rime>
+  <ImprovedIcyTalons>1</ImprovedIcyTalons>
+  <MercilessCombat>2</MercilessCombat>
+  <Rime>3</Rime>
   <ChillBlains>0</ChillBlains>
   <HungeringCold>0</HungeringCold>
   <IFrostPresence>0</IFrostPresence>
-  <ThreatOfThassarian>0</ThreatOfThassarian>
-  <BloodoftheNorth>0</BloodoftheNorth>
-  <UnbreakableArmor>0</UnbreakableArmor>
+  <ThreatOfThassarian>3</ThreatOfThassarian>
+  <BloodoftheNorth>3</BloodoftheNorth>
+<UnbreakableArmor>1</UnbreakableArmor>
   <Acclimatation>0</Acclimatation>
-  <FrostStrike>0</FrostStrike>
-  <GuileOfGorefiend>0</GuileOfGorefiend>
-  <TundraStalker>0</TundraStalker>
-  <HowlingBlast>0</HowlingBlast>
+  <FrostStrike>1</FrostStrike>
+  <GuileOfGorefiend>3</GuileOfGorefiend>
+  <TundraStalker>5</TundraStalker>
+  <HowlingBlast>1</HowlingBlast>
   <ViciousStrikes>2</ViciousStrikes>
   <Virulence>3</Virulence>
   <Anticipation>0</Anticipation>
   <Epidemic>2</Epidemic>
-  <Morbidity>3</Morbidity>
+  <Morbidity>0</Morbidity>
   <UnholyCommand>0</UnholyCommand>
   <RavenousDead>3</RavenousDead>
   <Outbreak>0</Outbreak>
-  <Necrosis>4</Necrosis>
+  <Necrosis>5</Necrosis>
   <CorpseExplosion>0</CorpseExplosion>
   <PaleHorse>0</PaleHorse>
-  <BloodCakedBlade>3</BloodCakedBlade>
+<BloodCakedBlade>2</BloodCakedBlade>
   <NightoftheDead>0</NightoftheDead>
   <UnholyBlight>0</UnholyBlight>
   <Impurity>0</Impurity>
@@ -91,18 +91,18 @@
   <Glyphs>
     <BloodStrike>0</BloodStrike>
     <DarkDeath>0</DarkDeath>
-    <DeathStrike>1</DeathStrike>
-    <FrostStrike>0</FrostStrike>
+    <DeathStrike>0</DeathStrike>
+    <FrostStrike>1</FrostStrike>
     <HowlingBlast>0</HowlingBlast>
-    <IcyTouch>0</IcyTouch>
-    <Obliterate>0</Obliterate>
+    <IcyTouch>1</IcyTouch>
+    <Obliterate>1</Obliterate>
     <PlagueStrike>0</PlagueStrike>
     <ScourgeStrike>0</ScourgeStrike>
     <UnholyBlight>0</UnholyBlight>
     <Ghoul>0</Ghoul>
     <DeathandDecay>0</DeathandDecay>
-    <DRW>1</DRW>
-    <Disease>1</Disease>
+    <DRW>0</DRW>
+    <Disease>0</Disease>
     <RuneStrike>0</RuneStrike>
   </Glyphs>
 </Talents>

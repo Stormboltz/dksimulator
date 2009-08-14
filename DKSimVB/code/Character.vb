@@ -29,7 +29,6 @@ Friend Module Character
 		_Dual =0
 	End sub
 	
-	
 	Function Strength() As Integer
 		If _Strength <> 0 Then
 			'return _Strength
@@ -38,22 +37,24 @@ Friend Module Character
 		Dim tmp As Integer
 		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Strength").InnerText)
 		If sim.EPStat="Strength" Then tmp = tmp + sim.EPBase
-		if Sigils.Virulence then
+		If Sigils.Virulence Then
 			if proc.VirulenceFade >= sim.TimeStamp then tmp = tmp + 200
-		end if
-		tmp = tmp +155 * Buff.StrAgi
-		tmp = tmp + 52 * Buff.StatAdd
+		End If
+		if T92PDPSFAde > sim.TimeStamp then tmp = tmp + 180
+		tmp = tmp +155 * 1.15 * Buff.StrAgi
+		tmp = tmp + 37 * 1.4 * Buff.StatAdd
 		
 		tmp = tmp * (1 + Buff.StatMulti / 10)
 		tmp = tmp * (1 + talentblood.Vot3W*2/100)
-		tmp = tmp * (1 + talentunholy.ravenousdead/100)
 		tmp = tmp * (1 + talentblood.AbominationMight/100)
-		tmp = tmp * (1 + RuneForge.FallenCrusaderProc*15/100)
-		if T92PDPSFAde > sim.TimeStamp then tmp = tmp + 180
+		tmp = tmp * (1 + talentunholy.ravenousdead/100)
+		tmp = tmp * (1 + 0.15 * RuneForge.FallenCrusaderProc)
 		if UA.isActive then tmp = tmp *1.25
 		_Strength= tmp
+		
 		return _Strength
 	End Function
+	
 	Function Agility() As Integer
 		If _Agility <> 0 Then
 			return _Agility
@@ -61,10 +62,13 @@ Friend Module Character
 		End If
 		Dim tmp As Integer
 		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Agility").InnerText)
-		if sim.EPStat="Agility" then tmp = tmp +sim.EPBase
-		_Agility = (tmp + 155 * Buff.StrAgi + 52 * Buff.StatAdd) * (1 + Buff.StatMulti / 10)
-			return _Agility
+		If sim.EPStat="Agility" Then tmp = tmp +sim.EPBase
+		
+		_Agility = (tmp + 155 * 1.15 * Buff.StrAgi + 37 * 1.4  * Buff.StatAdd) * (1 + Buff.StatMulti / 10)
+		
+		return _Agility
 	End Function
+	
 	Function Intel() As Integer
 		If _Intel <> 0 Then
 			return _Intel
@@ -72,9 +76,12 @@ Friend Module Character
 		End If
 		Dim tmp As Integer
 		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Intel").InnerText)
-		_Intel = (tmp + 52 * Buff.StatAdd) * (1 + Buff.StatMulti / 10)
+		
+		_Intel = (tmp + 37 * 1.4  * Buff.StatAdd) * (1 + Buff.StatMulti / 10)
+		
 		return _Intel
 	End Function
+	
 	Function Armor() As Integer
 		If _Armor <> 0 Then
 			return _Armor
@@ -82,12 +89,14 @@ Friend Module Character
 		End If
 		Dim tmp As Integer
 		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Armor").InnerText)
+		tmp = tmp + (750 * 1.4  * Buff.StatAdd)
 		
-		 tmp = tmp + (1050 * Buff.StatAdd)
-		 tmp = tmp * (1 + talentfrost.Toughness * 0.02)
-		 _Armor = tmp
+		tmp = tmp * (1 + talentfrost.Toughness * 0.02)
+		_Armor = tmp
+		
 		return _Armor
 	End Function
+	
 	Function AttackPower() As Integer
 		If _AttackPower <> 0 Then
 			return _AttackPower
@@ -95,12 +104,14 @@ Friend Module Character
 		End If
 		Dim tmp As Integer
 		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/AttackPower").InnerText)
+		If sim.EPStat="AttackPower" Then _AttackPower = _AttackPower+100
+		If sim.EPStat="AttackPower0T7" then _AttackPower = _AttackPower+100
 		tmp = tmp + int(Armor/180)*BladedArmor
 		_AttackPower = tmp + 548 * Buff.AttackPower
-		If sim.EPStat="AttackPower" Then _AttackPower = _AttackPower+100
-		if sim.EPStat="AttackPower0T7" then _AttackPower = _AttackPower+100
+		
 		return _AttackPower
 	End Function
+	
 	Function HitRating() As Integer
 		If _HitRating <> 0 Then
 			return _HitRating
@@ -125,6 +136,7 @@ Friend Module Character
 		Return _HitRating
 		
 	End Function
+	
 	Function CritRating() As Integer
 		If _CritRating <> 0 Then
 			return _CritRating
@@ -138,6 +150,7 @@ Friend Module Character
 		End If
 		return _CritRating
 	End Function
+	
 	Function HasteRating() As Integer
 		If _HasteRating <> 0 Then
 			return _HasteRating
@@ -151,20 +164,24 @@ Friend Module Character
 		End If
 		return _HasteRating
 	End Function
+	
 	Function ArmorPenetrationRating() As Integer
 		If _ArmorPenetrationRating <> 0 Then
-			return _ArmorPenetrationRating
-			exit function
+			'return _ArmorPenetrationRating
+			'exit function
 		End If
 		Dim tmp As Integer
 		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/ArmorPenetrationRating").InnerText)
+		If MjolRuneFade > sim.TimeStamp Then tmp = tmp + 665
+		If GrimTollFade > sim.TimeStamp Then tmp = tmp + 612
+		'If GrimTollFade > sim.TimeStamp Then Debug.Print( "GrimToll, now:" & tmp)
 		_ArmorPenetrationRating = tmp
 		If sim.EPStat="ArmorPenetrationRating" Then 
 			_ArmorPenetrationRating = _ArmorPenetrationRating+sim.EPBase
 		End If
 		return _ArmorPenetrationRating
-	
 	End Function
+	
 	Function ExpertiseRating() As Integer
 		If _ExpertiseRating <> 0 Then
 			return _ExpertiseRating
@@ -173,7 +190,7 @@ Friend Module Character
 		Dim tmp As Integer
 		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/ExpertiseRating").InnerText)
 		_ExpertiseRating = tmp
-
+		
 		If sim.EPStat="" Then 
 			Return _ExpertiseRating
 		Else
@@ -184,9 +201,11 @@ Friend Module Character
 		End If
 		return _ExpertiseRating
 	End Function
+	
 	Function SpellHitRating() As Integer
 		SpellHitRating = HitRating
 	End Function
+	
 	Function SpellCritRating() As Integer
 		SpellCritRating = CritRating
 	End Function

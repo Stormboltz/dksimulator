@@ -82,6 +82,8 @@ Public Module RuneStrike
 		End If
 		TryMHCinderglacier
 		TryMHFallenCrusader
+		TryMjolRune
+		TryGrimToll
 		If proc.ScentOfBloodProc > 0 Then
 			proc.ScentOfBloodProc  = proc.ScentOfBloodProc  -1
 			RunicPower.add(5)

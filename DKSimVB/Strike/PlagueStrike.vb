@@ -95,6 +95,8 @@ Friend module PlagueStrike
 				total = total + dégat
 				TryMHCinderglacier
 				TryMHFallenCrusader
+				TryMjolRune
+				TryGrimToll
 			End If
 			If OHHit Then
 				If RNG <= CritChance Then
@@ -108,6 +110,8 @@ Friend module PlagueStrike
 				total = total + dégat
 				TryOHCinderglacier
 				TryOHFallenCrusader
+				TryMjolRune
+				TryGrimToll
 			End If
 			
 			

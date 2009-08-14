@@ -100,6 +100,8 @@ Friend module ScourgeStrike
 		proc.VirulenceFade = T + 2000
 		TryMHCinderglacier
 		TryMHFallenCrusader
+		TryMjolRune
+		TryGrimToll
 		'Debug.Print T & vbTab & "ScourgeStrike for " & Range("Abilities!N11").Value
 		return true
 	End Function

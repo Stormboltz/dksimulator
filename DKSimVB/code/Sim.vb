@@ -1,22 +1,29 @@
 Friend Module Sim
-	Friend TotalDamage As long
-	Friend NextFreeGCD As long
-	Friend Lag As long
-	Friend TimeStamp As long
+	Friend TotalDamage As Long
+	Friend NextFreeGCD As Long
+	Friend Lag As Long
+	Friend TimeStamp As Long
 	Friend EPStat As String
 	Friend EPBase as Integer
 	Private DPS As Long
 	Friend randNum As New Random
-	Friend MaxTime As long
+	Friend MaxTime As Long
 	Friend RotationStep as Integer
 	Friend Rotate as boolean
 	Friend rotationPath As String
 	Friend PetFriendly as Boolean
-	private SimStart as Date
+	Private SimStart as Date
 	Friend _MainFrm As MainForm
 	Friend ReportPath As String
 	Friend Threat as Long
-	Friend Lissage as Boolean
+	Friend Lissage As Boolean
+	Private AMSTimer As Long
+	Private AMSCd As Integer
+	Private AMSAmount As Integer
+	Private ShowDpsTimer As Long
+	Private InterruptTimer As Long
+	Private InterruptAmount As Integer
+	Private InterruptCd As Integer
 	
 	Function NumDesease() As Integer
 		NumDesease = 0
@@ -56,7 +63,9 @@ Friend Module Sim
 		dim XmlDoc As New Xml.XmlDocument
 		XmlDoc.Load(_MainFrm.GetFilePath(_MainFrm.cmbCharacter.Text) )
 		
-		EPBase = 50 'int32.Parse(XmlDoc.SelectSingleNode("//character/EP/base").InnerText)
+		'Fixed EP base value for now
+		EPBase = 50
+		'int32.Parse(XmlDoc.SelectSingleNode("//character/EP/base").InnerText)
 		
 		dim BaseDPS as long
 		Dim APDPS As Long
@@ -69,9 +78,10 @@ Friend Module Sim
 		
 		
 		SimTime = SimTime/10
-		if SimTime = 0 then SimTime =1
+		If SimTime = 0 Then SimTime =1
+		'Create EP table
 		sReport = "<table border='0' cellspacing='0' style='font-family:Verdana; font-size:10px;'>"
-		sReport = sReport & "<tr><td>******************EP CALCULATOR************************</td></tr>"
+		sReport = sReport +   ("<hr width='80%' align='center' noshade ></hr>")
 		
 		
 		If  doc.SelectSingleNode("//config/Stats").InnerText.Contains("True")=false Then
@@ -432,7 +442,9 @@ Friend Module Sim
 		Dim doc As HtmlDocument
 		Application.DoEvents
 		doc = _MainFrm.webBrowser1.Document
-		doc.Body.ScrollTop = integer.MaxValue
+		'doc.Body.ScrollTop = Integer.MaxValue
+		doc.Window.ScrollTo(0,32767)
+		
 		_MainFrm.webBrowser1.Select
 	End Sub
 	
@@ -449,14 +461,13 @@ Friend Module Sim
 		Initialisation
 		proc.init
 		Character.initialisation
-		
 		GhoulStat.init
 		TimeStamp = 1
+		
 		If Rotate Then loadRotation
 		
 		Do Until TimeStamp > MaxTime
 			pb.Value = timestamp
-			'TimeStamp = TimeStamp + 100
 			Timestamp = FastFoward(Timestamp)
 			
 			If MainStat.FrostPresence = 1 Then
@@ -469,82 +480,92 @@ Friend Module Sim
 
 			application.DoEvents
 			
-			If Bloodlust.IsAvailable(TimeStamp) And TimeStamp > 1500 Then
-				Bloodlust.use(TimeStamp)
+			If AMSTimer < TimeStamp Then
+				AMSTimer = TimeStamp + AMSCd
+                RunicPower.add(AMSAmount)
 			End If
-						
+			
 			If talentblood.Butchery > 0 And Butchery.nextTick <= TimeStamp Then
 				Butchery.apply(TimeStamp)
 			End If
 			
-			if TalentBlood.DRW = 1 then
-				If Sim.isInGCD(TimeStamp) = False Then
-					If DRW.cd < TimeStamp and RunicPower.Value  >= 60 Then
-						DRW.Summon(TimeStamp)
-					End If
+			If true then 'InterruptTimer > TimeStamp Or InterruptAmount == 0 Then 'Interrupt fighting every InterruptCd secs
+				If Bloodlust.IsAvailable(TimeStamp) And TimeStamp > 1500 Then
+					Bloodlust.use(TimeStamp)
 				End If
-				If DRW.IsActive(TimeStamp) Then
-					if DRW.NextDRW <= TimeStamp then DRW.ApplyDamage(TimeStamp)
-				End If
-			end if
-			
-			If DeathandDecay.nextTick = TimeStamp Then
-				DeathandDecay.ApplyDamage(TimeStamp)
-			End If
-			
-			
-			If sim.PetFriendly Then
-				If talentunholy.SummonGargoyle = 1 Then
+				
+				if TalentBlood.DRW = 1 then
 					If Sim.isInGCD(TimeStamp) = False Then
-						If Gargoyle.cd < TimeStamp and RunicPower.Value >= 60 Then
-							Gargoyle.Summon(TimeStamp)
+						If DRW.cd < TimeStamp and RunicPower.Value  >= 60 Then
+							DRW.Summon(TimeStamp)
+						End If
+					End If
+					If DRW.IsActive(TimeStamp) Then
+						if DRW.NextDRW <= TimeStamp then DRW.ApplyDamage(TimeStamp)
+					End If
+				end if
+				
+				If DeathandDecay.nextTick = TimeStamp Then
+					DeathandDecay.ApplyDamage(TimeStamp)
+				End If
+				
+				
+				If sim.PetFriendly Then
+					If talentunholy.SummonGargoyle = 1 Then
+						If Sim.isInGCD(TimeStamp) = False Then
+							If Gargoyle.cd < TimeStamp and RunicPower.Value >= 60 Then
+								Gargoyle.Summon(TimeStamp)
+							end if
+						End If
+						If Gargoyle.ActiveUntil >= TimeStamp Then
+							If Gargoyle.NextGargoyleStrike <= TimeStamp Then Gargoyle.ApplyDamage(TimeStamp)
 						end if
 					End If
-					If Gargoyle.ActiveUntil >= TimeStamp Then
-						If Gargoyle.NextGargoyleStrike <= TimeStamp Then Gargoyle.ApplyDamage(TimeStamp)
-					end if
-				End If
-			end if
-			
-			If Sim.isInGCD(TimeStamp) = False Then
-				if Rotate then
-					DoRoration(TimeStamp)
-				else
-					Sim.DoNext (TimeStamp)
-				End If
-			End If
-			
-			If Sim.isInGCD(TimeStamp) = False Then
-				If UA.IsAvailable(TimeStamp) Then
-					UA.Use(TimeStamp)
-				End If
-			End If
-			
-			If sim.PetFriendly Then
+				end if
+				
 				If Sim.isInGCD(TimeStamp) = False Then
-					If Ghoul.ActiveUntil < TimeStamp and Ghoul.cd < TimeStamp Then
-						Ghoul.Summon(TimeStamp)
-					end if
-				End If
-				if Ghoul.ActiveUntil >= TimeStamp then
-					If Ghoul.NextWhiteMainHit <= TimeStamp Then Ghoul.ApplyDamage(TimeStamp)
-					If Ghoul.NextClaw <= TimeStamp Then Ghoul.Claw(TimeStamp)
-					If Sim.isInGCD(TimeStamp) And Ghoul.IsAutoFrenzyAvailable(Timestamp) Then
-						Ghoul.Frenzy(TimeStamp)
+					if Rotate then
+						DoRoration(TimeStamp)
+					else
+						Sim.DoNext (TimeStamp)
 					End If
 				End If
+				
+				If Sim.isInGCD(TimeStamp) = False Then
+					If UA.IsAvailable(TimeStamp) Then
+						UA.Use(TimeStamp)
+					End If
+				End If
+				
+				If sim.PetFriendly Then
+					If Sim.isInGCD(TimeStamp) = False Then
+						If Ghoul.ActiveUntil < TimeStamp and Ghoul.cd < TimeStamp Then
+							Ghoul.Summon(TimeStamp)
+						end if
+					End If
+					if Ghoul.ActiveUntil >= TimeStamp then
+						If Ghoul.NextWhiteMainHit <= TimeStamp Then Ghoul.ApplyDamage(TimeStamp)
+						If Ghoul.NextClaw <= TimeStamp Then Ghoul.Claw(TimeStamp)
+						If Sim.isInGCD(TimeStamp) And Ghoul.IsAutoFrenzyAvailable(Timestamp) Then
+							Ghoul.Frenzy(TimeStamp)
+						End If
+					End If
+				End If
+				
+				If MainHand.NextWhiteMainHit <= TimeStamp Then MainHand.ApplyDamage(TimeStamp)
+				If MainStat.DualW Then
+					If OffHand.NextWhiteOffHit <= TimeStamp Then OffHand.ApplyDamage(TimeStamp)
+				End If
+			Else
+				
+				
+				'InterruptTimer > TimeStamp Or InterruptAmount
 			End If
 			
 			If Sim.isInGCD(TimeStamp) = False Then
 				If horn.isAvailable(TimeStamp) Then
 					horn.use(TimeStamp)
 				end if
-			End If
-			
-			
-			If MainHand.NextWhiteMainHit <= TimeStamp Then MainHand.ApplyDamage(TimeStamp)
-			If MainStat.DualW Then
-				If OffHand.NextWhiteOffHit <= TimeStamp Then OffHand.ApplyDamage(TimeStamp)
 			End If
 			
 			If BloodPlague.isActive(TimeStamp) Then
@@ -558,12 +579,8 @@ Friend Module Sim
 				End If
 			End If
 			
-			
-			
-			
-			
-			
-			If _MainFrm.chkShowDps.Checked Then
+			If ShowDpsTimer < TimeStamp Then
+				ShowDpsTimer = TimeStamp + 0.5 * 60 * 60 * 100
 				TotalDamage = ScourgeStrike.total + obliterate.total + PlagueStrike.total + _
 					BloodStrike.total + HeartStrike.total + frostfever.total + _
 					BloodPlague.total + IcyTouch.total + deathcoil.total + _
@@ -587,8 +604,9 @@ Friend Module Sim
 		
 		DPS = 100 * TotalDamage / TimeStamp
 		
-		if EPStat = "" then Report()
-		Debug.Print( "Total DPS = " & DPS)
+		If EPStat = "" Then Report()
+		_MainFrm.lblDPS.Text = DPS & " DPS"
+		Debug.Print( "Done. Total DPS = " & DPS)
 		'Debug.Print ("Total Damage = " & TotalDamage & " in " & MaxTime / 1000 / 60 & " m")
 		combatlog.finish
 	End Sub
@@ -1088,9 +1106,19 @@ Friend Module Sim
 		DeathandDecay.init
 		Ghoul.init
 		Gargoyle.init
-		Horn.cd=0
+		Horn.init
 		
 		Bloodlust.init
+		
+		AMSCd = _MainFrm.txtAMScd.text * 100
+		AMSTimer = _MainFrm.txtAMScd.text * 100
+		AMSAmount = _MainFrm.txtAMSrp.text
+		
+		InterruptCd = _MainFrm.txtInterruptCd.text * 100
+		InterruptTimer = _MainFrm.txtInterruptCd.text * 100
+		InterruptAmount = _MainFrm.txtInterruptAmount.text
+		
+		ShowDpsTimer = 1
 		
 	End sub
 	
@@ -1128,8 +1156,26 @@ Friend Module Sim
 		
 		
 		dim STmp as string
+		If MainHand.total <> 0 Then
+			STmp = MainHand.report
+			STmp = replace(STmp,vbtab,"</td><td>")
+			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			
+		End If
+		If OffHand.total <> 0 Then
+			STmp = OffHand.report
+			STmp = replace(STmp,vbtab,"</td><td>")
+			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			
+		End If
 		If ScourgeStrike.total <> 0 Then
 			STmp = ScourgeStrike.report
+			STmp = replace(STmp,vbtab,"</td><td>")
+			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			
+		End If
+		If HeartStrike.total <> 0 Then
+			STmp = HeartStrike.report
 			STmp = replace(STmp,vbtab,"</td><td>")
 			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 			
@@ -1146,7 +1192,6 @@ Friend Module Sim
 			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 			
 		End If
-		
 		If PlagueStrike.total <> 0 Then
 			STmp = PlagueStrike.report
 			STmp = replace(STmp,vbtab,"</td><td>")
@@ -1159,8 +1204,12 @@ Friend Module Sim
 			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 			
 		End If
-		
-		
+		If BloodStrike.total <> 0 Then
+			STmp = BloodStrike.report
+			STmp = replace(STmp,vbtab,"</td><td>")
+			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			
+		End If
 		If FrostStrike.total <> 0 Then
 			STmp = FrostStrike.report
 			STmp = replace(STmp,vbtab,"</td><td>")
@@ -1169,18 +1218,6 @@ Friend Module Sim
 		End If
 		If HowlingBlast.total <> 0 Then
 			STmp = HowlingBlast.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		If HeartStrike.total <> 0 Then
-			STmp = HeartStrike.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		If BloodStrike.total <> 0 Then
-			STmp = BloodStrike.report
 			STmp = replace(STmp,vbtab,"</td><td>")
 			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 			
@@ -1209,7 +1246,6 @@ Friend Module Sim
 			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 			
 		End If
-		
 		If Necrosis.total <> 0 Then
 			STmp = Necrosis.report
 			STmp = replace(STmp,vbtab,"</td><td>")
@@ -1238,17 +1274,6 @@ Friend Module Sim
 			STmp = RuneStrike.report
 			STmp = replace(STmp,vbtab,"</td><td>")
 			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-		End If
-		If MainHand.total <> 0 Then
-			STmp = MainHand.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		If OffHand.total <> 0 Then
-			STmp = OffHand.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 			
 		End If
 		If Ghoul.total  <> 0 Then
@@ -1275,17 +1300,23 @@ Friend Module Sim
 			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 			
 		End If
-		
 		If DeathandDecay.total <> 0 Then
 			STmp = DeathandDecay.report
 			STmp = replace(STmp,vbtab,"</td><td>")
 			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 			
 		End If
+		If Horn.HitCount <> 0 Then
+			STmp = Horn.report
+			STmp = replace(STmp,vbtab,"</td><td>")
+			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			
+		End If
+		
 		sTmp = ""
 		if EPStat <> "" then STmp =  "<tr><td COLSPAN=8>EP Stat <b>" &  EPStat & "</b></td></tr>"
 		STmp = sTmp &  "<tr><td COLSPAN=8>DPS" & VBtab & "<b>" &  DPS & "</b></td></tr>"
-		STmp = sTmp &   "<tr><td COLSPAN=8>Total Damage" & VBtab & TotalDamage & VBtab &  " in " & MaxTime / 100 / 60/60 & " h</td></tr>"
+		STmp = sTmp &   "<tr><td COLSPAN=8>Total Damage" & VBtab & Math.Round(TotalDamage/1000000,2) & "m" & VBtab &  " in " & MaxTime / 100 / 60/60 & "h</td></tr>"
 		
 		dim ThreatBeforePresence as Long = Threat
 		Threat = ScourgeStrike.total + (ScourgeStrike.CritCount+ScourgeStrike.HitCount)*120 + _
@@ -1305,35 +1336,24 @@ Friend Module Sim
 		Threat = Threat + ThreatBeforePresence
 		tps =  100 * Threat / TimeStamp
 		STmp = sTmp &  "<tr><td COLSPAN=8>Threat Per Second" & VBtab & "<b>" &  tps & "</b></td></tr>"
-		
-		
-		
-		
-		
-		
-		
-		
-		'STmp = sTmp &   "<tr><td COLSPAN=8>Started at " & SimStart & "</td></tr>"
-		'STmp = sTmp &   "<tr><td COLSPAN=8>Ended at " & now() & "</td></tr>"
 		STmp = sTmp &   "<tr><td COLSPAN=8>Generated in " & DateDiff( DateInterval.Second,SimStart,now())  & "s</td></tr>"
-		STmp = sTmp &   "<tr><td COLSPAN=8>Template :" & _MainFrm.cmbTemplate.Text & "</td></tr>"
 		
-		
+		STmp = sTmp &   "<tr><td COLSPAN=8>Template: " & Split(_MainFrm.cmbTemplate.Text,".")(0) & "</td></tr>"
 		If sim.Rotate Then
-			STmp = sTmp &   "<tr><td COLSPAN=8>Rotation :" & _MainFrm.cmbRotation.Text & "</td></tr>"
+			STmp = sTmp &   "<tr><td COLSPAN=8>Rotation: " & Split(_MainFrm.cmbRotation.Text,".")(0) & "</td></tr>"
 		Else
-			STmp = sTmp &   "<tr><td COLSPAN=8>Priority :" & _MainFrm.cmbPrio.Text & "</td></tr>"
+			STmp = sTmp &   "<tr><td COLSPAN=8>Priority: " & Split(_MainFrm.cmbPrio.Text,".")(0) & "</td></tr>"
 		End If
-		STmp = sTmp &   "<tr><td COLSPAN=8>Presence :" & _MainFrm.cmdPresence.Text & vbCrLf & "</td></tr>"
-		STmp = sTmp &   "<tr><td COLSPAN=8>Sigil of :" & _MainFrm.cmbSigils.Text & vbCrLf & "</td></tr>"
+		STmp = sTmp &   "<tr><td COLSPAN=8>Presence: " & _MainFrm.cmdPresence.Text & vbCrLf & "</td></tr>"
+		STmp = sTmp &   "<tr><td COLSPAN=8>Sigil: " & _MainFrm.cmbSigils.Text & vbCrLf & "</td></tr>"
 		
 		If MainStat.DualW Then
-			STmp = sTmp &   "<tr><td COLSPAN=8>RuneForge :" & _MainFrm.cmbRuneMH.Text  & " / " & _MainFrm.cmbRuneOH.Text  & "</td></tr>"
+			STmp = sTmp &   "<tr><td COLSPAN=8>RuneEnchant: " & _MainFrm.cmbRuneMH.Text  & " / " & _MainFrm.cmbRuneOH.Text  & "</td></tr>"
 		Else
-			STmp = sTmp &   "<tr><td COLSPAN=8>RuneForge :" & _MainFrm.cmbRuneMH.Text & "</td></tr>"
+			STmp = sTmp &   "<tr><td COLSPAN=8>RuneEnchant: " & _MainFrm.cmbRuneMH.Text & "</td></tr>"
 		End If
 		
-		STmp = sTmp &   "<tr><td COLSPAN=8>Pet Calculation :" & _MainFrm.ckPet.Checked & "</td></tr>"
+		STmp = sTmp &   "<tr><td COLSPAN=8>Pet Calculation: " & _MainFrm.ckPet.Checked & "</td></tr>"
 		
 		stmp = stmp & "</table><hr width='80%' align='center' noshade ></hr>"
 		tw.Flush

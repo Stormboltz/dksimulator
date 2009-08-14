@@ -110,6 +110,8 @@ Friend Module Obliterate
 				total = total + dégat
 				TryMHCinderglacier
 				TryMHFallenCrusader
+				TryMjolRune
+				TryGrimToll
 				proc.tryRime
 			End If
 			
@@ -127,6 +129,8 @@ Friend Module Obliterate
 				total = total + dégat
 				TryOHCinderglacier
 				TryOHFallenCrusader
+				TryMjolRune
+				TryGrimToll
 				proc.tryRime
 			End If
 

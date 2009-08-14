@@ -2,8 +2,9 @@
 <Priority>
 	<FrostFever></FrostFever>
 	<BloodPlague></BloodPlague>
-	<BloodStrike></BloodStrike>
+    <GhoulFrenzy></GhoulFrenzy>
+    <IcyTouch></IcyTouch>
 	<PlagueStrike></PlagueStrike>
-	<IcyTouch></IcyTouch>
+    <BloodStrike></BloodStrike>
 	<DeathCoil></DeathCoil>
 </Priority>

@@ -91,6 +91,8 @@ Friend module OffHand
 		If OHRazorice Then applyRazorice()
 		TryOHCinderglacier
 		TryOHFallenCrusader
+		TryMjolRune
+		TryGrimToll
 		return true
 		'   'Debug.Print T & vbTab & "WhiteOH for " & Range("Abilities!N19").Value
 	End Function
@@ -108,7 +110,7 @@ Friend module OffHand
 	End Function
 	Function CritChance() As Double
 		Dim tmp As Double
-		tmp = MainStat.crit
+		tmp = MainStat.critAutoattack
 		CritChance = tmp
 	End Function
 	Function AvrgCrit(T As long) As Double

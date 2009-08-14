@@ -93,6 +93,8 @@ Friend Module HeartStrike
 		TryMHCinderglacier
 		TryMHFallenCrusader
 		TryT92PDPS
+		TryMjolRune
+		TryGrimToll
 		
 		return true
 	End Function
@@ -111,7 +113,6 @@ Friend Module HeartStrike
 		
 		if sigils.DarkRider then tmp = tmp + 45 + 22.5 * Sim.NumDesease
 		tmp = tmp * MainStat.StandardPhysicalDamageMultiplier(T)
-		'if glyph.BloodStrike then tmp = tmp * (1.2) 
 		AvrgNonCrit = tmp
 	End Function
 	
