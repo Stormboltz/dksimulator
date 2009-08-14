@@ -60,7 +60,6 @@
     <Compile Include="code\glyph.vb" />
     <Compile Include="code\priority.vb" />
     <Compile Include="code\Proc.vb" />
-    <Compile Include="code\rndom.vb" />
     <Compile Include="code\Rotation.vb" />
     <Compile Include="code\RuneForge.vb">
     </Compile>

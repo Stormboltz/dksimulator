@@ -104,8 +104,8 @@ Friend Module Character
 		End If
 		Dim tmp As Integer
 		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/AttackPower").InnerText)
-		If sim.EPStat="AttackPower" Then _AttackPower = _AttackPower+100
-		If sim.EPStat="AttackPower0T7" then _AttackPower = _AttackPower+100
+		If sim.EPStat="AttackPower" Then tmp = tmp+100
+		If sim.EPStat="AttackPower0T7" then tmp = tmp+100
 		tmp = tmp + int(Armor/180)*BladedArmor
 		_AttackPower = tmp + 548 * Buff.AttackPower
 		
@@ -126,15 +126,13 @@ Friend Module Character
 			_HitRating = 263 - (32.79*TalentFrost.NervesofColdSteel)
 		End If
 		If sim.EPStat="HitRating" Then
-			_HitRating = 263  - sim.EPBase - (32.79*TalentFrost.NervesofColdSteel) - 32.79*Draenei
+			_HitRating = 263  - sim.EPBase - 32.79*TalentFrost.NervesofColdSteel
 		End If
 		
-
 		If sim.EPStat="SpellHitRating" Then 
-			_HitRating = 263   + sim.EPBase - (32.79*TalentFrost.NervesofColdSteel) - 32.79*Draenei
+			_HitRating = 263   + sim.EPBase - 32.79*TalentFrost.NervesofColdSteel
 		End If
 		Return _HitRating
-		
 	End Function
 	
 	Function CritRating() As Integer

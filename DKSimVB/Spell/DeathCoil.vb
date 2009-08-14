@@ -8,7 +8,6 @@ Friend module deathcoil
 	Friend HitCount as Integer
 	Friend CritCount as Integer
 	
-	
 	Sub init
 		total = 0
 		MissCount = 0
@@ -37,7 +36,6 @@ Friend module deathcoil
 			RNG = RNG+0.17
 		Else
 			RNG = RNG+mainstat.SpellHit
-			
 		End If
 		If RNG < 0.17 Then
 			combatlog.write(T  & vbtab &  "DC fail")
@@ -57,9 +55,6 @@ Friend module deathcoil
 			combatlog.write(T  & vbtab &  "DC hit for " & dégat & vbtab & "RP left = " & RunicPower.Value) 
 		End If
 		
-		
-		
-			
 		if Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
 		total = total + dégat
 		
@@ -90,8 +85,6 @@ Friend module deathcoil
  		end if
 
 		return tmp
-		
-		
 	End Function
 	Function CritCoef() As Double
 		CritCoef = 1 
