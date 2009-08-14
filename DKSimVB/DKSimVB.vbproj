@@ -1,0 +1,237 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{57351287-BAFF-407A-9403-1EAA4F9E4DE8}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>WinExe</OutputType>
+    <MyType>WindowsForms</MyType>
+    <RootNamespace>DKSIMVB</RootNamespace>
+    <AssemblyName>DK Simulator</AssemblyName>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SourceAnalysisOverrideSettingsFile>C:\Documents and Settings\Fabien\Application Data\ICSharpCode/SharpDevelop3.0\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <DefineConstants>DEBUG=1,TRACE=1</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+    <DefineConstants>TRACE=1</DefineConstants>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.Targets" />
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Windows.Forms" />
+    <Compile Include="code\Buff.vb" />
+    <Compile Include="code\CombatLog.vb" />
+    <Compile Include="code\GhoulStat.vb" />
+    <Compile Include="code\glyph.vb" />
+    <Compile Include="code\priority.vb" />
+    <Compile Include="code\Proc.vb" />
+    <Compile Include="code\rndom.vb" />
+    <Compile Include="code\Rotation.vb" />
+    <Compile Include="code\RuneForge.vb">
+    </Compile>
+    <Compile Include="code\SetBonus.vb" />
+    <Compile Include="code\Sigils.vb" />
+    <Compile Include="code\Sim.vb" />
+    <Compile Include="Form1.Designer.vb">
+      <DependentUpon>Form1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.vb" />
+    <Compile Include="MainForm.Designer.vb">
+      <DependentUpon>MainForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.vb" />
+    <Compile Include="Program.vb" />
+    <Compile Include="Properties\AssemblyInfo.vb" />
+    <Folder Include="code" />
+    <Folder Include="CombatLog" />
+    <Folder Include="Characters" />
+    <Folder Include="Rotation" />
+    <Folder Include="Priority" />
+    <Folder Include="Runes" />
+    <Folder Include="Spell" />
+    <Folder Include="Strike" />
+    <Folder Include="Templates" />
+    <Compile Include="code\Character.vb" />
+    <Compile Include="code\MainStat.vb" />
+    <Compile Include="code\RunicPower.vb" />
+    <Compile Include="code\TalentBlood.vb" />
+    <Compile Include="code\TalentFrost.vb" />
+    <Compile Include="code\TalentUnholy.vb" />
+    <Compile Include="Runes\Rune1.vb" />
+    <Compile Include="Runes\Rune2.vb" />
+    <Compile Include="Runes\Rune3.vb" />
+    <Compile Include="Runes\Rune4.vb" />
+    <Compile Include="Runes\Rune5.vb" />
+    <Compile Include="Runes\Rune6.vb" />
+    <Compile Include="Runes\runes.vb" />
+    <Compile Include="Spell\BloodBoil.vb" />
+    <Compile Include="Spell\Bloodlust.vb" />
+    <Compile Include="Spell\BloodPlague.vb" />
+    <Compile Include="Spell\BloodTap.vb" />
+    <Compile Include="Spell\Butchery.vb" />
+    <Compile Include="Spell\DeathandDecay.vb" />
+    <Compile Include="Spell\DeathChill.vb" />
+    <Compile Include="Spell\DeathCoil.vb" />
+    <Compile Include="Spell\Desecration.vb" />
+    <Compile Include="Spell\FrostFever.vb" />
+    <Compile Include="Spell\Horn.vb" />
+    <Compile Include="Spell\HowlingBlast.vb" />
+    <Compile Include="Spell\Hysteria.vb" />
+    <Compile Include="Spell\IcyTouch.vb" />
+    <Compile Include="Spell\Necrosis.vb" />
+    <Compile Include="Spell\Pestilence.vb" />
+    <Compile Include="Spell\UA.vb" />
+    <Compile Include="Spell\UnholyBlight.vb" />
+    <Compile Include="Spell\UnholyBlightDepricated.vb" />
+    <Compile Include="Spell\WanderingPlague.vb" />
+    <Compile Include="Strike\BloodCakedBlade.vb" />
+    <Compile Include="Strike\BloodStrike.vb" />
+    <Compile Include="Strike\DeathStrike.vb" />
+    <Compile Include="Strike\DRW.vb" />
+    <Compile Include="Strike\FrostStrike.vb" />
+    <Compile Include="Strike\Gargoyle.vb" />
+    <Compile Include="Strike\Ghoul.vb" />
+    <Compile Include="Strike\HeartStrike.vb" />
+    <Compile Include="Strike\MainHand.vb" />
+    <Compile Include="Strike\Obliterate.vb" />
+    <Compile Include="Strike\OffHand.vb" />
+    <Compile Include="Strike\PlagueStrike.vb" />
+    <Compile Include="Strike\RuneStrike.vb" />
+    <Compile Include="Strike\ScourgeStrike.vb" />
+    <None Include="Characters\2Hsetstat1.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Characters\2Hsetstat2.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Characters\2Hsetstat3.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Characters\character.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Characters\DWsetstat1.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Characters\DWsetstat2.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Characters\DWsetstat3.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="CombatLog\DoNotDelete.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Priority\Blood.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Priority\diseaseless.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Priority\DnDUnholy.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Priority\Dual.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Priority\DualFrost.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Priority\DualHB.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Priority\DualUnholy.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Priority\Frost.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Priority\HB with 1 disease.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Priority\HB with 2 disease.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Priority\IT6.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Priority\Unholy.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReadMe.htm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Rotation\Blood.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Rotation\DnD.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Rotation\Frenzy.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Rotation\FrUh.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Rotation\IT6.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\03-13-55.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\20-51-00.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\12-00-59.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\DW-00-53-18.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\DW-00-13-58.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\00-10-61.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\17-51-03.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\51-00-20.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\DW-03-51-17.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\DW-10-54-7.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\Pest-51-00-20.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

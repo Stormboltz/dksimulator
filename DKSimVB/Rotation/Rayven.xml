@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<Rotation>
+	<Rotation>
+		<IcyTouch retry='1'></IcyTouch>
+		<BloodStrike retry='1'></BloodStrike>
+		<FrostStrike retry='0'></FrostStrike>
+		<Obliterate retry='1'></Obliterate>
+		<Obliterate retry='1'></Obliterate>
+		<FrostStrike retry='0'></FrostStrike>
+		<PlagueStrike retry='1'></PlagueStrike>
+		<BloodStrike retry='1'></BloodStrike>
+		<FrostStrike retry='0'></FrostStrike>
+		<Obliterate retry='1'></Obliterate>
+		<Obliterate retry='1'></Obliterate>
+	</Rotation>
+	<Runes>
+		<Death></Death>
+		<Blood></Blood>
+		<Frost></Frost>
+		<Frost></Frost>
+		<Unholy></Unholy>
+		<Unholy></Unholy>
+	</Runes>
+</Rotation>
+
+
