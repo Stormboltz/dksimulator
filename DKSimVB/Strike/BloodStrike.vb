@@ -24,7 +24,7 @@ Friend module BloodStrike
 		OHHit = True
 		
 		If MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then			
-			RNG = RandomNumberGenerator.NextDouble()
+			RNG = Rnd
 			If mainstat.Expertise >= 0.065 Then
 				RNG = RNG+0.065
 			Else
@@ -43,7 +43,7 @@ Friend module BloodStrike
 			End If
 		Else
 			OHHit = false
-			RNG = RandomNumberGenerator.NextDouble()
+			RNG = Rnd
 			If mainstat.Expertise >= 0.065 Then
 				RNG = RNG+0.065
 			Else
@@ -64,7 +64,7 @@ Friend module BloodStrike
 		If MHHit Or OHHit Then
 			
 		If MHHit Then
-				RNG = RandomNumberGenerator.NextDouble()
+				RNG = Rnd
 				dim dégat as Integer
 				If RNG <= CritChance Then
 					dégat = AvrgCrit(T,true)
@@ -103,7 +103,7 @@ Friend module BloodStrike
 		
 		
 		if sigils.HauntedDreams then
-			RNG = RandomNumberGenerator.NextDouble()
+			RNG = Rnd
 			if RNG <= 0.15 then
 				HauntedDreamsFade = T + 10 * 100
 			end if

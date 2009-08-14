@@ -33,9 +33,7 @@ Friend Module Proc
 	End Sub
 	
 	Sub TryRime()
-		Dim RNG As Double
-		RNG = RandomNumberGenerator.NextDouble()
-		If RNG <= 5 * talentfrost.Rime/100 Then
+		If Rnd <= 5 * talentfrost.Rime/100 Then
 			Proc.Rime= True
 			if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "Rime proc")
 			HowlingBlast.cd = 0
@@ -44,9 +42,7 @@ Friend Module Proc
 	
 	Sub TryMjolRune()
 		If MjolRune = 0 Or MjolRuneCd > sim.TimeStamp Then Exit Sub
-		Dim RNG As Double
-		RNG = RandomNumberGenerator.NextDouble()
-		If RNG <= 0.15 Then
+		If Rnd <= 0.15 Then
 			MjolRuneFade = sim.TimeStamp + 10 * 100
 			MjolRuneCd = sim.TimeStamp + 45 * 100
 		End If
@@ -54,9 +50,7 @@ Friend Module Proc
 	
 	Sub TryGrimToll()
 		If GrimToll = 0 Or GrimTollCd > sim.TimeStamp Then Exit Sub
-		Dim RNG As Double
-		RNG = RandomNumberGenerator.NextDouble()
-		If RNG <= 0.15 Then
+		If Rnd <= 0.15 Then
 			GrimTollFade = sim.TimeStamp + 10 * 100
 			GrimTollCd = sim.TimeStamp + 45 * 100
 		End If
@@ -64,9 +58,7 @@ Friend Module Proc
 	
 	Sub TryT92PDPS()
 		If SetBonus.T92PDPS = 0 Then Exit Sub
-		Dim RNG As Double
-		RNG = RandomNumberGenerator.NextDouble()
-		If RNG <= 0.5 Then
+		If Rnd <= 0.5 Then
 			T92PDPSFAde = sim.TimeStamp + 15 * 100
 		End If
 	End Sub

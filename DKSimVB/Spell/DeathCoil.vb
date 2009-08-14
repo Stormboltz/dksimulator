@@ -32,7 +32,7 @@ Friend module deathcoil
 			RunicPower.Value = RunicPower.Value - 40
 		End If
 		
-		RNG = RandomNumberGenerator.NextDouble()
+		RNG = Rnd
 		If mainstat.Hit >= 0.17 Then
 			RNG = RNG+0.17
 		Else
@@ -44,7 +44,7 @@ Friend module deathcoil
 			MissCount = MissCount + 1
 			Exit function
 		End If
-		RNG = RandomNumberGenerator.NextDouble()
+		RNG = Rnd
 		dim dégat as Integer
 		If RNG <= CritChance Then
 			CritCount = CritCount + 1

@@ -31,8 +31,6 @@ Public Partial Class MainForm
 		SaveBuffOption()
 	End Function
 	
-	
-	
 	Sub SaveBuffOption
 		'on error resume next
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
@@ -154,6 +152,7 @@ Public Partial Class MainForm
 		LoadBuffOption
 		Dim URL As Uri = new Uri("http://talent.mmo-champion.com/?deathknight=")
 		wbTemplate.Url = URL
+		Randomize 'Initialize the random # generator
 	End Sub
 	
 	Sub saveConfig

@@ -47,22 +47,17 @@ Friend Module RuneForge
 		RazoriceTotal = RazoriceTotal + tmp
 	End Function
 	
-	
 	Sub TryMHFallenCrusader()
-		Dim RNG As Double
 		If MHFallenCrusader Then
-			RNG = RandomNumberGenerator.NextDouble()
-			If RNG < 2*MainStat.MHWeaponSpeed/60 Then
+			If Rnd < 2*MainStat.MHWeaponSpeed/60 Then
 				FallenCrusaderActiveUntil = sim.TimeStamp + 15 * 100
 				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Fallen Crusader proc on Main hand")
 			End If
 		End If
 	End Sub
 	Sub TryOHFallenCrusader()
-		Dim RNG As Double
 		If OHFallenCrusader Then
-			RNG = RandomNumberGenerator.NextDouble()
-			If RNG < 2*MainStat.OHWeaponSpeed/60 Then
+			If Rnd < 2*MainStat.OHWeaponSpeed/60 Then
 				FallenCrusaderActiveUntil = sim.TimeStamp + 15 * 100
 				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Fallen Crusader proc on Off hand")
 			End If
@@ -76,29 +71,22 @@ Friend Module RuneForge
 		end if
 	End Function
 	Sub TryMHCinderglacier()
-		
-		Dim RNG As Double
 		if MHCinderglacier then
 			
-			RNG = RandomNumberGenerator.NextDouble()
-			If RNG < 1*MainStat.MHWeaponSpeed/60 Then
+			If Rnd < 1*MainStat.MHWeaponSpeed/60 Then
 				CinderglacierProc = 2
 				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Cinderglacier proc on Main hand")
 			End If
 		end if
 	End Sub
 	Sub TryOHCinderglacier()
-		Dim RNG As Double
 		if OHCinderglacier then
-			RNG = RandomNumberGenerator.NextDouble()
-			If RNG < 1*MainStat.OHWeaponSpeed/60 Then
+			If Rnd < 1*MainStat.OHWeaponSpeed/60 Then
 				CinderglacierProc = 2
 				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Cinderglacier proc on Off hand")
 			End If
 		end if
 	End Sub
-	
-	
 	Function Razoricereport As String
 		dim tmp as String
 		tmp = "Raz" & VBtab

@@ -51,7 +51,7 @@ Friend Module DeathandDecay
 	
 	Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
-		RNG = RandomNumberGenerator.NextDouble()
+		RNG = Rnd
 		If mainstat.SpellHit >= 0.17 Then
 			RNG = RNG+0.17
 		Else
@@ -62,7 +62,7 @@ Friend Module DeathandDecay
 			MissCount = MissCount + 1
 			Exit function
 		End If
-		RNG = RandomNumberGenerator.NextDouble()
+		RNG = Rnd
 		dim dégat as Integer
 		If RNG <= CritChance Then
 			dégat = AvrgCrit(T)

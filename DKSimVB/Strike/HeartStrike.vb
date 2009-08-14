@@ -32,7 +32,7 @@ Friend Module HeartStrike
 		
 		If Hysteria.IsAvailable(T) then Hysteria.use(T)
 		
-		RNG = RandomNumberGenerator.NextDouble()	
+		RNG = Rnd	
 		If MainStat.UnholyPresence Then
 			Sim.NextFreeGCD = T + 100 + sim._MainFrm.txtLatency.Text/10
 		Else
@@ -56,12 +56,12 @@ Friend Module HeartStrike
 		End If
 		
 		if sigils.HauntedDreams then
-			RNG = RandomNumberGenerator.NextDouble()
+			RNG = Rnd
 			if RNG <= 0.15 then
 				HauntedDreamsFade = T+1000
 			end if
 		end if 
-		RNG = RandomNumberGenerator.NextDouble()
+		RNG = Rnd
 		dim dégat as Integer
 		If RNG <= CritChance Then
 			CritCount = CritCount + 1
@@ -76,7 +76,7 @@ Friend Module HeartStrike
 		if Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
 		total = total + dégat
 		
-		RNG = RandomNumberGenerator.NextDouble()
+		RNG = Rnd
 		If rng < 0.05*talentblood.SuddenDoom Then
 			deathcoil.ApplyDamage(T,true)
 		End If

@@ -6,7 +6,6 @@ Friend Module Sim
 	Friend EPStat As String
 	Friend EPBase as Integer
 	Private DPS As Long
-	Friend randNum As New Random
 	Friend MaxTime As Long
 	Friend RotationStep as Integer
 	Friend Rotate as boolean
@@ -449,8 +448,8 @@ Friend Module Sim
 	End Sub
 	
 	Sub Start(pb As ProgressBar,SimTime As Integer, MainFrm As MainForm)
+		Rnd(-1) 'Tell VB to initialize using Randomize's parameter
 		_MainFrm = MainFrm
-		rndom.InitRNG
 		'combatlog.LogDetails = true
 		SimStart = now
 		MaxTime = SimTime

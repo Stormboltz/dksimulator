@@ -12,7 +12,7 @@ Friend module IcyTouch
 		Sim.NextFreeGCD = T + (150 / (1 + MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
 
 		
-		RNG = RandomNumberGenerator.NextDouble()
+		RNG = Rnd
 		If mainstat.Hit >= 0.17 Then
 			RNG = RNG+0.17
 		Else
@@ -25,7 +25,7 @@ Friend module IcyTouch
 			Exit function
 		End If
 		
-		RNG = RandomNumberGenerator.NextDouble()
+		RNG = Rnd
 		
 		Dim dégat As Integer
 		Dim ccT As Double

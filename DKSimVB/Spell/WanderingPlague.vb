@@ -22,7 +22,7 @@ Friend module WanderingPlague
 		
 		nextTick = T + 100
 		dim RNG as Double
-		RNG = RandomNumberGenerator.NextDouble()
+		RNG = Rnd
 		If mainstat.SpellHit >= 0.17 Then
 			RNG = RNG+0.17
 		Else

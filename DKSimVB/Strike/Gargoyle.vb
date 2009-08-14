@@ -68,7 +68,7 @@ End Function
 Function ApplyDamage(T As long) As boolean
 	NextGargoyleStrike= T + (200 / (1 + SpellHaste))
 	Dim RNG As Double
-	RNG = RandomNumberGenerator.NextDouble()
+	RNG = Rnd
 	If SpellHit >= 0.17 Then
 		RNG = RNG+0.17
 	Else
@@ -79,7 +79,7 @@ Function ApplyDamage(T As long) As boolean
 		MissCount = MissCount + 1
 		Exit function
 	End If
-	RNG = RandomNumberGenerator.NextDouble()
+	RNG = Rnd
 	dim dégat as Integer
 	If RNG <= CritChance Then
 		dégat = AvrgCrit(T)

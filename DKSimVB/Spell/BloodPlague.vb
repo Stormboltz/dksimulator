@@ -47,7 +47,7 @@ Friend module BloodPlague
 		If TalentUnholy.WanderingPlague > 0 Then
 			If WanderingPlague.isAvailable(T) = True Then
 				Dim RNG As Double
-				RNG = RandomNumberGenerator.NextDouble()
+				RNG = Rnd
 				If RNG <= MainStat.crit Then
 					WanderingPlague.ApplyDamage(tmp, T)
 				End If

@@ -32,7 +32,7 @@ Friend Module DeathStrike
 			Sim.NextFreeGCD = T + 150+ sim._MainFrm.txtLatency.Text/10
 		End If
 		If MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
-			RNG = RandomNumberGenerator.NextDouble()
+			RNG = Rnd
 			If mainstat.Expertise >= 0.065 Then
 				RNG = RNG+0.065
 			Else
@@ -51,7 +51,7 @@ Friend Module DeathStrike
 			End If
 		Else
 			OHHit = false
-			RNG = RandomNumberGenerator.NextDouble()
+			RNG = Rnd
 			If mainstat.Expertise >= 0.065 Then
 				RNG = RNG+0.065
 			Else
@@ -76,7 +76,7 @@ Friend Module DeathStrike
 			End If
 			dim dégat as Integer
 			If MHHit Then
-				RNG = RandomNumberGenerator.NextDouble()
+				RNG = Rnd
 				If RNG <= CritChance Then
 					CritCount = CritCount + 1
 					dégat = AvrgCrit(T,true)

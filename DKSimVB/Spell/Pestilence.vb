@@ -10,7 +10,7 @@ Friend Module Pestilence
 	Function use(T As double) As Boolean
 		Dim RNG As Double
 		Sim.NextFreeGCD = T + (150 / (1 + MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
-		RNG = RandomNumberGenerator.NextDouble()
+		RNG = Rnd
 		If mainstat.SpellHit >= 0.17 Then
 			RNG = RNG+0.17
 		Else

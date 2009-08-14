@@ -17,7 +17,7 @@ Friend Module BloodCakedBlade
 	
 	Function ApplyDamage(T As long,MH as Boolean) As boolean
 		Dim RNG As Double
-		RNG = RandomNumberGenerator.NextDouble()
+		RNG = Rnd
 		If mainstat.Expertise >= 0.065 Then
 			RNG = RNG+0.065
 		Else

@@ -41,7 +41,7 @@ Friend Module Obliterate
 			Sim.NextFreeGCD = T + 150+ sim._MainFrm.txtLatency.Text/10
 		End If
 		
-		RNG = RandomNumberGenerator.NextDouble()
+		RNG = Rnd
 		
 		If MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
 			If mainstat.Expertise >= 0.065 Then
@@ -96,7 +96,7 @@ Friend Module Obliterate
 			Dim ccT As Double
 			ccT = CritChance
 			If MHHit Then
-				RNG = RandomNumberGenerator.NextDouble()
+				RNG = Rnd
 				If RNG <= ccT Then
 					CritCount = CritCount + 1
 					dégat =  AvrgCrit(T,true)

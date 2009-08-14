@@ -48,7 +48,7 @@ Friend module MainHand
 		
 		
 		Dim RNG As Double
-		RNG = RandomNumberGenerator.NextDouble()
+		RNG = Rnd
 		MeleeGlacingChance = 0.25
 		MeleeDodgeChance = 0.065
 		If mainstat.Expertise > MeleeDodgeChance Then
@@ -95,7 +95,7 @@ Friend module MainHand
 		total = total + dégat
 
 		If Talentfrost.KillingMachine > 0 Then
-			RNG = RandomNumberGenerator.NextDouble()
+			RNG = Rnd
 			If RNG < (Talentfrost.KillingMachine)*MainStat.MHWeaponSpeed/60 Then
 				if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Killing Machine Proc")
 				proc.KillingMachine  = true
@@ -106,7 +106,7 @@ Friend module MainHand
 		If TalentUnholy.Necrosis > 0 Then
 			Nec = Necrosis.ApplyDamage(dégat, T)
 		End If
-		RNG = RandomNumberGenerator.NextDouble() * 100
+		RNG = Rnd * 100
 		If RNG <= 10 * TalentUnholy.BloodCakedBlade Then
 			BCB = BloodCakedBlade.ApplyDamage(T,true)
 		End If

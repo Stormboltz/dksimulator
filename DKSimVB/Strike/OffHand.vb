@@ -32,7 +32,7 @@ Friend module OffHand
 		Dim MeleeGlacingChance As Single
 		
 		
-		RNG = RandomNumberGenerator.NextDouble()
+		RNG = Rnd
 		MeleeGlacingChance = 0.25
 		MeleeDodgeChance = 0.065
 		If mainstat.Expertise > MeleeDodgeChance Then
@@ -82,7 +82,7 @@ Friend module OffHand
 		End If
 		
 		
-		RNG = RandomNumberGenerator.NextDouble() * 100
+		RNG = Rnd * 100
 		If RNG <= 10 * TalentUnholy.BloodCakedBlade Then
 			BloodCakedBlade.ApplyDamage(T,false)
 		End If

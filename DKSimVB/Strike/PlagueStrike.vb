@@ -34,7 +34,7 @@ Friend module PlagueStrike
 		
 		If MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
 			'MH
-			RNG = RandomNumberGenerator.NextDouble()
+			RNG = Rnd
 			If mainstat.Expertise >= 0.065 Then
 				RNG = RNG+0.065
 			Else
@@ -53,7 +53,7 @@ Friend module PlagueStrike
 			End If
 		Else
 			OHHit = false
-			RNG = RandomNumberGenerator.NextDouble()
+			RNG = Rnd
 			If mainstat.Expertise >= 0.065 Then
 				RNG = RNG+0.065
 			Else
@@ -79,9 +79,9 @@ Friend module PlagueStrike
 		Dim dégat As Integer
 		
 		If MHHit Or OHHit Then
-			RNG = RandomNumberGenerator.NextDouble()
+			RNG = Rnd
 			If MHHit Then
-				RNG = RandomNumberGenerator.NextDouble()
+				RNG = Rnd
 				If RNG <= CritChance Then
 					CritCount = CritCount + 1
 					dégat = AvrgCrit(T,true)

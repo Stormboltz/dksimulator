@@ -47,7 +47,7 @@ Friend Module FrostStrike
 		
 		If MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
 			'MH
-			RNG = RandomNumberGenerator.NextDouble()
+			RNG = Rnd
 			If mainstat.Expertise >= 0.065 Then
 				RNG = RNG+0.065
 			Else
@@ -66,7 +66,7 @@ Friend Module FrostStrike
 			End If
 		Else
 			OHHit = false
-			RNG = RandomNumberGenerator.NextDouble()
+			RNG = Rnd
 			If mainstat.Expertise >= 0.065 Then
 				RNG = RNG+0.065
 			Else
@@ -89,7 +89,7 @@ Friend Module FrostStrike
 			ccT = CritChance
 			If MHHit Or OHHit Then
 				If MHHit Then
-					RNG = RandomNumberGenerator.NextDouble()
+					RNG = Rnd
 					If RNG < ccT Then
 						dégat = AvrgCrit(T,true)
 						combatlog.write(T  & vbtab &  "FS crit for " & dégat )

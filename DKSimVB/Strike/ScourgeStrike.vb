@@ -33,7 +33,7 @@ Friend module ScourgeStrike
 			Sim.NextFreeGCD = T + 150+ sim._MainFrm.txtLatency.Text/10
 		End If
 		
-		RNG = RandomNumberGenerator.NextDouble()
+		RNG = Rnd
 		If mainstat.Expertise >= 0.065 Then
 			RNG = RNG+0.065
 		Else
@@ -50,7 +50,7 @@ Friend module ScourgeStrike
 			Exit function
 		End If
 		dim dégat as Integer
-		RNG = RandomNumberGenerator.NextDouble()
+		RNG = Rnd
 			If RNG <= CritChance Then
 				CritCount = CritCount + 1
 				dégat = AvrgCrit(T)
@@ -67,7 +67,7 @@ Friend module ScourgeStrike
 	
 		
 		If glyph.ScourgeStrike Then
-			RNG = RandomNumberGenerator.NextDouble()
+			RNG = Rnd
 			If RNG > 0.75 Then
 				combatlog.write(T  & vbtab &  "SS glyph proc")
 				BloodPlague.Apply(T)
@@ -75,7 +75,7 @@ Friend module ScourgeStrike
 			End If
 		End If
 		runes.UseFU(T,False)
-		RNG = RandomNumberGenerator.NextDouble()
+		RNG = Rnd
 		
 		If DRW.IsActive(T) Then
 			If DRW.Hit >= 0.08 Then
@@ -86,7 +86,7 @@ Friend module ScourgeStrike
 			If RNG < 0.145 Then
 				combatlog.write(T  & vbtab &  "DRW fail")
 			Else
-				RNG = RandomNumberGenerator.NextDouble()
+				RNG = Rnd
 				If RNG <= drw.Crit Then
 					drw.total = drw.total + AvrgCrit(T)/2
 					combatlog.write(T  & vbtab &  "DRW crit for " & int(AvrgCrit(T)/2) )

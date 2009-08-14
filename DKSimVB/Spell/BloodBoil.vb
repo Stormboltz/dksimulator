@@ -37,7 +37,7 @@ Friend Module BloodBoil
 		runes.UseBlood(T,False)
 		'End If
 		Sim.NextFreeGCD = T + (150 / (1 + MainStat.SpellHaste)) + sim._MainFrm.txtLatency.Text/10
-		RNG = RandomNumberGenerator.NextDouble()
+		RNG = Rnd
 		If mainstat.SpellHit >= 0.17 Then
 			RNG = RNG+0.17
 		Else
@@ -48,7 +48,7 @@ Friend Module BloodBoil
 			MissCount = MissCount + 1
 			Exit function
 		End If
-		RNG = RandomNumberGenerator.NextDouble()
+		RNG = Rnd
 		dim dégat as Integer
 		If RNG <= CritChance Then
 			dégat = AvrgCrit(T)
@@ -77,7 +77,7 @@ Friend Module BloodBoil
 			If RNG < 0.17 Then
 				combatlog.write(T  & vbtab &  "DRW fail")
 			Else
-				RNG = RandomNumberGenerator.NextDouble()
+				RNG = Rnd
 				If RNG <= drw.SpellCrit Then
 					drw.total = drw.total + AvrgCrit(T)/2
 					combatlog.write(T  & vbtab &  "DRW crit for " & int(AvrgCrit(T)/2) )
