@@ -92,6 +92,7 @@ Friend Module GhoulStat
 		Dim tmp As Double
 		tmp = Character.HitRating / 263
 		tmp = tmp * 263 / 32.79
+		tmp = tmp + Draenei
 		
 		return tmp / 100
 	End Function

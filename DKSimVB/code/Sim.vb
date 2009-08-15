@@ -37,8 +37,8 @@ Friend Module Sim
 	End Function
 	
 	Sub StartEP(pb As ProgressBar,EPCalc As Boolean,SimTime As Integer,MainFrm As MainForm)
-		StartEPAlternative(pb,EPCalc,SimTime,MainFrm)
-		exit sub
+		'StartEPAlternative(pb,EPCalc,SimTime,MainFrm)
+		'exit sub
 		
 		
 		_MainFrm = MainFrm
