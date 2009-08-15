@@ -11,9 +11,9 @@ Friend Module HeartStrike
 	Friend MissCount As Integer
 	Friend HitCount as Integer
 	Friend CritCount As Integer
-		Friend TotalHit As Long
+	Friend TotalHit As Long
 	Friend TotalCrit as Long
-
+	
 	
 	Sub init()
 		total = 0
@@ -22,7 +22,7 @@ Friend Module HeartStrike
 		CritCount = 0
 		TotalHit = 0
 		TotalCrit = 0
-
+		
 	End Sub
 	
 	
@@ -32,7 +32,7 @@ Friend Module HeartStrike
 		
 		If Hysteria.IsAvailable(T) then Hysteria.use(T)
 		
-		RNG = Rnd	
+		RNG = Rnd
 		If MainStat.UnholyPresence Then
 			Sim.NextFreeGCD = T + 100 + sim._MainFrm.txtLatency.Text/10
 		Else
@@ -60,13 +60,18 @@ Friend Module HeartStrike
 			if RNG <= 0.15 then
 				HauntedDreamsFade = T+1000
 			end if
-		end if 
+		end if
 		RNG = Rnd
 		dim dégat as Integer
 		If RNG <= CritChance Then
 			CritCount = CritCount + 1
 			dégat = AvrgCrit(T)
 			combatlog.write(T  & vbtab &  "HS crit for " & dégat)
+			TryBitterAnguish()
+			TryMirror()
+			TryPyrite()
+			TryOldGod()
+			
 		Else
 			HitCount = HitCount + 1
 			dégat =  AvrgNonCrit(T)
@@ -80,7 +85,7 @@ Friend Module HeartStrike
 		If rng < 0.05*talentblood.SuddenDoom Then
 			deathcoil.ApplyDamage(T,true)
 		End If
-		If TalentFrost.BloodoftheNorth = 3 Or TalentUnholy.Reaping = 3 Then 
+		If TalentFrost.BloodoftheNorth = 3 Or TalentUnholy.Reaping = 3 Then
 			runes.UseBlood(T,True)
 		Else
 			runes.UseBlood(T,False)
@@ -95,6 +100,13 @@ Friend Module HeartStrike
 		TryT92PDPS
 		TryMjolRune
 		TryGrimToll
+						TryGreatness()
+TryDeathChoice()
+TryDCDeath()
+TryVictory()
+TryBandit()
+TryDarkMatter()
+TryComet()
 		
 		return true
 	End Function
@@ -129,7 +141,7 @@ Friend Module HeartStrike
 	Function report As String
 		dim tmp as String
 		tmp = "Heart Strike" & VBtab
-	
+		
 		If total.ToString().Length < 8 Then
 			tmp = tmp & total & "   " & VBtab
 		Else

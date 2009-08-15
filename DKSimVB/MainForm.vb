@@ -73,12 +73,13 @@ Public Partial Class MainForm
 		doc.LoadXml("<config></config>")
 		' Create a new element node.
 		Dim xmlStat As xml.XmlNode = doc.CreateNode(xml.XmlNodeType.Element, "Stats", "")
-		Dim xmlSet as xml.XmlNode = doc.CreateNode(xml.XmlNodeType.Element, "Sets", "")
+		Dim xmlSet As xml.XmlNode = doc.CreateNode(xml.XmlNodeType.Element, "Sets", "")
+		dim xmlTrinket As xml.XmlNode = doc.CreateNode(xml.XmlNodeType.Element, "Trinket", "")
 		Dim root as xml.XmlElement = doc.DocumentElement
 		root.AppendChild(xmlStat)
 		root.AppendChild(xmlSet)
-		
-		Dim newElem As xml.XmlNode
+		root.AppendChild(xmlTrinket)
+    	Dim newElem As xml.XmlNode
 		
 		Dim ctrl As Control
 		dim chkBox as CheckBox
@@ -96,6 +97,14 @@ Public Partial Class MainForm
 				newElem = doc.CreateNode(xml.XmlNodeType.Element, chkBox.Name, "")
 				newElem.InnerText = chkBox.Checked
 				xmlSet.AppendChild(newElem)
+			End If
+		Next
+		For Each ctrl in groupBox3.Controls
+			If ctrl.Name.StartsWith ("chkEP") Then
+				chkBox = ctrl
+				newElem = doc.CreateNode(xml.XmlNodeType.Element, chkBox.Name, "")
+				newElem.InnerText = chkBox.Checked
+				xmlTrinket.AppendChild(newElem)
 			End If
 		Next
 		doc.Save("EPconfig.xml")
@@ -120,6 +129,15 @@ Public Partial Class MainForm
 				chkBox.Checked = doc.SelectSingleNode("//config/Sets/" & chkBox.Name ).InnerText
 			End If
 		Next
+		
+		For Each ctrl in groupBox3.Controls
+			If ctrl.Name.StartsWith ("chkEP") Then
+				chkBox = ctrl
+				chkBox.Checked = doc.SelectSingleNode("//config/Trinket/" & chkBox.Name ).InnerText
+			End If
+		Next
+		
+		
 		sortie:
 	End Sub
 	

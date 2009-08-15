@@ -73,6 +73,9 @@ Friend Module HowlingBlast
 		if glyph.HowlingBlast then		
 			FrostFever.Apply(T)
 		End If
+		TryGreatness()
+TryDeathChoice()
+TryDCDeath()
 		return true
 	End Function
 	Function AvrgNonCrit(T As long) As Double

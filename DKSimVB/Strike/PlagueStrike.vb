@@ -4,9 +4,9 @@ Friend module PlagueStrike
 	Friend MissCount As Integer
 	Friend HitCount as Integer
 	Friend CritCount As Integer
-		Friend TotalHit As Long
+	Friend TotalHit As Long
 	Friend TotalCrit as Long
-
+	
 	Sub init()
 		total = 0
 		MissCount = 0
@@ -14,7 +14,7 @@ Friend module PlagueStrike
 		CritCount = 0
 		TotalHit = 0
 		TotalCrit = 0
-
+		
 	End Sub
 	
 	Function ApplyDamage(T As Long) As Boolean
@@ -86,6 +86,11 @@ Friend module PlagueStrike
 					CritCount = CritCount + 1
 					dégat = AvrgCrit(T,true)
 					combatlog.write(T  & vbtab &  "PS crit for " & dégat  )
+					TryBitterAnguish()
+					TryMirror()
+					TryPyrite()
+					TryOldGod()
+					
 				Else
 					HitCount = HitCount + 1
 					dégat = AvrgNonCrit(T,true)
@@ -97,11 +102,23 @@ Friend module PlagueStrike
 				TryMHFallenCrusader
 				TryMjolRune
 				TryGrimToll
+								TryGreatness()
+TryDeathChoice()
+TryDCDeath()
+TryVictory()
+TryBandit()
+TryDarkMatter()
+TryComet()
 			End If
 			If OHHit Then
 				If RNG <= CritChance Then
 					dégat = AvrgCrit(T,false)
 					combatlog.write(T  & vbtab &  "OH PS crit for " & dégat  )
+					TryBitterAnguish()
+					TryMirror()
+					TryPyrite()
+					TryOldGod()
+					
 				Else
 					dégat = AvrgNonCrit(T,false)
 					combatlog.write(T  & vbtab &  "OH PS hit for " & dégat )
@@ -112,6 +129,13 @@ Friend module PlagueStrike
 				TryOHFallenCrusader
 				TryMjolRune
 				TryGrimToll
+								TryGreatness()
+TryDeathChoice()
+TryDCDeath()
+TryVictory()
+TryBandit()
+TryDarkMatter()
+TryComet()
 			End If
 			
 			
@@ -123,7 +147,7 @@ Friend module PlagueStrike
 				drw.PlagueStrike
 			End If
 			RunicPower.add (10 + TalentUnholy.Dirge * 2.5)
-
+			
 			
 			
 			Return True
@@ -168,7 +192,7 @@ Friend module PlagueStrike
 	Function report As String
 		dim tmp as String
 		tmp = "Plague Strike" & VBtab
-	
+		
 		If total.ToString().Length < 8 Then
 			tmp = tmp & total & "   " & VBtab
 		Else

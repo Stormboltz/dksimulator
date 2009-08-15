@@ -60,7 +60,9 @@ Friend module deathcoil
 		
 		if Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
 		total = total + dégat
-		
+		TryGreatness()
+TryDeathChoice()
+TryDCDeath()
 		If TalentUnholy.UnholyBlight = 1 Then	
 			UnholyBlight.Apply(T,dégat)
 		End If

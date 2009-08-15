@@ -66,6 +66,7 @@
     <Compile Include="code\SetBonus.vb" />
     <Compile Include="code\Sigils.vb" />
     <Compile Include="code\Sim.vb" />
+    <Compile Include="code\Trinket.vb" />
     <Compile Include="Form1.Designer.vb">
       <DependentUpon>Form1.vb</DependentUpon>
     </Compile>

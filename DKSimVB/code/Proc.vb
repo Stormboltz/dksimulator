@@ -15,10 +15,7 @@ Friend Module Proc
 	Friend ScentOfBloodProc as Integer
 	Friend VirulenceFade as Integer
 	Friend T92PDPSFAde As Integer
-	Friend MjolRuneFade As Integer
-	Friend MjolRuneCd As Integer
-	Friend GrimTollFade As Integer
-	Friend GrimTollCd As Integer
+	
 	
 	Sub init
 		Proc.Rime = False
@@ -40,21 +37,7 @@ Friend Module Proc
 		End If
 	End Sub
 	
-	Sub TryMjolRune()
-		If MjolRune = 0 Or MjolRuneCd > sim.TimeStamp Then Exit Sub
-		If Rnd <= 0.15 Then
-			MjolRuneFade = sim.TimeStamp + 10 * 100
-			MjolRuneCd = sim.TimeStamp + 45 * 100
-		End If
-	End Sub
 	
-	Sub TryGrimToll()
-		If GrimToll = 0 Or GrimTollCd > sim.TimeStamp Then Exit Sub
-		If Rnd <= 0.15 Then
-			GrimTollFade = sim.TimeStamp + 10 * 100
-			GrimTollCd = sim.TimeStamp + 45 * 100
-		End If
-	End Sub
 	
 	Sub TryT92PDPS()
 		If SetBonus.T92PDPS = 0 Then Exit Sub

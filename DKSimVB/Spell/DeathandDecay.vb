@@ -46,6 +46,7 @@ Friend Module DeathandDecay
 		cd = T + 3000 - TalentUnholy.Morbidity*500
 		combatlog.write(T  & vbtab &  "D&D ")
 		RunicPower.add(15)
+		
 		return true
 	End Function
 	

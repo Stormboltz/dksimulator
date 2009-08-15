@@ -12,9 +12,9 @@ Public Module RuneStrike
 	Friend MissCount As Integer
 	Friend HitCount as Integer
 	Friend CritCount as Integer
-		Friend TotalHit As Long
+	Friend TotalHit As Long
 	Friend TotalCrit as Long
-
+	
 	Sub init()
 		total = 0
 		MissCount = 0
@@ -23,7 +23,7 @@ Public Module RuneStrike
 		_NextWhiteMainHit = 0
 		TotalHit = 0
 		TotalCrit = 0
-
+		
 	End Sub
 	Function ApplyDamage(T As long) As boolean
 		Dim dégat As Integer
@@ -54,6 +54,7 @@ Public Module RuneStrike
 			dégat = AvrgCrit(T)
 			CritCount = CritCount + 1
 			If combatlog.LogDetails Then combatlog.write(T  & vbtab &  "Rune Strike crit for " & dégat )
+			
 		Else
 			dégat = AvrgNonCrit(T)
 			HitCount = HitCount + 1
@@ -84,6 +85,13 @@ Public Module RuneStrike
 		TryMHFallenCrusader
 		TryMjolRune
 		TryGrimToll
+						TryGreatness()
+TryDeathChoice()
+TryDCDeath()
+TryVictory()
+TryBandit()
+TryDarkMatter()
+TryComet()
 		If proc.ScentOfBloodProc > 0 Then
 			proc.ScentOfBloodProc  = proc.ScentOfBloodProc  -1
 			RunicPower.add(5)

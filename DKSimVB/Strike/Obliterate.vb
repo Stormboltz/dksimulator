@@ -80,7 +80,7 @@ Friend Module Obliterate
 		End If
 		
 		if MHHit or OHHit then
-
+			
 			If talentblood.DRM = 3 Then
 				runes.UseFU(T,True)
 			Else
@@ -101,6 +101,11 @@ Friend Module Obliterate
 					CritCount = CritCount + 1
 					dégat =  AvrgCrit(T,true)
 					combatlog.write(T  & vbtab &  "OB crit for " & dégat )
+					TryBitterAnguish()
+					TryMirror()
+					TryPyrite()
+					TryOldGod()
+					
 				Else
 					HitCount = HitCount + 1
 					dégat =  AvrgNonCrit(T,true)
@@ -113,15 +118,27 @@ Friend Module Obliterate
 				TryMjolRune
 				TryGrimToll
 				proc.tryRime
+								TryGreatness()
+TryDeathChoice()
+TryDCDeath()
+TryVictory()
+TryBandit()
+TryDarkMatter()
+TryComet()
 			End If
 			
 			If OHHit Then
 				If RNG <= ccT Then
-
+					
 					dégat =  AvrgCrit(T,false)
 					combatlog.write(T  & vbtab &  "OH OB crit for " & dégat )
+					TryBitterAnguish()
+					TryMirror()
+					TryPyrite()
+					TryOldGod()
+					
 				Else
-
+					
 					dégat =  AvrgNonCrit(T,false)
 					combatlog.write(T  & vbtab &  "OH OB hit for " & dégat )
 				End If
@@ -132,8 +149,15 @@ Friend Module Obliterate
 				TryMjolRune
 				TryGrimToll
 				proc.tryRime
+								TryGreatness()
+TryDeathChoice()
+TryDCDeath()
+TryVictory()
+TryBandit()
+TryDarkMatter()
+TryComet()
 			End If
-
+			
 			If DRW.IsActive(T) Then
 				drw.Obliterate
 			End If
@@ -154,7 +178,7 @@ Friend Module Obliterate
 		Else
 			tmp = MainStat.NormalisedOHDamage * 0.8 + 467.2
 		End If
-
+		
 		if sigils.Awareness then tmp = tmp + 336
 		if SetBonus.T84PDPS = 1 then
 			tmp = tmp * (1 + 0.125 * Sim.NumDesease * 1.2)

@@ -5,7 +5,7 @@ Friend module MainHand
 	
 	Friend TotalHit As Long
 	Friend TotalCrit as Long
-
+	
 	Friend MissCount As Integer
 	Friend HitCount as Integer
 	Friend CritCount as Integer
@@ -60,7 +60,7 @@ Friend module MainHand
 		If mainstat.Hit > MeleeMissChance Then
 			MeleeMissChance = 0
 		Else
-		MeleeMissChance = MeleeMissChance - mainstat.Hit
+			MeleeMissChance = MeleeMissChance - mainstat.Hit
 		End If
 		
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
@@ -68,7 +68,7 @@ Friend module MainHand
 			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "MH fail")
 			exit function
 		End If
-
+		
 		If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then
 			dégat = AvrgNonCrit(T)*0.7
 			HitCount = HitCount + 1
@@ -78,8 +78,13 @@ Friend module MainHand
 			'CRIT !
 			dégat = AvrgCrit(T)
 			CritCount = CritCount + 1
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "MH crit for " & dégat )
-		End If 
+			If combatlog.LogDetails Then combatlog.write(T  & vbtab &  "MH crit for " & dégat )
+			TryBitterAnguish()
+			TryMirror()
+			TryPyrite()
+			TryOldGod()
+			
+		End If
 		If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance) Then
 			'normal hit3
 			dégat = AvrgNonCrit(T)
@@ -87,9 +92,9 @@ Friend module MainHand
 			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "MH hit for " & dégat )
 		End If
 		
-		If Lissage Then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance-MeleeGlacingChance) + AvrgNonCrit(T)* (MeleeGlacingChance)*0.7 
+		If Lissage Then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance-MeleeGlacingChance) + AvrgNonCrit(T)* (MeleeGlacingChance)*0.7
 		total = total + dégat
-
+		
 		If Talentfrost.KillingMachine > 0 Then
 			RNG = Rnd
 			If RNG < (Talentfrost.KillingMachine)*MainStat.MHWeaponSpeed/60 Then
@@ -110,7 +115,13 @@ Friend module MainHand
 		TryMHFallenCrusader
 		TryMjolRune
 		TryGrimToll
-		
+						TryGreatness()
+TryDeathChoice()
+TryDCDeath()
+TryVictory()
+TryBandit()
+TryDarkMatter()
+TryComet()
 		If proc.ScentOfBloodProc > 0 Then
 			proc.ScentOfBloodProc  = proc.ScentOfBloodProc  -1
 			RunicPower.add(5)
@@ -127,7 +138,7 @@ Friend module MainHand
 	End Function
 	Function CritCoef() As Double
 		CritCoef = 1* (1+0.06*mainstat.CSD)
-
+		
 	End Function
 	Function CritChance() As Double
 		CritChance = MainStat.critAutoattack
@@ -138,7 +149,7 @@ Friend module MainHand
 	Function report As String
 		dim tmp as String
 		tmp = "Main Hand" & VBtab
-	
+		
 		If total.ToString().Length < 8 Then
 			tmp = tmp & total & "   " & VBtab
 		Else

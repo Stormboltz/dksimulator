@@ -296,6 +296,11 @@ Friend Module Sim
 		WriteReport ("")
 		skipSets:
 		
+		
+		If  doc.SelectSingleNode("//config/Trinket").InnerText.Contains("True") Then
+			sReport = sReport & StartEPTrinket(pb,True, simTime, Mainfrm)
+		End If
+		
 		sReport = sReport &   "<tr><td COLSPAN=8> | Template | " & Split(_MainFrm.cmbTemplate.Text,".")(0) & "</td></tr>"
 		If sim.Rotate Then
 			sReport = sReport &   "<tr><td COLSPAN=8> | Rotation | " & Split(_MainFrm.cmbRotation.Text,".")(0) & "</td></tr>"
@@ -807,6 +812,50 @@ Friend Module Sim
 		EPStat = ""
 	End Sub
 	
+	function StartEPTrinket(pb As ProgressBar,EPCalc As Boolean,SimTime As Integer,MainFrm As MainForm) as string
+		Dim BaseDPS As long
+		Dim APDPS As Long
+		Dim tmp1 As double
+		Dim tmp2 As Double
+		dim sReport as String
+		
+		EPStat="NoTrinket"
+		Start(pb,SimTime,MainFrm)
+		BaseDPS = DPS
+		WriteReport ("Average for " & EPStat & " | " & DPS)
+		
+		'
+		EPStat="AttackPowerNoTrinket"
+		Start(pb,SimTime,MainFrm)
+		APDPS = DPS
+		WriteReport ("Average for " & EPStat & " | " & DPS)
+		
+
+		Dim doc As xml.XmlDocument = New xml.XmlDocument
+		doc.Load("EPconfig.xml")
+		Dim trinketsList As Xml.XmlNode
+		dim tNode as Xml.XmlNode
+		trinketsList = doc.SelectsingleNode("//config/Trinket")
+
+		For Each tNode In trinketsList.ChildNodes
+			If tNode.InnerText = "True" Then
+				EPStat= tNode.Name.Replace("chkEP","")
+				Start(pb,SimTime,MainFrm)
+				tmp1 = (APDPS-BaseDPS ) / 100
+				tmp2 = (DPS-BaseDPS)/ 100
+				sReport = sReport +  ("<tr><td>EP:" & " | "& EPStat & " | " & int (10000*tmp2/tmp1)) & "</td></tr>"
+				WriteReport ("Average for " & EPStat & " | " & DPS)
+			End If
+		Next
+		return sReport
+	End Function
+	
+	
+	
+	
+	
+	
+	
 	Sub initReport
 		Dim Tw As System.IO.TextWriter
 		
@@ -847,6 +896,7 @@ Friend Module Sim
 		'Init
 		Initialisation
 		proc.init
+		trinket.init
 		Character.initialisation
 		GhoulStat.init
 		TimeStamp = 1
@@ -963,7 +1013,7 @@ Friend Module Sim
 				End If
 			End If
 			
-			If ShowDpsTimer < TimeStamp Then
+			If ShowDpsTimer <= TimeStamp Then
 				ShowDpsTimer = TimeStamp + 0.5 * 60 * 60 * 100
 				TotalDamage = ScourgeStrike.total + obliterate.total + PlagueStrike.total + _
 					BloodStrike.total + HeartStrike.total + frostfever.total + _
@@ -972,7 +1022,7 @@ Friend Module Sim
 					WanderingPlague.total +FrostStrike.total  +HowlingBlast.total + _
 					BloodBoil.total  + DeathStrike.total + MainHand.total + _
 					OffHand.total  + Ghoul.total + Gargoyle.total + DRW.total + _
-					RazoriceTotal + DeathandDecay.total + RuneStrike.total
+					RazoriceTotal + DeathandDecay.total + RuneStrike.total  + trinket.Total
 				_MainFrm.lblDPS.Text = DPS & " DPS"
 			End If
 		Loop
@@ -984,7 +1034,7 @@ Friend Module Sim
 			WanderingPlague.total +FrostStrike.total  +HowlingBlast.total + _
 			BloodBoil.total  + DeathStrike.total + MainHand.total + _
 			OffHand.total  + Ghoul.total + Gargoyle.total + DRW.total + _
-			RazoriceTotal + DeathandDecay.total + RuneStrike.total
+			RazoriceTotal + DeathandDecay.total + RuneStrike.total + trinket.Total
 		
 		DPS = 100 * TotalDamage / TimeStamp
 		
@@ -1577,6 +1627,7 @@ Friend Module Sim
 		If DRW.total  <> 0 Then myArray.Add(DRW.total)
 		If RazoriceTotal <> 0 Then myArray.Add(RazoriceTotal)
 		If DeathandDecay.total <> 0 Then myArray.Add(DeathandDecay.total)
+		if trinket.Total <> 0 then myArray.Add(trinket.Total)
 		
 		myArray.Sort()
 		
@@ -1735,6 +1786,12 @@ Friend Module Sim
 				STmp = replace(STmp,vbtab,"</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 			End If
+			If trinket.Total = tot Then
+				STmp = trinket.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			End If
+			
 		Next
 		If Horn.HitCount <> 0 Then
 				STmp = Horn.report

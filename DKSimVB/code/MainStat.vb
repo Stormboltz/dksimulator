@@ -17,14 +17,14 @@ Friend Module MainStat
 	Friend FrostPresence As Integer
 	
 	Friend CSD As Integer
-	Friend MjolRune As Integer
-	Friend GrimToll As Integer
+	
 	
 	Function DualW As Boolean
 		return character.Dual
 	End Function
 	
 	Sub init()
+		on error resume next
 		dim XmlDoc As New Xml.XmlDocument
 		XmlDoc.Load(sim._MainFrm.GetFilePath(_MainFrm.cmbCharacter.Text) )
 		MHWeaponDPS = (XmlDoc.SelectSingleNode("//character/weapon/mainhand/dps").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
@@ -40,11 +40,77 @@ Friend Module MainStat
 		BossArmor = 10643
 		
 		CSD = XmlDoc.SelectSingleNode("//character/ChaoticSkyflareDiamond").InnerText
-		MjolRune = XmlDoc.SelectSingleNode("//character/MjolnirRunestone").InnerText
-		GrimToll = XmlDoc.SelectSingleNode("//character/GrimToll").InnerText
+		
+		
+		'Trinkets
+		
+		
+		MjolRune = 0
+		GrimToll = 0
+		BitterAnguish = 0
+		Mirror = 0
+		Greatness = 0
+		DCDeath = 0
+		Victory = 0
+		Necromantic = 0
+		Bandit = 0
+		Pyrite = 0
+		DarkMatter = 0
+		OldGod = 0
+		Comet = 0
+		DeathChoice = 0
 
-		on error resume next
-
+		Select Case sim.EPStat
+			Case "NoTrinket"
+			Case "AttackPowerNoTrinket"
+			Case "MjolRune"
+				MjolRune = 1
+			Case "GrimToll"
+				GrimToll	= 1
+			Case "BitterAnguish"
+				BitterAnguish	= 1
+			Case "Mirror"
+				Mirror= 1
+			Case "Greatness"
+				Greatness= 1
+			Case "DCDeath"
+				DCDeath= 1
+			Case "Victory"
+				Victory= 1
+			Case "Necromantic"
+				Necromantic= 1
+			Case "Bandit"
+				Bandit= 1
+			Case "Pyrite"
+				Pyrite= 1
+			Case "DarkMatter"
+				DarkMatter= 1
+			Case "OldGod"
+				OldGod= 1
+			Case "Comet"
+				Comet= 1
+			Case "DeathChoice"
+				DeathChoice= 1
+				
+			Case Else
+				
+				MjolRune = XmlDoc.SelectSingleNode("//character/trinket/MjolnirRunestone").InnerText
+				GrimToll = XmlDoc.SelectSingleNode("//character/trinket/GrimToll").InnerText
+				BitterAnguish = XmlDoc.SelectSingleNode("//character/trinket/BitterAnguish").InnerText
+				Mirror = XmlDoc.SelectSingleNode("//character/trinket/Mirror").InnerText
+				Greatness = XmlDoc.SelectSingleNode("//character/trinket/Greatness").InnerText
+				DCDeath = XmlDoc.SelectSingleNode("//character/trinket/DCDeath").InnerText
+				Victory = XmlDoc.SelectSingleNode("//character/trinket/Victory").InnerText
+				Necromantic = XmlDoc.SelectSingleNode("//character/trinket/Necromantic").InnerText
+				Bandit = XmlDoc.SelectSingleNode("//character/trinket/Bandit").InnerText
+				Pyrite = XmlDoc.SelectSingleNode("//character/trinket/Pyrite").InnerText
+				DarkMatter = XmlDoc.SelectSingleNode("//character/trinket/DarkMatter").InnerText
+				OldGod = XmlDoc.SelectSingleNode("//character/trinket/OldGod").InnerText
+				Comet = XmlDoc.SelectSingleNode("//character/trinket/Comet").InnerText
+				DeathChoice = XmlDoc.SelectSingleNode("//character/trinket/DeathChoice").InnerText
+				
+		End Select
+		
 		Select Case sim.EPStat
 			Case "0T7"
 				T72PDPS = 0
@@ -52,28 +118,28 @@ Friend Module MainStat
 				T82PDPS = 0
 				T84PDPS = 0
 				T92PDPS = 0
-				T94PDPS = 0	
+				T94PDPS = 0
 			Case "AttackPower0T7"
 				T72PDPS = 0
 				T74PDPS = 0
 				T82PDPS = 0
 				T84PDPS = 0
 				T92PDPS = 0
-				T94PDPS = 0	
+				T94PDPS = 0
 			Case "2T7"
 				T72PDPS = 1
 				T74PDPS = 0
 				T82PDPS = 0
 				T84PDPS = 0
 				T92PDPS = 0
-				T94PDPS = 0	
+				T94PDPS = 0
 			Case "4T7"
 				T72PDPS = 0
 				T74PDPS = 1
 				T82PDPS = 0
 				T84PDPS = 0
 				T92PDPS = 0
-				T94PDPS = 0	
+				T94PDPS = 0
 			Case "2T8"
 				T72PDPS = 0
 				T74PDPS = 0
@@ -87,21 +153,21 @@ Friend Module MainStat
 				T82PDPS = 0
 				T84PDPS = 1
 				T92PDPS = 0
-				T94PDPS = 0	
+				T94PDPS = 0
 			Case "2T9"
 				T72PDPS = 0
 				T74PDPS = 0
 				T82PDPS = 0
 				T84PDPS = 0
 				T92PDPS = 1
-				T94PDPS = 0	
+				T94PDPS = 0
 			Case "4T9"
 				T72PDPS = 0
 				T74PDPS = 0
 				T82PDPS = 0
 				T84PDPS = 0
-				T92PDPS = 0	
-				T94PDPS = 1	
+				T92PDPS = 0
+				T94PDPS = 1
 				
 				
 			Case Else
@@ -118,6 +184,8 @@ Friend Module MainStat
 				T92PDPS = XmlDoc.SelectSingleNode("//character/Set/T92PDPS").InnerText
 				T94PDPS = XmlDoc.SelectSingleNode("//character/Set/T94PDPS").InnerText
 		End Select
+		
+		
 	End Sub
 	
 	Function BaseAP() As Integer
@@ -125,6 +193,12 @@ Friend Module MainStat
 		if Sigils.Strife then
 			if proc.StrifeFade >= sim.TimeStamp then tmp = 120
 		End If
+		
+		If MirrorFade > sim.TimeStamp Then tmp = tmp + 1000
+		If OldgodFade > sim.TimeStamp Then tmp = tmp + 1284
+		If pyriteFade > sim.TimeStamp Then tmp = tmp + 1234
+		If victoryFade > sim.TimeStamp Then tmp = tmp + 1008
+		
 		'Why +220 ?
 		tmp = (tmp + Character.Strength * 2 + Character.AttackPower + 550) * (1 + Buff.AttackPowerPc / 10)
 		return tmp
@@ -140,7 +214,12 @@ Friend Module MainStat
 		tmp = tmp + Character.CritRating / 45.91
 		if Sigils.HauntedDreams then
 			if proc.HauntedDreamsFade >= sim.TimeStamp then tmp = tmp + 173/45.91
-		end if
+		End If
+		
+		If DarkMatterFade > sim.TimeStamp Then 
+			tmp = tmp + 612/45.91
+		End If
+		
 		tmp = tmp + Character.Agility*0.016
 		tmp = tmp + 5 * Buff.MeleeCrit
 		tmp = tmp + 3 * Buff.CritChanceTaken
@@ -190,6 +269,8 @@ Friend Module MainStat
 		tmp = tmp + 0.2 * Buff.MeleeHaste
 		tmp = tmp + 0.03 * Buff.Haste
 		If Bloodlust.IsActive(sim.TimeStamp) Then tmp = tmp + 0.3
+		If CometFade > sim.TimeStamp Then tmp = tmp + 726/(32.79/1.3)/100
+		If BitterAnguishFade > sim.TimeStamp Then tmp = tmp + 410/(32.79/1.3)/100
 		
 		return tmp
 	End Function
@@ -274,7 +355,7 @@ Friend Module MainStat
 	End Function
 	Function ArmorMitigation() As Double
 		Dim tmp As Double
-
+		
 		Dim A As Double
 		Dim B As Double
 		Dim x As Double

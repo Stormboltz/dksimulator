@@ -1,10 +1,10 @@
 Friend module ScourgeStrike
 	
 	Friend total As long
-
-		Friend TotalHit As Long
+	
+	Friend TotalHit As Long
 	Friend TotalCrit as Long
-
+	
 	
 	Friend MissCount As Integer
 	Friend HitCount as Integer
@@ -18,7 +18,7 @@ Friend module ScourgeStrike
 		
 		TotalHit = 0
 		TotalCrit = 0
-
+		
 		
 		
 	End Sub
@@ -51,21 +51,26 @@ Friend module ScourgeStrike
 		End If
 		dim dégat as Integer
 		RNG = Rnd
-			If RNG <= CritChance Then
-				CritCount = CritCount + 1
-				dégat = AvrgCrit(T)
-				combatlog.write(T  & vbtab &  "SS crit for " & dégat )
-			Else
-				HitCount = HitCount + 1
-				dégat = AvrgNonCrit(T)
-				combatlog.write(T  & vbtab &  "SS hit for " & dégat )
-			End If
+		If RNG <= CritChance Then
+			CritCount = CritCount + 1
+			dégat = AvrgCrit(T)
+			combatlog.write(T  & vbtab &  "SS crit for " & dégat )
+			TryBitterAnguish()
+			TryMirror()
+			TryPyrite()
+			TryOldGod()
+			
+		Else
+			HitCount = HitCount + 1
+			dégat = AvrgNonCrit(T)
+			combatlog.write(T  & vbtab &  "SS hit for " & dégat )
+		End If
 		
 		
 		if Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
 		total = total + dégat
 		
-	
+		
 		
 		If glyph.ScourgeStrike Then
 			RNG = Rnd
@@ -77,32 +82,19 @@ Friend module ScourgeStrike
 		End If
 		runes.UseFU(T,False)
 		RNG = Rnd
-		
-		If DRW.IsActive(T) Then
-			If DRW.Hit >= 0.08 Then
-				RNG = RNG+0.08
-			Else
-				RNG = RNG+DRW.Hit
-			End If
-			If RNG < 0.145 Then
-				combatlog.write(T  & vbtab &  "DRW fail")
-			Else
-				RNG = Rnd
-				If RNG <= drw.Crit Then
-					drw.total = drw.total + AvrgCrit(T)/2
-					combatlog.write(T  & vbtab &  "DRW crit for " & int(AvrgCrit(T)/2) )
-				Else
-					drw.total = drw.total + AvrgNonCrit(T)/2
-					combatlog.write(T  & vbtab &  "DRW hit for " & int(AvrgNonCrit(T)/2))
-				End If
-			End If
-		End If
 		RunicPower.add (15 + TalentUnholy.Dirge * 2.5 + 5*SetBonus.T74PDPS)
 		proc.VirulenceFade = T + 2000
 		TryMHCinderglacier
 		TryMHFallenCrusader
 		TryMjolRune
 		TryGrimToll
+						TryGreatness()
+TryDeathChoice()
+TryDCDeath()
+TryVictory()
+TryBandit()
+TryDarkMatter()
+TryComet()
 		'Debug.Print T & vbTab & "ScourgeStrike for " & Range("Abilities!N11").Value
 		return true
 	End Function
@@ -124,11 +116,11 @@ Friend module ScourgeStrike
 		if CinderglacierProc > 0 then
 			tmp = tmp * 1.2
 			CinderglacierProc = CinderglacierProc -1
-		end if		
+		end if
 		AvrgNonCrit = tmp
 	End Function
 	Function CritCoef() As Double
-		CritCoef = 1 + TalentUnholy.ViciousStrikes * 15 / 100 
+		CritCoef = 1 + TalentUnholy.ViciousStrikes * 15 / 100
 		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
 	End Function
 	Function CritChance() As Double
@@ -143,7 +135,7 @@ Friend module ScourgeStrike
 	Function report As String
 		dim tmp as String
 		tmp = "Scourge Strike" & VBtab
-	
+		
 		If total.ToString().Length < 8 Then
 			tmp = tmp & total & "   " & VBtab
 		Else

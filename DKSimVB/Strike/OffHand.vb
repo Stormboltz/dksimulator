@@ -5,9 +5,9 @@ Friend module OffHand
 	Friend MissCount As Integer
 	Friend HitCount as Integer
 	Friend CritCount as Integer
-		Friend TotalHit As Long
+	Friend TotalHit As Long
 	Friend TotalCrit as Long
-
+	
 	Sub init()
 		total = 0
 		MissCount = 0
@@ -16,12 +16,12 @@ Friend module OffHand
 		NextWhiteOffHit = 0
 		TotalHit = 0
 		TotalCrit = 0
-
+		
 	End Sub
 	
 	Function ApplyDamage(T As long) As boolean
 		Dim Nec As Double
-
+		
 		Dim WSpeed As Single
 		Dim RNG As double
 		WSpeed = MainStat.OHWeaponSpeed
@@ -44,7 +44,7 @@ Friend module OffHand
 		If mainstat.Hit > MeleeMissChance Then
 			MeleeMissChance = 0
 		Else
-			MeleeMissChance = MeleeMissChance - mainstat.Hit	
+			MeleeMissChance = MeleeMissChance - mainstat.Hit
 		End If
 		
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
@@ -53,7 +53,7 @@ Friend module OffHand
 			exit function
 		End If
 		
-
+		
 		dim dégat as Integer
 		If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then
 			dégat = AvrgNonCrit(T)*0.7
@@ -65,17 +65,22 @@ Friend module OffHand
 			CritCount = CritCount + 1
 			dégat = AvrgCrit(T)
 			
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "OH crit for " & dégat )
-		End If 
+			If combatlog.LogDetails Then combatlog.write(T  & vbtab &  "OH crit for " & dégat )
+			TryBitterAnguish()
+			TryMirror()
+			TryPyrite()
+			TryOldGod()
+			
+		End If
 		If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance) Then
 			'normal hit3
 			dégat = AvrgNonCrit(T)
 			HitCount = HitCount + 1
 			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "OH hit for " & dégat)
 		End If
-		If Lissage Then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance-MeleeGlacingChance) + AvrgNonCrit(T)* (MeleeGlacingChance)*0.7 
+		If Lissage Then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance-MeleeGlacingChance) + AvrgNonCrit(T)* (MeleeGlacingChance)*0.7
 		total = total + dégat
-
+		
 		
 		If TalentUnholy.Necrosis > 0 Then
 			Nec = Necrosis.ApplyDamage(dégat, T)
@@ -93,12 +98,19 @@ Friend module OffHand
 		TryOHFallenCrusader
 		TryMjolRune
 		TryGrimToll
+						TryGreatness()
+TryDeathChoice()
+TryDCDeath()
+TryVictory()
+TryBandit()
+TryDarkMatter()
+TryComet()
 		return true
 		'   'Debug.Print T & vbTab & "WhiteOH for " & Range("Abilities!N19").Value
 	End Function
 	Function AvrgNonCrit(T as long) As Double
 		Dim tmp As Double
-		tmp = MainStat.OHBaseDamage 		
+		tmp = MainStat.OHBaseDamage
 		tmp = tmp * MainStat.WhiteHitDamageMultiplier(T)
 		tmp = tmp * 0.5
 		tmp = tmp * (1 + TalentFrost.NervesofColdSteel * 5 / 100)
@@ -119,7 +131,7 @@ Friend module OffHand
 	Function report As String
 		dim tmp as String
 		tmp = "Off Hand" & VBtab
-	
+		
 		If total.ToString().Length < 8 Then
 			tmp = tmp & total & "   " & VBtab
 		Else

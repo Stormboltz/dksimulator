@@ -57,7 +57,7 @@ Friend module BloodPlague
 				End If
 			End If
 		End If
-		
+		TryNecromantic()
 		nextTick = T + 300
 		If combatlog.LogDetails Then combatlog.write(T  & vbtab &  "Blood Plague hit for " & tmp )
 		

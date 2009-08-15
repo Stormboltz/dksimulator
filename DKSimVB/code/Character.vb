@@ -30,10 +30,6 @@ Friend Module Character
 	End sub
 	
 	Function Strength() As Integer
-		If _Strength <> 0 Then
-			'return _Strength
-			'exit function
-		End If
 		Dim tmp As Integer
 		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Strength").InnerText)
 		If sim.EPStat="Strength" Then tmp = tmp + sim.EPBase
@@ -49,6 +45,12 @@ Friend Module Character
 		tmp = tmp * (1 + talentblood.AbominationMight/100)
 		tmp = tmp * (1 + talentunholy.ravenousdead/100)
 		tmp = tmp * (1 + 0.15 * RuneForge.FallenCrusaderProc)
+		
+		
+		
+		If greatnessFade > sim.TimeStamp Then tmp = tmp + 300
+		if DeathChoiceFade > sim.TimeStamp Then tmp = tmp + 450
+		
 		if UA.isActive then tmp = tmp *1.25
 		_Strength= tmp
 		
@@ -105,7 +107,8 @@ Friend Module Character
 		Dim tmp As Integer
 		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/AttackPower").InnerText)
 		If sim.EPStat="AttackPower" Then tmp = tmp+100
-		If sim.EPStat="AttackPower0T7" then tmp = tmp+100
+		If sim.EPStat="AttackPower0T7" Then tmp = tmp+100
+		If sim.EPStat="AttackPowerNoTrinket" then tmp = tmp+100
 		tmp = tmp + int(Armor/180)*BladedArmor
 		_AttackPower = tmp + 548 * Buff.AttackPower
 		
@@ -153,18 +156,16 @@ Friend Module Character
 	End Function
 	
 	Function ArmorPenetrationRating() As Integer
-		If _ArmorPenetrationRating <> 0 Then
-			'return _ArmorPenetrationRating
-			'exit function
-		End If
+
 		Dim tmp As Integer
 		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/ArmorPenetrationRating").InnerText)
 		If MjolRuneFade > sim.TimeStamp Then tmp = tmp + 665
 		If GrimTollFade > sim.TimeStamp Then tmp = tmp + 612
+
 		'If GrimTollFade > sim.TimeStamp Then Debug.Print( "GrimToll, now:" & tmp)
 		_ArmorPenetrationRating = tmp
 		If sim.EPStat="ArmorPenetrationRating" Then 
-			_ArmorPenetrationRating = _ArmorPenetrationRating+sim.EPBase
+			_ArmorPenetrationRating = tmp+sim.EPBase
 		End If
 		return _ArmorPenetrationRating
 	End Function

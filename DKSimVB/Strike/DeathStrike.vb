@@ -81,6 +81,11 @@ Friend Module DeathStrike
 					CritCount = CritCount + 1
 					dégat = AvrgCrit(T,true)
 					combatlog.write(T  & vbtab &  "DS crit for " & dégat  )
+					TryBitterAnguish()
+					TryMirror()
+					TryPyrite()
+					TryOldGod()
+					
 				Else
 					HitCount = HitCount + 1
 					dégat = AvrgNonCrit(T,true)
@@ -92,15 +97,26 @@ Friend Module DeathStrike
 				TryMHFallenCrusader
 				TryMjolRune
 				TryGrimToll
+				TryGreatness()
+TryDeathChoice()
+TryDCDeath()
+TryVictory()
+TryBandit()
+TryDarkMatter()
+TryComet()
 			End If
 			If OHHit Then
-
+				
 				If RNG <= CritChance Then
-
+					
 					dégat = AvrgCrit(T,false)
 					combatlog.write(T  & vbtab &  "OH DS crit for " & dégat  )
+										TryBitterAnguish()
+					TryMirror()
+					TryPyrite()
+					TryOldGod()
 				Else
-
+					
 					dégat = AvrgNonCrit(T,false)
 					combatlog.write(T  & vbtab &  "OH DS hit for " & dégat )
 				End If
@@ -110,18 +126,25 @@ Friend Module DeathStrike
 				TryOHFallenCrusader
 				TryMjolRune
 				TryGrimToll
+				TryGreatness()
+TryDeathChoice()
+TryDCDeath()
+TryVictory()
+TryBandit()
+TryDarkMatter()
+TryComet()
 			End If
-
-
-
-
+			
+			
+			
+			
 			If DRW.IsActive(T) Then
 				drw.DeathStrike
 			End If
 			runicpower.add(15 +  2.5*talentunholy.Dirge )
 			runicpower.add(5*SetBonus.T74PDPS)
 			
-
+			
 		End If
 		return true
 	End Function

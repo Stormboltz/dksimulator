@@ -89,7 +89,9 @@ Friend Module BloodBoil
 		End If
 		
 		RunicPower.add (10) 
-		'TODO Oo
+		TryGreatness()
+TryDeathChoice()
+TryDCDeath()
 		
 		
 		

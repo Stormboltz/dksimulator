@@ -23,7 +23,7 @@ Friend module BloodStrike
 		MHHit = True
 		OHHit = True
 		
-		If MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then			
+		If MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
 			RNG = Rnd
 			If mainstat.Expertise >= 0.065 Then
 				RNG = RNG+0.065
@@ -60,16 +60,21 @@ Friend module BloodStrike
 				Exit function
 			End If
 		End If
-
+		
 		If MHHit Or OHHit Then
 			
-		If MHHit Then
+			If MHHit Then
 				RNG = Rnd
 				dim dégat as Integer
 				If RNG <= CritChance Then
 					dégat = AvrgCrit(T,true)
 					CritCount = CritCount + 1
 					combatlog.write(T  & vbtab &  "BS crit for " & dégat )
+					TryBitterAnguish()
+					TryMirror()
+					TryPyrite()
+					TryOldGod()
+					
 				Else
 					dégat = AvrgNonCrit(T,true)
 					HitCount = HitCount + 1
@@ -82,12 +87,20 @@ Friend module BloodStrike
 				TryT92PDPS
 				TryMjolRune
 				TryGrimToll
-		End If
-		If OHHit Then
+				TryGreatness()
+TryDeathChoice()
+TryDCDeath()
+TryVictory()
+TryBandit()
+TryDarkMatter()
+TryComet()
+			End If
+			If OHHit Then
 				dim dégat as Integer
 				If RNG <= CritChance Then
 					dégat = AvrgCrit(T,false)
 					combatlog.write(T  & vbtab &  "OH BS crit for " & dégat )
+					TryBitterAnguish()
 				Else
 					dégat = AvrgNonCrit(T,false)
 					combatlog.write(T  & vbtab &  "OH BS hit for " & dégat )
@@ -99,28 +112,35 @@ Friend module BloodStrike
 				TryT92PDPS
 				TryMjolRune
 				TryGrimToll
-		End If
-		
-		
-		if sigils.HauntedDreams then
-			RNG = Rnd
-			if RNG <= 0.15 then
-				HauntedDreamsFade = T + 10 * 100
-			end if
-		End If
-		If rng < 0.05*talentblood.SuddenDoom Then
-			deathcoil.ApplyDamage(T,true)
-		End If
-		If TalentFrost.BloodoftheNorth = 3 Or TalentUnholy.Reaping = 3 Then
-			runes.UseBlood(T,True)
-		Else
-			runes.UseBlood(T,False)
-		End If
-		If Desolation.Bonus > 0 Then
-			Desolation.Apply(T)
-		End If
-		RunicPower.add (10)
-		Return True
+				TryGreatness()
+TryDeathChoice()
+TryDCDeath()
+TryVictory()
+TryBandit()
+TryDarkMatter()
+TryComet()
+			End If
+			
+			
+			if sigils.HauntedDreams then
+				RNG = Rnd
+				if RNG <= 0.15 then
+					HauntedDreamsFade = T + 10 * 100
+				end if
+			End If
+			If rng < 0.05*talentblood.SuddenDoom Then
+				deathcoil.ApplyDamage(T,true)
+			End If
+			If TalentFrost.BloodoftheNorth = 3 Or TalentUnholy.Reaping = 3 Then
+				runes.UseBlood(T,True)
+			Else
+				runes.UseBlood(T,False)
+			End If
+			If Desolation.Bonus > 0 Then
+				Desolation.Apply(T)
+			End If
+			RunicPower.add (10)
+			Return True
 		End If
 	End Function
 	

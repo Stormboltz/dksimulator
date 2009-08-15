@@ -42,11 +42,25 @@ Friend Module BloodCakedBlade
 			TryMHFallenCrusader
 			TryMjolRune
 			TryGrimToll
+			TryGreatness()
+TryDeathChoice()
+TryDCDeath()
+TryVictory()
+TryBandit()
+TryDarkMatter()
+TryComet()
 		Else
 			TryOHCinderglacier
 			TryOHFallenCrusader
 			TryMjolRune
 			TryGrimToll
+			TryGreatness()
+TryDeathChoice()
+TryDCDeath()
+TryVictory()
+TryBandit()
+TryDarkMatter()
+TryComet()
 		End If
 		
 		

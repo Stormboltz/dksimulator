@@ -45,7 +45,7 @@ Friend module FrostFever
 		Else
 			tmp = AvrgNonCrit(T)
 		End If
-
+		
 		total = total + tmp
 		If TalentUnholy.WanderingPlague > 0 Then
 			If WanderingPlague.isAvailable(T) = True Then
@@ -56,6 +56,7 @@ Friend module FrostFever
 				End If
 			End If
 		End If
+		TryNecromantic()
 		nextTick = T + 300
 		If combatlog.LogDetails Then combatlog.write(T  & vbtab &  "Frost Fever hit for " & tmp )
 		return true
