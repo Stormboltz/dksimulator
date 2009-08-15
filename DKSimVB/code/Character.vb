@@ -120,17 +120,17 @@ Friend Module Character
 		Dim tmp As Integer
 		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/HitRating").InnerText)
 		_HitRating = tmp
-		If sim.EPStat="" Then 
+		
+		If sim.EPStat="" Then 'For most EP stats we assume being hit capped
 			Return _HitRating
 		Else
-			_HitRating = 263 - (32.79*TalentFrost.NervesofColdSteel)
+			_HitRating = 263 - 32.79 * TalentFrost.NervesofColdSteel
 		End If
 		If sim.EPStat="HitRating" Then
-			_HitRating = 263  - sim.EPBase - 32.79*TalentFrost.NervesofColdSteel
+			_HitRating = 263  - sim.EPBase - 32.79 * TalentFrost.NervesofColdSteel
 		End If
-		
 		If sim.EPStat="SpellHitRating" Then 
-			_HitRating = 263   + sim.EPBase - 32.79*TalentFrost.NervesofColdSteel
+			_HitRating = 263   + sim.EPBase - 32.79 * TalentFrost.NervesofColdSteel
 		End If
 		Return _HitRating
 	End Function
@@ -189,7 +189,7 @@ Friend Module Character
 		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/ExpertiseRating").InnerText)
 		_ExpertiseRating = tmp
 		
-		If sim.EPStat="" Then 
+		If sim.EPStat="" Then 'For most EP stats we assume being exp capped
 			Return _ExpertiseRating
 		Else
 			_ExpertiseRating = 214 - (0.25 * talentblood.Vot3W*2 * 32.79 + 0.25 * talentfrost.TundraStalker  * 32.79 + 0.25 * talentunholy.RageofRivendare  * 32.79)

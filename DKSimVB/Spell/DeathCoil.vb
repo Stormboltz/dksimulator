@@ -19,10 +19,12 @@ Friend module deathcoil
 	End Sub
 	
 	Function isAvailable(T As long) As Boolean
-		If DRW.cd <= T And TalentBlood.DRW = 1 Then Return False
-		If glyph.DeathStrike And RunicPower.Value <= 65  Then Return False
+		If DRW.cd <= T And TalentBlood.DRW = 1 And RunicPower.Value < 100 Then Return False
+		If Gargoyle.cd <= T And talentunholy.SummonGargoyle = 1 And RunicPower.Value < 100 Then Return False
+		'If glyph.DeathStrike And RunicPower.Value <= 65  Then Return False 'This is not really important
 		If RunicPower.Value >= 40 Then isAvailable = True
 	End Function
+	
 	Function ApplyDamage(T As long,SDoom as Boolean) As boolean
 		Dim RNG As Double
 
@@ -42,6 +44,7 @@ Friend module deathcoil
 			MissCount = MissCount + 1
 			Exit function
 		End If
+		
 		RNG = Rnd
 		dim dégat as Integer
 		If RNG <= CritChance Then

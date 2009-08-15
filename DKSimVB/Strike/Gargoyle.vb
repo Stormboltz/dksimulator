@@ -1,17 +1,15 @@
 Friend module Gargoyle
-	
 	Friend NextGargoyleStrike As Long
 	Friend total As Long
 	Friend ActiveUntil As Long
 	Friend cd As Long
-	Friend NextRuneTick as Long
 	Private SpellHaste As Double
 	Private AP As Integer
 	Private SpellHit As Double
 	Friend MissCount As Integer
 	Friend HitCount as Integer
 	Friend CritCount as Integer
-		Friend TotalHit As Long
+	Friend TotalHit As Long
 	Friend TotalCrit as Long
 
 	Sub init()
@@ -23,51 +21,33 @@ Friend module Gargoyle
 		ActiveUntil= 0
 		TotalHit = 0
 		TotalCrit = 0
-
 	End Sub
 	
-	
 Sub Summon(T As Long)
-	
-	
- If AreStarsAligned(T) = False Then
- 	exit sub
- End If
+	If AreStarsAligned(T) = False Then
+ 		exit sub
+ 	End If
 	
 	SpellHaste = MainStat.SpellHaste
 	AP = MainStat.AP
 	If cd <= T Then
 		RunicPower.Value = RunicPower.Value - 60
 		combatlog.write(T  & vbtab &  "Gargoyle use" & vbtab & "RP left = " & RunicPower.Value )
-		cd = T + (3*6000)
-		ActiveUntil = T + 3000
+		cd = T + 3 * 60 * 100
+		ActiveUntil = T + 30 * 100
 		SpellHit = MainStat.SpellHit
 		Sim.NextFreeGCD = T + (150 / (1 + mainstat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
-		NextRuneTick = T+1000
 		NextGargoyleStrike = T
 		combatlog.write(T  & vbtab &  "Summon Gargoyle")
 	End If
 	
 End Sub
 
-Function ConsumeRP (T As Long)  As Boolean
-	exit function
-	RunicPower.Value = RunicPower.Value - 3
-	If RunicPower.Value < 0 Then
-		RunicPower.Value = 0
-		ActiveUntil = T-1
-		combatlog.write(T  & vbtab &  "Gargoyle kicked!")
-	Else
-		if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Gargoyle drain" & vbtab & "RP left = " & RunicPower.Value )
-		NextRuneTick = T + 100
-	End If
-	
-End Function
-
-
 Function ApplyDamage(T As long) As boolean
-	NextGargoyleStrike= T + (200 / (1 + SpellHaste))
+	NextGargoyleStrike = T + (2 * 100) / (1 + SpellHaste)
+	'Debug.Print( (2 * 100) / (1 + SpellHaste) )
 	Dim RNG As Double
+	
 	RNG = Rnd
 	If SpellHit >= 0.17 Then
 		RNG = RNG+0.17
@@ -79,6 +59,7 @@ Function ApplyDamage(T As long) As boolean
 		MissCount = MissCount + 1
 		Exit function
 	End If
+	
 	RNG = Rnd
 	dim dégat as Integer
 	If RNG <= CritChance Then
@@ -94,14 +75,12 @@ Function ApplyDamage(T As long) As boolean
 	if Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
 	total = total + dégat
 		
-	
 	return true
 End Function
 Function AvrgNonCrit(T As long) As Double
 	Dim tmp As Double
 	tmp = 120
 	tmp = tmp + ( AP*0.3333)
-	'tmp = tmp + (0.15 * (1 + 0.04 * TalentUnholy.Impurity) * MainStat.AP)
 	tmp = tmp * MagicalDamageMultiplier(t)
 	return tmp
 End Function
@@ -122,15 +101,14 @@ Function MagicalDamageMultiplier(T as long) As Double
 	tmp = tmp * (1 + 0.13 * Buff.SpellDamageTaken)
 	return tmp
 End Function
-
 Function SpellCrit() As Single
 	Dim tmp As Double
-	'tmp = Character.SpellCritRating / 45.91
 	tmp = tmp + 3 * Buff.CritChanceTaken
 	tmp = tmp + 5 * Buff.SpellCrit
 	tmp = tmp + 5 * Buff.SpellCritTaken
 	SpellCrit = tmp / 100
 End Function
+
 Function report As String
 	dim tmp as String
 	tmp = "Gargoyle" & VBtab

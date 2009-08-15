@@ -133,12 +133,12 @@ Public Partial Class MainForm
 	End Sub
 	
 	Sub BtEPClick(sender As Object, e As EventArgs)
-		If txtSimtime.Text <= 50 Then
+		If txtSimtime.Text <= 100 Then
 			Dim ret As MsgBoxResult
-			chkLissage.Checked	= true
-			ret = msgbox("Short Simulation time can give weird results, Try setting 50+ hours."& vbcrlf  & " Do you want to continue anyway ?", MsgBoxStyle.YesNo)
-			if ret = MsgBoxResult.No then exit sub
+			ret = msgbox("Short simulation time can give weird results. Try setting it to at least 100 hours.", MsgBoxStyle.OkOnly)
+			if ret = MsgBoxResult.OK then exit sub
 		End If
+		chkLissage.Checked	= true
 		LoadBeforeSim
 		me.tabControl1.SelectedIndex = 1
 		sim.startEP(PBsim,True,txtSimtime.Text,me)

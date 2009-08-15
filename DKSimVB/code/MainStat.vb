@@ -7,8 +7,6 @@
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
 Friend Module MainStat
-	
-	
 	Friend MHWeaponDPS As double
 	Friend MHWeaponSpeed As double
 	Friend OHWeaponDPS As double
@@ -30,12 +28,12 @@ Friend Module MainStat
 		dim XmlDoc As New Xml.XmlDocument
 		XmlDoc.Load(sim._MainFrm.GetFilePath(_MainFrm.cmbCharacter.Text) )
 		MHWeaponDPS = (XmlDoc.SelectSingleNode("//character/weapon/mainhand/dps").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
-		If sim.EPStat= "WeaponDPS" Then
+		If sim.EPStat="WeaponDPS" Then
 			MHWeaponDPS = MHWeaponDPS + 10
 		End If
 		MHWeaponSpeed = (XmlDoc.SelectSingleNode("//character/weapon/mainhand/speed").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
-		If sim.EPStat= "WeaponSpeed" Then
-			MHWeaponSpeed = MHWeaponSpeed + 0.2
+		If sim.EPStat="WeaponSpeed" Then
+			MHWeaponSpeed = MHWeaponSpeed + 0.1
 		End If
 		OHWeaponDPS = (XmlDoc.SelectSingleNode("//character/weapon/offhand/dps").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
 		OHWeaponSpeed = (XmlDoc.SelectSingleNode("//character/weapon/offhand/speed").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
