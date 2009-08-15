@@ -43,10 +43,6 @@ Friend module MainHand
 			End If
 		End If
 		
-		
-		
-		
-		
 		Dim RNG As Double
 		RNG = Rnd
 		MeleeGlacingChance = 0.25
@@ -64,7 +60,7 @@ Friend module MainHand
 		If mainstat.Hit > MeleeMissChance Then
 			MeleeMissChance = 0
 		Else
-		MeleeMissChance = MeleeMissChance - mainstat.Hit	
+		MeleeMissChance = MeleeMissChance - mainstat.Hit
 		End If
 		
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then

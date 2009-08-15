@@ -29,7 +29,7 @@ Friend Module HowlingBlast
 		Sim.NextFreeGCD = T + (150 / (1 + MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
 		cd = T + 800
 		RNG = Rnd
-		If mainstat.Hit >= 0.17 Then
+		If mainstat.SpellHit >= 0.17 Then
 			RNG = RNG+0.17
 		Else
 			RNG = RNG+mainstat.SpellHit

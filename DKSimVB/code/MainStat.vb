@@ -213,6 +213,8 @@ Friend Module MainStat
 		tmp = tmp + 0.25 * talentfrost.TundraStalker
 		tmp = tmp + 0.25 * talentunholy.RageofRivendare
 		
+		If sim.EPStat<>"" Then tmp = 6.5 'For most EP stats we assume being exp capped
+		If sim.EPStat="ExpertiseRating" Then tmp = 6.5 - sim.EPBase / 32.79
 		return  tmp / 100
 	End Function
 	Function Hit() As Double
@@ -220,6 +222,10 @@ Friend Module MainStat
 		tmp = (Character.HitRating / 32.79)
 		If MainStat.DualW Then tmp = tmp + 1 * TalentFrost.NervesofColdSteel
 		tmp = tmp + Draenei
+		
+		If sim.EPStat<>"" Then tmp = 8 'For most EP stats we assume being hit capped
+		If sim.EPStat="HitRating" Then tmp = 8 - sim.EPBase / 32.79
+		If sim.EPStat="SpellHitRating" Then tmp = 8 + sim.EPBase / 32.79
 		Hit = tmp / 100
 	End Function
 	Function SpellHit() As Double
@@ -228,6 +234,10 @@ Friend Module MainStat
 		tmp = tmp + 1 * TalentUnholy.Virulence
 		tmp = tmp + Buff.SpellHitTaken * 3
 		tmp = tmp + Draenei
+		
+		If sim.EPStat<>"" Then tmp = 263 / 26.23
+		If sim.EPStat="HitRating" Then tmp = 263 / 26.23 - sim.EPBase / 26.23
+		If sim.EPStat="SpellHitRating" Then tmp = 263 / 26.23 + sim.EPBase / 26.23
 		SpellHit = tmp / 100
 	End Function
 	Function NormalisedMHDamage() As Double

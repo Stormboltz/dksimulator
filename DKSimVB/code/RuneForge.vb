@@ -96,7 +96,6 @@ Friend Module RuneForge
 		Else
 			tmp = tmp & RazoriceTotal & VBtab
 		End If
-		Dim i As Decimal
 		
 		tmp = tmp & toDecimal(100*RazoriceTotal/sim.TotalDamage) & VBtab
 		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab

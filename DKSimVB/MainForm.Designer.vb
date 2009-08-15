@@ -101,6 +101,7 @@ Partial Class MainForm
 		Me.groupBox3 = New System.Windows.Forms.GroupBox
 		Me.chkEPSeed = New System.Windows.Forms.CheckBox
 		Me.groupBox2 = New System.Windows.Forms.GroupBox
+		Me.chkEP4PT9 = New System.Windows.Forms.CheckBox
 		Me.chkEP2PT9 = New System.Windows.Forms.CheckBox
 		Me.chkEP4PT8 = New System.Windows.Forms.CheckBox
 		Me.chkEP2PT8 = New System.Windows.Forms.CheckBox
@@ -139,7 +140,6 @@ Partial Class MainForm
 		Me.chkBAP = New System.Windows.Forms.CheckBox
 		Me.chkBArmorMaj = New System.Windows.Forms.CheckBox
 		Me.chkBStrAgi = New System.Windows.Forms.CheckBox
-		Me.chkEP4PT9 = New System.Windows.Forms.CheckBox
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -882,6 +882,17 @@ Partial Class MainForm
 		Me.groupBox2.TabStop = false
 		Me.groupBox2.Text = "Sets"
 		'
+		'chkEP4PT9
+		'
+		Me.chkEP4PT9.Checked = true
+		Me.chkEP4PT9.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkEP4PT9.Location = New System.Drawing.Point(6, 169)
+		Me.chkEP4PT9.Name = "chkEP4PT9"
+		Me.chkEP4PT9.Size = New System.Drawing.Size(141, 24)
+		Me.chkEP4PT9.TabIndex = 4
+		Me.chkEP4PT9.Text = "4P T9"
+		Me.chkEP4PT9.UseVisualStyleBackColor = true
+		'
 		'chkEP2PT9
 		'
 		Me.chkEP2PT9.Checked = true
@@ -1325,17 +1336,6 @@ Partial Class MainForm
 		Me.chkBStrAgi.Text = "Str/Agi"
 		Me.chkBStrAgi.UseVisualStyleBackColor = true
 		'
-		'chkEP4PT9
-		'
-		Me.chkEP4PT9.Checked = true
-		Me.chkEP4PT9.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkEP4PT9.Location = New System.Drawing.Point(6, 169)
-		Me.chkEP4PT9.Name = "chkEP4PT9"
-		Me.chkEP4PT9.Size = New System.Drawing.Size(141, 24)
-		Me.chkEP4PT9.TabIndex = 4
-		Me.chkEP4PT9.Text = "4P T9"
-		Me.chkEP4PT9.UseVisualStyleBackColor = true
-		'
 		'MainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
@@ -1474,5 +1474,4 @@ Partial Class MainForm
 	Private tabPage3 As System.Windows.Forms.TabPage
 	Private PBsim As System.Windows.Forms.ProgressBar
 	Private button1 As System.Windows.Forms.Button
-	
 End Class

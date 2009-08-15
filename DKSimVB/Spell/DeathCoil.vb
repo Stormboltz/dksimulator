@@ -34,7 +34,7 @@ Friend module deathcoil
 		End If
 		
 		RNG = Rnd
-		If mainstat.Hit >= 0.17 Then
+		If mainstat.SpellHit >= 0.17 Then
 			RNG = RNG+0.17
 		Else
 			RNG = RNG+mainstat.SpellHit
