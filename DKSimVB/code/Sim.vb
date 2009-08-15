@@ -185,7 +185,7 @@ Friend Module Sim
 			EPStat="WeaponDPS"
 			Start(pb,SimTime,MainFrm)
 			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (DPS-BaseDPS) / sim.EPBase
+			tmp2 = (DPS-BaseDPS) / 10
 			sReport = sReport +  ("<tr><td>EP:" & "10" & " | "& EPStat & " | " & int (100*tmp2/tmp1)) & "</td></tr>"
 			WriteReport ("Average for " & EPStat & " | " & DPS)
 		Else
