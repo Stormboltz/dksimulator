@@ -173,7 +173,7 @@ Friend Module Sim
 			EPStat="SpellHitRating"
 			Start(pb,SimTime,MainFrm)
 			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (DPS-BaseDPS) / 10
+			tmp2 = (DPS-BaseDPS) / sim.EPBase
 			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & int (100*tmp2/tmp1)) & "</td></tr>"
 			WriteReport ("Average for " & EPStat & " | " & DPS)
 		Else
