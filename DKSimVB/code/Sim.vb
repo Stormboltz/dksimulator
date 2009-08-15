@@ -63,7 +63,6 @@ Friend Module Sim
 		Dim tmp1 As double
 		Dim tmp2 As double
 		
-		'SimTime = SimTime/10
 		If SimTime = 0 Then SimTime =1
 		'Create EP table
 		sReport = "<table border='0' cellspacing='0' style='font-family:Verdana; font-size:10px;'>"

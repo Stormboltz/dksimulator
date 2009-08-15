@@ -123,9 +123,6 @@ Public Partial Class MainForm
 		sortie:
 	End Sub
 	
-	
-	
-	
 	Sub Button1Click(sender As Object, e As EventArgs)
 		LoadBeforeSim
 		me.tabControl1.SelectedIndex = 1
@@ -136,7 +133,7 @@ Public Partial Class MainForm
 		If txtSimtime.Text < 100 Then
 			Dim ret As MsgBoxResult
 			ret = msgbox("Short simulation time can give weird results. Try setting it to at least 100 hours.", MsgBoxStyle.OkCancel)
-			if ret <> MsgBoxResult.Cancel then exit sub
+			if ret = MsgBoxResult.Cancel then exit sub
 		End If
 		chkLissage.Checked	= true
 		LoadBeforeSim
