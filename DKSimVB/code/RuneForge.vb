@@ -96,12 +96,14 @@ Friend Module RuneForge
 		Else
 			tmp = tmp & RazoriceTotal & VBtab
 		End If
-		tmp = tmp & int(100*RazoriceTotal/sim.TotalDamage) & VBtab
-		tmp = tmp & int(HitCount+CritCount) & VBtab
-		tmp = tmp & int(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & int(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & int(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & int(RazoriceTotal/(HitCount+CritCount)) & VBtab
+		Dim i As Decimal
+		
+		tmp = tmp & toDecimal(100*RazoriceTotal/sim.TotalDamage) & VBtab
+		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
+		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
+		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
+		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
+		tmp = tmp & toDecimal(RazoriceTotal/(HitCount+CritCount)) & VBtab
 		tmp = tmp & vbCrLf
 		return tmp
 	End Function

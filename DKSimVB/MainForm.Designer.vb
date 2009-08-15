@@ -137,6 +137,8 @@ Partial Class MainForm
 		Me.chkBAP = New System.Windows.Forms.CheckBox
 		Me.chkBArmorMaj = New System.Windows.Forms.CheckBox
 		Me.chkBStrAgi = New System.Windows.Forms.CheckBox
+		Me.groupBox3 = New System.Windows.Forms.GroupBox
+		Me.chkEPSeed = New System.Windows.Forms.CheckBox
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -148,6 +150,7 @@ Partial Class MainForm
 		Me.groupBox1.SuspendLayout
 		Me.tbBuff.SuspendLayout
 		Me.grpBuff.SuspendLayout
+		Me.groupBox3.SuspendLayout
 		Me.SuspendLayout
 		'
 		'button1
@@ -832,6 +835,7 @@ Partial Class MainForm
 		'
 		'tbEPOptions
 		'
+		Me.tbEPOptions.Controls.Add(Me.groupBox3)
 		Me.tbEPOptions.Controls.Add(Me.groupBox2)
 		Me.tbEPOptions.Controls.Add(Me.groupBox1)
 		Me.tbEPOptions.Location = New System.Drawing.Point(4, 22)
@@ -1298,6 +1302,27 @@ Partial Class MainForm
 		Me.chkBStrAgi.Text = "Str/Agi"
 		Me.chkBStrAgi.UseVisualStyleBackColor = true
 		'
+		'groupBox3
+		'
+		Me.groupBox3.Controls.Add(Me.chkEPSeed)
+		Me.groupBox3.Location = New System.Drawing.Point(431, 48)
+		Me.groupBox3.Name = "groupBox3"
+		Me.groupBox3.Size = New System.Drawing.Size(153, 372)
+		Me.groupBox3.TabIndex = 6
+		Me.groupBox3.TabStop = false
+		Me.groupBox3.Text = "Misc."
+		'
+		'chkEPSeed
+		'
+		Me.chkEPSeed.Checked = true
+		Me.chkEPSeed.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkEPSeed.Location = New System.Drawing.Point(6, 19)
+		Me.chkEPSeed.Name = "chkEPSeed"
+		Me.chkEPSeed.Size = New System.Drawing.Size(141, 24)
+		Me.chkEPSeed.TabIndex = 2
+		Me.chkEPSeed.Text = "Use same RNG Seed"
+		Me.chkEPSeed.UseVisualStyleBackColor = true
+		'
 		'MainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
@@ -1327,8 +1352,11 @@ Partial Class MainForm
 		Me.groupBox1.ResumeLayout(false)
 		Me.tbBuff.ResumeLayout(false)
 		Me.grpBuff.ResumeLayout(false)
+		Me.groupBox3.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Friend chkEPSeed As System.Windows.Forms.CheckBox
+	Private groupBox3 As System.Windows.Forms.GroupBox
 	Friend txtInterruptAmount As System.Windows.Forms.TextBox
 	Friend txtInterruptCd As System.Windows.Forms.TextBox
 	Private label16 As System.Windows.Forms.Label

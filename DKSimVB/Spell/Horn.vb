@@ -39,12 +39,12 @@ Public Module Horn
 		Else
 			tmp = tmp & total & VBtab
 		End If
-		tmp = tmp & int(100*total/sim.TotalDamage) & VBtab
-		tmp = tmp & int(HitCount) & VBtab
-		tmp = tmp & int(100*0/(HitCount+0+0)) & VBtab
-		tmp = tmp & int(100*0/(HitCount+0+0)) & VBtab
-		tmp = tmp & int(100*0/(HitCount+0+0)) & VBtab
-		tmp = tmp & int(total/(HitCount+0)) & VBtab
+		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
+		tmp = tmp & toDecimal(HitCount) & VBtab
+		tmp = tmp & toDecimal(100*0/(HitCount+0+0)) & VBtab
+		tmp = tmp & toDecimal(100*0/(HitCount+0+0)) & VBtab
+		tmp = tmp & toDecimal(100*0/(HitCount+0+0)) & VBtab
+		tmp = tmp & toDecimal(total/(HitCount+0)) & VBtab
 		tmp = tmp & vbCrLf
 		return tmp
 	End Function

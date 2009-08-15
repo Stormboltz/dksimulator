@@ -133,7 +133,7 @@
     <Compile Include="Strike\RuneStrike.vb" />
     <Compile Include="Strike\ScourgeStrike.vb" />
     <None Include="Characters\2h Ulduar.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Characters\DW Ulduar.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

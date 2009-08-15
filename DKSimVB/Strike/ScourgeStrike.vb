@@ -57,6 +57,7 @@ Friend module ScourgeStrike
 				combatlog.write(T  & vbtab &  "SS crit for " & dégat )
 			Else
 				HitCount = HitCount + 1
+				dégat = AvrgNonCrit(T)
 				combatlog.write(T  & vbtab &  "SS hit for " & dégat )
 			End If
 		
@@ -148,12 +149,12 @@ Friend module ScourgeStrike
 		Else
 			tmp = tmp & total & VBtab
 		End If
-		tmp = tmp & int(100*total/sim.TotalDamage) & VBtab
-		tmp = tmp & int(HitCount+CritCount) & VBtab
-		tmp = tmp & int(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & int(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & int(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & int(total/(HitCount+CritCount)) & VBtab
+		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
+		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
+		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
+		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
+		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
+		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
 		tmp = tmp & vbCrLf
 		return tmp
 	End Function

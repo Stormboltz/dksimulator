@@ -23,6 +23,10 @@ Friend Module Sim
 	Private InterruptTimer As Long
 	Private InterruptAmount As Integer
 	Private InterruptCd As Integer
+	Friend KeepRNGSeed as Boolean
+	
+	
+	
 	
 	Function NumDesease() As Integer
 		NumDesease = 0
@@ -32,7 +36,11 @@ Friend Module Sim
 		
 	End Function
 	
-	Sub StartEP(pb As ProgressBar,EPCalc As Boolean,SimTime as Integer,MainFrm as MainForm)
+	Sub StartEP(pb As ProgressBar,EPCalc As Boolean,SimTime As Integer,MainFrm As MainForm)
+		'		StartEPSimple(pb,EPCalc,SimTime,MainFrm)
+		'		exit sub
+		
+		
 		_MainFrm = MainFrm
 		dim sReport as String
 		If EPCalc = False Then
@@ -167,7 +175,7 @@ Friend Module Sim
 			EPStat="SpellHitRating"
 			Start(pb,SimTime,MainFrm)
 			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (DPS-BaseDPS) / sim.EPBase
+			tmp2 = (DPS-BaseDPS) / 10
 			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & int (100*tmp2/tmp1)) & "</td></tr>"
 			WriteReport ("Average for " & EPStat & " | " & DPS)
 		Else
@@ -191,7 +199,7 @@ Friend Module Sim
 			EPStat="WeaponSpeed"
 			Start(pb,SimTime,MainFrm)
 			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (DPS-BaseDPS) / sim.EPBase
+			tmp2 = (DPS-BaseDPS) / 0.1
 			sReport = sReport +  ("<tr><td>EP:" & "0.1" & " | "& EPStat & " | " & int (100*tmp2/tmp1)) & "</td></tr>"
 			WriteReport ("Average for " & EPStat & " | " & DPS)
 		Else
@@ -302,6 +310,255 @@ Friend Module Sim
 		WriteReport(sReport)
 		EPStat = ""
 	End Sub
+	
+	
+	Sub StartEPSimple(pb As ProgressBar,EPCalc As Boolean,SimTime as Integer,MainFrm as MainForm)
+		_MainFrm = MainFrm
+		dim sReport as String
+		If EPCalc = False Then
+			Start(pb,SimTime,MainFrm)
+			exit sub
+		End If
+		
+		Dim doc As xml.XmlDocument = New xml.XmlDocument
+		doc.Load("EPconfig.xml")
+		
+		
+		dim XmlDoc As New Xml.XmlDocument
+		XmlDoc.Load(_MainFrm.GetFilePath(_MainFrm.cmbCharacter.Text) )
+		
+		'Fixed EP base value for now
+		EPBase = 50
+		'int32.Parse(XmlDoc.SelectSingleNode("//character/EP/base").InnerText)
+		
+		dim BaseDPS as long
+		Dim APDPS As Long
+		Dim EPDPS As Long
+		Dim tmp1 As double
+		Dim tmp2 As double
+		dim aDPS(9) as Integer
+		
+		
+		
+		SimTime = SimTime/10
+		If SimTime = 0 Then SimTime =1
+		'Create EP table
+		sReport = "<table border='0' cellspacing='0' style='font-family:Verdana; font-size:10px;'>"
+		sReport = sReport +   ("<hr width='80%' align='center' noshade ></hr>")
+		
+		
+		If  doc.SelectSingleNode("//config/Stats").InnerText.Contains("True")=false Then
+			goto skipStats
+		End If
+		EPStat="DryRun"
+		Start(pb,SimTime,MainFrm)
+		BaseDPS = DPS
+		WriteReport ("Average for " & EPStat & " = " & BaseDPS)
+		
+		EPStat="AttackPower"
+		Start(pb,SimTime,MainFrm)
+		APDPS = DPS
+		WriteReport ("Average for " & EPStat & " = " & APDPS)
+		sReport = sReport +  ("<tr><td>EP :"& EPStat & " = 100</td></tr>")
+		
+		
+		if doc.SelectSingleNode("//config/Stats/chkEPStr").InnerText = "True" then
+			EPStat="Strength"
+			Start(pb,SimTime,MainFrm)
+			EPDPS = DPS
+			tmp1 = (APDPS-BaseDPS ) / 100
+			tmp2 = (EPDPS-BASEDPS) / sim.EPBase
+			sReport = sReport +  ("<tr><td>EP :"& EPStat & " = " & int (100*tmp2/tmp1)) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " = " & DPS)
+		End If
+		
+		
+		if doc.SelectSingleNode("//config/Stats/chkEPAgility").InnerText = "True" then
+			EPStat="Agility"
+			Start(pb,SimTime,MainFrm)
+			EPDPS = DPS
+			tmp1 = (APDPS-BaseDPS ) / 100
+			tmp2 = (EPDPS-BASEDPS) / sim.EPBase
+			sReport = sReport +  ("<tr><td>EP :"& EPStat & " = " & int (100*tmp2/tmp1)) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " = " & DPS )
+		End If
+		
+		if doc.SelectSingleNode("//config/Stats/chkEPCrit").InnerText = "True" then
+			EPStat="CritRating"
+			Start(pb,SimTime,MainFrm)
+			EPDPS = DPS
+			tmp1 = (APDPS-BaseDPS ) / 100
+			tmp2 = (EPDPS-BASEDPS) / sim.EPBase
+			sReport = sReport +  ("<tr><td>EP :"& EPStat & " = " & int (100*tmp2/tmp1)) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " = " & DPS)
+		End If
+		
+		if doc.SelectSingleNode("//config/Stats/chkEPHaste").InnerText = "True" then
+			EPStat="HasteRating"
+			Start(pb,SimTime,MainFrm)
+			EPDPS = DPS
+			tmp1 = (APDPS-BaseDPS ) / 100
+			tmp2 = (EPDPS-BASEDPS) / sim.EPBase
+			sReport = sReport +  ("<tr><td>EP :"& EPStat & " = " & int (100*tmp2/tmp1)) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " = " & DPS)
+		End If
+		
+		
+		
+		
+		if doc.SelectSingleNode("//config/Stats/chkEPArP").InnerText = "True" then
+			EPStat="ArmorPenetrationRating"
+			Start(pb,SimTime,MainFrm)
+			EPDPS = DPS
+			tmp1 = (APDPS-BaseDPS ) / 100
+			tmp2 = (EPDPS-BASEDPS) / sim.EPBase
+			sReport = sReport +  ("<tr><td>EP :"& EPStat & " = " & int (100*tmp2/tmp1)) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " = " & DPS)
+		End If
+		
+		
+		
+		
+		if doc.SelectSingleNode("//config/Stats/chkEPExp").InnerText = "True" then
+			EPStat="ExpertiseRating"
+			Start(pb,SimTime,MainFrm)
+			EPDPS = DPS
+			tmp1 = (APDPS-BaseDPS ) / 100
+			tmp2 = (EPDPS-BASEDPS) / sim.EPBase
+			sReport = sReport +  ("<tr><td>EP :"& EPStat & " = " & int (-100*tmp2/tmp1)) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " = " & DPS)
+		End If
+		
+		
+		
+		if doc.SelectSingleNode("//config/Stats/chkEPHit").InnerText = "True" then
+			EPStat="HitRating"
+			Start(pb,SimTime,MainFrm)
+			EPDPS = DPS
+			tmp1 = (APDPS-BaseDPS ) / 100
+			tmp2 = (EPDPS-BASEDPS) / sim.EPBase
+			sReport = sReport +  ("<tr><td>EP :"& EPStat & " = " & int (-100*tmp2/tmp1)) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " = " & DPS)
+		End If
+		
+		
+		if doc.SelectSingleNode("//config/Stats/chkEPSpHit").InnerText = "True" then
+			EPStat="SpellHitRating"
+			Start(pb,SimTime,MainFrm)
+			EPDPS = DPS
+			tmp1 = (APDPS-BaseDPS ) / 100
+			tmp2 = (EPDPS-BASEDPS) / sim.EPBase
+			sReport = sReport +  ("<tr><td>EP :"& EPStat & " = " & int (100*tmp2/tmp1)) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " = " & DPS)
+		End If
+		
+		
+		
+		if doc.SelectSingleNode("//config/Stats/chkEPSMHDPS").InnerText = "True" then
+			EPStat="WeaponDPS"
+			Start(pb,SimTime,MainFrm)
+			EPDPS = DPS
+			tmp1 = (APDPS-BaseDPS ) / 100
+			tmp2 = (EPDPS-BASEDPS) / 10
+			sReport = sReport +  ("<tr><td>EP :"& EPStat & " = " & int (100*tmp2/tmp1)) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " = " & DPS)
+		End If
+		
+		
+		
+		if doc.SelectSingleNode("//config/Stats/chkEPSMHSpeed").InnerText = "True" then
+			EPStat="WeaponSpeed"
+			Start(pb,SimTime,MainFrm)
+			EPDPS = DPS
+			tmp1 = (APDPS-BaseDPS ) / 100
+			tmp2 = (EPDPS-BASEDPS) / 0.1
+			sReport = sReport +  ("<tr><td>EP :"& EPStat & " = " & int (100*tmp2/tmp1)) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " = " & DPS)
+		End If
+		skipStats:
+		
+		If  doc.SelectSingleNode("//config/Sets").InnerText.Contains("True")=false Then
+			goto skipSets
+		End If
+		
+		EPStat="0T7"
+		Start(pb,SimTime,MainFrm)
+		BASEDPS = DPS
+		WriteReport ("Average for " & EPStat & " = " & DPS)
+		'sReport = sReport +  ("<tr><td>EP :"& EPStat & " = 100</td></tr>")
+		
+		EPStat="AttackPower0T7"
+		Start(pb,SimTime,MainFrm)
+		APDPS = DPS
+		WriteReport ("Average for " & EPStat & " = " & DPS)
+		'sReport = sReport +  ("<tr><td>EP :"& EPStat & " = 100</td></tr>")
+		
+		
+		
+		if doc.SelectSingleNode("//config/Sets/chkEP2T7").InnerText = "True" then
+			
+			EPStat="2T7"
+			Start(pb,SimTime,MainFrm)
+			EPDPS = DPS
+			tmp1 = (APDPS-BaseDPS)
+			tmp2 = (EPDPS-BASEDPS)
+			sReport = sReport +  ("<tr><td>EP :"& EPStat & " = " & int (10000*tmp2/tmp1)) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " = " & DPS)
+		End if
+		
+		if doc.SelectSingleNode("//config/Sets/chkEP4PT7").InnerText = "True" then
+			EPStat="4T7"
+			Start(pb,SimTime,MainFrm)
+			EPDPS = DPS
+			tmp1 = (APDPS-BaseDPS )
+			tmp2 = (EPDPS-BASEDPS)
+			sReport = sReport +  ("<tr><td>EP :"& EPStat & " = " & int (10000*tmp2/tmp1)) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " = " & DPS)
+		End if
+		
+		if doc.SelectSingleNode("//config/Sets/chkEP2PT8").InnerText = "True" then
+			EPStat="2T8"
+			Start(pb,SimTime,MainFrm)
+			EPDPS = DPS
+			tmp1 = (APDPS-BaseDPS )
+			tmp2 = (EPDPS-BASEDPS)
+			sReport = sReport +  ("<tr><td>EP :"& EPStat & " = " & int (10000*tmp2/tmp1)) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " = " & DPS)
+			
+		End if
+		
+		if doc.SelectSingleNode("//config/Sets/chkEP4PT8").InnerText = "True" then
+			EPStat="4T8"
+			Start(pb,SimTime,MainFrm)
+			EPDPS = DPS
+			tmp1 = (APDPS-BaseDPS )
+			tmp2 = (EPDPS-BASEDPS)
+			sReport = sReport +  ("<tr><td>EP :"& EPStat & " = " & int (10000*tmp2/tmp1)) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " = " & DPS)
+		End if
+		
+		if doc.SelectSingleNode("//config/Sets/chkEP2PT9").InnerText = "True" then
+			
+			EPStat="2T9"
+			Start(pb,SimTime,MainFrm)
+			EPDPS = DPS
+			tmp1 = (APDPS-BaseDPS )
+			tmp2 = (EPDPS-BASEDPS)
+			sReport = sReport +  ("<tr><td>EP :"& EPStat & " = " & int (10000*tmp2/tmp1)) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " = " & DPS)
+		End if
+		skipSets:
+		
+		sReport = sReport +  ("</table>")
+		sReport = sReport +   ("<hr width='80%' align='center' noshade ></hr>")
+		
+		WriteReport(sReport)
+		EPStat = ""
+	End Sub
+	
+	
+	
+	
 	Sub initReport
 		Dim Tw As System.IO.TextWriter
 		
@@ -359,12 +616,12 @@ Friend Module Sim
 					End If
 				End If
 			End If
-
+			
 			application.DoEvents
 			
 			If AMSTimer < TimeStamp Then
 				AMSTimer = TimeStamp + AMSCd
-                RunicPower.add(AMSAmount)
+				RunicPower.add(AMSAmount)
 			End If
 			
 			If talentblood.Butchery > 0 And Butchery.nextTick <= TimeStamp Then
@@ -484,7 +741,7 @@ Friend Module Sim
 		
 		DPS = 100 * TotalDamage / TimeStamp
 		
-		If EPStat = "" Then Report()
+		Report()
 		'WriteReport ( "--------" & EPStat & " now:" )
 		'Report()
 		_MainFrm.lblDPS.Text = DPS & " DPS"
@@ -1003,6 +1260,15 @@ Friend Module Sim
 		
 	End sub
 	
+	Function toDecimal(d As Double) As Decimal
+		try
+			Return d.ToString (".#")
+		Catch
+		End Try
+	End Function
+	
+	
+	
 	Sub loadPriority(file As String)
 		
 		priority.prio.Clear
@@ -1019,11 +1285,10 @@ Friend Module Sim
 	
 	Sub Report()
 		Dim Tw As System.IO.TextWriter
-		if EPStat <> "" then exit sub
+		'if EPStat <> "" then exit sub
 		Tw  =system.IO.File.appendText(ReportPath)
-		
 		'Tw  = system.IO.File.Open(reportpath, system.IO.FileMode.Append)     '.OpenWrite(ReportPath)
-		Tw.Write ("<table border='0' cellspacing='0' style='font-family:Verdana; font-size:10px;'>")
+		Tw.Write ("<table border='0' cellspacing='2' style='font-family:Verdana; font-size:10px;'>")
 		Tw.Write ("<tr>")
 		Tw.Write ("	<td><b>Ability</b></td>")
 		Tw.Write ("	<td><b>Total</b></td>")
@@ -1035,165 +1300,200 @@ Friend Module Sim
 		Tw.Write ("	<td><b>Average</b></td>")
 		Tw.Write ("</tr>")
 		
+		' Sort report
 		
+		dim myArray as new ArrayList
+		
+		
+		If MainHand.total <> 0 Then myArray.Add(MainHand.total)
+		If OffHand.total <> 0 Then myArray.Add(OffHand.total)
+		If ScourgeStrike.total <> 0 Then myArray.Add(ScourgeStrike.total)
+		If HeartStrike.total <> 0 Then myArray.Add(HeartStrike.total)
+		If obliterate.total <> 0 Then myArray.Add(obliterate.total)
+		If DeathStrike.total <> 0 Then myArray.Add(DeathStrike.total)
+		If PlagueStrike.total <> 0 Then myArray.Add(PlagueStrike.total)
+		If IcyTouch.total <> 0 Then myArray.Add(IcyTouch.total)
+		If BloodStrike.total <> 0 Then myArray.Add(BloodStrike.total)
+		If FrostStrike.total <> 0 Then myArray.Add(FrostStrike.total)
+		If HowlingBlast.total <> 0 Then myArray.Add(HowlingBlast.total)
+		If deathcoil.total <> 0 Then myArray.Add(deathcoil.total)
+		If UnholyBlight.total <> 0 Then myArray.Add(UnholyBlight.total)
+		If frostfever.total <> 0 Then myArray.Add(frostfever.total)
+		If BloodPlague.total <> 0 Then myArray.Add(BloodPlague.total)
+		If Necrosis.total <> 0 Then myArray.Add(Necrosis.total)
+		If BloodCakedBlade.total <> 0 Then myArray.Add(BloodCakedBlade.total)
+		If WanderingPlague.total <> 0 Then myArray.Add(WanderingPlague.total)
+		If BloodBoil.total <> 0 Then myArray.Add(BloodBoil.total)
+		If RuneStrike.total <> 0 Then myArray.Add(RuneStrike.total)
+		If Ghoul.total  <> 0 Then myArray.Add(Ghoul.total)
+		If Gargoyle.total  <> 0 Then myArray.Add(Gargoyle.total)
+		If DRW.total  <> 0 Then myArray.Add(DRW.total)
+		If RazoriceTotal <> 0 Then myArray.Add(RazoriceTotal)
+		If DeathandDecay.total <> 0 Then myArray.Add(DeathandDecay.total)
+		
+		myArray.Sort()
+		
+		
+		dim i as Integer
+		Dim tot As Long
 		dim STmp as string
-		If MainHand.total <> 0 Then
-			STmp = MainHand.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+		For i=0 To myArray.Count -1
+			tot = (myArray.Item(myArray.Count-1-i))
+
+			If MainHand.total = tot Then
+				STmp = MainHand.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			End If
+			If OffHand.total = tot Then
+				STmp = OffHand.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				
+			End If
+			If ScourgeStrike.total = tot Then
+				STmp = ScourgeStrike.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				
+			End If
+			If HeartStrike.total = tot Then
+				STmp = HeartStrike.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				
+			End If
+			If obliterate.total = tot Then
+				STmp = obliterate.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				
+			End If
+			If DeathStrike.total = tot Then
+				STmp = DeathStrike.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				
+			End If
+			If PlagueStrike.total = tot Then
+				STmp = PlagueStrike.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				
+			End If
+			If IcyTouch.total = tot Then
+				STmp = IcyTouch.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				
+			End If
+			If BloodStrike.total = tot Then
+				STmp = BloodStrike.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				
+			End If
+			If FrostStrike.total = tot Then
+				STmp = FrostStrike.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				
+			End If
+			If HowlingBlast.total = tot Then
+				STmp = HowlingBlast.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				
+			End If
+			If deathcoil.total = tot Then
+				STmp = deathcoil.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				
+			End If
+			If UnholyBlight.total = tot Then
+				STmp = UnholyBlight.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				
+			End If
+			If frostfever.total = tot Then
+				STmp = frostfever.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				
+			End If
+			If BloodPlague.total = tot Then
+				STmp = BloodPlague.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				
+			End If
+			If Necrosis.total = tot Then
+				STmp = Necrosis.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				
+			End If
+			If BloodCakedBlade.total = tot Then
+				STmp = BloodCakedBlade.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				
+			End If
+			If WanderingPlague.total = tot Then
+				STmp = WanderingPlague.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				
+			End If
+			If BloodBoil.total = tot Then
+				STmp = BloodBoil.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				
+			End If
+			If RuneStrike.total = tot Then
+				STmp = RuneStrike.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				
+			End If
+			If Ghoul.total  = tot Then
+				STmp = Ghoul.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				
+			End If
+			If Gargoyle.total  = tot Then
+				STmp = Gargoyle.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				
+			End If
+			If DRW.total  = tot Then
+				STmp = DRW.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				
+			End If
+			If RazoriceTotal = tot Then
+				STmp = RuneForge.Razoricereport
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			End If
 			
-		End If
-		If OffHand.total <> 0 Then
-			STmp = OffHand.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		If ScourgeStrike.total <> 0 Then
-			STmp = ScourgeStrike.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		If HeartStrike.total <> 0 Then
-			STmp = HeartStrike.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		If obliterate.total <> 0 Then
-			STmp = obliterate.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		If DeathStrike.total <> 0 Then
-			STmp = DeathStrike.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		If PlagueStrike.total <> 0 Then
-			STmp = PlagueStrike.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		If IcyTouch.total <> 0 Then
-			STmp = IcyTouch.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		If BloodStrike.total <> 0 Then
-			STmp = BloodStrike.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		If FrostStrike.total <> 0 Then
-			STmp = FrostStrike.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		If HowlingBlast.total <> 0 Then
-			STmp = HowlingBlast.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		If deathcoil.total <> 0 Then
-			STmp = deathcoil.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		If UnholyBlight.total <> 0 Then
-			STmp = UnholyBlight.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		If frostfever.total <> 0 Then
-			STmp = frostfever.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		If BloodPlague.total <> 0 Then
-			STmp = BloodPlague.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		If Necrosis.total <> 0 Then
-			STmp = Necrosis.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		If BloodCakedBlade.total <> 0 Then
-			STmp = BloodCakedBlade.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		If WanderingPlague.total <> 0 Then
-			STmp = WanderingPlague.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		If BloodBoil.total <> 0 Then
-			STmp = BloodBoil.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		If RuneStrike.total <> 0 Then
-			STmp = RuneStrike.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		If Ghoul.total  <> 0 Then
-			STmp = Ghoul.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		If Gargoyle.total  <> 0 Then
-			STmp = Gargoyle.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		If DRW.total  <> 0 Then
-			STmp = DRW.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		If RazoriceTotal <> 0 Then
-			STmp = RuneForge.Razoricereport
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		If DeathandDecay.total <> 0 Then
-			STmp = DeathandDecay.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
+			If DeathandDecay.total = tot Then
+				STmp = DeathandDecay.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			End If
+		Next
 		If Horn.HitCount <> 0 Then
-			STmp = Horn.report
-			STmp = replace(STmp,vbtab,"</td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			
-		End If
-		
+				STmp = Horn.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			End If
 		sTmp = ""
 		if EPStat <> "" then STmp =  "<tr><td COLSPAN=8>EP Stat <b>" &  EPStat & "</b></td></tr>"
 		STmp = sTmp &  "<tr><td COLSPAN=8>DPS" & VBtab & "<b>" &  DPS & "</b></td></tr>"

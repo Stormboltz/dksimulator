@@ -133,10 +133,10 @@ Public Partial Class MainForm
 	End Sub
 	
 	Sub BtEPClick(sender As Object, e As EventArgs)
-		If txtSimtime.Text <= 100 Then
+		If txtSimtime.Text < 100 Then
 			Dim ret As MsgBoxResult
-			ret = msgbox("Short simulation time can give weird results. Try setting it to at least 100 hours.", MsgBoxStyle.OkOnly)
-			if ret = MsgBoxResult.OK then exit sub
+			ret = msgbox("Short simulation time can give weird results. Try setting it to at least 100 hours.", MsgBoxStyle.OkCancel)
+			if ret <> MsgBoxResult.Cancel then exit sub
 		End If
 		chkLissage.Checked	= true
 		LoadBeforeSim
@@ -1202,7 +1202,7 @@ End Sub
 		Dim bw As New WebBrowser
 		
 		dim webClient as New System.Net.WebClient
-    	Dim strSource  As String
+
     	url = "http://eu.wowarmory.com/character-sheet.xml?r=Chants+eternels&n=Kahorie"
     	Dim myUri As Uri = New Uri("http://eu.wowarmory.com/character-sheet.xml?r=Chants+eternels&n=Kahorie")
     	webClient.Dispose()
