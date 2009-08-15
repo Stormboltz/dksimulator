@@ -52,42 +52,58 @@ Friend Module MainStat
 				T82PDPS = 0
 				T84PDPS = 0
 				T92PDPS = 0
+				T94PDPS = 0	
 			Case "AttackPower0T7"
 				T72PDPS = 0
 				T74PDPS = 0
 				T82PDPS = 0
 				T84PDPS = 0
 				T92PDPS = 0
+				T94PDPS = 0	
 			Case "2T7"
 				T72PDPS = 1
 				T74PDPS = 0
 				T82PDPS = 0
 				T84PDPS = 0
 				T92PDPS = 0
+				T94PDPS = 0	
 			Case "4T7"
 				T72PDPS = 0
 				T74PDPS = 1
 				T82PDPS = 0
 				T84PDPS = 0
 				T92PDPS = 0
+				T94PDPS = 0	
 			Case "2T8"
 				T72PDPS = 0
 				T74PDPS = 0
 				T82PDPS = 1
 				T84PDPS = 0
 				T92PDPS = 0
+				T94PDPS = 0
 			Case "4T8"
 				T72PDPS = 0
 				T74PDPS = 0
 				T82PDPS = 0
 				T84PDPS = 1
 				T92PDPS = 0
+				T94PDPS = 0	
 			Case "2T9"
 				T72PDPS = 0
 				T74PDPS = 0
 				T82PDPS = 0
 				T84PDPS = 0
 				T92PDPS = 1
+				T94PDPS = 0	
+			Case "4T9"
+				T72PDPS = 0
+				T74PDPS = 0
+				T82PDPS = 0
+				T84PDPS = 0
+				T92PDPS = 0	
+				T94PDPS = 1	
+				
+				
 			Case Else
 				T72PDPS = XmlDoc.SelectSingleNode("//character/Set/T72PDPS").InnerText
 				T74PDPS = XmlDoc.SelectSingleNode("//character/Set/T74PDPS").InnerText

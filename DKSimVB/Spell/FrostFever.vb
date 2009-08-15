@@ -40,7 +40,12 @@ Friend module FrostFever
 		Dim tmp As Double
 
 		HitCount = HitCount + 1
-		tmp = AvrgNonCrit(T)
+		If setbonus.T94PDPS =1 Then
+			tmp = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
+		Else
+			tmp = AvrgNonCrit(T)
+		End If
+
 		total = total + tmp
 		If TalentUnholy.WanderingPlague > 0 Then
 			If WanderingPlague.isAvailable(T) = True Then
@@ -68,13 +73,14 @@ Friend module FrostFever
 		AvrgNonCrit = tmp
 	End Function
 	Function CritCoef() As Double
-		
+		CritCoef = 1 
+		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
 	End Function
 	Function CritChance() As Double
-		
+		CritChance = MainStat.SpellCrit
 	End Function
-	Function AvrgCrit() As Double
-		
+	Function AvrgCrit(T As long) As Double
+		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 	Function report As String
 		dim tmp as String

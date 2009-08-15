@@ -228,7 +228,7 @@ Friend Module Sim
 			EPStat="2T7"
 			Start(pb,SimTime,MainFrm)
 			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (DPS-BaseDPS) / sim.EPBase
+			tmp2 = (DPS-BaseDPS)/ 100
 			sReport = sReport +  ("<tr><td>EP:" & " | "& EPStat & " | " & int (10000*tmp2/tmp1)) & "</td></tr>"
 			WriteReport ("Average for " & EPStat & " | " & DPS)
 		Else
@@ -240,7 +240,7 @@ Friend Module Sim
 			EPStat="4T7"
 			Start(pb,SimTime,MainFrm)
 			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (DPS-BaseDPS) / sim.EPBase
+			tmp2 = (DPS-BaseDPS)/ 100
 			sReport = sReport +  ("<tr><td>EP:" & " | "& EPStat & " | " & int (10000*tmp2/tmp1)) & "</td></tr>"
 			WriteReport ("Average for " & EPStat & " | " & DPS)
 		Else
@@ -252,7 +252,7 @@ Friend Module Sim
 			EPStat="2T8"
 			Start(pb,SimTime,MainFrm)
 			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (DPS-BaseDPS) / sim.EPBase
+			tmp2 = (DPS-BaseDPS) / 100
 			sReport = sReport +  ("<tr><td>EP:" & " | "& EPStat & " | " & int (10000*tmp2/tmp1)) & "</td></tr>"
 			WriteReport ("Average for " & EPStat & " | " & DPS)
 		Else
@@ -264,7 +264,7 @@ Friend Module Sim
 			EPStat="4T8"
 			Start(pb,SimTime,MainFrm)
 			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (DPS-BaseDPS) / sim.EPBase
+			tmp2 = (DPS-BaseDPS)/ 100
 			sReport = sReport +  ("<tr><td>EP:" & " | "& EPStat & " | " & int (10000*tmp2/tmp1)) & "</td></tr>"
 			WriteReport ("Average for " & EPStat & " | " & DPS)
 		Else
@@ -276,7 +276,7 @@ Friend Module Sim
 			EPStat="2T9"
 			Start(pb,SimTime,MainFrm)
 			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (DPS-BaseDPS) / sim.EPBase
+			tmp2 = (DPS-BaseDPS) / 100
 			sReport = sReport +  ("<tr><td>EP:" & " | "& EPStat & " | " & int (10000*tmp2/tmp1)) & "</td></tr>"
 			WriteReport ("Average for " & EPStat & " | " & DPS)
 		Else
@@ -284,7 +284,17 @@ Friend Module Sim
 		End If
 		
 		'4T9
-		'not yet
+		if doc.SelectSingleNode("//config/Sets/chkEP4PT9").InnerText = "True" then
+			EPStat="4T9"
+			Start(pb,SimTime,MainFrm)
+			tmp1 = (APDPS-BaseDPS ) / 100
+			tmp2 = (DPS-BaseDPS)/ 100
+			sReport = sReport +  ("<tr><td>EP:" & " | "& EPStat & " | " & int (10000*tmp2/tmp1)) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " | " & DPS)
+		Else
+			WriteReport ("Average for 4T9 | 0")
+		End If
+		
 		
 		WriteReport ("")
 		skipSets:
@@ -1285,7 +1295,7 @@ Friend Module Sim
 	
 	Sub Report()
 		Dim Tw As System.IO.TextWriter
-		'if EPStat <> "" then exit sub
+		if EPStat <> "" then exit sub
 		Tw  =system.IO.File.appendText(ReportPath)
 		'Tw  = system.IO.File.Open(reportpath, system.IO.FileMode.Append)     '.OpenWrite(ReportPath)
 		Tw.Write ("<table border='0' cellspacing='2' style='font-family:Verdana; font-size:10px;'>")
