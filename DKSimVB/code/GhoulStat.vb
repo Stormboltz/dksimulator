@@ -82,15 +82,16 @@ Friend Module GhoulStat
 	End Function
 	Function Expertise() As Double
 		Dim tmp As Double
-		tmp = Character.HitRating / 32.79
+		tmp = Character.HitRating / 263
+		tmp = tmp * 214 / 32.79
 		
 		return tmp / 100
 	End Function
 	
 	Function Hit() As Double
 		Dim tmp As Double
-		tmp = Character.HitRating / 32.79
-		tmp = tmp + Draenei
+		tmp = Character.HitRating / 263
+		tmp = tmp * 263 / 32.79
 		
 		return tmp / 100
 	End Function

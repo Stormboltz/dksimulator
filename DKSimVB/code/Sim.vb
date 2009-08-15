@@ -37,8 +37,8 @@ Friend Module Sim
 	End Function
 	
 	Sub StartEP(pb As ProgressBar,EPCalc As Boolean,SimTime As Integer,MainFrm As MainForm)
-		'		StartEPSimple(pb,EPCalc,SimTime,MainFrm)
-		'		exit sub
+		StartEPAlternative(pb,EPCalc,SimTime,MainFrm)
+		exit sub
 		
 		
 		_MainFrm = MainFrm
@@ -90,7 +90,6 @@ Friend Module Sim
 			Start(pb,SimTime,MainFrm)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS) / sim.EPBase
-			'todo: try a different approach at calculating the following value
 			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & int (100*tmp2/tmp1)) & "</td></tr>"
 			WriteReport ("Average for " & EPStat & " | " & DPS)
 		Else
@@ -294,6 +293,251 @@ Friend Module Sim
 			WriteReport ("Average for 4T9 | 0")
 		End If
 		
+		
+		WriteReport ("")
+		skipSets:
+		
+		sReport = sReport &   "<tr><td COLSPAN=8> | Template | " & Split(_MainFrm.cmbTemplate.Text,".")(0) & "</td></tr>"
+		If sim.Rotate Then
+			sReport = sReport &   "<tr><td COLSPAN=8> | Rotation | " & Split(_MainFrm.cmbRotation.Text,".")(0) & "</td></tr>"
+		Else
+			sReport = sReport &   "<tr><td COLSPAN=8> | Priority | " & Split(_MainFrm.cmbPrio.Text,".")(0) & "</td></tr>"
+		End If
+		sReport = sReport &   "<tr><td COLSPAN=8> | Presence | " & _MainFrm.cmdPresence.Text & vbCrLf & "</td></tr>"
+		sReport = sReport &   "<tr><td COLSPAN=8> | Sigil | " & _MainFrm.cmbSigils.Text & vbCrLf & "</td></tr>"
+		
+		If MainStat.DualW Then
+			sReport = sReport &   "<tr><td COLSPAN=8> | RuneEnchant | " & _MainFrm.cmbRuneMH.Text  & " / " & _MainFrm.cmbRuneOH.Text  & "</td></tr>"
+		Else
+			sReport = sReport &   "<tr><td COLSPAN=8> | RuneEnchant | " & _MainFrm.cmbRuneMH.Text & "</td></tr>"
+		End If
+		sReport = sReport &   "<tr><td COLSPAN=8> | Pet Calculation | " & _MainFrm.ckPet.Checked & "</td></tr>"
+		sReport = sReport +  ("</table>")
+		sReport = sReport +   ("<hr width='80%' align='center' noshade ></hr>")
+		
+		WriteReport(sReport)
+		EPStat = ""
+	End Sub
+	
+	Sub StartEPAlternative(pb As ProgressBar,EPCalc As Boolean,SimTime As Integer,MainFrm As MainForm)
+		_MainFrm = MainFrm
+		dim sReport as String
+		If EPCalc = False Then
+			Start(pb,SimTime,MainFrm)
+			exit sub
+		End If
+		
+		Dim doc As xml.XmlDocument = New xml.XmlDocument
+		doc.Load("EPconfig.xml")
+		
+		Dim XmlDoc As New Xml.XmlDocument
+		XmlDoc.Load(_MainFrm.GetFilePath(_MainFrm.cmbCharacter.Text) )
+		
+		EPBase = 50 'Fixed EP base value for now
+		'int32.Parse(XmlDoc.SelectSingleNode("//character/EP/base").InnerText)
+		
+		Dim BaseDPS As long
+		Dim APDPS As Long
+		Dim tmp1 As double
+		Dim tmp2 As double
+		
+		If SimTime = 0 Then SimTime =1
+		'Create EP table
+		sReport = "<table border='0' cellspacing='0' style='font-family:Verdana; font-size:10px;'>"
+		
+		If  doc.SelectSingleNode("//config/Stats").InnerText.Contains("True")=false Then
+			goto skipStats
+		End If
+		
+		'Dry run
+		EPStat="DryRun"
+		Start(pb,SimTime,MainFrm)
+		BaseDPS = DPS
+		WriteReport ("Average for " & EPStat & " | " & DPS)
+		
+		'AP
+		EPStat="AttackPower"
+		Start(pb,SimTime,MainFrm)
+		APDPS = DPS-BaseDPS
+		WriteReport ("Average for " & EPStat & " | " & DPS)
+		sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | 100</td></tr>")
+		
+		'Str
+		if doc.SelectSingleNode("//config/Stats/chkEPStr").InnerText = "True" then
+			EPStat="Strength"
+			Start(pb,SimTime,MainFrm)
+			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & (DPS-BaseDPS) / APDPS * 100) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " | " & DPS)
+		Else
+			WriteReport ("Average for Strength | 0")
+		End If
+		
+		'Agi
+		if doc.SelectSingleNode("//config/Stats/chkEPAgility").InnerText = "True" then
+			EPStat="Agility"
+			Start(pb,SimTime,MainFrm)
+			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & (DPS-BaseDPS) / APDPS * 100) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " | " & DPS )
+		Else
+			WriteReport ("Average for Agility | 0")
+		End If
+		
+		'Crit
+		if doc.SelectSingleNode("//config/Stats/chkEPCrit").InnerText = "True" then
+			EPStat="CritRating"
+			Start(pb,SimTime,MainFrm)
+			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & (DPS-BaseDPS) / APDPS * 100) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " | " & DPS)
+		Else
+			WriteReport ("Average for CritRating | 0")
+		End If
+		
+		'Haste
+		if doc.SelectSingleNode("//config/Stats/chkEPHaste").InnerText = "True" then
+			EPStat="HasteRating"
+			Start(pb,SimTime,MainFrm)
+			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & (DPS-BaseDPS) / APDPS * 100) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " | " & DPS)
+		Else
+			WriteReport ("Average for HasteRating | 0")
+		End If
+		
+		'Arp
+		if doc.SelectSingleNode("//config/Stats/chkEPArP").InnerText = "True" then
+			EPStat="ArmorPenetrationRating"
+			Start(pb,SimTime,MainFrm)
+			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & (DPS-BaseDPS) / APDPS * 100) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " | " & DPS)
+		Else
+			WriteReport ("Average for ArmorPenetrationRating | 0")
+		End If
+		
+		'Exp
+		if doc.SelectSingleNode("//config/Stats/chkEPExp").InnerText = "True" then
+			EPStat="ExpertiseRating"
+			Start(pb,SimTime,MainFrm)
+			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & (BaseDPS-DPS) / APDPS * 100) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " | " & DPS)
+		Else
+			WriteReport ("Average for ExpertiseRating | 0")
+		End If
+		
+		'Hit
+		if doc.SelectSingleNode("//config/Stats/chkEPHit").InnerText = "True" then
+			EPStat="HitRating"
+			Start(pb,SimTime,MainFrm)
+			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & (BaseDPS-DPS) / APDPS * 100) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " | " & DPS)
+		Else
+			WriteReport ("Average for HitRating | 0")
+		End If
+		
+		'SpHit
+		if doc.SelectSingleNode("//config/Stats/chkEPSpHit").InnerText = "True" then
+			EPStat="SpellHitRating"
+			Start(pb,SimTime,MainFrm)
+			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & (DPS-BaseDPS) / APDPS * 100) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " | " & DPS)
+		Else
+			WriteReport ("Average for SpellHitRating | 0")
+		End If
+		
+		'DPS
+		if doc.SelectSingleNode("//config/Stats/chkEPSMHDPS").InnerText = "True" then
+			EPStat="WeaponDPS"
+			Start(pb,SimTime,MainFrm)
+			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & (DPS-BaseDPS) / APDPS * 100) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " | " & DPS)
+		Else
+			WriteReport ("Average for WeaponDPS | 0")
+		End If
+		
+		'Speed
+		if doc.SelectSingleNode("//config/Stats/chkEPSMHSpeed").InnerText = "True" then
+			EPStat="WeaponSpeed"
+			Start(pb,SimTime,MainFrm)
+			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & (DPS-BaseDPS) / APDPS * 100) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " | " & DPS)
+		Else
+			WriteReport ("Average for WeaponSpeed | 0")
+		End If
+		
+		skipStats:
+		If  doc.SelectSingleNode("//config/Sets").InnerText.Contains("True")=false Then
+			goto skipSets
+		End If
+		
+		'
+		EPStat="0T7"
+		Start(pb,SimTime,MainFrm)
+		BaseDPS = DPS
+		WriteReport ("Average for " & EPStat & " | " & DPS)
+		
+		'
+		EPStat="AttackPower0T7"
+		Start(pb,SimTime,MainFrm)
+		APDPS = DPS-BaseDPS
+		WriteReport ("Average for " & EPStat & " | " & DPS)
+		
+		'2T7
+		if doc.SelectSingleNode("//config/Sets/chkEP2T7").InnerText = "True" then
+			EPStat="2T7"
+			Start(pb,SimTime,MainFrm)
+			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & (DPS-BaseDPS) / APDPS * 100) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " | " & DPS)
+		Else
+			WriteReport ("Average for 2T7 | 0")
+		End If
+		
+		'4T7
+		if doc.SelectSingleNode("//config/Sets/chkEP4PT7").InnerText = "True" then
+			EPStat="4T7"
+			Start(pb,SimTime,MainFrm)
+			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & (DPS-BaseDPS) / APDPS * 100) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " | " & DPS)
+		Else
+			WriteReport ("Average for 4T7 | 0")
+		End If
+		
+		'2T8
+		if doc.SelectSingleNode("//config/Sets/chkEP2PT8").InnerText = "True" then
+			EPStat="2T8"
+			Start(pb,SimTime,MainFrm)
+			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & (DPS-BaseDPS) / APDPS * 100) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " | " & DPS)
+		Else
+			WriteReport ("Average for 2T8 | 0")
+		End If
+		
+		'4T8
+		if doc.SelectSingleNode("//config/Sets/chkEP4PT8").InnerText = "True" then
+			EPStat="4T8"
+			Start(pb,SimTime,MainFrm)
+			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & (DPS-BaseDPS) / APDPS * 100) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " | " & DPS)
+		Else
+			WriteReport ("Average for 4T8 | 0")
+		End If
+		
+		'2T9
+		if doc.SelectSingleNode("//config/Sets/chkEP2PT9").InnerText = "True" then
+			EPStat="2T9"
+			Start(pb,SimTime,MainFrm)
+			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & (DPS-BaseDPS) / APDPS * 100) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " | " & DPS)
+		Else
+			WriteReport ("Average for 2T9 | 0")
+		End If
+		
+		'4T9
+		if doc.SelectSingleNode("//config/Sets/chkEP4PT9").InnerText = "True" then
+			EPStat="4T9"
+			Start(pb,SimTime,MainFrm)
+			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & (DPS-BaseDPS) / APDPS * 100) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " | " & DPS)
+		Else
+			WriteReport ("Average for 4T9 | 0")
+		End If
 		
 		WriteReport ("")
 		skipSets:

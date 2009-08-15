@@ -31,21 +31,24 @@ Friend module Ghoul
 		FrenzyUntil = 0
 		TotalHit = 0
 		TotalCrit = 0
-
 	End Sub
-	
 	
 	Sub Summon(T As Long)
 		If cd <= T Then
-			
 			MeleeGlacingChance = 0.25
-			MeleeMissChance = 0.08 - MainStat.Hit
+			MeleeMissChance = 0.08 - GhoulStat.Hit
 			If MeleeMissChance < 0 Then MeleeMissChance = 0
-			MeleeDodgeChance =  MeleeMissChance * 0.065 / 0.08
-			SpellMissChance = 0.17 - MainStat.SpellHit
+			MeleeDodgeChance =  0.065 - GhoulStat.Expertise
+			If MeleeDodgeChance < 0 Then MeleeDodgeChance = 0
+			SpellMissChance = 0.17 - GhoulStat.SpellHit
 			If SpellMissChance  < 0 Then SpellMissChance = 0 
-			ActiveUntil = T + 6000
-			cd = ActiveUntil + (3*6000) - (4500*NightoftheDead)
+			If TalentUnholy.MasterOfGhouls Then 
+				ActiveUntil = sim.MaxTime
+				cd = sim.MaxTime
+			Else
+				ActiveUntil = T + 60 * 100
+				cd = ActiveUntil + (3*60*100) - (45*100*NightoftheDead)
+			End If
 			
 			If MainStat.UnholyPresence Then
 				Sim.NextFreeGCD = T + 100+ sim._MainFrm.txtLatency.Text/10
@@ -53,9 +56,7 @@ Friend module Ghoul
 				Sim.NextFreeGCD = T + 150+ sim._MainFrm.txtLatency.Text/10
 			End If
 		End If
-		
 	End Sub
-	
 	
 	Function Haste As Double
 		dim tmp as Double
@@ -69,8 +70,6 @@ Friend module Ghoul
 		return tmp
 	End Function
 	
-	
-	
 	Function ApplyDamage(T As long) As boolean
 		Dim retour As Double
 		
@@ -83,11 +82,6 @@ Friend module Ghoul
 			NextWhiteMainHit = T + (WSpeed * 100) / ((1 + Haste))
 		End If
 		Dim RNG As Double
-		RNG = Rnd
-		
-		
-		
-
 		RNG = Rnd		
 
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
