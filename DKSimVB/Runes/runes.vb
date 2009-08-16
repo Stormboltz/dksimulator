@@ -26,6 +26,29 @@ Friend Module runes
 		If Rune5.AvailableTime <= T And Rune5.death = True and Rune5.reserved=false Then return  True
 		If Rune6.AvailableTime <= T And Rune6.death = True and Rune6.reserved=false Then return  True
 	End Function
+	
+	Function GetNextBloodCD(T As Long) As Long
+		Dim bArray As new ArrayList
+		
+		if Rune1.AvailableTime > T 	then bArray.Add(Rune1.AvailableTime)
+		If Rune2.AvailableTime > T 	Then bArray.Add(Rune2.AvailableTime)
+		If Rune3.AvailableTime > T And Rune3.death = True	Then bArray.Add(Rune3.AvailableTime)
+		If Rune4.AvailableTime > T And Rune4.death = True	Then bArray.Add(Rune4.AvailableTime)
+		If Rune5.AvailableTime > T And Rune5.death = True	Then bArray.Add(Rune5.AvailableTime)
+		If Rune6.AvailableTime > T And Rune6.death = True	Then bArray.Add(Rune6.AvailableTime)
+		
+		If bArray.Count > 0 Then
+			bArray.Sort()
+			return bArray.Item(0)
+		End If
+		
+	End Function
+	
+	
+	
+	
+	
+	
 	Function Blood(T as long) As Boolean
 		If Rune1.AvailableTime <= T And Rune1.death = False and Rune1.reserved=false Then return  True
 		If Rune2.AvailableTime <= T And Rune2.death = False and Rune2.reserved=false Then return  True

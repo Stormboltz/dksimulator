@@ -1168,6 +1168,7 @@ Friend Module Sim
 					if retry = 0 then return true
 				End If
 			Case "BloodPlague"
+				
 				If BloodPlague.isActive(TimeStamp + 150) = False And runes.Unholy(TimeStamp) = True Then
 					Return PlagueStrike.ApplyDamage(TimeStamp)
 					'debug.Print("PS")
@@ -1316,11 +1317,12 @@ Friend Module Sim
 					End If
 				Case "FrostFever"
 					If glyph.Disease Then
-						if Pestilence.PerfectUsage(T) then
-							Pestilence.use(T)
+						if Pestilence.PerfectUsage(TimeStamp) then
+							Pestilence.use(TimeStamp)
 							exit sub
 						End If
 					End If
+					
 					If FrostFever.isActive(TimeStamp + 150) = False Then
 						If talentfrost.HowlingBlast = 1 And glyph.HowlingBlast And HowlingBlast.isAvailable(TimeStamp)  Then
 							If proc.rime Or runes.FU(TimeStamp) Then
@@ -1335,8 +1337,8 @@ Friend Module Sim
 					End If
 				Case "BloodPlague"
 					If glyph.Disease Then
-						if Pestilence.PerfectUsage(T) then
-							Pestilence.use(T)
+						if Pestilence.PerfectUsage(TimeStamp) then
+							Pestilence.use(TimeStamp)
 							exit sub
 						End If
 					End If
@@ -1798,6 +1800,12 @@ Friend Module Sim
 				STmp = replace(STmp,vbtab,"</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 			End If
+		If Pestilence.HitCount <> 0 Then
+				STmp = Pestilence.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+		End If	
+			
 		sTmp = ""
 		if EPStat <> "" then STmp =  "<tr><td COLSPAN=8>EP Stat <b>" &  EPStat & "</b></td></tr>"
 		STmp = sTmp &  "<tr><td COLSPAN=8>DPS" & VBtab & "<b>" &  DPS & "</b></td></tr>"

@@ -21,7 +21,12 @@ Public Partial Class MainForm
 	
 	
 	Function LoadBeforeSim() As Boolean
+		try
 		sim.loadtemplate (GetFilePath(CmbTemplate.SelectedItem.ToString))
+		Catch
+			msgbox("Could not determine template. Please reselect it.")
+		End try
+		
 		If sim.rotate Then
 			sim.rotationPath = GetFilePath( cmbRotation.SelectedItem.ToString)
 		Else

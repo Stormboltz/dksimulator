@@ -8,7 +8,7 @@
 '
 Friend Module BloodBoil
 	Friend total As Long
-		Friend TotalHit As Long
+	Friend TotalHit As Long
 	Friend TotalCrit as Long
 
 	Friend MissCount As Integer

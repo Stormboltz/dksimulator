@@ -884,8 +884,6 @@ Partial Class MainForm
 		'
 		'chkEPComet
 		'
-		Me.chkEPComet.Checked = true
-		Me.chkEPComet.CheckState = System.Windows.Forms.CheckState.Checked
 		Me.chkEPComet.Location = New System.Drawing.Point(153, 199)
 		Me.chkEPComet.Name = "chkEPComet"
 		Me.chkEPComet.Size = New System.Drawing.Size(141, 24)
@@ -895,8 +893,6 @@ Partial Class MainForm
 		'
 		'chkEPDarkMatter
 		'
-		Me.chkEPDarkMatter.Checked = true
-		Me.chkEPDarkMatter.CheckState = System.Windows.Forms.CheckState.Checked
 		Me.chkEPDarkMatter.Location = New System.Drawing.Point(153, 169)
 		Me.chkEPDarkMatter.Name = "chkEPDarkMatter"
 		Me.chkEPDarkMatter.Size = New System.Drawing.Size(141, 24)
@@ -906,8 +902,6 @@ Partial Class MainForm
 		'
 		'chkEPBandit
 		'
-		Me.chkEPBandit.Checked = true
-		Me.chkEPBandit.CheckState = System.Windows.Forms.CheckState.Checked
 		Me.chkEPBandit.Location = New System.Drawing.Point(153, 139)
 		Me.chkEPBandit.Name = "chkEPBandit"
 		Me.chkEPBandit.Size = New System.Drawing.Size(141, 24)
@@ -917,8 +911,6 @@ Partial Class MainForm
 		'
 		'chkEPNecromantic
 		'
-		Me.chkEPNecromantic.Checked = true
-		Me.chkEPNecromantic.CheckState = System.Windows.Forms.CheckState.Checked
 		Me.chkEPNecromantic.Location = New System.Drawing.Point(153, 109)
 		Me.chkEPNecromantic.Name = "chkEPNecromantic"
 		Me.chkEPNecromantic.Size = New System.Drawing.Size(141, 24)
@@ -928,8 +920,6 @@ Partial Class MainForm
 		'
 		'chkEPVictory
 		'
-		Me.chkEPVictory.Checked = true
-		Me.chkEPVictory.CheckState = System.Windows.Forms.CheckState.Checked
 		Me.chkEPVictory.Location = New System.Drawing.Point(153, 79)
 		Me.chkEPVictory.Name = "chkEPVictory"
 		Me.chkEPVictory.Size = New System.Drawing.Size(141, 24)
@@ -939,8 +929,6 @@ Partial Class MainForm
 		'
 		'chkEPDCDeath
 		'
-		Me.chkEPDCDeath.Checked = true
-		Me.chkEPDCDeath.CheckState = System.Windows.Forms.CheckState.Checked
 		Me.chkEPDCDeath.Location = New System.Drawing.Point(153, 49)
 		Me.chkEPDCDeath.Name = "chkEPDCDeath"
 		Me.chkEPDCDeath.Size = New System.Drawing.Size(141, 24)
@@ -950,8 +938,6 @@ Partial Class MainForm
 		'
 		'chkEPGreatness
 		'
-		Me.chkEPGreatness.Checked = true
-		Me.chkEPGreatness.CheckState = System.Windows.Forms.CheckState.Checked
 		Me.chkEPGreatness.Location = New System.Drawing.Point(153, 19)
 		Me.chkEPGreatness.Name = "chkEPGreatness"
 		Me.chkEPGreatness.Size = New System.Drawing.Size(141, 24)
@@ -961,8 +947,6 @@ Partial Class MainForm
 		'
 		'chkEPDeathChoice
 		'
-		Me.chkEPDeathChoice.Checked = true
-		Me.chkEPDeathChoice.CheckState = System.Windows.Forms.CheckState.Checked
 		Me.chkEPDeathChoice.Location = New System.Drawing.Point(6, 199)
 		Me.chkEPDeathChoice.Name = "chkEPDeathChoice"
 		Me.chkEPDeathChoice.Size = New System.Drawing.Size(141, 24)
@@ -972,8 +956,6 @@ Partial Class MainForm
 		'
 		'chkEPPyrite
 		'
-		Me.chkEPPyrite.Checked = true
-		Me.chkEPPyrite.CheckState = System.Windows.Forms.CheckState.Checked
 		Me.chkEPPyrite.Location = New System.Drawing.Point(6, 169)
 		Me.chkEPPyrite.Name = "chkEPPyrite"
 		Me.chkEPPyrite.Size = New System.Drawing.Size(141, 24)
@@ -983,8 +965,6 @@ Partial Class MainForm
 		'
 		'chkEPOldGod
 		'
-		Me.chkEPOldGod.Checked = true
-		Me.chkEPOldGod.CheckState = System.Windows.Forms.CheckState.Checked
 		Me.chkEPOldGod.Location = New System.Drawing.Point(6, 139)
 		Me.chkEPOldGod.Name = "chkEPOldGod"
 		Me.chkEPOldGod.Size = New System.Drawing.Size(141, 24)
@@ -994,8 +974,6 @@ Partial Class MainForm
 		'
 		'chkEPMirror
 		'
-		Me.chkEPMirror.Checked = true
-		Me.chkEPMirror.CheckState = System.Windows.Forms.CheckState.Checked
 		Me.chkEPMirror.Location = New System.Drawing.Point(6, 109)
 		Me.chkEPMirror.Name = "chkEPMirror"
 		Me.chkEPMirror.Size = New System.Drawing.Size(141, 24)
@@ -1005,8 +983,6 @@ Partial Class MainForm
 		'
 		'chkEPBitterAnguish
 		'
-		Me.chkEPBitterAnguish.Checked = true
-		Me.chkEPBitterAnguish.CheckState = System.Windows.Forms.CheckState.Checked
 		Me.chkEPBitterAnguish.Location = New System.Drawing.Point(6, 79)
 		Me.chkEPBitterAnguish.Name = "chkEPBitterAnguish"
 		Me.chkEPBitterAnguish.Size = New System.Drawing.Size(141, 24)
@@ -1016,8 +992,6 @@ Partial Class MainForm
 		'
 		'chkEPGrimToll
 		'
-		Me.chkEPGrimToll.Checked = true
-		Me.chkEPGrimToll.CheckState = System.Windows.Forms.CheckState.Checked
 		Me.chkEPGrimToll.Location = New System.Drawing.Point(6, 49)
 		Me.chkEPGrimToll.Name = "chkEPGrimToll"
 		Me.chkEPGrimToll.Size = New System.Drawing.Size(141, 24)
@@ -1027,8 +1001,6 @@ Partial Class MainForm
 		'
 		'chkEPMjolRune
 		'
-		Me.chkEPMjolRune.Checked = true
-		Me.chkEPMjolRune.CheckState = System.Windows.Forms.CheckState.Checked
 		Me.chkEPMjolRune.Location = New System.Drawing.Point(6, 19)
 		Me.chkEPMjolRune.Name = "chkEPMjolRune"
 		Me.chkEPMjolRune.Size = New System.Drawing.Size(141, 24)
