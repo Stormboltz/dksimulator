@@ -215,9 +215,8 @@ Friend Module MainStat
 		if Sigils.HauntedDreams then
 			if proc.HauntedDreamsFade >= sim.TimeStamp then tmp = tmp + 173/45.91
 		End If
-		
-		If DarkMatterFade > sim.TimeStamp Then 
-			tmp = tmp + 612/45.91
+		If DarkMatterFade > sim.TimeStamp Then
+			tmp = tmp + 612 / 45.91
 		End If
 		
 		tmp = tmp + Character.Agility*0.016
@@ -236,7 +235,11 @@ Friend Module MainStat
 		tmp = tmp + Character.CritRating / 45.91
 		if Sigils.HauntedDreams then
 			if proc.HauntedDreamsFade >= sim.TimeStamp then tmp = tmp + 173/45.91
-		end if
+		End If
+		If DarkMatterFade > sim.TimeStamp Then
+			tmp = tmp + 612 / 45.91
+		End If
+		
 		tmp = tmp + Character.Agility / 62.5
 		tmp = tmp + 5 * Buff.MeleeCrit
 		tmp = tmp + 3 * Buff.CritChanceTaken
@@ -251,7 +254,11 @@ Friend Module MainStat
 		tmp = Character.SpellCritRating / 45.91
 		if Sigils.HauntedDreams then
 			if proc.HauntedDreamsFade >= sim.TimeStamp then tmp = tmp + 173/45.91
-		end if
+		End If
+		If DarkMatterFade > sim.TimeStamp Then
+			tmp = tmp + 612 / 45.91
+		End If
+		
 		tmp = tmp + 3 * Buff.CritChanceTaken
 		tmp = tmp + 5 * Buff.SpellCrit
 		tmp = tmp + 5 * Buff.SpellCritTaken
@@ -283,6 +290,8 @@ Friend Module MainStat
 			tmp = tmp + 0.05 * Buff.SpellHaste
 			tmp = tmp + 0.03 * Buff.Haste
 			If Bloodlust.IsActive(sim.TimeStamp)  Then	tmp = tmp + 0.3
+			If CometFade > sim.TimeStamp Then tmp = tmp + 726/(32.79/1.3)/100
+			If BitterAnguishFade > sim.TimeStamp Then tmp = tmp + 410/(32.79/1.3)/100
 			
 			return tmp
 		End If

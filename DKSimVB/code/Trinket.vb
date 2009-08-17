@@ -15,9 +15,6 @@ Public Module Trinket
 	Friend BitterAnguishCd As Integer
 	Friend BitterAnguishFade As Integer
 	
-	
-	
-	
 	Friend MjolRune As Integer
 	Friend GrimToll As Integer
 	Friend BitterAnguish As Integer
@@ -76,6 +73,7 @@ Public Module Trinket
 		CritCount = 0
 	End Sub
 	
+	'MjolRune
 	Sub TryMjolRune()
 		If MjolRune = 0 Or MjolRuneCd > sim.TimeStamp Then Exit Sub
 		If Rnd <= 0.15 Then
@@ -84,6 +82,7 @@ Public Module Trinket
 		End If
 	End Sub
 	
+	'GrimToll
 	Sub TryGrimToll()
 		If GrimToll = 0 Or GrimTollCd > sim.TimeStamp Then Exit Sub
 		If Rnd <= 0.15 Then
@@ -101,7 +100,7 @@ Public Module Trinket
 		End If
 	End Sub
 	
-	' Mirror of Truth
+	'Mirror of Truth
 	Friend MirrorFade As Integer
 	Friend MirrorCd As Integer
 	Sub TryMirror()
@@ -112,7 +111,7 @@ Public Module Trinket
 		End If
 	End Sub
 	
-		'Pyrite Infuser
+	'Pyrite Infuser
 	Friend PyriteFade As Integer
 	Friend PyriteCd As Integer
 	Sub TryPyrite()
@@ -123,7 +122,7 @@ Public Module Trinket
 		End If
 	End Sub
 	
-		'Blood of the Old God
+	'Blood of the Old God
 	Friend OldGodFade As Integer
 	Friend OldGodCd As Integer
 	Sub TryOldGod()
@@ -133,8 +132,6 @@ Public Module Trinket
 			OldGodCd = sim.TimeStamp + 45 * 100
 		End If
 	End Sub
-
-
 
 	'Darkmoon Card: Greatness
 	Friend GreatnessFade As Integer
@@ -147,7 +144,7 @@ Public Module Trinket
 		End If
 	End Sub
 	
-		'Death's Choice
+	'Death's Choice
 	Friend DeathChoiceFade As Integer
 	Friend DeathChoiceCd As Integer
 	Sub TryDeathChoice()
@@ -157,13 +154,6 @@ Public Module Trinket
 			DeathChoiceCd = sim.TimeStamp + 45 * 100
 		End If
 	End Sub
-	
-	
-	
-	
-
-	
-	
 	
 	'Banner of Victory
 	Friend VictoryFade As Integer
@@ -176,9 +166,7 @@ Public Module Trinket
 		End If
 	End Sub
 	
-	
-	
-		'Darkmoon Card: Death
+	'Darkmoon Card: Death
 	Friend DCDeathFade As Integer
 	Friend DCDeathCd As Integer
 	Sub TryDCDeath()
@@ -199,8 +187,8 @@ Public Module Trinket
 			NecromanticCd = sim.TimeStamp + 15 * 100
 		End If
 	End Sub
-	'Bandit's Insignia
 	
+	'Bandit's Insignia
 	Friend BanditFade As Integer
 	Friend BanditCd As Integer
 	Sub TryBandit()
@@ -210,8 +198,6 @@ Public Module Trinket
 			BanditCd =  sim.TimeStamp + 45 * 100
 		End If
 	End Sub
-	
-	
 	
 	'Dark Matter
 	Friend DarkMatterFade As Integer
