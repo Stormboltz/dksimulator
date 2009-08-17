@@ -33,7 +33,7 @@ Public Module Trinket
 	Friend Comet As Integer
 	Friend DeathChoice As Integer
 	
-	Friend Total as Integer
+	Friend Total as long
 	Friend HitCount as Integer
 	Friend MissCount as Integer
 	Friend CritCount as Integer
@@ -67,6 +67,9 @@ Public Module Trinket
 		CometCd = 0
 		DeathChoiceFade = 0
 		DeathChoiceCd = 0
+		BitterAnguishCD = 0
+		BitterAnguishfade = 0 
+		
 		Total = 0
 		HitCount = 0
 		MissCount =0
