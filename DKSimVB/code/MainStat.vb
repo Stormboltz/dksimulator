@@ -417,7 +417,7 @@ Friend Module MainStat
 		dim l_answer  as double = l_constant / (l_tempA - l_tempB)
 		
 		If MjolRuneFade > sim.TimeStamp or GrimTollFade > sim.TimeStamp Then
-			Debug.Print( "l_personalArpPercent = " & l_personalArpPercent & " l_answer = " & l_answer & " (1.0 - Math.max(0.0, l_answer)) = " & (1.0 - Math.max(0.0, l_answer)) & sim.TimeStamp)
+			'Debug.Print( "l_personalArpPercent = " & l_personalArpPercent & " l_answer = " & l_answer & " (1.0 - Math.max(0.0, l_answer)) = " & (1.0 - Math.max(0.0, l_answer)) & sim.TimeStamp)
 		End If
 		
 		'Debug.Print( "l_personalArpPercent = " & l_personalArpPercent & " l_answer = " & l_answer & " (1.0 - Math.max(0.0, l_answer)) = " & (1.0 - Math.max(0.0, l_answer)) & sim.TimeStamp)
