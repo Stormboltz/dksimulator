@@ -26,7 +26,6 @@ Friend Module Pestilence
 			RNG = RNG+0.17
 		Else
 			RNG = RNG+mainstat.SpellHit
-			
 		End If
 		If RNG < 0.17 Then
 			combatlog.write(T  & vbtab &  "Pestilence fail")
@@ -62,7 +61,7 @@ Friend Module Pestilence
 		If runes.AnyBlood(T) Then
 			tmp1 = math.Min(BloodPlague.FadeAt,FrostFever.FadeAt)
 			if tmp1 < T then return false
-			if tmp1 - T > 1000 then return false
+			'if tmp1 - T > 1000 then return false
 			'debug.Print (RuneState)
 			tmp2 = runes.GetNextBloodCD(t)
 			If tmp2 > tmp1 or tmp2=0 Then

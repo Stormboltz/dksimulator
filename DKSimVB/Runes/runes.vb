@@ -30,8 +30,11 @@ Friend Module runes
 	Function GetNextBloodCD(T As Long) As Long
 		Dim bArray As new ArrayList
 		
-		if Rune1.AvailableTime > T 	then bArray.Add(Rune1.AvailableTime)
-		If Rune2.AvailableTime > T 	Then bArray.Add(Rune2.AvailableTime)
+		if Rune1.AvailableTime > T 	And Rune1.death = false then bArray.Add(Rune1.AvailableTime)
+		If Rune2.AvailableTime > T 	And Rune2.death = False Then bArray.Add(Rune2.AvailableTime)
+'		if Rune1.AvailableTime > T 	And Rune1.death = false then bArray.Add(Rune1.AvailableTime)
+'		If Rune2.AvailableTime > T 	And Rune2.death = false Then bArray.Add(Rune2.AvailableTime)
+		
 		If Rune3.AvailableTime > T And Rune3.death = True	Then bArray.Add(Rune3.AvailableTime)
 		If Rune4.AvailableTime > T And Rune4.death = True	Then bArray.Add(Rune4.AvailableTime)
 		If Rune5.AvailableTime > T And Rune5.death = True	Then bArray.Add(Rune5.AvailableTime)

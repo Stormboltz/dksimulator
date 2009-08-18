@@ -25,6 +25,7 @@ Public Partial Class MainForm
 		sim.loadtemplate (GetFilePath(CmbTemplate.SelectedItem.ToString))
 		Catch
 			msgbox("Could not determine template. Please reselect it.")
+			exit function
 		End try
 		
 		If sim.rotate Then
@@ -32,16 +33,19 @@ Public Partial Class MainForm
 				sim.rotationPath = GetFilePath( cmbRotation.SelectedItem.ToString)
 			Catch
 				msgbox("Could not determine Rotation file. Please reselect it.")
+				exit function
 			End try
 		Else
 			try
 				sim.loadPriority (GetFilePath(CmbPrio.SelectedItem.ToString))
 			Catch
 				msgbox("Could not determine Priority file. Please reselect it.")
+				exit function
 			End try
 		End If
 		SaveEPOptions()
 		SaveBuffOption()
+		return true
 	End Function
 	
 	Sub SaveBuffOption
@@ -155,7 +159,7 @@ Public Partial Class MainForm
 	End Sub
 	
 	Sub Button1Click(sender As Object, e As EventArgs)
-		LoadBeforeSim
+		if LoadBeforeSim = false then exit sub
 		me.tabControl1.SelectedIndex = 1
 		sim.start(PBsim,txtSimtime.Text,me)
 	End Sub
@@ -167,7 +171,7 @@ Public Partial Class MainForm
 			if ret = MsgBoxResult.Cancel then exit sub
 		End If
 		chkLissage.Checked	= true
-		LoadBeforeSim
+		if LoadBeforeSim = false then exit sub
 		me.tabControl1.SelectedIndex = 1
 		sim.startEP(PBsim,True,txtSimtime.Text,me)
 	End Sub
