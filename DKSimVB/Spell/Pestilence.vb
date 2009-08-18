@@ -43,6 +43,7 @@ Friend Module Pestilence
 		RunicPower.add (10)
 		
 		If glyph.Disease Then
+			debug.Print ("PEST!")
 			If BloodPlague.FadeAt > T Then
 				BloodPlague.FadeAt = T + 1500 + 300 * talentunholy.Epidemic
 				'BloodPlague.nextTick = T + 300
@@ -58,11 +59,19 @@ Friend Module Pestilence
 		Dim tmp1 As Long
 		Dim tmp2 As Long
 		
-		If runes.AnyBlood(T) Then
+		If runes.Bloodonly(T) Then
 			tmp1 = math.Min(BloodPlague.FadeAt,FrostFever.FadeAt)
-			if tmp1 < T then return false
-			'if tmp1 - T > 1000 then return false
-			'debug.Print (RuneState)
+			If tmp1 < T Then 
+				return false
+			End If
+			
+'			debug.Print ("BP = " & BloodPlague.FadeAt)
+'			debug.Print ("BP = " & FrostFever.FadeAt)
+			If BloodPlague.FadeAt <> FrostFever.FadeAt Then
+				return true
+			End If
+			If tmp1 - T > 1100 Then Return False
+			debug.Print (RuneState & "time left on disease= " & (tmp1-T)/100 & "s" & " - " & T)
 			tmp2 = runes.GetNextBloodCD(t)
 			If tmp2 > tmp1 or tmp2=0 Then
 				return true
