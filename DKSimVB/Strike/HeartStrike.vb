@@ -58,7 +58,7 @@ Friend Module HeartStrike
 		if sigils.HauntedDreams then
 			RNG = Rnd
 			if RNG <= 0.15 then
-				HauntedDreamsFade = T+1000
+				HauntedDreamsFade = T + 10 * 100
 			end if
 		end if
 		RNG = Rnd
@@ -71,7 +71,6 @@ Friend Module HeartStrike
 			TryMirror()
 			TryPyrite()
 			TryOldGod()
-			
 		Else
 			HitCount = HitCount + 1
 			dégat =  AvrgNonCrit(T)
@@ -100,13 +99,13 @@ Friend Module HeartStrike
 		TryT92PDPS
 		TryMjolRune
 		TryGrimToll
-						TryGreatness()
-TryDeathChoice()
-TryDCDeath()
-TryVictory()
-TryBandit()
-TryDarkMatter()
-TryComet()
+		TryGreatness()
+		TryDeathChoice()
+		TryDCDeath()
+		TryVictory()
+		TryBandit()
+		TryDarkMatter()
+		TryComet()
 		
 		return true
 	End Function
@@ -127,7 +126,6 @@ TryComet()
 		tmp = tmp * MainStat.StandardPhysicalDamageMultiplier(T)
 		AvrgNonCrit = tmp
 	End Function
-	
 	Function CritCoef() As Double
 		CritCoef = 1* (1 + TalentBlood.MightofMograine * 15 / 100)
 		CritCoef = CritCoef * (1+0.06*mainstat.CSD)

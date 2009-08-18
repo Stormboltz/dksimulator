@@ -358,9 +358,9 @@ Friend Module MainStat
 	End Function
 	Function ArmorPen As Double
 		Dim tmp As Double
-		tmp = character.ArmorPenetrationRating/1539
+		tmp = character.ArmorPenetrationRating / 15.39
 		tmp = tmp *1.25
-		return tmp
+		return tmp / 100
 	End Function
 	Function ArmorMitigation() As Double
 		Dim tmp As Double
@@ -441,7 +441,7 @@ Friend Module MainStat
 		tmp = tmp * (1 + 0.02 * TalentUnholy.BoneShield)
 		tmp = tmp * (1 + 0.02 * TalentBlood.BloodGorged)
 		
-		tmp = tmp * MainStat.getMitigation
+		tmp = tmp * getMitigation
 		tmp = tmp * (1 + 0.04 * Buff.PhysicalVuln)
 		tmp = tmp * (1 + 0.02 * TalentBlood.BloodyVengeance)
 		if Hysteria.IsActive(T) then tmp = tmp * 1.2
@@ -457,7 +457,7 @@ Friend Module MainStat
 		tmp = tmp * (1 + 0.02 * TalentUnholy.BoneShield)
 		tmp = tmp * (1 + 0.02 * TalentBlood.BloodGorged)
 		
-		tmp = tmp * MainStat.getMitigation
+		tmp = tmp * getMitigation
 		tmp = tmp * (1 + 0.04 * Buff.PhysicalVuln)
 		tmp = tmp * (1 + 0.02 * TalentBlood.BloodyVengeance)
 		If Hysteria.IsActive(T) Then tmp = tmp * 1.2

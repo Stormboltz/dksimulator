@@ -296,7 +296,6 @@ Friend Module Sim
 		WriteReport ("")
 		skipSets:
 		
-		
 		If  doc.SelectSingleNode("//config/Trinket").InnerText.Contains("True") Then
 			sReport = sReport & StartEPTrinket(pb,True, simTime, Mainfrm)
 		End If
@@ -819,6 +818,7 @@ Friend Module Sim
 		Dim tmp2 As Double
 		dim sReport as String
 		
+		'
 		EPStat="NoTrinket"
 		Start(pb,SimTime,MainFrm)
 		BaseDPS = DPS
@@ -830,13 +830,12 @@ Friend Module Sim
 		APDPS = DPS
 		WriteReport ("Average for " & EPStat & " | " & DPS)
 		
-
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
 		doc.Load("EPconfig.xml")
 		Dim trinketsList As Xml.XmlNode
 		dim tNode as Xml.XmlNode
 		trinketsList = doc.SelectsingleNode("//config/Trinket")
-
+		
 		For Each tNode In trinketsList.ChildNodes
 			If tNode.InnerText = "True" Then
 				EPStat= tNode.Name.Replace("chkEP","")
@@ -845,16 +844,12 @@ Friend Module Sim
 				tmp2 = (DPS-BaseDPS)/ 100
 				sReport = sReport +  ("<tr><td>EP:" & " | "& EPStat & " | " & int (10000*tmp2/tmp1)) & "</td></tr>"
 				WriteReport ("Average for " & EPStat & " | " & DPS)
+			Else
+				WriteReport ("Average for " & EPStat & " | 0")
 			End If
 		Next
 		return sReport
 	End Function
-	
-	
-	
-	
-	
-	
 	
 	Sub initReport
 		Dim Tw As System.IO.TextWriter
