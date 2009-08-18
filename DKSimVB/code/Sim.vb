@@ -890,6 +890,7 @@ Friend Module Sim
 		
 		'Init
 		Initialisation
+		Pestilence.init
 		proc.init
 		trinket.init
 		Character.initialisation

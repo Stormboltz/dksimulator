@@ -1,5 +1,5 @@
 <Talents>
-  <URL>http://talent.mmo-champion.com/?deathknight=2305020530003303231123001351000000000000000000000000000002302203050030000000000000000000&amp;glyph=000000000000&amp;version=10048</URL>
+  <URL>http://talent.mmo-champion.com/?deathknight=2305020530003303231123001351000000000000000000000000000002302303040030000000000000000000&amp;glyph=080610000000</URL>
   <Butchery>2</Butchery>
   <Subversion>3</Subversion>
   <BladeBarrier>0</BladeBarrier>
@@ -61,11 +61,11 @@
   <Virulence>3</Virulence>
   <Anticipation>0</Anticipation>
   <Epidemic>2</Epidemic>
-  <Morbidity>2</Morbidity>
+  <Morbidity>3</Morbidity>
   <UnholyCommand>0</UnholyCommand>
   <RavenousDead>3</RavenousDead>
   <Outbreak>0</Outbreak>
-  <Necrosis>5</Necrosis>
+  <Necrosis>4</Necrosis>
   <CorpseExplosion>0</CorpseExplosion>
   <PaleHorse>0</PaleHorse>
   <BloodCakedBlade>3</BloodCakedBlade>

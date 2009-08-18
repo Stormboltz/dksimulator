@@ -11,6 +11,13 @@ Friend Module Pestilence
 	Friend HitCount As Integer
 	Friend MissCount As Integer
 	
+	
+	Sub init()
+		TotalHit = 0
+		HitCount = 0
+		MissCount = 0
+	End Sub
+	
 	Function use(T As double) As Boolean
 		Dim RNG As Double
 		Sim.NextFreeGCD = T + (150 / (1 + MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
@@ -56,7 +63,7 @@ Friend Module Pestilence
 			tmp1 = math.Min(BloodPlague.FadeAt,FrostFever.FadeAt)
 			if tmp1 < T then return false
 			if tmp1 - T > 1000 then return false
-			debug.Print (RuneState)
+			'debug.Print (RuneState)
 			tmp2 = runes.GetNextBloodCD(t)
 			If tmp2 > tmp1 or tmp2=0 Then
 				return true

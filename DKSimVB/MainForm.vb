@@ -28,9 +28,17 @@ Public Partial Class MainForm
 		End try
 		
 		If sim.rotate Then
-			sim.rotationPath = GetFilePath( cmbRotation.SelectedItem.ToString)
+			try
+				sim.rotationPath = GetFilePath( cmbRotation.SelectedItem.ToString)
+			Catch
+				msgbox("Could not determine Rotation file. Please reselect it.")
+			End try
 		Else
-			sim.loadPriority (GetFilePath(CmbPrio.SelectedItem.ToString))
+			try
+				sim.loadPriority (GetFilePath(CmbPrio.SelectedItem.ToString))
+			Catch
+				msgbox("Could not determine Priority file. Please reselect it.")
+			End try
 		End If
 		SaveEPOptions()
 		SaveBuffOption()
