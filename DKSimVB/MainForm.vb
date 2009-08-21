@@ -368,6 +368,7 @@ Public Partial Class MainForm
 		cmbRuneOH.Items.Add("Cinderglacier")
 		cmbRuneOH.Items.Add("Razorice")
 		cmbRuneOH.Items.Add("FallenCrusader")
+		cmbRuneOH.Items.Add("Berserking")
 		sim.PetFriendly = True
 		
 		
@@ -468,7 +469,9 @@ Public Partial Class MainForm
 	Sub CmbRuneOHSelectedIndexChanged(sender As Object, e As EventArgs)
 		RuneForge.OHCinderglacier = False
 		RuneForge.OHFallenCrusader = false
-		RuneForge.OHRazorice = false
+		RuneForge.OHRazorice = False
+		Runeforge.OHBerserking = False
+		
 		Select Case cmbRuneOH.SelectedItem.ToString
 			Case "Cinderglacier"
 				RuneForge.OHCinderglacier = true
@@ -476,7 +479,9 @@ Public Partial Class MainForm
 				RuneForge.OHFallenCrusader = true
 			Case "Razorice"
 				RuneForge.OHRazorice = True
-		end select
+			Case "Berserking"
+				Runeforge.OHBerserking = True
+			end select
 	End Sub
 	
 	Sub ChkCombatLogCheckedChanged(sender As Object, e As EventArgs)

@@ -124,6 +124,7 @@ TryComet()
 				total = total + dégat
 				TryOHCinderglacier
 				TryOHFallenCrusader
+				TryOHBerserking
 				TryMjolRune
 				TryGrimToll
 				TryGreatness()

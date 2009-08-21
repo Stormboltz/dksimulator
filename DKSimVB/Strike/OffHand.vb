@@ -95,6 +95,7 @@ Friend module OffHand
 		
 		If OHRazorice Then applyRazorice()
 		TryOHCinderglacier
+		TryOHBerserking
 		TryOHFallenCrusader
 		TryMjolRune
 		TryGrimToll

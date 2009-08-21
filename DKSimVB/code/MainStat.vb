@@ -198,6 +198,7 @@ Friend Module MainStat
 		If OldgodFade > sim.TimeStamp Then tmp = tmp + 1284
 		If pyriteFade > sim.TimeStamp Then tmp = tmp + 1234
 		If victoryFade > sim.TimeStamp Then tmp = tmp + 1008
+		If RuneForge.OHBerserkingActiveUntil > sim.TimeStamp Then tmp = tmp + 400
 		
 		'Why +220 ?
 		tmp = (tmp + Character.Strength * 2 + Character.AttackPower + 550) * (1 + Buff.AttackPowerPc / 10)

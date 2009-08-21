@@ -145,6 +145,7 @@ TryComet()
 				if Lissage then dégat = AvrgCrit(T,false)*ccT + AvrgNonCrit(T,false)*(1-ccT )
 				total = total + dégat
 				TryOHCinderglacier
+				TryOHBerserking
 				TryOHFallenCrusader
 				TryMjolRune
 				TryGrimToll

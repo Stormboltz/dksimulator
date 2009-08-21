@@ -22,8 +22,11 @@ Friend Module RuneForge
 	
 	Friend HitCount as Integer
 	Friend MissCount as Integer
-	Friend CritCount as Integer
+	Friend CritCount As Integer
 	
+	
+	Friend OHBerserkingActiveUntil As Long
+	Friend OHBerserking as Boolean
 	
 	Sub init
 		HitCount = 0
@@ -33,6 +36,8 @@ Friend Module RuneForge
 		CinderglacierProc = 0
 		RazoriceProc = 0
 		RazoriceTotal = 0
+		OHBerserkingActiveUntil = 0
+		
 	End Sub
 	
 	Function applyRazorice() as Boolean
@@ -60,6 +65,14 @@ Friend Module RuneForge
 			If Rnd < 2*MainStat.OHWeaponSpeed/60 Then
 				FallenCrusaderActiveUntil = sim.TimeStamp + 15 * 100
 				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Fallen Crusader proc on Off hand")
+			End If
+		End If
+	End Sub
+	Sub TryOHBerserking()
+		If OHBerserking Then
+			If Rnd < 1.2*MainStat.OHWeaponSpeed/60 Then
+				OHBerserkingActiveUntil = sim.TimeStamp + 15 * 100
+				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Berserking proc on Off hand")
 			End If
 		End If
 	End Sub
