@@ -3,7 +3,7 @@
 ' User: e0030653
 ' Date: 01/04/2009
 ' Time: 15:33
-' 
+'
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
 Friend Module Pestilence
@@ -35,7 +35,7 @@ Friend Module Pestilence
 		combatlog.write(T  & vbtab &  "Pestilence")
 		HitCount = HitCount +1
 		
-		If TalentFrost.BloodoftheNorth = 3 Or TalentUnholy.Reaping = 3 Then 
+		If TalentFrost.BloodoftheNorth = 3 Or TalentUnholy.Reaping = 3 Then
 			runes.UseBlood(T,True)
 		Else
 			runes.UseBlood(T,False)
@@ -43,7 +43,7 @@ Friend Module Pestilence
 		RunicPower.add (10)
 		
 		If glyph.Disease Then
-			debug.Print ("PEST!")
+			debug.Print ("PEST! at " & T )
 			If BloodPlague.FadeAt > T Then
 				BloodPlague.FadeAt = T + 1500 + 300 * talentunholy.Epidemic
 				'BloodPlague.nextTick = T + 300
@@ -59,9 +59,10 @@ Friend Module Pestilence
 		Dim tmp1 As Long
 		Dim tmp2 As Long
 		
-		If runes.Bloodonly(T) Then
+		If runes.AnyBlood(T) Then
 			tmp1 = math.Min(BloodPlague.FadeAt,FrostFever.FadeAt)
-			If tmp1 < T Then 
+			debug.Print (RuneState & "time left on disease= " & (tmp1-T)/100 & "s" & " - " & T/100)
+			If tmp1 < T Then
 				return false
 			End If
 			
@@ -70,14 +71,38 @@ Friend Module Pestilence
 			If BloodPlague.FadeAt <> FrostFever.FadeAt Then
 				return true
 			End If
-			If tmp1 - T > 1100 Then Return False
-			debug.Print (RuneState & "time left on disease= " & (tmp1-T)/100 & "s" & " - " & T)
+			
+			If tmp1 - T > 1000 Then Return False
+			'debug.Print (RuneState & "time left on disease= " & (tmp1-T)/100 & "s" & " - " & T/100)
 			tmp2 = runes.GetNextBloodCD(t)
+			debug.Print (RuneState & "Next blood in " & (tmp2-T)/100 & "s" )
 			If tmp2 > tmp1 or tmp2=0 Then
 				return true
 			End If
+		Else
+			t=t
 		End If
 	End Function
+	Function CanUseGCD(T As Long) As Boolean
+		CanUseGCD=true
+		If glyph.Disease Then 
+			dim tGDC as long
+			'return false
+			If MainStat.UnholyPresence Then
+				tGDC = 100+ sim._MainFrm.txtLatency.Text/10 + 50
+			Else
+				tGDC =  150+ sim._MainFrm.txtLatency.Text/10 + 50
+			End If
+			
+			If math.Min(BloodPlague.FadeAt,FrostFever.FadeAt) < (T +  tGDC) Then 
+				'debug.Print (RuneState & "time left on disease= " & (math.Min(BloodPlague.FadeAt,FrostFever.FadeAt) -T)/100 & "s" & " - " & T/100)
+				return false
+			End If
+		End If
+	End Function
+	
+	
+	
 	Function report As String
 		Dim tmp As String
 		Dim total As String

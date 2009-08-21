@@ -62,8 +62,8 @@ Friend module IcyTouch
 		proc.KillingMachine  = False
 		FrostFever.Apply(T)
 		TryGreatness()
-TryDeathChoice()
-TryDCDeath()
+		TryDeathChoice()
+		TryDCDeath()
 		return true
 	End Function
 	Function AvrgNonCrit(T As long) As Double

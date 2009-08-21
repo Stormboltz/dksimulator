@@ -11,7 +11,12 @@ Public Module Horn
 	Friend HitCount As Integer
 	
 	Friend cd As Long
-	Function isAvailable(T as Long) as Boolean
+	Function isAvailable(T As Long) As Boolean
+		If RunicPower.Value + 20 >= RunicPower.MaxValue Then Return False
+		If glyph.Disease Then 
+			'return false
+			'if math.Min(BloodPlague.FadeAt,FrostFever.FadeAt) < T + 500 then return false
+		End If
 		If cd <= T Then Return True
 	End Function
 	

@@ -32,6 +32,7 @@ Friend module BloodPlague
 	End Function
 	
 	Function Apply(T As Long) As Boolean
+		If glyph.Disease Then debug.Print (RuneState & "time left on BP= " & (FadeAt-T)/100 & "s" & " - " & T/100)
 		BloodPlague.FadeAt = T + 1500 + 300 * talentunholy.Epidemic
 		BloodPlague.nextTick = T + 300
 		AP = MainStat.AP

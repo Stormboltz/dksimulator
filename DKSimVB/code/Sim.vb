@@ -151,7 +151,7 @@ Friend Module Sim
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS) / sim.EPBase
 			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & int (-100*tmp2/tmp1)) & "</td></tr>"
-			WriteReport ("Average for " & EPStat & " | " & (BaseDPS-DPS)+DPS)
+			WriteReport ("Average for " & EPStat & " | " & DPS)
 		Else
 			WriteReport ("Average for ExpertiseRating | 0")
 		End If
@@ -163,7 +163,7 @@ Friend Module Sim
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS) / sim.EPBase
 			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & int (-100*tmp2/tmp1)) & "</td></tr>"
-			WriteReport ("Average for " & EPStat & " | " & (BaseDPS-DPS)+DPS)
+			WriteReport ("Average for " & EPStat & " | " & DPS)
 		Else
 			WriteReport ("Average for HitRating | 0")
 		End If
@@ -929,7 +929,7 @@ Friend Module Sim
 				
 				if TalentBlood.DRW = 1 then
 					If Sim.isInGCD(TimeStamp) = False Then
-						If DRW.cd < TimeStamp and RunicPower.Value  >= 60 Then
+						If DRW.cd < TimeStamp And RunicPower.Value  >= 60 and CanUseGCD(TimeStamp) Then
 							DRW.Summon(TimeStamp)
 						End If
 					End If
@@ -945,7 +945,7 @@ Friend Module Sim
 				If sim.PetFriendly Then
 					If talentunholy.SummonGargoyle = 1 Then
 						If Sim.isInGCD(TimeStamp) = False Then
-							If Gargoyle.cd < TimeStamp and RunicPower.Value >= 60 Then
+							If Gargoyle.cd < TimeStamp and RunicPower.Value >= 60 and CanUseGCD(TimeStamp) Then
 								Gargoyle.Summon(TimeStamp)
 							end if
 						End If
@@ -971,7 +971,7 @@ Friend Module Sim
 				
 				If sim.PetFriendly Then
 					If Sim.isInGCD(TimeStamp) = False Then
-						If Ghoul.ActiveUntil < TimeStamp and Ghoul.cd < TimeStamp Then
+						If Ghoul.ActiveUntil < TimeStamp and Ghoul.cd < TimeStamp and CanUseGCD(TimeStamp) Then
 							Ghoul.Summon(TimeStamp)
 						end if
 					End If
@@ -993,7 +993,7 @@ Friend Module Sim
 			End If
 			
 			If Sim.isInGCD(TimeStamp) = False Then
-				If horn.isAvailable(TimeStamp) Then
+				If horn.isAvailable(TimeStamp) and CanUseGCD(TimeStamp) Then
 					horn.use(TimeStamp)
 				end if
 			End If
@@ -1238,76 +1238,76 @@ Friend Module Sim
 					
 					
 				Case "GhoulFrenzy"
-					if ghoul.IsFrenzyAvailable(Timestamp) Then
+					if ghoul.IsFrenzyAvailable(Timestamp) and CanUseGCD(Timestamp)  Then
 						ghoul.Frenzy(Timestamp)
 						exit sub
 					end if
 					
 				Case "ScourgeStrike"
-					If runes.FU(TimeStamp) = True Then
+					If runes.FU(TimeStamp) = True and CanUseGCD(Timestamp)  Then
 						ScourgeStrike.ApplyDamage(TimeStamp)
 						'debug.Print("SS")
 						exit sub
 					End If
 				Case "PlagueStrike"
-					If runes.Unholy(TimeStamp) Then
+					If runes.Unholy(TimeStamp) and CanUseGCD(Timestamp) Then
 						PlagueStrike.ApplyDamage(TimeStamp)
 						'debug.Print("PS")
 						exit sub
 					End If
 				Case "DRMObliterate"
-					If runes.DRMFU(TimeStamp) = True Then
+					If runes.DRMFU(TimeStamp) = True and CanUseGCD(Timestamp) Then
 						Obliterate.ApplyDamage(TimeStamp)
 						'debug.Print("OB")
 						exit sub
 					End If
 				Case "Obliterate"
-					If runes.FU(TimeStamp) = True Then
+					If runes.FU(TimeStamp) = True and CanUseGCD(Timestamp) Then
 						Obliterate.ApplyDamage(TimeStamp)
 						'debug.Print("OB")
 						exit sub
 					End If
 					
 				Case "KMFrostStrike"
-					If FrostStrike.isAvailable(TimeStamp) = True and proc.KillingMachine Then
+					If FrostStrike.isAvailable(TimeStamp) = True and proc.KillingMachine and CanUseGCD(Timestamp)  Then
 						FrostStrike.ApplyDamage(TimeStamp)
 						'debug.Print("FS")
 						exit sub
 					End If
 				Case "FrostStrike"
-					If FrostStrike.isAvailable(TimeStamp) = True Then
+					If FrostStrike.isAvailable(TimeStamp) = True and CanUseGCD(Timestamp) Then
 						FrostStrike.ApplyDamage(TimeStamp)
 						'debug.Print("FS")
 						exit sub
 					End If
 					
 				Case "FrostStrikeMaxRp"
-					If RunicPower.MaxValue = RunicPower.Value  Then
+					If RunicPower.MaxValue = RunicPower.Value and CanUseGCD(Timestamp)  Then
 						FrostStrike.ApplyDamage(TimeStamp)
 						'debug.Print("FS")
 						exit sub
 					End If
 					
 				Case "DeathStrike"
-					If runes.FU(TimeStamp) Then
+					If runes.FU(TimeStamp) and CanUseGCD(Timestamp) Then
 						DeathStrike.ApplyDamage(TimeStamp)
 						'debug.Print("BS")
 						exit sub
 					End If
 				Case "BloodStrike"
-					If runes.Blood(TimeStamp) Then
+					If runes.Blood(TimeStamp) and CanUseGCD(Timestamp) Then
 						BloodStrike.ApplyDamage(TimeStamp)
 						'debug.Print("BS")
 						exit sub
 					End If
 				Case "HeartStrike"
-					If runes.Blood(TimeStamp) = True Then
+					If runes.Blood(TimeStamp) = True and CanUseGCD(Timestamp) Then
 						Heartstrike.ApplyDamage(TimeStamp)
 						'debug.Print("HS")
 						exit sub
 					End If
 				Case "Rime"
-					If proc.rime and HowlingBlast.isAvailable(TimeStamp) Then
+					If proc.rime and HowlingBlast.isAvailable(TimeStamp) and CanUseGCD(Timestamp) Then
 						HowlingBlast.ApplyDamage(TimeStamp)
 						exit sub
 					End If
@@ -1315,55 +1315,80 @@ Friend Module Sim
 					If glyph.Disease Then
 						if Pestilence.PerfectUsage(TimeStamp) then
 							Pestilence.use(TimeStamp)
-							exit sub
+							Exit Sub
+						Else
+							If FrostFever.isActive(TimeStamp) = False Then
+								If talentfrost.HowlingBlast = 1 And glyph.HowlingBlast And HowlingBlast.isAvailable(TimeStamp)  Then
+									If proc.rime Or runes.FU(TimeStamp) Then
+										HowlingBlast.ApplyDamage(TimeStamp)
+										exit sub
+									End If
+								end if
+								if runes.Frost(TimeStamp) = True Then
+									IcyTouch.ApplyDamage(TimeStamp)
+									Exit Sub
+								End If
+							End If
+						End If
+					Else
+						If FrostFever.isActive(TimeStamp + 150) = False Then
+							If talentfrost.HowlingBlast = 1 And glyph.HowlingBlast And HowlingBlast.isAvailable(TimeStamp)  Then
+								If proc.rime Or runes.FU(TimeStamp) Then
+									HowlingBlast.ApplyDamage(TimeStamp)
+									exit sub
+								End If
+							end if
+							if runes.Frost(TimeStamp) = True Then
+								IcyTouch.ApplyDamage(TimeStamp)
+								Exit Sub
+							End If
 						End If
 					End If
 					
-					If FrostFever.isActive(TimeStamp + 150) = False Then
-						If talentfrost.HowlingBlast = 1 And glyph.HowlingBlast And HowlingBlast.isAvailable(TimeStamp)  Then
-							If proc.rime Or runes.FU(TimeStamp) Then
-								HowlingBlast.ApplyDamage(TimeStamp)
-								exit sub
-							End If
-						end if
-						if runes.Frost(TimeStamp) = True Then
-							IcyTouch.ApplyDamage(TimeStamp)
-							Exit Sub
-						End If
-					End If
+					
 				Case "BloodPlague"
 					If glyph.Disease Then
 						if Pestilence.PerfectUsage(TimeStamp) then
 							Pestilence.use(TimeStamp)
-							exit sub
+							Exit Sub
+						Else
+							If BloodPlague.isActive(TimeStamp) = False then
+								If runes.Unholy(TimeStamp) = True Then
+									PlagueStrike.ApplyDamage(TimeStamp)
+									exit sub
+								End If
+							End If
 						End If
-					End If
-					If BloodPlague.isActive(TimeStamp + 150) = False then
-						If runes.Unholy(TimeStamp) = True Then
-							PlagueStrike.ApplyDamage(TimeStamp)
-							exit sub
+						
+					Else
+						
+						If BloodPlague.isActive(TimeStamp + 150) = False then
+							If runes.Unholy(TimeStamp) = True Then
+								PlagueStrike.ApplyDamage(TimeStamp)
+								exit sub
+							End If
 						End If
 					End If
 				Case "IcyTouch"
-					If runes.Frost(TimeStamp) = True Then
+					If runes.Frost(TimeStamp) = True and CanUseGCD(Timestamp) Then
 						IcyTouch.ApplyDamage(TimeStamp)
 						exit sub
 					End If
 					
 				Case "DeathCoilMaxRp"
-					If RunicPower.MaxValue = RunicPower.Value Then
+					If RunicPower.MaxValue = RunicPower.Value and CanUseGCD(Timestamp) Then
 						deathcoil.ApplyDamage(TimeStamp,False)
 						'debug.Print("DC")
 						exit sub
 					End If
 				Case "DeathCoil"
-					If deathcoil.isAvailable(TimeStamp) = True Then
+					If deathcoil.isAvailable(TimeStamp) = True and CanUseGCD(Timestamp) Then
 						deathcoil.ApplyDamage(TimeStamp,False)
 						'debug.Print("DC")
 						exit sub
 					End If
 				Case "BloodBoil"
-					If runes.Blood(TimeStamp) = True Then
+					If runes.Blood(TimeStamp) = True and CanUseGCD(Timestamp) Then
 						BloodBoil.ApplyDamage(TimeStamp)
 						exit sub
 					End If
@@ -1371,7 +1396,7 @@ Friend Module Sim
 					
 				Case "HowlingBlast"
 					If HowlingBlast.isAvailable(TimeStamp) Then
-						If proc.rime Or runes.FU(TimeStamp) Then
+						If proc.rime Or runes.FU(TimeStamp) and CanUseGCD(Timestamp)  Then
 							HowlingBlast.ApplyDamage(TimeStamp)
 							runes.UnReserveFU(TimeStamp)
 							Exit Sub
@@ -1382,7 +1407,7 @@ Friend Module Sim
 					End If
 				Case "KMHowlingBlast"
 					If HowlingBlast.isAvailable(TimeStamp) and proc.KillingMachine Then
-						If proc.rime Or runes.FU(TimeStamp) Then
+						If proc.rime Or runes.FU(TimeStamp) and CanUseGCD(Timestamp) Then
 							HowlingBlast.ApplyDamage(TimeStamp)
 							runes.UnReserveFU(TimeStamp)
 							Exit Sub
@@ -1392,12 +1417,12 @@ Friend Module Sim
 					Else
 					End If
 				Case "KMRime"
-					If Proc.Rime and proc.KillingMachine Then
+					If Proc.Rime and proc.KillingMachine and CanUseGCD(Timestamp)  Then
 						HowlingBlast.ApplyDamage(TimeStamp)
 					Else
 					End If
 				Case "DeathandDecay"
-					If DeathAndDecay.isAvailable(TimeStamp) Then
+					If DeathAndDecay.isAvailable(TimeStamp) and CanUseGCD(Timestamp) Then
 						DeathAndDecay.Apply(TimeStamp)
 						Exit Sub
 					End If
@@ -1635,7 +1660,7 @@ Friend Module Sim
 		dim STmp as string
 		For i=0 To myArray.Count -1
 			tot = (myArray.Item(myArray.Count-1-i))
-
+			
 			If MainHand.total = tot Then
 				STmp = MainHand.report
 				STmp = replace(STmp,vbtab,"</td><td>")
@@ -1792,16 +1817,16 @@ Friend Module Sim
 			
 		Next
 		If Horn.HitCount <> 0 Then
-				STmp = Horn.report
-				STmp = replace(STmp,vbtab,"</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			End If
+			STmp = Horn.report
+			STmp = replace(STmp,vbtab,"</td><td>")
+			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+		End If
 		If Pestilence.HitCount <> 0 Then
-				STmp = Pestilence.report
-				STmp = replace(STmp,vbtab,"</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-		End If	
-			
+			STmp = Pestilence.report
+			STmp = replace(STmp,vbtab,"</td><td>")
+			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+		End If
+		
 		sTmp = ""
 		if EPStat <> "" then STmp =  "<tr><td COLSPAN=8>EP Stat <b>" &  EPStat & "</b></td></tr>"
 		STmp = sTmp &  "<tr><td COLSPAN=8>DPS" & VBtab & "<b>" &  DPS & "</b></td></tr>"
