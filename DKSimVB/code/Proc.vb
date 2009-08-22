@@ -15,7 +15,7 @@ Friend Module Proc
 	Friend ScentOfBloodProc as Integer
 	Friend VirulenceFade as Integer
 	Friend T92PDPSFAde As Integer
-	
+	Friend T92PDPSCd As Long
 	
 	Sub init
 		Proc.Rime = False
@@ -23,6 +23,7 @@ Friend Module Proc
 		ScentOfBlood = 0
 		VirulenceFade = 0
 		T92PDPSFAde = 0
+		T92PDPSCd = 0
 		MjolRuneFade = 0
 		MjolRuneCd = 0
 		GrimTollFade = 0
@@ -40,9 +41,10 @@ Friend Module Proc
 	
 	
 	Sub TryT92PDPS()
-		If SetBonus.T92PDPS = 0 Then Exit Sub
+		If SetBonus.T92PDPS = 0 Or T92PDPSCd > sim.TimeStamp Then Exit Sub
 		If Rnd <= 0.5 Then
 			T92PDPSFAde = sim.TimeStamp + 15 * 100
+			T92PDPSCd = sim.TimeStamp + 45 * 100
 		End If
 	End Sub
 	
