@@ -60,6 +60,7 @@
     <Compile Include="code\glyph.vb" />
     <Compile Include="code\priority.vb" />
     <Compile Include="code\Proc.vb" />
+    <Compile Include="code\RandomNumberGenerator.vb" />
     <Compile Include="code\Rotation.vb" />
     <Compile Include="code\RuneForge.vb">
     </Compile>
@@ -117,7 +118,6 @@
     <Compile Include="Spell\Pestilence.vb" />
     <Compile Include="Spell\UA.vb" />
     <Compile Include="Spell\UnholyBlight.vb" />
-    <Compile Include="Spell\UnholyBlightDepricated.vb" />
     <Compile Include="Spell\WanderingPlague.vb" />
     <Compile Include="Strike\BloodCakedBlade.vb" />
     <Compile Include="Strike\BloodStrike.vb" />

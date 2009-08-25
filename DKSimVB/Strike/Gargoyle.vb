@@ -48,7 +48,7 @@ Function ApplyDamage(T As long) As boolean
 	'Debug.Print( (2 * 100) / (1 + SpellHaste) )
 	Dim RNG As Double
 	
-	RNG = Rnd
+	RNG = RNGPet
 	If SpellHit >= 0.17 Then
 		RNG = RNG+0.17
 	Else
@@ -60,7 +60,7 @@ Function ApplyDamage(T As long) As boolean
 		Exit function
 	End If
 	
-	RNG = Rnd
+	RNG = RNGPet
 	dim dégat as Integer
 	If RNG <= CritChance Then
 		dégat = AvrgCrit(T)

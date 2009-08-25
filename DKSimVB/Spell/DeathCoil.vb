@@ -33,24 +33,17 @@ Friend module deathcoil
 			RunicPower.Value = RunicPower.Value - 40
 		End If
 		
-		RNG = Rnd
-		If mainstat.SpellHit >= 0.17 Then
-			RNG = RNG+0.17
-		Else
-			RNG = RNG+mainstat.SpellHit
-		End If
-		If RNG < 0.17 Then
+		If DoMySpell = false Then
 			combatlog.write(T  & vbtab &  "DC fail")
 			MissCount = MissCount + 1
 			Exit function
 		End If
 		
-		RNG = Rnd
+		RNG = RNGStrike
 		dim dégat as Integer
 		If RNG <= CritChance Then
 			CritCount = CritCount + 1
 			dégat= AvrgCrit(T)
-			
 			combatlog.write(T  & vbtab &  "DC crit for " & dégat & vbtab & "RP left = " & RunicPower.Value)
 		Else
 			dégat= AvrgNonCrit(T)

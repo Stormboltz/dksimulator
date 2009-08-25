@@ -31,37 +31,20 @@ Friend Module HeartStrike
 		Dim RNG As Double
 		
 		If Hysteria.IsAvailable(T) then Hysteria.use(T)
-		
-		RNG = Rnd
 		If MainStat.UnholyPresence Then
 			Sim.NextFreeGCD = T + 100 + sim._MainFrm.txtLatency.Text/10
 		Else
 			Sim.NextFreeGCD = T + 150 + sim._MainFrm.txtLatency.Text/10
 		End If
 		
-		If mainstat.Expertise >= 0.065 Then
-			RNG = RNG+0.065
-		Else
-			RNG=RNG + mainstat.Expertise
-		End If
-		If mainstat.Hit >= 0.08 Then
-			RNG = RNG+0.08
-		Else
-			RNG = RNG+mainstat.Hit
-		End If
-		If RNG < 0.145 Then
+		If DoMyStrikeHit = false Then
 			combatlog.write(T  & vbtab &  "HS fail")
 			MissCount = MissCount + 1
 			Exit function
 		End If
-		
-		if sigils.HauntedDreams then
-			RNG = Rnd
-			if RNG <= 0.15 then
-				HauntedDreamsFade = T + 10 * 100
-			end if
-		end if
-		RNG = Rnd
+		tryHauntedDreams()
+
+		RNG = RNGStrike
 		dim dégat as Integer
 		If RNG <= CritChance Then
 			CritCount = CritCount + 1
@@ -80,7 +63,7 @@ Friend Module HeartStrike
 		if Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
 		total = total + dégat
 		
-		RNG = Rnd
+		RNG = RNGStrike
 		If rng < 0.05*talentblood.SuddenDoom Then
 			deathcoil.ApplyDamage(T,true)
 		End If

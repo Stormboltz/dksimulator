@@ -3,7 +3,7 @@
 ' User: Fabien
 ' Date: 14/03/2009
 ' Time: 00:22
-' 
+'
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
 Friend Module Sigils
@@ -15,5 +15,15 @@ Friend Module Sigils
 	Friend Strife As Boolean ' PS -> +120 AP for 10s
 	Friend HauntedDreams As Boolean '15% chance on BS/HS to add 173 Crit Rating
 	Friend VengefulHeart As Boolean
-	Friend Virulence as Boolean
+	Friend Virulence As Boolean
+	
+	Sub TryHauntedDreams()
+		dim RNG as Double
+		if sigils.HauntedDreams then
+			RNG = RNGProc
+			if RNG <= 0.15 then
+				HauntedDreamsFade = T + 10 * 100
+			end if
+		End If
+	End Sub
 end Module

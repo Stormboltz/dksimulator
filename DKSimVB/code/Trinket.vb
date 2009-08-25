@@ -76,7 +76,7 @@ Public Module Trinket
 	'MjolRune
 	Sub TryMjolRune()
 		If MjolRune = 0 Or MjolRuneCd > sim.TimeStamp Then Exit Sub
-		If Rnd <= 0.15 Then
+		If RNGProc <= 0.15 Then
 			MjolRuneFade = sim.TimeStamp + 10 * 100
 			MjolRuneCd = sim.TimeStamp + 45 * 100
 		End If
@@ -85,7 +85,7 @@ Public Module Trinket
 	'GrimToll
 	Sub TryGrimToll()
 		If GrimToll = 0 Or GrimTollCd > sim.TimeStamp Then Exit Sub
-		If Rnd <= 0.15 Then
+		If RNGProc <= 0.15 Then
 			GrimTollFade = sim.TimeStamp + 10 * 100
 			GrimTollCd = sim.TimeStamp + 45 * 100
 		End If
@@ -94,7 +94,7 @@ Public Module Trinket
 	'BitterAnguish
 	Sub TryBitterAnguish()
 		If BitterAnguish = 0 Or BitterAnguishCd > sim.TimeStamp Then Exit Sub
-		If Rnd <= 0.10 Then
+		If RNGProc <= 0.10 Then
 			BitterAnguishFade = sim.TimeStamp + 10 * 100
 			BitterAnguishCd = sim.TimeStamp + 45 * 100
 		End If
@@ -105,7 +105,7 @@ Public Module Trinket
 	Friend MirrorCd As Integer
 	Sub TryMirror()
 		If Mirror = 0 Or MirrorCd > sim.TimeStamp Then Exit Sub
-		If Rnd <= 0.10 Then
+		If RNGProc <= 0.10 Then
 			MirrorFade = sim.TimeStamp + 10 * 100
 			MirrorCd = sim.TimeStamp + 45 * 100
 		End If
@@ -116,7 +116,7 @@ Public Module Trinket
 	Friend PyriteCd As Integer
 	Sub TryPyrite()
 		If Pyrite = 0 Or PyriteCd > sim.TimeStamp Then Exit Sub
-		If Rnd <= 0.10 Then
+		If RNGProc <= 0.10 Then
 			PyriteFade = sim.TimeStamp + 10 * 100
 			PyriteCd = sim.TimeStamp + 45 * 100
 		End If
@@ -127,7 +127,7 @@ Public Module Trinket
 	Friend OldGodCd As Integer
 	Sub TryOldGod()
 		If  OldGod = 0 Or OldGodCd > sim.TimeStamp Then Exit Sub
-		If Rnd <= 0.10 Then
+		If RNGProc <= 0.10 Then
 			OldGodFade = sim.TimeStamp + 10 * 100
 			OldGodCd = sim.TimeStamp + 45 * 100
 		End If
@@ -138,7 +138,7 @@ Public Module Trinket
 	Friend GreatnessCd As Integer
 	Sub TryGreatness()
 		If  Greatness= 0 Or GreatnessCd > sim.TimeStamp Then Exit Sub
-		If Rnd <= 0.35 Then
+		If RNGProc <= 0.35 Then
 			GreatnessFade = sim.TimeStamp + 15 * 100
 			GreatnessCd = sim.TimeStamp + 45 * 100
 		End If
@@ -149,7 +149,7 @@ Public Module Trinket
 	Friend DeathChoiceCd As Integer
 	Sub TryDeathChoice()
 		If DeathChoice = 0 Or DeathChoiceCd > sim.TimeStamp Then Exit Sub
-		If Rnd <= 0.35 Then
+		If RNGProc <= 0.35 Then
 			DeathChoiceFade = sim.TimeStamp + 15 * 100
 			DeathChoiceCd = sim.TimeStamp + 45 * 100
 		End If
@@ -160,7 +160,7 @@ Public Module Trinket
 	Friend VictoryCd As Integer
 	Sub TryVictory()
 		If Victory = 0 Or VictoryCd > sim.TimeStamp Then Exit Sub
-		If Rnd <= 0.20 Then
+		If RNGProc <= 0.20 Then
 			VictoryFade = sim.TimeStamp + 10 * 100
 			VictoryCd = sim.TimeStamp + 45 * 100
 		End If
@@ -171,7 +171,7 @@ Public Module Trinket
 	Friend DCDeathCd As Integer
 	Sub TryDCDeath()
 		If DCDeath = 0 Or DCDeathCd > sim.TimeStamp Then Exit Sub
-		If Rnd <= 0.15 Then
+		If RNGProc <= 0.15 Then
 			ApplyDamage(2000)
 			DCDeathCd = sim.TimeStamp + 45 * 100
 		End If
@@ -182,7 +182,7 @@ Public Module Trinket
 	Friend NecromanticCd As Integer
 	Sub TryNecromantic()
 		If  Necromantic= 0 Or NecromanticCd > sim.TimeStamp Then Exit Sub
-		If Rnd <= 0.10 Then
+		If RNGProc <= 0.10 Then
 			ApplyDamage(1050)
 			NecromanticCd = sim.TimeStamp + 15 * 100
 		End If
@@ -193,7 +193,7 @@ Public Module Trinket
 	Friend BanditCd As Integer
 	Sub TryBandit()
 		If Bandit = 0 Or BanditCd > sim.TimeStamp Then Exit Sub
-		If Rnd <= 0.15 Then
+		If RNGProc <= 0.15 Then
 			ApplyDamage(1880)
 			BanditCd =  sim.TimeStamp + 45 * 100
 		End If
@@ -204,7 +204,7 @@ Public Module Trinket
 	Friend DarkMatterCd As Integer
 	Sub TryDarkMatter()
 		If  DarkMatter= 0 Or DarkMatterCd > sim.TimeStamp Then Exit Sub
-		If Rnd <= 0.15 Then
+		If RNGProc <= 0.15 Then
 			DarkMatterFade = sim.TimeStamp + 10 * 100
 			DarkMatterCd = sim.TimeStamp + 45 * 100
 		End If
@@ -215,7 +215,7 @@ Public Module Trinket
 	Friend CometCd As Integer
 	Sub TryComet()
 		If Comet = 0 Or CometCd > sim.TimeStamp Then Exit Sub
-		If Rnd <= 0.15 Then
+		If RNGProc <= 0.15 Then
 			CometFade = sim.TimeStamp + 10 * 100
 			CometCd = sim.TimeStamp + 45 * 100
 		End If
@@ -242,12 +242,12 @@ Public Module Trinket
 	End Function
 	
 	Sub ApplyDamage(d As Integer)
-		If Rnd < (0.17 - MainStat.SpellHit) Then
+		If RNGProc < (0.17 - MainStat.SpellHit) Then
 			MissCount = MissCount + 1
 			Exit sub
 		End If
 		dim dégat as Integer
-		If Rnd <= MainStat.SpellCrit Then
+		If RNGProc <= MainStat.SpellCrit Then
 			CritCount = CritCount + 1
 			dégat= d*1.5 * MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
 		Else

@@ -44,23 +44,31 @@ Friend module MainHand
 		End If
 		
 		Dim RNG As Double
-		RNG = Rnd
+		RNG = RNGWhiteHit
 		MeleeGlacingChance = 0.25
 		MeleeDodgeChance = 0.065
-		If mainstat.Expertise > MeleeDodgeChance Then
+		
+		Dim tmpExp As Double
+		dim tmpHit as Double
+		
+		tmpExp = mainstat.Expertise
+		If tmpExp > MeleeDodgeChance Then
 			MeleeDodgeChance = 0
 		Else
-			MeleeDodgeChance = MeleeDodgeChance-mainstat.Expertise
+			MeleeDodgeChance = MeleeDodgeChance-tmpExp
 		End If
+		
 		If mainstat.DualW Then
 			MeleeMissChance = 0.27
 		Else
 			MeleeMissChance = 0.08
 		End If
-		If mainstat.Hit > MeleeMissChance Then
+		
+		tmpHit = mainstat.Hit
+		If tmpHit > MeleeMissChance Then
 			MeleeMissChance = 0
 		Else
-			MeleeMissChance = MeleeMissChance - mainstat.Hit
+			MeleeMissChance = MeleeMissChance - tmpHit
 		End If
 		
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
@@ -95,8 +103,10 @@ Friend module MainHand
 		If Lissage Then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance-MeleeGlacingChance) + AvrgNonCrit(T)* (MeleeGlacingChance)*0.7
 		total = total + dégat
 		
+		
+		
 		If Talentfrost.KillingMachine > 0 Then
-			RNG = Rnd
+			RNG = RNGWhiteHit
 			If RNG < (Talentfrost.KillingMachine)*MainStat.MHWeaponSpeed/60 Then
 				if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Killing Machine Proc")
 				proc.KillingMachine  = true
@@ -107,7 +117,7 @@ Friend module MainHand
 		If TalentUnholy.Necrosis > 0 Then
 			Nec = Necrosis.ApplyDamage(dégat, T)
 		End If
-		RNG = Rnd * 100
+		RNG = RNGWhiteHit * 100
 		If RNG <= 10 * TalentUnholy.BloodCakedBlade Then
 			BCB = BloodCakedBlade.ApplyDamage(T,true)
 		End If

@@ -51,7 +51,7 @@ Friend module FrostFever
 		If TalentUnholy.WanderingPlague > 0 Then
 			If WanderingPlague.isAvailable(T) = True Then
 				Dim RNG As Double
-				RNG = Rnd
+				RNG = RNGStrike
 				If RNG <= MainStat.crit Then
 					WanderingPlague.ApplyDamage(tmp, T)
 				End If

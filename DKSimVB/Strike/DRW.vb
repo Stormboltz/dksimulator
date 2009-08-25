@@ -59,7 +59,7 @@ Friend module DRW
 		NextDRW = T + (100*3.5 / (1 + Haste))
 		Dim RNG As Double
 		dim retour as Integer
-		RNG = Rnd
+		RNG = RNGPet
 
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "DRW fail")
@@ -202,13 +202,14 @@ Friend module DRW
 	Sub Obliterate
 		Dim RNG As Double
 		dim damage as Integer
-		RNG = Rnd
+		RNG = RNGPet
+		
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "DRW Obliterate fail")
 			MissCount = MissCount + 1
 			exit sub
 		End If
-		RNG = Rnd
+		RNG = RNGPet
 		damage = NormalisedMHDamage * 0.8 + 467.2
 		damage = damage * PhysicalDamageMultiplier(sim.TimeStamp)
 		damage = damage * (1 + 0.125 * Sim.NumDesease)
@@ -226,13 +227,13 @@ Friend module DRW
 	Sub DeathStrike
 		Dim RNG As Double
 		dim damage as Integer
-		RNG = Rnd
+		RNG = RNGPet
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "DRW Death Strike fail")
 			MissCount = MissCount + 1
 			exit sub
 		End If
-		RNG = Rnd
+		RNG = RNGPet
 		damage = NormalisedMHDamage*0.75 + 222.75
 		damage = damage * PhysicalDamageMultiplier(sim.TimeStamp)
 		'damage = damage /2
@@ -250,13 +251,13 @@ Friend module DRW
 		
 		Dim RNG As Double
 		dim damage as Integer
-		RNG = Rnd
+		RNG = RNGPet
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "DRW Heart Strike fail")
 			MissCount = MissCount + 1
 			exit sub
 		End If
-		RNG = Rnd
+		RNG = RNGPet
 		damage = NormalisedMHDamage * 0.5 + 368
 		damage = damage * PhysicalDamageMultiplier(sim.TimeStamp)
 		damage = damage * (1 + 0.1 * Sim.NumDesease)
@@ -275,14 +276,14 @@ Friend module DRW
 		
 		Dim RNG As Double
 		Dim damage As Integer
-		RNG = Rnd
+		RNG = RNGPet
 	
 		If RNG < SpellMissChance Then
 			MissCount = MissCount + 1
 			combatlog.write(T  & vbtab &  "DRW Death Coil fail")
 			exit sub
 		end if
-		RNG = Rnd
+		RNG = RNGPet
 		
 		damage = 0.15 * AP + 443
 		damage = damage * MagicalDamageMultiplier(sim.TimeStamp)
@@ -301,13 +302,13 @@ Friend module DRW
 	Sub PlagueStrike
 		Dim RNG As Double
 		dim damage as Integer
-		RNG = Rnd
+		RNG = RNGPet
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "DRW Plague Strike fail")
 			MissCount = MissCount + 1
 			exit sub
 		End If
-		RNG = Rnd
+		RNG = RNGPet
 		damage = NormalisedMHDamage * 0.5 + 189
 		damage = damage * PhysicalDamageMultiplier(sim.TimeStamp)
 		'damage = damage /2
@@ -325,14 +326,14 @@ Friend module DRW
 		
 		Dim RNG As Double
 		Dim damage As Integer
-		RNG = Rnd
+		RNG = RNGPet
 
 		If RNG < SpellMissChance Then
 			MissCount = MissCount + 1
 			combatlog.write(T  & vbtab &  "DRW Icy Touch fail")
 			exit sub
 		end if
-		RNG = Rnd
+		RNG = RNGPet
 		
 		
 		damage = 0.1 * AP + 236

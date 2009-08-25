@@ -82,7 +82,7 @@ Friend module Ghoul
 			NextWhiteMainHit = T + (WSpeed * 100) / ((1 + Haste))
 		End If
 		Dim RNG As Double
-		RNG = Rnd		
+		RNG = RNGPet		
 
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			MissCount = MissCount + 1
@@ -127,13 +127,13 @@ Friend module Ghoul
 	End Function
 	Function Claw(T As Long) As Boolean
 		Dim RNG As Double
-		RNG = Rnd
+		RNG = Rngpet
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Ghoul's Claw fail")
 			MissCount = MissCount + 1
 			Exit function
 		End If
-		RNG = Rnd
+		RNG = RNGPet
 		If RNG <= CritChance Then
 			CritCount = CritCount + 1
 			total = total + AvrgCrit(T)

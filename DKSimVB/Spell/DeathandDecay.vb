@@ -52,20 +52,15 @@ Friend Module DeathandDecay
 	
 	Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
-		RNG = Rnd
-		If mainstat.SpellHit >= 0.17 Then
-			RNG = RNG+0.17
-		Else
-			RNG = RNG+mainstat.SpellHit
-		End If
-		If RNG < 0.17 Then
+
+		If DoMySpell = false Then
 			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "D&D fail")
 			MissCount = MissCount + 1
 			Exit function
 		End If
-		RNG = Rnd
+		RNG = RNGStrike
 		dim dégat as Integer
-		If RNG <= CritChance Then
+		If RNGStrike <= CritChance Then
 			dégat = AvrgCrit(T)
 			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "D&D crit for " & dégat)
 			CritCount = CritCount + 1

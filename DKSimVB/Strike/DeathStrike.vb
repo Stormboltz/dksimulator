@@ -32,18 +32,7 @@ Friend Module DeathStrike
 			Sim.NextFreeGCD = T + 150+ sim._MainFrm.txtLatency.Text/10
 		End If
 		If MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
-			RNG = Rnd
-			If mainstat.Expertise >= 0.065 Then
-				RNG = RNG+0.065
-			Else
-				RNG=RNG + mainstat.Expertise
-			End If
-			If mainstat.Hit >= 0.08 Then
-				RNG = RNG+0.08
-			Else
-				RNG = RNG+mainstat.Hit
-			End If
-			If RNG < 0.145 Then
+			If DoMyStrikeHit = false Then
 				combatlog.write(T  & vbtab & "MH/OH DS fail")
 				MissCount = MissCount + 1
 				MHHit = False
@@ -51,18 +40,7 @@ Friend Module DeathStrike
 			End If
 		Else
 			OHHit = false
-			RNG = Rnd
-			If mainstat.Expertise >= 0.065 Then
-				RNG = RNG+0.065
-			Else
-				RNG=RNG + mainstat.Expertise
-			End If
-			If mainstat.Hit >= 0.08 Then
-				RNG = RNG+0.08
-			Else
-				RNG = RNG+mainstat.Hit
-			End If
-			If RNG < 0.145 Then
+			If DoMyStrikeHit = false Then
 				combatlog.write(T  & vbtab & "DS fail")
 				MissCount = MissCount + 1
 				Exit function
@@ -76,7 +54,7 @@ Friend Module DeathStrike
 			End If
 			dim dégat as Integer
 			If MHHit Then
-				RNG = Rnd
+				RNG = RNGStrike
 				If RNG <= CritChance Then
 					CritCount = CritCount + 1
 					dégat = AvrgCrit(T,true)

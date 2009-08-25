@@ -16,20 +16,8 @@ Friend Module BloodCakedBlade
 	
 	
 	Function ApplyDamage(T As long,MH as Boolean) As boolean
-		Dim RNG As Double
-		RNG = Rnd
-		If mainstat.Expertise >= 0.065 Then
-			RNG = RNG+0.065
-		Else
-			RNG=RNG + mainstat.Expertise
-		End If
-		If mainstat.Hit >= 0.08 Then
-			RNG = RNG+0.08
-		Else
-			RNG = RNG+mainstat.Hit
-		End If
-		
-		If RNG < 0.145 Then
+
+		If DoMyStrikeHit = false Then
 			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "BCB fail")
 			MissCount = MissCount + 1
 			Exit function

@@ -31,7 +31,7 @@ Friend Module Proc
 	End Sub
 	
 	Sub TryRime()
-		If Rnd <= 5 * talentfrost.Rime/100 Then
+		If RNGProc <= 5 * talentfrost.Rime/100 Then
 			Proc.Rime= True
 			if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "Rime proc")
 			HowlingBlast.cd = 0
@@ -42,7 +42,7 @@ Friend Module Proc
 	
 	Sub TryT92PDPS()
 		If SetBonus.T92PDPS = 0 Or T92PDPSCd > sim.TimeStamp Then Exit Sub
-		If Rnd <= 0.5 Then
+		If RNGProc <= 0.5 Then
 			T92PDPSFAde = sim.TimeStamp + 15 * 100
 			T92PDPSCd = sim.TimeStamp + 45 * 100
 		End If

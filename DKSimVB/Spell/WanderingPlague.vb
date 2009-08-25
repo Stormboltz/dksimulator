@@ -19,16 +19,9 @@ Friend module WanderingPlague
 	End Function
 	
 	Function ApplyDamage(Damage As Double, T As long) As Double
-		
 		nextTick = T + 100
 		dim RNG as Double
-		RNG = Rnd
-		If mainstat.SpellHit >= 0.17 Then
-			RNG = RNG+0.17
-		Else
-			RNG = RNG+mainstat.SpellHit
-		End If
-		If RNG < 0.17 Then
+		If DoMySpell = false Then
 			'combatlog.write(T  & vbtab &  "WP fail")
 			MissCount = MissCount + 1
 			Exit function

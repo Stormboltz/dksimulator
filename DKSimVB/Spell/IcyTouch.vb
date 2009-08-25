@@ -12,20 +12,15 @@ Friend module IcyTouch
 		Sim.NextFreeGCD = T + (150 / (1 + MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
 
 		
-		RNG = Rnd
-		If mainstat.SpellHit >= 0.17 Then
-			RNG = RNG+0.17
-		Else
-			RNG = RNG+mainstat.SpellHit
-		End If
-		If RNG < 0.17 Then
+		
+		If DoMySpell = false Then
 			combatlog.write(T  & vbtab &  "IT fail")
 			proc.KillingMachine  = False
 			MissCount = MissCount + 1
 			Exit function
 		End If
 		
-		RNG = Rnd
+		RNG = RNGStrike
 		
 		Dim dégat As Integer
 		Dim ccT As Double

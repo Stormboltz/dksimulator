@@ -54,7 +54,7 @@ Friend Module RuneForge
 	
 	Sub TryMHFallenCrusader()
 		If MHFallenCrusader Then
-			If Rnd < 2*MainStat.MHWeaponSpeed/60 Then
+			If RNGProc < 2*MainStat.MHWeaponSpeed/60 Then
 				FallenCrusaderActiveUntil = sim.TimeStamp + 15 * 100
 				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Fallen Crusader proc on Main hand")
 			End If
@@ -62,7 +62,7 @@ Friend Module RuneForge
 	End Sub
 	Sub TryOHFallenCrusader()
 		If OHFallenCrusader Then
-			If Rnd < 2*MainStat.OHWeaponSpeed/60 Then
+			If RNGProc < 2*MainStat.OHWeaponSpeed/60 Then
 				FallenCrusaderActiveUntil = sim.TimeStamp + 15 * 100
 				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Fallen Crusader proc on Off hand")
 			End If
@@ -70,7 +70,7 @@ Friend Module RuneForge
 	End Sub
 	Sub TryOHBerserking()
 		If OHBerserking Then
-			If Rnd < 1.2*MainStat.OHWeaponSpeed/60 Then
+			If RNGProc < 1.2*MainStat.OHWeaponSpeed/60 Then
 				OHBerserkingActiveUntil = sim.TimeStamp + 15 * 100
 				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Berserking proc on Off hand")
 			End If
@@ -86,7 +86,7 @@ Friend Module RuneForge
 	Sub TryMHCinderglacier()
 		if MHCinderglacier then
 			
-			If Rnd < 1*MainStat.MHWeaponSpeed/60 Then
+			If RNGProc < 1*MainStat.MHWeaponSpeed/60 Then
 				CinderglacierProc = 2
 				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Cinderglacier proc on Main hand")
 			End If
@@ -94,7 +94,7 @@ Friend Module RuneForge
 	End Sub
 	Sub TryOHCinderglacier()
 		if OHCinderglacier then
-			If Rnd < 1*MainStat.OHWeaponSpeed/60 Then
+			If RNGProc < 1*MainStat.OHWeaponSpeed/60 Then
 				CinderglacierProc = 2
 				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Cinderglacier proc on Off hand")
 			End If

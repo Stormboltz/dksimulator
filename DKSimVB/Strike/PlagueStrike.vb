@@ -34,18 +34,7 @@ Friend module PlagueStrike
 		
 		If MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
 			'MH
-			RNG = Rnd
-			If mainstat.Expertise >= 0.065 Then
-				RNG = RNG+0.065
-			Else
-				RNG=RNG + mainstat.Expertise
-			End If
-			If mainstat.Hit >= 0.08 Then
-				RNG = RNG+0.08
-			Else
-				RNG = RNG+mainstat.Hit
-			End If
-			If RNG < 0.145 Then
+			If DoMyStrikeHit = false Then
 				MissCount = MissCount + 1
 				combatlog.write(T  & vbtab &  "MH PS fail")
 				MHHit = False
@@ -53,25 +42,13 @@ Friend module PlagueStrike
 			End If
 		Else
 			OHHit = false
-			RNG = Rnd
-			If mainstat.Expertise >= 0.065 Then
-				RNG = RNG+0.065
-			Else
-				RNG=RNG + mainstat.Expertise
-			End If
-			If mainstat.Hit >= 0.08 Then
-				RNG = RNG+0.08
-			Else
-				RNG = RNG+mainstat.Hit
-			End If
-			If RNG < 0.145 Then
+			If DoMyStrikeHit = false Then
 				MissCount = MissCount + 1
 				combatlog.write(T  & vbtab &  "PS fail")
 				Exit function
 			End If
 		End If
-		
-		
+
 		if sigils.Strife then
 			StrifeFade = T+1000
 		End If
@@ -79,9 +56,9 @@ Friend module PlagueStrike
 		Dim dégat As Integer
 		
 		If MHHit Or OHHit Then
-			RNG = Rnd
+			RNG = RNGStrike
 			If MHHit Then
-				RNG = Rnd
+				RNG = RNGStrike
 				If RNG <= CritChance Then
 					CritCount = CritCount + 1
 					dégat = AvrgCrit(T,true)

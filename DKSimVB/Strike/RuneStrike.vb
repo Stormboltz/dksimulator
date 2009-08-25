@@ -33,7 +33,7 @@ Public Module RuneStrike
 		RunicPower.Value = RunicPower.Value - 20
 		
 		Dim RNG As Double
-		RNG = Rnd
+		RNG = RNGWhiteHit
 		MeleeMissChance = 0.08
 		
 		If mainstat.Hit > MeleeMissChance Then
@@ -48,7 +48,7 @@ Public Module RuneStrike
 			exit function
 		End If
 		
-		RNG = Rnd
+		RNG = RNGWhiteHit
 		If RNG < CritChance Then
 			'CRIT !
 			dégat = AvrgCrit(T)
@@ -66,7 +66,7 @@ Public Module RuneStrike
 		
 		
 		If Talentfrost.KillingMachine > 0 Then
-			RNG = Rnd
+			RNG = RNGWhiteHit
 			If RNG < (Talentfrost.KillingMachine)*MainStat.MHWeaponSpeed/60 Then
 				if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Killing Machine Proc")
 				proc.KillingMachine  = true
@@ -77,7 +77,7 @@ Public Module RuneStrike
 		If TalentUnholy.Necrosis > 0 Then
 			Nec = Necrosis.ApplyDamage(dégat, T)
 		End If
-		RNG = Rnd * 100
+		RNG = RNGWhiteHit * 100
 		If RNG <= 10 * TalentUnholy.BloodCakedBlade Then
 			BCB = BloodCakedBlade.ApplyDamage(T,true)
 		End If

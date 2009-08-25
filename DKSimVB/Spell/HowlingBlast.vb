@@ -28,32 +28,24 @@ Friend Module HowlingBlast
 		Dim RNG As Double
 		Sim.NextFreeGCD = T + (150 / (1 + MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
 		cd = T + 800
-		RNG = Rnd
-		If mainstat.SpellHit >= 0.17 Then
-			RNG = RNG+0.17
-		Else
-			RNG = RNG+mainstat.SpellHit
-		End If
-		If RNG < 0.17 Then
+
+		If DoMySpell = false Then
 			combatlog.write(T  & vbtab &  "HB fail")
 			proc.KillingMachine  = False
 			Proc.rime = False
 			MissCount = MissCount + 1
 			Exit function
 		End If
-		
-
-		RNG = Rnd
+		RNG = RNGStrike
 		Dim dégat As Integer
 		Dim ccT As Double
-			ccT = CritChance
+		ccT = CritChance
 		If RNG <= ccT Then
 			CritCount = CritCount + 1
 			dégat = AvrgCrit(T)
 			combatlog.write(T  & vbtab &  "HB crit for " & dégat )
 		Else
-	
-			HitCount = HitCount + 1
+				HitCount = HitCount + 1
 			dégat = AvrgNonCrit(T)
 			combatlog.write(T  & vbtab &  "HB hit for " & dégat)
 		End If

@@ -34,6 +34,7 @@ Friend Module FrostStrike
 		Else
 			Sim.NextFreeGCD = T + 150+ sim._MainFrm.txtLatency.Text/10
 		End If
+		
 		If glyph.FrostStrike Then
 			RunicPower.Value = RunicPower.Value - 32
 		Else
@@ -46,19 +47,7 @@ Friend Module FrostStrike
 		OHHit = True
 		
 		If MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
-			'MH
-			RNG = Rnd
-			If mainstat.Expertise >= 0.065 Then
-				RNG = RNG+0.065
-			Else
-				RNG= RNG + mainstat.Expertise
-			End If
-			If mainstat.Hit >= 0.08 Then
-				RNG = RNG+0.08
-			Else
-				RNG = RNG+mainstat.Hit
-			End If
-			If RNG < 0.145 Then
+			If DoMyStrikeHit = false Then
 				combatlog.write(T  & vbtab & "MH FS fail")
 				MissCount = MissCount + 1
 				MHHit = False
@@ -66,30 +55,20 @@ Friend Module FrostStrike
 			End If
 		Else
 			OHHit = false
-			RNG = Rnd
-			If mainstat.Expertise >= 0.065 Then
-				RNG = RNG+0.065
-			Else
-				RNG= RNG + mainstat.Expertise
-			End If
-			If mainstat.Hit >= 0.08 Then
-				RNG = RNG+0.08
-			Else
-				RNG = RNG+mainstat.Hit
-			End If
-			If RNG < 0.145 Then
+			If DoMyStrikeHit = false Then
 				combatlog.write(T  & vbtab & "FS fail")
 				proc.KillingMachine  = False
 				MissCount = MissCount + 1
 				Exit function
 			End If
-		end if
+		End If
+		
 		Dim ccT As Double
-		dim dégat as Integer
+		Dim dégat As Integer
 		ccT = CritChance
 		If MHHit Or OHHit Then
 			If MHHit Then
-				RNG = Rnd
+				RNG = RNGStrike
 				If RNG < ccT Then
 					dégat = AvrgCrit(T,true)
 					combatlog.write(T  & vbtab &  "FS crit for " & dégat )

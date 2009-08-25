@@ -1514,7 +1514,39 @@ Friend Module Sim
 		
 		
 	End Sub
-	sub Initialisation()
+	Function DoMyStrikeHit As Boolean
+		Dim RNG As Double
+		RNG = RNGStrike
+		If math.Min(mainstat.Expertise,0.065) + math.Min (mainstat.Hit,0.08) + RNG < 0.145 Then
+			Return False
+		Else
+			return true
+		End If
+	End Function
+	
+	Function DoMySpell As Boolean
+		Dim RNG As Double
+		RNG = RNGStrike
+		If math.Min(mainstat.SpellHit,0.17) + RNG < 0.17 Then
+			Return False
+		Else
+			return true
+		End If
+	End Function
+	
+	Function DoMyWhiteHit As Boolean
+		Dim RNG As Double
+		RNG = RNGStrike
+		If math.Min(mainstat.Expertise,0.065) + math.Min (mainstat.Hit,0.08) + RNG < 0.145 Then
+			Return False
+		Else
+			return true
+		End If
+	End Function
+	
+	
+	Sub Initialisation()
+		RandomNumberGenerator.Init
 		CombatLog.Init
 		Buff.FullBuff
 		'Buff.UnBuff

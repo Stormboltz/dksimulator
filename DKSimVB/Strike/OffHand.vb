@@ -32,7 +32,7 @@ Friend module OffHand
 		Dim MeleeGlacingChance As Single
 		
 		
-		RNG = Rnd
+		RNG = RNGWhiteHit
 		MeleeGlacingChance = 0.25
 		MeleeDodgeChance = 0.065
 		If mainstat.Expertise > MeleeDodgeChance Then
@@ -56,6 +56,7 @@ Friend module OffHand
 		
 		dim dégat as Integer
 		If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then
+			'Glancing
 			dégat = AvrgNonCrit(T)*0.7
 			HitCount = HitCount + 1
 		End If
@@ -72,22 +73,22 @@ Friend module OffHand
 			TryOldGod()
 			
 		End If
+		
 		If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance) Then
 			'normal hit3
 			dégat = AvrgNonCrit(T)
 			HitCount = HitCount + 1
 			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "OH hit for " & dégat)
 		End If
+		
 		If Lissage Then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance-MeleeGlacingChance) + AvrgNonCrit(T)* (MeleeGlacingChance)*0.7
 		total = total + dégat
-		
-		
+
 		If TalentUnholy.Necrosis > 0 Then
 			Nec = Necrosis.ApplyDamage(dégat, T)
 		End If
-		
-		
-		RNG = Rnd * 100
+
+		RNG = RNGWhiteHit * 100
 		If RNG <= 10 * TalentUnholy.BloodCakedBlade Then
 			BloodCakedBlade.ApplyDamage(T,false)
 		End If
@@ -99,13 +100,13 @@ Friend module OffHand
 		TryOHFallenCrusader
 		TryMjolRune
 		TryGrimToll
-						TryGreatness()
-TryDeathChoice()
-TryDCDeath()
-TryVictory()
-TryBandit()
-TryDarkMatter()
-TryComet()
+		TryGreatness()
+		TryDeathChoice()
+		TryDCDeath()
+		TryVictory()
+		TryBandit()
+		TryDarkMatter()
+		TryComet()
 		return true
 		'   'Debug.Print T & vbTab & "WhiteOH for " & Range("Abilities!N19").Value
 	End Function

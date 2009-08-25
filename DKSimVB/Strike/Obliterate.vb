@@ -13,12 +13,6 @@ Friend Module Obliterate
 	Friend MissCount As Integer
 	Friend HitCount as Integer
 	Friend CritCount As Integer
-	
-	
-	
-	
-	
-	
 	Sub init()
 		total = 0
 		MissCount = 0
@@ -26,7 +20,6 @@ Friend Module Obliterate
 		CritCount = 0
 		TotalHit = 0
 		TotalCrit = 0
-		
 	End Sub
 	Function ApplyDamage(T As Long) As Boolean
 		Dim MHHit As Boolean
@@ -40,21 +33,10 @@ Friend Module Obliterate
 		Else
 			Sim.NextFreeGCD = T + 150+ sim._MainFrm.txtLatency.Text/10
 		End If
-		
-		RNG = Rnd
-		
+		RNG = RNGStrike
+
 		If MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
-			If mainstat.Expertise >= 0.065 Then
-				RNG = RNG+0.065
-			Else
-				RNG=RNG + mainstat.Expertise
-			End If
-			If mainstat.Hit >= 0.08 Then
-				RNG = RNG+0.08
-			Else
-				RNG = RNG+mainstat.Hit
-			End If
-			If RNG < 0.145 Then
+			If DoMyStrikeHit = false Then
 				combatlog.write(T  & vbtab &  "MH/OH OB fail" & vbtab & RNG)
 				MissCount = MissCount + 1
 				MHHit=False
@@ -62,17 +44,7 @@ Friend Module Obliterate
 			End If
 		Else
 			OHHit = false
-			If mainstat.Expertise >= 0.065 Then
-				RNG = RNG+0.065
-			Else
-				RNG=RNG + mainstat.Expertise
-			End If
-			If mainstat.Hit >= 0.08 Then
-				RNG = RNG+0.08
-			Else
-				RNG = RNG+mainstat.Hit
-			End If
-			If RNG < 0.145 Then
+			If DoMyStrikeHit = false Then
 				combatlog.write(T  & vbtab &  "OB fail" & vbtab & RNG)
 				MissCount = MissCount + 1
 				Exit function
@@ -96,7 +68,7 @@ Friend Module Obliterate
 			Dim ccT As Double
 			ccT = CritChance
 			If MHHit Then
-				RNG = Rnd
+				RNG = RNGStrike
 				If RNG <= ccT Then
 					CritCount = CritCount + 1
 					dégat =  AvrgCrit(T,true)
@@ -118,13 +90,13 @@ Friend Module Obliterate
 				TryMjolRune
 				TryGrimToll
 				proc.tryRime
-								TryGreatness()
-TryDeathChoice()
-TryDCDeath()
-TryVictory()
-TryBandit()
-TryDarkMatter()
-TryComet()
+				TryGreatness()
+				TryDeathChoice()
+				TryDCDeath()
+				TryVictory()
+				TryBandit()
+				TryDarkMatter()
+				TryComet()
 			End If
 			
 			If OHHit Then
@@ -150,13 +122,13 @@ TryComet()
 				TryMjolRune
 				TryGrimToll
 				proc.tryRime
-								TryGreatness()
-TryDeathChoice()
-TryDCDeath()
-TryVictory()
-TryBandit()
-TryDarkMatter()
-TryComet()
+				TryGreatness()
+				TryDeathChoice()
+				TryDCDeath()
+				TryVictory()
+				TryBandit()
+				TryDarkMatter()
+				TryComet()
 			End If
 			
 			If DRW.IsActive(T) Then

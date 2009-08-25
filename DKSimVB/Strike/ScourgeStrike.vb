@@ -33,24 +33,13 @@ Friend module ScourgeStrike
 			Sim.NextFreeGCD = T + 150+ sim._MainFrm.txtLatency.Text/10
 		End If
 		
-		RNG = Rnd
-		If mainstat.Expertise >= 0.065 Then
-			RNG = RNG+0.065
-		Else
-			RNG=RNG + mainstat.Expertise
-		End If
-		If mainstat.Hit >= 0.08 Then
-			RNG = RNG+0.08
-		Else
-			RNG = RNG+mainstat.Hit
-		End If
-		If RNG < 0.145 Then
+		If DoMyStrikeHit = false Then
 			combatlog.write(T  & vbtab &  "SS fail")
 			MissCount = MissCount + 1
 			Exit function
 		End If
 		dim dégat as Integer
-		RNG = Rnd
+		RNG = RNGStrike
 		If RNG <= CritChance Then
 			CritCount = CritCount + 1
 			dégat = AvrgCrit(T)
@@ -73,7 +62,7 @@ Friend module ScourgeStrike
 		
 		
 		If glyph.ScourgeStrike Then
-			RNG = Rnd
+			RNG = RNGProc
 			If RNG > 0.75 Then
 				combatlog.write(T  & vbtab &  "SS glyph proc")
 				BloodPlague.Apply(T)
@@ -81,7 +70,6 @@ Friend module ScourgeStrike
 			End If
 		End If
 		runes.UseFU(T,False)
-		RNG = Rnd
 		RunicPower.add (15 + TalentUnholy.Dirge * 2.5 + 5*SetBonus.T74PDPS)
 		proc.VirulenceFade = T + 2000
 		TryMHCinderglacier

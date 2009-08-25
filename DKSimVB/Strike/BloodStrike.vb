@@ -9,8 +9,10 @@ Friend module BloodStrike
 	Friend TotalCrit as Long
 	
 	
-	Function ApplyDamage(T As long) As boolean
+	Function ApplyDamage(T As Long) As Boolean
 		Dim RNG As Double
+		
+		
 		
 		If MainStat.UnholyPresence Then
 			Sim.NextFreeGCD = T + 100+ sim._MainFrm.txtLatency.Text/10
@@ -24,18 +26,8 @@ Friend module BloodStrike
 		OHHit = True
 		
 		If MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
-			RNG = Rnd
-			If mainstat.Expertise >= 0.065 Then
-				RNG = RNG+0.065
-			Else
-				RNG=RNG + mainstat.Expertise
-			End If
-			If mainstat.Hit >= 0.08 Then
-				RNG = RNG+0.08
-			Else
-				RNG = RNG+mainstat.Hit
-			End If
-			If RNG < 0.145 Then
+
+			If DoMyStrikeHit = false Then
 				combatlog.write(T  & vbtab &  "MH/OH BS fail")
 				MissCount = MissCount + 1
 				MHHit = False
@@ -43,18 +35,7 @@ Friend module BloodStrike
 			End If
 		Else
 			OHHit = false
-			RNG = Rnd
-			If mainstat.Expertise >= 0.065 Then
-				RNG = RNG+0.065
-			Else
-				RNG=RNG + mainstat.Expertise
-			End If
-			If mainstat.Hit >= 0.08 Then
-				RNG = RNG+0.08
-			Else
-				RNG = RNG+mainstat.Hit
-			End If
-			If RNG < 0.145 Then
+			If DoMyStrikeHit = false Then
 				combatlog.write(T  & vbtab &  "BS fail")
 				MissCount = MissCount + 1
 				Exit function
@@ -62,9 +43,8 @@ Friend module BloodStrike
 		End If
 		
 		If MHHit Or OHHit Then
-			
 			If MHHit Then
-				RNG = Rnd
+				RNG = RNGStrike
 				dim dégat as Integer
 				If RNG <= CritChance Then
 					dégat = AvrgCrit(T,true)
@@ -74,7 +54,6 @@ Friend module BloodStrike
 					TryMirror()
 					TryPyrite()
 					TryOldGod()
-					
 				Else
 					dégat = AvrgNonCrit(T,true)
 					HitCount = HitCount + 1
@@ -122,13 +101,9 @@ TryDarkMatter()
 TryComet()
 			End If
 			
+			tryHauntedDreams()
 			
-			if sigils.HauntedDreams then
-				RNG = Rnd
-				if RNG <= 0.15 then
-					HauntedDreamsFade = T + 10 * 100
-				end if
-			End If
+			
 			If rng < 0.05*talentblood.SuddenDoom Then
 				deathcoil.ApplyDamage(T,true)
 			End If
