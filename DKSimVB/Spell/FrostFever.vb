@@ -46,7 +46,9 @@ Friend module FrostFever
 		Else
 			tmp = AvrgNonCrit(T)
 		End If
-		
+		If RuneForge.OHRazorice Or  RuneForge.MHRazorice Then
+			tmp = tmp * 1.1
+		End If
 		total = total + tmp
 		If TalentUnholy.WanderingPlague > 0 Then
 			If WanderingPlague.isAvailable(T) = True Then

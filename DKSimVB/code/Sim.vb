@@ -1021,7 +1021,7 @@ Friend Module Sim
 					BloodBoil.total  + DeathStrike.total + MainHand.total + _
 					OffHand.total  + Ghoul.total + Gargoyle.total + DRW.total + _
 					RazoriceTotal + DeathandDecay.total + RuneStrike.total  + trinket.Total
-				_MainFrm.lblDPS.Text = DPS & " DPS"
+				_MainFrm.lblDPS.Text = todecimal(100 * TotalDamage /TimeStamp)   & " DPS"
 			End If
 		Loop
 		
@@ -1638,7 +1638,7 @@ Friend Module Sim
 	
 	Sub Report()
 		Dim Tw As System.IO.TextWriter
-		if EPStat <> "" then exit sub
+		'if EPStat <> "" then exit sub
 		
 		Tw  =system.IO.File.appendText(ReportPath)
 		'Tw  = system.IO.File.Open(reportpath, system.IO.FileMode.Append)     '.OpenWrite(ReportPath)
