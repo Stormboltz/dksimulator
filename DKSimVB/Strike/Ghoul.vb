@@ -36,12 +36,12 @@ Friend module Ghoul
 	Sub Summon(T As Long)
 		If cd <= T Then
 			MeleeGlacingChance = 0.25
-			MeleeMissChance = 0.08 - GhoulStat.Hit
-			If MeleeMissChance < 0 Then MeleeMissChance = 0
-			MeleeDodgeChance =  0.065 - GhoulStat.Expertise
-			If MeleeDodgeChance < 0 Then MeleeDodgeChance = 0
-			SpellMissChance = 0.17 - GhoulStat.SpellHit
-			If SpellMissChance  < 0 Then SpellMissChance = 0 
+			MeleeMissChance = math.Max(0.08 - GhoulStat.Hit,0)
+			'If MeleeMissChance < 0 Then MeleeMissChance = 0
+			MeleeDodgeChance =  math.Max(0.065 - GhoulStat.Expertise,0)
+			'If MeleeDodgeChance < 0 Then MeleeDodgeChance = 0
+			SpellMissChance = math.Max(0.17 - GhoulStat.SpellHit,0)
+			'If SpellMissChance  < 0 Then SpellMissChance = 0 
 			If TalentUnholy.MasterOfGhouls Then 
 				ActiveUntil = sim.MaxTime
 				cd = sim.MaxTime

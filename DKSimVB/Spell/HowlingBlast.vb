@@ -29,7 +29,7 @@ Friend Module HowlingBlast
 		Sim.NextFreeGCD = T + (150 / (1 + MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
 		cd = T + 800
 
-		If DoMySpell = false Then
+		If DoMySpellHit = false Then
 			combatlog.write(T  & vbtab &  "HB fail")
 			proc.KillingMachine  = False
 			Proc.rime = False

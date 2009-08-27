@@ -317,8 +317,8 @@ Friend Module MainStat
 		If sim.EPStat="HitRating" Then tmp = 8 - sim.EPBase / 32.79
 		If sim.EPStat="SpellHitRating" Then tmp = 8 + sim.EPBase / 32.79
 
+		If sim.EPStat="" Then tmp = tmp + Draenei
 		
-		tmp = tmp + Draenei
 		
 		
 		Hit = tmp / 100
@@ -335,11 +335,7 @@ Friend Module MainStat
 		End If
 		tmp = tmp + 1 * TalentUnholy.Virulence
 		tmp = tmp + Buff.SpellHitTaken * 3
-		tmp = tmp + Draenei
-		
-		
-		
-		
+		if sim.EPStat="" then tmp = tmp + Draenei
 		SpellHit = tmp / 100
 	End Function
 	Function NormalisedMHDamage() As Double

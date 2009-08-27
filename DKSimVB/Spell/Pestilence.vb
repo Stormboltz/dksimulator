@@ -10,6 +10,9 @@ Friend Module Pestilence
 	Friend TotalHit As Long
 	Friend HitCount As Integer
 	Friend MissCount As Integer
+	Friend BPToReapply As Boolean
+	Friend FFToReapply As Boolean
+	
 	
 	
 	Sub init()
@@ -21,8 +24,7 @@ Friend Module Pestilence
 	Function use(T As double) As Boolean
 		Dim RNG As Double
 		Sim.NextFreeGCD = T + (150 / (1 + MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
-
-		If DoMySpell = false Then
+		If DoMySpellHit = false Then
 			combatlog.write(T  & vbtab &  "Pestilence fail")
 			MissCount = MissCount +1
 			Exit function
@@ -56,13 +58,20 @@ Friend Module Pestilence
 		
 		If runes.AnyBlood(T) Then
 			tmp1 = math.Min(BloodPlague.FadeAt,FrostFever.FadeAt)
-			debug.Print (RuneState & "time left on disease= " & (tmp1-T)/100 & "s" & " - " & T/100)
+			'debug.Print (RuneState & "time left on disease= " & (tmp1-T)/100 & "s" & " - " & T/100)
 			If tmp1 < T Then
 				return false
 			End If
 			
 '			debug.Print ("BP = " & BloodPlague.FadeAt)
 '			debug.Print ("BP = " & FrostFever.FadeAt)
+
+			If MainStat.AP > math.min(FrostFever.AP, BloodPlague.AP) Then
+				BPToReapply = True
+				FFToReapply = True
+				Return False
+			End If
+
 			If BloodPlague.FadeAt <> FrostFever.FadeAt Then
 				return true
 			End If
@@ -70,7 +79,7 @@ Friend Module Pestilence
 			If tmp1 - T > 1000 Then Return False
 			'debug.Print (RuneState & "time left on disease= " & (tmp1-T)/100 & "s" & " - " & T/100)
 			tmp2 = runes.GetNextBloodCD(t)
-			debug.Print (RuneState & "Next blood in " & (tmp2-T)/100 & "s" )
+			'debug.Print (RuneState & "Next blood in " & (tmp2-T)/100 & "s" )
 			If tmp2 > tmp1 or tmp2=0 Then
 				return true
 			End If

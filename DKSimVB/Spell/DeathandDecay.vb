@@ -53,7 +53,7 @@ Friend Module DeathandDecay
 	Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
 
-		If DoMySpell = false Then
+		If DoMySpellHit = false Then
 			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "D&D fail")
 			MissCount = MissCount + 1
 			Exit function

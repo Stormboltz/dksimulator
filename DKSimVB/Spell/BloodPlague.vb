@@ -8,7 +8,10 @@ Friend module BloodPlague
 	Friend AP as Integer
 	Friend MissCount As Integer
 	Friend HitCount as Integer
-	Friend CritCount as Integer
+	Friend CritCount As Integer
+	Friend DamageTick as Integer
+	
+	
 		
 	Sub init()
 		nextTick = 0
@@ -33,9 +36,11 @@ Friend module BloodPlague
 	
 	Function Apply(T As Long) As Boolean
 		If glyph.Disease Then debug.Print (RuneState & "time left on BP= " & (FadeAt-T)/100 & "s" & " - " & T/100)
+		AP = MainStat.AP
+		DamageTick = AvrgNonCrit(T)
 		BloodPlague.FadeAt = T + 1500 + 300 * talentunholy.Epidemic
 		BloodPlague.nextTick = T + 300
-		AP = MainStat.AP
+		BPToReapply = false
 	End Function
 	
 	
@@ -44,9 +49,9 @@ Friend module BloodPlague
 		Dim tmp As Double
 		HitCount = HitCount + 1
 		If setbonus.T94PDPS =1 Then
-			tmp = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
+			tmp =  AvrgCrit(T)*CritChance + DamageTick*(1-CritChance )
 		Else
-			tmp = AvrgNonCrit(T)
+			tmp = DamageTick
 		End If
 		total = total + tmp
 		If TalentUnholy.WanderingPlague > 0 Then
@@ -83,7 +88,7 @@ Friend module BloodPlague
 		CritChance = MainStat.SpellCrit
 	End Function
 	Function AvrgCrit(T As long) As Double
-		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
+		AvrgCrit = DamageTick * (1 + CritCoef)
 	End Function
 	
 	Function report As String

@@ -33,7 +33,7 @@ Friend module deathcoil
 			RunicPower.Value = RunicPower.Value - 40
 		End If
 		
-		If DoMySpell = false Then
+		If DoMySpellHit = false Then
 			combatlog.write(T  & vbtab &  "DC fail")
 			MissCount = MissCount + 1
 			Exit function

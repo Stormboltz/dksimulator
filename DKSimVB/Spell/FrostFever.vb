@@ -2,13 +2,16 @@ Friend module FrostFever
 	Friend nextTick As long
 	Friend FadeAt As long
 	Friend total As Long
-		Friend TotalHit As Long
+	Friend TotalHit As Long
 	Friend TotalCrit as Long
-
+	
 	Friend MissCount As Integer
 	Friend HitCount as Integer
 	Friend CritCount as Integer
 	Friend AP as Integer
+	Friend DamageTick As Integer
+	
+	
 	
 	Function isActive(T As long) As Boolean
 		If T > FadeAt Then
@@ -17,7 +20,7 @@ Friend module FrostFever
 			isActive = True
 		End If
 	End Function
-		
+	
 	Sub init()
 		total = 0
 		MissCount = 0
@@ -32,9 +35,11 @@ Friend module FrostFever
 	
 	Function Apply(T As Long) As Boolean
 		If glyph.Disease Then debug.Print (RuneState & "time left on FF= " & (FadeAt-T)/100 & "s" & " - " & T/100)
+		AP = MainStat.AP
+		DamageTick = AvrgNonCrit(T)
 		FadeAt = T + 1500 + 300 * talentunholy.Epidemic
 		nextTick = T + 300
-		AP = MainStat.AP
+		FFToReapply = false
 	End Function
 	
 	Function ApplyDamage(T As long) As boolean
@@ -42,12 +47,9 @@ Friend module FrostFever
 
 		HitCount = HitCount + 1
 		If setbonus.T94PDPS =1 Then
-			tmp = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
+			tmp = AvrgCrit(T)*CritChance + DamageTick*(1-CritChance )
 		Else
 			tmp = AvrgNonCrit(T)
-		End If
-		If RuneForge.OHRazorice Or  RuneForge.MHRazorice Then
-			tmp = tmp * 1.1
 		End If
 		total = total + tmp
 		If TalentUnholy.WanderingPlague > 0 Then
@@ -73,23 +75,22 @@ Friend module FrostFever
 		tmp = tmp * (1 + TalentUnholy.CryptFever * 10 / 100)
 		tmp = tmp * MainStat.StandardMagicalDamageMultiplier(T)
 		tmp = tmp * 1.15
-		if MHRazorice or (OHRazorice and mainstat.DualW)  then tmp = tmp *1.10
+		'if MHRazorice or (OHRazorice and mainstat.DualW)  then tmp = tmp *1.10
 		AvrgNonCrit = tmp
 	End Function
 	Function CritCoef() As Double
-		CritCoef = 1 
+		CritCoef = 1
 		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
 	End Function
 	Function CritChance() As Double
 		CritChance = MainStat.SpellCrit
 	End Function
 	Function AvrgCrit(T As long) As Double
-		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
+		AvrgCrit = DamageTick * (1 + CritCoef)
 	End Function
 	Function report As String
 		dim tmp as String
 		tmp = "Frost Fever" & VBtab
-	
 		If total.ToString().Length < 8 Then
 			tmp = tmp & total & "   " & VBtab
 		Else

@@ -36,7 +36,7 @@ Friend Module Sim
 		
 	End Function
 	
-	Sub StartEP(pb As ProgressBar,EPCalc As Boolean,SimTime As Integer,MainFrm As MainForm)
+	Sub StartEP(pb As ProgressBar,EPCalc As Boolean,SimTime As double,MainFrm As MainForm)
 		'StartEPAlternative(pb,EPCalc,SimTime,MainFrm)
 		'exit sub
 		
@@ -163,7 +163,7 @@ Friend Module Sim
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS) / sim.EPBase
 			'sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & int (-100*tmp2/tmp1)) & "</td></tr>"
-			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | HitRating<8% | " & int (-100*tmp2/tmp1)) & "</td></tr>"
+			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | BeforeMeleeHitCap<8% | " & int (-100*tmp2/tmp1)) & "</td></tr>"
 			WriteReport ("Average for " & EPStat & " | " & DPS)
 		Else
 			WriteReport ("Average for HitRating | 0")
@@ -176,7 +176,7 @@ Friend Module Sim
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS) / sim.EPBase
 			'sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & int (100*tmp2/tmp1)) & "</td></tr>"
-			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | HitRating>=8% | " & int (100*tmp2/tmp1)) & "</td></tr>"
+			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | AfterMeleeHitCap | " & int (100*tmp2/tmp1)) & "</td></tr>"
 			WriteReport ("Average for " & EPStat & " | " & DPS)
 		Else
 			WriteReport ("Average for SpellHitRating | 0")
@@ -324,7 +324,7 @@ Friend Module Sim
 		EPStat = ""
 	End Sub
 	
-	Sub StartEPAlternative(pb As ProgressBar,EPCalc As Boolean,SimTime As Integer,MainFrm As MainForm)
+	Sub StartEPAlternative(pb As ProgressBar,EPCalc As Boolean,SimTime As double,MainFrm As MainForm)
 		_MainFrm = MainFrm
 		dim sReport as String
 		If EPCalc = False Then
@@ -569,7 +569,7 @@ Friend Module Sim
 		EPStat = ""
 	End Sub
 	
-	Sub StartEPSimple(pb As ProgressBar,EPCalc As Boolean,SimTime as Integer,MainFrm as MainForm)
+	Sub StartEPSimple(pb As ProgressBar,EPCalc As Boolean,SimTime as double,MainFrm as MainForm)
 		_MainFrm = MainFrm
 		dim sReport as String
 		If EPCalc = False Then
@@ -813,7 +813,7 @@ Friend Module Sim
 		EPStat = ""
 	End Sub
 	
-	function StartEPTrinket(pb As ProgressBar,EPCalc As Boolean,SimTime As Integer,MainFrm As MainForm) as string
+	function StartEPTrinket(pb As ProgressBar,EPCalc As Boolean,SimTime As double,MainFrm As MainForm) as string
 		Dim BaseDPS As long
 		Dim APDPS As Long
 		Dim tmp1 As double
@@ -881,13 +881,14 @@ Friend Module Sim
 		_MainFrm.webBrowser1.Select
 	End Sub
 	
-	Sub Start(pb As ProgressBar,SimTime As Integer, MainFrm As MainForm)
+	Sub Start(pb As ProgressBar,SimTime As double, MainFrm As MainForm)
 		Rnd(-1) 'Tell VB to initialize using Randomize's parameter
 		_MainFrm = MainFrm
 		'combatlog.LogDetails = true
 		SimStart = now
-		MaxTime = SimTime
-		MaxTime= MaxTime * 3600 *100
+		
+		MaxTime = SimTime* 3600 *100
+		'MaxTime= MaxTime 
 		pb.Maximum = maxtime
 		
 		'Init
@@ -1319,7 +1320,7 @@ Friend Module Sim
 							Pestilence.use(TimeStamp)
 							Exit Sub
 						Else
-							If FrostFever.isActive(TimeStamp) = False Then
+							If FrostFever.isActive(TimeStamp) = False or FFToReapply Then
 								If talentfrost.HowlingBlast = 1 And glyph.HowlingBlast And HowlingBlast.isAvailable(TimeStamp)  Then
 									If proc.rime Or runes.FU(TimeStamp) Then
 										HowlingBlast.ApplyDamage(TimeStamp)
@@ -1350,11 +1351,11 @@ Friend Module Sim
 					
 				Case "BloodPlague"
 					If glyph.Disease Then
-						if Pestilence.PerfectUsage(TimeStamp) then
+						if Pestilence.PerfectUsage(TimeStamp)  then
 							Pestilence.use(TimeStamp)
 							Exit Sub
 						Else
-							If BloodPlague.isActive(TimeStamp) = False then
+							If BloodPlague.isActive(TimeStamp) = False or BPToReapply then
 								If runes.Unholy(TimeStamp) = True Then
 									PlagueStrike.ApplyDamage(TimeStamp)
 									exit sub
@@ -1524,7 +1525,7 @@ Friend Module Sim
 		End If
 	End Function
 	
-	Function DoMySpell As Boolean
+	Function DoMySpellHit As Boolean
 		Dim RNG As Double
 		RNG = RNGStrike
 		If math.Min(mainstat.SpellHit,0.17) + RNG < 0.17 Then

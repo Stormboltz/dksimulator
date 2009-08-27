@@ -94,7 +94,7 @@ Friend module OffHand
 		End If
 		
 		
-		If OHRazorice Then applyRazorice()
+		If OHRazorice and mainstat.DualW Then applyRazorice()
 		TryOHCinderglacier
 		TryOHBerserking
 		TryOHFallenCrusader

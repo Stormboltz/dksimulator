@@ -82,28 +82,21 @@ Friend Module GhoulStat
 	End Function
 	Function Expertise() As Double
 		Dim tmp As Double
-		tmp = Character.HitRating / 263
+		tmp =  mainstat.Hit
 		tmp = tmp * 214 / 32.79
 		
-		return tmp / 100
+		return tmp 
 	End Function
 	
 	Function Hit() As Double
 		Dim tmp As Double
-		tmp = Character.HitRating / 263
-		tmp = tmp * 263 / 32.79
-		tmp = tmp + Draenei
-		
-		return tmp / 100
+		tmp = mainstat.Hit
+		return tmp 
 	End Function
 	
 	Function SpellHit() As Double
 		Dim tmp As Double
-		tmp = Character.SpellHitRating / 26.23
-		tmp = tmp + Buff.SpellHitTaken * 3
-		tmp = tmp + Draenei
-		
-		SpellHit = tmp / 100
+		return mainstat.spellHit
 	End Function
 	
 	Function MHBaseDamage() As Double

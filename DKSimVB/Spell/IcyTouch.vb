@@ -13,7 +13,7 @@ Friend module IcyTouch
 
 		
 		
-		If DoMySpell = false Then
+		If DoMySpellHit = false Then
 			combatlog.write(T  & vbtab &  "IT fail")
 			proc.KillingMachine  = False
 			MissCount = MissCount + 1
