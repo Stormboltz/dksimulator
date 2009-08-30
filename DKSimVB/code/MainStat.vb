@@ -315,7 +315,7 @@ Friend Module MainStat
 		
 		If sim.EPStat<>"" Then tmp = 8 'For most EP stats we assume being hit capped
 		If sim.EPStat="HitRating" Then tmp = 8 - sim.EPBase / 32.79
-		If sim.EPStat="SpellHitRating" Then tmp = 8 + sim.EPBase / 32.79
+		If sim.EPStat="SpellHitRating" Then tmp = 8 + 26 / 32.79  ' +26 to not go over spell hit cap
 
 		If sim.EPStat="" Then tmp = tmp + Draenei
 		
@@ -331,7 +331,7 @@ Friend Module MainStat
 			MeleHitCapRating = 263 - 32.79 * TalentFrost.NervesofColdSteel
 			tmp = MeleHitCapRating / 26.23
 			If sim.EPStat="HitRating" Then tmp = MeleHitCapRating / 26.23 - sim.EPBase / 26.23
-			If sim.EPStat="SpellHitRating" Then tmp = MeleHitCapRating / 26.23 + sim.EPBase / 26.23		
+			If sim.EPStat="SpellHitRating" Then tmp = MeleHitCapRating / 26.23 + 26 / 26.23		
 		End If
 		tmp = tmp + 1 * TalentUnholy.Virulence
 		tmp = tmp + Buff.SpellHitTaken * 3

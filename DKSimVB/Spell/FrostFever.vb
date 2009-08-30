@@ -32,7 +32,14 @@ Friend module FrostFever
 		TotalCrit = 0
 		AP=0
 	End Sub
-	
+	Function PerfectUsage(T As Long) As Boolean
+		If Talentfrost.TundraStalker>0 Then
+			if isActive(T+150) = false then return true
+		Else
+			if isActive(T) = false then return true
+		End If
+		return false
+	End Function
 	Function Apply(T As Long) As Boolean
 		If glyph.Disease Then debug.Print (RuneState & "time left on FF= " & (FadeAt-T)/100 & "s" & " - " & T/100)
 		AP = MainStat.AP
@@ -44,7 +51,7 @@ Friend module FrostFever
 	
 	Function ApplyDamage(T As long) As boolean
 		Dim tmp As Double
-
+		
 		HitCount = HitCount + 1
 		If setbonus.T94PDPS =1 Then
 			tmp = AvrgCrit(T)*CritChance + DamageTick*(1-CritChance )

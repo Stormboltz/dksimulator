@@ -25,6 +25,16 @@ Friend module BloodPlague
 		AP = 0
 	End Sub
 		
+		
+	Function PerfectUsage(T As Long) As Boolean
+		If TalentUnholy.RageofRivendare>0 Then
+			if isActive(T+150) = false then return true
+		Else
+			if isActive(T) = false then return true
+		End If
+		return false		
+	End Function
+		
 	Function isActive(T As long) As Boolean
 		If T > FadeAt Then
 			isActive = False

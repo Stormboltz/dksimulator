@@ -12,7 +12,7 @@ Public Module RandomNumberGenerator
 	Private _RNGProc as Random
 	private _RNGPet as Random
 	Function Init
-		Dim tmp As New Random(1337)
+		Dim tmp As New Random(150)
 		Dim tmp2 As New Random(7331)
 		Dim tmp3 As New Random(1500)
 		Dim tmp4 As New Random(5847)
