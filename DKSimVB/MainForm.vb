@@ -1409,4 +1409,14 @@ End Sub
 	End Sub
 	
 
+	
+
+	
+	Sub ChkEPAfterSpellHitRatingCheckedChanged(sender As Object, e As EventArgs)
+		if ChkEPAfterSpellHitRating.Checked then chkEPSpHit.Checked=true
+	End Sub
+	
+	Sub ChkEPSpHitCheckedChanged(sender As Object, e As EventArgs)
+		if ChkEPSpHit.Checked=false then ChkEPAfterSpellHitRating.Checked = false
+	End Sub
 End Class

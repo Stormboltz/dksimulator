@@ -71,7 +71,12 @@ Friend Module priority
 						'debug.Print("FS")
 						exit sub
 					End If
-					
+				Case "DRMDeathStrike"
+					If runes.DRMFU(TimeStamp) and CanUseGCD(Timestamp) Then
+						DeathStrike.ApplyDamage(TimeStamp)
+						'debug.Print("BS")
+						exit sub
+					End If	
 				Case "DeathStrike"
 					If runes.FU(TimeStamp) and CanUseGCD(Timestamp) Then
 						DeathStrike.ApplyDamage(TimeStamp)
@@ -84,6 +89,7 @@ Friend Module priority
 						'debug.Print("BS")
 						exit sub
 					End If
+					
 				Case "HeartStrike"
 					If runes.Blood(TimeStamp) = True and CanUseGCD(Timestamp) Then
 						Heartstrike.ApplyDamage(TimeStamp)

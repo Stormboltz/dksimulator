@@ -51,6 +51,7 @@ Friend Module CombatLog
 			End If
 		Else
 			tmp = tmp & int(-(T - Rune3.AvailableTime)/100)
+			'debug.Print ("Rune3.AvailableTime:" & (Rune3.AvailableTime)/100)
 		End If
 		If Rune4.AvailableTime <= T Then
 			If Rune4.death = True Then
@@ -60,6 +61,7 @@ Friend Module CombatLog
 			End If
 		Else
 			tmp = tmp & int(-(T - Rune4.AvailableTime)/100)
+			'debug.Print ("Rune4.AvailableTime:" & (Rune4.AvailableTime)/100)
 		End If
 		If Rune5.AvailableTime <= T Then
 			If Rune5.death = True Then

@@ -124,6 +124,7 @@ Partial Class MainForm
 		Me.chkEPSMHSpeed = New System.Windows.Forms.CheckBox
 		Me.chkEPExp = New System.Windows.Forms.CheckBox
 		Me.chkEPSMHDPS = New System.Windows.Forms.CheckBox
+		Me.chkEPAfterSpellHitRating = New System.Windows.Forms.CheckBox
 		Me.chkEPSpHit = New System.Windows.Forms.CheckBox
 		Me.chkEPHit = New System.Windows.Forms.CheckBox
 		Me.chkEPArP = New System.Windows.Forms.CheckBox
@@ -1094,6 +1095,7 @@ Partial Class MainForm
 		Me.groupBox1.Controls.Add(Me.chkEPSMHSpeed)
 		Me.groupBox1.Controls.Add(Me.chkEPExp)
 		Me.groupBox1.Controls.Add(Me.chkEPSMHDPS)
+		Me.groupBox1.Controls.Add(Me.chkEPAfterSpellHitRating)
 		Me.groupBox1.Controls.Add(Me.chkEPSpHit)
 		Me.groupBox1.Controls.Add(Me.chkEPHit)
 		Me.groupBox1.Controls.Add(Me.chkEPArP)
@@ -1112,7 +1114,7 @@ Partial Class MainForm
 		'
 		Me.chkEPSMHSpeed.Checked = true
 		Me.chkEPSMHSpeed.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkEPSMHSpeed.Location = New System.Drawing.Point(6, 289)
+		Me.chkEPSMHSpeed.Location = New System.Drawing.Point(6, 319)
 		Me.chkEPSMHSpeed.Name = "chkEPSMHSpeed"
 		Me.chkEPSMHSpeed.Size = New System.Drawing.Size(145, 24)
 		Me.chkEPSMHSpeed.TabIndex = 14
@@ -1123,7 +1125,7 @@ Partial Class MainForm
 		'
 		Me.chkEPExp.Checked = true
 		Me.chkEPExp.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkEPExp.Location = New System.Drawing.Point(6, 229)
+		Me.chkEPExp.Location = New System.Drawing.Point(6, 259)
 		Me.chkEPExp.Name = "chkEPExp"
 		Me.chkEPExp.Size = New System.Drawing.Size(104, 24)
 		Me.chkEPExp.TabIndex = 14
@@ -1134,12 +1136,23 @@ Partial Class MainForm
 		'
 		Me.chkEPSMHDPS.Checked = true
 		Me.chkEPSMHDPS.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkEPSMHDPS.Location = New System.Drawing.Point(6, 259)
+		Me.chkEPSMHDPS.Location = New System.Drawing.Point(6, 289)
 		Me.chkEPSMHDPS.Name = "chkEPSMHDPS"
 		Me.chkEPSMHDPS.Size = New System.Drawing.Size(104, 24)
 		Me.chkEPSMHDPS.TabIndex = 13
 		Me.chkEPSMHDPS.Text = "Main Hand DPS"
 		Me.chkEPSMHDPS.UseVisualStyleBackColor = true
+		'
+		'chkEPAfterSpellHitRating
+		'
+		Me.chkEPAfterSpellHitRating.Enabled = false
+		Me.chkEPAfterSpellHitRating.Location = New System.Drawing.Point(6, 229)
+		Me.chkEPAfterSpellHitRating.Name = "chkEPAfterSpellHitRating"
+		Me.chkEPAfterSpellHitRating.Size = New System.Drawing.Size(136, 24)
+		Me.chkEPAfterSpellHitRating.TabIndex = 13
+		Me.chkEPAfterSpellHitRating.Text = "After Spell Hit rating"
+		Me.chkEPAfterSpellHitRating.UseVisualStyleBackColor = true
+		AddHandler Me.chkEPAfterSpellHitRating.CheckedChanged, AddressOf Me.ChkEPAfterSpellHitRatingCheckedChanged
 		'
 		'chkEPSpHit
 		'
@@ -1151,6 +1164,7 @@ Partial Class MainForm
 		Me.chkEPSpHit.TabIndex = 13
 		Me.chkEPSpHit.Text = "Spell Hit rating"
 		Me.chkEPSpHit.UseVisualStyleBackColor = true
+		AddHandler Me.chkEPSpHit.CheckedChanged, AddressOf Me.ChkEPSpHitCheckedChanged
 		'
 		'chkEPHit
 		'
@@ -1509,6 +1523,7 @@ Partial Class MainForm
 		Me.grpBuff.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Friend chkEPAfterSpellHitRating As System.Windows.Forms.CheckBox
 	Friend chkEPDCDeath As System.Windows.Forms.CheckBox
 	Friend chkEPMjolRune As System.Windows.Forms.CheckBox
 	Friend chkEPDarkMatter As System.Windows.Forms.CheckBox

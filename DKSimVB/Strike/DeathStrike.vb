@@ -47,11 +47,7 @@ Friend Module DeathStrike
 			End If
 		End If
 		If MHHit Or OHHit Then
-			If talentblood.DRM = 3 Then
-				runes.UseFU(T,True)
-			Else
-				runes.UseFU(T,False)
-			End If
+			
 			dim dégat as Integer
 			If MHHit Then
 				RNG = RNGStrike
@@ -76,12 +72,12 @@ Friend Module DeathStrike
 				TryMjolRune
 				TryGrimToll
 				TryGreatness()
-TryDeathChoice()
-TryDCDeath()
-TryVictory()
-TryBandit()
-TryDarkMatter()
-TryComet()
+				TryDeathChoice()
+				TryDCDeath()
+				TryVictory()
+				TryBandit()
+				TryDarkMatter()
+				TryComet()
 			End If
 			If OHHit Then
 				
@@ -89,7 +85,7 @@ TryComet()
 					
 					dégat = AvrgCrit(T,false)
 					combatlog.write(T  & vbtab &  "OH DS crit for " & dégat  )
-										TryBitterAnguish()
+					TryBitterAnguish()
 					TryMirror()
 					TryPyrite()
 					TryOldGod()
@@ -106,16 +102,20 @@ TryComet()
 				TryMjolRune
 				TryGrimToll
 				TryGreatness()
-TryDeathChoice()
-TryDCDeath()
-TryVictory()
-TryBandit()
-TryDarkMatter()
-TryComet()
+				TryDeathChoice()
+				TryDCDeath()
+				TryVictory()
+				TryBandit()
+				TryDarkMatter()
+				TryComet()
 			End If
 			
 			
-			
+			If talentblood.DRM = 3 Then
+				runes.UseFU(T,True)
+			Else
+				runes.UseFU(T,False)
+			End If
 			
 			If DRW.IsActive(T) Then
 				drw.DeathStrike

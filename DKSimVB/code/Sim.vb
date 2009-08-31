@@ -170,11 +170,13 @@ Friend Module Sim
 		End If
 		
 		'SpHit
+		dim SPHitDps as Integer
 		if doc.SelectSingleNode("//config/Stats/chkEPSpHit").InnerText = "True" then
 			EPStat="SpellHitRating"
 			Start(pb,SimTime,MainFrm)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS) / 26 
+			SPHitDps = DPS
 			'sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & int (100*tmp2/tmp1)) & "</td></tr>"
 			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | AfterMeleeHitCap | " & int (100*tmp2/tmp1)) & "</td></tr>"
 			WriteReport ("Average for " & EPStat & " | " & DPS)
@@ -182,7 +184,22 @@ Friend Module Sim
 			WriteReport ("Average for SpellHitRating | 0")
 		End If
 		
-		'DPS
+		if doc.SelectSingleNode("//config/Stats/chkEPAfterSpellHitRating").InnerText = "True" then
+			EPStat="AfterSpellHitRating"
+			Start(pb,SimTime,MainFrm)
+			tmp1 = (APDPS-BaseDPS ) / 100
+			tmp2 = (DPS-SPHitDps) / 50 
+			'sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & int (100*tmp2/tmp1)) & "</td></tr>"
+			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | AfterSpellHitCap | " & int (100*tmp2/tmp1)) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " | " & DPS)
+		Else
+			WriteReport ("Average for AfterSpellHitRating | 0")
+		End If
+		
+		
+		
+		
+		'WeapDPS
 		if doc.SelectSingleNode("//config/Stats/chkEPSMHDPS").InnerText = "True" then
 			EPStat="WeaponDPS"
 			Start(pb,SimTime,MainFrm)
@@ -926,7 +943,7 @@ Friend Module Sim
 			End If
 			
 			If true then 'InterruptTimer > TimeStamp Or InterruptAmount == 0 Then 'Interrupt fighting every InterruptCd secs
-				If Bloodlust.IsAvailable(TimeStamp) And TimeStamp > 1500 Then
+				If Bloodlust.IsAvailable(TimeStamp) And TimeStamp > 500 Then
 					Bloodlust.use(TimeStamp)
 				End If
 				
@@ -1263,7 +1280,7 @@ Friend Module Sim
 	
 	Sub Report()
 		Dim Tw As System.IO.TextWriter
-		'if EPStat <> "" then exit sub
+		if EPStat <> "" then exit sub
 		
 		Tw  =system.IO.File.appendText(ReportPath)
 		'Tw  = system.IO.File.Open(reportpath, system.IO.FileMode.Append)     '.OpenWrite(ReportPath)

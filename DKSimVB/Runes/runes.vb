@@ -150,59 +150,62 @@ Friend Module runes
 	End Function
 	Function UseBlood(T as long,Death as Boolean) As Boolean
 		If Rune1.AvailableTime <= T And Rune1.death = False Then
-			If T - Rune1.AvailableTime <= 300 Then
+			If T - Rune1.AvailableTime <= 300 and Rune1.AvailableTime <> 0 Then
 				Rune1.AvailableTime = Rune1.AvailableTime + RuneRefreshtime
 			Else
 				Rune1.AvailableTime = T + RuneRefreshtime
 			End If
+			Rune1.death = false
 			If death Then Rune1.death = True
 		Else
 			If Rune2.AvailableTime <= T And Rune2.death = False Then
 				
-				If T - Rune2.AvailableTime <= 300 Then
+				If T - Rune2.AvailableTime <= 300 and Rune2.AvailableTime <> 0 Then
 					Rune2.AvailableTime = Rune2.AvailableTime + RuneRefreshtime
 				Else
 					Rune2.AvailableTime = T + RuneRefreshtime
 				End If
+				Rune2.death = false
 				If death Then Rune2.death = True
 			Else
 				If Rune1.AvailableTime <= T Then
-					If T - Rune1.AvailableTime <= 300 Then
+					If T - Rune1.AvailableTime <= 300 and Rune1.AvailableTime <> 0 Then
 						Rune1.AvailableTime = Rune1.AvailableTime + RuneRefreshtime
 					Else
 						Rune1.AvailableTime = T + RuneRefreshtime
 					End If
-					
+					Rune1.death = false
 					If death Then Rune1.death = True
 				Else
 					If Rune2.AvailableTime <= T Then
-						If T - Rune2.AvailableTime <= 300 Then
+						If T - Rune2.AvailableTime <= 300 and Rune2.AvailableTime <> 0 Then
 							Rune2.AvailableTime = Rune2.AvailableTime + RuneRefreshtime
 						Else
 							Rune2.AvailableTime = T + RuneRefreshtime
 						End If
+						Rune2.death = false
 						If death Then Rune2.death = True
 					Else
 						If Rune3.AvailableTime <= T And Rune3.death = True Then
-							If T - Rune3.AvailableTime <= 300 Then
+							If T - Rune3.AvailableTime <= 300 and Rune3.AvailableTime <> 0 Then
 								Rune3.AvailableTime = Rune3.AvailableTime + RuneRefreshtime
 							Else
 								Rune3.AvailableTime = T + RuneRefreshtime
 							End If
 							rune3.death=False
+							If death Then rune3.death=true
 						Else
 							If Rune4.AvailableTime <= T And Rune4.death = True Then
-								If T - Rune4.AvailableTime <= 300 Then
+								If T - Rune4.AvailableTime <= 300 and Rune4.AvailableTime <> 0 Then
 									Rune4.AvailableTime = Rune4.AvailableTime + RuneRefreshtime
 								Else
 									Rune4.AvailableTime = T + RuneRefreshtime
 								End If
-								
 								rune4.death=False
-								If death Then Rune2.death=true
+								If death Then Rune4.death=true
 							Else
 								If Rune5.AvailableTime <= T And Rune5.death = True Then
-									If T - Rune5.AvailableTime <= 300 Then
+									If T - Rune5.AvailableTime <= 300 and Rune5.AvailableTime <> 0 Then
 										Rune5.AvailableTime = Rune5.AvailableTime + RuneRefreshtime
 									Else
 										Rune5.AvailableTime = T + RuneRefreshtime
@@ -211,7 +214,7 @@ Friend Module runes
 									If death Then Rune5.death=true
 								Else
 									If Rune6.AvailableTime <= T And Rune6.death = True Then
-										If T - Rune6.AvailableTime <= 300 Then
+										If T - Rune6.AvailableTime <= 300 and Rune6.AvailableTime <> 0 Then
 											Rune6.AvailableTime = Rune6.AvailableTime + RuneRefreshtime
 										Else
 											Rune6.AvailableTime = T + RuneRefreshtime
@@ -236,7 +239,7 @@ Friend Module runes
 	End Function
 	Function UseFrost(T as long,Death as Boolean) As Boolean
 		If Rune3.AvailableTime <= T Then
-			If T - Rune3.AvailableTime <= 300 Then
+			If T - Rune3.AvailableTime <= 300 and Rune3.AvailableTime <> 0 Then
 				Rune3.AvailableTime = Rune3.AvailableTime + RuneRefreshtime
 			Else
 				Rune3.AvailableTime = T + RuneRefreshtime
@@ -245,12 +248,12 @@ Friend Module runes
 			If death Then Rune3.death=true
 		Else
 			If Rune4.AvailableTime <= T Then
-				If T - Rune4.AvailableTime <= 300 Then
+				If T - Rune4.AvailableTime <= 300 and Rune4.AvailableTime <> 0 Then
 					Rune4.AvailableTime = Rune4.AvailableTime + RuneRefreshtime
 				Else
 					Rune4.AvailableTime = T + RuneRefreshtime
 				End If
-				
+				Rune4.death=false
 				If death Then Rune4.death=true
 			Else
 				If Rune1.AvailableTime <= T And Rune1.death = True Then
@@ -264,7 +267,7 @@ Friend Module runes
 						If death Then Rune2.death=true
 					Else
 						If Rune5.AvailableTime <= T And Rune5.death = True Then
-							If T - Rune5.AvailableTime <= 300 Then
+							If T - Rune5.AvailableTime <= 300 and Rune5.AvailableTime <> 0 Then
 								Rune5.AvailableTime = Rune5.AvailableTime + RuneRefreshtime
 							Else
 								Rune5.AvailableTime = T + RuneRefreshtime
@@ -273,12 +276,11 @@ Friend Module runes
 							If death Then Rune5.death=true
 						Else
 							If Rune6.AvailableTime <= T And Rune6.death = True Then
-								If T - Rune6.AvailableTime <= 300 Then
+								If T - Rune6.AvailableTime <= 300 and Rune6.AvailableTime <> 0 Then
 									Rune6.AvailableTime = Rune6.AvailableTime + RuneRefreshtime
 								Else
 									Rune6.AvailableTime = T + RuneRefreshtime
 								End If
-								
 								rune6.death=False
 								If death Then Rune6.death=true
 							Else
@@ -293,24 +295,25 @@ Friend Module runes
 	
 	Function UseUnholy(T as long,Death as Boolean) As Boolean
 		If Rune5.AvailableTime <= T Then
-			If T - Rune5.AvailableTime <= 300 Then
+			If T - Rune5.AvailableTime <= 300 and Rune5.AvailableTime <> 0 Then
 				Rune5.AvailableTime = Rune5.AvailableTime + RuneRefreshtime
 			Else
 				Rune5.AvailableTime = T + RuneRefreshtime
 			End If
+			Rune5.death = false
 			If death Then Rune5.death=true
 		Else
 			If Rune6.AvailableTime <= T Then
-				If T - Rune6.AvailableTime <= 300 Then
+				If T - Rune6.AvailableTime <= 300 and Rune6.AvailableTime <> 0 Then
 					Rune6.AvailableTime = Rune6.AvailableTime + RuneRefreshtime
 				Else
 					Rune6.AvailableTime = T + RuneRefreshtime
 				End If
-				
+				Rune6.death = false
 				If death Then Rune6.death=true
 			Else
 				If Rune1.AvailableTime <= T And Rune1.death = True Then
-					If T - Rune1.AvailableTime <= 300 Then
+					If T - Rune1.AvailableTime <= 300 and Rune1.AvailableTime <> 0 Then
 						Rune1.AvailableTime = Rune1.AvailableTime + RuneRefreshtime
 					Else
 						Rune1.AvailableTime = T + RuneRefreshtime
@@ -319,7 +322,7 @@ Friend Module runes
 					If death Then Rune1.death=true
 				Else
 					If Rune2.AvailableTime <= T And Rune2.death = True Then
-						If T - Rune2.AvailableTime <= 300 Then
+						If T - Rune2.AvailableTime <= 300 and Rune2.AvailableTime <> 0 Then
 							Rune2.AvailableTime = Rune2.AvailableTime + RuneRefreshtime
 						Else
 							Rune2.AvailableTime = T + RuneRefreshtime
@@ -328,22 +331,20 @@ Friend Module runes
 						If death Then Rune2.death=True
 					Else
 						If Rune3.AvailableTime <= T And Rune3.death = True Then
-							If T - Rune3.AvailableTime <= 300 Then
+							If T - Rune3.AvailableTime <= 300 and Rune3.AvailableTime <> 0 Then
 								Rune3.AvailableTime = Rune3.AvailableTime + RuneRefreshtime
 							Else
 								Rune3.AvailableTime = T + RuneRefreshtime
 							End If
 							rune3.death=False
-							rune3.death=False
 							If death Then Rune3.death=true
 						Else
 							If Rune4.AvailableTime <= T And Rune4.death = True Then
-								If T - Rune4.AvailableTime <= 300 Then
+								If T - Rune4.AvailableTime <= 300 and Rune4.AvailableTime <> 0 Then
 									Rune4.AvailableTime = Rune4.AvailableTime + RuneRefreshtime
 								Else
 									Rune4.AvailableTime = T + RuneRefreshtime
 								End If
-								
 								rune4.death=False
 								If death Then Rune4.death=true
 							Else
@@ -357,7 +358,7 @@ Friend Module runes
 	End Function
 	Function UseFU(T as long,Death as Boolean) As Boolean
 		If Rune3.AvailableTime <= T Then
-			If T - Rune3.AvailableTime <= 300 Then
+			If T - Rune3.AvailableTime <= 300 and Rune3.AvailableTime <> 0 Then
 				Rune3.AvailableTime = Rune3.AvailableTime + RuneRefreshtime
 			Else
 				Rune3.AvailableTime = T + RuneRefreshtime
@@ -366,16 +367,16 @@ Friend Module runes
 			If death Then Rune3.death=true
 		Else
 			If Rune4.AvailableTime <= T Then
-				If T - Rune4.AvailableTime <= 300 Then
+				If T - Rune4.AvailableTime <= 300 and Rune4.AvailableTime <> 0 Then
 					Rune4.AvailableTime = Rune4.AvailableTime + RuneRefreshtime
 				Else
 					Rune4.AvailableTime = T + RuneRefreshtime
 				End If
-				
+				Rune4.death=False
 				If death Then Rune4.death=true
 			Else
 				If Rune1.AvailableTime <= T And Rune1.death = True Then
-					If T - Rune1.AvailableTime <= 300 Then
+					If T - Rune1.AvailableTime <= 300 and Rune1.AvailableTime <> 0Then
 						Rune1.AvailableTime = Rune1.AvailableTime + RuneRefreshtime
 					Else
 						Rune1.AvailableTime = T + RuneRefreshtime
@@ -384,7 +385,7 @@ Friend Module runes
 					If death Then Rune1.death=true
 				Else
 					If Rune2.AvailableTime <= T And Rune2.death = True Then
-						If T - Rune2.AvailableTime <= 300 Then
+						If T - Rune2.AvailableTime <= 300 and Rune2.AvailableTime <> 0 Then
 							Rune2.AvailableTime = Rune2.AvailableTime + RuneRefreshtime
 						Else
 							Rune2.AvailableTime = T + RuneRefreshtime
@@ -401,24 +402,25 @@ Friend Module runes
 		End If
 		
 		If Rune5.AvailableTime <= T Then
-			If T - Rune5.AvailableTime <= 300 Then
+			If T - Rune5.AvailableTime <= 300 and Rune5.AvailableTime <> 0 Then
 				Rune5.AvailableTime = Rune5.AvailableTime + RuneRefreshtime
 			Else
 				Rune5.AvailableTime = T + RuneRefreshtime
 			End If
+			Rune5.death=false
 			If death Then Rune5.death=true
 		Else
 			If Rune6.AvailableTime <= T Then
-				If T - Rune6.AvailableTime <= 300 Then
+				If T - Rune6.AvailableTime <= 300 and Rune6.AvailableTime <> 0 Then
 					Rune6.AvailableTime = Rune6.AvailableTime + RuneRefreshtime
 				Else
 					Rune6.AvailableTime = T + RuneRefreshtime
 				End If
-				
+				Rune6.death=false
 				If death Then Rune6.death=true
 			Else
 				If Rune1.AvailableTime <= T And Rune1.death = True Then
-					If T - Rune1.AvailableTime <= 300 Then
+					If T - Rune1.AvailableTime <= 300 and Rune1.AvailableTime <> 0 Then
 						Rune1.AvailableTime = Rune1.AvailableTime + RuneRefreshtime
 					Else
 						Rune1.AvailableTime = T + RuneRefreshtime
@@ -427,7 +429,7 @@ Friend Module runes
 					If death Then Rune1.death=true
 				Else
 					If Rune2.AvailableTime <= T And Rune2.death = True Then
-						If T - Rune2.AvailableTime <= 300 Then
+						If T - Rune2.AvailableTime <= 300 and Rune2.AvailableTime <> 0 Then
 							Rune2.AvailableTime = Rune2.AvailableTime + RuneRefreshtime
 						Else
 							Rune2.AvailableTime = T + RuneRefreshtime
@@ -445,7 +447,7 @@ Friend Module runes
 	End Function
 	Function UseFU(T as long,Death as Boolean,UseReservation as Boolean) As Boolean
 		If Rune3.AvailableTime <= T Then
-			If T - Rune3.AvailableTime <= 300 Then
+			If T - Rune3.AvailableTime <= 300 and Rune3.AvailableTime <> 0 Then
 				Rune3.AvailableTime = Rune3.AvailableTime + RuneRefreshtime
 			Else
 				Rune3.AvailableTime = T + RuneRefreshtime
@@ -454,16 +456,16 @@ Friend Module runes
 			If death Then Rune3.death=true
 		Else
 			If Rune4.AvailableTime <= T Then
-				If T - Rune4.AvailableTime <= 300 Then
+				If T - Rune4.AvailableTime <= 300 and Rune4.AvailableTime <> 0 Then
 					Rune4.AvailableTime = Rune4.AvailableTime + RuneRefreshtime
 				Else
 					Rune4.AvailableTime = T + RuneRefreshtime
 				End If
-				
+				Rune4.death=false
 				If death Then Rune4.death=true
 			Else
 				If Rune1.AvailableTime <= T And Rune1.death = True Then
-					If T - Rune1.AvailableTime <= 300 Then
+					If T - Rune1.AvailableTime <= 300 and Rune1.AvailableTime <> 0 Then
 						Rune1.AvailableTime = Rune1.AvailableTime + RuneRefreshtime
 					Else
 						Rune1.AvailableTime = T + RuneRefreshtime
@@ -472,7 +474,7 @@ Friend Module runes
 					If death Then Rune1.death=true
 				Else
 					If Rune2.AvailableTime <= T And Rune2.death = True Then
-						If T - Rune2.AvailableTime <= 300 Then
+						If T - Rune2.AvailableTime <= 300 and Rune2.AvailableTime <> 0  Then
 							Rune2.AvailableTime = Rune2.AvailableTime + RuneRefreshtime
 						Else
 							Rune2.AvailableTime = T + RuneRefreshtime
@@ -489,7 +491,7 @@ Friend Module runes
 		End If
 		
 		If Rune5.AvailableTime <= T Then
-			If T - Rune5.AvailableTime <= 300 Then
+			If T - Rune5.AvailableTime <= 300 and Rune5.AvailableTime <> 0 Then
 				Rune5.AvailableTime = Rune5.AvailableTime + RuneRefreshtime
 			Else
 				Rune5.AvailableTime = T + RuneRefreshtime
@@ -497,16 +499,16 @@ Friend Module runes
 			If death Then Rune5.death=true
 		Else
 			If Rune6.AvailableTime <= T Then
-				If T - Rune6.AvailableTime <= 300 Then
+				If T - Rune6.AvailableTime <= 300 and Rune6.AvailableTime <> 0 Then
 					Rune6.AvailableTime = Rune6.AvailableTime + RuneRefreshtime
 				Else
 					Rune6.AvailableTime = T + RuneRefreshtime
 				End If
-				
+				Rune6.death=false
 				If death Then Rune6.death=true
 			Else
 				If Rune1.AvailableTime <= T And Rune1.death = True Then
-					If T - Rune1.AvailableTime <= 300 Then
+					If T - Rune1.AvailableTime <= 300 and Rune1.AvailableTime <> 0  Then
 						Rune1.AvailableTime = Rune1.AvailableTime + RuneRefreshtime
 					Else
 						Rune1.AvailableTime = T + RuneRefreshtime
@@ -515,7 +517,7 @@ Friend Module runes
 					If death Then Rune1.death=true
 				Else
 					If Rune2.AvailableTime <= T And Rune2.death = True Then
-						If T - Rune2.AvailableTime <= 300 Then
+						If T - Rune2.AvailableTime <= 300 and Rune2.AvailableTime <> 0 Then
 							Rune2.AvailableTime = Rune2.AvailableTime + RuneRefreshtime
 						Else
 							Rune2.AvailableTime = T + RuneRefreshtime
@@ -639,7 +641,6 @@ Friend Module runes
 	End Function
 	Sub Init()
 		UnReserveFU(0)
-		
 		Rune1.AvailableTime = 0
 		Rune1.death = False
 		Rune2.AvailableTime = 0

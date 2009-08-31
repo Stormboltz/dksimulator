@@ -44,19 +44,28 @@ Friend module deathcoil
 		If RNG <= CritChance Then
 			CritCount = CritCount + 1
 			dégat= AvrgCrit(T)
-			combatlog.write(T  & vbtab &  "DC crit for " & dégat & vbtab & "RP left = " & RunicPower.Value)
+			If SDoom Then
+				combatlog.write(T  & vbtab &  "DC SDoom crit for " & dégat & vbtab & "RP left = " & RunicPower.Value)
+			Else
+				combatlog.write(T  & vbtab &  "DC crit for " & dégat & vbtab & "RP left = " & RunicPower.Value)
+			End If
 		Else
 			dégat= AvrgNonCrit(T)
 			HitCount = HitCount + 1
-			combatlog.write(T  & vbtab &  "DC hit for " & dégat & vbtab & "RP left = " & RunicPower.Value) 
+			If SDoom Then
+				combatlog.write(T  & vbtab &  "DC SDoom hit for " & dégat & vbtab & "RP left = " & RunicPower.Value)
+			Else
+				combatlog.write(T  & vbtab &  "DC hit for " & dégat & vbtab & "RP left = " & RunicPower.Value)
+			End If
+			
 		End If
 		
 		if Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
 		total = total + dégat
 		TryGreatness()
-TryDeathChoice()
-TryDCDeath()
-		If TalentUnholy.UnholyBlight = 1 Then	
+		TryDeathChoice()
+		TryDCDeath()
+		If TalentUnholy.UnholyBlight = 1 Then
 			UnholyBlight.Apply(T,dégat)
 		End If
 		If DRW.IsActive(T) Then
@@ -74,7 +83,7 @@ TryDCDeath()
 		tmp = tmp * (1 + TalentUnholy.Morbidity * 5 / 100)
 		tmp = tmp * MainStat.StandardMagicalDamageMultiplier(T)
 		tmp = tmp * (1 + TalentFrost.BlackIce * 2 / 100)
-		If glyph.DarkDeath Then 
+		If glyph.DarkDeath Then
 			tmp = tmp * (1.15)
 		End If
 		if CinderglacierProc > 0 then
@@ -85,11 +94,11 @@ TryDCDeath()
 		return tmp
 	End Function
 	Function CritCoef() As Double
-		CritCoef = 1 
+		CritCoef = 1
 		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
 	End Function
 	Function CritChance() As Double
-		CritChance = MainStat.SpellCrit + 8/100 * SetBonus.T82PDPS	 
+		CritChance = MainStat.SpellCrit + 8/100 * SetBonus.T82PDPS
 	End Function
 	Function AvrgCrit(T As long) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)

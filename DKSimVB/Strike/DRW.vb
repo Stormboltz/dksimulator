@@ -24,7 +24,7 @@ Friend module DRW
 	Sub Summon(T As Long)
 		
 		If AreStarsAligned(T) = False Then
-			DKSIMVB.deathcoil.ApplyDamage(T,false)
+			'DKSIMVB.deathcoil.ApplyDamage(T,false)
 			exit sub
 		End If
 		
@@ -52,7 +52,7 @@ Friend module DRW
 			End If
 			Sim.NextFreeGCD = T + (150 / (1 + mainstat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
 			NextDRW = T
-			combatlog.write(T  & vbtab &  "Summon DRW")
+			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Summon DRW")
 		End If
 	End Sub
 	Function ApplyDamage(T As long) As boolean
@@ -280,7 +280,7 @@ Friend module DRW
 	
 		If RNG < SpellMissChance Then
 			MissCount = MissCount + 1
-			combatlog.write(T  & vbtab &  "DRW Death Coil fail")
+			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "DRW Death Coil fail")
 			exit sub
 		end if
 		RNG = RNGPet
@@ -292,10 +292,10 @@ Friend module DRW
 		If RNG <= drw.SpellCrit Then
 			damage = damage * 2
 			CritCount = CritCount +1
-			combatlog.write(T  & vbtab &  "DRW Death Coil crit for " & damage )
+			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "DRW Death Coil crit for " & damage )
 		Else
 			hitcount = hitcount + 1
-			combatlog.write(T  & vbtab &  "DRW Death Coil hit for " & damage)
+			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "DRW Death Coil hit for " & damage)
 		End If
 		total = total + damage
 	End Sub
@@ -330,7 +330,7 @@ Friend module DRW
 
 		If RNG < SpellMissChance Then
 			MissCount = MissCount + 1
-			combatlog.write(T  & vbtab &  "DRW Icy Touch fail")
+			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "DRW Icy Touch fail")
 			exit sub
 		end if
 		RNG = RNGPet
@@ -342,10 +342,10 @@ Friend module DRW
 		If RNG <= drw.SpellCrit Then
 			damage = damage * 2
 			CritCount = CritCount +1
-			combatlog.write(T  & vbtab &  "DRW Icy Touch crit for " & damage )
+			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "DRW Icy Touch crit for " & damage )
 		Else
 			hitcount = hitcount + 1
-			combatlog.write(T  & vbtab &  "DRW Icy Touch hit for " & damage)
+			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "DRW Icy Touch hit for " & damage)
 		End If
 		total = total + damage
 		
