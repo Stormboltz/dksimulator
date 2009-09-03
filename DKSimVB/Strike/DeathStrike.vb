@@ -109,7 +109,7 @@ Friend Module DeathStrike
 				TryDarkMatter()
 				TryComet()
 			End If
-			
+			proc.VirulenceFade = T + 2000
 			
 			If talentblood.DRM = 3 Then
 				runes.UseFU(T,True)
@@ -120,10 +120,9 @@ Friend Module DeathStrike
 			If DRW.IsActive(T) Then
 				drw.DeathStrike
 			End If
+			
 			runicpower.add(15 +  2.5*talentunholy.Dirge )
 			runicpower.add(5*SetBonus.T74PDPS)
-			
-			
 		End If
 		return true
 	End Function

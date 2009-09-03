@@ -76,13 +76,13 @@ Friend module ScourgeStrike
 		TryMHFallenCrusader
 		TryMjolRune
 		TryGrimToll
-						TryGreatness()
-TryDeathChoice()
-TryDCDeath()
-TryVictory()
-TryBandit()
-TryDarkMatter()
-TryComet()
+		TryGreatness()
+		TryDeathChoice()
+		TryDCDeath()
+		TryVictory()
+		TryBandit()
+		TryDarkMatter()
+		TryComet()
 		'Debug.Print T & vbTab & "ScourgeStrike for " & Range("Abilities!N11").Value
 		return true
 	End Function
