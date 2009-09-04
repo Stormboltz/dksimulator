@@ -368,7 +368,7 @@ Friend Module MainStat
 	Function ArmorPen As Double
 		Dim tmp As Double
 		tmp = character.ArmorPenetrationRating / 15.39
-		tmp = tmp *1.25
+		tmp = tmp *1.25 '1.1 with Patch 3.2.2, before 1.25
 		return tmp / 100
 	End Function
 	Function ArmorMitigation() As Double

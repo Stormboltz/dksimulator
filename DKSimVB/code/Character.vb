@@ -13,7 +13,7 @@ Friend Module Character
 	Private _Dual As Integer
 	
 	
-	Sub  initialisation()
+	Sub init()
 		XmlDoc.Load(sim._MainFrm.GetFilePath(_MainFrm.cmbCharacter.Text) )
 		
 		_Strength=0

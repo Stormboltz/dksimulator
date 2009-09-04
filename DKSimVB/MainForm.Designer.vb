@@ -53,6 +53,9 @@ Partial Class MainForm
 		Me.HtmlReport = New System.Windows.Forms.TabPage
 		Me.webBrowser1 = New System.Windows.Forms.WebBrowser
 		Me.tabPage3 = New System.Windows.Forms.TabPage
+		Me.label18 = New System.Windows.Forms.Label
+		Me.txtManyFights = New System.Windows.Forms.TextBox
+		Me.chkManyFights = New System.Windows.Forms.CheckBox
 		Me.label17 = New System.Windows.Forms.Label
 		Me.label15 = New System.Windows.Forms.Label
 		Me.txtInterruptAmount = New System.Windows.Forms.TextBox
@@ -355,6 +358,9 @@ Partial Class MainForm
 		'
 		'tabPage3
 		'
+		Me.tabPage3.Controls.Add(Me.label18)
+		Me.tabPage3.Controls.Add(Me.txtManyFights)
+		Me.tabPage3.Controls.Add(Me.chkManyFights)
 		Me.tabPage3.Controls.Add(Me.label17)
 		Me.tabPage3.Controls.Add(Me.label15)
 		Me.tabPage3.Controls.Add(Me.txtInterruptAmount)
@@ -401,10 +407,38 @@ Partial Class MainForm
 		Me.tabPage3.Text = "Configuration"
 		Me.tabPage3.UseVisualStyleBackColor = true
 		'
+		'label18
+		'
+		Me.label18.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
+		Me.label18.Location = New System.Drawing.Point(112, 449)
+		Me.label18.Name = "label18"
+		Me.label18.Size = New System.Drawing.Size(79, 13)
+		Me.label18.TabIndex = 35
+		Me.label18.Text = "s long fights"
+		'
+		'txtManyFights
+		'
+		Me.txtManyFights.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
+		Me.txtManyFights.Location = New System.Drawing.Point(56, 446)
+		Me.txtManyFights.Name = "txtManyFights"
+		Me.txtManyFights.Size = New System.Drawing.Size(50, 20)
+		Me.txtManyFights.TabIndex = 34
+		Me.txtManyFights.Text = "350"
+		'
+		'chkManyFights
+		'
+		Me.chkManyFights.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.chkManyFights.Location = New System.Drawing.Point(6, 444)
+		Me.chkManyFights.Name = "chkManyFights"
+		Me.chkManyFights.Size = New System.Drawing.Size(60, 24)
+		Me.chkManyFights.TabIndex = 33
+		Me.chkManyFights.Text = "Many"
+		Me.chkManyFights.UseVisualStyleBackColor = true
+		'
 		'label17
 		'
 		Me.label17.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-		Me.label17.Location = New System.Drawing.Point(6, 423)
+		Me.label17.Location = New System.Drawing.Point(6, 397)
 		Me.label17.Name = "label17"
 		Me.label17.Size = New System.Drawing.Size(116, 13)
 		Me.label17.TabIndex = 32
@@ -413,7 +447,7 @@ Partial Class MainForm
 		'label15
 		'
 		Me.label15.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-		Me.label15.Location = New System.Drawing.Point(278, 423)
+		Me.label15.Location = New System.Drawing.Point(278, 397)
 		Me.label15.Name = "label15"
 		Me.label15.Size = New System.Drawing.Size(16, 13)
 		Me.label15.TabIndex = 31
@@ -423,7 +457,7 @@ Partial Class MainForm
 		'
 		Me.txtInterruptAmount.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
 		Me.txtInterruptAmount.Enabled = false
-		Me.txtInterruptAmount.Location = New System.Drawing.Point(222, 420)
+		Me.txtInterruptAmount.Location = New System.Drawing.Point(222, 394)
 		Me.txtInterruptAmount.Name = "txtInterruptAmount"
 		Me.txtInterruptAmount.Size = New System.Drawing.Size(50, 20)
 		Me.txtInterruptAmount.TabIndex = 30
@@ -433,7 +467,7 @@ Partial Class MainForm
 		'
 		Me.txtInterruptCd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
 		Me.txtInterruptCd.Enabled = false
-		Me.txtInterruptCd.Location = New System.Drawing.Point(128, 420)
+		Me.txtInterruptCd.Location = New System.Drawing.Point(128, 394)
 		Me.txtInterruptCd.Name = "txtInterruptCd"
 		Me.txtInterruptCd.Size = New System.Drawing.Size(50, 20)
 		Me.txtInterruptCd.TabIndex = 29
@@ -442,7 +476,7 @@ Partial Class MainForm
 		'label16
 		'
 		Me.label16.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-		Me.label16.Location = New System.Drawing.Point(184, 423)
+		Me.label16.Location = New System.Drawing.Point(184, 397)
 		Me.label16.Name = "label16"
 		Me.label16.Size = New System.Drawing.Size(32, 13)
 		Me.label16.TabIndex = 28
@@ -451,7 +485,7 @@ Partial Class MainForm
 		'label14
 		'
 		Me.label14.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-		Me.label14.Location = New System.Drawing.Point(171, 449)
+		Me.label14.Location = New System.Drawing.Point(171, 423)
 		Me.label14.Name = "label14"
 		Me.label14.Size = New System.Drawing.Size(20, 13)
 		Me.label14.TabIndex = 27
@@ -460,7 +494,7 @@ Partial Class MainForm
 		'txtAMScd
 		'
 		Me.txtAMScd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-		Me.txtAMScd.Location = New System.Drawing.Point(115, 446)
+		Me.txtAMScd.Location = New System.Drawing.Point(115, 420)
 		Me.txtAMScd.Name = "txtAMScd"
 		Me.txtAMScd.Size = New System.Drawing.Size(50, 20)
 		Me.txtAMScd.TabIndex = 26
@@ -469,7 +503,7 @@ Partial Class MainForm
 		'txtAMSrp
 		'
 		Me.txtAMSrp.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-		Me.txtAMSrp.Location = New System.Drawing.Point(6, 446)
+		Me.txtAMSrp.Location = New System.Drawing.Point(6, 420)
 		Me.txtAMSrp.Name = "txtAMSrp"
 		Me.txtAMSrp.Size = New System.Drawing.Size(50, 20)
 		Me.txtAMSrp.TabIndex = 25
@@ -478,7 +512,7 @@ Partial Class MainForm
 		'label13
 		'
 		Me.label13.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-		Me.label13.Location = New System.Drawing.Point(62, 449)
+		Me.label13.Location = New System.Drawing.Point(62, 423)
 		Me.label13.Name = "label13"
 		Me.label13.Size = New System.Drawing.Size(47, 13)
 		Me.label13.TabIndex = 24
@@ -509,7 +543,7 @@ Partial Class MainForm
 		'txtLatency
 		'
 		Me.txtLatency.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-		Me.txtLatency.Location = New System.Drawing.Point(88, 394)
+		Me.txtLatency.Location = New System.Drawing.Point(88, 368)
 		Me.txtLatency.Name = "txtLatency"
 		Me.txtLatency.Size = New System.Drawing.Size(50, 20)
 		Me.txtLatency.TabIndex = 21
@@ -519,7 +553,7 @@ Partial Class MainForm
 		'txtSimtime
 		'
 		Me.txtSimtime.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-		Me.txtSimtime.Location = New System.Drawing.Point(112, 368)
+		Me.txtSimtime.Location = New System.Drawing.Point(112, 342)
 		Me.txtSimtime.Name = "txtSimtime"
 		Me.txtSimtime.Size = New System.Drawing.Size(50, 20)
 		Me.txtSimtime.TabIndex = 6
@@ -694,7 +728,7 @@ Partial Class MainForm
 		'label10
 		'
 		Me.label10.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-		Me.label10.Location = New System.Drawing.Point(6, 397)
+		Me.label10.Location = New System.Drawing.Point(6, 371)
 		Me.label10.Name = "label10"
 		Me.label10.Size = New System.Drawing.Size(76, 13)
 		Me.label10.TabIndex = 7
@@ -703,7 +737,7 @@ Partial Class MainForm
 		'label4
 		'
 		Me.label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-		Me.label4.Location = New System.Drawing.Point(6, 371)
+		Me.label4.Location = New System.Drawing.Point(6, 345)
 		Me.label4.Name = "label4"
 		Me.label4.Size = New System.Drawing.Size(100, 13)
 		Me.label4.TabIndex = 7
@@ -1523,6 +1557,9 @@ Partial Class MainForm
 		Me.grpBuff.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Friend txtManyFights As System.Windows.Forms.TextBox
+	Friend chkManyFights As System.Windows.Forms.CheckBox
+	Private label18 As System.Windows.Forms.Label
 	Friend chkEPAfterSpellHitRating As System.Windows.Forms.CheckBox
 	Friend chkEPDCDeath As System.Windows.Forms.CheckBox
 	Friend chkEPMjolRune As System.Windows.Forms.CheckBox
@@ -1643,4 +1680,5 @@ Partial Class MainForm
 	Private tabPage3 As System.Windows.Forms.TabPage
 	Private PBsim As System.Windows.Forms.ProgressBar
 	Private button1 As System.Windows.Forms.Button
+	
 End Class

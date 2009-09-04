@@ -1,12 +1,15 @@
 Friend Module Sim
 	Friend TotalDamage As Long
+	Friend TotalDamageAlternative As Long
 	Friend NextFreeGCD As Long
 	Friend Lag As Long
 	Friend TimeStamp As Long
+	Friend TimeStampCounter As Long
 	Friend EPStat As String
 	Friend EPBase as Integer
 	Private DPS As Long
 	Friend MaxTime As Long
+	Friend NumberOfFights As Long
 	Friend RotationStep as Integer
 	Friend Rotate as boolean
 	Friend rotationPath As String
@@ -175,7 +178,7 @@ Friend Module Sim
 			EPStat="SpellHitRating"
 			Start(pb,SimTime,MainFrm)
 			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (DPS-BaseDPS) / 26 
+			tmp2 = (DPS-BaseDPS) / 26
 			SPHitDps = DPS
 			'sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & int (100*tmp2/tmp1)) & "</td></tr>"
 			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | AfterMeleeHitCap | " & int (100*tmp2/tmp1)) & "</td></tr>"
@@ -188,7 +191,7 @@ Friend Module Sim
 			EPStat="AfterSpellHitRating"
 			Start(pb,SimTime,MainFrm)
 			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (DPS-SPHitDps) / 50 
+			tmp2 = (DPS-SPHitDps) / 50
 			'sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & int (100*tmp2/tmp1)) & "</td></tr>"
 			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | AfterSpellHitCap | " & int (100*tmp2/tmp1)) & "</td></tr>"
 			WriteReport ("Average for " & EPStat & " | " & DPS)
@@ -900,167 +903,189 @@ Friend Module Sim
 	
 	Sub Start(pb As ProgressBar,SimTime As double, MainFrm As MainForm)
 		Rnd(-1) 'Tell VB to initialize using Randomize's parameter
+		RandomNumberGenerator.Init 'init here, so that we don't get the same rng numbers for short fights.
+		
 		_MainFrm = MainFrm
 		'combatlog.LogDetails = true
 		SimStart = now
 		
-		MaxTime = SimTime* 3600 *100
-		'MaxTime= MaxTime 
-		pb.Maximum = maxtime
+		MaxTime = SimTime * 60 * 60 * 100
+		pb.Maximum = SimTime * 60 * 60 * 100
 		
-		'Init
-		Initialisation
-		Pestilence.init
-		proc.init
-		trinket.init
-		Character.initialisation
-		GhoulStat.init
-		TimeStamp = 1
+		TotalDamageAlternative = 0
+		TimeStampCounter = 1
+		If _MainFrm.chkManyFights.Checked Then
+			NumberOfFights = Math.Round( ( SimTime * 60 * 60 ) / _MainFrm.txtManyFights.text )
+			Debug.Print( "SimTime = " & SimTime * 60 * 60)
+			Debug.Print( "_MainFrm.txtManyFights.text = " & _MainFrm.txtManyFights.text)
+			MaxTime = _MainFrm.txtManyFights.text * 100
+			Debug.Print( "NumberOfFights = " & NumberOfFights)
+		Else
+			NumberOfFights = 1
+		End If
 		
-		If Rotate Then loadRotation
-		
-		Do Until TimeStamp > MaxTime
-			pb.Value = timestamp
-			Timestamp = FastFoward(Timestamp)
+		Dim intCount As Integer
+		For intCount = 1 To NumberOfFights
+			'Init
+			Initialisation
+			TimeStamp = 1
 			
-			If MainStat.FrostPresence = 1 Then
-				If TalentBlood.ScentOfBlood > 0 Then
-					If proc.ScentOfBloodCD < TimeStamp Then
-						proc.GetUseScentOfBlood(TimeStamp)
-					End If
-				End If
-			End If
+			If Rotate Then loadRotation
 			
-			application.DoEvents
-			
-			If AMSTimer < TimeStamp Then
-				AMSTimer = TimeStamp + AMSCd
-				RunicPower.add(AMSAmount)
-			End If
-			
-			If talentblood.Butchery > 0 And Butchery.nextTick <= TimeStamp Then
-				Butchery.apply(TimeStamp)
-			End If
-			
-			If true then 'InterruptTimer > TimeStamp Or InterruptAmount == 0 Then 'Interrupt fighting every InterruptCd secs
-				If Bloodlust.IsAvailable(TimeStamp) And TimeStamp > 500 Then
-					Bloodlust.use(TimeStamp)
-				End If
+			Do Until TimeStamp > MaxTime
+				Timestamp = FastFoward(Timestamp)
 				
-				if TalentBlood.DRW = 1 then
-					If Sim.isInGCD(TimeStamp) = False Then
-						If DRW.cd < TimeStamp And RunicPower.Value  >= 60 and CanUseGCD(TimeStamp) Then
-							DRW.Summon(TimeStamp)
+				If MainStat.FrostPresence = 1 Then
+					If TalentBlood.ScentOfBlood > 0 Then
+						If proc.ScentOfBloodCD < TimeStamp Then
+							proc.GetUseScentOfBlood(TimeStamp)
 						End If
 					End If
-					If DRW.IsActive(TimeStamp) Then
-						if DRW.NextDRW <= TimeStamp then DRW.ApplyDamage(TimeStamp)
-					End If
-				end if
-				
-				If DeathandDecay.nextTick = TimeStamp Then
-					DeathandDecay.ApplyDamage(TimeStamp)
 				End If
 				
-				If sim.PetFriendly Then
-					If talentunholy.SummonGargoyle = 1 Then
+				application.DoEvents
+				
+				If AMSTimer < TimeStamp Then
+					AMSTimer = TimeStamp + AMSCd
+					RunicPower.add(AMSAmount)
+				End If
+				
+				If talentblood.Butchery > 0 And Butchery.nextTick <= TimeStamp Then
+					Butchery.apply(TimeStamp)
+				End If
+				
+				If true then 'InterruptTimer > TimeStamp Or InterruptAmount == 0 Then 'Interrupt fighting every InterruptCd secs
+					If Bloodlust.IsAvailable(TimeStamp) And TimeStamp > 500 Then
+						Bloodlust.use(TimeStamp)
+					End If
+					
+					if TalentBlood.DRW = 1 then
 						If Sim.isInGCD(TimeStamp) = False Then
-							If Gargoyle.cd < TimeStamp and RunicPower.Value >= 60 and CanUseGCD(TimeStamp) Then
-								Gargoyle.Summon(TimeStamp)
+							If DRW.cd < TimeStamp And RunicPower.Value  >= 60 and CanUseGCD(TimeStamp) Then
+								DRW.Summon(TimeStamp)
+							End If
+						End If
+						If DRW.IsActive(TimeStamp) Then
+							if DRW.NextDRW <= TimeStamp then DRW.ApplyDamage(TimeStamp)
+						End If
+					end if
+					
+					If DeathandDecay.nextTick = TimeStamp Then
+						DeathandDecay.ApplyDamage(TimeStamp)
+					End If
+					
+					If sim.PetFriendly Then
+						If talentunholy.SummonGargoyle = 1 Then
+							If Sim.isInGCD(TimeStamp) = False Then
+								If Gargoyle.cd < TimeStamp and RunicPower.Value >= 60 and CanUseGCD(TimeStamp) Then
+									Gargoyle.Summon(TimeStamp)
+								end if
+							End If
+							If Gargoyle.ActiveUntil >= TimeStamp Then
+								If Gargoyle.NextGargoyleStrike <= TimeStamp Then Gargoyle.ApplyDamage(TimeStamp)
 							end if
 						End If
-						If Gargoyle.ActiveUntil >= TimeStamp Then
-							If Gargoyle.NextGargoyleStrike <= TimeStamp Then Gargoyle.ApplyDamage(TimeStamp)
-						end if
-					End If
-				end if
-				
-				If Sim.isInGCD(TimeStamp) = False Then
-					if Rotate then
-						DoRoration(TimeStamp)
-					else
-						Priority.DoNext (TimeStamp)
-					End If
-				End If
-				
-				If Sim.isInGCD(TimeStamp) = False Then
-					If UA.IsAvailable(TimeStamp) Then
-						UA.Use(TimeStamp)
-					End If
-				End If
-				
-				If sim.PetFriendly Then
+					end if
+					
 					If Sim.isInGCD(TimeStamp) = False Then
-						If Ghoul.ActiveUntil < TimeStamp and Ghoul.cd < TimeStamp and CanUseGCD(TimeStamp) Then
-							Ghoul.Summon(TimeStamp)
-						end if
-					End If
-					if Ghoul.ActiveUntil >= TimeStamp then
-						If Ghoul.NextWhiteMainHit <= TimeStamp Then Ghoul.ApplyDamage(TimeStamp)
-						If Ghoul.NextClaw <= TimeStamp Then Ghoul.Claw(TimeStamp)
-						If Sim.isInGCD(TimeStamp) And Ghoul.IsAutoFrenzyAvailable(Timestamp) Then
-							Ghoul.Frenzy(TimeStamp)
+						if Rotate then
+							DoRoration(TimeStamp)
+						else
+							Priority.DoNext (TimeStamp)
 						End If
 					End If
+					
+					If Sim.isInGCD(TimeStamp) = False Then
+						If UA.IsAvailable(TimeStamp) Then
+							UA.Use(TimeStamp)
+						End If
+					End If
+					
+					If sim.PetFriendly Then
+						If Sim.isInGCD(TimeStamp) = False Then
+							If Ghoul.ActiveUntil < TimeStamp and Ghoul.cd < TimeStamp and CanUseGCD(TimeStamp) Then
+								Ghoul.Summon(TimeStamp)
+							end if
+						End If
+						if Ghoul.ActiveUntil >= TimeStamp then
+							If Ghoul.NextWhiteMainHit <= TimeStamp Then Ghoul.ApplyDamage(TimeStamp)
+							If Ghoul.NextClaw <= TimeStamp Then Ghoul.Claw(TimeStamp)
+							If Sim.isInGCD(TimeStamp) And Ghoul.IsAutoFrenzyAvailable(Timestamp) Then
+								Ghoul.Frenzy(TimeStamp)
+							End If
+						End If
+					End If
+					
+					If MainHand.NextWhiteMainHit <= TimeStamp Then MainHand.ApplyDamage(TimeStamp)
+					If MainStat.DualW Then
+						If OffHand.NextWhiteOffHit <= TimeStamp Then OffHand.ApplyDamage(TimeStamp)
+					End If
+				Else
+					'InterruptTimer > TimeStamp Or InterruptAmount
 				End If
 				
-				If MainHand.NextWhiteMainHit <= TimeStamp Then MainHand.ApplyDamage(TimeStamp)
-				If MainStat.DualW Then
-					If OffHand.NextWhiteOffHit <= TimeStamp Then OffHand.ApplyDamage(TimeStamp)
+				If Sim.isInGCD(TimeStamp) = False Then
+					If horn.isAvailable(TimeStamp) and CanUseGCD(TimeStamp) Then
+						horn.use(TimeStamp)
+					end if
 				End If
-			Else
-				'InterruptTimer > TimeStamp Or InterruptAmount
-			End If
-			
-			If Sim.isInGCD(TimeStamp) = False Then
-				If horn.isAvailable(TimeStamp) and CanUseGCD(TimeStamp) Then
-					horn.use(TimeStamp)
-				end if
-			End If
-			
-			If BloodPlague.isActive(TimeStamp) Then
-				If BloodPlague.nextTick <= TimeStamp Then
-					BloodPlague.ApplyDamage(TimeStamp)
+				
+				If BloodPlague.isActive(TimeStamp) Then
+					If BloodPlague.nextTick <= TimeStamp Then
+						BloodPlague.ApplyDamage(TimeStamp)
+					End If
 				End If
-			End If
-			If FrostFever.isActive(TimeStamp) Then
-				If FrostFever.nextTick <= TimeStamp Then
-					FrostFever.ApplyDamage(TimeStamp)
+				If FrostFever.isActive(TimeStamp) Then
+					If FrostFever.nextTick <= TimeStamp Then
+						FrostFever.ApplyDamage(TimeStamp)
+					End If
 				End If
-			End If
+				
+				If NumberOfFights = 1 and ShowDpsTimer <= TimeStamp Then
+					ShowDpsTimer = TimeStamp + 0.1 * 60 * 60 * 100
+					TotalDamage = ScourgeStrike.total + obliterate.total + PlagueStrike.total + _
+						BloodStrike.total + HeartStrike.total + frostfever.total + _
+						BloodPlague.total + IcyTouch.total + deathcoil.total + _
+						UnholyBlight.total + Necrosis.total + BloodCakedBlade.total + _
+						WanderingPlague.total +FrostStrike.total  +HowlingBlast.total + _
+						BloodBoil.total  + DeathStrike.total + MainHand.total + _
+						OffHand.total  + Ghoul.total + Gargoyle.total + DRW.total + _
+						RazoriceTotal + DeathandDecay.total + RuneStrike.total  + trinket.Total
+					_MainFrm.lblDPS.Text = todecimal(100 * TotalDamage /TimeStamp) & " DPS"
+					If TimeStamp <= pb.Maximum Then pb.Value = TimeStamp Else pb.Value = pb.Maximum
+				ElseIf ShowDpsTimer <= TimeStamp Then
+					ShowDpsTimer = TimeStamp + 0.1 * 60 * 60 * 100
+					_MainFrm.lblDPS.Text = "n/a"
+					If TimeStampCounter <= pb.Maximum Then pb.Value = TimeStampCounter Else pb.Value = pb.Maximum
+				End If
+			Loop
 			
-			If ShowDpsTimer <= TimeStamp Then
-				ShowDpsTimer = TimeStamp + 0.5 * 60 * 60 * 100
-				TotalDamage = ScourgeStrike.total + obliterate.total + PlagueStrike.total + _
-					BloodStrike.total + HeartStrike.total + frostfever.total + _
-					BloodPlague.total + IcyTouch.total + deathcoil.total + _
-					UnholyBlight.total + Necrosis.total + BloodCakedBlade.total + _
-					WanderingPlague.total +FrostStrike.total  +HowlingBlast.total + _
-					BloodBoil.total  + DeathStrike.total + MainHand.total + _
-					OffHand.total  + Ghoul.total + Gargoyle.total + DRW.total + _
-					RazoriceTotal + DeathandDecay.total + RuneStrike.total  + trinket.Total
-				_MainFrm.lblDPS.Text = todecimal(100 * TotalDamage /TimeStamp)   & " DPS"
-			End If
-		Loop
+			TotalDamage = ScourgeStrike.total + obliterate.total + PlagueStrike.total + _
+				BloodStrike.total + HeartStrike.total + frostfever.total + _
+				BloodPlague.total + IcyTouch.total + deathcoil.total + _
+				UnholyBlight.total + Necrosis.total + BloodCakedBlade.total + _
+				WanderingPlague.total +FrostStrike.total  +HowlingBlast.total + _
+				BloodBoil.total  + DeathStrike.total + MainHand.total + _
+				OffHand.total  + Ghoul.total + Gargoyle.total + DRW.total + _
+				RazoriceTotal + DeathandDecay.total + RuneStrike.total + trinket.Total
+			
+			TotalDamageAlternative = TotalDamageAlternative + TotalDamage
+			TimeStampCounter = TimeStampCounter + TimeStamp
+		Next intCount
 		
-		TotalDamage = ScourgeStrike.total + obliterate.total + PlagueStrike.total + _
-			BloodStrike.total + HeartStrike.total + frostfever.total + _
-			BloodPlague.total + IcyTouch.total + deathcoil.total + _
-			UnholyBlight.total + Necrosis.total + BloodCakedBlade.total + _
-			WanderingPlague.total +FrostStrike.total  +HowlingBlast.total + _
-			BloodBoil.total  + DeathStrike.total + MainHand.total + _
-			OffHand.total  + Ghoul.total + Gargoyle.total + DRW.total + _
-			RazoriceTotal + DeathandDecay.total + RuneStrike.total + trinket.Total
+		TotalDamage = TotalDamageAlternative
+		TimeStamp = TimeStampCounter
 		
 		DPS = 100 * TotalDamage / TimeStamp
+		pb.Value = pb.Maximum
 		
-		Report()
-		'WriteReport ( "--------" & EPStat & " now:" )
-		'Report()
+		If NumberOfFights > 1 then
+			WriteReport ("DPS: " & DPS)
+		Else
+			Report()
+		End If
 		_MainFrm.lblDPS.Text = DPS & " DPS"
 		Debug.Print( "DPS=" & DPS & " " & EPStat & " hit=" & mainstat.Hit & " sphit=" & mainstat.SpellHit & " exp=" & mainstat.expertise )
-		'Debug.Print( "Done. Total DPS = " & DPS)
-		'Debug.Print ("Total Damage = " & TotalDamage & " in " & MaxTime / 1000 / 60 & " m")
 		combatlog.finish
 	End Sub
 	
@@ -1071,8 +1096,6 @@ Friend Module Sim
 			isInGCD = True
 		End If
 	End Function
-	
-	
 	
 	Sub loadtemplate(file As String)
 		
@@ -1097,9 +1120,6 @@ Friend Module Sim
 		talentblood.DRW  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/DRW").InnerText)
 		talentblood.DRM  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/DRM").InnerText)
 		
-		
-		
-		
 		talentfrost.RPM  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/RPM").InnerText)
 		talentfrost.ImprovedIcyTouch  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/ImprovedIcyTouch").InnerText)
 		talentfrost.Toughness  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Toughness").InnerText)
@@ -1119,8 +1139,6 @@ Friend Module Sim
 		talentfrost.ChillOfTheGrave  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/ChillOfTheGrave").InnerText)
 		TalentFrost.HowlingBlast = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/HowlingBlast").InnerText)
 		TalentFrost.ThreatOfThassarian= Integer.Parse(XmlDoc.SelectSingleNode("//Talents/ThreatOfThassarian").InnerText)
-		
-		
 		
 		talentunholy.ViciousStrikes  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/ViciousStrikes").InnerText)
 		talentunholy.Virulence  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Virulence").InnerText)
@@ -1149,13 +1167,8 @@ Friend Module Sim
 		talentunholy.Desolation = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Desolation").InnerText)
 		
 		Glyph.init(file)
-		
-		
-		
-		
-		
-		
 	End Sub
+	
 	Function DoMyStrikeHit As Boolean
 		Dim RNG As Double
 		RNG = RNGStrike
@@ -1186,9 +1199,8 @@ Friend Module Sim
 		End If
 	End Function
 	
-	
 	Sub Initialisation()
-		RandomNumberGenerator.Init
+		'RandomNumberGenerator.Init 'done in Start
 		CombatLog.Init
 		Buff.FullBuff
 		'Buff.UnBuff
@@ -1213,7 +1225,6 @@ Friend Module Sim
 		
 		RunicPower.Value = 0
 		runes.Init
-		
 		
 		MainStat.init
 		NextFreeGCD = 0
@@ -1253,9 +1264,14 @@ Friend Module Sim
 		InterruptTimer = _MainFrm.txtInterruptCd.text * 100
 		InterruptAmount = _MainFrm.txtInterruptAmount.text
 		
-		ShowDpsTimer = 1
+		Pestilence.init
+		proc.init
+		trinket.init
+		Character.init
+		GhoulStat.init
 		
-	End sub
+		ShowDpsTimer = 1
+	End Sub
 	
 	Function toDecimal(d As Double) As Decimal
 		try
