@@ -29,6 +29,7 @@ Public Module Trinket
 	Friend OldGod As Integer
 	Friend Comet As Integer
 	Friend DeathChoice As Integer
+	Friend DeathChoiceHeroic As Integer
 	
 	Friend Total as long
 	Friend HitCount as Integer
@@ -64,6 +65,8 @@ Public Module Trinket
 		CometCd = 0
 		DeathChoiceFade = 0
 		DeathChoiceCd = 0
+		DeathChoiceHeroicFade = 0
+		DeathChoiceHeroicCd = 0
 		BitterAnguishCD = 0
 		BitterAnguishfade = 0 
 		
@@ -152,6 +155,17 @@ Public Module Trinket
 		If RNGProc <= 0.35 Then
 			DeathChoiceFade = sim.TimeStamp + 15 * 100
 			DeathChoiceCd = sim.TimeStamp + 45 * 100
+		End If
+	End Sub
+	
+	'Death's Choice Heroic
+	Friend DeathChoiceHeroicFade As Integer
+	Friend DeathChoiceHeroicCd As Integer
+	Sub TryDeathChoiceHeroic()
+		If DeathChoiceHeroic = 0 Or DeathChoiceHeroicCd > sim.TimeStamp Then Exit Sub
+		If RNGProc <= 0.35 Then
+			DeathChoiceHeroicFade = sim.TimeStamp + 15 * 100
+			DeathChoiceHeroicCd = sim.TimeStamp + 45 * 100
 		End If
 	End Sub
 	

@@ -49,7 +49,8 @@ Friend Module Character
 		
 		
 		If greatnessFade > sim.TimeStamp Then tmp = tmp + 300
-		if DeathChoiceFade > sim.TimeStamp Then tmp = tmp + 450
+		If DeathChoiceFade > sim.TimeStamp Then tmp = tmp + 450
+		If DeathChoiceHeroicFade > sim.TimeStamp Then tmp = tmp + 510
 		
 		if UA.isActive then tmp = tmp *1.25
 		_Strength= tmp

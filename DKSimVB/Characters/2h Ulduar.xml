@@ -52,5 +52,6 @@
 		<OldGod>0</OldGod>
 		<Comet>0</Comet>
 		<DeathChoice>0</DeathChoice>
+        <DeathChoiceHeroic>0</DeathChoiceHeroic>
 	</trinket>
 </character>
