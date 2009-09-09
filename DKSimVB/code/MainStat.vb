@@ -327,12 +327,12 @@ Friend Module MainStat
 		Dim tmp As Double
 		dim MeleHitCapRating as Integer
 		tmp = Character.SpellHitRating / 26.23
-		If sim.EPStat<>"" Then 
+		If sim.EPStat<>"" Then
 			MeleHitCapRating = 263 - 32.79 * TalentFrost.NervesofColdSteel
 			tmp = MeleHitCapRating / 26.23
 			If sim.EPStat="HitRating" Then tmp = MeleHitCapRating / 26.23 - sim.EPBase / 26.23
 			If sim.EPStat="SpellHitRating" Then tmp = MeleHitCapRating / 26.23 + 26 / 26.23
-			If sim.EPStat="AfterSpellHitRating" Then tmp = MeleHitCapRating / 26.23 + (26/26.23) + 50/26.23 
+			If sim.EPStat="AfterSpellHitRating" Then tmp = MeleHitCapRating / 26.23 + (26/26.23) + 50/26.23
 		End If
 		tmp = tmp + 1 * TalentUnholy.Virulence
 		tmp = tmp + Buff.SpellHitTaken * 3
@@ -365,10 +365,15 @@ Friend Module MainStat
 	Function OHBaseDamage() As Double
 		OHBaseDamage = (OHWeaponDPS + (AP / 14)) * OHWeaponSpeed
 	End Function
+	Friend ArpMultiplier As Boolean
 	Function ArmorPen As Double
 		Dim tmp As Double
 		tmp = character.ArmorPenetrationRating / 15.39
-		tmp = tmp *1.25 '1.1 with Patch 3.2.2, before 1.25
+		if ArpMultiplier then
+			tmp = tmp *1.1 '1.1 with Patch 3.2.2, before 1.25
+		Else
+			tmp = tmp *1.25
+		End If
 		return tmp / 100
 	End Function
 	Function ArmorMitigation() As Double
