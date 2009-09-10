@@ -33,6 +33,9 @@ Friend module MainHand
 		Dim MeleeMissChance As Single
 		Dim MeleeDodgeChance As Single
 		Dim MeleeGlacingChance As Single
+		Dim MeleeParryChance As Single
+		Dim ChanceNotToTouch As Single
+		
 		WSpeed = MainStat.MHWeaponSpeed
 		_NextWhiteMainHit = T + (WSpeed * 100) / ((1 + MainStat.Haste))
 		
@@ -47,16 +50,18 @@ Friend module MainHand
 		RNG = RNGWhiteHit
 		MeleeGlacingChance = 0.25
 		MeleeDodgeChance = 0.065
+		If mainstat.FrostPresence =1 Then
+			MeleeParryChance = 0.14
+		Else
+			MeleeParryChance = 0
+		End If
+		
+		
+		
 		
 		Dim tmpExp As Double
 		dim tmpHit as Double
 		
-		tmpExp = mainstat.Expertise
-		If tmpExp > MeleeDodgeChance Then
-			MeleeDodgeChance = 0
-		Else
-			MeleeDodgeChance = MeleeDodgeChance-tmpExp
-		End If
 		
 		If mainstat.DualW Then
 			MeleeMissChance = 0.27
@@ -64,25 +69,22 @@ Friend module MainHand
 			MeleeMissChance = 0.08
 		End If
 		
-		tmpHit = mainstat.Hit
-		If tmpHit > MeleeMissChance Then
-			MeleeMissChance = 0
-		Else
-			MeleeMissChance = MeleeMissChance - tmpHit
-		End If
+		ChanceNotToTouch = MeleeMissChance + MeleeDodgeChance  + MeleeParryChance
 		
-		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
+		
+		If math.Min(mainstat.Expertise,MeleeDodgeChance)+ math.Min(mainstat.Expertise,MeleeParryChance) + math.Min (mainstat.Hit,MeleeMissChance) + RNG < ChanceNotToTouch Then
 			MissCount = MissCount + 1
 			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "MH fail")
 			exit function
 		End If
 		
-		If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then
+		If RNG < (ChanceNotToTouch + MeleeGlacingChance) Then
 			dégat = AvrgNonCrit(T)*0.7
 			HitCount = HitCount + 1
 			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "MH glancing for " & dégat)
 		End If
-		If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) and RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance) Then
+		
+		If RNG >= (ChanceNotToTouch + MeleeGlacingChance) and RNG < (ChanceNotToTouch + MeleeGlacingChance + CritChance) Then
 			'CRIT !
 			dégat = AvrgCrit(T)
 			CritCount = CritCount + 1
@@ -91,9 +93,8 @@ Friend module MainHand
 			TryMirror()
 			TryPyrite()
 			TryOldGod()
-			
 		End If
-		If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance) Then
+		If RNG >= (ChanceNotToTouch + MeleeGlacingChance + CritChance) Then
 			'normal hit3
 			dégat = AvrgNonCrit(T)
 			HitCount = HitCount + 1
@@ -125,13 +126,13 @@ Friend module MainHand
 		TryMHFallenCrusader
 		TryMjolRune
 		TryGrimToll
-						TryGreatness()
-TryDeathChoice()
-TryDCDeath()
-TryVictory()
-TryBandit()
-TryDarkMatter()
-TryComet()
+		TryGreatness()
+		TryDeathChoice()
+		TryDCDeath()
+		TryVictory()
+		TryBandit()
+		TryDarkMatter()
+		TryComet()
 		If proc.ScentOfBloodProc > 0 Then
 			proc.ScentOfBloodProc  = proc.ScentOfBloodProc  -1
 			RunicPower.add(5)

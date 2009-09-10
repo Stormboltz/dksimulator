@@ -31,7 +31,7 @@ Friend module BloodPlague
 		Else
 			if isActive(T) = false then return true
 		End If
-		return false		
+		return false
 	End Function
 		
 	Function isActive(T As long) As Boolean
@@ -82,7 +82,11 @@ Friend module BloodPlague
 		Dim tmp As Double
 		tmp = 26
 		tmp = tmp + 0.055 * (1 + 0.04 * TalentUnholy.Impurity) * AP
-		tmp = tmp * (1 + TalentUnholy.CryptFever * 10 / 100)
+		If buff.CrypticFever Then
+			tmp = tmp * 1.3
+		Else
+			tmp = tmp * (1 + TalentUnholy.CryptFever * 10 / 100)
+		End If
 		tmp = tmp * MainStat.StandardMagicalDamageMultiplier(T)
 		tmp = tmp * (1 + TalentFrost.BlackIce * 2 / 100)
 		tmp = tmp * 1.15

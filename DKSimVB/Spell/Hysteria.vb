@@ -15,12 +15,15 @@ Friend Module Hysteria
 		ActiveUntil= 0
 	End Sub
 	
-	Function IsAvailable(T as Long) as Boolean
-		if CD <= T then return true
+	Function IsAvailable(T As Long) As Boolean
+		If TalentBlood.Hysteria =  0 Then Return False 
+		If TalentBlood.DRW = 1 and DRW.cd > T then return false
+		If CD <= T Then Return True
+		
 	End Function
 
 	Function IsActive(T as Long) as Boolean
-		if ActiveUntil > T then return true
+		if T <= ActiveUntil then return true
 	End Function
 	
 	Sub use(T As Long)

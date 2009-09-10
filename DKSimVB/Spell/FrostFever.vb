@@ -78,7 +78,11 @@ Friend module FrostFever
 		tmp = 26
 		tmp = tmp + 0.055 * (1 + 0.04 * TalentUnholy.Impurity) * AP
 		tmp = tmp * (1 + TalentFrost.BlackIce * 2 / 100)
-		tmp = tmp * (1 + TalentUnholy.CryptFever * 10 / 100)
+		If buff.CrypticFever Then
+			tmp = tmp * 1.3
+		Else
+			tmp = tmp * (1 + TalentUnholy.CryptFever * 10 / 100)
+		End If
 		tmp = tmp * MainStat.StandardMagicalDamageMultiplier(T)
 		tmp = tmp * 1.15
 		'if MHRazorice or (OHRazorice and mainstat.DualW)  then tmp = tmp *1.10

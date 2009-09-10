@@ -30,30 +30,29 @@ Friend module OffHand
 		Dim MeleeMissChance As Single
 		Dim MeleeDodgeChance As Single
 		Dim MeleeGlacingChance As Single
+		Dim MeleeParryChance As Single
+		Dim ChanceNotToTouch As Single
 		
+
 		
 		RNG = RNGWhiteHit
 		MeleeGlacingChance = 0.25
 		MeleeDodgeChance = 0.065
-		If mainstat.Expertise > MeleeDodgeChance Then
-			MeleeDodgeChance = 0
-		Else
-			MeleeDodgeChance = MeleeDodgeChance-mainstat.Expertise
-		End If
 		MeleeMissChance = 0.27
-		If mainstat.Hit > MeleeMissChance Then
-			MeleeMissChance = 0
+		If mainstat.FrostPresence =1 Then
+			MeleeParryChance = 0.14
 		Else
-			MeleeMissChance = MeleeMissChance - mainstat.Hit
+			MeleeParryChance = 0
 		End If
 		
-		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
+		ChanceNotToTouch = MeleeMissChance + MeleeDodgeChance  + MeleeParryChance
+		
+		If math.Min(mainstat.Expertise,MeleeDodgeChance)+ math.Min(mainstat.Expertise,MeleeParryChance) + math.Min (mainstat.Hit,MeleeMissChance) + RNG < ChanceNotToTouch Then
 			MissCount = MissCount + 1
 			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "OH fail")
 			exit function
 		End If
-		
-		
+
 		dim dégat as Integer
 		If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then
 			'Glancing
@@ -61,7 +60,7 @@ Friend module OffHand
 			HitCount = HitCount + 1
 		End If
 		
-		If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) and RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance) Then
+		If RNG >= (ChanceNotToTouch + MeleeGlacingChance) and RNG < (ChanceNotToTouch + MeleeGlacingChance + CritChance) Then
 			'CRIT !
 			CritCount = CritCount + 1
 			dégat = AvrgCrit(T)
@@ -74,7 +73,7 @@ Friend module OffHand
 			
 		End If
 		
-		If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance) Then
+		If RNG >= (ChanceNotToTouch + MeleeGlacingChance + CritChance) Then
 			'normal hit3
 			dégat = AvrgNonCrit(T)
 			HitCount = HitCount + 1

@@ -157,6 +157,8 @@ Partial Class MainForm
 		Me.chkBAP = New System.Windows.Forms.CheckBox
 		Me.chkBArmorMaj = New System.Windows.Forms.CheckBox
 		Me.chkBStrAgi = New System.Windows.Forms.CheckBox
+		Me.chkCrypticFever = New System.Windows.Forms.CheckBox
+
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -1284,6 +1286,7 @@ Partial Class MainForm
 		Me.grpBuff.Controls.Add(Me.chkBStatAdd)
 		Me.grpBuff.Controls.Add(Me.chkBSpellHaste)
 		Me.grpBuff.Controls.Add(Me.chkBSpellCrit)
+		Me.grpBuff.Controls.Add(Me.chkCrypticFever)
 		Me.grpBuff.Controls.Add(Me.chkBSpHitTaken)
 		Me.grpBuff.Controls.Add(Me.chkBMeleeCrit)
 		Me.grpBuff.Controls.Add(Me.chkBSpDamTaken)
@@ -1525,6 +1528,16 @@ Partial Class MainForm
 		Me.chkBStrAgi.Text = "Str/Agi"
 		Me.chkBStrAgi.UseVisualStyleBackColor = true
 		'
+		'chkCrypticFever
+		'
+		Me.chkCrypticFever.Checked = true
+		Me.chkCrypticFever.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkCrypticFever.Location = New System.Drawing.Point(177, 230)
+		Me.chkCrypticFever.Name = "chkCrypticFever"
+		Me.chkCrypticFever.Size = New System.Drawing.Size(104, 24)
+		Me.chkCrypticFever.TabIndex = 0
+		Me.chkCrypticFever.Text = "Cryptic Fever"
+		Me.chkCrypticFever.UseVisualStyleBackColor = true
 		'MainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
@@ -1557,6 +1570,7 @@ Partial Class MainForm
 		Me.grpBuff.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Private chkCrypticFever As System.Windows.Forms.CheckBox
 	Friend txtManyFights As System.Windows.Forms.TextBox
 	Friend chkManyFights As System.Windows.Forms.CheckBox
 	Private label18 As System.Windows.Forms.Label

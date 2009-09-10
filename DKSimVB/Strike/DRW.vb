@@ -27,12 +27,11 @@ Friend module DRW
 			'DKSIMVB.deathcoil.ApplyDamage(T,false)
 			exit sub
 		End If
-		
+		If Hysteria.IsAvailable(T) then Hysteria.use(T)
 		If Hysteria.IsActive(T) Then
 			Hyst = True
 		Else
 			Hyst = false
-			
 		End If
 		SpellHaste = MainStat.SpellHaste
 		Haste = MainStat.Haste

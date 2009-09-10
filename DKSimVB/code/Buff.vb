@@ -23,6 +23,9 @@ Friend module Buff
 	Friend SpellDamageTaken As Integer 
 	Friend SpellHitTaken As Integer 
 	Friend Draenei as Integer
+	Friend CrypticFever As Integer
+	
+	
 	
 	Sub FullBuff()
 		
@@ -57,7 +60,7 @@ Friend module Buff
 		StatMulti = liveXml.SelectSingleNode("/config/chkBStatMulti").InnerText
 		Bloodlust = liveXml.SelectSingleNode("/config/chkBloodlust").InnerText
 		Draenei = liveXml.SelectSingleNode("/config/chkDraeni").InnerText
-		
+		CrypticFever = liveXml.SelectSingleNode("/config/chkCrypticFever").InnerText
 	End Sub
 	
 	Sub UnBuff()
@@ -81,5 +84,6 @@ Friend module Buff
 		SpellCritTaken = 0
 		SpellDamageTaken = 0
 		SpellHitTaken = 0
+		CrypticFever = 0
 	End Sub
 End Module
