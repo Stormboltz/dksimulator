@@ -143,6 +143,7 @@ Partial Class MainForm
 		Me.chkBStatAdd = New System.Windows.Forms.CheckBox
 		Me.chkBSpellHaste = New System.Windows.Forms.CheckBox
 		Me.chkBSpellCrit = New System.Windows.Forms.CheckBox
+		Me.chkCrypticFever = New System.Windows.Forms.CheckBox
 		Me.chkBSpHitTaken = New System.Windows.Forms.CheckBox
 		Me.chkBMeleeCrit = New System.Windows.Forms.CheckBox
 		Me.chkBSpDamTaken = New System.Windows.Forms.CheckBox
@@ -157,8 +158,6 @@ Partial Class MainForm
 		Me.chkBAP = New System.Windows.Forms.CheckBox
 		Me.chkBArmorMaj = New System.Windows.Forms.CheckBox
 		Me.chkBStrAgi = New System.Windows.Forms.CheckBox
-		Me.chkCrypticFever = New System.Windows.Forms.CheckBox
-
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -429,7 +428,7 @@ Partial Class MainForm
 		'
 		'chkManyFights
 		'
-		Me.chkManyFights.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.chkManyFights.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
 		Me.chkManyFights.Location = New System.Drawing.Point(6, 444)
 		Me.chkManyFights.Name = "chkManyFights"
 		Me.chkManyFights.Size = New System.Drawing.Size(60, 24)
@@ -619,7 +618,7 @@ Partial Class MainForm
 		'
 		'ckLogRP
 		'
-		Me.ckLogRP.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
+		Me.ckLogRP.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.ckLogRP.Enabled = false
 		Me.ckLogRP.Location = New System.Drawing.Point(491, 444)
 		Me.ckLogRP.Name = "ckLogRP"
@@ -644,7 +643,7 @@ Partial Class MainForm
 		'
 		'chkCombatLog
 		'
-		Me.chkCombatLog.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
+		Me.chkCombatLog.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.chkCombatLog.Location = New System.Drawing.Point(491, 418)
 		Me.chkCombatLog.Name = "chkCombatLog"
 		Me.chkCombatLog.Size = New System.Drawing.Size(194, 24)
@@ -1374,6 +1373,17 @@ Partial Class MainForm
 		Me.chkBSpellCrit.Text = "Spell crit"
 		Me.chkBSpellCrit.UseVisualStyleBackColor = true
 		'
+		'chkCrypticFever
+		'
+		Me.chkCrypticFever.Checked = true
+		Me.chkCrypticFever.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkCrypticFever.Location = New System.Drawing.Point(177, 230)
+		Me.chkCrypticFever.Name = "chkCrypticFever"
+		Me.chkCrypticFever.Size = New System.Drawing.Size(104, 24)
+		Me.chkCrypticFever.TabIndex = 0
+		Me.chkCrypticFever.Text = "Cryptic Fever"
+		Me.chkCrypticFever.UseVisualStyleBackColor = true
+		'
 		'chkBSpHitTaken
 		'
 		Me.chkBSpHitTaken.Checked = true
@@ -1528,16 +1538,6 @@ Partial Class MainForm
 		Me.chkBStrAgi.Text = "Str/Agi"
 		Me.chkBStrAgi.UseVisualStyleBackColor = true
 		'
-		'chkCrypticFever
-		'
-		Me.chkCrypticFever.Checked = true
-		Me.chkCrypticFever.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkCrypticFever.Location = New System.Drawing.Point(177, 230)
-		Me.chkCrypticFever.Name = "chkCrypticFever"
-		Me.chkCrypticFever.Size = New System.Drawing.Size(104, 24)
-		Me.chkCrypticFever.TabIndex = 0
-		Me.chkCrypticFever.Text = "Cryptic Fever"
-		Me.chkCrypticFever.UseVisualStyleBackColor = true
 		'MainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
