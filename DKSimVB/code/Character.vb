@@ -41,9 +41,9 @@ Friend Module Character
 		tmp = tmp + 37 * 1.4 * Buff.StatAdd
 		
 		tmp = tmp * (1 + Buff.StatMulti / 10)
-		tmp = tmp * (1 + talentblood.Vot3W*2/100)
-		tmp = tmp * (1 + talentblood.AbominationMight/100)
-		tmp = tmp * (1 + talentunholy.ravenousdead/100)
+		tmp = tmp * (1 + talentblood.Vot3W * 2 / 100)
+		tmp = tmp * (1 + talentblood.AbominationMight / 100)
+		tmp = tmp * (1 + talentunholy.ravenousdead / 100)
 		tmp = tmp * (1 + 0.15 * RuneForge.FallenCrusaderProc)
 		
 		
@@ -52,7 +52,7 @@ Friend Module Character
 		If DeathChoiceFade > sim.TimeStamp Then tmp = tmp + 450
 		If DeathChoiceHeroicFade > sim.TimeStamp Then tmp = tmp + 510
 		
-		if UA.isActive then tmp = tmp *1.25
+		if UA.isActive then tmp = tmp * 1.1
 		_Strength= tmp
 		
 		return _Strength

@@ -157,7 +157,6 @@ Partial Class MainForm
 		Me.chkBAP = New System.Windows.Forms.CheckBox
 		Me.chkBArmorMaj = New System.Windows.Forms.CheckBox
 		Me.chkBStrAgi = New System.Windows.Forms.CheckBox
-		Me.chkArp = New System.Windows.Forms.CheckBox
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -359,7 +358,6 @@ Partial Class MainForm
 		'
 		'tabPage3
 		'
-		Me.tabPage3.Controls.Add(Me.chkArp)
 		Me.tabPage3.Controls.Add(Me.label18)
 		Me.tabPage3.Controls.Add(Me.txtManyFights)
 		Me.tabPage3.Controls.Add(Me.chkManyFights)
@@ -1527,17 +1525,6 @@ Partial Class MainForm
 		Me.chkBStrAgi.Text = "Str/Agi"
 		Me.chkBStrAgi.UseVisualStyleBackColor = true
 		'
-		'chkArp
-		'
-		Me.chkArp.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.chkArp.Location = New System.Drawing.Point(306, 366)
-		Me.chkArp.Name = "chkArp"
-		Me.chkArp.Size = New System.Drawing.Size(179, 24)
-		Me.chkArp.TabIndex = 36
-		Me.chkArp.Text = "Nerf Arp now!"
-		Me.chkArp.UseVisualStyleBackColor = true
-		AddHandler Me.chkArp.CheckedChanged, AddressOf Me.ChkArpCheckedChanged
-		'
 		'MainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
@@ -1570,7 +1557,6 @@ Partial Class MainForm
 		Me.grpBuff.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
-	Private chkArp As System.Windows.Forms.CheckBox
 	Friend txtManyFights As System.Windows.Forms.TextBox
 	Friend chkManyFights As System.Windows.Forms.CheckBox
 	Private label18 As System.Windows.Forms.Label
@@ -1694,9 +1680,4 @@ Partial Class MainForm
 	Private tabPage3 As System.Windows.Forms.TabPage
 	Private PBsim As System.Windows.Forms.ProgressBar
 	Private button1 As System.Windows.Forms.Button
-	
-	
-	Sub ChkArpCheckedChanged(sender As Object, e As EventArgs)
-		ArpMultiplier = chkArp.Checked
-	End Sub
 End Class

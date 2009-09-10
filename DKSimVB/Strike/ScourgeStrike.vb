@@ -62,11 +62,13 @@ Friend module ScourgeStrike
 		
 		
 		If glyph.ScourgeStrike Then
-			RNG = RNGProc
-			If RNG > 0.75 Then
-				combatlog.write(T  & vbtab &  "SS glyph proc")
-				BloodPlague.Apply(T)
-				FrostFever.Apply(T)
+			If BloodPlague.ScourgeStrikeGlyphCounter < 3 Then
+				BloodPlague.FadeAt = BloodPlague.FadeAt + 3 * 100
+				BloodPlague.ScourgeStrikeGlyphCounter = BloodPlague.ScourgeStrikeGlyphCounter + 1
+			End If
+			If FrostFever.ScourgeStrikeGlyphCounter < 3 Then
+				FrostFever.FadeAt = FrostFever.FadeAt + 3 * 100
+				FrostFever.ScourgeStrikeGlyphCounter = FrostFever.ScourgeStrikeGlyphCounter + 1
 			End If
 		End If
 		runes.UseFU(T,False)
@@ -113,7 +115,7 @@ Friend module ScourgeStrike
 	End Function
 	Function CritChance() As Double
 		dim tmp as Double
-		tmp = MainStat.crit + (TalentUnholy.ViciousStrikes * 3 / 100) + (SetBonus.T72PDPS * 5/100)
+		tmp = MainStat.crit + TalentUnholy.ViciousStrikes * 3 / 100 + SetBonus.T72PDPS * 5 / 100 + talentblood.Subversion * 3 / 100
 		return  tmp
 	End Function
 	Function AvrgCrit(T As long) As Double

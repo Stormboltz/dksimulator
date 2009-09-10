@@ -136,7 +136,7 @@ Friend Module Obliterate
 			End If
 			proc.VirulenceFade = T + 2000
 			
-			runicpower.add(15 + 2.5*talentfrost.ChillOfTheGrave + 2.5*talentunholy.Dirge  + 5*SetBonus.T74PDPS )
+			runicpower.add(15 + 2.5*talentfrost.ChillOfTheGrave  + 5*SetBonus.T74PDPS )
 		End If
 		
 		

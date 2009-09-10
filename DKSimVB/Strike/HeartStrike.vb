@@ -94,7 +94,6 @@ Friend Module HeartStrike
 	End Function
 	Function AvrgNonCrit(T As long) As Double
 		Dim tmp As Double
-		'total damage increased by 12.5% for each of your diseases on the target.
 		tmp = MainStat.NormalisedMHDamage * 0.5
 		tmp = tmp + 368
 		if SetBonus.T84PDPS = 1 then

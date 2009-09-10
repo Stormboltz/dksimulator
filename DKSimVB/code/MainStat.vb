@@ -365,15 +365,10 @@ Friend Module MainStat
 	Function OHBaseDamage() As Double
 		OHBaseDamage = (OHWeaponDPS + (AP / 14)) * OHWeaponSpeed
 	End Function
-	Friend ArpMultiplier As Boolean
 	Function ArmorPen As Double
 		Dim tmp As Double
 		tmp = character.ArmorPenetrationRating / 15.39
-		if ArpMultiplier then
-			tmp = tmp *1.1 '1.1 with Patch 3.2.2, before 1.25
-		Else
-			tmp = tmp *1.25
-		End If
+		tmp = tmp *1.1 '1.1 with Patch 3.2.2, before 1.25
 		return tmp / 100
 	End Function
 	Function ArmorMitigation() As Double

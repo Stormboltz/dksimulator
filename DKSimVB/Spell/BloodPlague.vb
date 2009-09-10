@@ -9,10 +9,9 @@ Friend module BloodPlague
 	Friend MissCount As Integer
 	Friend HitCount as Integer
 	Friend CritCount As Integer
-	Friend DamageTick as Integer
+	Friend DamageTick As Integer
+	Friend ScourgeStrikeGlyphCounter As Integer
 	
-	
-		
 	Sub init()
 		nextTick = 0
 		FadeAt= 0
@@ -48,12 +47,11 @@ Friend module BloodPlague
 		If glyph.Disease Then debug.Print (RuneState & "time left on BP= " & (FadeAt-T)/100 & "s" & " - " & T/100)
 		AP = MainStat.AP
 		DamageTick = AvrgNonCrit(T)
-		BloodPlague.FadeAt = T + 1500 + 300 * talentunholy.Epidemic
-		BloodPlague.nextTick = T + 300
-		BPToReapply = false
+		FadeAt = T + 15 * 100 + 3 * 100 * talentunholy.Epidemic
+		nextTick = T + 3 * 100
+		BPToReapply = False
+		ScourgeStrikeGlyphCounter = 0
 	End Function
-	
-	
 	
 	Function ApplyDamage(T As long) As boolean
 		Dim tmp As Double

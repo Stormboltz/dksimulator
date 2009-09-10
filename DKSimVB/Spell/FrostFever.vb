@@ -4,14 +4,12 @@ Friend module FrostFever
 	Friend total As Long
 	Friend TotalHit As Long
 	Friend TotalCrit as Long
-	
 	Friend MissCount As Integer
 	Friend HitCount as Integer
 	Friend CritCount as Integer
 	Friend AP as Integer
 	Friend DamageTick As Integer
-	
-	
+	Friend ScourgeStrikeGlyphCounter As Integer
 	
 	Function isActive(T As long) As Boolean
 		If T > FadeAt Then
@@ -44,9 +42,10 @@ Friend module FrostFever
 		If glyph.Disease Then debug.Print (RuneState & "time left on FF= " & (FadeAt-T)/100 & "s" & " - " & T/100)
 		AP = MainStat.AP
 		DamageTick = AvrgNonCrit(T)
-		FadeAt = T + 1500 + 300 * talentunholy.Epidemic
-		nextTick = T + 300
-		FFToReapply = false
+		FadeAt = T + 15 * 100 + 3 * 100 * talentunholy.Epidemic
+		nextTick = T + 3 * 100
+		FFToReapply = False
+		ScourgeStrikeGlyphCounter = 0
 	End Function
 	
 	Function ApplyDamage(T As long) As boolean

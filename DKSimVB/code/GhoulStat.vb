@@ -95,7 +95,7 @@ Friend Module GhoulStat
 	End Function
 	
 	Function SpellHit() As Double
-		Dim tmp As Double
+		'Dim tmp As Double
 		return mainstat.spellHit
 	End Function
 	

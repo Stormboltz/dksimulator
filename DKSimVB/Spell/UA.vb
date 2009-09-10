@@ -22,10 +22,10 @@ Friend Module UA
 		End If
 	End Function
 	Function Use(T As long) As Boolean
-		cd = t + 12000
+		cd = t + 60 * 100
 		BloodTap.Use(T)
 		'UseUnholy(T,false)
-		ActiveUntil= T+2000
+		ActiveUntil= T + 20 * 100
 		If MainStat.UnholyPresence Then
 			Sim.NextFreeGCD = T + 100 + sim._MainFrm.txtLatency.Text/10
 		Else
