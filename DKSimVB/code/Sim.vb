@@ -155,9 +155,22 @@ Friend Module Sim
 			tmp2 = (DPS-BaseDPS) / sim.EPBase
 			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & toDDecimal (-tmp2/tmp1)) & "</td></tr>"
 			WriteReport ("Average for " & EPStat & " | " & DPS)
+			
+			If MainStat.FrostPresence= 1 Then
+				EPStat="ExpertiseRatingAfterDodge"
+				Start(pb,SimTime,MainFrm)
+				tmp1 = (APDPS-BaseDPS ) / 100
+				tmp2 = (DPS-BaseDPS) / sim.EPBase
+				sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& "Expertise Rating After Dodge cap" & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
+				WriteReport ("Average for " & "Expertise Rating After Dodge cap" & " | " & DPS)
+			End If
 		Else
 			WriteReport ("Average for ExpertiseRating | 0")
 		End If
+		
+		
+		
+		
 		
 		'Hit
 		if doc.SelectSingleNode("//config/Stats/chkEPHit").InnerText = "True" then

@@ -38,6 +38,27 @@ Friend Module Proc
 		End If
 	End Sub
 	
+	Sub TryMHKillingMachine()
+		dim RNG as Double
+		If Talentfrost.KillingMachine > 0 Then
+			RNG = RNGWhiteHit
+			If RNG < (Talentfrost.KillingMachine)*MainStat.MHWeaponSpeed/60 Then
+				if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Killing Machine Proc")
+				proc.KillingMachine  = true
+			End If
+		End If
+	End Sub
+	
+	Sub TryOHKillingMachine()
+		dim RNG as Double
+		If Talentfrost.KillingMachine > 0 Then
+			RNG = RNGWhiteHit
+			If RNG < (Talentfrost.KillingMachine)*MainStat.OHWeaponSpeed/60 Then
+				if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Killing Machine Proc")
+				proc.KillingMachine  = true
+			End If
+		End If
+	End Sub
 	
 	
 	Sub TryT92PDPS()

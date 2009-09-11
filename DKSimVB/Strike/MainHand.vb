@@ -104,15 +104,9 @@ Friend module MainHand
 		If Lissage Then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance-MeleeGlacingChance) + AvrgNonCrit(T)* (MeleeGlacingChance)*0.7
 		total = total + dégat
 		
+		proc.TryMHKillingMachine
 		
 		
-		If Talentfrost.KillingMachine > 0 Then
-			RNG = RNGWhiteHit
-			If RNG < (Talentfrost.KillingMachine)*MainStat.MHWeaponSpeed/60 Then
-				if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Killing Machine Proc")
-				proc.KillingMachine  = true
-			End If
-		End If
 		
 		If MHRazorice Then applyRazorice()
 		If TalentUnholy.Necrosis > 0 Then

@@ -26,7 +26,6 @@ Friend module BloodStrike
 		OHHit = True
 		
 		If MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
-
 			If DoMyStrikeHit = false Then
 				combatlog.write(T  & vbtab &  "MH/OH BS fail")
 				MissCount = MissCount + 1
@@ -67,12 +66,12 @@ Friend module BloodStrike
 				TryMjolRune
 				TryGrimToll
 				TryGreatness()
-TryDeathChoice()
-TryDCDeath()
-TryVictory()
-TryBandit()
-TryDarkMatter()
-TryComet()
+				TryDeathChoice()
+				TryDCDeath()
+				TryVictory()
+				TryBandit()
+				TryDarkMatter()
+				TryComet()
 			End If
 			If OHHit Then
 				dim dégat as Integer
@@ -93,12 +92,12 @@ TryComet()
 				TryMjolRune
 				TryGrimToll
 				TryGreatness()
-TryDeathChoice()
-TryDCDeath()
-TryVictory()
-TryBandit()
-TryDarkMatter()
-TryComet()
+				TryDeathChoice()
+				TryDCDeath()
+				TryVictory()
+				TryBandit()
+				TryDarkMatter()
+				TryComet()
 			End If
 			
 			tryHauntedDreams()

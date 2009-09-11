@@ -10,13 +10,13 @@ Friend Module BloodBoil
 	Friend total As Long
 	Friend TotalHit As Long
 	Friend TotalCrit as Long
-
+	
 	Friend MissCount As Integer
 	Friend HitCount as Integer
 	Friend CritCount as Integer
 	
 	
-		
+	
 	Sub init()
 		total = 0
 		MissCount = 0
@@ -24,13 +24,12 @@ Friend Module BloodBoil
 		CritCount = 0
 		TotalHit = 0
 		TotalCrit = 0
-
-	End Sub
 		
+	End Sub
+	
 	
 	Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
-		
 		'If TalentFrost.BloodoftheNorth = 5 Or TalentUnholy.Reaping = 3 Then
 		'	runes.UseBlood(T,True)
 		'Else
@@ -54,7 +53,6 @@ Friend Module BloodBoil
 			dégat = AvrgCrit(T)
 			combatlog.write(T  & vbtab &  "BB crit for " & dégat  )
 			CritCount = CritCount + 1
-			
 		Else
 			dégat = AvrgNonCrit(T)
 			HitCount = HitCount + 1
@@ -63,18 +61,10 @@ Friend Module BloodBoil
 		
 		if Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
 		total = total + dégat
-		
-		
-		RunicPower.add (10) 
+		RunicPower.add (10)
 		TryGreatness()
-TryDeathChoice()
-TryDCDeath()
-		
-		
-		
-		
-		
-		
+		TryDeathChoice()
+		TryDCDeath()
 		return true
 		'Debug.Print T & vbTab & "DeathCoil for " & Range("Abilities!N24").Value
 	End Function
@@ -89,13 +79,13 @@ TryDCDeath()
 		if CinderglacierProc > 0 then
 			tmp = tmp * 1.2
 			CinderglacierProc = CinderglacierProc -1
- 		end if
+		end if
 		return tmp
 		
 		
 	End Function
 	Function CritCoef() As Double
-		CritCoef = 1 * (1 + TalentBlood.MightofMograine * 15 / 100) 
+		CritCoef = 1 * (1 + TalentBlood.MightofMograine * 15 / 100)
 		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
 	End Function
 	Function CritChance() As Double
@@ -107,7 +97,7 @@ TryDCDeath()
 	Function report As String
 		dim tmp as String
 		tmp = "Blood Boil" & VBtab
-	
+		
 		If total.ToString().Length < 8 Then
 			tmp = tmp & total & "   " & VBtab
 		Else
@@ -122,7 +112,7 @@ TryDCDeath()
 		tmp = tmp & vbCrLf
 		return tmp
 	End Function
-
+	
 	
 	
 	

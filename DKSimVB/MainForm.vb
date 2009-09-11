@@ -348,6 +348,7 @@ Public Partial Class MainForm
 		cmdPresence.Items.Add("Frost")
 		
 		cmbSigils.Items.Clear
+		cmbSigils.Items.Add("None")
 		cmbSigils.Items.Add("WildBuck")
 		cmbSigils.Items.Add("FrozenConscience")
 		cmbSigils.Items.Add("DarkRider")
@@ -361,10 +362,12 @@ Public Partial Class MainForm
 		cmbSigils.Sorted=true
 		
 		cmbRuneMH.Items.Clear
+		cmbRuneMH.Items.Add("None")
 		cmbRuneMH.Items.Add("Cinderglacier")
 		cmbRuneMH.Items.Add("Razorice")
 		cmbRuneMH.Items.Add("FallenCrusader")
 		cmbRuneOH.Items.Clear
+		cmbRuneMH.Items.Add("None")
 		cmbRuneOH.Items.Add("Cinderglacier")
 		cmbRuneOH.Items.Add("Razorice")
 		cmbRuneOH.Items.Add("FallenCrusader")

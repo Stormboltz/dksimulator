@@ -30,48 +30,49 @@ Public Module RuneStrike
 		Dim BCB As Double
 		Dim Nec As Double
 		Dim MeleeMissChance As Single
-		RunicPower.Value = RunicPower.Value - 20
-		
 		Dim RNG As Double
+		
+		RunicPower.Value = RunicPower.Value - 20
 		RNG = RNGWhiteHit
-		MeleeMissChance = 0.08
-		
-		If mainstat.Hit > MeleeMissChance Then
-			MeleeMissChance = 0
-		Else
-			MeleeMissChance = MeleeMissChance - mainstat.Hit
-		End If
-		
-		If RNG < (MeleeMissChance) Then
+		MeleeMissChance = math.Min(mainstat.Hit, 0.08)
+
+		If MeleeMissChance + RNG < 0.08 Then
 			MissCount = MissCount + 1
 			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Rune Strike fail")
 			exit function
 		End If
 		
 		RNG = RNGWhiteHit
+
+		
+		If MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
+			'Off hand
+			If RNG < CritChance Then
+				'CRIT !
+				dégat = AvrgOHCrit(T)
+				If combatlog.LogDetails Then combatlog.write(T  & vbtab &  "Rune Strike OH crit for " & dégat )
+			Else
+				dégat = AvrgOHNonCrit(T)
+				if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Rune Strike OH hit for " & dégat )
+			End If
+			
+		End If
+		
+		'MainHand
 		If RNG < CritChance Then
 			'CRIT !
 			dégat = AvrgCrit(T)
 			CritCount = CritCount + 1
 			If combatlog.LogDetails Then combatlog.write(T  & vbtab &  "Rune Strike crit for " & dégat )
-			
 		Else
 			dégat = AvrgNonCrit(T)
 			HitCount = HitCount + 1
 			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Rune Strike hit for " & dégat )
 		End If
-		
-		if Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
+'		if Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
 		total = total + dégat
 		
-		
-		If Talentfrost.KillingMachine > 0 Then
-			RNG = RNGWhiteHit
-			If RNG < (Talentfrost.KillingMachine)*MainStat.MHWeaponSpeed/60 Then
-				if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Killing Machine Proc")
-				proc.KillingMachine  = true
-			End If
-		End If
+		TryMHKillingMachine
 		
 		If MHRazorice Then applyRazorice()
 		If TalentUnholy.Necrosis > 0 Then
@@ -85,13 +86,13 @@ Public Module RuneStrike
 		TryMHFallenCrusader
 		TryMjolRune
 		TryGrimToll
-						TryGreatness()
-TryDeathChoice()
-TryDCDeath()
-TryVictory()
-TryBandit()
-TryDarkMatter()
-TryComet()
+		TryGreatness()
+		TryDeathChoice()
+		TryDCDeath()
+		TryVictory()
+		TryBandit()
+		TryDarkMatter()
+		TryComet()
 		If proc.ScentOfBloodProc > 0 Then
 			proc.ScentOfBloodProc  = proc.ScentOfBloodProc  -1
 			RunicPower.add(5)
@@ -104,17 +105,34 @@ TryComet()
 		tmp = MainStat.MHBaseDamage * 1.5
 		tmp = tmp * MainStat.StandardPhysicalDamageMultiplier(T)
 		tmp = tmp * (1+ SetBonus.T82PTNK*0.1)
-		AvrgNonCrit = tmp
+		return tmp
 	End Function
+	
+	
+	Function AvrgOHNonCrit(T As long) As Double
+		Dim tmp As Double
+		tmp = MainStat.OHBaseDamage * 1.5
+		tmp = tmp * MainStat.StandardPhysicalDamageMultiplier(T)
+		tmp = tmp * (1+ SetBonus.T82PTNK*0.1)
+		tmp = tmp * 0.5
+		tmp = tmp * (1 + TalentFrost.NervesofColdSteel * 5 / 100)
+		return tmp
+	End Function
+	
 	Function CritCoef() As Double
 		CritCoef = 1
 		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
 	End Function
+	
 	Function CritChance() As Double
-		CritChance = MainStat.crit + glyph.RuneStrike * 0.1
+		return MainStat.crit + glyph.RuneStrike * 0.1
 	End Function
 	Function AvrgCrit(T As long) As Double
-		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
+		return AvrgNonCrit(T) * (1 + CritCoef)
+	End Function
+	
+	Function AvrgOHCrit(T As long) As Double
+		return AvrgOHNonCrit(T) * (1 + CritCoef)
 	End Function
 	Function report As String
 		dim tmp as String

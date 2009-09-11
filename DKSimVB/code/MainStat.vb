@@ -306,6 +306,7 @@ Friend Module MainStat
 		
 		If sim.EPStat<>"" Then tmp = 6.5 'For most EP stats we assume being exp capped
 		If sim.EPStat="ExpertiseRating" Then tmp = 6.5 - sim.EPBase / 32.79
+		If sim.EPStat="ExpertiseRatingAfterDodge" Then tmp = 6.5 + sim.EPBase / 32.79
 		return  tmp / 100
 	End Function
 	Function Hit() As Double
