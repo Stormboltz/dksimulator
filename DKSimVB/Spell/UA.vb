@@ -6,9 +6,10 @@
 ' 
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Friend Module UA
-	Friend cd As Double
-	Friend ActiveUntil As Long
+Friend Class UnbreakableArmor
+	Inherits Spells.Spell
+	
+
 	
 	Function IsAvailable(T As Long) As Boolean
 		If TalentFrost.UnbreakableArmor = 0 Then
@@ -17,13 +18,13 @@ Friend Module UA
 		If T <= cd Then
 			return false
 		End If
-		If BloodTap.IsAvailable(T) and Runes.Frost(T)=false Then
+		If sim.BloodTap.IsAvailable(T) and Runes.Frost(T)=false Then
 			return true
 		End If
 	End Function
 	Function Use(T As long) As Boolean
 		cd = t + 60 * 100
-		BloodTap.Use(T)
+		sim.BloodTap.Use(T)
 		'UseUnholy(T,false)
 		ActiveUntil= T + 20 * 100
 		If MainStat.UnholyPresence Then
@@ -37,9 +38,6 @@ Friend Module UA
 	Function isActive() As Boolean
 		if ActiveUntil >= sim.TimeStamp then return true
 	End Function
-	Sub init()
-		cd = 0
-		ActiveUntil = 0
-	End Sub
+
 		
-End Module
+End Class

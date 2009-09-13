@@ -6,25 +6,19 @@
 ' 
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Friend Module Desolation
+Friend CLass Desolation
 	Friend FadeAt As long
-	Private _Bonus As Double
+	Friend Bonus As Double
 	
-	
+	Sub New
+		Init
+	End Sub
 		
 	Sub init()
 		FadeAt=0
+		Bonus = TalentUnholy.Desolation/100
 	End Sub
-		
-	
-	
-	Function Bonus as Double
-	
-		_bonus = TalentUnholy.Desolation/100
-		'_bonus = _bonus/100
-		Return _bonus
-		
-	End Function
+
 	Function isActive(T As long) As Boolean
 		If T >= FadeAt Then
 			isActive = False
@@ -33,8 +27,10 @@ Friend Module Desolation
 		End If
 		
 	End Function
+	
 	Function Apply(T As long) As Boolean
 		FadeAt = T + 20 * 100
 		return true
 	End Function
-End Module
+	
+End Class

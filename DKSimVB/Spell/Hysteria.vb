@@ -6,20 +6,13 @@
 ' 
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Friend Module Hysteria
-	Friend Cd as Long
-	Private ActiveUntil As Long
-	
-	Sub init()
-		cd = 0
-		ActiveUntil= 0
-	End Sub
+Friend Class Hysteria
+	inherits Spells.Spell
 	
 	Function IsAvailable(T As Long) As Boolean
 		If TalentBlood.Hysteria =  0 Then Return False 
 		If TalentBlood.DRW = 1 and DRW.cd > T then return false
 		If CD <= T Then Return True
-		
 	End Function
 
 	Function IsActive(T as Long) as Boolean
@@ -32,4 +25,4 @@ Friend Module Hysteria
 	End Sub
 	
 	
-End Module
+End Class

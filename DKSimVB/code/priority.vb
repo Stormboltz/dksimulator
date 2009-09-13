@@ -15,8 +15,8 @@ Friend Module priority
 		For Each item as String In priority.prio
 			Select Case item
 				Case "BloodTap"
-					If BloodTap.IsAvailable(Timestamp) and rune1.death = false and rune2.death = false    Then
-						BloodTap.Use(Timestamp)
+					If sim.BloodTap.IsAvailable(Timestamp) and rune1.death = false and rune2.death = false    Then
+						sim.BloodTap.Use(Timestamp)
 						'debug.Print("BT")
 					End If
 					
@@ -29,107 +29,107 @@ Friend Module priority
 					
 				Case "ScourgeStrike"
 					If runes.FU(TimeStamp) = True and CanUseGCD(Timestamp)  Then
-						ScourgeStrike.ApplyDamage(TimeStamp)
+						sim.ScourgeStrike.ApplyDamage(TimeStamp)
 						'debug.Print("SS")
 						exit sub
 					End If
 				Case "PlagueStrike"
 					If runes.Unholy(TimeStamp) and CanUseGCD(Timestamp) Then
-						PlagueStrike.ApplyDamage(TimeStamp)
+						sim.PlagueStrike.ApplyDamage(TimeStamp)
 						'debug.Print("PS")
 						exit sub
 					End If
 				Case "DRMObliterate"
 					If runes.DRMFU(TimeStamp) = True and CanUseGCD(Timestamp) Then
-						Obliterate.ApplyDamage(TimeStamp)
+						sim.Obliterate.ApplyDamage(TimeStamp)
 						'debug.Print("OB")
 						exit sub
 					End If
 				Case "Obliterate"
 					If runes.FU(TimeStamp) = True and CanUseGCD(Timestamp) Then
-						Obliterate.ApplyDamage(TimeStamp)
+						sim.Obliterate.ApplyDamage(TimeStamp)
 						'debug.Print("OB")
 						exit sub
 					End If
 					
 				Case "KMFrostStrike"
-					If FrostStrike.isAvailable(TimeStamp) = True and proc.KillingMachine and CanUseGCD(Timestamp)  Then
-						FrostStrike.ApplyDamage(TimeStamp)
+					If sim.FrostStrike.isAvailable(TimeStamp) = True and proc.KillingMachine and CanUseGCD(Timestamp)  Then
+						sim.FrostStrike.ApplyDamage(TimeStamp)
 						'debug.Print("FS")
 						exit sub
 					End If
 				Case "FrostStrike"
-					If FrostStrike.isAvailable(TimeStamp) = True and CanUseGCD(Timestamp) Then
-						FrostStrike.ApplyDamage(TimeStamp)
+					If sim.FrostStrike.isAvailable(TimeStamp) = True and CanUseGCD(Timestamp) Then
+						sim.FrostStrike.ApplyDamage(TimeStamp)
 						'debug.Print("FS")
 						exit sub
 					End If
 					
 				Case "FrostStrikeMaxRp"
 					If RunicPower.MaxValue = RunicPower.Value and CanUseGCD(Timestamp)  Then
-						FrostStrike.ApplyDamage(TimeStamp)
+						sim.FrostStrike.ApplyDamage(TimeStamp)
 						'debug.Print("FS")
 						exit sub
 					End If
 				Case "DRMDeathStrike"
 					If runes.DRMFU(TimeStamp) and CanUseGCD(Timestamp) Then
-						DeathStrike.ApplyDamage(TimeStamp)
+						sim.DeathStrike.ApplyDamage(TimeStamp)
 						'debug.Print("BS")
 						exit sub
 					End If	
 				Case "DeathStrike"
 					If runes.FU(TimeStamp) and CanUseGCD(Timestamp) Then
-						DeathStrike.ApplyDamage(TimeStamp)
+						sim.DeathStrike.ApplyDamage(TimeStamp)
 						'debug.Print("BS")
 						exit sub
 					End If
 				Case "BloodStrike"
 					If runes.Blood(TimeStamp) and CanUseGCD(Timestamp) Then
-						BloodStrike.ApplyDamage(TimeStamp)
+						sim.BloodStrike.ApplyDamage(TimeStamp)
 						'debug.Print("BS")
 						exit sub
 					End If
 					
 				Case "HeartStrike"
 					If runes.Blood(TimeStamp) = True and CanUseGCD(Timestamp) Then
-						Heartstrike.ApplyDamage(TimeStamp)
+						sim.Heartstrike.ApplyDamage(TimeStamp)
 						'debug.Print("HS")
 						exit sub
 					End If
 				Case "Rime"
-					If proc.rime and HowlingBlast.isAvailable(TimeStamp) and CanUseGCD(Timestamp) Then
-						HowlingBlast.ApplyDamage(TimeStamp)
+					If proc.rime and sim.HowlingBlast.isAvailable(TimeStamp) and CanUseGCD(Timestamp) Then
+						sim.HowlingBlast.ApplyDamage(TimeStamp)
 						exit sub
 					End If
 				Case "FrostFever"
 					If glyph.Disease Then
-						if Pestilence.PerfectUsage(TimeStamp) then
-							Pestilence.use(TimeStamp)
+						if sim.Pestilence.PerfectUsage(TimeStamp) then
+							sim.Pestilence.use(TimeStamp)
 							Exit Sub
 						Else
-							If FrostFever.isActive(TimeStamp) = False or FFToReapply Then
-								If talentfrost.HowlingBlast = 1 And glyph.HowlingBlast And HowlingBlast.isAvailable(TimeStamp)  Then
+							If sim.FrostFever.isActive(TimeStamp) = False or sim.pestilence.FFToReapply Then
+								If talentfrost.HowlingBlast = 1 And glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp)  Then
 									If proc.rime Or runes.FU(TimeStamp) Then
-										HowlingBlast.ApplyDamage(TimeStamp)
+										sim.HowlingBlast.ApplyDamage(TimeStamp)
 										exit sub
 									End If
 								end if
 								if runes.Frost(TimeStamp) = True Then
-									IcyTouch.ApplyDamage(TimeStamp)
+									sim.IcyTouch.ApplyDamage(TimeStamp)
 									Exit Sub
 								End If
 							End If
 						End If
 					Else
-						If FrostFever.PerfectUsage(TimeStamp) = true Then
-							If talentfrost.HowlingBlast = 1 And glyph.HowlingBlast And HowlingBlast.isAvailable(TimeStamp)  Then
+						If sim.FrostFever.PerfectUsage(TimeStamp) = true Then
+							If talentfrost.HowlingBlast = 1 And glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp)  Then
 								If proc.rime Or runes.FU(TimeStamp) Then
-									HowlingBlast.ApplyDamage(TimeStamp)
+									sim.HowlingBlast.ApplyDamage(TimeStamp)
 									exit sub
 								End If
 							end if
 							if runes.Frost(TimeStamp) = True Then
-								IcyTouch.ApplyDamage(TimeStamp)
+								sim.IcyTouch.ApplyDamage(TimeStamp)
 								Exit Sub
 							End If
 						End If
@@ -138,13 +138,13 @@ Friend Module priority
 					
 				Case "BloodPlague"
 					If glyph.Disease Then
-						if Pestilence.PerfectUsage(TimeStamp)  then
-							Pestilence.use(TimeStamp)
+						if sim.Pestilence.PerfectUsage(TimeStamp)  then
+							sim.Pestilence.use(TimeStamp)
 							Exit Sub
 						Else
-							If BloodPlague.isActive(TimeStamp) = False or BPToReapply then
+							If sim.BloodPlague.isActive(TimeStamp) = False or sim.pestilence.BPToReapply then
 								If runes.Unholy(TimeStamp) = True Then
-									PlagueStrike.ApplyDamage(TimeStamp)
+									sim.PlagueStrike.ApplyDamage(TimeStamp)
 									exit sub
 								End If
 							End If
@@ -152,9 +152,9 @@ Friend Module priority
 						
 					Else
 						
-						If BloodPlague.PerfectUsage(TimeStamp) = true then
+						If sim.BloodPlague.PerfectUsage(TimeStamp) = true then
 							If runes.Unholy(TimeStamp) = True Then
-								PlagueStrike.ApplyDamage(TimeStamp)
+								sim.PlagueStrike.ApplyDamage(TimeStamp)
 								exit sub
 							End If
 						End If
@@ -162,33 +162,33 @@ Friend Module priority
 					
 				Case "IcyTouch"
 					If runes.Frost(TimeStamp) = True and CanUseGCD(Timestamp) Then
-						IcyTouch.ApplyDamage(TimeStamp)
+						sim.IcyTouch.ApplyDamage(TimeStamp)
 						exit sub
 					End If
 					
 				Case "DeathCoilMaxRp"
 					If RunicPower.MaxValue = RunicPower.Value and CanUseGCD(Timestamp) Then
-						deathcoil.ApplyDamage(TimeStamp,False)
+						sim.deathcoil.ApplyDamage(TimeStamp,False)
 						'debug.Print("DC")
 						exit sub
 					End If
 				Case "DeathCoil"
-					If deathcoil.isAvailable(TimeStamp) = True and CanUseGCD(Timestamp) Then
-						deathcoil.ApplyDamage(TimeStamp,False)
+					If sim.deathcoil.isAvailable(TimeStamp) = True and CanUseGCD(Timestamp) Then
+						sim.deathcoil.ApplyDamage(TimeStamp,False)
 						'debug.Print("DC")
 						exit sub
 					End If
 				Case "BloodBoil"
 					If runes.Blood(TimeStamp) = True and CanUseGCD(Timestamp) Then
-						BloodBoil.ApplyDamage(TimeStamp)
+						sim.BloodBoil.ApplyDamage(TimeStamp)
 						exit sub
 					End If
 				Case "Pestilance"
 					
 				Case "HowlingBlast"
-					If HowlingBlast.isAvailable(TimeStamp) Then
+					If sim.HowlingBlast.isAvailable(TimeStamp) Then
 						If proc.rime Or runes.FU(TimeStamp) and CanUseGCD(Timestamp)  Then
-							HowlingBlast.ApplyDamage(TimeStamp)
+							sim.HowlingBlast.ApplyDamage(TimeStamp)
 							runes.UnReserveFU(TimeStamp)
 							Exit Sub
 						Else
@@ -197,9 +197,9 @@ Friend Module priority
 					Else
 					End If
 				Case "KMHowlingBlast"
-					If HowlingBlast.isAvailable(TimeStamp) and proc.KillingMachine Then
+					If sim.HowlingBlast.isAvailable(TimeStamp) and proc.KillingMachine Then
 						If proc.rime Or runes.FU(TimeStamp) and CanUseGCD(Timestamp) Then
-							HowlingBlast.ApplyDamage(TimeStamp)
+							sim.HowlingBlast.ApplyDamage(TimeStamp)
 							runes.UnReserveFU(TimeStamp)
 							Exit Sub
 						Else
@@ -209,12 +209,12 @@ Friend Module priority
 					End If
 				Case "KMRime"
 					If Proc.Rime and proc.KillingMachine and CanUseGCD(Timestamp)  Then
-						HowlingBlast.ApplyDamage(TimeStamp)
+						sim.HowlingBlast.ApplyDamage(TimeStamp)
 					Else
 					End If
 				Case "DeathandDecay"
-					If DeathAndDecay.isAvailable(TimeStamp) and CanUseGCD(Timestamp) Then
-						DeathAndDecay.Apply(TimeStamp)
+					If sim.DeathAndDecay.isAvailable(TimeStamp) and CanUseGCD(Timestamp) Then
+						sim.DeathAndDecay.Apply(TimeStamp)
 						Exit Sub
 					End If
 			End Select

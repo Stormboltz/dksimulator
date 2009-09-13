@@ -6,23 +6,12 @@
 '
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Friend Module Pestilence
-	Friend TotalHit As Long
-	Friend HitCount As Integer
-	Friend MissCount As Integer
+Friend Class Pestilence
+	inherits Spells.Spell
+
 	Friend BPToReapply As Boolean
 	Friend FFToReapply As Boolean
-	
-	
-	
-	Sub init()
-		TotalHit = 0
-		HitCount = 0
-		MissCount = 0
-	End Sub
-	
 	Function use(T As double) As Boolean
-		Dim RNG As Double
 		Sim.NextFreeGCD = T + (150 / (1 + MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
 		If DoMySpellHit = false Then
 			combatlog.write(T  & vbtab &  "Pestilence fail")
@@ -41,12 +30,12 @@ Friend Module Pestilence
 		
 		If glyph.Disease Then
 			debug.Print ("PEST! at " & T )
-			If BloodPlague.FadeAt > T Then
-				BloodPlague.FadeAt = T + 1500 + 300 * talentunholy.Epidemic
+			If sim.BloodPlague.FadeAt > T Then
+				sim.BloodPlague.FadeAt = T + 1500 + 300 * talentunholy.Epidemic
 				'BloodPlague.nextTick = T + 300
 			End If
-			If FrostFever.FadeAt > T Then
-				FrostFever.FadeAt = T + 1500 + 300 * talentunholy.Epidemic
+			If sim.FrostFever.FadeAt > T Then
+				sim.FrostFever.FadeAt = T + 1500 + 300 * talentunholy.Epidemic
 				'FrostFever.nextTick = T + 300
 			End If
 		End If
@@ -57,7 +46,7 @@ Friend Module Pestilence
 		Dim tmp2 As Long
 		
 		If runes.AnyBlood(T) Then
-			tmp1 = math.Min(BloodPlague.FadeAt,FrostFever.FadeAt)
+			tmp1 = math.Min(sim.BloodPlague.FadeAt,sim.FrostFever.FadeAt)
 			'debug.Print (RuneState & "time left on disease= " & (tmp1-T)/100 & "s" & " - " & T/100)
 			If tmp1 < T Then
 				return false
@@ -66,13 +55,13 @@ Friend Module Pestilence
 '			debug.Print ("BP = " & BloodPlague.FadeAt)
 '			debug.Print ("BP = " & FrostFever.FadeAt)
 
-			If MainStat.AP > math.min(FrostFever.AP, BloodPlague.AP) Then
+			If MainStat.AP > math.min(sim.FrostFever.AP, sim.BloodPlague.AP) Then
 				BPToReapply = True
 				FFToReapply = True
 				Return False
 			End If
 
-			If BloodPlague.FadeAt <> FrostFever.FadeAt Then
+			If sim.BloodPlague.FadeAt <> sim.FrostFever.FadeAt Then
 				return true
 			End If
 			
@@ -87,46 +76,6 @@ Friend Module Pestilence
 			t=t
 		End If
 	End Function
-	Function CanUseGCD(T As Long) As Boolean
-		CanUseGCD=true
-		If glyph.Disease Then 
-			dim tGDC as long
-			'return false
-			If MainStat.UnholyPresence Then
-				tGDC = 100+ sim._MainFrm.txtLatency.Text/10 + 50
-			Else
-				tGDC =  150+ sim._MainFrm.txtLatency.Text/10 + 50
-			End If
-			
-			If math.Min(BloodPlague.FadeAt,FrostFever.FadeAt) < (T +  tGDC) Then 
-				'debug.Print (RuneState & "time left on disease= " & (math.Min(BloodPlague.FadeAt,FrostFever.FadeAt) -T)/100 & "s" & " - " & T/100)
-				return false
-			End If
-		End If
-	End Function
-	
-	
-	
-	Function report As String
-		Dim tmp As String
-		Dim total As String
-		Dim CritCount As Integer
-		CritCount = 0
-		total = "0"
-		tmp = "Pestilence" & VBtab
-		
-		If total.ToString().Length < 8 Then
-			tmp = tmp & total & "   " & VBtab
-		Else
-			tmp = tmp & total & VBtab
-		End If
-		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
-		tmp = tmp & toDecimal(HitCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
-		tmp = tmp & vbCrLf
-		return tmp
-	End Function
-End Module
+
+End Class
+

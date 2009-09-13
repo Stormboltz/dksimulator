@@ -27,8 +27,8 @@ Friend module DRW
 			'DKSIMVB.deathcoil.ApplyDamage(T,false)
 			exit sub
 		End If
-		If Hysteria.IsAvailable(T) then Hysteria.use(T)
-		If Hysteria.IsActive(T) Then
+		If sim.Hysteria.IsAvailable(T) then sim.Hysteria.use(T)
+		If sim.Hysteria.IsActive(T) Then
 			Hyst = True
 		Else
 			Hyst = false

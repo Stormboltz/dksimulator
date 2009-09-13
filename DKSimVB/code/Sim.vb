@@ -29,6 +29,39 @@ Friend Module Sim
 	Friend KeepRNGSeed as Boolean
 	
 	
+	'Strike Creation
+	Friend BloodCakedBlade As BloodCakedBlade
+	Friend BloodStrike As BloodStrike
+	Friend DeathStrike As DeathStrike
+	Friend FrostStrike As FrostStrike
+	Friend HeartStrike As HeartStrike
+	Friend Obliterate As Obliterate
+	Friend PlagueStrike As PlagueStrike
+	Friend ScourgeStrike As ScourgeStrike
+	Friend MainHand as MainHand
+	Friend OffHand As OffHand
+	
+	'Spell Creation
+	Friend BloodBoil As BloodBoil
+	Friend BloodTap As BloodTap
+	Friend Butchery As Butchery
+	Friend DeathandDecay as DeathandDecay
+	Friend DeathChill As DeathChill
+	Friend Desolation as Desolation
+	Friend Horn As Horn
+	Friend HowlingBlast As HowlingBlast
+	Friend Hysteria  as Hysteria 
+	Friend IcyTouch As IcyTouch
+	Friend Necrosis As Necrosis
+	Friend DeathCoil as DeathCoil
+	Friend Pestilence as Pestilence
+	Friend UnbreakableArmor as UnbreakableArmor
+	Friend UnholyBlight as UnholyBlight
+	
+	
+	'Disease Creation
+	Friend BloodPlague as BloodPlague
+	Friend FrostFever as FrostFever
 	
 	
 	Function NumDesease() As Integer
@@ -155,22 +188,9 @@ Friend Module Sim
 			tmp2 = (DPS-BaseDPS) / sim.EPBase
 			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & toDDecimal (-tmp2/tmp1)) & "</td></tr>"
 			WriteReport ("Average for " & EPStat & " | " & DPS)
-			
-			If MainStat.FrostPresence= 1 Then
-				EPStat="ExpertiseRatingAfterDodge"
-				Start(pb,SimTime,MainFrm)
-				tmp1 = (APDPS-BaseDPS ) / 100
-				tmp2 = (DPS-BaseDPS) / sim.EPBase
-				sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& "Expertise Rating After Dodge cap" & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
-				WriteReport ("Average for " & "Expertise Rating After Dodge cap" & " | " & DPS)
-			End If
 		Else
 			WriteReport ("Average for ExpertiseRating | 0")
 		End If
-		
-		
-		
-		
 		
 		'Hit
 		if doc.SelectSingleNode("//config/Stats/chkEPHit").InnerText = "True" then
@@ -364,7 +384,7 @@ Friend Module Sim
 		Dim tmp1 As double
 		Dim tmp2 As Double
 		dim sReport as String
-		
+		sReport = ""
 		'
 		EPStat="NoTrinket"
 		Start(pb,SimTime,MainFrm)
@@ -475,7 +495,7 @@ Friend Module Sim
 					RunicPower.add(AMSAmount)
 				End If
 				
-				If talentblood.Butchery > 0 And Butchery.nextTick <= TimeStamp Then
+				If talentblood.Butchery > 0 And sim.Butchery.nextTick <= TimeStamp Then
 					Butchery.apply(TimeStamp)
 				End If
 				
@@ -521,8 +541,8 @@ Friend Module Sim
 					End If
 					
 					If Sim.isInGCD(TimeStamp) = False Then
-						If UA.IsAvailable(TimeStamp) Then
-							UA.Use(TimeStamp)
+						If sim.UnbreakableArmor.IsAvailable(TimeStamp) Then
+							sim.UnbreakableArmor.Use(TimeStamp)
 						End If
 					End If
 					
@@ -621,6 +641,26 @@ Friend Module Sim
 			isInGCD = True
 		End If
 	End Function
+	
+	Function CanUseGCD(T As Long) As Boolean
+		CanUseGCD=true
+		If glyph.Disease Then 
+			dim tGDC as long
+			'return false
+			If MainStat.UnholyPresence Then
+				tGDC = 100+ sim._MainFrm.txtLatency.Text/10 + 50
+			Else
+				tGDC =  150+ sim._MainFrm.txtLatency.Text/10 + 50
+			End If
+			
+			If math.Min(sim.BloodPlague.FadeAt,sim.FrostFever.FadeAt) < (T +  tGDC) Then 
+				'debug.Print (RuneState & "time left on disease= " & (math.Min(BloodPlague.FadeAt,FrostFever.FadeAt) -T)/100 & "s" & " - " & T/100)
+				return false
+			End If
+		End If
+	End Function
+	
+	
 	
 	Sub loadtemplate(file As String)
 		
@@ -731,23 +771,23 @@ Friend Module Sim
 		'RandomNumberGenerator.Init 'done in Start
 		CombatLog.Init
 		Buff.FullBuff
+		
 		'Buff.UnBuff
+		BloodPlague = new BloodPlague 
+		FrostFever = New FrostFever
 		
-		MainHand.init
-		offhand.init
-		BloodPlague.init
-		
-		FrostFever.init
-		UnholyBlight.init
+		UnholyBlight = New UnholyBlight
 		WanderingPlague.init
-		BloodTap.init
-		HowlingBlast.init
+		
+		BloodTap = new BloodTap
+		HowlingBlast = new HowlingBlast
 		GhoulStat.init
-		Hysteria.init
-		DeathChill.init
-		UA.init
+		Hysteria = new Hysteria
+		DeathChill = new DeathChill
+		Desolation = new Desolation
+		UnbreakableArmor = new UnbreakableArmor
 		RuneForge.init
-		Butchery.init
+		Butchery = new Butchery
 		DRW.init
 		RuneStrike.init
 		
@@ -758,29 +798,33 @@ Friend Module Sim
 		NextFreeGCD = 0
 		TotalDamage = 0
 		Threat = 0
-		ScourgeStrike.init
-		obliterate.init
-		PlagueStrike.init
-		BloodStrike.init
-		frostfever.init
-		BloodPlague.init
-		IcyTouch.init
-		deathcoil.init
-		UnholyBlight.init
-		MainHand.init
-		OffHand.init
-		Necrosis.init
-		BloodCakedBlade.init
+		ScourgeStrike = new ScourgeStrike
+		Obliterate = new Obliterate
+		PlagueStrike= new PlagueStrike
+		BloodStrike = New BloodStrike
+		MainHand = New MainHand 
+		OffHand = New OffHand
+		
+		
+		DeathCoil = new DeathCoil 
+		IcyTouch = new IcyTouch
+		
+		
+
+		
+		Necrosis = new Necrosis
+		
 		WanderingPlague.init
-		froststrike.init
-		deathstrike.init
-		HowlingBlast.init
-		BloodBoil.init
-		HeartStrike.init
-		DeathandDecay.init
+		FrostStrike = New FrostStrike
+		BloodCakedBlade = New BloodCakedBlade
+		DeathStrike = New DeathStrike
+
+		BloodBoil = new BloodBoil
+		HeartStrike = new HeartStrike
+		DeathandDecay = new DeathandDecay
 		Ghoul.init
 		Gargoyle.init
-		Horn.init
+		Horn = new Horn
 		
 		Bloodlust.init
 		
@@ -792,7 +836,7 @@ Friend Module Sim
 		InterruptTimer = _MainFrm.txtInterruptCd.text * 100
 		InterruptAmount = _MainFrm.txtInterruptAmount.text
 		
-		Pestilence.init
+		Pestilence = new Pestilence
 		proc.init
 		trinket.init
 		Character.init

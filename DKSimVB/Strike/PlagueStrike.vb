@@ -1,23 +1,7 @@
-Friend module PlagueStrike
-	
-	Friend total As long
-	Friend MissCount As Integer
-	Friend HitCount as Integer
-	Friend CritCount As Integer
-	Friend TotalHit As Long
-	Friend TotalCrit as Long
-	
-	Sub init()
-		total = 0
-		MissCount = 0
-		HitCount = 0
-		CritCount = 0
-		TotalHit = 0
-		TotalCrit = 0
+Friend Class PlagueStrike
+	Inherits Strikes.Strike
 		
-	End Sub
-	
-	Function ApplyDamage(T As Long) As Boolean
+	public Overrides Function ApplyDamage(T As Long) As Boolean
 		Dim MHHit As Boolean
 		Dim OHHit As Boolean
 		MHHit = True
@@ -48,7 +32,7 @@ Friend module PlagueStrike
 				Exit function
 			End If
 		End If
-
+		
 		if sigils.Strife then
 			StrifeFade = T+1000
 		End If
@@ -79,13 +63,13 @@ Friend module PlagueStrike
 				TryMHFallenCrusader
 				TryMjolRune
 				TryGrimToll
-								TryGreatness()
-TryDeathChoice()
-TryDCDeath()
-TryVictory()
-TryBandit()
-TryDarkMatter()
-TryComet()
+				TryGreatness()
+				TryDeathChoice()
+				TryDCDeath()
+				TryVictory()
+				TryBandit()
+				TryDarkMatter()
+				TryComet()
 			End If
 			If OHHit Then
 				If RNG <= CritChance Then
@@ -107,18 +91,18 @@ TryComet()
 				TryOHFallenCrusader
 				TryMjolRune
 				TryGrimToll
-								TryGreatness()
-TryDeathChoice()
-TryDCDeath()
-TryVictory()
-TryBandit()
-TryDarkMatter()
-TryComet()
+				TryGreatness()
+				TryDeathChoice()
+				TryDCDeath()
+				TryVictory()
+				TryBandit()
+				TryDarkMatter()
+				TryComet()
 			End If
 			
 			
 			runes.UseUnholy(T,False)
-			BloodPlague.Apply(T)
+			sim.BloodPlague.Apply(T)
 			
 			
 			If DRW.IsActive(T) Then
@@ -131,10 +115,7 @@ TryComet()
 			Return True
 		End If
 	End Function
-	
-	
-	
-	Function AvrgNonCrit(T As long, MH as Boolean) As Double
+	public Overrides Function AvrgNonCrit(T As long, MH as Boolean) As Double
 		Dim tmp As Double
 		
 		If MH Then
@@ -153,36 +134,19 @@ TryComet()
 		End If
 		AvrgNonCrit = tmp
 	End Function
-	Function CritCoef() As Double
+	public Overrides Function CritCoef() As Double
 		CritCoef = (1 + TalentUnholy.ViciousStrikes * 15 / 100)
 		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
 	End Function
-	Function CritChance() As Double
+	public Overrides Function CritChance() As Double
 		Dim tmp As Double
 		
 		tmp = MainStat.crit + TalentUnholy.ViciousStrikes * 3 / 100 + T72PTNK*0.1
 		
 		return tmp
 	End Function
-	Function AvrgCrit(T As long, MH as Boolean) As Double
+	public Overrides Function AvrgCrit(T As long, MH as Boolean) As Double
 		AvrgCrit = AvrgNonCrit(T, MH) * (1 + CritCoef)
 	End Function
-	Function report As String
-		dim tmp as String
-		tmp = "Plague Strike" & VBtab
-		
-		If total.ToString().Length < 8 Then
-			tmp = tmp & total & "   " & VBtab
-		Else
-			tmp = tmp & total & VBtab
-		End If
-		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
-		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
-		tmp = tmp & vbCrLf
-		return tmp
-	End Function
-end module
+	
+end Class

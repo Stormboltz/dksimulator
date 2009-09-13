@@ -20,7 +20,7 @@ Friend module WanderingPlague
 	
 	Function ApplyDamage(Damage As Double, T As long) As Double
 		nextTick = T + 100
-		dim RNG as Double
+
 		If DoMySpellHit = false Then
 			'combatlog.write(T  & vbtab &  "WP fail")
 			MissCount = MissCount + 1

@@ -6,22 +6,10 @@
 '
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Friend Module Obliterate
-	Friend total As Long
-	Friend TotalHit As Long
-	Friend TotalCrit as Long
-	Friend MissCount As Integer
-	Friend HitCount as Integer
-	Friend CritCount As Integer
-	Sub init()
-		total = 0
-		MissCount = 0
-		HitCount = 0
-		CritCount = 0
-		TotalHit = 0
-		TotalCrit = 0
-	End Sub
-	Function ApplyDamage(T As Long) As Boolean
+Friend Class Obliterate
+	Inherits Strikes.Strike
+	
+	public Overrides Function ApplyDamage(T As Long) As Boolean
 		Dim MHHit As Boolean
 		Dim OHHit As Boolean
 		MHHit = True
@@ -60,8 +48,8 @@ Friend Module Obliterate
 			End If
 			
 			If talentfrost.Annihilation <> 3 Then
-				frostfever.FadeAt=T
-				bloodplague.FadeAt=T
+				sim.frostfever.FadeAt=T
+				sim.bloodplague.FadeAt=T
 			End If
 			
 			dim dégat as Integer
@@ -144,7 +132,7 @@ Friend Module Obliterate
 	End Function
 	
 	
-	Function AvrgNonCrit(T as long, MH as Boolean) As Double
+	public Overrides Function AvrgNonCrit(T as long, MH as Boolean) As Double
 		Dim tmp As Double
 		If MH Then
 			tmp = MainStat.NormalisedMHDamage * 0.8 + 467.2
@@ -166,47 +154,29 @@ Friend Module Obliterate
 			tmp = tmp * 0.5
 			tmp = tmp * (1 + TalentFrost.NervesofColdSteel * 5 / 100)
 		End If
-		AvrgNonCrit = tmp
+		return  tmp
 	End Function
 	
 	
-	Function CritCoef() As Double
+	public Overrides Function CritCoef() As Double
 		CritCoef = 1 * (1 + talentfrost.GuileOfGorefiend * 15 / 100)
-		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
+		return  CritCoef * (1+0.06*mainstat.CSD)
 	End Function
 	
 	
-	Function CritChance() As Double
-		If DeathChill.IsAvailable(sim.TimeStamp) Then
-			Deathchill.use(sim.TimeStamp)
-			DeathChill.Active = false
+	public Overrides Function CritChance() As Double
+		If sim.DeathChill.IsAvailable(sim.TimeStamp) Then
+			sim.Deathchill.use(sim.TimeStamp)
+			sim.DeathChill.Active = false
 			Return 1
 		End If
-		CritChance = MainStat.crit +  talentfrost.rime*5/100 + talentblood.Subversion*3/100 + SetBonus.T72PDPS * 5/100
+		return  MainStat.crit +  talentfrost.rime*5/100 + talentblood.Subversion*3/100 + SetBonus.T72PDPS * 5/100
 		
 	End Function
 	
-	Function AvrgCrit(T As long, MH as Boolean) As Double
-		AvrgCrit = AvrgNonCrit(T, MH) * (1 + CritCoef)
+	public Overrides Function AvrgCrit(T As long, MH as Boolean) As Double
+		return AvrgNonCrit(T, MH) * (1 + CritCoef)
 	End Function
 	
-	Function report As String
-		dim tmp as String
-		tmp = "Obliterate" & VBtab
-		
-		If total.ToString().Length < 8 Then
-			tmp = tmp & total & "   " & VBtab
-		Else
-			tmp = tmp & total & VBtab
-		End If
-		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
-		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
-		tmp = tmp & vbCrLf
-		return tmp
-	End Function
 	
-End Module
+End class

@@ -1,4 +1,13 @@
-Friend module BloodPlague
+﻿'
+' Crée par SharpDevelop.
+' Utilisateur: Fabien
+' Date: 13/09/2009
+' Heure: 14:25
+' 
+' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
+'
+NameSpace Diseases
+Public Class Disease
 	
 	Friend nextTick As long
 	Friend FadeAt As long
@@ -11,8 +20,9 @@ Friend module BloodPlague
 	Friend CritCount As Integer
 	Friend DamageTick As Integer
 	Friend ScourgeStrikeGlyphCounter As Integer
+
 	
-	Sub init()
+	Overridable Protected Sub init()
 		nextTick = 0
 		FadeAt= 0
 		total = 0
@@ -22,35 +32,25 @@ Friend module BloodPlague
 		TotalHit = 0
 		TotalCrit = 0
 		AP = 0
-	End Sub
-		
-		
-	Function PerfectUsage(T As Long) As Boolean
-		If TalentUnholy.RageofRivendare>0 Then
-			if isActive(T+150) = false then return true
-		Else
-			if isActive(T) = false then return true
-		End If
+	End sub
+	
+	Overridable Function PerfectUsage(T As Long) As Boolean
 		return false
 	End Function
 		
-	Function isActive(T As long) As Boolean
+	Overridable Function isActive(T As Long) As Boolean
 		If T > FadeAt Then
 			isActive = False
-			'nextTick = 0
 		Else
 			isActive = True
 		End If
 	End Function
 	
-	Function Apply(T As Long) As Boolean
-		If glyph.Disease Then debug.Print (RuneState & "time left on BP= " & (FadeAt-T)/100 & "s" & " - " & T/100)
-		AP = MainStat.AP
-		DamageTick = AvrgNonCrit(T)
-		FadeAt = T + 15 * 100 + 3 * 100 * talentunholy.Epidemic
-		nextTick = T + 3 * 100
-		BPToReapply = False
-		ScourgeStrikeGlyphCounter = 0
+	Overridable Function Apply(T As Long) As Boolean
+	End Function
+	
+	
+	Overridable Function AvrgNonCrit(T As long) As Double
 	End Function
 	
 	Function ApplyDamage(T As long) As boolean
@@ -73,39 +73,28 @@ Friend module BloodPlague
 		End If
 		TryNecromantic()
 		nextTick = T + 300
-		If combatlog.LogDetails Then combatlog.write(T  & vbtab &  "Blood Plague hit for " & tmp )
-		
-		'Debug.Print (T & vbTab & "BloodPlague for " & tmp)
+		If combatlog.LogDetails Then combatlog.write(T  & vbtab & me.ToString & " hit for " & tmp )
 		return true
 	End Function
-	Function AvrgNonCrit(T As long) As Double
-		Dim tmp As Double
-		tmp = 26
-		tmp = tmp + 0.055 * (1 + 0.04 * TalentUnholy.Impurity) * AP
-		If buff.CrypticFever Then
-			tmp = tmp * 1.3
-		Else
-			tmp = tmp * (1 + TalentUnholy.CryptFever * 10 / 100)
-		End If
-		tmp = tmp * MainStat.StandardMagicalDamageMultiplier(T)
-		tmp = tmp * (1 + TalentFrost.BlackIce * 2 / 100)
-		tmp = tmp * 1.15
-		AvrgNonCrit = tmp
+	
+	
+	
+	
+	
+	
+	Overridable Function CritCoef() As Double
+		return CritCoef * (1+0.06*mainstat.CSD)
 	End Function
-	Function CritCoef() As Double
-		CritCoef = 1
-		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
+	Overridable Function CritChance() As Double
+		return MainStat.crit
 	End Function
-	Function CritChance() As Double
-		CritChance = MainStat.SpellCrit
-	End Function
-	Function AvrgCrit(T As long) As Double
-		AvrgCrit = DamageTick * (1 + CritCoef)
+	Overridable Function AvrgCrit(T As long) As Double
+		return DamageTick * (1 + CritCoef)
 	End Function
 	
 	Function report As String
 		dim tmp as String
-		tmp = "Blood Plague" & VBtab
+		tmp = me.ToString & VBtab
 	
 		If total.ToString().Length < 8 Then
 			tmp = tmp & total & "   " & VBtab
@@ -121,4 +110,6 @@ Friend module BloodPlague
 		tmp = tmp & vbCrLf
 		return tmp
 	End Function
-End module
+	
+End Class
+end Namespace

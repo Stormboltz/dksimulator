@@ -3,20 +3,11 @@
 ' User: Fabien
 ' Date: 14/03/2009
 ' Time: 22:48
-' 
+'
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Friend Module HowlingBlast
-	
-	Friend cd as long	
-	Friend total As long
-	Friend MissCount As Integer
-	Friend HitCount as Integer
-	Friend CritCount as Integer
-		Friend TotalHit As Long
-	Friend TotalCrit as Long
-
-	
+Friend Class HowlingBlast
+	Inherits Spells.Spell
 	
 	Function isAvailable(T As Long) As Boolean
 		if TalentFrost.HowlingBlast <> 1 then return false
@@ -24,11 +15,11 @@ Friend Module HowlingBlast
 	End Function
 	
 	
-	Function ApplyDamage(T As long) As boolean
+	overrides Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
 		Sim.NextFreeGCD = T + (150 / (1 + MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
 		cd = T + 800
-
+		
 		If DoMySpellHit = false Then
 			combatlog.write(T  & vbtab &  "HB fail")
 			proc.KillingMachine  = False
@@ -45,7 +36,7 @@ Friend Module HowlingBlast
 			dégat = AvrgCrit(T)
 			combatlog.write(T  & vbtab &  "HB crit for " & dégat )
 		Else
-				HitCount = HitCount + 1
+			HitCount = HitCount + 1
 			dégat = AvrgNonCrit(T)
 			combatlog.write(T  & vbtab &  "HB hit for " & dégat)
 		End If
@@ -60,17 +51,17 @@ Friend Module HowlingBlast
 			runes.UseFU(T,False)
 			RunicPower.add (15 + (TalentFrost.ChillOfTheGrave * 2.5))
 		End If
-
+		
 		proc.KillingMachine  = false
-		if glyph.HowlingBlast then		
-			FrostFever.Apply(T)
+		if glyph.HowlingBlast then
+			sim.FrostFever.Apply(T)
 		End If
 		TryGreatness()
-TryDeathChoice()
-TryDCDeath()
+		TryDeathChoice()
+		TryDCDeath()
 		return true
 	End Function
-	Function AvrgNonCrit(T As long) As Double
+	overrides Function AvrgNonCrit(T As long) As Double
 		
 		Dim tmp As Double
 		tmp = 585
@@ -83,55 +74,29 @@ TryDCDeath()
 		if CinderglacierProc > 0 then
 			tmp = tmp * 1.2
 			CinderglacierProc = CinderglacierProc -1
- 		end if
+		end if
 		AvrgNonCrit = tmp
 	End Function
-	Function CritCoef() As Double
+	overrides Function CritCoef() As Double
 		CritCoef = 1 * (1 + Talentfrost.GuileOfGorefiend * 0.5 * 15 / 100) 'GoG works off the 1.5 spell crit modifier or something like that
 		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
 	End Function
-	Function CritChance() As Double
-		CritChance = MainStat.SpellCrit 
+	overrides Function CritChance() As Double
+		CritChance = MainStat.SpellCrit
 		If proc.KillingMachine  = True Then
 			Return 1
 		Else
-			If DeathChill.IsAvailable(sim.TimeStamp) Then
-				Deathchill.use(sim.TimeStamp)
-				DeathChill.Active = false
+			If sim.DeathChill.IsAvailable(sim.TimeStamp) Then
+				sim.Deathchill.use(sim.TimeStamp)
+				sim.DeathChill.Active = false
 				Return 1
 			End If
 		End If
 	End Function
-	Function AvrgCrit(T As long) As Double
+	overrides Function AvrgCrit(T As long) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 	
-		Sub init()
-		total = 0
-		MissCount = 0
-		HitCount = 0
-		CritCount = 0
-		cd = 0
-		TotalHit = 0
-		TotalCrit = 0
 
-	End Sub
-	
-	Function report As String
-		dim tmp as String
-		tmp = "Howling Blast" & VBtab
-		If total.ToString().Length < 8 Then
-			tmp = tmp & total & "   " & VBtab
-		Else
-			tmp = tmp & total & VBtab
-		End If
-		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
-		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
-		tmp = tmp & vbCrLf
-		return tmp
-	End Function
-End Module
+
+End Class

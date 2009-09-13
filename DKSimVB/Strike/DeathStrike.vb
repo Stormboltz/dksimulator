@@ -6,20 +6,15 @@
 '
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Friend Module DeathStrike
+Friend Class DeathStrike
+	Inherits Strikes.Strike
+	
+
 	'A deadly attack that deals 75% weapon damage plus 222.75
 	'and heals the Death Knight for a percent of damage done
 	'for each of <his/her> diseases on the target.
-	
-	Friend total as long
-	Friend MissCount As Integer
-	Friend HitCount as Integer
-	Friend CritCount as Integer
-	Friend TotalHit As Long
-	Friend TotalCrit as Long
-	
-	
-	Function ApplyDamage(T As Long) As Boolean
+
+	public Overrides Function ApplyDamage(T As Long) As Boolean
 		Dim MHHit As Boolean
 		dim OHHit as Boolean
 		
@@ -126,7 +121,7 @@ Friend Module DeathStrike
 		End If
 		return true
 	End Function
-	Function AvrgNonCrit(T as long, MH as Boolean) As Double
+	public Overrides Function AvrgNonCrit(T as long, MH as Boolean) As Double
 		Dim tmp As Double
 		
 		If MH Then
@@ -152,42 +147,15 @@ Friend Module DeathStrike
 		End If
 		return tmp
 	End Function
-	Function CritCoef() As Double
+	public Overrides Function CritCoef() As Double
 		CritCoef = 1 * (1 + TalentBlood.MightofMograine * 15 / 100)
 		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
 	End Function
-	Function CritChance() As Double
+	public Overrides Function CritChance() As Double
 		CritChance = MainStat.crit + talentblood.ImprovedDeathStrike * 3/100 + SetBonus.T72PDPS * 5/100
 	End Function
-	Function AvrgCrit(T As long, MH as Boolean) As Double
-		AvrgCrit = AvrgNonCrit(T,MH) * (1 + CritCoef)
+	public Overrides Function AvrgCrit(T As Long, MH As Boolean) As Double
+		Return AvrgNonCrit(T,MH) * (1 + CritCoef)
 	End Function
 	
-	Sub init()
-		total = 0
-		MissCount = 0
-		HitCount = 0
-		CritCount = 0
-		TotalHit = 0
-		TotalCrit = 0
-		
-	End Sub
-	Function report As String
-		dim tmp as String
-		tmp = "Death Strike" & VBtab
-		
-		If total.ToString().Length < 8 Then
-			tmp = tmp & total & "   " & VBtab
-		Else
-			tmp = tmp & total & VBtab
-		End If
-		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
-		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
-		tmp = tmp & vbCrLf
-		return tmp
-	End Function
-End Module
+End Class

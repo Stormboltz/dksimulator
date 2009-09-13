@@ -68,6 +68,9 @@
     <Compile Include="code\Sigils.vb" />
     <Compile Include="code\Sim.vb" />
     <Compile Include="code\Trinket.vb" />
+    <Compile Include="Diseases\BloodPlague.vb" />
+    <Compile Include="Diseases\Disease.vb" />
+    <Compile Include="Diseases\FrostFever.vb" />
     <Compile Include="Form1.Designer.vb">
       <DependentUpon>Form1.vb</DependentUpon>
     </Compile>
@@ -81,6 +84,8 @@
     <Folder Include="code" />
     <Folder Include="CombatLog" />
     <Folder Include="Characters" />
+    <Folder Include="Diseases" />
+    <Folder Include="Special" />
     <Folder Include="Rotation" />
     <Folder Include="Priority" />
     <Folder Include="Runes" />
@@ -100,31 +105,31 @@
     <Compile Include="Runes\Rune5.vb" />
     <Compile Include="Runes\Rune6.vb" />
     <Compile Include="Runes\runes.vb" />
+    <Compile Include="Special\Bloodlust.vb" />
+    <Compile Include="Special\DRW.vb" />
+    <Compile Include="Special\Gargoyle.vb" />
+    <Compile Include="Special\Strike.vb" />
     <Compile Include="Spell\BloodBoil.vb" />
-    <Compile Include="Spell\Bloodlust.vb" />
-    <Compile Include="Spell\BloodPlague.vb" />
     <Compile Include="Spell\BloodTap.vb" />
     <Compile Include="Spell\Butchery.vb" />
     <Compile Include="Spell\DeathandDecay.vb" />
     <Compile Include="Spell\DeathChill.vb" />
     <Compile Include="Spell\DeathCoil.vb" />
     <Compile Include="Spell\Desecration.vb" />
-    <Compile Include="Spell\FrostFever.vb" />
     <Compile Include="Spell\Horn.vb" />
     <Compile Include="Spell\HowlingBlast.vb" />
     <Compile Include="Spell\Hysteria.vb" />
     <Compile Include="Spell\IcyTouch.vb" />
     <Compile Include="Spell\Necrosis.vb" />
     <Compile Include="Spell\Pestilence.vb" />
+    <Compile Include="Spell\Spell.vb" />
     <Compile Include="Spell\UA.vb" />
     <Compile Include="Spell\UnholyBlight.vb" />
     <Compile Include="Spell\WanderingPlague.vb" />
     <Compile Include="Strike\BloodCakedBlade.vb" />
     <Compile Include="Strike\BloodStrike.vb" />
     <Compile Include="Strike\DeathStrike.vb" />
-    <Compile Include="Strike\DRW.vb" />
     <Compile Include="Strike\FrostStrike.vb" />
-    <Compile Include="Strike\Gargoyle.vb" />
     <Compile Include="Strike\Ghoul.vb" />
     <Compile Include="Strike\HeartStrike.vb" />
     <Compile Include="Strike\MainHand.vb" />

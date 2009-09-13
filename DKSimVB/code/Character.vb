@@ -52,7 +52,7 @@ Friend Module Character
 		If DeathChoiceFade > sim.TimeStamp Then tmp = tmp + 450
 		If DeathChoiceHeroicFade > sim.TimeStamp Then tmp = tmp + 510
 		
-		if UA.isActive then tmp = tmp * 1.1
+		if sim.UnbreakableArmor.isActive then tmp = tmp * 1.1
 		_Strength= tmp
 		
 		return _Strength

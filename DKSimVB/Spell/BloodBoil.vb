@@ -6,30 +6,12 @@
 '
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Friend Module BloodBoil
-	Friend total As Long
-	Friend TotalHit As Long
-	Friend TotalCrit as Long
-	
-	Friend MissCount As Integer
-	Friend HitCount as Integer
-	Friend CritCount as Integer
-	
-	
-	
-	Sub init()
-		total = 0
-		MissCount = 0
-		HitCount = 0
-		CritCount = 0
-		TotalHit = 0
-		TotalCrit = 0
-		
-	End Sub
-	
-	
-	Function ApplyDamage(T As long) As boolean
+Friend Class BloodBoil
+	Inherits Spells.Spell
+
+	overrides Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
+		
 		'If TalentFrost.BloodoftheNorth = 5 Or TalentUnholy.Reaping = 3 Then
 		'	runes.UseBlood(T,True)
 		'Else
@@ -53,6 +35,7 @@ Friend Module BloodBoil
 			dégat = AvrgCrit(T)
 			combatlog.write(T  & vbtab &  "BB crit for " & dégat  )
 			CritCount = CritCount + 1
+			
 		Else
 			dégat = AvrgNonCrit(T)
 			HitCount = HitCount + 1
@@ -61,14 +44,22 @@ Friend Module BloodBoil
 		
 		if Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
 		total = total + dégat
-		RunicPower.add (10)
+		
+		
+		RunicPower.add (10) 
 		TryGreatness()
-		TryDeathChoice()
-		TryDCDeath()
+TryDeathChoice()
+TryDCDeath()
+		
+		
+		
+		
+		
+		
 		return true
 		'Debug.Print T & vbTab & "DeathCoil for " & Range("Abilities!N24").Value
 	End Function
-	Function AvrgNonCrit(T As long) As Double
+	overrides Function AvrgNonCrit(T As long) As Double
 		Dim tmp As Double
 		tmp = 200
 		tmp = tmp + (0.04 * (1 + 0.04 * TalentUnholy.Impurity) * MainStat.AP)
@@ -79,25 +70,25 @@ Friend Module BloodBoil
 		if CinderglacierProc > 0 then
 			tmp = tmp * 1.2
 			CinderglacierProc = CinderglacierProc -1
-		end if
+ 		end if
 		return tmp
 		
 		
 	End Function
-	Function CritCoef() As Double
-		CritCoef = 1 * (1 + TalentBlood.MightofMograine * 15 / 100)
+	overrides Function CritCoef() As Double
+		CritCoef = 1 * (1 + TalentBlood.MightofMograine * 15 / 100) 
 		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
 	End Function
-	Function CritChance() As Double
+	overrides Function CritChance() As Double
 		CritChance = MainStat.SpellCrit
 	End Function
-	Function AvrgCrit(T As long) As Double
+	overrides Function AvrgCrit(T As long) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
-	Function report As String
+	overrides Function report As String
 		dim tmp as String
 		tmp = "Blood Boil" & VBtab
-		
+	
 		If total.ToString().Length < 8 Then
 			tmp = tmp & total & "   " & VBtab
 		Else
@@ -112,8 +103,8 @@ Friend Module BloodBoil
 		tmp = tmp & vbCrLf
 		return tmp
 	End Function
+
 	
 	
 	
-	
-End Module
+End Class

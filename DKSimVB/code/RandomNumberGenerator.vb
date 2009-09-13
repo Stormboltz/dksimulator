@@ -11,7 +11,7 @@ Public Module RandomNumberGenerator
 	Private _RNGStrike as Random
 	Private _RNGProc as Random
 	private _RNGPet as Random
-	Function Init
+	sub Init
 		Dim tmp As New Random(150)
 		Dim tmp2 As New Random(7331)
 		Dim tmp3 As New Random(1500)
@@ -21,7 +21,7 @@ Public Module RandomNumberGenerator
 		_RNGStrike = tmp2
 		_RNGProc = tmp3
 		_RNGPet = tmp4
-	End Function
+	End sub
 	
 	
 	Function RNGWhiteHit As Double

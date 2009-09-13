@@ -1,25 +1,9 @@
-Friend module OffHand
+Friend Class OffHand
+	Inherits Strikes.Strike
 	
-	Friend NextWhiteOffHit As long
-	Friend total As long
-	Friend MissCount As Integer
-	Friend HitCount as Integer
-	Friend CritCount as Integer
-	Friend TotalHit As Long
-	Friend TotalCrit as Long
+	friend NextWhiteOffHit as long
 	
-	Sub init()
-		total = 0
-		MissCount = 0
-		HitCount = 0
-		CritCount = 0
-		NextWhiteOffHit = 0
-		TotalHit = 0
-		TotalCrit = 0
-		
-	End Sub
-	
-	Function ApplyDamage(T As long) As boolean
+	Overrides Function ApplyDamage(T As long) As boolean
 		Dim Nec As Double
 		
 		Dim WSpeed As Single
@@ -84,12 +68,12 @@ Friend module OffHand
 		total = total + dégat
 
 		If TalentUnholy.Necrosis > 0 Then
-			Nec = Necrosis.ApplyDamage(dégat, T)
+			Nec = sim.Necrosis.Apply(dégat, T)
 		End If
 
 		RNG = RNGWhiteHit * 100
 		If RNG <= 10 * TalentUnholy.BloodCakedBlade Then
-			BloodCakedBlade.ApplyDamage(T,false)
+			sim.BloodCakedBlade.ApplyDamage(T,false)
 		End If
 		
 		
@@ -109,7 +93,7 @@ Friend module OffHand
 		return true
 		'   'Debug.Print T & vbTab & "WhiteOH for " & Range("Abilities!N19").Value
 	End Function
-	Function AvrgNonCrit(T as long) As Double
+	Overrides Function AvrgNonCrit(T as long) As Double
 		Dim tmp As Double
 		tmp = MainStat.OHBaseDamage
 		tmp = tmp * MainStat.WhiteHitDamageMultiplier(T)
@@ -117,34 +101,17 @@ Friend module OffHand
 		tmp = tmp * (1 + TalentFrost.NervesofColdSteel * 5 / 100)
 		AvrgNonCrit = tmp
 	End Function
-	Function CritCoef() As Double
+	Overrides Function CritCoef() As Double
 		CritCoef = 1
 		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
 	End Function
-	Function CritChance() As Double
+	Overrides Function CritChance() As Double
 		Dim tmp As Double
 		tmp = MainStat.critAutoattack
 		CritChance = tmp
 	End Function
-	Function AvrgCrit(T As long) As Double
+	Overrides Function AvrgCrit(T As long) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
-	Function report As String
-		dim tmp as String
-		tmp = "Off Hand" & VBtab
-		
-		If total.ToString().Length < 8 Then
-			tmp = tmp & total & "   " & VBtab
-		Else
-			tmp = tmp & total & VBtab
-		End If
-		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
-		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
-		tmp = tmp & vbCrLf
-		return tmp
-	End Function
-end module
+	
+end Class

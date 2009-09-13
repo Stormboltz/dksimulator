@@ -306,7 +306,6 @@ Friend Module MainStat
 		
 		If sim.EPStat<>"" Then tmp = 6.5 'For most EP stats we assume being exp capped
 		If sim.EPStat="ExpertiseRating" Then tmp = 6.5 - sim.EPBase / 32.79
-		If sim.EPStat="ExpertiseRatingAfterDodge" Then tmp = 6.5 + sim.EPBase / 32.79
 		return  tmp / 100
 	End Function
 	Function Hit() As Double
@@ -447,14 +446,14 @@ Friend Module MainStat
 		tmp = 1
 		tmp = tmp * (1 + MainStat.BloodPresence * 0.15)
 		tmp = tmp * (1 + 0.03 * Buff.PcDamage)
-		If Desolation.isActive(T) Then tmp = tmp * (1+Desolation.Bonus)
+		If sim.Desolation.isActive(T) Then tmp = tmp * (1+sim.Desolation.Bonus)
 		tmp = tmp * (1 + 0.02 * TalentUnholy.BoneShield)
 		tmp = tmp * (1 + 0.02 * TalentBlood.BloodGorged)
 		
 		tmp = tmp * getMitigation
 		tmp = tmp * (1 + 0.04 * Buff.PhysicalVuln)
 		tmp = tmp * (1 + 0.02 * TalentBlood.BloodyVengeance)
-		if Hysteria.IsActive(T) then tmp = tmp * 1.2
+		if sim.Hysteria.IsActive(T) then tmp = tmp * 1.2
 		
 		return tmp
 	End Function
@@ -463,17 +462,17 @@ Friend Module MainStat
 		tmp = 1
 		tmp = tmp * (1 + MainStat.BloodPresence * 0.15)
 		tmp = tmp * (1 + 0.03 * Buff.PcDamage)
-		If Desolation.isActive(T) Then tmp = tmp * (1+Desolation.Bonus)
+		If sim.Desolation.isActive(T) Then tmp = tmp * (1+sim.Desolation.Bonus)
 		tmp = tmp * (1 + 0.02 * TalentUnholy.BoneShield)
 		tmp = tmp * (1 + 0.02 * TalentBlood.BloodGorged)
 		
 		tmp = tmp * getMitigation
 		tmp = tmp * (1 + 0.04 * Buff.PhysicalVuln)
 		tmp = tmp * (1 + 0.02 * TalentBlood.BloodyVengeance)
-		If Hysteria.IsActive(T) Then tmp = tmp * 1.2
+		If sim.Hysteria.IsActive(T) Then tmp = tmp * 1.2
 		
-		If FrostFever.isActive(T) Then	tmp = tmp * (1 + 0.03 * TalentFrost.TundraStalker)
-		If BloodPlague.isActive(T) Then tmp = tmp * (1 + 0.02 * talentunholy.RageofRivendare)
+		If sim.FrostFever.isActive(T) Then	tmp = tmp * (1 + 0.03 * TalentFrost.TundraStalker)
+		If sim.BloodPlague.isActive(T) Then tmp = tmp * (1 + 0.02 * talentunholy.RageofRivendare)
 		
 		return tmp
 	End Function
@@ -482,12 +481,12 @@ Friend Module MainStat
 		tmp = 1
 		tmp = tmp * (1 + MainStat.BloodPresence * 0.15)
 		tmp = tmp * (1 + 0.03 * Buff.PcDamage)
-		If Desolation.isActive(T) Then tmp = tmp * (1+Desolation.Bonus)
+		If sim.Desolation.isActive(T) Then tmp = tmp * (1+sim.Desolation.Bonus)
 		tmp = tmp * (1 + 0.02 * TalentUnholy.BoneShield)
 		tmp = tmp * (1 + 0.02 * TalentBlood.BloodGorged)
 		
-		If FrostFever.isActive(T) Then	tmp = tmp * (1 + 0.03 * TalentFrost.TundraStalker)
-		If BloodPlague.isActive(T) Then tmp = tmp * (1 + 0.02 * talentunholy.RageofRivendare)
+		If sim.FrostFever.isActive(T) Then	tmp = tmp * (1 + 0.03 * TalentFrost.TundraStalker)
+		If sim.BloodPlague.isActive(T) Then tmp = tmp * (1 + 0.02 * talentunholy.RageofRivendare)
 		
 		tmp = tmp * (1 + 0.13 * Buff.SpellDamageTaken)
 		tmp = tmp * (1-0.05) 'Average partial resist

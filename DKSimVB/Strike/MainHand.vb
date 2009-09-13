@@ -1,31 +1,14 @@
-Friend module MainHand
+Friend Class MainHand
+	Inherits Strikes.Strike
+
+	Friend NextWhiteMainHit As long
 	
-	Friend _NextWhiteMainHit As integer
-	Friend total As Long
-	
-	Friend TotalHit As Long
-	Friend TotalCrit as Long
-	
-	Friend MissCount As Integer
-	Friend HitCount as Integer
-	Friend CritCount as Integer
-	
-	
-	Function NextWhiteMainHit As integer
-		return _NextWhiteMainHit
-	End Function
-	
-	Sub init()
-		total = 0
-		MissCount = 0
-		HitCount = 0
-		CritCount = 0
-		_NextWhiteMainHit = 0
-		TotalHit = 0
-		TotalCrit = 0
+	Protected Overrides sub init()
+		MyBase.init()
+		NextWhiteMainHit = 0
 	End Sub
-	
-	Function ApplyDamage(T As long) As boolean
+
+	Overrides Function ApplyDamage(T As long) As boolean
 		Dim dégat As long
 		Dim BCB As Double
 		Dim Nec As Double
@@ -37,7 +20,7 @@ Friend module MainHand
 		Dim ChanceNotToTouch As Single
 		
 		WSpeed = MainStat.MHWeaponSpeed
-		_NextWhiteMainHit = T + (WSpeed * 100) / ((1 + MainStat.Haste))
+		NextWhiteMainHit = T + (WSpeed * 100) / ((1 + MainStat.Haste))
 		
 		If MainStat.FrostPresence = 1 Then
 			If RunicPower.Value >= 20 Then
@@ -55,14 +38,6 @@ Friend module MainHand
 		Else
 			MeleeParryChance = 0
 		End If
-		
-		
-		
-		
-		Dim tmpExp As Double
-		dim tmpHit as Double
-		
-		
 		If mainstat.DualW Then
 			MeleeMissChance = 0.27
 		Else
@@ -110,11 +85,11 @@ Friend module MainHand
 		
 		If MHRazorice Then applyRazorice()
 		If TalentUnholy.Necrosis > 0 Then
-			Nec = Necrosis.ApplyDamage(dégat, T)
+			Nec = sim.Necrosis.Apply(dégat, T)
 		End If
 		RNG = RNGWhiteHit * 100
 		If RNG <= 10 * TalentUnholy.BloodCakedBlade Then
-			BCB = BloodCakedBlade.ApplyDamage(T,true)
+			BCB = sim.BloodCakedBlade.ApplyDamage(T,true)
 		End If
 		TryMHCinderglacier
 		TryMHFallenCrusader
@@ -135,38 +110,21 @@ Friend module MainHand
 		
 		return true
 	End Function
-	Function AvrgNonCrit(T As long) As Double
+	Overrides Function AvrgNonCrit(T As long) As Double
 		Dim tmp As Double
 		tmp = MainStat.MHBaseDamage
 		tmp = tmp * MainStat.WhiteHitDamageMultiplier(T)
 		AvrgNonCrit = tmp
 	End Function
-	Function CritCoef() As Double
+	Overrides Function CritCoef() As Double
 		CritCoef = 1* (1+0.06*mainstat.CSD)
 		
 	End Function
-	Function CritChance() As Double
+	Overrides Function CritChance() As Double
 		CritChance = MainStat.critAutoattack
 	End Function
-	Function AvrgCrit(T As long) As Double
+	Overrides Function AvrgCrit(T As long) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
-	Function report As String
-		dim tmp as String
-		tmp = "Main Hand" & VBtab
-		
-		If total.ToString().Length < 8 Then
-			tmp = tmp & total & "   " & VBtab
-		Else
-			tmp = tmp & total & VBtab
-		End If
-		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
-		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
-		tmp = tmp & vbCrLf
-		return tmp
-	End Function
-end module
+
+end Class

@@ -1,15 +1,9 @@
 
-Friend module BloodStrike
-	
-	Friend total As long
-	Friend MissCount As Integer
-	Friend HitCount as Integer
-	Friend CritCount as Integer
-	Friend TotalHit As Long
-	Friend TotalCrit as Long
+Friend class BloodStrike
+	Inherits Strikes.Strike
 	
 	
-	Function ApplyDamage(T As Long) As Boolean
+	public Overrides Function ApplyDamage(T As Long) As Boolean
 		Dim RNG As Double
 		
 		
@@ -26,6 +20,7 @@ Friend module BloodStrike
 		OHHit = True
 		
 		If MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
+			
 			If DoMyStrikeHit = false Then
 				combatlog.write(T  & vbtab &  "MH/OH BS fail")
 				MissCount = MissCount + 1
@@ -104,22 +99,22 @@ Friend module BloodStrike
 			
 			
 			If rng < 0.05*talentblood.SuddenDoom Then
-				deathcoil.ApplyDamage(T,true)
+				sim.deathcoil.ApplyDamage(T,true)
 			End If
 			If TalentFrost.BloodoftheNorth = 3 Or TalentUnholy.Reaping = 3 Then
 				runes.UseBlood(T,True)
 			Else
 				runes.UseBlood(T,False)
 			End If
-			If Desolation.Bonus > 0 Then
-				Desolation.Apply(T)
+			If sim.Desolation.Bonus > 0 Then
+				sim.Desolation.Apply(T)
 			End If
 			RunicPower.add (10)
 			Return True
 		End If
 	End Function
 	
-	Function AvrgNonCrit(T as Long, MH as Boolean) As Double
+	public Overrides Function AvrgNonCrit(T as Long, MH as Boolean) As Double
 		Dim tmp As Double
 		If MH Then
 			tmp = MainStat.NormalisedMHDamage * 0.4
@@ -145,41 +140,16 @@ Friend module BloodStrike
 		AvrgNonCrit = tmp
 	End Function
 	
-	Function CritCoef() As Double
+	public Overrides Function CritCoef() As Double
 		CritCoef = 1 * (1 + TalentBlood.MightofMograine * 15 / 100) * (1 + TalentFrost.GuileOfGorefiend * 15 / 100)
 		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
 	End Function
-	Function CritChance() As Double
+	public Overrides Function CritChance() As Double
 		CritChance = MainStat.crit + TalentBlood.Subversion * 3 / 100
 	End Function
-	Function AvrgCrit(T as long,MH as Boolean) As Double
+	public Overrides Function AvrgCrit(T as long,MH as Boolean) As Double
 		AvrgCrit = AvrgNonCrit(T,MH) * (1 + CritCoef)
 	End Function
-	Sub init()
-		total = 0
-		MissCount = 0
-		HitCount = 0
-		CritCount = 0
-		TotalHit = 0
-		TotalCrit = 0
-		
-	End Sub
-	Function report As String
-		dim tmp as String
-		tmp = "Blood Strike" & VBtab
-		
-		If total.ToString().Length < 8 Then
-			tmp = tmp & total & "   " & VBtab
-		Else
-			tmp = tmp & total & VBtab
-		End If
-		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
-		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
-		tmp = tmp & vbCrLf
-		return tmp
-	End Function
-End Module
+	
+	
+End Class

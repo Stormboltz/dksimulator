@@ -53,8 +53,8 @@ Friend Module Rotation
 	function DoRoration(TimeStamp As Double,Ability as string,retry as integer ) as Boolean
 		Select Case Ability
 			Case "BloodTap"
-				If BloodTap.IsAvailable(Timestamp) Then
-					return BloodTap.Use(Timestamp)
+				If sim.BloodTap.IsAvailable(Timestamp) Then
+					return sim.BloodTap.Use(Timestamp)
 				Else
 					If retry = 0 Then Return True
 				End If
@@ -66,7 +66,7 @@ Friend Module Rotation
 				End If
 			Case "ScourgeStrike"
 				If runes.FU(TimeStamp) = True Then
-					return ScourgeStrike.ApplyDamage(TimeStamp)
+					return sim.ScourgeStrike.ApplyDamage(TimeStamp)
 					'debug.Print("SS")
 					Exit Function
 				Else
@@ -74,7 +74,7 @@ Friend Module Rotation
 				End If
 			Case "PlagueStrike"
 				If runes.Unholy(TimeStamp) Then
-					return PlagueStrike.ApplyDamage(TimeStamp)
+					return sim.PlagueStrike.ApplyDamage(TimeStamp)
 					'debug.Print("PS")
 					Exit Function
 				Else
@@ -82,17 +82,16 @@ Friend Module Rotation
 				End If
 			Case "Obliterate"
 				If runes.FU(TimeStamp) = True Then
-					
-					return Obliterate.ApplyDamage(TimeStamp)
+					return sim.Obliterate.ApplyDamage(TimeStamp)
 					'debug.Print("OB")
 					Exit Function
 				Else
 					if retry = 0 then return true
 				End If
 			Case "FrostStrike"
-				If FrostStrike.isAvailable(TimeStamp) = True Then
+				If sim.FrostStrike.isAvailable(TimeStamp) = True Then
 					
-					return FrostStrike.ApplyDamage(TimeStamp)
+					return sim.FrostStrike.ApplyDamage(TimeStamp)
 					'debug.Print("FS")
 					Exit Function
 				Else
@@ -101,7 +100,7 @@ Friend Module Rotation
 			Case "DeathStrike"
 				If runes.FU(TimeStamp) Then
 					
-					return DeathStrike.ApplyDamage(TimeStamp)
+					return sim.DeathStrike.ApplyDamage(TimeStamp)
 					'debug.Print("BS")
 					Exit Function
 				Else
@@ -109,7 +108,7 @@ Friend Module Rotation
 				End If
 			Case "BloodStrike"
 				If runes.AnyBlood(TimeStamp) Then
-					return BloodStrike.ApplyDamage(TimeStamp)
+					return sim.BloodStrike.ApplyDamage(TimeStamp)
 					'debug.Print("BS")
 					Exit Function
 				Else
@@ -118,7 +117,7 @@ Friend Module Rotation
 			Case "HeartStrike"
 				If runes.AnyBlood(TimeStamp) = True Then
 					
-					return Heartstrike.ApplyDamage(TimeStamp)
+					return sim.Heartstrike.ApplyDamage(TimeStamp)
 					'debug.Print("HS")
 					Exit Function
 				Else
@@ -126,8 +125,8 @@ Friend Module Rotation
 				End If
 			Case "BloodPlague"
 				
-				If BloodPlague.isActive(TimeStamp + 150) = False And runes.Unholy(TimeStamp) = True Then
-					Return PlagueStrike.ApplyDamage(TimeStamp)
+				If sim.BloodPlague.isActive(TimeStamp + 150) = False And runes.Unholy(TimeStamp) = True Then
+					Return sim.PlagueStrike.ApplyDamage(TimeStamp)
 					'debug.Print("PS")
 					Exit Function
 				Else
@@ -136,16 +135,16 @@ Friend Module Rotation
 			Case "IcyTouch"
 				If runes.Frost(TimeStamp) = True Then
 					
-					Return IcyTouch.ApplyDamage(TimeStamp)
+					Return sim.IcyTouch.ApplyDamage(TimeStamp)
 					'debug.Print("IT")
 					Exit Function
 				Else
 					if retry = 0 then return true
 				End If
 			Case "DeathCoil"
-				If deathcoil.isAvailable(TimeStamp) = True Then
+				If sim.deathcoil.isAvailable(TimeStamp) = True Then
 					
-					Return deathcoil.ApplyDamage(TimeStamp,False)
+					Return sim.deathcoil.ApplyDamage(TimeStamp,False)
 					'debug.Print("DC")
 					Exit Function
 				Else
@@ -154,17 +153,17 @@ Friend Module Rotation
 			Case "BloodBoil"
 				If runes.AnyBlood(TimeStamp) = True Then
 					
-					Return BloodBoil.ApplyDamage(TimeStamp)
+					Return sim.BloodBoil.ApplyDamage(TimeStamp)
 					Exit Function
 				Else
 					if retry = 0 then return true
 				End If
 			Case "Pestilance"
 			Case "HowlingBlast"
-				If HowlingBlast.isAvailable(TimeStamp) Then
+				If sim.HowlingBlast.isAvailable(TimeStamp) Then
 					If proc.rime Or runes.FU(TimeStamp) Then
 						runes.UnReserveFU(TimeStamp)
-						Return HowlingBlast.ApplyDamage(TimeStamp)
+						Return sim.HowlingBlast.ApplyDamage(TimeStamp)
 						Exit function
 					Else
 						runes.ReserveFU(TimeStamp)
@@ -173,12 +172,12 @@ Friend Module Rotation
 					if retry = 0 then return true
 				End If
 			Case "DeathandDecay"
-				If DeathAndDecay.isAvailable(TimeStamp) Then
-					Return DeathAndDecay.Apply(TimeStamp)
+				If sim.DeathAndDecay.isAvailable(TimeStamp) Then
+					Return sim.DeathAndDecay.Apply(TimeStamp)
 				End If
 			Case "Pestilence"
 				If runes.Blood(TimeStamp) Then
-					Return Pestilence.use(TimeStamp)
+					Return sim.Pestilence.use(TimeStamp)
 				Else
 					if retry = 0 then return true
 				End If

@@ -20,7 +20,6 @@ Public Module RuneStrike
 		MissCount = 0
 		HitCount = 0
 		CritCount = 0
-		_NextWhiteMainHit = 0
 		TotalHit = 0
 		TotalCrit = 0
 		
@@ -76,11 +75,11 @@ Public Module RuneStrike
 		
 		If MHRazorice Then applyRazorice()
 		If TalentUnholy.Necrosis > 0 Then
-			Nec = Necrosis.ApplyDamage(dégat, T)
+			Nec = sim.Necrosis.Apply(dégat, T)
 		End If
 		RNG = RNGWhiteHit * 100
 		If RNG <= 10 * TalentUnholy.BloodCakedBlade Then
-			BCB = BloodCakedBlade.ApplyDamage(T,true)
+			BCB = sim.BloodCakedBlade.ApplyDamage(T,true)
 		End If
 		TryMHCinderglacier
 		TryMHFallenCrusader

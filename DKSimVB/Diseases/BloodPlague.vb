@@ -1,0 +1,39 @@
+Friend Class BloodPlague
+	Inherits Diseases.Disease
+
+		
+	overrides Function PerfectUsage(T As Long) As Boolean
+		If TalentUnholy.RageofRivendare>0 Then
+			if isActive(T+150) = false then return true
+		Else
+			if isActive(T) = false then return true
+		End If
+		return false
+	End Function
+		
+	overrides Function Apply(T As Long) As Boolean
+		If glyph.Disease Then debug.Print (RuneState & "time left on BP= " & (FadeAt-T)/100 & "s" & " - " & T/100)
+		AP = MainStat.AP
+		DamageTick = AvrgNonCrit(T)
+		FadeAt = T + 15 * 100 + 3 * 100 * talentunholy.Epidemic
+		nextTick = T + 3 * 100
+		sim.pestilence.BPToReapply = False
+		ScourgeStrikeGlyphCounter = 0
+	End Function
+	
+	overrides Function AvrgNonCrit(T As long) As Double
+		Dim tmp As Double
+		tmp = 26
+		tmp = tmp + 0.055 * (1 + 0.04 * TalentUnholy.Impurity) * AP
+		If buff.CrypticFever Then
+			tmp = tmp * 1.3
+		Else
+			tmp = tmp * (1 + TalentUnholy.CryptFever * 10 / 100)
+		End If
+		tmp = tmp * MainStat.StandardMagicalDamageMultiplier(T)
+		tmp = tmp * (1 + TalentFrost.BlackIce * 2 / 100)
+		tmp = tmp * 1.15
+		AvrgNonCrit = tmp
+	End Function
+
+End Class

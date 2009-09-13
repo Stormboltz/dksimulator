@@ -182,11 +182,11 @@ Friend module Ghoul
 	End Function
 	Function IsAutoFrenzyAvailable(T As Long) As Boolean
 		if TalentUnholy.GhoulFrenzy = 0 then return false
-		if FrenzyCd < T  and runes.Unholy(T)=false and runes.Blood(T)=false and BloodTap.IsAvailable(T) then return true
+		if FrenzyCd < T  and runes.Unholy(T)=false and runes.Blood(T)=false and sim.BloodTap.IsAvailable(T) then return true
 	End Function
 	
 	Function Frenzy(T As Long) As Boolean
-		if BloodTap.IsAvailable(T) then BloodTap.Use(t)
+		if sim.BloodTap.IsAvailable(T) then sim.BloodTap.Use(t)
 		runes.UseUnholy(T,True)
 		RunicPower.add(10)
 		FrenzyCd = T+3000

@@ -6,31 +6,18 @@
 '
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Friend Module HeartStrike
-	Friend total As long
-	Friend MissCount As Integer
-	Friend HitCount as Integer
-	Friend CritCount As Integer
-	Friend TotalHit As Long
-	Friend TotalCrit as Long
+Friend Class HeartStrike
+	Inherits Strikes.Strike
+
 	
-	
-	Sub init()
-		total = 0
-		MissCount = 0
-		HitCount = 0
-		CritCount = 0
-		TotalHit = 0
-		TotalCrit = 0
-		
-	End Sub
-	
-	
-	
-	Function ApplyDamage(T As long) As boolean
+	public Overrides Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
 		
-		If Hysteria.IsAvailable(T) then Hysteria.use(T)
+		If sim.Hysteria.IsAvailable(T)  Then sim.Hysteria.use(T)
+		
+		
+		
+		
 		If MainStat.UnholyPresence Then
 			Sim.NextFreeGCD = T + 100 + sim._MainFrm.txtLatency.Text/10
 		Else
@@ -43,7 +30,7 @@ Friend Module HeartStrike
 			Exit function
 		End If
 		tryHauntedDreams()
-
+		
 		RNG = RNGStrike
 		dim dégat as Integer
 		If RNG <= CritChance Then
@@ -65,7 +52,7 @@ Friend Module HeartStrike
 		
 		RNG = RNGStrike
 		If rng < 0.05*talentblood.SuddenDoom Then
-			deathcoil.ApplyDamage(T,true)
+			sim.deathcoil.ApplyDamage(T,true)
 		End If
 		If TalentFrost.BloodoftheNorth = 3 Or TalentUnholy.Reaping = 3 Then
 			runes.UseBlood(T,True)
@@ -92,7 +79,7 @@ Friend Module HeartStrike
 		
 		return true
 	End Function
-	Function AvrgNonCrit(T As long) As Double
+	public Overrides Function AvrgNonCrit(T As long) As Double
 		Dim tmp As Double
 		tmp = MainStat.NormalisedMHDamage * 0.5
 		tmp = tmp + 368
@@ -108,32 +95,16 @@ Friend Module HeartStrike
 		tmp = tmp * MainStat.StandardPhysicalDamageMultiplier(T)
 		AvrgNonCrit = tmp
 	End Function
-	Function CritCoef() As Double
+	public Overrides Function CritCoef() As Double
 		CritCoef = 1* (1 + TalentBlood.MightofMograine * 15 / 100)
 		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
 	End Function
-	Function CritChance() As Double
+	public Overrides Function CritChance() As Double
 		CritChance = MainStat.crit + TalentBlood.Subversion * 3 / 100
 	End Function
-	Function AvrgCrit(T As long) As Double
+	public Overrides Function AvrgCrit(T As long) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
-	Function report As String
-		dim tmp as String
-		tmp = "Heart Strike" & VBtab
-		
-		If total.ToString().Length < 8 Then
-			tmp = tmp & total & "   " & VBtab
-		Else
-			tmp = tmp & total & VBtab
-		End If
-		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
-		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
-		tmp = tmp & vbCrLf
-		return tmp
-	End Function
-End Module
+	
+	
+End Class

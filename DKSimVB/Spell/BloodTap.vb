@@ -6,7 +6,7 @@
 ' 
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Friend Module BloodTap
+Friend Class BloodTap
 	Friend cd As Double
 	
 	Function IsAvailable(T as long) As Boolean
@@ -14,6 +14,9 @@ Friend Module BloodTap
 			return true
 		End If
 	End Function
+	
+	
+	
 	Function Use(T As long) As Boolean
 		cd = t + 6000
 		If Rune1.AvailableTime > T And Rune1.death = False Then
@@ -27,8 +30,8 @@ Friend Module BloodTap
 		return true
 	End Function
 		
-	Sub init()
+	private Sub init()
 		cd = 0
 	End Sub
 		
-End Module
+End Class

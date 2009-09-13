@@ -6,27 +6,20 @@
 '
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Friend Module FrostStrike
-	Friend total As Long
-	Friend TotalHit As Long
-	Friend TotalCrit as Long
-	
-	Friend MissCount As Integer
-	Friend HitCount as Integer
-	Friend CritCount as Integer
+Friend Class FrostStrike
+	Inherits Strikes.Strike
+
 	
 	
-	Function isAvailable(T As long) As Boolean
+	public Overrides Function isAvailable(T As long) As Boolean
 		if glyph.FrostStrike then
 			If RunicPower.Value >= 32 Then isAvailable = True
 		Else
 			If RunicPower.Value >= 40 Then isAvailable = True
 		end if
-		
-		
 	End Function
 	
-	Function ApplyDamage(T As Long) As Boolean
+	public Overrides Function ApplyDamage(T As Long) As Boolean
 		
 		Dim RNG As Double
 		If MainStat.UnholyPresence Then
@@ -89,13 +82,13 @@ Friend Module FrostStrike
 				TryMHFallenCrusader
 				TryMjolRune
 				TryGrimToll
-								TryGreatness()
-TryDeathChoice()
-TryDCDeath()
-TryVictory()
-TryBandit()
-TryDarkMatter()
-TryComet()
+				TryGreatness()
+				TryDeathChoice()
+				TryDCDeath()
+				TryVictory()
+				TryBandit()
+				TryDarkMatter()
+				TryComet()
 			End If
 			If OHHit Then
 				If RNG < ccT Then
@@ -117,19 +110,19 @@ TryComet()
 				TryOHBerserking
 				TryMjolRune
 				TryGrimToll
-								TryGreatness()
-TryDeathChoice()
-TryDCDeath()
-TryVictory()
-TryBandit()
-TryDarkMatter()
-TryComet()
+				TryGreatness()
+				TryDeathChoice()
+				TryDCDeath()
+				TryVictory()
+				TryBandit()
+				TryDarkMatter()
+				TryComet()
 			End If
 			proc.KillingMachine  = False
 			Return True
 		End If
 	End Function
-	Function AvrgNonCrit(T As long, MH as Boolean) As Double
+	public Overrides Function AvrgNonCrit(T As long, MH as Boolean) As Double
 		Dim tmp As Double
 		If MH Then
 			tmp = mainstaT.NormalisedMHDamage*0.55
@@ -155,42 +148,16 @@ TryComet()
 		End If
 		AvrgNonCrit = tmp
 	End Function
-	Function CritCoef() As Double
+	public Overrides Function CritCoef() As Double
 		CritCoef =  1 * (1 + Talentfrost.GuileOfGorefiend * 15 / 100)
 		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
 	End Function
-	Function CritChance() As Double
+	public Overrides Function CritChance() As Double
 		CritChance = MainStat.Crit + 8/100 * SetBonus.T82PDPS
 		if proc.KillingMachine  = true then return 1
 	End Function
-	Function AvrgCrit(T As long, MH as Boolean) As Double
+	public Overrides Function AvrgCrit(T As long, MH as Boolean) As Double
 		AvrgCrit = AvrgNonCrit(T,MH) * (1 + CritCoef)
 	End Function
-	Sub init()
-		total = 0
-		MissCount = 0
-		HitCount = 0
-		CritCount = 0
-		TotalHit = 0
-		TotalCrit = 0
-		
-	End Sub
-	Function report As String
-		dim tmp as String
-		tmp = "Frost Strike" & VBtab
-		
-		If total.ToString().Length < 8 Then
-			tmp = tmp & total & "   " & VBtab
-		Else
-			tmp = tmp & total & VBtab
-		End If
-		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
-		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
-		tmp = tmp & vbCrLf
-		return tmp
-	End Function
-End Module
+
+End Class

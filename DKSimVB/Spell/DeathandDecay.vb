@@ -6,32 +6,19 @@
 ' 
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Friend Module DeathandDecay
-	Friend total As Long
-	Friend TotalHit As Long
-	Friend TotalCrit as Long
-	Friend MissCount As Integer
-	Friend HitCount as Integer
-	Friend CritCount As Integer
-	Friend nextTick As Long
-	Friend ActiveUntil as Long
-	Friend CD As Long
-	
-	
-		
-	Sub init()
-		cd = 0
-		total = 0
-		MissCount = 0
-		HitCount = 0
-		CritCount = 0
-		nextTick = 0
-		ActiveUntil = 0
-		TotalHit = 0
-		TotalCrit = 0
+Friend Class DeathandDecay
+	inherits Spells.Spell
 
+	Friend nextTick As Long
+
+	
+	Protected Overloads Overrides Sub init()
+		MyBase.init()
+		nextTick = 0
 	End Sub
 	
+	
+	 
 	Function isAvailable(T As Long) As Boolean
 		if CD > T then return false
 		if runes.BFU(T) then return true
@@ -50,7 +37,7 @@ Friend Module DeathandDecay
 		return true
 	End Function
 	
-	Function ApplyDamage(T As long) As boolean
+	overrides Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
 
 		If DoMySpellHit = false Then
@@ -82,7 +69,7 @@ Friend Module DeathandDecay
 		return true
 
 	End Function
-	Function AvrgNonCrit(T As long) As Double
+	overrides Function AvrgNonCrit(T As long) As Double
 		Dim tmp As Double
 		tmp = 62
 		tmp = tmp + (0.0475 * (1 + 0.04 * TalentUnholy.Impurity) * MainStat.AP)
@@ -91,33 +78,16 @@ Friend Module DeathandDecay
 		if glyph.DeathandDecay then tmp = tmp *1.2
 		return tmp
 	End Function
-	Function CritCoef() As Double
+	overrides Function CritCoef() As Double
 		CritCoef = 1 
 		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
 	End Function
-	Function CritChance() As Double
+	overrides Function CritChance() As Double
 		CritChance = MainStat.SpellCrit
 	End Function
-	Function AvrgCrit(T As long) As Double
+	overrides Function AvrgCrit(T As long) As Double
 		AvrgCrit = AvrgNonCrit(T) * (0.5 + CritCoef)
 	End Function
-	Function report As String
-		dim tmp as String
-		tmp = "Death and Deacy" & VBtab
 	
-		If total.ToString().Length < 8 Then
-			tmp = tmp & total & "   " & VBtab
-		Else
-			tmp = tmp & total & VBtab
-		End If
-		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
-		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
-		tmp = tmp & vbCrLf
-		return tmp
-	End Function
 
-End Module
+End Class

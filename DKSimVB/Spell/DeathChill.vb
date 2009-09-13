@@ -6,10 +6,10 @@
 ' 
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Friend Module DeathChill
+Friend Class DeathChill
 	Friend Cd As Long
 	Friend Active As Boolean
-	private _Talented as Integer
+	
 	Sub init()
 		cd = 0
 		Active= False
@@ -22,4 +22,4 @@ Friend Module DeathChill
 		sim.Threat = sim.Threat + 55
 		Active = true
 	End Sub
-End Module
+End Class

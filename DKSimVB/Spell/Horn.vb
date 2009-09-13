@@ -6,11 +6,10 @@
 ' 
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Public Module Horn
-	Friend TotalHit As Long
-	Friend HitCount As Integer
+Public Class Horn
+	Inherits Spells.Spell
 	
-	Friend cd As Long
+	
 	Function isAvailable(T As Long) As Boolean
 		If RunicPower.Value + 20 >= RunicPower.MaxValue Then Return False
 		If glyph.Disease Then 
@@ -20,12 +19,6 @@ Public Module Horn
 		If cd <= T Then Return True
 	End Function
 	
-	Sub init()
-		HitCount = 0
-		TotalHit = 0
-		cd = 0
-	End Sub
-	
 	Sub use(T As Long)
 		cd = t + 20 * 100
 		RunicPower.add(10)
@@ -33,24 +26,5 @@ Public Module Horn
 		Sim.NextFreeGCD = T + (150 / (1 + MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
 	End Sub
 	
-	Function report As String
-		Dim tmp As String
-		Dim total As String
-		total = "0"
-		tmp = "Horn" & VBtab
-		
-		If total.ToString().Length < 8 Then
-			tmp = tmp & total & "   " & VBtab
-		Else
-			tmp = tmp & total & VBtab
-		End If
-		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
-		tmp = tmp & toDecimal(HitCount) & VBtab
-		tmp = tmp & toDecimal(100*0/(HitCount+0+0)) & VBtab
-		tmp = tmp & toDecimal(100*0/(HitCount+0+0)) & VBtab
-		tmp = tmp & toDecimal(100*0/(HitCount+0+0)) & VBtab
-		tmp = tmp & toDecimal(total/(HitCount+0)) & VBtab
-		tmp = tmp & vbCrLf
-		return tmp
-	End Function
-End Module
+	
+End Class

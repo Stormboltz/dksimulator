@@ -1,23 +1,9 @@
-Friend module deathcoil
+Friend class DeathCoil 
+	Inherits Spells.Spell
 	
-	Friend total As Long
-		Friend TotalHit As Long
-	Friend TotalCrit as Long
 
-	Friend MissCount As Integer
-	Friend HitCount as Integer
-	Friend CritCount as Integer
 	
-	Sub init
-		total = 0
-		MissCount = 0
-		HitCount = 0
-		CritCount = 0
-		TotalHit = 0
-		TotalCrit = 0
 
-	End Sub
-	
 	Function isAvailable(T As long) As Boolean
 		If DRW.cd <= T And TalentBlood.DRW = 1 And RunicPower.Value < 100 Then Return False
 		If Gargoyle.cd <= T And talentunholy.SummonGargoyle = 1 And RunicPower.Value < 100 Then Return False
@@ -25,7 +11,7 @@ Friend module deathcoil
 		If RunicPower.Value >= 40 Then isAvailable = True
 	End Function
 	
-	Function ApplyDamage(T As long,SDoom as Boolean) As boolean
+    overrides	Function ApplyDamage(T As long,SDoom as Boolean) As boolean
 		Dim RNG As Double
 
 		If SDoom=False  Then
@@ -66,7 +52,7 @@ Friend module deathcoil
 		TryDeathChoice()
 		TryDCDeath()
 		If TalentUnholy.UnholyBlight = 1 Then
-			UnholyBlight.Apply(T,dégat)
+			sim.UnholyBlight.Apply(T,dégat)
 		End If
 		If DRW.IsActive(T) Then
 			DRW.DeathCoil
@@ -74,7 +60,7 @@ Friend module deathcoil
 		return true
 		'Debug.Print T & vbTab & "DeathCoil for " & Range("Abilities!N24").Value
 	End Function
-	Function AvrgNonCrit(T As long) As Double
+	overrides Function AvrgNonCrit(T As long) As Double
 		Dim tmp As Double
 		tmp = 443
 		If sigils.VengefulHeart Then tmp= tmp + 380
@@ -90,35 +76,17 @@ Friend module deathcoil
 			tmp = tmp * 1.2
 			CinderglacierProc = CinderglacierProc -1
  		end if
-
 		return tmp
 	End Function
-	Function CritCoef() As Double
+	overrides Function CritCoef() As Double
 		CritCoef = 1
 		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
 	End Function
-	Function CritChance() As Double
+	overrides Function CritChance() As Double
 		CritChance = MainStat.SpellCrit + 8/100 * SetBonus.T82PDPS
 	End Function
-	Function AvrgCrit(T As long) As Double
+	overrides Function AvrgCrit(T As long) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
-	Function report As String
-		dim tmp as String
-		tmp = "Death Coil" & VBtab
 	
-		If total.ToString().Length < 8 Then
-			tmp = tmp & total & "   " & VBtab
-		Else
-			tmp = tmp & total & VBtab
-		End If
-		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
-		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
-		tmp = tmp & vbCrLf
-		return tmp
-	End Function
-end module
+end class

@@ -1,29 +1,6 @@
-Friend module ScourgeStrike
-	
-	Friend total As long
-	
-	Friend TotalHit As Long
-	Friend TotalCrit as Long
-	
-	
-	Friend MissCount As Integer
-	Friend HitCount as Integer
-	Friend CritCount as Integer
-	
-	Sub init()
-		total = 0
-		MissCount = 0
-		HitCount = 0
-		CritCount = 0
-		
-		TotalHit = 0
-		TotalCrit = 0
-		
-		
-		
-	End Sub
-	
-	Function ApplyDamage(T As long) As boolean
+Friend Class ScourgeStrike
+	Inherits strikes.Strike
+	public Overrides Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
 		'scourgestrike glyph
 		
@@ -62,13 +39,13 @@ Friend module ScourgeStrike
 		
 		
 		If glyph.ScourgeStrike Then
-			If BloodPlague.ScourgeStrikeGlyphCounter < 3 Then
-				BloodPlague.FadeAt = BloodPlague.FadeAt + 3 * 100
-				BloodPlague.ScourgeStrikeGlyphCounter = BloodPlague.ScourgeStrikeGlyphCounter + 1
+			If sim.BloodPlague.ScourgeStrikeGlyphCounter < 3 Then
+				sim.BloodPlague.FadeAt = sim.BloodPlague.FadeAt + 3 * 100
+				sim.BloodPlague.ScourgeStrikeGlyphCounter = sim.BloodPlague.ScourgeStrikeGlyphCounter + 1
 			End If
-			If FrostFever.ScourgeStrikeGlyphCounter < 3 Then
-				FrostFever.FadeAt = FrostFever.FadeAt + 3 * 100
-				FrostFever.ScourgeStrikeGlyphCounter = FrostFever.ScourgeStrikeGlyphCounter + 1
+			If sim.FrostFever.ScourgeStrikeGlyphCounter < 3 Then
+				sim.FrostFever.FadeAt = sim.FrostFever.FadeAt + 3 * 100
+				sim.FrostFever.ScourgeStrikeGlyphCounter = sim.FrostFever.ScourgeStrikeGlyphCounter + 1
 			End If
 		End If
 		runes.UseFU(T,False)
@@ -88,7 +65,7 @@ Friend module ScourgeStrike
 		'Debug.Print T & vbTab & "ScourgeStrike for " & Range("Abilities!N11").Value
 		return true
 	End Function
-	Function AvrgNonCrit(T as long) As Double
+	public Overrides Function AvrgNonCrit(T as long) As Double
 		Dim tmp As Double
 		tmp = MainStat.NormalisedMHDamage
 		tmp = tmp * 0.40
@@ -109,36 +86,18 @@ Friend module ScourgeStrike
 		end if
 		AvrgNonCrit = tmp
 	End Function
-	Function CritCoef() As Double
+	public Overrides Function CritCoef() As Double
 		CritCoef = 1 + TalentUnholy.ViciousStrikes * 15 / 100
 		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
 	End Function
-	Function CritChance() As Double
+	public Overrides Function CritChance() As Double
 		dim tmp as Double
 		tmp = MainStat.crit + TalentUnholy.ViciousStrikes * 3 / 100 + SetBonus.T72PDPS * 5 / 100 + talentblood.Subversion * 3 / 100
 		return  tmp
 	End Function
-	Function AvrgCrit(T As long) As Double
+	public Overrides Function AvrgCrit(T As long) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
+
 	
-	Function report As String
-		dim tmp as String
-		tmp = "Scourge Strike" & VBtab
-		
-		If total.ToString().Length < 8 Then
-			tmp = tmp & total & "   " & VBtab
-		Else
-			tmp = tmp & total & VBtab
-		End If
-		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
-		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
-		tmp = tmp & vbCrLf
-		return tmp
-	End Function
-	
-end module
+End Class
