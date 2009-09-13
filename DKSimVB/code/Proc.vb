@@ -34,10 +34,9 @@ Friend Module Proc
 		If RNGProc <= 5 * talentfrost.Rime/100 Then
 			Proc.Rime= True
 			if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "Rime proc")
-			HowlingBlast.cd = 0
+			sim.HowlingBlast.cd = 0
 		End If
 	End Sub
-	
 	Sub TryMHKillingMachine()
 		dim RNG as Double
 		If Talentfrost.KillingMachine > 0 Then
@@ -59,6 +58,8 @@ Friend Module Proc
 			End If
 		End If
 	End Sub
+	
+	
 	
 	
 	Sub TryT92PDPS()
