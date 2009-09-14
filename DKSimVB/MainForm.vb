@@ -21,13 +21,13 @@ Public Partial Class MainForm
 	
 	
 	Function LoadBeforeSim() As Boolean
-		try
+		saveConfig()
+		Try
 		sim.loadtemplate (GetFilePath(CmbTemplate.SelectedItem.ToString))
 		Catch
 			msgbox("Could not determine template. Please reselect it.")
 			exit function
 		End try
-		
 		If sim.rotate Then
 			try
 				sim.rotationPath = GetFilePath( cmbRotation.SelectedItem.ToString)
@@ -56,7 +56,6 @@ Public Partial Class MainForm
 		Dim root as xml.XmlElement = doc.DocumentElement
 
 		Dim newElem As xml.XmlNode
-		
 		Dim ctrl As Control
 		dim chkBox as CheckBox
 		For Each ctrl in grpBuff.Controls
@@ -185,6 +184,7 @@ Public Partial Class MainForm
 		Dim URL As Uri = new Uri("http://talent.mmo-champion.com/?deathknight=")
 		wbTemplate.Url = URL
 		Randomize 'Initialize the random # generator
+		CombatLog.init
 	End Sub
 	
 	Sub saveConfig
@@ -297,7 +297,7 @@ Public Partial Class MainForm
 	End Sub
 	Sub loadConfig
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
-		on error goto errH
+		on error resume next
 		doc.Load("config.xml")
 		cmbCharacter.SelectedItem = doc.SelectSingleNode("//config/Character").InnerText
 		cmbTemplate.SelectedItem = doc.SelectSingleNode("//config/template").InnerText
@@ -316,12 +316,11 @@ Public Partial Class MainForm
 		chkGhoulHaste.Checked = doc.SelectSingleNode("//config/ghoulhaste").InnerText
 		chkWaitFC.Checked = doc.SelectSingleNode("//config/WaitFC").InnerText
 		ckPet.Checked = doc.SelectSingleNode("//config/pet").InnerText
-
 		errH:
 	End Sub
 	
 	Sub MainFormClose(sender As Object, e As EventArgs)
-		saveConfig
+		
 		
 	End Sub
 	Sub loadTemplate()
@@ -386,12 +385,7 @@ Public Partial Class MainForm
 		'dataGrid1.captionText = txtFilePath
 	End Sub
 	
-	Function GetFilePath(s As String) As String
-		on error resume next
-		s = strings.Right(s,s.Length-InStr(s,"(") )
-		s = strings.Left(s, InStrRev(s,")")-1 )
-		return s
-	End Function
+
 	
 	Sub CmbPrioSelectedIndexChanged(sender As Object, e As EventArgs)
 		sim.Rotate = False
@@ -402,51 +396,51 @@ Public Partial Class MainForm
 	Sub CmdPresenceSelectedIndexChanged(sender As Object, e As EventArgs)
 		Dim Presence As String
 		Presence = cmdPresence.SelectedItem.ToString
-		MainStat.BloodPresence = 0
-		MainStat.UnholyPresence = 0
-		Mainstat.FrostPresence = 0
+		sim.MainStat.BloodPresence = 0
+		sim.MainStat.UnholyPresence = 0
+		sim.Mainstat.FrostPresence = 0
 		Select Case Presence
 			Case "Blood"
-				MainStat.BloodPresence = 1
+				sim.MainStat.BloodPresence = 1
 			Case "Unholy"
-				MainStat.UnholyPresence=1
+				sim.MainStat.UnholyPresence=1
 			Case "Frost"
-				Mainstat.FrostPresence = 1
+				sim.Mainstat.FrostPresence = 1
 		End Select
 	End Sub
 	
 	Sub CmbSigilsSelectedIndexChanged(sender As Object, e As EventArgs)
-		Dim Sigil As String
-		Sigil = CmbSigils.SelectedItem.ToString
-		Sigils.WildBuck = false
-		Sigils.FrozenConscience = false
-		Sigils.DarkRider = false
-		Sigils.ArthriticBinding = false
-		Sigils.Awareness = false
-		Sigils.Strife = false
-		Sigils.HauntedDreams = false
-		sigils.VengefulHeart = False
-		sigils.Virulence = false
-		select case Sigil
-			case "WildBuck"
-				Sigils.WildBuck = true
-			case "FrozenConscience"
-				Sigils.FrozenConscience =true
-			case "DarkRider"
-				Sigils.DarkRider = true
-			case "ArthriticBinding"
-				Sigils.ArthriticBinding = true
-			case "Awareness"
-				Sigils.Awareness = true
-			case "Strife"
-				Sigils.Strife = true
-			case "HauntedDreams"
-				Sigils.HauntedDreams = True
-			Case "VengefulHeart"
-				sigils.VengefulHeart = True
-			Case "Virulence"
-				sigils.Virulence = true
-		end select
+'		Dim Sigil As String
+'		Sigil = CmbSigils.SelectedItem.ToString
+'		Sigils.WildBuck = false
+'		Sigils.FrozenConscience = false
+'		Sigils.DarkRider = false
+'		Sigils.ArthriticBinding = false
+'		Sigils.Awareness = false
+'		Sigils.Strife = false
+'		Sigils.HauntedDreams = false
+'		sigils.VengefulHeart = False
+'		sigils.Virulence = false
+'		select case Sigil
+'			case "WildBuck"
+'				Sigils.WildBuck = true
+'			case "FrozenConscience"
+'				Sigils.FrozenConscience =true
+'			case "DarkRider"
+'				Sigils.DarkRider = true
+'			case "ArthriticBinding"
+'				Sigils.ArthriticBinding = true
+'			case "Awareness"
+'				Sigils.Awareness = true
+'			case "Strife"
+'				Sigils.Strife = true
+'			case "HauntedDreams"
+'				Sigils.HauntedDreams = True
+'			Case "VengefulHeart"
+'				sigils.VengefulHeart = True
+'			Case "Virulence"
+'				sigils.Virulence = true
+'		end select
 	End Sub
 	
 	Sub ComboBox1SelectedIndexChanged(sender As Object, e As EventArgs)
@@ -456,34 +450,34 @@ Public Partial Class MainForm
 	End Sub
 	
 	Sub CmbRuneMHSelectedIndexChanged(sender As Object, e As EventArgs)
-		RuneForge.MHCinderglacier = False
-		RuneForge.MHFallenCrusader = false
-		RuneForge.MHRazorice = false
+		sim.RuneForge.MHCinderglacier = False
+		sim.RuneForge.MHFallenCrusader = false
+		sim.RuneForge.MHRazorice = false
 		Select Case cmbRuneMH.SelectedItem.ToString
 			Case "Cinderglacier"
-				RuneForge.MHCinderglacier = true
+				sim.RuneForge.MHCinderglacier = true
 			Case "FallenCrusader"
-				RuneForge.MHFallenCrusader = true
+				sim.RuneForge.MHFallenCrusader = true
 			Case "Razorice"
-				RuneForge.MHRazorice = true
+				sim.RuneForge.MHRazorice = true
 		End Select
 	End Sub
 	
 	Sub CmbRuneOHSelectedIndexChanged(sender As Object, e As EventArgs)
-		RuneForge.OHCinderglacier = False
-		RuneForge.OHFallenCrusader = false
-		RuneForge.OHRazorice = False
-		Runeforge.OHBerserking = False
+		sim.RuneForge.OHCinderglacier = False
+		sim.RuneForge.OHFallenCrusader = false
+		sim.RuneForge.OHRazorice = False
+		sim.Runeforge.OHBerserking = False
 		
 		Select Case cmbRuneOH.SelectedItem.ToString
 			Case "Cinderglacier"
-				RuneForge.OHCinderglacier = true
+				sim.RuneForge.OHCinderglacier = true
 			Case "FallenCrusader"
-				RuneForge.OHFallenCrusader = true
+				sim.RuneForge.OHFallenCrusader = true
 			Case "Razorice"
-				RuneForge.OHRazorice = True
+				sim.RuneForge.OHRazorice = True
 			Case "Berserking"
-				Runeforge.OHBerserking = True
+				sim.Runeforge.OHBerserking = True
 			end select
 	End Sub
 	
@@ -1260,7 +1254,7 @@ End Sub
 	
 	
 	Sub ChkGhoulHasteCheckedChanged(sender As Object, e As EventArgs)
-		GhoulDoubleHaste = chkGhoulHaste.Checked
+		'sim.Ghoul.GhoulDoubleHaste = chkGhoulHaste.Checked
 	End Sub
 	
 	Sub CmdSaveTalentClick(sender As Object, e As EventArgs)

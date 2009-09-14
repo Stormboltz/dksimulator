@@ -6,30 +6,33 @@
 '
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Friend Module GhoulStat
+Friend Class GhoulStat
 	
 	
 	Friend MHWeaponDPS As Integer
-	Friend MHWeaponSpeed As double
-	Sub init()
+	Friend MHWeaponSpeed As Double
+	Private character As Character
+	
+	Sub New()
+		Character = sim.Character
 		MHWeaponDPS = 0
 		MHWeaponSpeed = 2
-		Ghoul.NextClaw = 0
-		Ghoul.NextWhiteMainHit = 0
-		Ghoul.total = 0
-		ghoul.TotalHit = 0
-		ghoul.TotalCrit = 0
+		sim.Ghoul.NextClaw = 0
+		sim.Ghoul.NextWhiteMainHit = 0
+		sim.Ghoul.total = 0
+		sim.ghoul.TotalHit = 0
+		sim.ghoul.TotalCrit = 0
 		If TalentUnholy.MasterOfGhouls Then 
-			Ghoul.ActiveUntil = sim.MaxTime
-			Ghoul.cd = sim.MaxTime
+			sim.Ghoul.ActiveUntil = sim.MaxTime
+			sim.Ghoul.cd = sim.MaxTime
 		Else
-			Ghoul.ActiveUntil = 0
-			Ghoul.cd = 0
+			sim.Ghoul.ActiveUntil = 0
+			sim.Ghoul.cd = 0
 		End If
 	end Sub
 	Function BaseAP() As Integer
 		return 1167 
-     	'tmp = (tmp + Character.Strength * 2 + Character.AttackPower + 220) * (1 + Buff.AttackPowerPc / 10)
+     	'tmp = (tmp + Character.Strength * 2 + Character.AttackPower + 220) * (1 +  sim. sim. sim.Buff.AttackPowerPc / 10)
 		'return tmp
 	End Function
 	Function AP() As Integer
@@ -39,7 +42,7 @@ Friend Module GhoulStat
 	
 	end function
 	Function Strength as integer
-		if glyph.ghoul then
+		if sim.glyph.ghoul then
 				return 331 + (Character.Strength * (talentunholy.ravenousdead*0.7))+ (Character.Strength * .4) 
 			else
 				return 331 + (Character.Strength * (talentunholy.ravenousdead*0.7))
@@ -48,41 +51,41 @@ Friend Module GhoulStat
 	Function crit() As System.Double
 		Dim tmp As Double
 		tmp = 5  'BaseCrit
-		tmp = tmp + 5 * Buff.MeleeCrit
-		tmp = tmp + 3 * Buff.CritChanceTaken
+		tmp = tmp + 5 *  sim.Buff.MeleeCrit
+		tmp = tmp + 3 *  sim.Buff.CritChanceTaken
 		crit = tmp / 100
 	End Function
 	Function SpellCrit() As Single
 		Dim tmp As Double
-		tmp = tmp + 3 * Buff.CritChanceTaken
-		tmp = tmp + 5 * Buff.SpellCrit
-		tmp = tmp + 5  * Buff.SpellCritTaken
+		tmp = tmp + 3 *  sim.Buff.CritChanceTaken
+		tmp = tmp + 5 *  sim.Buff.SpellCrit
+		tmp = tmp + 5  *  sim.Buff.SpellCritTaken
 		SpellCrit = tmp / 100
 	End Function
 	Function Haste() As Double
 		Dim tmp As Double
 		tmp = Character.HasteRating / 32.79 / 100 'Haste change for 3.1 ?
-		tmp = tmp + UnholyPresence * 0.15
+		tmp = tmp + sim.mainstat.UnholyPresence * 0.15
 		tmp = tmp + 0.05 * talentfrost.ImprovedIcyTalons
-		tmp = tmp + 0.2 * Buff.MeleeHaste
-		tmp = tmp + 0.03 * Buff.Haste
+		tmp = tmp + 0.2 *  sim.Buff.MeleeHaste
+		tmp = tmp + 0.03 *  sim.Buff.Haste
 		Haste = tmp
 	End Function
 	Function SpellHaste() As Double
 		Dim tmp As Double
-		If MainStat.UnholyPresence = 1 Then
+		If sim.Mainstat.UnholyPresence = 1 Then
 			SpellHaste = 0.5
 		Else
 			tmp = Character.SpellHasteRating / 32.79 / 100
 			tmp = tmp + 0.05 * talentfrost.ImprovedIcyTalons
-			tmp = tmp + 0.05 * Buff.SpellHaste
-			tmp = tmp + 0.03 * Buff.Haste
+			tmp = tmp + 0.05 *  sim.Buff.SpellHaste
+			tmp = tmp + 0.03 *  sim.Buff.Haste
 			SpellHaste = tmp
 		End If
 	End Function
 	Function Expertise() As Double
 		Dim tmp As Double
-		tmp =  mainstat.Hit
+		tmp =  sim.mainstat.Hit
 		tmp = tmp * 214 / 32.79
 		
 		return tmp 
@@ -90,13 +93,13 @@ Friend Module GhoulStat
 	
 	Function Hit() As Double
 		Dim tmp As Double
-		tmp = mainstat.Hit
+		tmp = sim.mainstat.Hit
 		return tmp 
 	End Function
 	
 	Function SpellHit() As Double
 		'Dim tmp As Double
-		return mainstat.spellHit
+		return sim.mainstat.spellHit
 	End Function
 	
 	Function MHBaseDamage() As Double
@@ -116,9 +119,9 @@ Friend Module GhoulStat
 	
 	Function ArmorMitigation() As Double
 		Dim tmp As Double
-		tmp = BossArmor
-		tmp = tmp * (1- 20 * buff.ArmorMajor / 100)
-		tmp = tmp * (1- 5 * buff.ArmorMinor / 100)
+		tmp = sim.MainStat.BossArmor
+		tmp = tmp * (1- 20 *  sim.Buff.ArmorMajor / 100)
+		tmp = tmp * (1- 5 *  sim.Buff.ArmorMinor / 100)
 		tmp = tmp * (1 - ArmorPen / 100)
 		tmp = (tmp /((467.5*83)+tmp-22167.5))
 		
@@ -129,8 +132,8 @@ Friend Module GhoulStat
 		dim tmp as Double
 		tmp = 1
 		tmp = tmp * (1 - ArmorMitigation)
-		tmp = tmp * (1 + 0.03 * Buff.PcDamage)
-		tmp = tmp * (1 + 0.02 * Buff.PhysicalVuln)
+		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
+		tmp = tmp * (1 + 0.02 *  sim.Buff.PhysicalVuln)
 		
 		return tmp
 	End Function
@@ -138,9 +141,9 @@ Friend Module GhoulStat
 	Function MagicalDamageMultiplier(T as long) As Double
 		Dim tmp As Double
 		tmp = 1
-		tmp = tmp * (1 + 0.03 * Buff.PcDamage)
-		tmp = tmp * (1 + 0.13 * Buff.SpellDamageTaken)
+		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
+		tmp = tmp * (1 + 0.13 *  sim.Buff.SpellDamageTaken)
 		
 		Return tmp
 	End Function
-End Module
+End Class

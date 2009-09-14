@@ -19,12 +19,12 @@ Friend Class BloodTap
 	
 	Function Use(T As long) As Boolean
 		cd = t + 6000
-		If Rune1.AvailableTime > T And Rune1.death = False Then
-			Rune1.AvailableTime = T
-			Rune1.death = True
+		If sim.Rune1.AvailableTime > T And sim.Rune1.death = False Then
+			sim.Rune1.AvailableTime = T
+			sim.Rune1.death = True
 		Else
-			Rune2.AvailableTime = T
-			Rune2.death = True
+			sim.Rune2.AvailableTime = T
+			sim.Rune2.death = True
 		End If
 		combatlog.write(T  & vbtab &  "Blood Tap")
 		return true

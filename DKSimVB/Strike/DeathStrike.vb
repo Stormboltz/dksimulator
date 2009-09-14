@@ -21,12 +21,12 @@ Friend Class DeathStrike
 		MHHit = true
 		OHHit = true
 		Dim RNG As Double
-		If MainStat.UnholyPresence Then
+		If sim.MainStat.UnholyPresence Then
 			Sim.NextFreeGCD = T + 100+ sim._MainFrm.txtLatency.Text/10
 		Else
 			Sim.NextFreeGCD = T + 150+ sim._MainFrm.txtLatency.Text/10
 		End If
-		If MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
+		If sim.MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
 			If DoMyStrikeHit = false Then
 				combatlog.write(T  & vbtab & "MH/OH DS fail")
 				MissCount = MissCount + 1
@@ -45,15 +45,12 @@ Friend Class DeathStrike
 			
 			dim dégat as Integer
 			If MHHit Then
-				RNG = RNGStrike
+				RNG = sim.RandomNumberGenerator.RNGStrike
 				If RNG <= CritChance Then
 					CritCount = CritCount + 1
 					dégat = AvrgCrit(T,true)
 					combatlog.write(T  & vbtab &  "DS crit for " & dégat  )
-					TryBitterAnguish()
-					TryMirror()
-					TryPyrite()
-					TryOldGod()
+					sim.tryOnCrit
 					
 				Else
 					HitCount = HitCount + 1
@@ -62,17 +59,7 @@ Friend Class DeathStrike
 				End If
 				If Lissage Then dégat = AvrgCrit(T,true)*CritChance + AvrgNonCrit(T,true)*(1-CritChance )
 				total = total + dégat
-				TryMHCinderglacier
-				TryMHFallenCrusader
-				TryMjolRune
-				TryGrimToll
-				TryGreatness()
-				TryDeathChoice()
-				TryDCDeath()
-				TryVictory()
-				TryBandit()
-				TryDarkMatter()
-				TryComet()
+				sim.TryOnMHHitProc
 			End If
 			If OHHit Then
 				
@@ -80,10 +67,7 @@ Friend Class DeathStrike
 					
 					dégat = AvrgCrit(T,false)
 					combatlog.write(T  & vbtab &  "OH DS crit for " & dégat  )
-					TryBitterAnguish()
-					TryMirror()
-					TryPyrite()
-					TryOldGod()
+					sim.tryOnCrit
 				Else
 					
 					dégat = AvrgNonCrit(T,false)
@@ -91,33 +75,22 @@ Friend Class DeathStrike
 				End If
 				If Lissage Then dégat = AvrgCrit(T,false)*CritChance + AvrgNonCrit(T,false)*(1-CritChance )
 				total = total + dégat
-				TryOHCinderglacier
-				TryOHFallenCrusader
-				TryOHBerserking
-				TryMjolRune
-				TryGrimToll
-				TryGreatness()
-				TryDeathChoice()
-				TryDCDeath()
-				TryVictory()
-				TryBandit()
-				TryDarkMatter()
-				TryComet()
+				sim.TryOnOHHitProc
 			End If
-			proc.VirulenceFade = T + 2000
+			sim.proc.VirulenceFade = T + 2000
 			
 			If talentblood.DRM = 3 Then
-				runes.UseFU(T,True)
+				sim.runes.UseFU(T,True)
 			Else
-				runes.UseFU(T,False)
+				sim.runes.UseFU(T,False)
 			End If
 			
-			If DRW.IsActive(T) Then
-				drw.DeathStrike
+			If sim.DRW.IsActive(T) Then
+				sim.drw.DeathStrike
 			End If
 			
-			runicpower.add(15 +  2.5*talentunholy.Dirge )
-			runicpower.add(5*SetBonus.T74PDPS)
+			Sim.runicpower.add(15 +  2.5*talentunholy.Dirge )
+			Sim.runicpower.add(5*sim.MainStat.T74PDPS)
 		End If
 		return true
 	End Function
@@ -125,21 +98,21 @@ Friend Class DeathStrike
 		Dim tmp As Double
 		
 		If MH Then
-			tmp = MainStat.NormalisedMHDamage*0.75
+			tmp = sim.MainStat.NormalisedMHDamage*0.75
 		Else
-			tmp = MainStat.NormalisedOHDamage*0.75
+			tmp = sim.MainStat.NormalisedOHDamage*0.75
 		End If
 		tmp = tmp + 222.75
-		if sigils.Awareness then tmp = tmp + 315
+		if sim.sigils.Awareness then tmp = tmp + 315
 		tmp = tmp * (1 + talentblood.ImprovedDeathStrike * 15/100)
-		If glyph.DeathStrike Then
-			If RunicPower.Value >= 25 Then
+		If sim.glyph.DeathStrike Then
+			If Sim.RunicPower.Value >= 25 Then
 				tmp = tmp * (1 + 25/100)
 			Else
-				tmp = tmp * (1 + RunicPower.Value /100)
+				tmp = tmp * (1 + Sim.RunicPower.Value /100)
 			End If
 		End If
-		tmp = tmp *MainStat.StandardPhysicalDamageMultiplier(T)
+		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
 		
 		If MH=false Then
 			tmp = tmp * 0.5
@@ -149,10 +122,10 @@ Friend Class DeathStrike
 	End Function
 	public Overrides Function CritCoef() As Double
 		CritCoef = 1 * (1 + TalentBlood.MightofMograine * 15 / 100)
-		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
+		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
 	public Overrides Function CritChance() As Double
-		CritChance = MainStat.crit + talentblood.ImprovedDeathStrike * 3/100 + SetBonus.T72PDPS * 5/100
+		CritChance = sim.MainStat.crit + talentblood.ImprovedDeathStrike * 3/100 + sim.MainStat.T72PDPS * 5/100
 	End Function
 	public Overrides Function AvrgCrit(T As Long, MH As Boolean) As Double
 		Return AvrgNonCrit(T,MH) * (1 + CritCoef)

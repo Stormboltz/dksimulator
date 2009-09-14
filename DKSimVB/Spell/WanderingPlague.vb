@@ -1,11 +1,11 @@
-Friend module WanderingPlague
+Friend Class WanderingPlague
 	
 	Friend nextTick As Double
 	Friend total As long
 	Friend MissCount As Integer
 	Friend HitCount as Integer
 	Friend CritCount as Integer
-		Friend TotalHit As Long
+	Friend TotalHit As Long
 	Friend TotalCrit as Long
 
 
@@ -34,7 +34,7 @@ Friend module WanderingPlague
 		'combatlog.write(T  & vbtab &  "WP hit for " & Damage * TalentUnholy.WanderingPlague / 3)
 		return true
 	End Function
-		Sub init()
+		Sub New()
 		total = 0
 		MissCount = 0
 		HitCount = 0
@@ -62,4 +62,4 @@ Friend module WanderingPlague
 		tmp = tmp & vbCrLf
 		return tmp
 	End Function
-End Module
+End Class

@@ -1,6 +1,6 @@
 
 
-Friend module Buff
+Friend Class Buff
 		
 	Friend StrAgi As Integer 
 	Friend AttackPower As Integer 
@@ -27,7 +27,7 @@ Friend module Buff
 	
 	
 	
-	Sub FullBuff()
+	Sub New()
 		
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
 		Dim liveXml As new xml.XmlDocument
@@ -86,4 +86,4 @@ Friend module Buff
 		SpellHitTaken = 0
 		CrypticFever = 0
 	End Sub
-End Module
+End Class

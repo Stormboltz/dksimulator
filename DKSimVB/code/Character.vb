@@ -1,4 +1,4 @@
-Friend Module Character
+Friend Class Character
 	Private XmlDoc As New Xml.XmlDocument
 	Private _Strength As Integer
 	Private _Agility As Integer
@@ -13,8 +13,8 @@ Friend Module Character
 	Private _Dual As Integer
 	
 	
-	Sub init()
-		XmlDoc.Load(sim._MainFrm.GetFilePath(_MainFrm.cmbCharacter.Text) )
+	Sub New()
+		XmlDoc.Load(GetFilePath(_MainFrm.cmbCharacter.Text) )
 		
 		_Strength=0
 		_Agility=0
@@ -33,24 +33,24 @@ Friend Module Character
 		Dim tmp As Integer
 		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Strength").InnerText)
 		If sim.EPStat="Strength" Then tmp = tmp + sim.EPBase
-		If Sigils.Virulence Then
-			if proc.VirulenceFade >= sim.TimeStamp then tmp = tmp + 200
+		If sim.Sigils.Virulence Then
+			if sim.proc.VirulenceFade >= sim.TimeStamp then tmp = tmp + 200
 		End If
-		if T92PDPSFAde > sim.TimeStamp then tmp = tmp + 180
-		tmp = tmp +155 * 1.15 * Buff.StrAgi
-		tmp = tmp + 37 * 1.4 * Buff.StatAdd
+		if sim.proc.T92PDPSFAde > sim.TimeStamp then tmp = tmp + 180
+		tmp = tmp +155 * 1.15 *  sim.Buff.StrAgi
+		tmp = tmp + 37 * 1.4 *  sim.Buff.StatAdd
 		
-		tmp = tmp * (1 + Buff.StatMulti / 10)
+		tmp = tmp * (1 +  sim.Buff.StatMulti / 10)
 		tmp = tmp * (1 + talentblood.Vot3W * 2 / 100)
 		tmp = tmp * (1 + talentblood.AbominationMight / 100)
 		tmp = tmp * (1 + talentunholy.ravenousdead / 100)
-		tmp = tmp * (1 + 0.15 * RuneForge.FallenCrusaderProc)
+		tmp = tmp * (1 + 0.15 * Sim.RuneForge.FallenCrusaderProc)
 		
 		
 		
-		If greatnessFade > sim.TimeStamp Then tmp = tmp + 300
-		If DeathChoiceFade > sim.TimeStamp Then tmp = tmp + 450
-		If DeathChoiceHeroicFade > sim.TimeStamp Then tmp = tmp + 510
+		If Sim.Trinket.greatnessFade > sim.TimeStamp Then tmp = tmp + 300
+		If Sim.Trinket.DeathChoiceFade > sim.TimeStamp Then tmp = tmp + 450
+		If Sim.Trinket.DeathChoiceHeroicFade > sim.TimeStamp Then tmp = tmp + 510
 		
 		if sim.UnbreakableArmor.isActive then tmp = tmp * 1.1
 		_Strength= tmp
@@ -67,7 +67,7 @@ Friend Module Character
 		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Agility").InnerText)
 		If sim.EPStat="Agility" Then tmp = tmp +sim.EPBase
 		
-		_Agility = (tmp + 155 * 1.15 * Buff.StrAgi + 37 * 1.4  * Buff.StatAdd) * (1 + Buff.StatMulti / 10)
+		_Agility = (tmp + 155 * 1.15 *  sim.Buff.StrAgi + 37 * 1.4  *  sim.Buff.StatAdd) * (1 +  sim.Buff.StatMulti / 10)
 		
 		return _Agility
 	End Function
@@ -80,7 +80,7 @@ Friend Module Character
 		Dim tmp As Integer
 		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Intel").InnerText)
 		
-		_Intel = (tmp + 37 * 1.4  * Buff.StatAdd) * (1 + Buff.StatMulti / 10)
+		_Intel = (tmp + 37 * 1.4  *  sim.Buff.StatAdd) * (1 +  sim.Buff.StatMulti / 10)
 		
 		return _Intel
 	End Function
@@ -92,7 +92,7 @@ Friend Module Character
 		End If
 		Dim tmp As Integer
 		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Armor").InnerText)
-		tmp = tmp + (750 * 1.4  * Buff.StatAdd)
+		tmp = tmp + (750 * 1.4  *  sim.Buff.StatAdd)
 		
 		tmp = tmp * (1 + talentfrost.Toughness * 0.02)
 		_Armor = tmp
@@ -111,7 +111,7 @@ Friend Module Character
 		If sim.EPStat="AttackPower0T7" Then tmp = tmp+100
 		If sim.EPStat="AttackPowerNoTrinket" then tmp = tmp+100
 		tmp = tmp + int(Armor/180)*BladedArmor
-		_AttackPower = tmp + 548 * Buff.AttackPower
+		_AttackPower = tmp + 548 *  sim.Buff.AttackPower
 		
 		return _AttackPower
 	End Function
@@ -160,8 +160,8 @@ Friend Module Character
 
 		Dim tmp As Integer
 		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/ArmorPenetrationRating").InnerText)
-		If MjolRuneFade > sim.TimeStamp Then tmp = tmp + 665
-		If GrimTollFade > sim.TimeStamp Then tmp = tmp + 612
+		If Sim.Trinket.MjolRuneFade > sim.TimeStamp Then tmp = tmp + 665
+		If Sim.Trinket.GrimTollFade > sim.TimeStamp Then tmp = tmp + 612
 
 		'If GrimTollFade > sim.TimeStamp Then Debug.Print( "GrimToll, now:" & tmp)
 		_ArmorPenetrationRating = tmp
@@ -213,4 +213,4 @@ Friend Module Character
 		End If
 	End Function
 	
-end module
+end Class

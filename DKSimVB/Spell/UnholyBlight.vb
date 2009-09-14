@@ -5,7 +5,7 @@ Friend Class UnholyBlight
 		Dim dégat As Integer
 		dégat = damage * 0.2
 		
-		If glyph.UnholyBlight Then dégat = dégat * 1.4
+		If sim.glyph.UnholyBlight Then dégat = dégat * 1.4
 		HitCount = HitCount + 1
 		total = total + dégat
 		combatlog.write(T  & vbtab &  "UnholyBlight hit for " &  dégat )	

@@ -1,4 +1,4 @@
-Friend module Ghoul
+Friend class Ghoul
 	
 	Friend NextWhiteMainHit As Long
 	Friend NextClaw as Long
@@ -18,7 +18,7 @@ Friend module Ghoul
 	Private MeleeGlacingChance As Single
 	private SpellMissChance as Single
 
-	Sub init()
+	Sub new()
 		total = 0
 		MissCount = 0
 		HitCount = 0
@@ -36,11 +36,11 @@ Friend module Ghoul
 	Sub Summon(T As Long)
 		If cd <= T Then
 			MeleeGlacingChance = 0.25
-			MeleeMissChance = math.Max(0.08 - GhoulStat.Hit,0)
+			MeleeMissChance = math.Max(0.08 - sim.GhoulStat.Hit,0)
 			'If MeleeMissChance < 0 Then MeleeMissChance = 0
-			MeleeDodgeChance =  math.Max(0.065 - GhoulStat.Expertise,0)
+			MeleeDodgeChance =  math.Max(0.065 - sim.GhoulStat.Expertise,0)
 			'If MeleeDodgeChance < 0 Then MeleeDodgeChance = 0
-			SpellMissChance = math.Max(0.17 - GhoulStat.SpellHit,0)
+			SpellMissChance = math.Max(0.17 - sim.GhoulStat.SpellHit,0)
 			'If SpellMissChance  < 0 Then SpellMissChance = 0 
 			If TalentUnholy.MasterOfGhouls Then 
 				ActiveUntil = sim.MaxTime
@@ -50,7 +50,7 @@ Friend module Ghoul
 				cd = ActiveUntil + (3*60*100) - (45*100*NightoftheDead)
 			End If
 			
-			If MainStat.UnholyPresence Then
+			If sim.MainStat.UnholyPresence Then
 				Sim.NextFreeGCD = T + 100+ sim._MainFrm.txtLatency.Text/10
 			Else
 				Sim.NextFreeGCD = T + 150+ sim._MainFrm.txtLatency.Text/10
@@ -60,12 +60,12 @@ Friend module Ghoul
 	
 	Function Haste As Double
 		dim tmp as Double
-		tmp = MainStat.Haste
+		tmp = sim.MainStat.Haste
 		
 		If GhoulDoubleHaste Then
-			tmp = tmp + 0.2 * Buff.MeleeHaste
-			tmp = tmp + 0.03 * Buff.Haste
-			if Bloodlust.IsActive(sim.TimeStamp) then tmp = tmp + 0.3
+			tmp = tmp + 0.2 *  sim.Buff.MeleeHaste
+			tmp = tmp + 0.03 *  sim.Buff.Haste
+			if sim.Bloodlust.IsActive(sim.TimeStamp) then tmp = tmp + 0.3
 		End If
 		return tmp
 	End Function
@@ -75,14 +75,14 @@ Friend module Ghoul
 		
 		
 		Dim WSpeed As Single
-		WSpeed = GhoulStat.MHWeaponSpeed
+		WSpeed = sim.GhoulStat.MHWeaponSpeed
 		If FrenzyUntil >= T Then
 			NextWhiteMainHit = T + (WSpeed * 100) / ((1 + Haste + 0.25))
 		Else
 			NextWhiteMainHit = T + (WSpeed * 100) / ((1 + Haste))
 		End If
 		Dim RNG As Double
-		RNG = RNGPet		
+		RNG = sim.RandomNumberGenerator.RNGPet		
 
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			MissCount = MissCount + 1
@@ -112,28 +112,28 @@ Friend module Ghoul
 	End Function
 	Function AvrgNonCrit(T As long) As Double
 		Dim tmp As Double
-		tmp = ghoulStat.MHBaseDamage
-		tmp = tmp * GhoulStat.PhysicalDamageMultiplier(T)
+		tmp = sim.ghoulStat.MHBaseDamage
+		tmp = tmp * sim.GhoulStat.PhysicalDamageMultiplier(T)
 		AvrgNonCrit = tmp
 	End Function
 	Function CritCoef() As Double
 		CritCoef = 1
 	End Function
 	Function CritChance() As Double
-		CritChance = ghoulStat.crit
+		CritChance = sim.ghoulStat.crit
 	End Function
 	Function AvrgCrit(T As long) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 	Function Claw(T As Long) As Boolean
 		Dim RNG As Double
-		RNG = Rngpet
+		RNG = sim.RandomNumberGenerator.RNGPet
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Ghoul's Claw fail")
 			MissCount = MissCount + 1
 			Exit function
 		End If
-		RNG = RNGPet
+		RNG = sim.RandomNumberGenerator.RNGPet
 		If RNG <= CritChance Then
 			CritCount = CritCount + 1
 			total = total + AvrgCrit(T)
@@ -148,8 +148,8 @@ Friend module Ghoul
 	End Function
 	Function ClawAvrgNonCrit(T As long) As integer
 		Dim tmp As Double
-		tmp = ghoulStat.MHBaseDamage
-		tmp = tmp * GhoulStat.PhysicalDamageMultiplier(T)
+		tmp = sim.ghoulStat.MHBaseDamage
+		tmp = tmp * sim.GhoulStat.PhysicalDamageMultiplier(T)
 		tmp = tmp * 1.5
 		return  tmp
 	End Function
@@ -178,17 +178,17 @@ Friend module Ghoul
 	
 	Function IsFrenzyAvailable(T As Long) As Boolean
 		if TalentUnholy.GhoulFrenzy = 0 then return false
-		If FrenzyCd < T  And runes.Unholy(T) Then Return True
+		If FrenzyCd < T  And sim.runes.Unholy(T) Then Return True
 	End Function
 	Function IsAutoFrenzyAvailable(T As Long) As Boolean
 		if TalentUnholy.GhoulFrenzy = 0 then return false
-		if FrenzyCd < T  and runes.Unholy(T)=false and runes.Blood(T)=false and sim.BloodTap.IsAvailable(T) then return true
+		if FrenzyCd < T  and sim.runes.Unholy(T)=false and sim.runes.Blood(T)=false and sim.BloodTap.IsAvailable(T) then return true
 	End Function
 	
 	Function Frenzy(T As Long) As Boolean
 		if sim.BloodTap.IsAvailable(T) then sim.BloodTap.Use(t)
-		runes.UseUnholy(T,True)
-		RunicPower.add(10)
+		sim.runes.UseUnholy(T,True)
+		Sim.RunicPower.add(10)
 		FrenzyCd = T+3000
 		FrenzyUntil = T+3000
 		if combatlog.LogDetails then 	combatlog.write(T  & vbtab &  "Using Ghoul Frenzy")
@@ -196,4 +196,4 @@ Friend module Ghoul
 	End Function
 	
 	
-end module
+end class

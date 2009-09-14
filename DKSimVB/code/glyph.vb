@@ -6,10 +6,10 @@
 '
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Friend Module glyph
+Friend Class glyph
 	Friend xmlGlyph As New Xml.XmlDocument
 	
-	Sub init(path as String)
+	Sub New(path as String)
 		xmlGlyph.Load(path)
 	End Sub
 	Function BloodStrike As Boolean
@@ -58,4 +58,4 @@ Friend Module glyph
 	Function UnholyBlight As Boolean
 		return (xmlGlyph.SelectSingleNode("//Talents/Glyphs/UnholyBlight").InnerText =1)
 	End Function
-End Module
+End Class

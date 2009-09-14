@@ -1,8 +1,8 @@
-Friend module Rune5
+Friend Class Rune5
 
 Friend reserved As Boolean
 Friend death As Boolean
 Friend AvailableTime As long
 
-end module
+end Class
 

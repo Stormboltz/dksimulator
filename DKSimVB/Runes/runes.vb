@@ -1,6 +1,111 @@
-Friend Module runes
+Friend Class runes
+	Dim Rune1 As Rune1
+	Dim Rune2 As Rune2
+	Dim Rune3 As Rune3
+	Dim Rune4 As Rune4
+	Dim Rune5 As Rune5
+	Dim Rune6 As Rune6
+	
+	Sub New()
+		
+		
+		Rune1 = sim.rune1
+		Rune2 = sim.rune2
+		Rune3 = sim.rune3
+		Rune4 = sim.rune4
+		Rune5 = sim.rune5
+		Rune6 = sim.rune6
+		
+		UnReserveFU(0)
+		Rune1.AvailableTime = 0
+		Rune1.death = False
+		Rune2.AvailableTime = 0
+		Rune2.death = False
+		Rune3.AvailableTime = 0
+		Rune3.death = False
+		Rune4.AvailableTime = 0
+		Rune4.death = False
+		Rune5.AvailableTime = 0
+		Rune5.death = False
+		Rune6.AvailableTime = 0
+		Rune6.death = False
+	End Sub
+	
+	Function RuneState() As String
+		Dim T As Long
+		T = sim.TimeStamp
+		Dim tmp As String
+		tmp = "["
+		
+		If Rune1.AvailableTime <= T Then
+			If Rune1.death = True Then
+				tmp = tmp & "D"
+			Else
+				tmp = tmp & "B"
+			End If
+		Else
+			tmp = tmp & int(-(T - Rune1.AvailableTime)/100)
+		End If
+		If Rune2.AvailableTime <= T  Then
+			If Rune2.death = True Then
+				tmp = tmp & "D"
+			Else
+				tmp = tmp & "B"
+			End If
+		Else
+			tmp = tmp & int(-(T - Rune2.AvailableTime)/100)
+		End If
+		If Rune3.AvailableTime <= T Then
+			If Rune3.death = True Then
+				tmp = tmp & "D"
+			Else
+				tmp = tmp & "F"
+			End If
+		Else
+			tmp = tmp & int(-(T - Rune3.AvailableTime)/100)
+			'debug.Print ("Rune3.AvailableTime:" & (Rune3.AvailableTime)/100)
+		End If
+		If Rune4.AvailableTime <= T Then
+			If Rune4.death = True Then
+				tmp = tmp & "D"
+			Else
+				tmp = tmp & "F"
+			End If
+		Else
+			tmp = tmp & int(-(T - Rune4.AvailableTime)/100)
+			'debug.Print ("Rune4.AvailableTime:" & (Rune4.AvailableTime)/100)
+		End If
+		If Rune5.AvailableTime <= T Then
+			If Rune5.death = True Then
+				tmp = tmp & "D"
+			Else
+				tmp = tmp & "U"
+			End If
+		Else
+			tmp = tmp & int(-(T - Rune5.AvailableTime)/100)
+		End If
+		If Rune6.AvailableTime <= T Then
+			If Rune6.death = True Then
+				tmp = tmp & "D"
+			Else
+				tmp = tmp & "U"
+			End If
+		Else
+			tmp = tmp & int(-(T - Rune6.AvailableTime)/100)
+		End If
+		
+		tmp = tmp & "]"
+		return tmp
+	End Function
+	
+	
+	
+	
+	
+	
+	
 	Function RuneRefreshtime As Integer
-		If mainstat.UnholyPresence Then
+		If sim.mainstat.UnholyPresence Then
 			return 1000 - 50*talentunholy.ImprovedUnholyPresence
 		Else
 			return 1000
@@ -639,21 +744,7 @@ Friend Module runes
 		Rune5.reserved=False
 		Rune6.reserved=False
 	End Function
-	Sub Init()
-		UnReserveFU(0)
-		Rune1.AvailableTime = 0
-		Rune1.death = False
-		Rune2.AvailableTime = 0
-		Rune2.death = False
-		Rune3.AvailableTime = 0
-		Rune3.death = False
-		Rune4.AvailableTime = 0
-		Rune4.death = False
-		Rune5.AvailableTime = 0
-		Rune5.death = False
-		Rune6.AvailableTime = 0
-		Rune6.death = False
-	End Sub
+	
 	
 	Function DRMFU( T as Long) As Boolean
 		
@@ -664,6 +755,6 @@ Friend Module runes
 		
 	End Function
 	
-End Module
+End Class
 	
 

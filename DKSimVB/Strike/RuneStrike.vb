@@ -6,7 +6,7 @@
 '
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Public Module RuneStrike
+Public Class RuneStrike
 	
 	Friend total As Long
 	Friend MissCount As Integer
@@ -15,14 +15,13 @@ Public Module RuneStrike
 	Friend TotalHit As Long
 	Friend TotalCrit as Long
 	
-	Sub init()
+	Sub new()
 		total = 0
 		MissCount = 0
 		HitCount = 0
 		CritCount = 0
 		TotalHit = 0
 		TotalCrit = 0
-		
 	End Sub
 	Function ApplyDamage(T As long) As boolean
 		Dim dégat As Integer
@@ -31,9 +30,9 @@ Public Module RuneStrike
 		Dim MeleeMissChance As Single
 		Dim RNG As Double
 		
-		RunicPower.Value = RunicPower.Value - 20
-		RNG = RNGWhiteHit
-		MeleeMissChance = math.Min(mainstat.Hit, 0.08)
+		Sim.RunicPower.Value = Sim.RunicPower.Value - 20
+		RNG = sim.RandomNumberGenerator.RNGWhiteHit
+		MeleeMissChance = math.Min(sim.mainstat.Hit, 0.08)
 
 		If MeleeMissChance + RNG < 0.08 Then
 			MissCount = MissCount + 1
@@ -41,10 +40,10 @@ Public Module RuneStrike
 			exit function
 		End If
 		
-		RNG = RNGWhiteHit
+		RNG = sim.RandomNumberGenerator.RNGWhiteHit
 
 		
-		If MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
+		If sim.MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
 			'Off hand
 			If RNG < CritChance Then
 				'CRIT !
@@ -71,48 +70,38 @@ Public Module RuneStrike
 '		if Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
 		total = total + dégat
 		
-		TryMHKillingMachine
+		sim.proc.TryMHKillingMachine
 		
-		If MHRazorice Then applyRazorice()
+		If sim.RuneForge.MHRazorice Then sim.runeforge.applyRazorice()
 		If TalentUnholy.Necrosis > 0 Then
 			Nec = sim.Necrosis.Apply(dégat, T)
 		End If
-		RNG = RNGWhiteHit * 100
+		RNG = sim.RandomNumberGenerator.RNGWhiteHit * 100
 		If RNG <= 10 * TalentUnholy.BloodCakedBlade Then
 			BCB = sim.BloodCakedBlade.ApplyDamage(T,true)
 		End If
-		TryMHCinderglacier
-		TryMHFallenCrusader
-		TryMjolRune
-		TryGrimToll
-		TryGreatness()
-		TryDeathChoice()
-		TryDCDeath()
-		TryVictory()
-		TryBandit()
-		TryDarkMatter()
-		TryComet()
-		If proc.ScentOfBloodProc > 0 Then
-			proc.ScentOfBloodProc  = proc.ScentOfBloodProc  -1
-			RunicPower.add(5)
+		TryOnMHHitProc
+		If sim.proc.ScentOfBloodProc > 0 Then
+			sim.proc.ScentOfBloodProc  = sim.proc.ScentOfBloodProc  -1
+			Sim.RunicPower.add(5)
 		End If
 		
 		return true
 	End Function
 	Function AvrgNonCrit(T As long) As Double
 		Dim tmp As Double
-		tmp = MainStat.MHBaseDamage * 1.5
-		tmp = tmp * MainStat.StandardPhysicalDamageMultiplier(T)
-		tmp = tmp * (1+ SetBonus.T82PTNK*0.1)
+		tmp = sim.MainStat.MHBaseDamage * 1.5
+		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
+		tmp = tmp * (1+ sim.MainStat.T82PTNK*0.1)
 		return tmp
 	End Function
 	
 	
 	Function AvrgOHNonCrit(T As long) As Double
 		Dim tmp As Double
-		tmp = MainStat.OHBaseDamage * 1.5
-		tmp = tmp * MainStat.StandardPhysicalDamageMultiplier(T)
-		tmp = tmp * (1+ SetBonus.T82PTNK*0.1)
+		tmp = sim.MainStat.OHBaseDamage * 1.5
+		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
+		tmp = tmp * (1+ sim.MainStat.T82PTNK*0.1)
 		tmp = tmp * 0.5
 		tmp = tmp * (1 + TalentFrost.NervesofColdSteel * 5 / 100)
 		return tmp
@@ -120,11 +109,11 @@ Public Module RuneStrike
 	
 	Function CritCoef() As Double
 		CritCoef = 1
-		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
+		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
 	
 	Function CritChance() As Double
-		return MainStat.crit + glyph.RuneStrike * 0.1
+		return sim.MainStat.crit + sim.glyph.RuneStrike * 0.1
 	End Function
 	Function AvrgCrit(T As long) As Double
 		return AvrgNonCrit(T) * (1 + CritCoef)
@@ -150,7 +139,7 @@ Public Module RuneStrike
 		tmp = tmp & vbCrLf
 		return tmp
 	End Function
-end module
+End Class
 
 
 

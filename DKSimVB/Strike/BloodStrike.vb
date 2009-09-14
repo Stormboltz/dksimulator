@@ -8,7 +8,7 @@ Friend class BloodStrike
 		
 		
 		
-		If MainStat.UnholyPresence Then
+		If sim.MainStat.UnholyPresence Then
 			Sim.NextFreeGCD = T + 100+ sim._MainFrm.txtLatency.Text/10
 		Else
 			Sim.NextFreeGCD = T + 150+ sim._MainFrm.txtLatency.Text/10
@@ -19,7 +19,7 @@ Friend class BloodStrike
 		MHHit = True
 		OHHit = True
 		
-		If MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
+		If sim.MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
 			
 			If DoMyStrikeHit = false Then
 				combatlog.write(T  & vbtab &  "MH/OH BS fail")
@@ -38,16 +38,13 @@ Friend class BloodStrike
 		
 		If MHHit Or OHHit Then
 			If MHHit Then
-				RNG = RNGStrike
+				RNG = sim.RandomNumberGenerator.RNGStrike
 				dim dégat as Integer
 				If RNG <= CritChance Then
 					dégat = AvrgCrit(T,true)
 					CritCount = CritCount + 1
 					combatlog.write(T  & vbtab &  "BS crit for " & dégat )
-					TryBitterAnguish()
-					TryMirror()
-					TryPyrite()
-					TryOldGod()
+					sim.tryOnCrit
 				Else
 					dégat = AvrgNonCrit(T,true)
 					HitCount = HitCount + 1
@@ -55,61 +52,38 @@ Friend class BloodStrike
 				End If
 				if Lissage then dégat = AvrgCrit(T,true)*CritChance + AvrgNonCrit(T,true)*(1-CritChance )
 				total = total + dégat
-				TryMHCinderglacier
-				TryMHFallenCrusader
-				TryT92PDPS
-				TryMjolRune
-				TryGrimToll
-				TryGreatness()
-				TryDeathChoice()
-				TryDCDeath()
-				TryVictory()
-				TryBandit()
-				TryDarkMatter()
-				TryComet()
+				TryOnMHHitProc
 			End If
 			If OHHit Then
 				dim dégat as Integer
 				If RNG <= CritChance Then
 					dégat = AvrgCrit(T,false)
 					combatlog.write(T  & vbtab &  "OH BS crit for " & dégat )
-					TryBitterAnguish()
+					sim.tryOnCrit
 				Else
 					dégat = AvrgNonCrit(T,false)
 					combatlog.write(T  & vbtab &  "OH BS hit for " & dégat )
 				End If
 				if Lissage then dégat = AvrgCrit(T,false)*CritChance + AvrgNonCrit(T,false)*(1-CritChance )
 				total = total + dégat
-				TryOHCinderglacier
-				TryOHFallenCrusader
-				TryOHBerserking
-				TryT92PDPS
-				TryMjolRune
-				TryGrimToll
-				TryGreatness()
-				TryDeathChoice()
-				TryDCDeath()
-				TryVictory()
-				TryBandit()
-				TryDarkMatter()
-				TryComet()
+				sim.TryOnOHHitProc
 			End If
 			
-			tryHauntedDreams()
+			sim.Sigils.tryHauntedDreams()
 			
 			
 			If rng < 0.05*talentblood.SuddenDoom Then
 				sim.deathcoil.ApplyDamage(T,true)
 			End If
 			If TalentFrost.BloodoftheNorth = 3 Or TalentUnholy.Reaping = 3 Then
-				runes.UseBlood(T,True)
+				sim.runes.UseBlood(T,True)
 			Else
-				runes.UseBlood(T,False)
+				sim.runes.UseBlood(T,False)
 			End If
 			If sim.Desolation.Bonus > 0 Then
 				sim.Desolation.Apply(T)
 			End If
-			RunicPower.add (10)
+			Sim.RunicPower.add (10)
 			Return True
 		End If
 	End Function
@@ -117,12 +91,12 @@ Friend class BloodStrike
 	public Overrides Function AvrgNonCrit(T as Long, MH as Boolean) As Double
 		Dim tmp As Double
 		If MH Then
-			tmp = MainStat.NormalisedMHDamage * 0.4
+			tmp = sim.MainStat.NormalisedMHDamage * 0.4
 		Else
-			tmp = MainStat.NormalisedOHDamage * 0.4
+			tmp = sim.MainStat.NormalisedOHDamage * 0.4
 		End If
 		tmp = tmp + 305.6
-		if SetBonus.T84PDPS = 1 then
+		if sim.MainStat.T84PDPS = 1 then
 			tmp = tmp * (1 + 0.125 * Sim.NumDesease * 1.2)
 		else
 			tmp = tmp * (1 + 0.125 * Sim.NumDesease)
@@ -130,9 +104,9 @@ Friend class BloodStrike
 		tmp = tmp * (1 + TalentBlood.BloodyStrikes * 5 / 100)
 		tmp = tmp * (1 + TalentFrost.BloodoftheNorth * 5 / 100)
 		
-		if sigils.DarkRider then tmp = tmp + 45 + 22.5 * Sim.NumDesease
-		if glyph.BloodStrike then tmp = tmp * (1.2)
-		tmp = tmp * MainStat.StandardPhysicalDamageMultiplier(T)
+		if sim.sigils.DarkRider then tmp = tmp + 45 + 22.5 * Sim.NumDesease
+		if sim.glyph.BloodStrike then tmp = tmp * (1.2)
+		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
 		If MH=false Then
 			tmp = tmp * 0.5
 			tmp = tmp * (1 + TalentFrost.NervesofColdSteel * 5 / 100)
@@ -142,10 +116,10 @@ Friend class BloodStrike
 	
 	public Overrides Function CritCoef() As Double
 		CritCoef = 1 * (1 + TalentBlood.MightofMograine * 15 / 100) * (1 + TalentFrost.GuileOfGorefiend * 15 / 100)
-		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
+		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
 	public Overrides Function CritChance() As Double
-		CritChance = MainStat.crit + TalentBlood.Subversion * 3 / 100
+		CritChance = sim.MainStat.crit + TalentBlood.Subversion * 3 / 100
 	End Function
 	public Overrides Function AvrgCrit(T as long,MH as Boolean) As Double
 		AvrgCrit = AvrgNonCrit(T,MH) * (1 + CritCoef)

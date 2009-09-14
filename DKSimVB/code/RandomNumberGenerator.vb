@@ -6,12 +6,12 @@
 ' 
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
-Public Module RandomNumberGenerator
+Public Class RandomNumberGenerator
 	Private _RNGWhiteHit as Random
 	Private _RNGStrike as Random
 	Private _RNGProc as Random
 	private _RNGPet as Random
-	sub Init
+	sub New
 		Dim tmp As New Random(150)
 		Dim tmp2 As New Random(7331)
 		Dim tmp3 As New Random(1500)
@@ -39,4 +39,4 @@ Public Module RandomNumberGenerator
 	Function RNGPet As Double
 	 return _RNGPet.NextDouble
 	End Function
-End Module
+End Class

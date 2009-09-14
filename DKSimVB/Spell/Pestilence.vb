@@ -12,7 +12,7 @@ Friend Class Pestilence
 	Friend BPToReapply As Boolean
 	Friend FFToReapply As Boolean
 	Function use(T As double) As Boolean
-		Sim.NextFreeGCD = T + (150 / (1 + MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
+		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
 		If DoMySpellHit = false Then
 			combatlog.write(T  & vbtab &  "Pestilence fail")
 			MissCount = MissCount +1
@@ -22,13 +22,13 @@ Friend Class Pestilence
 		HitCount = HitCount +1
 		
 		If TalentFrost.BloodoftheNorth = 3 Or TalentUnholy.Reaping = 3 Then
-			runes.UseBlood(T,True)
+			sim.runes.UseBlood(T,True)
 		Else
-			runes.UseBlood(T,False)
+			sim.runes.UseBlood(T,False)
 		End If
-		RunicPower.add (10)
+		Sim.RunicPower.add (10)
 		
-		If glyph.Disease Then
+		If sim.glyph.Disease Then
 			debug.Print ("PEST! at " & T )
 			If sim.BloodPlague.FadeAt > T Then
 				sim.BloodPlague.FadeAt = T + 1500 + 300 * talentunholy.Epidemic
@@ -45,7 +45,7 @@ Friend Class Pestilence
 		Dim tmp1 As Long
 		Dim tmp2 As Long
 		
-		If runes.AnyBlood(T) Then
+		If sim.runes.AnyBlood(T) Then
 			tmp1 = math.Min(sim.BloodPlague.FadeAt,sim.FrostFever.FadeAt)
 			'debug.Print (RuneState & "time left on disease= " & (tmp1-T)/100 & "s" & " - " & T/100)
 			If tmp1 < T Then
@@ -55,7 +55,7 @@ Friend Class Pestilence
 '			debug.Print ("BP = " & BloodPlague.FadeAt)
 '			debug.Print ("BP = " & FrostFever.FadeAt)
 
-			If MainStat.AP > math.min(sim.FrostFever.AP, sim.BloodPlague.AP) Then
+			If sim.MainStat.AP > math.min(sim.FrostFever.AP, sim.BloodPlague.AP) Then
 				BPToReapply = True
 				FFToReapply = True
 				Return False
@@ -67,7 +67,7 @@ Friend Class Pestilence
 			
 			If tmp1 - T > 1000 Then Return False
 			'debug.Print (RuneState & "time left on disease= " & (tmp1-T)/100 & "s" & " - " & T/100)
-			tmp2 = runes.GetNextBloodCD(t)
+			tmp2 = sim.runes.GetNextBloodCD(t)
 			'debug.Print (RuneState & "Next blood in " & (tmp2-T)/100 & "s" )
 			If tmp2 > tmp1 or tmp2=0 Then
 				return true

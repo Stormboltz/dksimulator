@@ -17,17 +17,17 @@ Friend Class HowlingBlast
 	
 	overrides Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
-		Sim.NextFreeGCD = T + (150 / (1 + MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
+		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
 		cd = T + 800
 		
 		If DoMySpellHit = false Then
 			combatlog.write(T  & vbtab &  "HB fail")
-			proc.KillingMachine  = False
-			Proc.rime = False
+			sim.proc.KillingMachine  = False
+			sim.Proc.rime = False
 			MissCount = MissCount + 1
 			Exit function
 		End If
-		RNG = RNGStrike
+		RNG = sim.RandomNumberGenerator.RNGStrike
 		Dim dégat As Integer
 		Dim ccT As Double
 		ccT = CritChance
@@ -44,46 +44,44 @@ Friend Class HowlingBlast
 		if Lissage then dégat = AvrgCrit(T)*ccT + AvrgNonCrit(T)*(1-CritChance )
 		total = total + dégat
 		
-		If Proc.rime Then
-			Proc.rime = False
-			RunicPower.add (TalentFrost.ChillOfTheGrave * 2.5)
+		If sim.proc.rime Then
+			sim.Proc.rime = False
+			Sim.RunicPower.add (TalentFrost.ChillOfTheGrave * 2.5)
 		Else
-			runes.UseFU(T,False)
-			RunicPower.add (15 + (TalentFrost.ChillOfTheGrave * 2.5))
+			sim.runes.UseFU(T,False)
+			Sim.RunicPower.add (15 + (TalentFrost.ChillOfTheGrave * 2.5))
 		End If
 		
-		proc.KillingMachine  = false
-		if glyph.HowlingBlast then
+		sim.proc.KillingMachine  = false
+		if sim.glyph.HowlingBlast then
 			sim.FrostFever.Apply(T)
 		End If
-		TryGreatness()
-		TryDeathChoice()
-		TryDCDeath()
+		TryOnSpellHit
 		return true
 	End Function
 	overrides Function AvrgNonCrit(T As long) As Double
 		
 		Dim tmp As Double
 		tmp = 585
-		tmp = tmp + (0.2 * (1 + 0.04 * TalentUnholy.Impurity) * MainStat.AP)
+		tmp = tmp + (0.2 * (1 + 0.04 * TalentUnholy.Impurity) * sim.MainStat.AP)
 		tmp = tmp * (1 + TalentFrost.BlackIce * 2 / 100)
 		if sim.NumDesease > 0 then 	tmp = tmp * (1 + TalentFrost.GlacierRot * 6.6666666 / 100)
-		tmp = tmp * MainStat.StandardMagicalDamageMultiplier(T)
+		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		If (T/sim.MaxTime) >= 0.75 Then tmp = tmp *(1+ 0.06*talentfrost.MercilessCombat)
-		if MHRazorice or (OHRazorice and mainstat.DualW)  then tmp = tmp *1.10
-		if CinderglacierProc > 0 then
+		if sim.RuneForge.MHRazorice or (sim.RuneForge.OHRazorice and sim.mainstat.DualW)  then tmp = tmp *1.10
+		if sim.runeforge.CinderglacierProc > 0 then
 			tmp = tmp * 1.2
-			CinderglacierProc = CinderglacierProc -1
+			sim.runeforge.CinderglacierProc = sim.runeforge.CinderglacierProc -1
 		end if
 		AvrgNonCrit = tmp
 	End Function
 	overrides Function CritCoef() As Double
 		CritCoef = 1 * (1 + Talentfrost.GuileOfGorefiend * 0.5 * 15 / 100) 'GoG works off the 1.5 spell crit modifier or something like that
-		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
+		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
 	overrides Function CritChance() As Double
-		CritChance = MainStat.SpellCrit
-		If proc.KillingMachine  = True Then
+		CritChance = sim.MainStat.SpellCrit
+		If sim.proc.KillingMachine  = True Then
 			Return 1
 		Else
 			If sim.DeathChill.IsAvailable(sim.TimeStamp) Then

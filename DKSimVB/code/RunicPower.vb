@@ -1,6 +1,9 @@
-Friend module RunicPower
-	
+Friend Class RunicPower
 	Friend Value As Integer
+	Sub New 
+		Value = 0
+	End Sub
+	
 	
 	Sub add(i As Integer)
 		Threat = Threat  + i*5
@@ -14,4 +17,4 @@ Friend module RunicPower
 	End Function
 	
 	
-end module
+end Class

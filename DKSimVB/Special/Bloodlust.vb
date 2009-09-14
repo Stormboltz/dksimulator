@@ -6,18 +6,18 @@
 ' 
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
-Public Module Bloodlust
+Public Class Bloodlust
 	
 	Friend Cd as Long
 	Private ActiveUntil As Long
 	
-	Sub init()
+	Sub new()
 		cd = 0
 		ActiveUntil= 0
 	End Sub
 	
 	Function IsAvailable(T As Long) As Boolean
-		if buff.Bloodlust = 0 then return false
+		if  sim.Buff.Bloodlust = 0 then return false
 		if CD <= T then return true
 	End Function
 
@@ -29,4 +29,4 @@ Public Module Bloodlust
 		CD = T + 10*60*100
 		ActiveUntil = T + 4000
 	End Sub
-End Module
+End Class

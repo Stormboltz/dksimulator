@@ -18,7 +18,7 @@ Friend Class UnbreakableArmor
 		If T <= cd Then
 			return false
 		End If
-		If sim.BloodTap.IsAvailable(T) and Runes.Frost(T)=false Then
+		If sim.BloodTap.IsAvailable(T) and sim.Runes.Frost(T)=false Then
 			return true
 		End If
 	End Function
@@ -27,7 +27,7 @@ Friend Class UnbreakableArmor
 		sim.BloodTap.Use(T)
 		'UseUnholy(T,false)
 		ActiveUntil= T + 20 * 100
-		If MainStat.UnholyPresence Then
+		If sim.MainStat.UnholyPresence Then
 			Sim.NextFreeGCD = T + 100 + sim._MainFrm.txtLatency.Text/10
 		Else
 			Sim.NextFreeGCD = T + 150 + sim._MainFrm.txtLatency.Text/10

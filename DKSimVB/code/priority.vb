@@ -6,24 +6,29 @@
 ' 
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Friend Module priority
-	Friend prio as New Collection
+Friend Class priority
+	Friend prio As New Collection
+	Private runes as runes
+	Sub New
+		Runes = sim.Runes
+	End Sub
+	
 	sub DoNext(TimeStamp As long )
 		Dim HighestPrio As Integer
 		HighestPrio = 1
 		
-		For Each item as String In priority.prio
+		For Each item as String In prio
 			Select Case item
 				Case "BloodTap"
-					If sim.BloodTap.IsAvailable(Timestamp) and rune1.death = false and rune2.death = false    Then
+					If sim.BloodTap.IsAvailable(Timestamp) and sim.rune1.death = false and sim.rune2.death = false    Then
 						sim.BloodTap.Use(Timestamp)
 						'debug.Print("BT")
 					End If
 					
 					
 				Case "GhoulFrenzy"
-					if ghoul.IsFrenzyAvailable(Timestamp) and CanUseGCD(Timestamp)  Then
-						ghoul.Frenzy(Timestamp)
+					if sim.ghoul.IsFrenzyAvailable(Timestamp) and CanUseGCD(Timestamp)  Then
+						sim.ghoul.Frenzy(Timestamp)
 						exit sub
 					end if
 					
@@ -53,7 +58,7 @@ Friend Module priority
 					End If
 					
 				Case "KMFrostStrike"
-					If sim.FrostStrike.isAvailable(TimeStamp) = True and proc.KillingMachine and CanUseGCD(Timestamp)  Then
+					If sim.FrostStrike.isAvailable(TimeStamp) = True and sim.proc.KillingMachine and CanUseGCD(Timestamp)  Then
 						sim.FrostStrike.ApplyDamage(TimeStamp)
 						'debug.Print("FS")
 						exit sub
@@ -66,7 +71,7 @@ Friend Module priority
 					End If
 					
 				Case "FrostStrikeMaxRp"
-					If RunicPower.MaxValue = RunicPower.Value and CanUseGCD(Timestamp)  Then
+					If Sim.RunicPower.MaxValue = Sim.RunicPower.Value and CanUseGCD(Timestamp)  Then
 						sim.FrostStrike.ApplyDamage(TimeStamp)
 						'debug.Print("FS")
 						exit sub
@@ -97,19 +102,19 @@ Friend Module priority
 						exit sub
 					End If
 				Case "Rime"
-					If proc.rime and sim.HowlingBlast.isAvailable(TimeStamp) and CanUseGCD(Timestamp) Then
+					If sim.proc.rime and sim.HowlingBlast.isAvailable(TimeStamp) and CanUseGCD(Timestamp) Then
 						sim.HowlingBlast.ApplyDamage(TimeStamp)
 						exit sub
 					End If
 				Case "FrostFever"
-					If glyph.Disease Then
+					If sim.glyph.Disease Then
 						if sim.Pestilence.PerfectUsage(TimeStamp) then
 							sim.Pestilence.use(TimeStamp)
 							Exit Sub
 						Else
 							If sim.FrostFever.isActive(TimeStamp) = False or sim.pestilence.FFToReapply Then
-								If talentfrost.HowlingBlast = 1 And glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp)  Then
-									If proc.rime Or runes.FU(TimeStamp) Then
+								If talentfrost.HowlingBlast = 1 And sim.glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp)  Then
+									If sim.proc.rime Or runes.FU(TimeStamp) Then
 										sim.HowlingBlast.ApplyDamage(TimeStamp)
 										exit sub
 									End If
@@ -122,8 +127,8 @@ Friend Module priority
 						End If
 					Else
 						If sim.FrostFever.PerfectUsage(TimeStamp) = true Then
-							If talentfrost.HowlingBlast = 1 And glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp)  Then
-								If proc.rime Or runes.FU(TimeStamp) Then
+							If talentfrost.HowlingBlast = 1 And sim.glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp)  Then
+								If sim.proc.rime Or runes.FU(TimeStamp) Then
 									sim.HowlingBlast.ApplyDamage(TimeStamp)
 									exit sub
 								End If
@@ -137,7 +142,7 @@ Friend Module priority
 					
 					
 				Case "BloodPlague"
-					If glyph.Disease Then
+					If sim.glyph.Disease Then
 						if sim.Pestilence.PerfectUsage(TimeStamp)  then
 							sim.Pestilence.use(TimeStamp)
 							Exit Sub
@@ -167,7 +172,7 @@ Friend Module priority
 					End If
 					
 				Case "DeathCoilMaxRp"
-					If RunicPower.MaxValue = RunicPower.Value and CanUseGCD(Timestamp) Then
+					If Sim.RunicPower.MaxValue = Sim.RunicPower.Value and CanUseGCD(Timestamp) Then
 						sim.deathcoil.ApplyDamage(TimeStamp,False)
 						'debug.Print("DC")
 						exit sub
@@ -187,7 +192,7 @@ Friend Module priority
 					
 				Case "HowlingBlast"
 					If sim.HowlingBlast.isAvailable(TimeStamp) Then
-						If proc.rime Or runes.FU(TimeStamp) and CanUseGCD(Timestamp)  Then
+						If sim.proc.rime Or runes.FU(TimeStamp) and CanUseGCD(Timestamp)  Then
 							sim.HowlingBlast.ApplyDamage(TimeStamp)
 							runes.UnReserveFU(TimeStamp)
 							Exit Sub
@@ -197,8 +202,8 @@ Friend Module priority
 					Else
 					End If
 				Case "KMHowlingBlast"
-					If sim.HowlingBlast.isAvailable(TimeStamp) and proc.KillingMachine Then
-						If proc.rime Or runes.FU(TimeStamp) and CanUseGCD(Timestamp) Then
+					If sim.HowlingBlast.isAvailable(TimeStamp) and sim.proc.KillingMachine Then
+						If sim.proc.rime Or runes.FU(TimeStamp) and CanUseGCD(Timestamp) Then
 							sim.HowlingBlast.ApplyDamage(TimeStamp)
 							runes.UnReserveFU(TimeStamp)
 							Exit Sub
@@ -208,7 +213,7 @@ Friend Module priority
 					Else
 					End If
 				Case "KMRime"
-					If Proc.Rime and proc.KillingMachine and CanUseGCD(Timestamp)  Then
+					If sim.proc.Rime and sim.proc.KillingMachine and CanUseGCD(Timestamp)  Then
 						sim.HowlingBlast.ApplyDamage(TimeStamp)
 					Else
 					End If
@@ -223,4 +228,4 @@ Friend Module priority
 	End sub
 	
 	
-End Module
+End Class

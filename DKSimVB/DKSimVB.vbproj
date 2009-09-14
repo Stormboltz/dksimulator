@@ -57,6 +57,7 @@
     <Compile Include="code\Buff.vb" />
     <Compile Include="code\CombatLog.vb" />
     <Compile Include="code\GhoulStat.vb" />
+    <Compile Include="code\GlobalFunction.vb" />
     <Compile Include="code\glyph.vb" />
     <Compile Include="code\priority.vb" />
     <Compile Include="code\Proc.vb" />

@@ -19,26 +19,26 @@ Friend Class MainHand
 		Dim MeleeParryChance As Single
 		Dim ChanceNotToTouch As Single
 		
-		WSpeed = MainStat.MHWeaponSpeed
-		NextWhiteMainHit = T + (WSpeed * 100) / ((1 + MainStat.Haste))
+		WSpeed = sim.MainStat.MHWeaponSpeed
+		NextWhiteMainHit = T + (WSpeed * 100) / ((1 + sim.MainStat.Haste))
 		
-		If MainStat.FrostPresence = 1 Then
-			If RunicPower.Value >= 20 Then
-				RuneStrike.ApplyDamage(T)
+		If sim.MainStat.FrostPresence = 1 Then
+			If Sim.RunicPower.Value >= 20 Then
+				sim.RuneStrike.ApplyDamage(T)
 				return true
 			End If
 		End If
 		
 		Dim RNG As Double
-		RNG = RNGWhiteHit
+		RNG = sim.RandomNumberGenerator.RNGWhiteHit
 		MeleeGlacingChance = 0.25
 		MeleeDodgeChance = 0.065
-		If mainstat.FrostPresence =1 Then
+		If sim.mainstat.FrostPresence =1 Then
 			MeleeParryChance = 0.14
 		Else
 			MeleeParryChance = 0
 		End If
-		If mainstat.DualW Then
+		If sim.mainstat.DualW Then
 			MeleeMissChance = 0.27
 		Else
 			MeleeMissChance = 0.08
@@ -47,7 +47,7 @@ Friend Class MainHand
 		ChanceNotToTouch = MeleeMissChance + MeleeDodgeChance  + MeleeParryChance
 		
 		
-		If math.Min(mainstat.Expertise,MeleeDodgeChance)+ math.Min(mainstat.Expertise,MeleeParryChance) + math.Min (mainstat.Hit,MeleeMissChance) + RNG < ChanceNotToTouch Then
+		If math.Min(sim.mainstat.Expertise,MeleeDodgeChance)+ math.Min(sim.mainstat.Expertise,MeleeParryChance) + math.Min (sim.mainstat.Hit,MeleeMissChance) + RNG < ChanceNotToTouch Then
 			MissCount = MissCount + 1
 			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "MH fail")
 			exit function
@@ -64,10 +64,7 @@ Friend Class MainHand
 			dégat = AvrgCrit(T)
 			CritCount = CritCount + 1
 			If combatlog.LogDetails Then combatlog.write(T  & vbtab &  "MH crit for " & dégat )
-			TryBitterAnguish()
-			TryMirror()
-			TryPyrite()
-			TryOldGod()
+			sim.tryOnCrit
 		End If
 		If RNG >= (ChanceNotToTouch + MeleeGlacingChance + CritChance) Then
 			'normal hit3
@@ -79,32 +76,24 @@ Friend Class MainHand
 		If Lissage Then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance-MeleeGlacingChance) + AvrgNonCrit(T)* (MeleeGlacingChance)*0.7
 		total = total + dégat
 		
-		proc.TryMHKillingMachine
 		
 		
 		
-		If MHRazorice Then applyRazorice()
+		
+		If sim.runeforge.MHRazorice Then sim.runeforge.applyRazorice()
 		If TalentUnholy.Necrosis > 0 Then
 			Nec = sim.Necrosis.Apply(dégat, T)
 		End If
-		RNG = RNGWhiteHit * 100
+		RNG = sim.RandomNumberGenerator.RNGWhiteHit * 100
 		If RNG <= 10 * TalentUnholy.BloodCakedBlade Then
 			BCB = sim.BloodCakedBlade.ApplyDamage(T,true)
 		End If
-		TryMHCinderglacier
-		TryMHFallenCrusader
-		TryMjolRune
-		TryGrimToll
-		TryGreatness()
-		TryDeathChoice()
-		TryDCDeath()
-		TryVictory()
-		TryBandit()
-		TryDarkMatter()
-		TryComet()
-		If proc.ScentOfBloodProc > 0 Then
-			proc.ScentOfBloodProc  = proc.ScentOfBloodProc  -1
-			RunicPower.add(5)
+		sim.TryOnMHHitProc
+		sim.proc.TryMHKillingMachine
+		
+		If sim.proc.ScentOfBloodProc > 0 Then
+			sim.proc.ScentOfBloodProc  = sim.proc.ScentOfBloodProc  -1
+			Sim.RunicPower.add(5)
 		End If
 		
 		
@@ -112,16 +101,16 @@ Friend Class MainHand
 	End Function
 	Overrides Function AvrgNonCrit(T As long) As Double
 		Dim tmp As Double
-		tmp = MainStat.MHBaseDamage
-		tmp = tmp * MainStat.WhiteHitDamageMultiplier(T)
+		tmp = sim.MainStat.MHBaseDamage
+		tmp = tmp * sim.MainStat.WhiteHitDamageMultiplier(T)
 		AvrgNonCrit = tmp
 	End Function
 	Overrides Function CritCoef() As Double
-		CritCoef = 1* (1+0.06*mainstat.CSD)
+		CritCoef = 1* (1+0.06*sim.mainstat.CSD)
 		
 	End Function
 	Overrides Function CritChance() As Double
-		CritChance = MainStat.critAutoattack
+		CritChance = sim.MainStat.critAutoattack
 	End Function
 	Overrides Function AvrgCrit(T As long) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)

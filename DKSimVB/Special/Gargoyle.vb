@@ -1,4 +1,4 @@
-Friend module Gargoyle
+Friend Class Gargoyle
 	Friend NextGargoyleStrike As Long
 	Friend total As Long
 	Friend ActiveUntil As Long
@@ -12,7 +12,7 @@ Friend module Gargoyle
 	Friend TotalHit As Long
 	Friend TotalCrit as Long
 
-	Sub init()
+	Sub New()
 		total = 0
 		MissCount = 0
 		HitCount = 0
@@ -24,19 +24,19 @@ Friend module Gargoyle
 	End Sub
 	
 Sub Summon(T As Long)
-	If AreStarsAligned(T) = False Then
+	If sim.runeforge.AreStarsAligned(T) = False Then
  		exit sub
  	End If
 	
-	SpellHaste = MainStat.SpellHaste
-	AP = MainStat.AP
+	SpellHaste = sim.MainStat.SpellHaste
+	AP = sim.MainStat.AP
 	If cd <= T Then
-		RunicPower.Value = RunicPower.Value - 60
-		combatlog.write(T  & vbtab &  "Gargoyle use" & vbtab & "RP left = " & RunicPower.Value )
+		Sim.RunicPower.Value = Sim.RunicPower.Value - 60
+		combatlog.write(T  & vbtab &  "Gargoyle use" & vbtab & "RP left = " & Sim.RunicPower.Value )
 		cd = T + 3 * 60 * 100
 		ActiveUntil = T + 30 * 100
-		SpellHit = MainStat.SpellHit
-		Sim.NextFreeGCD = T + (150 / (1 + mainstat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
+		SpellHit = sim.MainStat.SpellHit
+		Sim.NextFreeGCD = T + (150 / (1 + sim.mainstat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
 		NextGargoyleStrike = T
 		combatlog.write(T  & vbtab &  "Summon Gargoyle")
 	End If
@@ -48,7 +48,7 @@ Function ApplyDamage(T As long) As boolean
 	'Debug.Print( (2 * 100) / (1 + SpellHaste) )
 	Dim RNG As Double
 	
-	RNG = RNGPet
+	RNG = sim.RandomNumberGenerator.RNGPet
 	If SpellHit >= 0.17 Then
 		RNG = RNG+0.17
 	Else
@@ -60,7 +60,7 @@ Function ApplyDamage(T As long) As boolean
 		Exit function
 	End If
 	
-	RNG = RNGPet
+	RNG = sim.RandomNumberGenerator.RNGPet
 	dim dégat as Integer
 	If RNG <= CritChance Then
 		dégat = AvrgCrit(T)
@@ -97,15 +97,15 @@ End Function
 Function MagicalDamageMultiplier(T as long) As Double
 	Dim tmp As Double
 	tmp = 1
-	tmp = tmp * (1 + 0.03 * Buff.PcDamage)
-	tmp = tmp * (1 + 0.13 * Buff.SpellDamageTaken)
+	tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
+	tmp = tmp * (1 + 0.13 *  sim.Buff.SpellDamageTaken)
 	return tmp
 End Function
 Function SpellCrit() As Single
 	Dim tmp As Double
-	tmp = tmp + 3 * Buff.CritChanceTaken
-	tmp = tmp + 5 * Buff.SpellCrit
-	tmp = tmp + 5 * Buff.SpellCritTaken
+	tmp = tmp + 3 *  sim.Buff.CritChanceTaken
+	tmp = tmp + 5 *  sim.Buff.SpellCrit
+	tmp = tmp + 5 *  sim.Buff.SpellCritTaken
 	SpellCrit = tmp / 100
 End Function
 
@@ -127,4 +127,4 @@ Function report As String
 	tmp = tmp & vbCrLf
 	return tmp
 End Function
-end module
+end Class 

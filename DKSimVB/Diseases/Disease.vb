@@ -56,22 +56,22 @@ Public Class Disease
 	Function ApplyDamage(T As long) As boolean
 		Dim tmp As Double
 		HitCount = HitCount + 1
-		If setbonus.T94PDPS =1 Then
+		If sim.MainStat.T94PDPS =1 Then
 			tmp =  AvrgCrit(T)*CritChance + DamageTick*(1-CritChance )
 		Else
 			tmp = DamageTick
 		End If
 		total = total + tmp
 		If TalentUnholy.WanderingPlague > 0 Then
-			If WanderingPlague.isAvailable(T) = True Then
+			If Sim.WanderingPlague.isAvailable(T) = True Then
 				Dim RNG As Double
-				RNG = RNGStrike
-				If RNG <= MainStat.crit Then
-					WanderingPlague.ApplyDamage(tmp, T)
+				RNG = sim.RandomNumberGenerator.RNGStrike
+				If RNG <= sim.MainStat.crit Then
+					Sim.WanderingPlague.ApplyDamage(tmp, T)
 				End If
 			End If
 		End If
-		TryNecromantic()
+		Sim.Trinket.TryNecromantic()
 		nextTick = T + 300
 		If combatlog.LogDetails Then combatlog.write(T  & vbtab & me.ToString & " hit for " & tmp )
 		return true
@@ -83,10 +83,10 @@ Public Class Disease
 	
 	
 	Overridable Function CritCoef() As Double
-		return CritCoef * (1+0.06*mainstat.CSD)
+		return CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
 	Overridable Function CritChance() As Double
-		return MainStat.crit
+		return sim.MainStat.crit
 	End Function
 	Overridable Function AvrgCrit(T As long) As Double
 		return DamageTick * (1 + CritCoef)

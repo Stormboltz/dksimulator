@@ -6,7 +6,7 @@
 '
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Friend Module RuneForge
+Friend Class RuneForge
 	
 	Friend MHCinderglacier as Boolean
 	Friend MHRazorice as Boolean
@@ -28,7 +28,7 @@ Friend Module RuneForge
 	Friend OHBerserkingActiveUntil As Long
 	Friend OHBerserking as Boolean
 	
-	Sub init
+	Sub New()
 		HitCount = 0
 		MissCount =0
 		CritCount = 0
@@ -37,12 +37,11 @@ Friend Module RuneForge
 		RazoriceProc = 0
 		RazoriceTotal = 0
 		OHBerserkingActiveUntil = 0
-		
 	End Sub
 	
 	Function applyRazorice() as Boolean
 		Dim tmp As Double
-		tmp = MainStat.MHWeaponDPS * MainStat.MHWeaponSpeed
+		tmp = sim.MainStat.MHWeaponDPS * sim.MainStat.MHWeaponSpeed
 		tmp  = tmp * 0.02
 '		tmp  = tmp  * mainstat.StandardMagicalDamageMultiplier(sim.TimeStamp)
 '		tmp = tmp * (1 + TalentFrost.BlackIce * 2 / 100)
@@ -54,25 +53,25 @@ Friend Module RuneForge
 	
 	Sub TryMHFallenCrusader()
 		If MHFallenCrusader Then
-			If RNGProc < 2*MainStat.MHWeaponSpeed/60 Then
+			If sim.RandomNumberGenerator.RNGProc < 2*sim.MainStat.MHWeaponSpeed/60 Then
 				FallenCrusaderActiveUntil = sim.TimeStamp + 15 * 100
-				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Fallen Crusader proc on Main hand")
+				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Fallen Crusader sim.proc on Main hand")
 			End If
 		End If
 	End Sub
 	Sub TryOHFallenCrusader()
 		If OHFallenCrusader Then
-			If RNGProc < 2*MainStat.OHWeaponSpeed/60 Then
+			If sim.RandomNumberGenerator.RNGProc < 2*sim.MainStat.OHWeaponSpeed/60 Then
 				FallenCrusaderActiveUntil = sim.TimeStamp + 15 * 100
-				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Fallen Crusader proc on Off hand")
+				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Fallen Crusader sim.proc on Off hand")
 			End If
 		End If
 	End Sub
 	Sub TryOHBerserking()
 		If OHBerserking Then
-			If RNGProc < 1.2*MainStat.OHWeaponSpeed/60 Then
+			If sim.RandomNumberGenerator.RNGProc < 1.2*sim.MainStat.OHWeaponSpeed/60 Then
 				OHBerserkingActiveUntil = sim.TimeStamp + 15 * 100
-				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Berserking proc on Off hand")
+				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Berserking sim.proc on Off hand")
 			End If
 		End If
 	End Sub
@@ -86,17 +85,17 @@ Friend Module RuneForge
 	Sub TryMHCinderglacier()
 		if MHCinderglacier then
 			
-			If RNGProc < 1*MainStat.MHWeaponSpeed/60 Then
+			If sim.RandomNumberGenerator.RNGProc < 1*sim.MainStat.MHWeaponSpeed/60 Then
 				CinderglacierProc = 2
-				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Cinderglacier proc on Main hand")
+				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Cinderglacier sim.proc on Main hand")
 			End If
 		end if
 	End Sub
 	Sub TryOHCinderglacier()
 		if OHCinderglacier then
-			If RNGProc < 1*MainStat.OHWeaponSpeed/60 Then
+			If sim.RandomNumberGenerator.RNGProc < 1*sim.MainStat.OHWeaponSpeed/60 Then
 				CinderglacierProc = 2
-				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Cinderglacier proc on Off hand")
+				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Cinderglacier sim.proc on Off hand")
 			End If
 		end if
 	End Sub
@@ -122,10 +121,10 @@ Friend Module RuneForge
 	
 	Function AreStarsAligned(T As Long) As Boolean
 		If sim._MainFrm.chkWaitFC.Checked = False Then Return True
-		If RuneForge.FallenCrusaderProc = 1 Then Return True
-		If RuneForge.MHFallenCrusader or (MainStat.DualW and RuneForge.OHFallenCrusader) Then
+		If Sim.RuneForge.FallenCrusaderProc = 1 Then Return True
+		If Sim.RuneForge.MHFallenCrusader or (sim.MainStat.DualW and Sim.RuneForge.OHFallenCrusader) Then
 			return false
 		End If
 		return true
 	End Function
-End Module
+End Class

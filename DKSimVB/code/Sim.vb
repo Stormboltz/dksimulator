@@ -26,7 +26,22 @@ Friend Module Sim
 	Private InterruptTimer As Long
 	Private InterruptAmount As Integer
 	Private InterruptCd As Integer
-	Friend KeepRNGSeed as Boolean
+	Friend KeepRNGSeed As Boolean
+	
+	Friend RandomNumberGenerator as RandomNumberGenerator
+	
+	Friend Runes as runes
+	Friend Rune1 As Rune1
+	Friend Rune2 As Rune2
+	Friend Rune3 As Rune3
+	Friend Rune4 As Rune4
+	Friend Rune5 As Rune5
+	Friend Rune6 as Rune6
+	
+	Friend RunicPower As RunicPower
+	Friend Character as Character
+	Friend MainStat as MainStat
+	Friend Sigils as Sigils
 	
 	
 	'Strike Creation
@@ -40,6 +55,9 @@ Friend Module Sim
 	Friend ScourgeStrike As ScourgeStrike
 	Friend MainHand as MainHand
 	Friend OffHand As OffHand
+	Friend RuneStrike As RuneStrike
+	Friend GhoulStat  As GhoulStat
+	Friend Ghoul as Ghoul
 	
 	'Spell Creation
 	Friend BloodBoil As BloodBoil
@@ -50,19 +68,32 @@ Friend Module Sim
 	Friend Desolation as Desolation
 	Friend Horn As Horn
 	Friend HowlingBlast As HowlingBlast
-	Friend Hysteria  as Hysteria 
+	Friend Hysteria  as Hysteria
 	Friend IcyTouch As IcyTouch
 	Friend Necrosis As Necrosis
 	Friend DeathCoil as DeathCoil
 	Friend Pestilence as Pestilence
 	Friend UnbreakableArmor as UnbreakableArmor
 	Friend UnholyBlight as UnholyBlight
+	Friend Bloodlust as Bloodlust
+	Friend DRW As DRW
+	Friend WanderingPlague as WanderingPlague
+	Friend Gargoyle as Gargoyle
 	
 	
 	'Disease Creation
 	Friend BloodPlague as BloodPlague
 	Friend FrostFever as FrostFever
 	
+	Friend proc As proc
+	Friend Buff As buff
+	Friend Glyph As Glyph
+	
+	Friend Priority As Priority
+	Friend Rotation as Rotation
+	Friend RuneForge As RuneForge
+	
+	Friend Trinket as Trinket
 	
 	Function NumDesease() As Integer
 		NumDesease = 0
@@ -88,7 +119,7 @@ Friend Module Sim
 		doc.Load("EPconfig.xml")
 		
 		Dim XmlDoc As New Xml.XmlDocument
-		XmlDoc.Load(_MainFrm.GetFilePath(_MainFrm.cmbCharacter.Text) )
+		XmlDoc.Load(GetFilePath(_MainFrm.cmbCharacter.Text) )
 		
 		'Fixed EP base value for now
 		EPBase = 50
@@ -448,7 +479,7 @@ Friend Module Sim
 	
 	Sub Start(pb As ProgressBar,SimTime As double, MainFrm As MainForm)
 		Rnd(-1) 'Tell VB to initialize using Randomize's parameter
-		RandomNumberGenerator.Init 'init here, so that we don't get the same rng numbers for short fights.
+		RandomNumberGenerator = new RandomNumberGenerator 'init here, so that we don't get the same rng numbers for short fights.
 		
 		_MainFrm = MainFrm
 		'combatlog.LogDetails = true
@@ -475,14 +506,14 @@ Friend Module Sim
 			Initialisation
 			TimeStamp = 1
 			
-			If Rotate Then loadRotation
+			If Rotate Then Rotation.loadRotation
 			
 			Do Until TimeStamp > MaxTime
 				Timestamp = FastFoward(Timestamp)
 				
 				If MainStat.FrostPresence = 1 Then
 					If TalentBlood.ScentOfBlood > 0 Then
-						If proc.ScentOfBloodCD < TimeStamp Then
+						If sim.proc.ScentOfBloodCD < TimeStamp Then
 							proc.GetUseScentOfBlood(TimeStamp)
 						End If
 					End If
@@ -534,9 +565,9 @@ Friend Module Sim
 					
 					If Sim.isInGCD(TimeStamp) = False Then
 						if Rotate then
-							DoRoration(TimeStamp)
+							Rotation.DoRoration(TimeStamp)
 						else
-							Priority.DoNext (TimeStamp)
+							sim.Priority.DoNext (TimeStamp)
 						End If
 					End If
 					
@@ -595,13 +626,13 @@ Friend Module Sim
 						WanderingPlague.total +FrostStrike.total  +HowlingBlast.total + _
 						BloodBoil.total  + DeathStrike.total + MainHand.total + _
 						OffHand.total  + Ghoul.total + Gargoyle.total + DRW.total + _
-						RazoriceTotal + DeathandDecay.total + RuneStrike.total  + trinket.Total
+						sim.RuneForge.RazoriceTotal + DeathandDecay.total + RuneStrike.total  + trinket.Total
 					_MainFrm.lblDPS.Text = todecimal(100 * TotalDamage /TimeStamp) & " DPS"
-					If TimeStamp <= pb.Maximum Then pb.Value = TimeStamp Else pb.Value = pb.Maximum
+				If TimeStamp <= pb.Maximum Then pb.Value = TimeStamp Else pb.Value = pb.Maximum
 				ElseIf ShowDpsTimer <= TimeStamp Then
 					ShowDpsTimer = TimeStamp + 0.1 * 60 * 60 * 100
 					_MainFrm.lblDPS.Text = "n/a"
-					If TimeStampCounter <= pb.Maximum Then pb.Value = TimeStampCounter Else pb.Value = pb.Maximum
+				If TimeStampCounter <= pb.Maximum Then pb.Value = TimeStampCounter Else pb.Value = pb.Maximum
 				End If
 			Loop
 			
@@ -612,7 +643,7 @@ Friend Module Sim
 				WanderingPlague.total +FrostStrike.total  +HowlingBlast.total + _
 				BloodBoil.total  + DeathStrike.total + MainHand.total + _
 				OffHand.total  + Ghoul.total + Gargoyle.total + DRW.total + _
-				RazoriceTotal + DeathandDecay.total + RuneStrike.total + trinket.Total
+				sim.RuneForge.RazoriceTotal + DeathandDecay.total + RuneStrike.total + trinket.Total
 			
 			TotalDamageAlternative = TotalDamageAlternative + TotalDamage
 			TimeStampCounter = TimeStampCounter + TimeStamp
@@ -644,7 +675,7 @@ Friend Module Sim
 	
 	Function CanUseGCD(T As Long) As Boolean
 		CanUseGCD=true
-		If glyph.Disease Then 
+		If glyph.Disease Then
 			dim tGDC as long
 			'return false
 			If MainStat.UnholyPresence Then
@@ -653,7 +684,7 @@ Friend Module Sim
 				tGDC =  150+ sim._MainFrm.txtLatency.Text/10 + 50
 			End If
 			
-			If math.Min(sim.BloodPlague.FadeAt,sim.FrostFever.FadeAt) < (T +  tGDC) Then 
+			If math.Min(sim.BloodPlague.FadeAt,sim.FrostFever.FadeAt) < (T +  tGDC) Then
 				'debug.Print (RuneState & "time left on disease= " & (math.Min(BloodPlague.FadeAt,FrostFever.FadeAt) -T)/100 & "s" & " - " & T/100)
 				return false
 			End If
@@ -731,12 +762,12 @@ Friend Module Sim
 		talentunholy.Desecration = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Desecration").InnerText)
 		talentunholy.Desolation = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Desolation").InnerText)
 		
-		Glyph.init(file)
+		Glyph = new glyph(file)
 	End Sub
 	
 	Function DoMyStrikeHit As Boolean
 		Dim RNG As Double
-		RNG = RNGStrike
+		RNG = RandomNumberGenerator.RNGStrike
 		If MainStat.FrostPresence = 1 Then
 			If math.Min(mainstat.Expertise,0.065)+ math.Min(mainstat.Expertise,0.14) + math.Min (mainstat.Hit,0.08) + RNG < 0.285 Then
 				Return False
@@ -755,7 +786,7 @@ Friend Module Sim
 	
 	Function DoMySpellHit As Boolean
 		Dim RNG As Double
-		RNG = RNGStrike
+		RNG = RandomNumberGenerator.RNGStrike
 		If math.Min(mainstat.SpellHit,0.17) + RNG < 0.17 Then
 			Return False
 		Else
@@ -769,32 +800,54 @@ Friend Module Sim
 	
 	Sub Initialisation()
 		'RandomNumberGenerator.Init 'done in Start
-		CombatLog.Init
-		Buff.FullBuff
+
+		Buff = New Buff
+		'Keep this order for RuneX -> Runse -> Rotation/Prio
+		Rune1 = New Rune1
+		Rune2 = New Rune2
+		Rune3 = New Rune3
+		Rune4 = New Rune4
+		Rune5 = New Rune5
+		Rune6 = new Rune6
+		Runes = New runes
 		
-		'Buff.UnBuff
-		BloodPlague = new BloodPlague 
+		RunicPower = New RunicPower
+
+		Rotation = new Rotation
+		Priority = New Priority
+		Character = new Character
+		MainStat = new MainStat
+		' sim.Buff.UnBuff
+		BloodPlague = new BloodPlague
 		FrostFever = New FrostFever
 		
 		UnholyBlight = New UnholyBlight
-		WanderingPlague.init
-		
+	
 		BloodTap = new BloodTap
-		HowlingBlast = new HowlingBlast
-		GhoulStat.init
+		HowlingBlast = New HowlingBlast
+		Ghoul = new Ghoul
+		GhoulStat = New GhoulStat
 		Hysteria = new Hysteria
 		DeathChill = new DeathChill
 		Desolation = new Desolation
 		UnbreakableArmor = new UnbreakableArmor
-		RuneForge.init
+		RuneForge = new RuneForge
 		Butchery = new Butchery
-		DRW.init
-		RuneStrike.init
+		DRW = new DRW
+		RuneStrike = New RuneStrike
+		
+		
+		Sigils = new Sigils
+		
+		LoadConfig
+		
+		
+		
+		
 		
 		RunicPower.Value = 0
-		runes.Init
 		
-		MainStat.init
+	
 		NextFreeGCD = 0
 		TotalDamage = 0
 		Threat = 0
@@ -802,31 +855,25 @@ Friend Module Sim
 		Obliterate = new Obliterate
 		PlagueStrike= new PlagueStrike
 		BloodStrike = New BloodStrike
-		MainHand = New MainHand 
+		MainHand = New MainHand
 		OffHand = New OffHand
-		
-		
-		DeathCoil = new DeathCoil 
+		DeathCoil = new DeathCoil
 		IcyTouch = new IcyTouch
-		
-		
-
-		
 		Necrosis = new Necrosis
-		
-		WanderingPlague.init
+		WanderingPlague = new WanderingPlague
 		FrostStrike = New FrostStrike
 		BloodCakedBlade = New BloodCakedBlade
 		DeathStrike = New DeathStrike
-
 		BloodBoil = new BloodBoil
 		HeartStrike = new HeartStrike
 		DeathandDecay = new DeathandDecay
-		Ghoul.init
-		Gargoyle.init
+		Gargoyle = new Gargoyle
 		Horn = new Horn
+		Bloodlust= new Bloodlust
+		Pestilence = new Pestilence
+		proc = New proc
 		
-		Bloodlust.init
+		
 		
 		AMSCd = _MainFrm.txtAMScd.text * 100
 		AMSTimer = _MainFrm.txtAMScd.text * 100
@@ -836,14 +883,119 @@ Friend Module Sim
 		InterruptTimer = _MainFrm.txtInterruptCd.text * 100
 		InterruptAmount = _MainFrm.txtInterruptAmount.text
 		
-		Pestilence = new Pestilence
-		proc.init
-		trinket.init
-		Character.init
-		GhoulStat.init
+		
+		
+		
+		
+		
 		
 		ShowDpsTimer = 1
 	End Sub
+	
+	Sub LoadConfig
+		Dim doc As xml.XmlDocument = New xml.XmlDocument
+		on error goto errH
+		doc.Load("config.xml")
+		loadtemplate (GetFilePath(doc.SelectSingleNode("//config/template").InnerText))
+
+		If sim.rotate Then
+			sim.rotationPath = GetFilePath( doc.SelectSingleNode("//config/rotation").InnerText)
+		Else
+			sim.loadPriority (GetFilePath(doc.SelectSingleNode("//config/priority").InnerText))
+		End If
+'		cmbCharacter.SelectedItem = doc.SelectSingleNode("//config/Character").InnerText
+
+		Dim Sigil As String
+		Sigil = doc.SelectSingleNode("//config/sigil").InnerText
+		Sigils.WildBuck = false
+		Sigils.FrozenConscience = false
+		Sigils.DarkRider = false
+		Sigils.ArthriticBinding = false
+		Sigils.Awareness = false
+		Sigils.Strife = false
+		Sigils.HauntedDreams = false
+		sigils.VengefulHeart = False
+		sigils.Virulence = false
+		select case Sigil
+			case "WildBuck"
+				Sigils.WildBuck = true
+			case "FrozenConscience"
+				Sigils.FrozenConscience =true
+			case "DarkRider"
+				Sigils.DarkRider = true
+			case "ArthriticBinding"
+				Sigils.ArthriticBinding = true
+			case "Awareness"
+				Sigils.Awareness = true
+			case "Strife"
+				Sigils.Strife = true
+			case "HauntedDreams"
+				Sigils.HauntedDreams = True
+			Case "VengefulHeart"
+				sigils.VengefulHeart = True
+			Case "Virulence"
+				sigils.Virulence = true
+		end select
+
+
+
+
+		Dim Presence As String
+		Presence = doc.SelectSingleNode("//config/presence").InnerText
+		sim.MainStat.BloodPresence = 0
+		sim.MainStat.UnholyPresence = 0
+		sim.Mainstat.FrostPresence = 0
+		Select Case Presence
+			Case "Blood"
+				sim.MainStat.BloodPresence = 1
+			Case "Unholy"
+				sim.MainStat.UnholyPresence=1
+			Case "Frost"
+				sim.Mainstat.FrostPresence = 1
+		End Select
+
+		sim.RuneForge.MHCinderglacier = False
+		sim.RuneForge.MHFallenCrusader = false
+		sim.RuneForge.MHRazorice = false
+		Select Case doc.SelectSingleNode("//config/mh").InnerText
+			Case "Cinderglacier"
+				sim.RuneForge.MHCinderglacier = true
+			Case "FallenCrusader"
+				sim.RuneForge.MHFallenCrusader = true
+			Case "Razorice"
+				sim.RuneForge.MHRazorice = true
+		End Select
+
+
+
+		sim.RuneForge.OHCinderglacier = False
+		sim.RuneForge.OHFallenCrusader = false
+		sim.RuneForge.OHRazorice = False
+		sim.Runeforge.OHBerserking = False
+		
+		Select Case doc.SelectSingleNode("//config/oh").InnerText
+			Case "Cinderglacier"
+				sim.RuneForge.OHCinderglacier = true
+			Case "FallenCrusader"
+				sim.RuneForge.OHFallenCrusader = true
+			Case "Razorice"
+				sim.RuneForge.OHRazorice = True
+			Case "Berserking"
+				sim.Runeforge.OHBerserking = True
+			end select
+
+'		txtLatency.Text = doc.SelectSingleNode("//config/latency").InnerText
+'
+'		txtSimtime.Text = doc.SelectSingleNode("//config/simtime").InnerText
+'		chkCombatLog.Checked = doc.SelectSingleNode("//config/log").InnerText
+'		ckLogRP.Checked = doc.SelectSingleNode("//config/logdetail").InnerText
+'		chkLissage.Checked = doc.SelectSingleNode("//config/smooth").InnerText
+'		chkGhoulHaste.Checked = doc.SelectSingleNode("//config/ghoulhaste").InnerText
+'		chkWaitFC.Checked = doc.SelectSingleNode("//config/WaitFC").InnerText
+'		ckPet.Checked = doc.SelectSingleNode("//config/pet").InnerText
+		errH:
+	End Sub
+	
 	
 	Function toDecimal(d As Double) As Decimal
 		try
@@ -860,7 +1012,7 @@ Friend Module Sim
 	End Function
 	
 	Sub loadPriority(file As String)
-		
+		priority = new priority
 		priority.prio.Clear
 		dim XmlDoc As New Xml.XmlDocument
 		XmlDoc.Load(file)
@@ -919,7 +1071,7 @@ Friend Module Sim
 		If Ghoul.total  <> 0 Then myArray.Add(Ghoul.total)
 		If Gargoyle.total  <> 0 Then myArray.Add(Gargoyle.total)
 		If DRW.total  <> 0 Then myArray.Add(DRW.total)
-		If RazoriceTotal <> 0 Then myArray.Add(RazoriceTotal)
+		If sim.RuneForge.RazoriceTotal <> 0 Then myArray.Add(sim.RuneForge.RazoriceTotal)
 		If DeathandDecay.total <> 0 Then myArray.Add(DeathandDecay.total)
 		if trinket.Total <> 0 then myArray.Add(trinket.Total)
 		
@@ -1069,8 +1221,8 @@ Friend Module Sim
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 				
 			End If
-			If RazoriceTotal = tot Then
-				STmp = RuneForge.Razoricereport
+			If sim.RuneForge.RazoriceTotal = tot Then
+				STmp = Sim.RuneForge.Razoricereport
 				STmp = replace(STmp,vbtab,"</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 			End If
@@ -1111,7 +1263,7 @@ Friend Module Sim
 			UnholyBlight.total + Necrosis.total + BloodCakedBlade.total + _
 			WanderingPlague.total +FrostStrike.total  + HowlingBlast.total + _
 			BloodBoil.total  + DeathStrike.total + MainHand.total + _
-			OffHand.total  + RazoriceTotal + DeathandDecay.total*1.9 +  RuneStrike.total*1.5
+			OffHand.total  + sim.RuneForge.RazoriceTotal + DeathandDecay.total*1.9 +  RuneStrike.total*1.5
 		If MainStat.FrostPresence = 1 Then
 			Threat = Threat * 2.0735
 		Else
@@ -1204,5 +1356,45 @@ Friend Module Sim
 		End If
 		return tmp
 	End Function
+	
+	Sub TryOnMHHitProc()
+		sim.RuneForge.TryMHCinderglacier
+		sim.RuneForge.TryMHFallenCrusader
+		Trinket.TryMjolRune
+		Trinket.TryGrimToll
+		Trinket.TryGreatness()
+		Trinket.TryDeathChoice()
+		Trinket.TryDCDeath()
+		Trinket.TryVictory()
+		Trinket.TryBandit()
+		Trinket.TryDarkMatter()
+		Trinket.TryComet()
+	End Sub
+	Sub TryOnOHHitProc
+		sim.RuneForge.TryOHCinderglacier
+		sim.RuneForge.TryOHFallenCrusader
+		sim.RuneForge.TryOHBerserking
+		Trinket.TryMjolRune
+		Trinket.TryGrimToll
+		Trinket.TryGreatness()
+		Trinket.TryDeathChoice()
+		Trinket.TryDCDeath()
+		Trinket.TryVictory()
+		Trinket.TryBandit()
+		Trinket.TryDarkMatter()
+		Trinket.TryComet()
+	End Sub
+	Sub tryOnCrit()
+		Trinket.TryBitterAnguish()
+		Trinket.TryMirror()
+		Trinket.TryPyrite()
+		Trinket.TryOldGod()
+	End Sub
+	Sub TryOnSpellHit
+		Trinket.TryGreatness()
+		Trinket.TryDeathChoice()
+		Trinket.TryDCDeath()
+		
+	End Sub
 	
 End Module

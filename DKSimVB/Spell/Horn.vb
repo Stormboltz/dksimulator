@@ -11,8 +11,8 @@ Public Class Horn
 	
 	
 	Function isAvailable(T As Long) As Boolean
-		If RunicPower.Value + 20 >= RunicPower.MaxValue Then Return False
-		If glyph.Disease Then 
+		If Sim.RunicPower.Value + 20 >= Sim.RunicPower.MaxValue Then Return False
+		If sim.glyph.Disease Then 
 			'return false
 			'if math.Min(BloodPlague.FadeAt,FrostFever.FadeAt) < T + 500 then return false
 		End If
@@ -21,9 +21,9 @@ Public Class Horn
 	
 	Sub use(T As Long)
 		cd = t + 20 * 100
-		RunicPower.add(10)
+		Sim.RunicPower.add(10)
 		HitCount = HitCount + 1
-		Sim.NextFreeGCD = T + (150 / (1 + MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
+		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
 	End Sub
 	
 	

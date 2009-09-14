@@ -6,7 +6,7 @@
 '
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Friend Module Proc
+Friend Class proc
 	Friend KillingMachine As Boolean
 	Friend Rime as Boolean
 	Friend StrifeFade as double
@@ -17,33 +17,29 @@ Friend Module Proc
 	Friend T92PDPSFAde As Integer
 	Friend T92PDPSCd As Long
 	
-	Sub init
-		Proc.Rime = False
+	Sub New()
+		Rime = False
 		KillingMachine = False
 		ScentOfBlood = 0
 		VirulenceFade = 0
 		T92PDPSFAde = 0
 		T92PDPSCd = 0
-		MjolRuneFade = 0
-		MjolRuneCd = 0
-		GrimTollFade = 0
-		GrimTollCd = 0
 	End Sub
 	
 	Sub TryRime()
-		If RNGProc <= 5 * talentfrost.Rime/100 Then
-			Proc.Rime= True
-			if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "Rime proc")
+		If sim.RandomNumberGenerator.RNGProc <= 5 * talentfrost.Rime/100 Then
+			Rime= True
+			if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "Rime sim.proc")
 			sim.HowlingBlast.cd = 0
 		End If
 	End Sub
 	Sub TryMHKillingMachine()
 		dim RNG as Double
 		If Talentfrost.KillingMachine > 0 Then
-			RNG = RNGWhiteHit
-			If RNG < (Talentfrost.KillingMachine)*MainStat.MHWeaponSpeed/60 Then
-				if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Killing Machine Proc")
-				proc.KillingMachine  = true
+			RNG =  sim.RandomNumberGenerator.RNGWhiteHit
+			If RNG < (Talentfrost.KillingMachine)*sim.MainStat.MHWeaponSpeed/60 Then
+				if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "Killing Machine sim.proc")
+				sim.proc.KillingMachine  = true
 			End If
 		End If
 	End Sub
@@ -51,10 +47,10 @@ Friend Module Proc
 	Sub TryOHKillingMachine()
 		dim RNG as Double
 		If Talentfrost.KillingMachine > 0 Then
-			RNG = RNGWhiteHit
-			If RNG < (Talentfrost.KillingMachine)*MainStat.OHWeaponSpeed/60 Then
-				if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Killing Machine Proc")
-				proc.KillingMachine  = true
+			RNG = sim.RandomNumberGenerator.RNGWhiteHit
+			If RNG < (Talentfrost.KillingMachine)*sim.MainStat.OHWeaponSpeed/60 Then
+				if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "Killing Machine sim.proc")
+				KillingMachine  = true
 			End If
 		End If
 	End Sub
@@ -63,8 +59,8 @@ Friend Module Proc
 	
 	
 	Sub TryT92PDPS()
-		If SetBonus.T92PDPS = 0 Or T92PDPSCd > sim.TimeStamp Then Exit Sub
-		If RNGProc <= 0.5 Then
+		If sim.MainStat.T92PDPS = 0 Or sim.proc.T92PDPSCd > sim.TimeStamp Then Exit Sub
+		If sim.RandomNumberGenerator.RNGProc <= 0.5 Then
 			T92PDPSFAde = sim.TimeStamp + 15 * 100
 			T92PDPSCd = sim.TimeStamp + 45 * 100
 		End If
@@ -78,4 +74,4 @@ Friend Module Proc
 	
 	
 	
-end Module
+end Class

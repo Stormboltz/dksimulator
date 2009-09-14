@@ -15,21 +15,16 @@ Friend Class BloodBoil
 		'If TalentFrost.BloodoftheNorth = 5 Or TalentUnholy.Reaping = 3 Then
 		'	runes.UseBlood(T,True)
 		'Else
-		runes.UseBlood(T,False)
+		sim.runes.UseBlood(T,False)
 		'End If
-		Sim.NextFreeGCD = T + (150 / (1 + MainStat.SpellHaste)) + sim._MainFrm.txtLatency.Text/10
-		RNG = RNGStrike
-		If mainstat.SpellHit >= 0.17 Then
-			RNG = RNG+0.17
-		Else
-			RNG = RNG+mainstat.SpellHit
-		End If
-		If RNG < 0.17 Then
+		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste)) + sim._MainFrm.txtLatency.Text/10
+		
+		If sim.DoMySpellHit = false Then
 			combatlog.write(T  & vbtab &  "BB fail")
 			MissCount = MissCount + 1
 			Exit function
 		End If
-		RNG = RNGStrike
+		RNG = sim.RandomNumberGenerator.RNGStrike
 		dim dégat as Integer
 		If RNG <= CritChance Then
 			dégat = AvrgCrit(T)
@@ -46,11 +41,8 @@ Friend Class BloodBoil
 		total = total + dégat
 		
 		
-		RunicPower.add (10) 
-		TryGreatness()
-TryDeathChoice()
-TryDCDeath()
-		
+		Sim.RunicPower.add (10) 
+		TryOnSpellHit
 		
 		
 		
@@ -62,14 +54,14 @@ TryDCDeath()
 	overrides Function AvrgNonCrit(T As long) As Double
 		Dim tmp As Double
 		tmp = 200
-		tmp = tmp + (0.04 * (1 + 0.04 * TalentUnholy.Impurity) * MainStat.AP)
+		tmp = tmp + (0.04 * (1 + 0.04 * TalentUnholy.Impurity) * sim.MainStat.AP)
 		tmp = tmp * (1+ 0.1*talentblood.BloodyStrikes)
 		if sim.NumDesease > 0 then tmp = tmp * 2
-		tmp = tmp * MainStat.StandardMagicalDamageMultiplier(T)
+		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		tmp = tmp * (1 + TalentFrost.BlackIce * 2 / 100)
-		if CinderglacierProc > 0 then
+		if sim.runeforge.CinderglacierProc > 0 then
 			tmp = tmp * 1.2
-			CinderglacierProc = CinderglacierProc -1
+			sim.runeforge.CinderglacierProc = sim.runeforge.CinderglacierProc -1
  		end if
 		return tmp
 		
@@ -77,10 +69,10 @@ TryDCDeath()
 	End Function
 	overrides Function CritCoef() As Double
 		CritCoef = 1 * (1 + TalentBlood.MightofMograine * 15 / 100) 
-		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
+		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
 	overrides Function CritChance() As Double
-		CritChance = MainStat.SpellCrit
+		CritChance = sim.MainStat.SpellCrit
 	End Function
 	overrides Function AvrgCrit(T As long) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)

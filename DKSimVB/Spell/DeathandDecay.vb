@@ -21,18 +21,18 @@ Friend Class DeathandDecay
 	 
 	Function isAvailable(T As Long) As Boolean
 		if CD > T then return false
-		if runes.BFU(T) then return true
+		if sim.runes.BFU(T) then return true
 	End Function
 	
 	Function Apply(T As Long) As Boolean
-		Sim.NextFreeGCD = T + (150 / (1 + MainStat.SpellHaste)) + sim._MainFrm.txtLatency.Text/10
+		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste)) + sim._MainFrm.txtLatency.Text/10
 		nextTick = T+100
-		runes.UseBlood(T, False)
-		runes.UseFU(T, False)
+		sim.runes.UseBlood(T, False)
+		sim.runes.UseFU(T, False)
 		ActiveUntil = T+1000
 		cd = T + 3000 - TalentUnholy.Morbidity*500
 		combatlog.write(T  & vbtab &  "D&D ")
-		RunicPower.add(15)
+		Sim.RunicPower.add(15)
 		
 		return true
 	End Function
@@ -45,9 +45,9 @@ Friend Class DeathandDecay
 			MissCount = MissCount + 1
 			Exit function
 		End If
-		RNG = RNGStrike
+		RNG = sim.RandomNumberGenerator.RNGStrike
 		dim dégat as Integer
-		If RNGStrike <= CritChance Then
+		If sim.RandomNumberGenerator.RNGStrike <= CritChance Then
 			dégat = AvrgCrit(T)
 			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "D&D crit for " & dégat)
 			CritCount = CritCount + 1
@@ -72,18 +72,18 @@ Friend Class DeathandDecay
 	overrides Function AvrgNonCrit(T As long) As Double
 		Dim tmp As Double
 		tmp = 62
-		tmp = tmp + (0.0475 * (1 + 0.04 * TalentUnholy.Impurity) * MainStat.AP)
-		tmp = tmp * MainStat.StandardMagicalDamageMultiplier(T)
+		tmp = tmp + (0.0475 * (1 + 0.04 * TalentUnholy.Impurity) * sim.MainStat.AP)
+		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		tmp = tmp * (1 + TalentFrost.BlackIce * 2 / 100)
-		if glyph.DeathandDecay then tmp = tmp *1.2
+		if sim.glyph.DeathandDecay then tmp = tmp *1.2
 		return tmp
 	End Function
 	overrides Function CritCoef() As Double
 		CritCoef = 1 
-		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
+		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
 	overrides Function CritChance() As Double
-		CritChance = MainStat.SpellCrit
+		CritChance = sim.MainStat.SpellCrit
 	End Function
 	overrides Function AvrgCrit(T As long) As Double
 		AvrgCrit = AvrgNonCrit(T) * (0.5 + CritCoef)

@@ -16,14 +16,14 @@ Friend Class Obliterate
 		OHHit = true
 		Dim RNG As Double
 		
-		If MainStat.UnholyPresence Then
+		If sim.MainStat.UnholyPresence Then
 			Sim.NextFreeGCD = T + 100+ sim._MainFrm.txtLatency.Text/10
 		Else
 			Sim.NextFreeGCD = T + 150+ sim._MainFrm.txtLatency.Text/10
 		End If
-		RNG = RNGStrike
+		RNG = sim.RandomNumberGenerator.RNGStrike
 
-		If MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
+		If sim.MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
 			If DoMyStrikeHit = false Then
 				combatlog.write(T  & vbtab &  "MH/OH OB fail" & vbtab & RNG)
 				MissCount = MissCount + 1
@@ -42,9 +42,9 @@ Friend Class Obliterate
 		if MHHit or OHHit then
 			
 			If talentblood.DRM = 3 Then
-				runes.UseFU(T,True)
+				sim.runes.UseFU(T,True)
 			Else
-				runes.UseFU(T,False)
+				sim.runes.UseFU(T,False)
 			End If
 			
 			If talentfrost.Annihilation <> 3 Then
@@ -56,15 +56,12 @@ Friend Class Obliterate
 			Dim ccT As Double
 			ccT = CritChance
 			If MHHit Then
-				RNG = RNGStrike
+				RNG = sim.RandomNumberGenerator.RNGStrike
 				If RNG <= ccT Then
 					CritCount = CritCount + 1
 					dégat =  AvrgCrit(T,true)
 					combatlog.write(T  & vbtab &  "OB crit for " & dégat )
-					TryBitterAnguish()
-					TryMirror()
-					TryPyrite()
-					TryOldGod()
+					sim.tryOnCrit
 					
 				Else
 					HitCount = HitCount + 1
@@ -73,18 +70,8 @@ Friend Class Obliterate
 				End If
 				if Lissage then dégat = AvrgCrit(T,true)*ccT + AvrgNonCrit(T,true)*(1-ccT )
 				total = total + dégat
-				TryMHCinderglacier
-				TryMHFallenCrusader
-				TryMjolRune
-				TryGrimToll
-				proc.tryRime
-				TryGreatness()
-				TryDeathChoice()
-				TryDCDeath()
-				TryVictory()
-				TryBandit()
-				TryDarkMatter()
-				TryComet()
+				sim.TryOnMHHitProc
+				sim.proc.tryRime
 			End If
 			
 			If OHHit Then
@@ -92,11 +79,7 @@ Friend Class Obliterate
 					
 					dégat =  AvrgCrit(T,false)
 					combatlog.write(T  & vbtab &  "OH OB crit for " & dégat )
-					TryBitterAnguish()
-					TryMirror()
-					TryPyrite()
-					TryOldGod()
-					
+					sim.tryOnCrit
 				Else
 					
 					dégat =  AvrgNonCrit(T,false)
@@ -104,27 +87,15 @@ Friend Class Obliterate
 				End If
 				if Lissage then dégat = AvrgCrit(T,false)*ccT + AvrgNonCrit(T,false)*(1-ccT )
 				total = total + dégat
-				TryOHCinderglacier
-				TryOHBerserking
-				TryOHFallenCrusader
-				TryMjolRune
-				TryGrimToll
-				proc.tryRime
-				TryGreatness()
-				TryDeathChoice()
-				TryDCDeath()
-				TryVictory()
-				TryBandit()
-				TryDarkMatter()
-				TryComet()
+				sim.TryOnOHHitProc
 			End If
 			
-			If DRW.IsActive(T) Then
-				drw.Obliterate
+			If sim.DRW.IsActive(T) Then
+				sim.drw.Obliterate
 			End If
-			proc.VirulenceFade = T + 2000
+			sim.proc.VirulenceFade = T + 2000
 			
-			runicpower.add(15 + 2.5*talentfrost.ChillOfTheGrave  + 5*SetBonus.T74PDPS )
+			Sim.runicpower.add(15 + 2.5*talentfrost.ChillOfTheGrave  + 5*sim.MainStat.T74PDPS )
 		End If
 		
 		
@@ -135,20 +106,20 @@ Friend Class Obliterate
 	public Overrides Function AvrgNonCrit(T as long, MH as Boolean) As Double
 		Dim tmp As Double
 		If MH Then
-			tmp = MainStat.NormalisedMHDamage * 0.8 + 467.2
+			tmp = sim.MainStat.NormalisedMHDamage * 0.8 + 467.2
 		Else
-			tmp = MainStat.NormalisedOHDamage * 0.8 + 467.2
+			tmp = sim.MainStat.NormalisedOHDamage * 0.8 + 467.2
 		End If
 		
-		if sigils.Awareness then tmp = tmp + 336
-		if SetBonus.T84PDPS = 1 then
+		if sim.sigils.Awareness then tmp = tmp + 336
+		if sim.MainStat.T84PDPS = 1 then
 			tmp = tmp * (1 + 0.125 * Sim.NumDesease * 1.2)
 		else
 			tmp = tmp * (1 + 0.125 * Sim.NumDesease)
 		end if
 		if (T/sim.MaxTime) >= 0.75 then tmp = tmp *(1+ 0.06*talentfrost.MercilessCombat)
-		tmp = tmp * MainStat.StandardPhysicalDamageMultiplier(T)
-		If glyph.Obliterate Then tmp = tmp *1.2
+		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
+		If sim.glyph.Obliterate Then tmp = tmp *1.2
 		
 		If MH=false Then
 			tmp = tmp * 0.5
@@ -160,7 +131,7 @@ Friend Class Obliterate
 	
 	public Overrides Function CritCoef() As Double
 		CritCoef = 1 * (1 + talentfrost.GuileOfGorefiend * 15 / 100)
-		return  CritCoef * (1+0.06*mainstat.CSD)
+		return  CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
 	
 	
@@ -170,7 +141,7 @@ Friend Class Obliterate
 			sim.DeathChill.Active = false
 			Return 1
 		End If
-		return  MainStat.crit +  talentfrost.rime*5/100 + talentblood.Subversion*3/100 + SetBonus.T72PDPS * 5/100
+		return  sim.MainStat.crit +  talentfrost.rime*5/100 + talentblood.Subversion*3/100 + sim.MainStat.T72PDPS * 5/100
 		
 	End Function
 	

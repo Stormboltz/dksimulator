@@ -20,30 +20,9 @@ Friend class BloodCakedBlade
 		total = total + AvrgNonCrit(T,MH)
 		
 		If MH Then
-			TryMHCinderglacier
-			TryMHFallenCrusader
-			TryMjolRune
-			TryGrimToll
-			TryGreatness()
-			TryDeathChoice()
-			TryDCDeath()
-			TryVictory()
-			TryBandit()
-			TryDarkMatter()
-			TryComet()
+			sim.TryOnMHHitProc
 		Else
-			TryOHCinderglacier
-			TryOHFallenCrusader
-			TryOHBerserking
-			TryMjolRune
-			TryGrimToll
-			TryGreatness()
-			TryDeathChoice()
-			TryDCDeath()
-			TryVictory()
-			TryBandit()
-			TryDarkMatter()
-			TryComet()
+			sim.TryOnOHHitProc
 		End If
 		
 		
@@ -54,14 +33,14 @@ Friend class BloodCakedBlade
 	public Overrides Function AvrgNonCrit(T as long, MH as Boolean) As Double
 		Dim tmp As Double
 		If MH Then
-			tmp = MainStat.MHBaseDamage
+			tmp = sim.MainStat.MHBaseDamage
 		Else
-			tmp = MainStat.OHBaseDamage
+			tmp = sim.MainStat.OHBaseDamage
 			tmp = tmp * 0.5
 			tmp = tmp * (1 + TalentFrost.NervesofColdSteel * 5 / 100)
 		End If
 		tmp = tmp * (0.25 + 0.125 * Sim.NumDesease)
-		tmp = tmp * MainStat.StandardPhysicalDamageMultiplier(T)
+		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
 		return tmp
 	End Function
 	public Overrides Function CritCoef() As Double
@@ -69,7 +48,7 @@ Friend class BloodCakedBlade
 	End Function
 	
 	public Overrides Function CritChance() As Double
-		return MainStat.crit
+		return sim.MainStat.crit
 	End Function
 	public Overrides Function AvrgCrit(T as long,MH as Boolean) As Double
 		return AvrgNonCrit(T,MH) * (1 + CritCoef)

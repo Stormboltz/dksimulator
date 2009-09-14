@@ -6,10 +6,13 @@
 ' 
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Friend Module Rotation
+Friend Class Rotation
 	Friend XMLRo as new Xml.XmlDocument
 	Friend MyRotation As New Collection
-	
+	Private Runes as runes
+	Sub New
+		Runes = sim.Runes
+	End Sub
 	Sub loadRotation()
 		MyRotation.Clear
 		RotationStep = 0
@@ -25,17 +28,17 @@ Friend Module Rotation
 			i=i+1
 			select case i
 				case 1
-					if Nod.Name ="Death" then rune1.death=true
+					if Nod.Name ="Death" then sim.rune1.death=true
 				case 2
-					if Nod.Name ="Death" then rune2.death=true
+					if Nod.Name ="Death" then sim.rune2.death=true
 				case 3
-					if Nod.Name ="Death" then rune3.death=true
+					if Nod.Name ="Death" then sim.rune3.death=true
 				case 4
-					if Nod.Name ="Death" then rune4.death=true
+					if Nod.Name ="Death" then sim.rune4.death=true
 				case 5
-					if Nod.Name ="Death" then rune5.death=true
+					if Nod.Name ="Death" then sim.rune5.death=true
 				case 6
-					if Nod.Name ="Death" then rune6.death=true
+					if Nod.Name ="Death" then sim.rune6.death=true
 			end select
 		Next
 		
@@ -59,8 +62,8 @@ Friend Module Rotation
 					If retry = 0 Then Return True
 				End If
 			Case "GhoulFrenzy"
-				if ghoul.IsFrenzyAvailable(Timestamp) Then
-					return ghoul.Frenzy(Timestamp)
+				if sim.ghoul.IsFrenzyAvailable(Timestamp) Then
+					return sim.ghoul.Frenzy(Timestamp)
 				Else
 					If retry = 0 Then Return True
 				End If
@@ -161,7 +164,7 @@ Friend Module Rotation
 			Case "Pestilance"
 			Case "HowlingBlast"
 				If sim.HowlingBlast.isAvailable(TimeStamp) Then
-					If proc.rime Or runes.FU(TimeStamp) Then
+					If sim.proc.rime Or runes.FU(TimeStamp) Then
 						runes.UnReserveFU(TimeStamp)
 						Return sim.HowlingBlast.ApplyDamage(TimeStamp)
 						Exit function
@@ -184,4 +187,4 @@ Friend Module Rotation
 		End Select
 	End function
 	
-End Module
+End Class

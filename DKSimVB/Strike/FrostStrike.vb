@@ -12,26 +12,26 @@ Friend Class FrostStrike
 	
 	
 	public Overrides Function isAvailable(T As long) As Boolean
-		if glyph.FrostStrike then
-			If RunicPower.Value >= 32 Then isAvailable = True
+		if sim.glyph.FrostStrike then
+			If Sim.RunicPower.Value >= 32 Then isAvailable = True
 		Else
-			If RunicPower.Value >= 40 Then isAvailable = True
+			If Sim.RunicPower.Value >= 40 Then isAvailable = True
 		end if
 	End Function
 	
 	public Overrides Function ApplyDamage(T As Long) As Boolean
 		
 		Dim RNG As Double
-		If MainStat.UnholyPresence Then
+		If sim.MainStat.UnholyPresence Then
 			Sim.NextFreeGCD = T + 100+ sim._MainFrm.txtLatency.Text/10
 		Else
 			Sim.NextFreeGCD = T + 150+ sim._MainFrm.txtLatency.Text/10
 		End If
 		
-		If glyph.FrostStrike Then
-			RunicPower.Value = RunicPower.Value - 32
+		If sim.glyph.FrostStrike Then
+			Sim.RunicPower.Value = Sim.RunicPower.Value - 32
 		Else
-			RunicPower.Value = RunicPower.Value - 40
+			Sim.RunicPower.Value = Sim.RunicPower.Value - 40
 		End If
 		
 		Dim MHHit As Boolean
@@ -39,7 +39,7 @@ Friend Class FrostStrike
 		MHHit = True
 		OHHit = True
 		
-		If MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
+		If sim.MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
 			If DoMyStrikeHit = false Then
 				combatlog.write(T  & vbtab & "MH FS fail")
 				MissCount = MissCount + 1
@@ -50,7 +50,7 @@ Friend Class FrostStrike
 			OHHit = false
 			If DoMyStrikeHit = false Then
 				combatlog.write(T  & vbtab & "FS fail")
-				proc.KillingMachine  = False
+				sim.proc.KillingMachine  = False
 				MissCount = MissCount + 1
 				Exit function
 			End If
@@ -61,16 +61,12 @@ Friend Class FrostStrike
 		ccT = CritChance
 		If MHHit Or OHHit Then
 			If MHHit Then
-				RNG = RNGStrike
+				RNG = sim.RandomNumberGenerator.RNGStrike
 				If RNG < ccT Then
 					dégat = AvrgCrit(T,true)
 					combatlog.write(T  & vbtab &  "FS crit for " & dégat )
 					CritCount = CritCount + 1
-					TryBitterAnguish()
-					TryMirror()
-					TryPyrite()
-					TryOldGod()
-					
+					sim.tryOnCrit					
 				Else
 					dégat = AvrgNonCrit(T,true)
 					HitCount = HitCount + 1
@@ -78,69 +74,45 @@ Friend Class FrostStrike
 				End If
 				if Lissage then dégat = AvrgCrit(T,true)*ccT + AvrgNonCrit(T,true)*(1-ccT )
 				total = total + dégat
-				TryMHCinderglacier
-				TryMHFallenCrusader
-				TryMjolRune
-				TryGrimToll
-				TryGreatness()
-				TryDeathChoice()
-				TryDCDeath()
-				TryVictory()
-				TryBandit()
-				TryDarkMatter()
-				TryComet()
+				TryOnMHHitProc
+				
 			End If
 			If OHHit Then
 				If RNG < ccT Then
 					dégat = AvrgCrit(T,false)
 					combatlog.write(T  & vbtab &  "OH FS crit for " & dégat )
-					TryBitterAnguish()
-					TryMirror()
-					TryPyrite()
-					TryOldGod()
-					
+					sim.tryOnCrit					
 				Else
 					dégat = AvrgNonCrit(T,false)
 					combatlog.write(T  & vbtab &  "OH FS hit for " & dégat )
 				End If
 				if Lissage then dégat = AvrgCrit(T,false)*ccT + AvrgNonCrit(T,false)*(1-ccT )
 				total = total + dégat
-				TryOHCinderglacier
-				TryOHFallenCrusader
-				TryOHBerserking
-				TryMjolRune
-				TryGrimToll
-				TryGreatness()
-				TryDeathChoice()
-				TryDCDeath()
-				TryVictory()
-				TryBandit()
-				TryDarkMatter()
-				TryComet()
+				sim.TryOnOHHitProc
 			End If
-			proc.KillingMachine  = False
+			sim.proc.KillingMachine  = False
 			Return True
 		End If
 	End Function
 	public Overrides Function AvrgNonCrit(T As long, MH as Boolean) As Double
 		Dim tmp As Double
 		If MH Then
-			tmp = mainstaT.NormalisedMHDamage*0.55
+			tmp = sim.mainstaT.NormalisedMHDamage*0.55
 		Else
-			tmp = mainstaT.NormalisedOHDamage*0.55
+			tmp = sim.mainstaT.NormalisedOHDamage*0.55
 		End If
 		
 		tmp = tmp + 150
-		if sigils.VengefulHeart then tmp= tmp + 113
+		if sim.sigils.VengefulHeart then tmp= tmp + 113
 		tmp = tmp * (1+ talentfrost.BloodoftheNorth * 5 /100)
 		If sim.NumDesease > 0 Then 	tmp = tmp * (1 + TalentFrost.GlacierRot * 6.6666666 / 100)
 		if (T/sim.MaxTime) >= 0.75 then tmp = tmp *(1+ 0.06*talentfrost.MercilessCombat)
-		tmp = tmp * MainStat.StandardMagicalDamageMultiplier(T)
+		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		tmp = tmp * (1 + TalentFrost.BlackIce * 2 / 100)
-		if MHRazorice or (OHRazorice and mainstat.DualW)  then tmp = tmp *1.10
-		if CinderglacierProc > 0 then
+		if sim.runeforge.MHRazorice or (sim.runeforge.OHRazorice and sim.mainstat.DualW)  then tmp = tmp *1.10
+		if sim.runeforge.CinderglacierProc > 0 then
 			tmp = tmp * 1.2
-			CinderglacierProc = CinderglacierProc -1
+			sim.runeforge.CinderglacierProc = sim.runeforge.CinderglacierProc -1
 		End If
 		If MH=false Then
 			tmp = tmp * 0.5
@@ -150,11 +122,11 @@ Friend Class FrostStrike
 	End Function
 	public Overrides Function CritCoef() As Double
 		CritCoef =  1 * (1 + Talentfrost.GuileOfGorefiend * 15 / 100)
-		CritCoef = CritCoef * (1+0.06*mainstat.CSD)
+		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
 	public Overrides Function CritChance() As Double
-		CritChance = MainStat.Crit + 8/100 * SetBonus.T82PDPS
-		if proc.KillingMachine  = true then return 1
+		CritChance = sim.MainStat.Crit + 8/100 * sim.MainStat.T82PDPS
+		if sim.proc.KillingMachine  = true then return 1
 	End Function
 	public Overrides Function AvrgCrit(T As long, MH as Boolean) As Double
 		AvrgCrit = AvrgNonCrit(T,MH) * (1 + CritCoef)

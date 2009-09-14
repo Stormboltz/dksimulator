@@ -6,7 +6,7 @@
 '
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Friend Module Sigils
+Friend Class Sigils
 	Friend WildBuck As Boolean 'DC + 80
 	Friend FrozenConscience As Boolean ' IT + 111
 	Friend DarkRider As Boolean ' BS and HS + 90
@@ -19,11 +19,11 @@ Friend Module Sigils
 	
 	Sub TryHauntedDreams()
 		dim RNG as Double
-		if sigils.HauntedDreams then
-			RNG = RNGProc
+		if HauntedDreams then
+			RNG = sim.RandomNumberGenerator.RNGProc
 			if RNG <= 0.15 then
-				HauntedDreamsFade = T + 10 * 100
+				sim.Proc.HauntedDreamsFade = sim.TimeStamp + 10 * 100
 			end if
 		End If
 	End Sub
-end Module
+end Class
