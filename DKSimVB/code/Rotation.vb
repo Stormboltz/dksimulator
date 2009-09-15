@@ -9,14 +9,16 @@
 Friend Class Rotation
 	Friend XMLRo as new Xml.XmlDocument
 	Friend MyRotation As New Collection
-	Private Runes as runes
-	Sub New
-		Runes = sim.Runes
+	Private Runes As runes
+	Private sim as Sim
+	Sub New(S as Sim)
+		sim.Runes = sim.Runes
 	End Sub
 	Sub loadRotation()
 		MyRotation.Clear
-		RotationStep = 0
-		XMLRo.Load(rotationPath)
+		
+		sim.RotationStep = 0
+		XMLRo.Load(sim.rotationPath)
 		dim Nod as Xml.XmlNode
 		For Each Nod In XMLRo.SelectSingleNode("//Rotation/Rotation").ChildNodes
 			MyRotation.Add(Nod.Name)
@@ -43,15 +45,15 @@ Friend Class Rotation
 		Next
 		
 		
-		Rotate=true
+		sim.Rotate=true
 	End Sub
 	
 	Sub DoRoration(TimeStamp As long)
 		
 		dim ret as Boolean
-		ret = DoRoration(TimeStamp,MyRotation.Item(RotationStep+1),XMLRo.SelectSingleNode("//Rotation/Rotation/" & MyRotation.Item(RotationStep+1) ).Attributes.GetNamedItem("retry").Value )
-		If ret = True Then RotationStep = RotationStep + 1
-		if MyRotation.Count <= RotationStep then RotationStep=0
+		ret = DoRoration(TimeStamp,MyRotation.Item(sim.RotationStep+1),XMLRo.SelectSingleNode("//Rotation/Rotation/" & MyRotation.Item(sim.RotationStep+1) ).Attributes.GetNamedItem("retry").Value )
+		If ret = True Then sim.RotationStep = sim.RotationStep + 1
+		if MyRotation.Count <= sim.RotationStep then sim.RotationStep=0
 	End Sub
 	function DoRoration(TimeStamp As Double,Ability as string,retry as integer ) as Boolean
 		Select Case Ability

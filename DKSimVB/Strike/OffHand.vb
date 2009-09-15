@@ -1,6 +1,9 @@
 Friend Class OffHand
 	Inherits Strikes.Strike
-	
+	Sub New(S As sim)
+		MyBase.New()
+		Sim = S
+	End Sub
 	friend NextWhiteOffHit as long
 	
 	Overrides Function ApplyDamage(T As long) As boolean
@@ -61,7 +64,7 @@ Friend Class OffHand
 			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "OH hit for " & dégat)
 		End If
 		
-		If Lissage Then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance-MeleeGlacingChance) + AvrgNonCrit(T)* (MeleeGlacingChance)*0.7
+		If sim.Lissage Then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance-MeleeGlacingChance) + AvrgNonCrit(T)* (MeleeGlacingChance)*0.7
 		total = total + dégat
 
 		If TalentUnholy.Necrosis > 0 Then

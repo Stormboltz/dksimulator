@@ -30,7 +30,7 @@ Friend Class MainStat
 	
 	Friend T92PDPS As integer 
 	Friend T94PDPS As integer 
-	
+	Protected Sim as Sim
 	
 	
 	
@@ -42,11 +42,12 @@ Friend Class MainStat
 		return character.Dual
 	End Function
 	
-	Sub New()
+	Sub New(S As Sim)
+		Sim = S
 		On Error Resume Next
 		character = sim.Character
 		dim XmlDoc As New Xml.XmlDocument
-		XmlDoc.Load(GetFilePath(_MainFrm.cmbCharacter.Text) )
+		XmlDoc.Load(GetFilePath(sim._MainFrm.cmbCharacter.Text) )
 		MHWeaponDPS = (XmlDoc.SelectSingleNode("//character/weapon/mainhand/dps").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
 		If sim.EPStat="WeaponDPS" Then
 			MHWeaponDPS = MHWeaponDPS + 10
@@ -63,7 +64,7 @@ Friend Class MainStat
 		
 		
 		'Trinkets
-		Sim.Trinket = new Trinket
+		Sim.Trinket = new Trinket(Sim)
 		
 		Sim.Trinket.MjolRune = 0
 		Sim.Trinket.GrimToll = 0

@@ -7,13 +7,18 @@
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
 Friend Class Pestilence
-	inherits Spells.Spell
+	Inherits Spells.Spell
+	
+	Sub New(S As sim)
+		MyBase.New()
+		Sim = S
+	End Sub
 
 	Friend BPToReapply As Boolean
 	Friend FFToReapply As Boolean
 	Function use(T As double) As Boolean
 		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
-		If DoMySpellHit = false Then
+		If sim.DoMySpellHit = false Then
 			combatlog.write(T  & vbtab &  "Pestilence fail")
 			MissCount = MissCount +1
 			Exit function

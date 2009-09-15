@@ -9,7 +9,10 @@
 Friend Class UnbreakableArmor
 	Inherits Spells.Spell
 	
-
+Sub New(S As sim)
+		MyBase.New()
+		Sim = S
+	End Sub
 	
 	Function IsAvailable(T As Long) As Boolean
 		If TalentFrost.UnbreakableArmor = 0 Then

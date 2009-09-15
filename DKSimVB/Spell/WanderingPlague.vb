@@ -7,8 +7,20 @@ Friend Class WanderingPlague
 	Friend CritCount as Integer
 	Friend TotalHit As Long
 	Friend TotalCrit as Long
-
-
+	
+	Protected sim as Sim
+	Sub New(S As Sim)
+		Sim = S
+		total = 0
+		MissCount = 0
+		HitCount = 0
+		CritCount = 0
+		nextTick = 0
+		TotalHit = 0
+		TotalCrit = 0
+		
+	End Sub
+	
 	Function isAvailable(T As long) As Boolean
 		'internal CD of 1s
 		If nextTick < T Then
@@ -20,8 +32,8 @@ Friend Class WanderingPlague
 	
 	Function ApplyDamage(Damage As Double, T As long) As Double
 		nextTick = T + 100
-
-		If DoMySpellHit = false Then
+		
+		If Sim.DoMySpellHit = false Then
 			'combatlog.write(T  & vbtab &  "WP fail")
 			MissCount = MissCount + 1
 			Exit function
@@ -34,20 +46,10 @@ Friend Class WanderingPlague
 		'combatlog.write(T  & vbtab &  "WP hit for " & Damage * TalentUnholy.WanderingPlague / 3)
 		return true
 	End Function
-		Sub New()
-		total = 0
-		MissCount = 0
-		HitCount = 0
-		CritCount = 0
-		nextTick = 0
-		TotalHit = 0
-		TotalCrit = 0
-
-	End Sub
 	Function report As String
 		dim tmp as String
 		tmp = "Wandering Plague" & VBtab
-	
+		
 		If total.ToString().Length < 8 Then
 			tmp = tmp & total & "   " & VBtab
 		Else

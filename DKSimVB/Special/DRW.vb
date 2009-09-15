@@ -17,7 +17,11 @@ Friend Class DRW
 	Private MeleeDodgeChance As Single
 	Private MeleeGlacingChance As Single
 	private SpellMissChance as Single
-	private Hyst as Boolean
+	Private Hyst As Boolean
+	Protected sim as Sim
+	
+	
+	
 	Function IsActive(T as Long) As Boolean
 		if ActiveUntil >= T then return true
 	End Function
@@ -167,7 +171,7 @@ Friend Class DRW
 		
 		return tmp
 	End Function
-	Sub New()
+	Sub New(S as Sim)
 		total = 0
 		MissCount = 0
 		HitCount = 0
@@ -177,7 +181,7 @@ Friend Class DRW
 		NextDRW = 0
 		TotalHit = 0
 		TotalCrit = 0
-
+		Sim = S
 		
 	End Sub
 	Function report As String

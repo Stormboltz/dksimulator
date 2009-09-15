@@ -1,4 +1,4 @@
-Friend Module Sim
+Public Class Sim
 	Friend TotalDamage As Long
 	Friend TotalDamageAlternative As Long
 	Friend NextFreeGCD As Long
@@ -97,8 +97,8 @@ Friend Module Sim
 	
 	Function NumDesease() As Integer
 		NumDesease = 0
-		If BloodPlague.isActive(Sim.TimeStamp) Then NumDesease = NumDesease + 1
-		If FrostFever.isActive(Sim.TimeStamp) Then NumDesease = NumDesease + 1
+		If BloodPlague.isActive(TimeStamp) Then NumDesease = NumDesease + 1
+		If FrostFever.isActive(TimeStamp) Then NumDesease = NumDesease + 1
 		If (TalentUnholy.EbonPlaguebringer + TalentUnholy.CryptFever >= 1) And NumDesease >= 1 Then NumDesease = NumDesease + 1
 		
 	End Function
@@ -156,7 +156,7 @@ Friend Module Sim
 			EPStat="Strength"
 			Start(pb,SimTime,MainFrm)
 			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (DPS-BaseDPS) / sim.EPBase
+			tmp2 = (DPS-BaseDPS) / EPBase
 			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
 			WriteReport ("Average for " & EPStat & " | " & DPS)
 		Else
@@ -168,7 +168,7 @@ Friend Module Sim
 			EPStat="Agility"
 			Start(pb,SimTime,MainFrm)
 			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (DPS-BaseDPS) / sim.EPBase
+			tmp2 = (DPS-BaseDPS) / EPBase
 			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
 			WriteReport ("Average for " & EPStat & " | " & DPS )
 		Else
@@ -180,7 +180,7 @@ Friend Module Sim
 			EPStat="CritRating"
 			Start(pb,SimTime,MainFrm)
 			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (DPS-BaseDPS) / sim.EPBase
+			tmp2 = (DPS-BaseDPS) / EPBase
 			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
 			WriteReport ("Average for " & EPStat & " | " & DPS)
 		Else
@@ -192,7 +192,7 @@ Friend Module Sim
 			EPStat="HasteRating"
 			Start(pb,SimTime,MainFrm)
 			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (DPS-BaseDPS) / sim.EPBase
+			tmp2 = (DPS-BaseDPS) / EPBase
 			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
 			WriteReport ("Average for " & EPStat & " | " & DPS)
 		Else
@@ -204,7 +204,7 @@ Friend Module Sim
 			EPStat="ArmorPenetrationRating"
 			Start(pb,SimTime,MainFrm)
 			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (DPS-BaseDPS) / sim.EPBase
+			tmp2 = (DPS-BaseDPS) / EPBase
 			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
 			WriteReport ("Average for " & EPStat & " | " & DPS)
 		Else
@@ -216,7 +216,7 @@ Friend Module Sim
 			EPStat="ExpertiseRating"
 			Start(pb,SimTime,MainFrm)
 			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (DPS-BaseDPS) / sim.EPBase
+			tmp2 = (DPS-BaseDPS) / EPBase
 			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & toDDecimal (-tmp2/tmp1)) & "</td></tr>"
 			WriteReport ("Average for " & EPStat & " | " & DPS)
 		Else
@@ -228,7 +228,7 @@ Friend Module Sim
 			EPStat="HitRating"
 			Start(pb,SimTime,MainFrm)
 			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (DPS-BaseDPS) / sim.EPBase
+			tmp2 = (DPS-BaseDPS) / EPBase
 			'sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | " & int (-100*tmp2/tmp1)) & "</td></tr>"
 			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | BeforeMeleeHitCap<8% | " & toDDecimal (-tmp2/tmp1)) & "</td></tr>"
 			WriteReport ("Average for " & EPStat & " | " & DPS)
@@ -387,7 +387,7 @@ Friend Module Sim
 		End If
 		
 		sReport = sReport &   "<tr><td COLSPAN=8> | Template | " & Split(_MainFrm.cmbTemplate.Text,".")(0) & "</td></tr>"
-		If sim.Rotate Then
+		If Rotate Then
 			sReport = sReport &   "<tr><td COLSPAN=8> | Rotation | " & Split(_MainFrm.cmbRotation.Text,".")(0) & "</td></tr>"
 		Else
 			sReport = sReport &   "<tr><td COLSPAN=8> | Priority | " & Split(_MainFrm.cmbPrio.Text,".")(0) & "</td></tr>"
@@ -513,7 +513,7 @@ Friend Module Sim
 				
 				If MainStat.FrostPresence = 1 Then
 					If TalentBlood.ScentOfBlood > 0 Then
-						If sim.proc.ScentOfBloodCD < TimeStamp Then
+						If proc.ScentOfBloodCD < TimeStamp Then
 							proc.GetUseScentOfBlood(TimeStamp)
 						End If
 					End If
@@ -526,7 +526,7 @@ Friend Module Sim
 					RunicPower.add(AMSAmount)
 				End If
 				
-				If talentblood.Butchery > 0 And sim.Butchery.nextTick <= TimeStamp Then
+				If talentblood.Butchery > 0 And Butchery.nextTick <= TimeStamp Then
 					Butchery.apply(TimeStamp)
 				End If
 				
@@ -536,7 +536,7 @@ Friend Module Sim
 					End If
 					
 					if TalentBlood.DRW = 1 then
-						If Sim.isInGCD(TimeStamp) = False Then
+						If isInGCD(TimeStamp) = False Then
 							If DRW.cd < TimeStamp And RunicPower.Value  >= 60 And CanUseGCD(TimeStamp) Then
 								DRW.Summon(TimeStamp)
 							End If
@@ -550,9 +550,9 @@ Friend Module Sim
 						DeathandDecay.ApplyDamage(TimeStamp)
 					End If
 					
-					If sim.PetFriendly Then
+					If PetFriendly Then
 						If talentunholy.SummonGargoyle = 1 Then
-							If Sim.isInGCD(TimeStamp) = False Then
+							If isInGCD(TimeStamp) = False Then
 								If Gargoyle.cd < TimeStamp and RunicPower.Value >= 60 and CanUseGCD(TimeStamp) Then
 									Gargoyle.Summon(TimeStamp)
 								end if
@@ -563,22 +563,22 @@ Friend Module Sim
 						End If
 					end if
 					
-					If Sim.isInGCD(TimeStamp) = False Then
+					If isInGCD(TimeStamp) = False Then
 						if Rotate then
 							Rotation.DoRoration(TimeStamp)
 						else
-							sim.Priority.DoNext (TimeStamp)
+							Priority.DoNext (TimeStamp)
 						End If
 					End If
 					
-					If Sim.isInGCD(TimeStamp) = False Then
-						If sim.UnbreakableArmor.IsAvailable(TimeStamp) Then
-							sim.UnbreakableArmor.Use(TimeStamp)
+					If isInGCD(TimeStamp) = False Then
+						If UnbreakableArmor.IsAvailable(TimeStamp) Then
+							UnbreakableArmor.Use(TimeStamp)
 						End If
 					End If
 					
-					If sim.PetFriendly Then
-						If Sim.isInGCD(TimeStamp) = False Then
+					If PetFriendly Then
+						If isInGCD(TimeStamp) = False Then
 							If Ghoul.ActiveUntil < TimeStamp and Ghoul.cd < TimeStamp and CanUseGCD(TimeStamp) Then
 								Ghoul.Summon(TimeStamp)
 							end if
@@ -586,7 +586,7 @@ Friend Module Sim
 						if Ghoul.ActiveUntil >= TimeStamp then
 							If Ghoul.NextWhiteMainHit <= TimeStamp Then Ghoul.ApplyDamage(TimeStamp)
 							If Ghoul.NextClaw <= TimeStamp Then Ghoul.Claw(TimeStamp)
-							If Sim.isInGCD(TimeStamp) And Ghoul.IsAutoFrenzyAvailable(Timestamp) Then
+							If isInGCD(TimeStamp) And Ghoul.IsAutoFrenzyAvailable(Timestamp) Then
 								Ghoul.Frenzy(TimeStamp)
 							End If
 						End If
@@ -600,7 +600,7 @@ Friend Module Sim
 					'InterruptTimer > TimeStamp Or InterruptAmount
 				End If
 				
-				If Sim.isInGCD(TimeStamp) = False Then
+				If isInGCD(TimeStamp) = False Then
 					If horn.isAvailable(TimeStamp) and CanUseGCD(TimeStamp) Then
 						horn.use(TimeStamp)
 					end if
@@ -626,7 +626,7 @@ Friend Module Sim
 						WanderingPlague.total +FrostStrike.total  +HowlingBlast.total + _
 						BloodBoil.total  + DeathStrike.total + MainHand.total + _
 						OffHand.total  + Ghoul.total + Gargoyle.total + DRW.total + _
-						sim.RuneForge.RazoriceTotal + DeathandDecay.total + RuneStrike.total  + trinket.Total
+						RuneForge.RazoriceTotal + DeathandDecay.total + RuneStrike.total  + trinket.Total
 					_MainFrm.lblDPS.Text = todecimal(100 * TotalDamage /TimeStamp) & " DPS"
 				If TimeStamp <= pb.Maximum Then pb.Value = TimeStamp Else pb.Value = pb.Maximum
 				ElseIf ShowDpsTimer <= TimeStamp Then
@@ -643,7 +643,7 @@ Friend Module Sim
 				WanderingPlague.total +FrostStrike.total  +HowlingBlast.total + _
 				BloodBoil.total  + DeathStrike.total + MainHand.total + _
 				OffHand.total  + Ghoul.total + Gargoyle.total + DRW.total + _
-				sim.RuneForge.RazoriceTotal + DeathandDecay.total + RuneStrike.total + trinket.Total
+				RuneForge.RazoriceTotal + DeathandDecay.total + RuneStrike.total + trinket.Total
 			
 			TotalDamageAlternative = TotalDamageAlternative + TotalDamage
 			TimeStampCounter = TimeStampCounter + TimeStamp
@@ -679,12 +679,12 @@ Friend Module Sim
 			dim tGDC as long
 			'return false
 			If MainStat.UnholyPresence Then
-				tGDC = 100+ sim._MainFrm.txtLatency.Text/10 + 50
+				tGDC = 100+ _MainFrm.txtLatency.Text/10 + 50
 			Else
-				tGDC =  150+ sim._MainFrm.txtLatency.Text/10 + 50
+				tGDC =  150+ _MainFrm.txtLatency.Text/10 + 50
 			End If
 			
-			If math.Min(sim.BloodPlague.FadeAt,sim.FrostFever.FadeAt) < (T +  tGDC) Then
+			If math.Min(BloodPlague.FadeAt,FrostFever.FadeAt) < (T +  tGDC) Then
 				'debug.Print (RuneState & "time left on disease= " & (math.Min(BloodPlague.FadeAt,FrostFever.FadeAt) -T)/100 & "s" & " - " & T/100)
 				return false
 			End If
@@ -801,7 +801,7 @@ Friend Module Sim
 	Sub Initialisation()
 		'RandomNumberGenerator.Init 'done in Start
 
-		Buff = New Buff
+		Buff = New Buff(Me)
 		'Keep this order for RuneX -> Runse -> Rotation/Prio
 		Rune1 = New Rune1
 		Rune2 = New Rune2
@@ -809,35 +809,36 @@ Friend Module Sim
 		Rune4 = New Rune4
 		Rune5 = New Rune5
 		Rune6 = new Rune6
-		Runes = New runes
+		Runes = New runes(Me)
 		
-		RunicPower = New RunicPower
+		RunicPower = New RunicPower(Me)
 
-		Rotation = new Rotation
-		Priority = New Priority
-		Character = new Character
-		MainStat = new MainStat
-		' sim.Buff.UnBuff
-		BloodPlague = new BloodPlague
-		FrostFever = New FrostFever
+		Rotation = new Rotation(Me)
+		Priority = New Priority(Me)
+		Character = new Character(Me)
+		MainStat = new MainStat(Me)
+		' Buff.UnBuff
+		BloodPlague = new BloodPlague(Me)
+		FrostFever = New FrostFever(Me)
 		
-		UnholyBlight = New UnholyBlight
+		UnholyBlight = New UnholyBlight(Me)
 	
-		BloodTap = new BloodTap
-		HowlingBlast = New HowlingBlast
-		Ghoul = new Ghoul
-		GhoulStat = New GhoulStat
-		Hysteria = new Hysteria
-		DeathChill = new DeathChill
+		BloodTap = new BloodTap(Me)
+		HowlingBlast = New HowlingBlast(Me)
+		
+		Ghoul = new Ghoul(Me)
+		GhoulStat = New GhoulStat(Me)
+		Hysteria = new Hysteria(Me)
+		DeathChill = new DeathChill(Me)
 		Desolation = new Desolation
-		UnbreakableArmor = new UnbreakableArmor
-		RuneForge = new RuneForge
-		Butchery = new Butchery
-		DRW = new DRW
-		RuneStrike = New RuneStrike
+		UnbreakableArmor = new UnbreakableArmor(Me)
+		RuneForge = new RuneForge(Me)
+		Butchery = new Butchery(Me)
+		DRW = new DRW(Me)
+		RuneStrike = New RuneStrike(Me)
 		
 		
-		Sigils = new Sigils
+		Sigils = new Sigils(Me)
 		
 		LoadConfig
 		
@@ -851,27 +852,28 @@ Friend Module Sim
 		NextFreeGCD = 0
 		TotalDamage = 0
 		Threat = 0
-		ScourgeStrike = new ScourgeStrike
-		Obliterate = new Obliterate
-		PlagueStrike= new PlagueStrike
-		BloodStrike = New BloodStrike
-		MainHand = New MainHand
-		OffHand = New OffHand
-		DeathCoil = new DeathCoil
-		IcyTouch = new IcyTouch
-		Necrosis = new Necrosis
-		WanderingPlague = new WanderingPlague
-		FrostStrike = New FrostStrike
-		BloodCakedBlade = New BloodCakedBlade
-		DeathStrike = New DeathStrike
-		BloodBoil = new BloodBoil
-		HeartStrike = new HeartStrike
-		DeathandDecay = new DeathandDecay
-		Gargoyle = new Gargoyle
-		Horn = new Horn
-		Bloodlust= new Bloodlust
-		Pestilence = new Pestilence
-		proc = New proc
+		ScourgeStrike = new ScourgeStrike(Me)
+		Obliterate = new Obliterate(Me)
+		PlagueStrike= new PlagueStrike(Me)
+		BloodStrike = New BloodStrike(Me)
+		MainHand = New MainHand(Me)
+		OffHand = New OffHand(Me)
+		DeathCoil = new DeathCoil(Me)
+		IcyTouch = new IcyTouch(Me)
+		Necrosis = new Necrosis(Me)
+		WanderingPlague = new WanderingPlague(Me)
+		FrostStrike = New FrostStrike(Me)
+		
+		BloodCakedBlade = New BloodCakedBlade(Me)
+		DeathStrike = New DeathStrike(Me)
+		BloodBoil = new BloodBoil(me)
+		HeartStrike = new HeartStrike(Me)
+		DeathandDecay = new DeathandDecay(Me)
+		Gargoyle = new Gargoyle(Me)
+		Horn = new Horn(Me)
+		Bloodlust= new Bloodlust(Me)
+		Pestilence = new Pestilence(Me)
+		proc = New proc(Me)
 		
 		
 		
@@ -883,12 +885,6 @@ Friend Module Sim
 		InterruptTimer = _MainFrm.txtInterruptCd.text * 100
 		InterruptAmount = _MainFrm.txtInterruptAmount.text
 		
-		
-		
-		
-		
-		
-		
 		ShowDpsTimer = 1
 	End Sub
 	
@@ -898,10 +894,10 @@ Friend Module Sim
 		doc.Load("config.xml")
 		loadtemplate (GetFilePath(doc.SelectSingleNode("//config/template").InnerText))
 
-		If sim.rotate Then
-			sim.rotationPath = GetFilePath( doc.SelectSingleNode("//config/rotation").InnerText)
+		If rotate Then
+			rotationPath = GetFilePath( doc.SelectSingleNode("//config/rotation").InnerText)
 		Else
-			sim.loadPriority (GetFilePath(doc.SelectSingleNode("//config/priority").InnerText))
+			loadPriority (GetFilePath(doc.SelectSingleNode("//config/priority").InnerText))
 		End If
 '		cmbCharacter.SelectedItem = doc.SelectSingleNode("//config/Character").InnerText
 
@@ -942,46 +938,46 @@ Friend Module Sim
 
 		Dim Presence As String
 		Presence = doc.SelectSingleNode("//config/presence").InnerText
-		sim.MainStat.BloodPresence = 0
-		sim.MainStat.UnholyPresence = 0
-		sim.Mainstat.FrostPresence = 0
+		MainStat.BloodPresence = 0
+		MainStat.UnholyPresence = 0
+		Mainstat.FrostPresence = 0
 		Select Case Presence
 			Case "Blood"
-				sim.MainStat.BloodPresence = 1
+				MainStat.BloodPresence = 1
 			Case "Unholy"
-				sim.MainStat.UnholyPresence=1
+				MainStat.UnholyPresence=1
 			Case "Frost"
-				sim.Mainstat.FrostPresence = 1
+				Mainstat.FrostPresence = 1
 		End Select
 
-		sim.RuneForge.MHCinderglacier = False
-		sim.RuneForge.MHFallenCrusader = false
-		sim.RuneForge.MHRazorice = false
+		RuneForge.MHCinderglacier = False
+		RuneForge.MHFallenCrusader = false
+		RuneForge.MHRazorice = false
 		Select Case doc.SelectSingleNode("//config/mh").InnerText
 			Case "Cinderglacier"
-				sim.RuneForge.MHCinderglacier = true
+				RuneForge.MHCinderglacier = true
 			Case "FallenCrusader"
-				sim.RuneForge.MHFallenCrusader = true
+				RuneForge.MHFallenCrusader = true
 			Case "Razorice"
-				sim.RuneForge.MHRazorice = true
+				RuneForge.MHRazorice = true
 		End Select
 
 
 
-		sim.RuneForge.OHCinderglacier = False
-		sim.RuneForge.OHFallenCrusader = false
-		sim.RuneForge.OHRazorice = False
-		sim.Runeforge.OHBerserking = False
+		RuneForge.OHCinderglacier = False
+		RuneForge.OHFallenCrusader = false
+		RuneForge.OHRazorice = False
+		Runeforge.OHBerserking = False
 		
 		Select Case doc.SelectSingleNode("//config/oh").InnerText
 			Case "Cinderglacier"
-				sim.RuneForge.OHCinderglacier = true
+				RuneForge.OHCinderglacier = true
 			Case "FallenCrusader"
-				sim.RuneForge.OHFallenCrusader = true
+				RuneForge.OHFallenCrusader = true
 			Case "Razorice"
-				sim.RuneForge.OHRazorice = True
+				RuneForge.OHRazorice = True
 			Case "Berserking"
-				sim.Runeforge.OHBerserking = True
+				Runeforge.OHBerserking = True
 			end select
 
 '		txtLatency.Text = doc.SelectSingleNode("//config/latency").InnerText
@@ -997,22 +993,10 @@ Friend Module Sim
 	End Sub
 	
 	
-	Function toDecimal(d As Double) As Decimal
-		try
-			Return d.ToString (".#")
-		Catch
-		End Try
-	End Function
-	
-	Function toDDecimal(d As Double) As Decimal
-		try
-			Return d.ToString (".##")
-		Catch
-		End Try
-	End Function
+
 	
 	Sub loadPriority(file As String)
-		priority = new priority
+		priority = new priority(Me)
 		priority.prio.Clear
 		dim XmlDoc As New Xml.XmlDocument
 		XmlDoc.Load(file)
@@ -1071,7 +1055,7 @@ Friend Module Sim
 		If Ghoul.total  <> 0 Then myArray.Add(Ghoul.total)
 		If Gargoyle.total  <> 0 Then myArray.Add(Gargoyle.total)
 		If DRW.total  <> 0 Then myArray.Add(DRW.total)
-		If sim.RuneForge.RazoriceTotal <> 0 Then myArray.Add(sim.RuneForge.RazoriceTotal)
+		If RuneForge.RazoriceTotal <> 0 Then myArray.Add(RuneForge.RazoriceTotal)
 		If DeathandDecay.total <> 0 Then myArray.Add(DeathandDecay.total)
 		if trinket.Total <> 0 then myArray.Add(trinket.Total)
 		
@@ -1221,8 +1205,8 @@ Friend Module Sim
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 				
 			End If
-			If sim.RuneForge.RazoriceTotal = tot Then
-				STmp = Sim.RuneForge.Razoricereport
+			If RuneForge.RazoriceTotal = tot Then
+				STmp = RuneForge.Razoricereport
 				STmp = replace(STmp,vbtab,"</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 			End If
@@ -1263,7 +1247,7 @@ Friend Module Sim
 			UnholyBlight.total + Necrosis.total + BloodCakedBlade.total + _
 			WanderingPlague.total +FrostStrike.total  + HowlingBlast.total + _
 			BloodBoil.total  + DeathStrike.total + MainHand.total + _
-			OffHand.total  + sim.RuneForge.RazoriceTotal + DeathandDecay.total*1.9 +  RuneStrike.total*1.5
+			OffHand.total  + RuneForge.RazoriceTotal + DeathandDecay.total*1.9 +  RuneStrike.total*1.5
 		If MainStat.FrostPresence = 1 Then
 			Threat = Threat * 2.0735
 		Else
@@ -1276,7 +1260,7 @@ Friend Module Sim
 		STmp = sTmp &   "<tr><td COLSPAN=8>Generated in " & DateDiff( DateInterval.Second,SimStart,now())  & "s</td></tr>"
 		
 		STmp = sTmp &   "<tr><td COLSPAN=8>Template: " & Split(_MainFrm.cmbTemplate.Text,".")(0) & "</td></tr>"
-		If sim.Rotate Then
+		If Rotate Then
 			STmp = sTmp &   "<tr><td COLSPAN=8>Rotation: " & Split(_MainFrm.cmbRotation.Text,".")(0) & "</td></tr>"
 		Else
 			STmp = sTmp &   "<tr><td COLSPAN=8>Priority: " & Split(_MainFrm.cmbPrio.Text,".")(0) & "</td></tr>"
@@ -1324,7 +1308,7 @@ Friend Module Sim
 				if DRW.NextDRW < tmp  then tmp = DRW.NextDRW
 			End If
 		End If
-		If sim.PetFriendly Then
+		If PetFriendly Then
 			If talentunholy.SummonGargoyle = 1 Then
 				If Gargoyle.ActiveUntil >= TimeStamp Then
 					If Gargoyle.NextGargoyleStrike < tmp then tmp = Gargoyle.NextGargoyleStrike
@@ -1358,8 +1342,8 @@ Friend Module Sim
 	End Function
 	
 	Sub TryOnMHHitProc()
-		sim.RuneForge.TryMHCinderglacier
-		sim.RuneForge.TryMHFallenCrusader
+		RuneForge.TryMHCinderglacier
+		RuneForge.TryMHFallenCrusader
 		Trinket.TryMjolRune
 		Trinket.TryGrimToll
 		Trinket.TryGreatness()
@@ -1371,9 +1355,9 @@ Friend Module Sim
 		Trinket.TryComet()
 	End Sub
 	Sub TryOnOHHitProc
-		sim.RuneForge.TryOHCinderglacier
-		sim.RuneForge.TryOHFallenCrusader
-		sim.RuneForge.TryOHBerserking
+		RuneForge.TryOHCinderglacier
+		RuneForge.TryOHFallenCrusader
+		RuneForge.TryOHBerserking
 		Trinket.TryMjolRune
 		Trinket.TryGrimToll
 		Trinket.TryGreatness()
@@ -1397,4 +1381,4 @@ Friend Module Sim
 		
 	End Sub
 	
-End Module
+End Class

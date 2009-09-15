@@ -1,6 +1,9 @@
 Friend Class PlagueStrike
 	Inherits Strikes.Strike
-		
+		Sub New(S As sim)
+		MyBase.New()
+		Sim = S
+	End Sub
 	public Overrides Function ApplyDamage(T As Long) As Boolean
 		Dim MHHit As Boolean
 		Dim OHHit As Boolean
@@ -18,7 +21,7 @@ Friend Class PlagueStrike
 		
 		If sim.MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
 			'MH
-			If DoMyStrikeHit = false Then
+			If sim.DoMyStrikeHit = false Then
 				MissCount = MissCount + 1
 				combatlog.write(T  & vbtab &  "MH PS fail")
 				MHHit = False
@@ -26,7 +29,7 @@ Friend Class PlagueStrike
 			End If
 		Else
 			OHHit = false
-			If DoMyStrikeHit = false Then
+			If sim.DoMyStrikeHit = false Then
 				MissCount = MissCount + 1
 				combatlog.write(T  & vbtab &  "PS fail")
 				Exit function
@@ -54,9 +57,9 @@ Friend Class PlagueStrike
 					dégat = AvrgNonCrit(T,true)
 					combatlog.write(T  & vbtab &  "PS hit for " & dégat )
 				End If
-				if Lissage then dégat = AvrgCrit(T,true)*CritChance + AvrgNonCrit(T,true)*(1-CritChance )
+				if sim.Lissage then dégat = AvrgCrit(T,true)*CritChance + AvrgNonCrit(T,true)*(1-CritChance )
 				total = total + dégat
-				TryOnMHHitProc
+				sim.TryOnMHHitProc
 			End If
 			If OHHit Then
 				If RNG <= CritChance Then
@@ -68,7 +71,7 @@ Friend Class PlagueStrike
 					dégat = AvrgNonCrit(T,false)
 					combatlog.write(T  & vbtab &  "OH PS hit for " & dégat )
 				End If
-				if Lissage then dégat = AvrgCrit(T,false)*CritChance + AvrgNonCrit(T,false)*(1-CritChance )
+				if sim.Lissage then dégat = AvrgCrit(T,false)*CritChance + AvrgNonCrit(T,false)*(1-CritChance )
 				total = total + dégat
 				sim.TryOnOHHitProc
 			End If

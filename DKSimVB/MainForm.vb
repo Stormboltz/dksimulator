@@ -9,7 +9,11 @@
 Imports System.Xml
 Public Partial Class MainForm
 	Private EditorFilePAth As String
-	private TemplatePath as String
+	Private TemplatePath As String
+	'Private sim as Sim 'TODO
+	
+	
+	
 	Public Sub New()
 		' The Me.InitializeComponent call is required for Windows Forms designer support.
 		Me.InitializeComponent()
@@ -366,7 +370,7 @@ Public Partial Class MainForm
 		cmbRuneMH.Items.Add("Razorice")
 		cmbRuneMH.Items.Add("FallenCrusader")
 		cmbRuneOH.Items.Clear
-		cmbRuneMH.Items.Add("None")
+		cmbRuneOH.Items.Add("None")
 		cmbRuneOH.Items.Add("Cinderglacier")
 		cmbRuneOH.Items.Add("Razorice")
 		cmbRuneOH.Items.Add("FallenCrusader")
@@ -375,7 +379,7 @@ Public Partial Class MainForm
 		
 		
 		
-		initReport
+		sim.initReport
 	End Sub
 	
 	Sub CmbTemplateSelectedIndexChanged(sender As Object, e As EventArgs)
@@ -1192,7 +1196,7 @@ End Sub
 	End Sub
 	
 	Sub ChkLissageCheckedChanged(sender As Object, e As EventArgs)
-		Lissage = chkLissage.Checked
+		sim.Lissage = chkLissage.Checked
 	End Sub
 	
 	Sub CmdImportArmoryClick(sender As Object, e As EventArgs)

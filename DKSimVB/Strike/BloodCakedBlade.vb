@@ -8,10 +8,13 @@
 '
 Friend class BloodCakedBlade
 	Inherits Strikes.Strike
-
+Sub New(S As sim)
+		MyBase.New()
+		Sim = S
+	End Sub
 	public Overrides Function ApplyDamage(T As long,MH as Boolean) As boolean
 
-		If DoMyStrikeHit = false Then
+		If sim.DoMyStrikeHit = false Then
 			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "BCB fail")
 			MissCount = MissCount + 1
 			Exit function

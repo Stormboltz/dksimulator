@@ -1,6 +1,9 @@
 Friend Class IcyTouch
 	inherits Spells.Spell
-	
+	Sub New(S As sim)
+		MyBase.New()
+		Sim = S
+	End Sub
 	
 	overrides Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
@@ -8,7 +11,7 @@ Friend Class IcyTouch
 		
 		
 		
-		If DoMySpellHit = false Then
+		If sim.DoMySpellHit = false Then
 			combatlog.write(T  & vbtab &  "IT fail")
 			sim.proc.KillingMachine  = False
 			MissCount = MissCount + 1
@@ -30,7 +33,7 @@ Friend Class IcyTouch
 			combatlog.write(T  & vbtab &  "IT hit for " & dégat)
 		End If
 		
-		if Lissage then dégat = AvrgCrit(T)*ccT + AvrgNonCrit(T)*(1-CritChance )
+		if sim.Lissage then dégat = AvrgCrit(T)*ccT + AvrgNonCrit(T)*(1-CritChance )
 		total = total + dégat
 		
 		

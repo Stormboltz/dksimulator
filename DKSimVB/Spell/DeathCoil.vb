@@ -1,6 +1,9 @@
 Friend class DeathCoil 
 	Inherits Spells.Spell
-	
+	Sub New(S As sim)
+		MyBase.New()
+		Sim = S
+	End Sub
 
 	
 
@@ -19,7 +22,7 @@ Friend class DeathCoil
 			Sim.RunicPower.Value = Sim.RunicPower.Value - 40
 		End If
 		
-		If DoMySpellHit = false Then
+		If sim.DoMySpellHit = false Then
 			combatlog.write(T  & vbtab &  "DC fail")
 			MissCount = MissCount + 1
 			Exit function
@@ -46,7 +49,7 @@ Friend class DeathCoil
 			
 		End If
 		
-		if Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
+		if Sim.Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
 		total = total + dégat
 		sim.TryOnSpellHit
 		If TalentUnholy.UnholyBlight = 1 Then

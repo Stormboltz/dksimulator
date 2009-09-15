@@ -27,8 +27,9 @@ Friend Class RuneForge
 	
 	Friend OHBerserkingActiveUntil As Long
 	Friend OHBerserking as Boolean
-	
-	Sub New()
+	Private Sim as Sim
+	Sub New(S As Sim )
+		Sim = S
 		HitCount = 0
 		MissCount =0
 		CritCount = 0

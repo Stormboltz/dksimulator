@@ -16,14 +16,17 @@ Friend Class proc
 	Friend VirulenceFade as Integer
 	Friend T92PDPSFAde As Integer
 	Friend T92PDPSCd As Long
+	Protected Sim as Sim
 	
-	Sub New()
+	
+	Sub New(S as Sim)
 		Rime = False
 		KillingMachine = False
 		ScentOfBlood = 0
 		VirulenceFade = 0
 		T92PDPSFAde = 0
 		T92PDPSCd = 0
+		sim = S
 	End Sub
 	
 	Sub TryRime()

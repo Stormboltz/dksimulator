@@ -12,13 +12,13 @@ Public Module CombatLog
 	Friend LogDetails As Boolean
 
 	Sub Init()
-		txtFile = new System.IO.StreamWriter("Combatlog/Combatlog" & sim.EPStat &" _" & now.Day & now.Hour & now.Minute & now.Second & ".txt")
+		txtFile = new System.IO.StreamWriter("Combatlog/Combatlog" &" _" & now.Day & now.Hour & now.Minute & now.Second & ".txt")
 	End Sub
 	Sub write(s As String)
 		Dim tmp As String
 		tmp = ""
 		Try
-		 tmp = 	Sim.Runes.RuneState()
+		 'tmp = 	Sim.Runes.RuneState()
 		Finally
 			if enable then txtFile.WriteLine(tmp & vbtab & s)
 		End Try

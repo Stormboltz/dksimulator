@@ -13,4 +13,19 @@ Public Module GlobalFunction
 		s = strings.Left(s, InStrRev(s,")")-1 )
 		return s
 	End Function
+	
+	Function toDecimal(d As Double) As Decimal
+		try
+			Return d.ToString (".#")
+		Catch
+		End Try
+	End Function
+	
+	Function toDDecimal(d As Double) As Decimal
+		try
+			Return d.ToString (".##")
+		Catch
+		End Try
+	End Function
+	
 End Module

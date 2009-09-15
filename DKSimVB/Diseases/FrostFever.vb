@@ -1,6 +1,11 @@
 Friend Class FrostFever
 	inherits Diseases.Disease
 
+
+	Sub New(S As sim)
+		MyBase.New()
+		Sim = S
+	End Sub
 	overrides Function PerfectUsage(T As Long) As Boolean
 		If Talentfrost.TundraStalker>0 Then
 			if isActive(T+150) = false then return true

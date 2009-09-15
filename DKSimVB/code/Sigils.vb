@@ -17,6 +17,10 @@ Friend Class Sigils
 	Friend VengefulHeart As Boolean
 	Friend Virulence As Boolean
 	
+	Private Sim as Sim
+	Sub New(S As Sim )
+		Sim = S
+	End Sub
 	Sub TryHauntedDreams()
 		dim RNG as Double
 		if HauntedDreams then

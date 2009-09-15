@@ -15,11 +15,14 @@ Public Class Strike
 	Friend CritCount as Integer
 	Friend TotalHit As Long
 	Friend TotalCrit As Long
+	Protected Sim as Sim
 	
 	
-	Public Sub New()
-        init()
+    
+    Public Sub New()
+		init()
     End Sub
+    
 	Overridable Protected Sub init()
 		Total = 0
 		MissCount = 0

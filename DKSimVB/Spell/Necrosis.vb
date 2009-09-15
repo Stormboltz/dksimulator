@@ -1,5 +1,11 @@
 Friend Class Necrosis
-	inherits Spells.Spell
+	Inherits Spells.Spell
+	
+	Sub New(S As sim)
+		MyBase.New()
+		Sim = S
+	End Sub
+	
 	Function Apply(Damage As Double, T As long) As Double
 		Dim tmp As Double
 		tmp  = Damage * 0.04 * TalentUnholy.Necrosis

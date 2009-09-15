@@ -68,6 +68,7 @@
     <Compile Include="code\SetBonus.vb" />
     <Compile Include="code\Sigils.vb" />
     <Compile Include="code\Sim.vb" />
+    <Compile Include="code\SimContructor.vb" />
     <Compile Include="code\Trinket.vb" />
     <Compile Include="Diseases\BloodPlague.vb" />
     <Compile Include="Diseases\Disease.vb" />

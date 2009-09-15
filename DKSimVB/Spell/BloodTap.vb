@@ -8,7 +8,12 @@
 '
 Friend Class BloodTap
 	Friend cd As Double
+	Protected Sim As Sim
 	
+	Sub New(MySim as Sim)
+		cd = 0
+		sim = MySim 
+	End Sub
 	Function IsAvailable(T as long) As Boolean
 		If T >= cd Then
 			return true
@@ -30,8 +35,6 @@ Friend Class BloodTap
 		return true
 	End Function
 		
-	private Sub init()
-		cd = 0
-	End Sub
+	
 		
 End Class

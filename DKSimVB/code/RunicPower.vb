@@ -1,12 +1,15 @@
 Friend Class RunicPower
 	Friend Value As Integer
-	Sub New 
+	
+	Protected sim as Sim
+	Sub New(S As Sim)
+		Sim = S
 		Value = 0
 	End Sub
 	
 	
 	Sub add(i As Integer)
-		Threat = Threat  + i*5
+		sim.Threat = sim.Threat  + i*5
 		Value = i + Value
 		'debug.Print ("RP= " & Value)
 		If Value > MAxValue Then Value =  MaxValue

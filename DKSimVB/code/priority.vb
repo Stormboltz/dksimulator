@@ -8,8 +8,10 @@
 '
 Friend Class priority
 	Friend prio As New Collection
-	Private runes as runes
-	Sub New
+	Private runes As runes
+	Private sim as Sim
+	Sub New(S As Sim)
+		Sim = S
 		Runes = sim.Runes
 	End Sub
 	
@@ -27,82 +29,82 @@ Friend Class priority
 					
 					
 				Case "GhoulFrenzy"
-					if sim.ghoul.IsFrenzyAvailable(Timestamp) and CanUseGCD(Timestamp)  Then
+					if sim.ghoul.IsFrenzyAvailable(Timestamp) and sim.CanUseGCD(Timestamp)  Then
 						sim.ghoul.Frenzy(Timestamp)
 						exit sub
 					end if
 					
 				Case "ScourgeStrike"
-					If runes.FU(TimeStamp) = True and CanUseGCD(Timestamp)  Then
+					If runes.FU(TimeStamp) = True and sim.CanUseGCD(Timestamp)  Then
 						sim.ScourgeStrike.ApplyDamage(TimeStamp)
 						'debug.Print("SS")
 						exit sub
 					End If
 				Case "PlagueStrike"
-					If runes.Unholy(TimeStamp) and CanUseGCD(Timestamp) Then
+					If runes.Unholy(TimeStamp) and sim.CanUseGCD(Timestamp) Then
 						sim.PlagueStrike.ApplyDamage(TimeStamp)
 						'debug.Print("PS")
 						exit sub
 					End If
 				Case "DRMObliterate"
-					If runes.DRMFU(TimeStamp) = True and CanUseGCD(Timestamp) Then
+					If runes.DRMFU(TimeStamp) = True and sim.CanUseGCD(Timestamp) Then
 						sim.Obliterate.ApplyDamage(TimeStamp)
 						'debug.Print("OB")
 						exit sub
 					End If
 				Case "Obliterate"
-					If runes.FU(TimeStamp) = True and CanUseGCD(Timestamp) Then
+					If runes.FU(TimeStamp) = True and sim.CanUseGCD(Timestamp) Then
 						sim.Obliterate.ApplyDamage(TimeStamp)
 						'debug.Print("OB")
 						exit sub
 					End If
 					
 				Case "KMFrostStrike"
-					If sim.FrostStrike.isAvailable(TimeStamp) = True and sim.proc.KillingMachine and CanUseGCD(Timestamp)  Then
+					If sim.FrostStrike.isAvailable(TimeStamp) = True and sim.proc.KillingMachine and sim.CanUseGCD(Timestamp)  Then
 						sim.FrostStrike.ApplyDamage(TimeStamp)
 						'debug.Print("FS")
 						exit sub
 					End If
 				Case "FrostStrike"
-					If sim.FrostStrike.isAvailable(TimeStamp) = True and CanUseGCD(Timestamp) Then
+					If sim.FrostStrike.isAvailable(TimeStamp) = True and sim.CanUseGCD(Timestamp) Then
 						sim.FrostStrike.ApplyDamage(TimeStamp)
 						'debug.Print("FS")
 						exit sub
 					End If
 					
 				Case "FrostStrikeMaxRp"
-					If Sim.RunicPower.MaxValue = Sim.RunicPower.Value and CanUseGCD(Timestamp)  Then
+					If Sim.RunicPower.MaxValue = Sim.RunicPower.Value and sim.CanUseGCD(Timestamp)  Then
 						sim.FrostStrike.ApplyDamage(TimeStamp)
 						'debug.Print("FS")
 						exit sub
 					End If
 				Case "DRMDeathStrike"
-					If runes.DRMFU(TimeStamp) and CanUseGCD(Timestamp) Then
+					If runes.DRMFU(TimeStamp) and sim.CanUseGCD(Timestamp) Then
 						sim.DeathStrike.ApplyDamage(TimeStamp)
 						'debug.Print("BS")
 						exit sub
 					End If	
 				Case "DeathStrike"
-					If runes.FU(TimeStamp) and CanUseGCD(Timestamp) Then
+					If runes.FU(TimeStamp) and sim.CanUseGCD(Timestamp) Then
 						sim.DeathStrike.ApplyDamage(TimeStamp)
 						'debug.Print("BS")
 						exit sub
 					End If
 				Case "BloodStrike"
-					If runes.Blood(TimeStamp) and CanUseGCD(Timestamp) Then
+					If runes.Blood(TimeStamp) and sim.CanUseGCD(Timestamp) Then
 						sim.BloodStrike.ApplyDamage(TimeStamp)
 						'debug.Print("BS")
 						exit sub
 					End If
 					
 				Case "HeartStrike"
-					If runes.Blood(TimeStamp) = True and CanUseGCD(Timestamp) Then
+					If runes.Blood(TimeStamp) = True and sim.CanUseGCD(Timestamp) Then
 						sim.Heartstrike.ApplyDamage(TimeStamp)
 						'debug.Print("HS")
 						exit sub
 					End If
 				Case "Rime"
-					If sim.proc.rime and sim.HowlingBlast.isAvailable(TimeStamp) and CanUseGCD(Timestamp) Then
+					If sim.proc.rime and sim.HowlingBlast.isAvailable(TimeStamp) and sim.CanUseGCD(Timestamp) Then
 						sim.HowlingBlast.ApplyDamage(TimeStamp)
 						exit sub
 					End If
@@ -166,25 +168,25 @@ Friend Class priority
 					End If
 					
 				Case "IcyTouch"
-					If runes.Frost(TimeStamp) = True and CanUseGCD(Timestamp) Then
+					If runes.Frost(TimeStamp) = True and sim.CanUseGCD(Timestamp) Then
 						sim.IcyTouch.ApplyDamage(TimeStamp)
 						exit sub
 					End If
 					
 				Case "DeathCoilMaxRp"
-					If Sim.RunicPower.MaxValue = Sim.RunicPower.Value and CanUseGCD(Timestamp) Then
+					If Sim.RunicPower.MaxValue = Sim.RunicPower.Value and sim.CanUseGCD(Timestamp) Then
 						sim.deathcoil.ApplyDamage(TimeStamp,False)
 						'debug.Print("DC")
 						exit sub
 					End If
 				Case "DeathCoil"
-					If sim.deathcoil.isAvailable(TimeStamp) = True and CanUseGCD(Timestamp) Then
+					If sim.deathcoil.isAvailable(TimeStamp) = True and sim.CanUseGCD(Timestamp) Then
 						sim.deathcoil.ApplyDamage(TimeStamp,False)
 						'debug.Print("DC")
 						exit sub
 					End If
 				Case "BloodBoil"
-					If runes.Blood(TimeStamp) = True and CanUseGCD(Timestamp) Then
+					If runes.Blood(TimeStamp) = True and sim.CanUseGCD(Timestamp) Then
 						sim.BloodBoil.ApplyDamage(TimeStamp)
 						exit sub
 					End If
@@ -192,7 +194,7 @@ Friend Class priority
 					
 				Case "HowlingBlast"
 					If sim.HowlingBlast.isAvailable(TimeStamp) Then
-						If sim.proc.rime Or runes.FU(TimeStamp) and CanUseGCD(Timestamp)  Then
+						If sim.proc.rime Or runes.FU(TimeStamp) and sim.CanUseGCD(Timestamp)  Then
 							sim.HowlingBlast.ApplyDamage(TimeStamp)
 							runes.UnReserveFU(TimeStamp)
 							Exit Sub
@@ -203,7 +205,7 @@ Friend Class priority
 					End If
 				Case "KMHowlingBlast"
 					If sim.HowlingBlast.isAvailable(TimeStamp) and sim.proc.KillingMachine Then
-						If sim.proc.rime Or runes.FU(TimeStamp) and CanUseGCD(Timestamp) Then
+						If sim.proc.rime Or runes.FU(TimeStamp) and sim.CanUseGCD(Timestamp) Then
 							sim.HowlingBlast.ApplyDamage(TimeStamp)
 							runes.UnReserveFU(TimeStamp)
 							Exit Sub
@@ -213,12 +215,12 @@ Friend Class priority
 					Else
 					End If
 				Case "KMRime"
-					If sim.proc.Rime and sim.proc.KillingMachine and CanUseGCD(Timestamp)  Then
+					If sim.proc.Rime and sim.proc.KillingMachine and sim.CanUseGCD(Timestamp)  Then
 						sim.HowlingBlast.ApplyDamage(TimeStamp)
 					Else
 					End If
 				Case "DeathandDecay"
-					If sim.DeathAndDecay.isAvailable(TimeStamp) and CanUseGCD(Timestamp) Then
+					If sim.DeathAndDecay.isAvailable(TimeStamp) and sim.CanUseGCD(Timestamp) Then
 						sim.DeathAndDecay.Apply(TimeStamp)
 						Exit Sub
 					End If

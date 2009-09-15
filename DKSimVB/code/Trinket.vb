@@ -38,7 +38,9 @@ Public Class Trinket
 	
 	
 	
-	Sub New
+	Protected sim as Sim
+	Sub New(S As Sim)
+		Sim = S
 		MjolRuneFade = 0
 		MjolRuneCd = 0
 		GrimTollFade = 0

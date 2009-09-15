@@ -8,6 +8,13 @@
 '
 Friend Class BloodBoil
 	Inherits Spells.Spell
+	
+	
+	
+	Sub New(S As sim)
+		MyBase.New()
+		Sim = S
+	End Sub
 
 	overrides Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
@@ -37,12 +44,12 @@ Friend Class BloodBoil
 			combatlog.write(T  & vbtab &  "BB hit for " & dégat )
 		End If
 		
-		if Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
+		if Sim.Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
 		total = total + dégat
 		
 		
 		Sim.RunicPower.add (10) 
-		TryOnSpellHit
+		Sim.TryOnSpellHit
 		
 		
 		

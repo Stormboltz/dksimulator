@@ -9,7 +9,10 @@
 Friend Class FrostStrike
 	Inherits Strikes.Strike
 
-	
+	Sub New(S As sim)
+		MyBase.New()
+		Sim = S
+	End Sub
 	
 	public Overrides Function isAvailable(T As long) As Boolean
 		if sim.glyph.FrostStrike then
@@ -40,7 +43,7 @@ Friend Class FrostStrike
 		OHHit = True
 		
 		If sim.MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
-			If DoMyStrikeHit = false Then
+			If sim.DoMyStrikeHit = false Then
 				combatlog.write(T  & vbtab & "MH FS fail")
 				MissCount = MissCount + 1
 				MHHit = False
@@ -48,7 +51,7 @@ Friend Class FrostStrike
 			End If
 		Else
 			OHHit = false
-			If DoMyStrikeHit = false Then
+			If sim.DoMyStrikeHit = false Then
 				combatlog.write(T  & vbtab & "FS fail")
 				sim.proc.KillingMachine  = False
 				MissCount = MissCount + 1
@@ -72,9 +75,9 @@ Friend Class FrostStrike
 					HitCount = HitCount + 1
 					combatlog.write(T  & vbtab &  "FS hit for " & dégat )
 				End If
-				if Lissage then dégat = AvrgCrit(T,true)*ccT + AvrgNonCrit(T,true)*(1-ccT )
+				if sim.Lissage then dégat = AvrgCrit(T,true)*ccT + AvrgNonCrit(T,true)*(1-ccT )
 				total = total + dégat
-				TryOnMHHitProc
+				sim.TryOnMHHitProc
 				
 			End If
 			If OHHit Then
@@ -86,7 +89,7 @@ Friend Class FrostStrike
 					dégat = AvrgNonCrit(T,false)
 					combatlog.write(T  & vbtab &  "OH FS hit for " & dégat )
 				End If
-				if Lissage then dégat = AvrgCrit(T,false)*ccT + AvrgNonCrit(T,false)*(1-ccT )
+				if Sim.Lissage then dégat = AvrgCrit(T,false)*ccT + AvrgNonCrit(T,false)*(1-ccT )
 				total = total + dégat
 				sim.TryOnOHHitProc
 			End If

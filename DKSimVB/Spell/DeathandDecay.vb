@@ -10,9 +10,13 @@ Friend Class DeathandDecay
 	inherits Spells.Spell
 
 	Friend nextTick As Long
-
 	
-	Protected Overloads Overrides Sub init()
+	Sub New(MySim as Sim)
+		sim = Mysim
+	End Sub
+	
+	
+	Public Overloads Overrides Sub Init()
 		MyBase.init()
 		nextTick = 0
 	End Sub
@@ -40,7 +44,7 @@ Friend Class DeathandDecay
 	overrides Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
 
-		If DoMySpellHit = false Then
+		If sim.DoMySpellHit = false Then
 			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "D&D fail")
 			MissCount = MissCount + 1
 			Exit function
@@ -58,7 +62,7 @@ Friend Class DeathandDecay
 		End If
 		
 		
-		if Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
+		if sim.Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
 		total = total + dégat
 		
 		

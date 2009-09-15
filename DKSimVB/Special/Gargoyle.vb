@@ -11,8 +11,8 @@ Friend Class Gargoyle
 	Friend CritCount as Integer
 	Friend TotalHit As Long
 	Friend TotalCrit as Long
-
-	Sub New()
+	Protected Sim  as Sim 
+	Sub New(S as Sim)
 		total = 0
 		MissCount = 0
 		HitCount = 0
@@ -21,6 +21,7 @@ Friend Class Gargoyle
 		ActiveUntil= 0
 		TotalHit = 0
 		TotalCrit = 0
+		Sim = S
 	End Sub
 	
 Sub Summon(T As Long)
@@ -72,7 +73,7 @@ Function ApplyDamage(T As long) As boolean
 		If combatlog.LogDetails Then combatlog.write(T  & vbtab &  "Gargoyle Strike hit for " & dégat )
 	End If
 	
-	if Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
+	if sim.Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
 	total = total + dégat
 		
 	return true

@@ -8,7 +8,10 @@
 '
 Friend Class HeartStrike
 	Inherits Strikes.Strike
-
+Sub New(S As sim)
+		MyBase.New()
+		Sim = S
+	End Sub
 	
 	public Overrides Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
@@ -24,7 +27,7 @@ Friend Class HeartStrike
 			Sim.NextFreeGCD = T + 150 + sim._MainFrm.txtLatency.Text/10
 		End If
 		
-		If DoMyStrikeHit = false Then
+		If sim.DoMyStrikeHit = false Then
 			combatlog.write(T  & vbtab &  "HS fail")
 			MissCount = MissCount + 1
 			Exit function
@@ -43,7 +46,7 @@ Friend Class HeartStrike
 			combatlog.write(T  & vbtab &  "HS hit for " & dégat)
 		End If
 		
-		if Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
+		if sim.Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
 		total = total + dégat
 		
 		RNG = sim.RandomNumberGenerator.RNGStrike

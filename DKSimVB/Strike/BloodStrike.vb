@@ -2,6 +2,10 @@
 Friend class BloodStrike
 	Inherits Strikes.Strike
 	
+	Sub New(S As sim)
+		MyBase.New()
+		Sim = S
+	End Sub
 	
 	public Overrides Function ApplyDamage(T As Long) As Boolean
 		Dim RNG As Double
@@ -21,7 +25,7 @@ Friend class BloodStrike
 		
 		If sim.MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
 			
-			If DoMyStrikeHit = false Then
+			If sim.DoMyStrikeHit = false Then
 				combatlog.write(T  & vbtab &  "MH/OH BS fail")
 				MissCount = MissCount + 1
 				MHHit = False
@@ -29,7 +33,7 @@ Friend class BloodStrike
 			End If
 		Else
 			OHHit = false
-			If DoMyStrikeHit = false Then
+			If sim.DoMyStrikeHit = false Then
 				combatlog.write(T  & vbtab &  "BS fail")
 				MissCount = MissCount + 1
 				Exit function
@@ -50,9 +54,9 @@ Friend class BloodStrike
 					HitCount = HitCount + 1
 					combatlog.write(T  & vbtab &  "BS hit for " & dégat )
 				End If
-				if Lissage then dégat = AvrgCrit(T,true)*CritChance + AvrgNonCrit(T,true)*(1-CritChance )
+				if sim.Lissage then dégat = AvrgCrit(T,true)*CritChance + AvrgNonCrit(T,true)*(1-CritChance )
 				total = total + dégat
-				TryOnMHHitProc
+				sim.TryOnMHHitProc
 			End If
 			If OHHit Then
 				dim dégat as Integer
@@ -64,7 +68,7 @@ Friend class BloodStrike
 					dégat = AvrgNonCrit(T,false)
 					combatlog.write(T  & vbtab &  "OH BS hit for " & dégat )
 				End If
-				if Lissage then dégat = AvrgCrit(T,false)*CritChance + AvrgNonCrit(T,false)*(1-CritChance )
+				if sim.Lissage then dégat = AvrgCrit(T,false)*CritChance + AvrgNonCrit(T,false)*(1-CritChance )
 				total = total + dégat
 				sim.TryOnOHHitProc
 			End If

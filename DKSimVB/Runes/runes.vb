@@ -5,10 +5,10 @@ Friend Class runes
 	Dim Rune4 As Rune4
 	Dim Rune5 As Rune5
 	Dim Rune6 As Rune6
+	Protected sim As Sim
 	
-	Sub New()
-		
-		
+	Sub New(S As Sim)
+		Sim = S
 		Rune1 = sim.rune1
 		Rune2 = sim.rune2
 		Rune3 = sim.rune3

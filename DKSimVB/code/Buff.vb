@@ -27,7 +27,9 @@ Friend Class Buff
 	
 	
 	
-	Sub New()
+	Protected sim as Sim
+	Sub New(S As Sim)
+		Sim = S
 		
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
 		Dim liveXml As new xml.XmlDocument

@@ -16,10 +16,16 @@ Public Class Spell
 	Friend TotalCrit As Long
 	Friend CD As Long
 	Friend ActiveUntil as Long
+	Protected Sim as Sim
+	
+	Sub New()		
+		Init
+	End Sub
 	
 	
 	
-	Overridable Protected Sub init()
+	
+	Overridable Sub Init()
 		Total = 0
 		MissCount = 0
 		HitCount = 0
@@ -28,7 +34,11 @@ Public Class Spell
 		TotalCrit = 0
 		CD = 0
 		ActiveUntil = 0
-	End sub
+	End Sub
+	
+	
+	
+	
 	
 	Overridable Public Function ApplyDamage(T As Long) As Boolean
 	End Function

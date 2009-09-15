@@ -8,9 +8,10 @@
 '
 Friend Class Butchery
 	Friend nextTick As long
-	
-	Sub New()
+	Protected Sim as Sim
+	Sub New(MySim as Sim)
 		init
+		Sim = Mysim
 	End Sub
 	
 	Function apply(T As long) as Boolean

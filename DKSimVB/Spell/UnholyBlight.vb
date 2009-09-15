@@ -1,6 +1,12 @@
 Friend Class UnholyBlight
 	inherits Spells.Spell
-
+	
+	Sub New(S As sim)
+		MyBase.New()
+		Sim = S
+	End Sub
+	
+	
 	Function Apply(T As Long,damage As Integer) As Double
 		Dim dégat As Integer
 		dégat = damage * 0.2

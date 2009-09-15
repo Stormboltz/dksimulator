@@ -12,8 +12,9 @@ Friend Class GhoulStat
 	Friend MHWeaponDPS As Integer
 	Friend MHWeaponSpeed As Double
 	Private character As Character
-	
-	Sub New()
+	Private Sim as Sim
+	Sub New(S As Sim)
+		Sim = S
 		Character = sim.Character
 		MHWeaponDPS = 0
 		MHWeaponSpeed = 2

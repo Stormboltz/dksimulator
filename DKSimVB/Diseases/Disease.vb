@@ -21,7 +21,10 @@ Public Class Disease
 	Friend DamageTick As Integer
 	Friend ScourgeStrikeGlyphCounter As Integer
 
-	
+	Protected sim As Sim
+	Sub New 
+		init()
+	End Sub
 	Overridable Protected Sub init()
 		nextTick = 0
 		FadeAt= 0

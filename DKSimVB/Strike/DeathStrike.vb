@@ -8,7 +8,10 @@
 '
 Friend Class DeathStrike
 	Inherits Strikes.Strike
-	
+	Sub New(S As sim)
+		MyBase.New()
+		Sim = S
+	End Sub
 
 	'A deadly attack that deals 75% weapon damage plus 222.75
 	'and heals the Death Knight for a percent of damage done
@@ -27,7 +30,7 @@ Friend Class DeathStrike
 			Sim.NextFreeGCD = T + 150+ sim._MainFrm.txtLatency.Text/10
 		End If
 		If sim.MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
-			If DoMyStrikeHit = false Then
+			If sim.DoMyStrikeHit = false Then
 				combatlog.write(T  & vbtab & "MH/OH DS fail")
 				MissCount = MissCount + 1
 				MHHit = False
@@ -35,7 +38,7 @@ Friend Class DeathStrike
 			End If
 		Else
 			OHHit = false
-			If DoMyStrikeHit = false Then
+			If sim.DoMyStrikeHit = false Then
 				combatlog.write(T  & vbtab & "DS fail")
 				MissCount = MissCount + 1
 				Exit function
@@ -57,7 +60,7 @@ Friend Class DeathStrike
 					dégat = AvrgNonCrit(T,true)
 					combatlog.write(T  & vbtab &  "DS hit for " & dégat )
 				End If
-				If Lissage Then dégat = AvrgCrit(T,true)*CritChance + AvrgNonCrit(T,true)*(1-CritChance )
+				If sim.Lissage Then dégat = AvrgCrit(T,true)*CritChance + AvrgNonCrit(T,true)*(1-CritChance )
 				total = total + dégat
 				sim.TryOnMHHitProc
 			End If
@@ -73,7 +76,7 @@ Friend Class DeathStrike
 					dégat = AvrgNonCrit(T,false)
 					combatlog.write(T  & vbtab &  "OH DS hit for " & dégat )
 				End If
-				If Lissage Then dégat = AvrgCrit(T,false)*CritChance + AvrgNonCrit(T,false)*(1-CritChance )
+				If sim.Lissage Then dégat = AvrgCrit(T,false)*CritChance + AvrgNonCrit(T,false)*(1-CritChance )
 				total = total + dégat
 				sim.TryOnOHHitProc
 			End If

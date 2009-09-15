@@ -10,8 +10,9 @@ Public Class Bloodlust
 	
 	Friend Cd as Long
 	Private ActiveUntil As Long
-	
-	Sub new()
+	Protected Sim as Sim
+	Sub New(S As Sim)
+		Sim = S
 		cd = 0
 		ActiveUntil= 0
 	End Sub

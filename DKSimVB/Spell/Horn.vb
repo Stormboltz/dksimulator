@@ -9,6 +9,10 @@
 Public Class Horn
 	Inherits Spells.Spell
 	
+	Sub New(S As sim)
+		MyBase.New()
+		Sim = S
+	End Sub
 	
 	Function isAvailable(T As Long) As Boolean
 		If Sim.RunicPower.Value + 20 >= Sim.RunicPower.MaxValue Then Return False

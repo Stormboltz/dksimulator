@@ -9,10 +9,14 @@
 Friend Class DeathChill
 	Friend Cd As Long
 	Friend Active As Boolean
+	Protected Sim as Sim
 	
-	Sub init()
+	
+	
+	Sub New(MySim as Sim)
 		cd = 0
 		Active= False
+		Sim = Mysim	
 	End Sub
 	Function IsAvailable(T As Long) As Boolean
 		if talentfrost.Deathchill = 1 and CD <= T then return true

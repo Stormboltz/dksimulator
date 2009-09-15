@@ -8,7 +8,10 @@
 '
 Friend Class HowlingBlast
 	Inherits Spells.Spell
-	
+	Sub New(S As sim)
+		MyBase.New()
+		Sim = S
+	End Sub
 	Function isAvailable(T As Long) As Boolean
 		if TalentFrost.HowlingBlast <> 1 then return false
 		if cd <= T then return true
@@ -20,7 +23,7 @@ Friend Class HowlingBlast
 		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
 		cd = T + 800
 		
-		If DoMySpellHit = false Then
+		If sim.DoMySpellHit = false Then
 			combatlog.write(T  & vbtab &  "HB fail")
 			sim.proc.KillingMachine  = False
 			sim.Proc.rime = False
@@ -41,7 +44,7 @@ Friend Class HowlingBlast
 			combatlog.write(T  & vbtab &  "HB hit for " & dégat)
 		End If
 		
-		if Lissage then dégat = AvrgCrit(T)*ccT + AvrgNonCrit(T)*(1-CritChance )
+		if sim.Lissage then dégat = AvrgCrit(T)*ccT + AvrgNonCrit(T)*(1-CritChance )
 		total = total + dégat
 		
 		If sim.proc.rime Then
@@ -56,7 +59,7 @@ Friend Class HowlingBlast
 		if sim.glyph.HowlingBlast then
 			sim.FrostFever.Apply(T)
 		End If
-		TryOnSpellHit
+		sim.TryOnSpellHit
 		return true
 	End Function
 	overrides Function AvrgNonCrit(T As long) As Double

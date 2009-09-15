@@ -1,6 +1,14 @@
 Friend Class MainHand
 	Inherits Strikes.Strike
 
+
+
+Sub New(S As sim)
+		MyBase.New()
+		Sim = S
+	End Sub
+	
+	
 	Friend NextWhiteMainHit As long
 	
 	Protected Overrides sub init()
@@ -73,7 +81,7 @@ Friend Class MainHand
 			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "MH hit for " & dégat )
 		End If
 		
-		If Lissage Then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance-MeleeGlacingChance) + AvrgNonCrit(T)* (MeleeGlacingChance)*0.7
+		If sim.Lissage Then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance-MeleeGlacingChance) + AvrgNonCrit(T)* (MeleeGlacingChance)*0.7
 		total = total + dégat
 		
 		

@@ -13,15 +13,17 @@ Public Class RuneStrike
 	Friend HitCount as Integer
 	Friend CritCount as Integer
 	Friend TotalHit As Long
-	Friend TotalCrit as Long
+	Friend TotalCrit As Long
+	Protected sim as Sim
 	
-	Sub new()
+	Sub new(S as sim )
 		total = 0
 		MissCount = 0
 		HitCount = 0
 		CritCount = 0
 		TotalHit = 0
 		TotalCrit = 0
+		sim = S
 	End Sub
 	Function ApplyDamage(T As long) As boolean
 		Dim dégat As Integer
@@ -80,7 +82,7 @@ Public Class RuneStrike
 		If RNG <= 10 * TalentUnholy.BloodCakedBlade Then
 			BCB = sim.BloodCakedBlade.ApplyDamage(T,true)
 		End If
-		TryOnMHHitProc
+		sim.TryOnMHHitProc
 		If sim.proc.ScentOfBloodProc > 0 Then
 			sim.proc.ScentOfBloodProc  = sim.proc.ScentOfBloodProc  -1
 			Sim.RunicPower.add(5)

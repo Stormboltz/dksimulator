@@ -17,8 +17,9 @@ Friend class Ghoul
 	Private MeleeDodgeChance As Single
 	Private MeleeGlacingChance As Single
 	private SpellMissChance as Single
-
-	Sub new()
+	protected sim As Sim
+	
+	Sub new(MySim as Sim)
 		total = 0
 		MissCount = 0
 		HitCount = 0
@@ -31,6 +32,8 @@ Friend class Ghoul
 		FrenzyUntil = 0
 		TotalHit = 0
 		TotalCrit = 0
+		sim = MySim
+		
 	End Sub
 	
 	Sub Summon(T As Long)

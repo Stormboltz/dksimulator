@@ -9,6 +9,12 @@
 Friend Class Obliterate
 	Inherits Strikes.Strike
 	
+	
+	Sub New(S As sim)
+		MyBase.New()
+		Sim = S
+	End Sub
+	
 	public Overrides Function ApplyDamage(T As Long) As Boolean
 		Dim MHHit As Boolean
 		Dim OHHit As Boolean
@@ -24,7 +30,7 @@ Friend Class Obliterate
 		RNG = sim.RandomNumberGenerator.RNGStrike
 
 		If sim.MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
-			If DoMyStrikeHit = false Then
+			If sim.DoMyStrikeHit = false Then
 				combatlog.write(T  & vbtab &  "MH/OH OB fail" & vbtab & RNG)
 				MissCount = MissCount + 1
 				MHHit=False
@@ -32,7 +38,7 @@ Friend Class Obliterate
 			End If
 		Else
 			OHHit = false
-			If DoMyStrikeHit = false Then
+			If sim.DoMyStrikeHit = false Then
 				combatlog.write(T  & vbtab &  "OB fail" & vbtab & RNG)
 				MissCount = MissCount + 1
 				Exit function
@@ -68,7 +74,7 @@ Friend Class Obliterate
 					dégat =  AvrgNonCrit(T,true)
 					combatlog.write(T  & vbtab &  "OB hit for " & dégat )
 				End If
-				if Lissage then dégat = AvrgCrit(T,true)*ccT + AvrgNonCrit(T,true)*(1-ccT )
+				if sim.Lissage then dégat = AvrgCrit(T,true)*ccT + AvrgNonCrit(T,true)*(1-ccT )
 				total = total + dégat
 				sim.TryOnMHHitProc
 				sim.proc.tryRime
@@ -85,7 +91,7 @@ Friend Class Obliterate
 					dégat =  AvrgNonCrit(T,false)
 					combatlog.write(T  & vbtab &  "OH OB hit for " & dégat )
 				End If
-				if Lissage then dégat = AvrgCrit(T,false)*ccT + AvrgNonCrit(T,false)*(1-ccT )
+				if sim.Lissage then dégat = AvrgCrit(T,false)*ccT + AvrgNonCrit(T,false)*(1-ccT )
 				total = total + dégat
 				sim.TryOnOHHitProc
 			End If
