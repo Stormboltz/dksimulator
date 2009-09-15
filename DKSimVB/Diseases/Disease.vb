@@ -86,7 +86,7 @@ Public Class Disease
 	
 	
 	Overridable Function CritCoef() As Double
-		return CritCoef * (1+0.06*sim.mainstat.CSD)
+		return (1+0.06*sim.mainstat.CSD)
 	End Function
 	Overridable Function CritChance() As Double
 		return sim.MainStat.crit

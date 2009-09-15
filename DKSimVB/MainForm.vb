@@ -27,26 +27,26 @@ Public Partial Class MainForm
 	Function LoadBeforeSim() As Boolean
 		saveConfig()
 		Try
-		sim.loadtemplate (GetFilePath(CmbTemplate.SelectedItem.ToString))
+		GetFilePath(CmbTemplate.SelectedItem.ToString)
 		Catch
 			msgbox("Could not determine template. Please reselect it.")
 			exit function
 		End try
-		If sim.rotate Then
-			try
-				sim.rotationPath = GetFilePath( cmbRotation.SelectedItem.ToString)
-			Catch
-				msgbox("Could not determine Rotation file. Please reselect it.")
-				exit function
-			End try
-		Else
-			try
-				sim.loadPriority (GetFilePath(CmbPrio.SelectedItem.ToString))
-			Catch
-				msgbox("Could not determine Priority file. Please reselect it.")
-				exit function
-			End try
-		End If
+'		If sim.rotate Then
+'			try
+'				sim.rotationPath = GetFilePath( cmbRotation.SelectedItem.ToString)
+'			Catch
+'				msgbox("Could not determine Rotation file. Please reselect it.")
+'				exit function
+'			End try
+'		Else
+'			try
+'				sim.loadPriority (GetFilePath(CmbPrio.SelectedItem.ToString))
+'			Catch
+'				msgbox("Could not determine Priority file. Please reselect it.")
+'				exit function
+'			End try
+'		End If
 		SaveEPOptions()
 		SaveBuffOption()
 		return true
@@ -164,7 +164,7 @@ Public Partial Class MainForm
 	Sub Button1Click(sender As Object, e As EventArgs)
 		if LoadBeforeSim = false then exit sub
 		me.tabControl1.SelectedIndex = 1
-		sim.start(PBsim,txtSimtime.Text,me)
+		SimConstructor.start(PBsim,txtSimtime.Text,me)
 	End Sub
 	
 	Sub BtEPClick(sender As Object, e As EventArgs)
@@ -176,7 +176,7 @@ Public Partial Class MainForm
 		chkLissage.Checked	= true
 		if LoadBeforeSim = false then exit sub
 		me.tabControl1.SelectedIndex = 1
-		sim.startEP(PBsim,True,txtSimtime.Text,me)
+		SimConstructor.startEP(PBsim,True,txtSimtime.Text,me)
 	End Sub
 	
 	Sub MainFormLoad(sender As Object, e As EventArgs)
@@ -375,11 +375,11 @@ Public Partial Class MainForm
 		cmbRuneOH.Items.Add("Razorice")
 		cmbRuneOH.Items.Add("FallenCrusader")
 		cmbRuneOH.Items.Add("Berserking")
-		sim.PetFriendly = True
+		SimConstructor.PetFriendly = True
 		
 		
 		
-		sim.initReport
+		CombatLog.initReport
 	End Sub
 	
 	Sub CmbTemplateSelectedIndexChanged(sender As Object, e As EventArgs)
@@ -392,7 +392,7 @@ Public Partial Class MainForm
 
 	
 	Sub CmbPrioSelectedIndexChanged(sender As Object, e As EventArgs)
-		sim.Rotate = False
+		SimConstructor.Rotate = False
 		cmbRotation.BackColor=Color.Gray
 		cmbPrio.BackColor=Color.White
 	End Sub
@@ -400,17 +400,17 @@ Public Partial Class MainForm
 	Sub CmdPresenceSelectedIndexChanged(sender As Object, e As EventArgs)
 		Dim Presence As String
 		Presence = cmdPresence.SelectedItem.ToString
-		sim.MainStat.BloodPresence = 0
-		sim.MainStat.UnholyPresence = 0
-		sim.Mainstat.FrostPresence = 0
-		Select Case Presence
-			Case "Blood"
-				sim.MainStat.BloodPresence = 1
-			Case "Unholy"
-				sim.MainStat.UnholyPresence=1
-			Case "Frost"
-				sim.Mainstat.FrostPresence = 1
-		End Select
+'		sim.MainStat.BloodPresence = 0
+'		sim.MainStat.UnholyPresence = 0
+'		sim.Mainstat.FrostPresence = 0
+'		Select Case Presence
+'			Case "Blood"
+'				sim.MainStat.BloodPresence = 1
+'			Case "Unholy"
+'				sim.MainStat.UnholyPresence=1
+'			Case "Frost"
+'				sim.Mainstat.FrostPresence = 1
+'		End Select
 	End Sub
 	
 	Sub CmbSigilsSelectedIndexChanged(sender As Object, e As EventArgs)
@@ -448,41 +448,41 @@ Public Partial Class MainForm
 	End Sub
 	
 	Sub ComboBox1SelectedIndexChanged(sender As Object, e As EventArgs)
-		sim.Rotate = True
+		SimConstructor.Rotate = True
 		cmbRotation.BackColor=Color.White
 		cmbPrio.BackColor=Color.Gray
 	End Sub
 	
 	Sub CmbRuneMHSelectedIndexChanged(sender As Object, e As EventArgs)
-		sim.RuneForge.MHCinderglacier = False
-		sim.RuneForge.MHFallenCrusader = false
-		sim.RuneForge.MHRazorice = false
-		Select Case cmbRuneMH.SelectedItem.ToString
-			Case "Cinderglacier"
-				sim.RuneForge.MHCinderglacier = true
-			Case "FallenCrusader"
-				sim.RuneForge.MHFallenCrusader = true
-			Case "Razorice"
-				sim.RuneForge.MHRazorice = true
-		End Select
+'		sim.RuneForge.MHCinderglacier = False
+'		sim.RuneForge.MHFallenCrusader = false
+'		sim.RuneForge.MHRazorice = false
+'		Select Case cmbRuneMH.SelectedItem.ToString
+'			Case "Cinderglacier"
+'				sim.RuneForge.MHCinderglacier = true
+'			Case "FallenCrusader"
+'				sim.RuneForge.MHFallenCrusader = true
+'			Case "Razorice"
+'				sim.RuneForge.MHRazorice = true
+'		End Select
 	End Sub
 	
 	Sub CmbRuneOHSelectedIndexChanged(sender As Object, e As EventArgs)
-		sim.RuneForge.OHCinderglacier = False
-		sim.RuneForge.OHFallenCrusader = false
-		sim.RuneForge.OHRazorice = False
-		sim.Runeforge.OHBerserking = False
-		
-		Select Case cmbRuneOH.SelectedItem.ToString
-			Case "Cinderglacier"
-				sim.RuneForge.OHCinderglacier = true
-			Case "FallenCrusader"
-				sim.RuneForge.OHFallenCrusader = true
-			Case "Razorice"
-				sim.RuneForge.OHRazorice = True
-			Case "Berserking"
-				sim.Runeforge.OHBerserking = True
-			end select
+'		sim.RuneForge.OHCinderglacier = False
+'		sim.RuneForge.OHFallenCrusader = false
+'		sim.RuneForge.OHRazorice = False
+'		sim.Runeforge.OHBerserking = False
+'		
+'		Select Case cmbRuneOH.SelectedItem.ToString
+'			Case "Cinderglacier"
+'				sim.RuneForge.OHCinderglacier = true
+'			Case "FallenCrusader"
+'				sim.RuneForge.OHFallenCrusader = true
+'			Case "Razorice"
+'				sim.RuneForge.OHRazorice = True
+'			Case "Berserking"
+'				sim.Runeforge.OHBerserking = True
+'			end select
 	End Sub
 	
 	Sub ChkCombatLogCheckedChanged(sender As Object, e As EventArgs)
@@ -491,7 +491,7 @@ Public Partial Class MainForm
 	End Sub
 	
 	Sub CkPetCheckedChanged(sender As Object, e As EventArgs)
-		sim.PetFriendly = ckPet.Checked
+		SimConstructor.PetFriendly = ckPet.Checked
 	End Sub
 	
 	Sub CkLogRPCheckedChanged(sender As Object, e As EventArgs)
@@ -1196,7 +1196,7 @@ End Sub
 	End Sub
 	
 	Sub ChkLissageCheckedChanged(sender As Object, e As EventArgs)
-		sim.Lissage = chkLissage.Checked
+		SimConstructor.Lissage = chkLissage.Checked
 	End Sub
 	
 	Sub CmdImportArmoryClick(sender As Object, e As EventArgs)

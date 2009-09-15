@@ -57,6 +57,7 @@ Friend class BloodStrike
 				if sim.Lissage then dégat = AvrgCrit(T,true)*CritChance + AvrgNonCrit(T,true)*(1-CritChance )
 				total = total + dégat
 				sim.TryOnMHHitProc
+				sim.proc.TryT92PDPS
 			End If
 			If OHHit Then
 				dim dégat as Integer
@@ -71,6 +72,7 @@ Friend class BloodStrike
 				if sim.Lissage then dégat = AvrgCrit(T,false)*CritChance + AvrgNonCrit(T,false)*(1-CritChance )
 				total = total + dégat
 				sim.TryOnOHHitProc
+				sim.proc.TryT92PDPS
 			End If
 			
 			sim.Sigils.tryHauntedDreams()

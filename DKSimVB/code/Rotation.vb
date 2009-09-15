@@ -11,8 +11,9 @@ Friend Class Rotation
 	Friend MyRotation As New Collection
 	Private Runes As runes
 	Private sim as Sim
-	Sub New(S as Sim)
-		sim.Runes = sim.Runes
+	Sub New(S As Sim)
+		sim = S
+		Runes = sim.Runes
 	End Sub
 	Sub loadRotation()
 		MyRotation.Clear

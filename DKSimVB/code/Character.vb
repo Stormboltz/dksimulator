@@ -13,7 +13,8 @@ Friend Class Character
 	Private _Dual As Integer
 	Protected sim as Sim
 
-	Sub New(S as Sim)
+	Sub New(S As Sim)
+		Sim = S
 		XmlDoc.Load(GetFilePath(sim._MainFrm.cmbCharacter.Text) )
 		
 		_Strength=0
@@ -27,7 +28,7 @@ Friend Class Character
 		_ArmorPenetrationRating=0
 		_ExpertiseRating=0
 		_Dual =0
-		Sim = S
+		
 	End sub
 	
 	Function Strength() As Integer

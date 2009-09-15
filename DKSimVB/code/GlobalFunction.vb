@@ -28,4 +28,22 @@ Public Module GlobalFunction
 		End Try
 	End Function
 	
+		Sub WriteReport(txt As String)
+		Dim Tw As System.IO.TextWriter
+		'On Error Resume Next
+		
+		Tw  =system.IO.File.appendText(ReportPath )
+		tw.WriteLine(txt & "<br>")
+		tw.Close
+		
+		_MainFrm.webBrowser1.Navigate(ReportPath)
+		Dim doc As HtmlDocument
+		Application.DoEvents
+		doc = _MainFrm.webBrowser1.Document
+		'doc.Body.ScrollTop = Integer.MaxValue
+		doc.Window.ScrollTo(0,32767)
+		_MainFrm.webBrowser1.Select
+	End Sub
+	
+	
 End Module
