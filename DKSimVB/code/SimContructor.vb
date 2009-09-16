@@ -36,6 +36,7 @@ Public Module SimConstructor
 		Sim.Prepare(pb,Simtime, Mainfrm)
 		sim.ePBase = 50
 		newthread = New System.Threading.Thread(AddressOf sim.Start)
+		newthread.Priority= Threading.ThreadPriority.BelowNormal
 		newthread.Start()
 		ThreadCollection.Add(newthread)
 	End Sub
