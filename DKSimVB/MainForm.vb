@@ -176,7 +176,7 @@ Public Partial Class MainForm
 		chkLissage.Checked	= true
 		if LoadBeforeSim = false then exit sub
 		me.tabControl1.SelectedIndex = 1
-		SimConstructor.startEP(PBsim,True,txtSimtime.Text,me)
+		SimConstructor.startEP(PBsim,txtSimtime.Text,me)
 	End Sub
 	
 	Sub MainFormLoad(sender As Object, e As EventArgs)

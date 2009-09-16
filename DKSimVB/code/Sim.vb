@@ -5,7 +5,7 @@ Public Class Sim
 	Friend Lag As Long
 	Friend TimeStamp As Long
 	Friend TimeStampCounter As Long
-	Friend EPStat As String
+	Friend _EPStat As String
 	Friend EPBase as Integer
 	Friend DPS As Long
 	Friend MaxTime As Long
@@ -108,7 +108,13 @@ Public Class Sim
 	Sub StartEP(pb As ProgressBar,EPCalc As Boolean,SimTime As double,MainFrm As MainForm)
 
 	End Sub
+	Sub Create
+		Debug.Print ("Create Sim object")
+	End Sub
 	
+	Function EPStat() as String
+		return _EPStat
+	End Function
 	
 	function StartEPTrinket(pb As ProgressBar,EPCalc As Boolean,SimTime As double,MainFrm As MainForm) as string
 		Dim BaseDPS As long
@@ -118,14 +124,14 @@ Public Class Sim
 		dim sReport as String
 		sReport = ""
 		'
-		EPStat="NoTrinket"
-		Start(pb,SimTime,MainFrm)
+		_EPStat="NoTrinket"
+		Prepare(pb,SimTime,MainFrm)
 		BaseDPS = DPS
 		WriteReport ("Average for " & EPStat & " | " & DPS)
 		
 		'
-		EPStat="AttackPowerNoTrinket"
-		Start(pb,SimTime,MainFrm)
+		_EPStat="AttackPowerNoTrinket"
+		Prepare(pb,SimTime,MainFrm)
 		APDPS = DPS
 		WriteReport ("Average for " & EPStat & " | " & DPS)
 		
@@ -137,8 +143,8 @@ Public Class Sim
 		
 		For Each tNode In trinketsList.ChildNodes
 			If tNode.InnerText = "True" Then
-				EPStat= tNode.Name.Replace("chkEP","")
-				Start(pb,SimTime,MainFrm)
+				_EPStat= tNode.Name.Replace("chkEP","")
+				Prepare(pb,SimTime,MainFrm)
 				tmp1 = (APDPS-BaseDPS ) / 100
 				tmp2 = (DPS-BaseDPS)/ 100
 				sReport = sReport +  ("<tr><td>EP:" & " | "& EPStat & " | " & toDDecimal(100*tmp2/tmp1)) & "</td></tr>"
@@ -151,21 +157,37 @@ Public Class Sim
 	End Function
 	
 
-	Sub Start(pb As ProgressBar,SimTime As Double, MainFrm As MainForm, EPstat As String	)
-		me.EPStat = EPstat
-		Start(pb ,SimTime , MainFrm )
+'	Sub Start(pb As ProgressBar,SimTime As Double, MainFrm As MainForm, EPstat As String	)
+'		me.EPStat = EPstat
+'		Start(pb ,SimTime , MainFrm )
+'	End Sub
+'	
+	Private Pb As ProgressBar
+	Private SimTime As Double
+	Sub Prepare (pbar As ProgressBar,SimTime As double, MainFrm As MainForm)
+		Pb = pbar
+		me.SimTime = SimTime
+		_MainFrm=MainFrm
+	End Sub
+	Sub Prepare (pbar As ProgressBar,SimTime As double, MainFrm As MainForm,EPS as String)
+		Pb = pbar
+		me.SimTime = SimTime
+		_MainFrm=MainFrm
+		_EPStat = EPS
 	End Sub
 	
-	Sub Start(pb As ProgressBar,SimTime As double, MainFrm As MainForm)
+	Sub Start()
 		Rnd(-1) 'Tell VB to initialize using Randomize's parameter
 		RandomNumberGenerator = new RandomNumberGenerator 'init here, so that we don't get the same rng numbers for short fights.
 		EPBase = 50
-		_MainFrm = MainFrm
 		'combatlog.LogDetails = true
 		SimStart = now
 		
+		
+		
 		MaxTime = SimTime * 60 * 60 * 100
-		pb.Maximum = SimTime * 60 * 60 * 100
+		'Problem with MThread
+		'pb.Maximum = SimTime * 60 * 60 * 100
 		
 		TotalDamageAlternative = 0
 		TimeStampCounter = 1
@@ -306,12 +328,16 @@ Public Class Sim
 						BloodBoil.total  + DeathStrike.total + MainHand.total + _
 						OffHand.total  + Ghoul.total + Gargoyle.total + DRW.total + _
 						RuneForge.RazoriceTotal + DeathandDecay.total + RuneStrike.total  + trinket.Total
-					_MainFrm.lblDPS.Text = todecimal(100 * TotalDamage /TimeStamp) & " DPS"
-				If TimeStamp <= pb.Maximum Then pb.Value = TimeStamp Else pb.Value = pb.Maximum
+					'Problem with MThread	
+					'_MainFrm.lblDPS.Text = todecimal(100 * TotalDamage /TimeStamp) & " DPS"
+					'Problem with MThread
+					'If TimeStamp <= pb.Maximum Then pb.Value = TimeStamp Else pb.Value = pb.Maximum
 				ElseIf ShowDpsTimer <= TimeStamp Then
 					ShowDpsTimer = TimeStamp + 0.1 * 60 * 60 * 100
-					_MainFrm.lblDPS.Text = "n/a"
-				If TimeStampCounter <= pb.Maximum Then pb.Value = TimeStampCounter Else pb.Value = pb.Maximum
+					'Problem with MThread
+					'_MainFrm.lblDPS.Text = "n/a"
+					'Problem with MThread
+					'If TimeStampCounter <= pb.Maximum Then pb.Value = TimeStampCounter Else pb.Value = pb.Maximum
 				End If
 			Loop
 			
@@ -332,16 +358,22 @@ Public Class Sim
 		TimeStamp = TimeStampCounter
 		
 		DPS = 100 * TotalDamage / TimeStamp
-		pb.Value = pb.Maximum
+		'Problem with MThread
+		'pb.Value = pb.Maximum
 		
 		If NumberOfFights > 1 then
 			WriteReport ("DPS: " & DPS)
 		Else
 			Report()
 		End If
-		_MainFrm.lblDPS.Text = DPS & " DPS"
+		'Problem with MThread
+		'_MainFrm.lblDPS.Text = DPS & " DPS"
 		Debug.Print( "DPS=" & DPS & " " & EPStat & " hit=" & mainstat.Hit & " sphit=" & mainstat.SpellHit & " exp=" & mainstat.expertise )
 		combatlog.finish
+		on error resume next
+		SimConstructor.DPSs.Add(DPS, me.EPStat)
+		
+		
 	End Sub
 	
 	Function isInGCD(T As long ) As Boolean
@@ -482,7 +514,7 @@ Public Class Sim
 		Lissage = SimConstructor.Lissage
 		PetFriendly = SimConstructor.PetFriendly
 		Rotate = SimConstructor.Rotate
-		EpStat = SimConstructor.EpStat
+		'_EpStat = SimConstructor.EpStat
 		
 		Buff = New Buff(Me)
 		'Keep this order for RuneX -> Runse -> Rotation/Prio
@@ -942,22 +974,22 @@ Public Class Sim
 		STmp = sTmp &  "<tr><td COLSPAN=8>Threat Per Second" & VBtab & "<b>" &  tps & "</b></td></tr>"
 		STmp = sTmp &   "<tr><td COLSPAN=8>Generated in " & DateDiff( DateInterval.Second,SimStart,now())  & "s</td></tr>"
 		
-		STmp = sTmp &   "<tr><td COLSPAN=8>Template: " & Split(_MainFrm.cmbTemplate.Text,".")(0) & "</td></tr>"
+		STmp = sTmp &   "<tr><td COLSPAN=8>Template: " & Split(Character.GetTemplateFileName,".")(0) & "</td></tr>"
 		If Rotate Then
-			STmp = sTmp &   "<tr><td COLSPAN=8>Rotation: " & Split(_MainFrm.cmbRotation.Text,".")(0) & "</td></tr>"
+			STmp = sTmp &   "<tr><td COLSPAN=8>Rotation: " & Split(Character.GetRotationFileName,".")(0) & "</td></tr>"
 		Else
-			STmp = sTmp &   "<tr><td COLSPAN=8>Priority: " & Split(_MainFrm.cmbPrio.Text,".")(0) & "</td></tr>"
+			STmp = sTmp &   "<tr><td COLSPAN=8>Priority: " & Split(Character.GetPriorityFileName,".")(0) & "</td></tr>"
 		End If
-		STmp = sTmp &   "<tr><td COLSPAN=8>Presence: " & _MainFrm.cmdPresence.Text & vbCrLf & "</td></tr>"
-		STmp = sTmp &   "<tr><td COLSPAN=8>Sigil: " & _MainFrm.cmbSigils.Text & vbCrLf & "</td></tr>"
+		STmp = sTmp &   "<tr><td COLSPAN=8>Presence: " & Character.GetPresence & vbCrLf & "</td></tr>"
+		STmp = sTmp &   "<tr><td COLSPAN=8>Sigil: " & Character.GetSigil & vbCrLf & "</td></tr>"
 		
 		If MainStat.DualW Then
-			STmp = sTmp &   "<tr><td COLSPAN=8>RuneEnchant: " & _MainFrm.cmbRuneMH.Text  & " / " & _MainFrm.cmbRuneOH.Text  & "</td></tr>"
+			STmp = sTmp &   "<tr><td COLSPAN=8>RuneEnchant: " & Character.GetMHEnchant  & " / " &  Character.GetOHEnchant & "</td></tr>"
 		Else
-			STmp = sTmp &   "<tr><td COLSPAN=8>RuneEnchant: " & _MainFrm.cmbRuneMH.Text & "</td></tr>"
+			STmp = sTmp &   "<tr><td COLSPAN=8>RuneEnchant: " & Character.GetMHEnchant & "</td></tr>"
 		End If
 		
-		STmp = sTmp &   "<tr><td COLSPAN=8>Pet Calculation: " & _MainFrm.ckPet.Checked & "</td></tr>"
+		STmp = sTmp &   "<tr><td COLSPAN=8>Pet Calculation: " & Character.GetPetCalculation & "</td></tr>"
 		
 		stmp = stmp & "</table><hr width='80%' align='center' noshade ></hr>"
 		tw.Flush

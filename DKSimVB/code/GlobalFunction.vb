@@ -28,7 +28,7 @@ Public Module GlobalFunction
 		End Try
 	End Function
 	
-		Sub WriteReport(txt As String)
+	Sub WriteReport(txt As String)
 		Dim Tw As System.IO.TextWriter
 		'On Error Resume Next
 		
@@ -37,12 +37,15 @@ Public Module GlobalFunction
 		tw.Close
 		
 		_MainFrm.webBrowser1.Navigate(ReportPath)
-		Dim doc As HtmlDocument
+		'Dim doc As HtmlDocument
 		Application.DoEvents
-		doc = _MainFrm.webBrowser1.Document
-		'doc.Body.ScrollTop = Integer.MaxValue
-		doc.Window.ScrollTo(0,32767)
-		_MainFrm.webBrowser1.Select
+		
+		'MThreading problem
+		'SimConstructor._MainFrm.webBrowser1.Document.Window.ScrollTo(0,32767)
+'		doc = SimConstructor._MainFrm.webBrowser1.Document
+'		'doc.Body.ScrollTop = Integer.MaxValue
+'		doc.Window.ScrollTo(0,32767)
+		'_MainFrm.webBrowser1.Select
 	End Sub
 	
 	

@@ -44,10 +44,12 @@ Friend Class MainStat
 	
 	Sub New(S As Sim)
 		Sim = S
-		On Error Resume Next
+		'On Error Resume Next
 		character = sim.Character
 		dim XmlDoc As New Xml.XmlDocument
-		XmlDoc.Load(GetFilePath(sim._MainFrm.cmbCharacter.Text) )
+		XmlDoc = character.XmlDoc
+		'XmlDoc.Load(GetFilePath(sim._MainFrm.cmbCharacter.Text) )
+		
 		MHWeaponDPS = (XmlDoc.SelectSingleNode("//character/weapon/mainhand/dps").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
 		If sim.EPStat="WeaponDPS" Then
 			MHWeaponDPS = MHWeaponDPS + 10
@@ -81,7 +83,7 @@ Friend Class MainStat
 		Sim.Trinket.Comet = 0
 		Sim.Trinket.DeathChoice = 0
 		
-		Select Case sim.EPStat
+		Select Case sim._EPStat
 			Case "NoTrinket"
 			Case "AttackPowerNoTrinket"
 			Case "MjolRune"
@@ -132,7 +134,7 @@ Friend Class MainStat
 				
 		End Select
 		
-		Select Case sim.EPStat
+		Select Case sim._EPStat
 			Case "0T7"
 				T72PDPS = 0
 				T74PDPS = 0

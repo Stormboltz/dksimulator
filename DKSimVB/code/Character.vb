@@ -1,5 +1,5 @@
 Friend Class Character
-	Private XmlDoc As New Xml.XmlDocument
+	Friend XmlDoc As New Xml.XmlDocument
 	Private _Strength As Integer
 	Private _Agility As Integer
 	Private _Intel As Integer
@@ -12,10 +12,18 @@ Friend Class Character
 	Private _ExpertiseRating As Integer
 	Private _Dual As Integer
 	Protected sim as Sim
+	Friend XmlConfig as New Xml.XmlDocument
+
+
 
 	Sub New(S As Sim)
 		Sim = S
-		XmlDoc.Load(GetFilePath(sim._MainFrm.cmbCharacter.Text) )
+		XmlConfig.Load("config.xml")
+		XmlDoc.Load (GetFilePath(XmlConfig.SelectSingleNode("//config/Character").InnerText))
+
+		
+		
+		'XmlDoc.Load(GetFilePath(sim._MainFrm.cmbCharacter.Text) )
 		
 		_Strength=0
 		_Agility=0
@@ -29,7 +37,43 @@ Friend Class Character
 		_ExpertiseRating=0
 		_Dual =0
 		
-	End sub
+	End Sub
+	
+	Function GetCharacterFileName() as String
+		Return XmlConfig.SelectSingleNode("//config/Character").InnerText
+	End Function
+	
+	Function GetTemplateFileName() as String
+		Return XmlConfig.SelectSingleNode("//config/template").InnerText
+	End Function
+	
+	Function GetPriorityFileName() as String
+		Return XmlConfig.SelectSingleNode("//config/priority").InnerText
+	End Function
+	
+	Function GetRotationFileName() as String
+		Return XmlConfig.SelectSingleNode("//config/rotation").InnerText
+	End Function
+	
+	Function GetPresence() as String
+		Return XmlConfig.SelectSingleNode("//config/presence").InnerText
+	End Function
+	
+	Function GetSigil() as String
+		Return XmlConfig.SelectSingleNode("//config/sigil").InnerText
+	End Function
+	
+	Function GetMHEnchant() as String
+		Return XmlConfig.SelectSingleNode("//config/mh").InnerText
+	End Function
+	
+	Function GetOHEnchant() As String
+		Return XmlConfig.SelectSingleNode("//config/oh").InnerText
+	End Function
+	
+	Function GetPetCalculation() As Boolean
+		Return XmlConfig.SelectSingleNode("//config/pet").InnerText
+	End Function
 	
 	Function Strength() As Integer
 		Dim tmp As Integer
