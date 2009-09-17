@@ -59,7 +59,7 @@ Public Class Spell
 	
 	Overridable Function report As String
 		dim tmp as String
-		tmp = me.ToString & VBtab
+		tmp = ShortenName(me.ToString)  & VBtab
 		
 		If total.ToString().Length < 8 Then
 			tmp = tmp & total & "   " & VBtab

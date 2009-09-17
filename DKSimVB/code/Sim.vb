@@ -93,7 +93,10 @@ Public Class Sim
 	Friend Rotation as Rotation
 	Friend RuneForge As RuneForge
 	
-	Friend Trinket as Trinket
+	Friend Trinket As Trinket
+	Friend ProgressFrame as ProgressFrm
+	
+	
 	Sub Init()
 	End Sub
 	
@@ -161,22 +164,33 @@ Public Class Sim
 '		me.EPStat = EPstat
 '		Start(pb ,SimTime , MainFrm )
 '	End Sub
-'	
+'
 	Private Pb As ProgressBar
 	Private SimTime As Double
-	Sub Prepare (pbar As ProgressBar,SimTime As double, MainFrm As MainForm)
-		Pb = pbar
+	Sub Prepare (pbar As ProgressBar,SimTime As Double, MainFrm As MainForm)
 		me.SimTime = SimTime
 		_MainFrm=MainFrm
 	End Sub
-	Sub Prepare (pbar As ProgressBar,SimTime As double, MainFrm As MainForm,EPS as String)
+	Sub Prepare (pbar As ProgressBar,SimTime As Double, MainFrm As MainForm,EPS As String)
 		Pb = pbar
 		me.SimTime = SimTime
 		_MainFrm=MainFrm
 		_EPStat = EPS
 	End Sub
-	
+	Sub CreateProgressFrame()
+		ProgressFrame = New ProgressFrm
+		ProgressFrame.Show
+		application.DoEvents
+		Pb = ProgressFrame.PBsim
+
+	If EPStat <> "" Then
+		ProgressFrame.Text = EPStat
+	Else
+		ProgressFrame.Text = "Simulation"
+	End If
+	End Sub
 	Sub Start()
+		CreateProgressFrame
 		Rnd(-1) 'Tell VB to initialize using Randomize's parameter
 		RandomNumberGenerator = new RandomNumberGenerator 'init here, so that we don't get the same rng numbers for short fights.
 		EPBase = 50
@@ -187,7 +201,7 @@ Public Class Sim
 		
 		MaxTime = SimTime * 60 * 60 * 100
 		'Problem with MThread
-		'pb.Maximum = SimTime * 60 * 60 * 100
+		pb.Maximum = SimTime * 60 * 60 * 100
 		
 		TotalDamageAlternative = 0
 		TimeStampCounter = 1
@@ -328,16 +342,16 @@ Public Class Sim
 						BloodBoil.total  + DeathStrike.total + MainHand.total + _
 						OffHand.total  + Ghoul.total + Gargoyle.total + DRW.total + _
 						RuneForge.RazoriceTotal + DeathandDecay.total + RuneStrike.total  + trinket.Total
-					'Problem with MThread	
+					'Problem with MThread
 					'_MainFrm.lblDPS.Text = todecimal(100 * TotalDamage /TimeStamp) & " DPS"
 					'Problem with MThread
-					'If TimeStamp <= pb.Maximum Then pb.Value = TimeStamp Else pb.Value = pb.Maximum
+					If TimeStamp <= pb.Maximum Then pb.Value = TimeStamp Else pb.Value = pb.Maximum
 				ElseIf ShowDpsTimer <= TimeStamp Then
 					ShowDpsTimer = TimeStamp + 0.1 * 60 * 60 * 100
 					'Problem with MThread
 					'_MainFrm.lblDPS.Text = "n/a"
 					'Problem with MThread
-					'If TimeStampCounter <= pb.Maximum Then pb.Value = TimeStampCounter Else pb.Value = pb.Maximum
+					If TimeStampCounter <= pb.Maximum Then pb.Value = TimeStampCounter Else pb.Value = pb.Maximum
 				End If
 			Loop
 			
@@ -359,7 +373,7 @@ Public Class Sim
 		
 		DPS = 100 * TotalDamage / TimeStamp
 		'Problem with MThread
-		'pb.Value = pb.Maximum
+		pb.Value = pb.Maximum
 		
 		If NumberOfFights > 1 then
 			WriteReport ("DPS: " & DPS)

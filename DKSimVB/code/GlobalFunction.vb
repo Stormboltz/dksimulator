@@ -48,5 +48,7 @@ Public Module GlobalFunction
 		'_MainFrm.webBrowser1.Select
 	End Sub
 	
-	
+	Function ShortenName(s As String) As String
+		return s.Replace("DKSIMVB.","")
+	End Function
 End Module

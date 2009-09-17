@@ -82,6 +82,10 @@
     </Compile>
     <Compile Include="MainForm.vb" />
     <Compile Include="Program.vb" />
+    <Compile Include="Progress.Designer.vb">
+      <DependentUpon>Progress.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Progress.vb" />
     <Compile Include="Properties\AssemblyInfo.vb" />
     <Folder Include="code" />
     <Folder Include="CombatLog" />
@@ -196,6 +200,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Progress.resx">
+      <DependentUpon>Progress.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
 </Project>

@@ -53,6 +53,8 @@ Partial Class MainForm
 		Me.HtmlReport = New System.Windows.Forms.TabPage
 		Me.webBrowser1 = New System.Windows.Forms.WebBrowser
 		Me.tabPage3 = New System.Windows.Forms.TabPage
+		Me.rdPrio = New System.Windows.Forms.RadioButton
+		Me.rdRot = New System.Windows.Forms.RadioButton
 		Me.label18 = New System.Windows.Forms.Label
 		Me.txtManyFights = New System.Windows.Forms.TextBox
 		Me.chkManyFights = New System.Windows.Forms.CheckBox
@@ -359,6 +361,8 @@ Partial Class MainForm
 		'
 		'tabPage3
 		'
+		Me.tabPage3.Controls.Add(Me.rdPrio)
+		Me.tabPage3.Controls.Add(Me.rdRot)
 		Me.tabPage3.Controls.Add(Me.label18)
 		Me.tabPage3.Controls.Add(Me.txtManyFights)
 		Me.tabPage3.Controls.Add(Me.chkManyFights)
@@ -407,6 +411,28 @@ Partial Class MainForm
 		Me.tabPage3.TabIndex = 2
 		Me.tabPage3.Text = "Configuration"
 		Me.tabPage3.UseVisualStyleBackColor = true
+		'
+		'rdPrio
+		'
+		Me.rdPrio.Location = New System.Drawing.Point(8, 100)
+		Me.rdPrio.Name = "rdPrio"
+		Me.rdPrio.Size = New System.Drawing.Size(104, 24)
+		Me.rdPrio.TabIndex = 36
+		Me.rdPrio.TabStop = true
+		Me.rdPrio.Text = "Priority"
+		Me.rdPrio.UseVisualStyleBackColor = true
+		AddHandler Me.rdPrio.CheckedChanged, AddressOf Me.RdPrioCheckedChanged
+		'
+		'rdRot
+		'
+		Me.rdRot.Location = New System.Drawing.Point(112, 100)
+		Me.rdRot.Name = "rdRot"
+		Me.rdRot.Size = New System.Drawing.Size(104, 24)
+		Me.rdRot.TabIndex = 36
+		Me.rdRot.TabStop = true
+		Me.rdRot.Text = "Rotation"
+		Me.rdRot.UseVisualStyleBackColor = true
+		AddHandler Me.rdRot.CheckedChanged, AddressOf Me.RdRotCheckedChanged
 		'
 		'label18
 		'
@@ -575,7 +601,7 @@ Partial Class MainForm
 		'cmdEditRot
 		'
 		Me.cmdEditRot.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdEditRot.Location = New System.Drawing.Point(643, 151)
+		Me.cmdEditRot.Location = New System.Drawing.Point(643, 175)
 		Me.cmdEditRot.Name = "cmdEditRot"
 		Me.cmdEditRot.Size = New System.Drawing.Size(42, 23)
 		Me.cmdEditRot.TabIndex = 19
@@ -586,7 +612,7 @@ Partial Class MainForm
 		'cmdEditPrio
 		'
 		Me.cmdEditPrio.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdEditPrio.Location = New System.Drawing.Point(643, 111)
+		Me.cmdEditPrio.Location = New System.Drawing.Point(643, 135)
 		Me.cmdEditPrio.Name = "cmdEditPrio"
 		Me.cmdEditPrio.Size = New System.Drawing.Size(42, 23)
 		Me.cmdEditPrio.TabIndex = 19
@@ -655,7 +681,7 @@ Partial Class MainForm
 		'label8
 		'
 		Me.label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.label8.Location = New System.Drawing.Point(390, 257)
+		Me.label8.Location = New System.Drawing.Point(390, 281)
 		Me.label8.Name = "label8"
 		Me.label8.Size = New System.Drawing.Size(100, 13)
 		Me.label8.TabIndex = 15
@@ -665,15 +691,15 @@ Partial Class MainForm
 		'
 		Me.cmbRuneOH.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbRuneOH.FormattingEnabled = true
-		Me.cmbRuneOH.Location = New System.Drawing.Point(390, 273)
+		Me.cmbRuneOH.Location = New System.Drawing.Point(390, 297)
 		Me.cmbRuneOH.Name = "cmbRuneOH"
 		Me.cmbRuneOH.Size = New System.Drawing.Size(250, 21)
 		Me.cmbRuneOH.TabIndex = 14
-		AddHandler Me.cmbRuneOH.SelectedIndexChanged, AddressOf Me.CmbRuneOHSelectedIndexChanged
+
 		'
 		'label7
 		'
-		Me.label7.Location = New System.Drawing.Point(6, 257)
+		Me.label7.Location = New System.Drawing.Point(6, 281)
 		Me.label7.Name = "label7"
 		Me.label7.Size = New System.Drawing.Size(100, 13)
 		Me.label7.TabIndex = 13
@@ -682,15 +708,15 @@ Partial Class MainForm
 		'cmbRuneMH
 		'
 		Me.cmbRuneMH.FormattingEnabled = true
-		Me.cmbRuneMH.Location = New System.Drawing.Point(6, 273)
+		Me.cmbRuneMH.Location = New System.Drawing.Point(6, 297)
 		Me.cmbRuneMH.Name = "cmbRuneMH"
 		Me.cmbRuneMH.Size = New System.Drawing.Size(250, 21)
 		Me.cmbRuneMH.TabIndex = 12
-		AddHandler Me.cmbRuneMH.SelectedIndexChanged, AddressOf Me.CmbRuneMHSelectedIndexChanged
+
 		'
 		'label6
 		'
-		Me.label6.Location = New System.Drawing.Point(6, 137)
+		Me.label6.Location = New System.Drawing.Point(6, 161)
 		Me.label6.Name = "label6"
 		Me.label6.Size = New System.Drawing.Size(100, 13)
 		Me.label6.TabIndex = 11
@@ -701,15 +727,15 @@ Partial Class MainForm
 		Me.cmbRotation.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbRotation.FormattingEnabled = true
-		Me.cmbRotation.Location = New System.Drawing.Point(6, 153)
+		Me.cmbRotation.Location = New System.Drawing.Point(6, 177)
 		Me.cmbRotation.Name = "cmbRotation"
 		Me.cmbRotation.Size = New System.Drawing.Size(634, 21)
 		Me.cmbRotation.TabIndex = 10
-		AddHandler Me.cmbRotation.SelectedIndexChanged, AddressOf Me.ComboBox1SelectedIndexChanged
+
 		'
 		'label5
 		'
-		Me.label5.Location = New System.Drawing.Point(6, 217)
+		Me.label5.Location = New System.Drawing.Point(6, 241)
 		Me.label5.Name = "label5"
 		Me.label5.Size = New System.Drawing.Size(100, 13)
 		Me.label5.TabIndex = 9
@@ -720,11 +746,11 @@ Partial Class MainForm
 		Me.cmbSigils.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbSigils.FormattingEnabled = true
-		Me.cmbSigils.Location = New System.Drawing.Point(6, 233)
+		Me.cmbSigils.Location = New System.Drawing.Point(6, 257)
 		Me.cmbSigils.Name = "cmbSigils"
 		Me.cmbSigils.Size = New System.Drawing.Size(634, 21)
 		Me.cmbSigils.TabIndex = 8
-		AddHandler Me.cmbSigils.SelectedIndexChanged, AddressOf Me.CmbSigilsSelectedIndexChanged
+
 		'
 		'label10
 		'
@@ -746,7 +772,7 @@ Partial Class MainForm
 		'
 		'label3
 		'
-		Me.label3.Location = New System.Drawing.Point(6, 177)
+		Me.label3.Location = New System.Drawing.Point(6, 201)
 		Me.label3.Name = "label3"
 		Me.label3.Size = New System.Drawing.Size(100, 13)
 		Me.label3.TabIndex = 5
@@ -757,15 +783,15 @@ Partial Class MainForm
 		Me.cmdPresence.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmdPresence.FormattingEnabled = true
-		Me.cmdPresence.Location = New System.Drawing.Point(6, 193)
+		Me.cmdPresence.Location = New System.Drawing.Point(6, 217)
 		Me.cmdPresence.Name = "cmdPresence"
 		Me.cmdPresence.Size = New System.Drawing.Size(634, 21)
 		Me.cmdPresence.TabIndex = 4
-		AddHandler Me.cmdPresence.SelectedIndexChanged, AddressOf Me.CmdPresenceSelectedIndexChanged
+
 		'
 		'label2
 		'
-		Me.label2.Location = New System.Drawing.Point(6, 97)
+		Me.label2.Location = New System.Drawing.Point(6, 121)
 		Me.label2.Name = "label2"
 		Me.label2.Size = New System.Drawing.Size(100, 13)
 		Me.label2.TabIndex = 3
@@ -792,11 +818,11 @@ Partial Class MainForm
 		Me.cmbPrio.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbPrio.FormattingEnabled = true
-		Me.cmbPrio.Location = New System.Drawing.Point(6, 113)
+		Me.cmbPrio.Location = New System.Drawing.Point(6, 137)
 		Me.cmbPrio.Name = "cmbPrio"
 		Me.cmbPrio.Size = New System.Drawing.Size(634, 21)
 		Me.cmbPrio.TabIndex = 1
-		AddHandler Me.cmbPrio.SelectedIndexChanged, AddressOf Me.CmbPrioSelectedIndexChanged
+
 		'
 		'cmbCharacter
 		'
@@ -807,7 +833,7 @@ Partial Class MainForm
 		Me.cmbCharacter.Name = "cmbCharacter"
 		Me.cmbCharacter.Size = New System.Drawing.Size(634, 21)
 		Me.cmbCharacter.TabIndex = 0
-		AddHandler Me.cmbCharacter.SelectedIndexChanged, AddressOf Me.CmbCharacterSelectedIndexChanged
+
 		'
 		'cmbTemplate
 		'
@@ -818,7 +844,7 @@ Partial Class MainForm
 		Me.cmbTemplate.Name = "cmbTemplate"
 		Me.cmbTemplate.Size = New System.Drawing.Size(634, 21)
 		Me.cmbTemplate.TabIndex = 0
-		AddHandler Me.cmbTemplate.SelectedIndexChanged, AddressOf Me.CmbTemplateSelectedIndexChanged
+
 		'
 		'tabControl1
 		'
@@ -1570,6 +1596,8 @@ Partial Class MainForm
 		Me.grpBuff.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Private rdPrio As System.Windows.Forms.RadioButton
+	Private rdRot As System.Windows.Forms.RadioButton
 	Private chkCrypticFever As System.Windows.Forms.CheckBox
 	Friend txtManyFights As System.Windows.Forms.TextBox
 	Friend chkManyFights As System.Windows.Forms.CheckBox

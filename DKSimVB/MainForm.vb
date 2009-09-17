@@ -27,26 +27,26 @@ Public Partial Class MainForm
 	Function LoadBeforeSim() As Boolean
 		saveConfig()
 		Try
-		GetFilePath(CmbTemplate.SelectedItem.ToString)
+			GetFilePath(CmbTemplate.SelectedItem.ToString)
 		Catch
 			msgbox("Could not determine template. Please reselect it.")
 			exit function
 		End try
-'		If sim.rotate Then
-'			try
-'				sim.rotationPath = GetFilePath( cmbRotation.SelectedItem.ToString)
-'			Catch
-'				msgbox("Could not determine Rotation file. Please reselect it.")
-'				exit function
-'			End try
-'		Else
-'			try
-'				sim.loadPriority (GetFilePath(CmbPrio.SelectedItem.ToString))
-'			Catch
-'				msgbox("Could not determine Priority file. Please reselect it.")
-'				exit function
-'			End try
-'		End If
+		'		If sim.rotate Then
+		'			try
+		'				sim.rotationPath = GetFilePath( cmbRotation.SelectedItem.ToString)
+		'			Catch
+		'				msgbox("Could not determine Rotation file. Please reselect it.")
+		'				exit function
+		'			End try
+		'		Else
+		'			try
+		'				sim.loadPriority (GetFilePath(CmbPrio.SelectedItem.ToString))
+		'			Catch
+		'				msgbox("Could not determine Priority file. Please reselect it.")
+		'				exit function
+		'			End try
+		'		End If
 		SaveEPOptions()
 		SaveBuffOption()
 		return true
@@ -58,7 +58,7 @@ Public Partial Class MainForm
 		doc.LoadXml("<config></config>")
 		' Create a new element node.
 		Dim root as xml.XmlElement = doc.DocumentElement
-
+		
 		Dim newElem As xml.XmlNode
 		Dim ctrl As Control
 		dim chkBox as CheckBox
@@ -99,7 +99,7 @@ Public Partial Class MainForm
 		root.AppendChild(xmlStat)
 		root.AppendChild(xmlSet)
 		root.AppendChild(xmlTrinket)
-    	Dim newElem As xml.XmlNode
+		Dim newElem As xml.XmlNode
 		
 		Dim ctrl As Control
 		dim chkBox as CheckBox
@@ -207,6 +207,16 @@ Public Partial Class MainForm
 		root = doc.DocumentElement
 		root.AppendChild(newElem)
 		
+		
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "mode", "")
+		If rdPrio.Checked Then
+			newElem.InnerText = "priority"
+		Else
+			newElem.InnerText = "rotation"
+		End If
+		root = doc.DocumentElement
+		root.AppendChild(newElem)
+		
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "priority", "")
 		newElem.InnerText = cmbPrio.SelectedItem.tostring
 		root = doc.DocumentElement
@@ -271,27 +281,27 @@ Public Partial Class MainForm
 		root = doc.DocumentElement
 		root.AppendChild(newElem)
 		
-
+		
 		'Ghouls2haste
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ghoulhaste", "")
 		newElem.InnerText = chkGhoulHaste.Checked
 		root = doc.DocumentElement
 		root.AppendChild(newElem)
 		
-
+		
 		'FCWait
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "WaitFC", "")
 		newElem.InnerText = chkWaitFC.Checked
 		root = doc.DocumentElement
 		root.AppendChild(newElem)
 		
-
+		
 		'Pets
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "pet", "")
 		newElem.InnerText = ckPet.Checked
 		root = doc.DocumentElement
 		root.AppendChild(newElem)
-	
+		
 		
 		doc.Save("config.xml")
 		
@@ -305,6 +315,12 @@ Public Partial Class MainForm
 		doc.Load("config.xml")
 		cmbCharacter.SelectedItem = doc.SelectSingleNode("//config/Character").InnerText
 		cmbTemplate.SelectedItem = doc.SelectSingleNode("//config/template").InnerText
+		If doc.SelectSingleNode("//config/mode").InnerText <> "rotation" Then
+			rdPrio.Checked = true
+		Else
+			rdRot.Checked = true
+		End If
+		
 		cmbPrio.SelectedItem = doc.SelectSingleNode("//config/priority").InnerText
 		cmbRotation.SelectedItem= doc.SelectSingleNode("//config/rotation").InnerText
 		cmdPresence.SelectedItem = doc.SelectSingleNode("//config/presence").InnerText
@@ -333,18 +349,22 @@ Public Partial Class MainForm
 		For Each item In system.IO.Directory.GetFiles(Application.StartupPath & "\Characters\")
 			CmbCharacter.Items.Add(strings.Right(item,item.Length- InStrRev(item,"\") ) & "(" & item & ")")
 		Next
+		
 		cmbTemplate.Items.Clear
 		For Each item In system.IO.Directory.GetFiles(Application.StartupPath & "\Templates\")
 			cmbTemplate.Items.Add(strings.Right(item,item.Length- InStrRev(item,"\") ) & "(" & item & ")")
 		Next
+		
 		cmbPrio.Items.Clear
 		For Each item In system.IO.Directory.GetFiles(Application.StartupPath & "\Priority\")
 			cmbPrio.Items.Add(strings.Right(item,item.Length- InStrRev(item,"\") ) & "(" & item & ")")
 		Next
+		
 		cmbRotation.Items.Clear
 		For Each item In system.IO.Directory.GetFiles(Application.StartupPath & "\Rotation\")
 			cmbRotation.Items.Add(strings.Right(item,item.Length- InStrRev(item,"\") ) & "(" & item & ")")
 		Next
+		
 		cmdPresence.Items.Clear
 		cmdPresence.Items.Add("Blood")
 		cmdPresence.Items.Add("Unholy")
@@ -361,14 +381,14 @@ Public Partial Class MainForm
 		cmbSigils.Items.Add("HauntedDreams")
 		cmbSigils.Items.Add("VengefulHeart")
 		cmbSigils.Items.Add("Virulence")
-		
-		cmbSigils.Sorted=true
+		'cmbSigils.Sorted=true
 		
 		cmbRuneMH.Items.Clear
 		cmbRuneMH.Items.Add("None")
 		cmbRuneMH.Items.Add("Cinderglacier")
 		cmbRuneMH.Items.Add("Razorice")
 		cmbRuneMH.Items.Add("FallenCrusader")
+		
 		cmbRuneOH.Items.Clear
 		cmbRuneOH.Items.Add("None")
 		cmbRuneOH.Items.Add("Cinderglacier")
@@ -377,112 +397,7 @@ Public Partial Class MainForm
 		cmbRuneOH.Items.Add("Berserking")
 		SimConstructor.PetFriendly = True
 		
-		
-		
 		CombatLog.initReport
-	End Sub
-	
-	Sub CmbTemplateSelectedIndexChanged(sender As Object, e As EventArgs)
-		'		dim ds as New Data.DataSet
-		'		ds.ReadXml(txtFilePath, Data.XmlReadMode.InferSchema)
-		'Me.dataGrid1.SetDataBinding(ds, "Talents")
-		'dataGrid1.captionText = txtFilePath
-	End Sub
-	
-
-	
-	Sub CmbPrioSelectedIndexChanged(sender As Object, e As EventArgs)
-		SimConstructor.Rotate = False
-		cmbRotation.BackColor=Color.Gray
-		cmbPrio.BackColor=Color.White
-	End Sub
-	
-	Sub CmdPresenceSelectedIndexChanged(sender As Object, e As EventArgs)
-		Dim Presence As String
-		Presence = cmdPresence.SelectedItem.ToString
-'		sim.MainStat.BloodPresence = 0
-'		sim.MainStat.UnholyPresence = 0
-'		sim.Mainstat.FrostPresence = 0
-'		Select Case Presence
-'			Case "Blood"
-'				sim.MainStat.BloodPresence = 1
-'			Case "Unholy"
-'				sim.MainStat.UnholyPresence=1
-'			Case "Frost"
-'				sim.Mainstat.FrostPresence = 1
-'		End Select
-	End Sub
-	
-	Sub CmbSigilsSelectedIndexChanged(sender As Object, e As EventArgs)
-'		Dim Sigil As String
-'		Sigil = CmbSigils.SelectedItem.ToString
-'		Sigils.WildBuck = false
-'		Sigils.FrozenConscience = false
-'		Sigils.DarkRider = false
-'		Sigils.ArthriticBinding = false
-'		Sigils.Awareness = false
-'		Sigils.Strife = false
-'		Sigils.HauntedDreams = false
-'		sigils.VengefulHeart = False
-'		sigils.Virulence = false
-'		select case Sigil
-'			case "WildBuck"
-'				Sigils.WildBuck = true
-'			case "FrozenConscience"
-'				Sigils.FrozenConscience =true
-'			case "DarkRider"
-'				Sigils.DarkRider = true
-'			case "ArthriticBinding"
-'				Sigils.ArthriticBinding = true
-'			case "Awareness"
-'				Sigils.Awareness = true
-'			case "Strife"
-'				Sigils.Strife = true
-'			case "HauntedDreams"
-'				Sigils.HauntedDreams = True
-'			Case "VengefulHeart"
-'				sigils.VengefulHeart = True
-'			Case "Virulence"
-'				sigils.Virulence = true
-'		end select
-	End Sub
-	
-	Sub ComboBox1SelectedIndexChanged(sender As Object, e As EventArgs)
-		SimConstructor.Rotate = True
-		cmbRotation.BackColor=Color.White
-		cmbPrio.BackColor=Color.Gray
-	End Sub
-	
-	Sub CmbRuneMHSelectedIndexChanged(sender As Object, e As EventArgs)
-'		sim.RuneForge.MHCinderglacier = False
-'		sim.RuneForge.MHFallenCrusader = false
-'		sim.RuneForge.MHRazorice = false
-'		Select Case cmbRuneMH.SelectedItem.ToString
-'			Case "Cinderglacier"
-'				sim.RuneForge.MHCinderglacier = true
-'			Case "FallenCrusader"
-'				sim.RuneForge.MHFallenCrusader = true
-'			Case "Razorice"
-'				sim.RuneForge.MHRazorice = true
-'		End Select
-	End Sub
-	
-	Sub CmbRuneOHSelectedIndexChanged(sender As Object, e As EventArgs)
-'		sim.RuneForge.OHCinderglacier = False
-'		sim.RuneForge.OHFallenCrusader = false
-'		sim.RuneForge.OHRazorice = False
-'		sim.Runeforge.OHBerserking = False
-'		
-'		Select Case cmbRuneOH.SelectedItem.ToString
-'			Case "Cinderglacier"
-'				sim.RuneForge.OHCinderglacier = true
-'			Case "FallenCrusader"
-'				sim.RuneForge.OHFallenCrusader = true
-'			Case "Razorice"
-'				sim.RuneForge.OHRazorice = True
-'			Case "Berserking"
-'				sim.Runeforge.OHBerserking = True
-'			end select
 	End Sub
 	
 	Sub ChkCombatLogCheckedChanged(sender As Object, e As EventArgs)
@@ -538,8 +453,6 @@ Public Partial Class MainForm
 		tabControl1.SelectedIndex = 2
 		errH:
 	End Sub
-	
-	
 	
 	Sub CmdSaveClick(sender As Object, e As EventArgs)
 		'valiate XML
@@ -597,10 +510,6 @@ Public Partial Class MainForm
 		msgbox("Error while saving file.")
 	End Sub
 	
-	Sub CmbCharacterSelectedIndexChanged(sender As Object, e As EventArgs)
-		
-	End Sub
-	
 	Sub CmdEditCharClick(sender As Object, e As EventArgs)
 		on error goto errH
 		Dim tr As IO.Textreader
@@ -613,574 +522,565 @@ Public Partial Class MainForm
 	End Sub
 	
 	
-
-Sub ChkShowDpsCheckedChanged(sender As Object, e As EventArgs)
+	Sub TxtLatencyTextChanged(sender As Object, e As EventArgs)
+		
+		dim test as Boolean
+		if Integer.TryParse(TxtLatency.Text,test ) = False then TxtLatency.Text = 0
+		
+	End Sub
 	
-End Sub
-
-
-
-
-
-Sub TxtLatencyTextChanged(sender As Object, e As EventArgs)
-	
-	dim test as Boolean
-	if Integer.TryParse(TxtLatency.Text,test ) = False then TxtLatency.Text = 0
-	
-End Sub
-
-Sub CmdImportTemplateClick(sender As Object, e As EventArgs)
-	ImportTemplate("")
-End Sub
+	Sub CmdImportTemplateClick(sender As Object, e As EventArgs)
+		ImportTemplate("")
+	End Sub
 	
 	
-Sub ImportTemplate(name As String)
-	
-	Dim URL As String = txtImportTemplate.Text
-	Dim tmp As String
-	
+	Sub ImportTemplate(name As String)
+		
+		Dim URL As String = txtImportTemplate.Text
+		Dim tmp As String
+		
 		On Error GoTo errH
 		
-	tmp = strings.right(URL,URL.Length - instr(url,"="))
-	tmp = strings.left (tmp,instr(tmp,"&")-1)
-	
-	
-	Dim doc As xml.XmlDocument = New xml.XmlDocument
-	doc.LoadXml("<Talents></Talents>")
-	Dim root As xml.XmlElement = doc.DocumentElement
-	Dim newElem as xml.XmlNode
-	
-	Dim i As Integer = 1
-	newElem = doc.CreateNode(xml.XmlNodeType.Element, "URL", "")
-	newElem.InnerText = txtImportTemplate.Text
-	root.AppendChild(newElem)
-	
-	
-	'Blood
-	newElem = doc.CreateNode(xml.XmlNodeType.Element, "Butchery", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-	
-	newElem = doc.CreateNode(xml.XmlNodeType.Element, "Subversion", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
+		tmp = strings.right(URL,URL.Length - instr(url,"="))
+		tmp = strings.left (tmp,instr(tmp,"&")-1)
+		
+		
+		Dim doc As xml.XmlDocument = New xml.XmlDocument
+		doc.LoadXml("<Talents></Talents>")
+		Dim root As xml.XmlElement = doc.DocumentElement
+		Dim newElem as xml.XmlNode
+		
+		Dim i As Integer = 1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "URL", "")
+		newElem.InnerText = txtImportTemplate.Text
+		root.AppendChild(newElem)
+		
+		
+		'Blood
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Butchery", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Subversion", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
 		
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "BladeBarrier", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "BladedArmor", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ScentOfBlood", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Weapspec", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "RuneTap", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Darkconv", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-	
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "DRM", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "IRuneTap", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "SpellDeflection", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Vendetta", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "BloodyStrikes", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Vot3W", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "MarkBlood", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-
-	newElem = doc.CreateNode(xml.XmlNodeType.Element, "BloodyVengeance", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-	newElem = doc.CreateNode(xml.XmlNodeType.Element, "AbominationMight", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "BloodWorms", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Hysteria", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "IBloodPresence", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ImprovedDeathStrike", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "SuddenDoom", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-	
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Vampiric", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "WillNecropolis", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "HeartStrike", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "MightofMograine", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "BloodGorged", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "DRW", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-	
-	
-	'FROST
-
-	
-	newElem = doc.CreateNode(xml.XmlNodeType.Element, "ImprovedIcyTouch", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "RPM", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Toughness", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "IcyReach", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "BlackIce", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "NervesofColdSteel", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "IcyTalons", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "LichBorne", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Annihilation", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "KillingMachine", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ChillOfTheGrave", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "EndlessWinter", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Frigid", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "GlacierRot", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Deathchill", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ImprovedIcyTalons", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "MercilessCombat", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Rime", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ChillBlains", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "HungeringCold", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "IFrostPresence", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ThreatOfThassarian", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "BloodoftheNorth", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "UnbreakableArmor", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Acclimatation", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "FrostStrike", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "GuileOfGorefiend", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "TundraStalker", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "HowlingBlast", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-
-	' Unholy
-			newElem = doc.CreateNode(xml.XmlNodeType.Element, "ViciousStrikes", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Virulence", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Anticipation", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Epidemic", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Morbidity", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "UnholyCommand", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "RavenousDead", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Outbreak", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Necrosis", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "CorpseExplosion", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-	
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "PaleHorse", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "BloodCakedBlade", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "NightoftheDead", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "UnholyBlight", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Impurity", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Dirge", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Desecration", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-	
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "MagicSuppression", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-	
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Reaping", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "MasterOfGhouls", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Desolation", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "AMZ", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ImprovedUnholyPresence", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "GhoulFrenzy", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "CryptFever", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "BoneShield", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "WanderingPlague", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "EbonPlaguebringer", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ScourgeStrike", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "RageofRivendare", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "SummonGargoyle", "")
-	newElem.InnerText = strings.mid(tmp,i,1)
-	root.AppendChild(newElem)
-	i=i+1
-	
-	
-	'Glyphs
-	
-	tmp = strings.right(URL,URL.Length - instr(url,"glyph=")-5)
-	tmp = strings.left (tmp,instr(tmp,"&")-1)
-	dim glyph1 as String
-	dim glyph2 as String
-	dim glyph3 as String
-	glyph1 = tmp.Chars(0) + tmp.Chars(1)
-	glyph2 = tmp.Chars(2) + tmp.Chars(3)
-	glyph3 = tmp.Chars(4) + tmp.Chars(5)
-	
-	dim glyphID as String
-	
-	Dim xmlGlyph As xml.XmlNode = doc.CreateNode(xml.XmlNodeType.Element, "Glyphs", "")
-	newElem = doc.CreateNode(xml.XmlNodeType.Element, "BloodStrike", "")
-	glyphID = "03"
-	If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
-		newElem.InnerText = 1
-	Else
-		newElem.InnerText = 0
-	End If
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
 		
-	glyphID = "08"
-	xmlGlyph.AppendChild(newElem)
-	newElem = doc.CreateNode(xml.XmlNodeType.Element, "DarkDeath", "")
-	If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
-		newElem.InnerText = 1
-	Else
-		newElem.InnerText = 0
-	End If
-	glyphID = "10"
-	xmlGlyph.AppendChild(newElem)
-	newElem = doc.CreateNode(xml.XmlNodeType.Element, "DeathStrike", "")
-	If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
-		newElem.InnerText = 1
-	Else
-		newElem.InnerText = 0
-	End If
-	glyphID = "13"
-	xmlGlyph.AppendChild(newElem)
-	newElem = doc.CreateNode(xml.XmlNodeType.Element, "FrostStrike", "")
-	If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
-		newElem.InnerText = 1
-	Else
-		newElem.InnerText = 0
-	End If
-	glyphID = "14"
-	xmlGlyph.AppendChild(newElem)
-	newElem = doc.CreateNode(xml.XmlNodeType.Element, "HowlingBlast", "")
-	If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
-		newElem.InnerText = 1
-	Else
-		newElem.InnerText = 0
-	End If
-	glyphID = "17"
-	xmlGlyph.AppendChild(newElem)
-	newElem = doc.CreateNode(xml.XmlNodeType.Element, "IcyTouch", "")
-	If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
-		newElem.InnerText = 1
-	Else
-		newElem.InnerText = 0
-	End If
-	glyphID = "18"
-	xmlGlyph.AppendChild(newElem)
-	newElem = doc.CreateNode(xml.XmlNodeType.Element, "Obliterate", "")
-	If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
-		newElem.InnerText = 1
-	Else
-		newElem.InnerText = 0
-	End If
-	glyphID = "19"
-	xmlGlyph.AppendChild(newElem)
-	newElem = doc.CreateNode(xml.XmlNodeType.Element, "PlagueStrike", "")
-	If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
-		newElem.InnerText = 1
-	Else
-		newElem.InnerText = 0
-	End If
-	glyphID = "22"
-	xmlGlyph.AppendChild(newElem)
-	newElem = doc.CreateNode(xml.XmlNodeType.Element, "ScourgeStrike", "")
-	If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
-		newElem.InnerText = 1
-	Else
-		newElem.InnerText = 0
-	End If
-	glyphID = "25"
-	xmlGlyph.AppendChild(newElem)
-	newElem = doc.CreateNode(xml.XmlNodeType.Element, "UnholyBlight", "")
-	If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
-		newElem.InnerText = 1
-	Else
-		newElem.InnerText = 0
-	End If
-	glyphID = "27"
-	xmlGlyph.AppendChild(newElem)
-	newElem = doc.CreateNode(xml.XmlNodeType.Element, "Ghoul", "")
-	If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
-		newElem.InnerText = 1
-	Else
-		newElem.InnerText = 0
-	End If
-	glyphID = "11"
-	xmlGlyph.AppendChild(newElem)
-	newElem = doc.CreateNode(xml.XmlNodeType.Element, "DeathandDecay", "")
-	If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
-		newElem.InnerText = 1
-	Else
-		newElem.InnerText = 0
-	End If
-	glyphID = "06"
-	xmlGlyph.AppendChild(newElem)
-	newElem = doc.CreateNode(xml.XmlNodeType.Element, "DRW", "")
-	If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
-		newElem.InnerText = 1
-	Else
-		newElem.InnerText = 0
-	End If
-	glyphID = "12"
-	xmlGlyph.AppendChild(newElem)
-	newElem = doc.CreateNode(xml.XmlNodeType.Element, "Disease", "")
-	If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
-		newElem.InnerText = 1
-	Else
-		newElem.InnerText = 0
-	End If
-	glyphID = "20"
-	xmlGlyph.AppendChild(newElem)
-	newElem = doc.CreateNode(xml.XmlNodeType.Element, "RuneStrike", "")
-	If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
-		newElem.InnerText = 1
-	Else
-		newElem.InnerText = 0
-	End If
-	
-	xmlGlyph.AppendChild(newElem)
-	
-	root.AppendChild(xmlGlyph)
-	
-	
-	
-	if name = "" then
-		Dim truc As New Form1
-		Dim res As DialogResult
-		res = truc.ShowDialog
-		If truc.textBox1.Text  <> "" And res = DialogResult.OK Then
-			doc.Save(application.StartupPath & "\Templates\" & truc.textBox1.Text & ".xml")
-			EditorFilePAth = Strings.Left(EditorFilePAth,strings.InStrRev(EditorFilePAth,"\"))
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "DRM", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "IRuneTap", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "SpellDeflection", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Vendetta", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "BloodyStrikes", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Vot3W", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "MarkBlood", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "BloodyVengeance", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "AbominationMight", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "BloodWorms", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Hysteria", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "IBloodPresence", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ImprovedDeathStrike", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "SuddenDoom", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Vampiric", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "WillNecropolis", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "HeartStrike", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "MightofMograine", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "BloodGorged", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "DRW", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		
+		
+		'FROST
+		
+		
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ImprovedIcyTouch", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "RPM", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Toughness", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "IcyReach", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "BlackIce", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "NervesofColdSteel", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "IcyTalons", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "LichBorne", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Annihilation", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "KillingMachine", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ChillOfTheGrave", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "EndlessWinter", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Frigid", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "GlacierRot", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Deathchill", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ImprovedIcyTalons", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "MercilessCombat", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Rime", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ChillBlains", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "HungeringCold", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "IFrostPresence", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ThreatOfThassarian", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "BloodoftheNorth", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "UnbreakableArmor", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Acclimatation", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "FrostStrike", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "GuileOfGorefiend", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "TundraStalker", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "HowlingBlast", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		
+		' Unholy
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ViciousStrikes", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Virulence", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Anticipation", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Epidemic", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Morbidity", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "UnholyCommand", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "RavenousDead", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Outbreak", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Necrosis", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "CorpseExplosion", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "PaleHorse", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "BloodCakedBlade", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "NightoftheDead", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "UnholyBlight", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Impurity", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Dirge", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Desecration", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "MagicSuppression", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Reaping", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "MasterOfGhouls", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Desolation", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "AMZ", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ImprovedUnholyPresence", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "GhoulFrenzy", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "CryptFever", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "BoneShield", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "WanderingPlague", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "EbonPlaguebringer", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ScourgeStrike", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "RageofRivendare", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "SummonGargoyle", "")
+		newElem.InnerText = strings.mid(tmp,i,1)
+		root.AppendChild(newElem)
+		i=i+1
+		
+		
+		'Glyphs
+		
+		tmp = strings.right(URL,URL.Length - instr(url,"glyph=")-5)
+		tmp = strings.left (tmp,instr(tmp,"&")-1)
+		dim glyph1 as String
+		dim glyph2 as String
+		dim glyph3 as String
+		glyph1 = tmp.Chars(0) + tmp.Chars(1)
+		glyph2 = tmp.Chars(2) + tmp.Chars(3)
+		glyph3 = tmp.Chars(4) + tmp.Chars(5)
+		
+		dim glyphID as String
+		
+		Dim xmlGlyph As xml.XmlNode = doc.CreateNode(xml.XmlNodeType.Element, "Glyphs", "")
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "BloodStrike", "")
+		glyphID = "03"
+		If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
+			newElem.InnerText = 1
 		Else
-			exit sub
+			newElem.InnerText = 0
 		End If
-		truc.Dispose
-	Else
-		doc.Save(name)
-	End If
+		
+		glyphID = "08"
+		xmlGlyph.AppendChild(newElem)
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "DarkDeath", "")
+		If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
+			newElem.InnerText = 1
+		Else
+			newElem.InnerText = 0
+		End If
+		glyphID = "10"
+		xmlGlyph.AppendChild(newElem)
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "DeathStrike", "")
+		If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
+			newElem.InnerText = 1
+		Else
+			newElem.InnerText = 0
+		End If
+		glyphID = "13"
+		xmlGlyph.AppendChild(newElem)
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "FrostStrike", "")
+		If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
+			newElem.InnerText = 1
+		Else
+			newElem.InnerText = 0
+		End If
+		glyphID = "14"
+		xmlGlyph.AppendChild(newElem)
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "HowlingBlast", "")
+		If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
+			newElem.InnerText = 1
+		Else
+			newElem.InnerText = 0
+		End If
+		glyphID = "17"
+		xmlGlyph.AppendChild(newElem)
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "IcyTouch", "")
+		If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
+			newElem.InnerText = 1
+		Else
+			newElem.InnerText = 0
+		End If
+		glyphID = "18"
+		xmlGlyph.AppendChild(newElem)
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Obliterate", "")
+		If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
+			newElem.InnerText = 1
+		Else
+			newElem.InnerText = 0
+		End If
+		glyphID = "19"
+		xmlGlyph.AppendChild(newElem)
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "PlagueStrike", "")
+		If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
+			newElem.InnerText = 1
+		Else
+			newElem.InnerText = 0
+		End If
+		glyphID = "22"
+		xmlGlyph.AppendChild(newElem)
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ScourgeStrike", "")
+		If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
+			newElem.InnerText = 1
+		Else
+			newElem.InnerText = 0
+		End If
+		glyphID = "25"
+		xmlGlyph.AppendChild(newElem)
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "UnholyBlight", "")
+		If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
+			newElem.InnerText = 1
+		Else
+			newElem.InnerText = 0
+		End If
+		glyphID = "27"
+		xmlGlyph.AppendChild(newElem)
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Ghoul", "")
+		If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
+			newElem.InnerText = 1
+		Else
+			newElem.InnerText = 0
+		End If
+		glyphID = "11"
+		xmlGlyph.AppendChild(newElem)
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "DeathandDecay", "")
+		If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
+			newElem.InnerText = 1
+		Else
+			newElem.InnerText = 0
+		End If
+		glyphID = "06"
+		xmlGlyph.AppendChild(newElem)
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "DRW", "")
+		If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
+			newElem.InnerText = 1
+		Else
+			newElem.InnerText = 0
+		End If
+		glyphID = "12"
+		xmlGlyph.AppendChild(newElem)
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Disease", "")
+		If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
+			newElem.InnerText = 1
+		Else
+			newElem.InnerText = 0
+		End If
+		glyphID = "20"
+		xmlGlyph.AppendChild(newElem)
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "RuneStrike", "")
+		If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
+			newElem.InnerText = 1
+		Else
+			newElem.InnerText = 0
+		End If
+		
+		xmlGlyph.AppendChild(newElem)
+		
+		root.AppendChild(xmlGlyph)
+		
+		
+		
+		if name = "" then
+			Dim truc As New Form1
+			Dim res As DialogResult
+			res = truc.ShowDialog
+			If truc.textBox1.Text  <> "" And res = DialogResult.OK Then
+				doc.Save(application.StartupPath & "\Templates\" & truc.textBox1.Text & ".xml")
+				EditorFilePAth = Strings.Left(EditorFilePAth,strings.InStrRev(EditorFilePAth,"\"))
+			Else
+				exit sub
+			End If
+			truc.Dispose
+		Else
+			doc.Save(name)
+		End If
 		
 		Msgbox ( "Import done.")
 		loadTemplate
@@ -1188,7 +1088,7 @@ Sub ImportTemplate(name As String)
 		Exit Sub
 		errH :
 		msgbox("Error while importing talents !")
-End Sub
+	End Sub
 	
 	
 	Sub CmdLoadMmoClick(sender As Object, e As EventArgs)
@@ -1200,59 +1100,39 @@ End Sub
 	End Sub
 	
 	Sub CmdImportArmoryClick(sender As Object, e As EventArgs)
-	   Dim URL As String = txtArmory.Text
+		Dim URL As String = txtArmory.Text
 		url = "http://eu.wowarmory.com/character-sheet.xml?r=Chants+eternels&n=Kahorie"
-
-   ' Retrieve XML document
-   Dim reader As XmlTextReader = New XmlTextReader(url)
-     ' Skip non-significant whitespace
-   reader.WhitespaceHandling = WhitespaceHandling.Significant
-     
-  ' Read nodes one at a time
-  While reader.Read()
-  ' Print out info on node
-     Console.WriteLine("{0}: {1}", reader.NodeType.ToString(), reader.Name)
-  End While
 		
+		' Retrieve XML document
+		Dim reader As XmlTextReader = New XmlTextReader(url)
+		' Skip non-significant whitespace
+		reader.WhitespaceHandling = WhitespaceHandling.Significant
 		
+		' Read nodes one at a time
+		While reader.Read()
+			' Print out info on node
+			Console.WriteLine("{0}: {1}", reader.NodeType.ToString(), reader.Name)
+		End While
 		
+	
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	'on error resume next
-		
-	'	dim myUri as Uri = new Uri(URL)
-
-		
-		'	On Error GoTo errH
-			
-'		tmp = strings.right(URL,URL.Length - instr(url,"="))
-'		tmp = strings.left (tmp,instr(tmp,"&")-1)
-
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
 		Dim bw As New WebBrowser
 		
 		dim webClient as New System.Net.WebClient
-
-    	url = "http://eu.wowarmory.com/character-sheet.xml?r=Chants+eternels&n=Kahorie"
-    	Dim myUri As Uri = New Uri("http://eu.wowarmory.com/character-sheet.xml?r=Chants+eternels&n=Kahorie")
-    	webClient.Dispose()
+		
+		url = "http://eu.wowarmory.com/character-sheet.xml?r=Chants+eternels&n=Kahorie"
+		Dim myUri As Uri = New Uri("http://eu.wowarmory.com/character-sheet.xml?r=Chants+eternels&n=Kahorie")
+		webClient.Dispose()
 		wbTemplate.Url = myUri
 		wbTemplate.Navigate(myUri)
 		
-	'	bw.Navigate(myUri)
+		'	bw.Navigate(myUri)
 		doc.Load(URL)
 		debug.Print(doc.OuterXml)
-	
-	errH:
-	
+		
+		errH:
+		
 	End Sub
 	
 	
@@ -1273,7 +1153,7 @@ End Sub
 		txtImportTemplate.Text = tmp
 		ImportTemplate("")
 		
-	
+		
 	End Sub
 	
 	Sub Button2Click(sender As Object, e As EventArgs)
@@ -1289,112 +1169,12 @@ End Sub
 		ImportTemplate(TemplatePath)
 	End Sub
 	
-'	Sub CmdLoadDBClick(sender As Object, e As EventArgs)
-'		Dim xDoc As new Xml.XmlDocument
-'		xDoc.Load("wowheaddbEpic.xml")
-'		Dim nodes As Xml.XmlNodeList
-'		nodes = xDoc.SelectNodes("/wowhead/item[inventorySlot='Head']")
-'		dim node as Xml.XmlNode
-'		For Each node In nodes
-'			cmbHead.Items.Add(node.SelectSingleNode("name").InnerText)
-'			ckBHead.Items.Add(node.SelectSingleNode("name").InnerText)
-'
-'		Next
-'
-'
-'		nodes = xDoc.SelectNodes("/wowhead/item[inventorySlot='Neck']")
-'		For Each node In nodes
-'			cmbNeck.Items.Add(node.SelectSingleNode("name").InnerText)
-'		Next
-'
-'		nodes = xDoc.SelectNodes("/wowhead/item[inventorySlot='Shoulder']")
-'		For Each node In nodes
-'			cmbShoulder.Items.Add(node.SelectSingleNode("name").InnerText)
-'		Next
-'
-'
-'		nodes = xDoc.SelectNodes("/wowhead/item[inventorySlot='Back']")
-'		For Each node In nodes
-'			cmbback.Items.Add(node.SelectSingleNode("name").InnerText)
-'		Next
-'
-'		nodes = xDoc.SelectNodes("/wowhead/item[inventorySlot='Chest']")
-'
-'		For Each node In nodes
-'			cmbChest.Items.Add(node.SelectSingleNode("name").InnerText)
-'		Next
-'
-'		nodes = xDoc.SelectNodes("/wowhead/item[inventorySlot='Wrist']")
-'
-'		For Each node In nodes
-'			cmbWrist.Items.Add(node.SelectSingleNode("name").InnerText)
-'		Next
-'
-'		nodes = xDoc.SelectNodes("/wowhead/item[inventorySlot='Hands']")
-'		For Each node In nodes
-'			cmbHand.Items.Add(node.SelectSingleNode("name").InnerText)
-'		Next
-'
-'		nodes = xDoc.SelectNodes("/wowhead/item[inventorySlot='Waist']")
-'		For Each node In nodes
-'			cmbWaist.Items.Add(node.SelectSingleNode("name").InnerText)
-'		Next
-'		nodes = xDoc.SelectNodes("/wowhead/item[inventorySlot='Legs']")
-'		For Each node In nodes
-'			cmbLeg.Items.Add(node.SelectSingleNode("name").InnerText)
-'		Next
-'		nodes = xDoc.SelectNodes("/wowhead/item[inventorySlot='Feet']")
-'		For Each node In nodes
-'			cmbFeet.Items.Add(node.SelectSingleNode("name").InnerText)
-'		Next
-'
-'			nodes = xDoc.SelectNodes("/wowhead/item[inventorySlot='Finger']")
-'		For Each node In nodes
-'			cmbring1.Items.Add(node.SelectSingleNode("name").InnerText)
-'			cmbring2.Items.Add(node.SelectSingleNode("name").InnerText)
-'		Next
-'
-'			nodes = xDoc.SelectNodes("/wowhead/item[inventorySlot='Trinket']")
-'		For Each node In nodes
-'			cmbTrinket1.Items.Add(node.SelectSingleNode("name").InnerText)
-'			cmbTrinket2.Items.Add(node.SelectSingleNode("name").InnerText)
-'		Next
-'
-'
-'		nodes = xDoc.SelectNodes("/wowhead/item[inventorySlot='Two-Hand']")
-'		For Each node In nodes
-'			cmbMH.Items.Add(node.SelectSingleNode("name").InnerText)
-'		Next
-'		nodes = xDoc.SelectNodes("/wowhead/item[inventorySlot='One-Hand']")
-'		For Each node In nodes
-'			cmbMH.Items.Add(node.SelectSingleNode("name").InnerText)
-'			cmbOH.Items.Add(node.SelectSingleNode("name").InnerText)
-'		Next
-'
-'		nodes = xDoc.SelectNodes("/wowhead/item[inventorySlot='Main Hand']")
-'		For Each node In nodes
-'			cmbMH.Items.Add(node.SelectSingleNode("name").InnerText)
-'		Next
-'		nodes = xDoc.SelectNodes("/wowhead/item[inventorySlot='Off Hand']")
-'		For Each node In nodes
-'			cmboH.Items.Add(node.SelectSingleNode("name").InnerText)
-'		Next
-'
-'		nodes = xDoc.SelectNodes("/wowhead/item[inventorySlot='Relic']")
-'		For Each node In nodes
-'			cmbsigil.Items.Add(node.SelectSingleNode("name").InnerText)
-'		Next
-'	End Sub
-
-	
-
-	
 	Sub CmbHeadSelectedIndexChanged(sender As Object, e As EventArgs)
 		Dim xDoc As new Xml.XmlDocument
 		xDoc.Load("wowheaddbEpic.xml")
 		Dim node As Xml.XmlNode
 		node = xDoc.SelectSingleNode("/wowhead/item[name=Furious Gladiator's Sigil of Strife]")
-'		textBox1.Text = node.InnerXml
+		'		textBox1.Text = node.InnerXml
 		
 	End Sub
 	
@@ -1408,16 +1188,31 @@ End Sub
 		
 		
 	End Sub
-	
 
-	
-
-	
 	Sub ChkEPAfterSpellHitRatingCheckedChanged(sender As Object, e As EventArgs)
 		if ChkEPAfterSpellHitRating.Checked then chkEPSpHit.Checked=true
 	End Sub
 	
 	Sub ChkEPSpHitCheckedChanged(sender As Object, e As EventArgs)
 		if ChkEPSpHit.Checked=false then ChkEPAfterSpellHitRating.Checked = false
+	End Sub
+	
+	
+	Sub RdPrioCheckedChanged(sender As Object, e As EventArgs)
+		If rdPrio.Checked Then
+			rdRot.Checked = False
+			SimConstructor.Rotate = False
+			cmbRotation.Enabled = False
+			cmbPrio.Enabled = true
+		End If
+	End Sub
+	
+	Sub RdRotCheckedChanged(sender As Object, e As EventArgs)
+		If rdRot.Checked Then
+			rdprio.Checked = False
+			SimConstructor.Rotate = true
+			cmbRotation.Enabled = true
+			cmbPrio.Enabled = false
+		End If
 	End Sub
 End Class
