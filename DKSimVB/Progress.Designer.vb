@@ -49,9 +49,16 @@ Partial Class ProgressFrm
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 		Me.ClientSize = New System.Drawing.Size(502, 23)
+		Me.ControlBox = false
 		Me.Controls.Add(Me.PBsim)
 		Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
+		Me.IsMdiContainer = true
+		Me.MaximizeBox = false
+		Me.MinimizeBox = false
 		Me.Name = "ProgressFrm"
+		Me.ShowIcon = false
+		Me.ShowInTaskbar = false
+		Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
 		Me.Text = "?"
 		AddHandler Load, AddressOf Me.ProgressFrmLoad
 		Me.ResumeLayout(false)

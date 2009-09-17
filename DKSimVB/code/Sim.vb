@@ -96,7 +96,6 @@ Public Class Sim
 	Friend Trinket As Trinket
 	Friend ProgressFrame as ProgressFrm
 	
-	
 	Sub Init()
 	End Sub
 	
@@ -179,15 +178,16 @@ Public Class Sim
 	End Sub
 	Sub CreateProgressFrame()
 		ProgressFrame = New ProgressFrm
+		
 		ProgressFrame.Show
 		application.DoEvents
 		Pb = ProgressFrame.PBsim
-
-	If EPStat <> "" Then
-		ProgressFrame.Text = EPStat
-	Else
-		ProgressFrame.Text = "Simulation"
-	End If
+		
+		If EPStat <> "" Then
+			ProgressFrame.Text = EPStat
+		Else
+			ProgressFrame.Text = "Simulation"
+		End If
 	End Sub
 	Sub Start()
 		CreateProgressFrame
