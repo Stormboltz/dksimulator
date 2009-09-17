@@ -8,7 +8,7 @@
 '
 Public Module SimConstructor
 	Friend sim As Sim
-	Friend Lissage As Boolean
+	Friend Lissage As Boolean 'How about Smoothing? ;)
 	Friend PetFriendly As Boolean
 	Friend Rotate as Boolean
 	Friend ReportPath As String
@@ -18,11 +18,9 @@ Public Module SimConstructor
 	Friend ThreadCollection as New Collection
 	Friend EPBase as Integer
 	
-	
 	Sub New()
 		
 	End Sub
-	
 	
 	Sub Start(pb As ProgressBar,SimTime As Double, MainFrm As MainForm)
 		Dim newthread As System.Threading.Thread
@@ -36,7 +34,8 @@ Public Module SimConstructor
 		Sim.Prepare(pb,Simtime, Mainfrm)
 		sim.ePBase = 50
 		newthread = New System.Threading.Thread(AddressOf sim.Start)
-		newthread.Priority= Threading.ThreadPriority.BelowNormal
+		newthread.Priority= Threading.ThreadPriority.BelowNormal 'Shouldn't be necessary, works fine for me without it.
+		'Environment.ProcessorCount 'This gives you the number of cores. Maybe useful.
 		newthread.Start()
 		ThreadCollection.Add(newthread)
 	End Sub
@@ -57,8 +56,6 @@ Public Module SimConstructor
 		Dim XmlDoc As New Xml.XmlDocument
 		XmlDoc.Load(GetFilePath(_MainFrm.cmbCharacter.Text) )
 		
-		'Fixed EP base value for now
-		
 		'int32.Parse(XmlDoc.SelectSingleNode("//character/EP/base").InnerText)
 		
 		Dim BaseDPS As long
@@ -67,8 +64,7 @@ Public Module SimConstructor
 		Dim tmp1 As double
 		Dim tmp2 As Double
 		
-		
-		If SimTime = 0 Then SimTime =1
+		If SimTime = 0 Then SimTime = 1
 		'Create EP table
 		sReport = "<table border='0' cellspacing='0' style='font-family:Verdana; font-size:10px;'>"
 		
@@ -88,7 +84,6 @@ Public Module SimConstructor
 			EPStat="Strength"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
-		
 		if doc.SelectSingleNode("//config/Stats/chkEPAgility").InnerText = "True" then
 			EPStat="Agility"
 			SimConstructor.Start(pb,SimTime,MainFrm)
@@ -126,8 +121,11 @@ Public Module SimConstructor
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		
-		
-		
+		'This seems to have the same effect as AreMyStrheadFinninshed, without an ugly loop.
+		'Dim T as Threading.Thread
+		'For Each T In ThreadCollection
+		'	T.Join()
+		'Next
 		Do Until AreMyStrheadFinninshed
 			Application.DoEvents
 		Loop
@@ -140,7 +138,6 @@ Public Module SimConstructor
 		APDPS = dpss("AttackPower")
 		WriteReport ("Average for " & EPStat & " | " & APDPS)
 		sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | 1</td></tr>")
-		
 		
 		Try
 			EPStat="Strength"
@@ -170,8 +167,6 @@ Public Module SimConstructor
 		catch
 		End Try
 		Try
-			
-			
 			EPStat="HasteRating"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
@@ -181,7 +176,6 @@ Public Module SimConstructor
 		catch
 		End Try
 		Try
-			
 			EPStat="ArmorPenetrationRating"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
@@ -191,7 +185,6 @@ Public Module SimConstructor
 		catch
 		End Try
 		Try
-			
 			EPStat="ExpertiseRating"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
@@ -201,7 +194,6 @@ Public Module SimConstructor
 		catch
 		End Try
 		Try
-			
 			EPStat="HitRating"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
@@ -211,7 +203,6 @@ Public Module SimConstructor
 		catch
 		End Try
 		Try
-			
 			EPStat="SpellHitRating"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
@@ -221,7 +212,6 @@ Public Module SimConstructor
 		catch
 		End Try
 		Try
-			
 			EPStat="WeaponDPS"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
@@ -231,7 +221,6 @@ Public Module SimConstructor
 		catch
 		End Try
 		Try
-			
 			EPStat="WeaponSpeed"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
@@ -241,12 +230,8 @@ Public Module SimConstructor
 		catch
 		End Try
 		
-		
-		WriteReport(sReport)
 		EPStat = ""
 		
-		
-
 		skipStats:
 		DPSs.Clear
 		ThreadCollection.Clear
@@ -254,7 +239,6 @@ Public Module SimConstructor
 		If  doc.SelectSingleNode("//config/Sets").InnerText.Contains("True")=false Then
 			goto skipSets
 		End If
-		
 		
 		EPStat="0T7"
 		SimConstructor.Start(pb,SimTime,MainFrm)
@@ -304,9 +288,6 @@ Public Module SimConstructor
 		WriteReport ("Average for " & EPStat & " | " & APDPS)
 		'sReport = sReport +  ("<tr><td>EP:" & EPBase & " | "& EPStat & " | 1</td></tr>")
 		
-		
-		
-		
 		Try
 			EPStat="2T7"
 			DPS = dpss(EPStat)
@@ -316,7 +297,6 @@ Public Module SimConstructor
 			WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
 		End Try
-		
 		Try
 			EPStat="4T7"
 			DPS = dpss(EPStat)
@@ -362,13 +342,11 @@ Public Module SimConstructor
 			WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
 		End Try
+		
 		WriteReport ("")
 		
-		
-		
 		skipSets:
-		WriteReport(sReport)
-		exit sub
+		
 		If  doc.SelectSingleNode("//config/Trinket").InnerText.Contains("True") Then
 			sReport = sReport & sim.StartEPTrinket(pb,True, simTime, Mainfrm)
 		End If
