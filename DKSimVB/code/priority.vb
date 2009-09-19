@@ -3,7 +3,7 @@
 ' User: Fabien
 ' Date: 12/03/2009
 ' Time: 19:42
-' 
+'
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
 Friend Class priority
@@ -18,7 +18,7 @@ Friend Class priority
 	sub DoNext(TimeStamp As long )
 		Dim HighestPrio As Integer
 		HighestPrio = 1
-		
+
 		For Each item as String In prio
 			Select Case item
 				Case "BloodTap"
@@ -83,7 +83,7 @@ Friend Class priority
 						sim.DeathStrike.ApplyDamage(TimeStamp)
 						'debug.Print("BS")
 						exit sub
-					End If	
+					End If
 				Case "DeathStrike"
 					If runes.FU(TimeStamp) and sim.CanUseGCD(Timestamp) Then
 						sim.DeathStrike.ApplyDamage(TimeStamp)
@@ -109,6 +109,14 @@ Friend Class priority
 						exit sub
 					End If
 				Case "FrostFever"
+					
+					If sim.NumberOfEnemies > 1 And sim.FrostFever.OtherTargetsFade < TimeStamp And sim.BloodPlague.OtherTargetsFade < TimeStamp and sim.KeepDiseaseOnOthersTarget Then
+						If runes.Blood(TimeStamp) Then
+							sim.Pestilence.use(TimeStamp)
+						End If
+					End If
+					
+					
 					If sim.glyph.Disease Then
 						if sim.Pestilence.PerfectUsage(TimeStamp) then
 							sim.Pestilence.use(TimeStamp)

@@ -94,6 +94,7 @@
 		<SummonGargoyle row="11" col="2">1</SummonGargoyle>
 	</unholy>
 	<Glyphs>
+		<none>00</none>
 		<BloodStrike>03</BloodStrike>
 		<DarkDeath>08</DarkDeath>
 		<DeathStrike>10</DeathStrike>

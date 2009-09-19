@@ -166,6 +166,7 @@ Partial Class MainForm
 		Me.cmdSaveNewTemplate = New System.Windows.Forms.Button
 		Me.cmdSaveTemplate = New System.Windows.Forms.Button
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
+		Me.chkDisease = New System.Windows.Forms.CheckBox
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -367,6 +368,7 @@ Partial Class MainForm
 		'
 		'tabPage3
 		'
+		Me.tabPage3.Controls.Add(Me.chkDisease)
 		Me.tabPage3.Controls.Add(Me.txtNumberOfEnemies)
 		Me.tabPage3.Controls.Add(Me.label19)
 		Me.tabPage3.Controls.Add(Me.rdPrio)
@@ -423,16 +425,17 @@ Partial Class MainForm
 		'txtNumberOfEnemies
 		'
 		Me.txtNumberOfEnemies.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.txtNumberOfEnemies.Location = New System.Drawing.Point(590, 324)
+		Me.txtNumberOfEnemies.Location = New System.Drawing.Point(590, 335)
 		Me.txtNumberOfEnemies.Name = "txtNumberOfEnemies"
 		Me.txtNumberOfEnemies.Size = New System.Drawing.Size(50, 20)
 		Me.txtNumberOfEnemies.TabIndex = 38
 		Me.txtNumberOfEnemies.Text = "1"
+		AddHandler Me.txtNumberOfEnemies.TextChanged, AddressOf Me.TxtNumberOfEnemiesTextChanged
 		'
 		'label19
 		'
 		Me.label19.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.label19.Location = New System.Drawing.Point(482, 327)
+		Me.label19.Location = New System.Drawing.Point(482, 338)
 		Me.label19.Name = "label19"
 		Me.label19.Size = New System.Drawing.Size(102, 13)
 		Me.label19.TabIndex = 37
@@ -1591,6 +1594,15 @@ Partial Class MainForm
 		Me.cmdSaveTemplate.UseVisualStyleBackColor = true
 		AddHandler Me.cmdSaveTemplate.Click, AddressOf Me.CmdSaveTemplateClick
 		'
+		'chkDisease
+		'
+		Me.chkDisease.Location = New System.Drawing.Point(647, 325)
+		Me.chkDisease.Name = "chkDisease"
+		Me.chkDisease.Size = New System.Drawing.Size(98, 41)
+		Me.chkDisease.TabIndex = 39
+		Me.chkDisease.Text = "Keep disease on targets"
+		Me.chkDisease.UseVisualStyleBackColor = true
+		'
 		'MainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
@@ -1623,6 +1635,7 @@ Partial Class MainForm
 		Me.tbTpl.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Friend chkDisease As System.Windows.Forms.CheckBox
 	Private label19 As System.Windows.Forms.Label
 	Friend txtNumberOfEnemies As System.Windows.Forms.TextBox
 	Private cmbGlyph1 As System.Windows.Forms.ComboBox

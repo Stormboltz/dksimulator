@@ -164,7 +164,6 @@ Friend Class Rotation
 				Else
 					if retry = 0 then return true
 				End If
-			Case "Pestilance"
 			Case "HowlingBlast"
 				If sim.HowlingBlast.isAvailable(TimeStamp) Then
 					If sim.proc.rime Or runes.FU(TimeStamp) Then

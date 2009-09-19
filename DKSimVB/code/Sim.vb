@@ -28,6 +28,7 @@ Public Class Sim
 	Private InterruptAmount As Integer
 	Private InterruptCd As Integer
 	Friend KeepRNGSeed As Boolean
+	Friend KeepDiseaseOnOthersTarget as Boolean
 	
 	Friend RandomNumberGenerator as RandomNumberGenerator
 	
@@ -577,7 +578,9 @@ Public Class Sim
 		NextFreeGCD = 0
 		TotalDamage = 0
 		Threat = 0
+		
 		NumberOfEnemies = _MainFrm.txtNumberOfEnemies.text
+		KeepDiseaseOnOthersTarget = _MainFrm.chkDisease.Checked
 		ScourgeStrike = new ScourgeStrike(Me)
 		Obliterate = new Obliterate(Me)
 		PlagueStrike= new PlagueStrike(Me)

@@ -34,21 +34,28 @@ Sub New(S As sim)
 		For intCount = 1 To Sim.NumberOfEnemies
 			if intCount <= 2 then
 				RNG = sim.RandomNumberGenerator.RNGStrike
-				dim dégat as Integer
+				Dim dégat As Integer
+				
 				If RNG <= CritChance Then
 					CritCount = CritCount + 1
-					dégat = AvrgCrit(T)
+					If intCount = 2 Then
+						dégat =  AvrgCritOnSecondtarget(T)
+					Else
+						dégat = AvrgCrit(T)
+					End If
+					
 					sim.combatlog.write(T  & vbtab &  "HS crit for " & dégat)
 				Else
 					HitCount = HitCount + 1
-					dégat =  AvrgNonCrit(T)
+					If intCount = 2 Then
+						dégat =  AvrgNonCritOnSecondtarget(T)
+					Else
+						dégat =  AvrgNonCrit(T)
+					End If
 					sim.combatlog.write(T  & vbtab &  "HS hit for " & dégat)
 				End If
-				
 				If sim.Lissage Then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
-				If intCount = 2 Then dégat = dégat * 0.5
 				total = total + dégat
-				
 				sim.Sigils.tryHauntedDreams()
 				sim.proc.TryT92PDPS
 				sim.TryOnMHHitProc
@@ -88,6 +95,34 @@ Sub New(S As sim)
 		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
 		AvrgNonCrit = tmp
 	End Function
+	
+	Function AvrgNonCritOnSecondtarget(T As long) As Double
+		Dim tmp As Double
+		Dim NumDesease As Integer
+		NumDesease=0
+		if sim.BloodPlague.OtherTargetsFade > T then NumDesease = NumDesease + 1
+		if sim.FrostFever.OtherTargetsFade > T then NumDesease = NumDesease + 1
+		
+		tmp = sim.MainStat.NormalisedMHDamage * 0.5
+		tmp = tmp + 368
+		if sim.MainStat.T84PDPS = 1 then
+			tmp = tmp * (1 + 0.1 * NumDesease * 1.2)
+		else
+			tmp = tmp * (1 + 0.1 * NumDesease)
+		end if
+		tmp = tmp * (1 + TalentBlood.BloodyStrikes * 15 / 100)
+		tmp = tmp * (1 + TalentFrost.BloodoftheNorth * 5 / 100)
+		
+		if sim.sigils.DarkRider then tmp = tmp + 45 + 22.5 * Sim.NumDesease
+		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
+		tmp = tmp / 2
+		return tmp
+	End Function
+	
+	Function AvrgCritOnSecondtarget(T As long) As Double
+		return AvrgNonCritOnSecondtarget(T) * (1 + CritCoef)
+	End Function
+	
 	public Overrides Function CritCoef() As Double
 		CritCoef = 1* (1 + TalentBlood.MightofMograine * 15 / 100)
 		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)

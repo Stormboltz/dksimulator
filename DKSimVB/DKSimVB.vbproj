@@ -145,6 +145,7 @@
     <Compile Include="Strike\PlagueStrike.vb" />
     <Compile Include="Strike\RuneStrike.vb" />
     <Compile Include="Strike\ScourgeStrike.vb" />
+    <Compile Include="UIFunctions.vb" />
     <None Include="template.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

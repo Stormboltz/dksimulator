@@ -33,6 +33,17 @@ Friend Class Pestilence
 		End If
 		Sim.RunicPower.add (10)
 		
+		If sim.BloodPlague.FadeAt > T Then
+				sim.BloodPlague.OtherTargetsFade  = T + 1500 + 300 * talentunholy.Epidemic
+				'BloodPlague.nextTick = T + 300
+			End If
+		If sim.FrostFever.FadeAt > T Then
+			sim.FrostFever.OtherTargetsFade = T + 1500 + 300 * talentunholy.Epidemic
+			'FrostFever.nextTick = T + 300
+		End If
+	
+		
+		
 		If sim.glyph.Disease Then
 			'debug.Print ("PEST! at " & T )
 			If sim.BloodPlague.FadeAt > T Then

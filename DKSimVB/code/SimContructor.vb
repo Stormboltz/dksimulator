@@ -251,27 +251,27 @@ Public Module SimConstructor
 			EPStat="2T7"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
-		if doc.SelectSingleNode("//config/Sets/chkEP2T7").InnerText = "True" then
+		if doc.SelectSingleNode("//config/Sets/chkEP4PT7").InnerText = "True" then
 			EPStat="4T7"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		
-		if doc.SelectSingleNode("//config/Sets/chkEP2T7").InnerText = "True" then
+		if doc.SelectSingleNode("//config/Sets/chkEP2PT8").InnerText = "True" then
 			EPStat="2T8"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		
-		if doc.SelectSingleNode("//config/Sets/chkEP2T7").InnerText = "True" then
+		if doc.SelectSingleNode("//config/Sets/chkEP4PT8").InnerText = "True" then
 			EPStat="4T8"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		
-		if doc.SelectSingleNode("//config/Sets/chkEP2T7").InnerText = "True" then
+		if doc.SelectSingleNode("//config/Sets/chkEP2PT9").InnerText = "True" then
 			EPStat="2T9"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		
-		if doc.SelectSingleNode("//config/Sets/chkEP2T7").InnerText = "True" then
+		if doc.SelectSingleNode("//config/Sets/chkEP4PT9").InnerText = "True" then
 			EPStat="4T9"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If

@@ -73,94 +73,9 @@ Public Partial Class MainForm
 		Next
 		doc.Save("Buffconfig.xml")
 	End Sub
-	Sub LoadBuffOption
-		on error goto sortie
-		Dim doc As xml.XmlDocument = New xml.XmlDocument
-		doc.Load("Buffconfig.xml")
-		Dim ctrl As Control
-		dim chkBox as CheckBox
-		For Each ctrl in grpBuff.Controls
-			If ctrl.Name.StartsWith ("chk") Then
-				chkBox = ctrl
-				chkBox.Checked = doc.SelectSingleNode("//config/" & chkBox.Name ).InnerText
-			End If
-		Next
-		sortie:
-	End Sub
+
 	
-	Sub SaveEPOptions
-		'on error resume next
-		Dim doc As xml.XmlDocument = New xml.XmlDocument
-		doc.LoadXml("<config></config>")
-		' Create a new element node.
-		Dim xmlStat As xml.XmlNode = doc.CreateNode(xml.XmlNodeType.Element, "Stats", "")
-		Dim xmlSet As xml.XmlNode = doc.CreateNode(xml.XmlNodeType.Element, "Sets", "")
-		dim xmlTrinket As xml.XmlNode = doc.CreateNode(xml.XmlNodeType.Element, "Trinket", "")
-		Dim root as xml.XmlElement = doc.DocumentElement
-		root.AppendChild(xmlStat)
-		root.AppendChild(xmlSet)
-		root.AppendChild(xmlTrinket)
-		Dim newElem As xml.XmlNode
-		
-		Dim ctrl As Control
-		dim chkBox as CheckBox
-		For Each ctrl in groupBox1.Controls
-			If ctrl.Name.StartsWith ("chkEP") Then
-				chkBox = ctrl
-				newElem = doc.CreateNode(xml.XmlNodeType.Element, chkBox.Name, "")
-				newElem.InnerText = chkBox.Checked
-				xmlStat.AppendChild(newElem)
-			End If
-		Next
-		For Each ctrl in groupBox2.Controls
-			If ctrl.Name.StartsWith ("chkEP") Then
-				chkBox = ctrl
-				newElem = doc.CreateNode(xml.XmlNodeType.Element, chkBox.Name, "")
-				newElem.InnerText = chkBox.Checked
-				xmlSet.AppendChild(newElem)
-			End If
-		Next
-		For Each ctrl in groupBox3.Controls
-			If ctrl.Name.StartsWith ("chkEP") Then
-				chkBox = ctrl
-				newElem = doc.CreateNode(xml.XmlNodeType.Element, chkBox.Name, "")
-				newElem.InnerText = chkBox.Checked
-				xmlTrinket.AppendChild(newElem)
-			End If
-		Next
-		doc.Save("EPconfig.xml")
-	End Sub
 	
-	Sub LoadEPOptions
-		on error goto sortie
-		Dim doc As xml.XmlDocument = New xml.XmlDocument
-		doc.Load("EPconfig.xml")
-		
-		Dim ctrl As Control
-		dim chkBox as CheckBox
-		For Each ctrl in groupBox1.Controls
-			If ctrl.Name.StartsWith ("chkEP") Then
-				chkBox = ctrl
-				chkBox.Checked = doc.SelectSingleNode("//config/Stats/" & chkBox.Name ).InnerText
-			End If
-		Next
-		For Each ctrl in groupBox2.Controls
-			If ctrl.Name.StartsWith ("chkEP") Then
-				chkBox = ctrl
-				chkBox.Checked = doc.SelectSingleNode("//config/Sets/" & chkBox.Name ).InnerText
-			End If
-		Next
-		
-		For Each ctrl in groupBox3.Controls
-			If ctrl.Name.StartsWith ("chkEP") Then
-				chkBox = ctrl
-				chkBox.Checked = doc.SelectSingleNode("//config/Trinket/" & chkBox.Name ).InnerText
-			End If
-		Next
-		
-		
-		sortie:
-	End Sub
 	
 	Sub Button1Click(sender As Object, e As EventArgs)
 		if LoadBeforeSim = false then exit sub
@@ -191,6 +106,66 @@ Public Partial Class MainForm
 		'CombatLog.init
 	End Sub
 	
+	
+	
+	
+	Sub MainFormClose(sender As Object, e As EventArgs)
+		
+		
+	End Sub
+	
+	
+	Sub ChkCombatLogCheckedChanged(sender As Object, e As EventArgs)
+		'CombatLog.enable = ChkCombatLog.Checked
+		ckLogRP.Enabled = ChkCombatLog.Checked
+	End Sub
+	
+	Sub CkPetCheckedChanged(sender As Object, e As EventArgs)
+		SimConstructor.PetFriendly = ckPet.Checked
+	End Sub
+	
+	Sub CkLogRPCheckedChanged(sender As Object, e As EventArgs)
+		'CombatLog.LogDetails = ckLogRP.Checked
+	End Sub
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	Sub CmdEditTemplateClick(sender As Object, e As EventArgs)
+		tabControl1.SelectedIndex = 6
+		'CreateTreeTemplate()
+		on error goto errH
+		Dim tr As IO.Textreader
+		EditorFilePAth = GetFilePath(cmbTemplate.Text)
+		tr =  new IO.StreamReader(EditorFilePAth )
+		rtfEditor.Text =tr.ReadToEnd
+		tr.Close
+		dim xmlDoc as New Xml.XmlDocument
+		xmlDoc.Load(EditorFilePAth)
+		TemplatePath = EditorFilePAth
+		displaytemplateInEditor (EditorFilePAth)
+		errH:
+	End Sub
+	
+	Sub LoadBuffOption
+		on error goto sortie
+		Dim doc As xml.XmlDocument = New xml.XmlDocument
+		doc.Load("Buffconfig.xml")
+		Dim ctrl As Control
+		dim chkBox as CheckBox
+		For Each ctrl in grpBuff.Controls
+			If ctrl.Name.StartsWith ("chk") Then
+				chkBox = ctrl
+				chkBox.Checked = doc.SelectSingleNode("//config/" & chkBox.Name ).InnerText
+			End If
+		Next
+		sortie:
+	End Sub
 	Sub saveConfig
 		on error resume next
 		'	Try
@@ -339,10 +314,80 @@ Public Partial Class MainForm
 		errH:
 	End Sub
 	
-	Sub MainFormClose(sender As Object, e As EventArgs)
+	Sub SaveEPOptions
+		'on error resume next
+		Dim doc As xml.XmlDocument = New xml.XmlDocument
+		doc.LoadXml("<config></config>")
+		' Create a new element node.
+		Dim xmlStat As xml.XmlNode = doc.CreateNode(xml.XmlNodeType.Element, "Stats", "")
+		Dim xmlSet As xml.XmlNode = doc.CreateNode(xml.XmlNodeType.Element, "Sets", "")
+		dim xmlTrinket As xml.XmlNode = doc.CreateNode(xml.XmlNodeType.Element, "Trinket", "")
+		Dim root as xml.XmlElement = doc.DocumentElement
+		root.AppendChild(xmlStat)
+		root.AppendChild(xmlSet)
+		root.AppendChild(xmlTrinket)
+		Dim newElem As xml.XmlNode
 		
-		
+		Dim ctrl As Control
+		dim chkBox as CheckBox
+		For Each ctrl in groupBox1.Controls
+			If ctrl.Name.StartsWith ("chkEP") Then
+				chkBox = ctrl
+				newElem = doc.CreateNode(xml.XmlNodeType.Element, chkBox.Name, "")
+				newElem.InnerText = chkBox.Checked
+				xmlStat.AppendChild(newElem)
+			End If
+		Next
+		For Each ctrl in groupBox2.Controls
+			If ctrl.Name.StartsWith ("chkEP") Then
+				chkBox = ctrl
+				newElem = doc.CreateNode(xml.XmlNodeType.Element, chkBox.Name, "")
+				newElem.InnerText = chkBox.Checked
+				xmlSet.AppendChild(newElem)
+			End If
+		Next
+		For Each ctrl in groupBox3.Controls
+			If ctrl.Name.StartsWith ("chkEP") Then
+				chkBox = ctrl
+				newElem = doc.CreateNode(xml.XmlNodeType.Element, chkBox.Name, "")
+				newElem.InnerText = chkBox.Checked
+				xmlTrinket.AppendChild(newElem)
+			End If
+		Next
+		doc.Save("EPconfig.xml")
 	End Sub
+	
+	Sub LoadEPOptions
+		on error goto sortie
+		Dim doc As xml.XmlDocument = New xml.XmlDocument
+		doc.Load("EPconfig.xml")
+		
+		Dim ctrl As Control
+		dim chkBox as CheckBox
+		For Each ctrl in groupBox1.Controls
+			If ctrl.Name.StartsWith ("chkEP") Then
+				chkBox = ctrl
+				chkBox.Checked = doc.SelectSingleNode("//config/Stats/" & chkBox.Name ).InnerText
+			End If
+		Next
+		For Each ctrl in groupBox2.Controls
+			If ctrl.Name.StartsWith ("chkEP") Then
+				chkBox = ctrl
+				chkBox.Checked = doc.SelectSingleNode("//config/Sets/" & chkBox.Name ).InnerText
+			End If
+		Next
+		
+		For Each ctrl in groupBox3.Controls
+			If ctrl.Name.StartsWith ("chkEP") Then
+				chkBox = ctrl
+				chkBox.Checked = doc.SelectSingleNode("//config/Trinket/" & chkBox.Name ).InnerText
+			End If
+		Next
+		
+		
+		sortie:
+	End Sub
+	
 	Sub loadTemplate()
 		Dim item As String
 		Dim sTemp As String
@@ -420,23 +465,6 @@ Public Partial Class MainForm
 		initReport
 	End Sub
 	
-	Sub ChkCombatLogCheckedChanged(sender As Object, e As EventArgs)
-		'CombatLog.enable = ChkCombatLog.Checked
-		ckLogRP.Enabled = ChkCombatLog.Checked
-	End Sub
-	
-	Sub CkPetCheckedChanged(sender As Object, e As EventArgs)
-		SimConstructor.PetFriendly = ckPet.Checked
-	End Sub
-	
-	Sub CkLogRPCheckedChanged(sender As Object, e As EventArgs)
-		'CombatLog.LogDetails = ckLogRP.Checked
-	End Sub
-	
-	
-	
-	
-	
 	Sub CreateTreeTemplate()
 		Dim XmlDoc As New Xml.XmlDocument
 		XmlDoc.Load("template.xml")
@@ -496,34 +524,6 @@ Public Partial Class MainForm
 		Next
 		
 		
-		
-'		Me.cmdSaveNew.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-'		Me.cmdSaveNew.TabIndex = 1
-'		Me.cmdSaveNew.Text = "Save as New"
-'		Me.cmdSaveNew.UseVisualStyleBackColor = true
-		
-		
-		
-		
-		
-	End Sub
-	
-	
-	
-	Sub CmdEditTemplateClick(sender As Object, e As EventArgs)
-		tabControl1.SelectedIndex = 6
-		'CreateTreeTemplate()
-		on error goto errH
-		Dim tr As IO.Textreader
-		EditorFilePAth = GetFilePath(cmbTemplate.Text)
-		tr =  new IO.StreamReader(EditorFilePAth )
-		rtfEditor.Text =tr.ReadToEnd
-		tr.Close
-		dim xmlDoc as New Xml.XmlDocument
-		xmlDoc.Load(EditorFilePAth)
-		TemplatePath = EditorFilePAth
-		displaytemplateInEditor (EditorFilePAth)
-		errH:
 	End Sub
 	
 	Sub DisplayTemplateInEditor(path As String)
@@ -559,7 +559,6 @@ Public Partial Class MainForm
 		
 		
 	End Sub
-	
 	
 	
 	Sub CmdEditPrioClick(sender As Object, e As EventArgs)
@@ -1347,5 +1346,9 @@ Public Partial Class MainForm
 		sTemp = sTemp  & "&"
 		txtImportTemplate.Text = sTemp
 		ImportTemplate("")
+	End Sub
+	
+	Sub TxtNumberOfEnemiesTextChanged(sender As Object, e As EventArgs)
+		
 	End Sub
 End Class

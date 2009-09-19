@@ -20,6 +20,7 @@ Public Class Disease
 	Friend CritCount As Integer
 	Friend DamageTick As Integer
 	Friend ScourgeStrikeGlyphCounter As Integer
+	Friend OtherTargetsFade as Integer
 
 	Protected sim As Sim
 	Sub New
@@ -35,6 +36,8 @@ Public Class Disease
 		TotalHit = 0
 		TotalCrit = 0
 		AP = 0
+		OtherTargetsFade = 0
+		
 	End sub
 	
 	Overridable Function PerfectUsage(T As Long) As Boolean
@@ -60,10 +63,10 @@ Public Class Disease
 		Dim tmp As Double
 		Dim intCount As Integer
 		For intCount = 1 To Sim.NumberOfEnemies
-			
+			if intCount > 1 and OtherTargetsFade < T then return true
 			If sim.MainStat.T94PDPS =1 Then
 				If sim.RandomNumberGenerator.RNGT9P4 < CritChance Then
-					tmp = AvrgCrit(T)*CritChance
+					tmp = AvrgCrit(T)
 					CritCount = CritCount + 1
 				Else
 					tmp = DamageTick
