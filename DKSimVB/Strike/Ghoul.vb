@@ -33,13 +33,13 @@ Friend class Ghoul
 		TotalHit = 0
 		TotalCrit = 0
 		sim = MySim
-		
+		MeleeGlacingChance = 0.25
 	End Sub
 	
 	Sub Summon(T As Long)
 		If cd <= T Then
 			
-			MeleeGlacingChance = 0.25
+			
 			MeleeMissChance = math.Max(0.08 - sim.GhoulStat.Hit,0)
 			'If MeleeMissChance < 0 Then MeleeMissChance = 0
 			MeleeDodgeChance =  math.Max(0.065 - sim.GhoulStat.Expertise,0)

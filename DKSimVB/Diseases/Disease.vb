@@ -3,7 +3,7 @@
 ' Utilisateur: Fabien
 ' Date: 13/09/2009
 ' Heure: 14:25
-' 
+'
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
 NameSpace Diseases
@@ -22,7 +22,7 @@ Public Class Disease
 	Friend ScourgeStrikeGlyphCounter As Integer
 
 	Protected sim As Sim
-	Sub New 
+	Sub New
 		init()
 	End Sub
 	Overridable Protected Sub init()
@@ -60,11 +60,18 @@ Public Class Disease
 		Dim tmp As Double
 		Dim intCount As Integer
 		For intCount = 1 To Sim.NumberOfEnemies
-			HitCount = HitCount + 1
+			
 			If sim.MainStat.T94PDPS =1 Then
-				tmp =  AvrgCrit(T)*CritChance + DamageTick*(1-CritChance )
+				If sim.RandomNumberGenerator.RNGT9P4 < CritChance Then
+					tmp = AvrgCrit(T)*CritChance
+					CritCount = CritCount + 1
+				Else
+					tmp = DamageTick
+					HitCount = HitCount + 1
+				End If
 			Else
 				tmp = DamageTick
+				HitCount = HitCount + 1
 			End If
 			total = total + tmp
 			If TalentUnholy.WanderingPlague > 0 Then
