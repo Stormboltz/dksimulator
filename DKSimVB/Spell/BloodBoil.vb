@@ -9,8 +9,6 @@
 Friend Class BloodBoil
 	Inherits Spells.Spell
 	
-	
-	
 	Sub New(S As sim)
 		MyBase.New()
 		Sim = S
@@ -25,35 +23,32 @@ Friend Class BloodBoil
 		sim.runes.UseBlood(T,False)
 		'End If
 		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste)) + sim._MainFrm.txtLatency.Text/10
-		
-		If sim.DoMySpellHit = false Then
-			combatlog.write(T  & vbtab &  "BB fail")
-			MissCount = MissCount + 1
-			Exit function
-		End If
-		RNG = sim.RandomNumberGenerator.RNGStrike
-		dim dégat as Integer
-		If RNG <= CritChance Then
-			dégat = AvrgCrit(T)
-			combatlog.write(T  & vbtab &  "BB crit for " & dégat  )
-			CritCount = CritCount + 1
+		Dim intCount As Integer
+		For intCount = 1 To Sim.NumberOfEnemies
+			If sim.DoMySpellHit = false Then
+				combatlog.write(T  & vbtab &  "BB fail")
+				MissCount = MissCount + 1
+				Exit function
+			End If
+			RNG = sim.RandomNumberGenerator.RNGStrike
+			dim dégat as Integer
+			If RNG <= CritChance Then
+				dégat = AvrgCrit(T)
+				combatlog.write(T  & vbtab &  "BB crit for " & dégat  )
+				CritCount = CritCount + 1
+			Else
+				dégat = AvrgNonCrit(T)
+				HitCount = HitCount + 1
+				combatlog.write(T  & vbtab &  "BB hit for " & dégat )
+			End If
 			
-		Else
-			dégat = AvrgNonCrit(T)
-			HitCount = HitCount + 1
-			combatlog.write(T  & vbtab &  "BB hit for " & dégat )
-		End If
-		
-		if Sim.Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
-		total = total + dégat
-		
+			if Sim.Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
+			total = total + dégat
+			
+			Sim.TryOnSpellHit
+		Next intCount
 		
 		Sim.RunicPower.add (10) 
-		Sim.TryOnSpellHit
-		
-		
-		
-		
 		
 		return true
 		'Debug.Print T & vbTab & "DeathCoil for " & Range("Abilities!N24").Value
@@ -71,8 +66,6 @@ Friend Class BloodBoil
 			sim.runeforge.CinderglacierProc = sim.runeforge.CinderglacierProc -1
  		end if
 		return tmp
-		
-		
 	End Function
 	overrides Function CritCoef() As Double
 		CritCoef = 1 * (1 + TalentBlood.MightofMograine * 15 / 100) 
@@ -102,8 +95,4 @@ Friend Class BloodBoil
 		tmp = tmp & vbCrLf
 		return tmp
 	End Function
-
-	
-	
-	
 End Class

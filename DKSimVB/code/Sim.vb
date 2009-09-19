@@ -13,7 +13,8 @@ Public Class Sim
 	Friend RotationStep as Integer
 	Friend Rotate as boolean
 	Friend rotationPath As String
-	Friend PetFriendly as Boolean
+	Friend PetFriendly As Boolean
+	Friend NumberOfEnemies as Integer
 	Private SimStart as Date
 	Friend _MainFrm As MainForm
 	
@@ -197,8 +198,6 @@ Public Class Sim
 		'combatlog.LogDetails = true
 		SimStart = now
 		
-		
-		
 		MaxTime = SimTime * 60 * 60 * 100
 		'Problem with MThread
 		pb.Maximum = SimTime * 60 * 60 * 100
@@ -261,10 +260,6 @@ Public Class Sim
 						End If
 					end if
 					
-					If DeathandDecay.nextTick = TimeStamp Then
-						DeathandDecay.ApplyDamage(TimeStamp)
-					End If
-					
 					If PetFriendly Then
 						If talentunholy.SummonGargoyle = 1 Then
 							If isInGCD(TimeStamp) = False Then
@@ -319,6 +314,10 @@ Public Class Sim
 					If horn.isAvailable(TimeStamp) and CanUseGCD(TimeStamp) Then
 						horn.use(TimeStamp)
 					end if
+				End If
+				
+				If DeathandDecay.nextTick = TimeStamp Then
+					DeathandDecay.ApplyDamage(TimeStamp)
 				End If
 				
 				If BloodPlague.isActive(TimeStamp) Then
@@ -415,8 +414,6 @@ Public Class Sim
 			End If
 		End If
 	End Function
-	
-	
 	
 	Sub loadtemplate(file As String)
 		
@@ -566,21 +563,17 @@ Public Class Sim
 		DRW = new DRW(Me)
 		RuneStrike = New RuneStrike(Me)
 		
+		Desolation = New Desolation
 		
 		Sigils = new Sigils(Me)
 		
 		LoadConfig
 		
-		Desolation = new Desolation
-		
-		
-		
 		RunicPower.Value = 0
-		
-	
 		NextFreeGCD = 0
 		TotalDamage = 0
 		Threat = 0
+		NumberOfEnemies = _MainFrm.txtNumberOfEnemies.text
 		ScourgeStrike = new ScourgeStrike(Me)
 		Obliterate = new Obliterate(Me)
 		PlagueStrike= new PlagueStrike(Me)
@@ -603,8 +596,6 @@ Public Class Sim
 		Bloodlust= new Bloodlust(Me)
 		Pestilence = new Pestilence(Me)
 		proc = New proc(Me)
-		
-		
 		
 		AMSCd = _MainFrm.txtAMScd.text * 100
 		AMSTimer = _MainFrm.txtAMScd.text * 100
@@ -662,9 +653,6 @@ Public Class Sim
 				sigils.Virulence = true
 		end select
 
-
-
-
 		Dim Presence As String
 		Presence = doc.SelectSingleNode("//config/presence").InnerText
 		MainStat.BloodPresence = 0
@@ -690,8 +678,6 @@ Public Class Sim
 			Case "Razorice"
 				RuneForge.MHRazorice = true
 		End Select
-
-
 
 		RuneForge.OHCinderglacier = False
 		RuneForge.OHFallenCrusader = false
@@ -721,16 +707,12 @@ Public Class Sim
 		errH:
 	End Sub
 	
-	
-
-	
 	Sub loadPriority(file As String)
 		priority = new priority(Me)
 		priority.prio.Clear
 		dim XmlDoc As New Xml.XmlDocument
 		XmlDoc.Load(file)
 		dim Nod as Xml.XmlNode
-		
 		
 		For Each Nod In xmldoc.SelectSingleNode("//Priority").ChildNodes
 			priority.prio.Add(Nod.Name)
@@ -759,7 +741,6 @@ Public Class Sim
 		' Sort report
 		
 		dim myArray as new ArrayList
-		
 		
 		If MainHand.total <> 0 Then myArray.Add(MainHand.total)
 		If OffHand.total <> 0 Then myArray.Add(OffHand.total)
@@ -1030,7 +1011,6 @@ Public Class Sim
 		If Butchery.nextTick < tmp  And talentblood.Butchery > 0 Then tmp = Butchery.nextTick
 		
 		if DeathandDecay.nextTick > TimeStamp and  DeathandDecay.nextTick < tmp then tmp = DeathandDecay.nextTick
-		
 		
 		if TalentBlood.DRW = 1 then
 			If DRW.IsActive(TimeStamp) Then

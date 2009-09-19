@@ -6,9 +6,6 @@ Friend Class BloodPlague
 		Sim = S
 	End Sub
 	
-	
-	
-		
 	overrides Function PerfectUsage(T As Long) As Boolean
 		If TalentUnholy.RageofRivendare>0 Then
 			if isActive(T+150) = false then return true

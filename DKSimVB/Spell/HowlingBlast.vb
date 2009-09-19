@@ -17,7 +17,6 @@ Friend Class HowlingBlast
 		if cd <= T then return true
 	End Function
 	
-	
 	overrides Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
 		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
@@ -25,27 +24,33 @@ Friend Class HowlingBlast
 		
 		If sim.DoMySpellHit = false Then
 			combatlog.write(T  & vbtab &  "HB fail")
-			sim.proc.KillingMachine  = False
+			sim.proc.KillingMachine = False
 			sim.Proc.rime = False
 			MissCount = MissCount + 1
 			Exit function
 		End If
-		RNG = sim.RandomNumberGenerator.RNGStrike
-		Dim dégat As Integer
-		Dim ccT As Double
-		ccT = CritChance
-		If RNG <= ccT Then
-			CritCount = CritCount + 1
-			dégat = AvrgCrit(T)
-			combatlog.write(T  & vbtab &  "HB crit for " & dégat )
-		Else
-			HitCount = HitCount + 1
-			dégat = AvrgNonCrit(T)
-			combatlog.write(T  & vbtab &  "HB hit for " & dégat)
-		End If
 		
-		if sim.Lissage then dégat = AvrgCrit(T)*ccT + AvrgNonCrit(T)*(1-CritChance )
-		total = total + dégat
+		Dim intCount As Integer
+		For intCount = 1 To Sim.NumberOfEnemies
+			RNG = sim.RandomNumberGenerator.RNGStrike
+			Dim dégat As Integer
+			Dim ccT As Double
+			ccT = CritChance
+			If RNG <= ccT Then
+				CritCount = CritCount + 1
+				dégat = AvrgCrit(T)
+				combatlog.write(T  & vbtab &  "HB crit for " & dégat )
+			Else
+				HitCount = HitCount + 1
+				dégat = AvrgNonCrit(T)
+				combatlog.write(T  & vbtab &  "HB hit for " & dégat)
+			End If
+			
+			if sim.Lissage then dégat = AvrgCrit(T)*ccT + AvrgNonCrit(T)*(1-CritChance )
+			total = total + dégat
+			
+			sim.TryOnSpellHit
+		Next intCount
 		
 		If sim.proc.rime Then
 			sim.Proc.rime = False
@@ -55,15 +60,14 @@ Friend Class HowlingBlast
 			Sim.RunicPower.add (15 + (TalentFrost.ChillOfTheGrave * 2.5))
 		End If
 		
-		sim.proc.KillingMachine  = false
+		sim.proc.KillingMachine = false
 		if sim.glyph.HowlingBlast then
 			sim.FrostFever.Apply(T)
 		End If
-		sim.TryOnSpellHit
+		
 		return true
 	End Function
 	overrides Function AvrgNonCrit(T As long) As Double
-		
 		Dim tmp As Double
 		tmp = 585
 		tmp = tmp + (0.2 * (1 + 0.04 * TalentUnholy.Impurity) * sim.MainStat.AP)
@@ -71,7 +75,7 @@ Friend Class HowlingBlast
 		if sim.NumDesease > 0 then 	tmp = tmp * (1 + TalentFrost.GlacierRot * 6.6666666 / 100)
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		If (T/sim.MaxTime) >= 0.75 Then tmp = tmp *(1+ 0.06*talentfrost.MercilessCombat)
-		if sim.RuneForge.MHRazorice or (sim.RuneForge.OHRazorice and sim.mainstat.DualW)  then tmp = tmp *1.10
+		if sim.RuneForge.MHRazorice or (sim.RuneForge.OHRazorice and sim.mainstat.DualW)  then tmp = tmp *1.10 'TODO: only on main target
 		if sim.runeforge.CinderglacierProc > 0 then
 			tmp = tmp * 1.2
 			sim.runeforge.CinderglacierProc = sim.runeforge.CinderglacierProc -1

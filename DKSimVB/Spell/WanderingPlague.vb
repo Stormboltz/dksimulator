@@ -18,7 +18,6 @@ Friend Class WanderingPlague
 		nextTick = 0
 		TotalHit = 0
 		TotalCrit = 0
-		
 	End Sub
 	
 	Function isAvailable(T As long) As Boolean
@@ -33,17 +32,21 @@ Friend Class WanderingPlague
 	Function ApplyDamage(Damage As Double, T As long) As Double
 		nextTick = T + 100
 		
-		If Sim.DoMySpellHit = false Then
-			'combatlog.write(T  & vbtab &  "WP fail")
-			MissCount = MissCount + 1
-			Exit function
-		End If
 		Dim tmp As Integer
-		tmp =  Damage * TalentUnholy.WanderingPlague / 3
-		total = total + tmp
-		HitCount = HitCount + 1
-		If combatlog.LogDetails Then combatlog.write(T  & vbtab &  "Wandering Plague hit for " & tmp )
-		'combatlog.write(T  & vbtab &  "WP hit for " & Damage * TalentUnholy.WanderingPlague / 3)
+		Dim intCount As Integer
+		For intCount = 1 To Sim.NumberOfEnemies
+			If Sim.DoMySpellHit = false Then
+				'combatlog.write(T  & vbtab &  "WP fail")
+				MissCount = MissCount + 1
+				'Exit function
+			End If
+			
+			tmp =  Damage * TalentUnholy.WanderingPlague / 3
+			total = total + tmp
+			HitCount = HitCount + 1
+			If combatlog.LogDetails Then combatlog.write(T  & vbtab &  "Wandering Plague hit for " & tmp )
+			'combatlog.write(T  & vbtab &  "WP hit for " & Damage * TalentUnholy.WanderingPlague / 3)
+		Next intCount
 		return true
 	End Function
 	Function report As String

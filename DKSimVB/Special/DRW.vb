@@ -260,20 +260,27 @@ Friend Class DRW
 			MissCount = MissCount + 1
 			exit sub
 		End If
-		RNG = sim.RandomNumberGenerator.RNGPet
-		damage = NormalisedMHDamage * 0.5 + 368
-		damage = damage * PhysicalDamageMultiplier(sim.TimeStamp)
-		damage = damage * (1 + 0.1 * Sim.NumDesease)
-		'damage = damage /2
-		If RNG < crit Then
-			damage = damage* 2
-			CritCount = CritCount +1
-			if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "DRW Heart Strike crit for " & damage)
-		Else
-			hitcount = hitcount + 1
-			if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "DRW Heart Strike hit for " & damage)
-		End If
-		total= total+damage
+		
+		Dim intCount As Integer
+		For intCount = 1 To Sim.NumberOfEnemies
+			if intCount <= 2 then
+				RNG = sim.RandomNumberGenerator.RNGPet
+				damage = NormalisedMHDamage * 0.5 + 368
+				damage = damage * PhysicalDamageMultiplier(sim.TimeStamp)
+				damage = damage * (1 + 0.1 * Sim.NumDesease)
+				'damage = damage /2
+				If RNG < crit Then
+					damage = damage* 2
+					CritCount = CritCount +1
+					if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "DRW Heart Strike crit for " & damage)
+				Else
+					hitcount = hitcount + 1
+					if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "DRW Heart Strike hit for " & damage)
+				End If
+				If intCount = 2 Then damage = damage * 0.5
+				total= total+damage
+			End If
+		Next intCount
 	End Sub
 	Sub DeathCoil
 		

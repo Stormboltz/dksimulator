@@ -1,11 +1,11 @@
 Friend Class FrostFever
 	inherits Diseases.Disease
 
-
 	Sub New(S As sim)
 		MyBase.New()
 		Sim = S
 	End Sub
+	
 	overrides Function PerfectUsage(T As Long) As Boolean
 		If Talentfrost.TundraStalker>0 Then
 			if isActive(T+150) = false then return true
@@ -14,6 +14,7 @@ Friend Class FrostFever
 		End If
 		return false
 	End Function
+	
 	overrides Function Apply(T As Long) As Boolean
 
 		AP = sim.MainStat.AP
@@ -36,7 +37,7 @@ Friend Class FrostFever
 		End If
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		tmp = tmp * 1.15
-		'if MHRazorice or (OHRazorice and mainstat.DualW)  then tmp = tmp *1.10
+		'if MHRazorice or (OHRazorice and mainstat.DualW) then tmp = tmp *1.10 'TODO: only affect main target.
 		AvrgNonCrit = tmp
 	End Function
 	

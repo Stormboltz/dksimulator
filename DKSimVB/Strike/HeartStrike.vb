@@ -18,9 +18,6 @@ Sub New(S As sim)
 		
 		If sim.Hysteria.IsAvailable(T)  Then sim.Hysteria.use(T)
 		
-		
-		
-		
 		If sim.MainStat.UnholyPresence Then
 			Sim.NextFreeGCD = T + 100 + sim._MainFrm.txtLatency.Text/10
 		Else
@@ -32,22 +29,31 @@ Sub New(S As sim)
 			MissCount = MissCount + 1
 			Exit function
 		End If
-		sim.Sigils.tryHauntedDreams()
 		
-		RNG = sim.RandomNumberGenerator.RNGStrike
-		dim dégat as Integer
-		If RNG <= CritChance Then
-			CritCount = CritCount + 1
-			dégat = AvrgCrit(T)
-			combatlog.write(T  & vbtab &  "HS crit for " & dégat)
-		Else
-			HitCount = HitCount + 1
-			dégat =  AvrgNonCrit(T)
-			combatlog.write(T  & vbtab &  "HS hit for " & dégat)
-		End If
-		
-		if sim.Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
-		total = total + dégat
+		Dim intCount As Integer
+		For intCount = 1 To Sim.NumberOfEnemies
+			if intCount <= 2 then
+				RNG = sim.RandomNumberGenerator.RNGStrike
+				dim dégat as Integer
+				If RNG <= CritChance Then
+					CritCount = CritCount + 1
+					dégat = AvrgCrit(T)
+					combatlog.write(T  & vbtab &  "HS crit for " & dégat)
+				Else
+					HitCount = HitCount + 1
+					dégat =  AvrgNonCrit(T)
+					combatlog.write(T  & vbtab &  "HS hit for " & dégat)
+				End If
+				
+				If sim.Lissage Then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
+				If intCount = 2 Then dégat = dégat * 0.5
+				total = total + dégat
+				
+				sim.Sigils.tryHauntedDreams()
+				sim.proc.TryT92PDPS
+				sim.TryOnMHHitProc
+			End If
+		Next intCount
 		
 		RNG = sim.RandomNumberGenerator.RNGStrike
 		If rng < 0.05*talentblood.SuddenDoom Then
@@ -63,8 +69,7 @@ Sub New(S As sim)
 			sim.DRW.HeartStrike
 		End If
 		Sim.RunicPower.add (10)
-		sim.proc.TryT92PDPS
-		sim.TryOnMHHitProc
+		
 		return true
 	End Function
 	public Overrides Function AvrgNonCrit(T As long) As Double
@@ -93,6 +98,4 @@ Sub New(S As sim)
 	public Overrides Function AvrgCrit(T As long) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
-	
-	
 End Class

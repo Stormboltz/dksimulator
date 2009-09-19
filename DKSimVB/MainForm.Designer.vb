@@ -53,6 +53,8 @@ Partial Class MainForm
 		Me.HtmlReport = New System.Windows.Forms.TabPage
 		Me.webBrowser1 = New System.Windows.Forms.WebBrowser
 		Me.tabPage3 = New System.Windows.Forms.TabPage
+		Me.txtNumberOfEnemies = New System.Windows.Forms.TextBox
+		Me.label19 = New System.Windows.Forms.Label
 		Me.rdPrio = New System.Windows.Forms.RadioButton
 		Me.rdRot = New System.Windows.Forms.RadioButton
 		Me.label18 = New System.Windows.Forms.Label
@@ -361,6 +363,8 @@ Partial Class MainForm
 		'
 		'tabPage3
 		'
+		Me.tabPage3.Controls.Add(Me.txtNumberOfEnemies)
+		Me.tabPage3.Controls.Add(Me.label19)
 		Me.tabPage3.Controls.Add(Me.rdPrio)
 		Me.tabPage3.Controls.Add(Me.rdRot)
 		Me.tabPage3.Controls.Add(Me.label18)
@@ -412,9 +416,27 @@ Partial Class MainForm
 		Me.tabPage3.Text = "Configuration"
 		Me.tabPage3.UseVisualStyleBackColor = true
 		'
+		'txtNumberOfEnemies
+		'
+		Me.txtNumberOfEnemies.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.txtNumberOfEnemies.Location = New System.Drawing.Point(590, 324)
+		Me.txtNumberOfEnemies.Name = "txtNumberOfEnemies"
+		Me.txtNumberOfEnemies.Size = New System.Drawing.Size(50, 20)
+		Me.txtNumberOfEnemies.TabIndex = 38
+		Me.txtNumberOfEnemies.Text = "1"
+		'
+		'label19
+		'
+		Me.label19.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.label19.Location = New System.Drawing.Point(482, 327)
+		Me.label19.Name = "label19"
+		Me.label19.Size = New System.Drawing.Size(102, 13)
+		Me.label19.TabIndex = 37
+		Me.label19.Text = "Number of enemies"
+		'
 		'rdPrio
 		'
-		Me.rdPrio.Location = New System.Drawing.Point(8, 100)
+		Me.rdPrio.Location = New System.Drawing.Point(6, 94)
 		Me.rdPrio.Name = "rdPrio"
 		Me.rdPrio.Size = New System.Drawing.Size(104, 24)
 		Me.rdPrio.TabIndex = 36
@@ -425,7 +447,7 @@ Partial Class MainForm
 		'
 		'rdRot
 		'
-		Me.rdRot.Location = New System.Drawing.Point(112, 100)
+		Me.rdRot.Location = New System.Drawing.Point(112, 94)
 		Me.rdRot.Name = "rdRot"
 		Me.rdRot.Size = New System.Drawing.Size(104, 24)
 		Me.rdRot.TabIndex = 36
@@ -569,8 +591,7 @@ Partial Class MainForm
 		'
 		'txtLatency
 		'
-		Me.txtLatency.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-		Me.txtLatency.Location = New System.Drawing.Point(88, 368)
+		Me.txtLatency.Location = New System.Drawing.Point(88, 350)
 		Me.txtLatency.Name = "txtLatency"
 		Me.txtLatency.Size = New System.Drawing.Size(50, 20)
 		Me.txtLatency.TabIndex = 21
@@ -579,8 +600,7 @@ Partial Class MainForm
 		'
 		'txtSimtime
 		'
-		Me.txtSimtime.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-		Me.txtSimtime.Location = New System.Drawing.Point(112, 342)
+		Me.txtSimtime.Location = New System.Drawing.Point(112, 324)
 		Me.txtSimtime.Name = "txtSimtime"
 		Me.txtSimtime.Size = New System.Drawing.Size(50, 20)
 		Me.txtSimtime.TabIndex = 6
@@ -695,7 +715,6 @@ Partial Class MainForm
 		Me.cmbRuneOH.Name = "cmbRuneOH"
 		Me.cmbRuneOH.Size = New System.Drawing.Size(250, 21)
 		Me.cmbRuneOH.TabIndex = 14
-
 		'
 		'label7
 		'
@@ -712,7 +731,6 @@ Partial Class MainForm
 		Me.cmbRuneMH.Name = "cmbRuneMH"
 		Me.cmbRuneMH.Size = New System.Drawing.Size(250, 21)
 		Me.cmbRuneMH.TabIndex = 12
-
 		'
 		'label6
 		'
@@ -731,7 +749,6 @@ Partial Class MainForm
 		Me.cmbRotation.Name = "cmbRotation"
 		Me.cmbRotation.Size = New System.Drawing.Size(634, 21)
 		Me.cmbRotation.TabIndex = 10
-
 		'
 		'label5
 		'
@@ -750,12 +767,10 @@ Partial Class MainForm
 		Me.cmbSigils.Name = "cmbSigils"
 		Me.cmbSigils.Size = New System.Drawing.Size(634, 21)
 		Me.cmbSigils.TabIndex = 8
-
 		'
 		'label10
 		'
-		Me.label10.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-		Me.label10.Location = New System.Drawing.Point(6, 371)
+		Me.label10.Location = New System.Drawing.Point(6, 353)
 		Me.label10.Name = "label10"
 		Me.label10.Size = New System.Drawing.Size(76, 13)
 		Me.label10.TabIndex = 7
@@ -763,8 +778,7 @@ Partial Class MainForm
 		'
 		'label4
 		'
-		Me.label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-		Me.label4.Location = New System.Drawing.Point(6, 345)
+		Me.label4.Location = New System.Drawing.Point(6, 327)
 		Me.label4.Name = "label4"
 		Me.label4.Size = New System.Drawing.Size(100, 13)
 		Me.label4.TabIndex = 7
@@ -787,7 +801,6 @@ Partial Class MainForm
 		Me.cmdPresence.Name = "cmdPresence"
 		Me.cmdPresence.Size = New System.Drawing.Size(634, 21)
 		Me.cmdPresence.TabIndex = 4
-
 		'
 		'label2
 		'
@@ -822,7 +835,6 @@ Partial Class MainForm
 		Me.cmbPrio.Name = "cmbPrio"
 		Me.cmbPrio.Size = New System.Drawing.Size(634, 21)
 		Me.cmbPrio.TabIndex = 1
-
 		'
 		'cmbCharacter
 		'
@@ -833,7 +845,6 @@ Partial Class MainForm
 		Me.cmbCharacter.Name = "cmbCharacter"
 		Me.cmbCharacter.Size = New System.Drawing.Size(634, 21)
 		Me.cmbCharacter.TabIndex = 0
-
 		'
 		'cmbTemplate
 		'
@@ -844,7 +855,6 @@ Partial Class MainForm
 		Me.cmbTemplate.Name = "cmbTemplate"
 		Me.cmbTemplate.Size = New System.Drawing.Size(634, 21)
 		Me.cmbTemplate.TabIndex = 0
-
 		'
 		'tabControl1
 		'
@@ -1596,6 +1606,8 @@ Partial Class MainForm
 		Me.grpBuff.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Private label19 As System.Windows.Forms.Label
+	Friend txtNumberOfEnemies As System.Windows.Forms.TextBox
 	Private rdPrio As System.Windows.Forms.RadioButton
 	Private rdRot As System.Windows.Forms.RadioButton
 	Private chkCrypticFever As System.Windows.Forms.CheckBox
@@ -1722,4 +1734,5 @@ Partial Class MainForm
 	Private tabPage3 As System.Windows.Forms.TabPage
 	Private PBsim As System.Windows.Forms.ProgressBar
 	Private button1 As System.Windows.Forms.Button
+	
 End Class

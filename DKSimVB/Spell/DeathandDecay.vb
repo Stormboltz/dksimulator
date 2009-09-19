@@ -15,14 +15,11 @@ Friend Class DeathandDecay
 		sim = Mysim
 	End Sub
 	
-	
 	Public Overloads Overrides Sub Init()
 		MyBase.init()
 		nextTick = 0
 	End Sub
 	
-	
-	 
 	Function isAvailable(T As Long) As Boolean
 		if CD > T then return false
 		if sim.runes.BFU(T) then return true
@@ -43,35 +40,32 @@ Friend Class DeathandDecay
 	
 	overrides Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
-
-		If sim.DoMySpellHit = false Then
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "D&D fail")
-			MissCount = MissCount + 1
-			Exit function
-		End If
-		RNG = sim.RandomNumberGenerator.RNGStrike
-		dim dégat as Integer
-		If sim.RandomNumberGenerator.RNGStrike <= CritChance Then
-			dégat = AvrgCrit(T)
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "D&D crit for " & dégat)
-			CritCount = CritCount + 1
-		Else
-			dégat= AvrgNonCrit(T)
-			HitCount = HitCount + 1
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "D&D hit for " & dégat)
-		End If
-		
-		
-		if sim.Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
-		total = total + dégat
-		
-		
-		
+		Dim intCount As Integer
+		For intCount = 1 To Sim.NumberOfEnemies
+			If sim.DoMySpellHit = false Then
+				if combatlog.LogDetails then combatlog.write(T  & vbtab &  "D&D fail")
+				MissCount = MissCount + 1
+				Exit function
+			End If
+			RNG = sim.RandomNumberGenerator.RNGStrike
+			dim dégat as Integer
+			If sim.RandomNumberGenerator.RNGStrike <= CritChance Then
+				dégat = AvrgCrit(T)
+				if combatlog.LogDetails then combatlog.write(T  & vbtab &  "D&D crit for " & dégat)
+				CritCount = CritCount + 1
+			Else
+				dégat= AvrgNonCrit(T)
+				HitCount = HitCount + 1
+				if combatlog.LogDetails then combatlog.write(T  & vbtab &  "D&D hit for " & dégat)
+			End If
+			
+			if sim.Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
+			total = total + dégat
+		Next intCount
 		
 		nextTick = T+100
 		if nextTick > ActiveUntil then nextTick = T-1
 		return true
-
 	End Function
 	overrides Function AvrgNonCrit(T As long) As Double
 		Dim tmp As Double
