@@ -702,6 +702,8 @@ Public Class Sim
 '		txtLatency.Text = doc.SelectSingleNode("//config/latency").InnerText
 '
 '		txtSimtime.Text = doc.SelectSingleNode("//config/simtime").InnerText
+		Me.CombatLog.enable = doc.SelectSingleNode("//config/log").InnerText
+		Me.CombatLog.LogDetails = doc.SelectSingleNode("//config/logdetail").InnerText
 '		chkCombatLog.Checked = doc.SelectSingleNode("//config/log").InnerText
 '		ckLogRP.Checked = doc.SelectSingleNode("//config/logdetail").InnerText
 '		chkLissage.Checked = doc.SelectSingleNode("//config/smooth").InnerText

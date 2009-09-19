@@ -12,18 +12,28 @@ Public Class CombatLog
 	Friend LogDetails As Boolean
 
 	Sub New()
-		txtFile = New System.IO.StreamWriter("Combatlog/Combatlog" &" _" & now.Day & now.Hour & now.Minute & now.Second & ".txt")
+		'txtFile = New System.IO.StreamWriter("Combatlog/Combatlog" &" _" & now.Day & now.Hour & now.Minute & now.Second & ".txt")
 		LogDetails = true
 		enable = true
 	End Sub
+	
+	Sub InitcombatLog
+		txtFile = New System.IO.StreamWriter("Combatlog/Combatlog" &" _" & now.Day & now.Hour & now.Minute & now.Second & ".txt")
+	End Sub
+	
+	
 	Sub write(s As String)
+		
 		on error resume next
 		Dim tmp As String
 		tmp = ""
 		
 		 'tmp = 	Sim.Runes.RuneState()
 	
-			if enable then txtFile.WriteLine(tmp & vbtab & s)
+			If enable Then 
+				If txtFile is Nothing Then InitcombatLog
+				txtFile.WriteLine(tmp & vbtab & s)
+			End If
 
 	End sub
 	Sub finish()
