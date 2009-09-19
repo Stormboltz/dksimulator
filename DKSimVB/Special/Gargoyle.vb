@@ -33,13 +33,13 @@ Sub Summon(T As Long)
 	AP = sim.MainStat.AP
 	If cd <= T Then
 		Sim.RunicPower.Value = Sim.RunicPower.Value - 60
-		combatlog.write(T  & vbtab &  "Gargoyle use" & vbtab & "RP left = " & Sim.RunicPower.Value )
+		sim.combatlog.write(T  & vbtab &  "Gargoyle use" & vbtab & "RP left = " & Sim.RunicPower.Value )
 		cd = T + 3 * 60 * 100
 		ActiveUntil = T + 30 * 100
 		SpellHit = sim.MainStat.SpellHit
 		Sim.NextFreeGCD = T + (150 / (1 + sim.mainstat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
 		NextGargoyleStrike = T
-		combatlog.write(T  & vbtab &  "Summon Gargoyle")
+		sim.combatlog.write(T  & vbtab &  "Summon Gargoyle")
 	End If
 	
 End Sub
@@ -56,7 +56,7 @@ Function ApplyDamage(T As long) As boolean
 		RNG = RNG+SpellHit
 	End If
 	If RNG < 0.17 Then
-		if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Gargoyle Strike fail")
+		if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Gargoyle Strike fail")
 		MissCount = MissCount + 1
 		Exit function
 	End If
@@ -66,11 +66,11 @@ Function ApplyDamage(T As long) As boolean
 	If RNG <= CritChance Then
 		dégat = AvrgCrit(T)
 		CritCount = CritCount + 1
-		if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Gargoyle Strike crit for " & dégat )
+		if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Gargoyle Strike crit for " & dégat )
 	Else
 		dégat = AvrgNonCrit(T)
 		HitCount = HitCount + 1
-		If combatlog.LogDetails Then combatlog.write(T  & vbtab &  "Gargoyle Strike hit for " & dégat )
+		If sim.combatlog.LogDetails Then sim.combatlog.write(T  & vbtab &  "Gargoyle Strike hit for " & dégat )
 	End If
 	
 	if sim.Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )

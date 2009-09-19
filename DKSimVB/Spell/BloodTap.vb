@@ -31,7 +31,7 @@ Friend Class BloodTap
 			sim.Rune2.AvailableTime = T
 			sim.Rune2.death = True
 		End If
-		combatlog.write(T  & vbtab &  "Blood Tap")
+		sim.combatlog.write(T  & vbtab &  "Blood Tap")
 		return true
 	End Function
 		

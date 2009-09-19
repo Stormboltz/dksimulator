@@ -19,11 +19,11 @@ Friend Class Pestilence
 	Function use(T As double) As Boolean
 		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
 		If sim.DoMySpellHit = false Then
-			combatlog.write(T  & vbtab &  "Pestilence fail")
+			sim.combatlog.write(T  & vbtab &  "Pestilence fail")
 			MissCount = MissCount +1
 			Exit function
 		End If
-		combatlog.write(T  & vbtab &  "Pestilence")
+		sim.combatlog.write(T  & vbtab &  "Pestilence")
 		HitCount = HitCount +1
 		
 		If TalentFrost.BloodoftheNorth = 3 Or TalentUnholy.Reaping = 3 Then

@@ -13,7 +13,7 @@ Friend Class Necrosis
 		'tmp = tmp * (1 + TalentFrost.BlackIce * 2 / 100)
 		total = total + tmp
 		HitCount = HitCount + 1
-		if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Necrosis hit for " & tmp)
+		if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Necrosis hit for " & tmp)
 		return tmp
 	End Function
 	

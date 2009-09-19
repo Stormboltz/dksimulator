@@ -78,7 +78,7 @@ Public Class Disease
 			End If
 			Sim.Trinket.TryNecromantic()
 			nextTick = T + 300
-			If combatlog.LogDetails Then combatlog.write(T  & vbtab & Me.ToString & " hit for " & tmp )
+			If sim.combatlog.LogDetails Then sim.combatlog.write(T  & vbtab & Me.ToString & " hit for " & tmp )
 		Next intCount
 		return true
 	End Function

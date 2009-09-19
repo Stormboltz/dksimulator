@@ -31,7 +31,7 @@ Friend Class DeathStrike
 		End If
 		If sim.MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
 			If sim.DoMyStrikeHit = false Then
-				combatlog.write(T  & vbtab & "MH/OH DS fail")
+				sim.combatlog.write(T  & vbtab & "MH/OH DS fail")
 				MissCount = MissCount + 1
 				MHHit = False
 				OHHit = false
@@ -39,7 +39,7 @@ Friend Class DeathStrike
 		Else
 			OHHit = false
 			If sim.DoMyStrikeHit = false Then
-				combatlog.write(T  & vbtab & "DS fail")
+				sim.combatlog.write(T  & vbtab & "DS fail")
 				MissCount = MissCount + 1
 				Exit function
 			End If
@@ -52,13 +52,13 @@ Friend Class DeathStrike
 				If RNG <= CritChance Then
 					CritCount = CritCount + 1
 					dégat = AvrgCrit(T,true)
-					combatlog.write(T  & vbtab &  "DS crit for " & dégat  )
+					sim.combatlog.write(T  & vbtab &  "DS crit for " & dégat  )
 					sim.tryOnCrit
 					
 				Else
 					HitCount = HitCount + 1
 					dégat = AvrgNonCrit(T,true)
-					combatlog.write(T  & vbtab &  "DS hit for " & dégat )
+					sim.combatlog.write(T  & vbtab &  "DS hit for " & dégat )
 				End If
 				If sim.Lissage Then dégat = AvrgCrit(T,true)*CritChance + AvrgNonCrit(T,true)*(1-CritChance )
 				total = total + dégat
@@ -69,12 +69,12 @@ Friend Class DeathStrike
 				If RNG <= CritChance Then
 					
 					dégat = AvrgCrit(T,false)
-					combatlog.write(T  & vbtab &  "OH DS crit for " & dégat  )
+					sim.combatlog.write(T  & vbtab &  "OH DS crit for " & dégat  )
 					sim.tryOnCrit
 				Else
 					
 					dégat = AvrgNonCrit(T,false)
-					combatlog.write(T  & vbtab &  "OH DS hit for " & dégat )
+					sim.combatlog.write(T  & vbtab &  "OH DS hit for " & dégat )
 				End If
 				If sim.Lissage Then dégat = AvrgCrit(T,false)*CritChance + AvrgNonCrit(T,false)*(1-CritChance )
 				total = total + dégat

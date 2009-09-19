@@ -57,28 +57,28 @@ Sub New(S As sim)
 		
 		If math.Min(sim.mainstat.Expertise,MeleeDodgeChance)+ math.Min(sim.mainstat.Expertise,MeleeParryChance) + math.Min (sim.mainstat.Hit,MeleeMissChance) + RNG < ChanceNotToTouch Then
 			MissCount = MissCount + 1
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "MH fail")
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "MH fail")
 			exit function
 		End If
 		
 		If RNG < (ChanceNotToTouch + MeleeGlacingChance) Then
 			dégat = AvrgNonCrit(T)*0.7
 			HitCount = HitCount + 1
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "MH glancing for " & dégat)
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "MH glancing for " & dégat)
 		End If
 		
 		If RNG >= (ChanceNotToTouch + MeleeGlacingChance) and RNG < (ChanceNotToTouch + MeleeGlacingChance + CritChance) Then
 			'CRIT !
 			dégat = AvrgCrit(T)
 			CritCount = CritCount + 1
-			If combatlog.LogDetails Then combatlog.write(T  & vbtab &  "MH crit for " & dégat )
+			If sim.combatlog.LogDetails Then sim.combatlog.write(T  & vbtab &  "MH crit for " & dégat )
 			sim.tryOnCrit
 		End If
 		If RNG >= (ChanceNotToTouch + MeleeGlacingChance + CritChance) Then
 			'normal hit3
 			dégat = AvrgNonCrit(T)
 			HitCount = HitCount + 1
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "MH hit for " & dégat )
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "MH hit for " & dégat )
 		End If
 		
 		If sim.Lissage Then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance-MeleeGlacingChance) + AvrgNonCrit(T)* (MeleeGlacingChance)*0.7

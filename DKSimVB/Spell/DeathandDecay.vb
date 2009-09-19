@@ -32,7 +32,7 @@ Friend Class DeathandDecay
 		sim.runes.UseFU(T, False)
 		ActiveUntil = T+1000
 		cd = T + 3000 - TalentUnholy.Morbidity*500
-		combatlog.write(T  & vbtab &  "D&D ")
+		sim.combatlog.write(T  & vbtab &  "D&D ")
 		Sim.RunicPower.add(15)
 		
 		return true
@@ -43,7 +43,7 @@ Friend Class DeathandDecay
 		Dim intCount As Integer
 		For intCount = 1 To Sim.NumberOfEnemies
 			If sim.DoMySpellHit = false Then
-				if combatlog.LogDetails then combatlog.write(T  & vbtab &  "D&D fail")
+				if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "D&D fail")
 				MissCount = MissCount + 1
 				Exit function
 			End If
@@ -51,12 +51,12 @@ Friend Class DeathandDecay
 			dim dégat as Integer
 			If sim.RandomNumberGenerator.RNGStrike <= CritChance Then
 				dégat = AvrgCrit(T)
-				if combatlog.LogDetails then combatlog.write(T  & vbtab &  "D&D crit for " & dégat)
+				if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "D&D crit for " & dégat)
 				CritCount = CritCount + 1
 			Else
 				dégat= AvrgNonCrit(T)
 				HitCount = HitCount + 1
-				if combatlog.LogDetails then combatlog.write(T  & vbtab &  "D&D hit for " & dégat)
+				if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "D&D hit for " & dégat)
 			End If
 			
 			if sim.Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )

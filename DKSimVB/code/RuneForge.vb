@@ -48,7 +48,7 @@ Friend Class RuneForge
 '		tmp = tmp * (1 + TalentFrost.BlackIce * 2 / 100)
 '		tmp = tmp * 1.05
 		HitCount = HitCount +1
-		if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Razorice hit for " & tmp)
+		if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp & vbtab & "Razorice hit for " & tmp)
 		RazoriceTotal = RazoriceTotal + tmp
 	End Function
 	
@@ -56,7 +56,7 @@ Friend Class RuneForge
 		If MHFallenCrusader Then
 			If sim.RandomNumberGenerator.RNGProc < 2*sim.MainStat.MHWeaponSpeed/60 Then
 				FallenCrusaderActiveUntil = sim.TimeStamp + 15 * 100
-				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Fallen Crusader sim.proc on Main hand")
+				if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp & vbtab & "Fallen Crusader sim.proc on Main hand")
 			End If
 		End If
 	End Sub
@@ -64,7 +64,7 @@ Friend Class RuneForge
 		If OHFallenCrusader Then
 			If sim.RandomNumberGenerator.RNGProc < 2*sim.MainStat.OHWeaponSpeed/60 Then
 				FallenCrusaderActiveUntil = sim.TimeStamp + 15 * 100
-				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Fallen Crusader sim.proc on Off hand")
+				if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp & vbtab & "Fallen Crusader sim.proc on Off hand")
 			End If
 		End If
 	End Sub
@@ -72,7 +72,7 @@ Friend Class RuneForge
 		If OHBerserking Then
 			If sim.RandomNumberGenerator.RNGProc < 1.2*sim.MainStat.OHWeaponSpeed/60 Then
 				OHBerserkingActiveUntil = sim.TimeStamp + 15 * 100
-				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Berserking sim.proc on Off hand")
+				if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp & vbtab & "Berserking sim.proc on Off hand")
 			End If
 		End If
 	End Sub
@@ -88,7 +88,7 @@ Friend Class RuneForge
 			
 			If sim.RandomNumberGenerator.RNGProc < 1*sim.MainStat.MHWeaponSpeed/60 Then
 				CinderglacierProc = 2
-				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Cinderglacier sim.proc on Main hand")
+				if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp & vbtab & "Cinderglacier sim.proc on Main hand")
 			End If
 		end if
 	End Sub
@@ -96,7 +96,7 @@ Friend Class RuneForge
 		if OHCinderglacier then
 			If sim.RandomNumberGenerator.RNGProc < 1*sim.MainStat.OHWeaponSpeed/60 Then
 				CinderglacierProc = 2
-				if combatlog.LogDetails then CombatLog.write(sim.TimeStamp & vbtab & "Cinderglacier sim.proc on Off hand")
+				if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp & vbtab & "Cinderglacier sim.proc on Off hand")
 			End If
 		end if
 	End Sub

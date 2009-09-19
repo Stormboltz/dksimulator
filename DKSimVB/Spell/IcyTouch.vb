@@ -12,7 +12,7 @@ Friend Class IcyTouch
 		
 		
 		If sim.DoMySpellHit = false Then
-			combatlog.write(T  & vbtab &  "IT fail")
+			sim.combatlog.write(T  & vbtab &  "IT fail")
 			sim.proc.KillingMachine  = False
 			MissCount = MissCount + 1
 			Exit function
@@ -26,11 +26,11 @@ Friend Class IcyTouch
 		If RNG <= ccT Then
 			CritCount = CritCount + 1
 			dégat = AvrgCrit(T)
-			combatlog.write(T  & vbtab &  "IT crit for " & dégat )
+			sim.combatlog.write(T  & vbtab &  "IT crit for " & dégat )
 		Else
 			HitCount = HitCount + 1
 			dégat =  AvrgNonCrit(T)
-			combatlog.write(T  & vbtab &  "IT hit for " & dégat)
+			sim.combatlog.write(T  & vbtab &  "IT hit for " & dégat)
 		End If
 		
 		if sim.Lissage then dégat = AvrgCrit(T)*ccT + AvrgNonCrit(T)*(1-CritChance )

@@ -82,6 +82,7 @@ Public Class Trinket
 	Sub TryMjolRune()
 		If MjolRune = 0 Or MjolRuneCd > sim.TimeStamp Then Exit Sub
 		If sim.RandomNumberGenerator.RNGProc <= 0.15 Then
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "MjolRune proc")
 			MjolRuneFade = sim.TimeStamp + 10 * 100
 			MjolRuneCd = sim.TimeStamp + 45 * 100
 		End If
@@ -91,6 +92,7 @@ Public Class Trinket
 	Sub TryGrimToll()
 		If GrimToll = 0 Or GrimTollCd > sim.TimeStamp Then Exit Sub
 		If sim.RandomNumberGenerator.RNGProc <= 0.15 Then
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "GrimToll proc")
 			GrimTollFade = sim.TimeStamp + 10 * 100
 			GrimTollCd = sim.TimeStamp + 45 * 100
 		End If
@@ -100,6 +102,7 @@ Public Class Trinket
 	Sub TryBitterAnguish()
 		If BitterAnguish = 0 Or BitterAnguishCd > sim.TimeStamp Then Exit Sub
 		If sim.RandomNumberGenerator.RNGProc <= 0.10 Then
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "BitterAnguish proc")
 			BitterAnguishFade = sim.TimeStamp + 10 * 100
 			BitterAnguishCd = sim.TimeStamp + 45 * 100
 		End If
@@ -111,6 +114,7 @@ Public Class Trinket
 	Sub TryMirror()
 		If Mirror = 0 Or MirrorCd > sim.TimeStamp Then Exit Sub
 		If sim.RandomNumberGenerator.RNGProc <= 0.10 Then
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "Mirror proc")
 			MirrorFade = sim.TimeStamp + 10 * 100
 			MirrorCd = sim.TimeStamp + 45 * 100
 		End If
@@ -122,6 +126,7 @@ Public Class Trinket
 	Sub TryPyrite()
 		If Pyrite = 0 Or PyriteCd > sim.TimeStamp Then Exit Sub
 		If sim.RandomNumberGenerator.RNGProc <= 0.10 Then
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "Pyrite proc")
 			PyriteFade = sim.TimeStamp + 10 * 100
 			PyriteCd = sim.TimeStamp + 45 * 100
 		End If
@@ -133,6 +138,7 @@ Public Class Trinket
 	Sub TryOldGod()
 		If  OldGod = 0 Or OldGodCd > sim.TimeStamp Then Exit Sub
 		If sim.RandomNumberGenerator.RNGProc <= 0.10 Then
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "OldGod proc")
 			OldGodFade = sim.TimeStamp + 10 * 100
 			OldGodCd = sim.TimeStamp + 45 * 100
 		End If
@@ -144,6 +150,7 @@ Public Class Trinket
 	Sub TryGreatness()
 		If  Greatness= 0 Or GreatnessCd > sim.TimeStamp Then Exit Sub
 		If sim.RandomNumberGenerator.RNGProc <= 0.35 Then
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "Greatness proc")
 			GreatnessFade = sim.TimeStamp + 15 * 100
 			GreatnessCd = sim.TimeStamp + 45 * 100
 		End If
@@ -155,6 +162,7 @@ Public Class Trinket
 	Sub TryDeathChoice()
 		If DeathChoice = 0 Or DeathChoiceCd > sim.TimeStamp Then Exit Sub
 		If sim.RandomNumberGenerator.RNGProc <= 0.35 Then
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DeathChoice proc")
 			DeathChoiceFade = sim.TimeStamp + 15 * 100
 			DeathChoiceCd = sim.TimeStamp + 45 * 100
 		End If
@@ -166,6 +174,7 @@ Public Class Trinket
 	Sub TryDeathChoiceHeroic()
 		If DeathChoiceHeroic = 0 Or DeathChoiceHeroicCd > sim.TimeStamp Then Exit Sub
 		If sim.RandomNumberGenerator.RNGProc <= 0.35 Then
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DeathChoiceHeroic proc")
 			DeathChoiceHeroicFade = sim.TimeStamp + 15 * 100
 			DeathChoiceHeroicCd = sim.TimeStamp + 45 * 100
 		End If
@@ -177,6 +186,7 @@ Public Class Trinket
 	Sub TryVictory()
 		If Victory = 0 Or VictoryCd > sim.TimeStamp Then Exit Sub
 		If sim.RandomNumberGenerator.RNGProc <= 0.20 Then
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "Victory proc")
 			VictoryFade = sim.TimeStamp + 10 * 100
 			VictoryCd = sim.TimeStamp + 45 * 100
 		End If
@@ -188,6 +198,7 @@ Public Class Trinket
 	Sub TryDCDeath()
 		If DCDeath = 0 Or DCDeathCd > sim.TimeStamp Then Exit Sub
 		If sim.RandomNumberGenerator.RNGProc <= 0.15 Then
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DCDeath proc")
 			ApplyDamage(2000)
 			DCDeathCd = sim.TimeStamp + 45 * 100
 		End If
@@ -199,6 +210,7 @@ Public Class Trinket
 	Sub TryNecromantic()
 		If  Necromantic= 0 Or NecromanticCd > sim.TimeStamp Then Exit Sub
 		If sim.RandomNumberGenerator.RNGProc <= 0.10 Then
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "Necromantic proc")
 			ApplyDamage(1050)
 			NecromanticCd = sim.TimeStamp + 15 * 100
 		End If
@@ -210,6 +222,7 @@ Public Class Trinket
 	Sub TryBandit()
 		If Bandit = 0 Or BanditCd > sim.TimeStamp Then Exit Sub
 		If sim.RandomNumberGenerator.RNGProc <= 0.15 Then
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "Bandit proc")
 			ApplyDamage(1880)
 			BanditCd =  sim.TimeStamp + 45 * 100
 		End If
@@ -221,6 +234,7 @@ Public Class Trinket
 	Sub TryDarkMatter()
 		If  DarkMatter= 0 Or DarkMatterCd > sim.TimeStamp Then Exit Sub
 		If sim.RandomNumberGenerator.RNGProc <= 0.15 Then
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DarkMatter proc")
 			DarkMatterFade = sim.TimeStamp + 10 * 100
 			DarkMatterCd = sim.TimeStamp + 45 * 100
 		End If
@@ -232,6 +246,7 @@ Public Class Trinket
 	Sub TryComet()
 		If Comet = 0 Or CometCd > sim.TimeStamp Then Exit Sub
 		If sim.RandomNumberGenerator.RNGProc <= 0.15 Then
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "Comet proc")
 			CometFade = sim.TimeStamp + 10 * 100
 			CometCd = sim.TimeStamp + 45 * 100
 		End If

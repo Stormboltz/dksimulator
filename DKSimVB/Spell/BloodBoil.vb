@@ -26,7 +26,7 @@ Friend Class BloodBoil
 		Dim intCount As Integer
 		For intCount = 1 To Sim.NumberOfEnemies
 			If sim.DoMySpellHit = false Then
-				combatlog.write(T  & vbtab &  "BB fail")
+				sim.combatlog.write(T  & vbtab &  "BB fail")
 				MissCount = MissCount + 1
 				Exit function
 			End If
@@ -34,12 +34,12 @@ Friend Class BloodBoil
 			dim dégat as Integer
 			If RNG <= CritChance Then
 				dégat = AvrgCrit(T)
-				combatlog.write(T  & vbtab &  "BB crit for " & dégat  )
+				sim.combatlog.write(T  & vbtab &  "BB crit for " & dégat  )
 				CritCount = CritCount + 1
 			Else
 				dégat = AvrgNonCrit(T)
 				HitCount = HitCount + 1
-				combatlog.write(T  & vbtab &  "BB hit for " & dégat )
+				sim.combatlog.write(T  & vbtab &  "BB hit for " & dégat )
 			End If
 			
 			if Sim.Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )

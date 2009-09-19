@@ -23,7 +23,7 @@ Friend class DeathCoil
 		End If
 		
 		If sim.DoMySpellHit = false Then
-			combatlog.write(T  & vbtab &  "DC fail")
+			sim.combatlog.write(T  & vbtab &  "DC fail")
 			MissCount = MissCount + 1
 			Exit function
 		End If
@@ -34,17 +34,17 @@ Friend class DeathCoil
 			CritCount = CritCount + 1
 			dégat= AvrgCrit(T)
 			If SDoom Then
-				combatlog.write(T  & vbtab &  "DC SDoom crit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.Value)
+				sim.combatlog.write(T  & vbtab &  "DC SDoom crit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.Value)
 			Else
-				combatlog.write(T  & vbtab &  "DC crit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.Value)
+				sim.combatlog.write(T  & vbtab &  "DC crit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.Value)
 			End If
 		Else
 			dégat= AvrgNonCrit(T)
 			HitCount = HitCount + 1
 			If SDoom Then
-				combatlog.write(T  & vbtab &  "DC SDoom hit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.Value)
+				sim.combatlog.write(T  & vbtab &  "DC SDoom hit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.Value)
 			Else
-				combatlog.write(T  & vbtab &  "DC hit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.Value)
+				sim.combatlog.write(T  & vbtab &  "DC hit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.Value)
 			End If
 			
 		End If

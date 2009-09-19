@@ -35,7 +35,7 @@ Sub New(S As sim)
 		Else
 			Sim.NextFreeGCD = T + 150 + sim._MainFrm.txtLatency.Text/10
 		End If
-		combatlog.write(T  & vbtab &  "Unbreakable Armor")
+		sim.combatlog.write(T  & vbtab &  "Unbreakable Armor")
 		return true
 	End Function
 	Function isActive() As Boolean

@@ -44,7 +44,7 @@ Friend Class WanderingPlague
 			tmp =  Damage * TalentUnholy.WanderingPlague / 3
 			total = total + tmp
 			HitCount = HitCount + 1
-			If combatlog.LogDetails Then combatlog.write(T  & vbtab &  "Wandering Plague hit for " & tmp )
+			If sim.combatlog.LogDetails Then sim.combatlog.write(T  & vbtab &  "Wandering Plague hit for " & tmp )
 			'combatlog.write(T  & vbtab &  "WP hit for " & Damage * TalentUnholy.WanderingPlague / 3)
 		Next intCount
 		return true

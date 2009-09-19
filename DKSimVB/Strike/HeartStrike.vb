@@ -25,7 +25,7 @@ Sub New(S As sim)
 		End If
 		
 		If sim.DoMyStrikeHit = false Then
-			combatlog.write(T  & vbtab &  "HS fail")
+			sim.combatlog.write(T  & vbtab &  "HS fail")
 			MissCount = MissCount + 1
 			Exit function
 		End If
@@ -38,11 +38,11 @@ Sub New(S As sim)
 				If RNG <= CritChance Then
 					CritCount = CritCount + 1
 					dégat = AvrgCrit(T)
-					combatlog.write(T  & vbtab &  "HS crit for " & dégat)
+					sim.combatlog.write(T  & vbtab &  "HS crit for " & dégat)
 				Else
 					HitCount = HitCount + 1
 					dégat =  AvrgNonCrit(T)
-					combatlog.write(T  & vbtab &  "HS hit for " & dégat)
+					sim.combatlog.write(T  & vbtab &  "HS hit for " & dégat)
 				End If
 				
 				If sim.Lissage Then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )

@@ -63,5 +63,15 @@ Public Module GlobalFunction
 		return xNode.InnerText
 	End Function
 	
+	Sub initReport
+		Dim Tw As System.IO.TextWriter
+		
+		ReportPath = System.IO.Path.GetTempFileName
+		Tw  =system.IO.File.appendText(ReportPath )
+		tw.WriteLine("<hmtl style='font-family:Verdana; font-size:10px;'><body>")
+		tw.Flush
+		tw.Close
+		
+	End Sub
 	
 End Module

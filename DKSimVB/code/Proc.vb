@@ -32,7 +32,7 @@ Friend Class proc
 	Sub TryRime()
 		If sim.RandomNumberGenerator.RNGProc <= 5 * talentfrost.Rime/100 Then
 			Rime= True
-			if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "Rime sim.proc")
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "Rime sim.proc")
 			sim.HowlingBlast.cd = 0
 		End If
 	End Sub
@@ -41,7 +41,7 @@ Friend Class proc
 		If Talentfrost.KillingMachine > 0 Then
 			RNG =  sim.RandomNumberGenerator.RNGWhiteHit
 			If RNG < (Talentfrost.KillingMachine)*sim.MainStat.MHWeaponSpeed/60 Then
-				if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "Killing Machine sim.proc")
+				if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "Killing Machine sim.proc")
 				sim.proc.KillingMachine  = true
 			End If
 		End If
@@ -52,7 +52,7 @@ Friend Class proc
 		If Talentfrost.KillingMachine > 0 Then
 			RNG = sim.RandomNumberGenerator.RNGWhiteHit
 			If RNG < (Talentfrost.KillingMachine)*sim.MainStat.OHWeaponSpeed/60 Then
-				if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "Killing Machine sim.proc")
+				if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "Killing Machine sim.proc")
 				KillingMachine  = true
 			End If
 		End If
@@ -64,6 +64,7 @@ Friend Class proc
 	Sub TryT92PDPS()
 		If sim.MainStat.T92PDPS = 0 Or sim.proc.T92PDPSCd > sim.TimeStamp Then Exit Sub
 		If sim.RandomNumberGenerator.RNGProc <= 0.5 Then
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "T92PDPS proc")
 			T92PDPSFAde = sim.TimeStamp + 15 * 100
 			T92PDPSCd = sim.TimeStamp + 45 * 100
 		End If

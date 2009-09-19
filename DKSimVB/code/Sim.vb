@@ -95,7 +95,10 @@ Public Class Sim
 	Friend RuneForge As RuneForge
 	
 	Friend Trinket As Trinket
-	Friend ProgressFrame as ProgressFrm
+	Friend ProgressFrame As ProgressFrm
+	
+	Friend CombatLog as new CombatLog
+	
 	
 	Sub Init()
 	End Sub
@@ -199,7 +202,6 @@ Public Class Sim
 		SimStart = now
 		
 		MaxTime = SimTime * 60 * 60 * 100
-		'Problem with MThread
 		pb.Maximum = SimTime * 60 * 60 * 100
 		
 		TotalDamageAlternative = 0
@@ -219,6 +221,7 @@ Public Class Sim
 			'Init
 			Initialisation
 			TimeStamp = 1
+			If TalentUnholy.MasterOfGhouls=1 Then Ghoul.Summon(1)
 			
 			If Rotate Then Rotation.loadRotation
 			
@@ -563,11 +566,12 @@ Public Class Sim
 		DRW = new DRW(Me)
 		RuneStrike = New RuneStrike(Me)
 		
-		Desolation = New Desolation
+		
 		
 		Sigils = new Sigils(Me)
 		
 		LoadConfig
+		Desolation = New Desolation
 		
 		RunicPower.Value = 0
 		NextFreeGCD = 0

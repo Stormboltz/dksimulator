@@ -23,7 +23,7 @@ Friend Class HowlingBlast
 		cd = T + 800
 		
 		If sim.DoMySpellHit = false Then
-			combatlog.write(T  & vbtab &  "HB fail")
+			sim.combatlog.write(T  & vbtab &  "HB fail")
 			sim.proc.KillingMachine = False
 			sim.Proc.rime = False
 			MissCount = MissCount + 1
@@ -39,11 +39,11 @@ Friend Class HowlingBlast
 			If RNG <= ccT Then
 				CritCount = CritCount + 1
 				dégat = AvrgCrit(T)
-				combatlog.write(T  & vbtab &  "HB crit for " & dégat )
+				sim.combatlog.write(T  & vbtab &  "HB crit for " & dégat )
 			Else
 				HitCount = HitCount + 1
 				dégat = AvrgNonCrit(T)
-				combatlog.write(T  & vbtab &  "HB hit for " & dégat)
+				sim.combatlog.write(T  & vbtab &  "HB hit for " & dégat)
 			End If
 			
 			if sim.Lissage then dégat = AvrgCrit(T)*ccT + AvrgNonCrit(T)*(1-CritChance )

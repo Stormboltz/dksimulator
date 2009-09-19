@@ -18,6 +18,8 @@ Public Class Spell
 	Friend ActiveUntil as Long
 	Protected Sim as Sim
 	
+	
+	
 	Sub New()		
 		Init
 	End Sub

@@ -23,7 +23,7 @@ Friend Class PlagueStrike
 			'MH
 			If sim.DoMyStrikeHit = false Then
 				MissCount = MissCount + 1
-				combatlog.write(T  & vbtab &  "MH PS fail")
+				sim.combatlog.write(T  & vbtab &  "MH PS fail")
 				MHHit = False
 				OHHit=false
 			End If
@@ -31,7 +31,7 @@ Friend Class PlagueStrike
 			OHHit = false
 			If sim.DoMyStrikeHit = false Then
 				MissCount = MissCount + 1
-				combatlog.write(T  & vbtab &  "PS fail")
+				sim.combatlog.write(T  & vbtab &  "PS fail")
 				Exit function
 			End If
 		End If
@@ -49,13 +49,13 @@ Friend Class PlagueStrike
 				If RNG <= CritChance Then
 					CritCount = CritCount + 1
 					dégat = AvrgCrit(T,true)
-					combatlog.write(T  & vbtab &  "PS crit for " & dégat  )
+					sim.combatlog.write(T  & vbtab &  "PS crit for " & dégat  )
 					sim.tryOnCrit
 					
 				Else
 					HitCount = HitCount + 1
 					dégat = AvrgNonCrit(T,true)
-					combatlog.write(T  & vbtab &  "PS hit for " & dégat )
+					sim.combatlog.write(T  & vbtab &  "PS hit for " & dégat )
 				End If
 				if sim.Lissage then dégat = AvrgCrit(T,true)*CritChance + AvrgNonCrit(T,true)*(1-CritChance )
 				total = total + dégat
@@ -64,12 +64,12 @@ Friend Class PlagueStrike
 			If OHHit Then
 				If RNG <= CritChance Then
 					dégat = AvrgCrit(T,false)
-					combatlog.write(T  & vbtab &  "OH PS crit for " & dégat  )
+					sim.combatlog.write(T  & vbtab &  "OH PS crit for " & dégat  )
 					sim.tryOnCrit
 					
 				Else
 					dégat = AvrgNonCrit(T,false)
-					combatlog.write(T  & vbtab &  "OH PS hit for " & dégat )
+					sim.combatlog.write(T  & vbtab &  "OH PS hit for " & dégat )
 				End If
 				if sim.Lissage then dégat = AvrgCrit(T,false)*CritChance + AvrgNonCrit(T,false)*(1-CritChance )
 				total = total + dégat

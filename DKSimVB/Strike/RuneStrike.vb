@@ -38,7 +38,7 @@ Public Class RuneStrike
 
 		If MeleeMissChance + RNG < 0.08 Then
 			MissCount = MissCount + 1
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Rune Strike fail")
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Rune Strike fail")
 			exit function
 		End If
 		
@@ -50,10 +50,10 @@ Public Class RuneStrike
 			If RNG < CritChance Then
 				'CRIT !
 				dégat = AvrgOHCrit(T)
-				If combatlog.LogDetails Then combatlog.write(T  & vbtab &  "Rune Strike OH crit for " & dégat )
+				If sim.combatlog.LogDetails Then sim.combatlog.write(T  & vbtab &  "Rune Strike OH crit for " & dégat )
 			Else
 				dégat = AvrgOHNonCrit(T)
-				if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Rune Strike OH hit for " & dégat )
+				if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Rune Strike OH hit for " & dégat )
 			End If
 			
 		End If
@@ -63,11 +63,11 @@ Public Class RuneStrike
 			'CRIT !
 			dégat = AvrgCrit(T)
 			CritCount = CritCount + 1
-			If combatlog.LogDetails Then combatlog.write(T  & vbtab &  "Rune Strike crit for " & dégat )
+			If sim.combatlog.LogDetails Then sim.combatlog.write(T  & vbtab &  "Rune Strike crit for " & dégat )
 		Else
 			dégat = AvrgNonCrit(T)
 			HitCount = HitCount + 1
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Rune Strike hit for " & dégat )
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Rune Strike hit for " & dégat )
 		End If
 '		if Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
 		total = total + dégat

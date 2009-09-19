@@ -188,7 +188,7 @@ Public Partial Class MainForm
 		LoadBuffOption
 		CreateTreeTemplate
 		Randomize 'Initialize the random # generator
-		CombatLog.init
+		'CombatLog.init
 	End Sub
 	
 	Sub saveConfig
@@ -417,11 +417,11 @@ Public Partial Class MainForm
 		
 		SimConstructor.PetFriendly = True
 		
-		CombatLog.initReport
+		initReport
 	End Sub
 	
 	Sub ChkCombatLogCheckedChanged(sender As Object, e As EventArgs)
-		CombatLog.enable = ChkCombatLog.Checked
+		'CombatLog.enable = ChkCombatLog.Checked
 		ckLogRP.Enabled = ChkCombatLog.Checked
 	End Sub
 	
@@ -430,7 +430,7 @@ Public Partial Class MainForm
 	End Sub
 	
 	Sub CkLogRPCheckedChanged(sender As Object, e As EventArgs)
-		CombatLog.LogDetails = ckLogRP.Checked
+		'CombatLog.LogDetails = ckLogRP.Checked
 	End Sub
 	
 	

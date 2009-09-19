@@ -55,7 +55,7 @@ Friend Class DRW
 			End If
 			Sim.NextFreeGCD = T + (150 / (1 + sim.mainstat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
 			NextDRW = T
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Summon DRW")
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Summon DRW")
 		End If
 	End Sub
 	Function ApplyDamage(T As long) As boolean
@@ -65,7 +65,7 @@ Friend Class DRW
 		RNG = sim.RandomNumberGenerator.RNGPet
 
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "DRW fail")
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "DRW fail")
 			MissCount = MissCount + 1
 			exit function
 		End If
@@ -74,7 +74,7 @@ Friend Class DRW
 			retour = AvrgNonCrit(T)*0.7
 			total = total + retour
 			HitCount = HitCount + 1
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "DRW glancing for " & retour)
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "DRW glancing for " & retour)
 		End If
 		
 		If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) and RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + Crit) Then
@@ -82,14 +82,14 @@ Friend Class DRW
 			retour = AvrgCrit(T)
 			total = total + retour
 			CritCount = CritCount + 1
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "DRW crit for " & retour)
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "DRW crit for " & retour)
 		End If
 		If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + Crit) Then
 			'normal hit3
 			retour = AvrgNonCrit(T)
 			HitCount = HitCount + 1
 			total = total + retour
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "DRW hit for " & retour)
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "DRW hit for " & retour)
 		End If
 		Return True
 	End Function
@@ -208,7 +208,7 @@ Friend Class DRW
 		RNG = sim.RandomNumberGenerator.RNGPet
 		
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
-			if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "DRW Obliterate fail")
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Obliterate fail")
 			MissCount = MissCount + 1
 			exit sub
 		End If
@@ -220,10 +220,10 @@ Friend Class DRW
 		If RNG < crit Then
 			damage = damage* 2
 			CritCount = CritCount +1
-			if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "DRW Obliterate crit for " & damage)
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Obliterate crit for " & damage)
 		Else
 			hitcount = hitcount + 1
-			if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "DRW Obliterate hit for " & damage)
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Obliterate hit for " & damage)
 		End If
 		total= total+damage
 	End Sub
@@ -232,7 +232,7 @@ Friend Class DRW
 		dim damage as Integer
 		RNG = sim.RandomNumberGenerator.RNGPet
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
-			if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "DRW Death Strike fail")
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Death Strike fail")
 			MissCount = MissCount + 1
 			exit sub
 		End If
@@ -243,10 +243,10 @@ Friend Class DRW
 		If RNG < crit Then
 			damage = damage* 2
 			CritCount = CritCount +1
-			if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "DRW Death Strike crit for " & damage)
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Death Strike crit for " & damage)
 		Else
 			hitcount = hitcount + 1
-			if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "DRW Death Strike hit for " & damage)
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Death Strike hit for " & damage)
 		End If
 		total= total+damage
 	End Sub
@@ -256,7 +256,7 @@ Friend Class DRW
 		dim damage as Integer
 		RNG = sim.RandomNumberGenerator.RNGPet
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
-			if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "DRW Heart Strike fail")
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Heart Strike fail")
 			MissCount = MissCount + 1
 			exit sub
 		End If
@@ -272,10 +272,10 @@ Friend Class DRW
 				If RNG < crit Then
 					damage = damage* 2
 					CritCount = CritCount +1
-					if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "DRW Heart Strike crit for " & damage)
+					if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Heart Strike crit for " & damage)
 				Else
 					hitcount = hitcount + 1
-					if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "DRW Heart Strike hit for " & damage)
+					if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Heart Strike hit for " & damage)
 				End If
 				If intCount = 2 Then damage = damage * 0.5
 				total= total+damage
@@ -290,7 +290,7 @@ Friend Class DRW
 	
 		If RNG < SpellMissChance Then
 			MissCount = MissCount + 1
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "DRW Death Coil fail")
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "DRW Death Coil fail")
 			exit sub
 		end if
 		RNG = sim.RandomNumberGenerator.RNGPet
@@ -302,10 +302,10 @@ Friend Class DRW
 		If RNG <= sim.drw.SpellCrit Then
 			damage = damage * 2
 			CritCount = CritCount +1
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "DRW Death Coil crit for " & damage )
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "DRW Death Coil crit for " & damage )
 		Else
 			hitcount = hitcount + 1
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "DRW Death Coil hit for " & damage)
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "DRW Death Coil hit for " & damage)
 		End If
 		total = total + damage
 	End Sub
@@ -314,7 +314,7 @@ Friend Class DRW
 		dim damage as Integer
 		RNG = sim.RandomNumberGenerator.RNGPet
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
-			if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "DRW Plague Strike fail")
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Plague Strike fail")
 			MissCount = MissCount + 1
 			exit sub
 		End If
@@ -325,10 +325,10 @@ Friend Class DRW
 		If RNG < crit Then
 			damage = damage* 2
 			CritCount = CritCount +1
-			if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "DRW Plague Strike crit for " & damage)
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Plague Strike crit for " & damage)
 		Else
 			hitcount = hitcount + 1
-			if combatlog.LogDetails then combatlog.write(sim.TimeStamp  & vbtab &  "DRW Plague Strike hit for " & damage)
+			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Plague Strike hit for " & damage)
 		End If
 		total= total+damage
 	End Sub
@@ -340,7 +340,7 @@ Friend Class DRW
 
 		If RNG < SpellMissChance Then
 			MissCount = MissCount + 1
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "DRW Icy Touch fail")
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "DRW Icy Touch fail")
 			exit sub
 		end if
 		RNG = sim.RandomNumberGenerator.RNGPet
@@ -352,10 +352,10 @@ Friend Class DRW
 		If RNG <= sim.drw.SpellCrit Then
 			damage = damage * 2
 			CritCount = CritCount +1
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "DRW Icy Touch crit for " & damage )
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "DRW Icy Touch crit for " & damage )
 		Else
 			hitcount = hitcount + 1
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "DRW Icy Touch hit for " & damage)
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "DRW Icy Touch hit for " & damage)
 		End If
 		total = total + damage
 		

@@ -38,25 +38,29 @@ Friend class Ghoul
 	
 	Sub Summon(T As Long)
 		If cd <= T Then
+			
 			MeleeGlacingChance = 0.25
 			MeleeMissChance = math.Max(0.08 - sim.GhoulStat.Hit,0)
 			'If MeleeMissChance < 0 Then MeleeMissChance = 0
 			MeleeDodgeChance =  math.Max(0.065 - sim.GhoulStat.Expertise,0)
 			'If MeleeDodgeChance < 0 Then MeleeDodgeChance = 0
 			SpellMissChance = math.Max(0.17 - sim.GhoulStat.SpellHit,0)
-			'If SpellMissChance  < 0 Then SpellMissChance = 0 
-			If TalentUnholy.MasterOfGhouls Then 
+			'If SpellMissChance  < 0 Then SpellMissChance = 0
+			If TalentUnholy.MasterOfGhouls Then
 				ActiveUntil = sim.MaxTime
 				cd = sim.MaxTime
 			Else
 				ActiveUntil = T + 60 * 100
 				cd = ActiveUntil + (3*60*100) - (45*100*NightoftheDead)
 			End If
-			
-			If sim.MainStat.UnholyPresence Then
-				Sim.NextFreeGCD = T + 100+ sim._MainFrm.txtLatency.Text/10
+			If T <=1 Then
 			Else
-				Sim.NextFreeGCD = T + 150+ sim._MainFrm.txtLatency.Text/10
+				sim.combatlog.write(T  & vbtab &  "Summon Ghoul")
+				If sim.MainStat.UnholyPresence Then
+					Sim.NextFreeGCD = T + 100+ sim._MainFrm.txtLatency.Text/10
+				Else
+					Sim.NextFreeGCD = T + 150+ sim._MainFrm.txtLatency.Text/10
+				End If
 			End If
 		End If
 	End Sub
@@ -85,11 +89,11 @@ Friend class Ghoul
 			NextWhiteMainHit = T + (WSpeed * 100) / ((1 + Haste))
 		End If
 		Dim RNG As Double
-		RNG = sim.RandomNumberGenerator.RNGPet		
+		RNG = sim.RandomNumberGenerator.RNGPet
 
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			MissCount = MissCount + 1
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Ghoul fail")
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Ghoul fail")
 			exit function
 		End If
 		If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then
@@ -102,14 +106,14 @@ Friend class Ghoul
 			retour = AvrgCrit(T)
 			CritCount = CritCount + 1
 			total = total + retour
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Ghoul crit for " & int(AvrgCrit(T)) )
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Ghoul crit for " & int(AvrgCrit(T)) )
 		End If
 		If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance) Then
 			'normal hit3
 			HitCount = HitCount + 1
 			retour = AvrgNonCrit(T)
 			total = total + retour
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Ghoul hit for " & int(AvrgNonCrit(T)))
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Ghoul hit for " & int(AvrgNonCrit(T)))
 		End If
 		return true
 	End Function
@@ -132,7 +136,7 @@ Friend class Ghoul
 		Dim RNG As Double
 		RNG = sim.RandomNumberGenerator.RNGPet
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "Ghoul's Claw fail")
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Ghoul's Claw fail")
 			MissCount = MissCount + 1
 			Exit function
 		End If
@@ -140,11 +144,11 @@ Friend class Ghoul
 		If RNG <= CritChance Then
 			CritCount = CritCount + 1
 			total = total + AvrgCrit(T)
-			if combatlog.LogDetails then 	combatlog.write(T  & vbtab &  "Ghoul's Claw for " & int(ClawAvrgCrit(T)) )
+			if sim.combatlog.LogDetails then 	sim.combatlog.write(T  & vbtab &  "Ghoul's Claw for " & int(ClawAvrgCrit(T)) )
 		Else
 			HitCount = HitCount + 1
 			total = total + AvrgNonCrit(T)
-			if combatlog.LogDetails then 	combatlog.write(T  & vbtab &  "Ghoul's Claw hit for " & int(ClawAvrgNonCrit(T)))
+			if sim.combatlog.LogDetails then 	sim.combatlog.write(T  & vbtab &  "Ghoul's Claw hit for " & int(ClawAvrgNonCrit(T)))
 		End If
 		NextClaw = T+400
 		return true
@@ -194,7 +198,7 @@ Friend class Ghoul
 		Sim.RunicPower.add(10)
 		FrenzyCd = T+3000
 		FrenzyUntil = T+3000
-		if combatlog.LogDetails then 	combatlog.write(T  & vbtab &  "Using Ghoul Frenzy")
+		if sim.combatlog.LogDetails then 	sim.combatlog.write(T  & vbtab &  "Using Ghoul Frenzy")
 		return true
 	End Function
 	

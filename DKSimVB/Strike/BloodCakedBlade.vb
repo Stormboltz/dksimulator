@@ -15,7 +15,7 @@ Sub New(S As sim)
 	public Overrides Function ApplyDamage(T As long,MH as Boolean) As boolean
 
 		If sim.DoMyStrikeHit = false Then
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "BCB fail")
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "BCB fail")
 			MissCount = MissCount + 1
 			Exit function
 		End If
@@ -30,7 +30,7 @@ Sub New(S As sim)
 		
 		
 		HitCount = HitCount + 1
-		if combatlog.LogDetails then combatlog.write(T  & vbtab &  "BCB hit for " & int(AvrgNonCrit(T,MH)))
+		if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "BCB hit for " & int(AvrgNonCrit(T,MH)))
 		return true
 	End Function
 	public Overrides Function AvrgNonCrit(T as long, MH as Boolean) As Double

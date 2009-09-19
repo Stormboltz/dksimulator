@@ -19,7 +19,7 @@ Friend Class ScourgeStrike
 		End If
 		
 		If sim.DoMyStrikeHit = false Then
-			combatlog.write(T  & vbtab &  "SS fail")
+			sim.combatlog.write(T  & vbtab &  "SS fail")
 			MissCount = MissCount + 1
 			Exit function
 		End If
@@ -28,13 +28,13 @@ Friend Class ScourgeStrike
 		If RNG <= CritChance Then
 			CritCount = CritCount + 1
 			dégat = AvrgCrit(T)
-			combatlog.write(T  & vbtab &  "SS crit for " & dégat )
+			sim.combatlog.write(T  & vbtab &  "SS crit for " & dégat )
 			sim.tryOnCrit
 			
 		Else
 			HitCount = HitCount + 1
 			dégat = AvrgNonCrit(T)
-			combatlog.write(T  & vbtab &  "SS hit for " & dégat )
+			sim.combatlog.write(T  & vbtab &  "SS hit for " & dégat )
 		End If
 		
 		

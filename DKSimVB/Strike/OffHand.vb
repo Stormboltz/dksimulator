@@ -36,7 +36,7 @@ Friend Class OffHand
 		
 		If math.Min(sim.mainstat.Expertise,MeleeDodgeChance)+ math.Min(sim.mainstat.Expertise,MeleeParryChance) + math.Min (sim.mainstat.Hit,MeleeMissChance) + RNG < ChanceNotToTouch Then
 			MissCount = MissCount + 1
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "OH fail")
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH fail")
 			exit function
 		End If
 
@@ -52,7 +52,7 @@ Friend Class OffHand
 			CritCount = CritCount + 1
 			dégat = AvrgCrit(T)
 			
-			If combatlog.LogDetails Then combatlog.write(T  & vbtab &  "OH crit for " & dégat )
+			If sim.combatlog.LogDetails Then sim.combatlog.write(T  & vbtab &  "OH crit for " & dégat )
 			sim.tryOnCrit
 			
 		End If
@@ -61,7 +61,7 @@ Friend Class OffHand
 			'normal hit3
 			dégat = AvrgNonCrit(T)
 			HitCount = HitCount + 1
-			if combatlog.LogDetails then combatlog.write(T  & vbtab &  "OH hit for " & dégat)
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH hit for " & dégat)
 		End If
 		
 		If sim.Lissage Then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance-MeleeGlacingChance) + AvrgNonCrit(T)* (MeleeGlacingChance)*0.7
