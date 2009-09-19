@@ -18,18 +18,18 @@ Friend Class MainStat
 	Private character As Character
 	
 	
-	Friend T72PDPS As integer 
-	Friend T74PDPS As integer 
-	Friend T72PTNK As integer 
-	Friend T74PTNK As integer 
+	Friend T72PDPS As integer
+	Friend T74PDPS As integer
+	Friend T72PTNK As integer
+	Friend T74PTNK As integer
 	
-	Friend T82PDPS As integer 
-	Friend T84PDPS As integer 
-	Friend T82PTNK As integer 
-	Friend T84PTNK As Integer 
+	Friend T82PDPS As integer
+	Friend T84PDPS As integer
+	Friend T82PTNK As integer
+	Friend T84PTNK As Integer
 	
-	Friend T92PDPS As integer 
-	Friend T94PDPS As integer 
+	Friend T92PDPS As integer
+	Friend T94PDPS As integer
 	Protected Sim as Sim
 	
 	
@@ -82,6 +82,8 @@ Friend Class MainStat
 		Sim.Trinket.OldGod = 0
 		Sim.Trinket.Comet = 0
 		Sim.Trinket.DeathChoice = 0
+		Try
+			
 		
 		Select Case sim._EPStat
 			Case "NoTrinket"
@@ -133,7 +135,9 @@ Friend Class MainStat
 				Sim.Trinket.DeathChoice = XmlDoc.SelectSingleNode("//character/trinket/DeathChoice").InnerText
 				
 		End Select
-		
+		Catch
+			
+		End Try
 		Select Case sim._EPStat
 			Case "0T7"
 				T72PDPS = 0

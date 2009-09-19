@@ -69,6 +69,7 @@
     <Compile Include="code\Sigils.vb" />
     <Compile Include="code\Sim.vb" />
     <Compile Include="code\SimContructor.vb" />
+    <Compile Include="code\TemplateButton.vb" />
     <Compile Include="code\Trinket.vb" />
     <Compile Include="Diseases\BloodPlague.vb" />
     <Compile Include="Diseases\Disease.vb" />
@@ -144,6 +145,9 @@
     <Compile Include="Strike\PlagueStrike.vb" />
     <Compile Include="Strike\RuneStrike.vb" />
     <Compile Include="Strike\ScourgeStrike.vb" />
+    <None Include="template.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Characters\2h Ulduar.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -10,6 +10,7 @@ Imports System.Xml
 Public Partial Class MainForm
 	Private EditorFilePAth As String
 	Private TemplatePath As String
+	private btList As New collection
 	'Private sim as Sim 'TODO
 	
 	
@@ -185,8 +186,7 @@ Public Partial Class MainForm
 		loadConfig
 		LoadEPOptions
 		LoadBuffOption
-		Dim URL As Uri = new Uri("http://talent.mmo-champion.com/?deathknight=")
-		wbTemplate.Url = URL
+		CreateTreeTemplate
 		Randomize 'Initialize the random # generator
 		CombatLog.init
 	End Sub
@@ -345,31 +345,45 @@ Public Partial Class MainForm
 	End Sub
 	Sub loadTemplate()
 		Dim item As String
+		Dim sTemp As String
+		sTemp = CmbCharacter.SelectedItem
 		CmbCharacter.Items.Clear
 		For Each item In system.IO.Directory.GetFiles(Application.StartupPath & "\Characters\")
 			CmbCharacter.Items.Add(strings.Right(item,item.Length- InStrRev(item,"\") ) & "(" & item & ")")
 		Next
+		CmbCharacter.SelectedItem=sTemp
 		
+		stemp = cmbTemplate.SelectedItem
 		cmbTemplate.Items.Clear
 		For Each item In system.IO.Directory.GetFiles(Application.StartupPath & "\Templates\")
 			cmbTemplate.Items.Add(strings.Right(item,item.Length- InStrRev(item,"\") ) & "(" & item & ")")
 		Next
+		cmbTemplate.SelectedItem = stemp
 		
+		stemp = cmbPrio.SelectedItem 
 		cmbPrio.Items.Clear
 		For Each item In system.IO.Directory.GetFiles(Application.StartupPath & "\Priority\")
 			cmbPrio.Items.Add(strings.Right(item,item.Length- InStrRev(item,"\") ) & "(" & item & ")")
 		Next
+		cmbPrio.SelectedItem = stemp 
 		
+		
+		sTemp = cmbRotation.SelectedItem
 		cmbRotation.Items.Clear
 		For Each item In system.IO.Directory.GetFiles(Application.StartupPath & "\Rotation\")
 			cmbRotation.Items.Add(strings.Right(item,item.Length- InStrRev(item,"\") ) & "(" & item & ")")
 		Next
+		cmbRotation.SelectedItem = sTemp 
 		
+		
+		stemp = cmdPresence.SelectedItem
 		cmdPresence.Items.Clear
 		cmdPresence.Items.Add("Blood")
 		cmdPresence.Items.Add("Unholy")
 		cmdPresence.Items.Add("Frost")
+		cmdPresence.SelectedItem = stemp
 		
+		stemp = cmbSigils.SelectedItem
 		cmbSigils.Items.Clear
 		cmbSigils.Items.Add("None")
 		cmbSigils.Items.Add("WildBuck")
@@ -381,20 +395,26 @@ Public Partial Class MainForm
 		cmbSigils.Items.Add("HauntedDreams")
 		cmbSigils.Items.Add("VengefulHeart")
 		cmbSigils.Items.Add("Virulence")
+		cmbSigils.SelectedItem = stemp
 		'cmbSigils.Sorted=true
 		
+		stemp = cmbRuneMH.SelectedItem
 		cmbRuneMH.Items.Clear
 		cmbRuneMH.Items.Add("None")
 		cmbRuneMH.Items.Add("Cinderglacier")
 		cmbRuneMH.Items.Add("Razorice")
 		cmbRuneMH.Items.Add("FallenCrusader")
+		cmbRuneMH.SelectedItem = stemp 
 		
+		stemp= cmbRuneOH.SelectedItem
 		cmbRuneOH.Items.Clear
 		cmbRuneOH.Items.Add("None")
 		cmbRuneOH.Items.Add("Cinderglacier")
 		cmbRuneOH.Items.Add("Razorice")
 		cmbRuneOH.Items.Add("FallenCrusader")
 		cmbRuneOH.Items.Add("Berserking")
+		cmbRuneOH.SelectedItem = stemp
+		
 		SimConstructor.PetFriendly = True
 		
 		CombatLog.initReport
@@ -413,7 +433,86 @@ Public Partial Class MainForm
 		CombatLog.LogDetails = ckLogRP.Checked
 	End Sub
 	
+	
+	
+	
+	
+	Sub CreateTreeTemplate()
+		Dim XmlDoc As New Xml.XmlDocument
+		XmlDoc.Load("template.xml")
+		Dim xNode As Xml.XmlNode
+		Dim xParentNode As Xml.XmlNode
+		Dim xNodeList As Xml.XmlNodeList
+		Dim myBT As TemplateButton
+		
+		
+		btList.Clear
+		Me.tbTpl.Select
+		
+		xNodeList = XmlDoc.SelectNodes("/Talents/blood")
+		xParentNode = XmlDoc.SelectSingleNode("/Talents/blood")
+		For Each xNode In xParentNode.ChildNodes
+			myBT = New TemplateButton
+			myBT.Name = xNode.Name
+			Me.tbTpl.Controls.Add(myBT)
+			myBT.Location = New System.Drawing.Point(-40+(xNode.Attributes.GetNamedItem("col")).Value*50, -20+xNode.Attributes.GetNamedItem("row").value*50)
+			mybt.Size = New System.Drawing.Size(50, 50)
+			myBT.Text = xNode.Name
+			myBT.MaxValue = xNode.InnerText
+			toolTip.SetToolTip(myBT,myBT.Name)
+			btList.Add(myBT,xNode.Name)
+			
+		Next
+		
+		xParentNode = XmlDoc.SelectSingleNode("/Talents/frost")
+		For Each xNode In xParentNode.ChildNodes
+			myBT = New TemplateButton
+			myBT.Name = xNode.Name
+			Me.tbTpl.Controls.Add(myBT)
+			myBT.Location = New System.Drawing.Point(180+(xNode.Attributes.GetNamedItem("col")).Value*50, -20+xNode.Attributes.GetNamedItem("row").value*50)
+			mybt.Size = New System.Drawing.Size(50, 50)
+			myBT.Text = xNode.Name
+			myBT.MaxValue = xNode.InnerText
+			btList.Add(myBT,xNode.Name)
+		Next
+		
+		xParentNode = XmlDoc.SelectSingleNode("/Talents/unholy")
+		For Each xNode In xParentNode.ChildNodes
+			myBT = New TemplateButton
+			myBT.Name = xNode.Name
+			Me.tbTpl.Controls.Add(myBT)
+			myBT.Location = New System.Drawing.Point(400+(xNode.Attributes.GetNamedItem("col")).Value*50, -20+xNode.Attributes.GetNamedItem("row").value*50)
+			mybt.Size = New System.Drawing.Size(50, 50)
+			myBT.Text = xNode.Name
+			myBT.MaxValue = xNode.InnerText
+			btList.Add(myBT,xNode.Name)
+		Next
+		
+		xParentNode = XmlDoc.SelectSingleNode("/Talents/Glyphs")
+		For Each xNode In xParentNode.ChildNodes
+			cmbGlyph1.Items.Add(xNode.Name)
+			cmbGlyph2.Items.Add(xNode.Name)
+			cmbGlyph3.Items.Add(xNode.Name)
+		Next
+		
+		
+		
+'		Me.cmdSaveNew.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+'		Me.cmdSaveNew.TabIndex = 1
+'		Me.cmdSaveNew.Text = "Save as New"
+'		Me.cmdSaveNew.UseVisualStyleBackColor = true
+		
+		
+		
+		
+		
+	End Sub
+	
+	
+	
 	Sub CmdEditTemplateClick(sender As Object, e As EventArgs)
+		tabControl1.SelectedIndex = 6
+		'CreateTreeTemplate()
 		on error goto errH
 		Dim tr As IO.Textreader
 		EditorFilePAth = GetFilePath(cmbTemplate.Text)
@@ -422,12 +521,46 @@ Public Partial Class MainForm
 		tr.Close
 		dim xmlDoc as New Xml.XmlDocument
 		xmlDoc.Load(EditorFilePAth)
-		Dim URL As Uri = new Uri(XmlDoc.SelectSingleNode("//Talents/URL").InnerText)
-		wbTemplate.Url = URL
 		TemplatePath = EditorFilePAth
-		tabControl1.SelectedIndex = 4
+		displaytemplateInEditor (EditorFilePAth)
 		errH:
 	End Sub
+	
+	Sub DisplayTemplateInEditor(path As String)
+		dim xmlDoc as New Xml.XmlDocument
+		xmlDoc.Load(EditorFilePAth)
+		Dim xNode As XmlNode
+		Dim xParentNode As XmlNode
+		Dim xNodelist As XmlNodeList
+		dim i as Integer
+		
+		xParentNode = XmlDoc.SelectSingleNode("/Talents")
+		dim BT as TemplateButton
+		On Error Resume Next
+		For Each BT In btList
+			BT.SetValue(XmlDoc.SelectSingleNode("/Talents/" & BT.Name).InnerText )
+		Next
+		xParentNode = XmlDoc.SelectSingleNode("/Talents/Glyphs")
+		
+		For Each xNode In xParentNode.ChildNodes
+			If xNode.InnerText = 1 Then
+				Select Case i
+					Case 0
+						cmbGlyph1.SelectedItem=xNode.name
+					Case 1
+						cmbGlyph2.SelectedItem=xNode.name
+					Case 2
+						cmbGlyph3.SelectedItem=xNode.name
+				End Select
+				i=i+1
+			End If
+		Next
+		
+		
+		
+	End Sub
+	
+	
 	
 	Sub CmdEditPrioClick(sender As Object, e As EventArgs)
 		on error goto errH
@@ -1124,8 +1257,8 @@ Public Partial Class MainForm
 		url = "http://eu.wowarmory.com/character-sheet.xml?r=Chants+eternels&n=Kahorie"
 		Dim myUri As Uri = New Uri("http://eu.wowarmory.com/character-sheet.xml?r=Chants+eternels&n=Kahorie")
 		webClient.Dispose()
-		wbTemplate.Url = myUri
-		wbTemplate.Navigate(myUri)
+'		wbTemplate.Url = myUri
+'		wbTemplate.Navigate(myUri)
 		
 		'	bw.Navigate(myUri)
 		doc.Load(URL)
@@ -1134,40 +1267,7 @@ Public Partial Class MainForm
 		errH:
 		
 	End Sub
-	
-	
-	
-	Sub ChkGhoulHasteCheckedChanged(sender As Object, e As EventArgs)
-		'sim.Ghoul.GhoulDoubleHaste = chkGhoulHaste.Checked
-	End Sub
-	
-	Sub CmdSaveTalentClick(sender As Object, e As EventArgs)
-		Dim tmp As String
-		dim i as Integer
-		'debug.Print(wbTemplate.Document.Body.InnerText)
-		i =  wbTemplate.Document.Body.InnerText.IndexOf("http://")
-		tmp  = strings.right(wbTemplate.Document.Body.InnerText,wbTemplate.Document.Body.InnerText.Length - i)
-		i = tmp.IndexOf(vbCrLf)
-		tmp  = strings.left(tmp,i)
-		'debug.Print(tmp)
-		txtImportTemplate.Text = tmp
-		ImportTemplate("")
-		
-		
-	End Sub
-	
-	Sub Button2Click(sender As Object, e As EventArgs)
-		Dim tmp As String
-		dim i as Integer
-		'debug.Print(wbTemplate.Document.Body.InnerText)
-		i =  wbTemplate.Document.Body.InnerText.IndexOf("http://")
-		tmp  = strings.right(wbTemplate.Document.Body.InnerText,wbTemplate.Document.Body.InnerText.Length - i)
-		i = tmp.IndexOf(vbCrLf)
-		tmp  = strings.left(tmp,i)
-		'debug.Print(tmp)
-		txtImportTemplate.Text = tmp
-		ImportTemplate(TemplatePath)
-	End Sub
+
 	
 	Sub CmbHeadSelectedIndexChanged(sender As Object, e As EventArgs)
 		Dim xDoc As new Xml.XmlDocument
@@ -1214,5 +1314,38 @@ Public Partial Class MainForm
 			cmbRotation.Enabled = true
 			cmbPrio.Enabled = false
 		End If
+	End Sub
+	
+	Sub CmdSaveTemplateClick(sender As Object, e As EventArgs)
+		Dim sTemp As String
+		dim BT as TemplateButton
+		sTemp = "="
+		For Each BT In btList
+			sTemp = sTemp & BT.Value.ToString
+		Next
+		sTemp = sTemp & "&glyph="
+		sTemp = sTemp & GlobalFunction.GetIdFromGlyphName(cmbGlyph1.SelectedItem.ToString)
+		sTemp = sTemp & GlobalFunction.GetIdFromGlyphName(cmbGlyph2.SelectedItem.ToString)
+		sTemp = sTemp & GlobalFunction.GetIdFromGlyphName(cmbGlyph3.SelectedItem.ToString)
+		sTemp = sTemp  & "&"
+		txtImportTemplate.Text = sTemp
+		ImportTemplate(me.TemplatePath)
+	End Sub
+	
+	
+	Sub CmdSaveNewTemplateClick(sender As Object, e As EventArgs)
+		Dim sTemp As String
+		dim BT as TemplateButton
+		sTemp = "="
+		For Each BT In btList
+			sTemp = sTemp & BT.Value.ToString
+		Next
+		sTemp = sTemp & "&glyph="
+		sTemp = sTemp & GlobalFunction.GetIdFromGlyphName(cmbGlyph1.SelectedItem.ToString)
+		sTemp = sTemp & GlobalFunction.GetIdFromGlyphName(cmbGlyph2.SelectedItem.ToString)
+		sTemp = sTemp & GlobalFunction.GetIdFromGlyphName(cmbGlyph3.SelectedItem.ToString)
+		sTemp = sTemp  & "&"
+		txtImportTemplate.Text = sTemp
+		ImportTemplate("")
 	End Sub
 End Class

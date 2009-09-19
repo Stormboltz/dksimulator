@@ -51,4 +51,17 @@ Public Module GlobalFunction
 	Function ShortenName(s As String) As String
 		return s.Replace("DKSIMVB.","")
 	End Function
+	
+	Function GetIdFromGlyphName(s As String) As String
+		dim doc as new Xml.XmlDocument
+		doc.Load("template.xml")
+		Dim xNode As Xml.XmlNode
+		
+		xNode = doc.SelectSingleNode("/Talents/Glyphs/" & s)
+		
+		
+		return xNode.InnerText
+	End Function
+	
+	
 End Module

@@ -33,6 +33,7 @@ Partial Class MainForm
 	''' not be able to load this method if it was changed manually.
 	''' </summary>
 	Private Sub InitializeComponent()
+		Me.components = New System.ComponentModel.Container
 		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainForm))
 		Me.button1 = New System.Windows.Forms.Button
 		Me.PBsim = New System.Windows.Forms.ProgressBar
@@ -100,10 +101,6 @@ Partial Class MainForm
 		Me.cmbCharacter = New System.Windows.Forms.ComboBox
 		Me.cmbTemplate = New System.Windows.Forms.ComboBox
 		Me.tabControl1 = New System.Windows.Forms.TabControl
-		Me.Test = New System.Windows.Forms.TabPage
-		Me.cmdSaveTemplate = New System.Windows.Forms.Button
-		Me.cmdSaveNewTalent = New System.Windows.Forms.Button
-		Me.wbTemplate = New System.Windows.Forms.WebBrowser
 		Me.tbEPOptions = New System.Windows.Forms.TabPage
 		Me.groupBox3 = New System.Windows.Forms.GroupBox
 		Me.chkEPComet = New System.Windows.Forms.CheckBox
@@ -162,18 +159,25 @@ Partial Class MainForm
 		Me.chkBAP = New System.Windows.Forms.CheckBox
 		Me.chkBArmorMaj = New System.Windows.Forms.CheckBox
 		Me.chkBStrAgi = New System.Windows.Forms.CheckBox
+		Me.tbTpl = New System.Windows.Forms.TabPage
+		Me.cmbGlyph3 = New System.Windows.Forms.ComboBox
+		Me.cmbGlyph2 = New System.Windows.Forms.ComboBox
+		Me.cmbGlyph1 = New System.Windows.Forms.ComboBox
+		Me.cmdSaveNewTemplate = New System.Windows.Forms.Button
+		Me.cmdSaveTemplate = New System.Windows.Forms.Button
+		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
 		Me.tabPage3.SuspendLayout
 		Me.tabControl1.SuspendLayout
-		Me.Test.SuspendLayout
 		Me.tbEPOptions.SuspendLayout
 		Me.groupBox3.SuspendLayout
 		Me.groupBox2.SuspendLayout
 		Me.groupBox1.SuspendLayout
 		Me.tbBuff.SuspendLayout
 		Me.grpBuff.SuspendLayout
+		Me.tbTpl.SuspendLayout
 		Me.SuspendLayout
 		'
 		'button1
@@ -192,13 +196,13 @@ Partial Class MainForm
 		Me.PBsim.Dock = System.Windows.Forms.DockStyle.Bottom
 		Me.PBsim.Location = New System.Drawing.Point(0, 544)
 		Me.PBsim.Name = "PBsim"
-		Me.PBsim.Size = New System.Drawing.Size(696, 23)
+		Me.PBsim.Size = New System.Drawing.Size(801, 23)
 		Me.PBsim.TabIndex = 2
 		'
 		'btEP
 		'
 		Me.btEP.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.btEP.Location = New System.Drawing.Point(435, 515)
+		Me.btEP.Location = New System.Drawing.Point(540, 515)
 		Me.btEP.Name = "btEP"
 		Me.btEP.Size = New System.Drawing.Size(245, 23)
 		Me.btEP.TabIndex = 4
@@ -222,7 +226,7 @@ Partial Class MainForm
 		Me.lblDPS.BackColor = System.Drawing.Color.Transparent
 		Me.lblDPS.Location = New System.Drawing.Point(297, 528)
 		Me.lblDPS.Name = "lblDPS"
-		Me.lblDPS.Size = New System.Drawing.Size(100, 13)
+		Me.lblDPS.Size = New System.Drawing.Size(205, 13)
 		Me.lblDPS.TabIndex = 9
 		Me.lblDPS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
 		'
@@ -236,7 +240,7 @@ Partial Class MainForm
 		Me.tbTools.Controls.Add(Me.txtImportTemplate)
 		Me.tbTools.Location = New System.Drawing.Point(4, 22)
 		Me.tbTools.Name = "tbTools"
-		Me.tbTools.Size = New System.Drawing.Size(688, 471)
+		Me.tbTools.Size = New System.Drawing.Size(793, 471)
 		Me.tbTools.TabIndex = 5
 		Me.tbTools.Text = "Tools"
 		Me.tbTools.UseVisualStyleBackColor = true
@@ -272,7 +276,7 @@ Partial Class MainForm
 		'cmdImportTemplate
 		'
 		Me.cmdImportTemplate.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdImportTemplate.Location = New System.Drawing.Point(634, 18)
+		Me.cmdImportTemplate.Location = New System.Drawing.Point(739, 18)
 		Me.cmdImportTemplate.Name = "cmdImportTemplate"
 		Me.cmdImportTemplate.Size = New System.Drawing.Size(42, 23)
 		Me.cmdImportTemplate.TabIndex = 2
@@ -294,7 +298,7 @@ Partial Class MainForm
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.txtImportTemplate.Location = New System.Drawing.Point(8, 21)
 		Me.txtImportTemplate.Name = "txtImportTemplate"
-		Me.txtImportTemplate.Size = New System.Drawing.Size(620, 20)
+		Me.txtImportTemplate.Size = New System.Drawing.Size(725, 20)
 		Me.txtImportTemplate.TabIndex = 0
 		'
 		'tabPage1
@@ -304,7 +308,7 @@ Partial Class MainForm
 		Me.tabPage1.Controls.Add(Me.rtfEditor)
 		Me.tabPage1.Location = New System.Drawing.Point(4, 22)
 		Me.tabPage1.Name = "tabPage1"
-		Me.tabPage1.Size = New System.Drawing.Size(688, 471)
+		Me.tabPage1.Size = New System.Drawing.Size(793, 471)
 		Me.tabPage1.TabIndex = 4
 		Me.tabPage1.Text = "Editor"
 		Me.tabPage1.UseVisualStyleBackColor = true
@@ -312,7 +316,7 @@ Partial Class MainForm
 		'cmdSaveNew
 		'
 		Me.cmdSaveNew.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdSaveNew.Location = New System.Drawing.Point(596, 0)
+		Me.cmdSaveNew.Location = New System.Drawing.Point(701, 0)
 		Me.cmdSaveNew.Name = "cmdSaveNew"
 		Me.cmdSaveNew.Size = New System.Drawing.Size(84, 19)
 		Me.cmdSaveNew.TabIndex = 1
@@ -323,7 +327,7 @@ Partial Class MainForm
 		'cmdSave
 		'
 		Me.cmdSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdSave.Location = New System.Drawing.Point(506, 0)
+		Me.cmdSave.Location = New System.Drawing.Point(611, 0)
 		Me.cmdSave.Name = "cmdSave"
 		Me.cmdSave.Size = New System.Drawing.Size(84, 19)
 		Me.cmdSave.TabIndex = 1
@@ -338,7 +342,7 @@ Partial Class MainForm
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.rtfEditor.Location = New System.Drawing.Point(3, 20)
 		Me.rtfEditor.Name = "rtfEditor"
-		Me.rtfEditor.Size = New System.Drawing.Size(682, 448)
+		Me.rtfEditor.Size = New System.Drawing.Size(787, 448)
 		Me.rtfEditor.TabIndex = 0
 		Me.rtfEditor.Text = ""
 		'
@@ -347,7 +351,7 @@ Partial Class MainForm
 		Me.HtmlReport.Controls.Add(Me.webBrowser1)
 		Me.HtmlReport.Location = New System.Drawing.Point(4, 22)
 		Me.HtmlReport.Name = "HtmlReport"
-		Me.HtmlReport.Size = New System.Drawing.Size(688, 471)
+		Me.HtmlReport.Size = New System.Drawing.Size(793, 471)
 		Me.HtmlReport.TabIndex = 3
 		Me.HtmlReport.Text = "Report"
 		Me.HtmlReport.UseVisualStyleBackColor = true
@@ -358,7 +362,7 @@ Partial Class MainForm
 		Me.webBrowser1.Location = New System.Drawing.Point(0, 0)
 		Me.webBrowser1.MinimumSize = New System.Drawing.Size(20, 20)
 		Me.webBrowser1.Name = "webBrowser1"
-		Me.webBrowser1.Size = New System.Drawing.Size(688, 471)
+		Me.webBrowser1.Size = New System.Drawing.Size(793, 471)
 		Me.webBrowser1.TabIndex = 0
 		'
 		'tabPage3
@@ -411,7 +415,7 @@ Partial Class MainForm
 		Me.tabPage3.Controls.Add(Me.cmbTemplate)
 		Me.tabPage3.Location = New System.Drawing.Point(4, 22)
 		Me.tabPage3.Name = "tabPage3"
-		Me.tabPage3.Size = New System.Drawing.Size(688, 471)
+		Me.tabPage3.Size = New System.Drawing.Size(793, 471)
 		Me.tabPage3.TabIndex = 2
 		Me.tabPage3.Text = "Configuration"
 		Me.tabPage3.UseVisualStyleBackColor = true
@@ -570,18 +574,17 @@ Partial Class MainForm
 		'chkGhoulHaste
 		'
 		Me.chkGhoulHaste.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.chkGhoulHaste.Location = New System.Drawing.Point(491, 392)
+		Me.chkGhoulHaste.Location = New System.Drawing.Point(596, 392)
 		Me.chkGhoulHaste.Name = "chkGhoulHaste"
 		Me.chkGhoulHaste.Size = New System.Drawing.Size(194, 24)
 		Me.chkGhoulHaste.TabIndex = 23
 		Me.chkGhoulHaste.Text = "Ghoul double dips haste buff"
 		Me.chkGhoulHaste.UseVisualStyleBackColor = true
-		AddHandler Me.chkGhoulHaste.CheckedChanged, AddressOf Me.ChkGhoulHasteCheckedChanged
 		'
 		'chkLissage
 		'
 		Me.chkLissage.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.chkLissage.Location = New System.Drawing.Point(306, 392)
+		Me.chkLissage.Location = New System.Drawing.Point(411, 392)
 		Me.chkLissage.Name = "chkLissage"
 		Me.chkLissage.Size = New System.Drawing.Size(179, 24)
 		Me.chkLissage.TabIndex = 22
@@ -611,7 +614,7 @@ Partial Class MainForm
 		Me.chkWaitFC.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.chkWaitFC.Checked = true
 		Me.chkWaitFC.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkWaitFC.Location = New System.Drawing.Point(306, 444)
+		Me.chkWaitFC.Location = New System.Drawing.Point(411, 444)
 		Me.chkWaitFC.Name = "chkWaitFC"
 		Me.chkWaitFC.Size = New System.Drawing.Size(179, 24)
 		Me.chkWaitFC.TabIndex = 20
@@ -621,7 +624,7 @@ Partial Class MainForm
 		'cmdEditRot
 		'
 		Me.cmdEditRot.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdEditRot.Location = New System.Drawing.Point(643, 175)
+		Me.cmdEditRot.Location = New System.Drawing.Point(748, 175)
 		Me.cmdEditRot.Name = "cmdEditRot"
 		Me.cmdEditRot.Size = New System.Drawing.Size(42, 23)
 		Me.cmdEditRot.TabIndex = 19
@@ -632,7 +635,7 @@ Partial Class MainForm
 		'cmdEditPrio
 		'
 		Me.cmdEditPrio.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdEditPrio.Location = New System.Drawing.Point(643, 135)
+		Me.cmdEditPrio.Location = New System.Drawing.Point(748, 135)
 		Me.cmdEditPrio.Name = "cmdEditPrio"
 		Me.cmdEditPrio.Size = New System.Drawing.Size(42, 23)
 		Me.cmdEditPrio.TabIndex = 19
@@ -643,7 +646,7 @@ Partial Class MainForm
 		'cmdEditChar
 		'
 		Me.cmdEditChar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdEditChar.Location = New System.Drawing.Point(643, 31)
+		Me.cmdEditChar.Location = New System.Drawing.Point(748, 31)
 		Me.cmdEditChar.Name = "cmdEditChar"
 		Me.cmdEditChar.Size = New System.Drawing.Size(42, 23)
 		Me.cmdEditChar.TabIndex = 19
@@ -654,7 +657,7 @@ Partial Class MainForm
 		'cmdEditTemplate
 		'
 		Me.cmdEditTemplate.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdEditTemplate.Location = New System.Drawing.Point(643, 71)
+		Me.cmdEditTemplate.Location = New System.Drawing.Point(748, 71)
 		Me.cmdEditTemplate.Name = "cmdEditTemplate"
 		Me.cmdEditTemplate.Size = New System.Drawing.Size(42, 23)
 		Me.cmdEditTemplate.TabIndex = 19
@@ -666,7 +669,7 @@ Partial Class MainForm
 		'
 		Me.ckLogRP.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.ckLogRP.Enabled = false
-		Me.ckLogRP.Location = New System.Drawing.Point(491, 444)
+		Me.ckLogRP.Location = New System.Drawing.Point(596, 444)
 		Me.ckLogRP.Name = "ckLogRP"
 		Me.ckLogRP.Size = New System.Drawing.Size(194, 24)
 		Me.ckLogRP.TabIndex = 18
@@ -679,7 +682,7 @@ Partial Class MainForm
 		Me.ckPet.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.ckPet.Checked = true
 		Me.ckPet.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.ckPet.Location = New System.Drawing.Point(306, 418)
+		Me.ckPet.Location = New System.Drawing.Point(411, 418)
 		Me.ckPet.Name = "ckPet"
 		Me.ckPet.Size = New System.Drawing.Size(179, 24)
 		Me.ckPet.TabIndex = 17
@@ -690,7 +693,7 @@ Partial Class MainForm
 		'chkCombatLog
 		'
 		Me.chkCombatLog.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.chkCombatLog.Location = New System.Drawing.Point(491, 418)
+		Me.chkCombatLog.Location = New System.Drawing.Point(596, 418)
 		Me.chkCombatLog.Name = "chkCombatLog"
 		Me.chkCombatLog.Size = New System.Drawing.Size(194, 24)
 		Me.chkCombatLog.TabIndex = 16
@@ -701,7 +704,7 @@ Partial Class MainForm
 		'label8
 		'
 		Me.label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.label8.Location = New System.Drawing.Point(390, 281)
+		Me.label8.Location = New System.Drawing.Point(495, 281)
 		Me.label8.Name = "label8"
 		Me.label8.Size = New System.Drawing.Size(100, 13)
 		Me.label8.TabIndex = 15
@@ -711,7 +714,7 @@ Partial Class MainForm
 		'
 		Me.cmbRuneOH.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbRuneOH.FormattingEnabled = true
-		Me.cmbRuneOH.Location = New System.Drawing.Point(390, 297)
+		Me.cmbRuneOH.Location = New System.Drawing.Point(495, 297)
 		Me.cmbRuneOH.Name = "cmbRuneOH"
 		Me.cmbRuneOH.Size = New System.Drawing.Size(250, 21)
 		Me.cmbRuneOH.TabIndex = 14
@@ -747,7 +750,7 @@ Partial Class MainForm
 		Me.cmbRotation.FormattingEnabled = true
 		Me.cmbRotation.Location = New System.Drawing.Point(6, 177)
 		Me.cmbRotation.Name = "cmbRotation"
-		Me.cmbRotation.Size = New System.Drawing.Size(634, 21)
+		Me.cmbRotation.Size = New System.Drawing.Size(739, 21)
 		Me.cmbRotation.TabIndex = 10
 		'
 		'label5
@@ -765,7 +768,7 @@ Partial Class MainForm
 		Me.cmbSigils.FormattingEnabled = true
 		Me.cmbSigils.Location = New System.Drawing.Point(6, 257)
 		Me.cmbSigils.Name = "cmbSigils"
-		Me.cmbSigils.Size = New System.Drawing.Size(634, 21)
+		Me.cmbSigils.Size = New System.Drawing.Size(739, 21)
 		Me.cmbSigils.TabIndex = 8
 		'
 		'label10
@@ -799,7 +802,7 @@ Partial Class MainForm
 		Me.cmdPresence.FormattingEnabled = true
 		Me.cmdPresence.Location = New System.Drawing.Point(6, 217)
 		Me.cmdPresence.Name = "cmdPresence"
-		Me.cmdPresence.Size = New System.Drawing.Size(634, 21)
+		Me.cmdPresence.Size = New System.Drawing.Size(739, 21)
 		Me.cmdPresence.TabIndex = 4
 		'
 		'label2
@@ -833,7 +836,7 @@ Partial Class MainForm
 		Me.cmbPrio.FormattingEnabled = true
 		Me.cmbPrio.Location = New System.Drawing.Point(6, 137)
 		Me.cmbPrio.Name = "cmbPrio"
-		Me.cmbPrio.Size = New System.Drawing.Size(634, 21)
+		Me.cmbPrio.Size = New System.Drawing.Size(739, 21)
 		Me.cmbPrio.TabIndex = 1
 		'
 		'cmbCharacter
@@ -843,7 +846,7 @@ Partial Class MainForm
 		Me.cmbCharacter.FormattingEnabled = true
 		Me.cmbCharacter.Location = New System.Drawing.Point(6, 33)
 		Me.cmbCharacter.Name = "cmbCharacter"
-		Me.cmbCharacter.Size = New System.Drawing.Size(634, 21)
+		Me.cmbCharacter.Size = New System.Drawing.Size(739, 21)
 		Me.cmbCharacter.TabIndex = 0
 		'
 		'cmbTemplate
@@ -853,7 +856,7 @@ Partial Class MainForm
 		Me.cmbTemplate.FormattingEnabled = true
 		Me.cmbTemplate.Location = New System.Drawing.Point(6, 73)
 		Me.cmbTemplate.Name = "cmbTemplate"
-		Me.cmbTemplate.Size = New System.Drawing.Size(634, 21)
+		Me.cmbTemplate.Size = New System.Drawing.Size(739, 21)
 		Me.cmbTemplate.TabIndex = 0
 		'
 		'tabControl1
@@ -865,59 +868,14 @@ Partial Class MainForm
 		Me.tabControl1.Controls.Add(Me.HtmlReport)
 		Me.tabControl1.Controls.Add(Me.tabPage1)
 		Me.tabControl1.Controls.Add(Me.tbTools)
-		Me.tabControl1.Controls.Add(Me.Test)
 		Me.tabControl1.Controls.Add(Me.tbEPOptions)
 		Me.tabControl1.Controls.Add(Me.tbBuff)
+		Me.tabControl1.Controls.Add(Me.tbTpl)
 		Me.tabControl1.Location = New System.Drawing.Point(0, 0)
 		Me.tabControl1.Name = "tabControl1"
 		Me.tabControl1.SelectedIndex = 0
-		Me.tabControl1.Size = New System.Drawing.Size(696, 497)
+		Me.tabControl1.Size = New System.Drawing.Size(801, 497)
 		Me.tabControl1.TabIndex = 3
-		'
-		'Test
-		'
-		Me.Test.Controls.Add(Me.cmdSaveTemplate)
-		Me.Test.Controls.Add(Me.cmdSaveNewTalent)
-		Me.Test.Controls.Add(Me.wbTemplate)
-		Me.Test.Location = New System.Drawing.Point(4, 22)
-		Me.Test.Name = "Test"
-		Me.Test.Size = New System.Drawing.Size(688, 471)
-		Me.Test.TabIndex = 6
-		Me.Test.Text = "Template editor(beta)"
-		Me.Test.UseVisualStyleBackColor = true
-		'
-		'cmdSaveTemplate
-		'
-		Me.cmdSaveTemplate.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdSaveTemplate.Location = New System.Drawing.Point(512, -1)
-		Me.cmdSaveTemplate.Name = "cmdSaveTemplate"
-		Me.cmdSaveTemplate.Size = New System.Drawing.Size(84, 23)
-		Me.cmdSaveTemplate.TabIndex = 2
-		Me.cmdSaveTemplate.Text = "Save"
-		Me.cmdSaveTemplate.UseVisualStyleBackColor = true
-		AddHandler Me.cmdSaveTemplate.Click, AddressOf Me.Button2Click
-		'
-		'cmdSaveNewTalent
-		'
-		Me.cmdSaveNewTalent.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdSaveNewTalent.Location = New System.Drawing.Point(602, -1)
-		Me.cmdSaveNewTalent.Name = "cmdSaveNewTalent"
-		Me.cmdSaveNewTalent.Size = New System.Drawing.Size(83, 23)
-		Me.cmdSaveNewTalent.TabIndex = 1
-		Me.cmdSaveNewTalent.Text = "Save as new"
-		Me.cmdSaveNewTalent.UseVisualStyleBackColor = true
-		AddHandler Me.cmdSaveNewTalent.Click, AddressOf Me.CmdSaveTalentClick
-		'
-		'wbTemplate
-		'
-		Me.wbTemplate.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom)  _
-						Or System.Windows.Forms.AnchorStyles.Left)  _
-						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.wbTemplate.Location = New System.Drawing.Point(0, 25)
-		Me.wbTemplate.MinimumSize = New System.Drawing.Size(20, 20)
-		Me.wbTemplate.Name = "wbTemplate"
-		Me.wbTemplate.Size = New System.Drawing.Size(688, 446)
-		Me.wbTemplate.TabIndex = 0
 		'
 		'tbEPOptions
 		'
@@ -926,7 +884,7 @@ Partial Class MainForm
 		Me.tbEPOptions.Controls.Add(Me.groupBox1)
 		Me.tbEPOptions.Location = New System.Drawing.Point(4, 22)
 		Me.tbEPOptions.Name = "tbEPOptions"
-		Me.tbEPOptions.Size = New System.Drawing.Size(688, 471)
+		Me.tbEPOptions.Size = New System.Drawing.Size(793, 471)
 		Me.tbEPOptions.TabIndex = 7
 		Me.tbEPOptions.Text = "EP Options"
 		Me.tbEPOptions.UseVisualStyleBackColor = true
@@ -1308,7 +1266,7 @@ Partial Class MainForm
 		Me.tbBuff.Controls.Add(Me.grpBuff)
 		Me.tbBuff.Location = New System.Drawing.Point(4, 22)
 		Me.tbBuff.Name = "tbBuff"
-		Me.tbBuff.Size = New System.Drawing.Size(688, 471)
+		Me.tbBuff.Size = New System.Drawing.Size(793, 471)
 		Me.tbBuff.TabIndex = 8
 		Me.tbBuff.Text = "Buffs"
 		Me.tbBuff.UseVisualStyleBackColor = true
@@ -1574,11 +1532,70 @@ Partial Class MainForm
 		Me.chkBStrAgi.Text = "Str/Agi"
 		Me.chkBStrAgi.UseVisualStyleBackColor = true
 		'
+		'tbTpl
+		'
+		Me.tbTpl.AutoScroll = true
+		Me.tbTpl.Controls.Add(Me.cmbGlyph3)
+		Me.tbTpl.Controls.Add(Me.cmbGlyph2)
+		Me.tbTpl.Controls.Add(Me.cmbGlyph1)
+		Me.tbTpl.Controls.Add(Me.cmdSaveNewTemplate)
+		Me.tbTpl.Controls.Add(Me.cmdSaveTemplate)
+		Me.tbTpl.Location = New System.Drawing.Point(4, 22)
+		Me.tbTpl.Name = "tbTpl"
+		Me.tbTpl.Size = New System.Drawing.Size(793, 471)
+		Me.tbTpl.TabIndex = 9
+		Me.tbTpl.Text = "Template"
+		Me.tbTpl.UseVisualStyleBackColor = true
+		'
+		'cmbGlyph3
+		'
+		Me.cmbGlyph3.FormattingEnabled = true
+		Me.cmbGlyph3.Location = New System.Drawing.Point(660, 133)
+		Me.cmbGlyph3.Name = "cmbGlyph3"
+		Me.cmbGlyph3.Size = New System.Drawing.Size(121, 21)
+		Me.cmbGlyph3.TabIndex = 1
+		'
+		'cmbGlyph2
+		'
+		Me.cmbGlyph2.FormattingEnabled = true
+		Me.cmbGlyph2.Location = New System.Drawing.Point(660, 106)
+		Me.cmbGlyph2.Name = "cmbGlyph2"
+		Me.cmbGlyph2.Size = New System.Drawing.Size(121, 21)
+		Me.cmbGlyph2.TabIndex = 1
+		'
+		'cmbGlyph1
+		'
+		Me.cmbGlyph1.FormattingEnabled = true
+		Me.cmbGlyph1.Location = New System.Drawing.Point(660, 79)
+		Me.cmbGlyph1.Name = "cmbGlyph1"
+		Me.cmbGlyph1.Size = New System.Drawing.Size(121, 21)
+		Me.cmbGlyph1.TabIndex = 1
+		'
+		'cmdSaveNewTemplate
+		'
+		Me.cmdSaveNewTemplate.Location = New System.Drawing.Point(478, 3)
+		Me.cmdSaveNewTemplate.Name = "cmdSaveNewTemplate"
+		Me.cmdSaveNewTemplate.Size = New System.Drawing.Size(108, 23)
+		Me.cmdSaveNewTemplate.TabIndex = 0
+		Me.cmdSaveNewTemplate.Text = "Save as new"
+		Me.cmdSaveNewTemplate.UseVisualStyleBackColor = true
+		AddHandler Me.cmdSaveNewTemplate.Click, AddressOf Me.CmdSaveNewTemplateClick
+		'
+		'cmdSaveTemplate
+		'
+		Me.cmdSaveTemplate.Location = New System.Drawing.Point(592, 3)
+		Me.cmdSaveTemplate.Name = "cmdSaveTemplate"
+		Me.cmdSaveTemplate.Size = New System.Drawing.Size(93, 23)
+		Me.cmdSaveTemplate.TabIndex = 0
+		Me.cmdSaveTemplate.Text = "Save Template"
+		Me.cmdSaveTemplate.UseVisualStyleBackColor = true
+		AddHandler Me.cmdSaveTemplate.Click, AddressOf Me.CmdSaveTemplateClick
+		'
 		'MainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-		Me.ClientSize = New System.Drawing.Size(696, 567)
+		Me.ClientSize = New System.Drawing.Size(801, 567)
 		Me.Controls.Add(Me.lblDPS)
 		Me.Controls.Add(Me.lblVersion)
 		Me.Controls.Add(Me.btEP)
@@ -1597,17 +1614,24 @@ Partial Class MainForm
 		Me.tabPage3.ResumeLayout(false)
 		Me.tabPage3.PerformLayout
 		Me.tabControl1.ResumeLayout(false)
-		Me.Test.ResumeLayout(false)
 		Me.tbEPOptions.ResumeLayout(false)
 		Me.groupBox3.ResumeLayout(false)
 		Me.groupBox2.ResumeLayout(false)
 		Me.groupBox1.ResumeLayout(false)
 		Me.tbBuff.ResumeLayout(false)
 		Me.grpBuff.ResumeLayout(false)
+		Me.tbTpl.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
 	Private label19 As System.Windows.Forms.Label
 	Friend txtNumberOfEnemies As System.Windows.Forms.TextBox
+	Private cmbGlyph1 As System.Windows.Forms.ComboBox
+	Private cmbGlyph2 As System.Windows.Forms.ComboBox
+	Private cmbGlyph3 As System.Windows.Forms.ComboBox
+	Private cmdSaveTemplate As System.Windows.Forms.Button
+	Private cmdSaveNewTemplate As System.Windows.Forms.Button
+	Private toolTip As System.Windows.Forms.ToolTip
+	Private tbTpl As System.Windows.Forms.TabPage
 	Private rdPrio As System.Windows.Forms.RadioButton
 	Private rdRot As System.Windows.Forms.RadioButton
 	Private chkCrypticFever As System.Windows.Forms.CheckBox
@@ -1681,15 +1705,11 @@ Partial Class MainForm
 	Friend chkEP2PT9 As System.Windows.Forms.CheckBox
 	Private groupBox2 As System.Windows.Forms.GroupBox
 	Private groupBox1 As System.Windows.Forms.GroupBox
-	Private cmdSaveNewTalent As System.Windows.Forms.Button
-	Private cmdSaveTemplate As System.Windows.Forms.Button
 	Private chkGhoulHaste As System.Windows.Forms.CheckBox
-	Private Test As System.Windows.Forms.TabPage
 	Private label12 As System.Windows.Forms.Label
 	Private txtArmory As System.Windows.Forms.TextBox
 	Private cmdImportArmory As System.Windows.Forms.Button
 	Private chkLissage As System.Windows.Forms.CheckBox
-	Private wbTemplate As System.Windows.Forms.WebBrowser
 	Private txtImportTemplate As System.Windows.Forms.TextBox
 	Private cmdImportTemplate As System.Windows.Forms.Button
 	Private label11 As System.Windows.Forms.Label
