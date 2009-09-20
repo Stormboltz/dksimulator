@@ -54,7 +54,8 @@ Sub New(S As sim)
 					End If
 					sim.combatlog.write(T  & vbtab &  "HS hit for " & dégat)
 				End If
-				If sim.Lissage Then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
+				If sim.Lissage And intCount = 1 Then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
+				If sim.Lissage And intCount = 2 Then dégat = AvrgCritOnSecondtarget(T)*CritChance + AvrgNonCritOnSecondtarget(T)*(1-CritChance )
 				total = total + dégat
 				sim.Sigils.tryHauntedDreams()
 				sim.proc.TryT92PDPS

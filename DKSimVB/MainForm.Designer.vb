@@ -54,6 +54,7 @@ Partial Class MainForm
 		Me.HtmlReport = New System.Windows.Forms.TabPage
 		Me.webBrowser1 = New System.Windows.Forms.WebBrowser
 		Me.tabPage3 = New System.Windows.Forms.TabPage
+		Me.chkDisease = New System.Windows.Forms.CheckBox
 		Me.txtNumberOfEnemies = New System.Windows.Forms.TextBox
 		Me.label19 = New System.Windows.Forms.Label
 		Me.rdPrio = New System.Windows.Forms.RadioButton
@@ -166,7 +167,6 @@ Partial Class MainForm
 		Me.cmdSaveNewTemplate = New System.Windows.Forms.Button
 		Me.cmdSaveTemplate = New System.Windows.Forms.Button
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
-		Me.chkDisease = New System.Windows.Forms.CheckBox
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -197,13 +197,13 @@ Partial Class MainForm
 		Me.PBsim.Dock = System.Windows.Forms.DockStyle.Bottom
 		Me.PBsim.Location = New System.Drawing.Point(0, 544)
 		Me.PBsim.Name = "PBsim"
-		Me.PBsim.Size = New System.Drawing.Size(801, 23)
+		Me.PBsim.Size = New System.Drawing.Size(699, 23)
 		Me.PBsim.TabIndex = 2
 		'
 		'btEP
 		'
 		Me.btEP.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.btEP.Location = New System.Drawing.Point(540, 515)
+		Me.btEP.Location = New System.Drawing.Point(438, 515)
 		Me.btEP.Name = "btEP"
 		Me.btEP.Size = New System.Drawing.Size(245, 23)
 		Me.btEP.TabIndex = 4
@@ -227,7 +227,7 @@ Partial Class MainForm
 		Me.lblDPS.BackColor = System.Drawing.Color.Transparent
 		Me.lblDPS.Location = New System.Drawing.Point(297, 528)
 		Me.lblDPS.Name = "lblDPS"
-		Me.lblDPS.Size = New System.Drawing.Size(205, 13)
+		Me.lblDPS.Size = New System.Drawing.Size(103, 13)
 		Me.lblDPS.TabIndex = 9
 		Me.lblDPS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
 		'
@@ -241,19 +241,25 @@ Partial Class MainForm
 		Me.tbTools.Controls.Add(Me.txtImportTemplate)
 		Me.tbTools.Location = New System.Drawing.Point(4, 22)
 		Me.tbTools.Name = "tbTools"
-		Me.tbTools.Size = New System.Drawing.Size(793, 471)
+		Me.tbTools.Size = New System.Drawing.Size(691, 471)
 		Me.tbTools.TabIndex = 5
 		Me.tbTools.Text = "Tools"
 		Me.tbTools.UseVisualStyleBackColor = true
 		'
 		'cmdImportArmory
 		'
+		Me.cmdImportArmory.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+		Me.cmdImportArmory.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+		Me.cmdImportArmory.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+		Me.cmdImportArmory.ForeColor = System.Drawing.Color.Ivory
+		Me.cmdImportArmory.Image = CType(resources.GetObject("cmdImportArmory.Image"),System.Drawing.Image)
 		Me.cmdImportArmory.Location = New System.Drawing.Point(635, 67)
 		Me.cmdImportArmory.Name = "cmdImportArmory"
-		Me.cmdImportArmory.Size = New System.Drawing.Size(41, 23)
+		Me.cmdImportArmory.Size = New System.Drawing.Size(45, 36)
 		Me.cmdImportArmory.TabIndex = 5
 		Me.cmdImportArmory.Text = "Ok"
-		Me.cmdImportArmory.UseVisualStyleBackColor = true
+		Me.cmdImportArmory.TextAlign = System.Drawing.ContentAlignment.BottomRight
+		Me.cmdImportArmory.UseVisualStyleBackColor = false
 		Me.cmdImportArmory.Visible = false
 		AddHandler Me.cmdImportArmory.Click, AddressOf Me.CmdImportArmoryClick
 		'
@@ -277,7 +283,7 @@ Partial Class MainForm
 		'cmdImportTemplate
 		'
 		Me.cmdImportTemplate.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdImportTemplate.Location = New System.Drawing.Point(739, 18)
+		Me.cmdImportTemplate.Location = New System.Drawing.Point(637, 18)
 		Me.cmdImportTemplate.Name = "cmdImportTemplate"
 		Me.cmdImportTemplate.Size = New System.Drawing.Size(42, 23)
 		Me.cmdImportTemplate.TabIndex = 2
@@ -299,7 +305,7 @@ Partial Class MainForm
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.txtImportTemplate.Location = New System.Drawing.Point(8, 21)
 		Me.txtImportTemplate.Name = "txtImportTemplate"
-		Me.txtImportTemplate.Size = New System.Drawing.Size(725, 20)
+		Me.txtImportTemplate.Size = New System.Drawing.Size(623, 20)
 		Me.txtImportTemplate.TabIndex = 0
 		'
 		'tabPage1
@@ -421,6 +427,17 @@ Partial Class MainForm
 		Me.tabPage3.TabIndex = 2
 		Me.tabPage3.Text = "Configuration"
 		Me.tabPage3.UseVisualStyleBackColor = true
+		'
+		'chkDisease
+		'
+		Me.chkDisease.Checked = true
+		Me.chkDisease.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkDisease.Location = New System.Drawing.Point(647, 325)
+		Me.chkDisease.Name = "chkDisease"
+		Me.chkDisease.Size = New System.Drawing.Size(98, 41)
+		Me.chkDisease.TabIndex = 39
+		Me.chkDisease.Text = "Keep disease on targets"
+		Me.chkDisease.UseVisualStyleBackColor = true
 		'
 		'txtNumberOfEnemies
 		'
@@ -877,7 +894,7 @@ Partial Class MainForm
 		Me.tabControl1.Location = New System.Drawing.Point(0, 0)
 		Me.tabControl1.Name = "tabControl1"
 		Me.tabControl1.SelectedIndex = 0
-		Me.tabControl1.Size = New System.Drawing.Size(801, 497)
+		Me.tabControl1.Size = New System.Drawing.Size(699, 497)
 		Me.tabControl1.TabIndex = 3
 		'
 		'tbEPOptions
@@ -1545,7 +1562,7 @@ Partial Class MainForm
 		Me.tbTpl.Controls.Add(Me.cmdSaveTemplate)
 		Me.tbTpl.Location = New System.Drawing.Point(4, 22)
 		Me.tbTpl.Name = "tbTpl"
-		Me.tbTpl.Size = New System.Drawing.Size(793, 471)
+		Me.tbTpl.Size = New System.Drawing.Size(691, 471)
 		Me.tbTpl.TabIndex = 9
 		Me.tbTpl.Text = "Template"
 		Me.tbTpl.UseVisualStyleBackColor = true
@@ -1553,7 +1570,7 @@ Partial Class MainForm
 		'cmbGlyph3
 		'
 		Me.cmbGlyph3.FormattingEnabled = true
-		Me.cmbGlyph3.Location = New System.Drawing.Point(660, 133)
+		Me.cmbGlyph3.Location = New System.Drawing.Point(559, 130)
 		Me.cmbGlyph3.Name = "cmbGlyph3"
 		Me.cmbGlyph3.Size = New System.Drawing.Size(121, 21)
 		Me.cmbGlyph3.TabIndex = 1
@@ -1561,7 +1578,7 @@ Partial Class MainForm
 		'cmbGlyph2
 		'
 		Me.cmbGlyph2.FormattingEnabled = true
-		Me.cmbGlyph2.Location = New System.Drawing.Point(660, 106)
+		Me.cmbGlyph2.Location = New System.Drawing.Point(559, 103)
 		Me.cmbGlyph2.Name = "cmbGlyph2"
 		Me.cmbGlyph2.Size = New System.Drawing.Size(121, 21)
 		Me.cmbGlyph2.TabIndex = 1
@@ -1569,7 +1586,7 @@ Partial Class MainForm
 		'cmbGlyph1
 		'
 		Me.cmbGlyph1.FormattingEnabled = true
-		Me.cmbGlyph1.Location = New System.Drawing.Point(660, 79)
+		Me.cmbGlyph1.Location = New System.Drawing.Point(559, 76)
 		Me.cmbGlyph1.Name = "cmbGlyph1"
 		Me.cmbGlyph1.Size = New System.Drawing.Size(121, 21)
 		Me.cmbGlyph1.TabIndex = 1
@@ -1594,20 +1611,11 @@ Partial Class MainForm
 		Me.cmdSaveTemplate.UseVisualStyleBackColor = true
 		AddHandler Me.cmdSaveTemplate.Click, AddressOf Me.CmdSaveTemplateClick
 		'
-		'chkDisease
-		'
-		Me.chkDisease.Location = New System.Drawing.Point(647, 325)
-		Me.chkDisease.Name = "chkDisease"
-		Me.chkDisease.Size = New System.Drawing.Size(98, 41)
-		Me.chkDisease.TabIndex = 39
-		Me.chkDisease.Text = "Keep disease on targets"
-		Me.chkDisease.UseVisualStyleBackColor = true
-		'
 		'MainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-		Me.ClientSize = New System.Drawing.Size(801, 567)
+		Me.ClientSize = New System.Drawing.Size(699, 567)
 		Me.Controls.Add(Me.lblDPS)
 		Me.Controls.Add(Me.lblVersion)
 		Me.Controls.Add(Me.btEP)

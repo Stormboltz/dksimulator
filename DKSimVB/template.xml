@@ -17,9 +17,9 @@
 		<MarkBlood row="5" col="4">1</MarkBlood>
 		<BloodyVengeance row="6" col="1">3</BloodyVengeance>
 		<AbominationMight row="6" col="2">2</AbominationMight>
-		<BloodWorms row="7" col="3">3</BloodWorms>
-		<Hysteria row="7" col="1">1</Hysteria>
-		<IBloodPresence row="7" col="2">2</IBloodPresence>
+		<BloodWorms row="7" col="1">3</BloodWorms>
+		<Hysteria row="7" col="2">1</Hysteria>
+		<IBloodPresence row="7" col="3">2</IBloodPresence>
 		<ImprovedDeathStrike row="8" col="1">2</ImprovedDeathStrike>
 		<SuddenDoom row="8" col="2">3</SuddenDoom>
 		<Vampiric row="8" col="3">1</Vampiric>
@@ -35,7 +35,7 @@
 		<Toughness row="1" col="3">5</Toughness>
 		<IcyReach row="2" col="2">2</IcyReach>
 		<BlackIce row="2" col="3">5</BlackIce>
-		<NervesofColdSteel row="1" col="4">3</NervesofColdSteel>
+		<NervesofColdSteel row="2" col="4">3</NervesofColdSteel>
 		<IcyTalons row="3" col="1">5</IcyTalons>
 		<LichBorne row="3" col="2">1</LichBorne>
 		<Annihilation row="3" col="3">3</Annihilation>

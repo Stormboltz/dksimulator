@@ -277,6 +277,13 @@ Public Partial Class MainForm
 		root = doc.DocumentElement
 		root.AppendChild(newElem)
 		
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Enemies", "")
+		newElem.InnerText = txtNumberOfEnemies.Text
+		root = doc.DocumentElement
+		root.AppendChild(newElem)
+		
+		
+		
 		
 		doc.Save("config.xml")
 		
@@ -311,6 +318,7 @@ Public Partial Class MainForm
 		chkGhoulHaste.Checked = doc.SelectSingleNode("//config/ghoulhaste").InnerText
 		chkWaitFC.Checked = doc.SelectSingleNode("//config/WaitFC").InnerText
 		ckPet.Checked = doc.SelectSingleNode("//config/pet").InnerText
+		txtNumberOfEnemies.Text  = doc.SelectSingleNode("//config/Enemies").InnerText
 		errH:
 	End Sub
 	
@@ -482,14 +490,13 @@ Public Partial Class MainForm
 		For Each xNode In xParentNode.ChildNodes
 			myBT = New TemplateButton
 			myBT.Name = xNode.Name
+			me.Text = xNode.Name
 			Me.tbTpl.Controls.Add(myBT)
-			myBT.Location = New System.Drawing.Point(-40+(xNode.Attributes.GetNamedItem("col")).Value*50, -20+xNode.Attributes.GetNamedItem("row").value*50)
-			mybt.Size = New System.Drawing.Size(50, 50)
-			myBT.Text = xNode.Name
+			myBT.Location = New System.Drawing.Point(-10+(xNode.Attributes.GetNamedItem("col")).Value*35, -20+xNode.Attributes.GetNamedItem("row").value*35)
 			myBT.MaxValue = xNode.InnerText
 			toolTip.SetToolTip(myBT,myBT.Name)
 			btList.Add(myBT,xNode.Name)
-			
+			myBT.init
 		Next
 		
 		xParentNode = XmlDoc.SelectSingleNode("/Talents/frost")
@@ -497,11 +504,11 @@ Public Partial Class MainForm
 			myBT = New TemplateButton
 			myBT.Name = xNode.Name
 			Me.tbTpl.Controls.Add(myBT)
-			myBT.Location = New System.Drawing.Point(180+(xNode.Attributes.GetNamedItem("col")).Value*50, -20+xNode.Attributes.GetNamedItem("row").value*50)
-			mybt.Size = New System.Drawing.Size(50, 50)
+			myBT.Location = New System.Drawing.Point(140+(xNode.Attributes.GetNamedItem("col")).Value*35, -20+xNode.Attributes.GetNamedItem("row").value*35)
 			myBT.Text = xNode.Name
 			myBT.MaxValue = xNode.InnerText
 			btList.Add(myBT,xNode.Name)
+			myBT.init
 		Next
 		
 		xParentNode = XmlDoc.SelectSingleNode("/Talents/unholy")
@@ -509,11 +516,11 @@ Public Partial Class MainForm
 			myBT = New TemplateButton
 			myBT.Name = xNode.Name
 			Me.tbTpl.Controls.Add(myBT)
-			myBT.Location = New System.Drawing.Point(400+(xNode.Attributes.GetNamedItem("col")).Value*50, -20+xNode.Attributes.GetNamedItem("row").value*50)
-			mybt.Size = New System.Drawing.Size(50, 50)
+			myBT.Location = New System.Drawing.Point(300+(xNode.Attributes.GetNamedItem("col")).Value*35, -20+xNode.Attributes.GetNamedItem("row").value*35)
 			myBT.Text = xNode.Name
 			myBT.MaxValue = xNode.InnerText
 			btList.Add(myBT,xNode.Name)
+			myBT.init
 		Next
 		
 		xParentNode = XmlDoc.SelectSingleNode("/Talents/Glyphs")

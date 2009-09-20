@@ -12,6 +12,14 @@ Public Class TemplateButton
 	Friend MaxValue As Integer
 	Friend Value As Integer
 	
+	Sub init()
+		me.Size = New System.Drawing.Size(35, 35)
+			me.TextAlign= System.Drawing.ContentAlignment.BottomRight
+			me.ForeColor=System.Drawing.Color.White
+			me.Font= New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+	End Sub
+	
+	
 	Sub AddPoint
 		SetValue (Value +1)
 	End Sub
@@ -29,10 +37,17 @@ Public Class TemplateButton
 	End Sub
 	
 	Sub SetValue(x As Integer)
+		on error resume next
 		value = X
 		If value > MaxValue Then value = Maxvalue
-		If Value < 0 Then Value = 0
-		me.Text = value
+		If Value <= 0 Then
+			Value = 0
+			me.Image = new Bitmap("images\" & Me.Name & "G.jpg")
+		Else
+			me.Image = new Bitmap("images\" & Me.Name & ".jpg")
+		End If
+		me.ImageAlign = System.Drawing.ContentAlignment.MiddleCenter
+		me.Text = value & "/" & MaxValue
 	End Sub
 	
 	
