@@ -90,7 +90,7 @@ Friend Class ScourgeStrike
 	End Function
 	public Overrides Function CritChance() As Double
 		dim tmp as Double
-		tmp = sim.MainStat.crit + TalentUnholy.ViciousStrikes * 3 / 100 + sim.MainStat.T72PDPS * 5 / 100 + talentblood.Subversion * 3 / 100
+		tmp = sim.MainStat.crit + TalentUnholy.ViciousStrikes * 3 / 100 + sim.MainStat.T72PDPS * 5 / 100 '+ talentblood.Subversion * 3 / 100
 		return  tmp
 	End Function
 	public Overrides Function AvrgCrit(T As long) As Double

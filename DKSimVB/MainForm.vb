@@ -10,7 +10,7 @@ Imports System.Xml
 Public Partial Class MainForm
 	Private EditorFilePAth As String
 	Private TemplatePath As String
-	private btList As New collection
+	friend btList As New collection
 	'Private sim as Sim 'TODO
 	
 	
@@ -73,7 +73,7 @@ Public Partial Class MainForm
 		Next
 		doc.Save("Buffconfig.xml")
 	End Sub
-
+	
 	
 	
 	
@@ -413,12 +413,12 @@ Public Partial Class MainForm
 		Next
 		cmbTemplate.SelectedItem = stemp
 		
-		stemp = cmbPrio.SelectedItem 
+		stemp = cmbPrio.SelectedItem
 		cmbPrio.Items.Clear
 		For Each item In system.IO.Directory.GetFiles(Application.StartupPath & "\Priority\")
 			cmbPrio.Items.Add(strings.Right(item,item.Length- InStrRev(item,"\") ) & "(" & item & ")")
 		Next
-		cmbPrio.SelectedItem = stemp 
+		cmbPrio.SelectedItem = stemp
 		
 		
 		sTemp = cmbRotation.SelectedItem
@@ -426,7 +426,7 @@ Public Partial Class MainForm
 		For Each item In system.IO.Directory.GetFiles(Application.StartupPath & "\Rotation\")
 			cmbRotation.Items.Add(strings.Right(item,item.Length- InStrRev(item,"\") ) & "(" & item & ")")
 		Next
-		cmbRotation.SelectedItem = sTemp 
+		cmbRotation.SelectedItem = sTemp
 		
 		
 		stemp = cmdPresence.SelectedItem
@@ -457,7 +457,7 @@ Public Partial Class MainForm
 		cmbRuneMH.Items.Add("Cinderglacier")
 		cmbRuneMH.Items.Add("Razorice")
 		cmbRuneMH.Items.Add("FallenCrusader")
-		cmbRuneMH.SelectedItem = stemp 
+		cmbRuneMH.SelectedItem = stemp
 		
 		stemp= cmbRuneOH.SelectedItem
 		cmbRuneOH.Items.Clear
@@ -471,6 +471,28 @@ Public Partial Class MainForm
 		SimConstructor.PetFriendly = True
 		
 		initReport
+	End Sub
+	
+	Sub SetTalentPointnumber
+		Dim BT As TemplateButton
+		Dim b As Integer
+		Dim f As Integer
+		dim u as Integer
+		
+		
+		For Each BT In btList
+			Select Case BT.School
+				Case "blood"
+					b = b + bt.Value
+				Case "frost"
+					f = f + bt.Value
+				Case "unholy"
+					u = u + bt.Value
+			End Select
+		Next
+		lblBlood.Text = b
+		lblFrost.Text = f
+		lblUnholy.Text = u
 	End Sub
 	
 	Sub CreateTreeTemplate()
@@ -490,7 +512,8 @@ Public Partial Class MainForm
 		For Each xNode In xParentNode.ChildNodes
 			myBT = New TemplateButton
 			myBT.Name = xNode.Name
-			me.Text = xNode.Name
+			myBT.School = "blood"
+			myBT.Text = xNode.Name
 			Me.tbTpl.Controls.Add(myBT)
 			myBT.Location = New System.Drawing.Point(-10+(xNode.Attributes.GetNamedItem("col")).Value*35, -20+xNode.Attributes.GetNamedItem("row").value*35)
 			myBT.MaxValue = xNode.InnerText
@@ -503,6 +526,7 @@ Public Partial Class MainForm
 		For Each xNode In xParentNode.ChildNodes
 			myBT = New TemplateButton
 			myBT.Name = xNode.Name
+			myBT.School = "frost"
 			Me.tbTpl.Controls.Add(myBT)
 			myBT.Location = New System.Drawing.Point(140+(xNode.Attributes.GetNamedItem("col")).Value*35, -20+xNode.Attributes.GetNamedItem("row").value*35)
 			myBT.Text = xNode.Name
@@ -515,6 +539,7 @@ Public Partial Class MainForm
 		For Each xNode In xParentNode.ChildNodes
 			myBT = New TemplateButton
 			myBT.Name = xNode.Name
+			myBT.School = "unholy"
 			Me.tbTpl.Controls.Add(myBT)
 			myBT.Location = New System.Drawing.Point(300+(xNode.Attributes.GetNamedItem("col")).Value*35, -20+xNode.Attributes.GetNamedItem("row").value*35)
 			myBT.Text = xNode.Name
@@ -1253,7 +1278,7 @@ Public Partial Class MainForm
 			Console.WriteLine("{0}: {1}", reader.NodeType.ToString(), reader.Name)
 		End While
 		
-	
+		
 		
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
 		Dim bw As New WebBrowser
@@ -1263,8 +1288,8 @@ Public Partial Class MainForm
 		url = "http://eu.wowarmory.com/character-sheet.xml?r=Chants+eternels&n=Kahorie"
 		Dim myUri As Uri = New Uri("http://eu.wowarmory.com/character-sheet.xml?r=Chants+eternels&n=Kahorie")
 		webClient.Dispose()
-'		wbTemplate.Url = myUri
-'		wbTemplate.Navigate(myUri)
+		'		wbTemplate.Url = myUri
+		'		wbTemplate.Navigate(myUri)
 		
 		'	bw.Navigate(myUri)
 		doc.Load(URL)
@@ -1273,7 +1298,7 @@ Public Partial Class MainForm
 		errH:
 		
 	End Sub
-
+	
 	
 	Sub CmbHeadSelectedIndexChanged(sender As Object, e As EventArgs)
 		Dim xDoc As new Xml.XmlDocument
@@ -1294,7 +1319,7 @@ Public Partial Class MainForm
 		
 		
 	End Sub
-
+	
 	Sub ChkEPAfterSpellHitRatingCheckedChanged(sender As Object, e As EventArgs)
 		if ChkEPAfterSpellHitRating.Checked then chkEPSpHit.Checked=true
 	End Sub

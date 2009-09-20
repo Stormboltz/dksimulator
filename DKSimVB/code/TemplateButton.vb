@@ -11,6 +11,7 @@ Public Class TemplateButton
 	
 	Friend MaxValue As Integer
 	Friend Value As Integer
+	Friend School as string
 	
 	Sub init()
 		me.Size = New System.Drawing.Size(35, 35)
@@ -47,8 +48,11 @@ Public Class TemplateButton
 			me.Image = new Bitmap("images\" & Me.Name & ".jpg")
 		End If
 		me.ImageAlign = System.Drawing.ContentAlignment.MiddleCenter
-		me.Text = value & "/" & MaxValue
+		Me.Text = value & "/" & MaxValue
+		MainForm.SetTalentPointnumber
 	End Sub
+	
+	
 	
 	
 End Class
