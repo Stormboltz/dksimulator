@@ -59,7 +59,7 @@ Friend class DeathCoil
 			sim.DRW.DeathCoil
 		End If
 		return true
-		'Debug.Print T & vbTab & "DeathCoil for " & Range("Abilities!N24").Value
+		
 	End Function
 	overrides Function AvrgNonCrit(T As long) As Double
 		Dim tmp As Double

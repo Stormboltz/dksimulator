@@ -102,6 +102,7 @@ Public Partial Class MainForm
 		LoadEPOptions
 		LoadBuffOption
 		CreateTreeTemplate
+		initReport
 		Randomize 'Initialize the random # generator
 		'CombatLog.init
 	End Sub
@@ -470,7 +471,7 @@ Public Partial Class MainForm
 		
 		SimConstructor.PetFriendly = True
 		
-		initReport
+		
 	End Sub
 	
 	Sub SetTalentPointnumber

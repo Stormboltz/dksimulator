@@ -672,6 +672,9 @@
     <None Include="images\WillNecropolisG.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Rotation\unholy.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="template.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
