@@ -10,6 +10,7 @@ Friend Class BloodPlague
 		If TalentUnholy.RageofRivendare>0 Then
 			if isActive(T+150) = false then return true
 		Else
+			'if sim.Runes.UnholyOnly(T)=false then return false
 			if isActive(T) = false then return true
 		End If
 		return false

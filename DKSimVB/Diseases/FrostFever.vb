@@ -10,7 +10,8 @@ Friend Class FrostFever
 		If Talentfrost.TundraStalker>0 Then
 			if isActive(T+150) = false then return true
 		Else
-			if isActive(T) = false then return true
+			'if sim.Runes.FrostOnly(T)=false then return false
+			if isActive(T-150) = false then return true
 		End If
 		return false
 	End Function

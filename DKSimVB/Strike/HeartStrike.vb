@@ -60,13 +60,13 @@ Sub New(S As sim)
 				sim.Sigils.tryHauntedDreams()
 				sim.proc.TryT92PDPS
 				sim.TryOnMHHitProc
+				RNG = sim.RandomNumberGenerator.RNGStrike
+				If rng < 0.05*talentblood.SuddenDoom Then
+					sim.deathcoil.ApplyDamage(T,true)
+				End If
 			End If
 		Next intCount
 		
-		RNG = sim.RandomNumberGenerator.RNGStrike
-		If rng < 0.05*talentblood.SuddenDoom Then
-			sim.deathcoil.ApplyDamage(T,true)
-		End If
 		If TalentFrost.BloodoftheNorth = 3 Or TalentUnholy.Reaping = 3 Then
 			sim.runes.UseBlood(T,True)
 		Else

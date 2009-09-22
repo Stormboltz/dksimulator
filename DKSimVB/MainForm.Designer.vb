@@ -161,15 +161,15 @@ Partial Class MainForm
 		Me.chkBArmorMaj = New System.Windows.Forms.CheckBox
 		Me.chkBStrAgi = New System.Windows.Forms.CheckBox
 		Me.tbTpl = New System.Windows.Forms.TabPage
+		Me.lblUnholy = New System.Windows.Forms.Label
+		Me.lblFrost = New System.Windows.Forms.Label
+		Me.lblBlood = New System.Windows.Forms.Label
 		Me.cmbGlyph3 = New System.Windows.Forms.ComboBox
 		Me.cmbGlyph2 = New System.Windows.Forms.ComboBox
 		Me.cmbGlyph1 = New System.Windows.Forms.ComboBox
 		Me.cmdSaveNewTemplate = New System.Windows.Forms.Button
 		Me.cmdSaveTemplate = New System.Windows.Forms.Button
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
-		Me.lblBlood = New System.Windows.Forms.Label
-		Me.lblFrost = New System.Windows.Forms.Label
-		Me.lblUnholy = New System.Windows.Forms.Label
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -1575,6 +1575,30 @@ Partial Class MainForm
 		Me.tbTpl.Text = "Template"
 		Me.tbTpl.UseVisualStyleBackColor = true
 		'
+		'lblUnholy
+		'
+		Me.lblUnholy.Location = New System.Drawing.Point(348, 425)
+		Me.lblUnholy.Name = "lblUnholy"
+		Me.lblUnholy.Size = New System.Drawing.Size(100, 23)
+		Me.lblUnholy.TabIndex = 2
+		Me.lblUnholy.Text = "0"
+		'
+		'lblFrost
+		'
+		Me.lblFrost.Location = New System.Drawing.Point(202, 425)
+		Me.lblFrost.Name = "lblFrost"
+		Me.lblFrost.Size = New System.Drawing.Size(100, 23)
+		Me.lblFrost.TabIndex = 2
+		Me.lblFrost.Text = "0"
+		'
+		'lblBlood
+		'
+		Me.lblBlood.Location = New System.Drawing.Point(18, 425)
+		Me.lblBlood.Name = "lblBlood"
+		Me.lblBlood.Size = New System.Drawing.Size(100, 23)
+		Me.lblBlood.TabIndex = 2
+		Me.lblBlood.Text = "0"
+		'
 		'cmbGlyph3
 		'
 		Me.cmbGlyph3.FormattingEnabled = true
@@ -1618,30 +1642,6 @@ Partial Class MainForm
 		Me.cmdSaveTemplate.Text = "Save Template"
 		Me.cmdSaveTemplate.UseVisualStyleBackColor = true
 		AddHandler Me.cmdSaveTemplate.Click, AddressOf Me.CmdSaveTemplateClick
-		'
-		'lblBlood
-		'
-		Me.lblBlood.Location = New System.Drawing.Point(18, 425)
-		Me.lblBlood.Name = "lblBlood"
-		Me.lblBlood.Size = New System.Drawing.Size(100, 23)
-		Me.lblBlood.TabIndex = 2
-		Me.lblBlood.Text = "0"
-		'
-		'lblFrost
-		'
-		Me.lblFrost.Location = New System.Drawing.Point(202, 425)
-		Me.lblFrost.Name = "lblFrost"
-		Me.lblFrost.Size = New System.Drawing.Size(100, 23)
-		Me.lblFrost.TabIndex = 2
-		Me.lblFrost.Text = "0"
-		'
-		'lblUnholy
-		'
-		Me.lblUnholy.Location = New System.Drawing.Point(348, 425)
-		Me.lblUnholy.Name = "lblUnholy"
-		Me.lblUnholy.Size = New System.Drawing.Size(100, 23)
-		Me.lblUnholy.TabIndex = 2
-		Me.lblUnholy.Text = "0"
 		'
 		'MainForm
 		'

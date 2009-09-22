@@ -106,6 +106,7 @@
     <Compile Include="code\TalentBlood.vb" />
     <Compile Include="code\TalentFrost.vb" />
     <Compile Include="code\TalentUnholy.vb" />
+    <Compile Include="Runes\rune.vb" />
     <Compile Include="Runes\Rune1.vb" />
     <Compile Include="Runes\Rune2.vb" />
     <Compile Include="Runes\Rune3.vb" />

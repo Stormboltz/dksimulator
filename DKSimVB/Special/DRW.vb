@@ -55,7 +55,7 @@ Friend Class DRW
 			End If
 			Sim.NextFreeGCD = T + (150 / (1 + sim.mainstat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
 			NextDRW = T
-			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Summon DRW")
+			sim.combatlog.write(T  & vbtab &  "Summon DRW")
 		End If
 	End Sub
 	Function ApplyDamage(T As long) As boolean
