@@ -8,8 +8,6 @@ Friend class Ghoul
 	Friend MissCount As Integer
 	Friend HitCount as Integer
 	Friend CritCount as Integer
-	Friend FrenzyCd As Long
-	Friend FrenzyUntil as Long
 	Friend GhoulDoubleHaste As Boolean
 	Friend TotalHit As Long
 	Friend TotalCrit As Long
@@ -28,8 +26,6 @@ Friend class Ghoul
 		ActiveUntil= 0
 		NextWhiteMainHit = 0
 		NextClaw = 0
-		FrenzyCd = 0
-		FrenzyUntil = 0
 		TotalHit = 0
 		TotalCrit = 0
 		sim = MySim
@@ -83,7 +79,7 @@ Friend class Ghoul
 		
 		Dim WSpeed As Single
 		WSpeed = sim.GhoulStat.MHWeaponSpeed
-		If FrenzyUntil >= T Then
+		If sim.Frenzy.ActiveUntil >= T Then
 			NextWhiteMainHit = T + (WSpeed * 100) / ((1 + Haste + 0.25))
 		Else
 			NextWhiteMainHit = T + (WSpeed * 100) / ((1 + Haste))
@@ -183,24 +179,7 @@ Friend class Ghoul
 		return tmp
 	End Function
 	
-	Function IsFrenzyAvailable(T As Long) As Boolean
-		if TalentUnholy.GhoulFrenzy = 0 then return false
-		If FrenzyCd < T  And sim.runes.Unholy(T) Then Return True
-	End Function
-	Function IsAutoFrenzyAvailable(T As Long) As Boolean
-		if TalentUnholy.GhoulFrenzy = 0 then return false
-		if FrenzyCd < T  and sim.runes.Unholy(T)=false and sim.runes.Blood(T)=false and sim.BloodTap.IsAvailable(T) then return true
-	End Function
-	
-	Function Frenzy(T As Long) As Boolean
-		if sim.BloodTap.IsAvailable(T) then sim.BloodTap.Use(t)
-		sim.runes.UseUnholy(T,True)
-		Sim.RunicPower.add(10)
-		FrenzyCd = T+3000
-		FrenzyUntil = T+3000
-		if sim.combatlog.LogDetails then 	sim.combatlog.write(T  & vbtab &  "Using Ghoul Frenzy")
-		return true
-	End Function
+
 	
 	
 end class

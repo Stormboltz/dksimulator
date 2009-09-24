@@ -474,7 +474,7 @@ Friend Class MainStat
 		tmp = tmp * (1 + BloodPresence * 0.15)
 		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
 		If sim.Desolation.isActive(T) Then tmp = tmp * (1+sim.Desolation.Bonus)
-		tmp = tmp * (1 + 0.02 * TalentUnholy.BoneShield)
+		tmp = tmp * (1 + 0.02 * sim.BoneShield.Value(T))
 		tmp = tmp * (1 + 0.02 * TalentBlood.BloodGorged)
 		
 		tmp = tmp * getMitigation
@@ -490,7 +490,7 @@ Friend Class MainStat
 		tmp = tmp * (1 + BloodPresence * 0.15)
 		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
 		If sim.Desolation.isActive(T) Then tmp = tmp * (1+sim.Desolation.Bonus)
-		tmp = tmp * (1 + 0.02 * TalentUnholy.BoneShield)
+		tmp = tmp * (1 + 0.02 * sim.BoneShield.Value(T))
 		tmp = tmp * (1 + 0.02 * TalentBlood.BloodGorged)
 		
 		tmp = tmp * getMitigation
@@ -509,7 +509,7 @@ Friend Class MainStat
 		tmp = tmp * (1 + BloodPresence * 0.15)
 		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
 		If sim.Desolation.isActive(T) Then tmp = tmp * (1+sim.Desolation.Bonus)
-		tmp = tmp * (1 + 0.02 * TalentUnholy.BoneShield)
+		tmp = tmp * (1 + 0.02 * sim.BoneShield.Value(T))
 		tmp = tmp * (1 + 0.02 * TalentBlood.BloodGorged)
 		
 		If sim.FrostFever.isActive(T) Then	tmp = tmp * (1 + 0.03 * TalentFrost.TundraStalker)

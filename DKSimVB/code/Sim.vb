@@ -33,12 +33,12 @@ Public Class Sim
 	Friend RandomNumberGenerator as RandomNumberGenerator
 	
 	Friend Runes as runes
-	Friend Rune1 As Rune1
-	Friend Rune2 As Rune2
-	Friend Rune3 As Rune3
-	Friend Rune4 As Rune4
-	Friend Rune5 As Rune5
-	Friend Rune6 as Rune6
+'	Friend Rune1 As Rune1
+'	Friend Rune2 As Rune2
+'	Friend Rune3 As Rune3
+'	Friend Rune4 As Rune4
+'	Friend Rune5 As Rune5
+'	Friend Rune6 as Rune6
 	
 	Friend RunicPower As RunicPower
 	Friend Character as Character
@@ -80,7 +80,9 @@ Public Class Sim
 	Friend Bloodlust as Bloodlust
 	Friend DRW As DRW
 	Friend WanderingPlague as WanderingPlague
-	Friend Gargoyle as Gargoyle
+	Friend Gargoyle As Gargoyle
+	Friend BoneShield As BoneShield
+	Friend Frenzy as Frenzy
 	
 	
 	'Disease Creation
@@ -290,7 +292,12 @@ Public Class Sim
 							UnbreakableArmor.Use(TimeStamp)
 						End If
 					End If
-					
+
+					If isInGCD(TimeStamp) = False Then
+						If BoneShield.IsAvailable(TimeStamp) Then
+							BoneShield.Use(TimeStamp)
+						End If
+					End If
 					If PetFriendly Then
 						If isInGCD(TimeStamp) = False Then
 							If Ghoul.ActiveUntil < TimeStamp and Ghoul.cd < TimeStamp and CanUseGCD(TimeStamp) Then
@@ -300,8 +307,8 @@ Public Class Sim
 						if Ghoul.ActiveUntil >= TimeStamp then
 							If Ghoul.NextWhiteMainHit <= TimeStamp Then Ghoul.ApplyDamage(TimeStamp)
 							If Ghoul.NextClaw <= TimeStamp Then Ghoul.Claw(TimeStamp)
-							If isInGCD(TimeStamp) And Ghoul.IsAutoFrenzyAvailable(Timestamp) Then
-								Ghoul.Frenzy(TimeStamp)
+							If isInGCD(TimeStamp) And Frenzy.IsAutoFrenzyAvailable(Timestamp) Then
+								Frenzy.Frenzy(TimeStamp)
 							End If
 						End If
 					End If
@@ -533,12 +540,6 @@ Public Class Sim
 		
 		Buff = New Buff(Me)
 		'Keep this order for RuneX -> Runse -> Rotation/Prio
-		Rune1 = New Rune1
-		Rune2 = New Rune2
-		Rune3 = New Rune3
-		Rune4 = New Rune4
-		Rune5 = New Rune5
-		Rune6 = new Rune6
 		Runes = New runes(Me)
 		
 		RunicPower = New RunicPower(Me)
@@ -592,7 +593,7 @@ Public Class Sim
 		Necrosis = new Necrosis(Me)
 		WanderingPlague = new WanderingPlague(Me)
 		FrostStrike = New FrostStrike(Me)
-		
+		Frenzy = NEw Frenzy(Me)
 		BloodCakedBlade = New BloodCakedBlade(Me)
 		DeathStrike = New DeathStrike(Me)
 		BloodBoil = new BloodBoil(me)
@@ -603,6 +604,7 @@ Public Class Sim
 		Bloodlust= new Bloodlust(Me)
 		Pestilence = new Pestilence(Me)
 		proc = New proc(Me)
+		BoneShield  = new BoneShield(me)
 		
 		AMSCd = _MainFrm.txtAMScd.text * 100
 		AMSTimer = _MainFrm.txtAMScd.text * 100
@@ -943,6 +945,7 @@ Public Class Sim
 			End If
 			
 		Next
+		
 		If Horn.HitCount <> 0 Then
 			STmp = Horn.report
 			STmp = replace(STmp,vbtab,"</td><td>")
@@ -953,6 +956,28 @@ Public Class Sim
 			STmp = replace(STmp,vbtab,"</td><td>")
 			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 		End If
+		
+		If BoneShield.HitCount <> 0 Then
+			STmp = BoneShield.report
+			STmp = replace(STmp,vbtab,"</td><td>")
+			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+		End If
+		
+		If BloodTap.HitCount <> 0 Then
+			STmp = BloodTap.report
+			STmp = replace(STmp,vbtab,"</td><td>")
+			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+		End If
+		
+		If Frenzy.HitCount <> 0 Then
+			STmp = Frenzy.report
+			STmp = replace(STmp,vbtab,"</td><td>")
+			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+		End If
+		
+		
+		
+		
 		
 		sTmp = ""
 		if EPStat <> "" then STmp =  "<tr><td COLSPAN=8>EP Stat <b>" &  EPStat & "</b></td></tr>"
@@ -1009,12 +1034,12 @@ Public Class Sim
 		If NextFreeGCD > T Then
 			tmp = NextFreeGCD
 		Else
-			if rune1.AvailableTime > T and rune1.AvailableTime < tmp then  tmp = rune1.AvailableTime
-			if rune2.AvailableTime > T and rune2.AvailableTime < tmp then  tmp = rune2.AvailableTime
-			If rune3.AvailableTime > T And rune3.AvailableTime < tmp Then  tmp = rune3.AvailableTime
-			If rune4.AvailableTime > T And rune4.AvailableTime < tmp Then  tmp = rune4.AvailableTime
-			If rune5.AvailableTime > T And rune5.AvailableTime < tmp Then  tmp = rune5.AvailableTime
-			if rune6.AvailableTime > T and rune6.AvailableTime < tmp then  tmp = rune6.AvailableTime
+			if runes.rune1.AvailableTime > T and runes.rune1.AvailableTime < tmp then  tmp = runes.rune1.AvailableTime
+			if runes.rune2.AvailableTime > T and runes.rune2.AvailableTime < tmp then  tmp = runes.rune2.AvailableTime
+			If runes.rune3.AvailableTime > T And runes.rune3.AvailableTime < tmp Then  tmp = runes.rune3.AvailableTime
+			If runes.rune4.AvailableTime > T And runes.rune4.AvailableTime < tmp Then  tmp = runes.rune4.AvailableTime
+			If runes.rune5.AvailableTime > T And runes.rune5.AvailableTime < tmp Then  tmp = runes.rune5.AvailableTime
+			if runes.rune6.AvailableTime > T and runes.rune6.AvailableTime < tmp then  tmp = runes.rune6.AvailableTime
 			
 		End If
 		

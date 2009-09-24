@@ -1,10 +1,10 @@
 Friend Class runes
-	Dim Rune1 As Rune
-	Dim Rune2 As Rune
-	Dim Rune3 As Rune
-	Dim Rune4 As Rune
-	Dim Rune5 As Rune
-	Dim Rune6 As Rune
+	friend Rune1 As Rune
+	friend Rune2 As Rune
+	friend Rune3 As Rune
+	friend Rune4 As Rune
+	friend Rune5 As Rune
+	friend Rune6 As Rune
 	Protected sim As Sim
 	
 	Sub New(S As Sim)
@@ -167,12 +167,8 @@ Friend Class runes
 	End Function
 	
 	Function BloodOnly(T as long) As Boolean
-		If Rune1.AvailableTime <= T And Rune1.death = False  Then return  True
-		If Rune2.AvailableTime <= T And Rune2.death = False  Then return  True
-		If Rune3.AvailableTime <= T And Rune3.death = True  Then return  True
-		If Rune4.AvailableTime <= T And Rune4.death = True  Then return  True
-		If Rune5.AvailableTime <= T And Rune5.death = True  Then return  True
-		If Rune6.AvailableTime <= T And Rune6.death = True  Then return  True
+		If Rune1.AvailableTime <= T Then return  True
+		If Rune2.AvailableTime <= T Then return  True
 	End Function
 	
 	

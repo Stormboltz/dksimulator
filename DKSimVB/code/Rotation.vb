@@ -3,7 +3,7 @@
 ' User: Fabien
 ' Date: 16/03/2009
 ' Time: 22:08
-' 
+'
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
 Friend Class Rotation
@@ -22,7 +22,11 @@ Friend Class Rotation
 		XMLRo.Load(sim.rotationPath)
 		dim Nod as Xml.XmlNode
 		For Each Nod In XMLRo.SelectSingleNode("//Rotation/Rotation").ChildNodes
-			MyRotation.Add(Nod.Name)
+			try
+				MyRotation.Add(Nod.Name,Nod.Name)
+			Catch
+				MyRotation.Add(Nod.Name)
+			end try
 		Next
 		dim i as integer
 		i = 0
@@ -31,17 +35,17 @@ Friend Class Rotation
 			i=i+1
 			select case i
 				case 1
-					if Nod.Name ="Death" then sim.rune1.death=true
+					if Nod.Name ="Death" then sim.Runes.rune1.death=true
 				case 2
-					if Nod.Name ="Death" then sim.rune2.death=true
+					if Nod.Name ="Death" then sim.Runes.rune2.death=true
 				case 3
-					if Nod.Name ="Death" then sim.rune3.death=true
+					if Nod.Name ="Death" then sim.Runes.rune3.death=true
 				case 4
-					if Nod.Name ="Death" then sim.rune4.death=true
+					if Nod.Name ="Death" then sim.Runes.rune4.death=true
 				case 5
-					if Nod.Name ="Death" then sim.rune5.death=true
+					if Nod.Name ="Death" then sim.Runes.rune5.death=true
 				case 6
-					if Nod.Name ="Death" then sim.rune6.death=true
+					if Nod.Name ="Death" then sim.Runes.rune6.death=true
 			end select
 		Next
 		
@@ -64,9 +68,15 @@ Friend Class Rotation
 				Else
 					If retry = 0 Then Return True
 				End If
+			Case "BoneShield"
+				if sim.BoneShield.IsAvailable(Timestamp) Then
+					return sim.BoneShield.Use(Timestamp)
+				Else
+					If retry = 0 Then Return True
+				End If
 			Case "GhoulFrenzy"
-				if sim.ghoul.IsFrenzyAvailable(Timestamp) Then
-					return sim.ghoul.Frenzy(Timestamp)
+				if sim.Frenzy.IsFrenzyAvailable(Timestamp) Then
+					return sim.Frenzy.Frenzy(Timestamp)
 				Else
 					If retry = 0 Then Return True
 				End If

@@ -7,12 +7,11 @@
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
 Friend Class BloodTap
-	Friend cd As Double
-	Protected Sim As Sim
+	Inherits Spells.Spell
 	
-	Sub New(MySim as Sim)
-		cd = 0
-		sim = MySim 
+	Sub New(MySim As Sim)
+		MyBase.New()
+		Sim = MySim
 	End Sub
 	Function IsAvailable(T as long) As Boolean
 		If T >= cd Then
@@ -24,14 +23,18 @@ Friend Class BloodTap
 	
 	Function Use(T As long) As Boolean
 		cd = t + 6000
-		If sim.Rune1.AvailableTime > T And sim.Rune1.death = False Then
-			sim.Rune1.AvailableTime = T
-			sim.Rune1.death = True
+		If sim.Runes.Rune1.AvailableTime > T And sim.runes.Rune1.death = False Then
+			sim.Runes.Rune1.AvailableTime = T
+			sim.Runes.Rune1.death = True
+			sim.Runes.Rune1.BTuntil = T + 2000
 		Else
-			sim.Rune2.AvailableTime = T
-			sim.Rune2.death = True
+			sim.Runes.Rune2.AvailableTime = T
+			sim.Runes.Rune2.death = True
+			sim.Runes.Rune2.BTuntil = T + 2000
 		End If
 		sim.combatlog.write(T  & vbtab &  "Blood Tap")
+		sim.RunicPower.add(10)
+		me.HitCount = me.HitCount + 1 
 		return true
 	End Function
 		

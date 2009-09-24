@@ -120,11 +120,13 @@
     <Compile Include="Special\Strike.vb" />
     <Compile Include="Spell\BloodBoil.vb" />
     <Compile Include="Spell\BloodTap.vb" />
+    <Compile Include="Spell\BoneShield.vb" />
     <Compile Include="Spell\Butchery.vb" />
     <Compile Include="Spell\DeathandDecay.vb" />
     <Compile Include="Spell\DeathChill.vb" />
     <Compile Include="Spell\DeathCoil.vb" />
     <Compile Include="Spell\Desecration.vb" />
+    <Compile Include="Spell\Frenzy.vb" />
     <Compile Include="Spell\Horn.vb" />
     <Compile Include="Spell\HowlingBlast.vb" />
     <Compile Include="Spell\Hysteria.vb" />

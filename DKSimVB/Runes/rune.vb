@@ -10,6 +10,7 @@ Public Class rune
 	Friend reserved As Boolean
 	Friend death As Boolean
 	Friend AvailableTime As Long
+	Friend BTuntil as Long
 	Protected Sim As Sim
 	
 	Sub New(S As Sim)
@@ -20,6 +21,7 @@ Public Class rune
 	End Sub
 	Sub Use(T As Long, D As Boolean)
 		death = D
+		if BTuntil > T then death = true
 		If T - AvailableTime <= 300 and AvailableTime <> 0 Then
 			AvailableTime = AvailableTime + RuneRefreshtime
 		Else
