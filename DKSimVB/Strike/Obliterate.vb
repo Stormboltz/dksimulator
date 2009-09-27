@@ -74,7 +74,7 @@ Friend Class Obliterate
 					dégat =  AvrgNonCrit(T,true)
 					sim.combatlog.write(T  & vbtab &  "OB hit for " & dégat )
 				End If
-				if sim.Lissage then dégat = AvrgCrit(T,true)*ccT + AvrgNonCrit(T,true)*(1-ccT )
+
 				total = total + dégat
 				sim.TryOnMHHitProc
 				sim.proc.tryRime
@@ -91,7 +91,7 @@ Friend Class Obliterate
 					dégat =  AvrgNonCrit(T,false)
 					sim.combatlog.write(T  & vbtab &  "OH OB hit for " & dégat )
 				End If
-				if sim.Lissage then dégat = AvrgCrit(T,false)*ccT + AvrgNonCrit(T,false)*(1-ccT )
+
 				total = total + dégat
 				sim.TryOnOHHitProc
 			End If

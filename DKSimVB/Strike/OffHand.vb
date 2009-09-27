@@ -64,7 +64,7 @@ Friend Class OffHand
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH hit for " & dégat)
 		End If
 		
-		If sim.Lissage Then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance-MeleeGlacingChance) + AvrgNonCrit(T)* (MeleeGlacingChance)*0.7
+
 		total = total + dégat
 
 		If TalentUnholy.Necrosis > 0 Then

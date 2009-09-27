@@ -33,7 +33,7 @@ Friend Class IcyTouch
 			sim.combatlog.write(T  & vbtab &  "IT hit for " & dégat)
 		End If
 		
-		if sim.Lissage then dégat = AvrgCrit(T)*ccT + AvrgNonCrit(T)*(1-CritChance )
+
 		total = total + dégat
 		
 		

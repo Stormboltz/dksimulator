@@ -42,7 +42,7 @@ Friend Class BloodBoil
 				sim.combatlog.write(T  & vbtab &  "BB hit for " & dégat )
 			End If
 			
-			if Sim.Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
+
 			total = total + dégat
 			
 			Sim.TryOnSpellHit

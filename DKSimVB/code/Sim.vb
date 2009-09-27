@@ -19,7 +19,6 @@ Public Class Sim
 	Friend _MainFrm As MainForm
 	
 	Friend Threat as Long
-	Friend Lissage As Boolean
 	Private AMSTimer As Long
 	Private AMSCd As Integer
 	Private AMSAmount As Integer
@@ -101,7 +100,7 @@ Public Class Sim
 	Friend ProgressFrame As ProgressFrm
 	
 	Friend CombatLog as new CombatLog
-	
+	Friend BoneShieldUsageStyle as Integer
 	
 	Sub Init()
 	End Sub
@@ -177,11 +176,12 @@ Public Class Sim
 		me.SimTime = SimTime
 		_MainFrm=MainFrm
 	End Sub
-	Sub Prepare (pbar As ProgressBar,SimTime As Double, MainFrm As MainForm,EPS As String)
+	Sub Prepare (pbar As ProgressBar,SimTime As Double, MainFrm As MainForm,EPS As String, EPBse as String )
 		Pb = pbar
 		me.SimTime = SimTime
 		_MainFrm=MainFrm
 		_EPStat = EPS
+		EPBase = EPBse
 	End Sub
 	Sub CreateProgressFrame()
 		ProgressFrame = New ProgressFrm
@@ -200,7 +200,7 @@ Public Class Sim
 		CreateProgressFrame
 		Rnd(-1) 'Tell VB to initialize using Randomize's parameter
 		RandomNumberGenerator = new RandomNumberGenerator 'init here, so that we don't get the same rng numbers for short fights.
-		EPBase = 50
+		'EPBase = 50
 		'combatlog.LogDetails = true
 		SimStart = now
 		
@@ -294,10 +294,27 @@ Public Class Sim
 					End If
 
 					If isInGCD(TimeStamp) = False Then
-						If BoneShield.IsAvailable(TimeStamp) Then
-							BoneShield.Use(TimeStamp)
+						If BoneShieldUsageStyle = 2 Then
+							If runes.Rune1.Available(TimeStamp) = False Then
+								If runes.Rune2.Available(TimeStamp) = False Then
+									If runes.Rune3.Available(TimeStamp) = False Then
+										If runes.Rune4.Available(TimeStamp) = False Then
+											If runes.Rune5.Available(TimeStamp) = False Then
+												If runes.Rune6.Available(TimeStamp) = False Then
+													If BoneShield.IsAvailable(TimeStamp) Then
+														BoneShield.Use(TimeStamp)
+													End If
+												End If
+											End If
+										End If
+									End If
+								End If
+							End If
 						End If
 					End If
+					
+					
+					
 					If PetFriendly Then
 						If isInGCD(TimeStamp) = False Then
 							If Ghoul.ActiveUntil < TimeStamp and Ghoul.cd < TimeStamp and CanUseGCD(TimeStamp) Then
@@ -533,7 +550,6 @@ Public Class Sim
 	
 	Sub Initialisation()
 		'RandomNumberGenerator.Init 'done in Start
-		Lissage = SimConstructor.Lissage
 		PetFriendly = SimConstructor.PetFriendly
 		Rotate = SimConstructor.Rotate
 		'_EpStat = SimConstructor.EpStat
@@ -709,6 +725,17 @@ Public Class Sim
 '		txtSimtime.Text = doc.SelectSingleNode("//config/simtime").InnerText
 		Me.CombatLog.enable = doc.SelectSingleNode("//config/log").InnerText
 		Me.CombatLog.LogDetails = doc.SelectSingleNode("//config/logdetail").InnerText
+		Dim tmp As String
+		tmp = doc.SelectSingleNode("//config/BShOption").InnerText
+		Select Case tmp
+			Case "Instead of Blood Strike"
+				Me.BoneShieldUsageStyle =1
+			Case "After BS/BB"
+				Me.BoneShieldUsageStyle= 2
+			Case "Instead of Blood Boil"
+				Me.BoneShieldUsageStyle = 3
+		End Select
+
 '		chkCombatLog.Checked = doc.SelectSingleNode("//config/log").InnerText
 '		ckLogRP.Checked = doc.SelectSingleNode("//config/logdetail").InnerText
 '		chkLissage.Checked = doc.SelectSingleNode("//config/smooth").InnerText

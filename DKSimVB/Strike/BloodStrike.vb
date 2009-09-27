@@ -54,7 +54,7 @@ Friend class BloodStrike
 					HitCount = HitCount + 1
 					sim.combatlog.write(T  & vbtab &  "BS hit for " & dégat )
 				End If
-				if sim.Lissage then dégat = AvrgCrit(T,true)*CritChance + AvrgNonCrit(T,true)*(1-CritChance )
+
 				total = total + dégat
 				sim.TryOnMHHitProc
 				sim.proc.TryT92PDPS
@@ -69,7 +69,7 @@ Friend class BloodStrike
 					dégat = AvrgNonCrit(T,false)
 					sim.combatlog.write(T  & vbtab &  "OH BS hit for " & dégat )
 				End If
-				if sim.Lissage then dégat = AvrgCrit(T,false)*CritChance + AvrgNonCrit(T,false)*(1-CritChance )
+	
 				total = total + dégat
 				sim.TryOnOHHitProc
 				sim.proc.TryT92PDPS

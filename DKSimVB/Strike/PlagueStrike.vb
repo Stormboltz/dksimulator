@@ -57,7 +57,7 @@ Friend Class PlagueStrike
 					dégat = AvrgNonCrit(T,true)
 					sim.combatlog.write(T  & vbtab &  "PS hit for " & dégat )
 				End If
-				if sim.Lissage then dégat = AvrgCrit(T,true)*CritChance + AvrgNonCrit(T,true)*(1-CritChance )
+
 				total = total + dégat
 				sim.TryOnMHHitProc
 			End If
@@ -71,7 +71,7 @@ Friend Class PlagueStrike
 					dégat = AvrgNonCrit(T,false)
 					sim.combatlog.write(T  & vbtab &  "OH PS hit for " & dégat )
 				End If
-				if sim.Lissage then dégat = AvrgCrit(T,false)*CritChance + AvrgNonCrit(T,false)*(1-CritChance )
+
 				total = total + dégat
 				sim.TryOnOHHitProc
 			End If

@@ -46,7 +46,7 @@ Friend Class HowlingBlast
 				sim.combatlog.write(T  & vbtab &  "HB hit for " & dégat)
 			End If
 			
-			if sim.Lissage then dégat = AvrgCrit(T)*ccT + AvrgNonCrit(T)*(1-CritChance )
+
 			total = total + dégat
 			
 			sim.TryOnSpellHit

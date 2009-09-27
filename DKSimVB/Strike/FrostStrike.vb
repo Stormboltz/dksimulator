@@ -75,7 +75,7 @@ Friend Class FrostStrike
 					HitCount = HitCount + 1
 					sim.combatlog.write(T  & vbtab &  "FS hit for " & dégat )
 				End If
-				if sim.Lissage then dégat = AvrgCrit(T,true)*ccT + AvrgNonCrit(T,true)*(1-ccT )
+
 				total = total + dégat
 				sim.TryOnMHHitProc
 				
@@ -89,7 +89,7 @@ Friend Class FrostStrike
 					dégat = AvrgNonCrit(T,false)
 					sim.combatlog.write(T  & vbtab &  "OH FS hit for " & dégat )
 				End If
-				if Sim.Lissage then dégat = AvrgCrit(T,false)*ccT + AvrgNonCrit(T,false)*(1-ccT )
+
 				total = total + dégat
 				sim.TryOnOHHitProc
 			End If

@@ -38,7 +38,7 @@ Friend Class ScourgeStrike
 		End If
 		
 		
-		if sim.Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
+
 		total = total + dégat
 		
 		

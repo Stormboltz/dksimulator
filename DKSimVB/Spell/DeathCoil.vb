@@ -53,7 +53,7 @@ Friend class DeathCoil
 			
 		End If
 		
-		if Sim.Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
+
 		total = total + dégat
 		sim.TryOnSpellHit
 		If TalentUnholy.UnholyBlight = 1 Then

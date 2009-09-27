@@ -11,9 +11,6 @@ Public Partial Class MainForm
 	Private EditorFilePAth As String
 	Private TemplatePath As String
 	friend btList As New collection
-	'Private sim as Sim 'TODO
-	
-	
 	
 	Public Sub New()
 		' The Me.InitializeComponent call is required for Windows Forms designer support.
@@ -24,9 +21,9 @@ Public Partial Class MainForm
 		'
 	End Sub
 	
-	
 	Function LoadBeforeSim() As Boolean
-		saveConfig()
+		
+		saveConfig
 		Try
 			GetFilePath(CmbTemplate.SelectedItem.ToString)
 		Catch
@@ -50,8 +47,11 @@ Public Partial Class MainForm
 		'		End If
 		SaveEPOptions()
 		SaveBuffOption()
+		saveScaling()
 		return true
 	End Function
+	
+	
 	
 	Sub SaveBuffOption
 		'on error resume next
@@ -74,9 +74,6 @@ Public Partial Class MainForm
 		doc.Save("Buffconfig.xml")
 	End Sub
 	
-	
-	
-	
 	Sub Button1Click(sender As Object, e As EventArgs)
 		if LoadBeforeSim = false then exit sub
 		me.tabControl1.SelectedIndex = 1
@@ -89,7 +86,7 @@ Public Partial Class MainForm
 			ret = msgbox("Short simulation time can give weird results. Try setting it to at least 100 hours.", MsgBoxStyle.OkCancel)
 			if ret = MsgBoxResult.Cancel then exit sub
 		End If
-		chkLissage.Checked	= true
+		'chkLissage.Checked	= true
 		if LoadBeforeSim = false then exit sub
 		me.tabControl1.SelectedIndex = 1
 		SimConstructor.startEP(PBsim,txtSimtime.Text,me)
@@ -101,20 +98,17 @@ Public Partial Class MainForm
 		loadConfig
 		LoadEPOptions
 		LoadBuffOption
+		
 		CreateTreeTemplate
 		initReport
 		Randomize 'Initialize the random # generator
 		'CombatLog.init
 	End Sub
 	
-	
-	
-	
 	Sub MainFormClose(sender As Object, e As EventArgs)
 		
 		
 	End Sub
-	
 	
 	Sub ChkCombatLogCheckedChanged(sender As Object, e As EventArgs)
 		'CombatLog.enable = ChkCombatLog.Checked
@@ -128,14 +122,6 @@ Public Partial Class MainForm
 	Sub CkLogRPCheckedChanged(sender As Object, e As EventArgs)
 		'CombatLog.LogDetails = ckLogRP.Checked
 	End Sub
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	Sub CmdEditTemplateClick(sender As Object, e As EventArgs)
 		tabControl1.SelectedIndex = 6
@@ -167,6 +153,7 @@ Public Partial Class MainForm
 		Next
 		sortie:
 	End Sub
+	
 	Sub saveConfig
 		on error resume next
 		'	Try
@@ -251,12 +238,6 @@ Public Partial Class MainForm
 		root.AppendChild(newElem)
 		
 		
-		'Smooth
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "smooth", "")
-		newElem.InnerText = chkLissage.Checked
-		root = doc.DocumentElement
-		root.AppendChild(newElem)
-		
 		
 		'Ghouls2haste
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ghoulhaste", "")
@@ -283,7 +264,10 @@ Public Partial Class MainForm
 		root = doc.DocumentElement
 		root.AppendChild(newElem)
 		
-		
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "BShOption", "")
+		newElem.InnerText = cmbBShOption.SelectedItem.ToString
+		root = doc.DocumentElement
+		root.AppendChild(newElem)
 		
 		
 		doc.Save("config.xml")
@@ -292,6 +276,7 @@ Public Partial Class MainForm
 		
 		'	End Try
 	End Sub
+	
 	Sub loadConfig
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
 		on error resume next
@@ -310,18 +295,41 @@ Public Partial Class MainForm
 		cmbSigils.SelectedItem = doc.SelectSingleNode("//config/sigil").InnerText
 		cmbRuneMH.SelectedItem = doc.SelectSingleNode("//config/mh").InnerText
 		cmbRuneOH.SelectedItem = doc.SelectSingleNode("//config/oh").InnerText
+		cmbBShOption.SelectedItem = doc.SelectSingleNode("//config/BShOption").InnerText
 		txtLatency.Text = doc.SelectSingleNode("//config/latency").InnerText
 		
 		txtSimtime.Text = doc.SelectSingleNode("//config/simtime").InnerText
 		chkCombatLog.Checked = doc.SelectSingleNode("//config/log").InnerText
 		ckLogRP.Checked = doc.SelectSingleNode("//config/logdetail").InnerText
-		chkLissage.Checked = doc.SelectSingleNode("//config/smooth").InnerText
 		chkGhoulHaste.Checked = doc.SelectSingleNode("//config/ghoulhaste").InnerText
 		chkWaitFC.Checked = doc.SelectSingleNode("//config/WaitFC").InnerText
 		ckPet.Checked = doc.SelectSingleNode("//config/pet").InnerText
 		txtNumberOfEnemies.Text  = doc.SelectSingleNode("//config/Enemies").InnerText
+		
+
+		
 		errH:
 	End Sub
+	Sub saveScaling()
+		Dim doc As xml.XmlDocument = New xml.XmlDocument
+		doc.LoadXml("<config></config>")
+		Dim xmlStat As xml.XmlNode = doc.CreateNode(xml.XmlNodeType.Element, "Stats", "")
+		Dim root as xml.XmlElement = doc.DocumentElement
+		root.AppendChild(xmlStat)
+		Dim newElem As xml.XmlNode
+		Dim ctrl As Control
+		dim chkBox as CheckBox
+		For Each ctrl in gbScaling.Controls
+			If ctrl.Name.StartsWith ("chk") Then
+				chkBox = ctrl
+				newElem = doc.CreateNode(xml.XmlNodeType.Element, chkBox.Name, "")
+				newElem.InnerText = chkBox.Checked
+				xmlStat.AppendChild(newElem)
+			End If
+		Next
+		doc.Save("Scalingconfig.xml")
+	End Sub
+	
 	
 	Sub SaveEPOptions
 		'on error resume next
@@ -469,6 +477,15 @@ Public Partial Class MainForm
 		cmbRuneOH.Items.Add("Berserking")
 		cmbRuneOH.SelectedItem = stemp
 		
+		stemp= cmbBShOption.SelectedItem
+		cmbBShOption.Items.Add("Instead of Blood Strike")
+		cmbBShOption.Items.Add("Instead of Blood Boil")
+		cmbBShOption.Items.Add("After BS/BB")
+		cmbBShOption.SelectedItem = stemp
+		
+		
+		
+		
 		SimConstructor.PetFriendly = True
 		
 		
@@ -593,7 +610,6 @@ Public Partial Class MainForm
 		
 	End Sub
 	
-	
 	Sub CmdEditPrioClick(sender As Object, e As EventArgs)
 		on error goto errH
 		Dim tr As IO.Textreader
@@ -686,7 +702,6 @@ Public Partial Class MainForm
 		errH:
 	End Sub
 	
-	
 	Sub TxtLatencyTextChanged(sender As Object, e As EventArgs)
 		
 		dim test as Boolean
@@ -697,7 +712,6 @@ Public Partial Class MainForm
 	Sub CmdImportTemplateClick(sender As Object, e As EventArgs)
 		ImportTemplate("")
 	End Sub
-	
 	
 	Sub ImportTemplate(name As String)
 		
@@ -1255,14 +1269,11 @@ Public Partial Class MainForm
 		msgbox("Error while importing talents !")
 	End Sub
 	
-	
 	Sub CmdLoadMmoClick(sender As Object, e As EventArgs)
 		
 	End Sub
 	
-	Sub ChkLissageCheckedChanged(sender As Object, e As EventArgs)
-		SimConstructor.Lissage = chkLissage.Checked
-	End Sub
+
 	
 	Sub CmdImportArmoryClick(sender As Object, e As EventArgs)
 		Dim URL As String = txtArmory.Text
@@ -1300,7 +1311,6 @@ Public Partial Class MainForm
 		
 	End Sub
 	
-	
 	Sub CmbHeadSelectedIndexChanged(sender As Object, e As EventArgs)
 		Dim xDoc As new Xml.XmlDocument
 		xDoc.Load("wowheaddbEpic.xml")
@@ -1328,7 +1338,6 @@ Public Partial Class MainForm
 	Sub ChkEPSpHitCheckedChanged(sender As Object, e As EventArgs)
 		if ChkEPSpHit.Checked=false then ChkEPAfterSpellHitRating.Checked = false
 	End Sub
-	
 	
 	Sub RdPrioCheckedChanged(sender As Object, e As EventArgs)
 		If rdPrio.Checked Then
@@ -1364,7 +1373,6 @@ Public Partial Class MainForm
 		ImportTemplate(me.TemplatePath)
 	End Sub
 	
-	
 	Sub CmdSaveNewTemplateClick(sender As Object, e As EventArgs)
 		Dim sTemp As String
 		dim BT as TemplateButton
@@ -1383,5 +1391,10 @@ Public Partial Class MainForm
 	
 	Sub TxtNumberOfEnemiesTextChanged(sender As Object, e As EventArgs)
 		
+	End Sub
+	
+	Sub CmdScalingClick(sender As Object, e As EventArgs)
+		if LoadBeforeSim = false then exit sub
+		SimConstructor.StartScaling(PBsim,txtSimtime.Text,me)
 	End Sub
 End Class

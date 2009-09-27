@@ -60,7 +60,7 @@ Friend Class DeathStrike
 					dégat = AvrgNonCrit(T,true)
 					sim.combatlog.write(T  & vbtab &  "DS hit for " & dégat )
 				End If
-				If sim.Lissage Then dégat = AvrgCrit(T,true)*CritChance + AvrgNonCrit(T,true)*(1-CritChance )
+
 				total = total + dégat
 				sim.TryOnMHHitProc
 			End If
@@ -76,7 +76,7 @@ Friend Class DeathStrike
 					dégat = AvrgNonCrit(T,false)
 					sim.combatlog.write(T  & vbtab &  "OH DS hit for " & dégat )
 				End If
-				If sim.Lissage Then dégat = AvrgCrit(T,false)*CritChance + AvrgNonCrit(T,false)*(1-CritChance )
+
 				total = total + dégat
 				sim.TryOnOHHitProc
 			End If

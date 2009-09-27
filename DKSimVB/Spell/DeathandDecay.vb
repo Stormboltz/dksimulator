@@ -59,7 +59,7 @@ Friend Class DeathandDecay
 				if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "D&D hit for " & dégat)
 			End If
 			
-			if sim.Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
+
 			total = total + dégat
 		Next intCount
 		

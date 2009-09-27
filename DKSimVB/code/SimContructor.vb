@@ -8,7 +8,7 @@
 '
 Public Module SimConstructor
 	Friend sim As Sim
-	Friend Lissage As Boolean 'How about Smoothing? ;)
+
 	Friend PetFriendly As Boolean
 	Friend Rotate as Boolean
 	Friend ReportPath As String
@@ -27,12 +27,12 @@ Public Module SimConstructor
 		Sim = New Sim
 		_MainFrm = MainFrm
 		If EpStat <> "" Then
-			Sim.Prepare(pb,Simtime, Mainfrm,EPStat)
+			Sim.Prepare(pb,Simtime, Mainfrm,EPStat,EPBase)
 		Else
 			Sim.Prepare(pb,Simtime, Mainfrm)
 		End If
 		'Sim.Prepare(pb,Simtime, Mainfrm)
-		sim.ePBase = 50
+		
 		newthread = New System.Threading.Thread(AddressOf sim.Start)
 		newthread.Priority= Threading.ThreadPriority.BelowNormal 'Shouldn't be necessary, works fine for me without it.
 		'Environment.ProcessorCount 'This gives you the number of cores. Maybe useful.
@@ -45,8 +45,6 @@ Public Module SimConstructor
 	Sub StartEP(pb As ProgressBar,SimTime As Double,MainFrm As MainForm)
 		DPSs.Clear
 		ThreadCollection.Clear
-		'newthread = New System.Threading.Thread(AddressOf sim.Start)
-		'newthread.Start()
 		EPBase = 50
 		_MainFrm = MainFrm
 		dim sReport as String
@@ -122,14 +120,25 @@ Public Module SimConstructor
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		
+		if doc.SelectSingleNode("//config/Stats/chkEPAfterSpellHitRating").InnerText = "True" then
+			EPStat="AfterSpellHitBase"
+			SimConstructor.Start(pb,SimTime,MainFrm)
+			EPStat="AfterSpellHitBaseAP"
+			SimConstructor.Start(pb,SimTime,MainFrm)
+			EPStat="AfterSpellHitRating"
+			SimConstructor.Start(pb,SimTime,MainFrm)
+		End If
+		
+		
+		
 		'This seems to have the same effect as AreMyStrheadFinninshed, without an ugly loop.
-		'Dim T as Threading.Thread
-		'For Each T In ThreadCollection
-		'	T.Join()
-		'Next
-		Do Until AreMyStrheadFinninshed
-			Application.DoEvents
-		Loop
+		Dim T as Threading.Thread
+		For Each T In ThreadCollection
+			T.Join()
+		Next
+'		Do Until AreMyStrheadFinninshed
+'			Application.DoEvents
+'		Loop
 
 		EPStat = "DryRun"
 		BaseDPS = dpss(EPStat)
@@ -231,6 +240,21 @@ Public Module SimConstructor
 		catch
 		End Try
 		
+		
+		Try
+			EPStat="AfterSpellHitBase"
+			BaseDPS = dpss(EPStat)
+			EPStat="AfterSpellHitBaseAP"
+			APDPS = dpss(EPStat)
+			EPStat="AfterSpellHitRating"
+			DPS = dpss(EPStat)
+			tmp1 = (APDPS-BaseDPS ) / 100
+			tmp2 = (DPS-BaseDPS) / EPBase
+			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | After spell hit cap | " & toDDecimal (tmp2/tmp1) & "</td></tr>")
+			WriteReport ("Average for " & EPStat & " | " & DPS)
+		catch
+		end try
+		
 		EPStat = ""
 		
 		skipStats:
@@ -276,9 +300,12 @@ Public Module SimConstructor
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		
-		Do Until AreMyStrheadFinninshed
-			Application.DoEvents
-		Loop
+		For Each T In ThreadCollection
+			T.Join()
+		Next
+'		Do Until AreMyStrheadFinninshed
+'			Application.DoEvents
+'		Loop
 		
 		EPStat = "0T7"
 		BaseDPS = dpss(EPStat)
@@ -375,14 +402,54 @@ Public Module SimConstructor
 		
 	End Sub
 	
-	
-	Function AreMyStrheadFinninshed() As Boolean
+	Sub StartScaling(pb As ProgressBar,SimTime As Double,MainFrm As MainForm)
+		DPSs.Clear
+		ThreadCollection.Clear
+		EPBase = 50
+		_MainFrm = MainFrm
+		dim sReport as String
+		Dim doc As xml.XmlDocument = New xml.XmlDocument
 		Dim T as Threading.Thread
-		For Each T In ThreadCollection
-			if T.IsAlive then return false
+		
+		doc.Load("ScalingConfig.xml")
+		Dim xNodelist As Xml.XmlNode
+		xNodelist = doc.SelectSingleNode("//config/Stats")
+		Dim xNode As Xml.XmlNode
+		Dim i As Integer
+		sReport = "<table border='0' cellspacing='0' style='font-family:Verdana; font-size:10px;'>"
+		Dim max As Integer
+		max = 50
+		EPBase = 20 
+		
+		sReport = sReport +  ("<tr><td>Stat<td>")
+		For i=0 To max
+			sReport = sReport & "<td>" & EPBase*i & "<td>"
 		Next
-		Return true
-	End Function
-	
+		sReport = sReport +  ("</tr>")
+		
+		
+		For Each xNode In xNodelist.ChildNodes
+			
+			If xNode.InnerText = "True" Then
+				For i=0 To max
+					EpStat=Replace(xNode.Name,"chk","") & i
+					
+					SimConstructor.Start(pb,1,MainFrm)
+				Next i
+				For Each T In ThreadCollection
+					T.Join()
+				Next
+				EpStat= Replace(xNode.Name,"chk","")
+				sReport = sReport +  ("<tr><td>" & EpStat & "<td>")
+				For i=0 To max
+					sReport = sReport +  ("<td>" & DPSs(EpStat & i) & "<td>")
+				Next i
+				sReport = sReport +  ("</tr>")
+			End If
+			
+		Next
+		sReport = sReport & "</table>"
+		WriteReport(sReport)
+	End Sub
 	
 End Module

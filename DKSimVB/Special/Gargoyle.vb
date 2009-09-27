@@ -73,7 +73,7 @@ Function ApplyDamage(T As long) As boolean
 		If sim.combatlog.LogDetails Then sim.combatlog.write(T  & vbtab &  "Gargoyle Strike hit for " & dégat )
 	End If
 	
-	if sim.Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
+
 	total = total + dégat
 		
 	return true

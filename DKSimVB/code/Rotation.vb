@@ -124,6 +124,12 @@ Friend Class Rotation
 				End If
 			Case "BloodStrike"
 				If runes.AnyBlood(TimeStamp) Then
+					If sim.BoneShieldUsageStyle = 1 Then
+						If sim.BoneShield.IsAvailable(TimeStamp) Then
+							sim.BoneShield.Use(TimeStamp)
+							Return True
+						End If
+					End If
 					return sim.BloodStrike.ApplyDamage(TimeStamp)
 					'debug.Print("BS")
 					Exit Function
@@ -168,7 +174,13 @@ Friend Class Rotation
 				End If
 			Case "BloodBoil"
 				If runes.AnyBlood(TimeStamp) = True Then
-					
+					If sim.BoneShieldUsageStyle = 3 Then
+						If sim.BoneShield.IsAvailable(TimeStamp) Then
+							sim.BoneShield.Use(TimeStamp)
+							return true
+						End If
+					End If
+						
 					Return sim.BloodBoil.ApplyDamage(TimeStamp)
 					Exit Function
 				Else

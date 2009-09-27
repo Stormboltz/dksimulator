@@ -9,10 +9,9 @@
 Public Class BoneShield
 	Inherits Spells.Spell
 	
-	
 	Sub New(MySim as Sim)
 		Init
-		sim = MySim 
+		sim = MySim
 	End Sub
 	
 	
@@ -44,18 +43,11 @@ Public Class BoneShield
 	End Function
 	Function IsAvailable(T As Long) As Boolean
 		If TalentUnholy.BoneShield =0 Then Return False
-		if ActiveUntil > T then return false
-		If CD > T Then
-			Return false
-		Else
-			If sim.runes.Unholy(T) = False Then
-				if sim.BloodTap.IsAvailable(T) = True Then
-				Return True
-				end if
-			End If
-		End If
+		If ActiveUntil > T Then Return False
+		if sim.BloodTap.IsAvailable(T)=false Then Return false
+		If CD > T Then Return False
+		return true
 	End Function
-	
 	Function Value(T As Long) As integer
 		If ActiveUntil > T Then
 			Return 1

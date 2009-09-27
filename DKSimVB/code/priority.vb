@@ -94,10 +94,16 @@ Friend Class priority
 						exit sub
 					End If
 				Case "BloodStrike"
-					If runes.Blood(TimeStamp) and sim.CanUseGCD(Timestamp) Then
+					If runes.Blood(TimeStamp) And sim.CanUseGCD(Timestamp) Then
+						If sim.BoneShieldUsageStyle = 1 Then
+							If sim.BoneShield.IsAvailable(TimeStamp) Then
+								sim.BoneShield.Use(TimeStamp)
+								exit sub
+							End If
+						End If
 						sim.BloodStrike.ApplyDamage(TimeStamp)
 						'debug.Print("BS")
-						exit sub
+						
 					End If
 					
 				Case "HeartStrike"
@@ -197,7 +203,13 @@ Friend Class priority
 						exit sub
 					End If
 				Case "BloodBoil"
-					If runes.Blood(TimeStamp) = True and sim.CanUseGCD(Timestamp) Then
+					If runes.Blood(TimeStamp) = True And sim.CanUseGCD(Timestamp) Then
+						If sim.BoneShieldUsageStyle = 3 Then
+							If sim.BoneShield.IsAvailable(TimeStamp) Then
+								sim.BoneShield.Use(TimeStamp)
+								exit sub
+							End If
+						End If
 						sim.BloodBoil.ApplyDamage(TimeStamp)
 						exit sub
 					End If
