@@ -419,11 +419,11 @@ Public Module SimConstructor
 		sReport = "<table border='0' cellspacing='0' style='font-family:Verdana; font-size:10px;'>"
 		Dim max As Integer
 		max = 50
-		EPBase = 20 
+		EPBase = 20
 		
-		sReport = sReport +  ("<tr><td>Stat<td>")
+		sReport = sReport +  ("<tr><td>Stat</td>")
 		For i=0 To max
-			sReport = sReport & "<td>" & EPBase*i & "<td>"
+			sReport = sReport & "<td>" & EPBase*i & "</td>"
 		Next
 		sReport = sReport +  ("</tr>")
 		
@@ -440,16 +440,49 @@ Public Module SimConstructor
 					T.Join()
 				Next
 				EpStat= Replace(xNode.Name,"chk","")
-				sReport = sReport +  ("<tr><td>" & EpStat & "<td>")
+				sReport = sReport +  ("<tr><td>" & EpStat & "</td>")
 				For i=0 To max
-					sReport = sReport +  ("<td>" & DPSs(EpStat & i) & "<td>")
+					sReport = sReport +  ("<td>" & DPSs(EpStat & i) & "</td>")
 				Next i
 				sReport = sReport +  ("</tr>")
 			End If
 			
 		Next
 		sReport = sReport & "</table>"
+		
 		WriteReport(sReport)
-	End Sub
+		createGraph
+		EpStat = ""
+		
+		End Sub
+		
+		function createGraph() as Graphics
+			Dim pg As Bitmap = New Bitmap((50),(9000)) 
+			Dim gr As Graphics = Graphics.FromImage(pg)
+
+		Dim doc As xml.XmlDocument = New xml.XmlDocument
+
+		
+		doc.Load("ScalingConfig.xml")
+		Dim xNodelist As Xml.XmlNode
+		xNodelist = doc.SelectSingleNode("//config/Stats")
+		Dim xNode As Xml.XmlNode
+		Dim i As Integer
+		Dim max As Integer
+		max = 50
+		EPBase = 20
+		dim pen as new Drawing.Pen(color.Blue)
+		For Each xNode In xNodelist.ChildNodes
+			If xNode.InnerText = "True" Then
+				EpStat= Replace(xNode.Name,"chk","")
+				For i=0 To max-1
+					gr.DrawLine(pen,i,DPSs(EpStat & i),i+1,DPSs(EpStat & i+1))
+				Next i
+			End If
+		Next
+		pg.Save("myScaling.jpeg",imaging.ImageFormat.Png)
+			
+		
+	End function
 	
 End Module

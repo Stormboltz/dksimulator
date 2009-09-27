@@ -240,7 +240,7 @@ Friend Class Character
 			tmp =  Replace(sim.EPStat,"ScaArP","") * sim.EPBase
 		End If
 		If sim.EPStat="ArmorPenetrationRating" Then 
-			_ArmorPenetrationRating = tmp+sim.EPBase
+			tmp = tmp+sim.EPBase
 		End If
 		
 		If Sim.Trinket.MjolRuneFade > sim.TimeStamp Then tmp = tmp + 665
