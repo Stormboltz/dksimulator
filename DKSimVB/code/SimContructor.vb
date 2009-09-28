@@ -451,12 +451,12 @@ Public Module SimConstructor
 		sReport = sReport & "</table>"
 		
 		WriteReport(sReport)
-		createGraph
+		'createGraph
 		EpStat = ""
 		
 		End Sub
 		
-		function createGraph() as Graphics
+		sub createGraph() 
 			Dim pg As Bitmap = New Bitmap((50),(9000)) 
 			Dim gr As Graphics = Graphics.FromImage(pg)
 
@@ -483,6 +483,6 @@ Public Module SimConstructor
 		pg.Save("myScaling.jpeg",imaging.ImageFormat.Png)
 			
 		
-	End function
+	End sub
 	
 End Module

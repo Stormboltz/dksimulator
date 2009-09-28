@@ -24,6 +24,7 @@ Friend Class FrostFever
 		nextTick = T + 3 * 100
 		sim.pestilence.FFToReapply = False
 		ScourgeStrikeGlyphCounter = 0
+		CritChance = sim.MainStat.SpellCrit
 	End Function
 	
 	overrides	Function AvrgNonCrit(T As long) As Double

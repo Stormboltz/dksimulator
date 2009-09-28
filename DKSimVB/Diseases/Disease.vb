@@ -20,7 +20,9 @@ Public Class Disease
 	Friend CritCount As Integer
 	Friend DamageTick As Integer
 	Friend ScourgeStrikeGlyphCounter As Integer
-	Friend OtherTargetsFade as Integer
+	Friend OtherTargetsFade As Integer
+	Friend CritChance As Double
+	
 
 	Protected sim As Sim
 	Sub New
@@ -96,9 +98,7 @@ Public Class Disease
 	Overridable Function CritCoef() As Double
 		return (1+0.06*sim.mainstat.CSD)
 	End Function
-	Overridable Function CritChance() As Double
-		return sim.MainStat.crit
-	End Function
+
 	Overridable Function AvrgCrit(T As long) As Double
 		return DamageTick * (1 + CritCoef)
 	End Function

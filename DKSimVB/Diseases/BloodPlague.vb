@@ -23,6 +23,7 @@ Friend Class BloodPlague
 		nextTick = T + 3 * 100
 		sim.pestilence.BPToReapply = False
 		ScourgeStrikeGlyphCounter = 0
+		CritChance = sim.MainStat.crit
 	End Function
 	
 	overrides Function AvrgNonCrit(T As long) As Double
