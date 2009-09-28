@@ -98,6 +98,7 @@ Public Partial Class MainForm
 		loadConfig
 		LoadEPOptions
 		LoadBuffOption
+		LoadScaling
 		
 		CreateTreeTemplate
 		initReport
@@ -310,6 +311,20 @@ Public Partial Class MainForm
 		
 		errH:
 	End Sub
+	
+	Sub LoadScaling()
+		Dim doc As xml.XmlDocument = New xml.XmlDocument
+		doc.Load("Scalingconfig.xml")
+		Dim ctrl As Control
+		dim chkBox as CheckBox
+		For Each ctrl in gbScaling.Controls
+			If ctrl.Name.StartsWith ("chkSca") Then
+				chkBox = ctrl
+				chkBox.Checked = doc.SelectSingleNode("//config/Stats/" & chkBox.Name ).InnerText
+			End If
+		Next
+	End Sub
+	
 	Sub saveScaling()
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
 		doc.LoadXml("<config></config>")
@@ -1396,5 +1411,13 @@ Public Partial Class MainForm
 	Sub CmdScalingClick(sender As Object, e As EventArgs)
 		if LoadBeforeSim = false then exit sub
 		SimConstructor.StartScaling(PBsim,txtSimtime.Text,me)
+	End Sub
+	
+	Sub GroupBox4Enter(sender As Object, e As EventArgs)
+		
+	End Sub
+	
+	Sub Label27Click(sender As Object, e As EventArgs)
+		
 	End Sub
 End Class

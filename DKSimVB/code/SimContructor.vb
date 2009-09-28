@@ -451,14 +451,26 @@ Public Module SimConstructor
 		sReport = sReport & "</table>"
 		
 		WriteReport(sReport)
-		'createGraph
+		createGraph
 		EpStat = ""
 		
 		End Sub
-		
-		sub createGraph() 
-			Dim pg As Bitmap = New Bitmap((50),(9000)) 
-			Dim gr As Graphics = Graphics.FromImage(pg)
+		Sub FakeResultBulder
+		'	EpStat= Replace(xNode.Name,"chk","")
+			
+'			Stat 0 20 40 60 80 100 120 140 160 180 200 220 240 260 280 300 320 340 360 380 400 420 440 460 480 500 520 540 560 580 600 620 640 660 680 700 720 740 760 780 800 820 840 860 880 900 920 940 960 980 1000 
+'			ScaExp 6947 6977 6980 7023 7004 7097 7088 7068 7131 7133 7186 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 
+'			ScaHit 6849 6911 6901 6928 6964 6946 7048 7068 7065 7030 7120 7094 7163 7212 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 
+'			ScaArP 6953 6966 6980 6993 7007 7021 7035 7049 7063 7077 7091 7106 7121 7135 7151 7166 7181 7196 7212 7228 7244 7260 7276 7293 7310 7326 7344 7361 7378 7396 7413 7431 7450 7468 7487 7505 7525 7544 7563 7583 7603 7623 7644 7664 7685 7706 7728 7749 7771 7794 7816 
+'			ScaHaste 6598 6644 6642 6661 6687 6695 6710 6746 6789 6834 6859 6868 6878 6935 6935 6945 7032 6999 7037 7069 7078 7142 7090 7132 7175 7176 7210 7216 7257 7269 7291 7325 7395 7373 7436 7359 7479 7425 7460 7443 7524 7523 7562 7607 7649 7621 7688 7657 7735 7740 7706 
+'			ScaCrit 6447 6443 6465 6510 6524 6571 6596 6594 6644 6654 6670 6708 6717 6693 6727 6749 6756 6824 6839 6864 6886 6908 6918 6963 6966 6952 6994 6993 7014 7039 7042 7036 7090 7090 7105 7139 7165 7177 7197 7226 7253 7247 7259 7269 7300 7348 7359 7379 7401 7403 7459 
+'			ScaAgility 7175 7179 7192 7207 7223 7237 7227 7230 7242 7251 7259 7316 7299 7317 7348 7330 7352 7403 7432 7444 7433 7429 7435 7450 7469 7473 7439 7461 7521 7521 7536 7555 7559 7576 7596 7611 7626 7642 7643 7634 7654 7670 7692 7698 7696 7714 7686 7745 7770 7764 7777 
+'			ScaStr 7175 7213 7248 7287 7324 7360 7398 7436 7471 7509 7547 7582 7620 7658 7693 7732 7769 7804 7843 7879 7917 7953 7990 8027 8064 8103 8138 8176 8214 8249 8287 8325 8361 8398 8436 8472 8509 8545 8583 8620 8657 8694 8731 8768 8805 8843 8879 8915 8954 8990 9028 
+
+		End Sub
+		sub createGraph()
+		Dim pg As Bitmap = New Bitmap((500),(900))
+		Dim gr As Graphics = Graphics.FromImage(pg)
 
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
 
@@ -471,18 +483,43 @@ Public Module SimConstructor
 		Dim max As Integer
 		max = 50
 		EPBase = 20
-		dim pen as new Drawing.Pen(color.Blue)
+		Dim x1 As Integer
+		Dim y1 As Integer
+		Dim x2 As Integer
+		Dim y2 As Integer
+		
+		Dim pen As New Drawing.Pen(color.Blue)
 		For Each xNode In xNodelist.ChildNodes
 			If xNode.InnerText = "True" Then
 				EpStat= Replace(xNode.Name,"chk","")
+			 Select Case EpStat
+			 	Case "ScaExp"
+			 		pen.Color  = color.Violet
+			 	Case "ScaHit"
+			 		pen.Color  = color.Yellow
+			 	Case "ScaArP"
+			 		pen.Color  = color.Maroon
+			 	Case "ScaHaste"
+			 		pen.Color  = color.GreenYellow
+			 	Case "ScaCrit"
+			 		pen.Color  = color.Orange
+			 	Case "ScaAgility"
+			 		pen.Color  = color.Purple
+			 	Case "ScaStr"
+			 		pen.Color  = color.Red
+			 End Select
+				
+				
 				For i=0 To max-1
-					gr.DrawLine(pen,i,DPSs(EpStat & i),i+1,DPSs(EpStat & i+1))
+					x1 = i*10
+					y1 = DPSs(EpStat & i)/10
+					x2 = (i+1)*10
+					y2 = DPSs(EpStat & i+1)/10
+					gr.DrawLine(pen,x1,y1,x2,y2)
 				Next i
 			End If
 		Next
-		pg.Save("myScaling.jpeg",imaging.ImageFormat.Png)
-			
-		
+		pg.Save("myScaling.jpeg",imaging.ImageFormat.Jpeg)
 	End sub
 	
 End Module
