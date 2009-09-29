@@ -8,7 +8,7 @@
 '
 Public Module SimConstructor
 	Friend sim As Sim
-
+	
 	Friend PetFriendly As Boolean
 	Friend Rotate as Boolean
 	Friend ReportPath As String
@@ -142,10 +142,10 @@ Public Module SimConstructor
 		For Each T In ThreadCollection
 			T.Join()
 		Next
-'		Do Until AreMyStrheadFinninshed
-'			Application.DoEvents
-'		Loop
-
+		'		Do Until AreMyStrheadFinninshed
+		'			Application.DoEvents
+		'		Loop
+		
 		EPStat = "DryRun"
 		BaseDPS = dpss(EPStat)
 		WriteReport ("Average for " & EPStat & " | " & BaseDPS)
@@ -321,9 +321,9 @@ Public Module SimConstructor
 		For Each T In ThreadCollection
 			T.Join()
 		Next
-'		Do Until AreMyStrheadFinninshed
-'			Application.DoEvents
-'		Loop
+		'		Do Until AreMyStrheadFinninshed
+		'			Application.DoEvents
+		'		Loop
 		
 		EPStat = "0T7"
 		BaseDPS = dpss(EPStat)
@@ -422,6 +422,12 @@ Public Module SimConstructor
 	
 	Sub StartScaling(pb As ProgressBar,SimTime As Double,MainFrm As MainForm)
 		DPSs.Clear
+		FakeResultBuilder
+		createGraph
+		exit sub
+		
+		
+		DPSs.Clear
 		ThreadCollection.Clear
 		EPBase = 50
 		_MainFrm = MainFrm
@@ -472,26 +478,379 @@ Public Module SimConstructor
 		'createGraph
 		EpStat = ""
 		
-		End Sub
-		Sub FakeResultBulder
-		'	EpStat= Replace(xNode.Name,"chk","")
-			
-'			Stat 0 20 40 60 80 100 120 140 160 180 200 220 240 260 280 300 320 340 360 380 400 420 440 460 480 500 520 540 560 580 600 620 640 660 680 700 720 740 760 780 800 820 840 860 880 900 920 940 960 980 1000 
-'			ScaExp 6947 6977 6980 7023 7004 7097 7088 7068 7131 7133 7186 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 
-'			ScaHit 6849 6911 6901 6928 6964 6946 7048 7068 7065 7030 7120 7094 7163 7212 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 7175 
-'			ScaArP 6953 6966 6980 6993 7007 7021 7035 7049 7063 7077 7091 7106 7121 7135 7151 7166 7181 7196 7212 7228 7244 7260 7276 7293 7310 7326 7344 7361 7378 7396 7413 7431 7450 7468 7487 7505 7525 7544 7563 7583 7603 7623 7644 7664 7685 7706 7728 7749 7771 7794 7816 
-'			ScaHaste 6598 6644 6642 6661 6687 6695 6710 6746 6789 6834 6859 6868 6878 6935 6935 6945 7032 6999 7037 7069 7078 7142 7090 7132 7175 7176 7210 7216 7257 7269 7291 7325 7395 7373 7436 7359 7479 7425 7460 7443 7524 7523 7562 7607 7649 7621 7688 7657 7735 7740 7706 
-'			ScaCrit 6447 6443 6465 6510 6524 6571 6596 6594 6644 6654 6670 6708 6717 6693 6727 6749 6756 6824 6839 6864 6886 6908 6918 6963 6966 6952 6994 6993 7014 7039 7042 7036 7090 7090 7105 7139 7165 7177 7197 7226 7253 7247 7259 7269 7300 7348 7359 7379 7401 7403 7459 
-'			ScaAgility 7175 7179 7192 7207 7223 7237 7227 7230 7242 7251 7259 7316 7299 7317 7348 7330 7352 7403 7432 7444 7433 7429 7435 7450 7469 7473 7439 7461 7521 7521 7536 7555 7559 7576 7596 7611 7626 7642 7643 7634 7654 7670 7692 7698 7696 7714 7686 7745 7770 7764 7777 
-'			ScaStr 7175 7213 7248 7287 7324 7360 7398 7436 7471 7509 7547 7582 7620 7658 7693 7732 7769 7804 7843 7879 7917 7953 7990 8027 8064 8103 8138 8176 8214 8249 8287 8325 8361 8398 8436 8472 8509 8545 8583 8620 8657 8694 8731 8768 8805 8843 8879 8915 8954 8990 9028 
-
-		End Sub
-		sub createGraph()
+	End Sub
+	Sub FakeResultBuilder
+		SimConstructor.DPSs.Add(6947,"ScaExp0")
+		SimConstructor.DPSs.Add(6977,"ScaExp1")
+		SimConstructor.DPSs.Add(6980,"ScaExp2")
+		SimConstructor.DPSs.Add(7023,"ScaExp3")
+		SimConstructor.DPSs.Add(7004,"ScaExp4")
+		SimConstructor.DPSs.Add(7097,"ScaExp5")
+		SimConstructor.DPSs.Add(7088,"ScaExp6")
+		SimConstructor.DPSs.Add(7068,"ScaExp7")
+		SimConstructor.DPSs.Add(7131,"ScaExp8")
+		SimConstructor.DPSs.Add(7133,"ScaExp9")
+		SimConstructor.DPSs.Add(7186,"ScaExp10")
+		SimConstructor.DPSs.Add(7175,"ScaExp11")
+		SimConstructor.DPSs.Add(7175,"ScaExp12")
+		SimConstructor.DPSs.Add(7175,"ScaExp13")
+		SimConstructor.DPSs.Add(7175,"ScaExp14")
+		SimConstructor.DPSs.Add(7175,"ScaExp15")
+		SimConstructor.DPSs.Add(7175,"ScaExp16")
+		SimConstructor.DPSs.Add(7175,"ScaExp17")
+		SimConstructor.DPSs.Add(7175,"ScaExp18")
+		SimConstructor.DPSs.Add(7175,"ScaExp19")
+		SimConstructor.DPSs.Add(7175,"ScaExp20")
+		SimConstructor.DPSs.Add(7175,"ScaExp21")
+		SimConstructor.DPSs.Add(7175,"ScaExp22")
+		SimConstructor.DPSs.Add(7175,"ScaExp23")
+		SimConstructor.DPSs.Add(7175,"ScaExp24")
+		SimConstructor.DPSs.Add(7175,"ScaExp25")
+		SimConstructor.DPSs.Add(7175,"ScaExp26")
+		SimConstructor.DPSs.Add(7175,"ScaExp27")
+		SimConstructor.DPSs.Add(7175,"ScaExp28")
+		SimConstructor.DPSs.Add(7175,"ScaExp29")
+		SimConstructor.DPSs.Add(7175,"ScaExp30")
+		SimConstructor.DPSs.Add(7175,"ScaExp31")
+		SimConstructor.DPSs.Add(7175,"ScaExp32")
+		SimConstructor.DPSs.Add(7175,"ScaExp33")
+		SimConstructor.DPSs.Add(7175,"ScaExp34")
+		SimConstructor.DPSs.Add(7175,"ScaExp35")
+		SimConstructor.DPSs.Add(7175,"ScaExp36")
+		SimConstructor.DPSs.Add(7175,"ScaExp37")
+		SimConstructor.DPSs.Add(7175,"ScaExp38")
+		SimConstructor.DPSs.Add(7175,"ScaExp39")
+		SimConstructor.DPSs.Add(7175,"ScaExp40")
+		SimConstructor.DPSs.Add(7175,"ScaExp41")
+		SimConstructor.DPSs.Add(7175,"ScaExp42")
+		SimConstructor.DPSs.Add(7175,"ScaExp43")
+		SimConstructor.DPSs.Add(7175,"ScaExp44")
+		SimConstructor.DPSs.Add(7175,"ScaExp45")
+		SimConstructor.DPSs.Add(7175,"ScaExp46")
+		SimConstructor.DPSs.Add(7175,"ScaExp47")
+		SimConstructor.DPSs.Add(7175,"ScaExp48")
+		SimConstructor.DPSs.Add(7175,"ScaExp49")
+		SimConstructor.DPSs.Add(7175,"ScaExp50")
+		SimConstructor.DPSs.Add(6849,"ScaHit0")
+		SimConstructor.DPSs.Add(6911,"ScaHit1")
+		SimConstructor.DPSs.Add(6901,"ScaHit2")
+		SimConstructor.DPSs.Add(6928,"ScaHit3")
+		SimConstructor.DPSs.Add(6964,"ScaHit4")
+		SimConstructor.DPSs.Add(6946,"ScaHit5")
+		SimConstructor.DPSs.Add(7048,"ScaHit6")
+		SimConstructor.DPSs.Add(7068,"ScaHit7")
+		SimConstructor.DPSs.Add(7065,"ScaHit8")
+		SimConstructor.DPSs.Add(7030,"ScaHit9")
+		SimConstructor.DPSs.Add(7120,"ScaHit10")
+		SimConstructor.DPSs.Add(7094,"ScaHit11")
+		SimConstructor.DPSs.Add(7163,"ScaHit12")
+		SimConstructor.DPSs.Add(7212,"ScaHit13")
+		SimConstructor.DPSs.Add(7175,"ScaHit14")
+		SimConstructor.DPSs.Add(7175,"ScaHit15")
+		SimConstructor.DPSs.Add(7175,"ScaHit16")
+		SimConstructor.DPSs.Add(7175,"ScaHit17")
+		SimConstructor.DPSs.Add(7175,"ScaHit18")
+		SimConstructor.DPSs.Add(7175,"ScaHit19")
+		SimConstructor.DPSs.Add(7175,"ScaHit20")
+		SimConstructor.DPSs.Add(7175,"ScaHit21")
+		SimConstructor.DPSs.Add(7175,"ScaHit22")
+		SimConstructor.DPSs.Add(7175,"ScaHit23")
+		SimConstructor.DPSs.Add(7175,"ScaHit24")
+		SimConstructor.DPSs.Add(7175,"ScaHit25")
+		SimConstructor.DPSs.Add(7175,"ScaHit26")
+		SimConstructor.DPSs.Add(7175,"ScaHit27")
+		SimConstructor.DPSs.Add(7175,"ScaHit28")
+		SimConstructor.DPSs.Add(7175,"ScaHit29")
+		SimConstructor.DPSs.Add(7175,"ScaHit30")
+		SimConstructor.DPSs.Add(7175,"ScaHit31")
+		SimConstructor.DPSs.Add(7175,"ScaHit32")
+		SimConstructor.DPSs.Add(7175,"ScaHit33")
+		SimConstructor.DPSs.Add(7175,"ScaHit34")
+		SimConstructor.DPSs.Add(7175,"ScaHit35")
+		SimConstructor.DPSs.Add(7175,"ScaHit36")
+		SimConstructor.DPSs.Add(7175,"ScaHit37")
+		SimConstructor.DPSs.Add(7175,"ScaHit38")
+		SimConstructor.DPSs.Add(7175,"ScaHit39")
+		SimConstructor.DPSs.Add(7175,"ScaHit40")
+		SimConstructor.DPSs.Add(7175,"ScaHit41")
+		SimConstructor.DPSs.Add(7175,"ScaHit42")
+		SimConstructor.DPSs.Add(7175,"ScaHit43")
+		SimConstructor.DPSs.Add(7175,"ScaHit44")
+		SimConstructor.DPSs.Add(7175,"ScaHit45")
+		SimConstructor.DPSs.Add(7175,"ScaHit46")
+		SimConstructor.DPSs.Add(7175,"ScaHit47")
+		SimConstructor.DPSs.Add(7175,"ScaHit48")
+		SimConstructor.DPSs.Add(7175,"ScaHit49")
+		SimConstructor.DPSs.Add(7175,"ScaHit50")
+		
+		SimConstructor.DPSs.Add(6953,"ScaArP0")
+		SimConstructor.DPSs.Add(6966,"ScaArP1")
+		SimConstructor.DPSs.Add(6980,"ScaArP2")
+		SimConstructor.DPSs.Add(6993,"ScaArP3")
+		SimConstructor.DPSs.Add(7007,"ScaArP4")
+		SimConstructor.DPSs.Add(7021,"ScaArP5")
+		SimConstructor.DPSs.Add(7035,"ScaArP6")
+		SimConstructor.DPSs.Add(7049,"ScaArP7")
+		SimConstructor.DPSs.Add(7063,"ScaArP8")
+		SimConstructor.DPSs.Add(7077,"ScaArP9")
+		SimConstructor.DPSs.Add(7091,"ScaArP10")
+		SimConstructor.DPSs.Add(7106,"ScaArP11")
+		SimConstructor.DPSs.Add(7121,"ScaArP12")
+		SimConstructor.DPSs.Add(7135,"ScaArP13")
+		SimConstructor.DPSs.Add(7151,"ScaArP14")
+		SimConstructor.DPSs.Add(7166,"ScaArP15")
+		SimConstructor.DPSs.Add(7181,"ScaArP16")
+		SimConstructor.DPSs.Add(7196,"ScaArP17")
+		SimConstructor.DPSs.Add(7212,"ScaArP18")
+		SimConstructor.DPSs.Add(7228,"ScaArP19")
+		SimConstructor.DPSs.Add(7244,"ScaArP20")
+		SimConstructor.DPSs.Add(7260,"ScaArP21")
+		SimConstructor.DPSs.Add(7276,"ScaArP22")
+		SimConstructor.DPSs.Add(7293,"ScaArP23")
+		SimConstructor.DPSs.Add(7310,"ScaArP24")
+		SimConstructor.DPSs.Add(7326,"ScaArP25")
+		SimConstructor.DPSs.Add(7344,"ScaArP26")
+		SimConstructor.DPSs.Add(7361,"ScaArP27")
+		SimConstructor.DPSs.Add(7378,"ScaArP28")
+		SimConstructor.DPSs.Add(7396,"ScaArP29")
+		SimConstructor.DPSs.Add(7413,"ScaArP30")
+		SimConstructor.DPSs.Add(7431,"ScaArP31")
+		SimConstructor.DPSs.Add(7450,"ScaArP32")
+		SimConstructor.DPSs.Add(7468,"ScaArP33")
+		SimConstructor.DPSs.Add(7487,"ScaArP34")
+		SimConstructor.DPSs.Add(7505,"ScaArP35")
+		SimConstructor.DPSs.Add(7525,"ScaArP36")
+		SimConstructor.DPSs.Add(7544,"ScaArP37")
+		SimConstructor.DPSs.Add(7563,"ScaArP38")
+		SimConstructor.DPSs.Add(7583,"ScaArP39")
+		SimConstructor.DPSs.Add(7603,"ScaArP40")
+		SimConstructor.DPSs.Add(7623,"ScaArP41")
+		SimConstructor.DPSs.Add(7644,"ScaArP42")
+		SimConstructor.DPSs.Add(7664,"ScaArP43")
+		SimConstructor.DPSs.Add(7685,"ScaArP44")
+		SimConstructor.DPSs.Add(7706,"ScaArP45")
+		SimConstructor.DPSs.Add(7728,"ScaArP46")
+		SimConstructor.DPSs.Add(7749,"ScaArP47")
+		SimConstructor.DPSs.Add(7771,"ScaArP48")
+		SimConstructor.DPSs.Add(7794,"ScaArP49")
+		SimConstructor.DPSs.Add(7816,"ScaArP50")
+		
+		SimConstructor.DPSs.Add(6598,"ScaHaste0")
+		SimConstructor.DPSs.Add(6644,"ScaHaste1")
+		SimConstructor.DPSs.Add(6642,"ScaHaste2")
+		SimConstructor.DPSs.Add(6661,"ScaHaste3")
+		SimConstructor.DPSs.Add(6687,"ScaHaste4")
+		SimConstructor.DPSs.Add(6695,"ScaHaste5")
+		SimConstructor.DPSs.Add(6710,"ScaHaste6")
+		SimConstructor.DPSs.Add(6746,"ScaHaste7")
+		SimConstructor.DPSs.Add(6789,"ScaHaste8")
+		SimConstructor.DPSs.Add(6834,"ScaHaste9")
+		SimConstructor.DPSs.Add(6859,"ScaHaste10")
+		SimConstructor.DPSs.Add(6868,"ScaHaste11")
+		SimConstructor.DPSs.Add(6878,"ScaHaste12")
+		SimConstructor.DPSs.Add(6935,"ScaHaste13")
+		SimConstructor.DPSs.Add(6935,"ScaHaste14")
+		SimConstructor.DPSs.Add(6945,"ScaHaste15")
+		SimConstructor.DPSs.Add(7032,"ScaHaste16")
+		SimConstructor.DPSs.Add(6999,"ScaHaste17")
+		SimConstructor.DPSs.Add(7037,"ScaHaste18")
+		SimConstructor.DPSs.Add(7069,"ScaHaste19")
+		SimConstructor.DPSs.Add(7078,"ScaHaste20")
+		SimConstructor.DPSs.Add(7142,"ScaHaste21")
+		SimConstructor.DPSs.Add(7090,"ScaHaste22")
+		SimConstructor.DPSs.Add(7132,"ScaHaste23")
+		SimConstructor.DPSs.Add(7175,"ScaHaste24")
+		SimConstructor.DPSs.Add(7176,"ScaHaste25")
+		SimConstructor.DPSs.Add(7210,"ScaHaste26")
+		SimConstructor.DPSs.Add(7216,"ScaHaste27")
+		SimConstructor.DPSs.Add(7257,"ScaHaste28")
+		SimConstructor.DPSs.Add(7269,"ScaHaste29")
+		SimConstructor.DPSs.Add(7291,"ScaHaste30")
+		SimConstructor.DPSs.Add(7325,"ScaHaste31")
+		SimConstructor.DPSs.Add(7395,"ScaHaste32")
+		SimConstructor.DPSs.Add(7373,"ScaHaste33")
+		SimConstructor.DPSs.Add(7436,"ScaHaste34")
+		SimConstructor.DPSs.Add(7359,"ScaHaste35")
+		SimConstructor.DPSs.Add(7479,"ScaHaste36")
+		SimConstructor.DPSs.Add(7425,"ScaHaste37")
+		SimConstructor.DPSs.Add(7460,"ScaHaste38")
+		SimConstructor.DPSs.Add(7443,"ScaHaste39")
+		SimConstructor.DPSs.Add(7524,"ScaHaste40")
+		SimConstructor.DPSs.Add(7523,"ScaHaste41")
+		SimConstructor.DPSs.Add(7562,"ScaHaste42")
+		SimConstructor.DPSs.Add(7607,"ScaHaste43")
+		SimConstructor.DPSs.Add(7649,"ScaHaste44")
+		SimConstructor.DPSs.Add(7621,"ScaHaste45")
+		SimConstructor.DPSs.Add(7688,"ScaHaste46")
+		SimConstructor.DPSs.Add(7657,"ScaHaste47")
+		SimConstructor.DPSs.Add(7735,"ScaHaste48")
+		SimConstructor.DPSs.Add(7740,"ScaHaste49")
+		SimConstructor.DPSs.Add(7706,"ScaHaste50")
+		
+		SimConstructor.DPSs.Add(6447,"ScaCrit0")
+		SimConstructor.DPSs.Add(6443,"ScaCrit1")
+		SimConstructor.DPSs.Add(6465,"ScaCrit2")
+		SimConstructor.DPSs.Add(6510,"ScaCrit3")
+		SimConstructor.DPSs.Add(6524,"ScaCrit4")
+		SimConstructor.DPSs.Add(6571,"ScaCrit5")
+		SimConstructor.DPSs.Add(6596,"ScaCrit6")
+		SimConstructor.DPSs.Add(6594,"ScaCrit7")
+		SimConstructor.DPSs.Add(6644,"ScaCrit8")
+		SimConstructor.DPSs.Add(6654,"ScaCrit9")
+		SimConstructor.DPSs.Add(6670,"ScaCrit10")
+		SimConstructor.DPSs.Add(6708,"ScaCrit11")
+		SimConstructor.DPSs.Add(6717,"ScaCrit12")
+		SimConstructor.DPSs.Add(6693,"ScaCrit13")
+		SimConstructor.DPSs.Add(6727,"ScaCrit14")
+		SimConstructor.DPSs.Add(6749,"ScaCrit15")
+		SimConstructor.DPSs.Add(6756,"ScaCrit16")
+		SimConstructor.DPSs.Add(6824,"ScaCrit17")
+		SimConstructor.DPSs.Add(6839,"ScaCrit18")
+		SimConstructor.DPSs.Add(6864,"ScaCrit19")
+		SimConstructor.DPSs.Add(6886,"ScaCrit20")
+		SimConstructor.DPSs.Add(6908,"ScaCrit21")
+		SimConstructor.DPSs.Add(6918,"ScaCrit22")
+		SimConstructor.DPSs.Add(6963,"ScaCrit23")
+		SimConstructor.DPSs.Add(6966,"ScaCrit24")
+		SimConstructor.DPSs.Add(6952,"ScaCrit25")
+		SimConstructor.DPSs.Add(6994,"ScaCrit26")
+		SimConstructor.DPSs.Add(6993,"ScaCrit27")
+		SimConstructor.DPSs.Add(7014,"ScaCrit28")
+		SimConstructor.DPSs.Add(7039,"ScaCrit29")
+		SimConstructor.DPSs.Add(7042,"ScaCrit30")
+		SimConstructor.DPSs.Add(7036,"ScaCrit31")
+		SimConstructor.DPSs.Add(7090,"ScaCrit32")
+		SimConstructor.DPSs.Add(7090,"ScaCrit33")
+		SimConstructor.DPSs.Add(7105,"ScaCrit34")
+		SimConstructor.DPSs.Add(7139,"ScaCrit35")
+		SimConstructor.DPSs.Add(7165,"ScaCrit36")
+		SimConstructor.DPSs.Add(7177,"ScaCrit37")
+		SimConstructor.DPSs.Add(7197,"ScaCrit38")
+		SimConstructor.DPSs.Add(7226,"ScaCrit39")
+		SimConstructor.DPSs.Add(7253,"ScaCrit40")
+		SimConstructor.DPSs.Add(7247,"ScaCrit41")
+		SimConstructor.DPSs.Add(7259,"ScaCrit42")
+		SimConstructor.DPSs.Add(7269,"ScaCrit43")
+		SimConstructor.DPSs.Add(7300,"ScaCrit44")
+		SimConstructor.DPSs.Add(7348,"ScaCrit45")
+		SimConstructor.DPSs.Add(7359,"ScaCrit46")
+		SimConstructor.DPSs.Add(7379,"ScaCrit47")
+		SimConstructor.DPSs.Add(7401,"ScaCrit48")
+		SimConstructor.DPSs.Add(7403,"ScaCrit49")
+		SimConstructor.DPSs.Add(7459,"ScaCrit50")
+		
+		SimConstructor.DPSs.Add(7175,"ScaAgility0")
+		SimConstructor.DPSs.Add(7179,"ScaAgility1")
+		SimConstructor.DPSs.Add(7192,"ScaAgility2")
+		SimConstructor.DPSs.Add(7207,"ScaAgility3")
+		SimConstructor.DPSs.Add(7223,"ScaAgility4")
+		SimConstructor.DPSs.Add(7237,"ScaAgility5")
+		SimConstructor.DPSs.Add(7227,"ScaAgility6")
+		SimConstructor.DPSs.Add(7230,"ScaAgility7")
+		SimConstructor.DPSs.Add(7242,"ScaAgility8")
+		SimConstructor.DPSs.Add(7251,"ScaAgility9")
+		SimConstructor.DPSs.Add(7259,"ScaAgility10")
+		SimConstructor.DPSs.Add(7316,"ScaAgility11")
+		SimConstructor.DPSs.Add(7299,"ScaAgility12")
+		SimConstructor.DPSs.Add(7317,"ScaAgility13")
+		SimConstructor.DPSs.Add(7348,"ScaAgility14")
+		SimConstructor.DPSs.Add(7330,"ScaAgility15")
+		SimConstructor.DPSs.Add(7352,"ScaAgility16")
+		SimConstructor.DPSs.Add(7403,"ScaAgility17")
+		SimConstructor.DPSs.Add(7432,"ScaAgility18")
+		SimConstructor.DPSs.Add(7444,"ScaAgility19")
+		SimConstructor.DPSs.Add(7433,"ScaAgility20")
+		SimConstructor.DPSs.Add(7429,"ScaAgility21")
+		SimConstructor.DPSs.Add(7435,"ScaAgility22")
+		SimConstructor.DPSs.Add(7450,"ScaAgility23")
+		SimConstructor.DPSs.Add(7469,"ScaAgility24")
+		SimConstructor.DPSs.Add(7473,"ScaAgility25")
+		SimConstructor.DPSs.Add(7439,"ScaAgility26")
+		SimConstructor.DPSs.Add(7461,"ScaAgility27")
+		SimConstructor.DPSs.Add(7521,"ScaAgility28")
+		SimConstructor.DPSs.Add(7521,"ScaAgility29")
+		SimConstructor.DPSs.Add(7536,"ScaAgility30")
+		SimConstructor.DPSs.Add(7555,"ScaAgility31")
+		SimConstructor.DPSs.Add(7559,"ScaAgility32")
+		SimConstructor.DPSs.Add(7576,"ScaAgility33")
+		SimConstructor.DPSs.Add(7596,"ScaAgility34")
+		SimConstructor.DPSs.Add(7611,"ScaAgility35")
+		SimConstructor.DPSs.Add(7626,"ScaAgility36")
+		SimConstructor.DPSs.Add(7642,"ScaAgility37")
+		SimConstructor.DPSs.Add(7643,"ScaAgility38")
+		SimConstructor.DPSs.Add(7634,"ScaAgility39")
+		SimConstructor.DPSs.Add(7654,"ScaAgility40")
+		SimConstructor.DPSs.Add(7670,"ScaAgility41")
+		SimConstructor.DPSs.Add(7692,"ScaAgility42")
+		SimConstructor.DPSs.Add(7698,"ScaAgility43")
+		SimConstructor.DPSs.Add(7696,"ScaAgility44")
+		SimConstructor.DPSs.Add(7714,"ScaAgility45")
+		SimConstructor.DPSs.Add(7686,"ScaAgility46")
+		SimConstructor.DPSs.Add(7745,"ScaAgility47")
+		SimConstructor.DPSs.Add(7770,"ScaAgility48")
+		SimConstructor.DPSs.Add(7764,"ScaAgility49")
+		SimConstructor.DPSs.Add(7777,"ScaAgility50")
+		
+		SimConstructor.DPSs.Add(7175,"ScaStr0")
+		SimConstructor.DPSs.Add(7213,"ScaStr1")
+		SimConstructor.DPSs.Add(7248,"ScaStr2")
+		SimConstructor.DPSs.Add(7287,"ScaStr3")
+		SimConstructor.DPSs.Add(7324,"ScaStr4")
+		SimConstructor.DPSs.Add(7360,"ScaStr5")
+		SimConstructor.DPSs.Add(7398,"ScaStr6")
+		SimConstructor.DPSs.Add(7436,"ScaStr7")
+		SimConstructor.DPSs.Add(7471,"ScaStr8")
+		SimConstructor.DPSs.Add(7509,"ScaStr9")
+		SimConstructor.DPSs.Add(7547,"ScaStr10")
+		SimConstructor.DPSs.Add(7582,"ScaStr11")
+		SimConstructor.DPSs.Add(7620,"ScaStr12")
+		SimConstructor.DPSs.Add(7658,"ScaStr13")
+		SimConstructor.DPSs.Add(7693,"ScaStr14")
+		SimConstructor.DPSs.Add(7732,"ScaStr15")
+		SimConstructor.DPSs.Add(7769,"ScaStr16")
+		SimConstructor.DPSs.Add(7804,"ScaStr17")
+		SimConstructor.DPSs.Add(7843,"ScaStr18")
+		SimConstructor.DPSs.Add(7879,"ScaStr19")
+		SimConstructor.DPSs.Add(7917,"ScaStr20")
+		SimConstructor.DPSs.Add(7953,"ScaStr21")
+		SimConstructor.DPSs.Add(7990,"ScaStr22")
+		SimConstructor.DPSs.Add(8027,"ScaStr23")
+		SimConstructor.DPSs.Add(8064,"ScaStr24")
+		SimConstructor.DPSs.Add(8103,"ScaStr25")
+		SimConstructor.DPSs.Add(8138,"ScaStr26")
+		SimConstructor.DPSs.Add(8176,"ScaStr27")
+		SimConstructor.DPSs.Add(8214,"ScaStr28")
+		SimConstructor.DPSs.Add(8249,"ScaStr29")
+		SimConstructor.DPSs.Add(8287,"ScaStr30")
+		SimConstructor.DPSs.Add(8325,"ScaStr31")
+		SimConstructor.DPSs.Add(8361,"ScaStr32")
+		SimConstructor.DPSs.Add(8398,"ScaStr33")
+		SimConstructor.DPSs.Add(8436,"ScaStr34")
+		SimConstructor.DPSs.Add(8472,"ScaStr35")
+		SimConstructor.DPSs.Add(8509,"ScaStr36")
+		SimConstructor.DPSs.Add(8545,"ScaStr37")
+		SimConstructor.DPSs.Add(8583,"ScaStr38")
+		SimConstructor.DPSs.Add(8620,"ScaStr39")
+		SimConstructor.DPSs.Add(8657,"ScaStr40")
+		SimConstructor.DPSs.Add(8694,"ScaStr41")
+		SimConstructor.DPSs.Add(8731,"ScaStr42")
+		SimConstructor.DPSs.Add(8768,"ScaStr43")
+		SimConstructor.DPSs.Add(8805,"ScaStr44")
+		SimConstructor.DPSs.Add(8843,"ScaStr45")
+		SimConstructor.DPSs.Add(8879,"ScaStr46")
+		SimConstructor.DPSs.Add(8915,"ScaStr47")
+		SimConstructor.DPSs.Add(8954,"ScaStr48")
+		SimConstructor.DPSs.Add(8990,"ScaStr49")
+		SimConstructor.DPSs.Add(9028,"ScaStr50")
+		
+		
+	End Sub
+	sub createGraph()
 		Dim pg As Bitmap = New Bitmap((500),(900))
 		Dim gr As Graphics = Graphics.FromImage(pg)
-
+		
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
-
+		'pg.MakeTransparent(color.Black)
 		
 		doc.Load("ScalingConfig.xml")
 		Dim xNodelist As Xml.XmlNode
@@ -507,37 +866,81 @@ Public Module SimConstructor
 		Dim y2 As Integer
 		
 		Dim pen As New Drawing.Pen(color.Blue)
+		'pen.Width = 3
+		
+		
+		'gr.DrawLine(pen,10,10,50,50)
 		For Each xNode In xNodelist.ChildNodes
 			If xNode.InnerText = "True" Then
 				EpStat= Replace(xNode.Name,"chk","")
-			 Select Case EpStat
-			 	Case "ScaExp"
-			 		pen.Color  = color.Violet
-			 	Case "ScaHit"
-			 		pen.Color  = color.Yellow
-			 	Case "ScaArP"
-			 		pen.Color  = color.Maroon
-			 	Case "ScaHaste"
-			 		pen.Color  = color.Pink
-			 	Case "ScaCrit"
-			 		pen.Color  = color.Orange
-			 	Case "ScaAgility"
-			 		pen.Color  = color.Purple
-			 	Case "ScaStr"
-			 		pen.Color  = color.Red
-			 End Select
+				Select Case EpStat
+					Case "ScaExp"
+						pen.Color  = color.Violet
+					Case "ScaHit"
+						pen.Color  = color.Yellow
+					Case "ScaArP"
+						pen.Color  = color.Maroon
+					Case "ScaHaste"
+						pen.Color  = color.Pink
+					Case "ScaCrit"
+						pen.Color  = color.Orange
+						Case "ScaAgility"
+						pen.Color  = color.Purple
+					Case "ScaStr"
+						pen.Color  = color.Red
+				End Select
 				
 				
 				For i=0 To max-1
 					x1 = i*10
-					y1 = DPSs(EpStat & i)/10
+					y1 = pg.Height -  DPSs(EpStat & i)/10
 					x2 = (i+1)*10
-					y2 = DPSs(EpStat & i+1)/10
+					y2 = pg.Height - DPSs(EpStat & i+1)/10
 					gr.DrawLine(pen,x1,y1,x2,y2)
 				Next i
 			End If
 		Next
-		pg.Save("myScaling.jpeg",imaging.ImageFormat.Jpeg)
+		MakeGrid(pg,100,100)
+		pg.Save("myScaling.png",imaging.ImageFormat.Png)
+		
+		pg = CropBitmap(pg,0,0, pg.Width, 300)
+		Dim pathPng As String
+		pathPng = System.IO.Path.GetTempFileName()
+		
+		pg.Save(pathPng,imaging.ImageFormat.Png)
+		GlobalFunction.WriteReport("<img src='" & pathPng & "'></img>")
+		
+		
 	End sub
+	
+	
+	Private Function CropBitmap(ByRef bmp As Bitmap, ByVal cropX As Integer, ByVal cropY As Integer, ByVal cropWidth As Integer, ByVal cropHeight As Integer) As Bitmap
+		Dim rect As New Rectangle(cropX, cropY, cropWidth, cropHeight)
+		Dim cropped As Bitmap = bmp.Clone(rect, bmp.PixelFormat)
+		Return cropped
+	End Function
+	
+	sub MakeGrid(ByVal bmp As Bitmap, XSpace As Integer,YSpace As Integer) 
+		Dim gr As Graphics = Graphics.FromImage(bmp)
+		Dim i As Integer
+		Dim pen As new Pen(color.Black)
+		i=0
+		do until i >= bmp.Width
+			i = i + XSpace
+			gr.DrawLine(pen,i,0,i,bmp.height)
+		loop
+		
+		i=0
+		do until i >= bmp.Height
+			i = i + YSpace
+			gr.DrawLine(pen,0,bmp.Height-i,bmp.Width,bmp.Height-i)
+			gr.DrawString((bmp.Height - i)*10, new Font("Arial", 8,FontStyle.Regular ), SystemBrushes.WindowText, new Point( 10, i ))
+			
+		loop
+		
+		
+		
+	End sub
+	
 	
 End Module
