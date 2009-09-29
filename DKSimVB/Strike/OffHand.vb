@@ -64,6 +64,10 @@ Friend Class OffHand
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH hit for " & dégat)
 		End If
 		
+		If sim.proc.ScentOfBloodProc > 0 Then
+			sim.proc.ScentOfBloodProc  = sim.proc.ScentOfBloodProc  -1
+			Sim.RunicPower.add(10)
+		End If
 
 		total = total + dégat
 

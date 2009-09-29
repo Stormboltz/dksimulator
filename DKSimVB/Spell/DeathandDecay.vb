@@ -18,6 +18,7 @@ Friend Class DeathandDecay
 	Public Overloads Overrides Sub Init()
 		MyBase.init()
 		nextTick = 0
+		ThreadMultiplicator = 1.9
 	End Sub
 	
 	Function isAvailable(T As Long) As Boolean

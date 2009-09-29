@@ -8,10 +8,19 @@
 '
 Public Class BoneShield
 	Inherits Spells.Spell
+	Friend Charge as Integer
 	
 	Sub New(MySim as Sim)
 		Init
 		sim = MySim
+	End Sub
+	
+	Sub UseCharge(T as Long)
+		Charge = Charge -1
+		If Charge = 0 Then
+			Me.ActiveUntil = T
+			Charge = 0
+		End If
 	End Sub
 	
 	
@@ -25,7 +34,7 @@ Public Class BoneShield
 	
 	
 	Function Use(T as Long) As Boolean
-		If TalentUnholy.BoneShield =0 Then Return False
+		If TalentUnholy.BoneShield = 0 Then Return False
 		If sim.runes.Unholy(T) = False Then
 			If sim.BloodTap.IsAvailable(T) Then
 				sim.BloodTap.Use(T)
@@ -39,8 +48,13 @@ Public Class BoneShield
 		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste)) + sim._MainFrm.txtLatency.Text/10
 		sim.RunicPower.add(10)
 		sim.combatlog.write(T  & vbtab &  "Bone Shield")
+		Charge = 4
+		If sim.Glyph.BoneShield Then
+			Charge = Charge + 1	
+		End If
 		me.HitCount = me.HitCount +1
 	End Function
+	
 	Function IsAvailable(T As Long) As Boolean
 		If TalentUnholy.BoneShield =0 Then Return False
 		If ActiveUntil > T Then Return False
@@ -48,6 +62,7 @@ Public Class BoneShield
 		If CD > T Then Return False
 		return true
 	End Function
+	
 	Function Value(T As Long) As integer
 		If ActiveUntil > T Then
 			Return 1

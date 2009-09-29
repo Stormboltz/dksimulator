@@ -22,7 +22,7 @@ Public Class Disease
 	Friend ScourgeStrikeGlyphCounter As Integer
 	Friend OtherTargetsFade As Integer
 	Friend CritChance As Double
-	
+	Friend ThreadMultiplicator as Double
 
 	Protected sim As Sim
 	Sub New
@@ -39,7 +39,7 @@ Public Class Disease
 		TotalCrit = 0
 		AP = 0
 		OtherTargetsFade = 0
-		
+		ThreadMultiplicator = 1
 	End sub
 	
 	Overridable Function PerfectUsage(T As Long) As Boolean
@@ -118,6 +118,9 @@ Public Class Disease
 		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
 		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
 		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
+		If sim.MainStat.FrostPresence Then
+			tmp = tmp & toDecimal((100 * total * ThreadMultiplicator * 2.0735 ) / sim.TimeStamp) & VBtab
+		End If
 		tmp = tmp & vbCrLf
 		return tmp
 	End Function

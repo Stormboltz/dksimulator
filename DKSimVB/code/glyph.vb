@@ -8,54 +8,42 @@
 '
 Friend Class glyph
 	Friend xmlGlyph As New Xml.XmlDocument
+	Friend  BloodStrike As Boolean
+	Friend  DRW As Boolean
+	Friend  DarkDeath As Boolean
+	Friend  DeathandDecay As Boolean
+	Friend  DeathStrike As Boolean
+	Friend  Disease As Boolean
+	Friend  FrostStrike As Boolean
+	Friend  HowlingBlast As Boolean
+	Friend  IcyTouch As Boolean
+	Friend  Obliterate As Boolean
+	Friend  PlagueStrike As Boolean
+	Friend  RuneStrike As Boolean
+	Friend  ScourgeStrike As Boolean
+	Friend  Ghoul As Boolean
+	Friend  UnholyBlight As Boolean
+	Friend  BoneShield As Boolean
 	
-	Sub New(path as String)
+	Sub New(path As String)
+		on error resume next
 		xmlGlyph.Load(path)
+		BloodStrike = (xmlGlyph.SelectSingleNode("//Talents/Glyphs/BloodStrike").InnerText =1)
+		DRW = (xmlGlyph.SelectSingleNode("//Talents/Glyphs/DRW").InnerText =1)
+		DarkDeath = (xmlGlyph.SelectSingleNode("//Talents/Glyphs/DarkDeath").InnerText =1)
+		DeathandDecay = (xmlGlyph.SelectSingleNode("//Talents/Glyphs/DeathandDecay").InnerText =1)
+		DeathStrike = (xmlGlyph.SelectSingleNode("//Talents/Glyphs/DeathStrike").InnerText =1)
+		Disease = (xmlGlyph.SelectSingleNode("//Talents/Glyphs/Disease").InnerText =1) 'NYI
+		FrostStrike = (xmlGlyph.SelectSingleNode("//Talents/Glyphs/FrostStrike").InnerText =1)
+		HowlingBlast = (xmlGlyph.SelectSingleNode("//Talents/Glyphs/HowlingBlast").InnerText =1)
+		IcyTouch = (xmlGlyph.SelectSingleNode("//Talents/Glyphs/IcyTouch").InnerText =1)
+		Obliterate = (xmlGlyph.SelectSingleNode("//Talents/Glyphs/Obliterate").InnerText =1)
+		PlagueStrike = (xmlGlyph.SelectSingleNode("//Talents/Glyphs/PlagueStrike").InnerText =1)
+		RuneStrike = (xmlGlyph.SelectSingleNode("//Talents/Glyphs/RuneStrike").InnerText =1) 'NYI
+		ScourgeStrike = (xmlGlyph.SelectSingleNode("//Talents/Glyphs/ScourgeStrike").InnerText =1)
+		Ghoul = (xmlGlyph.SelectSingleNode("//Talents/Glyphs/Ghoul").InnerText =1)
+		UnholyBlight = (xmlGlyph.SelectSingleNode("//Talents/Glyphs/UnholyBlight").InnerText =1)
+		BoneShield = (xmlGlyph.SelectSingleNode("//Talents/Glyphs/BoneShield").InnerText =1)
+		
 	End Sub
-	Function BloodStrike As Boolean
-		return (xmlGlyph.SelectSingleNode("//Talents/Glyphs/BloodStrike").InnerText =1)
-	End Function
-	Function DRW As Boolean
-		return (xmlGlyph.SelectSingleNode("//Talents/Glyphs/DRW").InnerText =1)
-	End Function
-	Function DarkDeath As Boolean
-		return (xmlGlyph.SelectSingleNode("//Talents/Glyphs/DarkDeath").InnerText =1) 
-	End Function
-	Function DeathandDecay As Boolean
-		return (xmlGlyph.SelectSingleNode("//Talents/Glyphs/DeathandDecay").InnerText =1)
-	End Function
-	Function DeathStrike As Boolean
-		return (xmlGlyph.SelectSingleNode("//Talents/Glyphs/DeathStrike").InnerText =1)
-	End Function
-	Function Disease As Boolean
-		return (xmlGlyph.SelectSingleNode("//Talents/Glyphs/Disease").InnerText =1) 'NYI
-	End Function
-	
-	Function FrostStrike As Boolean
-		return (xmlGlyph.SelectSingleNode("//Talents/Glyphs/FrostStrike").InnerText =1)
-	End Function
-	Function HowlingBlast As Boolean
-		return (xmlGlyph.SelectSingleNode("//Talents/Glyphs/HowlingBlast").InnerText =1) 
-	End Function
-	Function IcyTouch As Boolean
-		return (xmlGlyph.SelectSingleNode("//Talents/Glyphs/IcyTouch").InnerText =1)
-	End Function
-	Function Obliterate As Boolean
-		return (xmlGlyph.SelectSingleNode("//Talents/Glyphs/Obliterate").InnerText =1)
-	End Function
-	Function PlagueStrike As Boolean
-		return (xmlGlyph.SelectSingleNode("//Talents/Glyphs/PlagueStrike").InnerText =1)
-	End Function
-	Function RuneStrike As Boolean
-		return (xmlGlyph.SelectSingleNode("//Talents/Glyphs/RuneStrike").InnerText =1) 'NYI
-	End Function
-	Function ScourgeStrike As Boolean
-		return (xmlGlyph.SelectSingleNode("//Talents/Glyphs/ScourgeStrike").InnerText =1)
-	End Function
-	Function Ghoul As Boolean
-		return (xmlGlyph.SelectSingleNode("//Talents/Glyphs/Ghoul").InnerText =1)
-	End Function
-	Function UnholyBlight As Boolean
-		return (xmlGlyph.SelectSingleNode("//Talents/Glyphs/UnholyBlight").InnerText =1)
-	End Function
 End Class

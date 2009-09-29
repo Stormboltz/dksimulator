@@ -43,7 +43,7 @@ Public Class Sim
 	Friend Character as Character
 	Friend MainStat as MainStat
 	Friend Sigils as Sigils
-	
+	Friend boss as Boss
 	
 	'Strike Creation
 	Friend BloodCakedBlade As BloodCakedBlade
@@ -231,13 +231,13 @@ Public Class Sim
 			Do Until TimeStamp > MaxTime
 				Timestamp = FastFoward(Timestamp)
 				
+				
 				If MainStat.FrostPresence = 1 Then
-					If TalentBlood.ScentOfBlood > 0 Then
-						If proc.ScentOfBloodCD < TimeStamp Then
-							proc.GetUseScentOfBlood(TimeStamp)
-						End If
+					If Boss.NextHit <= TimeStamp Then
+						Boss.ApplyDamage(TimeStamp)
 					End If
 				End If
+				
 				
 				application.DoEvents
 				
@@ -621,6 +621,7 @@ Public Class Sim
 		Pestilence = new Pestilence(Me)
 		proc = New proc(Me)
 		BoneShield  = new BoneShield(me)
+		Boss = New Boss(Me)
 		
 		AMSCd = _MainFrm.txtAMScd.text * 100
 		AMSTimer = _MainFrm.txtAMScd.text * 100
@@ -775,6 +776,11 @@ Public Class Sim
 		Tw.Write ("	<td><b>Crit%</b></td>")
 		Tw.Write ("	<td><b>Miss%</b></td>")
 		Tw.Write ("	<td><b>Average</b></td>")
+		
+		If me.MainStat.FrostPresence Then
+			Tw.Write ("	<td><b>TPS</b></td>")
+		End If
+		
 		Tw.Write ("</tr>")
 		
 		' Sort report
@@ -1102,7 +1108,12 @@ Public Class Sim
 				tmp = FrostFever.nextTick
 			End If
 		End If
-		
+
+		If MainStat.FrostPresence = 1 Then
+			If Boss.NextHit < tmp Then
+				tmp = Boss.NextHit
+			End If
+		End If
 		
 		If tmp < T Then
 			Return T

@@ -15,8 +15,11 @@ Public Class Spell
 	Friend TotalHit As Long
 	Friend TotalCrit As Long
 	Friend CD As Long
-	Friend ActiveUntil as Long
-	Protected Sim as Sim
+	Friend ActiveUntil As Long
+	Friend ThreadMultiplicator as double
+	Protected Sim As Sim
+	
+	
 	
 	
 	
@@ -36,6 +39,7 @@ Public Class Spell
 		TotalCrit = 0
 		CD = 0
 		ActiveUntil = 0
+		ThreadMultiplicator = 1
 	End Sub
 	
 	
@@ -74,6 +78,9 @@ Public Class Spell
 		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
 		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
 		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
+		If sim.MainStat.FrostPresence Then
+			tmp = tmp & toDecimal((100 * total * ThreadMultiplicator * 2.0735 ) / sim.TimeStamp) & VBtab
+		End If
 		tmp = tmp & vbCrLf
 		return tmp
 	End Function

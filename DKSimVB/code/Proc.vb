@@ -11,7 +11,6 @@ Friend Class proc
 	Friend Rime as Boolean
 	Friend StrifeFade as double
 	Friend HauntedDreamsFade As Double
-	Friend ScentOfBloodCD As Long
 	Friend ScentOfBloodProc as Integer
 	Friend VirulenceFade as Integer
 	Friend T92PDPSFAde As Integer
@@ -70,11 +69,15 @@ Friend Class proc
 		End If
 	End Sub
 	
-	
-	Sub GetUseScentOfBlood(T as Long)
-		ScentOfBloodCD = T
-		ScentOfBloodProc = TalentBlood.ScentOfBlood
+	Sub TryScentOfBlood(T As Long)
+		If TalentBlood.ScentOfBlood = 0 Then Exit Sub
+		If sim.RandomNumberGenerator.RNGTank <= 15 Then
+			ScentOfBloodProc = TalentBlood.ScentOfBlood
+		End If
+		
+		
 	End Sub
+	
 	
 	
 	

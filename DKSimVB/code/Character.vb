@@ -148,6 +148,9 @@ Friend Class Character
 		tmp = tmp + (750 * 1.4  *  sim.Buff.StatAdd)
 		
 		tmp = tmp * (1 + talentfrost.Toughness * 0.02)
+		If sim.MainStat.FrostPresence = 1 Then
+			tmp = tmp * 1.6
+		End If
 		_Armor = tmp
 		
 		return _Armor

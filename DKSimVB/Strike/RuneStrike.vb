@@ -7,14 +7,9 @@
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
 Public Class RuneStrike
-	
-	Friend total As Long
-	Friend MissCount As Integer
-	Friend HitCount as Integer
-	Friend CritCount as Integer
-	Friend TotalHit As Long
-	Friend TotalCrit As Long
-	Protected sim as Sim
+	 Inherits Strikes.Strike
+	 
+	Friend trigger as Boolean
 	
 	Sub new(S as sim )
 		total = 0
@@ -24,14 +19,15 @@ Public Class RuneStrike
 		TotalHit = 0
 		TotalCrit = 0
 		sim = S
+		ThreadMultiplicator = 1.5
 	End Sub
-	Function ApplyDamage(T As long) As boolean
+	overrides Function ApplyDamage(T As long) As boolean
 		Dim dégat As Integer
 		Dim BCB As Double
 		Dim Nec As Double
 		Dim MeleeMissChance As Single
 		Dim RNG As Double
-		
+		trigger = false
 		Sim.RunicPower.Value = Sim.RunicPower.Value - 20
 		RNG = sim.RandomNumberGenerator.RNGWhiteHit
 		MeleeMissChance = math.Min(sim.mainstat.Hit, 0.08)
@@ -85,12 +81,12 @@ Public Class RuneStrike
 		sim.TryOnMHHitProc
 		If sim.proc.ScentOfBloodProc > 0 Then
 			sim.proc.ScentOfBloodProc  = sim.proc.ScentOfBloodProc  -1
-			Sim.RunicPower.add(5)
+			Sim.RunicPower.add(10)
 		End If
 		
 		return true
 	End Function
-	Function AvrgNonCrit(T As long) As Double
+	overrides Function AvrgNonCrit(T As long) As Double
 		Dim tmp As Double
 		tmp = sim.MainStat.MHBaseDamage * 1.5
 		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
@@ -109,37 +105,27 @@ Public Class RuneStrike
 		return tmp
 	End Function
 	
-	Function CritCoef() As Double
+	overrides Function CritCoef() As Double
 		CritCoef = 1
 		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
 	
-	Function CritChance() As Double
-		return sim.MainStat.crit + sim.glyph.RuneStrike * 0.1
+	overrides Function CritChance() As Double
+		Dim tmp As double
+		tmp =  sim.MainStat.critAutoattack
+		
+		If sim.glyph.RuneStrike Then
+			tmp =  tmp + 0.1
+		End If
+		return tmp
 	End Function
-	Function AvrgCrit(T As long) As Double
+	
+	overrides Function AvrgCrit(T As long) As Double
 		return AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 	
 	Function AvrgOHCrit(T As long) As Double
 		return AvrgOHNonCrit(T) * (1 + CritCoef)
-	End Function
-	Function report As String
-		dim tmp as String
-		tmp = "Runic Strike" & VBtab
-		If total.ToString().Length < 8 Then
-			tmp = tmp & total & "   " & VBtab
-		Else
-			tmp = tmp & total & VBtab
-		End If
-		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
-		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
-		tmp = tmp & vbCrLf
-		return tmp
 	End Function
 End Class
 

@@ -335,7 +335,7 @@ Friend Class MainStat
 		
 		If sim.EPStat<>"" Then tmp = 6.5 'For most EP stats we assume being exp capped
 		If sim.EPStat="ExpertiseRating" Then tmp = 6.5 - sim.EPBase / 32.79
-		
+		If sim.EPStat="ExpertiseRatingAfterCap" Then tmp = 6.5 + sim.EPBase / 32.79
 		If InStr(sim.EPStat,"ScaExp") Then 
 			tmp =  Replace(sim.EPStat,"ScaExp","") * sim.EPBase /  32.79
 		End If

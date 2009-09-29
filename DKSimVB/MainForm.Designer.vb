@@ -185,10 +185,8 @@ Partial Class MainForm
 		Me.gbTank = New System.Windows.Forms.GroupBox
 		Me.label24 = New System.Windows.Forms.Label
 		Me.label23 = New System.Windows.Forms.Label
-		Me.label22 = New System.Windows.Forms.Label
 		Me.txtFBAvoidance = New System.Windows.Forms.TextBox
 		Me.txtFPBossSwing = New System.Windows.Forms.TextBox
-		Me.txtFPBoneShield = New System.Windows.Forms.TextBox
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
@@ -1815,10 +1813,8 @@ Partial Class MainForm
 		'
 		Me.gbTank.Controls.Add(Me.label24)
 		Me.gbTank.Controls.Add(Me.label23)
-		Me.gbTank.Controls.Add(Me.label22)
 		Me.gbTank.Controls.Add(Me.txtFBAvoidance)
 		Me.gbTank.Controls.Add(Me.txtFPBossSwing)
-		Me.gbTank.Controls.Add(Me.txtFPBoneShield)
 		Me.gbTank.Location = New System.Drawing.Point(18, 17)
 		Me.gbTank.Name = "gbTank"
 		Me.gbTank.Size = New System.Drawing.Size(313, 191)
@@ -1829,7 +1825,7 @@ Partial Class MainForm
 		'
 		'label24
 		'
-		Me.label24.Location = New System.Drawing.Point(112, 74)
+		Me.label24.Location = New System.Drawing.Point(112, 48)
 		Me.label24.Name = "label24"
 		Me.label24.Size = New System.Drawing.Size(190, 17)
 		Me.label24.TabIndex = 11
@@ -1837,40 +1833,25 @@ Partial Class MainForm
 		'
 		'label23
 		'
-		Me.label23.Location = New System.Drawing.Point(112, 45)
+		Me.label23.Location = New System.Drawing.Point(112, 22)
 		Me.label23.Name = "label23"
 		Me.label23.Size = New System.Drawing.Size(186, 20)
 		Me.label23.TabIndex = 13
 		Me.label23.Text = "Boss swing speed in second"
 		'
-		'label22
-		'
-		Me.label22.Location = New System.Drawing.Point(112, 22)
-		Me.label22.Name = "label22"
-		Me.label22.Size = New System.Drawing.Size(186, 17)
-		Me.label22.TabIndex = 12
-		Me.label22.Text = "Bone Shield duration in second"
-		'
 		'txtFBAvoidance
 		'
-		Me.txtFBAvoidance.Location = New System.Drawing.Point(6, 71)
+		Me.txtFBAvoidance.Location = New System.Drawing.Point(6, 45)
 		Me.txtFBAvoidance.Name = "txtFBAvoidance"
 		Me.txtFBAvoidance.Size = New System.Drawing.Size(100, 20)
-		Me.txtFBAvoidance.TabIndex = 5
+		Me.txtFBAvoidance.TabIndex = 8
 		'
 		'txtFPBossSwing
 		'
-		Me.txtFPBossSwing.Location = New System.Drawing.Point(6, 45)
+		Me.txtFPBossSwing.Location = New System.Drawing.Point(6, 19)
 		Me.txtFPBossSwing.Name = "txtFPBossSwing"
 		Me.txtFPBossSwing.Size = New System.Drawing.Size(100, 20)
 		Me.txtFPBossSwing.TabIndex = 7
-		'
-		'txtFPBoneShield
-		'
-		Me.txtFPBoneShield.Location = New System.Drawing.Point(6, 19)
-		Me.txtFPBoneShield.Name = "txtFPBoneShield"
-		Me.txtFPBoneShield.Size = New System.Drawing.Size(100, 20)
-		Me.txtFPBoneShield.TabIndex = 6
 		'
 		'MainForm
 		'
@@ -1912,8 +1893,6 @@ Partial Class MainForm
 	Private txtFBAvoidance As System.Windows.Forms.TextBox
 	Private txtFPBossSwing As System.Windows.Forms.TextBox
 	Private gbTank As System.Windows.Forms.GroupBox
-	Private txtFPBoneShield As System.Windows.Forms.TextBox
-	Private label22 As System.Windows.Forms.Label
 	Private label23 As System.Windows.Forms.Label
 	Private label24 As System.Windows.Forms.Label
 	Private tbTank As System.Windows.Forms.TabPage

@@ -11,7 +11,8 @@ Public Class RandomNumberGenerator
 	Private _RNGStrike as Random
 	Private _RNGProc as Random
 	Private _RNGPet As Random
-	Private _RNGT9P4 as Random
+	Private _RNGT9P4 As Random
+	Private _RNGTank as Random
 	
 	
 	sub New
@@ -19,12 +20,14 @@ Public Class RandomNumberGenerator
 		Dim tmp2 As New Random(7331)
 		Dim tmp3 As New Random(1500)
 		Dim tmp4 As New Random(5847)
-		Dim tmp5 as New Random(131279)	
+		Dim tmp5 As New Random(131279)	
+		dim tmp6 as New Random(1478963)
 		_RNGWhiteHit = tmp
 		_RNGStrike = tmp2
 		_RNGProc = tmp3
 		_RNGPet = tmp4
 		_RNGT9P4 = tmp5
+		_RNGTank = tmp6
 	End sub
 	
 	
@@ -48,5 +51,7 @@ Public Class RandomNumberGenerator
 		return _RNGT9P4.NextDouble
 	End Function
 	
-	
+	Function RNGTank As Double
+		return _RNGTank.NextDouble
+	End Function
 End Class

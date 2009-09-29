@@ -1,14 +1,10 @@
 Friend Class WanderingPlague
+	Inherits Spells.Spell
 	
 	Friend nextTick As Double
-	Friend total As long
-	Friend MissCount As Integer
-	Friend HitCount as Integer
-	Friend CritCount as Integer
-	Friend TotalHit As Long
-	Friend TotalCrit as Long
+
 	
-	Protected sim as Sim
+	
 	Sub New(S As Sim)
 		Sim = S
 		total = 0
@@ -49,22 +45,5 @@ Friend Class WanderingPlague
 		Next intCount
 		return true
 	End Function
-	Function report As String
-		dim tmp as String
-		tmp = "Wandering Plague" & VBtab
-		
-		If total.ToString().Length < 8 Then
-			tmp = tmp & total & "   " & VBtab
-		Else
-			tmp = tmp & total & VBtab
-		End If
-		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
-		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
-		tmp = tmp & vbCrLf
-		return tmp
-	End Function
+	
 End Class

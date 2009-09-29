@@ -31,7 +31,7 @@ Sub New(S As sim)
 		NextWhiteMainHit = T + (WSpeed * 100) / ((1 + sim.MainStat.Haste))
 		
 		If sim.MainStat.FrostPresence = 1 Then
-			If Sim.RunicPower.Value >= 20 Then
+			if sim.RuneStrike.trigger = true and Sim.RunicPower.Value >= 20 then
 				sim.RuneStrike.ApplyDamage(T)
 				return true
 			End If
@@ -101,7 +101,7 @@ Sub New(S As sim)
 		
 		If sim.proc.ScentOfBloodProc > 0 Then
 			sim.proc.ScentOfBloodProc  = sim.proc.ScentOfBloodProc  -1
-			Sim.RunicPower.add(5)
+			Sim.RunicPower.add(10)
 		End If
 		
 		

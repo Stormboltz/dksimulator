@@ -54,6 +54,7 @@
     <Import Include="System.Diagnostics" />
     <Import Include="System.Drawing" />
     <Import Include="System.Windows.Forms" />
+    <Compile Include="code\Boss.vb" />
     <Compile Include="code\Buff.vb" />
     <Compile Include="code\CombatLog.vb" />
     <Compile Include="code\GhoulStat.vb" />

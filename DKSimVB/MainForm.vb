@@ -48,6 +48,8 @@ Public Partial Class MainForm
 		SaveEPOptions()
 		SaveBuffOption()
 		saveScaling()
+		saveTankOptions()
+		
 		return true
 	End Function
 	
@@ -99,7 +101,7 @@ Public Partial Class MainForm
 		LoadEPOptions
 		LoadBuffOption
 		LoadScaling
-		
+		LoadTankOptions
 		CreateTreeTemplate
 		initReport
 		Randomize 'Initialize the random # generator
@@ -313,6 +315,7 @@ Public Partial Class MainForm
 	End Sub
 	
 	Sub LoadScaling()
+		on error goto OUT
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
 		doc.Load("Scalingconfig.xml")
 		Dim ctrl As Control
@@ -323,6 +326,7 @@ Public Partial Class MainForm
 				chkBox.Checked = doc.SelectSingleNode("//config/Stats/" & chkBox.Name ).InnerText
 			End If
 		Next
+		OUT:
 	End Sub
 	
 	Sub saveScaling()
@@ -344,6 +348,43 @@ Public Partial Class MainForm
 		Next
 		doc.Save("Scalingconfig.xml")
 	End Sub
+	
+	
+	Sub LoadTankOptions()
+		on error goto OUT
+		Dim doc As xml.XmlDocument = New xml.XmlDocument
+		doc.Load("TankConfig.xml")
+		Dim ctrl As Control
+		dim txtBox as TextBox
+		For Each ctrl in gbTank.Controls
+			If ctrl.Name.StartsWith ("txt") Then
+				txtBox = ctrl
+				txtBox.Text = doc.SelectSingleNode("//config/Stats/" & txtBox.Name ).InnerText
+			End If
+		Next
+		OUT:
+	End Sub
+	
+	Sub saveTankOptions()
+		Dim doc As xml.XmlDocument = New xml.XmlDocument
+		doc.LoadXml("<config></config>")
+		Dim xmlStat As xml.XmlNode = doc.CreateNode(xml.XmlNodeType.Element, "Stats", "")
+		Dim root as xml.XmlElement = doc.DocumentElement
+		root.AppendChild(xmlStat)
+		Dim newElem As xml.XmlNode
+		Dim ctrl As Control
+		dim txtBox as TextBox
+		For Each ctrl in gbTank.Controls
+			If ctrl.Name.StartsWith ("txt") Then
+				txtBox = ctrl
+				newElem = doc.CreateNode(xml.XmlNodeType.Element, txtBox.Name, "")
+				newElem.InnerText = txtBox.Text
+				xmlStat.AppendChild(newElem)
+			End If
+		Next
+		doc.Save("TankConfig.xml")
+	End Sub
+	
 	
 	
 	Sub SaveEPOptions
@@ -493,6 +534,7 @@ Public Partial Class MainForm
 		cmbRuneOH.SelectedItem = stemp
 		
 		stemp= cmbBShOption.SelectedItem
+		cmbBShOption.Items.Clear
 		cmbBShOption.Items.Add("Instead of Blood Strike")
 		cmbBShOption.Items.Add("Instead of Blood Boil")
 		cmbBShOption.Items.Add("After BS/BB")
@@ -1255,6 +1297,14 @@ Public Partial Class MainForm
 			newElem.InnerText = 0
 		End If
 		
+		glyphID = "04"
+		xmlGlyph.AppendChild(newElem)
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "BoneShield", "")
+		If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
+			newElem.InnerText = 1
+		Else
+			newElem.InnerText = 0
+		End If
 		xmlGlyph.AppendChild(newElem)
 		
 		root.AppendChild(xmlGlyph)

@@ -16,7 +16,7 @@ Public Class Strike
 	Friend TotalHit As Long
 	Friend TotalCrit As Long
 	Protected Sim as Sim
-	
+	Friend ThreadMultiplicator as Double
 	
     
     Public Sub New()
@@ -30,6 +30,7 @@ Public Class Strike
 		CritCount = 0
 		TotalHit = 0
 		TotalCrit = 0
+		ThreadMultiplicator = 1
 	End sub
 	
 	
@@ -73,6 +74,10 @@ Public Class Strike
 		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
 		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
 		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
+		If sim.MainStat.FrostPresence Then
+			tmp = tmp & toDecimal((100 * total * ThreadMultiplicator * 2.0735 ) / sim.TimeStamp) & VBtab
+		End If
+
 		tmp = tmp & vbCrLf
 		return tmp
 	End Function

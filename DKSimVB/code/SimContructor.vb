@@ -102,6 +102,12 @@ Public Module SimConstructor
 		if doc.SelectSingleNode("//config/Stats/chkEPExp").InnerText = "True" then
 			EPStat="ExpertiseRating"
 			SimConstructor.Start(pb,SimTime,MainFrm)
+			
+			If MainFrm.cmdPresence.SelectedItem = "Frost" Then
+				EPStat="ExpertiseRatingAfterCap"
+				SimConstructor.Start(pb,SimTime,MainFrm)
+			End If
+			
 		End If
 		if doc.SelectSingleNode("//config/Stats/chkEPHit").InnerText = "True" then
 			EPStat="HitRating"
@@ -203,6 +209,18 @@ Public Module SimConstructor
 			WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
 		End Try
+		
+		Try
+			EPStat="ExpertiseRatingAfterCap"
+			DPS = dpss(EPStat)
+			tmp1 = (APDPS-BaseDPS ) / 100
+			tmp2 = (DPS-BaseDPS) / EPBase
+			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | ExpertiseRating After Dodge Cap | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " | " & DPS)
+		catch
+		End Try
+		
+		
 		Try
 			EPStat="HitRating"
 			DPS = dpss(EPStat)
@@ -451,7 +469,7 @@ Public Module SimConstructor
 		sReport = sReport & "</table>"
 		
 		WriteReport(sReport)
-		createGraph
+		'createGraph
 		EpStat = ""
 		
 		End Sub
@@ -500,7 +518,7 @@ Public Module SimConstructor
 			 	Case "ScaArP"
 			 		pen.Color  = color.Maroon
 			 	Case "ScaHaste"
-			 		pen.Color  = color.GreenYellow
+			 		pen.Color  = color.Pink
 			 	Case "ScaCrit"
 			 		pen.Color  = color.Orange
 			 	Case "ScaAgility"
