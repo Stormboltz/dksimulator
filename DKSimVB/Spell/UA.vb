@@ -14,28 +14,35 @@ Sub New(S As sim)
 		Sim = S
 	End Sub
 	
+
+	
+	
 	Function IsAvailable(T As Long) As Boolean
-		If TalentFrost.UnbreakableArmor = 0 Then
-			return false
-		End If
-		If T <= cd Then
-			return false
-		End If
-		If sim.BloodTap.IsAvailable(T) and sim.Runes.Frost(T)=false Then
-			return true
-		End If
+		If TalentFrost.UnbreakableArmor = 0 Then return false 
+		If CD >= T Then Return False
+		If sim.BloodTap.IsAvailable(T) and sim.Runes.Frost(T)=false Then return true
 	End Function
-	Function Use(T As long) As Boolean
-		cd = t + 60 * 100
-		sim.BloodTap.Use(T)
-		'UseUnholy(T,false)
-		ActiveUntil= T + 20 * 100
-		If sim.MainStat.UnholyPresence Then
-			Sim.NextFreeGCD = T + 100 + sim._MainFrm.txtLatency.Text/10
-		Else
-			Sim.NextFreeGCD = T + 150 + sim._MainFrm.txtLatency.Text/10
+	Function Use(T As Long) As Boolean
+		If TalentFrost.UnbreakableArmor = 0 Then Return False
+		
+		
+		If sim.runes.Frost(T) = False Then
+			If sim.BloodTap.IsAvailable(T) Then
+				sim.BloodTap.Use(T)
+			Else
+				return false
+			End If
 		End If
+		cd = t + 60 * 100
+		sim.Runes.UseFrost(T,false)
+		ActiveUntil= T + 20 * 100
+		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste)) + sim._MainFrm.txtLatency.Text/10
+		sim.RunicPower.add(10)
 		sim.combatlog.write(T  & vbtab &  "Unbreakable Armor")
+		
+		
+		
+		me.HitCount = me.HitCount +1
 		return true
 	End Function
 	Function isActive() As Boolean

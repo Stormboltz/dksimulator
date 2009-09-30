@@ -12,6 +12,7 @@ Public Partial Class MainForm
 	Private TemplatePath As String
 	friend btList As New collection
 	
+	
 	Public Sub New()
 		' The Me.InitializeComponent call is required for Windows Forms designer support.
 		Me.InitializeComponent()
@@ -106,6 +107,7 @@ Public Partial Class MainForm
 		initReport
 		Randomize 'Initialize the random # generator
 		'CombatLog.init
+		_MainFrm = me
 	End Sub
 	
 	Sub MainFormClose(sender As Object, e As EventArgs)
@@ -1468,6 +1470,14 @@ Public Partial Class MainForm
 	End Sub
 	
 	Sub Label27Click(sender As Object, e As EventArgs)
+		
+	End Sub
+	
+	Sub Label20Click(sender As Object, e As EventArgs)
+		
+	End Sub
+	
+	Sub ChkScaCritACheckedChanged(sender As Object, e As EventArgs)
 		
 	End Sub
 End Class

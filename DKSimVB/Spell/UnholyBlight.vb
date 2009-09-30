@@ -14,6 +14,6 @@ Friend Class UnholyBlight
 		If sim.glyph.UnholyBlight Then dégat = dégat * 1.4
 		HitCount = HitCount + 1
 		total = total + dégat
-		sim.combatlog.write(T  & vbtab &  "UnholyBlight hit for " &  dégat )	
+		if sim.CombatLog.LogDetails then sim.combatlog.write(T  & vbtab &  "UnholyBlight hit for " &  dégat )	
 	End Function
 End Class

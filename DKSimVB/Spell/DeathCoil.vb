@@ -22,13 +22,13 @@ Friend class DeathCoil
 			Sim.RunicPower.Value = Sim.RunicPower.Value - 40
 		End If
 		
-		If sim.DoMySpellHit = false Then
+		If DoMySpellHit = false Then
 			sim.combatlog.write(T  & vbtab &  "DC fail")
 			MissCount = MissCount + 1
 			Exit function
 		End If
 		
-		RNG = sim.RandomNumberGenerator.RNGStrike
+		RNG = MyRNG
 		dim dégat as Integer
 		If RNG <= CritChance Then
 			CritCount = CritCount + 1

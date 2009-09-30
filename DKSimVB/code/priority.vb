@@ -31,6 +31,7 @@ Friend Class priority
 						sim.BoneShield.Use(Timestamp)
 						exit sub
 					End If
+					
 				Case "GhoulFrenzy"
 					if sim.Frenzy.IsFrenzyAvailable(Timestamp) and sim.CanUseGCD(Timestamp)  Then
 						sim.Frenzy.Frenzy(Timestamp)
@@ -100,6 +101,10 @@ Friend Class priority
 								sim.BoneShield.Use(TimeStamp)
 								exit sub
 							End If
+							If sim.UnbreakableArmor.IsAvailable(TimeStamp) Then
+								sim.UnbreakableArmor.Use(TimeStamp)
+								exit sub
+							End If
 						End If
 						sim.BloodStrike.ApplyDamage(TimeStamp)
 						'debug.Print("BS")
@@ -145,7 +150,7 @@ Friend Class priority
 							End If
 						End If
 					Else
-						If sim.FrostFever.PerfectUsage(TimeStamp) = true Then
+						If sim.FrostFever.PerfectUsage(TimeStamp) = true or sim.FrostFever.ToReApply Then
 							If talentfrost.HowlingBlast = 1 And sim.glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp)  Then
 								If sim.proc.rime Or runes.FU(TimeStamp) Then
 									sim.HowlingBlast.ApplyDamage(TimeStamp)
@@ -176,7 +181,7 @@ Friend Class priority
 						
 					Else
 						
-						If sim.BloodPlague.PerfectUsage(TimeStamp) = true then
+						If sim.BloodPlague.PerfectUsage(TimeStamp) or sim.BloodPlague.ToReApply then
 							If runes.Unholy(TimeStamp) = True Then
 								sim.PlagueStrike.ApplyDamage(TimeStamp)
 								exit sub
@@ -208,6 +213,9 @@ Friend Class priority
 							If sim.BoneShield.IsAvailable(TimeStamp) Then
 								sim.BoneShield.Use(TimeStamp)
 								exit sub
+							End If
+							If sim.UnbreakableArmor.IsAvailable(TimeStamp) Then
+								sim.UnbreakableArmor.Use(TimeStamp)
 							End If
 						End If
 						sim.BloodBoil.ApplyDamage(TimeStamp)

@@ -25,7 +25,7 @@ Friend class BloodStrike
 		
 		If sim.MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
 			
-			If sim.DoMyStrikeHit = false Then
+			If DoMyStrikeHit = false Then
 				sim.combatlog.write(T  & vbtab &  "MH/OH BS fail")
 				MissCount = MissCount + 1
 				MHHit = False
@@ -33,7 +33,7 @@ Friend class BloodStrike
 			End If
 		Else
 			OHHit = false
-			If sim.DoMyStrikeHit = false Then
+			If DoMyStrikeHit = false Then
 				sim.combatlog.write(T  & vbtab &  "BS fail")
 				MissCount = MissCount + 1
 				Exit function
@@ -42,7 +42,7 @@ Friend class BloodStrike
 		
 		If MHHit Or OHHit Then
 			If MHHit Then
-				RNG = sim.RandomNumberGenerator.RNGStrike
+				RNG = MyRNG
 				dim dégat as Integer
 				If RNG <= CritChance Then
 					dégat = AvrgCrit(T,true)

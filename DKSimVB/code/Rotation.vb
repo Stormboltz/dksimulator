@@ -129,6 +129,10 @@ Friend Class Rotation
 							sim.BoneShield.Use(TimeStamp)
 							Return True
 						End If
+						If sim.UnbreakableArmor.IsAvailable(TimeStamp) Then
+							sim.UnbreakableArmor.Use(TimeStamp)
+							return true
+						End If
 					End If
 					return sim.BloodStrike.ApplyDamage(TimeStamp)
 					'debug.Print("BS")
@@ -177,6 +181,10 @@ Friend Class Rotation
 					If sim.BoneShieldUsageStyle = 3 Then
 						If sim.BoneShield.IsAvailable(TimeStamp) Then
 							sim.BoneShield.Use(TimeStamp)
+							return true
+						End If
+						If sim.UnbreakableArmor.IsAvailable(TimeStamp) Then
+							sim.UnbreakableArmor.Use(TimeStamp)
 							return true
 						End If
 					End If

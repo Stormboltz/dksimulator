@@ -8,7 +8,7 @@
 '
 Public Class RandomNumberGenerator
 	Private _RNGWhiteHit as Random
-	Private _RNGStrike as Random
+	'Private _RNGStrike as Random
 	Private _RNGProc as Random
 	Private _RNGPet As Random
 	Private _RNGT9P4 As Random
@@ -23,7 +23,7 @@ Public Class RandomNumberGenerator
 		Dim tmp5 As New Random(131279)	
 		dim tmp6 as New Random(1478963)
 		_RNGWhiteHit = tmp
-		_RNGStrike = tmp2
+		'_RNGStrike = tmp2
 		_RNGProc = tmp3
 		_RNGPet = tmp4
 		_RNGT9P4 = tmp5
@@ -35,9 +35,9 @@ Public Class RandomNumberGenerator
 		return _RNGWhiteHit.NextDouble
 	End Function
 	
-	Function RNGStrike As Double
-		return _RNGStrike.NextDouble
-	End Function
+'	Function RNGStrike As Double
+'		return _RNGStrike.NextDouble
+'	End Function
 	
 	Function RNGProc As Double
 	 return _RNGProc.NextDouble

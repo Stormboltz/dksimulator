@@ -304,6 +304,9 @@ Public Class Sim
 													If BoneShield.IsAvailable(TimeStamp) Then
 														BoneShield.Use(TimeStamp)
 													End If
+													If UnbreakableArmor.IsAvailable(TimeStamp) Then
+														UnbreakableArmor.Use(TimeStamp)
+													End If
 												End If
 											End If
 										End If
@@ -515,34 +518,9 @@ Public Class Sim
 		Glyph = new glyph(file)
 	End Sub
 	
-	Function DoMyStrikeHit As Boolean
-		Dim RNG As Double
-		RNG = RandomNumberGenerator.RNGStrike
-		If MainStat.FrostPresence = 1 Then
-			If math.Min(mainstat.Expertise,0.065)+ math.Min(mainstat.Expertise,0.14) + math.Min (mainstat.Hit,0.08) + RNG < 0.285 Then
-				Return False
-			Else
-				return true
-			End If
-		Else
-			If math.Min(mainstat.Expertise,0.065) + math.Min (mainstat.Hit,0.08) + RNG < 0.145 Then
-				Return False
-			Else
-				return true
-			End If
-		End If
-		
-	End Function
+
 	
-	Function DoMySpellHit As Boolean
-		Dim RNG As Double
-		RNG = RandomNumberGenerator.RNGStrike
-		If math.Min(mainstat.SpellHit,0.17) + RNG < 0.17 Then
-			Return False
-		Else
-			return true
-		End If
-	End Function
+	
 	
 	Function DoMyWhiteHit As Boolean
 		'unused
@@ -1008,6 +986,11 @@ Public Class Sim
 			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 		End If
 		
+		If UnbreakableArmor.HitCount <> 0 Then
+			STmp = UnbreakableArmor.report
+			STmp = replace(STmp,vbtab,"</td><td>")
+			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+		End If
 		
 		
 		

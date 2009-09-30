@@ -6,9 +6,12 @@ Friend Class BloodPlague
 		Sim = S
 	End Sub
 	
-	overrides Function PerfectUsage(T As Long) As Boolean
+	Overrides Function PerfectUsage(T As Long) As Boolean
 		If TalentUnholy.RageofRivendare>0 Then
-			if isActive(T+150) = false then return true
+			If FadeAt <= sim.Runes.GetNextUnholy(T) Then 
+				Sim.FrostFever.ToReApply = true
+				Return True
+			End If
 		Else
 			'if sim.Runes.UnholyOnly(T)=false then return false
 			if isActive(T) = false then return true
@@ -16,7 +19,8 @@ Friend Class BloodPlague
 		return false
 	End Function
 		
-	overrides Function Apply(T As Long) As Boolean
+	Overrides Function Apply(T As Long) As Boolean
+		ToReApply = false 
 		AP = sim.MainStat.AP
 		DamageTick = AvrgNonCrit(T)
 		FadeAt = T + 15 * 100 + 3 * 100 * talentunholy.Epidemic

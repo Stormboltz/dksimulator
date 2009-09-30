@@ -43,7 +43,7 @@ Friend Class FrostStrike
 		OHHit = True
 		
 		If sim.MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
-			If sim.DoMyStrikeHit = false Then
+			If DoMyStrikeHit = false Then
 				sim.combatlog.write(T  & vbtab & "MH FS fail")
 				MissCount = MissCount + 1
 				MHHit = False
@@ -51,7 +51,7 @@ Friend Class FrostStrike
 			End If
 		Else
 			OHHit = false
-			If sim.DoMyStrikeHit = false Then
+			If DoMyStrikeHit = false Then
 				sim.combatlog.write(T  & vbtab & "FS fail")
 				sim.proc.KillingMachine  = False
 				MissCount = MissCount + 1
@@ -64,7 +64,7 @@ Friend Class FrostStrike
 		ccT = CritChance
 		If MHHit Or OHHit Then
 			If MHHit Then
-				RNG = sim.RandomNumberGenerator.RNGStrike
+				RNG = MyRNG
 				If RNG < ccT Then
 					dégat = AvrgCrit(T,true)
 					sim.combatlog.write(T  & vbtab &  "FS crit for " & dégat )

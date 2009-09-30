@@ -30,7 +30,7 @@ Friend Class DeathStrike
 			Sim.NextFreeGCD = T + 150+ sim._MainFrm.txtLatency.Text/10
 		End If
 		If sim.MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
-			If sim.DoMyStrikeHit = false Then
+			If DoMyStrikeHit = false Then
 				sim.combatlog.write(T  & vbtab & "MH/OH DS fail")
 				MissCount = MissCount + 1
 				MHHit = False
@@ -38,7 +38,7 @@ Friend Class DeathStrike
 			End If
 		Else
 			OHHit = false
-			If sim.DoMyStrikeHit = false Then
+			If DoMyStrikeHit = false Then
 				sim.combatlog.write(T  & vbtab & "DS fail")
 				MissCount = MissCount + 1
 				Exit function
@@ -48,7 +48,7 @@ Friend Class DeathStrike
 			
 			dim dégat as Integer
 			If MHHit Then
-				RNG = sim.RandomNumberGenerator.RNGStrike
+				RNG = MyRNG
 				If RNG <= CritChance Then
 					CritCount = CritCount + 1
 					dégat = AvrgCrit(T,true)

@@ -14,7 +14,7 @@ Sub New(S As sim)
 	End Sub
 	public Overrides Function ApplyDamage(T As long,MH as Boolean) As boolean
 
-		If sim.DoMyStrikeHit = false Then
+		If DoMyStrikeHit = false Then
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "BCB fail")
 			MissCount = MissCount + 1
 			Exit function

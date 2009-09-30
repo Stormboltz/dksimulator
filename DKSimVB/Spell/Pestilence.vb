@@ -18,7 +18,7 @@ Friend Class Pestilence
 	Friend FFToReapply As Boolean
 	Function use(T As double) As Boolean
 		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
-		If sim.DoMySpellHit = false Then
+		If DoMySpellHit = false Then
 			sim.combatlog.write(T  & vbtab &  "Pestilence fail")
 			MissCount = MissCount +1
 			Exit function

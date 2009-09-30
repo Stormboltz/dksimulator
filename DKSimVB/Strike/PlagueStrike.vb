@@ -21,7 +21,7 @@ Friend Class PlagueStrike
 		
 		If sim.MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
 			'MH
-			If sim.DoMyStrikeHit = false Then
+			If DoMyStrikeHit = false Then
 				MissCount = MissCount + 1
 				sim.combatlog.write(T  & vbtab &  "MH PS fail")
 				MHHit = False
@@ -29,7 +29,7 @@ Friend Class PlagueStrike
 			End If
 		Else
 			OHHit = false
-			If sim.DoMyStrikeHit = false Then
+			If DoMyStrikeHit = false Then
 				MissCount = MissCount + 1
 				sim.combatlog.write(T  & vbtab &  "PS fail")
 				Exit function
@@ -43,9 +43,9 @@ Friend Class PlagueStrike
 		Dim dégat As Integer
 		
 		If MHHit Or OHHit Then
-			RNG = sim.RandomNumberGenerator.RNGStrike
+			RNG = MyRNG
 			If MHHit Then
-				RNG = sim.RandomNumberGenerator.RNGStrike
+				RNG = MyRNG
 				If RNG <= CritChance Then
 					CritCount = CritCount + 1
 					dégat = AvrgCrit(T,true)

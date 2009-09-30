@@ -333,11 +333,15 @@ Friend Class MainStat
 		tmp = tmp + 0.25 * talentfrost.TundraStalker
 		tmp = tmp + 0.25 * talentunholy.RageofRivendare
 		
-		If sim.EPStat<>"" Then tmp = 6.5 'For most EP stats we assume being exp capped
+		If sim.EPStat<>"" and strings.InStr(sim.EPStat,"Sca")<>0 Then tmp = 6.5 'For most EP stats we assume being exp capped
 		If sim.EPStat="ExpertiseRating" Then tmp = 6.5 - sim.EPBase / 32.79
 		If sim.EPStat="ExpertiseRatingAfterCap" Then tmp = 6.5 + sim.EPBase / 32.79
-		If InStr(sim.EPStat,"ScaExp") Then 
-			tmp =  Replace(sim.EPStat,"ScaExp","") * sim.EPBase /  32.79
+		If InStr(sim.EPStat,"ScaExp") Then
+			If InStr(sim.EPStat,"ScaExpA") Then
+				tmp = tmp +  Replace(sim.EPStat,"ScaExpA","") * sim.EPBase /  32.79
+			Else
+				tmp =  Replace(sim.EPStat,"ScaExp","") * sim.EPBase /  32.79
+			End If
 		End If
 		
 		
@@ -348,31 +352,29 @@ Friend Class MainStat
 		tmp = (Character.HitRating / 32.79)
 		If DualW Then tmp = tmp + 1 * TalentFrost.NervesofColdSteel
 		
-		If sim.EPStat<>"" Then tmp = 8 'For most EP stats we assume being hit capped
+		If sim.EPStat<>"" and strings.InStr(sim.EPStat,"Sca")<>0 Then tmp = 8 'For most EP stats we assume being hit capped
 		If sim.EPStat="HitRating" Then tmp = 8 - sim.EPBase / 32.79
 		If sim.EPStat="SpellHitRating" Then tmp = 8 + 26 / 32.79  ' +26 to not go over spell hit cap
 
-		If sim.EPStat="AfterSpellHitBase" Then tmp = SpellHitCapRating / 32.79 
-		If sim.EPStat="AfterSpellHitBaseAP" Then tmp = SpellHitCapRating / 32.79 
+		If sim.EPStat="AfterSpellHitBase" Then tmp = SpellHitCapRating / 32.79
+		If sim.EPStat="AfterSpellHitBaseAP" Then tmp = SpellHitCapRating / 32.79
 		If sim.EPStat="AfterSpellHitRating" Then tmp = (SpellHitCapRating + sim.EPBase) / 32.79
 		If sim.EPStat="" Then tmp = tmp + sim.Buff.Draenei
-		
-		If InStr(sim.EPStat,"ScaHit") Then 
-			tmp = Replace(sim.EPStat,"ScaHit","") * sim.EPBase / 32.79
+		If InStr(sim.EPStat,"ScaHit") Then
+			If InStr(sim.EPStat,"ScaHitA") Then
+				tmp = tmp + Replace(sim.EPStat,"ScaHitA","") * sim.EPBase / 32.79
+			Else
+				tmp = Replace(sim.EPStat,"ScaHit","") * sim.EPBase / 32.79
+			end if			
 			tmp = tmp + sim.Buff.Draenei
 		End If
-		
-		
-		
-		
-		
 		Hit = tmp / 100
 	End Function
 	
 	Function SpellHitCapRating() as Integer
 		dim tmp as integer
 		tmp = 17
-		tmp = tmp - TalentUnholy.Virulence 
+		tmp = tmp - TalentUnholy.Virulence
 		tmp = tmp - 3*sim.Buff.SpellHitTaken
 		tmp = tmp * 26.23
 		return tmp
@@ -384,7 +386,7 @@ Friend Class MainStat
 		Dim tmp As Double
 		dim MeleHitCapRating as Integer
 		tmp = Character.SpellHitRating / 26.23
-		If sim.EPStat<>"" Then
+		If sim.EPStat<>"" and strings.InStr(sim.EPStat,"Sca")<>0 Then
 			MeleHitCapRating = 263 - 32.79 * TalentFrost.NervesofColdSteel
 			tmp = MeleHitCapRating / 26.23
 			If sim.EPStat="HitRating" Then tmp = MeleHitCapRating / 26.23 - sim.EPBase / 26.23
@@ -393,8 +395,6 @@ Friend Class MainStat
 			If sim.EPStat="AfterSpellHitBase" Then tmp = SpellHitCapRating / 26.23
 			If sim.EPStat="AfterSpellHitBaseAP" Then tmp = SpellHitCapRating / 26.23
 			If sim.EPStat="AfterSpellHitRating" Then tmp = (SpellHitCapRating + sim.EPBase) / 26.23
-		
-			
 		End If
 		tmp = tmp + 1 * TalentUnholy.Virulence
 		tmp = tmp +  sim.Buff.SpellHitTaken * 3

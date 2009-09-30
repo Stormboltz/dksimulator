@@ -6,18 +6,21 @@ Friend Class FrostFever
 		Sim = S
 	End Sub
 	
-	overrides Function PerfectUsage(T As Long) As Boolean
-		If Talentfrost.TundraStalker>0 Then
-			if isActive(T+150) = false then return true
+	Overrides Function PerfectUsage(T As Long) As Boolean
+		
+		If Talentfrost.TundraStalker > 0 Then
+			If FadeAt <= sim.Runes.GetNextFrost(T) Then 
+				Sim.BloodPlague.ToReApply = true
+				Return True
+			End If
 		Else
-			'if sim.Runes.FrostOnly(T)=false then return false
-			if isActive(T-150) = false then return true
+			if isActive(T) = false then return true
 		End If
 		return false
 	End Function
 	
 	overrides Function Apply(T As Long) As Boolean
-
+		ToReApply = false 
 		AP = sim.MainStat.AP
 		DamageTick = AvrgNonCrit(T)
 		FadeAt = T + 15 * 100 + 3 * 100 * talentunholy.Epidemic

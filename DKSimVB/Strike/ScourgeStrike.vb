@@ -18,13 +18,13 @@ Friend Class ScourgeStrike
 			Sim.NextFreeGCD = T + 150+ sim._MainFrm.txtLatency.Text/10
 		End If
 		
-		If sim.DoMyStrikeHit = false Then
+		If DoMyStrikeHit = false Then
 			sim.combatlog.write(T  & vbtab &  "SS fail")
 			MissCount = MissCount + 1
 			Exit function
 		End If
 		dim dégat as Integer
-		RNG = sim.RandomNumberGenerator.RNGStrike
+		RNG = MyRNG
 		If RNG <= CritChance Then
 			CritCount = CritCount + 1
 			dégat = AvrgCrit(T)

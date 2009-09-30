@@ -67,14 +67,52 @@ Public Module GlobalFunction
 		Dim Tw As System.IO.TextWriter
 		
 		ReportPath = System.IO.Path.GetTempFileName
-		Tw  =system.IO.File.appendText(ReportPath )
+		Tw  = system.IO.File.appendText(ReportPath )
 		tw.WriteLine("<hmtl style='font-family:Verdana; font-size:10px;'><body>")
 		tw.Flush
 		tw.Close
 		
 	End Sub
 	
+	Function GetHigherValueofThisCollection(collec As Collection) As Integer
+		Dim i As Integer
+		Dim tmp As Integer
+		tmp = collec.Item(1)
+		For Each i In collec
+			If i > tmp Then
+				tmp = i
+			End If
+		Next
+		return tmp
+	End Function
 	
+	Function GetLowerValueofThisCollection(collec As Collection) As integer
+		Dim i As Integer
+		Dim tmp As Integer
+		tmp = collec.Item(1)
+		For Each i In collec
+			If i < tmp Then
+				tmp = i
+			End If
+		Next
+		return tmp
+		
+	End Function
+	Function ConvertToInt(S As String) As Integer
+		Dim c As Char
+		Dim tmp As Integer
+		Dim charEnum As CharEnumerator
+		
+		charEnum = s.GetEnumerator
+		
+		Do 	Until charEnum.MoveNext = False
+			tmp = tmp  + Microsoft.VisualBasic.Asc(charEnum.Current)
+			
+		Loop
+		
+		
+		return tmp
+	End Function
 	
 	
 End Module

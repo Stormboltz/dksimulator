@@ -25,12 +25,13 @@ Friend Class BloodBoil
 		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste)) + sim._MainFrm.txtLatency.Text/10
 		Dim intCount As Integer
 		For intCount = 1 To Sim.NumberOfEnemies
-			If sim.DoMySpellHit = false Then
+			If DoMySpellHit = False Then
+				
 				sim.combatlog.write(T  & vbtab &  "BB fail")
 				MissCount = MissCount + 1
 				Exit function
 			End If
-			RNG = sim.RandomNumberGenerator.RNGStrike
+			RNG = MyRNG
 			dim dégat as Integer
 			If RNG <= CritChance Then
 				dégat = AvrgCrit(T)

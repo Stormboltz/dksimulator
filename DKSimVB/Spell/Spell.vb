@@ -18,10 +18,24 @@ Public Class Spell
 	Friend ActiveUntil As Long
 	Friend ThreadMultiplicator as double
 	Protected Sim As Sim
+	Protected _RNG as Random
 	
+	Function MyRng as Double 
+		If _RNG Is nothing Then
+			_RNG =  New Random(ConvertToInt(me.ToString))
+		End If
+		return _RNG.NextDouble
+	End Function
 	
-	
-	
+	Function DoMySpellHit As Boolean
+		Dim RNG As Double
+		RNG = MyRNG
+		If math.Min(sim.mainstat.SpellHit,0.17) + RNG < 0.17 Then
+			Return False
+		Else
+			return true
+		End If
+	End Function
 	
 	Sub New()		
 		Init
@@ -40,6 +54,8 @@ Public Class Spell
 		CD = 0
 		ActiveUntil = 0
 		ThreadMultiplicator = 1
+		_RNG = Nothing
+
 	End Sub
 	
 	

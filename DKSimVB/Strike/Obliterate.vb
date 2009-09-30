@@ -27,10 +27,10 @@ Friend Class Obliterate
 		Else
 			Sim.NextFreeGCD = T + 150+ sim._MainFrm.txtLatency.Text/10
 		End If
-		RNG = sim.RandomNumberGenerator.RNGStrike
+		RNG = MyRNG
 
 		If sim.MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
-			If sim.DoMyStrikeHit = false Then
+			If DoMyStrikeHit = false Then
 				sim.combatlog.write(T  & vbtab &  "MH/OH OB fail" & vbtab & RNG)
 				MissCount = MissCount + 1
 				MHHit=False
@@ -38,7 +38,7 @@ Friend Class Obliterate
 			End If
 		Else
 			OHHit = false
-			If sim.DoMyStrikeHit = false Then
+			If DoMyStrikeHit = false Then
 				sim.combatlog.write(T  & vbtab &  "OB fail" & vbtab & RNG)
 				MissCount = MissCount + 1
 				Exit function
@@ -62,7 +62,7 @@ Friend Class Obliterate
 			Dim ccT As Double
 			ccT = CritChance
 			If MHHit Then
-				RNG = sim.RandomNumberGenerator.RNGStrike
+				RNG = MyRNG
 				If RNG <= ccT Then
 					CritCount = CritCount + 1
 					dégat =  AvrgCrit(T,true)

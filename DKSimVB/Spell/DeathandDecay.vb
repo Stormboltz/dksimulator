@@ -43,14 +43,14 @@ Friend Class DeathandDecay
 		Dim RNG As Double
 		Dim intCount As Integer
 		For intCount = 1 To Sim.NumberOfEnemies
-			If sim.DoMySpellHit = false Then
+			If DoMySpellHit = false Then
 				if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "D&D fail")
 				MissCount = MissCount + 1
 				Exit function
 			End If
-			RNG = sim.RandomNumberGenerator.RNGStrike
+			RNG = MyRNG
 			dim dégat as Integer
-			If sim.RandomNumberGenerator.RNGStrike <= CritChance Then
+			If MyRNG <= CritChance Then
 				dégat = AvrgCrit(T)
 				if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "D&D crit for " & dégat)
 				CritCount = CritCount + 1

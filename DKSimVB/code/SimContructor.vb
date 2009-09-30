@@ -13,11 +13,12 @@ Public Module SimConstructor
 	Friend Rotate as Boolean
 	Friend ReportPath As String
 	Friend EpStat As String
-	Friend _MainFrm As MainForm
+	
 	Friend DPSs as new Collection
 	Friend sThreadCollection as new Collection
 	Friend EPBase as Integer
-	Friend ThreadCollection as new Collections.ArrayList
+	Friend ThreadCollection As New Collections.ArrayList
+	Public _MainFrm As MainForm
 	Sub New()
 		
 	End Sub
@@ -421,10 +422,10 @@ Public Module SimConstructor
 	End Sub
 	
 	Sub StartScaling(pb As ProgressBar,SimTime As Double,MainFrm As MainForm)
-		DPSs.Clear
-		FakeResultBuilder
-		createGraph
-		exit sub
+		'DPSs.Clear
+		'FakeResultBuilder
+		'createGraph
+		'exit sub
 		
 		
 		DPSs.Clear
@@ -451,20 +452,46 @@ Public Module SimConstructor
 		Next
 		sReport = sReport +  ("</tr>")
 		
-		
+		dim INSRTCOLOR as String
 		For Each xNode In xNodelist.ChildNodes
 			
 			If xNode.InnerText = "True" Then
 				For i=0 To max
 					EpStat=Replace(xNode.Name,"chk","") & i
-					
 					SimConstructor.Start(pb,1,MainFrm)
 				Next i
 				For Each T In ThreadCollection
 					T.Join()
 				Next
+				
+				
+				
+				
+				
 				EpStat= Replace(xNode.Name,"chk","")
-				sReport = sReport +  ("<tr><td>" & EpStat & "</td>")
+				
+				INSRTCOLOR = ""
+				Select Case EpStat
+					Case "ScaExp"
+						INSRTCOLOR = "Violet"
+					Case "ScaHit"
+						INSRTCOLOR = "Yellow"
+					Case "ScaArP"
+						INSRTCOLOR = "Maroon"
+					Case "ScaHaste"
+						INSRTCOLOR = "Pink"
+					Case "ScaCrit"
+						INSRTCOLOR = "Orange"
+					Case "ScaAgility"
+						INSRTCOLOR = "Purple"
+					Case "ScaStr"
+						INSRTCOLOR = "Red"
+				End Select
+				INSRTCOLOR = "Black"
+				sReport = sReport +  ("<tr><td><font color=" & INSRTCOLOR & ">" & EpStat & "</td>")
+				
+				
+				
 				For i=0 To max
 					sReport = sReport +  ("<td>" & DPSs(EpStat & i) & "</td>")
 				Next i
@@ -845,8 +872,15 @@ Public Module SimConstructor
 		
 		
 	End Sub
-	sub createGraph()
-		Dim pg As Bitmap = New Bitmap((500),(900))
+	Sub createGraph()
+		
+		Dim maxDPS As Integer
+		Dim minDPS As Integer
+		maxDPS= GetHigherValueofThisCollection(DPSs)
+		minDPS= GetLowerValueofThisCollection(DPSs)
+		dim w as Integer
+		w = maxDPS/ 10
+		Dim pg As Bitmap = New Bitmap((500),(w))
 		Dim gr As Graphics = Graphics.FromImage(pg)
 		
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
@@ -903,12 +937,15 @@ Public Module SimConstructor
 		MakeGrid(pg,100,100)
 		pg.Save("myScaling.png",imaging.ImageFormat.Png)
 		
-		pg = CropBitmap(pg,0,0, pg.Width, 300)
+		
+		
+		
+		pg = CropBitmap(pg,0,0, pg.Width, (maxDPS-minDPS)/10)
 		Dim pathPng As String
 		pathPng = System.IO.Path.GetTempFileName()
 		
 		pg.Save(pathPng,imaging.ImageFormat.Png)
-		GlobalFunction.WriteReport("<img src='" & pathPng & "'></img>")
+		GlobalFunction.WriteReport("<img src='" & pathPng & "' width='100%'></img>")
 		
 		
 	End sub
@@ -920,22 +957,22 @@ Public Module SimConstructor
 		Return cropped
 	End Function
 	
-	sub MakeGrid(ByVal bmp As Bitmap, XSpace As Integer,YSpace As Integer) 
+	sub MakeGrid(ByVal bmp As Bitmap, XSpace As Integer,YSpace As Integer)
 		Dim gr As Graphics = Graphics.FromImage(bmp)
 		Dim i As Integer
-		Dim pen As new Pen(color.Black)
+		Dim pen As New Pen(color.Black)
+
+		
 		i=0
 		do until i >= bmp.Width
 			i = i + XSpace
 			gr.DrawLine(pen,i,0,i,bmp.height)
 		loop
-		
 		i=0
 		do until i >= bmp.Height
 			i = i + YSpace
 			gr.DrawLine(pen,0,bmp.Height-i,bmp.Width,bmp.Height-i)
-			gr.DrawString((bmp.Height - i)*10, new Font("Arial", 8,FontStyle.Regular ), SystemBrushes.WindowText, new Point( 10, i ))
-			
+			gr.DrawString((XSpace*i/10), new Font("Arial", 8,FontStyle.Regular ), SystemBrushes.WindowText, new Point( 10,bmp.Height-i ))
 		loop
 		
 		

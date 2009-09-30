@@ -79,7 +79,7 @@ Friend Class Character
 		Dim tmp As Integer
 		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Strength").InnerText)
 		If sim.EPStat="Strength" Then tmp = tmp + sim.EPBase
-		If InStr(sim.EPStat,"ScaStr") Then 
+		If InStr(sim.EPStat,"ScaStr") Then
 			tmp = tmp + Replace(sim.EPStat,"ScaStr","") * sim.EPBase
 		End If
 		
@@ -117,7 +117,7 @@ Friend Class Character
 		Dim tmp As Integer
 		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Agility").InnerText)
 		If sim.EPStat="Agility" Then tmp = tmp +sim.EPBase
-		If InStr(sim.EPStat,"ScaAgility") Then 
+		If InStr(sim.EPStat,"ScaAgility") Then
 			tmp = tmp + Replace(sim.EPStat,"ScaAgility","") * sim.EPBase
 		End If
 		_Agility = (tmp + 155 * 1.15 *  sim.Buff.StrAgi + 37 * 1.4  *  sim.Buff.StatAdd) * (1 +  sim.Buff.StatMulti / 10)
@@ -198,12 +198,16 @@ Friend Class Character
 		
 		
 		
-		If sim.EPStat="CritRating" Then 
+		If sim.EPStat="CritRating" Then
 			_CritRating = _CritRating+sim.EPBase
 		End If
 		
-		If InStr(sim.EPStat,"ScaCrit") Then 
-			_CritRating = Replace(sim.EPStat,"ScaCrit","") * sim.EPBase
+		If InStr(sim.EPStat,"ScaCrit") Then
+			If InStr(sim.EPStat,"ScaCritA") Then
+				_CritRating = _CritRating  + Replace(sim.EPStat,"ScaCritA","") * sim.EPBase
+			Else
+				_CritRating = Replace(sim.EPStat,"ScaCrit","") * sim.EPBase
+			End If
 		End If
 		
 		
@@ -221,13 +225,17 @@ Friend Class Character
 		Dim tmp As Integer
 		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/HasteRating").InnerText)
 		_HasteRating = tmp
-		If sim.EPStat="HasteRating" Then 
+		If sim.EPStat="HasteRating" Then
 			_HasteRating = _HasteRating+sim.EPBase
 		End If
 		
 		
-		If InStr(sim.EPStat,"ScaHaste") Then 
-			_HasteRating =  Replace(sim.EPStat,"ScaHaste","") * sim.EPBase
+		If InStr(sim.EPStat,"ScaHaste") Then
+			If InStr(sim.EPStat,"ScaHasteA") Then
+				_HasteRating =  _HasteRating  + Replace(sim.EPStat,"ScaHasteA","") * sim.EPBase
+			Else
+				_HasteRating =  Replace(sim.EPStat,"ScaHaste","") * sim.EPBase
+			end if
 		End If
 		
 		
@@ -239,10 +247,14 @@ Friend Class Character
 		Dim tmp As Integer
 		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/ArmorPenetrationRating").InnerText)
 		
-		If InStr(sim.EPStat,"ScaArP") Then 
-			tmp =  Replace(sim.EPStat,"ScaArP","") * sim.EPBase
+		If InStr(sim.EPStat,"ScaArP") Then
+			If InStr(sim.EPStat,"ScaArPA") Then
+				tmp =  tmp  + Replace(sim.EPStat,"ScaArPA","") * sim.EPBase
+			Else
+				tmp =  Replace(sim.EPStat,"ScaArP","") * sim.EPBase
+			End If
 		End If
-		If sim.EPStat="ArmorPenetrationRating" Then 
+		If sim.EPStat="ArmorPenetrationRating" Then
 			tmp = tmp+sim.EPBase
 		End If
 		

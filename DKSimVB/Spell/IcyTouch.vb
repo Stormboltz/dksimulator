@@ -11,14 +11,14 @@ Friend Class IcyTouch
 		
 		
 		
-		If sim.DoMySpellHit = false Then
+		If DoMySpellHit = false Then
 			sim.combatlog.write(T  & vbtab &  "IT fail")
 			sim.proc.KillingMachine  = False
 			MissCount = MissCount + 1
 			Exit function
 		End If
 		
-		RNG = sim.RandomNumberGenerator.RNGStrike
+		RNG = MyRNG
 		
 		Dim dégat As Integer
 		Dim ccT As Double

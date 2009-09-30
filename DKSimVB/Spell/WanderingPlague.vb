@@ -31,7 +31,7 @@ Friend Class WanderingPlague
 		Dim tmp As Integer
 		Dim intCount As Integer
 		For intCount = 1 To Sim.NumberOfEnemies
-			If Sim.DoMySpellHit = false Then
+			If DoMySpellHit = false Then
 				'combatlog.write(T  & vbtab &  "WP fail")
 				MissCount = MissCount + 1
 				'Exit function

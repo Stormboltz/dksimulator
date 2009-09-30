@@ -188,6 +188,11 @@ Partial Class MainForm
 		Me.txtFBAvoidance = New System.Windows.Forms.TextBox
 		Me.txtFPBossSwing = New System.Windows.Forms.TextBox
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
+		Me.chkScaCritA = New System.Windows.Forms.CheckBox
+		Me.chkScaHasteA = New System.Windows.Forms.CheckBox
+		Me.chkScaArPA = New System.Windows.Forms.CheckBox
+		Me.chkScaHitA = New System.Windows.Forms.CheckBox
+		Me.chkScaExpA = New System.Windows.Forms.CheckBox
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -458,11 +463,12 @@ Partial Class MainForm
 		'label20
 		'
 		Me.label20.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.label20.Location = New System.Drawing.Point(393, 365)
+		Me.label20.Location = New System.Drawing.Point(366, 365)
 		Me.label20.Name = "label20"
-		Me.label20.Size = New System.Drawing.Size(100, 21)
+		Me.label20.Size = New System.Drawing.Size(127, 21)
 		Me.label20.TabIndex = 41
-		Me.label20.Text = "Use Bone shield"
+		Me.label20.Text = "Use Bone shield/UA"
+		AddHandler Me.label20.Click, AddressOf Me.Label20Click
 		'
 		'cmbBShOption
 		'
@@ -1692,13 +1698,13 @@ Partial Class MainForm
 		Me.label21.Name = "label21"
 		Me.label21.Size = New System.Drawing.Size(363, 81)
 		Me.label21.TabIndex = 12
-		Me.label21.Text = "The stat scaling fucntion runs multiple simulation incrementing at each run. Exce"& _ 
-		"pt for Strengh and Agility, character stats are replace. Select 1h simulation ti"& _ 
-		"me or it may take long."
+		Me.label21.Text = "The stat scaling fucntion runs multiple simulation incrementing at each run. "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"Ex"& _ 
+		"cept for Strengh and Agility, character stats are replaced or added. "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"Select 1h"& _ 
+		" simulation time or it may take long."
 		'
 		'cmdScaling
 		'
-		Me.cmdScaling.Location = New System.Drawing.Point(321, 416)
+		Me.cmdScaling.Location = New System.Drawing.Point(306, 418)
 		Me.cmdScaling.Name = "cmdScaling"
 		Me.cmdScaling.Size = New System.Drawing.Size(75, 23)
 		Me.cmdScaling.TabIndex = 11
@@ -1708,16 +1714,21 @@ Partial Class MainForm
 		'
 		'gbScaling
 		'
+		Me.gbScaling.Controls.Add(Me.chkScaExpA)
 		Me.gbScaling.Controls.Add(Me.chkScaExp)
+		Me.gbScaling.Controls.Add(Me.chkScaHitA)
 		Me.gbScaling.Controls.Add(Me.chkScaHit)
+		Me.gbScaling.Controls.Add(Me.chkScaArPA)
+		Me.gbScaling.Controls.Add(Me.chkScaHasteA)
 		Me.gbScaling.Controls.Add(Me.chkScaArP)
+		Me.gbScaling.Controls.Add(Me.chkScaCritA)
 		Me.gbScaling.Controls.Add(Me.chkScaHaste)
 		Me.gbScaling.Controls.Add(Me.chkScaCrit)
 		Me.gbScaling.Controls.Add(Me.chkScaAgility)
 		Me.gbScaling.Controls.Add(Me.chkScaStr)
-		Me.gbScaling.Location = New System.Drawing.Point(8, 217)
+		Me.gbScaling.Location = New System.Drawing.Point(18, 88)
 		Me.gbScaling.Name = "gbScaling"
-		Me.gbScaling.Size = New System.Drawing.Size(148, 232)
+		Me.gbScaling.Size = New System.Drawing.Size(426, 232)
 		Me.gbScaling.TabIndex = 3
 		Me.gbScaling.TabStop = false
 		Me.gbScaling.Text = "Common stats"
@@ -1728,9 +1739,9 @@ Partial Class MainForm
 		Me.chkScaExp.CheckState = System.Windows.Forms.CheckState.Checked
 		Me.chkScaExp.Location = New System.Drawing.Point(6, 199)
 		Me.chkScaExp.Name = "chkScaExp"
-		Me.chkScaExp.Size = New System.Drawing.Size(104, 24)
+		Me.chkScaExp.Size = New System.Drawing.Size(158, 24)
 		Me.chkScaExp.TabIndex = 14
-		Me.chkScaExp.Text = "Expertise rating"
+		Me.chkScaExp.Text = "Replace Expertise rating"
 		Me.chkScaExp.UseVisualStyleBackColor = true
 		'
 		'chkScaHit
@@ -1739,9 +1750,9 @@ Partial Class MainForm
 		Me.chkScaHit.CheckState = System.Windows.Forms.CheckState.Checked
 		Me.chkScaHit.Location = New System.Drawing.Point(6, 169)
 		Me.chkScaHit.Name = "chkScaHit"
-		Me.chkScaHit.Size = New System.Drawing.Size(104, 24)
+		Me.chkScaHit.Size = New System.Drawing.Size(158, 24)
 		Me.chkScaHit.TabIndex = 16
-		Me.chkScaHit.Text = "Hit rating"
+		Me.chkScaHit.Text = "Replace Hit rating"
 		Me.chkScaHit.UseVisualStyleBackColor = true
 		'
 		'chkScaArP
@@ -1750,9 +1761,9 @@ Partial Class MainForm
 		Me.chkScaArP.CheckState = System.Windows.Forms.CheckState.Checked
 		Me.chkScaArP.Location = New System.Drawing.Point(6, 139)
 		Me.chkScaArP.Name = "chkScaArP"
-		Me.chkScaArP.Size = New System.Drawing.Size(112, 24)
+		Me.chkScaArP.Size = New System.Drawing.Size(166, 24)
 		Me.chkScaArP.TabIndex = 15
-		Me.chkScaArP.Text = "Armor Penetration"
+		Me.chkScaArP.Text = "Replace Armor Penetration"
 		Me.chkScaArP.UseVisualStyleBackColor = true
 		'
 		'chkScaHaste
@@ -1761,9 +1772,9 @@ Partial Class MainForm
 		Me.chkScaHaste.CheckState = System.Windows.Forms.CheckState.Checked
 		Me.chkScaHaste.Location = New System.Drawing.Point(6, 109)
 		Me.chkScaHaste.Name = "chkScaHaste"
-		Me.chkScaHaste.Size = New System.Drawing.Size(104, 24)
+		Me.chkScaHaste.Size = New System.Drawing.Size(158, 24)
 		Me.chkScaHaste.TabIndex = 10
-		Me.chkScaHaste.Text = "Haste Rating"
+		Me.chkScaHaste.Text = "Replace Haste Rating"
 		Me.chkScaHaste.UseVisualStyleBackColor = true
 		'
 		'chkScaCrit
@@ -1772,31 +1783,31 @@ Partial Class MainForm
 		Me.chkScaCrit.CheckState = System.Windows.Forms.CheckState.Checked
 		Me.chkScaCrit.Location = New System.Drawing.Point(6, 79)
 		Me.chkScaCrit.Name = "chkScaCrit"
-		Me.chkScaCrit.Size = New System.Drawing.Size(104, 24)
+		Me.chkScaCrit.Size = New System.Drawing.Size(158, 24)
 		Me.chkScaCrit.TabIndex = 9
-		Me.chkScaCrit.Text = "Critical rating"
+		Me.chkScaCrit.Text = "Replace Critical rating"
 		Me.chkScaCrit.UseVisualStyleBackColor = true
 		'
 		'chkScaAgility
 		'
 		Me.chkScaAgility.Checked = true
 		Me.chkScaAgility.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkScaAgility.Location = New System.Drawing.Point(6, 49)
+		Me.chkScaAgility.Location = New System.Drawing.Point(259, 49)
 		Me.chkScaAgility.Name = "chkScaAgility"
 		Me.chkScaAgility.Size = New System.Drawing.Size(104, 24)
 		Me.chkScaAgility.TabIndex = 12
-		Me.chkScaAgility.Text = "Agility"
+		Me.chkScaAgility.Text = "Add Agility"
 		Me.chkScaAgility.UseVisualStyleBackColor = true
 		'
 		'chkScaStr
 		'
 		Me.chkScaStr.Checked = true
 		Me.chkScaStr.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkScaStr.Location = New System.Drawing.Point(6, 19)
+		Me.chkScaStr.Location = New System.Drawing.Point(259, 19)
 		Me.chkScaStr.Name = "chkScaStr"
 		Me.chkScaStr.Size = New System.Drawing.Size(104, 24)
 		Me.chkScaStr.TabIndex = 11
-		Me.chkScaStr.Text = "Strength"
+		Me.chkScaStr.Text = "Add Strength"
 		Me.chkScaStr.UseVisualStyleBackColor = true
 		'
 		'tbTank
@@ -1845,6 +1856,7 @@ Partial Class MainForm
 		Me.txtFBAvoidance.Name = "txtFBAvoidance"
 		Me.txtFBAvoidance.Size = New System.Drawing.Size(100, 20)
 		Me.txtFBAvoidance.TabIndex = 8
+		Me.txtFBAvoidance.Text = "50"
 		'
 		'txtFPBossSwing
 		'
@@ -1852,6 +1864,53 @@ Partial Class MainForm
 		Me.txtFPBossSwing.Name = "txtFPBossSwing"
 		Me.txtFPBossSwing.Size = New System.Drawing.Size(100, 20)
 		Me.txtFPBossSwing.TabIndex = 7
+		Me.txtFPBossSwing.Text = "2"
+		'
+		'chkScaCritA
+		'
+		Me.chkScaCritA.Location = New System.Drawing.Point(259, 79)
+		Me.chkScaCritA.Name = "chkScaCritA"
+		Me.chkScaCritA.Size = New System.Drawing.Size(161, 24)
+		Me.chkScaCritA.TabIndex = 9
+		Me.chkScaCritA.Text = "Add Critical rating"
+		Me.chkScaCritA.UseVisualStyleBackColor = true
+		AddHandler Me.chkScaCritA.CheckedChanged, AddressOf Me.ChkScaCritACheckedChanged
+		'
+		'chkScaHasteA
+		'
+		Me.chkScaHasteA.Location = New System.Drawing.Point(259, 109)
+		Me.chkScaHasteA.Name = "chkScaHasteA"
+		Me.chkScaHasteA.Size = New System.Drawing.Size(161, 24)
+		Me.chkScaHasteA.TabIndex = 10
+		Me.chkScaHasteA.Text = "Add Haste Rating"
+		Me.chkScaHasteA.UseVisualStyleBackColor = true
+		'
+		'chkScaArPA
+		'
+		Me.chkScaArPA.Location = New System.Drawing.Point(259, 139)
+		Me.chkScaArPA.Name = "chkScaArPA"
+		Me.chkScaArPA.Size = New System.Drawing.Size(169, 24)
+		Me.chkScaArPA.TabIndex = 15
+		Me.chkScaArPA.Text = "Add Armor Penetration"
+		Me.chkScaArPA.UseVisualStyleBackColor = true
+		'
+		'chkScaHitA
+		'
+		Me.chkScaHitA.Location = New System.Drawing.Point(259, 169)
+		Me.chkScaHitA.Name = "chkScaHitA"
+		Me.chkScaHitA.Size = New System.Drawing.Size(161, 24)
+		Me.chkScaHitA.TabIndex = 16
+		Me.chkScaHitA.Text = "Add Hit rating"
+		Me.chkScaHitA.UseVisualStyleBackColor = true
+		'
+		'chkScaExpA
+		'
+		Me.chkScaExpA.Location = New System.Drawing.Point(259, 199)
+		Me.chkScaExpA.Name = "chkScaExpA"
+		Me.chkScaExpA.Size = New System.Drawing.Size(161, 24)
+		Me.chkScaExpA.TabIndex = 14
+		Me.chkScaExpA.Text = "Add Expertise rating"
+		Me.chkScaExpA.UseVisualStyleBackColor = true
 		'
 		'MainForm
 		'
@@ -1890,6 +1949,11 @@ Partial Class MainForm
 		Me.gbTank.PerformLayout
 		Me.ResumeLayout(false)
 	End Sub
+	Friend chkScaCritA As System.Windows.Forms.CheckBox
+	Friend chkScaHasteA As System.Windows.Forms.CheckBox
+	Friend chkScaArPA As System.Windows.Forms.CheckBox
+	Friend chkScaHitA As System.Windows.Forms.CheckBox
+	Friend chkScaExpA As System.Windows.Forms.CheckBox
 	Private txtFBAvoidance As System.Windows.Forms.TextBox
 	Private txtFPBossSwing As System.Windows.Forms.TextBox
 	Private gbTank As System.Windows.Forms.GroupBox

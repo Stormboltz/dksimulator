@@ -16,7 +16,9 @@ Public Class Strike
 	Friend TotalHit As Long
 	Friend TotalCrit As Long
 	Protected Sim as Sim
-	Friend ThreadMultiplicator as Double
+	Friend ThreadMultiplicator As Double
+	Protected _RNG as Random
+	
 	
     
     Public Sub New()
@@ -31,7 +33,35 @@ Public Class Strike
 		TotalHit = 0
 		TotalCrit = 0
 		ThreadMultiplicator = 1
+		_RNG = nothing
 	End sub
+	
+	Function DoMyStrikeHit As Boolean
+		Dim RNG As Double
+		RNG = MyRNG
+		If sim.MainStat.FrostPresence = 1 Then
+			If math.Min(sim.mainstat.Expertise,0.065)+ math.Min(sim.mainstat.Expertise,0.14) + math.Min (sim.mainstat.Hit,0.08) + RNG < 0.285 Then
+				Return False
+			Else
+				return true
+			End If
+		Else
+			If math.Min(sim.mainstat.Expertise,0.065) + math.Min (sim.mainstat.Hit,0.08) + RNG < 0.145 Then
+				Return False
+			Else
+				return true
+			End If
+		End If
+	End Function
+	
+	
+	
+	Function MyRng as Double 
+		If _RNG Is nothing Then
+			_RNG =  New Random(ConvertToInt(me.ToString))
+		End If
+		return _RNG.NextDouble
+	End Function
 	
 	
 	Overridable Public Function isAvailable(T As Long) As Boolean

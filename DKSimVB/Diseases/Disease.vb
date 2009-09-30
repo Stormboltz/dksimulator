@@ -22,7 +22,17 @@ Public Class Disease
 	Friend ScourgeStrikeGlyphCounter As Integer
 	Friend OtherTargetsFade As Integer
 	Friend CritChance As Double
-	Friend ThreadMultiplicator as Double
+	Friend ThreadMultiplicator As Double
+	Friend ToReApply as Boolean
+	Protected _RNG as Random
+	
+	Function MyRng as Double 
+		If _RNG Is nothing Then
+			_RNG =  New Random(ConvertToInt(me.ToString))
+		End If
+		return _RNG.NextDouble
+	End Function
+	
 
 	Protected sim As Sim
 	Sub New
@@ -40,6 +50,8 @@ Public Class Disease
 		AP = 0
 		OtherTargetsFade = 0
 		ThreadMultiplicator = 1
+		ToReApply = 0
+		_RNG=nothing
 	End sub
 	
 	Overridable Function PerfectUsage(T As Long) As Boolean
@@ -82,7 +94,7 @@ Public Class Disease
 			If TalentUnholy.WanderingPlague > 0 Then
 				If Sim.WanderingPlague.isAvailable(T) = True Then
 					Dim RNG As Double
-					RNG = sim.RandomNumberGenerator.RNGStrike
+					RNG = MyRNG
 					If RNG <= sim.MainStat.crit Then
 						Sim.WanderingPlague.ApplyDamage(tmp, T)
 					End If

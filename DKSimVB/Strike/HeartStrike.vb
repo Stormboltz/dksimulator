@@ -24,7 +24,7 @@ Sub New(S As sim)
 			Sim.NextFreeGCD = T + 150 + sim._MainFrm.txtLatency.Text/10
 		End If
 		
-		If sim.DoMyStrikeHit = false Then
+		If DoMyStrikeHit = false Then
 			sim.combatlog.write(T  & vbtab &  "HS fail")
 			MissCount = MissCount + 1
 			Exit function
@@ -33,7 +33,7 @@ Sub New(S As sim)
 		Dim intCount As Integer
 		For intCount = 1 To Sim.NumberOfEnemies
 			if intCount <= 2 then
-				RNG = sim.RandomNumberGenerator.RNGStrike
+				RNG = MyRNG
 				Dim dégat As Integer
 				
 				If RNG <= CritChance Then
@@ -60,7 +60,7 @@ Sub New(S As sim)
 				sim.Sigils.tryHauntedDreams()
 				sim.proc.TryT92PDPS
 				sim.TryOnMHHitProc
-				RNG = sim.RandomNumberGenerator.RNGStrike
+				RNG = MyRNG
 				If rng < 0.05*talentblood.SuddenDoom Then
 					sim.deathcoil.ApplyDamage(T,true)
 				End If

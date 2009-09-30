@@ -22,7 +22,7 @@ Friend Class HowlingBlast
 		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
 		cd = T + 800
 		
-		If sim.DoMySpellHit = false Then
+		If DoMySpellHit = false Then
 			sim.combatlog.write(T  & vbtab &  "HB fail")
 			sim.proc.KillingMachine = False
 			sim.Proc.rime = False
@@ -32,7 +32,7 @@ Friend Class HowlingBlast
 		
 		Dim intCount As Integer
 		For intCount = 1 To Sim.NumberOfEnemies
-			RNG = sim.RandomNumberGenerator.RNGStrike
+			RNG = MyRNG
 			Dim dégat As Integer
 			Dim ccT As Double
 			ccT = CritChance
