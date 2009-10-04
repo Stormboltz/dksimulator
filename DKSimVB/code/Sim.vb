@@ -1,5 +1,5 @@
 Public Class Sim
-	Friend TotalDamage As Long
+
 	Friend TotalDamageAlternative As Long
 	Friend NextFreeGCD As Long
 	Friend Lag As Long
@@ -27,18 +27,13 @@ Public Class Sim
 	Private InterruptAmount As Integer
 	Private InterruptCd As Integer
 	Friend KeepRNGSeed As Boolean
-	Friend KeepDiseaseOnOthersTarget as Boolean
+	Friend KeepDiseaseOnOthersTarget As Boolean
+	Friend Viskag as Viskag
 	
 	Friend RandomNumberGenerator as RandomNumberGenerator
 	
 	Friend Runes as runes
-'	Friend Rune1 As Rune1
-'	Friend Rune2 As Rune2
-'	Friend Rune3 As Rune3
-'	Friend Rune4 As Rune4
-'	Friend Rune5 As Rune5
-'	Friend Rune6 as Rune6
-	
+
 	Friend RunicPower As RunicPower
 	Friend Character as Character
 	Friend MainStat as MainStat
@@ -364,41 +359,17 @@ Public Class Sim
 				
 				If NumberOfFights = 1 and ShowDpsTimer <= TimeStamp Then
 					ShowDpsTimer = TimeStamp + 0.1 * 60 * 60 * 100
-					TotalDamage = ScourgeStrike.total + obliterate.total + PlagueStrike.total + _
-						BloodStrike.total + HeartStrike.total + frostfever.total + _
-						BloodPlague.total + IcyTouch.total + deathcoil.total + _
-						UnholyBlight.total + Necrosis.total + BloodCakedBlade.total + _
-						WanderingPlague.total +FrostStrike.total  +HowlingBlast.total + _
-						BloodBoil.total  + DeathStrike.total + MainHand.total + _
-						OffHand.total  + Ghoul.total + Gargoyle.total + DRW.total + _
-						RuneForge.RazoriceTotal + DeathandDecay.total + RuneStrike.total  + trinket.Total
-					'Problem with MThread
-					'_MainFrm.lblDPS.Text = todecimal(100 * TotalDamage /TimeStamp) & " DPS"
-					'Problem with MThread
 					If TimeStamp <= pb.Maximum Then pb.Value = TimeStamp Else pb.Value = pb.Maximum
 				ElseIf ShowDpsTimer <= TimeStamp Then
 					ShowDpsTimer = TimeStamp + 0.1 * 60 * 60 * 100
-					'Problem with MThread
-					'_MainFrm.lblDPS.Text = "n/a"
-					'Problem with MThread
 					If TimeStampCounter <= pb.Maximum Then pb.Value = TimeStampCounter Else pb.Value = pb.Maximum
 				End If
 			Loop
-			
-			TotalDamage = ScourgeStrike.total + obliterate.total + PlagueStrike.total + _
-				BloodStrike.total + HeartStrike.total + frostfever.total + _
-				BloodPlague.total + IcyTouch.total + deathcoil.total + _
-				UnholyBlight.total + Necrosis.total + BloodCakedBlade.total + _
-				WanderingPlague.total +FrostStrike.total  +HowlingBlast.total + _
-				BloodBoil.total  + DeathStrike.total + MainHand.total + _
-				OffHand.total  + Ghoul.total + Gargoyle.total + DRW.total + _
-				RuneForge.RazoriceTotal + DeathandDecay.total + RuneStrike.total + trinket.Total
-			
 			TotalDamageAlternative = TotalDamageAlternative + TotalDamage
 			TimeStampCounter = TimeStampCounter + TimeStamp
 		Next intCount
 		
-		TotalDamage = TotalDamageAlternative
+		'TotalDamage = TotalDamageAlternative
 		TimeStamp = TimeStampCounter
 		
 		DPS = 100 * TotalDamage / TimeStamp
@@ -419,6 +390,19 @@ Public Class Sim
 		
 		
 	End Sub
+	
+	Function TotalDamage() as Long
+		TotalDamage = ScourgeStrike.total + obliterate.total + PlagueStrike.total + _
+				BloodStrike.total + HeartStrike.total + frostfever.total + _
+				BloodPlague.total + IcyTouch.total + deathcoil.total + _
+				UnholyBlight.total + Necrosis.total + BloodCakedBlade.total + _
+				WanderingPlague.total +FrostStrike.total  +HowlingBlast.total + _
+				BloodBoil.total  + DeathStrike.total + MainHand.total + _
+				OffHand.total  + Ghoul.total + Gargoyle.total + DRW.total + _
+				RuneForge.RazoriceTotal + DeathandDecay.total + RuneStrike.total + trinket.Total + Viskag.Total
+	End Function
+	
+	
 	
 	Function isInGCD(T As long ) As Boolean
 		If NextFreeGCD <= T Then
@@ -540,7 +524,9 @@ Public Class Sim
 
 		Rotation = new Rotation(Me)
 		Priority = New Priority(Me)
-		Character = new Character(Me)
+		Character = New Character(Me)
+		
+		
 		MainStat = new MainStat(Me)
 		' Buff.UnBuff
 		BloodPlague = new BloodPlague(Me)
@@ -571,7 +557,6 @@ Public Class Sim
 		
 		RunicPower.Value = 0
 		NextFreeGCD = 0
-		TotalDamage = 0
 		Threat = 0
 		
 		NumberOfEnemies = _MainFrm.txtNumberOfEnemies.text
@@ -598,7 +583,8 @@ Public Class Sim
 		Bloodlust= new Bloodlust(Me)
 		Pestilence = new Pestilence(Me)
 		proc = New proc(Me)
-		BoneShield  = new BoneShield(me)
+		BoneShield  = New BoneShield(Me)
+
 		Boss = New Boss(Me)
 		
 		AMSCd = _MainFrm.txtAMScd.text * 100
@@ -790,7 +776,8 @@ Public Class Sim
 		If DRW.total  <> 0 Then myArray.Add(DRW.total)
 		If RuneForge.RazoriceTotal <> 0 Then myArray.Add(RuneForge.RazoriceTotal)
 		If DeathandDecay.total <> 0 Then myArray.Add(DeathandDecay.total)
-		if trinket.Total <> 0 then myArray.Add(trinket.Total)
+		If trinket.Total <> 0 Then myArray.Add(trinket.Total)
+		if Viskag.Total <> 0 Then myArray.Add(Viskag.Total)
 		
 		myArray.Sort()
 		
@@ -954,7 +941,11 @@ Public Class Sim
 				STmp = replace(STmp,vbtab,"</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 			End If
-			
+			If Viskag.Total = tot Then
+				STmp = Viskag.report
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			End If
 		Next
 		
 		If Horn.HitCount <> 0 Then

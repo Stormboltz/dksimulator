@@ -14,6 +14,11 @@ Public Class Trinket
 	Friend GrimTollCd As Integer
 	Friend BitterAnguishCd As Integer
 	Friend BitterAnguishFade As Integer
+
+	
+	
+	
+	
 	
 	Friend MjolRune As Integer
 	Friend GrimToll As Integer
@@ -30,6 +35,8 @@ Public Class Trinket
 	Friend Comet As Integer
 	Friend DeathChoice As Integer
 	Friend DeathChoiceHeroic As Integer
+	
+
 	
 	Friend Total as long
 	Friend HitCount as Integer
@@ -255,13 +262,7 @@ Public Class Trinket
 	Function report as String
 		dim tmp as String
 		tmp = "Trinket" & VBtab
-		
-		If Total.ToString().Length < 8 Then
-			tmp = tmp & sim.RuneForge.RazoriceTotal & "   " & VBtab
-		Else
-			tmp = tmp & sim.RuneForge.RazoriceTotal & VBtab
-		End If
-		
+		tmp = tmp & total & VBtab
 		tmp = tmp & toDecimal(100*Total/sim.TotalDamage) & VBtab
 		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
 		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab

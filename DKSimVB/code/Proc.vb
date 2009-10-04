@@ -17,6 +17,10 @@ Friend Class proc
 	Friend T92PDPSCd As Long
 	Protected Sim as Sim
 	
+
+	
+
+	
 	
 	Sub New(S as Sim)
 		Rime = False
@@ -27,6 +31,9 @@ Friend Class proc
 		T92PDPSCd = 0
 		sim = S
 	End Sub
+	
+	
+
 	
 	Sub TryRime()
 		If sim.RandomNumberGenerator.RNGProc <= 5 * talentfrost.Rime/100 Then

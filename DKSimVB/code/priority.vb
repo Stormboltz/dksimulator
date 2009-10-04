@@ -108,7 +108,7 @@ Friend Class priority
 						End If
 						sim.BloodStrike.ApplyDamage(TimeStamp)
 						'debug.Print("BS")
-						
+						exit sub
 					End If
 					
 				Case "HeartStrike"

@@ -42,7 +42,8 @@ Friend Class FrostFever
 		End If
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		tmp = tmp * 1.15
-		'if MHRazorice or (OHRazorice and mainstat.DualW) then tmp = tmp *1.10 'TODO: only affect main target.
+		if sim.RuneForge.MHRazorice or (sim.RuneForge.OHRazorice and sim.mainstat.DualW)  then tmp = tmp *1.10 'TODO: only on main target
+		if sim.glyph.IcyTouchII then tmp = tmp * 1.2
 		AvrgNonCrit = tmp
 	End Function
 	

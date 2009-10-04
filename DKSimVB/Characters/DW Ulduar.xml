@@ -54,4 +54,10 @@
 		<DeathChoice>0</DeathChoice>
         <DeathChoiceHeroic>0</DeathChoiceHeroic>
 	</trinket>
+	<proc>
+		<MHtemperedViskag>0</MHtemperedViskag>
+		<MHSingedViskag>0</MHSingedViskag>
+		<OHtemperedViskag>0</OHtemperedViskag>
+		<OHSingedViskag>0</OHSingedViskag>
+	<proc>
 </character>

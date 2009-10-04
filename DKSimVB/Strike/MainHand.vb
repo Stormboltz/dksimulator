@@ -98,6 +98,8 @@ Sub New(S As sim)
 		End If
 		sim.TryOnMHHitProc
 		sim.proc.TryMHKillingMachine
+		sim.Viskag.TryMHSingedViskag
+		sim.Viskag.TryMHtemperedViskag
 		
 		If sim.proc.ScentOfBloodProc > 0 Then
 			sim.proc.ScentOfBloodProc  = sim.proc.ScentOfBloodProc  -1

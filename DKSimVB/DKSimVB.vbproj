@@ -72,6 +72,7 @@
     <Compile Include="code\SimContructor.vb" />
     <Compile Include="code\TemplateButton.vb" />
     <Compile Include="code\Trinket.vb" />
+    <Compile Include="code\Viskag.vb" />
     <Compile Include="Diseases\BloodPlague.vb" />
     <Compile Include="Diseases\Disease.vb" />
     <Compile Include="Diseases\FrostFever.vb" />

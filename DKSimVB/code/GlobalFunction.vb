@@ -99,7 +99,7 @@ Public Module GlobalFunction
 		
 	End Function
 	Function ConvertToInt(S As String) As Integer
-		Dim c As Char
+
 		Dim tmp As Integer
 		Dim charEnum As CharEnumerator
 		

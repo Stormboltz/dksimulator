@@ -83,6 +83,8 @@ Friend Class OffHand
 		
 		If sim.runeforge.OHRazorice and sim.mainstat.DualW Then sim.runeforge.applyRazorice()
 		sim.TryOnOHHitProc
+		sim.Viskag.TryOHSingedViskag
+		sim.Viskag.TryOHtemperedViskag
 		
 		return true
 		'   'Debug.Print T & vbTab & "WhiteOH for " & Range("Abilities!N19").Value

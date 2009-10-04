@@ -83,61 +83,72 @@ Friend Class MainStat
 		Sim.Trinket.Comet = 0
 		Sim.Trinket.DeathChoice = 0
 		Try
-			
-		
-		Select Case sim._EPStat
-			Case "NoTrinket"
-			Case "AttackPowerNoTrinket"
-			Case "MjolRune"
-				Sim.Trinket.MjolRune = 1
-			Case "GrimToll"
-				Sim.Trinket.GrimToll	= 1
-			Case "BitterAnguish"
-				Sim.Trinket.BitterAnguish	= 1
-			Case "Mirror"
-				Sim.Trinket.Mirror= 1
-			Case "Greatness"
-				Sim.Trinket.Greatness= 1
-			Case "DCDeath"
-				Sim.Trinket.DCDeath= 1
-			Case "Victory"
-				Sim.Trinket.Victory= 1
-			Case "Necromantic"
-				Sim.Trinket.Necromantic= 1
-			Case "Bandit"
-				Sim.Trinket.Bandit= 1
-			Case "Pyrite"
-				Sim.Trinket.Pyrite= 1
-			Case "DarkMatter"
-				Sim.Trinket.DarkMatter= 1
-			Case "OldGod"
-				Sim.Trinket.OldGod= 1
-			Case "Comet"
-				Sim.Trinket.Comet= 1
-			Case "DeathChoice"
-				Sim.Trinket.DeathChoice= 1
-				
-			Case Else
-				
-				Sim.Trinket.MjolRune = XmlDoc.SelectSingleNode("//character/trinket/MjolnirRunestone").InnerText
-				Sim.Trinket.GrimToll = XmlDoc.SelectSingleNode("//character/trinket/GrimToll").InnerText
-				Sim.Trinket.BitterAnguish = XmlDoc.SelectSingleNode("//character/trinket/BitterAnguish").InnerText
-				Sim.Trinket.Mirror = XmlDoc.SelectSingleNode("//character/trinket/Mirror").InnerText
-				Sim.Trinket.Greatness = XmlDoc.SelectSingleNode("//character/trinket/Greatness").InnerText
-				Sim.Trinket.DCDeath = XmlDoc.SelectSingleNode("//character/trinket/DCDeath").InnerText
-				Sim.Trinket.Victory = XmlDoc.SelectSingleNode("//character/trinket/Victory").InnerText
-				Sim.Trinket.Necromantic = XmlDoc.SelectSingleNode("//character/trinket/Necromantic").InnerText
-				Sim.Trinket.Bandit = XmlDoc.SelectSingleNode("//character/trinket/Bandit").InnerText
-				Sim.Trinket.Pyrite = XmlDoc.SelectSingleNode("//character/trinket/Pyrite").InnerText
-				Sim.Trinket.DarkMatter = XmlDoc.SelectSingleNode("//character/trinket/DarkMatter").InnerText
-				Sim.Trinket.OldGod = XmlDoc.SelectSingleNode("//character/trinket/OldGod").InnerText
-				Sim.Trinket.Comet = XmlDoc.SelectSingleNode("//character/trinket/Comet").InnerText
-				Sim.Trinket.DeathChoice = XmlDoc.SelectSingleNode("//character/trinket/DeathChoice").InnerText
-				
-		End Select
+			sim.Viskag = New Viskag(Me.sim)
+			sim.Viskag.MHSingedViskag = XmlDoc.SelectSingleNode("//character/proc/MHSingedViskag").InnerText
+			sim.Viskag.MHtemperedViskag = XmlDoc.SelectSingleNode("//character/proc/MHtemperedViskag").InnerText
+			sim.Viskag.OHtemperedViskag = XmlDoc.SelectSingleNode("//character/proc/OHtemperedViskag").InnerText
+			sim.Viskag.MHSingedViskag = XmlDoc.SelectSingleNode("//character/proc/MHSingedViskag").InnerText
 		Catch
-			
 		End Try
+		
+		try
+			
+			Select Case sim._EPStat
+				Case "NoTrinket"
+				Case "AttackPowerNoTrinket"
+				Case "MjolRune"
+					Sim.Trinket.MjolRune = 1
+				Case "GrimToll"
+					Sim.Trinket.GrimToll	= 1
+				Case "BitterAnguish"
+					Sim.Trinket.BitterAnguish	= 1
+				Case "Mirror"
+					Sim.Trinket.Mirror= 1
+				Case "Greatness"
+					Sim.Trinket.Greatness= 1
+				Case "DCDeath"
+					Sim.Trinket.DCDeath= 1
+				Case "Victory"
+					Sim.Trinket.Victory= 1
+				Case "Necromantic"
+					Sim.Trinket.Necromantic= 1
+				Case "Bandit"
+					Sim.Trinket.Bandit= 1
+				Case "Pyrite"
+					Sim.Trinket.Pyrite= 1
+				Case "DarkMatter"
+					Sim.Trinket.DarkMatter= 1
+				Case "OldGod"
+					Sim.Trinket.OldGod= 1
+				Case "Comet"
+					Sim.Trinket.Comet= 1
+				Case "DeathChoice"
+					Sim.Trinket.DeathChoice= 1
+					
+				Case Else
+					
+					Sim.Trinket.MjolRune = XmlDoc.SelectSingleNode("//character/trinket/MjolnirRunestone").InnerText
+					Sim.Trinket.GrimToll = XmlDoc.SelectSingleNode("//character/trinket/GrimToll").InnerText
+					Sim.Trinket.BitterAnguish = XmlDoc.SelectSingleNode("//character/trinket/BitterAnguish").InnerText
+					Sim.Trinket.Mirror = XmlDoc.SelectSingleNode("//character/trinket/Mirror").InnerText
+					Sim.Trinket.Greatness = XmlDoc.SelectSingleNode("//character/trinket/Greatness").InnerText
+					Sim.Trinket.DCDeath = XmlDoc.SelectSingleNode("//character/trinket/DCDeath").InnerText
+					Sim.Trinket.Victory = XmlDoc.SelectSingleNode("//character/trinket/Victory").InnerText
+					Sim.Trinket.Necromantic = XmlDoc.SelectSingleNode("//character/trinket/Necromantic").InnerText
+					Sim.Trinket.Bandit = XmlDoc.SelectSingleNode("//character/trinket/Bandit").InnerText
+					Sim.Trinket.Pyrite = XmlDoc.SelectSingleNode("//character/trinket/Pyrite").InnerText
+					Sim.Trinket.DarkMatter = XmlDoc.SelectSingleNode("//character/trinket/DarkMatter").InnerText
+					Sim.Trinket.OldGod = XmlDoc.SelectSingleNode("//character/trinket/OldGod").InnerText
+					Sim.Trinket.Comet = XmlDoc.SelectSingleNode("//character/trinket/Comet").InnerText
+					Sim.Trinket.DeathChoice = XmlDoc.SelectSingleNode("//character/trinket/DeathChoice").InnerText
+					
+			End Select
+		Catch
+		End Try
+		
+		
+		
+		
 		Select Case sim._EPStat
 			Case "0T7"
 				T72PDPS = 0
@@ -329,11 +340,14 @@ Friend Class MainStat
 	Function Expertise() As Double
 		Dim tmp As Double
 		tmp = Character.ExpertiseRating / 32.79
+		dim str as String
 		tmp = tmp + 0.25 * talentblood.Vot3W*2
 		tmp = tmp + 0.25 * talentfrost.TundraStalker
 		tmp = tmp + 0.25 * talentunholy.RageofRivendare
-		
-		If sim.EPStat<>"" and strings.InStr(sim.EPStat,"Sca")<>0 Then tmp = 6.5 'For most EP stats we assume being exp capped
+		str = sim.EPStat
+		If sim.EPStat<>"" And strings.InStr(sim.EPStat,"Sca")=0 Then 
+			tmp = 6.5 'For most EP stats we assume being exp capped
+		End If
 		If sim.EPStat="ExpertiseRating" Then tmp = 6.5 - sim.EPBase / 32.79
 		If sim.EPStat="ExpertiseRatingAfterCap" Then tmp = 6.5 + sim.EPBase / 32.79
 		If InStr(sim.EPStat,"ScaExp") Then
@@ -352,10 +366,10 @@ Friend Class MainStat
 		tmp = (Character.HitRating / 32.79)
 		If DualW Then tmp = tmp + 1 * TalentFrost.NervesofColdSteel
 		
-		If sim.EPStat<>"" and strings.InStr(sim.EPStat,"Sca")<>0 Then tmp = 8 'For most EP stats we assume being hit capped
+		If sim.EPStat<>"" and strings.InStr(sim.EPStat,"Sca")=0 Then tmp = 8 'For most EP stats we assume being hit capped
 		If sim.EPStat="HitRating" Then tmp = 8 - sim.EPBase / 32.79
 		If sim.EPStat="SpellHitRating" Then tmp = 8 + 26 / 32.79  ' +26 to not go over spell hit cap
-
+		
 		If sim.EPStat="AfterSpellHitBase" Then tmp = SpellHitCapRating / 32.79
 		If sim.EPStat="AfterSpellHitBaseAP" Then tmp = SpellHitCapRating / 32.79
 		If sim.EPStat="AfterSpellHitRating" Then tmp = (SpellHitCapRating + sim.EPBase) / 32.79
@@ -365,7 +379,7 @@ Friend Class MainStat
 				tmp = tmp + Replace(sim.EPStat,"ScaHitA","") * sim.EPBase / 32.79
 			Else
 				tmp = Replace(sim.EPStat,"ScaHit","") * sim.EPBase / 32.79
-			end if			
+			end if
 			tmp = tmp + sim.Buff.Draenei
 		End If
 		Hit = tmp / 100
@@ -386,7 +400,7 @@ Friend Class MainStat
 		Dim tmp As Double
 		dim MeleHitCapRating as Integer
 		tmp = Character.SpellHitRating / 26.23
-		If sim.EPStat<>"" and strings.InStr(sim.EPStat,"Sca")<>0 Then
+		If sim.EPStat<>"" and strings.InStr(sim.EPStat,"Sca")=0 Then
 			MeleHitCapRating = 263 - 32.79 * TalentFrost.NervesofColdSteel
 			tmp = MeleHitCapRating / 26.23
 			If sim.EPStat="HitRating" Then tmp = MeleHitCapRating / 26.23 - sim.EPBase / 26.23

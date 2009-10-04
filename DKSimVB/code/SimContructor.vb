@@ -7,7 +7,7 @@
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
 Public Module SimConstructor
-	Friend sim As Sim
+	
 	
 	Friend PetFriendly As Boolean
 	Friend Rotate as Boolean
@@ -24,6 +24,7 @@ Public Module SimConstructor
 	End Sub
 	
 	Sub Start(pb As ProgressBar,SimTime As Double, MainFrm As MainForm)
+		Dim  sim As Sim
 		Dim newthread As System.Threading.Thread
 		Sim = New Sim
 		_MainFrm = MainFrm
@@ -244,7 +245,7 @@ Public Module SimConstructor
 			EPStat="WeaponDPS"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (sim.DPS-BaseDPS) / 10
+			tmp2 = (DPS-BaseDPS) / 10
 			sReport = sReport +  ("<tr><td>EP:" & "10" & " | "& EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
 			WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
@@ -393,11 +394,11 @@ Public Module SimConstructor
 		WriteReport ("")
 		
 		skipSets:
-		
-		If  doc.SelectSingleNode("//config/Trinket").InnerText.Contains("True") Then
-			sReport = sReport & sim.StartEPTrinket(pb,True, simTime, Mainfrm)
-		End If
-		
+'		
+'		If  doc.SelectSingleNode("//config/Trinket").InnerText.Contains("True") Then
+'			sReport = sReport & sim.StartEPTrinket(pb,True, simTime, Mainfrm)
+'		End If
+'		
 		sReport = sReport &   "<tr><td COLSPAN=8> | Template | " & Split(_MainFrm.cmbTemplate.Text,".")(0) & "</td></tr>"
 		If Rotate Then
 			sReport = sReport &   "<tr><td COLSPAN=8> | Rotation | " & Split(_MainFrm.cmbRotation.Text,".")(0) & "</td></tr>"
@@ -407,11 +408,11 @@ Public Module SimConstructor
 		sReport = sReport &   "<tr><td COLSPAN=8> | Presence | " & _MainFrm.cmdPresence.Text & vbCrLf & "</td></tr>"
 		sReport = sReport &   "<tr><td COLSPAN=8> | Sigil | " & _MainFrm.cmbSigils.Text & vbCrLf & "</td></tr>"
 		
-		If sim.MainStat.DualW Then
+		'If sim.MainStat.DualW Then
 			sReport = sReport &   "<tr><td COLSPAN=8> | RuneEnchant | " & _MainFrm.cmbRuneMH.Text  & " / " & _MainFrm.cmbRuneOH.Text  & "</td></tr>"
-		Else
+		'Else
 			sReport = sReport &   "<tr><td COLSPAN=8> | RuneEnchant | " & _MainFrm.cmbRuneMH.Text & "</td></tr>"
-		End If
+		'End If
 		sReport = sReport &   "<tr><td COLSPAN=8> | Pet Calculation | " & _MainFrm.ckPet.Checked & "</td></tr>"
 		sReport = sReport +  ("</table>")
 		sReport = sReport +   ("<hr width='80%' align='center' noshade ></hr>")
