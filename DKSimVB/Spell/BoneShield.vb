@@ -10,7 +10,7 @@ Public Class BoneShield
 	Inherits Spells.Spell
 	Friend Charge as Integer
 	
-	Function BuffLength()
+	Function BuffLength() as Integer
 		If sim.BoneShield33 Then
 			Return 300
 		Else
@@ -22,7 +22,7 @@ Public Class BoneShield
 	
 	Sub New(MySim as Sim)
 		sim = MySim
-		Init
+		PreBuff
 	End Sub
 	
 	Sub UseCharge(T as Long)
@@ -33,13 +33,15 @@ Public Class BoneShield
 		End If
 	End Sub
 	
-	
-	Public Overloads Overrides Sub Init()
-		MyBase.Init()
+	Sub PreBuff
 		if TalentUnholy.BoneShield = 1 then
 			Me.CD = 60*100
 			Me.ActiveUntil = BuffLength*100
 		end if
+	End Sub
+	Public Overloads Overrides Sub Init()
+		MyBase.Init()
+		
 	End Sub
 	
 	

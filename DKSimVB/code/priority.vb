@@ -8,7 +8,7 @@
 '
 Friend Class priority
 	Friend prio As New Collection
-	Private runes As runes
+	Private runes As runes.runes
 	Private sim as Sim
 	Sub New(S As Sim)
 		Sim = S

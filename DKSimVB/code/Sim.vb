@@ -33,7 +33,7 @@ Public Class Sim
 	
 	Friend RandomNumberGenerator as RandomNumberGenerator
 	
-	Friend Runes as runes
+	Friend Runes as runes.runes
 	
 	Friend RunicPower As RunicPower
 	Friend Character as Character
@@ -568,7 +568,7 @@ Public Class Sim
 		
 		Buff = New Buff(Me)
 		'Keep this order for RuneX -> Runse -> Rotation/Prio
-		Runes = New runes(Me)
+		Runes = New Runes.runes(Me)
 		
 		RunicPower = New RunicPower(Me)
 		

@@ -6,6 +6,8 @@
 '
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
+Namespace Runes
+	
 Public Class rune
 	Friend reserved As Boolean
 	Friend death As Boolean
@@ -41,3 +43,4 @@ Public Class rune
 		return false
 	End Function	
 End Class
+End Namespace

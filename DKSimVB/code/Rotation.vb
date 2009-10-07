@@ -9,7 +9,7 @@
 Friend Class Rotation
 	Friend XMLRo as new Xml.XmlDocument
 	Friend MyRotation As New Collection
-	Private Runes As runes
+	Private Runes As runes.runes
 	Private sim as Sim
 	Sub New(S As Sim)
 		sim = S

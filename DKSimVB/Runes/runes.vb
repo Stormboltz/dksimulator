@@ -1,3 +1,4 @@
+Namespace Runes
 Friend Class runes
 	friend Rune1 As Rune
 	friend Rune2 As Rune
@@ -629,4 +630,5 @@ Friend Class runes
 	
 End Class
 	
+End Namespace
 

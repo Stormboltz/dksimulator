@@ -1,3 +1,4 @@
+Namespace Runes
 Friend Class Rune5
 
 Friend reserved As Boolean
@@ -6,3 +7,4 @@ Friend AvailableTime As long
 
 end Class
 
+End Namespace
