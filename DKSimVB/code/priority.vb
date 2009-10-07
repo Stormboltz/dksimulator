@@ -94,6 +94,23 @@ Friend Class priority
 						'debug.Print("BS")
 						exit sub
 					End If
+				Case "Desolation"
+					If runes.Blood(TimeStamp) And sim.CanUseGCD(Timestamp) Then
+						If sim.BoneShieldUsageStyle = 1 Then
+							If sim.BoneShield.IsAvailable(TimeStamp) Then
+								sim.BoneShield.Use(TimeStamp)
+								exit sub
+							End If
+							If sim.UnbreakableArmor.IsAvailable(TimeStamp) Then
+								sim.UnbreakableArmor.Use(TimeStamp)
+								exit sub
+							End If
+						End If
+						If sim.Desolation.Bonus <> 0 and sim.Desolation.isActive(TimeStamp) Then
+							sim.BloodStrike.ApplyDamage(TimeStamp)
+							exit sub
+						End If
+					End If
 				Case "BloodStrike"
 					If runes.Blood(TimeStamp) And sim.CanUseGCD(Timestamp) Then
 						If sim.BoneShieldUsageStyle = 1 Then
@@ -254,6 +271,11 @@ Friend Class priority
 					If sim.DeathAndDecay.isAvailable(TimeStamp) and sim.CanUseGCD(Timestamp) Then
 						sim.DeathAndDecay.Apply(TimeStamp)
 						Exit Sub
+					End If
+				Case "Horn"
+					If sim.Horn.isAvailable(TimeStamp) Then
+						sim.Horn.use(TimeStamp)
+						exit sub
 					End If
 			End Select
 			doNext:

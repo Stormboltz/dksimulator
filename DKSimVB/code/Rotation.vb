@@ -188,7 +188,7 @@ Friend Class Rotation
 							return true
 						End If
 					End If
-						
+					
 					Return sim.BloodBoil.ApplyDamage(TimeStamp)
 					Exit Function
 				Else
@@ -213,6 +213,12 @@ Friend Class Rotation
 			Case "Pestilence"
 				If runes.Blood(TimeStamp) Then
 					Return sim.Pestilence.use(TimeStamp)
+				Else
+					if retry = 0 then return true
+				End If
+			Case "Horn"
+				If sim.Horn.isAvailable(TimeStamp) Then
+					Return sim.Horn.use(TimeStamp)
 				Else
 					if retry = 0 then return true
 				End If

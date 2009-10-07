@@ -10,9 +10,19 @@ Public Class BoneShield
 	Inherits Spells.Spell
 	Friend Charge as Integer
 	
+	Function BuffLength()
+		If sim.BoneShield33 Then
+			Return 300
+		Else
+			Return 60
+		End If
+	End Function
+	
+	
+	
 	Sub New(MySim as Sim)
-		Init
 		sim = MySim
+		Init
 	End Sub
 	
 	Sub UseCharge(T as Long)
@@ -28,7 +38,7 @@ Public Class BoneShield
 		MyBase.Init()
 		if TalentUnholy.BoneShield = 1 then
 			Me.CD = 60*100
-			Me.ActiveUntil = 60*100
+			Me.ActiveUntil = BuffLength*100
 		end if
 	End Sub
 	
@@ -43,14 +53,14 @@ Public Class BoneShield
 			End If
 		End If
 		me.CD = T + 60*100
-		Me.ActiveUntil = T + 60*100
+		Me.ActiveUntil = T + BuffLength*100
 		sim.runes.UseUnholy(T,False)
 		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste)) + sim._MainFrm.txtLatency.Text/10
 		sim.RunicPower.add(10)
 		sim.combatlog.write(T  & vbtab &  "Bone Shield")
 		Charge = 4
 		If sim.Glyph.BoneShield Then
-			Charge = Charge + 1	
+			Charge = Charge + 1
 		End If
 		me.HitCount = me.HitCount +1
 	End Function

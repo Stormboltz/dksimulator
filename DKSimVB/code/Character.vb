@@ -36,7 +36,7 @@ Friend Class Character
 		_ArmorPenetrationRating=0
 		_ExpertiseRating=0
 		_Dual =0
-		
+		sim.boss = New Boss(S)
 	End Sub
 	
 	Function GetCharacterFileName() as String
@@ -144,15 +144,18 @@ Friend Class Character
 			exit function
 		End If
 		Dim tmp As Integer
-		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Armor").InnerText)
-		tmp = tmp + (750 * 1.4  *  sim.Buff.StatAdd)
+		Dim tmp2 As Integer
 		
+		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Armor").InnerText)
+		tmp2 = sim.boss.SpecialArmor
+		tmp = tmp - tmp2
+		tmp = tmp + (750 * 1.4  *  sim.Buff.StatAdd)
 		tmp = tmp * (1 + talentfrost.Toughness * 0.02)
 		If sim.MainStat.FrostPresence = 1 Then
 			tmp = tmp * 1.6
 		End If
+		tmp = tmp + tmp2
 		_Armor = tmp
-		
 		return _Armor
 	End Function
 	

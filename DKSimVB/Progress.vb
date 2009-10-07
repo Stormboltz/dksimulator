@@ -11,9 +11,7 @@ Friend Partial Class ProgressFrm
 		' The Me.InitializeComponent call is required for Windows Forms designer support.
 		Me.InitializeComponent()
 		
-		'
-		' TODO : Add constructor code after InitializeComponents
-		'
+		
 	End Sub
 	Sub ProgressFrmLoad(sender As Object, e As EventArgs)
 	End Sub

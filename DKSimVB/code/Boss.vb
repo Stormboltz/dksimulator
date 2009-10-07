@@ -11,7 +11,7 @@ Public Class Boss
 	Private Avoidance as Double
 	Private Sim As Sim
 	Private Speed As Integer
-	
+	Friend SpecialArmor as Integer
 	
 	
 	Sub New(S as Sim)
@@ -41,6 +41,7 @@ Public Class Boss
 			doc.Load("TankConfig.xml")
 			Avoidance = doc.SelectSingleNode("//config/Stats/txtFBAvoidance").InnerText / 100
 			Speed = doc.SelectSingleNode("//config/Stats/txtFPBossSwing").InnerText * 100
+			SpecialArmor = doc.SelectSingleNode("//config/Stats/txtFPArmor").InnerText
 		Catch
 			MsgBox ("Error retriving Tank parameters")
 		End Try

@@ -47,7 +47,7 @@ Public Module SimConstructor
 	Sub StartEP(pb As ProgressBar,SimTime As Double,MainFrm As MainForm)
 		DPSs.Clear
 		ThreadCollection.Clear
-		EPBase = 50
+		EPBase = MainFrm.txtEPBase.Text
 		_MainFrm = MainFrm
 		dim sReport as String
 		

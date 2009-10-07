@@ -17,9 +17,7 @@ Public Partial Class MainForm
 		' The Me.InitializeComponent call is required for Windows Forms designer support.
 		Me.InitializeComponent()
 		
-		'
-		' TODO : Add constructor code after InitializeComponents
-		'
+		
 	End Sub
 	
 	Function LoadBeforeSim() As Boolean
@@ -274,6 +272,10 @@ Public Partial Class MainForm
 		root = doc.DocumentElement
 		root.AppendChild(newElem)
 		
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "BoneShield3.3", "")
+		newElem.InnerText = ckBoneshield33.Checked
+		root = doc.DocumentElement
+		root.AppendChild(newElem)
 		
 		doc.Save("config.xml")
 		
@@ -310,7 +312,7 @@ Public Partial Class MainForm
 		chkWaitFC.Checked = doc.SelectSingleNode("//config/WaitFC").InnerText
 		ckPet.Checked = doc.SelectSingleNode("//config/pet").InnerText
 		txtNumberOfEnemies.Text  = doc.SelectSingleNode("//config/Enemies").InnerText
-		
+		ckBoneshield33.Checked = doc.SelectSingleNode("//config/BoneShield3.3").InnerText
 
 		
 		errH:
