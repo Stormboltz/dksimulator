@@ -20,7 +20,6 @@ Public Class TemplateButton
 			me.Font= New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
 	End Sub
 	
-	
 	Sub AddPoint
 		SetValue (Value +1)
 	End Sub
@@ -51,8 +50,4 @@ Public Class TemplateButton
 		Me.Text = value & "/" & MaxValue
 		MainForm.SetTalentPointnumber
 	End Sub
-	
-	
-	
-	
 End Class

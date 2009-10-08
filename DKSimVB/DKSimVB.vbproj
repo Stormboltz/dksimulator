@@ -54,6 +54,15 @@
     <Import Include="System.Diagnostics" />
     <Import Include="System.Drawing" />
     <Import Include="System.Windows.Forms" />
+    <Compile Include="MainFormPrioEditor.vb">
+      <DependentUpon>MainForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MainFormSaveLoad.vb">
+      <DependentUpon>MainForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MainFormTemplate.vb">
+      <DependentUpon>MainForm.vb</DependentUpon>
+    </Compile>
     <Compile Include="code\Boss.vb" />
     <Compile Include="code\Buff.vb" />
     <Compile Include="code\CombatLog.vb" />
@@ -70,7 +79,6 @@
     <Compile Include="code\Sigils.vb" />
     <Compile Include="code\Sim.vb" />
     <Compile Include="code\SimContructor.vb" />
-    <Compile Include="code\TemplateButton.vb" />
     <Compile Include="code\Trinket.vb" />
     <Compile Include="code\Viskag.vb" />
     <Compile Include="Diseases\BloodPlague.vb" />
@@ -151,6 +159,9 @@
     <Compile Include="Strike\PlagueStrike.vb" />
     <Compile Include="Strike\RuneStrike.vb" />
     <Compile Include="Strike\ScourgeStrike.vb" />
+    <Compile Include="TemplateButton.vb">
+      <DependentUpon>MainForm.vb</DependentUpon>
+    </Compile>
     <Compile Include="UIFunctions.vb" />
     <None Include="images\AbominationMight.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -677,7 +688,9 @@
     <None Include="images\WillNecropolisG.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Priorities.xml" />
+    <None Include="PrioritiesList.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Rotation\unholy.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

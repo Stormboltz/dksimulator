@@ -1156,6 +1156,7 @@ Public Class Sim
 		Trinket.TryGrimToll
 		Trinket.TryGreatness()
 		Trinket.TryDeathChoice()
+		trinket.TryDeathChoiceHeroic()
 		Trinket.TryDCDeath()
 		Trinket.TryVictory()
 		Trinket.TryBandit()
@@ -1170,6 +1171,7 @@ Public Class Sim
 		Trinket.TryGrimToll
 		Trinket.TryGreatness()
 		Trinket.TryDeathChoice()
+		trinket.TryDeathChoiceHeroic()
 		Trinket.TryDCDeath()
 		Trinket.TryVictory()
 		Trinket.TryBandit()
@@ -1185,6 +1187,7 @@ Public Class Sim
 	Sub TryOnSpellHit
 		Trinket.TryGreatness()
 		Trinket.TryDeathChoice()
+		trinket.TryDeathChoiceHeroic()
 		Trinket.TryDCDeath()
 		
 	End Sub

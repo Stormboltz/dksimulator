@@ -35,7 +35,7 @@ Partial Class MainForm
 	Private Sub InitializeComponent()
 		Me.components = New System.ComponentModel.Container
 		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainForm))
-		Me.button1 = New System.Windows.Forms.Button
+		Me.btStart = New System.Windows.Forms.Button
 		Me.PBsim = New System.Windows.Forms.ProgressBar
 		Me.btEP = New System.Windows.Forms.Button
 		Me.lblVersion = New System.Windows.Forms.Label
@@ -197,8 +197,9 @@ Partial Class MainForm
 		Me.label23 = New System.Windows.Forms.Label
 		Me.txtFBAvoidance = New System.Windows.Forms.TextBox
 		Me.txtFPBossSwing = New System.Windows.Forms.TextBox
-		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.tbPrioEditor = New System.Windows.Forms.TabPage
+		Me.btCreateCMB = New System.Windows.Forms.Button
+		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -215,18 +216,19 @@ Partial Class MainForm
 		Me.gbScaling.SuspendLayout
 		Me.tbTank.SuspendLayout
 		Me.gbTank.SuspendLayout
+		Me.tbPrioEditor.SuspendLayout
 		Me.SuspendLayout
 		'
-		'button1
+		'btStart
 		'
-		Me.button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-		Me.button1.Location = New System.Drawing.Point(22, 513)
-		Me.button1.Name = "button1"
-		Me.button1.Size = New System.Drawing.Size(245, 23)
-		Me.button1.TabIndex = 0
-		Me.button1.Text = "Start Simulator"
-		Me.button1.UseVisualStyleBackColor = true
-		AddHandler Me.button1.Click, AddressOf Me.Button1Click
+		Me.btStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
+		Me.btStart.Location = New System.Drawing.Point(22, 513)
+		Me.btStart.Name = "btStart"
+		Me.btStart.Size = New System.Drawing.Size(245, 23)
+		Me.btStart.TabIndex = 0
+		Me.btStart.Text = "Start Simulator"
+		Me.btStart.UseVisualStyleBackColor = true
+		AddHandler Me.btStart.Click, AddressOf Me.Button1Click
 		'
 		'PBsim
 		'
@@ -250,9 +252,9 @@ Partial Class MainForm
 		'lblVersion
 		'
 		Me.lblVersion.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.lblVersion.Location = New System.Drawing.Point(589, 0)
+		Me.lblVersion.Location = New System.Drawing.Point(618, 0)
 		Me.lblVersion.Name = "lblVersion"
-		Me.lblVersion.Size = New System.Drawing.Size(152, 19)
+		Me.lblVersion.Size = New System.Drawing.Size(123, 19)
 		Me.lblVersion.TabIndex = 8
 		Me.lblVersion.Text = "Version "
 		Me.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -487,7 +489,6 @@ Partial Class MainForm
 		Me.label20.Size = New System.Drawing.Size(127, 21)
 		Me.label20.TabIndex = 41
 		Me.label20.Text = "Use Bone shield/UA"
-		AddHandler Me.label20.Click, AddressOf Me.Label20Click
 		'
 		'cmbBShOption
 		'
@@ -518,7 +519,6 @@ Partial Class MainForm
 		Me.txtNumberOfEnemies.Size = New System.Drawing.Size(50, 20)
 		Me.txtNumberOfEnemies.TabIndex = 38
 		Me.txtNumberOfEnemies.Text = "1"
-		AddHandler Me.txtNumberOfEnemies.TextChanged, AddressOf Me.TxtNumberOfEnemiesTextChanged
 		'
 		'label19
 		'
@@ -755,7 +755,6 @@ Partial Class MainForm
 		Me.ckLogRP.TabIndex = 18
 		Me.ckLogRP.Text = "Very detailled combat log"
 		Me.ckLogRP.UseVisualStyleBackColor = true
-		AddHandler Me.ckLogRP.CheckedChanged, AddressOf Me.CkLogRPCheckedChanged
 		'
 		'ckPet
 		'
@@ -1848,7 +1847,6 @@ Partial Class MainForm
 		Me.chkScaCritA.TabIndex = 9
 		Me.chkScaCritA.Text = "Add Critical rating"
 		Me.chkScaCritA.UseVisualStyleBackColor = true
-		AddHandler Me.chkScaCritA.CheckedChanged, AddressOf Me.ChkScaCritACheckedChanged
 		'
 		'chkScaHaste
 		'
@@ -1918,7 +1916,6 @@ Partial Class MainForm
 		Me.gbTank.TabIndex = 2
 		Me.gbTank.TabStop = false
 		Me.gbTank.Text = "Frost Presence options"
-		AddHandler Me.gbTank.Enter, AddressOf Me.GroupBox4Enter
 		'
 		'label22
 		'
@@ -1970,12 +1967,24 @@ Partial Class MainForm
 		'
 		'tbPrioEditor
 		'
+		Me.tbPrioEditor.AutoScroll = true
+		Me.tbPrioEditor.Controls.Add(Me.btCreateCMB)
 		Me.tbPrioEditor.Location = New System.Drawing.Point(4, 22)
 		Me.tbPrioEditor.Name = "tbPrioEditor"
 		Me.tbPrioEditor.Size = New System.Drawing.Size(748, 469)
 		Me.tbPrioEditor.TabIndex = 12
 		Me.tbPrioEditor.Text = "Prio/Rotation Editor"
 		Me.tbPrioEditor.UseVisualStyleBackColor = true
+		'
+		'btCreateCMB
+		'
+		Me.btCreateCMB.Location = New System.Drawing.Point(293, 407)
+		Me.btCreateCMB.Name = "btCreateCMB"
+		Me.btCreateCMB.Size = New System.Drawing.Size(75, 23)
+		Me.btCreateCMB.TabIndex = 0
+		Me.btCreateCMB.Text = "create"
+		Me.btCreateCMB.UseVisualStyleBackColor = true
+		AddHandler Me.btCreateCMB.Click, AddressOf Me.BtCreateCMBClick
 		'
 		'MainForm
 		'
@@ -1987,7 +1996,7 @@ Partial Class MainForm
 		Me.Controls.Add(Me.btEP)
 		Me.Controls.Add(Me.tabControl1)
 		Me.Controls.Add(Me.PBsim)
-		Me.Controls.Add(Me.button1)
+		Me.Controls.Add(Me.btStart)
 		Me.Icon = CType(resources.GetObject("$this.Icon"),System.Drawing.Icon)
 		Me.Name = "MainForm"
 		Me.Text = "Kahorie's DK Simulator"
@@ -2013,8 +2022,11 @@ Partial Class MainForm
 		Me.tbTank.ResumeLayout(false)
 		Me.gbTank.ResumeLayout(false)
 		Me.gbTank.PerformLayout
+		Me.tbPrioEditor.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Private btCreateCMB As System.Windows.Forms.Button
+	Private btStart As System.Windows.Forms.Button
 	Private tbPrioEditor As System.Windows.Forms.TabPage
 	Private ckBoneshield33 As System.Windows.Forms.CheckBox
 	Friend txtEPBase As System.Windows.Forms.TextBox
@@ -2178,6 +2190,5 @@ Partial Class MainForm
 	Private btEP As System.Windows.Forms.Button
 	Private tabPage3 As System.Windows.Forms.TabPage
 	Private PBsim As System.Windows.Forms.ProgressBar
-	Private button1 As System.Windows.Forms.Button
 	
 End Class
