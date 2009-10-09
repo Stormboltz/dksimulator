@@ -29,6 +29,7 @@ Public Class rune
 		Else
 			AvailableTime = T + RuneRefreshtime
 		End If
+		sim.proc.tryT104PDPS(T)
 	End Sub
 
 	Function RuneRefreshtime As Integer

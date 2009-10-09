@@ -94,6 +94,11 @@ Sub New(S As sim)
 		
 		if sim.sigils.DarkRider then tmp = tmp + 45 + 22.5 * Sim.NumDesease
 		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
+		
+		If sim.MainStat.T102PDPS<>0 Then
+				tmp = tmp * 1.07
+		End If
+		
 		AvrgNonCrit = tmp
 	End Function
 	

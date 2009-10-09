@@ -200,6 +200,8 @@ Partial Class MainForm
 		Me.tbPrioEditor = New System.Windows.Forms.TabPage
 		Me.btCreateCMB = New System.Windows.Forms.Button
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
+		Me.chkEP2PT10 = New System.Windows.Forms.CheckBox
+		Me.chkEP4PT10 = New System.Windows.Forms.CheckBox
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -478,7 +480,7 @@ Partial Class MainForm
 		Me.ckBoneshield33.Name = "ckBoneshield33"
 		Me.ckBoneshield33.Size = New System.Drawing.Size(104, 24)
 		Me.ckBoneshield33.TabIndex = 42
-		Me.ckBoneshield33.Text = "BoneShield 3.3"
+		Me.ckBoneshield33.Text = "Set to Patch 3.3"
 		Me.ckBoneshield33.UseVisualStyleBackColor = true
 		'
 		'label20
@@ -1140,6 +1142,8 @@ Partial Class MainForm
 		'
 		'groupBox2
 		'
+		Me.groupBox2.Controls.Add(Me.chkEP4PT10)
+		Me.groupBox2.Controls.Add(Me.chkEP2PT10)
 		Me.groupBox2.Controls.Add(Me.chkEP4PT9)
 		Me.groupBox2.Controls.Add(Me.chkEP2PT9)
 		Me.groupBox2.Controls.Add(Me.chkEP4PT8)
@@ -1986,6 +1990,28 @@ Partial Class MainForm
 		Me.btCreateCMB.UseVisualStyleBackColor = true
 		AddHandler Me.btCreateCMB.Click, AddressOf Me.BtCreateCMBClick
 		'
+		'chkEP2PT10
+		'
+		Me.chkEP2PT10.Checked = true
+		Me.chkEP2PT10.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkEP2PT10.Location = New System.Drawing.Point(6, 199)
+		Me.chkEP2PT10.Name = "chkEP2PT10"
+		Me.chkEP2PT10.Size = New System.Drawing.Size(141, 24)
+		Me.chkEP2PT10.TabIndex = 4
+		Me.chkEP2PT10.Text = "2P T10"
+		Me.chkEP2PT10.UseVisualStyleBackColor = true
+		'
+		'chkEP4PT10
+		'
+		Me.chkEP4PT10.Checked = true
+		Me.chkEP4PT10.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkEP4PT10.Location = New System.Drawing.Point(6, 229)
+		Me.chkEP4PT10.Name = "chkEP4PT10"
+		Me.chkEP4PT10.Size = New System.Drawing.Size(141, 24)
+		Me.chkEP4PT10.TabIndex = 4
+		Me.chkEP4PT10.Text = "4P T10"
+		Me.chkEP4PT10.UseVisualStyleBackColor = true
+		'
 		'MainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
@@ -2025,6 +2051,8 @@ Partial Class MainForm
 		Me.tbPrioEditor.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Friend chkEP2PT10 As System.Windows.Forms.CheckBox
+	Friend chkEP4PT10 As System.Windows.Forms.CheckBox
 	Private btCreateCMB As System.Windows.Forms.Button
 	Private btStart As System.Windows.Forms.Button
 	Private tbPrioEditor As System.Windows.Forms.TabPage

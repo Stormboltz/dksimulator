@@ -320,6 +320,19 @@ Public Module SimConstructor
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		
+		
+		if doc.SelectSingleNode("//config/Sets/chkEP2PT10").InnerText = "True" then
+			EPStat="2T10"
+			SimConstructor.Start(pb,SimTime,MainFrm)
+		End If
+		
+		if doc.SelectSingleNode("//config/Sets/chkEP4PT10").InnerText = "True" then
+			EPStat="4T10"
+			SimConstructor.Start(pb,SimTime,MainFrm)
+		End If
+		
+		
+		
 		For Each T In ThreadCollection
 			T.Join()
 		Next
@@ -391,14 +404,38 @@ Public Module SimConstructor
 		catch
 		End Try
 		
+		
+		Try
+			EPStat="2T10"
+			DPS = dpss(EPStat)
+			tmp1 = (APDPS-BaseDPS ) / 100
+			tmp2 = (DPS-BaseDPS)/ 100
+			sReport = sReport +  ("<tr><td>EP:" & " | "& EPStat & " | " & toDDecimal (100*tmp2/tmp1)) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " | " & DPS)
+		Catch
+			
+		End Try
+		Try
+			EPStat="4T10"
+			DPS = dpss(EPStat)
+			tmp1 = (APDPS-BaseDPS ) / 100
+			tmp2 = (DPS-BaseDPS)/ 100
+			sReport = sReport +  ("<tr><td>EP:" & " | "& EPStat & " | " & toDDecimal (100*tmp2/tmp1)) & "</td></tr>"
+			WriteReport ("Average for " & EPStat & " | " & DPS)
+		catch
+		End Try
+		
+		
+		
+		
 		WriteReport ("")
 		
 		skipSets:
-'		
-'		If  doc.SelectSingleNode("//config/Trinket").InnerText.Contains("True") Then
-'			sReport = sReport & sim.StartEPTrinket(pb,True, simTime, Mainfrm)
-'		End If
-'		
+		'
+		'		If  doc.SelectSingleNode("//config/Trinket").InnerText.Contains("True") Then
+		'			sReport = sReport & sim.StartEPTrinket(pb,True, simTime, Mainfrm)
+		'		End If
+		'
 		sReport = sReport &   "<tr><td COLSPAN=8> | Template | " & Split(_MainFrm.cmbTemplate.Text,".")(0) & "</td></tr>"
 		If Rotate Then
 			sReport = sReport &   "<tr><td COLSPAN=8> | Rotation | " & Split(_MainFrm.cmbRotation.Text,".")(0) & "</td></tr>"
@@ -409,9 +446,9 @@ Public Module SimConstructor
 		sReport = sReport &   "<tr><td COLSPAN=8> | Sigil | " & _MainFrm.cmbSigils.Text & vbCrLf & "</td></tr>"
 		
 		'If sim.MainStat.DualW Then
-			sReport = sReport &   "<tr><td COLSPAN=8> | RuneEnchant | " & _MainFrm.cmbRuneMH.Text  & " / " & _MainFrm.cmbRuneOH.Text  & "</td></tr>"
+		sReport = sReport &   "<tr><td COLSPAN=8> | RuneEnchant | " & _MainFrm.cmbRuneMH.Text  & " / " & _MainFrm.cmbRuneOH.Text  & "</td></tr>"
 		'Else
-			sReport = sReport &   "<tr><td COLSPAN=8> | RuneEnchant | " & _MainFrm.cmbRuneMH.Text & "</td></tr>"
+		sReport = sReport &   "<tr><td COLSPAN=8> | RuneEnchant | " & _MainFrm.cmbRuneMH.Text & "</td></tr>"
 		'End If
 		sReport = sReport &   "<tr><td COLSPAN=8> | Pet Calculation | " & _MainFrm.ckPet.Checked & "</td></tr>"
 		sReport = sReport +  ("</table>")
@@ -919,7 +956,7 @@ Public Module SimConstructor
 						pen.Color  = color.Pink
 					Case "ScaCrit"
 						pen.Color  = color.Orange
-						Case "ScaAgility"
+					Case "ScaAgility"
 						pen.Color  = color.Purple
 					Case "ScaStr"
 						pen.Color  = color.Red
@@ -962,7 +999,7 @@ Public Module SimConstructor
 		Dim gr As Graphics = Graphics.FromImage(bmp)
 		Dim i As Integer
 		Dim pen As New Pen(color.Black)
-
+		
 		
 		i=0
 		do until i >= bmp.Width

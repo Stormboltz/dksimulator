@@ -16,7 +16,7 @@ Friend Class proc
 	Friend T92PDPSFAde As Integer
 	Friend T92PDPSCd As Long
 	Protected Sim as Sim
-	
+	Friend T104PDPSFAde As Integer
 
 	
 
@@ -29,6 +29,7 @@ Friend Class proc
 		VirulenceFade = 0
 		T92PDPSFAde = 0
 		T92PDPSCd = 0
+		T104PDPSFAde= 0
 		sim = S
 	End Sub
 	
@@ -75,6 +76,21 @@ Friend Class proc
 			T92PDPSCd = sim.TimeStamp + 45 * 100
 		End If
 	End Sub
+	
+	Sub tryT104PDPS(T As Long)
+		If sim.MainStat.T104PDPS = 0 Then Exit Sub
+		'Debug.Print(T & vbtab & sim.Runes.Rune1.AvailableTime & vbtab & sim.Runes.Rune2.AvailableTime & vbtab & sim.Runes.Rune3.AvailableTime & vbtab & sim.Runes.Rune4.AvailableTime & vbtab & sim.Runes.Rune5.AvailableTime & vbtab  & sim.Runes.Rune6.AvailableTime)
+		If sim.Runes.Rune1.AvailableTime < T Then Exit Sub
+		If sim.Runes.Rune2.AvailableTime < T Then Exit Sub
+		If sim.Runes.Rune3.AvailableTime < T Then Exit Sub
+		If sim.Runes.Rune4.AvailableTime < T Then Exit Sub
+		If sim.Runes.Rune5.AvailableTime < T Then Exit Sub
+		If sim.Runes.Rune6.AvailableTime < T Then Exit Sub
+		T104PDPSFAde = T +15 *100
+	End Sub
+	
+	
+	
 	
 	Sub TryScentOfBlood(T As Long)
 		If TalentBlood.ScentOfBlood = 0 Then Exit Sub

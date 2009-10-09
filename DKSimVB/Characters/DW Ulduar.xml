@@ -31,6 +31,8 @@
 		<T84PDPS>1</T84PDPS>
 		<T92PDPS>0</T92PDPS>
 		<T94PDPS>0</T94PDPS>
+		<T102PDPS>0</T102PDPS>
+		<T104PDPS>0</T104PDPS>
 		<T72PTNK>0</T72PTNK>
 		<T74PTNK>0</T74PTNK>
 		<T82PTNK>0</T82PTNK>
@@ -59,5 +61,5 @@
 		<MHSingedViskag>0</MHSingedViskag>
 		<OHtemperedViskag>0</OHtemperedViskag>
 		<OHSingedViskag>0</OHSingedViskag>
-	<proc>
+	</proc>
 </character>

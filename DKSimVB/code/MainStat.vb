@@ -28,8 +28,14 @@ Friend Class MainStat
 	Friend T82PTNK As integer
 	Friend T84PTNK As Integer
 	
+	
 	Friend T92PDPS As integer
-	Friend T94PDPS As integer
+	Friend T94PDPS As Integer
+	
+	Friend T102PDPS As integer
+	Friend T104PDPS As Integer
+	
+	
 	Protected Sim as Sim
 	
 	
@@ -124,7 +130,8 @@ Friend Class MainStat
 					Sim.Trinket.Comet= 1
 				Case "DeathChoice"
 					Sim.Trinket.DeathChoice= 1
-					
+				Case "DeathChoiceHeroic"
+					Sim.Trinket.DeathChoiceHeroic= 1
 				Case Else
 					
 					Sim.Trinket.MjolRune = XmlDoc.SelectSingleNode("//character/trinket/MjolnirRunestone").InnerText
@@ -141,86 +148,68 @@ Friend Class MainStat
 					Sim.Trinket.OldGod = XmlDoc.SelectSingleNode("//character/trinket/OldGod").InnerText
 					Sim.Trinket.Comet = XmlDoc.SelectSingleNode("//character/trinket/Comet").InnerText
 					Sim.Trinket.DeathChoice = XmlDoc.SelectSingleNode("//character/trinket/DeathChoice").InnerText
+					Sim.Trinket.DeathChoiceHeroic = XmlDoc.SelectSingleNode("//character/trinket/DeathChoiceHeroic").InnerText
 					
 			End Select
 		Catch
 		End Try
 		
-		
+		T72PDPS = 0
+		T74PDPS = 0
+		T82PDPS = 0
+		T84PDPS = 0
+		T92PDPS = 0
+		T94PDPS = 0
+		T102PDPS = 0
+		T104PDPS = 0
 		
 		
 		Select Case sim._EPStat
 			Case "0T7"
-				T72PDPS = 0
-				T74PDPS = 0
-				T82PDPS = 0
-				T84PDPS = 0
-				T92PDPS = 0
-				T94PDPS = 0
 			Case "AttackPower0T7"
-				T72PDPS = 0
-				T74PDPS = 0
-				T82PDPS = 0
-				T84PDPS = 0
-				T92PDPS = 0
-				T94PDPS = 0
 			Case "2T7"
 				T72PDPS = 1
-				T74PDPS = 0
-				T82PDPS = 0
-				T84PDPS = 0
-				T92PDPS = 0
-				T94PDPS = 0
 			Case "4T7"
-				T72PDPS = 0
 				T74PDPS = 1
-				T82PDPS = 0
-				T84PDPS = 0
-				T92PDPS = 0
-				T94PDPS = 0
 			Case "2T8"
-				T72PDPS = 0
-				T74PDPS = 0
 				T82PDPS = 1
-				T84PDPS = 0
-				T92PDPS = 0
-				T94PDPS = 0
 			Case "4T8"
-				T72PDPS = 0
-				T74PDPS = 0
-				T82PDPS = 0
-				T84PDPS = 1
-				T92PDPS = 0
-				T94PDPS = 0
-			Case "2T9"
-				T72PDPS = 0
-				T74PDPS = 0
-				T82PDPS = 0
-				T84PDPS = 0
-				T92PDPS = 1
-				T94PDPS = 0
-			Case "4T9"
-				T72PDPS = 0
-				T74PDPS = 0
-				T82PDPS = 0
-				T84PDPS = 0
-				T92PDPS = 0
-				T94PDPS = 1
 				
+				T84PDPS = 1
+				
+			Case "2T9"
+				
+				T92PDPS = 1
+				
+			Case "4T9"
+				
+				T94PDPS = 1
+			Case "2T10"
+				T102PDPS = 1
+				
+			Case "4T10"
+				T104PDPS = 1
 				
 			Case Else
 				T72PDPS = XmlDoc.SelectSingleNode("//character/Set/T72PDPS").InnerText
 				T74PDPS = XmlDoc.SelectSingleNode("//character/Set/T74PDPS").InnerText
+				
 				T82PDPS = XmlDoc.SelectSingleNode("//character/Set/T82PDPS").InnerText
 				T84PDPS = XmlDoc.SelectSingleNode("//character/Set/T84PDPS").InnerText
+				
+				T92PDPS = XmlDoc.SelectSingleNode("//character/Set/T92PDPS").InnerText
+				T94PDPS = XmlDoc.SelectSingleNode("//character/Set/T94PDPS").InnerText
 				
 				T72PTNK = XmlDoc.SelectSingleNode("//character/Set/T72PTNK").InnerText
 				T74PTNK = XmlDoc.SelectSingleNode("//character/Set/T74PTNK").InnerText
 				T82PTNK = XmlDoc.SelectSingleNode("//character/Set/T82PTNK").InnerText
 				T84PTNK = XmlDoc.SelectSingleNode("//character/Set/T84PTNK").InnerText
-				
-				T92PDPS = XmlDoc.SelectSingleNode("//character/Set/T92PDPS").InnerText
-				T94PDPS = XmlDoc.SelectSingleNode("//character/Set/T94PDPS").InnerText
+				Try
+					T102PDPS = XmlDoc.SelectSingleNode("//character/Set/T102PDPS").InnerText
+					T104PDPS = XmlDoc.SelectSingleNode("//character/Set/T104PDPS").InnerText
+				Catch
+					
+				End Try
 		End Select
 		
 		
@@ -345,7 +334,7 @@ Friend Class MainStat
 		tmp = tmp + 0.25 * talentfrost.TundraStalker
 		tmp = tmp + 0.25 * talentunholy.RageofRivendare
 		str = sim.EPStat
-		If sim.EPStat<>"" And strings.InStr(sim.EPStat,"Sca")=0 Then 
+		If sim.EPStat<>"" And strings.InStr(sim.EPStat,"Sca")=0 Then
 			tmp = 6.5 'For most EP stats we assume being exp capped
 		End If
 		If sim.EPStat="ExpertiseRating" Then tmp = 6.5 - sim.EPBase / 32.79
@@ -528,7 +517,10 @@ Friend Class MainStat
 		
 		tmp = tmp * getMitigation
 		tmp = tmp * (1 + 0.04 *  sim.Buff.PhysicalVuln)
-		tmp = tmp * (1 + 0.02 * TalentBlood.BloodyVengeance)
+		tmp = tmp * (1 + 0.01 * TalentBlood.BloodyVengeance)
+		If sim.proc.T104PDPSFAde >= T Then
+			tmp = tmp * 1.03
+		End If
 		if sim.Hysteria.IsActive(T) then tmp = tmp * 1.2
 		
 		return tmp
@@ -544,11 +536,12 @@ Friend Class MainStat
 		
 		tmp = tmp * getMitigation
 		tmp = tmp * (1 + 0.04 *  sim.Buff.PhysicalVuln)
-		tmp = tmp * (1 + 0.02 * TalentBlood.BloodyVengeance)
+		tmp = tmp * (1 + 0.01 * TalentBlood.BloodyVengeance)
 		If sim.Hysteria.IsActive(T) Then tmp = tmp * 1.2
 		
 		If sim.FrostFever.isActive(T) Then	tmp = tmp * (1 + 0.03 * TalentFrost.TundraStalker)
 		If sim.BloodPlague.isActive(T) Then tmp = tmp * (1 + 0.02 * talentunholy.RageofRivendare)
+		If sim.proc.T104PDPSFAde >= T Then tmp = tmp * 1.03
 		
 		return tmp
 	End Function
@@ -563,7 +556,7 @@ Friend Class MainStat
 		
 		If sim.FrostFever.isActive(T) Then	tmp = tmp * (1 + 0.03 * TalentFrost.TundraStalker)
 		If sim.BloodPlague.isActive(T) Then tmp = tmp * (1 + 0.02 * talentunholy.RageofRivendare)
-		
+		if sim.proc.T104PDPSFAde >= T then tmp = tmp * 1.03
 		tmp = tmp * (1 + 0.13 *  sim.Buff.SpellDamageTaken)
 		tmp = tmp * (1-0.05) 'Average partial resist
 		

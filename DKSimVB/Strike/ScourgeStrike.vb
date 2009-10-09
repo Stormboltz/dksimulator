@@ -65,24 +65,58 @@ Friend Class ScourgeStrike
 	End Function
 	public Overrides Function AvrgNonCrit(T as long) As Double
 		Dim tmp As Double
-		tmp = sim.MainStat.NormalisedMHDamage
-		tmp = tmp * 0.40
-		tmp = tmp + 357.19
-		if sim.sigils.Awareness then tmp = tmp + 189
-		if sim.MainStat.T84PDPS = 1 then
-			tmp = tmp * (1 + 0.10 * Sim.NumDesease * 1.2)
-		else
-			tmp = tmp * (1 + 0.10 * Sim.NumDesease )
-		end if
-		tmp = tmp * (1 + 6.6666666 * TalentUnholy.Outbreak / 100)
-		if sim.sigils.ArthriticBinding then tmp = tmp + 203
-		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
-		tmp = tmp * (1 + TalentFrost.BlackIce * 2 / 100)
-		if sim.RuneForge.CinderglacierProc > 0 then
-			tmp = tmp * 1.2
-			sim.RuneForge.CinderglacierProc = sim.RuneForge.CinderglacierProc -1
-		end if
-		AvrgNonCrit = tmp
+		Dim tmpPh As Double
+		Dim tmpSp As Double
+		If sim.BoneShield33 Then
+			tmp = sim.MainStat.NormalisedMHDamage
+			tmp = tmp * 0.50
+			if sim.sigils.Awareness then tmp = tmp + 189
+			If sim.sigils.ArthriticBinding Then tmp = tmp + 91.35
+			tmpPh = tmp
+			tmpSp = tmp
+			tmpPh = tmpPh * sim.MainStat.StandardPhysicalDamageMultiplier(T)
+			if sim.MainStat.T84PDPS = 1 then
+				tmpSp = tmpSp * (0.25 * Sim.NumDesease * 1.2)
+			else
+				tmpSp = tmpSp * (0.25 * Sim.NumDesease )
+			End If
+			tmpSp = tmpSp * sim.MainStat.StandardMagicalDamageMultiplier(T)
+			tmpSp = tmpSp * (1 + TalentFrost.BlackIce * 2 / 100)
+			if sim.RuneForge.CinderglacierProc > 0 then
+				tmpSp = tmpSp * 1.2
+				sim.RuneForge.CinderglacierProc = sim.RuneForge.CinderglacierProc -1
+			End If
+			tmp = tmpSp + tmpPh
+			tmp = tmp * (1 + 6.6666666 * TalentUnholy.Outbreak / 100)
+			
+			If sim.MainStat.T102PDPS<>0 Then
+				tmp = tmp * 1.1
+			End If
+			
+			RETURN tmp
+		Else
+			tmp = sim.MainStat.NormalisedMHDamage
+			tmp = tmp * 0.40
+			tmp = tmp + 357.19
+			If sim.sigils.Awareness Then tmp = tmp + 189
+			if sim.sigils.ArthriticBinding then tmp = tmp + 91.35
+			if sim.MainStat.T84PDPS = 1 then
+				tmp = tmp * (1 + 0.10 * Sim.NumDesease * 1.2)
+			else
+				tmp = tmp * (1 + 0.10 * Sim.NumDesease )
+			end if
+			tmp = tmp * (1 + 6.6666666 * TalentUnholy.Outbreak / 100)
+			tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
+			tmp = tmp * (1 + TalentFrost.BlackIce * 2 / 100)
+			if sim.RuneForge.CinderglacierProc > 0 then
+				tmp = tmp * 1.2
+				sim.RuneForge.CinderglacierProc = sim.RuneForge.CinderglacierProc -1
+			End If
+			If sim.MainStat.T102PDPS<>0 Then
+				tmp = tmp * 1.1
+			End If
+			AvrgNonCrit = tmp
+		End If
 	End Function
 	public Overrides Function CritCoef() As Double
 		CritCoef = 1 + TalentUnholy.ViciousStrikes * 15 / 100

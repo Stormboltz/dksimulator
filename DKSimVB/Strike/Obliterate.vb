@@ -131,7 +131,11 @@ Friend Class Obliterate
 			tmp = tmp * 0.5
 			tmp = tmp * (1 + TalentFrost.NervesofColdSteel * 5 / 100)
 		End If
-		return  tmp
+		If sim.MainStat.T102PDPS<>0 Then
+			tmp = tmp * 1.1
+		End If
+		Return  tmp
+		
 	End Function
 	
 	
