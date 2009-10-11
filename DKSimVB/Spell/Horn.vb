@@ -35,7 +35,7 @@ Public Class Horn
 		If cd <= T Then Return True
 	End Function
 	
-	Function use(T As Long)
+	Function use(T As Long) as Boolean
 		cd = t + 20 * 100
 		Sim.RunicPower.add(10)
 		HitCount = HitCount + 1

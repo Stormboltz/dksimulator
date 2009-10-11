@@ -27,7 +27,7 @@ Friend Class FrostFever
 		nextTick = T + 3 * 100
 		sim.pestilence.FFToReapply = False
 		ScourgeStrikeGlyphCounter = 0
-		If sim.BoneShield33 Then
+		If sim.Patch33 Then
 			CritChance = 0
 			Else
 			CritChance = sim.MainStat.crit

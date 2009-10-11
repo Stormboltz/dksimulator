@@ -9,7 +9,7 @@ Friend Class UnholyBlight
 	
 	Function Apply(T As Long,damage As Integer) As Double
 		Dim dégat As Integer
-		If sim.BoneShield33 Then
+		If sim.Patch33 Then
 			dégat = damage * 0.1
 		Else
 			dégat = damage * 0.2

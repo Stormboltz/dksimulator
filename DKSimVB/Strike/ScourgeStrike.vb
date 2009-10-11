@@ -10,6 +10,7 @@ Friend Class ScourgeStrike
 	
 	public Overrides Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
+
 		'scourgestrike glyph
 		
 		If sim.MainStat.UnholyPresence Then
@@ -24,21 +25,57 @@ Friend Class ScourgeStrike
 			Exit function
 		End If
 		dim dégat as Integer
-		RNG = MyRNG
-		If RNG <= CritChance Then
-			CritCount = CritCount + 1
-			dégat = AvrgCrit(T)
-			sim.combatlog.write(T  & vbtab &  "SS crit for " & dégat )
-			sim.tryOnCrit
+		
+		
+		If sim.Patch33 Then
+			'Physical part
+			RNG = MyRNG
+			If RNG <= CritChance Then
+				CritCount = CritCount + 1
+				dégat = AvrgNonCritPhysical(T)* (1 + CritCoef) 
+				sim.combatlog.write(T  & vbtab &  "SS Physical crit for " & dégat )
+				sim.tryOnCrit
+			Else
+				HitCount = HitCount + 1
+				dégat = AvrgNonCritPhysical(T)
+				sim.combatlog.write(T  & vbtab &  "SS Physical hit for " & dégat )
+			End If
+			'Magical part
+			RNG = MyRNG
+			If RNG <= CritChance Then
+				CritCount = CritCount + 1
+				dégat = dégat +  AvrgNonCritMagical(T)* (1 + CritCoef) 
+				sim.combatlog.write(T  & vbtab &  "SS Magical crit for " & dégat )
+				sim.tryOnCrit
+			Else
+				HitCount = HitCount + 1
+				dégat = dégat +  AvrgNonCritMagical(T)
+				sim.combatlog.write(T  & vbtab &  "SS Magical hit for " & dégat )
+			End If
+			
+			
 			
 		Else
-			HitCount = HitCount + 1
-			dégat = AvrgNonCrit(T)
-			sim.combatlog.write(T  & vbtab &  "SS hit for " & dégat )
+			RNG = MyRNG
+			If RNG <= CritChance Then
+				CritCount = CritCount + 1
+				dégat = AvrgCrit(T)
+				sim.combatlog.write(T  & vbtab &  "SS crit for " & dégat )
+				sim.tryOnCrit
+				
+			Else
+				HitCount = HitCount + 1
+				dégat = AvrgNonCrit(T)
+				sim.combatlog.write(T  & vbtab &  "SS hit for " & dégat )
+			End If
+			
 		End If
 		
 		
 
+		
+		
+		
 		total = total + dégat
 		
 		
@@ -63,37 +100,63 @@ Friend Class ScourgeStrike
 		'Debug.Print T & vbTab & "ScourgeStrike for " & Range("Abilities!N11").Value
 		return true
 	End Function
+	
+	
+	
+	Function AvrgNonCritPhysical(T As Long) As Double
+		Dim tmp As Double
+		Dim tmpPh As Double
+		Dim tmpMa As Double
+		tmp = sim.MainStat.NormalisedMHDamage
+		tmp = tmp * 0.50
+		if sim.sigils.Awareness then tmp = tmp + 189
+		If sim.sigils.ArthriticBinding Then tmp = tmp + 91.35
+		tmpPh = tmp 'Physical part
+		tmpPh = tmpPh * sim.MainStat.StandardPhysicalDamageMultiplier(T)
+		tmpPh = tmpPh * (1 + 6.6666666 * TalentUnholy.Outbreak / 100)
+		If sim.MainStat.T102PDPS<>0 Then
+			tmpPh = tmpPh * 1.1
+		End If
+		RETURN tmpPh
+	End Function
+	
+	Function AvrgNonCritMagical(T As Long) As Double
+		Dim tmp As Double
+		Dim tmpMa As Double
+		tmp = sim.MainStat.NormalisedMHDamage
+		tmp = tmp * 0.50
+		if sim.sigils.Awareness then tmp = tmp + 189
+		If sim.sigils.ArthriticBinding Then tmp = tmp + 91.35
+		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
+		tmpMa = tmp 'Magical part
+		if sim.MainStat.T84PDPS = 1 then
+			tmpMa = tmpMa * (0.25 * Sim.NumDesease * 1.2)
+		else
+			tmpMa = tmpMa * (0.25 * Sim.NumDesease )
+		End If
+		'tmpMa = tmpMa * sim.MainStat.StandardMagicalDamageMultiplier(T)
+		tmpMa = tmpMa * (1 + TalentFrost.BlackIce * 2 / 100)
+		if sim.RuneForge.CinderglacierProc > 0 then
+			tmpMa = tmpMa * 1.2
+			sim.RuneForge.CinderglacierProc = sim.RuneForge.CinderglacierProc -1
+		End If
+		tmpMa = tmpMa * (1 + 6.6666666 * TalentUnholy.Outbreak / 100)
+		
+		If sim.MainStat.T102PDPS<>0 Then
+			tmpMa = tmpMa * 1.1
+		End If
+		return tmpMa
+	End Function
+	
+	
+	
+	
+	
 	public Overrides Function AvrgNonCrit(T as long) As Double
 		Dim tmp As Double
 		Dim tmpPh As Double
-		Dim tmpSp As Double
-		If sim.BoneShield33 Then
-			tmp = sim.MainStat.NormalisedMHDamage
-			tmp = tmp * 0.50
-			if sim.sigils.Awareness then tmp = tmp + 189
-			If sim.sigils.ArthriticBinding Then tmp = tmp + 91.35
-			tmpPh = tmp
-			tmpSp = tmp
-			tmpPh = tmpPh * sim.MainStat.StandardPhysicalDamageMultiplier(T)
-			if sim.MainStat.T84PDPS = 1 then
-				tmpSp = tmpSp * (0.25 * Sim.NumDesease * 1.2)
-			else
-				tmpSp = tmpSp * (0.25 * Sim.NumDesease )
-			End If
-			tmpSp = tmpSp * sim.MainStat.StandardMagicalDamageMultiplier(T)
-			tmpSp = tmpSp * (1 + TalentFrost.BlackIce * 2 / 100)
-			if sim.RuneForge.CinderglacierProc > 0 then
-				tmpSp = tmpSp * 1.2
-				sim.RuneForge.CinderglacierProc = sim.RuneForge.CinderglacierProc -1
-			End If
-			tmp = tmpSp + tmpPh
-			tmp = tmp * (1 + 6.6666666 * TalentUnholy.Outbreak / 100)
-			
-			If sim.MainStat.T102PDPS<>0 Then
-				tmp = tmp * 1.1
-			End If
-			
-			RETURN tmp
+		Dim tmpMa As Double
+		If sim.Patch33 Then
 		Else
 			tmp = sim.MainStat.NormalisedMHDamage
 			tmp = tmp * 0.40
@@ -130,6 +193,13 @@ Friend Class ScourgeStrike
 	public Overrides Function AvrgCrit(T As long) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
-
+	
+	Public Overloads Overrides Function report() As String
+		If sim.Patch33 Then
+			HitCount = HitCount / 2
+			CritCount = CritCount / 2
+		End If
+		Return MyBase.report()
+	End Function
 	
 End Class
