@@ -48,7 +48,7 @@ Public Partial Class MainForm
 		SaveBuffOption()
 		saveScaling()
 		saveTankOptions()
-		
+		saveall
 		return true
 	End Function
 	

@@ -213,7 +213,7 @@ Public Class Sim
 			NumberOfFights = Math.Round( ( SimTime * 60 * 60 ) / _MainFrm.txtManyFights.text )
 			Debug.Print( "SimTime = " & SimTime * 60 * 60)
 			Debug.Print( "_MainFrm.txtManyFights.text = " & _MainFrm.txtManyFights.text)
-			'MaxTime = 
+			'MaxTime =
 			resetTime = _MainFrm.txtManyFights.text * 100
 			NextReset = resetTime
 			Debug.Print( "NumberOfFights = " & NumberOfFights)
@@ -370,12 +370,12 @@ Public Class Sim
 				End If
 			End If
 			
-			If NumberOfFights = 1 and ShowDpsTimer <= TimeStamp Then
-				ShowDpsTimer = TimeStamp + 0.1 * 60 * 60 * 100
-			If TimeStamp <= pb.Maximum Then pb.Value = TimeStamp Else pb.Value = pb.Maximum
-			ElseIf ShowDpsTimer <= TimeStamp Then
-				ShowDpsTimer = TimeStamp + 0.1 * 60 * 60 * 100
-			If TimeStampCounter <= pb.Maximum Then pb.Value = TimeStampCounter Else pb.Value = pb.Maximum
+			If ShowDpsTimer <= TimeStamp Then
+					ShowDpsTimer = TimeStamp + 0.1 * 60 * 60 * 100
+				If TimeStamp <= pb.Maximum Then pb.Value = TimeStamp Else pb.Value = pb.Maximum
+					ElseIf ShowDpsTimer <= TimeStamp Then
+						ShowDpsTimer = TimeStamp + 0.1 * 60 * 60 * 100
+					If TimeStampCounter <= pb.Maximum Then pb.Value = TimeStampCounter Else pb.Value = pb.Maximum
 			End If
 		Loop
 		TotalDamageAlternative = TotalDamageAlternative + TotalDamage
@@ -389,11 +389,11 @@ Public Class Sim
 		'Problem with MThread
 		pb.Value = pb.Maximum
 		
-'		If NumberOfFights > 1 then
-'			WriteReport ("DPS: " & DPS)
-'		Else
-			Report()
-'		End If
+		'		If NumberOfFights > 1 then
+		'			WriteReport ("DPS: " & DPS)
+		'		Else
+		Report()
+		'		End If
 		'Problem with MThread
 		'_MainFrm.lblDPS.Text = DPS & " DPS"
 		Debug.Print( "DPS=" & DPS & " " & EPStat & " hit=" & mainstat.Hit & " sphit=" & mainstat.SpellHit & " exp=" & mainstat.expertise )
@@ -425,7 +425,7 @@ Public Class Sim
 		End If
 	End Function
 	
-	 Function CanUseGCD(T As Long) As Boolean
+	Function CanUseGCD(T As Long) As Boolean
 		CanUseGCD=true
 		If glyph.Disease Then
 			dim tGDC as long
@@ -524,7 +524,7 @@ Public Class Sim
 	End Function
 	
 	Sub SoftReset()
-
+		
 		Me.RotationStep = 0
 		Me.Runes.Rune1.AvailableTime = 0
 		Me.Runes.Rune2.AvailableTime = 0
@@ -755,7 +755,7 @@ Public Class Sim
 		
 		'		chkCombatLog.Checked = doc.SelectSingleNode("//config/log").InnerText
 		'		ckLogRP.Checked = doc.SelectSingleNode("//config/logdetail").InnerText
-
+		
 		'		chkGhoulHaste.Checked = doc.SelectSingleNode("//config/ghoulhaste").InnerText
 		'		chkWaitFC.Checked = doc.SelectSingleNode("//config/WaitFC").InnerText
 		'		ckPet.Checked = doc.SelectSingleNode("//config/pet").InnerText

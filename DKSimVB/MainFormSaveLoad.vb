@@ -365,6 +365,28 @@ Public Partial Class MainForm
 		root = doc.DocumentElement
 		root.AppendChild(newElem)
 		
+		
+		
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "txtManyFights", "")
+		newElem.InnerText = txtManyFights.Text
+		root = doc.DocumentElement
+		root.AppendChild(newElem)
+		
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "chkManyFights", "")
+		newElem.InnerText = chkManyFights.Checked
+		root = doc.DocumentElement
+		root.AppendChild(newElem)
+		
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "txtAMSrp", "")
+		newElem.InnerText = txtAMSrp.Text
+		root = doc.DocumentElement
+		root.AppendChild(newElem)
+		
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "txtAMScd", "")
+		newElem.InnerText = txtAMScd.Text
+		root = doc.DocumentElement
+		root.AppendChild(newElem)
+
 		doc.Save("config.xml")
 		
 		'	Catch e As Exception
@@ -401,6 +423,13 @@ Public Partial Class MainForm
 		ckPet.Checked = doc.SelectSingleNode("//config/pet").InnerText
 		txtNumberOfEnemies.Text  = doc.SelectSingleNode("//config/Enemies").InnerText
 		ckBoneshield33.Checked = doc.SelectSingleNode("//config/BoneShield3.3").InnerText
+		txtManyFights.Text = doc.SelectSingleNode("//config/txtManyFights").InnerText
+		chkManyFights.Checked = doc.SelectSingleNode("//config/chkManyFights").InnerText
+		txtAMSrp.Text = doc.SelectSingleNode("//config/txtAMSrp").InnerText
+		txtAMScd.Text = doc.SelectSingleNode("//config/txtAMScd").InnerText
+				
+
+		
 
 		
 		errH:
@@ -441,5 +470,8 @@ Public Partial Class MainForm
 		doc.Save("Scalingconfig.xml")
 	End Sub
 	
+	Sub SaveAll()
+		
+	End Sub
 	
 End Class
