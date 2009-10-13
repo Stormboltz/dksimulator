@@ -171,7 +171,7 @@ Friend Class Character
 		If sim.EPStat="AttackPowerNoTrinket" Then tmp = tmp+100
 		If sim.EPStat="AfterSpellHitBaseAP" Then tmp = tmp+100
 		tmp = tmp + int(Armor/180)*BladedArmor
-		_AttackPower = tmp + 548 *  sim.Buff.AttackPower
+		_AttackPower = tmp + 687 *  sim.Buff.AttackPower
 		
 		return _AttackPower
 	End Function

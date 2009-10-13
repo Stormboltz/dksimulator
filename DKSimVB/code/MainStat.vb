@@ -35,6 +35,9 @@ Friend Class MainStat
 	Friend T102PDPS As integer
 	Friend T104PDPS As Integer
 	
+	Private _Mitigation As Double
+	Private _LastArP as Double
+	
 	
 	Protected Sim as Sim
 	
@@ -50,6 +53,11 @@ Friend Class MainStat
 	
 	Sub New(S As Sim)
 		Sim = S
+		
+		_Mitigation = 0
+		_LastArP = 0
+		
+		
 		'On Error Resume Next
 		character = sim.Character
 		dim XmlDoc As New Xml.XmlDocument
@@ -228,7 +236,11 @@ Friend Class MainStat
 		If Sim.RuneForge.OHBerserkingActiveUntil > sim.TimeStamp Then tmp = tmp + 400
 		
 		'Why +220 ?
-		tmp = (tmp + Character.Strength * 2 + Character.AttackPower + 550) * (1 +  sim.Buff.AttackPowerPc / 10)
+		tmp = tmp + Character.AttackPower
+		tmp = tmp + Character.Strength * 2
+		tmp = tmp + 550
+		tmp = tmp * (1 +  sim.Buff.AttackPowerPc / 10)
+		'tmp = (tmp + Character.Strength * 2 + Character.AttackPower + 550) * (1 +  sim.Buff.AttackPowerPc / 10)
 		return tmp
 	End Function
 	
@@ -238,7 +250,7 @@ Friend Class MainStat
 	
 	Function crit() As System.Double
 		Dim tmp As Double
-		tmp = 5  'BaseCrit. What base crit?
+		'tmp = 5  'BaseCrit. What base crit?
 		tmp = tmp + Character.CritRating / 45.91
 		if sim.Sigils.HauntedDreams then
 			if sim.proc.HauntedDreamsFade >= sim.TimeStamp then tmp = tmp + 173/45.91
@@ -259,7 +271,7 @@ Friend Class MainStat
 	End Function
 	Function critAutoattack() As System.Double 'No Annihilation for autoattacks
 		Dim tmp As Double
-		tmp = 5  'BaseCrit. What base crit?
+		'tmp = 5  'BaseCrit. What base crit?
 		tmp = tmp + Character.CritRating / 45.91
 		if sim.Sigils.HauntedDreams then
 			if sim.proc.HauntedDreamsFade >= sim.TimeStamp then tmp = tmp + 173/45.91
@@ -434,6 +446,7 @@ Friend Class MainStat
 		Dim tmp As Double
 		tmp = character.ArmorPenetrationRating / 15.39
 		tmp = tmp *1.1 '1.1 with Patch 3.2.2, before 1.25
+		tmp = tmp + TalentBlood.BloodGorged * 2
 		return tmp / 100
 	End Function
 	Function ArmorMitigation() As Double
@@ -470,42 +483,64 @@ Friend Class MainStat
 		
 		Return (1.0 - Math.max(0.0, retour))
 	End Function
-	function getMitigation() as Double
-		dim l_bossArmor as double
-		dim l_constant as double  = 15232.5
-		l_bossArmor = 10643
-		
-		Dim l_personalArpPercent As Double = ArmorPen
-		l_personalArpPercent = l_personalArpPercent + (TalentBlood.BloodGorged * 2 / 100)
-		If l_personalArpPercent > 1 Then l_personalArpPercent = 1
-		
-		dim l_debuffPercent as double = 0.0
+'	function getMitigation() as Double
+'		dim l_bossArmor as double
+'		dim l_constant as double  = 15232.5
+'		l_bossArmor = 10643
+'		
+'		Dim l_personalArpPercent As Double = ArmorPen
+'		'l_personalArpPercent = l_personalArpPercent + (TalentBlood.BloodGorged * 2 / 100)
+'		If l_personalArpPercent > 1 Then l_personalArpPercent = 1
+'		
+'		dim l_debuffPercent as double = 0.0
+'		dim l_sunder as double = 1.0
+'		dim l_ff  as double = 1.0
+'		if   sim.Buff.ArmorMajor > 0 then l_sunder = 1- 0.20
+'		If  sim.Buff.ArmorMinor > 0 Then l_ff = 1 - 0.05
+'		l_debuffPercent = 1 - (l_sunder * l_ff)
+'		
+'		dim l_tempA as double = l_constant + l_bossArmor * (1.0 - l_debuffPercent)
+'		dim l_termA  as double = (((1.0 - l_debuffPercent) * l_bossArmor + l_constant) / 3.0)
+'		dim l_termB  as double = l_bossArmor * (1.0 - l_debuffPercent)
+'		dim l_tempB  as double
+'		
+'		if (l_termA < l_termB) then
+'			l_tempB = l_termA * l_personalArpPercent
+'		else
+'			l_tempB = l_termB * l_personalArpPercent
+'		end if
+'		
+'		Dim l_answer  As Double = l_constant / (l_tempA - l_tempB)
+''		dim l_answer2 as Double = GetArmorDamageReduction
+''		debug.Print ("Methode 1 give "		& l_answer)
+''		debug.Print ("Methode 2 give "		& l_answer2)
+'		Return l_answer
+'	End Function
+	
+
+	Function getMitigation() As Double
+		If _LastArP = ArmorPen and _Mitigation <>0 Then Return _Mitigation	
+
+		Dim AttackerLevel As Integer = 80
+		Dim tmpArmor As Integer
+		Dim ArPDebuffs As Double
 		dim l_sunder as double = 1.0
 		dim l_ff  as double = 1.0
-		if   sim.Buff.ArmorMajor > 0 then l_sunder = 1- 0.20
-		If  sim.Buff.ArmorMinor > 0 Then l_ff = 1 - 0.05
-		l_debuffPercent = 1 - (l_sunder * l_ff)
-		
-		dim l_tempA as double = l_constant + l_bossArmor * (1.0 - l_debuffPercent)
-		dim l_termA  as double = (((1.0 - l_debuffPercent) * l_bossArmor + l_constant) / 3.0)
-		dim l_termB  as double = l_bossArmor * (1.0 - l_debuffPercent)
-		dim l_tempB  as double
-		
-		if (l_termA < l_termB) then
-			l_tempB = l_termA * l_personalArpPercent
-		else
-			l_tempB = l_termB * l_personalArpPercent
-		end if
-		
-		dim l_answer  as double = l_constant / (l_tempA - l_tempB)
-		
-		If Sim.Trinket.MjolRuneFade > sim.TimeStamp or Sim.Trinket.GrimTollFade > sim.TimeStamp Then
-			'Debug.Print( "l_personalArpPercent = " & l_personalArpPercent & " l_answer = " & l_answer & " (1.0 - Math.max(0.0, l_answer)) = " & (1.0 - Math.max(0.0, l_answer)) & sim.TimeStamp)
-		End If
-		
-		'Debug.Print( "l_personalArpPercent = " & l_personalArpPercent & " l_answer = " & l_answer & " (1.0 - Math.max(0.0, l_answer)) = " & (1.0 - Math.max(0.0, l_answer)) & sim.TimeStamp)
-		return l_answer
-	End Function
+		if sim.Buff.ArmorMajor > 0 then l_sunder = 1- 0.20
+		If sim.Buff.ArmorMinor > 0 Then l_ff = 1 - 0.05
+		ArPDebuffs = (l_sunder * l_ff)
+        dim ArmorConstant as Double = 400 + (85 * 80) + 4.5 * 85 * (80 - 59)
+        tmpArmor = BossArmor  *  ArPDebuffs
+        dim ArPCap as Double = Math.Min((tmpArmor + ArmorConstant) / 3, tmpArmor)
+        tmpArmor = tmpArmor -  ArPCap * Math.Min(1,ArmorPen)
+        _Mitigation = ArmorConstant / (ArmorConstant + tmpArmor)
+        return _Mitigation
+      end function
+	
+	
+	
+	
+	
 	Function WhiteHitDamageMultiplier(T as long) As Double
 		dim tmp as Double
 		tmp = 1

@@ -24,7 +24,7 @@ Public Class rune
 	Sub Use(T As Long, D As Boolean)
 		death = D
 		if BTuntil > T then death = true
-		If T - AvailableTime <= 300 and AvailableTime <> 0 Then
+		If T - AvailableTime <= 200 and AvailableTime <> 0 Then
 			AvailableTime = AvailableTime + RuneRefreshtime
 		Else
 			AvailableTime = T + RuneRefreshtime
