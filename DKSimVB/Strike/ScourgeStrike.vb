@@ -107,8 +107,18 @@ Friend Class ScourgeStrike
 		Else
 			tmpMagical = tmpMagical * (0.25 * Sim.NumDesease )
 		End If
+		Dim tmp As Double
+		tmp = 1
 		
-		tmpMagical = tmpMagical * sim.MainStat.StandardMagicalDamageMultiplier(T)
+		tmp = tmp * (1 + sim.mainstat.BloodPresence * 0.15)
+		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
+		If sim.Desolation.isActive(T) Then tmp = tmp * (1+sim.Desolation.Bonus)
+		tmp = tmp * (1 + 0.02 * sim.BoneShield.Value(T))
+		tmp = tmp * (1 + 0.02 * TalentBlood.BloodGorged)
+		if sim.proc.T104PDPSFAde >= T then tmp = tmp * 1.03
+		tmp = tmp * (1 + 0.13 *  sim.Buff.SpellDamageTaken)
+		tmp = tmp * (1-0.05) 'Average partial resist
+		tmpMagical = tmpMagical * tmp
 		tmpMagical = tmpMagical * (1 + TalentFrost.BlackIce * 2 / 100)
 		If sim.RuneForge.CinderglacierProc > 0 Then
 			tmpMagical = tmpMagical * 1.2
