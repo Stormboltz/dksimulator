@@ -106,7 +106,7 @@ Friend Class priority
 								exit sub
 							End If
 						End If
-						If sim.Desolation.Bonus <> 0 and sim.Desolation.isActive(TimeStamp) Then
+						If sim.Desolation.Bonus <> 0 and sim.Desolation.isActive(TimeStamp) = false Then
 							sim.BloodStrike.ApplyDamage(TimeStamp)
 							exit sub
 						End If

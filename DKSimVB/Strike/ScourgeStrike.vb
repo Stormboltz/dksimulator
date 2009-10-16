@@ -159,7 +159,7 @@ Friend Class ScourgeStrike
 	
 	
 	Function MagicalCritCoef() As Double
-		CritCoef = (1+0.06*sim.mainstat.CSD)
+		return  (1+0.06*sim.mainstat.CSD)
 	End Function
 	
 	

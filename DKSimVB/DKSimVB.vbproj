@@ -691,6 +691,9 @@
     <None Include="PrioritiesList.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Release notes.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Rotation\unholy.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

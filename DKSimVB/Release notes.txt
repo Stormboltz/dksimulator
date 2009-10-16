@@ -1,0 +1,393 @@
+﻿1.1.7.2 Release notes
+* Desolation priority correction.
+* Scourge strioke magicla crit modifier corrected.
+
+
+1.1.7.1 Release notes
+* Scourge Strike updated.
+
+1.1.7.0 Release notes
+* Heroic Death Choice should now work properly.
+* A check box to set mode to Patch 3.3.
+* 2 Pieces T 10(Damage): (Updated) Your Obliterate and Scourge Strike abilities deal 10% increased damage., and your Heart Strike ability deals 7% increased damage.  
+* 4 Pieces T10 (Damage): Whenever all your runes are on cooldown, you gain 3% increased damage done with weapons, spells, and abilities for the next 15 second.
+* Scourge Strike: formula implemented: (50%*weapon damage*physical modifiers + 50%*weapon damage*0.25*number of diseases*spell modifiers) * SS modifiers
+* Unholy Blight: This talent now deals only 10% of Death Coil damage as a damage-over-time effect on the target.
+* Frost fever is no more affected by 2 Pieces T9 bonus.
+* EP Calulation for the new DPS set bonus.
+
+1.1.6.2 Release notes
+* A new option in the tank module for Armor than don’t have to be taken into account by Frost Presence. You still have to input in the character file the armor given on your IG character pane.
+* Correction on the DW premade character.
+* Desolation available in the Priority. 
+* Horn available in the Priority and rotation.
+* Multiple short fight should work now.
+* Frost Fever back to melee crit rating for T8 4 pieces.
+
+1.1.6.1 Release notes
+* Correction on the EP module (exp and hit calculation).
+
+1.1.6.0 Release notes
+* Vis’kag proc implemented.
+* Correction on Blood strike GCD.
+
+1.1.5.0 Release notes
+* Better disease management. Epidemic less priority now work.
+* Option to choose how the sim use Unbreakable Armor(same as Bone Shield).
+* Added some option on Stat Scaling tab.
+* Correction on Weapon DPS value. 
+* Add a new Glyph: Glyph of Icy touch II, for the 3.3.
+
+1.1.4.0 Release notes
+* A new Tank Tab with some options. Boss hit speed and avoidance chance.
+Note: Buff/debuff have no effect on boss. Bone Shield charges are consumed by boss hit. Number of charges depends of the glyph.
+* Parry haste is not taken into account. More accurate information needed.
+* Rune strike glyph correctly add 10% critical chance.
+* Bladed Armor AP bonus is calculated depending of the presence. Be sure to set your armor in blood presence in your character sheet.
+* A new TPS column in the report (Frost presence only).
+* Expertise EP calculation for before and after expertise soft cap.
+
+1.1.3.1 Release notes
+* Subversion back to Scourge strike.
+* ArP EP calculation.
+* Frost fever use spell critical chance.
+* Correct tabulation problem on Scaling report.
+
+1.1.3 Release notes
+* Template editor corrections.
+* Removed html report re-initialization after a template change. 
+* Include the unholy rotation in the package.
+* Ghoul Frenzy correction on rotation mode with option “retry=1”.
+* Bone shield is no more a permanent buff and now use a blood tap. 
+* Bone shield is active at the start of the fight for 60s then needs to be refresh. 
+* A new option to chose how the sim use Bone shield.
+* A new tab with a new tool to calculate stat scaling.
+
+1.1.2 Release notes
+* Expertise value after dodge cap calculation on Frost presence.
+* A "none" option in Runeforge and Sigil options
+* Rune Strike benefit from ToT
+* Multithreading support.
+* Internal Talent calculator.
+* Multitarget implementation
+
+1.1.1 Release notes
+* Hysteria is not use on blood spec if not spec for it.
+* Cryptic fever available in the buff section.
+* Talent calculator/import is off since MMO-Champ changes.
+* EP Value divided by 100 to be more in line with other tools.
+* In Frost Presence, your attack can parry.
+
+1.1.0 Release notes
+* No option for nerfing Arp, it is hardcoded now.
+* Dirge doesn’t affect Obliterate anymore.
+* New SS glyph implemented.
+* UA down to 10%.
+
+1.0.10 Release notes
+* Both Death’s Choice trinkets added.
+* Option for nerfing Arp.
+
+1.0.9 Release notes
+* Sigil of Virulence works now with Death Strike.
+* Option for many short fights (No report generated at the moment).
+
+1.0.8 Release notes
+* EP Mode: Spell hit rating was evaluated too low. With default 50 hit rating, it would over cap. Problem corrected. For 2H spec, the Spell hit value is doubled. 
+* Blood spec optimisation. A blood spec with 1 point in epidemic gives higher dps than with 2.
+* Some tuning with rune. 
+* Simulation time accept decimal value. 
+* Code cleanup.
+* Some preliminary work on hit rating value after spell hit cap.
+
+1.0.7 Release notes
+* GoDisease: IT/PS is recast at higher AP.
+* Correction for the hit of the pet (problem since 1.0.6)
+* Draenei buff is disabled for EP calculation.
+
+1.0.6 Release notes
+* EP calculation uses now 3 RNG seed. 1 for Strike/Spell, 1 for White hit and 1 for proc. This should get more accurate haste/weapon speed value.
+* Razorice do not affects Frost Fever.
+* A correction in the EP module for Hit/Spell hit calculation. It was calculated too high.
+* Some code clean up.
+* T9 2 pieces bonus correct internal CD.
+
+1.0.5 Release notes
+* Glyph of disease is now looking good.
+* No more crash after saving template.
+
+1.0.4 Release notes
+* Arp was wrong in two ways.
+
+1.0.3.1 Release notes
+* Some trinkets correction.
+* Correction on the report that would crash one some trinkets.
+* Sim should not crash after a template update.
+
+1.0.3 Release notes
+* proc Trinket implementation.
+* Better glyph of disease support.
+
+1.0.2 Release notes
+* EP calculation corrected some more.
+* DC+HB were using melee hit.
+* Ghoul 3.2 hit+exp changes.
+
+1.0.1 Release notes
+* Several small fixes.
+* 60rp are saved when the Gargoyle/DRW is not on cooldown.
+* EP calculation is much better now.
+* (Negative EP results were due to lower than expected dps results aka RNG).
+
+1.0.0 Release notes
+* Several small fixes (2T9 had no multipliers, Annihilation was affecting autoattacks, HB’s weird crit coefficient and more).
+* Horn usage shows up in the results and a little result makeover.
+
+0.10.1 Release notes
+* Added Mjolnir Runestone and Grim Toll (See character files for details).
+* Updated priorities, rotations and templates for 3.2 plus general cleanup.
+
+0.10.0 Release notes
+* Added grant x rp every y seconds.
+* Added interrupt fighting every x seconds for y seconds.
+* Real realtime dps display.
+* Fixed result scrolling.
+* Some UI and Readme improvements.
+
+0.9.9 Release notes
+* Correction: Horn use a GCD.
+* Correct factor applied to ET Set stat.
+
+0.9.8 Release notes
+* 2P T9 set is now calculated.
+* Bloodlust.
+* Draenei aura.
+* A new tab for some EP options.
+* A new tab for some Buff/Debuff options.
+
+0.9.7 Release notes
+* ArP Cap set to 100%.
+* Added some new default 2H characters.
+* More options saved when the sim close.
+* EP calculator : it now make 10 simulations of 1/10 of the inputed fight lenght, omit the 2 highest and lowest results and make the average, this for each calculated stat. The report will no more display the multiple summary created.
+* EP calculator : Set bonus calculation was off since a few release.
+* 2 new priority : <DeathCoilMaxRp> and <FrostStrikeMaxRp> to dump runic power when runic power full.
+
+0.9.6 Release notes (Thanks to Astalion for the most part)
+* UB going from 30%->20%.
+* ToT:  MH and OH attacks always hit/miss at the same time.
+* ToT : KM benefit to bith hand.
+* ToT : Each hand can proc Rime .
+* Razorice - The damage it does is based on weapon damage without AP modifiers (Some work still left to do).
+* T9 2 part implemented. Default character template updated.
+* New priority available: <KMRime></KMRime>.
+* Some template correction/addition.
+
+0.9.5 Release notes
+* Tundra Stalker and Rage of Rivendare no longer applied to white hits.
+
+0.9.4 Release notes
+* Improved Icy Talons correction
+* KM proc only on the MH Frost strike        
+
+0.9.3 Release notes
+* Support for IT6 with <DRMObliterate> priority
+* Pet expertise correction
+* Sigil of Virulence correction
+
+0.9.2 Release notes
+* Correction in the Bonus set EP module.
+* Correction on Necrosis (black ice + off hand damage).
+* Added sigil of Insolence as raw 100% proc chance on OB and SS.
+* Added KMFrostStrike and KMHowlingBlast in the priority for Killing Machine proc.
+* A new tab for a template editor (thanks to MMO-champ.)
+
+0.9.1 Release notes
+* Pet expertise
+* A few template correction
+* Sigil of the Vengeful Heart updated
+* Blood Plague & Frost Fever damage done increased by 15%.
+* BCB can now sim.proc runeforge
+
+0.9.0 Release notes
+* Blood Strike: The bonus damage this ability receives from diseases on the target has been increased to 25% per disease. 
+* Frost Strike: This ability can now be dodged, parried, or blocked. Weapon damage bonus reduced to 55%, down from 60%.
+* Dancing Rune Weapon: This ability now has a fixed duration of 12 seconds (which can still be modified by its glyph) and a fixed cost of 60 runic power.
+* Bloody Strikes now increases the damage of Blood Strike by 5/10/15% (Down from 15/30/45%), bonus damage to Heart Strike and Blood Boil unchanged.
+* Blood of the North: Reduced to a 3-point talent. Increases Blood Strike and Frost Strike damage by 5/10/15%. There is now a 33/66/100% chance whenever you hit with Blood Strike or Pestilence that the Blood Rune will become a Death Rune when it activates.
+* Toughness: This talent now grants 2/4/6/8/10% armor instead of 3/6/9/12/15%, placing it in line with similar abilities of other classes.
+* Desolation: New talent. This talent is in the position formerly occupied by Desecration. It causes Blood Strike to increase all damage the death knight deals by 1/2/3/4/5% for 12 seconds.
+* Scourge Strike: Weapon damage bonus reduced to 40%, down from 45%. Damage increased by 10% per disease on the target, down from 11%.
+* Summon Gargoyle: The gargoyle now flies lower to the ground, making it susceptible to melee attacks. This ability now has a fixed duration of 30 seconds and a fixed cost of 60 runic power.
+* Unholy Blight: This talent has been redesigned. It no longer deals damage to nearby targets. Instead, when you deal damage with Death Coil, the target will take periodic damage for 10 seconds equal to 30% of the damage done by Death Coil. This damage accumulates in the same way as Ignite and Deep Wounds.
+* Glyph of Unholy Blight Increases the damage done by Unholy Blight by 40%.
+* Threat of Thassarian: New 3-point talent. When dual-wielding, your Death Strike, Obliterate, Plague Strike, Blood Strike and Frost Strike have a 30/60/100% chance to also deal damage with your off-hand weapon. Off-hand strikes are roughly one half the effect of the original strike.
+Todo :
+--> Pet expertise
+--> Blood Plague & Frost Fever damage done increased by 15%. (NEW)
+Addition
+--> Smooth dps feature.
+--> MMO Champion Template import updated for 3.2
+
+0.8.4 Release notes
+* Darkruned 2-Piece Set Bonus: The bonus critical strike chance for Frost Strike and Death Coil has been increased from 5% to 8%.
+* Scourgeborne 4-Piece Set Bonus: The runic power gain has been reduced to 5 runic power from 10 runic power.
+* DRW length corrected.
+* Boss Armor set to 10643.
+* New Armor penetration formula.
+* Sigil of Vengeful Heart is applied before talents.
+
+0.8.3 Release notes
+* Death Coil from DRW now does correct damage.
+* Blood Strike was incorrectly benefited from Outbreak.
+* Blood Strike normal strike calculation correction.
+* Add an option to check if the ghoul double dips the haste sim.Buff.
+* Disease and Wandering Plague appears in the detailed combat log.
+* Some spelling.  
+
+0.8.2 Release notes
+* Another Ghoul Frenzy correction. Hope it is the last one.
+* MMO-champion Talent import. Check the new Tools tab. Glyphs are not imported.
+* Sigil of Vengeful Heart renamed.
+* Crypt Fever now affects Unholy Blight damage.
+* Razorice damage bonus reverted to 5%.
+
+0.8.1 Release notes
+* Should now work better. You can now track it in the combat log in verbose mode.
+* Add a ChaoticSkyflareDiamond in the Character config file. Set to one to enable the meta gem.
+
+0.8.0 Release notes
+* Incorrect runic power granted with Howling Blast on Rime proc.
+* Option to cast Gargoyle and DRW only when on Fallen Crusader buff (if rune forged for).
+* Add a latency parameter.
+* Add Howling Blast in templates, because a xx/4x/xx template could cast HB on rime proc.
+
+Beta TPS Module integration. Just select Frost presence.
+* Add a TPS summary in the report.
+* Add Rune Strike and Rune Strike glyph. Simulator always activate it if RP available.
+* Scent of blood implementation. I don’t have experience with this talent so it proc every time it’s not on CD. It should be adjusted latter.
+* Implementation of T7 and T8 set bonus.
+* A Real tanking simulator may be added someday.
+
+0.7.7 Release notes
+* Simulator now load previous setup on start up 
+* Add an option to display real time DPS
+* Ghoul frenzy implementation. All templates are updated. If talented it will use automatically it with Blood Tap, unless added to priorities/rotations.
+* Set bonus are now configurable via the character config file
+
+0.7.6 Release notes
+* Butchery not resetting well between simulations.
+* Real time DPS available in the bottom of the application.
+* The report is updated more often on EP calculation.
+* The glyphs now have to be configured inside the template configuration file. The default templates are updated.
+* The 00-10-61 template is corrected.
+
+0.7.5 Release notes
+* Correction of BCB.
+* Correction Main Hand damage that should not be normalized.
+
+0.7.4 Release notes
+* Much better Dancing Rune Weapon simulation.
+* Untalented ghoul uptime correction.
+* Desecration is now resetting between simulations.
+* Pestilence Glyph and spell implemented. The simulation will always use Pestilence to refresh disease if glyphed on “Priority” mode.
+* Add a warning message when EP calculation time is inferior to 500 hours
+
+0.7.3 Release notes
+* Necrosis: The damage from this ability will no longer benefit multiple times from damage increasing effects.
+* Add an <Rime> priority to use HowlingBlast on Rime proc
+PTR Build 9742
+* Rime now procs from Obliterate instead of Icy Touch. 
+* Death Strike damage has been increased and now deals 75% weapon damage (up from 60%) plus 222.75 (up from 178.4) for the max Rank.
+ * Summon Gargoyle now lasts up to 40 sec. (Down from 1 min)
+ * DPS Set - 2 pieces - Increases the critical strike chance of your Obliterate, Scourge Strike and Death Strike abilities by 5%. (Old - Didn't affect Death Strike)
+* DPS Set - 4 pieces - Your Obliterate, Scourge Strike and Death Strike generate an additional 10 Runic Power when used.
+
+0.7.2 Release notes
+* Unbreakable armor implementation.
+* The EP result now appears in the new report
+* Add an internal file editor to ease configuration
+* You can now choose between several character config file
+
+0.7.1 Release notes
+* Template update to match PTR Build 9733.
+* Report display improved.
+* Lots of Death and Decay problem.
+* Option to have a verbose combat log
+* From 3.1.0 PTR Patch Notes:
+Heart Strike: No longer affected by Glyph of Blood Strike.
+
+0.7.0 Release notes
+* Resolved issue: Weapon normalization
+* Resolved issue: Obliterate is now adding 80% weapon damage + 467.2 (old +292)
+* Resolved issue: Merciless combat activate too early.
+* Resolved issue: Hysteria was used even if not spec for it.
+* Better sigils damage calculation. Thanks to Ability Formulas !
+* Templates renaming.
+* Option to enable/disable combat log.
+* Option to enable/disable pets (ghoul and gargoyle).
+* Better rune management for D&D
+PTR Build 9733
+    * Howling Blast cooldown has been reduced from 10 sec to 8 sec.
+    * Rime now has a 15% chance to reset the cooldown on Howling Blast and cause your next Howling Blast to consume no runes.
+    * Death Strike damage has been lowered, it now deals 60% weapon damage (down from 75%) plus 178.4 (down from 222.75) for Rank 5.
+To be included. The actual template are not correct.
+    * Night of the Dead has been moved from Tier 8 to Tier 4.
+    * Ghoul Frenzy has been moved from Tier 6 to Tier 7.
+    * Master of Ghouls has been moved from Tier 4 to Tier 6.
+
+0.6.0 Release notes
+* Better reporting. Note that Miss% count miss and dodge.
+* Calculation for DRW average damage is actually wrong!
+* EP calculation for weapon DPS
+* D&D implementation. Now available in Priority, Rotation and Glyph.
+* Bug: Hit calculation of UB and WP was not done.
+
+0.5.0 Release notes
+* Simulator Engine upgrade. A bit faster and more accurate on white hit swing speed. 
+* Time unity for combat log is now in 0.01 second (from 0.1 second).
+* Glancing blow implemented        
+* One-Roll for white damage
+* Bug: Icy Touch and Howling Blast consumed runes even if it had been resisted.
+
+0.4.0 Release notes
+* Beta Dancing Rune Weapon Implementation.
+* Hysteria.
+* Rune buffer.
+* RuneWeapon.
+* Bug : Merciless Combat was not applied to Frost Strike.
+
+0.3.1 Release notes
+* Tundra Stalker now makes your spells and abilities deal 3/6/9/12/15% (up from 2/4/6/8/10%) more damage to targets infected with Frost Fever. Also increases your expertise by 1/2/3/4/5.
+* Black Ice now increases Frost and Shadow damage by 2/4/6/8/10%. (Old - Frost Damage only, 4/8/12/16/20%)
+            Personal Interpretation: Adding damage to Scourge strike, Blood Boil, Blood Plague, Death Coil, Necrosis, Unholy Blight. Feel free to correct me.
+* Improved Icy Touch now gives your Icy Touch 5/10/15% additional damage. (Down from 10/20/30%)
+* Scourge Strike (Rank 5) now deals 45% of weapon damage (down from 55%) as shadow damage plus 357.19 (down from 436.56), total damage increased by 11% (up from 9%). Lower ranks have been modified as well.
+* Summon Gargoyle now persists for 10 sec plus 1 sec per 3 runic power up to 1 min. (Old - 10 sec plus 1 sec per 8 runic power up to 30 sec.)
+* Reaping no longer affects Blood Boil and affects Pestilence instead.
+* Impurity now increases the attack power bonus of your spells by 4/6/8/12/16/20%. (Down from 5/10/15/20/25%)
+* Sigil of awareness : Increase base damage of Scourge Strike by 189, Obliterate by 336, Death Strike by 315
+* Death Knight T8 DPS sigil -- Increases the damage done by your Death Coil and Frost Strike abilities by 380.
+* Improved Scorch now increases spell critical strike chance against the target by 1%.
+
+0.3 Release notes
+* Ghoul implementation. 
+* Master of ghoul and Night of the Dead implementation.
+* Gargoyle implementation.
+* Some performance tweak.
+* More human readable report.
+* Glyphs management. Check it before start use the tool.
+* Partial resistance on magical damage averaged to 0.05%.
+* Minor typo error.
+
+0.2 Release notes
+* A readme is available to help simulator configuration.
+* Desecration is now fully implemented.
+* Toughness is now fully implemented.
+* The logfiles are created in the combatlog folder.
+* Creation of a blank template.
+* Sigils implementation.
+* Set Bonus implementation.
+
+0.1 Release notes
+* First release of the simulator.
