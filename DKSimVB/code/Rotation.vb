@@ -35,17 +35,17 @@ Friend Class Rotation
 			i=i+1
 			select case i
 				case 1
-					if Nod.Name ="Death" then sim.Runes.rune1.death=true
+					if Nod.Name ="Death" then sim.Runes.BloodRune1.death=true
 				case 2
-					if Nod.Name ="Death" then sim.Runes.rune2.death=true
+					if Nod.Name ="Death" then sim.Runes.BloodRune2.death=true
 				case 3
-					if Nod.Name ="Death" then sim.Runes.rune3.death=true
+					if Nod.Name ="Death" then sim.Runes.FrostRune1.death=true
 				case 4
-					if Nod.Name ="Death" then sim.Runes.rune4.death=true
+					if Nod.Name ="Death" then sim.Runes.FrostRune2.death=true
 				case 5
-					if Nod.Name ="Death" then sim.Runes.rune5.death=true
+					if Nod.Name ="Death" then sim.Runes.UnholyRune1.death=true
 				case 6
-					if Nod.Name ="Death" then sim.Runes.rune6.death=true
+					if Nod.Name ="Death" then sim.Runes.UnholyRune2.death=true
 			end select
 		Next
 		

@@ -117,12 +117,6 @@
     <Compile Include="code\TalentFrost.vb" />
     <Compile Include="code\TalentUnholy.vb" />
     <Compile Include="Runes\rune.vb" />
-    <Compile Include="Runes\Rune1.vb" />
-    <Compile Include="Runes\Rune2.vb" />
-    <Compile Include="Runes\Rune3.vb" />
-    <Compile Include="Runes\Rune4.vb" />
-    <Compile Include="Runes\Rune5.vb" />
-    <Compile Include="Runes\Rune6.vb" />
     <Compile Include="Runes\runes.vb" />
     <Compile Include="Special\Bloodlust.vb" />
     <Compile Include="Special\DRW.vb" />

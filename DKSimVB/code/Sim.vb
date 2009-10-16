@@ -95,7 +95,7 @@ Public Class Sim
 	Friend Trinket As Trinket
 	Friend ProgressFrame As ProgressFrm
 	
-	Friend CombatLog as new CombatLog
+	Friend CombatLog as new CombatLog(me)
 	Friend BoneShieldUsageStyle as Integer
 	
 	Sub Init()
@@ -303,12 +303,12 @@ Public Class Sim
 				
 				If isInGCD(TimeStamp) = False Then
 					If BoneShieldUsageStyle = 2 Then
-						If runes.Rune1.Available(TimeStamp) = False Then
-							If runes.Rune2.Available(TimeStamp) = False Then
-								If runes.Rune3.Available(TimeStamp) = False Then
-									If runes.Rune4.Available(TimeStamp) = False Then
-										If runes.Rune5.Available(TimeStamp) = False Then
-											If runes.Rune6.Available(TimeStamp) = False Then
+						If runes.BloodRune1.Available(TimeStamp) = False Then
+							If runes.BloodRune2.Available(TimeStamp) = False Then
+								If runes.FrostRune1.Available(TimeStamp) = False Then
+									If runes.FrostRune2.Available(TimeStamp) = False Then
+										If runes.UnholyRune1.Available(TimeStamp) = False Then
+											If runes.UnholyRune2.Available(TimeStamp) = False Then
 												If BoneShield.IsAvailable(TimeStamp) Then
 													BoneShield.Use(TimeStamp)
 												End If
@@ -349,11 +349,11 @@ Public Class Sim
 				'InterruptTimer > TimeStamp Or InterruptAmount
 			End If
 			
-			If isInGCD(TimeStamp) = False Then
-				If horn.isAutoAvailable(TimeStamp) and CanUseGCD(TimeStamp) Then
-					horn.use(TimeStamp)
-				end if
-			End If
+'			If isInGCD(TimeStamp) = False Then
+'				If horn.isAutoAvailable(TimeStamp) and CanUseGCD(TimeStamp) Then
+'					horn.use(TimeStamp)
+'				end if
+'			End If
 			
 			If DeathandDecay.nextTick = TimeStamp Then
 				DeathandDecay.ApplyDamage(TimeStamp)
@@ -526,12 +526,12 @@ Public Class Sim
 	Sub SoftReset()
 		
 		Me.RotationStep = 0
-		Me.Runes.Rune1.AvailableTime = 0
-		Me.Runes.Rune2.AvailableTime = 0
-		Me.Runes.Rune3.AvailableTime = 0
-		Me.Runes.Rune4.AvailableTime = 0
-		Me.Runes.Rune5.AvailableTime = 0
-		Me.Runes.Rune6.AvailableTime = 0
+		Me.Runes.BloodRune1.AvailableTime = 0
+		Me.Runes.BloodRune2.AvailableTime = 0
+		Me.Runes.FrostRune1.AvailableTime = 0
+		Me.Runes.FrostRune2.AvailableTime = 0
+		Me.Runes.UnholyRune1.AvailableTime = 0
+		Me.Runes.UnholyRune2.AvailableTime = 0
 		
 		RunicPower.Value = 0
 		BloodPlague.nextTick = 0
@@ -1093,12 +1093,12 @@ Public Class Sim
 		If NextFreeGCD > T Then
 			tmp = NextFreeGCD
 		Else
-			if runes.rune1.AvailableTime > T and runes.rune1.AvailableTime < tmp then  tmp = runes.rune1.AvailableTime
-			if runes.rune2.AvailableTime > T and runes.rune2.AvailableTime < tmp then  tmp = runes.rune2.AvailableTime
-			If runes.rune3.AvailableTime > T And runes.rune3.AvailableTime < tmp Then  tmp = runes.rune3.AvailableTime
-			If runes.rune4.AvailableTime > T And runes.rune4.AvailableTime < tmp Then  tmp = runes.rune4.AvailableTime
-			If runes.rune5.AvailableTime > T And runes.rune5.AvailableTime < tmp Then  tmp = runes.rune5.AvailableTime
-			if runes.rune6.AvailableTime > T and runes.rune6.AvailableTime < tmp then  tmp = runes.rune6.AvailableTime
+			if runes.BloodRune1.AvailableTime > T and runes.BloodRune1.AvailableTime < tmp then  tmp = runes.BloodRune1.AvailableTime
+			if runes.BloodRune2.AvailableTime > T and runes.BloodRune2.AvailableTime < tmp then  tmp = runes.BloodRune2.AvailableTime
+			If runes.FrostRune1.AvailableTime > T And runes.FrostRune1.AvailableTime < tmp Then  tmp = runes.FrostRune1.AvailableTime
+			If runes.FrostRune2.AvailableTime > T And runes.FrostRune2.AvailableTime < tmp Then  tmp = runes.FrostRune2.AvailableTime
+			If runes.UnholyRune1.AvailableTime > T And runes.UnholyRune1.AvailableTime < tmp Then  tmp = runes.UnholyRune1.AvailableTime
+			if runes.UnholyRune2.AvailableTime > T and runes.UnholyRune2.AvailableTime < tmp then  tmp = runes.UnholyRune2.AvailableTime
 			
 		End If
 		

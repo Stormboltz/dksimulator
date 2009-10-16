@@ -23,14 +23,14 @@ Friend Class BloodTap
 	
 	Function Use(T As long) As Boolean
 		cd = t + 6000
-		If sim.Runes.Rune1.AvailableTime > T And sim.runes.Rune1.death = False Then
-			sim.Runes.Rune1.AvailableTime = T
-			sim.Runes.Rune1.death = True
-			sim.Runes.Rune1.BTuntil = T + 2000
+		If sim.Runes.BloodRune1.AvailableTime > T And sim.runes.BloodRune1.death = False Then
+			sim.Runes.BloodRune1.AvailableTime = T
+			sim.Runes.BloodRune1.death = True
+			sim.Runes.BloodRune1.BTuntil = T + 2000
 		Else
-			sim.Runes.Rune2.AvailableTime = T
-			sim.Runes.Rune2.death = True
-			sim.Runes.Rune2.BTuntil = T + 2000
+			sim.Runes.BloodRune2.AvailableTime = T
+			sim.Runes.BloodRune2.death = True
+			sim.Runes.BloodRune2.BTuntil = T + 2000
 		End If
 		sim.combatlog.write(T  & vbtab &  "Blood Tap")
 		sim.RunicPower.add(10)

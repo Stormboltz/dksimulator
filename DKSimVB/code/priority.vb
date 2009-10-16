@@ -22,7 +22,7 @@ Friend Class priority
 		For Each item as String In prio
 			Select Case item
 				Case "BloodTap"
-					If sim.BloodTap.IsAvailable(Timestamp) and sim.Runes.rune1.death = false and sim.Runes.rune2.death = false    Then
+					If sim.BloodTap.IsAvailable(Timestamp) and sim.Runes.BloodRune1.death = false and sim.Runes.BloodRune2.death = false    Then
 						sim.BloodTap.Use(Timestamp)
 						'debug.Print("BT")
 					End If

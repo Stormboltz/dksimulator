@@ -10,11 +10,12 @@ Public Class CombatLog
 	Private txtFile As System.IO.TextWriter
 	Friend enable As Boolean
 	Friend LogDetails As Boolean
-
-	Sub New()
+	Private Sim as Sim
+	Sub New(S as Sim)
 		'txtFile = New System.IO.StreamWriter("Combatlog/Combatlog" &" _" & now.Day & now.Hour & now.Minute & now.Second & ".txt")
 		LogDetails = true
-		enable = true
+		enable = True
+		Sim = S
 	End Sub
 	
 	Sub InitcombatLog
@@ -28,7 +29,7 @@ Public Class CombatLog
 		Dim tmp As String
 		tmp = ""
 		
-		 'tmp = 	Sim.Runes.RuneState()
+		 tmp = 	Sim.Runes.RuneState()
 	
 			If enable Then 
 				If txtFile is Nothing Then InitcombatLog

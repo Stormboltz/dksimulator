@@ -80,12 +80,12 @@ Friend Class proc
 	Sub tryT104PDPS(T As Long)
 		If sim.MainStat.T104PDPS = 0 Then Exit Sub
 		'Debug.Print(T & vbtab & sim.Runes.Rune1.AvailableTime & vbtab & sim.Runes.Rune2.AvailableTime & vbtab & sim.Runes.Rune3.AvailableTime & vbtab & sim.Runes.Rune4.AvailableTime & vbtab & sim.Runes.Rune5.AvailableTime & vbtab  & sim.Runes.Rune6.AvailableTime)
-		If sim.Runes.Rune1.AvailableTime < T Then Exit Sub
-		If sim.Runes.Rune2.AvailableTime < T Then Exit Sub
-		If sim.Runes.Rune3.AvailableTime < T Then Exit Sub
-		If sim.Runes.Rune4.AvailableTime < T Then Exit Sub
-		If sim.Runes.Rune5.AvailableTime < T Then Exit Sub
-		If sim.Runes.Rune6.AvailableTime < T Then Exit Sub
+		If sim.Runes.BloodRune1.AvailableTime < T Then Exit Sub
+		If sim.Runes.BloodRune2.AvailableTime < T Then Exit Sub
+		If sim.Runes.FrostRune1.AvailableTime < T Then Exit Sub
+		If sim.Runes.FrostRune2.AvailableTime < T Then Exit Sub
+		If sim.Runes.UnholyRune1.AvailableTime < T Then Exit Sub
+		If sim.Runes.UnholyRune2.AvailableTime < T Then Exit Sub
 		T104PDPSFAde = T +15 *100
 	End Sub
 	

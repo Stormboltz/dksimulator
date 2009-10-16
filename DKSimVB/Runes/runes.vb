@@ -1,35 +1,35 @@
 Namespace Runes
 Friend Class runes
-	friend Rune1 As Rune
-	friend Rune2 As Rune
-	friend Rune3 As Rune
-	friend Rune4 As Rune
-	friend Rune5 As Rune
-	friend Rune6 As Rune
+	friend BloodRune1 As Rune
+	friend BloodRune2 As Rune
+	friend FrostRune1 As Rune
+	friend FrostRune2 As Rune
+	friend UnholyRune1 As Rune
+	friend UnholyRune2 As Rune
 	Protected sim As Sim
 	
 	Sub New(S As Sim)
 		Sim = S
-		Rune1 = new rune(s)
-		Rune2 = new rune(s)
-		Rune3 = new rune(s)
-		Rune4 = new rune(s)
-		Rune5 = new rune(s)
-		Rune6 = new rune(s)
+		BloodRune1 = new rune(s)
+		BloodRune2 = new rune(s)
+		FrostRune1 = new rune(s)
+		FrostRune2 = new rune(s)
+		UnholyRune1 = new rune(s)
+		UnholyRune2 = new rune(s)
 		
 		UnReserveFU(0)
-		Rune1.AvailableTime = 0
-		Rune1.death = False
-		Rune2.AvailableTime = 0
-		Rune2.death = False
-		Rune3.AvailableTime = 0
-		Rune3.death = False
-		Rune4.AvailableTime = 0
-		Rune4.death = False
-		Rune5.AvailableTime = 0
-		Rune5.death = False
-		Rune6.AvailableTime = 0
-		Rune6.death = False
+		BloodRune1.AvailableTime = 0
+		BloodRune1.death = False
+		BloodRune2.AvailableTime = 0
+		BloodRune2.death = False
+		FrostRune1.AvailableTime = 0
+		FrostRune1.death = False
+		FrostRune2.AvailableTime = 0
+		FrostRune2.death = False
+		UnholyRune1.AvailableTime = 0
+		UnholyRune1.death = False
+		UnholyRune2.AvailableTime = 0
+		UnholyRune2.death = False
 	End Sub
 	
 	Function RuneState() As String
@@ -38,61 +38,61 @@ Friend Class runes
 		Dim tmp As String
 		tmp = "["
 		
-		If Rune1.AvailableTime <= T Then
-			If Rune1.death = True Then
+		If BloodRune1.AvailableTime <= T Then
+			If BloodRune1.death = True Then
 				tmp = tmp & "D"
 			Else
 				tmp = tmp & "B"
 			End If
 		Else
-			tmp = tmp & int(-(T - Rune1.AvailableTime)/100)
+			tmp = tmp & int(-(T - BloodRune1.AvailableTime)/100)
 		End If
-		If Rune2.AvailableTime <= T  Then
-			If Rune2.death = True Then
+		If BloodRune2.AvailableTime <= T  Then
+			If BloodRune2.death = True Then
 				tmp = tmp & "D"
 			Else
 				tmp = tmp & "B"
 			End If
 		Else
-			tmp = tmp & int(-(T - Rune2.AvailableTime)/100)
+			tmp = tmp & int(-(T - BloodRune2.AvailableTime)/100)
 		End If
-		If Rune3.AvailableTime <= T Then
-			If Rune3.death = True Then
+		If FrostRune1.AvailableTime <= T Then
+			If FrostRune1.death = True Then
 				tmp = tmp & "D"
 			Else
 				tmp = tmp & "F"
 			End If
 		Else
-			tmp = tmp & int(-(T - Rune3.AvailableTime)/100)
+			tmp = tmp & int(-(T - FrostRune1.AvailableTime)/100)
 			'debug.Print ("Rune3.AvailableTime:" & (Rune3.AvailableTime)/100)
 		End If
-		If Rune4.AvailableTime <= T Then
-			If Rune4.death = True Then
+		If FrostRune2.AvailableTime <= T Then
+			If FrostRune2.death = True Then
 				tmp = tmp & "D"
 			Else
 				tmp = tmp & "F"
 			End If
 		Else
-			tmp = tmp & int(-(T - Rune4.AvailableTime)/100)
+			tmp = tmp & int(-(T - FrostRune2.AvailableTime)/100)
 			'debug.Print ("Rune4.AvailableTime:" & (Rune4.AvailableTime)/100)
 		End If
-		If Rune5.AvailableTime <= T Then
-			If Rune5.death = True Then
+		If UnholyRune1.AvailableTime <= T Then
+			If UnholyRune1.death = True Then
 				tmp = tmp & "D"
 			Else
 				tmp = tmp & "U"
 			End If
 		Else
-			tmp = tmp & int(-(T - Rune5.AvailableTime)/100)
+			tmp = tmp & int(-(T - UnholyRune1.AvailableTime)/100)
 		End If
-		If Rune6.AvailableTime <= T Then
-			If Rune6.death = True Then
+		If UnholyRune2.AvailableTime <= T Then
+			If UnholyRune2.death = True Then
 				tmp = tmp & "D"
 			Else
 				tmp = tmp & "U"
 			End If
 		Else
-			tmp = tmp & int(-(T - Rune6.AvailableTime)/100)
+			tmp = tmp & int(-(T - UnholyRune2.AvailableTime)/100)
 		End If
 		
 		tmp = tmp & "]"
@@ -114,9 +114,9 @@ Friend Class runes
 	End Function
 	
 	Function BFU (T As Long) As Boolean
-		If Rune1.AvailableTime <= T Or Rune2.AvailableTime <= T Then
-			If Rune3.AvailableTime <= T or Rune4.AvailableTime <= T Then
-				If Rune5.AvailableTime <= T Or Rune6.AvailableTime <= T Then
+		If BloodRune1.AvailableTime <= T Or BloodRune2.AvailableTime <= T Then
+			If FrostRune1.AvailableTime <= T or FrostRune2.AvailableTime <= T Then
+				If UnholyRune1.AvailableTime <= T Or UnholyRune2.AvailableTime <= T Then
 					return  True
 				End If
 			End If
@@ -126,12 +126,12 @@ Friend Class runes
 	
 	Function GetNextUnholy(T As Long) As Long
 		Dim bArray As new ArrayList
-		if Rune1.AvailableTime > T 	And Rune1.death = true then bArray.Add(Rune1.AvailableTime)
-		If Rune2.AvailableTime > T 	And Rune2.death = true Then bArray.Add(Rune2.AvailableTime)
-		If Rune3.AvailableTime > T And Rune3.death = True	Then bArray.Add(Rune3.AvailableTime)
-		If Rune4.AvailableTime > T And Rune4.death = True	Then bArray.Add(Rune4.AvailableTime)
-		If Rune5.AvailableTime > T Then bArray.Add(Rune5.AvailableTime)
-		If Rune6.AvailableTime > T Then bArray.Add(Rune6.AvailableTime)
+		if BloodRune1.AvailableTime > T 	And BloodRune1.death = true then bArray.Add(BloodRune1.AvailableTime)
+		If BloodRune2.AvailableTime > T 	And BloodRune2.death = true Then bArray.Add(BloodRune2.AvailableTime)
+		If FrostRune1.AvailableTime > T And FrostRune1.death = True	Then bArray.Add(FrostRune1.AvailableTime)
+		If FrostRune2.AvailableTime > T And FrostRune2.death = True	Then bArray.Add(FrostRune2.AvailableTime)
+		If UnholyRune1.AvailableTime > T Then bArray.Add(UnholyRune1.AvailableTime)
+		If UnholyRune2.AvailableTime > T Then bArray.Add(UnholyRune2.AvailableTime)
 		If bArray.Count > 0 Then
 			bArray.Sort()
 			return bArray.Item(0)
@@ -142,12 +142,12 @@ Friend Class runes
 	
 	Function GetNextFrost(T As Long) As Long
 		Dim bArray As new ArrayList
-		if Rune1.AvailableTime > T 	And Rune1.death = true then bArray.Add(Rune1.AvailableTime)
-		If Rune2.AvailableTime > T 	And Rune2.death = true Then bArray.Add(Rune2.AvailableTime)
-		If Rune3.AvailableTime > T Then bArray.Add(Rune3.AvailableTime)
-		If Rune4.AvailableTime > T Then bArray.Add(Rune4.AvailableTime)
-		If Rune5.AvailableTime > T And Rune5.death = True	Then bArray.Add(Rune5.AvailableTime)
-		If Rune6.AvailableTime > T And Rune6.death = True	Then bArray.Add(Rune6.AvailableTime)
+		if BloodRune1.AvailableTime > T 	And BloodRune1.death = true then bArray.Add(BloodRune1.AvailableTime)
+		If BloodRune2.AvailableTime > T 	And BloodRune2.death = true Then bArray.Add(BloodRune2.AvailableTime)
+		If FrostRune1.AvailableTime > T Then bArray.Add(FrostRune1.AvailableTime)
+		If FrostRune2.AvailableTime > T Then bArray.Add(FrostRune2.AvailableTime)
+		If UnholyRune1.AvailableTime > T And UnholyRune1.death = True	Then bArray.Add(UnholyRune1.AvailableTime)
+		If UnholyRune2.AvailableTime > T And UnholyRune2.death = True	Then bArray.Add(UnholyRune2.AvailableTime)
 		If bArray.Count > 0 Then
 			bArray.Sort()
 			return bArray.Item(0)
@@ -162,13 +162,13 @@ Friend Class runes
 		
 '		if Rune1.AvailableTime > T 	And Rune1.death = false then bArray.Add(Rune1.AvailableTime)
 '		If Rune2.AvailableTime > T 	And Rune2.death = False Then bArray.Add(Rune2.AvailableTime)
-		if Rune1.AvailableTime > T 	then bArray.Add(Rune1.AvailableTime)
-		If Rune2.AvailableTime > T 	Then bArray.Add(Rune2.AvailableTime)
+		if BloodRune1.AvailableTime > T 	then bArray.Add(BloodRune1.AvailableTime)
+		If BloodRune2.AvailableTime > T 	Then bArray.Add(BloodRune2.AvailableTime)
 		
-		If Rune3.AvailableTime > T And Rune3.death = True	Then bArray.Add(Rune3.AvailableTime)
-		If Rune4.AvailableTime > T And Rune4.death = True	Then bArray.Add(Rune4.AvailableTime)
-		If Rune5.AvailableTime > T And Rune5.death = True	Then bArray.Add(Rune5.AvailableTime)
-		If Rune6.AvailableTime > T And Rune6.death = True	Then bArray.Add(Rune6.AvailableTime)
+		If FrostRune1.AvailableTime > T And FrostRune1.death = True	Then bArray.Add(FrostRune1.AvailableTime)
+		If FrostRune2.AvailableTime > T And FrostRune2.death = True	Then bArray.Add(FrostRune2.AvailableTime)
+		If UnholyRune1.AvailableTime > T And UnholyRune1.death = True	Then bArray.Add(UnholyRune1.AvailableTime)
+		If UnholyRune2.AvailableTime > T And UnholyRune2.death = True	Then bArray.Add(UnholyRune2.AvailableTime)
 		
 		If bArray.Count > 0 Then
 			bArray.Sort()
@@ -180,74 +180,74 @@ Friend Class runes
 	
 	
 	Function AnyBlood(T as long) As Boolean
-		If Rune1.AvailableTime <= T And Rune1.reserved=false Then return  True
-		If Rune2.AvailableTime <= T And Rune2.reserved=false Then return  True
-		If Rune3.AvailableTime <= T And Rune3.death = True and Rune3.reserved=false Then return  True
-		If Rune4.AvailableTime <= T And Rune4.death = True and Rune4.reserved=false Then return  True
-		If Rune5.AvailableTime <= T And Rune5.death = True and Rune5.reserved=false Then return  True
-		If Rune6.AvailableTime <= T And Rune6.death = True and Rune6.reserved=false Then return  True
+		If BloodRune1.AvailableTime <= T And BloodRune1.reserved=false Then return  True
+		If BloodRune2.AvailableTime <= T And BloodRune2.reserved=false Then return  True
+		If FrostRune1.AvailableTime <= T And FrostRune1.death = True and FrostRune1.reserved=false Then return  True
+		If FrostRune2.AvailableTime <= T And FrostRune2.death = True and FrostRune2.reserved=false Then return  True
+		If UnholyRune1.AvailableTime <= T And UnholyRune1.death = True and UnholyRune1.reserved=false Then return  True
+		If UnholyRune2.AvailableTime <= T And UnholyRune2.death = True and UnholyRune2.reserved=false Then return  True
 	End Function
 	
 	
 	Function Blood(T as long) As Boolean
-		If Rune1.AvailableTime <= T And Rune1.death = False and Rune1.reserved=false Then return  True
-		If Rune2.AvailableTime <= T And Rune2.death = False and Rune2.reserved=false Then return  True
-		If Rune3.AvailableTime <= T And Rune3.death = True and Rune3.reserved=false Then return  True
-		If Rune4.AvailableTime <= T And Rune4.death = True and Rune4.reserved=false Then return  True
-		If Rune5.AvailableTime <= T And Rune5.death = True and Rune5.reserved=false Then return  True
-		If Rune6.AvailableTime <= T And Rune6.death = True and Rune6.reserved=false Then return  True
+		If BloodRune1.AvailableTime <= T And BloodRune1.death = False and BloodRune1.reserved=false Then return  True
+		If BloodRune2.AvailableTime <= T And BloodRune2.death = False and BloodRune2.reserved=false Then return  True
+		If FrostRune1.AvailableTime <= T And FrostRune1.death = True and FrostRune1.reserved=false Then return  True
+		If FrostRune2.AvailableTime <= T And FrostRune2.death = True and FrostRune2.reserved=false Then return  True
+		If UnholyRune1.AvailableTime <= T And UnholyRune1.death = True and UnholyRune1.reserved=false Then return  True
+		If UnholyRune2.AvailableTime <= T And UnholyRune2.death = True and UnholyRune2.reserved=false Then return  True
 	End Function
 	
 	Function BloodOnly(T as long) As Boolean
-		If Rune1.AvailableTime <= T Then return  True
-		If Rune2.AvailableTime <= T Then return  True
+		If BloodRune1.AvailableTime <= T Then return  True
+		If BloodRune2.AvailableTime <= T Then return  True
 	End Function
 	
 	
 	Function FrostOnly(T As Long) As Boolean
-		If Rune3.AvailableTime <= T and Rune3.reserved=false Then return True
-		If Rune4.AvailableTime <= T and Rune4.reserved=false Then return True
+		If FrostRune1.AvailableTime <= T and FrostRune1.reserved=false Then return True
+		If FrostRune2.AvailableTime <= T and FrostRune2.reserved=false Then return True
 	End Function
 	
 	Function UnholyOnly(T as long) As Boolean
-		If Rune5.AvailableTime <= T and Rune5.reserved=false Then return True
-		If Rune6.AvailableTime <= T and Rune6.reserved=false Then return True
+		If UnholyRune1.AvailableTime <= T and UnholyRune1.reserved=false Then return True
+		If UnholyRune2.AvailableTime <= T and UnholyRune2.reserved=false Then return True
 	End Function
 	
 	
 	Function Frost(T as long) As Boolean
-		If Rune1.AvailableTime <= T And Rune1.death = True and Rune1.reserved=false Then return  True
-		If Rune2.AvailableTime <= T And Rune2.death = True and Rune2.reserved=false Then return True
-		If Rune3.AvailableTime <= T and Rune3.reserved=false Then return True
-		If Rune4.AvailableTime <= T and Rune4.reserved=false Then return True
-		If Rune5.AvailableTime <= T And Rune5.death = True and Rune5.reserved=false Then return True
-		If Rune6.AvailableTime <= T And Rune6.death = True and Rune6.reserved=false Then return True
+		If BloodRune1.AvailableTime <= T And BloodRune1.death = True and BloodRune1.reserved=false Then return  True
+		If BloodRune2.AvailableTime <= T And BloodRune2.death = True and BloodRune2.reserved=false Then return True
+		If FrostRune1.AvailableTime <= T and FrostRune1.reserved=false Then return True
+		If FrostRune2.AvailableTime <= T and FrostRune2.reserved=false Then return True
+		If UnholyRune1.AvailableTime <= T And UnholyRune1.death = True and UnholyRune1.reserved=false Then return True
+		If UnholyRune2.AvailableTime <= T And UnholyRune2.death = True and UnholyRune2.reserved=false Then return True
 	End Function
 	
 	Function Unholy(T as long) As Boolean
-		If Rune1.AvailableTime <= T And Rune1.death = True and Rune1.reserved=false Then return  True
-		If Rune2.AvailableTime <= T And Rune2.death = True and Rune2.reserved=false Then return True
-		If Rune3.AvailableTime <= T And Rune3.death = True and Rune3.reserved=false Then return True
-		If Rune4.AvailableTime <= T And Rune4.death = True and Rune4.reserved=false Then return True
-		If Rune5.AvailableTime <= T and Rune5.reserved=false Then return True
-		If Rune6.AvailableTime <= T and Rune6.reserved=false Then return True
+		If BloodRune1.AvailableTime <= T And BloodRune1.death = True and BloodRune1.reserved=false Then return  True
+		If BloodRune2.AvailableTime <= T And BloodRune2.death = True and BloodRune2.reserved=false Then return True
+		If FrostRune1.AvailableTime <= T And FrostRune1.death = True and FrostRune1.reserved=false Then return True
+		If FrostRune2.AvailableTime <= T And FrostRune2.death = True and FrostRune2.reserved=false Then return True
+		If UnholyRune1.AvailableTime <= T and UnholyRune1.reserved=false Then return True
+		If UnholyRune2.AvailableTime <= T and UnholyRune2.reserved=false Then return True
 	End Function
 	
 	Function FU(T As long) As Boolean
 		Dim UH As Boolean
 		Dim Rune1reserved As Boolean
 		Dim Rune2reserved As Boolean
-		If Rune3.AvailableTime <= T Then
+		If FrostRune1.AvailableTime <= T Then
 			UH = True
 		Else
-			If Rune4.AvailableTime <= T Then
+			If FrostRune2.AvailableTime <= T Then
 				UH = True
 			Else
-				If Rune1.AvailableTime <= T And Rune1.death = True Then
+				If BloodRune1.AvailableTime <= T And BloodRune1.death = True Then
 					Rune1reserved = True
 					UH = True
 				Else
-					If Rune2.AvailableTime <= T And Rune2.death = True Then
+					If BloodRune2.AvailableTime <= T And BloodRune2.death = True Then
 						UH = True
 						Rune2reserved = True
 					Else
@@ -266,16 +266,16 @@ Friend Class runes
 		
 		Dim FR As Boolean
 		
-		If Rune5.AvailableTime <= T Then
+		If UnholyRune1.AvailableTime <= T Then
 			FR = True
 		Else
-			If Rune6.AvailableTime <= T Then
+			If UnholyRune2.AvailableTime <= T Then
 				FR = True
 			Else
-				If Rune1.AvailableTime <= T And Rune1.death = True And Rune1reserved = False Then
+				If BloodRune1.AvailableTime <= T And BloodRune1.death = True And Rune1reserved = False Then
 					FR = True
 				Else
-					If Rune2.AvailableTime <= T And Rune2.death = True And Rune2reserved = False Then
+					If BloodRune2.AvailableTime <= T And BloodRune2.death = True And Rune2reserved = False Then
 						FR = True
 					Else
 						FR = False
@@ -292,29 +292,29 @@ Friend Class runes
 		
 	End Function
 	Function UseBlood(T as long,Death as Boolean) As Boolean
-		If Rune1.Available(T) And Rune1.death = False Then
-			Rune1.Use(T,Death)
+		If BloodRune1.Available(T) And BloodRune1.death = False Then
+			BloodRune1.Use(T,Death)
 		Else
-			If Rune2.Available(T) And Rune2.death = False Then
-				Rune2.Use(T,Death)
+			If BloodRune2.Available(T) And BloodRune2.death = False Then
+				BloodRune2.Use(T,Death)
 			Else
-				If Rune1.Available(T) Then
-					Rune1.Use(T,Death)
+				If BloodRune1.Available(T) Then
+					BloodRune1.Use(T,Death)
 				Else
-					If Rune2.Available(T) Then
-						Rune2.Use(T,Death)
+					If BloodRune2.Available(T) Then
+						BloodRune2.Use(T,Death)
 					Else
-						If Rune3.Available(T) And Rune3.death = True Then
-							Rune3.Use(T,Death)
+						If FrostRune1.Available(T) And FrostRune1.death = True Then
+							FrostRune1.Use(T,Death)
 						Else
-							If Rune4.Available(T) And Rune4.death = True Then
-								Rune4.Use(T,Death)
+							If FrostRune2.Available(T) And FrostRune2.death = True Then
+								FrostRune2.Use(T,Death)
 							Else
-								If Rune5.Available(T) And Rune5.death = True Then
-									Rune5.Use(T,Death)
+								If UnholyRune1.Available(T) And UnholyRune1.death = True Then
+									UnholyRune1.Use(T,Death)
 								Else
-									If Rune6.Available(T) And Rune6.death = True Then
-										Rune6.Use(T,Death)
+									If UnholyRune2.Available(T) And UnholyRune2.death = True Then
+										UnholyRune2.Use(T,Death)
 									Else
 										debug.Print ("ERROR BLood RUNE")
 									End If
@@ -330,23 +330,23 @@ Friend Class runes
 		
 	End Function
 	Function UseFrost(T as long,Death as Boolean) As Boolean
-		If Rune3.Available(T) Then
-			Rune3.Use(T,Death)
+		If FrostRune1.Available(T) Then
+			FrostRune1.Use(T,Death)
 		Else
-			If Rune4.Available(T) Then
-				Rune4.Use(T,Death)
+			If FrostRune2.Available(T) Then
+				FrostRune2.Use(T,Death)
 			Else
-				If Rune1.Available(T) And Rune1.death = True Then
-					Rune1.Use(T,Death)
+				If BloodRune1.Available(T) And BloodRune1.death = True Then
+					BloodRune1.Use(T,Death)
 				Else
-					If Rune2.AvailableTime <= T And Rune2.death = True Then
-						Rune2.Use(T,Death)
+					If BloodRune2.AvailableTime <= T And BloodRune2.death = True Then
+						BloodRune2.Use(T,Death)
 					Else
-						If Rune5.AvailableTime <= T And Rune5.death = True Then
-							Rune5.Use(T,Death)
+						If UnholyRune1.AvailableTime <= T And UnholyRune1.death = True Then
+							UnholyRune1.Use(T,Death)
 						Else
-							If Rune6.AvailableTime <= T And Rune6.death = True Then
-								Rune6.Use(T,Death)
+							If UnholyRune2.AvailableTime <= T And UnholyRune2.death = True Then
+								UnholyRune2.Use(T,Death)
 							Else
 								debug.Print ("ERROR FROST RUNE")
 							End If
@@ -358,23 +358,23 @@ Friend Class runes
 	End Function
 	
 	Function UseUnholy(T as long,Death as Boolean) As Boolean
-		If Rune5.AvailableTime <= T Then
-			Rune5.Use(T,Death)
+		If UnholyRune1.AvailableTime <= T Then
+			UnholyRune1.Use(T,Death)
 		Else
-			If Rune6.AvailableTime <= T Then
-				Rune6.Use(T,Death)
+			If UnholyRune2.AvailableTime <= T Then
+				UnholyRune2.Use(T,Death)
 			Else
-				If Rune1.AvailableTime <= T And Rune1.death = True Then
-					Rune1.Use(T,Death)
+				If BloodRune1.AvailableTime <= T And BloodRune1.death = True Then
+					BloodRune1.Use(T,Death)
 				Else
-					If Rune2.AvailableTime <= T And Rune2.death = True Then
-						rune2.Use(T,Death)
+					If BloodRune2.AvailableTime <= T And BloodRune2.death = True Then
+						BloodRune2.Use(T,Death)
 					Else
-						If Rune3.AvailableTime <= T And Rune3.death = True Then
-							rune3.Use(T,Death)
+						If FrostRune1.AvailableTime <= T And FrostRune1.death = True Then
+							FrostRune1.Use(T,Death)
 						Else
-							If Rune4.AvailableTime <= T And Rune4.death = True Then
-								rune4.Use(T,Death)
+							If FrostRune2.AvailableTime <= T And FrostRune2.death = True Then
+								FrostRune2.Use(T,Death)
 							Else
 								debug.Print("Unholy rune ERROR")
 							End If
@@ -385,17 +385,17 @@ Friend Class runes
 		End If
 	End Function
 	Function UseFU(T as long,Death as Boolean) As Boolean
-		If Rune3.AvailableTime <= T Then
-			rune3.Use(T,Death)
+		If FrostRune1.AvailableTime <= T Then
+			FrostRune1.Use(T,Death)
 		Else
-			If Rune4.AvailableTime <= T Then
-				rune4.Use(T,Death)
+			If FrostRune2.AvailableTime <= T Then
+				FrostRune2.Use(T,Death)
 			Else
-				If Rune1.AvailableTime <= T And Rune1.death = True Then
-					rune1.Use(T,Death)
+				If BloodRune1.AvailableTime <= T And BloodRune1.death = True Then
+					BloodRune1.Use(T,Death)
 				Else
-					If Rune2.AvailableTime <= T And Rune2.death = True Then
-						rune2.Use(T,Death)
+					If BloodRune2.AvailableTime <= T And BloodRune2.death = True Then
+						BloodRune2.Use(T,Death)
 					Else
 						Debug.Print ("ERRRRRROOOOORRRR FU @ :" & T)
 						Exit Function
@@ -404,17 +404,17 @@ Friend Class runes
 			End If
 		End If
 		
-		If Rune5.AvailableTime <= T Then
-			rune5.Use(T,Death)
+		If UnholyRune1.AvailableTime <= T Then
+			UnholyRune1.Use(T,Death)
 		Else
-			If Rune6.AvailableTime <= T Then
-				rune6.Use(T,Death)
+			If UnholyRune2.AvailableTime <= T Then
+				UnholyRune2.Use(T,Death)
 			Else
-				If Rune1.AvailableTime <= T And Rune1.death = True Then
-					rune1.Use(T,Death)
+				If BloodRune1.AvailableTime <= T And BloodRune1.death = True Then
+					BloodRune1.Use(T,Death)
 				Else
-					If Rune2.AvailableTime <= T And Rune2.death = True Then
-						rune2.Use(T,Death)
+					If BloodRune2.AvailableTime <= T And BloodRune2.death = True Then
+						BloodRune2.Use(T,Death)
 					Else
 						Debug.Print ("ERRRRRROOOOORRRR FU @ :" & T)
 						Exit Function
@@ -518,43 +518,43 @@ Friend Class runes
 		Dim FReserved As Boolean
 		
 		dim i as Double
-		If Rune3.AvailableTime <= T Then
-			Rune3.reserved =  True
+		If FrostRune1.AvailableTime <= T Then
+			FrostRune1.reserved =  True
 			FReserved = True
 			goto ReserveU
 		end if
-		If Rune4.AvailableTime <= T Then
-			Rune4.reserved =  True
+		If FrostRune2.AvailableTime <= T Then
+			FrostRune2.reserved =  True
 			FReserved = True
 			goto ReserveU
 		end if
-		If Rune1.AvailableTime <= T And Rune1.death = True Then
-			Rune1.reserved =  True
+		If BloodRune1.AvailableTime <= T And BloodRune1.death = True Then
+			BloodRune1.reserved =  True
 			FReserved = True
 			goto ReserveU
 		end if
-		If Rune2.AvailableTime <= T And Rune2.death = True Then
-			Rune2.reserved =  True
+		If BloodRune2.AvailableTime <= T And BloodRune2.death = True Then
+			BloodRune2.reserved =  True
 			FReserved = True
 			goto ReserveU
 		end if
 		If FReserved = False Then
 			i = T
 			Do Until FReserved = True
-				If Rune3.AvailableTime <= i Then
-					Rune3.reserved =  True
+				If FrostRune1.AvailableTime <= i Then
+					FrostRune1.reserved =  True
 					goto ReserveU
 				End If
-				If Rune4.AvailableTime <= i Then
-					Rune4.reserved =  True
+				If FrostRune2.AvailableTime <= i Then
+					FrostRune2.reserved =  True
 					goto ReserveU
 				End If
-				If Rune1.AvailableTime <= i And Rune1.death = True Then
-					Rune1.reserved =  True
+				If BloodRune1.AvailableTime <= i And BloodRune1.death = True Then
+					BloodRune1.reserved =  True
 					goto ReserveU
 				End If
-				If Rune2.AvailableTime <= i And Rune2.death = True Then
-					Rune2.reserved =  True
+				If BloodRune2.AvailableTime <= i And BloodRune2.death = True Then
+					BloodRune2.reserved =  True
 					goto ReserveU
 				End If
 				i = i + 10
@@ -565,43 +565,43 @@ Friend Class runes
 		
 		' Reserve U
 		
-		If Rune5.AvailableTime <= T Then
-			Rune5.reserved =  True
+		If UnholyRune1.AvailableTime <= T Then
+			UnholyRune1.reserved =  True
 			FReserved = True
 			goto ToEnd
 		end if
-		If Rune6.AvailableTime <= T Then
-			Rune6.reserved =  True
+		If UnholyRune2.AvailableTime <= T Then
+			UnholyRune2.reserved =  True
 			FReserved = True
 			goto ToEnd
 		end if
-		If Rune1.AvailableTime <= T And Rune1.death = True Then
-			Rune1.reserved =  True
+		If BloodRune1.AvailableTime <= T And BloodRune1.death = True Then
+			BloodRune1.reserved =  True
 			FReserved = True
 			goto ToEnd
 		end if
-		If Rune2.AvailableTime <= T And Rune2.death = True Then
-			Rune2.reserved =  True
+		If BloodRune2.AvailableTime <= T And BloodRune2.death = True Then
+			BloodRune2.reserved =  True
 			FReserved = True
 			goto ToEnd
 		end if
 		If FReserved = False Then
 			i = T
 			Do Until FReserved = True
-				If Rune5.AvailableTime <= i Then
-					Rune5.reserved =  True
+				If UnholyRune1.AvailableTime <= i Then
+					UnholyRune1.reserved =  True
 					goto ToEnd
 				End If
-				If Rune6.AvailableTime <= i Then
-					Rune6.reserved =  True
+				If UnholyRune2.AvailableTime <= i Then
+					UnholyRune2.reserved =  True
 					goto ToEnd
 				End If
-				If Rune1.AvailableTime <= i And Rune1.death = True Then
-					Rune1.reserved =  True
+				If BloodRune1.AvailableTime <= i And BloodRune1.death = True Then
+					BloodRune1.reserved =  True
 					goto ToEnd
 				End If
-				If Rune2.AvailableTime <= i And Rune2.death = True Then
-					Rune2.reserved =  True
+				If BloodRune2.AvailableTime <= i And BloodRune2.death = True Then
+					BloodRune2.reserved =  True
 					goto ToEnd
 				End If
 				i = i + 100
@@ -610,21 +610,21 @@ Friend Class runes
 		ToEnd:
 	End Function
 	Function UnReserveFU(T As long) as Boolean
-		Rune1.reserved=False
-		Rune2.reserved=False
-		Rune3.reserved=False
-		Rune4.reserved=False
-		Rune5.reserved=False
-		Rune6.reserved=False
+		BloodRune1.reserved=False
+		BloodRune2.reserved=False
+		FrostRune1.reserved=False
+		FrostRune2.reserved=False
+		UnholyRune1.reserved=False
+		UnholyRune2.reserved=False
 	End Function
 	
 	
 	Function DRMFU( T as Long) As Boolean
 		
-		If (Rune3.AvailableTime <= T And Rune3.death = False) And (Rune5.AvailableTime <= T And Rune5.death = False) Then Return True
-		If (Rune3.AvailableTime <= T And Rune3.death = False) And (Rune6.AvailableTime <= T And Rune6.death = False) Then Return True
-		If (Rune4.AvailableTime <= T And Rune4.death = False) And (Rune5.AvailableTime <= T And Rune5.death = False) Then Return True
-		If (Rune4.AvailableTime <= T And Rune4.death = False) And (Rune6.AvailableTime <= T And Rune6.death = False) Then Return True
+		If (FrostRune1.AvailableTime <= T And FrostRune1.death = False) And (UnholyRune1.AvailableTime <= T And UnholyRune1.death = False) Then Return True
+		If (FrostRune1.AvailableTime <= T And FrostRune1.death = False) And (UnholyRune2.AvailableTime <= T And UnholyRune2.death = False) Then Return True
+		If (FrostRune2.AvailableTime <= T And FrostRune2.death = False) And (UnholyRune1.AvailableTime <= T And UnholyRune1.death = False) Then Return True
+		If (FrostRune2.AvailableTime <= T And FrostRune2.death = False) And (UnholyRune2.AvailableTime <= T And UnholyRune2.death = False) Then Return True
 		
 	End Function
 	

@@ -11,7 +11,7 @@ Friend Class ScourgeStrike
 	
 	public Overrides Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
-
+		
 		'scourgestrike glyph
 		
 		If sim.MainStat.UnholyPresence Then
@@ -28,29 +28,34 @@ Friend Class ScourgeStrike
 		dim dégat as Integer
 		
 		If sim.Patch33 Then 'Patch 3.3 #######(
+			tmpPhysical = 0
+			tmpMagical = 0
 			'Physical part
 			RNG = MyRNG
 			If RNG <= CritChance Then
 				CritCount = CritCount + 1
-				dégat = AvrgNonCritPhysical(T)* (1 + CritCoef)
-				sim.combatlog.write(T  & vbtab &  "SS Physical crit for " & dégat )
+				tmpPhysical = AvrgNonCritPhysical(T)* (1 + CritCoef)
+				'sim.combatlog.write(T  & vbtab &  "SS Physical crit for " & dégat )
 				sim.tryOnCrit
 			Else
 				HitCount = HitCount + 1
-				dégat = AvrgNonCritPhysical(T)
-				sim.combatlog.write(T  & vbtab &  "SS Physical hit for " & dégat )
+				tmpPhysical = AvrgNonCritPhysical(T)
+				'sim.combatlog.write(T  & vbtab &  "SS Physical hit for " & dégat )
 			End If
+			dégat = tmpPhysical
 			'Magical part
 			RNG = MyRNG
 			If RNG <= CritChance Then
 				CritCount = CritCount + 1
-				dégat = dégat +  AvrgNonCritMagical(T)* (1 + MagicalCritCoef)
-				sim.combatlog.write(T  & vbtab &  "SS Magical crit for " & dégat )
+				tmpMagical = AvrgNonCritMagical(T)* (1 + MagicalCritCoef)
+				dégat = dégat +  tmpPhysical + tmpMagical
+				'sim.combatlog.write(T  & vbtab &  "SS Magical crit for " & dégat )
 				sim.tryOnCrit
 			Else
 				HitCount = HitCount + 1
-				dégat = dégat +  AvrgNonCritMagical(T)
-				sim.combatlog.write(T  & vbtab &  "SS Magical hit for " & dégat )
+				tmpMagical = AvrgNonCritMagical(T)
+				dégat = dégat +  tmpPhysical + tmpMagical
+				'sim.combatlog.write(T  & vbtab &  "SS Magical hit for " & dégat )
 			End If
 		Else ')######
 			RNG = MyRNG
@@ -65,6 +70,13 @@ Friend Class ScourgeStrike
 				sim.combatlog.write(T  & vbtab &  "SS hit for " & dégat )
 			End If
 		End If
+		
+		
+		tmpPhysical = math.round(tmpPhysical,0)
+		tmpMagical = math.round(tmpMagical,0)
+		sim.combatlog.write(T  & vbtab &  "SS hit for " & tmpPhysical & " physical and " & tmpMagical & " magical")
+		
+		
 		
 		total = total + dégat
 		
@@ -124,7 +136,7 @@ Friend Class ScourgeStrike
 			tmpMagical = tmpMagical * 1.2
 			sim.RuneForge.CinderglacierProc = sim.RuneForge.CinderglacierProc -1
 		End If
-		
+
 		Return tmpMagical
 	End Function
 	public Overrides Function AvrgNonCrit(T as long) As Double
