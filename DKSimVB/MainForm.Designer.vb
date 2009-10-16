@@ -104,6 +104,46 @@ Partial Class MainForm
 		Me.cmbCharacter = New System.Windows.Forms.ComboBox
 		Me.cmbTemplate = New System.Windows.Forms.ComboBox
 		Me.tabControl1 = New System.Windows.Forms.TabControl
+		Me.tbTpl = New System.Windows.Forms.TabPage
+		Me.lblUnholy = New System.Windows.Forms.Label
+		Me.lblFrost = New System.Windows.Forms.Label
+		Me.lblBlood = New System.Windows.Forms.Label
+		Me.cmbGlyph3 = New System.Windows.Forms.ComboBox
+		Me.cmbGlyph2 = New System.Windows.Forms.ComboBox
+		Me.cmbGlyph1 = New System.Windows.Forms.ComboBox
+		Me.cmdSaveNewTemplate = New System.Windows.Forms.Button
+		Me.cmdSaveTemplate = New System.Windows.Forms.Button
+		Me.tbBuff = New System.Windows.Forms.TabPage
+		Me.grpBuff = New System.Windows.Forms.GroupBox
+		Me.chkBloodlust = New System.Windows.Forms.CheckBox
+		Me.chkDraeni = New System.Windows.Forms.CheckBox
+		Me.chkBStatMulti = New System.Windows.Forms.CheckBox
+		Me.chkBStatAdd = New System.Windows.Forms.CheckBox
+		Me.chkBSpellHaste = New System.Windows.Forms.CheckBox
+		Me.chkBSpellCrit = New System.Windows.Forms.CheckBox
+		Me.chkCrypticFever = New System.Windows.Forms.CheckBox
+		Me.chkBSpHitTaken = New System.Windows.Forms.CheckBox
+		Me.chkBMeleeCrit = New System.Windows.Forms.CheckBox
+		Me.chkBSpDamTaken = New System.Windows.Forms.CheckBox
+		Me.chkBMeleeHaste = New System.Windows.Forms.CheckBox
+		Me.chkBSpCrTaken = New System.Windows.Forms.CheckBox
+		Me.chkBHaste = New System.Windows.Forms.CheckBox
+		Me.chkBPhyVuln = New System.Windows.Forms.CheckBox
+		Me.chkBPcDamage = New System.Windows.Forms.CheckBox
+		Me.chkBCritchanceTaken = New System.Windows.Forms.CheckBox
+		Me.chkBAPPc = New System.Windows.Forms.CheckBox
+		Me.chkBArmorMinor = New System.Windows.Forms.CheckBox
+		Me.chkBAP = New System.Windows.Forms.CheckBox
+		Me.chkBArmorMaj = New System.Windows.Forms.CheckBox
+		Me.chkBStrAgi = New System.Windows.Forms.CheckBox
+		Me.tbTank = New System.Windows.Forms.TabPage
+		Me.gbTank = New System.Windows.Forms.GroupBox
+		Me.label22 = New System.Windows.Forms.Label
+		Me.label24 = New System.Windows.Forms.Label
+		Me.txtFPArmor = New System.Windows.Forms.TextBox
+		Me.label23 = New System.Windows.Forms.Label
+		Me.txtFBAvoidance = New System.Windows.Forms.TextBox
+		Me.txtFPBossSwing = New System.Windows.Forms.TextBox
 		Me.tbEPOptions = New System.Windows.Forms.TabPage
 		Me.label25 = New System.Windows.Forms.Label
 		Me.txtEPBase = New System.Windows.Forms.TextBox
@@ -143,38 +183,8 @@ Partial Class MainForm
 		Me.chkEPCrit = New System.Windows.Forms.CheckBox
 		Me.chkEPAgility = New System.Windows.Forms.CheckBox
 		Me.chkEPStr = New System.Windows.Forms.CheckBox
-		Me.tbBuff = New System.Windows.Forms.TabPage
-		Me.grpBuff = New System.Windows.Forms.GroupBox
-		Me.chkBloodlust = New System.Windows.Forms.CheckBox
-		Me.chkDraeni = New System.Windows.Forms.CheckBox
-		Me.chkBStatMulti = New System.Windows.Forms.CheckBox
-		Me.chkBStatAdd = New System.Windows.Forms.CheckBox
-		Me.chkBSpellHaste = New System.Windows.Forms.CheckBox
-		Me.chkBSpellCrit = New System.Windows.Forms.CheckBox
-		Me.chkCrypticFever = New System.Windows.Forms.CheckBox
-		Me.chkBSpHitTaken = New System.Windows.Forms.CheckBox
-		Me.chkBMeleeCrit = New System.Windows.Forms.CheckBox
-		Me.chkBSpDamTaken = New System.Windows.Forms.CheckBox
-		Me.chkBMeleeHaste = New System.Windows.Forms.CheckBox
-		Me.chkBSpCrTaken = New System.Windows.Forms.CheckBox
-		Me.chkBHaste = New System.Windows.Forms.CheckBox
-		Me.chkBPhyVuln = New System.Windows.Forms.CheckBox
-		Me.chkBPcDamage = New System.Windows.Forms.CheckBox
-		Me.chkBCritchanceTaken = New System.Windows.Forms.CheckBox
-		Me.chkBAPPc = New System.Windows.Forms.CheckBox
-		Me.chkBArmorMinor = New System.Windows.Forms.CheckBox
-		Me.chkBAP = New System.Windows.Forms.CheckBox
-		Me.chkBArmorMaj = New System.Windows.Forms.CheckBox
-		Me.chkBStrAgi = New System.Windows.Forms.CheckBox
-		Me.tbTpl = New System.Windows.Forms.TabPage
-		Me.lblUnholy = New System.Windows.Forms.Label
-		Me.lblFrost = New System.Windows.Forms.Label
-		Me.lblBlood = New System.Windows.Forms.Label
-		Me.cmbGlyph3 = New System.Windows.Forms.ComboBox
-		Me.cmbGlyph2 = New System.Windows.Forms.ComboBox
-		Me.cmbGlyph1 = New System.Windows.Forms.ComboBox
-		Me.cmdSaveNewTemplate = New System.Windows.Forms.Button
-		Me.cmdSaveTemplate = New System.Windows.Forms.Button
+		Me.tbPrioEditor = New System.Windows.Forms.TabPage
+		Me.btCreateCMB = New System.Windows.Forms.Button
 		Me.tbCaling = New System.Windows.Forms.TabPage
 		Me.label21 = New System.Windows.Forms.Label
 		Me.cmdScaling = New System.Windows.Forms.Button
@@ -191,34 +201,24 @@ Partial Class MainForm
 		Me.chkScaCrit = New System.Windows.Forms.CheckBox
 		Me.chkScaAgility = New System.Windows.Forms.CheckBox
 		Me.chkScaStr = New System.Windows.Forms.CheckBox
-		Me.tbTank = New System.Windows.Forms.TabPage
-		Me.gbTank = New System.Windows.Forms.GroupBox
-		Me.label22 = New System.Windows.Forms.Label
-		Me.label24 = New System.Windows.Forms.Label
-		Me.txtFPArmor = New System.Windows.Forms.TextBox
-		Me.label23 = New System.Windows.Forms.Label
-		Me.txtFBAvoidance = New System.Windows.Forms.TextBox
-		Me.txtFPBossSwing = New System.Windows.Forms.TextBox
-		Me.tbPrioEditor = New System.Windows.Forms.TabPage
-		Me.btCreateCMB = New System.Windows.Forms.Button
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
 		Me.tabPage3.SuspendLayout
 		Me.tabControl1.SuspendLayout
+		Me.tbTpl.SuspendLayout
+		Me.tbBuff.SuspendLayout
+		Me.grpBuff.SuspendLayout
+		Me.tbTank.SuspendLayout
+		Me.gbTank.SuspendLayout
 		Me.tbEPOptions.SuspendLayout
 		Me.groupBox3.SuspendLayout
 		Me.groupBox2.SuspendLayout
 		Me.groupBox1.SuspendLayout
-		Me.tbBuff.SuspendLayout
-		Me.grpBuff.SuspendLayout
-		Me.tbTpl.SuspendLayout
+		Me.tbPrioEditor.SuspendLayout
 		Me.tbCaling.SuspendLayout
 		Me.gbScaling.SuspendLayout
-		Me.tbTank.SuspendLayout
-		Me.gbTank.SuspendLayout
-		Me.tbPrioEditor.SuspendLayout
 		Me.SuspendLayout
 		'
 		'btStart
@@ -294,12 +294,11 @@ Partial Class MainForm
 		Me.cmdImportArmory.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
 		Me.cmdImportArmory.ForeColor = System.Drawing.Color.Ivory
 		Me.cmdImportArmory.Image = CType(resources.GetObject("cmdImportArmory.Image"),System.Drawing.Image)
-		Me.cmdImportArmory.Location = New System.Drawing.Point(635, 67)
+		Me.cmdImportArmory.Location = New System.Drawing.Point(634, 58)
 		Me.cmdImportArmory.Name = "cmdImportArmory"
 		Me.cmdImportArmory.Size = New System.Drawing.Size(45, 36)
 		Me.cmdImportArmory.TabIndex = 5
 		Me.cmdImportArmory.Text = "Ok"
-		Me.cmdImportArmory.TextAlign = System.Drawing.ContentAlignment.BottomRight
 		Me.cmdImportArmory.UseVisualStyleBackColor = false
 		Me.cmdImportArmory.Visible = false
 		AddHandler Me.cmdImportArmory.Click, AddressOf Me.CmdImportArmoryClick
@@ -314,7 +313,7 @@ Partial Class MainForm
 		'
 		'label12
 		'
-		Me.label12.Location = New System.Drawing.Point(9, 48)
+		Me.label12.Location = New System.Drawing.Point(9, 49)
 		Me.label12.Name = "label12"
 		Me.label12.Size = New System.Drawing.Size(100, 15)
 		Me.label12.TabIndex = 3
@@ -324,7 +323,7 @@ Partial Class MainForm
 		'cmdImportTemplate
 		'
 		Me.cmdImportTemplate.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdImportTemplate.Location = New System.Drawing.Point(722, 18)
+		Me.cmdImportTemplate.Location = New System.Drawing.Point(634, 17)
 		Me.cmdImportTemplate.Name = "cmdImportTemplate"
 		Me.cmdImportTemplate.Size = New System.Drawing.Size(42, 23)
 		Me.cmdImportTemplate.TabIndex = 2
@@ -334,7 +333,7 @@ Partial Class MainForm
 		'
 		'label11
 		'
-		Me.label11.Location = New System.Drawing.Point(9, 4)
+		Me.label11.Location = New System.Drawing.Point(8, 4)
 		Me.label11.Name = "label11"
 		Me.label11.Size = New System.Drawing.Size(159, 14)
 		Me.label11.TabIndex = 1
@@ -344,9 +343,9 @@ Partial Class MainForm
 		'
 		Me.txtImportTemplate.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.txtImportTemplate.Location = New System.Drawing.Point(8, 21)
+		Me.txtImportTemplate.Location = New System.Drawing.Point(8, 19)
 		Me.txtImportTemplate.Name = "txtImportTemplate"
-		Me.txtImportTemplate.Size = New System.Drawing.Size(708, 20)
+		Me.txtImportTemplate.Size = New System.Drawing.Size(620, 20)
 		Me.txtImportTemplate.TabIndex = 0
 		'
 		'tabPage1
@@ -961,6 +960,436 @@ Partial Class MainForm
 		Me.tabControl1.Size = New System.Drawing.Size(784, 592)
 		Me.tabControl1.TabIndex = 3
 		'
+		'tbTpl
+		'
+		Me.tbTpl.AutoScroll = true
+		Me.tbTpl.Controls.Add(Me.lblUnholy)
+		Me.tbTpl.Controls.Add(Me.lblFrost)
+		Me.tbTpl.Controls.Add(Me.lblBlood)
+		Me.tbTpl.Controls.Add(Me.cmbGlyph3)
+		Me.tbTpl.Controls.Add(Me.cmbGlyph2)
+		Me.tbTpl.Controls.Add(Me.cmbGlyph1)
+		Me.tbTpl.Controls.Add(Me.cmdSaveNewTemplate)
+		Me.tbTpl.Controls.Add(Me.cmdSaveTemplate)
+		Me.tbTpl.Location = New System.Drawing.Point(4, 22)
+		Me.tbTpl.Name = "tbTpl"
+		Me.tbTpl.Size = New System.Drawing.Size(776, 566)
+		Me.tbTpl.TabIndex = 9
+		Me.tbTpl.Text = "Talents"
+		Me.tbTpl.UseVisualStyleBackColor = true
+		'
+		'lblUnholy
+		'
+		Me.lblUnholy.Location = New System.Drawing.Point(348, 425)
+		Me.lblUnholy.Name = "lblUnholy"
+		Me.lblUnholy.Size = New System.Drawing.Size(100, 23)
+		Me.lblUnholy.TabIndex = 2
+		Me.lblUnholy.Text = "0"
+		'
+		'lblFrost
+		'
+		Me.lblFrost.Location = New System.Drawing.Point(202, 425)
+		Me.lblFrost.Name = "lblFrost"
+		Me.lblFrost.Size = New System.Drawing.Size(100, 23)
+		Me.lblFrost.TabIndex = 2
+		Me.lblFrost.Text = "0"
+		'
+		'lblBlood
+		'
+		Me.lblBlood.Location = New System.Drawing.Point(18, 425)
+		Me.lblBlood.Name = "lblBlood"
+		Me.lblBlood.Size = New System.Drawing.Size(100, 23)
+		Me.lblBlood.TabIndex = 2
+		Me.lblBlood.Text = "0"
+		'
+		'cmbGlyph3
+		'
+		Me.cmbGlyph3.FormattingEnabled = true
+		Me.cmbGlyph3.Location = New System.Drawing.Point(559, 130)
+		Me.cmbGlyph3.Name = "cmbGlyph3"
+		Me.cmbGlyph3.Size = New System.Drawing.Size(121, 21)
+		Me.cmbGlyph3.TabIndex = 1
+		'
+		'cmbGlyph2
+		'
+		Me.cmbGlyph2.FormattingEnabled = true
+		Me.cmbGlyph2.Location = New System.Drawing.Point(559, 103)
+		Me.cmbGlyph2.Name = "cmbGlyph2"
+		Me.cmbGlyph2.Size = New System.Drawing.Size(121, 21)
+		Me.cmbGlyph2.TabIndex = 1
+		'
+		'cmbGlyph1
+		'
+		Me.cmbGlyph1.FormattingEnabled = true
+		Me.cmbGlyph1.Location = New System.Drawing.Point(559, 76)
+		Me.cmbGlyph1.Name = "cmbGlyph1"
+		Me.cmbGlyph1.Size = New System.Drawing.Size(121, 21)
+		Me.cmbGlyph1.TabIndex = 1
+		'
+		'cmdSaveNewTemplate
+		'
+		Me.cmdSaveNewTemplate.Location = New System.Drawing.Point(478, 3)
+		Me.cmdSaveNewTemplate.Name = "cmdSaveNewTemplate"
+		Me.cmdSaveNewTemplate.Size = New System.Drawing.Size(108, 23)
+		Me.cmdSaveNewTemplate.TabIndex = 0
+		Me.cmdSaveNewTemplate.Text = "Save as new"
+		Me.cmdSaveNewTemplate.UseVisualStyleBackColor = true
+		AddHandler Me.cmdSaveNewTemplate.Click, AddressOf Me.CmdSaveNewTemplateClick
+		'
+		'cmdSaveTemplate
+		'
+		Me.cmdSaveTemplate.Location = New System.Drawing.Point(592, 3)
+		Me.cmdSaveTemplate.Name = "cmdSaveTemplate"
+		Me.cmdSaveTemplate.Size = New System.Drawing.Size(93, 23)
+		Me.cmdSaveTemplate.TabIndex = 0
+		Me.cmdSaveTemplate.Text = "Save Template"
+		Me.cmdSaveTemplate.UseVisualStyleBackColor = true
+		AddHandler Me.cmdSaveTemplate.Click, AddressOf Me.CmdSaveTemplateClick
+		'
+		'tbBuff
+		'
+		Me.tbBuff.Controls.Add(Me.grpBuff)
+		Me.tbBuff.Location = New System.Drawing.Point(4, 22)
+		Me.tbBuff.Name = "tbBuff"
+		Me.tbBuff.Size = New System.Drawing.Size(776, 566)
+		Me.tbBuff.TabIndex = 8
+		Me.tbBuff.Text = "Buffs"
+		Me.tbBuff.UseVisualStyleBackColor = true
+		'
+		'grpBuff
+		'
+		Me.grpBuff.Controls.Add(Me.chkBloodlust)
+		Me.grpBuff.Controls.Add(Me.chkDraeni)
+		Me.grpBuff.Controls.Add(Me.chkBStatMulti)
+		Me.grpBuff.Controls.Add(Me.chkBStatAdd)
+		Me.grpBuff.Controls.Add(Me.chkBSpellHaste)
+		Me.grpBuff.Controls.Add(Me.chkBSpellCrit)
+		Me.grpBuff.Controls.Add(Me.chkCrypticFever)
+		Me.grpBuff.Controls.Add(Me.chkBSpHitTaken)
+		Me.grpBuff.Controls.Add(Me.chkBMeleeCrit)
+		Me.grpBuff.Controls.Add(Me.chkBSpDamTaken)
+		Me.grpBuff.Controls.Add(Me.chkBMeleeHaste)
+		Me.grpBuff.Controls.Add(Me.chkBSpCrTaken)
+		Me.grpBuff.Controls.Add(Me.chkBHaste)
+		Me.grpBuff.Controls.Add(Me.chkBPhyVuln)
+		Me.grpBuff.Controls.Add(Me.chkBPcDamage)
+		Me.grpBuff.Controls.Add(Me.chkBCritchanceTaken)
+		Me.grpBuff.Controls.Add(Me.chkBAPPc)
+		Me.grpBuff.Controls.Add(Me.chkBArmorMinor)
+		Me.grpBuff.Controls.Add(Me.chkBAP)
+		Me.grpBuff.Controls.Add(Me.chkBArmorMaj)
+		Me.grpBuff.Controls.Add(Me.chkBStrAgi)
+		Me.grpBuff.Location = New System.Drawing.Point(30, 32)
+		Me.grpBuff.Name = "grpBuff"
+		Me.grpBuff.Size = New System.Drawing.Size(607, 436)
+		Me.grpBuff.TabIndex = 0
+		Me.grpBuff.TabStop = false
+		Me.grpBuff.Text = "Buffs/Debuffs"
+		'
+		'chkBloodlust
+		'
+		Me.chkBloodlust.Checked = true
+		Me.chkBloodlust.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkBloodlust.Location = New System.Drawing.Point(10, 380)
+		Me.chkBloodlust.Name = "chkBloodlust"
+		Me.chkBloodlust.Size = New System.Drawing.Size(134, 24)
+		Me.chkBloodlust.TabIndex = 0
+		Me.chkBloodlust.Text = "Bloodlust"
+		Me.chkBloodlust.UseVisualStyleBackColor = true
+		'
+		'chkDraeni
+		'
+		Me.chkDraeni.Checked = true
+		Me.chkDraeni.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkDraeni.Location = New System.Drawing.Point(10, 350)
+		Me.chkDraeni.Name = "chkDraeni"
+		Me.chkDraeni.Size = New System.Drawing.Size(134, 24)
+		Me.chkDraeni.TabIndex = 0
+		Me.chkDraeni.Text = "Draenei"
+		Me.chkDraeni.UseVisualStyleBackColor = true
+		'
+		'chkBStatMulti
+		'
+		Me.chkBStatMulti.Checked = true
+		Me.chkBStatMulti.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkBStatMulti.Location = New System.Drawing.Point(10, 320)
+		Me.chkBStatMulti.Name = "chkBStatMulti"
+		Me.chkBStatMulti.Size = New System.Drawing.Size(104, 24)
+		Me.chkBStatMulti.TabIndex = 0
+		Me.chkBStatMulti.Text = "10% Stat"
+		Me.chkBStatMulti.UseVisualStyleBackColor = true
+		'
+		'chkBStatAdd
+		'
+		Me.chkBStatAdd.Checked = true
+		Me.chkBStatAdd.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkBStatAdd.Location = New System.Drawing.Point(10, 290)
+		Me.chkBStatAdd.Name = "chkBStatAdd"
+		Me.chkBStatAdd.Size = New System.Drawing.Size(104, 24)
+		Me.chkBStatAdd.TabIndex = 0
+		Me.chkBStatAdd.Text = "Stat Add"
+		Me.chkBStatAdd.UseVisualStyleBackColor = true
+		'
+		'chkBSpellHaste
+		'
+		Me.chkBSpellHaste.Checked = true
+		Me.chkBSpellHaste.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkBSpellHaste.Location = New System.Drawing.Point(10, 260)
+		Me.chkBSpellHaste.Name = "chkBSpellHaste"
+		Me.chkBSpellHaste.Size = New System.Drawing.Size(104, 24)
+		Me.chkBSpellHaste.TabIndex = 0
+		Me.chkBSpellHaste.Text = "Spell Haste"
+		Me.chkBSpellHaste.UseVisualStyleBackColor = true
+		'
+		'chkBSpellCrit
+		'
+		Me.chkBSpellCrit.Checked = true
+		Me.chkBSpellCrit.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkBSpellCrit.Location = New System.Drawing.Point(10, 230)
+		Me.chkBSpellCrit.Name = "chkBSpellCrit"
+		Me.chkBSpellCrit.Size = New System.Drawing.Size(104, 24)
+		Me.chkBSpellCrit.TabIndex = 0
+		Me.chkBSpellCrit.Text = "Spell crit"
+		Me.chkBSpellCrit.UseVisualStyleBackColor = true
+		'
+		'chkCrypticFever
+		'
+		Me.chkCrypticFever.Checked = true
+		Me.chkCrypticFever.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkCrypticFever.Location = New System.Drawing.Point(177, 230)
+		Me.chkCrypticFever.Name = "chkCrypticFever"
+		Me.chkCrypticFever.Size = New System.Drawing.Size(104, 24)
+		Me.chkCrypticFever.TabIndex = 0
+		Me.chkCrypticFever.Text = "Cryptic Fever"
+		Me.chkCrypticFever.UseVisualStyleBackColor = true
+		'
+		'chkBSpHitTaken
+		'
+		Me.chkBSpHitTaken.Checked = true
+		Me.chkBSpHitTaken.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkBSpHitTaken.Location = New System.Drawing.Point(177, 200)
+		Me.chkBSpHitTaken.Name = "chkBSpHitTaken"
+		Me.chkBSpHitTaken.Size = New System.Drawing.Size(104, 24)
+		Me.chkBSpHitTaken.TabIndex = 0
+		Me.chkBSpHitTaken.Text = "Spell Hit taken"
+		Me.chkBSpHitTaken.UseVisualStyleBackColor = true
+		'
+		'chkBMeleeCrit
+		'
+		Me.chkBMeleeCrit.Checked = true
+		Me.chkBMeleeCrit.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkBMeleeCrit.Location = New System.Drawing.Point(10, 200)
+		Me.chkBMeleeCrit.Name = "chkBMeleeCrit"
+		Me.chkBMeleeCrit.Size = New System.Drawing.Size(104, 24)
+		Me.chkBMeleeCrit.TabIndex = 0
+		Me.chkBMeleeCrit.Text = "Melee crit"
+		Me.chkBMeleeCrit.UseVisualStyleBackColor = true
+		'
+		'chkBSpDamTaken
+		'
+		Me.chkBSpDamTaken.Checked = true
+		Me.chkBSpDamTaken.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkBSpDamTaken.Location = New System.Drawing.Point(177, 170)
+		Me.chkBSpDamTaken.Name = "chkBSpDamTaken"
+		Me.chkBSpDamTaken.Size = New System.Drawing.Size(138, 24)
+		Me.chkBSpDamTaken.TabIndex = 0
+		Me.chkBSpDamTaken.Text = "Spell Damage taken"
+		Me.chkBSpDamTaken.UseVisualStyleBackColor = true
+		'
+		'chkBMeleeHaste
+		'
+		Me.chkBMeleeHaste.Checked = true
+		Me.chkBMeleeHaste.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkBMeleeHaste.Location = New System.Drawing.Point(10, 170)
+		Me.chkBMeleeHaste.Name = "chkBMeleeHaste"
+		Me.chkBMeleeHaste.Size = New System.Drawing.Size(104, 24)
+		Me.chkBMeleeHaste.TabIndex = 0
+		Me.chkBMeleeHaste.Text = "Melee Haste"
+		Me.chkBMeleeHaste.UseVisualStyleBackColor = true
+		'
+		'chkBSpCrTaken
+		'
+		Me.chkBSpCrTaken.Checked = true
+		Me.chkBSpCrTaken.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkBSpCrTaken.Location = New System.Drawing.Point(177, 140)
+		Me.chkBSpCrTaken.Name = "chkBSpCrTaken"
+		Me.chkBSpCrTaken.Size = New System.Drawing.Size(150, 24)
+		Me.chkBSpCrTaken.TabIndex = 0
+		Me.chkBSpCrTaken.Text = "Spell crit chance taken"
+		Me.chkBSpCrTaken.UseVisualStyleBackColor = true
+		'
+		'chkBHaste
+		'
+		Me.chkBHaste.Checked = true
+		Me.chkBHaste.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkBHaste.Location = New System.Drawing.Point(10, 140)
+		Me.chkBHaste.Name = "chkBHaste"
+		Me.chkBHaste.Size = New System.Drawing.Size(104, 24)
+		Me.chkBHaste.TabIndex = 0
+		Me.chkBHaste.Text = "chkBHaste"
+		Me.chkBHaste.UseVisualStyleBackColor = true
+		'
+		'chkBPhyVuln
+		'
+		Me.chkBPhyVuln.Checked = true
+		Me.chkBPhyVuln.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkBPhyVuln.Location = New System.Drawing.Point(177, 110)
+		Me.chkBPhyVuln.Name = "chkBPhyVuln"
+		Me.chkBPhyVuln.Size = New System.Drawing.Size(150, 24)
+		Me.chkBPhyVuln.TabIndex = 0
+		Me.chkBPhyVuln.Text = "Physical Vulnerability"
+		Me.chkBPhyVuln.UseVisualStyleBackColor = true
+		'
+		'chkBPcDamage
+		'
+		Me.chkBPcDamage.Checked = true
+		Me.chkBPcDamage.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkBPcDamage.Location = New System.Drawing.Point(10, 110)
+		Me.chkBPcDamage.Name = "chkBPcDamage"
+		Me.chkBPcDamage.Size = New System.Drawing.Size(104, 24)
+		Me.chkBPcDamage.TabIndex = 0
+		Me.chkBPcDamage.Text = "% Damage"
+		Me.chkBPcDamage.UseVisualStyleBackColor = true
+		'
+		'chkBCritchanceTaken
+		'
+		Me.chkBCritchanceTaken.Checked = true
+		Me.chkBCritchanceTaken.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkBCritchanceTaken.Location = New System.Drawing.Point(177, 80)
+		Me.chkBCritchanceTaken.Name = "chkBCritchanceTaken"
+		Me.chkBCritchanceTaken.Size = New System.Drawing.Size(138, 24)
+		Me.chkBCritchanceTaken.TabIndex = 0
+		Me.chkBCritchanceTaken.Text = "Crit chance taken"
+		Me.chkBCritchanceTaken.UseVisualStyleBackColor = true
+		'
+		'chkBAPPc
+		'
+		Me.chkBAPPc.Checked = true
+		Me.chkBAPPc.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkBAPPc.Location = New System.Drawing.Point(10, 80)
+		Me.chkBAPPc.Name = "chkBAPPc"
+		Me.chkBAPPc.Size = New System.Drawing.Size(104, 24)
+		Me.chkBAPPc.TabIndex = 0
+		Me.chkBAPPc.Text = "% Attack Power"
+		Me.chkBAPPc.UseVisualStyleBackColor = true
+		'
+		'chkBArmorMinor
+		'
+		Me.chkBArmorMinor.Checked = true
+		Me.chkBArmorMinor.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkBArmorMinor.Location = New System.Drawing.Point(177, 50)
+		Me.chkBArmorMinor.Name = "chkBArmorMinor"
+		Me.chkBArmorMinor.Size = New System.Drawing.Size(104, 24)
+		Me.chkBArmorMinor.TabIndex = 0
+		Me.chkBArmorMinor.Text = "Armor Minor"
+		Me.chkBArmorMinor.UseVisualStyleBackColor = true
+		'
+		'chkBAP
+		'
+		Me.chkBAP.Checked = true
+		Me.chkBAP.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkBAP.Location = New System.Drawing.Point(10, 50)
+		Me.chkBAP.Name = "chkBAP"
+		Me.chkBAP.Size = New System.Drawing.Size(104, 24)
+		Me.chkBAP.TabIndex = 0
+		Me.chkBAP.Text = "+ Attack power"
+		Me.chkBAP.UseVisualStyleBackColor = true
+		'
+		'chkBArmorMaj
+		'
+		Me.chkBArmorMaj.Checked = true
+		Me.chkBArmorMaj.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkBArmorMaj.Location = New System.Drawing.Point(177, 20)
+		Me.chkBArmorMaj.Name = "chkBArmorMaj"
+		Me.chkBArmorMaj.Size = New System.Drawing.Size(104, 24)
+		Me.chkBArmorMaj.TabIndex = 0
+		Me.chkBArmorMaj.Text = "Armor Major"
+		Me.chkBArmorMaj.UseVisualStyleBackColor = true
+		'
+		'chkBStrAgi
+		'
+		Me.chkBStrAgi.Checked = true
+		Me.chkBStrAgi.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkBStrAgi.Location = New System.Drawing.Point(10, 20)
+		Me.chkBStrAgi.Name = "chkBStrAgi"
+		Me.chkBStrAgi.Size = New System.Drawing.Size(104, 24)
+		Me.chkBStrAgi.TabIndex = 0
+		Me.chkBStrAgi.Text = "Str/Agi"
+		Me.chkBStrAgi.UseVisualStyleBackColor = true
+		'
+		'tbTank
+		'
+		Me.tbTank.Controls.Add(Me.gbTank)
+		Me.tbTank.Location = New System.Drawing.Point(4, 22)
+		Me.tbTank.Name = "tbTank"
+		Me.tbTank.Size = New System.Drawing.Size(776, 566)
+		Me.tbTank.TabIndex = 11
+		Me.tbTank.Text = "Tank Options"
+		Me.tbTank.UseVisualStyleBackColor = true
+		'
+		'gbTank
+		'
+		Me.gbTank.Controls.Add(Me.label22)
+		Me.gbTank.Controls.Add(Me.label24)
+		Me.gbTank.Controls.Add(Me.txtFPArmor)
+		Me.gbTank.Controls.Add(Me.label23)
+		Me.gbTank.Controls.Add(Me.txtFBAvoidance)
+		Me.gbTank.Controls.Add(Me.txtFPBossSwing)
+		Me.gbTank.Location = New System.Drawing.Point(18, 17)
+		Me.gbTank.Name = "gbTank"
+		Me.gbTank.Size = New System.Drawing.Size(645, 191)
+		Me.gbTank.TabIndex = 2
+		Me.gbTank.TabStop = false
+		Me.gbTank.Text = "Frost Presence options"
+		'
+		'label22
+		'
+		Me.label22.Location = New System.Drawing.Point(112, 74)
+		Me.label22.Name = "label22"
+		Me.label22.Size = New System.Drawing.Size(430, 17)
+		Me.label22.TabIndex = 11
+		Me.label22.Text = "Armor part in the char file that is not changed by Frost Presence."
+		'
+		'label24
+		'
+		Me.label24.Location = New System.Drawing.Point(112, 48)
+		Me.label24.Name = "label24"
+		Me.label24.Size = New System.Drawing.Size(190, 17)
+		Me.label24.TabIndex = 11
+		Me.label24.Text = "Character Avoidance chance in %"
+		'
+		'txtFPArmor
+		'
+		Me.txtFPArmor.Location = New System.Drawing.Point(6, 71)
+		Me.txtFPArmor.Name = "txtFPArmor"
+		Me.txtFPArmor.Size = New System.Drawing.Size(100, 20)
+		Me.txtFPArmor.TabIndex = 8
+		Me.txtFPArmor.Text = "0"
+		'
+		'label23
+		'
+		Me.label23.Location = New System.Drawing.Point(112, 22)
+		Me.label23.Name = "label23"
+		Me.label23.Size = New System.Drawing.Size(186, 20)
+		Me.label23.TabIndex = 13
+		Me.label23.Text = "Boss swing speed in second"
+		'
+		'txtFBAvoidance
+		'
+		Me.txtFBAvoidance.Location = New System.Drawing.Point(6, 45)
+		Me.txtFBAvoidance.Name = "txtFBAvoidance"
+		Me.txtFBAvoidance.Size = New System.Drawing.Size(100, 20)
+		Me.txtFBAvoidance.TabIndex = 8
+		Me.txtFBAvoidance.Text = "50"
+		'
+		'txtFPBossSwing
+		'
+		Me.txtFPBossSwing.Location = New System.Drawing.Point(6, 19)
+		Me.txtFPBossSwing.Name = "txtFPBossSwing"
+		Me.txtFPBossSwing.Size = New System.Drawing.Size(100, 20)
+		Me.txtFPBossSwing.TabIndex = 7
+		Me.txtFPBossSwing.Text = "2"
+		'
 		'tbEPOptions
 		'
 		Me.tbEPOptions.Controls.Add(Me.label25)
@@ -1378,362 +1807,26 @@ Partial Class MainForm
 		Me.chkEPStr.Text = "Strength"
 		Me.chkEPStr.UseVisualStyleBackColor = true
 		'
-		'tbBuff
+		'tbPrioEditor
 		'
-		Me.tbBuff.Controls.Add(Me.grpBuff)
-		Me.tbBuff.Location = New System.Drawing.Point(4, 22)
-		Me.tbBuff.Name = "tbBuff"
-		Me.tbBuff.Size = New System.Drawing.Size(776, 566)
-		Me.tbBuff.TabIndex = 8
-		Me.tbBuff.Text = "Buffs"
-		Me.tbBuff.UseVisualStyleBackColor = true
+		Me.tbPrioEditor.AutoScroll = true
+		Me.tbPrioEditor.Controls.Add(Me.btCreateCMB)
+		Me.tbPrioEditor.Location = New System.Drawing.Point(4, 22)
+		Me.tbPrioEditor.Name = "tbPrioEditor"
+		Me.tbPrioEditor.Size = New System.Drawing.Size(776, 566)
+		Me.tbPrioEditor.TabIndex = 12
+		Me.tbPrioEditor.Text = "Rotation Editor"
+		Me.tbPrioEditor.UseVisualStyleBackColor = true
 		'
-		'grpBuff
+		'btCreateCMB
 		'
-		Me.grpBuff.Controls.Add(Me.chkBloodlust)
-		Me.grpBuff.Controls.Add(Me.chkDraeni)
-		Me.grpBuff.Controls.Add(Me.chkBStatMulti)
-		Me.grpBuff.Controls.Add(Me.chkBStatAdd)
-		Me.grpBuff.Controls.Add(Me.chkBSpellHaste)
-		Me.grpBuff.Controls.Add(Me.chkBSpellCrit)
-		Me.grpBuff.Controls.Add(Me.chkCrypticFever)
-		Me.grpBuff.Controls.Add(Me.chkBSpHitTaken)
-		Me.grpBuff.Controls.Add(Me.chkBMeleeCrit)
-		Me.grpBuff.Controls.Add(Me.chkBSpDamTaken)
-		Me.grpBuff.Controls.Add(Me.chkBMeleeHaste)
-		Me.grpBuff.Controls.Add(Me.chkBSpCrTaken)
-		Me.grpBuff.Controls.Add(Me.chkBHaste)
-		Me.grpBuff.Controls.Add(Me.chkBPhyVuln)
-		Me.grpBuff.Controls.Add(Me.chkBPcDamage)
-		Me.grpBuff.Controls.Add(Me.chkBCritchanceTaken)
-		Me.grpBuff.Controls.Add(Me.chkBAPPc)
-		Me.grpBuff.Controls.Add(Me.chkBArmorMinor)
-		Me.grpBuff.Controls.Add(Me.chkBAP)
-		Me.grpBuff.Controls.Add(Me.chkBArmorMaj)
-		Me.grpBuff.Controls.Add(Me.chkBStrAgi)
-		Me.grpBuff.Location = New System.Drawing.Point(30, 32)
-		Me.grpBuff.Name = "grpBuff"
-		Me.grpBuff.Size = New System.Drawing.Size(607, 436)
-		Me.grpBuff.TabIndex = 0
-		Me.grpBuff.TabStop = false
-		Me.grpBuff.Text = "Buffs/Debuffs"
-		'
-		'chkBloodlust
-		'
-		Me.chkBloodlust.Checked = true
-		Me.chkBloodlust.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkBloodlust.Location = New System.Drawing.Point(10, 380)
-		Me.chkBloodlust.Name = "chkBloodlust"
-		Me.chkBloodlust.Size = New System.Drawing.Size(134, 24)
-		Me.chkBloodlust.TabIndex = 0
-		Me.chkBloodlust.Text = "Bloodlust"
-		Me.chkBloodlust.UseVisualStyleBackColor = true
-		'
-		'chkDraeni
-		'
-		Me.chkDraeni.Checked = true
-		Me.chkDraeni.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkDraeni.Location = New System.Drawing.Point(10, 350)
-		Me.chkDraeni.Name = "chkDraeni"
-		Me.chkDraeni.Size = New System.Drawing.Size(134, 24)
-		Me.chkDraeni.TabIndex = 0
-		Me.chkDraeni.Text = "Draenei"
-		Me.chkDraeni.UseVisualStyleBackColor = true
-		'
-		'chkBStatMulti
-		'
-		Me.chkBStatMulti.Checked = true
-		Me.chkBStatMulti.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkBStatMulti.Location = New System.Drawing.Point(10, 320)
-		Me.chkBStatMulti.Name = "chkBStatMulti"
-		Me.chkBStatMulti.Size = New System.Drawing.Size(104, 24)
-		Me.chkBStatMulti.TabIndex = 0
-		Me.chkBStatMulti.Text = "10% Stat"
-		Me.chkBStatMulti.UseVisualStyleBackColor = true
-		'
-		'chkBStatAdd
-		'
-		Me.chkBStatAdd.Checked = true
-		Me.chkBStatAdd.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkBStatAdd.Location = New System.Drawing.Point(10, 290)
-		Me.chkBStatAdd.Name = "chkBStatAdd"
-		Me.chkBStatAdd.Size = New System.Drawing.Size(104, 24)
-		Me.chkBStatAdd.TabIndex = 0
-		Me.chkBStatAdd.Text = "Stat Add"
-		Me.chkBStatAdd.UseVisualStyleBackColor = true
-		'
-		'chkBSpellHaste
-		'
-		Me.chkBSpellHaste.Checked = true
-		Me.chkBSpellHaste.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkBSpellHaste.Location = New System.Drawing.Point(10, 260)
-		Me.chkBSpellHaste.Name = "chkBSpellHaste"
-		Me.chkBSpellHaste.Size = New System.Drawing.Size(104, 24)
-		Me.chkBSpellHaste.TabIndex = 0
-		Me.chkBSpellHaste.Text = "Spell Haste"
-		Me.chkBSpellHaste.UseVisualStyleBackColor = true
-		'
-		'chkBSpellCrit
-		'
-		Me.chkBSpellCrit.Checked = true
-		Me.chkBSpellCrit.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkBSpellCrit.Location = New System.Drawing.Point(10, 230)
-		Me.chkBSpellCrit.Name = "chkBSpellCrit"
-		Me.chkBSpellCrit.Size = New System.Drawing.Size(104, 24)
-		Me.chkBSpellCrit.TabIndex = 0
-		Me.chkBSpellCrit.Text = "Spell crit"
-		Me.chkBSpellCrit.UseVisualStyleBackColor = true
-		'
-		'chkCrypticFever
-		'
-		Me.chkCrypticFever.Checked = true
-		Me.chkCrypticFever.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkCrypticFever.Location = New System.Drawing.Point(177, 230)
-		Me.chkCrypticFever.Name = "chkCrypticFever"
-		Me.chkCrypticFever.Size = New System.Drawing.Size(104, 24)
-		Me.chkCrypticFever.TabIndex = 0
-		Me.chkCrypticFever.Text = "Cryptic Fever"
-		Me.chkCrypticFever.UseVisualStyleBackColor = true
-		'
-		'chkBSpHitTaken
-		'
-		Me.chkBSpHitTaken.Checked = true
-		Me.chkBSpHitTaken.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkBSpHitTaken.Location = New System.Drawing.Point(177, 200)
-		Me.chkBSpHitTaken.Name = "chkBSpHitTaken"
-		Me.chkBSpHitTaken.Size = New System.Drawing.Size(104, 24)
-		Me.chkBSpHitTaken.TabIndex = 0
-		Me.chkBSpHitTaken.Text = "Spell Hit taken"
-		Me.chkBSpHitTaken.UseVisualStyleBackColor = true
-		'
-		'chkBMeleeCrit
-		'
-		Me.chkBMeleeCrit.Checked = true
-		Me.chkBMeleeCrit.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkBMeleeCrit.Location = New System.Drawing.Point(10, 200)
-		Me.chkBMeleeCrit.Name = "chkBMeleeCrit"
-		Me.chkBMeleeCrit.Size = New System.Drawing.Size(104, 24)
-		Me.chkBMeleeCrit.TabIndex = 0
-		Me.chkBMeleeCrit.Text = "Melee crit"
-		Me.chkBMeleeCrit.UseVisualStyleBackColor = true
-		'
-		'chkBSpDamTaken
-		'
-		Me.chkBSpDamTaken.Checked = true
-		Me.chkBSpDamTaken.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkBSpDamTaken.Location = New System.Drawing.Point(177, 170)
-		Me.chkBSpDamTaken.Name = "chkBSpDamTaken"
-		Me.chkBSpDamTaken.Size = New System.Drawing.Size(138, 24)
-		Me.chkBSpDamTaken.TabIndex = 0
-		Me.chkBSpDamTaken.Text = "Spell Damage taken"
-		Me.chkBSpDamTaken.UseVisualStyleBackColor = true
-		'
-		'chkBMeleeHaste
-		'
-		Me.chkBMeleeHaste.Checked = true
-		Me.chkBMeleeHaste.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkBMeleeHaste.Location = New System.Drawing.Point(10, 170)
-		Me.chkBMeleeHaste.Name = "chkBMeleeHaste"
-		Me.chkBMeleeHaste.Size = New System.Drawing.Size(104, 24)
-		Me.chkBMeleeHaste.TabIndex = 0
-		Me.chkBMeleeHaste.Text = "Melee Haste"
-		Me.chkBMeleeHaste.UseVisualStyleBackColor = true
-		'
-		'chkBSpCrTaken
-		'
-		Me.chkBSpCrTaken.Checked = true
-		Me.chkBSpCrTaken.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkBSpCrTaken.Location = New System.Drawing.Point(177, 140)
-		Me.chkBSpCrTaken.Name = "chkBSpCrTaken"
-		Me.chkBSpCrTaken.Size = New System.Drawing.Size(150, 24)
-		Me.chkBSpCrTaken.TabIndex = 0
-		Me.chkBSpCrTaken.Text = "Spell crit chance taken"
-		Me.chkBSpCrTaken.UseVisualStyleBackColor = true
-		'
-		'chkBHaste
-		'
-		Me.chkBHaste.Checked = true
-		Me.chkBHaste.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkBHaste.Location = New System.Drawing.Point(10, 140)
-		Me.chkBHaste.Name = "chkBHaste"
-		Me.chkBHaste.Size = New System.Drawing.Size(104, 24)
-		Me.chkBHaste.TabIndex = 0
-		Me.chkBHaste.Text = "chkBHaste"
-		Me.chkBHaste.UseVisualStyleBackColor = true
-		'
-		'chkBPhyVuln
-		'
-		Me.chkBPhyVuln.Checked = true
-		Me.chkBPhyVuln.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkBPhyVuln.Location = New System.Drawing.Point(177, 110)
-		Me.chkBPhyVuln.Name = "chkBPhyVuln"
-		Me.chkBPhyVuln.Size = New System.Drawing.Size(150, 24)
-		Me.chkBPhyVuln.TabIndex = 0
-		Me.chkBPhyVuln.Text = "Physical Vulnerability"
-		Me.chkBPhyVuln.UseVisualStyleBackColor = true
-		'
-		'chkBPcDamage
-		'
-		Me.chkBPcDamage.Checked = true
-		Me.chkBPcDamage.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkBPcDamage.Location = New System.Drawing.Point(10, 110)
-		Me.chkBPcDamage.Name = "chkBPcDamage"
-		Me.chkBPcDamage.Size = New System.Drawing.Size(104, 24)
-		Me.chkBPcDamage.TabIndex = 0
-		Me.chkBPcDamage.Text = "% Damage"
-		Me.chkBPcDamage.UseVisualStyleBackColor = true
-		'
-		'chkBCritchanceTaken
-		'
-		Me.chkBCritchanceTaken.Checked = true
-		Me.chkBCritchanceTaken.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkBCritchanceTaken.Location = New System.Drawing.Point(177, 80)
-		Me.chkBCritchanceTaken.Name = "chkBCritchanceTaken"
-		Me.chkBCritchanceTaken.Size = New System.Drawing.Size(138, 24)
-		Me.chkBCritchanceTaken.TabIndex = 0
-		Me.chkBCritchanceTaken.Text = "Crit chance taken"
-		Me.chkBCritchanceTaken.UseVisualStyleBackColor = true
-		'
-		'chkBAPPc
-		'
-		Me.chkBAPPc.Checked = true
-		Me.chkBAPPc.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkBAPPc.Location = New System.Drawing.Point(10, 80)
-		Me.chkBAPPc.Name = "chkBAPPc"
-		Me.chkBAPPc.Size = New System.Drawing.Size(104, 24)
-		Me.chkBAPPc.TabIndex = 0
-		Me.chkBAPPc.Text = "% Attack Power"
-		Me.chkBAPPc.UseVisualStyleBackColor = true
-		'
-		'chkBArmorMinor
-		'
-		Me.chkBArmorMinor.Checked = true
-		Me.chkBArmorMinor.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkBArmorMinor.Location = New System.Drawing.Point(177, 50)
-		Me.chkBArmorMinor.Name = "chkBArmorMinor"
-		Me.chkBArmorMinor.Size = New System.Drawing.Size(104, 24)
-		Me.chkBArmorMinor.TabIndex = 0
-		Me.chkBArmorMinor.Text = "Armor Minor"
-		Me.chkBArmorMinor.UseVisualStyleBackColor = true
-		'
-		'chkBAP
-		'
-		Me.chkBAP.Checked = true
-		Me.chkBAP.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkBAP.Location = New System.Drawing.Point(10, 50)
-		Me.chkBAP.Name = "chkBAP"
-		Me.chkBAP.Size = New System.Drawing.Size(104, 24)
-		Me.chkBAP.TabIndex = 0
-		Me.chkBAP.Text = "+ Attack power"
-		Me.chkBAP.UseVisualStyleBackColor = true
-		'
-		'chkBArmorMaj
-		'
-		Me.chkBArmorMaj.Checked = true
-		Me.chkBArmorMaj.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkBArmorMaj.Location = New System.Drawing.Point(177, 20)
-		Me.chkBArmorMaj.Name = "chkBArmorMaj"
-		Me.chkBArmorMaj.Size = New System.Drawing.Size(104, 24)
-		Me.chkBArmorMaj.TabIndex = 0
-		Me.chkBArmorMaj.Text = "Armor Major"
-		Me.chkBArmorMaj.UseVisualStyleBackColor = true
-		'
-		'chkBStrAgi
-		'
-		Me.chkBStrAgi.Checked = true
-		Me.chkBStrAgi.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkBStrAgi.Location = New System.Drawing.Point(10, 20)
-		Me.chkBStrAgi.Name = "chkBStrAgi"
-		Me.chkBStrAgi.Size = New System.Drawing.Size(104, 24)
-		Me.chkBStrAgi.TabIndex = 0
-		Me.chkBStrAgi.Text = "Str/Agi"
-		Me.chkBStrAgi.UseVisualStyleBackColor = true
-		'
-		'tbTpl
-		'
-		Me.tbTpl.AutoScroll = true
-		Me.tbTpl.Controls.Add(Me.lblUnholy)
-		Me.tbTpl.Controls.Add(Me.lblFrost)
-		Me.tbTpl.Controls.Add(Me.lblBlood)
-		Me.tbTpl.Controls.Add(Me.cmbGlyph3)
-		Me.tbTpl.Controls.Add(Me.cmbGlyph2)
-		Me.tbTpl.Controls.Add(Me.cmbGlyph1)
-		Me.tbTpl.Controls.Add(Me.cmdSaveNewTemplate)
-		Me.tbTpl.Controls.Add(Me.cmdSaveTemplate)
-		Me.tbTpl.Location = New System.Drawing.Point(4, 22)
-		Me.tbTpl.Name = "tbTpl"
-		Me.tbTpl.Size = New System.Drawing.Size(776, 566)
-		Me.tbTpl.TabIndex = 9
-		Me.tbTpl.Text = "Talents"
-		Me.tbTpl.UseVisualStyleBackColor = true
-		'
-		'lblUnholy
-		'
-		Me.lblUnholy.Location = New System.Drawing.Point(348, 425)
-		Me.lblUnholy.Name = "lblUnholy"
-		Me.lblUnholy.Size = New System.Drawing.Size(100, 23)
-		Me.lblUnholy.TabIndex = 2
-		Me.lblUnholy.Text = "0"
-		'
-		'lblFrost
-		'
-		Me.lblFrost.Location = New System.Drawing.Point(202, 425)
-		Me.lblFrost.Name = "lblFrost"
-		Me.lblFrost.Size = New System.Drawing.Size(100, 23)
-		Me.lblFrost.TabIndex = 2
-		Me.lblFrost.Text = "0"
-		'
-		'lblBlood
-		'
-		Me.lblBlood.Location = New System.Drawing.Point(18, 425)
-		Me.lblBlood.Name = "lblBlood"
-		Me.lblBlood.Size = New System.Drawing.Size(100, 23)
-		Me.lblBlood.TabIndex = 2
-		Me.lblBlood.Text = "0"
-		'
-		'cmbGlyph3
-		'
-		Me.cmbGlyph3.FormattingEnabled = true
-		Me.cmbGlyph3.Location = New System.Drawing.Point(559, 130)
-		Me.cmbGlyph3.Name = "cmbGlyph3"
-		Me.cmbGlyph3.Size = New System.Drawing.Size(121, 21)
-		Me.cmbGlyph3.TabIndex = 1
-		'
-		'cmbGlyph2
-		'
-		Me.cmbGlyph2.FormattingEnabled = true
-		Me.cmbGlyph2.Location = New System.Drawing.Point(559, 103)
-		Me.cmbGlyph2.Name = "cmbGlyph2"
-		Me.cmbGlyph2.Size = New System.Drawing.Size(121, 21)
-		Me.cmbGlyph2.TabIndex = 1
-		'
-		'cmbGlyph1
-		'
-		Me.cmbGlyph1.FormattingEnabled = true
-		Me.cmbGlyph1.Location = New System.Drawing.Point(559, 76)
-		Me.cmbGlyph1.Name = "cmbGlyph1"
-		Me.cmbGlyph1.Size = New System.Drawing.Size(121, 21)
-		Me.cmbGlyph1.TabIndex = 1
-		'
-		'cmdSaveNewTemplate
-		'
-		Me.cmdSaveNewTemplate.Location = New System.Drawing.Point(478, 3)
-		Me.cmdSaveNewTemplate.Name = "cmdSaveNewTemplate"
-		Me.cmdSaveNewTemplate.Size = New System.Drawing.Size(108, 23)
-		Me.cmdSaveNewTemplate.TabIndex = 0
-		Me.cmdSaveNewTemplate.Text = "Save as new"
-		Me.cmdSaveNewTemplate.UseVisualStyleBackColor = true
-		AddHandler Me.cmdSaveNewTemplate.Click, AddressOf Me.CmdSaveNewTemplateClick
-		'
-		'cmdSaveTemplate
-		'
-		Me.cmdSaveTemplate.Location = New System.Drawing.Point(592, 3)
-		Me.cmdSaveTemplate.Name = "cmdSaveTemplate"
-		Me.cmdSaveTemplate.Size = New System.Drawing.Size(93, 23)
-		Me.cmdSaveTemplate.TabIndex = 0
-		Me.cmdSaveTemplate.Text = "Save Template"
-		Me.cmdSaveTemplate.UseVisualStyleBackColor = true
-		AddHandler Me.cmdSaveTemplate.Click, AddressOf Me.CmdSaveTemplateClick
+		Me.btCreateCMB.Location = New System.Drawing.Point(293, 407)
+		Me.btCreateCMB.Name = "btCreateCMB"
+		Me.btCreateCMB.Size = New System.Drawing.Size(75, 23)
+		Me.btCreateCMB.TabIndex = 0
+		Me.btCreateCMB.Text = "create"
+		Me.btCreateCMB.UseVisualStyleBackColor = true
+		AddHandler Me.btCreateCMB.Click, AddressOf Me.BtCreateCMBClick
 		'
 		'tbCaling
 		'
@@ -1756,10 +1849,11 @@ Partial Class MainForm
 		Me.label21.Text = "The stat scaling fucntion runs multiple simulation incrementing at each run. "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"Ex"& _ 
 		"cept for Strengh and Agility, character stats are replaced or added. "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"Select 1h"& _ 
 		" simulation time or it may take long."
+		Me.label21.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
 		'
 		'cmdScaling
 		'
-		Me.cmdScaling.Location = New System.Drawing.Point(306, 418)
+		Me.cmdScaling.Location = New System.Drawing.Point(371, 326)
 		Me.cmdScaling.Name = "cmdScaling"
 		Me.cmdScaling.Size = New System.Drawing.Size(75, 23)
 		Me.cmdScaling.TabIndex = 11
@@ -1910,100 +2004,6 @@ Partial Class MainForm
 		Me.chkScaStr.Text = "Add Strength"
 		Me.chkScaStr.UseVisualStyleBackColor = true
 		'
-		'tbTank
-		'
-		Me.tbTank.Controls.Add(Me.gbTank)
-		Me.tbTank.Location = New System.Drawing.Point(4, 22)
-		Me.tbTank.Name = "tbTank"
-		Me.tbTank.Size = New System.Drawing.Size(776, 566)
-		Me.tbTank.TabIndex = 11
-		Me.tbTank.Text = "Tank Options"
-		Me.tbTank.UseVisualStyleBackColor = true
-		'
-		'gbTank
-		'
-		Me.gbTank.Controls.Add(Me.label22)
-		Me.gbTank.Controls.Add(Me.label24)
-		Me.gbTank.Controls.Add(Me.txtFPArmor)
-		Me.gbTank.Controls.Add(Me.label23)
-		Me.gbTank.Controls.Add(Me.txtFBAvoidance)
-		Me.gbTank.Controls.Add(Me.txtFPBossSwing)
-		Me.gbTank.Location = New System.Drawing.Point(18, 17)
-		Me.gbTank.Name = "gbTank"
-		Me.gbTank.Size = New System.Drawing.Size(645, 191)
-		Me.gbTank.TabIndex = 2
-		Me.gbTank.TabStop = false
-		Me.gbTank.Text = "Frost Presence options"
-		'
-		'label22
-		'
-		Me.label22.Location = New System.Drawing.Point(112, 74)
-		Me.label22.Name = "label22"
-		Me.label22.Size = New System.Drawing.Size(430, 17)
-		Me.label22.TabIndex = 11
-		Me.label22.Text = "Armor part in the char file that is not changed by Frost Presence."
-		'
-		'label24
-		'
-		Me.label24.Location = New System.Drawing.Point(112, 48)
-		Me.label24.Name = "label24"
-		Me.label24.Size = New System.Drawing.Size(190, 17)
-		Me.label24.TabIndex = 11
-		Me.label24.Text = "Character Avoidance chance in %"
-		'
-		'txtFPArmor
-		'
-		Me.txtFPArmor.Location = New System.Drawing.Point(6, 71)
-		Me.txtFPArmor.Name = "txtFPArmor"
-		Me.txtFPArmor.Size = New System.Drawing.Size(100, 20)
-		Me.txtFPArmor.TabIndex = 8
-		Me.txtFPArmor.Text = "0"
-		'
-		'label23
-		'
-		Me.label23.Location = New System.Drawing.Point(112, 22)
-		Me.label23.Name = "label23"
-		Me.label23.Size = New System.Drawing.Size(186, 20)
-		Me.label23.TabIndex = 13
-		Me.label23.Text = "Boss swing speed in second"
-		'
-		'txtFBAvoidance
-		'
-		Me.txtFBAvoidance.Location = New System.Drawing.Point(6, 45)
-		Me.txtFBAvoidance.Name = "txtFBAvoidance"
-		Me.txtFBAvoidance.Size = New System.Drawing.Size(100, 20)
-		Me.txtFBAvoidance.TabIndex = 8
-		Me.txtFBAvoidance.Text = "50"
-		'
-		'txtFPBossSwing
-		'
-		Me.txtFPBossSwing.Location = New System.Drawing.Point(6, 19)
-		Me.txtFPBossSwing.Name = "txtFPBossSwing"
-		Me.txtFPBossSwing.Size = New System.Drawing.Size(100, 20)
-		Me.txtFPBossSwing.TabIndex = 7
-		Me.txtFPBossSwing.Text = "2"
-		'
-		'tbPrioEditor
-		'
-		Me.tbPrioEditor.AutoScroll = true
-		Me.tbPrioEditor.Controls.Add(Me.btCreateCMB)
-		Me.tbPrioEditor.Location = New System.Drawing.Point(4, 22)
-		Me.tbPrioEditor.Name = "tbPrioEditor"
-		Me.tbPrioEditor.Size = New System.Drawing.Size(776, 566)
-		Me.tbPrioEditor.TabIndex = 12
-		Me.tbPrioEditor.Text = "Rotation Editor"
-		Me.tbPrioEditor.UseVisualStyleBackColor = true
-		'
-		'btCreateCMB
-		'
-		Me.btCreateCMB.Location = New System.Drawing.Point(293, 407)
-		Me.btCreateCMB.Name = "btCreateCMB"
-		Me.btCreateCMB.Size = New System.Drawing.Size(75, 23)
-		Me.btCreateCMB.TabIndex = 0
-		Me.btCreateCMB.Text = "create"
-		Me.btCreateCMB.UseVisualStyleBackColor = true
-		AddHandler Me.btCreateCMB.Click, AddressOf Me.BtCreateCMBClick
-		'
 		'MainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
@@ -2027,20 +2027,20 @@ Partial Class MainForm
 		Me.tabPage3.ResumeLayout(false)
 		Me.tabPage3.PerformLayout
 		Me.tabControl1.ResumeLayout(false)
+		Me.tbTpl.ResumeLayout(false)
+		Me.tbBuff.ResumeLayout(false)
+		Me.grpBuff.ResumeLayout(false)
+		Me.tbTank.ResumeLayout(false)
+		Me.gbTank.ResumeLayout(false)
+		Me.gbTank.PerformLayout
 		Me.tbEPOptions.ResumeLayout(false)
 		Me.tbEPOptions.PerformLayout
 		Me.groupBox3.ResumeLayout(false)
 		Me.groupBox2.ResumeLayout(false)
 		Me.groupBox1.ResumeLayout(false)
-		Me.tbBuff.ResumeLayout(false)
-		Me.grpBuff.ResumeLayout(false)
-		Me.tbTpl.ResumeLayout(false)
+		Me.tbPrioEditor.ResumeLayout(false)
 		Me.tbCaling.ResumeLayout(false)
 		Me.gbScaling.ResumeLayout(false)
-		Me.tbTank.ResumeLayout(false)
-		Me.gbTank.ResumeLayout(false)
-		Me.gbTank.PerformLayout
-		Me.tbPrioEditor.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
 	Friend chkEP2PT10 As System.Windows.Forms.CheckBox
