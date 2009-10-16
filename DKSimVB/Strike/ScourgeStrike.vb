@@ -44,7 +44,7 @@ Friend Class ScourgeStrike
 			RNG = MyRNG
 			If RNG <= CritChance Then
 				CritCount = CritCount + 1
-				dégat = dégat +  AvrgNonCritMagical(T)* (1 + CritCoef)
+				dégat = dégat +  AvrgNonCritMagical(T)* (1 + MagicalCritCoef)
 				sim.combatlog.write(T  & vbtab &  "SS Magical crit for " & dégat )
 				sim.tryOnCrit
 			Else
@@ -156,6 +156,13 @@ Friend Class ScourgeStrike
 		CritCoef = 1 + TalentUnholy.ViciousStrikes * 15 / 100
 		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
+	
+	
+	Function MagicalCritCoef() As Double
+		CritCoef = (1+0.06*sim.mainstat.CSD)
+	End Function
+	
+	
 	public Overrides Function CritChance() As Double
 		dim tmp as Double
 		tmp = sim.MainStat.crit + TalentUnholy.ViciousStrikes * 3 / 100 + sim.MainStat.T72PDPS * 5 / 100 + talentblood.Subversion * 3 / 100
