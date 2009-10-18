@@ -134,7 +134,7 @@ Public Partial Class MainForm
 		tr =  new IO.StreamReader(EditorFilePAth)
 		rtfEditor.Text =tr.ReadToEnd
 		tr.Close
-		tabControl1.SelectedIndex = 2
+		tabControl1.SelectedIndex = 3
 		errH:
 		
 	End Sub
@@ -146,7 +146,7 @@ Public Partial Class MainForm
 		tr =  new IO.StreamReader(EditorFilePAth)
 		rtfEditor.Text =tr.ReadToEnd
 		tr.Close
-		tabControl1.SelectedIndex = 2
+		tabControl1.SelectedIndex = 3
 		errH:
 	End Sub
 	
@@ -213,7 +213,7 @@ Public Partial Class MainForm
 		tr =  new IO.StreamReader(EditorFilePAth )
 		rtfEditor.Text =tr.ReadToEnd
 		tr.Close
-		tabControl1.SelectedIndex = 2
+		tabControl1.SelectedIndex = 3
 		errH:
 	End Sub
 	
