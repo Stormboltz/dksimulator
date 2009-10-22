@@ -97,9 +97,9 @@ Friend Class proc
 		If sim.RandomNumberGenerator.RNGTank <= 15 Then
 			ScentOfBloodProc = TalentBlood.ScentOfBlood
 		End If
-		
-		
 	End Sub
+	
+	
 	
 	
 	

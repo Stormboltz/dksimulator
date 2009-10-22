@@ -45,7 +45,7 @@ Friend Class ScourgeStrike
 			dégat = tmpPhysical
 			'Magical part
 			RNG = MyRNG
-			If RNG <= CritChance Then
+			If RNG <= MagicalCritChance Then
 				CritCount = CritCount + 1
 				tmpMagical = AvrgNonCritMagical(T)* (1 + MagicalCritCoef)
 				dégat = dégat +  tmpPhysical + tmpMagical
@@ -174,6 +174,11 @@ Friend Class ScourgeStrike
 		return  (1+0.06*sim.mainstat.CSD)
 	End Function
 	
+	Function MagicalCritChance() As Double
+		dim tmp as Double
+		tmp = sim.MainStat.crit + sim.MainStat.T72PDPS * 5 / 100
+		return  tmp
+	End Function
 	
 	public Overrides Function CritChance() As Double
 		dim tmp as Double

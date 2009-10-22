@@ -349,11 +349,11 @@ Public Class Sim
 				'InterruptTimer > TimeStamp Or InterruptAmount
 			End If
 			
-'			If isInGCD(TimeStamp) = False Then
-'				If horn.isAutoAvailable(TimeStamp) and CanUseGCD(TimeStamp) Then
-'					horn.use(TimeStamp)
-'				end if
-'			End If
+			If isInGCD(TimeStamp) = False Then
+				If horn.isAutoAvailable(TimeStamp) and CanUseGCD(TimeStamp) Then
+					horn.use(TimeStamp)
+				end if
+			End If
 			
 			If DeathandDecay.nextTick = TimeStamp Then
 				DeathandDecay.ApplyDamage(TimeStamp)

@@ -628,6 +628,23 @@ Friend Class runes
 		
 	End Function
 	
+	Function RuneRefreshTheNextGCD(T) as boolean
+		Dim tmp As Long
+		If sim.MainStat.UnholyPresence Then
+			tmp = T + 100+ sim._MainFrm.txtLatency.Text/10
+		Else
+			tmp = T + 150+ sim._MainFrm.txtLatency.Text/10
+		End If
+		If BloodRune1.AvailableTime < tmp Then return false
+		If BloodRune2.AvailableTime < tmp Then return false
+		If FrostRune1.AvailableTime < tmp Then return false
+		If FrostRune2.AvailableTime < tmp Then return false
+		If UnholyRune1.AvailableTime < tmp Then return false
+		If UnholyRune2.AvailableTime < tmp Then Return False
+		return true
+	End Function
+	
+	
 End Class
 	
 End Namespace

@@ -1,7 +1,11 @@
 ﻿1.1.7.2 Release notes
+* Release notes on a separated file.
 * Desolation priority correction.
-* Scourge strioke magicla crit modifier corrected.
-
+* Scourge strike magical crit modifier corrected.
+* Scourge strike magical part crit change corrected.
+* Scourge strike double crit (Physical + magical) correction.
+* Automatic Horn usage optimization. Use less often, but do not mess up EP value on some simulation. USe <Horn/> at the last priority item to go back to the old behavior.
+* Some Tab resorting.
 
 1.1.7.1 Release notes
 * Scourge Strike updated.

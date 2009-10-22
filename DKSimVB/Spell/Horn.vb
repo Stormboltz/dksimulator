@@ -3,7 +3,7 @@
 ' User: Fabien
 ' Date: 07/07/2009
 ' Time: 19:04
-' 
+'
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
 Public Class Horn
@@ -21,14 +21,18 @@ Public Class Horn
 		Else
 			if sim.Priority.prio.Contains("Horn") then return false
 		End If
-		return isAvailable(T)
+		if sim.runes.RuneRefreshTheNextGCD(T) = true then
+				Return isAvailable(T)
+		Else
+			Return False
+		End If
 	End Function
 	
 	
 	
 	Function isAvailable(T As Long) As Boolean
 		If Sim.RunicPower.Value + 10 >= Sim.RunicPower.MaxValue Then Return False
-		If sim.glyph.Disease Then 
+		If sim.glyph.Disease Then
 			'return false
 			'if math.Min(BloodPlague.FadeAt,FrostFever.FadeAt) < T + 500 then return false
 		End If
