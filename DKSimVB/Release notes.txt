@@ -1,4 +1,7 @@
-﻿1.1.7.2 Release notes
+﻿1.1.7.3 Release notes
+* Physisal and magical part of Scourge Strike are separated in the report.
+
+1.1.7.2 Release notes
 * Release notes on a separated file.
 * Desolation priority correction.
 * Scourge strike magical crit modifier corrected.

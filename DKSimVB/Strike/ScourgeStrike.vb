@@ -3,10 +3,17 @@ Friend Class ScourgeStrike
 	
 	Private tmpPhysical As Double
 	Private tmpMagical As Double
+	Private MagicHit As long
+	Private MagicCrit As long
+	Friend MagicTotal As long
+	
 	
 	Sub New(S As sim)
 		MyBase.New()
 		Sim = S
+		MagicCrit = 0
+		MagicHit = 0
+		MagicTotal = 0
 	End Sub
 	
 	public Overrides Function ApplyDamage(T As long) As boolean
@@ -46,15 +53,15 @@ Friend Class ScourgeStrike
 			'Magical part
 			RNG = MyRNG
 			If RNG <= MagicalCritChance Then
-				CritCount = CritCount + 1
+				Magiccrit = Magiccrit + 1
 				tmpMagical = AvrgNonCritMagical(T)* (1 + MagicalCritCoef)
-				dégat = dégat +  tmpPhysical + tmpMagical
+				'dégat = dégat +  tmpPhysical + tmpMagical
 				'sim.combatlog.write(T  & vbtab &  "SS Magical crit for " & dégat )
 				sim.tryOnCrit
 			Else
-				HitCount = HitCount + 1
+				MagicHit = MagicHit + 1
 				tmpMagical = AvrgNonCritMagical(T)
-				dégat = dégat +  tmpPhysical + tmpMagical
+				'dégat = dégat +  tmpPhysical + tmpMagical
 				'sim.combatlog.write(T  & vbtab &  "SS Magical hit for " & dégat )
 			End If
 		Else ')######
@@ -74,12 +81,11 @@ Friend Class ScourgeStrike
 		
 		tmpPhysical = math.round(tmpPhysical,0)
 		tmpMagical = math.round(tmpMagical,0)
+		MagicTotal = MagicTotal + tmpMagical 
+		
+		
 		sim.combatlog.write(T  & vbtab &  "SS hit for " & tmpPhysical & " physical and " & tmpMagical & " magical")
-		
-		
-		
-		total = total + dégat
-		
+		total = total + tmpPhysical
 		If sim.glyph.ScourgeStrike Then
 			If sim.BloodPlague.ScourgeStrikeGlyphCounter < 3 Then
 				sim.BloodPlague.FadeAt = sim.BloodPlague.FadeAt + 3 * 100
@@ -191,10 +197,34 @@ Friend Class ScourgeStrike
 	
 	Public Overloads Overrides Function report() As String
 		If sim.Patch33 Then
-			HitCount = HitCount / 2
-			CritCount = CritCount / 2
+		
 		End If
 		Return MyBase.report()
 	End Function
+	
+	
+	Function MagicReport As String
+		dim tmp as String
+		tmp = ShortenName(me.ToString) & " Magical"  & VBtab
+		
+		If total.ToString().Length < 8 Then
+			tmp = tmp & MagicTotal & "   " & VBtab
+		Else
+			tmp = tmp & MagicTotal & VBtab
+		End If
+		tmp = tmp & toDecimal(100*MagicTotal/sim.TotalDamage) & VBtab
+		tmp = tmp & toDecimal(MagicHit+MagicCrit) & VBtab
+		tmp = tmp & toDecimal(100*MagicHit/(MagicHit+0+MagicCrit)) & VBtab
+		tmp = tmp & toDecimal(100*MagicCrit/(MagicHit+0+MagicCrit)) & VBtab
+		tmp = tmp & toDecimal(100*0/(MagicHit+0+MagicCrit)) & VBtab
+		tmp = tmp & toDecimal(MagicTotal/(MagicHit+MagicCrit)) & VBtab
+		If sim.MainStat.FrostPresence Then
+			tmp = tmp & toDecimal((100 * MagicTotal * ThreadMultiplicator * 2.0735 ) / sim.TimeStamp) & VBtab
+		End If
+
+		tmp = tmp & vbCrLf
+		return tmp
+	End Function
+	
 	
 End Class
