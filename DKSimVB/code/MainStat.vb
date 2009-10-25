@@ -552,7 +552,7 @@ Friend Class MainStat
 		
 		tmp = tmp * getMitigation
 		tmp = tmp * (1 + 0.04 *  sim.Buff.PhysicalVuln)
-		tmp = tmp * (1 + 0.01 * TalentBlood.BloodyVengeance)
+		tmp = tmp * (1 + 0.03 * TalentBlood.BloodyVengeance)
 		If sim.proc.T104PDPSFAde >= T Then
 			tmp = tmp * 1.03
 		End If
@@ -571,7 +571,7 @@ Friend Class MainStat
 		
 		tmp = tmp * getMitigation
 		tmp = tmp * (1 + 0.04 *  sim.Buff.PhysicalVuln)
-		tmp = tmp * (1 + 0.01 * TalentBlood.BloodyVengeance)
+		tmp = tmp * (1 + 0.03 * TalentBlood.BloodyVengeance)
 		If sim.Hysteria.IsActive(T) Then tmp = tmp * 1.2
 		
 		If sim.FrostFever.isActive(T) Then	tmp = tmp * (1 + 0.03 * TalentFrost.TundraStalker)

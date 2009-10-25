@@ -77,15 +77,17 @@ Friend Class ScourgeStrike
 				sim.combatlog.write(T  & vbtab &  "SS hit for " & dégat )
 			End If
 		End If
+
+		If sim.Patch33 Then
+			tmpPhysical = math.round(tmpPhysical,0)
+			tmpMagical = math.round(tmpMagical,0)
+			MagicTotal = MagicTotal + tmpMagical
+			sim.combatlog.write(T  & vbtab &  "SS hit for " & tmpPhysical & " physical and " & tmpMagical & " magical")
+			total = total + tmpPhysical
+		Else
+			total = total +  dégat
+		End If
 		
-		
-		tmpPhysical = math.round(tmpPhysical,0)
-		tmpMagical = math.round(tmpMagical,0)
-		MagicTotal = MagicTotal + tmpMagical 
-		
-		
-		sim.combatlog.write(T  & vbtab &  "SS hit for " & tmpPhysical & " physical and " & tmpMagical & " magical")
-		total = total + tmpPhysical
 		If sim.glyph.ScourgeStrike Then
 			If sim.BloodPlague.ScourgeStrikeGlyphCounter < 3 Then
 				sim.BloodPlague.FadeAt = sim.BloodPlague.FadeAt + 3 * 100

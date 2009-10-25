@@ -71,15 +71,22 @@ Friend Class Pestilence
 '			debug.Print ("BP = " & BloodPlague.FadeAt)
 '			debug.Print ("BP = " & FrostFever.FadeAt)
 
-			If sim.MainStat.AP > math.min(sim.FrostFever.AP, sim.BloodPlague.AP) Then
+			If sim.MainStat.AP > sim.BloodPlague.AP Then
 				BPToReapply = True
+			End If
+			If sim.MainStat.AP > sim.FrostFever.AP Then
 				FFToReapply = True
-				Return False
 			End If
-
-			If sim.BloodPlague.FadeAt <> sim.FrostFever.FadeAt Then
-				return true
-			End If
+			If BPToReapply Or FFToReapply Then Return False
+				
+			
+			
+			
+			
+'
+'			If sim.BloodPlague.FadeAt <> sim.FrostFever.FadeAt Then
+'				return true
+'			End If
 			
 			If tmp1 - T > 1000 Then Return False
 			'debug.Print (RuneState & "time left on disease= " & (tmp1-T)/100 & "s" & " - " & T/100)

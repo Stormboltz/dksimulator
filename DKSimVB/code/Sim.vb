@@ -405,7 +405,7 @@ Public Class Sim
 	End Sub
 	
 	Function TotalDamage() as Long
-		TotalDamage = ScourgeStrike.total + obliterate.total + PlagueStrike.total + _
+		TotalDamage = ScourgeStrike.total + ScourgeStrike.MagicTotal + obliterate.total + PlagueStrike.total + _
 			BloodStrike.total + HeartStrike.total + frostfever.total + _
 			BloodPlague.total + IcyTouch.total + deathcoil.total + _
 			UnholyBlight.total + Necrosis.total + BloodCakedBlade.total + _
@@ -778,7 +778,7 @@ Public Class Sim
 	Sub Report()
 		on error resume next
 		Dim Tw As System.IO.TextWriter
-		if EPStat <> "" then exit sub
+		'if EPStat <> "" then exit sub
 		
 		Tw  =system.IO.File.appendText(ReportPath)
 		'Tw  = system.IO.File.Open(reportpath, system.IO.FileMode.Append)     '.OpenWrite(ReportPath)
@@ -806,6 +806,7 @@ Public Class Sim
 		If MainHand.total <> 0 Then myArray.Add(MainHand.total)
 		If OffHand.total <> 0 Then myArray.Add(OffHand.total)
 		If ScourgeStrike.total <> 0 Then myArray.Add(ScourgeStrike.total)
+		if Patch33 and ScourgeStrike.MagicTotal <> 0 Then myArray.Add(ScourgeStrike.MagicTotal)
 		If HeartStrike.total <> 0 Then myArray.Add(HeartStrike.total)
 		If obliterate.total <> 0 Then myArray.Add(obliterate.total)
 		If DeathStrike.total <> 0 Then myArray.Add(DeathStrike.total)
@@ -855,8 +856,15 @@ Public Class Sim
 				STmp = ScourgeStrike.report
 				STmp = replace(STmp,vbtab,"</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-				
 			End If
+			
+			If Patch33 And ScourgeStrike.MagicTotal = tot Then
+				STmp = ScourgeStrike.MagicReport
+				STmp = replace(STmp,vbtab,"</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			End If
+			
+
 			If HeartStrike.total = tot Then
 				STmp = HeartStrike.report
 				STmp = replace(STmp,vbtab,"</td><td>")

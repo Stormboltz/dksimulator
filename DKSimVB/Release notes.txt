@@ -1,5 +1,7 @@
 ﻿1.1.7.3 Release notes
 * Physisal and magical part of Scourge Strike are separated in the report.
+* Blood Vengence
+* Pestilence correction.
 
 1.1.7.2 Release notes
 * Release notes on a separated file.
