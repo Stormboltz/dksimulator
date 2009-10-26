@@ -24,11 +24,10 @@ Friend Class Gargoyle
 		Sim = S
 	End Sub
 	
-Sub Summon(T As Long)
+Function Summon(T As Long) as  boolean
 	If sim.runeforge.AreStarsAligned(T) = False Then
- 		exit sub
+ 		return false
  	End If
-	
 	SpellHaste = sim.MainStat.SpellHaste
 	AP = sim.MainStat.AP
 	If cd <= T Then
@@ -40,9 +39,9 @@ Sub Summon(T As Long)
 		Sim.NextFreeGCD = T + (150 / (1 + sim.mainstat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
 		NextGargoyleStrike = T
 		sim.combatlog.write(T  & vbtab &  "Summon Gargoyle")
+		return true
 	End If
-	
-End Sub
+End Function
 
 Function ApplyDamage(T As long) As boolean
 	NextGargoyleStrike = T + (2 * 100) / (1 + SpellHaste)

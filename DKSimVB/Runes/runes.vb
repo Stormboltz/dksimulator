@@ -628,7 +628,7 @@ Friend Class runes
 		
 	End Function
 	
-	Function RuneRefreshTheNextGCD(T) as boolean
+	Function RuneRefreshTheNextGCD(T as long) As Boolean
 		Dim tmp As Long
 		If sim.MainStat.UnholyPresence Then
 			tmp = T + 100+ sim._MainFrm.txtLatency.Text/10

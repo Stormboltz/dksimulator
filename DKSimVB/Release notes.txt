@@ -1,7 +1,15 @@
-﻿1.1.7.3 Release notes
-* Physisal and magical part of Scourge Strike are separated in the report.
-* Blood Vengence
-* Pestilence correction.
+﻿1.1.7.4 Release notes
+* Some optimisation on summoning DRW and Gargoyle
+
+
+1.1.7.3 Release notes
+* Physical and magical part of Scourge Strike are separated in the report.
+* Correction on the Scourge Strike Damage that was to high in the report.
+* Vicious Strikes and subversion affect Scourge Strike (crit chance and crit coef).
+* Blood Vengeance is now 3% damage per talent point.
+* Pestilence correction on the IT or PS spam behavior.
+* Icy Touch glyph is now sensible to the 3.3 Patch check box.
+
 
 1.1.7.2 Release notes
 * Release notes on a separated file.

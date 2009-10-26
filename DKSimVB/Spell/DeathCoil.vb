@@ -1,4 +1,4 @@
-Friend class DeathCoil 
+Friend class DeathCoil
 	Inherits Spells.Spell
 	Sub New(S As sim)
 		MyBase.New()
@@ -9,15 +9,27 @@ Friend class DeathCoil
 
 	Function isAvailable(T As long) As Boolean
 		If sim.DRW.cd <= T And TalentBlood.DRW = 1 And Sim.RunicPower.Value < 100 Then Return False
-		If sim.Gargoyle.cd <= T And talentunholy.SummonGargoyle = 1 And Sim.RunicPower.Value < 100 Then Return False
+		'If sim.Gargoyle.cd <= T And talentunholy.SummonGargoyle = 1 And Sim.RunicPower.Value < 100 Then Return False
 		'If glyph.DeathStrike And RunicPower.Value <= 65  Then Return False 'This is not really important
 		If Sim.RunicPower.Value >= 40 Then isAvailable = True
 	End Function
 	
-    overrides	Function ApplyDamage(T As long,SDoom as Boolean) As boolean
+    overrides Function ApplyDamage(T As long,SDoom as Boolean) As boolean
 		Dim RNG As Double
-
-		If SDoom=False  Then
+		
+		If SDoom Then
+			
+		Else
+			if TalentBlood.DRW = 1 then
+				If sim.DRW.cd < T And sim.RunicPower.Value  >= 60 Then
+					if sim.DRW.Summon(T) = True Then return true
+				End If
+			End If
+			If sim.PetFriendly And talentunholy.SummonGargoyle = 1 Then
+				If sim.Gargoyle.cd < T and sim.RunicPower.Value >= 60 Then
+					If sim.Gargoyle.Summon(T) = True Then return true
+				end if
+			End If
 			Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
 			Sim.RunicPower.Value = Sim.RunicPower.Value - 40
 		End If
@@ -36,7 +48,7 @@ Friend class DeathCoil
 			If SDoom Then
 				If sim.CombatLog.LogDetails Then
 					sim.combatlog.write(T  & vbtab &  "DC SDoom crit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.Value)
-				End If 
+				End If
 			Else
 				sim.combatlog.write(T  & vbtab &  "DC crit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.Value)
 			End If

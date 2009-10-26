@@ -52,9 +52,9 @@ Friend Class ScourgeStrike
 			dégat = tmpPhysical
 			'Magical part
 			RNG = MyRNG
-			If RNG <= MagicalCritChance Then
+			If RNG <= CritChance Then
 				Magiccrit = Magiccrit + 1
-				tmpMagical = AvrgNonCritMagical(T)* (1 + MagicalCritCoef)
+				tmpMagical = AvrgNonCritMagical(T)* (1 + CritCoef)
 				'dégat = dégat +  tmpPhysical + tmpMagical
 				'sim.combatlog.write(T  & vbtab &  "SS Magical crit for " & dégat )
 				sim.tryOnCrit

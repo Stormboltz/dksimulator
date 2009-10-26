@@ -25,22 +25,21 @@ Friend Class DRW
 	Function IsActive(T as Long) As Boolean
 		if ActiveUntil >= T then return true
 	End Function
-	Sub Summon(T As Long)
-		
+	function Summon(T As Long) as boolean
 		If sim.runeforge.AreStarsAligned(T) = False Then
 			'DKSIMVB.deathcoil.ApplyDamage(T,false)
-			exit sub
+			return false
 		End If
-		If sim.Hysteria.IsAvailable(T) then sim.Hysteria.use(T)
-		If sim.Hysteria.IsActive(T) Then
-			Hyst = True
-		Else
-			Hyst = false
-		End If
-		SpellHaste = sim.MainStat.SpellHaste
-		Haste = sim.MainStat.Haste
-		AP = sim.MainStat.AP
 		If cd <= T Then
+			If sim.Hysteria.IsAvailable(T) then sim.Hysteria.use(T)
+			If sim.Hysteria.IsActive(T) Then
+				Hyst = True
+			Else
+				Hyst = false
+			End If
+			SpellHaste = sim.MainStat.SpellHaste
+			Haste = sim.MainStat.Haste
+			AP = sim.MainStat.AP
 			MeleeGlacingChance = 0.25
 			MeleeMissChance = 0.08 - sim.MainStat.Hit
 			If MeleeMissChance < 0 Then MeleeMissChance = 0
@@ -56,8 +55,9 @@ Friend Class DRW
 			Sim.NextFreeGCD = T + (150 / (1 + sim.mainstat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
 			NextDRW = T
 			sim.combatlog.write(T  & vbtab &  "Summon DRW")
+			return true
 		End If
-	End Sub
+	End Function
 	Function ApplyDamage(T As long) As boolean
 		NextDRW = T + (100*3.5 / (1 + Haste))
 		Dim RNG As Double

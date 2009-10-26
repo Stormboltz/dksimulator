@@ -264,11 +264,6 @@ Public Class Sim
 				End If
 				
 				if TalentBlood.DRW = 1 then
-					If isInGCD(TimeStamp) = False Then
-						If DRW.cd < TimeStamp And RunicPower.Value  >= 60 And CanUseGCD(TimeStamp) Then
-							DRW.Summon(TimeStamp)
-						End If
-					End If
 					If DRW.IsActive(TimeStamp) Then
 						if DRW.NextDRW <= TimeStamp then DRW.ApplyDamage(TimeStamp)
 					End If
@@ -276,11 +271,6 @@ Public Class Sim
 				
 				If PetFriendly Then
 					If talentunholy.SummonGargoyle = 1 Then
-						If isInGCD(TimeStamp) = False Then
-							If Gargoyle.cd < TimeStamp and RunicPower.Value >= 60 and CanUseGCD(TimeStamp) Then
-								Gargoyle.Summon(TimeStamp)
-							end if
-						End If
 						If Gargoyle.ActiveUntil >= TimeStamp Then
 							If Gargoyle.NextGargoyleStrike <= TimeStamp Then Gargoyle.ApplyDamage(TimeStamp)
 						end if
