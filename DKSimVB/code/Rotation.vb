@@ -9,7 +9,9 @@
 Friend Class Rotation
 	Friend XMLRo as new Xml.XmlDocument
 	Friend MyRotation As New Collection
+	Friend MyIntro as new Collection
 	Private Runes As runes.runes
+	Friend IntroStep as integer
 	Private sim as Sim
 	Sub New(S As Sim)
 		sim = S
@@ -20,7 +22,19 @@ Friend Class Rotation
 		
 		sim.RotationStep = 0
 		XMLRo.Load(sim.rotationPath)
-		dim Nod as Xml.XmlNode
+		Dim Nod As Xml.XmlNode
+		try
+			For Each Nod In XMLRo.SelectSingleNode("//Rotation/Intro").ChildNodes
+				try
+					MyIntro.Add(Nod.Name,Nod.Name)
+				Catch
+					MyIntro.Add(Nod.Name)
+				end try
+			Next
+		Catch
+		End Try
+			
+		
 		For Each Nod In XMLRo.SelectSingleNode("//Rotation/Rotation").ChildNodes
 			try
 				MyRotation.Add(Nod.Name,Nod.Name)
@@ -54,8 +68,15 @@ Friend Class Rotation
 	End Sub
 	
 	Sub DoRoration(TimeStamp As long)
+		Dim ret As Boolean
 		
-		dim ret as Boolean
+		If MyIntro.Count > 0 and IntroStep < MyIntro.Count    Then
+			ret = DoRoration(TimeStamp,MyIntro.Item(IntroStep+1),XMLRo.SelectSingleNode("//Rotation/Intro/" & MyIntro.Item(IntroStep+1) ).Attributes.GetNamedItem("retry").Value )
+			If ret = True Then IntroStep = IntroStep + 1
+			exit sub
+		End If
+		
+		
 		ret = DoRoration(TimeStamp,MyRotation.Item(sim.RotationStep+1),XMLRo.SelectSingleNode("//Rotation/Rotation/" & MyRotation.Item(sim.RotationStep+1) ).Attributes.GetNamedItem("retry").Value )
 		If ret = True Then sim.RotationStep = sim.RotationStep + 1
 		if MyRotation.Count <= sim.RotationStep then sim.RotationStep=0
@@ -211,7 +232,7 @@ Friend Class Rotation
 					Return sim.DeathAndDecay.Apply(TimeStamp)
 				End If
 			Case "Pestilence"
-				If runes.Blood(TimeStamp) Then
+				If runes.AnyBlood(TimeStamp) Then
 					Return sim.Pestilence.use(TimeStamp)
 				Else
 					if retry = 0 then return true
@@ -224,6 +245,9 @@ Friend Class Rotation
 				End If
 		End Select
 	End function
-	
+	Sub intro()
+		
+		
+	End Sub
 End Class
  

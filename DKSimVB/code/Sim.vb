@@ -516,6 +516,7 @@ Public Class Sim
 	Sub SoftReset()
 		
 		Me.RotationStep = 0
+		Me.Rotation.IntroStep=0
 		Me.Runes.BloodRune1.AvailableTime = 0
 		Me.Runes.BloodRune2.AvailableTime = 0
 		Me.Runes.FrostRune1.AvailableTime = 0
@@ -774,17 +775,17 @@ Public Class Sim
 		'Tw  = system.IO.File.Open(reportpath, system.IO.FileMode.Append)     '.OpenWrite(ReportPath)
 		Tw.Write ("<table border='0' cellspacing='2' style='font-family:Verdana; font-size:10px;'>")
 		Tw.Write ("<tr>")
-		Tw.Write ("	<td><b>Ability</b></td>")
-		Tw.Write ("	<td><b>Total</b></td>")
-		Tw.Write ("	<td><b>%</b></td>")
-		Tw.Write ("	<td><b>Landed</b></td>")
-		Tw.Write ("	<td><b>Hit%</b></td>")
-		Tw.Write ("	<td><b>Crit%</b></td>")
-		Tw.Write ("	<td><b>Miss%</b></td>")
-		Tw.Write ("	<td><b>Average</b></td>")
+		Tw.Write ("	<td><b>Ability</b>|</td>")
+		Tw.Write ("	<td><b>Total</b>|</td>")
+		Tw.Write ("	<td><b>%</b>|</td>")
+		Tw.Write ("	<td><b>Landed</b>|</td>")
+		Tw.Write ("	<td><b>Hit%</b>|</td>")
+		Tw.Write ("	<td><b>Crit%</b>|</td>")
+		Tw.Write ("	<td><b>Miss%</b>|</td>")
+		Tw.Write ("	<td><b>Average</b>|</td>")
 		
 		If me.MainStat.FrostPresence Then
-			Tw.Write ("	<td><b>TPS</b></td>")
+			Tw.Write ("	<td><b>TPS</b>|</td>")
 		End If
 		
 		Tw.Write ("</tr>")
@@ -833,203 +834,203 @@ Public Class Sim
 			
 			If MainHand.total = tot Then
 				STmp = MainHand.report
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 			End If
 			If OffHand.total = tot Then
 				STmp = OffHand.report
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 				
 			End If
 			If ScourgeStrike.total = tot Then
 				STmp = ScourgeStrike.report
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 			End If
 			
 			If Patch33 And ScourgeStrike.MagicTotal = tot Then
 				STmp = ScourgeStrike.MagicReport
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 			End If
 			
 
 			If HeartStrike.total = tot Then
 				STmp = HeartStrike.report
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 				
 			End If
 			If obliterate.total = tot Then
 				STmp = obliterate.report
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 				
 			End If
 			If DeathStrike.total = tot Then
 				STmp = DeathStrike.report
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 				
 			End If
 			If PlagueStrike.total = tot Then
 				STmp = PlagueStrike.report
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 				
 			End If
 			If IcyTouch.total = tot Then
 				STmp = IcyTouch.report
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 				
 			End If
 			If BloodStrike.total = tot Then
 				STmp = BloodStrike.report
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 				
 			End If
 			If FrostStrike.total = tot Then
 				STmp = FrostStrike.report
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 				
 			End If
 			If HowlingBlast.total = tot Then
 				STmp = HowlingBlast.report
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 				
 			End If
 			If deathcoil.total = tot Then
 				STmp = deathcoil.report
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 				
 			End If
 			If UnholyBlight.total = tot Then
 				STmp = UnholyBlight.report
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 				
 			End If
 			If frostfever.total = tot Then
 				STmp = frostfever.report
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 				
 			End If
 			If BloodPlague.total = tot Then
 				STmp = BloodPlague.report
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 				
 			End If
 			If Necrosis.total = tot Then
 				STmp = Necrosis.report
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 				
 			End If
 			If BloodCakedBlade.total = tot Then
 				STmp = BloodCakedBlade.report
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 				
 			End If
 			If WanderingPlague.total = tot Then
 				STmp = WanderingPlague.report
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 				
 			End If
 			If BloodBoil.total = tot Then
 				STmp = BloodBoil.report
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 				
 			End If
 			If RuneStrike.total = tot Then
 				STmp = RuneStrike.report
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 				
 			End If
 			If Ghoul.total  = tot Then
 				STmp = Ghoul.report
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 				
 			End If
 			If Gargoyle.total  = tot Then
 				STmp = Gargoyle.report
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 				
 			End If
 			If DRW.total  = tot Then
 				STmp = DRW.report
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 				
 			End If
 			If RuneForge.RazoriceTotal = tot Then
 				STmp = RuneForge.Razoricereport
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 			End If
 			
 			If DeathandDecay.total = tot Then
 				STmp = DeathandDecay.report
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 			End If
 			If trinket.Total = tot Then
 				STmp = trinket.report
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 			End If
 			If Viskag.Total = tot Then
 				STmp = Viskag.report
-				STmp = replace(STmp,vbtab,"</td><td>")
+				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 			End If
 		Next
 		
 		If Horn.HitCount <> 0 Then
 			STmp = Horn.report
-			STmp = replace(STmp,vbtab,"</td><td>")
+			STmp = replace(STmp,vbtab,"|</td><td>")
 			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 		End If
 		If Pestilence.HitCount <> 0 Then
 			STmp = Pestilence.report
-			STmp = replace(STmp,vbtab,"</td><td>")
+			STmp = replace(STmp,vbtab,"|</td><td>")
 			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 		End If
 		
 		If BoneShield.HitCount <> 0 Then
 			STmp = BoneShield.report
-			STmp = replace(STmp,vbtab,"</td><td>")
+			STmp = replace(STmp,vbtab,"|</td><td>")
 			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 		End If
 		
 		If BloodTap.HitCount <> 0 Then
 			STmp = BloodTap.report
-			STmp = replace(STmp,vbtab,"</td><td>")
+			STmp = replace(STmp,vbtab,"|</td><td>")
 			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 		End If
 		
 		If Frenzy.HitCount <> 0 Then
 			STmp = Frenzy.report
-			STmp = replace(STmp,vbtab,"</td><td>")
+			STmp = replace(STmp,vbtab,"|</td><td>")
 			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 		End If
 		
 		If UnbreakableArmor.HitCount <> 0 Then
 			STmp = UnbreakableArmor.report
-			STmp = replace(STmp,vbtab,"</td><td>")
+			STmp = replace(STmp,vbtab,"|</td><td>")
 			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 		End If
 		
