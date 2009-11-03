@@ -15,10 +15,20 @@ Friend Class FrostStrike
 	End Sub
 	
 	public Overrides Function isAvailable(T As long) As Boolean
-		if sim.glyph.FrostStrike then
-			If Sim.RunicPower.Value >= 32 Then isAvailable = True
+		If sim.glyph.FrostStrike Then
+			If sim.SaveRPForRS Then
+				If Sim.RunicPower.Value >= 52 Then isAvailable = True
+			Else
+				If Sim.RunicPower.Value >= 32 Then isAvailable = True
+			End If
+			
 		Else
-			If Sim.RunicPower.Value >= 40 Then isAvailable = True
+			If sim.SaveRPForRS Then
+				If Sim.RunicPower.Value >= 60 Then isAvailable = True
+			Else
+				If Sim.RunicPower.Value >= 40 Then isAvailable = True
+			End If
+			
 		end if
 	End Function
 	
@@ -69,7 +79,7 @@ Friend Class FrostStrike
 					dégat = AvrgCrit(T,true)
 					sim.combatlog.write(T  & vbtab &  "FS crit for " & dégat )
 					CritCount = CritCount + 1
-					sim.tryOnCrit					
+					sim.tryOnCrit
 				Else
 					dégat = AvrgNonCrit(T,true)
 					HitCount = HitCount + 1
@@ -84,7 +94,7 @@ Friend Class FrostStrike
 				If RNG < ccT Then
 					dégat = AvrgCrit(T,false)
 					sim.combatlog.write(T  & vbtab &  "OH FS crit for " & dégat )
-					sim.tryOnCrit					
+					sim.tryOnCrit
 				Else
 					dégat = AvrgNonCrit(T,false)
 					sim.combatlog.write(T  & vbtab &  "OH FS hit for " & dégat )

@@ -8,10 +8,15 @@ Friend class DeathCoil
 	
 
 	Function isAvailable(T As long) As Boolean
-		If sim.DRW.cd <= T And TalentBlood.DRW = 1 And Sim.RunicPower.Value < 100 Then Return False
+		'If sim.DRW.cd <= T And TalentBlood.DRW = 1 And Sim.RunicPower.Value < 100 Then Return False
 		'If sim.Gargoyle.cd <= T And talentunholy.SummonGargoyle = 1 And Sim.RunicPower.Value < 100 Then Return False
 		'If glyph.DeathStrike And RunicPower.Value <= 65  Then Return False 'This is not really important
-		If Sim.RunicPower.Value >= 40 Then isAvailable = True
+		If sim.SaveRPForRS Then
+			If Sim.RunicPower.Value >= 60 Then isAvailable = True
+		Else
+			If Sim.RunicPower.Value >= 40 Then isAvailable = True
+		End If
+		
 	End Function
 	
     overrides Function ApplyDamage(T As long,SDoom as Boolean) As boolean

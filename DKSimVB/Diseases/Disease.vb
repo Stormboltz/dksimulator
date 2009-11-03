@@ -28,7 +28,7 @@ Public Class Disease
 	
 	Function MyRng as Double 
 		If _RNG Is nothing Then
-			_RNG =  New Random(ConvertToInt(me.ToString))
+			_RNG =  New Random(ConvertToInt(me.ToString)+RNGSeeder)
 		End If
 		return _RNG.NextDouble
 	End Function

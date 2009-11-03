@@ -104,50 +104,30 @@ Public Partial Class MainForm
 	End Sub
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	Sub CmdEditPrioClick(sender As Object, e As EventArgs)
 		on error goto errH
 		Dim tr As IO.Textreader
-		
-		
 		EditorFilePAth = GetFilePath(cmbPrio.Text)
 		tr =  new IO.StreamReader(EditorFilePAth)
 		rtfEditor.Text =tr.ReadToEnd
 		tr.Close
 		tabControl1.SelectedIndex = 3
+		OpenPrioForEdit(EditorFilePAth)
 		errH:
 		
 	End Sub
 	
 	Sub CmdEditRotClick(sender As Object, e As EventArgs)
-		on error goto errH
+	'	on error goto errH
 		Dim tr As IO.Textreader
 		EditorFilePAth = GetFilePath(cmbRotation.Text)
 		tr =  new IO.StreamReader(EditorFilePAth)
 		rtfEditor.Text =tr.ReadToEnd
 		tr.Close
 		tabControl1.SelectedIndex = 3
+		OpenRotaForEdit(EditorFilePAth)
 		errH:
+		
 	End Sub
 	
 	Sub CmdSaveClick(sender As Object, e As EventArgs)
@@ -320,6 +300,10 @@ Public Partial Class MainForm
 	End Sub
 	
 	Sub BtCreateCMBClick(sender As Object, e As EventArgs)
-		me.CreateCombobox
+		me.CreateCombobox("")
+	End Sub
+	
+	Sub CmdRngSeederClick(sender As Object, e As EventArgs)
+		RNGSeeder += 1 
 	End Sub
 End Class

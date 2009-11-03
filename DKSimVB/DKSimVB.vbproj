@@ -136,7 +136,8 @@
     <Compile Include="Spell\Hysteria.vb" />
     <Compile Include="Spell\IcyTouch.vb" />
     <Compile Include="Spell\Necrosis.vb" />
-    <Compile Include="Spell\Pestilence.vb" />
+    <Compile Include="Spell\Pestilence.vb">
+    </Compile>
     <Compile Include="Spell\Spell.vb" />
     <Compile Include="Spell\UA.vb" />
     <Compile Include="Spell\UnholyBlight.vb" />
@@ -686,6 +687,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Release notes.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="RotationList.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Rotation\Intro.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Rotation\unholy.xml">

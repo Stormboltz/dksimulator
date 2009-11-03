@@ -1,5 +1,8 @@
 ﻿1.1.7.4 Release notes
 * Some optimisation on summoning DRW and Gargoyle
+* Added a priority called <SaveRPForRuneStrike/> to save 20 RP for rune strike.
+* Option to change the RNG seed. If the sim is restarted it will go back to the first RNG.
+* Possibility to have introduction rotation. Check Intro.xml for sample.
 
 
 1.1.7.3 Release notes

@@ -7,6 +7,10 @@
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
 Public Module GlobalFunction
+	Public RNGSeeder as Integer
+	
+	
+	
 	Function GetFilePath(s As String) As String
 		on error resume next
 		s = strings.Right(s,s.Length-InStr(s,"(") )

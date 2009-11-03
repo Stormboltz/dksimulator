@@ -184,7 +184,8 @@ Partial Class MainForm
 		Me.chkEPAgility = New System.Windows.Forms.CheckBox
 		Me.chkEPStr = New System.Windows.Forms.CheckBox
 		Me.tbPrioEditor = New System.Windows.Forms.TabPage
-		Me.btCreateCMB = New System.Windows.Forms.Button
+		Me.cmdSaveRotationAsNew = New System.Windows.Forms.Button
+		Me.cmdSaveRotation = New System.Windows.Forms.Button
 		Me.tbCaling = New System.Windows.Forms.TabPage
 		Me.label21 = New System.Windows.Forms.Label
 		Me.cmdScaling = New System.Windows.Forms.Button
@@ -202,6 +203,7 @@ Partial Class MainForm
 		Me.chkScaAgility = New System.Windows.Forms.CheckBox
 		Me.chkScaStr = New System.Windows.Forms.CheckBox
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
+		Me.cmdRngSeeder = New System.Windows.Forms.Button
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -1810,7 +1812,8 @@ Partial Class MainForm
 		'tbPrioEditor
 		'
 		Me.tbPrioEditor.AutoScroll = true
-		Me.tbPrioEditor.Controls.Add(Me.btCreateCMB)
+		Me.tbPrioEditor.Controls.Add(Me.cmdSaveRotationAsNew)
+		Me.tbPrioEditor.Controls.Add(Me.cmdSaveRotation)
 		Me.tbPrioEditor.Location = New System.Drawing.Point(4, 22)
 		Me.tbPrioEditor.Name = "tbPrioEditor"
 		Me.tbPrioEditor.Size = New System.Drawing.Size(776, 566)
@@ -1818,15 +1821,23 @@ Partial Class MainForm
 		Me.tbPrioEditor.Text = "Rotation Editor"
 		Me.tbPrioEditor.UseVisualStyleBackColor = true
 		'
-		'btCreateCMB
+		'cmdSaveRotationAsNew
 		'
-		Me.btCreateCMB.Location = New System.Drawing.Point(293, 407)
-		Me.btCreateCMB.Name = "btCreateCMB"
-		Me.btCreateCMB.Size = New System.Drawing.Size(75, 23)
-		Me.btCreateCMB.TabIndex = 0
-		Me.btCreateCMB.Text = "create"
-		Me.btCreateCMB.UseVisualStyleBackColor = true
-		AddHandler Me.btCreateCMB.Click, AddressOf Me.BtCreateCMBClick
+		Me.cmdSaveRotationAsNew.Location = New System.Drawing.Point(608, 3)
+		Me.cmdSaveRotationAsNew.Name = "cmdSaveRotationAsNew"
+		Me.cmdSaveRotationAsNew.Size = New System.Drawing.Size(75, 23)
+		Me.cmdSaveRotationAsNew.TabIndex = 2
+		Me.cmdSaveRotationAsNew.Text = "Save as new"
+		Me.cmdSaveRotationAsNew.UseVisualStyleBackColor = true
+		'
+		'cmdSaveRotation
+		'
+		Me.cmdSaveRotation.Location = New System.Drawing.Point(689, 3)
+		Me.cmdSaveRotation.Name = "cmdSaveRotation"
+		Me.cmdSaveRotation.Size = New System.Drawing.Size(75, 23)
+		Me.cmdSaveRotation.TabIndex = 1
+		Me.cmdSaveRotation.Text = "Save"
+		Me.cmdSaveRotation.UseVisualStyleBackColor = true
 		'
 		'tbCaling
 		'
@@ -2004,11 +2015,23 @@ Partial Class MainForm
 		Me.chkScaStr.Text = "Add Strength"
 		Me.chkScaStr.UseVisualStyleBackColor = true
 		'
+		'cmdRngSeeder
+		'
+		Me.cmdRngSeeder.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
+		Me.cmdRngSeeder.Location = New System.Drawing.Point(282, 610)
+		Me.cmdRngSeeder.Name = "cmdRngSeeder"
+		Me.cmdRngSeeder.Size = New System.Drawing.Size(122, 23)
+		Me.cmdRngSeeder.TabIndex = 10
+		Me.cmdRngSeeder.Text = "Change RNG Seed."
+		Me.cmdRngSeeder.UseVisualStyleBackColor = true
+		AddHandler Me.cmdRngSeeder.Click, AddressOf Me.CmdRngSeederClick
+		'
 		'MainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 		Me.ClientSize = New System.Drawing.Size(784, 662)
+		Me.Controls.Add(Me.cmdRngSeeder)
 		Me.Controls.Add(Me.lblDPS)
 		Me.Controls.Add(Me.lblVersion)
 		Me.Controls.Add(Me.btEP)
@@ -2043,9 +2066,11 @@ Partial Class MainForm
 		Me.gbScaling.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Private cmdRngSeeder As System.Windows.Forms.Button
+	Private cmdSaveRotation As System.Windows.Forms.Button
+	Private cmdSaveRotationAsNew As System.Windows.Forms.Button
 	Friend chkEP2PT10 As System.Windows.Forms.CheckBox
 	Friend chkEP4PT10 As System.Windows.Forms.CheckBox
-	Private btCreateCMB As System.Windows.Forms.Button
 	Private btStart As System.Windows.Forms.Button
 	Private tbPrioEditor As System.Windows.Forms.TabPage
 	Private ckBoneshield33 As System.Windows.Forms.CheckBox

@@ -16,12 +16,12 @@ Public Class RandomNumberGenerator
 	
 	
 	sub New
-		Dim tmp As New Random(150)
-		Dim tmp2 As New Random(7331)
-		Dim tmp3 As New Random(1500)
-		Dim tmp4 As New Random(5847)
-		Dim tmp5 As New Random(131279)	
-		dim tmp6 as New Random(1478963)
+		Dim tmp As New Random(150+RNGSeeder)
+		Dim tmp2 As New Random(7331+RNGSeeder)
+		Dim tmp3 As New Random(1500+RNGSeeder)
+		Dim tmp4 As New Random(5847+RNGSeeder)
+		Dim tmp5 As New Random(131279+RNGSeeder)	
+		dim tmp6 as New Random(1478963+RNGSeeder)
 		_RNGWhiteHit = tmp
 		'_RNGStrike = tmp2
 		_RNGProc = tmp3

@@ -96,7 +96,9 @@ Public Class Sim
 	Friend ProgressFrame As ProgressFrm
 	
 	Friend CombatLog as new CombatLog(me)
-	Friend BoneShieldUsageStyle as Integer
+	Friend BoneShieldUsageStyle As Integer
+	
+	Friend SaveRPForRS as Boolean
 	
 	Sub Init()
 	End Sub
@@ -761,7 +763,12 @@ Public Class Sim
 		dim Nod as Xml.XmlNode
 		
 		For Each Nod In xmldoc.SelectSingleNode("//Priority").ChildNodes
-			priority.prio.Add(Nod.Name)
+			If Nod.Name = "SaveRPForRuneStrike" Then
+				SaveRPForRS = true
+			Else
+				priority.prio.Add(Nod.Name)
+			End If
+			
 		Next
 		
 	End Sub
