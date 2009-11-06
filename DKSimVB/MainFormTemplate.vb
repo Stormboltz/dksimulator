@@ -15,7 +15,7 @@ Public Partial Class MainForm
 		'CreateTreeTemplate()
 		on error goto errH
 		Dim tr As IO.Textreader
-		EditorFilePAth = GetFilePath(cmbTemplate.Text)
+		EditorFilePAth = Application.StartupPath & "\Templates\" & cmbTemplate.Text
 		tr =  new IO.StreamReader(EditorFilePAth )
 		rtfEditor.Text =tr.ReadToEnd
 		tr.Close

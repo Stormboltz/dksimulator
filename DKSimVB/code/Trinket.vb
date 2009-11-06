@@ -8,6 +8,12 @@
 '
 Public Class Trinket
 	
+	
+	Friend MyTrinkets As Collection
+	
+	
+	
+	
 	Friend MjolRuneFade As Integer
 	Friend MjolRuneCd As Integer
 	Friend GrimTollFade As Integer

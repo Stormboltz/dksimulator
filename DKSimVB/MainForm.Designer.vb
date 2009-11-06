@@ -54,6 +54,8 @@ Partial Class MainForm
 		Me.HtmlReport = New System.Windows.Forms.TabPage
 		Me.webBrowser1 = New System.Windows.Forms.WebBrowser
 		Me.tabPage3 = New System.Windows.Forms.TabPage
+		Me.cmbIntro = New System.Windows.Forms.ComboBox
+		Me.label26 = New System.Windows.Forms.Label
 		Me.ckBoneshield33 = New System.Windows.Forms.CheckBox
 		Me.label20 = New System.Windows.Forms.Label
 		Me.cmbBShOption = New System.Windows.Forms.ComboBox
@@ -79,6 +81,7 @@ Partial Class MainForm
 		Me.txtSimtime = New System.Windows.Forms.TextBox
 		Me.chkWaitFC = New System.Windows.Forms.CheckBox
 		Me.cmdEditRot = New System.Windows.Forms.Button
+		Me.cmdEditIntro = New System.Windows.Forms.Button
 		Me.cmdEditPrio = New System.Windows.Forms.Button
 		Me.cmdEditChar = New System.Windows.Forms.Button
 		Me.cmdEditTemplate = New System.Windows.Forms.Button
@@ -185,6 +188,7 @@ Partial Class MainForm
 		Me.chkEPStr = New System.Windows.Forms.CheckBox
 		Me.tbPrioEditor = New System.Windows.Forms.TabPage
 		Me.cmdSaveRotationAsNew = New System.Windows.Forms.Button
+		Me.cmdAddPrioItem = New System.Windows.Forms.Button
 		Me.cmdSaveRotation = New System.Windows.Forms.Button
 		Me.tbCaling = New System.Windows.Forms.TabPage
 		Me.label21 = New System.Windows.Forms.Label
@@ -416,6 +420,8 @@ Partial Class MainForm
 		'
 		'tabPage3
 		'
+		Me.tabPage3.Controls.Add(Me.cmbIntro)
+		Me.tabPage3.Controls.Add(Me.label26)
 		Me.tabPage3.Controls.Add(Me.ckBoneshield33)
 		Me.tabPage3.Controls.Add(Me.label20)
 		Me.tabPage3.Controls.Add(Me.cmbBShOption)
@@ -441,6 +447,7 @@ Partial Class MainForm
 		Me.tabPage3.Controls.Add(Me.txtSimtime)
 		Me.tabPage3.Controls.Add(Me.chkWaitFC)
 		Me.tabPage3.Controls.Add(Me.cmdEditRot)
+		Me.tabPage3.Controls.Add(Me.cmdEditIntro)
 		Me.tabPage3.Controls.Add(Me.cmdEditPrio)
 		Me.tabPage3.Controls.Add(Me.cmdEditChar)
 		Me.tabPage3.Controls.Add(Me.cmdEditTemplate)
@@ -472,6 +479,25 @@ Partial Class MainForm
 		Me.tabPage3.Text = "Configuration"
 		Me.tabPage3.UseVisualStyleBackColor = true
 		'
+		'cmbIntro
+		'
+		Me.cmbIntro.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
+						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.cmbIntro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+		Me.cmbIntro.FormattingEnabled = true
+		Me.cmbIntro.Location = New System.Drawing.Point(8, 113)
+		Me.cmbIntro.Name = "cmbIntro"
+		Me.cmbIntro.Size = New System.Drawing.Size(722, 21)
+		Me.cmbIntro.TabIndex = 44
+		'
+		'label26
+		'
+		Me.label26.Location = New System.Drawing.Point(6, 97)
+		Me.label26.Name = "label26"
+		Me.label26.Size = New System.Drawing.Size(100, 13)
+		Me.label26.TabIndex = 43
+		Me.label26.Text = "Intro"
+		'
 		'ckBoneshield33
 		'
 		Me.ckBoneshield33.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
@@ -496,6 +522,7 @@ Partial Class MainForm
 		'cmbBShOption
 		'
 		Me.cmbBShOption.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.cmbBShOption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cmbBShOption.FormattingEnabled = true
 		Me.cmbBShOption.Location = New System.Drawing.Point(579, 460)
 		Me.cmbBShOption.Name = "cmbBShOption"
@@ -534,7 +561,7 @@ Partial Class MainForm
 		'
 		'rdPrio
 		'
-		Me.rdPrio.Location = New System.Drawing.Point(6, 94)
+		Me.rdPrio.Location = New System.Drawing.Point(6, 140)
 		Me.rdPrio.Name = "rdPrio"
 		Me.rdPrio.Size = New System.Drawing.Size(104, 24)
 		Me.rdPrio.TabIndex = 36
@@ -545,7 +572,7 @@ Partial Class MainForm
 		'
 		'rdRot
 		'
-		Me.rdRot.Location = New System.Drawing.Point(112, 94)
+		Me.rdRot.Location = New System.Drawing.Point(112, 140)
 		Me.rdRot.Name = "rdRot"
 		Me.rdRot.Size = New System.Drawing.Size(104, 24)
 		Me.rdRot.TabIndex = 36
@@ -677,7 +704,7 @@ Partial Class MainForm
 		'
 		'txtLatency
 		'
-		Me.txtLatency.Location = New System.Drawing.Point(88, 350)
+		Me.txtLatency.Location = New System.Drawing.Point(88, 396)
 		Me.txtLatency.Name = "txtLatency"
 		Me.txtLatency.Size = New System.Drawing.Size(50, 20)
 		Me.txtLatency.TabIndex = 21
@@ -686,7 +713,7 @@ Partial Class MainForm
 		'
 		'txtSimtime
 		'
-		Me.txtSimtime.Location = New System.Drawing.Point(112, 324)
+		Me.txtSimtime.Location = New System.Drawing.Point(112, 370)
 		Me.txtSimtime.Name = "txtSimtime"
 		Me.txtSimtime.Size = New System.Drawing.Size(50, 20)
 		Me.txtSimtime.TabIndex = 6
@@ -707,7 +734,7 @@ Partial Class MainForm
 		'cmdEditRot
 		'
 		Me.cmdEditRot.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdEditRot.Location = New System.Drawing.Point(731, 175)
+		Me.cmdEditRot.Location = New System.Drawing.Point(731, 221)
 		Me.cmdEditRot.Name = "cmdEditRot"
 		Me.cmdEditRot.Size = New System.Drawing.Size(42, 23)
 		Me.cmdEditRot.TabIndex = 19
@@ -715,10 +742,21 @@ Partial Class MainForm
 		Me.cmdEditRot.UseVisualStyleBackColor = true
 		AddHandler Me.cmdEditRot.Click, AddressOf Me.CmdEditRotClick
 		'
+		'cmdEditIntro
+		'
+		Me.cmdEditIntro.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.cmdEditIntro.Location = New System.Drawing.Point(731, 113)
+		Me.cmdEditIntro.Name = "cmdEditIntro"
+		Me.cmdEditIntro.Size = New System.Drawing.Size(42, 23)
+		Me.cmdEditIntro.TabIndex = 19
+		Me.cmdEditIntro.Text = "Edit"
+		Me.cmdEditIntro.UseVisualStyleBackColor = true
+		AddHandler Me.cmdEditIntro.Click, AddressOf Me.CmdEditIntroClick
+		'
 		'cmdEditPrio
 		'
 		Me.cmdEditPrio.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdEditPrio.Location = New System.Drawing.Point(731, 135)
+		Me.cmdEditPrio.Location = New System.Drawing.Point(731, 181)
 		Me.cmdEditPrio.Name = "cmdEditPrio"
 		Me.cmdEditPrio.Size = New System.Drawing.Size(42, 23)
 		Me.cmdEditPrio.TabIndex = 19
@@ -786,7 +824,7 @@ Partial Class MainForm
 		'label8
 		'
 		Me.label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.label8.Location = New System.Drawing.Point(478, 281)
+		Me.label8.Location = New System.Drawing.Point(478, 327)
 		Me.label8.Name = "label8"
 		Me.label8.Size = New System.Drawing.Size(100, 13)
 		Me.label8.TabIndex = 15
@@ -795,15 +833,16 @@ Partial Class MainForm
 		'cmbRuneOH
 		'
 		Me.cmbRuneOH.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.cmbRuneOH.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cmbRuneOH.FormattingEnabled = true
-		Me.cmbRuneOH.Location = New System.Drawing.Point(478, 297)
+		Me.cmbRuneOH.Location = New System.Drawing.Point(478, 343)
 		Me.cmbRuneOH.Name = "cmbRuneOH"
 		Me.cmbRuneOH.Size = New System.Drawing.Size(250, 21)
 		Me.cmbRuneOH.TabIndex = 14
 		'
 		'label7
 		'
-		Me.label7.Location = New System.Drawing.Point(6, 281)
+		Me.label7.Location = New System.Drawing.Point(6, 327)
 		Me.label7.Name = "label7"
 		Me.label7.Size = New System.Drawing.Size(100, 13)
 		Me.label7.TabIndex = 13
@@ -811,15 +850,16 @@ Partial Class MainForm
 		'
 		'cmbRuneMH
 		'
+		Me.cmbRuneMH.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cmbRuneMH.FormattingEnabled = true
-		Me.cmbRuneMH.Location = New System.Drawing.Point(6, 297)
+		Me.cmbRuneMH.Location = New System.Drawing.Point(6, 343)
 		Me.cmbRuneMH.Name = "cmbRuneMH"
 		Me.cmbRuneMH.Size = New System.Drawing.Size(250, 21)
 		Me.cmbRuneMH.TabIndex = 12
 		'
 		'label6
 		'
-		Me.label6.Location = New System.Drawing.Point(6, 161)
+		Me.label6.Location = New System.Drawing.Point(6, 207)
 		Me.label6.Name = "label6"
 		Me.label6.Size = New System.Drawing.Size(100, 13)
 		Me.label6.TabIndex = 11
@@ -829,15 +869,16 @@ Partial Class MainForm
 		'
 		Me.cmbRotation.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.cmbRotation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cmbRotation.FormattingEnabled = true
-		Me.cmbRotation.Location = New System.Drawing.Point(6, 177)
+		Me.cmbRotation.Location = New System.Drawing.Point(6, 223)
 		Me.cmbRotation.Name = "cmbRotation"
 		Me.cmbRotation.Size = New System.Drawing.Size(722, 21)
 		Me.cmbRotation.TabIndex = 10
 		'
 		'label5
 		'
-		Me.label5.Location = New System.Drawing.Point(6, 241)
+		Me.label5.Location = New System.Drawing.Point(6, 287)
 		Me.label5.Name = "label5"
 		Me.label5.Size = New System.Drawing.Size(100, 13)
 		Me.label5.TabIndex = 9
@@ -847,15 +888,16 @@ Partial Class MainForm
 		'
 		Me.cmbSigils.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.cmbSigils.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cmbSigils.FormattingEnabled = true
-		Me.cmbSigils.Location = New System.Drawing.Point(6, 257)
+		Me.cmbSigils.Location = New System.Drawing.Point(6, 303)
 		Me.cmbSigils.Name = "cmbSigils"
 		Me.cmbSigils.Size = New System.Drawing.Size(722, 21)
 		Me.cmbSigils.TabIndex = 8
 		'
 		'label10
 		'
-		Me.label10.Location = New System.Drawing.Point(6, 353)
+		Me.label10.Location = New System.Drawing.Point(6, 399)
 		Me.label10.Name = "label10"
 		Me.label10.Size = New System.Drawing.Size(76, 13)
 		Me.label10.TabIndex = 7
@@ -863,7 +905,7 @@ Partial Class MainForm
 		'
 		'label4
 		'
-		Me.label4.Location = New System.Drawing.Point(6, 327)
+		Me.label4.Location = New System.Drawing.Point(6, 373)
 		Me.label4.Name = "label4"
 		Me.label4.Size = New System.Drawing.Size(100, 13)
 		Me.label4.TabIndex = 7
@@ -871,7 +913,7 @@ Partial Class MainForm
 		'
 		'label3
 		'
-		Me.label3.Location = New System.Drawing.Point(6, 201)
+		Me.label3.Location = New System.Drawing.Point(6, 247)
 		Me.label3.Name = "label3"
 		Me.label3.Size = New System.Drawing.Size(100, 13)
 		Me.label3.TabIndex = 5
@@ -881,15 +923,16 @@ Partial Class MainForm
 		'
 		Me.cmdPresence.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.cmdPresence.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cmdPresence.FormattingEnabled = true
-		Me.cmdPresence.Location = New System.Drawing.Point(6, 217)
+		Me.cmdPresence.Location = New System.Drawing.Point(6, 263)
 		Me.cmdPresence.Name = "cmdPresence"
 		Me.cmdPresence.Size = New System.Drawing.Size(722, 21)
 		Me.cmdPresence.TabIndex = 4
 		'
 		'label2
 		'
-		Me.label2.Location = New System.Drawing.Point(6, 121)
+		Me.label2.Location = New System.Drawing.Point(6, 167)
 		Me.label2.Name = "label2"
 		Me.label2.Size = New System.Drawing.Size(100, 13)
 		Me.label2.TabIndex = 3
@@ -915,8 +958,9 @@ Partial Class MainForm
 		'
 		Me.cmbPrio.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.cmbPrio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cmbPrio.FormattingEnabled = true
-		Me.cmbPrio.Location = New System.Drawing.Point(6, 137)
+		Me.cmbPrio.Location = New System.Drawing.Point(6, 183)
 		Me.cmbPrio.Name = "cmbPrio"
 		Me.cmbPrio.Size = New System.Drawing.Size(722, 21)
 		Me.cmbPrio.TabIndex = 1
@@ -925,6 +969,7 @@ Partial Class MainForm
 		'
 		Me.cmbCharacter.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.cmbCharacter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cmbCharacter.FormattingEnabled = true
 		Me.cmbCharacter.Location = New System.Drawing.Point(6, 33)
 		Me.cmbCharacter.Name = "cmbCharacter"
@@ -935,6 +980,7 @@ Partial Class MainForm
 		'
 		Me.cmbTemplate.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.cmbTemplate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cmbTemplate.FormattingEnabled = true
 		Me.cmbTemplate.Location = New System.Drawing.Point(6, 73)
 		Me.cmbTemplate.Name = "cmbTemplate"
@@ -1813,6 +1859,7 @@ Partial Class MainForm
 		'
 		Me.tbPrioEditor.AutoScroll = true
 		Me.tbPrioEditor.Controls.Add(Me.cmdSaveRotationAsNew)
+		Me.tbPrioEditor.Controls.Add(Me.cmdAddPrioItem)
 		Me.tbPrioEditor.Controls.Add(Me.cmdSaveRotation)
 		Me.tbPrioEditor.Location = New System.Drawing.Point(4, 22)
 		Me.tbPrioEditor.Name = "tbPrioEditor"
@@ -1829,6 +1876,17 @@ Partial Class MainForm
 		Me.cmdSaveRotationAsNew.TabIndex = 2
 		Me.cmdSaveRotationAsNew.Text = "Save as new"
 		Me.cmdSaveRotationAsNew.UseVisualStyleBackColor = true
+		AddHandler Me.cmdSaveRotationAsNew.Click, AddressOf Me.CmdSaveRotationAsNewClick
+		'
+		'cmdAddPrioItem
+		'
+		Me.cmdAddPrioItem.Location = New System.Drawing.Point(689, 32)
+		Me.cmdAddPrioItem.Name = "cmdAddPrioItem"
+		Me.cmdAddPrioItem.Size = New System.Drawing.Size(75, 23)
+		Me.cmdAddPrioItem.TabIndex = 1
+		Me.cmdAddPrioItem.Text = "Add Item"
+		Me.cmdAddPrioItem.UseVisualStyleBackColor = true
+		AddHandler Me.cmdAddPrioItem.Click, AddressOf Me.CmdAddPrioItemClick
 		'
 		'cmdSaveRotation
 		'
@@ -1838,6 +1896,7 @@ Partial Class MainForm
 		Me.cmdSaveRotation.TabIndex = 1
 		Me.cmdSaveRotation.Text = "Save"
 		Me.cmdSaveRotation.UseVisualStyleBackColor = true
+		AddHandler Me.cmdSaveRotation.Click, AddressOf Me.CmdSaveRotationClick
 		'
 		'tbCaling
 		'
@@ -2066,6 +2125,10 @@ Partial Class MainForm
 		Me.gbScaling.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Private cmdAddPrioItem As System.Windows.Forms.Button
+	Private cmdEditIntro As System.Windows.Forms.Button
+	Private label26 As System.Windows.Forms.Label
+	Friend cmbIntro As System.Windows.Forms.ComboBox
 	Private cmdRngSeeder As System.Windows.Forms.Button
 	Private cmdSaveRotation As System.Windows.Forms.Button
 	Private cmdSaveRotationAsNew As System.Windows.Forms.Button

@@ -13,6 +13,7 @@ Public Class Sim
 	Friend RotationStep as Integer
 	Friend Rotate as boolean
 	Friend rotationPath As String
+	Friend IntroPath as String
 	Friend PetFriendly As Boolean
 	Friend NumberOfEnemies as Integer
 	Private SimStart as Date
@@ -78,7 +79,7 @@ Public Class Sim
 	Friend Gargoyle As Gargoyle
 	Friend BoneShield As BoneShield
 	Friend Frenzy as Frenzy
-	
+	Friend ERW as EmpowerRuneWeapon
 	
 	'Disease Creation
 	Friend BloodPlague as BloodPlague
@@ -230,12 +231,14 @@ Public Class Sim
 		Initialisation
 		TimeStamp = 1
 		If TalentUnholy.MasterOfGhouls=1 Then Ghoul.Summon(1)
-		
+		Rotation.LoadIntro
 		If Rotate Then Rotation.loadRotation
 		
-		Do Until TimeStamp > MaxTime
+		Do Until TimeStamp >= MaxTime
 			
 			Timestamp = FastFoward(Timestamp)
+			If TimeStamp >= MaxTime Then goto finnish
+			
 			If NextReset <= Timestamp Then
 				SoftReset
 				NextReset = NextReset + resetTime
@@ -279,7 +282,10 @@ Public Class Sim
 					End If
 				end if
 				
+				If isInGCD(TimeStamp) = False Then rotation.DoIntro(TimeStamp)
+				
 				If isInGCD(TimeStamp) = False Then
+					
 					if Rotate then
 						Rotation.DoRoration(TimeStamp)
 					else
@@ -370,6 +376,9 @@ Public Class Sim
 					If TimeStampCounter <= pb.Maximum Then pb.Value = TimeStampCounter Else pb.Value = pb.Maximum
 			End If
 		Loop
+		
+		'Finnish Line
+		finnish:
 		TotalDamageAlternative = TotalDamageAlternative + TotalDamage
 		TimeStampCounter = TimeStampCounter + TimeStamp
 		
@@ -550,7 +559,7 @@ Public Class Sim
 		AMSCd = _MainFrm.txtAMScd.text * 100
 		AMSTimer = _MainFrm.txtAMScd.text * 100
 		AMSAmount = _MainFrm.txtAMSrp.text
-		
+		ERW.CD = 0
 	End Sub
 	
 	Sub Initialisation()
@@ -627,8 +636,8 @@ Public Class Sim
 		Pestilence = new Pestilence(Me)
 		proc = New proc(Me)
 		BoneShield  = New BoneShield(Me)
-		
-		
+		ERW = New EmpowerRuneWeapon(Me)
+			
 		
 		AMSCd = _MainFrm.txtAMScd.text * 100
 		AMSTimer = _MainFrm.txtAMScd.text * 100
@@ -645,12 +654,12 @@ Public Class Sim
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
 		on error goto errH
 		doc.Load("config.xml")
-		loadtemplate (GetFilePath(doc.SelectSingleNode("//config/template").InnerText))
-		
+		loadtemplate (Application.StartupPath & "\Templates\" & doc.SelectSingleNode("//config/template").InnerText)
+		IntroPath = Application.StartupPath & "\Intro\"  &  doc.SelectSingleNode("//config/intro").InnerText
 		If rotate Then
-			rotationPath = GetFilePath( doc.SelectSingleNode("//config/rotation").InnerText)
+			rotationPath = Application.StartupPath & "\Rotation\"  &  doc.SelectSingleNode("//config/rotation").InnerText
 		Else
-			loadPriority (GetFilePath(doc.SelectSingleNode("//config/priority").InnerText))
+			loadPriority (Application.StartupPath & "\Priority\" & doc.SelectSingleNode("//config/priority").InnerText)
 		End If
 		'		cmbCharacter.SelectedItem = doc.SelectSingleNode("//config/Character").InnerText
 		

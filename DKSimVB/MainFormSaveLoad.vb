@@ -16,21 +16,29 @@ Public Partial Class MainForm
 		sTemp = CmbCharacter.SelectedItem
 		CmbCharacter.Items.Clear
 		For Each item In system.IO.Directory.GetFiles(Application.StartupPath & "\Characters\")
-			CmbCharacter.Items.Add(strings.Right(item,item.Length- InStrRev(item,"\") ) & "(" & item & ")")
+			CmbCharacter.Items.Add(strings.Right(item,item.Length- InStrRev(item,"\") ) )
 		Next
 		CmbCharacter.SelectedItem=sTemp
 		
 		stemp = cmbTemplate.SelectedItem
 		cmbTemplate.Items.Clear
 		For Each item In system.IO.Directory.GetFiles(Application.StartupPath & "\Templates\")
-			cmbTemplate.Items.Add(strings.Right(item,item.Length- InStrRev(item,"\") ) & "(" & item & ")")
+			cmbTemplate.Items.Add(strings.Right(item,item.Length- InStrRev(item,"\") ))
 		Next
 		cmbTemplate.SelectedItem = stemp
+		
+		sTemp = cmbIntro.SelectedItem
+		cmbIntro.Items.Clear
+		For Each item In system.IO.Directory.GetFiles(Application.StartupPath & "\Intro\")
+			cmbIntro.Items.Add(strings.Right(item,item.Length- InStrRev(item,"\") ) )
+		Next
+		cmbIntro.SelectedItem = sTemp
+		
 		
 		stemp = cmbPrio.SelectedItem
 		cmbPrio.Items.Clear
 		For Each item In system.IO.Directory.GetFiles(Application.StartupPath & "\Priority\")
-			cmbPrio.Items.Add(strings.Right(item,item.Length- InStrRev(item,"\") ) & "(" & item & ")")
+			cmbPrio.Items.Add(strings.Right(item,item.Length- InStrRev(item,"\")))
 		Next
 		cmbPrio.SelectedItem = stemp
 		
@@ -38,7 +46,7 @@ Public Partial Class MainForm
 		sTemp = cmbRotation.SelectedItem
 		cmbRotation.Items.Clear
 		For Each item In system.IO.Directory.GetFiles(Application.StartupPath & "\Rotation\")
-			cmbRotation.Items.Add(strings.Right(item,item.Length- InStrRev(item,"\") ) & "(" & item & ")")
+			cmbRotation.Items.Add(strings.Right(item,item.Length- InStrRev(item,"\")))
 		Next
 		cmbRotation.SelectedItem = sTemp
 		
@@ -271,6 +279,11 @@ Public Partial Class MainForm
 		root = doc.DocumentElement
 		root.AppendChild(newElem)
 		
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "intro", "")
+		newElem.InnerText = cmbIntro.SelectedItem.tostring
+		root = doc.DocumentElement
+		root.AppendChild(newElem)
+		
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "priority", "")
 		newElem.InnerText = cmbPrio.SelectedItem.tostring
 		root = doc.DocumentElement
@@ -405,7 +418,7 @@ Public Partial Class MainForm
 		Else
 			rdRot.Checked = true
 		End If
-		
+		cmbIntro.SelectedItem = doc.SelectSingleNode("//config/intro").InnerText
 		cmbPrio.SelectedItem = doc.SelectSingleNode("//config/priority").InnerText
 		cmbRotation.SelectedItem= doc.SelectSingleNode("//config/rotation").InnerText
 		cmdPresence.SelectedItem = doc.SelectSingleNode("//config/presence").InnerText

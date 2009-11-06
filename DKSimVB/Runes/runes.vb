@@ -126,12 +126,12 @@ Friend Class runes
 	
 	Function GetNextUnholy(T As Long) As Long
 		Dim bArray As new ArrayList
-		if BloodRune1.AvailableTime > T 	And BloodRune1.death = true then bArray.Add(BloodRune1.AvailableTime)
-		If BloodRune2.AvailableTime > T 	And BloodRune2.death = true Then bArray.Add(BloodRune2.AvailableTime)
-		If FrostRune1.AvailableTime > T And FrostRune1.death = True	Then bArray.Add(FrostRune1.AvailableTime)
-		If FrostRune2.AvailableTime > T And FrostRune2.death = True	Then bArray.Add(FrostRune2.AvailableTime)
-		If UnholyRune1.AvailableTime > T Then bArray.Add(UnholyRune1.AvailableTime)
-		If UnholyRune2.AvailableTime > T Then bArray.Add(UnholyRune2.AvailableTime)
+		if BloodRune1.AvailableTime >= T 	And BloodRune1.death = true then bArray.Add(BloodRune1.AvailableTime)
+		If BloodRune2.AvailableTime >= T 	And BloodRune2.death = true Then bArray.Add(BloodRune2.AvailableTime)
+		If FrostRune1.AvailableTime >= T And FrostRune1.death = True	Then bArray.Add(FrostRune1.AvailableTime)
+		If FrostRune2.AvailableTime >= T And FrostRune2.death = True	Then bArray.Add(FrostRune2.AvailableTime)
+		If UnholyRune1.AvailableTime >= T Then bArray.Add(UnholyRune1.AvailableTime)
+		If UnholyRune2.AvailableTime >= T Then bArray.Add(UnholyRune2.AvailableTime)
 		If bArray.Count > 0 Then
 			bArray.Sort()
 			return bArray.Item(0)
@@ -148,7 +148,7 @@ Friend Class runes
 		If FrostRune2.AvailableTime > T Then bArray.Add(FrostRune2.AvailableTime)
 		If UnholyRune1.AvailableTime > T And UnholyRune1.death = True	Then bArray.Add(UnholyRune1.AvailableTime)
 		If UnholyRune2.AvailableTime > T And UnholyRune2.death = True	Then bArray.Add(UnholyRune2.AvailableTime)
-		If bArray.Count > 0 Then
+		If bArray.Count >= 0 Then
 			bArray.Sort()
 			return bArray.Item(0)
 		End If

@@ -10,14 +10,14 @@ Public Module GlobalFunction
 	Public RNGSeeder as Integer
 	
 	
-	
-	Function GetFilePath(s As String) As String
-		on error resume next
-		s = strings.Right(s,s.Length-InStr(s,"(") )
-		s = strings.Left(s, InStrRev(s,")")-1 )
-		return s
-	End Function
-	
+'	
+'	Function GetFilePath(s As String) As String
+'		on error resume next
+'		s = strings.Right(s,s.Length-InStr(s,"(") )
+'		s = strings.Left(s, InStrRev(s,")")-1 )
+'		return s
+'	End Function
+'	
 	Function toDecimal(d As Double) As Decimal
 		try
 			Return d.ToString (".#")

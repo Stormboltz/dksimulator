@@ -103,6 +103,7 @@
     <Folder Include="Characters" />
     <Folder Include="Diseases" />
     <Folder Include="images" />
+    <Folder Include="Intro" />
     <Folder Include="Special" />
     <Folder Include="Rotation" />
     <Folder Include="Priority" />
@@ -130,6 +131,7 @@
     <Compile Include="Spell\DeathChill.vb" />
     <Compile Include="Spell\DeathCoil.vb" />
     <Compile Include="Spell\Desecration.vb" />
+    <Compile Include="Spell\EmpowerRuneWeapon.vb" />
     <Compile Include="Spell\Frenzy.vb" />
     <Compile Include="Spell\Horn.vb" />
     <Compile Include="Spell\HowlingBlast.vb" />
@@ -158,6 +160,15 @@
       <DependentUpon>MainForm.vb</DependentUpon>
     </Compile>
     <Compile Include="UIFunctions.vb" />
+    <None Include="Characters\2h ToC Blood.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Characters\2h ToC Unholy.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Characters\DW ToC .xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="images\AbominationMight.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -683,6 +694,12 @@
     <None Include="images\WillNecropolisG.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Intro\Intro.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Intro\NoIntro.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="PrioritiesList.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -690,9 +707,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="RotationList.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Rotation\Intro.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Rotation\unholy.xml">

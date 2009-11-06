@@ -19,7 +19,7 @@ Public Class RuneStrike
 		TotalHit = 0
 		TotalCrit = 0
 		sim = S
-		ThreadMultiplicator = 1.5
+		ThreadMultiplicator = 1.5 * 1.17
 	End Sub
 	overrides Function ApplyDamage(T As long) As boolean
 		Dim dégat As Integer

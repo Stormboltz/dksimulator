@@ -9,7 +9,11 @@
 Imports System.Xml
 Public Partial Class MainForm
 	Friend AvailablePrio As new Collection
-	Friend ComboCollection as new Collection
+	Friend ComboCollection As New Collection
+	Friend EditType as String
+	
+	
+	
 	
 	Sub FillThisComboBox(cmb As ComboBox)
 		dim i as Integer
@@ -30,6 +34,7 @@ Public Partial Class MainForm
 		tmpCMB.Location = New System.Drawing.Point(25, 15 + 25*ComboCollection.Count )
 		tmpCMB.Name = "cmbPrio" & ComboCollection.Count-1
 		tmpCMB.Size = New System.Drawing.Size(250, 21)
+		tmpCMB.DropDownStyle = ComboBoxStyle.DropDownList
 		FillThisComboBox (tmpCMB)
 		tmpCMB.Tag = Tag
 		tmpCMB.Sorted = true
@@ -44,6 +49,7 @@ Public Partial Class MainForm
 		For Each node In doc.SelectSingleNode("//Priorities").ChildNodes
 			AvailablePrio.Add(node.Name)
 		Next
+		
 	End Sub
 	
 	Sub LoadAvailableRota
@@ -55,6 +61,26 @@ Public Partial Class MainForm
 			AvailablePrio.Add(node.Name & " retry='0'")
 			AvailablePrio.Add(node.Name & " retry='1'")
 		Next
+		
+	End Sub
+	
+	
+	Sub OpenIntroForEdit(Filepath As String)
+		Dim doc As New Xml.XmlDocument
+		CleanPrioEditorCombo
+		LoadAvailableRota
+		Doc.Load(Filepath)
+		dim Nod as Xml.XmlNode
+		dim cmbx as ComboBox
+		For Each Nod In Doc.SelectSingleNode("//Intro").ChildNodes
+			cmbx = CreateCombobox("")
+			If Nod.Attributes.GetNamedItem("retry").Value = 0 Then
+				cmbx.SelectedItem =Nod.Name & " retry='0'"
+			Else
+				cmbx.SelectedItem =Nod.Name & " retry='1'"
+			End If
+		Next
+		EditType = "intro"
 	End Sub
 	
 	
@@ -68,9 +94,9 @@ Public Partial Class MainForm
 		dim cmbx as ComboBox
 		For Each Nod In Doc.SelectSingleNode("//Priority").ChildNodes
 			cmbx = CreateCombobox("")
-			cmbx.SelectedItem =Nod.Name 
+			cmbx.SelectedItem =Nod.Name
 		Next
-		
+		EditType = "prio"
 	End Sub
 	
 	Sub OpenRotaForEdit(Filepath As String)
@@ -81,20 +107,6 @@ Public Partial Class MainForm
 		
 		dim Nod as Xml.XmlNode
 		Dim cmbx As ComboBox
-		try
-			For Each Nod In Doc.SelectSingleNode("//Rotation/Intro").ChildNodes
-				cmbx = CreateCombobox("Intro")
-				If Nod.Attributes.GetNamedItem("retry").Value = 0 Then
-					cmbx.SelectedItem =Nod.Name & " retry='0'"
-				Else
-					cmbx.SelectedItem =Nod.Name & " retry='1'"
-				End If
-				cmbx.BackColor = color.Aqua
-			Next
-		Catch
-		End Try
-			
-		
 		
 		For Each Nod In Doc.SelectSingleNode("//Rotation/Rotation").ChildNodes
 			cmbx = CreateCombobox("")
@@ -104,7 +116,7 @@ Public Partial Class MainForm
 				cmbx.SelectedItem =Nod.Name & " retry='1'"
 			End If
 		Next
-		
+		EditType = "rota"
 	End Sub
 	
 	Sub CleanPrioEditorCombo()
@@ -117,4 +129,82 @@ Public Partial Class MainForm
 	
 	
 	
+	
+	Sub CmdAddPrioItemClick(sender As Object, e As EventArgs)
+		CreateCombobox("")
+	End Sub
+	
+	
+	
+	
+	Sub CmdSaveRotationClick(sender As Object, e As EventArgs)
+		Dim cmb As object
+		Dim xmlDoc As new Xml.XmlDocument
+		dim newAttrib as Xml.XmlAttribute
+		Dim root As xml.XmlElement
+		
+		Select Case EditType
+			Case "prio"
+				xmlDoc.LoadXml("<Priority></Priority>")
+				root = xmlDoc.DocumentElement
+			Case "rota"
+				xmlDoc.LoadXml("<Rotation><Rotation></Rotation></Rotation>")
+				root = xmlDoc.SelectSingleNode("/Rotation/Rotation")
+			Case "intro"
+				xmlDoc.LoadXml("<Intro></Intro>")
+				root = xmlDoc.SelectSingleNode("/Intro")
+		End Select
+		
+		Dim newElem As xml.XmlNode
+		dim sTmp as String
+		dim i as Integer
+		For i=1 To ComboCollection.Count
+			cmb = ComboCollection(i)
+			If instr(cmb.SelectedItem,"None") or cmb.SelectedItem="" Then
+			Else
+				
+				If instr(cmb.SelectedItem, " retry='0'") Then
+					sTmp = replace(cmb.SelectedItem," retry='0'","")
+					sTmp = trim(sTmp)
+					newElem = xmlDoc.CreateNode(xml.XmlNodeType.Element, sTmp,"")
+					newAttrib = xmlDoc.CreateNode(xml.XmlNodeType.Attribute,"","retry","")
+					newAttrib.Value = 0
+					newElem.Attributes.Append(newAttrib)
+				Else If instr(cmb.SelectedItem, " retry='1'") Then
+					sTmp = replace(cmb.SelectedItem," retry='1'","")
+					sTmp = trim(sTmp)
+					newElem = xmlDoc.CreateNode(xml.XmlNodeType.Element, sTmp,"")
+					newAttrib = xmlDoc.CreateNode(xml.XmlNodeType.Attribute,"","retry","")
+					newAttrib.Value = 1
+					newElem.Attributes.Append(newAttrib)
+				Else
+					newElem = xmlDoc.CreateNode(xml.XmlNodeType.Element, cmb.SelectedItem,"")
+				End If
+				root.AppendChild(newElem)
+			end if
+		Next
+			
+		
+		'Save
+		xmlDoc.Save(EditorFilePAth)
+		loadWindow
+		me.tabControl1.SelectedIndex = 0
+	End Sub
+	
+	
+	
+	
+	
+	Sub CmdSaveRotationAsNewClick(sender As Object, e As EventArgs)
+		Dim truc As New Form1
+		Dim res As DialogResult
+		res = truc.ShowDialog
+		If truc.textBox1.Text  <> "" and res = DialogResult.OK Then
+			EditorFilePAth = Strings.Left(EditorFilePAth,strings.InStrRev(EditorFilePAth,"\")) & truc.textBox1.Text & ".xml"
+			CmdSaveRotationClick(sender, e)
+		Else
+			exit sub
+		End If
+		truc.Dispose
+	End Sub
 End Class

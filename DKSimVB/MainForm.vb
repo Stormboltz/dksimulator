@@ -24,26 +24,12 @@ Public Partial Class MainForm
 		
 		saveConfig
 		Try
-			GetFilePath(CmbTemplate.SelectedItem.ToString)
+			debug.Print( Application.StartupPath & "\Templates\"  & CmbTemplate.SelectedItem.ToString)
 		Catch
 			msgbox("Could not determine template. Please reselect it.")
 			exit function
 		End try
-		'		If sim.rotate Then
-		'			try
-		'				sim.rotationPath = GetFilePath( cmbRotation.SelectedItem.ToString)
-		'			Catch
-		'				msgbox("Could not determine Rotation file. Please reselect it.")
-		'				exit function
-		'			End try
-		'		Else
-		'			try
-		'				sim.loadPriority (GetFilePath(CmbPrio.SelectedItem.ToString))
-		'			Catch
-		'				msgbox("Could not determine Priority file. Please reselect it.")
-		'				exit function
-		'			End try
-		'		End If
+	
 		SaveEPOptions()
 		SaveBuffOption()
 		saveScaling()
@@ -103,15 +89,33 @@ Public Partial Class MainForm
 		SimConstructor.PetFriendly = ckPet.Checked
 	End Sub
 	
+	Sub CmdEditIntroClick(sender As Object, e As EventArgs)
+		on error goto errH
+		Dim tr As IO.Textreader
+		CmbTemplate.SelectedItem.ToString
+		
+		EditorFilePAth = Application.StartupPath & "\Intro\"  & cmbIntro.Text
+		tr =  new IO.StreamReader(EditorFilePAth)
+		rtfEditor.Text =tr.ReadToEnd
+		tr.Close
+		tabControl1.SelectedIndex = 8
+		OpenIntroForEdit(EditorFilePAth)
+		errH:
+	End Sub
+		
+	
+	
 	
 	Sub CmdEditPrioClick(sender As Object, e As EventArgs)
 		on error goto errH
 		Dim tr As IO.Textreader
-		EditorFilePAth = GetFilePath(cmbPrio.Text)
+		CmbTemplate.SelectedItem.ToString
+		
+		EditorFilePAth = Application.StartupPath & "\Priority\"  & cmbPrio.Text
 		tr =  new IO.StreamReader(EditorFilePAth)
 		rtfEditor.Text =tr.ReadToEnd
 		tr.Close
-		tabControl1.SelectedIndex = 3
+		tabControl1.SelectedIndex = 8
 		OpenPrioForEdit(EditorFilePAth)
 		errH:
 		
@@ -120,11 +124,12 @@ Public Partial Class MainForm
 	Sub CmdEditRotClick(sender As Object, e As EventArgs)
 	'	on error goto errH
 		Dim tr As IO.Textreader
-		EditorFilePAth = GetFilePath(cmbRotation.Text)
+		
+		EditorFilePAth = Application.StartupPath & "\Rotation\"  & cmbRotation.Text
 		tr =  new IO.StreamReader(EditorFilePAth)
 		rtfEditor.Text =tr.ReadToEnd
 		tr.Close
-		tabControl1.SelectedIndex = 3
+		tabControl1.SelectedIndex = 8
 		OpenRotaForEdit(EditorFilePAth)
 		errH:
 		
@@ -189,7 +194,8 @@ Public Partial Class MainForm
 	Sub CmdEditCharClick(sender As Object, e As EventArgs)
 		on error goto errH
 		Dim tr As IO.Textreader
-		EditorFilePAth = GetFilePath(cmbCharacter.Text)
+		
+		EditorFilePAth = Application.StartupPath & "\Characters\"  & cmbCharacter.Text
 		tr =  new IO.StreamReader(EditorFilePAth )
 		rtfEditor.Text =tr.ReadToEnd
 		tr.Close

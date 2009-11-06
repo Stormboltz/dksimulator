@@ -18,4 +18,6 @@
 	<DeathandDecay retry='0'/>
 	<Pestilence retry='0'/>
 	<Horn retry='0'/>
+	<EmpowerRuneWeapon retry='0'/>
+	<_None/>
 </Rotations>

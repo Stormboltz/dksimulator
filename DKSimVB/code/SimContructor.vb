@@ -55,7 +55,7 @@ Public Module SimConstructor
 		doc.Load("EPconfig.xml")
 		
 		Dim XmlDoc As New Xml.XmlDocument
-		XmlDoc.Load(GetFilePath(_MainFrm.cmbCharacter.Text) )
+		XmlDoc.Load(Application.StartupPath & "\Characters\"  & _MainFrm.cmbCharacter.Text)
 		
 		'int32.Parse(XmlDoc.SelectSingleNode("//character/EP/base").InnerText)
 		
@@ -128,6 +128,16 @@ Public Module SimConstructor
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		
+		
+		
+		
+		
+		'This seems to have the same effect as AreMyStrheadFinninshed, without an ugly loop.
+		Dim T as Threading.Thread
+		For Each T In ThreadCollection
+			T.Join()
+		Next
+		
 		if doc.SelectSingleNode("//config/Stats/chkEPAfterSpellHitRating").InnerText = "True" then
 			EPStat="AfterSpellHitBase"
 			SimConstructor.Start(pb,SimTime,MainFrm)
@@ -137,16 +147,10 @@ Public Module SimConstructor
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		
-		
-		
-		'This seems to have the same effect as AreMyStrheadFinninshed, without an ugly loop.
-		Dim T as Threading.Thread
 		For Each T In ThreadCollection
 			T.Join()
-		Next
-		'		Do Until AreMyStrheadFinninshed
-		'			Application.DoEvents
-		'		Loop
+		Next	
+		
 		
 		EPStat = "DryRun"
 		BaseDPS = dpss(EPStat)

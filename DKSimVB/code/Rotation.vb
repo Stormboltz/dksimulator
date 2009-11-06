@@ -7,7 +7,8 @@
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
 Friend Class Rotation
-	Friend XMLRo as new Xml.XmlDocument
+	Friend XMLRo As New Xml.XmlDocument
+	Friend XMLIntro As New Xml.XmlDocument
 	Friend MyRotation As New Collection
 	Friend MyIntro as new Collection
 	Private Runes As runes.runes
@@ -23,18 +24,6 @@ Friend Class Rotation
 		sim.RotationStep = 0
 		XMLRo.Load(sim.rotationPath)
 		Dim Nod As Xml.XmlNode
-		try
-			For Each Nod In XMLRo.SelectSingleNode("//Rotation/Intro").ChildNodes
-				try
-					MyIntro.Add(Nod.Name,Nod.Name)
-				Catch
-					MyIntro.Add(Nod.Name)
-				end try
-			Next
-		Catch
-		End Try
-			
-		
 		For Each Nod In XMLRo.SelectSingleNode("//Rotation/Rotation").ChildNodes
 			try
 				MyRotation.Add(Nod.Name,Nod.Name)
@@ -44,39 +33,11 @@ Friend Class Rotation
 		Next
 		dim i as integer
 		i = 0
-		
-		For Each Nod In XMLRo.SelectSingleNode("//Rotation/Runes").ChildNodes
-			i=i+1
-			select case i
-				case 1
-					if Nod.Name ="Death" then sim.Runes.BloodRune1.death=true
-				case 2
-					if Nod.Name ="Death" then sim.Runes.BloodRune2.death=true
-				case 3
-					if Nod.Name ="Death" then sim.Runes.FrostRune1.death=true
-				case 4
-					if Nod.Name ="Death" then sim.Runes.FrostRune2.death=true
-				case 5
-					if Nod.Name ="Death" then sim.Runes.UnholyRune1.death=true
-				case 6
-					if Nod.Name ="Death" then sim.Runes.UnholyRune2.death=true
-			end select
-		Next
-		
-		
 		sim.Rotate=true
 	End Sub
 	
 	Sub DoRoration(TimeStamp As long)
 		Dim ret As Boolean
-		
-		If MyIntro.Count > 0 and IntroStep < MyIntro.Count    Then
-			ret = DoRoration(TimeStamp,MyIntro.Item(IntroStep+1),XMLRo.SelectSingleNode("//Rotation/Intro/" & MyIntro.Item(IntroStep+1) ).Attributes.GetNamedItem("retry").Value )
-			If ret = True Then IntroStep = IntroStep + 1
-			exit sub
-		End If
-		
-		
 		ret = DoRoration(TimeStamp,MyRotation.Item(sim.RotationStep+1),XMLRo.SelectSingleNode("//Rotation/Rotation/" & MyRotation.Item(sim.RotationStep+1) ).Attributes.GetNamedItem("retry").Value )
 		If ret = True Then sim.RotationStep = sim.RotationStep + 1
 		if MyRotation.Count <= sim.RotationStep then sim.RotationStep=0
@@ -124,6 +85,10 @@ Friend Class Rotation
 					Exit Function
 				Else
 					if retry = 0 then return true
+				End If
+			Case "EmpowerRuneWeapon"
+				If sim.ERW.CD <= TimeStamp Then
+					return sim.ERW.Use(TimeStamp)
 				End If
 			Case "FrostStrike"
 				If sim.FrostStrike.isAvailable(TimeStamp) = True Then
@@ -245,9 +210,25 @@ Friend Class Rotation
 				End If
 		End Select
 	End function
-	Sub intro()
+	Sub DoIntro(TimeStamp As Long)
+		dim ret as Boolean
+		If MyIntro.Count > 0 and IntroStep < MyIntro.Count    Then
+			ret = DoRoration(TimeStamp,MyIntro.Item(IntroStep+1),XMLIntro.SelectSingleNode("//Intro/" & MyIntro.Item(IntroStep+1) ).Attributes.GetNamedItem("retry").Value )
+			If ret = True Then IntroStep = IntroStep + 1
+			exit sub
+		End If
 		
-		
+	End Sub
+	Sub LoadIntro()
+		dim nod as xml.XmlNode
+		XMLIntro.Load(sim.IntroPath)
+		For Each Nod In XMLIntro.SelectSingleNode("//Intro").ChildNodes
+			try
+				MyIntro.Add(Nod.Name,Nod.Name)
+			Catch
+				MyIntro.Add(Nod.Name)
+			end try
+		Next
 	End Sub
 End Class
  

@@ -1,4 +1,14 @@
-﻿1.1.7.4 Release notes
+﻿1.1.7.5 Release notes
+* Some GUI improvement 
+* Rune Strike: Threat generated increased 17%
+* Intro has is own combo box and configuration files and folder
+* New: A Priority/Rotation/Intro editor. Select _None to remove an item (comment are welcome)
+* Rune setup into rotation no more used.
+* Empower Rune weapon available into intro and rotation.
+* Few more premade Character
+
+
+1.1.7.4 Release notes
 * Some optimisation on summoning DRW and Gargoyle
 * Added a priority called <SaveRPForRuneStrike/> to save 20 RP for rune strike.
 * Option to change the RNG seed. If the sim is restarted it will go back to the first RNG.

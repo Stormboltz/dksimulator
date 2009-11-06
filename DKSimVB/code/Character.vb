@@ -19,7 +19,8 @@ Friend Class Character
 	Sub New(S As Sim)
 		Sim = S
 		XmlConfig.Load("config.xml")
-		XmlDoc.Load (GetFilePath(XmlConfig.SelectSingleNode("//config/Character").InnerText))
+		
+		XmlDoc.Load (Application.StartupPath & "\Characters\"  & XmlConfig.SelectSingleNode("//config/Character").InnerText)
 
 		
 		
@@ -54,6 +55,11 @@ Friend Class Character
 	Function GetRotationFileName() as String
 		Return XmlConfig.SelectSingleNode("//config/rotation").InnerText
 	End Function
+	
+	Function GetIntroFileName() as String
+		Return XmlConfig.SelectSingleNode("//config/intro").InnerText
+	End Function
+	
 	
 	Function GetPresence() as String
 		Return XmlConfig.SelectSingleNode("//config/presence").InnerText
