@@ -64,7 +64,7 @@ Friend Class priority
 					End If
 					
 				Case "KMFrostStrike"
-					If sim.FrostStrike.isAvailable(TimeStamp) = True and sim.proc.KillingMachine and sim.CanUseGCD(Timestamp)  Then
+					If sim.FrostStrike.isAvailable(TimeStamp) = True and sim.proc.KillingMachine.IsActive and sim.CanUseGCD(Timestamp)  Then
 						sim.FrostStrike.ApplyDamage(TimeStamp)
 						'debug.Print("FS")
 						exit sub
@@ -135,7 +135,7 @@ Friend Class priority
 						exit sub
 					End If
 				Case "Rime"
-					If sim.proc.rime and sim.HowlingBlast.isAvailable(TimeStamp) and sim.CanUseGCD(Timestamp) Then
+					If sim.proc.rime.IsActive and sim.HowlingBlast.isAvailable(TimeStamp) and sim.CanUseGCD(Timestamp) Then
 						sim.HowlingBlast.ApplyDamage(TimeStamp)
 						exit sub
 					End If
@@ -155,7 +155,7 @@ Friend Class priority
 						Else
 							If sim.FrostFever.isActive(TimeStamp) = False or sim.pestilence.FFToReapply Then
 								If talentfrost.HowlingBlast = 1 And sim.glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp)  Then
-									If sim.proc.rime Or runes.FU(TimeStamp) Then
+									If sim.proc.rime.IsActive Or runes.FU(TimeStamp) Then
 										sim.HowlingBlast.ApplyDamage(TimeStamp)
 										exit sub
 									End If
@@ -169,7 +169,7 @@ Friend Class priority
 					Else
 						If sim.FrostFever.PerfectUsage(TimeStamp) = true or sim.FrostFever.ToReApply Then
 							If talentfrost.HowlingBlast = 1 And sim.glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp)  Then
-								If sim.proc.rime Or runes.FU(TimeStamp) Then
+								If sim.proc.rime.IsActive Or runes.FU(TimeStamp) Then
 									sim.HowlingBlast.ApplyDamage(TimeStamp)
 									exit sub
 								End If
@@ -242,7 +242,7 @@ Friend Class priority
 					
 				Case "HowlingBlast"
 					If sim.HowlingBlast.isAvailable(TimeStamp) Then
-						If sim.proc.rime Or runes.FU(TimeStamp) and sim.CanUseGCD(Timestamp)  Then
+						If sim.proc.rime.IsActive Or runes.FU(TimeStamp) and sim.CanUseGCD(Timestamp)  Then
 							sim.HowlingBlast.ApplyDamage(TimeStamp)
 							runes.UnReserveFU(TimeStamp)
 							Exit Sub
@@ -252,8 +252,8 @@ Friend Class priority
 					Else
 					End If
 				Case "KMHowlingBlast"
-					If sim.HowlingBlast.isAvailable(TimeStamp) and sim.proc.KillingMachine Then
-						If sim.proc.rime Or runes.FU(TimeStamp) and sim.CanUseGCD(Timestamp) Then
+					If sim.HowlingBlast.isAvailable(TimeStamp) and sim.proc.KillingMachine.IsActive() Then
+						If sim.proc.rime.IsActive Or runes.FU(TimeStamp) and sim.CanUseGCD(Timestamp) Then
 							sim.HowlingBlast.ApplyDamage(TimeStamp)
 							runes.UnReserveFU(TimeStamp)
 							Exit Sub
@@ -263,7 +263,7 @@ Friend Class priority
 					Else
 					End If
 				Case "KMRime"
-					If sim.proc.Rime and sim.proc.KillingMachine and sim.CanUseGCD(Timestamp)  Then
+					If sim.proc.Rime.IsActive and sim.proc.KillingMachine.IsActive and sim.CanUseGCD(Timestamp)  Then
 						sim.HowlingBlast.ApplyDamage(TimeStamp)
 					Else
 					End If

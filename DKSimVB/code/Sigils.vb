@@ -21,13 +21,5 @@ Friend Class Sigils
 	Sub New(S As Sim )
 		Sim = S
 	End Sub
-	Sub TryHauntedDreams()
-		dim RNG as Double
-		if HauntedDreams then
-			RNG = sim.RandomNumberGenerator.RNGProc
-			if RNG <= 0.15 then
-				sim.Proc.HauntedDreamsFade = sim.TimeStamp + 10 * 100
-			end if
-		End If
-	End Sub
+	
 end Class

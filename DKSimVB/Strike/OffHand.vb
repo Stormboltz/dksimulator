@@ -64,8 +64,8 @@ Friend Class OffHand
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH hit for " & dégat)
 		End If
 		
-		If sim.proc.ScentOfBloodProc > 0 Then
-			sim.proc.ScentOfBloodProc  = sim.proc.ScentOfBloodProc  -1
+		If sim.proc.ScentOfBlood.IsActive  Then
+			sim.proc.ScentOfBlood.Use
 			Sim.RunicPower.add(10)
 		End If
 
@@ -83,8 +83,10 @@ Friend Class OffHand
 		
 		If sim.runeforge.OHRazorice and sim.mainstat.DualW Then sim.runeforge.applyRazorice()
 		sim.TryOnOHHitProc
-		sim.Viskag.TryOHSingedViskag
-		sim.Viskag.TryOHtemperedViskag
+		sim.Trinkets.OHSingedViskag.TryMe(T)
+		sim.Trinkets.OHtemperedViskag.TryMe(T)
+		sim.trinkets.MHEmpoweredDeathbringer.TryMe(T)
+		sim.trinkets.MHRagingDeathbringer.TryMe(T)
 		
 		return true
 		'   'Debug.Print T & vbTab & "WhiteOH for " & Range("Abilities!N19").Value

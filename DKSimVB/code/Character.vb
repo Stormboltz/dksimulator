@@ -89,11 +89,8 @@ Friend Class Character
 			tmp = tmp + Replace(sim.EPStat,"ScaStr","") * sim.EPBase
 		End If
 		
-		
-		If sim.Sigils.Virulence Then
-			if sim.proc.VirulenceFade >= sim.TimeStamp then tmp = tmp + 200
-		End If
-		if sim.proc.T92PDPSFAde > sim.TimeStamp then tmp = tmp + 180
+		if sim.proc.Virulence.IsActive then tmp += sim.proc.Virulence.ProcValue
+		if sim.proc.T92PDPS.IsActive > sim.TimeStamp then tmp += sim.proc.T92PDPS.ProcValue
 		tmp = tmp +155 * 1.15 *  sim.Buff.StrAgi
 		tmp = tmp + 37 * 1.4 *  sim.Buff.StatAdd
 		
@@ -104,10 +101,9 @@ Friend Class Character
 		tmp = tmp * (1 + 0.15 * Sim.RuneForge.FallenCrusaderProc)
 		
 		
-		
-		If Sim.Trinket.greatnessFade > sim.TimeStamp Then tmp = tmp + 300
-		If Sim.Trinket.DeathChoiceFade > sim.TimeStamp Then tmp = tmp + 450
-		If Sim.Trinket.DeathChoiceHeroicFade > sim.TimeStamp Then tmp = tmp + 510
+		If sim.Trinkets.Greatness.fade > sim.TimeStamp Then tmp = tmp + sim.Trinkets.Greatness.ProcValue
+		If Sim.Trinkets.DeathChoice.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.DeathChoice.ProcValue
+		If Sim.Trinkets.DeathChoiceHeroic.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.DeathChoiceHeroic.ProcValue
 		
 		if sim.UnbreakableArmor.isActive then tmp = tmp * 1.1
 		_Strength= tmp
@@ -267,8 +263,8 @@ Friend Class Character
 			tmp = tmp+sim.EPBase
 		End If
 		
-		If Sim.Trinket.MjolRuneFade > sim.TimeStamp Then tmp = tmp + 665
-		If Sim.Trinket.GrimTollFade > sim.TimeStamp Then tmp = tmp + 612
+		If Sim.Trinkets.MjolRune.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.MjolRune.procvalue
+		If Sim.Trinkets.GrimToll.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.GrimToll.ProcValue
 
 		'If GrimTollFade > sim.TimeStamp Then Debug.Print( "GrimToll, now:" & tmp)
 		_ArmorPenetrationRating = tmp

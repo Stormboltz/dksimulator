@@ -100,7 +100,7 @@ Friend Class ScourgeStrike
 		End If
 		sim.runes.UseFU(T,False)
 		Sim.RunicPower.add (15 + TalentUnholy.Dirge * 2.5 + 5*sim.MainStat.T74PDPS)
-		sim.proc.VirulenceFade = T + 2000
+		sim.proc.Virulence.TryMe(t)
 		sim.TryOnMHHitProc
 		
 		'Debug.Print T & vbTab & "ScourgeStrike for " & Range("Abilities!N11").Value

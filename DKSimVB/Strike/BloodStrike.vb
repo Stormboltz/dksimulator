@@ -57,7 +57,7 @@ Friend class BloodStrike
 
 				total = total + dégat
 				sim.TryOnMHHitProc
-				sim.proc.TryT92PDPS
+				sim.proc.T92PDPS.TryMe(T)
 			End If
 			If OHHit Then
 				dim dégat as Integer
@@ -72,10 +72,10 @@ Friend class BloodStrike
 	
 				total = total + dégat
 				sim.TryOnOHHitProc
-				sim.proc.TryT92PDPS
+				sim.proc.T92PDPS.TryMe(T)
 			End If
 			
-			sim.Sigils.tryHauntedDreams()
+			sim.proc.HauntedDreams.TryMe(t)
 			
 			
 			If rng < 0.05*talentblood.SuddenDoom Then

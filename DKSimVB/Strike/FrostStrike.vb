@@ -63,7 +63,7 @@ Friend Class FrostStrike
 			OHHit = false
 			If DoMyStrikeHit = false Then
 				sim.combatlog.write(T  & vbtab & "FS fail")
-				sim.proc.KillingMachine  = False
+				sim.proc.KillingMachine.Use
 				MissCount = MissCount + 1
 				Exit function
 			End If
@@ -103,7 +103,7 @@ Friend Class FrostStrike
 				total = total + dégat
 				sim.TryOnOHHitProc
 			End If
-			sim.proc.KillingMachine  = False
+			sim.proc.KillingMachine.Use
 			Return True
 		End If
 	End Function
@@ -139,7 +139,7 @@ Friend Class FrostStrike
 	End Function
 	public Overrides Function CritChance() As Double
 		CritChance = sim.MainStat.Crit + 8/100 * sim.MainStat.T82PDPS
-		if sim.proc.KillingMachine  = true then return 1
+		if sim.proc.KillingMachine.IsActive()  = true then return 1
 	End Function
 	public Overrides Function AvrgCrit(T As long, MH as Boolean) As Double
 		AvrgCrit = AvrgNonCrit(T,MH) * (1 + CritCoef)

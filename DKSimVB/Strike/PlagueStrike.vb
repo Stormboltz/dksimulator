@@ -36,9 +36,7 @@ Friend Class PlagueStrike
 			End If
 		End If
 		
-		if sim.sigils.Strife then
-			sim.proc.StrifeFade = T+1000
-		End If
+		sim.proc.strife.tryme(t)
 		
 		Dim dégat As Integer
 		

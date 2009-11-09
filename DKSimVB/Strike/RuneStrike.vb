@@ -68,7 +68,7 @@ Public Class RuneStrike
 '		if Lissage then dégat = AvrgCrit(T)*CritChance + AvrgNonCrit(T)*(1-CritChance )
 		total = total + dégat
 		
-		sim.proc.TryMHKillingMachine
+		sim.proc.KillingMachine.TryMe(T)
 		
 		If sim.RuneForge.MHRazorice Then sim.runeforge.applyRazorice()
 		If TalentUnholy.Necrosis > 0 Then
@@ -79,8 +79,8 @@ Public Class RuneStrike
 			BCB = sim.BloodCakedBlade.ApplyDamage(T,true)
 		End If
 		sim.TryOnMHHitProc
-		If sim.proc.ScentOfBloodProc > 0 Then
-			sim.proc.ScentOfBloodProc  = sim.proc.ScentOfBloodProc  -1
+		If sim.proc.ScentOfBlood.IsActive  Then
+			sim.proc.ScentOfBlood.Use
 			Sim.RunicPower.add(10)
 		End If
 		

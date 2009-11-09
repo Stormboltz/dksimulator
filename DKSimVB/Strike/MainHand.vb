@@ -97,12 +97,14 @@ Sub New(S As sim)
 			BCB = sim.BloodCakedBlade.ApplyDamage(T,true)
 		End If
 		sim.TryOnMHHitProc
-		sim.proc.TryMHKillingMachine
-		sim.Viskag.TryMHSingedViskag
-		sim.Viskag.TryMHtemperedViskag
+		sim.proc.KillingMachine.TryMe(T)
+		sim.Trinkets.MHSingedViskag.TryMe(T)
+		sim.Trinkets.MHtemperedViskag.TryMe(T)
+		sim.trinkets.MHEmpoweredDeathbringer.TryMe(T)
+		sim.trinkets.MHRagingDeathbringer.TryMe(T)
 		
-		If sim.proc.ScentOfBloodProc > 0 Then
-			sim.proc.ScentOfBloodProc  = sim.proc.ScentOfBloodProc  -1
+		If sim.proc.ScentOfBlood.IsActive  Then
+			sim.proc.ScentOfBlood.Use
 			Sim.RunicPower.add(10)
 		End If
 		

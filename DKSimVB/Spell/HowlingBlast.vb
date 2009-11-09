@@ -24,8 +24,8 @@ Friend Class HowlingBlast
 		
 		If DoMySpellHit = false Then
 			sim.combatlog.write(T  & vbtab &  "HB fail")
-			sim.proc.KillingMachine = False
-			sim.Proc.rime = False
+			sim.proc.KillingMachine.Use
+			sim.Proc.rime.Use
 			MissCount = MissCount + 1
 			Exit function
 		End If
@@ -52,15 +52,15 @@ Friend Class HowlingBlast
 			sim.TryOnSpellHit
 		Next intCount
 		
-		If sim.proc.rime Then
-			sim.Proc.rime = False
+		If sim.proc.rime.IsActive Then
+			sim.Proc.rime.Use 
 			Sim.RunicPower.add (TalentFrost.ChillOfTheGrave * 2.5)
 		Else
 			sim.runes.UseFU(T,False)
 			Sim.RunicPower.add (15 + (TalentFrost.ChillOfTheGrave * 2.5))
 		End If
 		
-		sim.proc.KillingMachine = false
+		sim.proc.KillingMachine.Use
 		if sim.glyph.HowlingBlast then
 			sim.FrostFever.Apply(T)
 		End If
@@ -88,7 +88,7 @@ Friend Class HowlingBlast
 	End Function
 	overrides Function CritChance() As Double
 		CritChance = sim.MainStat.SpellCrit
-		If sim.proc.KillingMachine  = True Then
+		If sim.proc.KillingMachine.IsActive Then
 			Return 1
 		Else
 			If sim.DeathChill.IsAvailable(sim.TimeStamp) Then

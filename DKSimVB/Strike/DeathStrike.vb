@@ -80,7 +80,7 @@ Friend Class DeathStrike
 				total = total + dégat
 				sim.TryOnOHHitProc
 			End If
-			sim.proc.VirulenceFade = T + 2000
+			sim.proc.Virulence.TryMe(t)
 			
 			If talentblood.DRM = 3 Then
 				sim.runes.UseFU(T,True)

@@ -1,11 +1,13 @@
 ﻿1.1.7.5 Release notes
 * Some GUI improvement 
 * Rune Strike: Threat generated increased 17%
-* Intro has is own combo box and configuration files and folder
+* Intro has is own combo box and configuration files and folder. (not having the intro folder can cause crash)
 * New: A Priority/Rotation/Intro editor. Select _None to remove an item (comment are welcome)
 * Rune setup into rotation no more used.
 * Empower Rune weapon available into intro and rotation.
 * Few more premade Character
+* Raging Deathbringer and  Empowered Deathbringer implemented.
+* Proc/Trinket code optimisation
 
 
 1.1.7.4 Release notes

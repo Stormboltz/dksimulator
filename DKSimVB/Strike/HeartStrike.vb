@@ -57,8 +57,8 @@ Sub New(S As sim)
 
 
 				total = total + dégat
-				sim.Sigils.tryHauntedDreams()
-				sim.proc.TryT92PDPS
+				sim.proc.HauntedDreams.TryMe(T)
+				sim.proc.T92PDPS.TryMe(T)
 				sim.TryOnMHHitProc
 				RNG = MyRNG
 				If rng < 0.05*talentblood.SuddenDoom Then

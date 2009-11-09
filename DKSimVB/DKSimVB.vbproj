@@ -70,7 +70,6 @@
     <Compile Include="code\GlobalFunction.vb" />
     <Compile Include="code\glyph.vb" />
     <Compile Include="code\priority.vb" />
-    <Compile Include="code\Proc.vb" />
     <Compile Include="code\RandomNumberGenerator.vb" />
     <Compile Include="code\Rotation.vb" />
     <Compile Include="code\RuneForge.vb">
@@ -79,8 +78,6 @@
     <Compile Include="code\Sigils.vb" />
     <Compile Include="code\Sim.vb" />
     <Compile Include="code\SimContructor.vb" />
-    <Compile Include="code\Trinket.vb" />
-    <Compile Include="code\Viskag.vb" />
     <Compile Include="Diseases\BloodPlague.vb" />
     <Compile Include="Diseases\Disease.vb" />
     <Compile Include="Diseases\FrostFever.vb" />
@@ -92,6 +89,10 @@
       <DependentUpon>MainForm.vb</DependentUpon>
     </Compile>
     <Compile Include="MainForm.vb" />
+    <Compile Include="Procs\GenericProc.vb" />
+    <Compile Include="Procs\Rime.vb" />
+    <Compile Include="Procs\Procs.vb" />
+    <Compile Include="Procs\ScentOfBlood.vb" />
     <Compile Include="Program.vb" />
     <Compile Include="Progress.Designer.vb">
       <DependentUpon>Progress.vb</DependentUpon>
@@ -104,6 +105,8 @@
     <Folder Include="Diseases" />
     <Folder Include="images" />
     <Folder Include="Intro" />
+    <Folder Include="Procs" />
+    <Folder Include="Trinkets" />
     <Folder Include="Special" />
     <Folder Include="Rotation" />
     <Folder Include="Priority" />
@@ -159,6 +162,8 @@
     <Compile Include="TemplateButton.vb">
       <DependentUpon>MainForm.vb</DependentUpon>
     </Compile>
+    <Compile Include="Trinkets\Trinket.vb" />
+    <Compile Include="Trinkets\Trinkets.vb" />
     <Compile Include="UIFunctions.vb" />
     <None Include="Characters\2h ToC Blood.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -29,7 +29,7 @@ Public Class Sim
 	Private InterruptCd As Integer
 	Friend KeepRNGSeed As Boolean
 	Friend KeepDiseaseOnOthersTarget As Boolean
-	Friend Viskag As Viskag
+
 	Friend Patch33 as Boolean
 	
 	Friend RandomNumberGenerator as RandomNumberGenerator
@@ -85,7 +85,7 @@ Public Class Sim
 	Friend BloodPlague as BloodPlague
 	Friend FrostFever as FrostFever
 	
-	Friend proc As proc
+	Friend proc As procs
 	Friend Buff As buff
 	Friend Glyph As Glyph
 	
@@ -93,7 +93,7 @@ Public Class Sim
 	Friend Rotation as Rotation
 	Friend RuneForge As RuneForge
 	
-	Friend Trinket As Trinket
+	Friend Trinkets As Trinkets
 	Friend ProgressFrame As ProgressFrm
 	
 	Friend CombatLog as new CombatLog(me)
@@ -413,7 +413,14 @@ Public Class Sim
 			WanderingPlague.total +FrostStrike.total  +HowlingBlast.total + _
 			BloodBoil.total  + DeathStrike.total + MainHand.total + _
 			OffHand.total  + Ghoul.total + Gargoyle.total + DRW.total + _
-			RuneForge.RazoriceTotal + DeathandDecay.total + RuneStrike.total + trinket.Total + Viskag.Total
+			RuneForge.RazoriceTotal + DeathandDecay.total + RuneStrike.total + _
+			Trinkets.Bandit.Total + Trinkets.DCDeath.Total + Trinkets.Necromantic.Total + _
+			Trinkets.MHSingedViskag.Total  + Trinkets.OHSingedViskag.Total + _
+			Trinkets.MHtemperedViskag.Total + Trinkets.OHtemperedViskag.Total + _
+			Trinkets.MHRagingDeathbringer.Total + Trinkets.OHRagingDeathbringer.Total + _
+			Trinkets.MHEmpoweredDeathbringer.Total + Trinkets.OHEmpoweredDeathbringer.Total + _
+			Trinkets.HandMountedPyroRocket.total
+		
 	End Function
 	
 	
@@ -553,7 +560,7 @@ Public Class Sim
 		Gargoyle.cd = 0
 		Horn.CD = 0
 		Bloodlust.Cd = 0
-		proc = New proc(Me)
+		proc = New procs(Me)
 		BoneShield.CD = 0
 		NextFreeGCD = 0
 		AMSCd = _MainFrm.txtAMScd.text * 100
@@ -634,7 +641,7 @@ Public Class Sim
 		Horn = new Horn(Me)
 		Bloodlust= new Bloodlust(Me)
 		Pestilence = new Pestilence(Me)
-		proc = New proc(Me)
+		proc = New procs(Me)
 		BoneShield  = New BoneShield(Me)
 		ERW = New EmpowerRuneWeapon(Me)
 			
@@ -783,7 +790,7 @@ Public Class Sim
 	End Sub
 	
 	Sub Report()
-		on error resume next
+		'on error resume next
 		Dim Tw As System.IO.TextWriter
 		'if EPStat <> "" then exit sub
 		
@@ -836,9 +843,18 @@ Public Class Sim
 		If DRW.total  <> 0 Then myArray.Add(DRW.total)
 		If RuneForge.RazoriceTotal <> 0 Then myArray.Add(RuneForge.RazoriceTotal)
 		If DeathandDecay.total <> 0 Then myArray.Add(DeathandDecay.total)
-		If trinket.Total <> 0 Then myArray.Add(trinket.Total)
-		if Viskag.Total <> 0 Then myArray.Add(Viskag.Total)
-		
+		If Trinkets.Bandit.Total <> 0 then myArray.Add(Trinkets.Bandit.Total)
+		If Trinkets.DCDeath.Total <> 0 then myArray.Add(Trinkets.DCDeath.Total)
+		If Trinkets.Necromantic.Total <> 0 then myArray.Add(Trinkets.Necromantic.Total)
+		If Trinkets.MHSingedViskag.Total <> 0 then myArray.Add(Trinkets.MHSingedViskag.Total)
+		If Trinkets.OHSingedViskag.Total <> 0 then myArray.Add(Trinkets.OHSingedViskag.Total)
+		If Trinkets.MHtemperedViskag.Total <> 0 then myArray.Add(Trinkets.MHtemperedViskag.Total)
+		If Trinkets.OHtemperedViskag.Total <> 0 Then myArray.Add(Trinkets.OHtemperedViskag.Total)
+		If Trinkets.MHRagingDeathbringer.Total <> 0 then myArray.Add(Trinkets.MHRagingDeathbringer.Total)
+		If Trinkets.OHRagingDeathbringer.Total <> 0 then myArray.Add(Trinkets.OHRagingDeathbringer.Total)
+		If Trinkets.MHEmpoweredDeathbringer.Total <> 0 then myArray.Add(Trinkets.MHEmpoweredDeathbringer.Total)
+		If Trinkets.OHEmpoweredDeathbringer.Total <> 0 Then myArray.Add(Trinkets.OHEmpoweredDeathbringer.Total)
+		if Trinkets.HandMountedPyroRocket.total <> 0 then myArray.Add(Trinkets.HandMountedPyroRocket.Total)
 		myArray.Sort()
 		
 		
@@ -1003,16 +1019,74 @@ Public Class Sim
 				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 			End If
-			If trinket.Total = tot Then
-				STmp = trinket.report
+			
+			
+			
+			If Trinkets.Bandit.Total = tot Then
+				STmp = Trinkets.Bandit.report
 				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 			End If
-			If Viskag.Total = tot Then
-				STmp = Viskag.report
+			If Trinkets.DCDeath.Total = tot Then
+				STmp = Trinkets.DCDeath.report
 				STmp = replace(STmp,vbtab,"|</td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 			End If
+			If Trinkets.Necromantic.Total = tot Then
+				STmp = Trinkets.Necromantic.report
+				STmp = replace(STmp,vbtab,"|</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			End If
+			If Trinkets.MHSingedViskag.Total = tot Then
+				STmp = Trinkets.MHSingedViskag.report
+				STmp = replace(STmp,vbtab,"|</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			End If
+			If Trinkets.OHSingedViskag.Total = tot Then
+				STmp = Trinkets.OHSingedViskag.report
+				STmp = replace(STmp,vbtab,"|</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			End If
+			If Trinkets.MHtemperedViskag.Total = tot Then
+				STmp = Trinkets.MHtemperedViskag.report
+				STmp = replace(STmp,vbtab,"|</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			End If
+			If Trinkets.OHtemperedViskag.Total = tot Then
+				STmp = Trinkets.OHtemperedViskag.report
+				STmp = replace(STmp,vbtab,"|</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			End If
+
+			If Trinkets.MHRagingDeathbringer.Total = tot Then
+				STmp = Trinkets.MHRagingDeathbringer.report
+				STmp = replace(STmp,vbtab,"|</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			End If
+			If Trinkets.OHRagingDeathbringer.Total = tot Then
+				STmp = Trinkets.OHRagingDeathbringer.report
+				STmp = replace(STmp,vbtab,"|</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			End If
+			If Trinkets.MHEmpoweredDeathbringer.Total = tot Then
+				STmp = Trinkets.MHEmpoweredDeathbringer.report
+				STmp = replace(STmp,vbtab,"|</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			End If
+			If Trinkets.OHEmpoweredDeathbringer.Total = tot Then
+				STmp = Trinkets.OHEmpoweredDeathbringer.report
+				STmp = replace(STmp,vbtab,"|</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			End If
+			If Trinkets.HandMountedPyroRocket.Total = tot Then
+				STmp = Trinkets.HandMountedPyroRocket.report
+				STmp = replace(STmp,vbtab,"|</td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			End If
+		
+			
+			
+			
 		Next
 		
 		If Horn.HitCount <> 0 Then
@@ -1167,43 +1241,46 @@ Public Class Sim
 	Sub TryOnMHHitProc()
 		RuneForge.TryMHCinderglacier
 		RuneForge.TryMHFallenCrusader
-		Trinket.TryMjolRune
-		Trinket.TryGrimToll
-		Trinket.TryGreatness()
-		Trinket.TryDeathChoice()
-		trinket.TryDeathChoiceHeroic()
-		Trinket.TryDCDeath()
-		Trinket.TryVictory()
-		Trinket.TryBandit()
-		Trinket.TryDarkMatter()
-		Trinket.TryComet()
+		Trinkets.MjolRune.TryMe(TimeStamp)
+		Trinkets.GrimToll.TryMe(TimeStamp)
+		Trinkets.Greatness.TryMe(TimeStamp)
+		Trinkets.DeathChoice.TryMe(TimeStamp)
+		Trinkets.DeathChoiceHeroic.TryMe(TimeStamp)
+		Trinkets.DCDeath.TryMe(TimeStamp)
+		Trinkets.Victory.TryMe(TimeStamp)
+		Trinkets.Bandit.TryMe(TimeStamp)
+		Trinkets.DarkMatter.TryMe(TimeStamp)
+		Trinkets.Comet.TryMe(TimeStamp)
+		trinkets.HandMountedPyroRocket.TryMe(TimeStamp)
 	End Sub
 	Sub TryOnOHHitProc
 		RuneForge.TryOHCinderglacier
 		RuneForge.TryOHFallenCrusader
 		RuneForge.TryOHBerserking
-		Trinket.TryMjolRune
-		Trinket.TryGrimToll
-		Trinket.TryGreatness()
-		Trinket.TryDeathChoice()
-		trinket.TryDeathChoiceHeroic()
-		Trinket.TryDCDeath()
-		Trinket.TryVictory()
-		Trinket.TryBandit()
-		Trinket.TryDarkMatter()
-		Trinket.TryComet()
+		Trinkets.MjolRune.TryMe(TimeStamp)
+		Trinkets.GrimToll.TryMe(TimeStamp)
+		Trinkets.Greatness.TryMe(TimeStamp)
+		Trinkets.DeathChoice.TryMe(TimeStamp)
+		Trinkets.DeathChoiceHeroic.TryMe(TimeStamp)
+		Trinkets.DCDeath.TryMe(TimeStamp)
+		Trinkets.Victory.TryMe(TimeStamp)
+		Trinkets.Bandit.TryMe(TimeStamp)
+		Trinkets.DarkMatter.TryMe(TimeStamp)
+		Trinkets.Comet.TryMe(TimeStamp)
+		trinkets.OHEmpoweredDeathbringer.TryMe(TimeStamp)
+		trinkets.OHRagingDeathbringer.TryMe(TimeStamp)
 	End Sub
 	Sub tryOnCrit()
-		Trinket.TryBitterAnguish()
-		Trinket.TryMirror()
-		Trinket.TryPyrite()
-		Trinket.TryOldGod()
+		Trinkets.BitterAnguish.TryMe(TimeStamp)
+		Trinkets.Mirror.TryMe(TimeStamp)
+		Trinkets.Pyrite.TryMe(TimeStamp)
+		Trinkets.OldGod.TryMe(TimeStamp)
 	End Sub
 	Sub TryOnSpellHit
-		Trinket.TryGreatness()
-		Trinket.TryDeathChoice()
-		trinket.TryDeathChoiceHeroic()
-		Trinket.TryDCDeath()
+		Trinkets.Greatness.TryMe(TimeStamp)
+		Trinkets.DeathChoice.TryMe(TimeStamp)
+		Trinkets.DeathChoiceHeroic.TryMe(TimeStamp)
+		Trinkets.DCDeath.TryMe(TimeStamp)
 		
 	End Sub
 	

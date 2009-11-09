@@ -32,7 +32,7 @@ Public Class Boss
 			'Boss miss
 			sim.RuneStrike.trigger = true
 		End If
-		sim.proc.TryScentOfBlood(T)
+		sim.proc.ScentOfBlood.TryMe(T)
 	End Function
 	
 	Sub LoadTankOptions()

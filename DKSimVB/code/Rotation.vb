@@ -182,7 +182,7 @@ Friend Class Rotation
 				End If
 			Case "HowlingBlast"
 				If sim.HowlingBlast.isAvailable(TimeStamp) Then
-					If sim.proc.rime Or runes.FU(TimeStamp) Then
+					If sim.proc.rime.IsActive Or runes.FU(TimeStamp) Then
 						runes.UnReserveFU(TimeStamp)
 						Return sim.HowlingBlast.ApplyDamage(TimeStamp)
 						Exit function

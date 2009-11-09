@@ -13,7 +13,7 @@ Friend Class IcyTouch
 		
 		If DoMySpellHit = false Then
 			sim.combatlog.write(T  & vbtab &  "IT fail")
-			sim.proc.KillingMachine  = False
+			sim.proc.KillingMachine.Use
 			MissCount = MissCount + 1
 			Exit function
 		End If
@@ -46,7 +46,7 @@ Friend Class IcyTouch
 		End If
 		
 		sim.runes.UseFrost(T,false)
-		sim.proc.KillingMachine  = False
+		sim.proc.KillingMachine.Use
 		sim.FrostFever.Apply(T)
 		sim.TryOnSpellHit
 		return true
@@ -77,7 +77,7 @@ Friend Class IcyTouch
 	End Function
 	overrides Function CritChance() As Double
 		CritChance = sim.MainStat.SpellCrit + TalentFrost.Rime * 5 / 100
-		If sim.proc.KillingMachine  = True Then return 1
+		If sim.proc.KillingMachine.IsActive Then return 1
 		
 	End Function
 	overrides Function AvrgCrit(T As long) As Double

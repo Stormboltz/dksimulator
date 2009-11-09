@@ -77,7 +77,7 @@ Friend Class Obliterate
 
 				total = total + dégat
 				sim.TryOnMHHitProc
-				sim.proc.tryRime
+				sim.proc.Rime.TryMe(T)
 			End If
 			
 			If OHHit Then
@@ -99,7 +99,7 @@ Friend Class Obliterate
 			If sim.DRW.IsActive(T) Then
 				sim.drw.Obliterate
 			End If
-			sim.proc.VirulenceFade = T + 2000
+			sim.proc.Virulence.TryMe(t)
 			
 			Sim.runicpower.add(15 + 2.5*talentfrost.ChillOfTheGrave  + 5*sim.MainStat.T74PDPS )
 		End If
