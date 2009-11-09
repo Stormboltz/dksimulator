@@ -90,7 +90,9 @@ Friend Class Character
 		End If
 		
 		if sim.proc.Virulence.IsActive then tmp += sim.proc.Virulence.ProcValue
-		if sim.proc.T92PDPS.IsActive > sim.TimeStamp then tmp += sim.proc.T92PDPS.ProcValue
+		If sim.proc.T92PDPS.IsActive  Then 
+			tmp += sim.proc.T92PDPS.ProcValue
+		End If
 		tmp = tmp +155 * 1.15 *  sim.Buff.StrAgi
 		tmp = tmp + 37 * 1.4 *  sim.Buff.StatAdd
 		

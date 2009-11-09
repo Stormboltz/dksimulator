@@ -71,10 +71,10 @@ Friend Class Procs
 		T92PDPS = New Proc(s)
 		With T92PDPS
 			.equiped = s.MainStat.T92PDPS
-			.ProcChance = 0.5
+			.ProcChance = .50
 			.ProcValue = 180
 			.ProcLenght = 15
-			.CD  = 45
+			.InternalCD = 45
 		End With
 
 		HauntedDreams = New Proc(s)
@@ -83,7 +83,7 @@ Friend Class Procs
 			.ProcChance = 0.15
 			.ProcValue = 173
 			.ProcLenght = 10
-			.CD  = 45
+			.InternalCD  = 45
 		End With
 		
 		

@@ -790,7 +790,7 @@ Public Class Sim
 	End Sub
 	
 	Sub Report()
-		'on error resume next
+		on error resume next
 		Dim Tw As System.IO.TextWriter
 		'if EPStat <> "" then exit sub
 		
