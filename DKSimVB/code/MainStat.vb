@@ -76,7 +76,12 @@ Friend Class MainStat
 		OHWeaponSpeed = (XmlDoc.SelectSingleNode("//character/weapon/offhand/speed").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
 		BossArmor = 10643
 		
-		CSD = XmlDoc.SelectSingleNode("//character/ChaoticSkyflareDiamond").InnerText
+		If XmlDoc.SelectSingleNode("//character/misc/ChaoticSkyflareDiamond").InnerText = True Then
+			CSD = 1
+		Else
+			CSD = 0
+		End If
+		
 		
 		
 		'Trinkets
@@ -97,22 +102,27 @@ Friend Class MainStat
 		Sim.Trinkets.Comet.Equiped = 0
 		Sim.Trinkets.DeathChoice.Equiped = 0
 		Try
-			sim.trinkets.MHSingedViskag.Equiped = XmlDoc.SelectSingleNode("//character/proc/MHSingedViskag").InnerText
-			sim.trinkets.MHtemperedViskag.Equiped = XmlDoc.SelectSingleNode("//character/proc/MHtemperedViskag").InnerText
-			sim.trinkets.OHtemperedViskag.Equiped = XmlDoc.SelectSingleNode("//character/proc/OHtemperedViskag").InnerText
-			sim.trinkets.OHSingedViskag.Equiped = XmlDoc.SelectSingleNode("//character/proc/OHSingedViskag").InnerText
+			sim.trinkets.MHSingedViskag.Equiped = XmlDoc.SelectSingleNode("//character/WeaponProc/MHSingedViskag").InnerText
+			sim.trinkets.MHtemperedViskag.Equiped = XmlDoc.SelectSingleNode("//character/WeaponProc/MHtemperedViskag").InnerText
+			sim.trinkets.OHtemperedViskag.Equiped = XmlDoc.SelectSingleNode("//character/WeaponProc/OHtemperedViskag").InnerText
+			sim.trinkets.OHSingedViskag.Equiped = XmlDoc.SelectSingleNode("//character/WeaponProc/OHSingedViskag").InnerText
 		Catch
 		End Try
 		Try
-			sim.trinkets.MHRagingDeathbringer.Equiped = XmlDoc.SelectSingleNode("//character/proc/MHRagingDeathbringer").InnerText
-			sim.trinkets.OHRagingDeathbringer.Equiped = XmlDoc.SelectSingleNode("//character/proc/OHRagingDeathbringer").InnerText
-			sim.trinkets.MHEmpoweredDeathbringer.Equiped = XmlDoc.SelectSingleNode("//character/proc/MHEmpoweredDeathbringer").InnerText
-			sim.trinkets.OHEmpoweredDeathbringer.Equiped = XmlDoc.SelectSingleNode("//character/proc/OHEmpoweredDeathbringer").InnerText
+			sim.trinkets.MHRagingDeathbringer.Equiped = XmlDoc.SelectSingleNode("//character/WeaponProc/MHRagingDeathbringer").InnerText
+			sim.trinkets.OHRagingDeathbringer.Equiped = XmlDoc.SelectSingleNode("//character/WeaponProc/OHRagingDeathbringer").InnerText
+			sim.trinkets.MHEmpoweredDeathbringer.Equiped = XmlDoc.SelectSingleNode("//character/WeaponProc/MHEmpoweredDeathbringer").InnerText
+			sim.trinkets.OHEmpoweredDeathbringer.Equiped = XmlDoc.SelectSingleNode("//character/WeaponProc/OHEmpoweredDeathbringer").InnerText
 		Catch
 		End Try
 		
 		Try
-			sim.trinkets.HandMountedPyroRocket.Equiped = XmlDoc.SelectSingleNode("//character/proc/HandMountedPyroRocket").InnerText
+			If XmlDoc.SelectSingleNode("//character/misc/HandMountedPyroRocket").InnerText= True Then
+				sim.trinkets.HandMountedPyroRocket.Equiped = 1
+			End If
+			If XmlDoc.SelectSingleNode("//character/misc/TailorEnchant").InnerText= True Then
+				sim.trinkets.TailorEnchant.Equiped = 1
+			End If
 		Catch
 		End Try
 		
@@ -235,7 +245,8 @@ Friend Class MainStat
 	
 	Function BaseAP() As Integer
 		dim tmp as integer
-		if sim.proc.Strife.isactive then tmp = sim.proc.Strife.ProcValue
+		If sim.proc.Strife.isactive Then tmp = sim.proc.Strife.ProcValue
+		If Sim.Trinkets.TailorEnchant.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.TailorEnchant.ProcValue
 		If Sim.Trinkets.Mirror.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.Mirror.ProcValue
 		If Sim.Trinkets.Oldgod.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.Oldgod.ProcValue
 		If Sim.Trinkets.pyrite.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.pyrite.ProcValue
@@ -523,7 +534,7 @@ Friend Class MainStat
 	
 
 	Function getMitigation() As Double
-		If _LastArP = ArmorPen and _Mitigation <>0 Then Return _Mitigation
+		'If _LastArP = ArmorPen and _Mitigation <>0 Then Return _Mitigation
 
 		Dim AttackerLevel As Integer = 80
 		Dim tmpArmor As Integer

@@ -54,6 +54,9 @@
     <Import Include="System.Diagnostics" />
     <Import Include="System.Drawing" />
     <Import Include="System.Windows.Forms" />
+    <Compile Include="MainFormCharacter.vb">
+      <DependentUpon>MainForm.vb</DependentUpon>
+    </Compile>
     <Compile Include="MainFormPrioEditor.vb">
       <DependentUpon>MainForm.vb</DependentUpon>
     </Compile>
@@ -105,6 +108,7 @@
     <Folder Include="Diseases" />
     <Folder Include="images" />
     <Folder Include="Intro" />
+    <Folder Include="Config" />
     <Folder Include="Procs" />
     <Folder Include="Trinkets" />
     <Folder Include="Special" />
@@ -172,6 +176,21 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Characters\DW ToC .xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\PrioritiesList.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\RotationList.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\SetBonusList.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\TrinketList.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\WeaponProcList.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="images\AbominationMight.jpg">
@@ -705,13 +724,7 @@
     <None Include="Intro\NoIntro.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="PrioritiesList.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Release notes.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="RotationList.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Rotation\unholy.xml">

@@ -38,7 +38,6 @@ Partial Class MainForm
 		Me.btStart = New System.Windows.Forms.Button
 		Me.PBsim = New System.Windows.Forms.ProgressBar
 		Me.btEP = New System.Windows.Forms.Button
-		Me.lblVersion = New System.Windows.Forms.Label
 		Me.lblDPS = New System.Windows.Forms.Label
 		Me.tbTools = New System.Windows.Forms.TabPage
 		Me.cmdImportArmory = New System.Windows.Forms.Button
@@ -107,6 +106,55 @@ Partial Class MainForm
 		Me.cmbCharacter = New System.Windows.Forms.ComboBox
 		Me.cmbTemplate = New System.Windows.Forms.ComboBox
 		Me.tabControl1 = New System.Windows.Forms.TabControl
+		Me.tbcharEditor = New System.Windows.Forms.TabPage
+		Me.groupBox4 = New System.Windows.Forms.GroupBox
+		Me.cmdSaveNewCharatec = New System.Windows.Forms.Button
+		Me.cmdSaveCharacter = New System.Windows.Forms.Button
+		Me.gbMisc = New System.Windows.Forms.GroupBox
+		Me.chkTailorEnchant = New System.Windows.Forms.CheckBox
+		Me.chkMeta = New System.Windows.Forms.CheckBox
+		Me.chkIngenieer = New System.Windows.Forms.CheckBox
+		Me.gbSetBonus = New System.Windows.Forms.GroupBox
+		Me.cmbSetBonus2 = New System.Windows.Forms.ComboBox
+		Me.cmbSetBonus1 = New System.Windows.Forms.ComboBox
+		Me.gbWeaponProc = New System.Windows.Forms.GroupBox
+		Me.cmbWeaponProc2 = New System.Windows.Forms.ComboBox
+		Me.cmbWeaponProc1 = New System.Windows.Forms.ComboBox
+		Me.gbTrinkets = New System.Windows.Forms.GroupBox
+		Me.cmbTrinket2 = New System.Windows.Forms.ComboBox
+		Me.cmbTrinket1 = New System.Windows.Forms.ComboBox
+		Me.gbStats = New System.Windows.Forms.GroupBox
+		Me.txtArP = New System.Windows.Forms.TextBox
+		Me.label35 = New System.Windows.Forms.Label
+		Me.txtHit = New System.Windows.Forms.TextBox
+		Me.label32 = New System.Windows.Forms.Label
+		Me.txtHaste = New System.Windows.Forms.TextBox
+		Me.txtIntel = New System.Windows.Forms.TextBox
+		Me.txtAP = New System.Windows.Forms.TextBox
+		Me.label34 = New System.Windows.Forms.Label
+		Me.label29 = New System.Windows.Forms.Label
+		Me.label31 = New System.Windows.Forms.Label
+		Me.txtCrit = New System.Windows.Forms.TextBox
+		Me.txtAgi = New System.Windows.Forms.TextBox
+		Me.txtExp = New System.Windows.Forms.TextBox
+		Me.txtArmor = New System.Windows.Forms.TextBox
+		Me.label33 = New System.Windows.Forms.Label
+		Me.label36 = New System.Windows.Forms.Label
+		Me.label28 = New System.Windows.Forms.Label
+		Me.label30 = New System.Windows.Forms.Label
+		Me.txtStr = New System.Windows.Forms.TextBox
+		Me.label27 = New System.Windows.Forms.Label
+		Me.gbWeapons = New System.Windows.Forms.GroupBox
+		Me.rDW = New System.Windows.Forms.RadioButton
+		Me.r2Hand = New System.Windows.Forms.RadioButton
+		Me.txtOHWSpeed = New System.Windows.Forms.TextBox
+		Me.txtMHWSpeed = New System.Windows.Forms.TextBox
+		Me.label40 = New System.Windows.Forms.Label
+		Me.label38 = New System.Windows.Forms.Label
+		Me.txtOHDPS = New System.Windows.Forms.TextBox
+		Me.txtMHDPS = New System.Windows.Forms.TextBox
+		Me.label39 = New System.Windows.Forms.Label
+		Me.label37 = New System.Windows.Forms.Label
 		Me.tbTpl = New System.Windows.Forms.TabPage
 		Me.lblUnholy = New System.Windows.Forms.Label
 		Me.lblFrost = New System.Windows.Forms.Label
@@ -213,6 +261,14 @@ Partial Class MainForm
 		Me.HtmlReport.SuspendLayout
 		Me.tabPage3.SuspendLayout
 		Me.tabControl1.SuspendLayout
+		Me.tbcharEditor.SuspendLayout
+		Me.groupBox4.SuspendLayout
+		Me.gbMisc.SuspendLayout
+		Me.gbSetBonus.SuspendLayout
+		Me.gbWeaponProc.SuspendLayout
+		Me.gbTrinkets.SuspendLayout
+		Me.gbStats.SuspendLayout
+		Me.gbWeapons.SuspendLayout
 		Me.tbTpl.SuspendLayout
 		Me.tbBuff.SuspendLayout
 		Me.grpBuff.SuspendLayout
@@ -256,16 +312,6 @@ Partial Class MainForm
 		Me.btEP.Text = "Start EP"
 		Me.btEP.UseVisualStyleBackColor = true
 		AddHandler Me.btEP.Click, AddressOf Me.BtEPClick
-		'
-		'lblVersion
-		'
-		Me.lblVersion.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.lblVersion.Location = New System.Drawing.Point(646, 0)
-		Me.lblVersion.Name = "lblVersion"
-		Me.lblVersion.Size = New System.Drawing.Size(123, 19)
-		Me.lblVersion.TabIndex = 8
-		Me.lblVersion.Text = "Version "
-		Me.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		'
 		'lblDPS
 		'
@@ -363,7 +409,7 @@ Partial Class MainForm
 		Me.tabPage1.Name = "tabPage1"
 		Me.tabPage1.Size = New System.Drawing.Size(776, 566)
 		Me.tabPage1.TabIndex = 4
-		Me.tabPage1.Text = "Char Editor"
+		Me.tabPage1.Text = "Text Editor"
 		Me.tabPage1.UseVisualStyleBackColor = true
 		'
 		'cmdSaveNew
@@ -994,19 +1040,486 @@ Partial Class MainForm
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.tabControl1.Controls.Add(Me.tabPage3)
 		Me.tabControl1.Controls.Add(Me.HtmlReport)
+		Me.tabControl1.Controls.Add(Me.tbcharEditor)
 		Me.tabControl1.Controls.Add(Me.tbTpl)
-		Me.tabControl1.Controls.Add(Me.tabPage1)
 		Me.tabControl1.Controls.Add(Me.tbTools)
 		Me.tabControl1.Controls.Add(Me.tbBuff)
 		Me.tabControl1.Controls.Add(Me.tbTank)
 		Me.tabControl1.Controls.Add(Me.tbEPOptions)
 		Me.tabControl1.Controls.Add(Me.tbPrioEditor)
 		Me.tabControl1.Controls.Add(Me.tbCaling)
+		Me.tabControl1.Controls.Add(Me.tabPage1)
 		Me.tabControl1.Location = New System.Drawing.Point(0, 0)
 		Me.tabControl1.Name = "tabControl1"
 		Me.tabControl1.SelectedIndex = 0
 		Me.tabControl1.Size = New System.Drawing.Size(784, 592)
 		Me.tabControl1.TabIndex = 3
+		'
+		'tbcharEditor
+		'
+		Me.tbcharEditor.Controls.Add(Me.groupBox4)
+		Me.tbcharEditor.Location = New System.Drawing.Point(4, 22)
+		Me.tbcharEditor.Name = "tbcharEditor"
+		Me.tbcharEditor.Size = New System.Drawing.Size(776, 566)
+		Me.tbcharEditor.TabIndex = 13
+		Me.tbcharEditor.Text = "Character Editor"
+		Me.tbcharEditor.UseVisualStyleBackColor = true
+		'
+		'groupBox4
+		'
+		Me.groupBox4.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom)  _
+						Or System.Windows.Forms.AnchorStyles.Left)  _
+						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.groupBox4.Controls.Add(Me.cmdSaveNewCharatec)
+		Me.groupBox4.Controls.Add(Me.cmdSaveCharacter)
+		Me.groupBox4.Controls.Add(Me.gbMisc)
+		Me.groupBox4.Controls.Add(Me.gbSetBonus)
+		Me.groupBox4.Controls.Add(Me.gbWeaponProc)
+		Me.groupBox4.Controls.Add(Me.gbTrinkets)
+		Me.groupBox4.Controls.Add(Me.gbStats)
+		Me.groupBox4.Controls.Add(Me.gbWeapons)
+		Me.groupBox4.Location = New System.Drawing.Point(9, 4)
+		Me.groupBox4.Name = "groupBox4"
+		Me.groupBox4.Size = New System.Drawing.Size(755, 559)
+		Me.groupBox4.TabIndex = 0
+		Me.groupBox4.TabStop = false
+		Me.groupBox4.Text = "groupBox4"
+		'
+		'cmdSaveNewCharatec
+		'
+		Me.cmdSaveNewCharatec.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.cmdSaveNewCharatec.Location = New System.Drawing.Point(590, 19)
+		Me.cmdSaveNewCharatec.Name = "cmdSaveNewCharatec"
+		Me.cmdSaveNewCharatec.Size = New System.Drawing.Size(75, 23)
+		Me.cmdSaveNewCharatec.TabIndex = 12
+		Me.cmdSaveNewCharatec.Text = "Save as new"
+		Me.cmdSaveNewCharatec.UseVisualStyleBackColor = true
+		AddHandler Me.cmdSaveNewCharatec.Click, AddressOf Me.CmdSaveNewCharatecClick
+		'
+		'cmdSaveCharacter
+		'
+		Me.cmdSaveCharacter.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.cmdSaveCharacter.Location = New System.Drawing.Point(671, 19)
+		Me.cmdSaveCharacter.Name = "cmdSaveCharacter"
+		Me.cmdSaveCharacter.Size = New System.Drawing.Size(75, 23)
+		Me.cmdSaveCharacter.TabIndex = 11
+		Me.cmdSaveCharacter.Text = "Save"
+		Me.cmdSaveCharacter.UseVisualStyleBackColor = true
+		AddHandler Me.cmdSaveCharacter.Click, AddressOf Me.CmdSaveCharacterClick
+		'
+		'gbMisc
+		'
+		Me.gbMisc.Controls.Add(Me.chkTailorEnchant)
+		Me.gbMisc.Controls.Add(Me.chkMeta)
+		Me.gbMisc.Controls.Add(Me.chkIngenieer)
+		Me.gbMisc.Location = New System.Drawing.Point(11, 495)
+		Me.gbMisc.Name = "gbMisc"
+		Me.gbMisc.Size = New System.Drawing.Size(417, 58)
+		Me.gbMisc.TabIndex = 10
+		Me.gbMisc.TabStop = false
+		Me.gbMisc.Text = "Misc."
+		'
+		'chkTailorEnchant
+		'
+		Me.chkTailorEnchant.Location = New System.Drawing.Point(120, 19)
+		Me.chkTailorEnchant.Name = "chkTailorEnchant"
+		Me.chkTailorEnchant.Size = New System.Drawing.Size(104, 24)
+		Me.chkTailorEnchant.TabIndex = 25
+		Me.chkTailorEnchant.Text = "Tailor Enchant"
+		Me.chkTailorEnchant.UseVisualStyleBackColor = true
+		'
+		'chkMeta
+		'
+		Me.chkMeta.Location = New System.Drawing.Point(10, 19)
+		Me.chkMeta.Name = "chkMeta"
+		Me.chkMeta.Size = New System.Drawing.Size(104, 24)
+		Me.chkMeta.TabIndex = 24
+		Me.chkMeta.Text = "3% Crit Damage"
+		Me.chkMeta.UseVisualStyleBackColor = true
+		'
+		'chkIngenieer
+		'
+		Me.chkIngenieer.Location = New System.Drawing.Point(230, 19)
+		Me.chkIngenieer.Name = "chkIngenieer"
+		Me.chkIngenieer.Size = New System.Drawing.Size(173, 24)
+		Me.chkIngenieer.TabIndex = 26
+		Me.chkIngenieer.Text = "Hand-Mounted Pyro Rocket"
+		Me.chkIngenieer.UseVisualStyleBackColor = true
+		'
+		'gbSetBonus
+		'
+		Me.gbSetBonus.Controls.Add(Me.cmbSetBonus2)
+		Me.gbSetBonus.Controls.Add(Me.cmbSetBonus1)
+		Me.gbSetBonus.Location = New System.Drawing.Point(11, 429)
+		Me.gbSetBonus.Name = "gbSetBonus"
+		Me.gbSetBonus.Size = New System.Drawing.Size(419, 59)
+		Me.gbSetBonus.TabIndex = 9
+		Me.gbSetBonus.TabStop = false
+		Me.gbSetBonus.Text = "Set Bonus"
+		'
+		'cmbSetBonus2
+		'
+		Me.cmbSetBonus2.FormattingEnabled = true
+		Me.cmbSetBonus2.Location = New System.Drawing.Point(212, 20)
+		Me.cmbSetBonus2.Name = "cmbSetBonus2"
+		Me.cmbSetBonus2.Size = New System.Drawing.Size(197, 21)
+		Me.cmbSetBonus2.TabIndex = 22
+		'
+		'cmbSetBonus1
+		'
+		Me.cmbSetBonus1.FormattingEnabled = true
+		Me.cmbSetBonus1.Location = New System.Drawing.Point(13, 20)
+		Me.cmbSetBonus1.Name = "cmbSetBonus1"
+		Me.cmbSetBonus1.Size = New System.Drawing.Size(189, 21)
+		Me.cmbSetBonus1.TabIndex = 21
+		'
+		'gbWeaponProc
+		'
+		Me.gbWeaponProc.Controls.Add(Me.cmbWeaponProc2)
+		Me.gbWeaponProc.Controls.Add(Me.cmbWeaponProc1)
+		Me.gbWeaponProc.Location = New System.Drawing.Point(8, 364)
+		Me.gbWeaponProc.Name = "gbWeaponProc"
+		Me.gbWeaponProc.Size = New System.Drawing.Size(419, 59)
+		Me.gbWeaponProc.TabIndex = 9
+		Me.gbWeaponProc.TabStop = false
+		Me.gbWeaponProc.Text = "Weapon Proc"
+		'
+		'cmbWeaponProc2
+		'
+		Me.cmbWeaponProc2.FormattingEnabled = true
+		Me.cmbWeaponProc2.Location = New System.Drawing.Point(212, 20)
+		Me.cmbWeaponProc2.Name = "cmbWeaponProc2"
+		Me.cmbWeaponProc2.Size = New System.Drawing.Size(197, 21)
+		Me.cmbWeaponProc2.TabIndex = 20
+		'
+		'cmbWeaponProc1
+		'
+		Me.cmbWeaponProc1.FormattingEnabled = true
+		Me.cmbWeaponProc1.Location = New System.Drawing.Point(13, 20)
+		Me.cmbWeaponProc1.Name = "cmbWeaponProc1"
+		Me.cmbWeaponProc1.Size = New System.Drawing.Size(189, 21)
+		Me.cmbWeaponProc1.TabIndex = 19
+		'
+		'gbTrinkets
+		'
+		Me.gbTrinkets.Controls.Add(Me.cmbTrinket2)
+		Me.gbTrinkets.Controls.Add(Me.cmbTrinket1)
+		Me.gbTrinkets.Location = New System.Drawing.Point(8, 299)
+		Me.gbTrinkets.Name = "gbTrinkets"
+		Me.gbTrinkets.Size = New System.Drawing.Size(419, 59)
+		Me.gbTrinkets.TabIndex = 8
+		Me.gbTrinkets.TabStop = false
+		Me.gbTrinkets.Text = "Trinkets"
+		'
+		'cmbTrinket2
+		'
+		Me.cmbTrinket2.FormattingEnabled = true
+		Me.cmbTrinket2.Location = New System.Drawing.Point(212, 20)
+		Me.cmbTrinket2.Name = "cmbTrinket2"
+		Me.cmbTrinket2.Size = New System.Drawing.Size(197, 21)
+		Me.cmbTrinket2.TabIndex = 18
+		'
+		'cmbTrinket1
+		'
+		Me.cmbTrinket1.FormattingEnabled = true
+		Me.cmbTrinket1.Location = New System.Drawing.Point(13, 20)
+		Me.cmbTrinket1.Name = "cmbTrinket1"
+		Me.cmbTrinket1.Size = New System.Drawing.Size(189, 21)
+		Me.cmbTrinket1.TabIndex = 17
+		'
+		'gbStats
+		'
+		Me.gbStats.Controls.Add(Me.txtArP)
+		Me.gbStats.Controls.Add(Me.label35)
+		Me.gbStats.Controls.Add(Me.txtHit)
+		Me.gbStats.Controls.Add(Me.label32)
+		Me.gbStats.Controls.Add(Me.txtHaste)
+		Me.gbStats.Controls.Add(Me.txtIntel)
+		Me.gbStats.Controls.Add(Me.txtAP)
+		Me.gbStats.Controls.Add(Me.label34)
+		Me.gbStats.Controls.Add(Me.label29)
+		Me.gbStats.Controls.Add(Me.label31)
+		Me.gbStats.Controls.Add(Me.txtCrit)
+		Me.gbStats.Controls.Add(Me.txtAgi)
+		Me.gbStats.Controls.Add(Me.txtExp)
+		Me.gbStats.Controls.Add(Me.txtArmor)
+		Me.gbStats.Controls.Add(Me.label33)
+		Me.gbStats.Controls.Add(Me.label36)
+		Me.gbStats.Controls.Add(Me.label28)
+		Me.gbStats.Controls.Add(Me.label30)
+		Me.gbStats.Controls.Add(Me.txtStr)
+		Me.gbStats.Controls.Add(Me.label27)
+		Me.gbStats.Location = New System.Drawing.Point(9, 19)
+		Me.gbStats.Name = "gbStats"
+		Me.gbStats.Size = New System.Drawing.Size(419, 164)
+		Me.gbStats.TabIndex = 7
+		Me.gbStats.TabStop = false
+		Me.gbStats.Text = "Statisitics"
+		'
+		'txtArP
+		'
+		Me.txtArP.Location = New System.Drawing.Point(305, 101)
+		Me.txtArP.Name = "txtArP"
+		Me.txtArP.Size = New System.Drawing.Size(100, 20)
+		Me.txtArP.TabIndex = 9
+		'
+		'label35
+		'
+		Me.label35.Location = New System.Drawing.Point(203, 101)
+		Me.label35.Name = "label35"
+		Me.label35.Size = New System.Drawing.Size(96, 28)
+		Me.label35.TabIndex = 13
+		Me.label35.Text = "Armor Penetration rating"
+		Me.label35.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		'
+		'txtHit
+		'
+		Me.txtHit.Location = New System.Drawing.Point(305, 21)
+		Me.txtHit.Name = "txtHit"
+		Me.txtHit.Size = New System.Drawing.Size(100, 20)
+		Me.txtHit.TabIndex = 6
+		'
+		'label32
+		'
+		Me.label32.Location = New System.Drawing.Point(224, 21)
+		Me.label32.Name = "label32"
+		Me.label32.Size = New System.Drawing.Size(75, 18)
+		Me.label32.TabIndex = 12
+		Me.label32.Text = "Hit Rating"
+		Me.label32.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		'
+		'txtHaste
+		'
+		Me.txtHaste.Location = New System.Drawing.Point(305, 75)
+		Me.txtHaste.Name = "txtHaste"
+		Me.txtHaste.Size = New System.Drawing.Size(100, 20)
+		Me.txtHaste.TabIndex = 8
+		'
+		'txtIntel
+		'
+		Me.txtIntel.Location = New System.Drawing.Point(94, 71)
+		Me.txtIntel.Name = "txtIntel"
+		Me.txtIntel.Size = New System.Drawing.Size(100, 20)
+		Me.txtIntel.TabIndex = 3
+		'
+		'txtAP
+		'
+		Me.txtAP.Location = New System.Drawing.Point(94, 123)
+		Me.txtAP.Name = "txtAP"
+		Me.txtAP.Size = New System.Drawing.Size(100, 20)
+		Me.txtAP.TabIndex = 5
+		'
+		'label34
+		'
+		Me.label34.Location = New System.Drawing.Point(224, 75)
+		Me.label34.Name = "label34"
+		Me.label34.Size = New System.Drawing.Size(75, 18)
+		Me.label34.TabIndex = 7
+		Me.label34.Text = "Haste Rating"
+		Me.label34.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		'
+		'label29
+		'
+		Me.label29.Location = New System.Drawing.Point(13, 71)
+		Me.label29.Name = "label29"
+		Me.label29.Size = New System.Drawing.Size(75, 18)
+		Me.label29.TabIndex = 6
+		Me.label29.Text = "Intel"
+		Me.label29.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		'
+		'label31
+		'
+		Me.label31.Location = New System.Drawing.Point(-1, 123)
+		Me.label31.Name = "label31"
+		Me.label31.Size = New System.Drawing.Size(89, 31)
+		Me.label31.TabIndex = 14
+		Me.label31.Text = "Attack Power (the green part)"
+		Me.label31.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		'
+		'txtCrit
+		'
+		Me.txtCrit.Location = New System.Drawing.Point(305, 49)
+		Me.txtCrit.Name = "txtCrit"
+		Me.txtCrit.Size = New System.Drawing.Size(100, 20)
+		Me.txtCrit.TabIndex = 7
+		'
+		'txtAgi
+		'
+		Me.txtAgi.Location = New System.Drawing.Point(94, 45)
+		Me.txtAgi.Name = "txtAgi"
+		Me.txtAgi.Size = New System.Drawing.Size(100, 20)
+		Me.txtAgi.TabIndex = 2
+		'
+		'txtExp
+		'
+		Me.txtExp.Location = New System.Drawing.Point(305, 133)
+		Me.txtExp.Name = "txtExp"
+		Me.txtExp.Size = New System.Drawing.Size(100, 20)
+		Me.txtExp.TabIndex = 10
+		'
+		'txtArmor
+		'
+		Me.txtArmor.Location = New System.Drawing.Point(94, 97)
+		Me.txtArmor.Name = "txtArmor"
+		Me.txtArmor.Size = New System.Drawing.Size(100, 20)
+		Me.txtArmor.TabIndex = 4
+		'
+		'label33
+		'
+		Me.label33.Location = New System.Drawing.Point(224, 49)
+		Me.label33.Name = "label33"
+		Me.label33.Size = New System.Drawing.Size(75, 18)
+		Me.label33.TabIndex = 8
+		Me.label33.Text = "Crit Rating"
+		Me.label33.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		'
+		'label36
+		'
+		Me.label36.Location = New System.Drawing.Point(212, 133)
+		Me.label36.Name = "label36"
+		Me.label36.Size = New System.Drawing.Size(87, 18)
+		Me.label36.TabIndex = 11
+		Me.label36.Text = "Expertise Rating"
+		Me.label36.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		'
+		'label28
+		'
+		Me.label28.Location = New System.Drawing.Point(13, 45)
+		Me.label28.Name = "label28"
+		Me.label28.Size = New System.Drawing.Size(75, 18)
+		Me.label28.TabIndex = 10
+		Me.label28.Text = "Agility"
+		Me.label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		'
+		'label30
+		'
+		Me.label30.Location = New System.Drawing.Point(13, 97)
+		Me.label30.Name = "label30"
+		Me.label30.Size = New System.Drawing.Size(75, 18)
+		Me.label30.TabIndex = 9
+		Me.label30.Text = "Armor"
+		Me.label30.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		'
+		'txtStr
+		'
+		Me.txtStr.Location = New System.Drawing.Point(94, 19)
+		Me.txtStr.Name = "txtStr"
+		Me.txtStr.Size = New System.Drawing.Size(100, 20)
+		Me.txtStr.TabIndex = 1
+		'
+		'label27
+		'
+		Me.label27.Location = New System.Drawing.Point(13, 19)
+		Me.label27.Name = "label27"
+		Me.label27.Size = New System.Drawing.Size(75, 18)
+		Me.label27.TabIndex = 5
+		Me.label27.Text = "Strength"
+		Me.label27.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		'
+		'gbWeapons
+		'
+		Me.gbWeapons.Controls.Add(Me.rDW)
+		Me.gbWeapons.Controls.Add(Me.r2Hand)
+		Me.gbWeapons.Controls.Add(Me.txtOHWSpeed)
+		Me.gbWeapons.Controls.Add(Me.txtMHWSpeed)
+		Me.gbWeapons.Controls.Add(Me.label40)
+		Me.gbWeapons.Controls.Add(Me.label38)
+		Me.gbWeapons.Controls.Add(Me.txtOHDPS)
+		Me.gbWeapons.Controls.Add(Me.txtMHDPS)
+		Me.gbWeapons.Controls.Add(Me.label39)
+		Me.gbWeapons.Controls.Add(Me.label37)
+		Me.gbWeapons.Location = New System.Drawing.Point(9, 189)
+		Me.gbWeapons.Name = "gbWeapons"
+		Me.gbWeapons.Size = New System.Drawing.Size(419, 104)
+		Me.gbWeapons.TabIndex = 6
+		Me.gbWeapons.TabStop = false
+		Me.gbWeapons.Text = "Weapon(s)"
+		'
+		'rDW
+		'
+		Me.rDW.Location = New System.Drawing.Point(168, 12)
+		Me.rDW.Name = "rDW"
+		Me.rDW.Size = New System.Drawing.Size(104, 24)
+		Me.rDW.TabIndex = 12
+		Me.rDW.TabStop = true
+		Me.rDW.Text = "Dual wield"
+		Me.rDW.UseVisualStyleBackColor = true
+		AddHandler Me.rDW.CheckedChanged, AddressOf Me.RDWCheckedChanged
+		'
+		'r2Hand
+		'
+		Me.r2Hand.Location = New System.Drawing.Point(94, 12)
+		Me.r2Hand.Name = "r2Hand"
+		Me.r2Hand.Size = New System.Drawing.Size(104, 24)
+		Me.r2Hand.TabIndex = 11
+		Me.r2Hand.TabStop = true
+		Me.r2Hand.Text = "2 Hand"
+		Me.r2Hand.UseVisualStyleBackColor = true
+		AddHandler Me.r2Hand.CheckedChanged, AddressOf Me.R2HandCheckedChanged
+		'
+		'txtOHWSpeed
+		'
+		Me.txtOHWSpeed.Location = New System.Drawing.Point(305, 68)
+		Me.txtOHWSpeed.Name = "txtOHWSpeed"
+		Me.txtOHWSpeed.Size = New System.Drawing.Size(100, 20)
+		Me.txtOHWSpeed.TabIndex = 16
+		'
+		'txtMHWSpeed
+		'
+		Me.txtMHWSpeed.Location = New System.Drawing.Point(94, 68)
+		Me.txtMHWSpeed.Name = "txtMHWSpeed"
+		Me.txtMHWSpeed.Size = New System.Drawing.Size(100, 20)
+		Me.txtMHWSpeed.TabIndex = 14
+		'
+		'label40
+		'
+		Me.label40.Location = New System.Drawing.Point(200, 68)
+		Me.label40.Name = "label40"
+		Me.label40.Size = New System.Drawing.Size(99, 31)
+		Me.label40.TabIndex = 9
+		Me.label40.Text = "OH Weapon Speed"
+		Me.label40.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		'
+		'label38
+		'
+		Me.label38.Location = New System.Drawing.Point(-1, 68)
+		Me.label38.Name = "label38"
+		Me.label38.Size = New System.Drawing.Size(89, 31)
+		Me.label38.TabIndex = 7
+		Me.label38.Text = "MH Weapon Speed"
+		Me.label38.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		'
+		'txtOHDPS
+		'
+		Me.txtOHDPS.Location = New System.Drawing.Point(305, 42)
+		Me.txtOHDPS.Name = "txtOHDPS"
+		Me.txtOHDPS.Size = New System.Drawing.Size(100, 20)
+		Me.txtOHDPS.TabIndex = 15
+		'
+		'txtMHDPS
+		'
+		Me.txtMHDPS.Location = New System.Drawing.Point(94, 42)
+		Me.txtMHDPS.Name = "txtMHDPS"
+		Me.txtMHDPS.Size = New System.Drawing.Size(100, 20)
+		Me.txtMHDPS.TabIndex = 13
+		'
+		'label39
+		'
+		Me.label39.Location = New System.Drawing.Point(224, 42)
+		Me.label39.Name = "label39"
+		Me.label39.Size = New System.Drawing.Size(75, 18)
+		Me.label39.TabIndex = 8
+		Me.label39.Text = "Off Hand DPS"
+		Me.label39.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		'
+		'label37
+		'
+		Me.label37.Location = New System.Drawing.Point(3, 42)
+		Me.label37.Name = "label37"
+		Me.label37.Size = New System.Drawing.Size(85, 18)
+		Me.label37.TabIndex = 6
+		Me.label37.Text = "Main Hand DPS"
+		Me.label37.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		'
 		'tbTpl
 		'
@@ -2092,7 +2605,6 @@ Partial Class MainForm
 		Me.ClientSize = New System.Drawing.Size(784, 662)
 		Me.Controls.Add(Me.cmdRngSeeder)
 		Me.Controls.Add(Me.lblDPS)
-		Me.Controls.Add(Me.lblVersion)
 		Me.Controls.Add(Me.btEP)
 		Me.Controls.Add(Me.tabControl1)
 		Me.Controls.Add(Me.PBsim)
@@ -2109,6 +2621,16 @@ Partial Class MainForm
 		Me.tabPage3.ResumeLayout(false)
 		Me.tabPage3.PerformLayout
 		Me.tabControl1.ResumeLayout(false)
+		Me.tbcharEditor.ResumeLayout(false)
+		Me.groupBox4.ResumeLayout(false)
+		Me.gbMisc.ResumeLayout(false)
+		Me.gbSetBonus.ResumeLayout(false)
+		Me.gbWeaponProc.ResumeLayout(false)
+		Me.gbTrinkets.ResumeLayout(false)
+		Me.gbStats.ResumeLayout(false)
+		Me.gbStats.PerformLayout
+		Me.gbWeapons.ResumeLayout(false)
+		Me.gbWeapons.PerformLayout
 		Me.tbTpl.ResumeLayout(false)
 		Me.tbBuff.ResumeLayout(false)
 		Me.grpBuff.ResumeLayout(false)
@@ -2125,6 +2647,55 @@ Partial Class MainForm
 		Me.gbScaling.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Private cmdSaveNewCharatec As System.Windows.Forms.Button
+	Private cmdSaveCharacter As System.Windows.Forms.Button
+	Private chkMeta As System.Windows.Forms.CheckBox
+	Private chkTailorEnchant As System.Windows.Forms.CheckBox
+	Private label37 As System.Windows.Forms.Label
+	Private label39 As System.Windows.Forms.Label
+	Private txtMHDPS As System.Windows.Forms.TextBox
+	Private txtOHDPS As System.Windows.Forms.TextBox
+	Private label38 As System.Windows.Forms.Label
+	Private label40 As System.Windows.Forms.Label
+	Private txtMHWSpeed As System.Windows.Forms.TextBox
+	Private txtOHWSpeed As System.Windows.Forms.TextBox
+	Private r2Hand As System.Windows.Forms.RadioButton
+	Private rDW As System.Windows.Forms.RadioButton
+	Private gbWeapons As System.Windows.Forms.GroupBox
+	Private label27 As System.Windows.Forms.Label
+	Private txtStr As System.Windows.Forms.TextBox
+	Private label30 As System.Windows.Forms.Label
+	Private label28 As System.Windows.Forms.Label
+	Private label36 As System.Windows.Forms.Label
+	Private label33 As System.Windows.Forms.Label
+	Private txtArmor As System.Windows.Forms.TextBox
+	Private txtExp As System.Windows.Forms.TextBox
+	Private txtAgi As System.Windows.Forms.TextBox
+	Private txtCrit As System.Windows.Forms.TextBox
+	Private label31 As System.Windows.Forms.Label
+	Private label29 As System.Windows.Forms.Label
+	Private label34 As System.Windows.Forms.Label
+	Private txtAP As System.Windows.Forms.TextBox
+	Private txtIntel As System.Windows.Forms.TextBox
+	Private txtHaste As System.Windows.Forms.TextBox
+	Private label32 As System.Windows.Forms.Label
+	Private txtHit As System.Windows.Forms.TextBox
+	Private label35 As System.Windows.Forms.Label
+	Private txtArP As System.Windows.Forms.TextBox
+	Private gbStats As System.Windows.Forms.GroupBox
+	Private cmbTrinket1 As System.Windows.Forms.ComboBox
+	Private cmbTrinket2 As System.Windows.Forms.ComboBox
+	Private gbTrinkets As System.Windows.Forms.GroupBox
+	Private cmbWeaponProc1 As System.Windows.Forms.ComboBox
+	Private cmbWeaponProc2 As System.Windows.Forms.ComboBox
+	Private gbWeaponProc As System.Windows.Forms.GroupBox
+	Private cmbSetBonus1 As System.Windows.Forms.ComboBox
+	Private cmbSetBonus2 As System.Windows.Forms.ComboBox
+	Private gbSetBonus As System.Windows.Forms.GroupBox
+	Private chkIngenieer As System.Windows.Forms.CheckBox
+	Private gbMisc As System.Windows.Forms.GroupBox
+	Private groupBox4 As System.Windows.Forms.GroupBox
+	Private tbcharEditor As System.Windows.Forms.TabPage
 	Private cmdAddPrioItem As System.Windows.Forms.Button
 	Private cmdEditIntro As System.Windows.Forms.Button
 	Private label26 As System.Windows.Forms.Label
@@ -2286,7 +2857,6 @@ Partial Class MainForm
 	Private label6 As System.Windows.Forms.Label
 	Friend cmbSigils As System.Windows.Forms.ComboBox
 	Private label5 As System.Windows.Forms.Label
-	Private lblVersion As System.Windows.Forms.Label
 	Friend txtSimtime As System.Windows.Forms.TextBox
 	Private label4 As System.Windows.Forms.Label
 	Friend cmdPresence As System.Windows.Forms.ComboBox

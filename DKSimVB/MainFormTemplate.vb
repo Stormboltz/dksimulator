@@ -11,7 +11,7 @@ Public Partial Class MainForm
 	
 	
 	Sub CmdEditTemplateClick(sender As Object, e As EventArgs)
-		tabControl1.SelectedIndex = 2
+		tabControl1.SelectedIndex = 3
 		'CreateTreeTemplate()
 		on error goto errH
 		Dim tr As IO.Textreader

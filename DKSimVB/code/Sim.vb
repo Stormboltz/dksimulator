@@ -123,52 +123,9 @@ Public Class Sim
 		return _EPStat
 	End Function
 	
-	function StartEPTrinket(pb As ProgressBar,EPCalc As Boolean,SimTime As double,MainFrm As MainForm) as string
-		Dim BaseDPS As long
-		Dim APDPS As Long
-		Dim tmp1 As double
-		Dim tmp2 As Double
-		dim sReport as String
-		sReport = ""
-		'
-		_EPStat="NoTrinket"
-		Prepare(pb,SimTime,MainFrm)
-		BaseDPS = DPS
-		WriteReport ("Average for " & EPStat & " | " & DPS)
-		
-		'
-		_EPStat="AttackPowerNoTrinket"
-		Prepare(pb,SimTime,MainFrm)
-		APDPS = DPS
-		WriteReport ("Average for " & EPStat & " | " & DPS)
-		
-		Dim doc As xml.XmlDocument = New xml.XmlDocument
-		doc.Load("EPconfig.xml")
-		Dim trinketsList As Xml.XmlNode
-		dim tNode as Xml.XmlNode
-		trinketsList = doc.SelectsingleNode("//config/Trinket")
-		
-		For Each tNode In trinketsList.ChildNodes
-			If tNode.InnerText = "True" Then
-				_EPStat= tNode.Name.Replace("chkEP","")
-				Prepare(pb,SimTime,MainFrm)
-				tmp1 = (APDPS-BaseDPS ) / 100
-				tmp2 = (DPS-BaseDPS)/ 100
-				sReport = sReport +  ("<tr><td>EP:" & " | "& EPStat & " | " & toDDecimal(100*tmp2/tmp1)) & "</td></tr>"
-				WriteReport ("Average for " & EPStat & " | " & DPS)
-			Else
-				'WriteReport ("Average for " & EPStat & " | 0")
-			End If
-		Next
-		return sReport
-	End Function
 	
 	
-	'	Sub Start(pb As ProgressBar,SimTime As Double, MainFrm As MainForm, EPstat As String	)
-	'		me.EPStat = EPstat
-	'		Start(pb ,SimTime , MainFrm )
-	'	End Sub
-	'
+	
 	Private Pb As ProgressBar
 	Private SimTime As Double
 	Sub Prepare (pbar As ProgressBar,SimTime As Double, MainFrm As MainForm)
@@ -1252,6 +1209,7 @@ Public Class Sim
 		Trinkets.DarkMatter.TryMe(TimeStamp)
 		Trinkets.Comet.TryMe(TimeStamp)
 		trinkets.HandMountedPyroRocket.TryMe(TimeStamp)
+		trinkets.TailorEnchant.TryMe(TimeStamp)
 	End Sub
 	Sub TryOnOHHitProc
 		RuneForge.TryOHCinderglacier
@@ -1269,6 +1227,7 @@ Public Class Sim
 		Trinkets.Comet.TryMe(TimeStamp)
 		trinkets.OHEmpoweredDeathbringer.TryMe(TimeStamp)
 		trinkets.OHRagingDeathbringer.TryMe(TimeStamp)
+		trinkets.TailorEnchant.TryMe(TimeStamp)
 	End Sub
 	Sub tryOnCrit()
 		Trinkets.BitterAnguish.TryMe(TimeStamp)

@@ -45,7 +45,7 @@ Public Partial Class MainForm
 		Dim Doc As new Xml.XmlDocument
 		dim node as XmlNode
 		AvailablePrio.Clear
-		Doc.Load("PrioritiesList.xml")
+		Doc.Load(Application.StartupPath & "\config\PrioritiesList.xml")
 		For Each node In doc.SelectSingleNode("//Priorities").ChildNodes
 			AvailablePrio.Add(node.Name)
 		Next
@@ -56,7 +56,7 @@ Public Partial Class MainForm
 		Dim Doc As new Xml.XmlDocument
 		dim node as XmlNode
 		AvailablePrio.Clear
-		Doc.Load("RotationList.xml")
+		Doc.Load(Application.StartupPath & "\config\RotationList.xml")
 		For Each node In doc.SelectSingleNode("//Rotations").ChildNodes
 			AvailablePrio.Add(node.Name & " retry='0'")
 			AvailablePrio.Add(node.Name & " retry='1'")

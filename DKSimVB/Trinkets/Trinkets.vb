@@ -34,7 +34,8 @@ Public Class Trinkets
 	Friend MHRagingDeathbringer As Trinket
 	Friend OHRagingDeathbringer As Trinket
 	
-	Friend HandMountedPyroRocket as Trinket
+	Friend HandMountedPyroRocket As Trinket
+	Friend TailorEnchant as Trinket
 
 
 	
@@ -99,7 +100,7 @@ Public Class Trinkets
 		End With
 		
 		OldGod = New Trinket(s)
-		With Pyrite 
+		With OldGod 
 			.ProcChance = 0.10
 		 	.Equiped = 0
 		 	.ProcLenght = 10
@@ -279,16 +280,24 @@ Public Class Trinkets
 		
 		HandMountedPyroRocket = New Trinket(s)
 		With HandMountedPyroRocket
-			.ProcChance = 100
+			.ProcChance = 1
 		 	.Equiped = 0
 		 	.ProcLenght = 0
 		 	.ProcValue = 1837
-		 	.InternalCD = 4
+		 	.InternalCD = 45
 		 	.DamageType = "arcane"
 		 	.Name = "Hand Mounted Pyro Rocket"
 		End With
 		
-		
+		TailorEnchant = New Trinket(s)
+		With TailorEnchant
+			.ProcChance = 0.25
+		 	.Equiped = 0
+		 	.ProcLenght = 15
+		 	.ProcValue = 400
+		 	.InternalCD = 60
+		 	.Name = "Swordguard Embroidery"
+		End With
 		
 	End Sub
 	

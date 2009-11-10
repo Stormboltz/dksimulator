@@ -127,12 +127,7 @@ Public Module SimConstructor
 			EPStat="WeaponSpeed"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
-		
-		
-		
-		
-		
-		'This seems to have the same effect as AreMyStrheadFinninshed, without an ugly loop.
+
 		Dim T as Threading.Thread
 		For Each T In ThreadCollection
 			T.Join()
@@ -149,7 +144,7 @@ Public Module SimConstructor
 		
 		For Each T In ThreadCollection
 			T.Join()
-		Next	
+		Next
 		
 		
 		EPStat = "DryRun"
@@ -331,9 +326,7 @@ Public Module SimConstructor
 		For Each T In ThreadCollection
 			T.Join()
 		Next
-		'		Do Until AreMyStrheadFinninshed
-		'			Application.DoEvents
-		'		Loop
+
 		
 		EPStat = "0T7"
 		BaseDPS = dpss(EPStat)
@@ -420,11 +413,64 @@ Public Module SimConstructor
 		WriteReport ("")
 		
 		skipSets:
-		'
-		'		If  doc.SelectSingleNode("//config/Trinket").InnerText.Contains("True") Then
-		'			sReport = sReport & sim.StartEPTrinket(pb,True, simTime, Mainfrm)
-		'		End If
-		'
+		
+		
+		If  doc.SelectSingleNode("//config/Trinket").InnerText.Contains("True")=false Then
+			goto skipTrinket
+		End If
+		
+		EPStat="NoTrinket"
+		SimConstructor.Start(pb,SimTime,MainFrm)
+		
+		EPStat="AttackPowerNoTrinket"
+		SimConstructor.Start(pb,SimTime,MainFrm)
+		
+		if doc.SelectSingleNode("//config/Sets/chkEP2T7").InnerText = "True" then
+			EPStat="2T7"
+			SimConstructor.Start(pb,SimTime,MainFrm)
+		End If
+		
+'		Dim doc As xml.XmlDocument = New xml.XmlDocument
+		doc.Load("EPconfig.xml")
+		Dim trinketsList As Xml.XmlNode
+		dim tNode as Xml.XmlNode
+		trinketsList = doc.SelectsingleNode("//config/Trinket")
+		
+		For Each tNode In trinketsList.ChildNodes
+			If tNode.InnerText = "True" Then
+				EPStat= tNode.Name.Replace("chkEP","")
+				SimConstructor.Start(pb,SimTime,MainFrm)
+			End If
+		Next
+		
+		For Each T In ThreadCollection
+			T.Join()
+		Next
+		
+		EPStat = "NoTrinket"
+		BaseDPS = dpss(EPStat)
+		WriteReport ("Average for " & EPStat & " | " & BaseDPS)
+		
+		EPStat = "AttackPowerNoTrinket"
+		APDPS = dpss(EPStat)
+		WriteReport ("Average for " & EPStat & " | " & APDPS)
+		
+		
+		For Each tNode In trinketsList.ChildNodes
+			If tNode.InnerText = "True" Then
+				Try
+					EPStat= tNode.Name.Replace("chkEP","")
+					DPS = dpss(EPStat)
+					tmp1 = (APDPS-BaseDPS ) / 100
+					tmp2 = (DPS-BaseDPS)/ 100
+					sReport = sReport +  ("<tr><td>"& EPStat & " | " & toDDecimal (100*tmp2/tmp1)) & "</td></tr>"
+					WriteReport ("Average for " & EPStat & " | " & DPS)
+				Catch
+					
+				End Try
+			End If
+		Next
+		skipTrinket:
 		sReport = sReport &   "<tr><td COLSPAN=8> | Template | " & Split(_MainFrm.cmbTemplate.Text,".")(0) & "</td></tr>"
 		If Rotate Then
 			sReport = sReport &   "<tr><td COLSPAN=8> | Rotation | " & Split(_MainFrm.cmbRotation.Text,".")(0) & "</td></tr>"
@@ -447,6 +493,7 @@ Public Module SimConstructor
 		EPStat = ""
 		
 	End Sub
+	
 	
 	Sub StartScaling(pb As ProgressBar,SimTime As Double,MainFrm As MainForm)
 		'DPSs.Clear

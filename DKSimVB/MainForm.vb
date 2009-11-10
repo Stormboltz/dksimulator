@@ -61,7 +61,7 @@ Public Partial Class MainForm
 	End Sub
 	
 	Sub MainFormLoad(sender As Object, e As EventArgs)
-		lblversion.Text = "Version " & Application.ProductVersion
+		me.Text = "Kahorie's DK Simulator " & Application.ProductVersion
 		loadWindow
 		loadConfig
 		LoadEPOptions
@@ -73,6 +73,7 @@ Public Partial Class MainForm
 		Randomize 'Initialize the random # generator
 		'CombatLog.init
 		LoadAvailablePrio
+		InitCharacterPanel
 		_MainFrm = me
 	End Sub
 	
@@ -199,7 +200,8 @@ Public Partial Class MainForm
 		tr =  new IO.StreamReader(EditorFilePAth )
 		rtfEditor.Text =tr.ReadToEnd
 		tr.Close
-		tabControl1.SelectedIndex = 3
+		tabControl1.SelectedIndex = 2
+		LoadCharacter(EditorFilePAth)
 		errH:
 	End Sub
 	

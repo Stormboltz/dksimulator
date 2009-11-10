@@ -1,14 +1,16 @@
-﻿1.1.7.5 Release notes
+﻿1.1.8.0 Release notes
+* New: A character editor. Old Character config files should work on the character editor but not on the sim.
+* New: A Priority/Rotation/Intro editor. Select _None to remove an item (comment are welcome)
+* Intro has is own combo box and configuration files and folder. (not having the intro folder can cause crash)
 * Some GUI improvement 
 * Rune Strike: Threat generated increased 17%
-* Intro has is own combo box and configuration files and folder. (not having the intro folder can cause crash)
-* New: A Priority/Rotation/Intro editor. Select _None to remove an item (comment are welcome)
 * Rune setup into rotation no more used.
 * Empower Rune weapon available into intro and rotation.
 * Few more premade Character
-* Raging Deathbringer and  Empowered Deathbringer implemented.
-* Proc/Trinket code optimisation
-
+* Raging Deathbringer and Empowered Deathbringer implemented.
+* Hand-Mounted Pyro Rocket implemented and Swordguard Embroidery.
+* Proc/Trinket code optimisation.
+* Fix a calculation problem when character have 0 Penetration armor.
 
 1.1.7.4 Release notes
 * Some optimisation on summoning DRW and Gargoyle
