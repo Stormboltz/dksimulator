@@ -698,20 +698,21 @@ Public Class Sim
 				Mainstat.FrostPresence = 1
 		End Select
 		
-		RuneForge.MHCinderglacier = False
+		RuneForge.MHCinderglacierRF = False
 		RuneForge.MHFallenCrusader = false
 		RuneForge.MHRazoriceRF = false
 		Select Case doc.SelectSingleNode("//config/mh").InnerText
 			Case "Cinderglacier"
-				RuneForge.MHCinderglacier = true
+				RuneForge.MHCinderglacierRF = true
 			Case "FallenCrusader"
-				RuneForge.MHFallenCrusader = true
+				RuneForge.MHFallenCrusader = True
+				
 			Case "Razorice"
 				RuneForge.MHRazoriceRF = True
 				Trinkets.MHRazorIce.Equiped = 1
 		End Select
 		
-		RuneForge.OHCinderglacier = False
+		RuneForge.OHCinderglacierRF = False
 		RuneForge.OHFallenCrusader = false
 		RuneForge.OHRazoriceRF = False
 		Runeforge.OHBerserking = False
@@ -719,7 +720,7 @@ Public Class Sim
 		if MainStat.DualW then
 			Select Case doc.SelectSingleNode("//config/oh").InnerText
 				Case "Cinderglacier"
-					RuneForge.OHCinderglacier = true
+					RuneForge.OHCinderglacierRF = true
 				Case "FallenCrusader"
 					RuneForge.OHFallenCrusader = true
 				Case "Razorice"
@@ -777,7 +778,7 @@ Public Class Sim
 	End Sub
 	
 	Sub Report()
-		'on error resume next
+		on error resume next
 		Dim Tw As System.IO.TextWriter
 		'if EPStat <> "" then exit sub
 		Tw  =system.IO.File.appendText(ReportPath)
@@ -863,7 +864,8 @@ Public Class Sim
 		STmp = sTmp &  "<tr><td COLSPAN=8>DPS" & VBtab & "<b>" &  DPS & "</b></td></tr>"
 		STmp = sTmp &   "<tr><td COLSPAN=8>Total Damage" & VBtab & Math.Round(TotalDamage/1000000,2) & "m" & VBtab &  " in " & MaxTime / 100 / 60/60 & "h</td></tr>"
 		
-		dim ThreatBeforePresence as Long = Threat
+		Dim ThreatBeforePresence As Long = Threat
+		'TODO: Add the collection
 		Threat = ScourgeStrike.total + (ScourgeStrike.CritCount+ScourgeStrike.HitCount)*120 + _
 			obliterate.total + PlagueStrike.total + _
 			BloodStrike.total + HeartStrike.total + frostfever.total + _
@@ -871,7 +873,7 @@ Public Class Sim
 			UnholyBlight.total + Necrosis.total + BloodCakedBlade.total + _
 			WanderingPlague.total +FrostStrike.total  + HowlingBlast.total + _
 			BloodBoil.total  + DeathStrike.total + MainHand.total + _
-			OffHand.total  + RuneForge.RazoriceTotal + DeathandDecay.total*1.9 +  RuneStrike.total*1.5
+			OffHand.total  +  DeathandDecay.total*1.9 +  RuneStrike.total*1.5
 		If MainStat.FrostPresence = 1 Then
 			Threat = Threat * 2.0735
 		Else

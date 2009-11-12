@@ -10,20 +10,22 @@ Friend Class RuneForge
 	
 	Friend OHRazorIce As RazorIce
 	Friend MHRazorIce As RazorIce
+	Friend MHCinderglacier as Proc
+	Friend OHCinderglacier as Proc
+	
 	Friend RazorIceStack as Integer
 	
 	
-	Friend MHCinderglacier as Boolean
+	Friend MHCinderglacierRF as Boolean
 	Friend MHRazoriceRF as Boolean
 	Friend MHFallenCrusader as Boolean
-	Friend OHCinderglacier as Boolean
+	Friend OHCinderglacierRF as Boolean
 	Friend OHRazoriceRF as Boolean
 	Friend OHFallenCrusader As Boolean
 	
 	Friend CinderglacierProc as Integer
-	Friend RazoriceProc  as Integer
 	Friend FallenCrusaderActiveUntil As Long
-	Public RazoriceTotal As Long
+
 	
 	Friend HitCount as Integer
 	Friend MissCount as Integer
@@ -41,8 +43,6 @@ Friend Class RuneForge
 		CritCount = 0
 		FallenCrusaderActiveUntil = 0
 		CinderglacierProc = 0
-		RazoriceProc = 0
-		RazoriceTotal = 0
 		OHBerserkingActiveUntil = 0
 		RazorIceStack = 0
 	End Sub
