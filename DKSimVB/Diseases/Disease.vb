@@ -11,7 +11,7 @@ Public Class Disease
 	
 	Friend nextTick As long
 	Friend FadeAt As long
-	Friend total As Long
+	Public total As Long
 	Friend TotalHit As Long
 	Friend TotalCrit as Long
 	Friend AP as Integer
@@ -38,6 +38,13 @@ Public Class Disease
 	Sub New
 		init()
 	End Sub
+	
+	Sub New(S As sim)
+		me.New
+		Sim = S
+		sim.DamagingObject.Add(me)
+	End Sub
+	
 	Overridable Protected Sub init()
 		nextTick = 0
 		FadeAt= 0

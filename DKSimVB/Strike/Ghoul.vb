@@ -2,7 +2,7 @@ Friend class Ghoul
 	
 	Friend NextWhiteMainHit As Long
 	Friend NextClaw as Long
-	Friend total As Long
+	Public total As Long
 	Friend ActiveUntil As Long
 	Friend cd As Long
 	Friend MissCount As Integer
@@ -30,6 +30,7 @@ Friend class Ghoul
 		TotalCrit = 0
 		sim = MySim
 		MeleeGlacingChance = 0.25
+		sim.DamagingObject.Add(me)
 	End Sub
 	
 	Sub Summon(T As Long)

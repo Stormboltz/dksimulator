@@ -17,7 +17,7 @@ Public Class Trinket
 	Friend ProcValue As Integer
 	Friend InternalCD As Integer
 	protected Sim as Sim
-	Friend Total as long
+	public Total as long
 	Friend	HitCount As Integer
 	Friend	MissCount As Integer
 	Friend	CritCount As Integer
@@ -85,6 +85,10 @@ Public Class Trinket
 						tmp = tmp * (1 + sim.MainStat.BloodPresence*0.15)
 						HitCount = HitCount + 1
 					End If
+					
+				Case "razorice"
+					HitCount = HitCount + 1
+					tmp = procvalue
 			End Select
 			total += tmp
 		End If
@@ -106,7 +110,7 @@ Public Class Trinket
 	Sub New(S As Sim)
 		me.New
 		Sim = S
-		
+		s.TrinketsCollection.Add(me)
 	End Sub
 	
 	

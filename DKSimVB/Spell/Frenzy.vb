@@ -9,9 +9,8 @@
 Public Class Frenzy
 	Inherits Spells.Spell
 	
-	Sub New(MySim as Sim)
-		MyBase.New()
-		Sim = MySim
+	Sub New(s as Sim)
+		MyBase.New(s)
 	End Sub
 	
 	

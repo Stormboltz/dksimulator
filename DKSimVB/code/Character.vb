@@ -100,7 +100,10 @@ Friend Class Character
 		tmp = tmp * (1 + talentblood.Vot3W * 2 / 100)
 		tmp = tmp * (1 + talentblood.AbominationMight / 100)
 		tmp = tmp * (1 + talentunholy.ravenousdead / 100)
-		tmp = tmp * (1 + 0.15 * Sim.RuneForge.FallenCrusaderProc)
+		If sim.proc.MHFallenCrusader.IsActive Or sim.proc.oHFallenCrusader.IsActive Then
+			tmp = tmp * 1.15
+		End If
+		
 		
 		
 		If sim.Trinkets.Greatness.fade > sim.TimeStamp Then tmp = tmp + sim.Trinkets.Greatness.ProcValue

@@ -14,7 +14,10 @@ Friend Class Procs
 	Friend Strife As Proc
 	Friend T92PDPS as Proc
 	Friend HauntedDreams As Proc
-	Friend T104PDPS as proc
+	Friend T104PDPS As proc
+	Friend MHFallenCrusader As Proc
+	Friend OHFallenCrusader As Proc
+	Friend Berserking as Proc
 
 	Protected Sim as Sim
 	Friend T104PDPSFAde As Integer
@@ -84,6 +87,53 @@ Friend Class Procs
 			.ProcValue = 173
 			.ProcLenght = 10
 			.InternalCD  = 45
+			
+		End With
+		
+		
+		s.RuneForge.MHRazorIce = New RazorIce(S)
+		With s.RuneForge.MHRazorIce
+			.CD = 0
+			if s.RuneForge.MHRazoriceRF	then .Equiped=1
+			.ProcChance = S.MainStat.MHWeaponSpeed/60
+			.ProcLenght = 20
+			.ProcValue = 1
+		End With
+		
+		s.RuneForge.OHRazorIce = New RazorIce(S)
+		With s.RuneForge.OHRazorIce
+			.CD = 0
+			if s.RuneForge.OHRazoriceRF	then .Equiped=1
+			.ProcChance = S.MainStat.OHWeaponSpeed/60
+			.ProcLenght = 20
+			.ProcValue = 1
+		End With
+		
+		MHFallenCrusader = new Proc(s)
+		With MHFallenCrusader
+			.CD = 0
+			if s.RuneForge.MHFallenCrusader	then .Equiped=1
+			.ProcChance = 2*S.MainStat.MHWeaponSpeed/60
+			.ProcLenght = 20
+			.ProcValue = 1
+		End With
+		
+		OHFallenCrusader = new Proc(s)
+		With OHFallenCrusader
+			.CD = 0
+			if s.RuneForge.OHFallenCrusader	then .Equiped=1
+			.ProcChance = 2*S.MainStat.OHWeaponSpeed/60
+			.ProcLenght = 20
+			.ProcValue = 1
+		End With
+		
+		Berserking = New Proc(s)		
+		With Berserking
+			.CD = 0
+			if s.RuneForge.OHBerserking then .Equiped=1
+			.ProcChance = 1.2*s.MainStat.OHWeaponSpeed/60
+			.ProcLenght = 15
+			.ProcValue = 400
 		End With
 		
 		

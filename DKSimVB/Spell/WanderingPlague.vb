@@ -4,18 +4,10 @@ Friend Class WanderingPlague
 	Friend nextTick As Double
 
 	
-	
-	Sub New(S As Sim)
-		Sim = S
-		total = 0
-		MissCount = 0
-		HitCount = 0
-		CritCount = 0
+	Sub New(S As sim)
+		MyBase.New(s)
 		nextTick = 0
-		TotalHit = 0
-		TotalCrit = 0
 	End Sub
-	
 	Function isAvailable(T As long) As Boolean
 		'internal CD of 1s
 		If nextTick < T Then

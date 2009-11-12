@@ -9,7 +9,7 @@
 Imports System.Xml
 Public Partial Class MainForm
 	Friend AvailablePrio As new Collection
-	Friend ComboCollection As New Collection
+	Friend ComboCollection As New  Collection
 	Friend EditType as String
 	
 	

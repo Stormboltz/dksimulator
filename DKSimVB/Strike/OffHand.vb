@@ -1,8 +1,7 @@
 Friend Class OffHand
 	Inherits Strikes.Strike
 	Sub New(S As sim)
-		MyBase.New()
-		Sim = S
+		MyBase.New(s)
 	End Sub
 	friend NextWhiteOffHit as long
 	
@@ -81,8 +80,8 @@ Friend Class OffHand
 		End If
 		
 		
-		If sim.runeforge.OHRazorice and sim.mainstat.DualW Then sim.runeforge.applyRazorice()
 		sim.TryOnOHHitProc
+		sim.Trinkets.OHRazorIce.TryMe(T)
 		sim.Trinkets.OHSingedViskag.TryMe(T)
 		sim.Trinkets.OHtemperedViskag.TryMe(T)
 		sim.trinkets.MHEmpoweredDeathbringer.TryMe(T)

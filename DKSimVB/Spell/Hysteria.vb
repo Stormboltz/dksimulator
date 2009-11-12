@@ -9,8 +9,7 @@
 Friend Class Hysteria
 	inherits Spells.Spell
 	Sub New(S As sim)
-		MyBase.New()
-		Sim = S
+		MyBase.New(s)
 	End Sub
 	Function IsAvailable(T As Long) As Boolean
 		If TalentBlood.Hysteria =  0 Then Return False 

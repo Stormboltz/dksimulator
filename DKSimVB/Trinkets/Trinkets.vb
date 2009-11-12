@@ -8,6 +8,9 @@
 '
 Public Class Trinkets
 
+
+	
+	
 	Friend GrimToll As Trinket
 	Friend BitterAnguish As Trinket
 	Friend Mirror As Trinket
@@ -35,7 +38,9 @@ Public Class Trinkets
 	Friend OHRagingDeathbringer As Trinket
 	
 	Friend HandMountedPyroRocket As Trinket
-	Friend TailorEnchant as Trinket
+	Friend TailorEnchant As Trinket
+	Friend MHRazorIce As Trinket
+	Friend OHRazorIce As Trinket
 
 
 	
@@ -299,6 +304,49 @@ Public Class Trinkets
 		 	.Name = "Swordguard Embroidery"
 		End With
 		
+		MHRazorIce = New Trinket(s)
+		With MHRazorIce
+			.ProcChance = 1
+		 	.Equiped=0
+		 	.ProcLenght = 15
+		 	.ProcValue = 0
+		 	.DamageType = "razorice"
+		 	.InternalCD = 0
+		 	.Name = "Main Hand RazorIce"
+		End With
+		
+		OHRazorIce = New Trinket(s)
+		With OHRazorIce
+			.ProcChance = 1
+		 	.Equiped=0
+		 	.ProcLenght = 15
+		 	.ProcValue = 0
+		 	.DamageType = "razorice"
+		 	.InternalCD = 0
+		 	.Name = "Off Hand RazorIce"
+		End With
+		
+		
+		
+		CollectDamagingTrinket
 	End Sub
+	
+	Sub CollectDamagingTrinket()
+		Dim tk As Trinket
+		For Each tk In sim.TrinketsCollection
+			If tk.DamageType <> "" Then
+				sim.DamagingObject.Add(tk)
+			End If
+		Next
+	End Sub
+	
+	Sub SoftReset()
+		Dim tk As Trinket
+		
+		For Each tk In sim.TrinketsCollection
+			tk.CD = 0
+		Next
+	End Sub
+	
 	
 End Class

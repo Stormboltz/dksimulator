@@ -10,8 +10,7 @@ Friend Class BloodBoil
 	Inherits Spells.Spell
 	
 	Sub New(S As sim)
-		MyBase.New()
-		Sim = S
+		MyBase.New(s)
 	End Sub
 
 	overrides Function ApplyDamage(T As long) As boolean

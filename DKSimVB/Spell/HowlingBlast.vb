@@ -9,8 +9,7 @@
 Friend Class HowlingBlast
 	Inherits Spells.Spell
 	Sub New(S As sim)
-		MyBase.New()
-		Sim = S
+		MyBase.New(s)
 	End Sub
 	Function isAvailable(T As Long) As Boolean
 		if TalentFrost.HowlingBlast <> 1 then return false
@@ -75,7 +74,7 @@ Friend Class HowlingBlast
 		if sim.NumDesease > 0 then 	tmp = tmp * (1 + TalentFrost.GlacierRot * 6.6666666 / 100)
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		If (T/sim.MaxTime) >= 0.75 Then tmp = tmp *(1+ 0.06*talentfrost.MercilessCombat)
-		if sim.RuneForge.MHRazorice or (sim.RuneForge.OHRazorice and sim.mainstat.DualW)  then tmp = tmp *1.10 'TODO: only on main target
+		tmp = tmp *(1+sim.RuneForge.RazorIceStack/100) 'TODO: only on main target
 		if sim.runeforge.CinderglacierProc > 0 then
 			tmp = tmp * 1.2
 			sim.runeforge.CinderglacierProc = sim.runeforge.CinderglacierProc -1

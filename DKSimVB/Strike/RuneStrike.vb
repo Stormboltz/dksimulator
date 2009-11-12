@@ -70,7 +70,6 @@ Public Class RuneStrike
 		
 		sim.proc.KillingMachine.TryMe(T)
 		
-		If sim.RuneForge.MHRazorice Then sim.runeforge.applyRazorice()
 		If TalentUnholy.Necrosis > 0 Then
 			Nec = sim.Necrosis.Apply(dégat, T)
 		End If
@@ -79,6 +78,8 @@ Public Class RuneStrike
 			BCB = sim.BloodCakedBlade.ApplyDamage(T,true)
 		End If
 		sim.TryOnMHHitProc
+		sim.RuneForge.MHRazorIce.TryMe(T)
+		
 		If sim.proc.ScentOfBlood.IsActive  Then
 			sim.proc.ScentOfBlood.Use
 			Sim.RunicPower.add(10)

@@ -9,7 +9,7 @@
 Namespace Strikes
 
 Public Class Strike
-	Friend Total As  long
+	Public Total As  long
 	Friend MissCount As Integer
 	Friend HitCount as Integer
 	Friend CritCount as Integer
@@ -34,7 +34,18 @@ Public Class Strike
 		TotalCrit = 0
 		ThreadMultiplicator = 1
 		_RNG = nothing
-	End sub
+	End Sub
+	
+	Sub New(S As sim)
+		me.New
+		Sim = S
+		sim.DamagingObject.Add(me)
+	End Sub
+
+	
+	
+	
+	
 	
 	Function DoMyStrikeHit As Boolean
 		Dim RNG As Double

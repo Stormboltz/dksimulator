@@ -2,8 +2,7 @@ Friend Class Necrosis
 	Inherits Spells.Spell
 	
 	Sub New(S As sim)
-		MyBase.New()
-		Sim = S
+		MyBase.New(s)
 	End Sub
 	
 	Function Apply(Damage As Double, T As long) As Double

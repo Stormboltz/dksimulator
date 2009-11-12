@@ -10,8 +10,7 @@ Friend Class FrostStrike
 	Inherits Strikes.Strike
 
 	Sub New(S As sim)
-		MyBase.New()
-		Sim = S
+		MyBase.New(s)
 	End Sub
 	
 	public Overrides Function isAvailable(T As long) As Boolean
@@ -122,7 +121,7 @@ Friend Class FrostStrike
 		if (T/sim.MaxTime) >= 0.75 then tmp = tmp *(1+ 0.06*talentfrost.MercilessCombat)
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		tmp = tmp * (1 + TalentFrost.BlackIce * 2 / 100)
-		if sim.runeforge.MHRazorice or (sim.runeforge.OHRazorice and sim.mainstat.DualW)  then tmp = tmp *1.10
+		tmp = tmp *(1+sim.RuneForge.RazorIceStack/100) 'TODO: only on main target
 		if sim.runeforge.CinderglacierProc > 0 then
 			tmp = tmp * 1.2
 			sim.runeforge.CinderglacierProc = sim.runeforge.CinderglacierProc -1

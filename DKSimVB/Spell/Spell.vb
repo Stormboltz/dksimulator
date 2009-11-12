@@ -8,7 +8,7 @@
 '
 NameSpace Spells
 Public Class Spell
-	Friend Total As  long
+	Public Total As  long
 	Friend MissCount As Integer
 	Friend HitCount as Integer
 	Friend CritCount as Integer
@@ -58,7 +58,11 @@ Public Class Spell
 
 	End Sub
 	
-	
+	Sub New(S As sim)
+		me.New
+		Sim = S
+		sim.DamagingObject.Add(me)
+	End Sub
 	
 	
 	

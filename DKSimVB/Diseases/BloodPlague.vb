@@ -1,11 +1,11 @@
 Friend Class BloodPlague
 	Inherits Diseases.Disease
 	
-	Sub New(S As sim)
-		MyBase.New()
-		Sim = S
-	End Sub
 	
+	
+	Sub New(S As sim)
+		MyBase.New(S)
+	End Sub
 	Overrides Function PerfectUsage(T As Long) As Boolean
 		If TalentUnholy.RageofRivendare>0 Then
 			If FadeAt <= sim.Runes.GetNextUnholy(T) Then 

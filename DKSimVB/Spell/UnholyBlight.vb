@@ -2,8 +2,7 @@ Friend Class UnholyBlight
 	inherits Spells.Spell
 	
 	Sub New(S As sim)
-		MyBase.New()
-		Sim = S
+		MyBase.New(s)
 	End Sub
 	
 	

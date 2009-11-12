@@ -1,7 +1,7 @@
 Friend Class DRW
 	
 	Friend NextDRW As Long
-	Friend total As Long
+	Public total As Long
 	Friend TotalHit As Long
 	Friend TotalCrit as Long
 
@@ -182,7 +182,7 @@ Friend Class DRW
 		TotalHit = 0
 		TotalCrit = 0
 		Sim = S
-		
+		sim.DamagingObject.Add(me)
 	End Sub
 	Function report As String
 		Dim tmp As String

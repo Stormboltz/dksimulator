@@ -1,5 +1,7 @@
+Imports Microsoft.VisualBasic
 Public Class Sim
 	
+		
 	Friend TotalDamageAlternative As Long
 	Friend NextFreeGCD As Long
 	Friend Lag As Long
@@ -51,6 +53,7 @@ Public Class Sim
 	Friend Obliterate As Obliterate
 	Friend PlagueStrike As PlagueStrike
 	Friend ScourgeStrike As ScourgeStrike
+	Friend ScourgeStrikeMagical as ScourgeStrikeMagical
 	Friend MainHand as MainHand
 	Friend OffHand As OffHand
 	Friend RuneStrike As RuneStrike
@@ -94,6 +97,16 @@ Public Class Sim
 	Friend RuneForge As RuneForge
 	
 	Friend Trinkets As Trinkets
+	
+	Friend DamagingObject as new Collection
+	Friend TrinketsCollection As New Collection
+	Friend ProcCollection As New Collection
+	
+	
+	
+	
+	
+	
 	Friend ProgressFrame As ProgressFrm
 	
 	Friend CombatLog as new CombatLog(me)
@@ -363,7 +376,7 @@ Public Class Sim
 	End Sub
 	
 	Function TotalDamage() as Long
-		TotalDamage = ScourgeStrike.total + ScourgeStrike.MagicTotal + obliterate.total + PlagueStrike.total + _
+		TotalDamage = ScourgeStrike.total + ScourgeStrikeMagical.Total + obliterate.total + PlagueStrike.total + _
 			BloodStrike.total + HeartStrike.total + frostfever.total + _
 			BloodPlague.total + IcyTouch.total + deathcoil.total + _
 			UnholyBlight.total + Necrosis.total + BloodCakedBlade.total + _
@@ -377,7 +390,14 @@ Public Class Sim
 			Trinkets.MHRagingDeathbringer.Total + Trinkets.OHRagingDeathbringer.Total + _
 			Trinkets.MHEmpoweredDeathbringer.Total + Trinkets.OHEmpoweredDeathbringer.Total + _
 			Trinkets.HandMountedPyroRocket.total
-		
+			Dim i As long
+			dim obj as Object
+			
+			For Each obj In Me.DamagingObject
+				i += obj.Total 
+			Next
+			return i
+			debug.Print(i)
 	End Function
 	
 	
@@ -518,16 +538,19 @@ Public Class Sim
 		Horn.CD = 0
 		Bloodlust.Cd = 0
 		proc = New procs(Me)
+		Trinkets.SoftReset
 		BoneShield.CD = 0
 		NextFreeGCD = 0
 		AMSCd = _MainFrm.txtAMScd.text * 100
 		AMSTimer = _MainFrm.txtAMScd.text * 100
 		AMSAmount = _MainFrm.txtAMSrp.text
 		ERW.CD = 0
+		RuneForge.RazorIceStack = 0
 	End Sub
 	
 	Sub Initialisation()
 		'RandomNumberGenerator.Init 'done in Start
+		DamagingObject.Clear
 		PetFriendly = SimConstructor.PetFriendly
 		Rotate = SimConstructor.Rotate
 		'_EpStat = SimConstructor.EpStat
@@ -577,7 +600,9 @@ Public Class Sim
 		
 		NumberOfEnemies = _MainFrm.txtNumberOfEnemies.text
 		KeepDiseaseOnOthersTarget = _MainFrm.chkDisease.Checked
-		ScourgeStrike = new ScourgeStrike(Me)
+		ScourgeStrike = New ScourgeStrike(Me)
+		ScourgeStrikeMagical = New ScourgeStrikeMagical(Me)
+
 		Obliterate = new Obliterate(Me)
 		PlagueStrike= new PlagueStrike(Me)
 		BloodStrike = New BloodStrike(Me)
@@ -675,31 +700,36 @@ Public Class Sim
 		
 		RuneForge.MHCinderglacier = False
 		RuneForge.MHFallenCrusader = false
-		RuneForge.MHRazorice = false
+		RuneForge.MHRazoriceRF = false
 		Select Case doc.SelectSingleNode("//config/mh").InnerText
 			Case "Cinderglacier"
 				RuneForge.MHCinderglacier = true
 			Case "FallenCrusader"
 				RuneForge.MHFallenCrusader = true
 			Case "Razorice"
-				RuneForge.MHRazorice = true
+				RuneForge.MHRazoriceRF = True
+				Trinkets.MHRazorIce.Equiped = 1
 		End Select
 		
 		RuneForge.OHCinderglacier = False
 		RuneForge.OHFallenCrusader = false
-		RuneForge.OHRazorice = False
+		RuneForge.OHRazoriceRF = False
 		Runeforge.OHBerserking = False
 		
-		Select Case doc.SelectSingleNode("//config/oh").InnerText
-			Case "Cinderglacier"
-				RuneForge.OHCinderglacier = true
-			Case "FallenCrusader"
-				RuneForge.OHFallenCrusader = true
-			Case "Razorice"
-				RuneForge.OHRazorice = True
-			Case "Berserking"
-				Runeforge.OHBerserking = True
-		end select
+		if MainStat.DualW then
+			Select Case doc.SelectSingleNode("//config/oh").InnerText
+				Case "Cinderglacier"
+					RuneForge.OHCinderglacier = true
+				Case "FallenCrusader"
+					RuneForge.OHFallenCrusader = true
+				Case "Razorice"
+					RuneForge.OHRazoriceRF = True
+					Trinkets.OHRazorIce.Equiped = 1
+				Case "Berserking"
+					Runeforge.OHBerserking = True
+			End Select
+		End If
+		
 		
 		'		txtLatency.Text = doc.SelectSingleNode("//config/latency").InnerText
 		'
@@ -747,10 +777,9 @@ Public Class Sim
 	End Sub
 	
 	Sub Report()
-		on error resume next
+		'on error resume next
 		Dim Tw As System.IO.TextWriter
 		'if EPStat <> "" then exit sub
-		
 		Tw  =system.IO.File.appendText(ReportPath)
 		'Tw  = system.IO.File.Open(reportpath, system.IO.FileMode.Append)     '.OpenWrite(ReportPath)
 		Tw.Write ("<table border='0' cellspacing='2' style='font-family:Verdana; font-size:10px;'>")
@@ -771,47 +800,12 @@ Public Class Sim
 		Tw.Write ("</tr>")
 		
 		' Sort report
+		dim obj as Object
+		Dim myArray As New ArrayList
 		
-		dim myArray as new ArrayList
-		
-		If MainHand.total <> 0 Then myArray.Add(MainHand.total)
-		If OffHand.total <> 0 Then myArray.Add(OffHand.total)
-		If ScourgeStrike.total <> 0 Then myArray.Add(ScourgeStrike.total)
-		if Patch33 and ScourgeStrike.MagicTotal <> 0 Then myArray.Add(ScourgeStrike.MagicTotal)
-		If HeartStrike.total <> 0 Then myArray.Add(HeartStrike.total)
-		If obliterate.total <> 0 Then myArray.Add(obliterate.total)
-		If DeathStrike.total <> 0 Then myArray.Add(DeathStrike.total)
-		If PlagueStrike.total <> 0 Then myArray.Add(PlagueStrike.total)
-		If IcyTouch.total <> 0 Then myArray.Add(IcyTouch.total)
-		If BloodStrike.total <> 0 Then myArray.Add(BloodStrike.total)
-		If FrostStrike.total <> 0 Then myArray.Add(FrostStrike.total)
-		If HowlingBlast.total <> 0 Then myArray.Add(HowlingBlast.total)
-		If deathcoil.total <> 0 Then myArray.Add(deathcoil.total)
-		If UnholyBlight.total <> 0 Then myArray.Add(UnholyBlight.total)
-		If frostfever.total <> 0 Then myArray.Add(frostfever.total)
-		If BloodPlague.total <> 0 Then myArray.Add(BloodPlague.total)
-		If Necrosis.total <> 0 Then myArray.Add(Necrosis.total)
-		If BloodCakedBlade.total <> 0 Then myArray.Add(BloodCakedBlade.total)
-		If WanderingPlague.total <> 0 Then myArray.Add(WanderingPlague.total)
-		If BloodBoil.total <> 0 Then myArray.Add(BloodBoil.total)
-		If RuneStrike.total <> 0 Then myArray.Add(RuneStrike.total)
-		If Ghoul.total  <> 0 Then myArray.Add(Ghoul.total)
-		If Gargoyle.total  <> 0 Then myArray.Add(Gargoyle.total)
-		If DRW.total  <> 0 Then myArray.Add(DRW.total)
-		If RuneForge.RazoriceTotal <> 0 Then myArray.Add(RuneForge.RazoriceTotal)
-		If DeathandDecay.total <> 0 Then myArray.Add(DeathandDecay.total)
-		If Trinkets.Bandit.Total <> 0 then myArray.Add(Trinkets.Bandit.Total)
-		If Trinkets.DCDeath.Total <> 0 then myArray.Add(Trinkets.DCDeath.Total)
-		If Trinkets.Necromantic.Total <> 0 then myArray.Add(Trinkets.Necromantic.Total)
-		If Trinkets.MHSingedViskag.Total <> 0 then myArray.Add(Trinkets.MHSingedViskag.Total)
-		If Trinkets.OHSingedViskag.Total <> 0 then myArray.Add(Trinkets.OHSingedViskag.Total)
-		If Trinkets.MHtemperedViskag.Total <> 0 then myArray.Add(Trinkets.MHtemperedViskag.Total)
-		If Trinkets.OHtemperedViskag.Total <> 0 Then myArray.Add(Trinkets.OHtemperedViskag.Total)
-		If Trinkets.MHRagingDeathbringer.Total <> 0 then myArray.Add(Trinkets.MHRagingDeathbringer.Total)
-		If Trinkets.OHRagingDeathbringer.Total <> 0 then myArray.Add(Trinkets.OHRagingDeathbringer.Total)
-		If Trinkets.MHEmpoweredDeathbringer.Total <> 0 then myArray.Add(Trinkets.MHEmpoweredDeathbringer.Total)
-		If Trinkets.OHEmpoweredDeathbringer.Total <> 0 Then myArray.Add(Trinkets.OHEmpoweredDeathbringer.Total)
-		if Trinkets.HandMountedPyroRocket.total <> 0 then myArray.Add(Trinkets.HandMountedPyroRocket.Total)
+		For Each obj In DamagingObject
+			if obj.total <> 0 then  myArray.Add(obj.total)
+		Next
 		myArray.Sort()
 		
 		
@@ -821,229 +815,13 @@ Public Class Sim
 		For i=0 To myArray.Count -1
 			tot = (myArray.Item(myArray.Count-1-i))
 			
-			If MainHand.total = tot Then
-				STmp = MainHand.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			End If
-			If OffHand.total = tot Then
-				STmp = OffHand.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-				
-			End If
-			If ScourgeStrike.total = tot Then
-				STmp = ScourgeStrike.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			End If
-			
-			If Patch33 And ScourgeStrike.MagicTotal = tot Then
-				STmp = ScourgeStrike.MagicReport
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			End If
-			
-
-			If HeartStrike.total = tot Then
-				STmp = HeartStrike.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-				
-			End If
-			If obliterate.total = tot Then
-				STmp = obliterate.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-				
-			End If
-			If DeathStrike.total = tot Then
-				STmp = DeathStrike.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-				
-			End If
-			If PlagueStrike.total = tot Then
-				STmp = PlagueStrike.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-				
-			End If
-			If IcyTouch.total = tot Then
-				STmp = IcyTouch.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-				
-			End If
-			If BloodStrike.total = tot Then
-				STmp = BloodStrike.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-				
-			End If
-			If FrostStrike.total = tot Then
-				STmp = FrostStrike.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-				
-			End If
-			If HowlingBlast.total = tot Then
-				STmp = HowlingBlast.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-				
-			End If
-			If deathcoil.total = tot Then
-				STmp = deathcoil.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-				
-			End If
-			If UnholyBlight.total = tot Then
-				STmp = UnholyBlight.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-				
-			End If
-			If frostfever.total = tot Then
-				STmp = frostfever.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-				
-			End If
-			If BloodPlague.total = tot Then
-				STmp = BloodPlague.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-				
-			End If
-			If Necrosis.total = tot Then
-				STmp = Necrosis.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-				
-			End If
-			If BloodCakedBlade.total = tot Then
-				STmp = BloodCakedBlade.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-				
-			End If
-			If WanderingPlague.total = tot Then
-				STmp = WanderingPlague.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-				
-			End If
-			If BloodBoil.total = tot Then
-				STmp = BloodBoil.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-				
-			End If
-			If RuneStrike.total = tot Then
-				STmp = RuneStrike.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-				
-			End If
-			If Ghoul.total  = tot Then
-				STmp = Ghoul.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-				
-			End If
-			If Gargoyle.total  = tot Then
-				STmp = Gargoyle.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-				
-			End If
-			If DRW.total  = tot Then
-				STmp = DRW.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-				
-			End If
-			If RuneForge.RazoriceTotal = tot Then
-				STmp = RuneForge.Razoricereport
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			End If
-			
-			If DeathandDecay.total = tot Then
-				STmp = DeathandDecay.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			End If
-			
-			
-			
-			If Trinkets.Bandit.Total = tot Then
-				STmp = Trinkets.Bandit.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			End If
-			If Trinkets.DCDeath.Total = tot Then
-				STmp = Trinkets.DCDeath.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			End If
-			If Trinkets.Necromantic.Total = tot Then
-				STmp = Trinkets.Necromantic.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			End If
-			If Trinkets.MHSingedViskag.Total = tot Then
-				STmp = Trinkets.MHSingedViskag.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			End If
-			If Trinkets.OHSingedViskag.Total = tot Then
-				STmp = Trinkets.OHSingedViskag.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			End If
-			If Trinkets.MHtemperedViskag.Total = tot Then
-				STmp = Trinkets.MHtemperedViskag.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			End If
-			If Trinkets.OHtemperedViskag.Total = tot Then
-				STmp = Trinkets.OHtemperedViskag.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			End If
-
-			If Trinkets.MHRagingDeathbringer.Total = tot Then
-				STmp = Trinkets.MHRagingDeathbringer.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			End If
-			If Trinkets.OHRagingDeathbringer.Total = tot Then
-				STmp = Trinkets.OHRagingDeathbringer.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			End If
-			If Trinkets.MHEmpoweredDeathbringer.Total = tot Then
-				STmp = Trinkets.MHEmpoweredDeathbringer.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			End If
-			If Trinkets.OHEmpoweredDeathbringer.Total = tot Then
-				STmp = Trinkets.OHEmpoweredDeathbringer.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			End If
-			If Trinkets.HandMountedPyroRocket.Total = tot Then
-				STmp = Trinkets.HandMountedPyroRocket.report
-				STmp = replace(STmp,vbtab,"|</td><td>")
-				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-			End If
-		
-			
-			
-			
+			For Each obj In DamagingObject
+				If obj.total = tot Then
+					STmp = obj.report
+					STmp = replace(STmp,vbtab,"|</td><td>")
+					Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				End If
+			Next
 		Next
 		
 		If Horn.HitCount <> 0 Then
@@ -1056,7 +834,6 @@ Public Class Sim
 			STmp = replace(STmp,vbtab,"|</td><td>")
 			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 		End If
-		
 		If BoneShield.HitCount <> 0 Then
 			STmp = BoneShield.report
 			STmp = replace(STmp,vbtab,"|</td><td>")
@@ -1080,9 +857,6 @@ Public Class Sim
 			STmp = replace(STmp,vbtab,"|</td><td>")
 			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 		End If
-		
-		
-		
 		
 		sTmp = ""
 		if EPStat <> "" then STmp =  "<tr><td COLSPAN=8>EP Stat <b>" &  EPStat & "</b></td></tr>"
@@ -1197,7 +971,9 @@ Public Class Sim
 	
 	Sub TryOnMHHitProc()
 		RuneForge.TryMHCinderglacier
-		RuneForge.TryMHFallenCrusader
+		
+		proc.MHFallenCrusader.TryMe(TimeStamp)
+		
 		Trinkets.MjolRune.TryMe(TimeStamp)
 		Trinkets.GrimToll.TryMe(TimeStamp)
 		Trinkets.Greatness.TryMe(TimeStamp)
@@ -1210,11 +986,13 @@ Public Class Sim
 		Trinkets.Comet.TryMe(TimeStamp)
 		trinkets.HandMountedPyroRocket.TryMe(TimeStamp)
 		trinkets.TailorEnchant.TryMe(TimeStamp)
+		RuneForge.MHRazorIce.TryMe(timestamp)
 	End Sub
 	Sub TryOnOHHitProc
 		RuneForge.TryOHCinderglacier
-		RuneForge.TryOHFallenCrusader
-		RuneForge.TryOHBerserking
+		Proc.OHFallenCrusader.TryMe(TimeStamp)
+		proc.Berserking.TryMe(Timestamp)
+		
 		Trinkets.MjolRune.TryMe(TimeStamp)
 		Trinkets.GrimToll.TryMe(TimeStamp)
 		Trinkets.Greatness.TryMe(TimeStamp)
@@ -1228,6 +1006,7 @@ Public Class Sim
 		trinkets.OHEmpoweredDeathbringer.TryMe(TimeStamp)
 		trinkets.OHRagingDeathbringer.TryMe(TimeStamp)
 		trinkets.TailorEnchant.TryMe(TimeStamp)
+		RuneForge.OHRazorIce.TryMe(timestamp)
 	End Sub
 	Sub tryOnCrit()
 		Trinkets.BitterAnguish.TryMe(TimeStamp)

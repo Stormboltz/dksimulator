@@ -9,8 +9,7 @@
 Friend Class DeathStrike
 	Inherits Strikes.Strike
 	Sub New(S As sim)
-		MyBase.New()
-		Sim = S
+		MyBase.New(s)
 	End Sub
 
 	'A deadly attack that deals 75% weapon damage plus 222.75

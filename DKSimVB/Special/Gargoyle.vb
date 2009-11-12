@@ -1,6 +1,6 @@
 Friend Class Gargoyle
 	Friend NextGargoyleStrike As Long
-	Friend total As Long
+	Public total As Long
 	Friend ActiveUntil As Long
 	Friend cd As Long
 	Private SpellHaste As Double
@@ -22,6 +22,7 @@ Friend Class Gargoyle
 		TotalHit = 0
 		TotalCrit = 0
 		Sim = S
+		sim.DamagingObject.Add(me)
 	End Sub
 	
 Function Summon(T As Long) as  boolean

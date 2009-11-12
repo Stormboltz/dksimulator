@@ -1,8 +1,7 @@
 Friend Class IcyTouch
 	inherits Spells.Spell
 	Sub New(S As sim)
-		MyBase.New()
-		Sim = S
+		MyBase.New(s)
 	End Sub
 	
 	overrides Function ApplyDamage(T As long) As boolean
@@ -64,7 +63,7 @@ Friend Class IcyTouch
 		tmp = tmp * (1 + TalentFrost.BlackIce * 2 / 100)
 		
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
-		if sim.runeforge.MHRazorice or (sim.runeforge.OHRazorice and sim.mainstat.DualW)  then tmp = tmp *1.10
+		tmp = tmp *(1+sim.RuneForge.RazorIceStack/100) 'TODO: only on main target
 		if sim.runeforge.CinderglacierProc > 0 then
 			tmp = tmp * 1.2
 			sim.runeforge.CinderglacierProc = sim.runeforge.CinderglacierProc -1

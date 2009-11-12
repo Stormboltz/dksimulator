@@ -10,8 +10,7 @@ Public Class EmpowerRuneWeapon
 	Inherits Spells.Spell
 	
 	Sub New(S As sim)
-		MyBase.New()
-		Sim = S
+		MyBase.New(s)
 	End Sub
 	
 	Function Use(T As Long) As Boolean

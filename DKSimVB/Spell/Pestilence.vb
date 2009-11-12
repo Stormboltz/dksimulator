@@ -10,8 +10,7 @@ Friend Class Pestilence
 	Inherits Spells.Spell
 	
 	Sub New(S As sim)
-		MyBase.New()
-		Sim = S
+		MyBase.New(s)
 	End Sub
 
 	Friend BPToReapply As Boolean

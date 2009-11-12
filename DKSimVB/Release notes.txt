@@ -1,4 +1,8 @@
-﻿1.1.8.0 Release notes
+﻿1.1.8.1 Release notes
+* Razorice is now stacking and won't give 10% frost damage at the start of the simulation.
+* 
+
+1.1.8.0 Release notes
 * New: A character editor. Old Character config files should work on the character editor but not on the sim.
 * New: A Priority/Rotation/Intro editor. Select _None to remove an item (comment are welcome)
 * Intro has is own combo box and configuration files and folder. (not having the intro folder can cause crash)

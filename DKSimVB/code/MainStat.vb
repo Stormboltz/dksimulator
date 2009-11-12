@@ -85,7 +85,9 @@ Friend Class MainStat
 		
 		
 		'Trinkets
-		Sim.Trinkets = new Trinkets(Sim)
+		Sim.Trinkets = New Trinkets(Sim)
+		Sim.Trinkets.MHRazorIce.ProcValue = MHWeaponDPS * MHWeaponSpeed * 0.02
+		Sim.Trinkets.OHRazorIce.ProcValue = MHWeaponDPS * MHWeaponSpeed * 0.02
 		
 		Sim.Trinkets.MjolRune.Equiped = 0
 		Sim.Trinkets.GrimToll.Equiped = 0
@@ -251,9 +253,8 @@ Friend Class MainStat
 		If Sim.Trinkets.Oldgod.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.Oldgod.ProcValue
 		If Sim.Trinkets.pyrite.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.pyrite.ProcValue
 		If Sim.Trinkets.victory.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.victory.ProcValue
-		If Sim.RuneForge.OHBerserkingActiveUntil > sim.TimeStamp Then tmp = tmp + 400
+		If Sim.proc.Berserking.IsActive Then tmp = tmp + Sim.proc.Berserking.ProcValue
 		
-		'Why +220 ?
 		tmp = tmp + Character.AttackPower
 		tmp = tmp + Character.Strength * 2
 		tmp = tmp + 550

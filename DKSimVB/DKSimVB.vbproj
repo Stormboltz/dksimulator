@@ -93,6 +93,7 @@
     </Compile>
     <Compile Include="MainForm.vb" />
     <Compile Include="Procs\GenericProc.vb" />
+    <Compile Include="Procs\RazorIce.vb" />
     <Compile Include="Procs\Rime.vb" />
     <Compile Include="Procs\Procs.vb" />
     <Compile Include="Procs\ScentOfBlood.vb" />
@@ -163,6 +164,7 @@
     <Compile Include="Strike\PlagueStrike.vb" />
     <Compile Include="Strike\RuneStrike.vb" />
     <Compile Include="Strike\ScourgeStrike.vb" />
+    <Compile Include="Strike\ScourgeStrikeMagical.vb" />
     <Compile Include="TemplateButton.vb">
       <DependentUpon>MainForm.vb</DependentUpon>
     </Compile>

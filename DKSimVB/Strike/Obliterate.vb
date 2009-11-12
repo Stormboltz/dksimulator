@@ -11,8 +11,7 @@ Friend Class Obliterate
 	
 	
 	Sub New(S As sim)
-		MyBase.New()
-		Sim = S
+		MyBase.New(s)
 	End Sub
 	
 	public Overrides Function ApplyDamage(T As Long) As Boolean

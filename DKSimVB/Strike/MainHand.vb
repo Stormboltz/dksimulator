@@ -4,8 +4,7 @@ Friend Class MainHand
 
 
 Sub New(S As sim)
-		MyBase.New()
-		Sim = S
+		MyBase.New(s)
 	End Sub
 	
 	
@@ -83,12 +82,6 @@ Sub New(S As sim)
 		
 
 		total = total + dégat
-		
-		
-		
-		
-		
-		If sim.runeforge.MHRazorice Then sim.runeforge.applyRazorice()
 		If TalentUnholy.Necrosis > 0 Then
 			Nec = sim.Necrosis.Apply(dégat, T)
 		End If
@@ -97,6 +90,7 @@ Sub New(S As sim)
 			BCB = sim.BloodCakedBlade.ApplyDamage(T,true)
 		End If
 		sim.TryOnMHHitProc
+		sim.Trinkets.MHRazorIce.TryMe(T)
 		sim.proc.KillingMachine.TryMe(T)
 		sim.Trinkets.MHSingedViskag.TryMe(T)
 		sim.Trinkets.MHtemperedViskag.TryMe(T)

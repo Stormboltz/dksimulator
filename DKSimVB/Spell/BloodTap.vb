@@ -9,9 +9,8 @@
 Friend Class BloodTap
 	Inherits Spells.Spell
 	
-	Sub New(MySim As Sim)
-		MyBase.New()
-		Sim = MySim
+	Sub New(s As Sim)
+		MyBase.New(s)
 	End Sub
 	Function IsAvailable(T as long) As Boolean
 		If T >= cd Then
