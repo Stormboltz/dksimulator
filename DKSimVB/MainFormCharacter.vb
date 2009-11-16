@@ -343,11 +343,11 @@ Public Partial Class MainForm
 	
 	Sub CmdSaveCharacterClick(sender As Object, e As EventArgs)
 		SaveCharacter(EditorFilePAth)
+		loadWindow
 		tabControl1.SelectedIndex = 0
 	End Sub
 	
 	Sub CmdSaveNewCharatecClick(sender As Object, e As EventArgs)
-		
 		Dim truc As New Form1
 		Dim res As DialogResult
 		res = truc.ShowDialog

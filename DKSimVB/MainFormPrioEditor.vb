@@ -162,7 +162,6 @@ Public Partial Class MainForm
 			cmb = ComboCollection(i)
 			If instr(cmb.SelectedItem,"None") or cmb.SelectedItem="" Then
 			Else
-				
 				If instr(cmb.SelectedItem, " retry='0'") Then
 					sTmp = replace(cmb.SelectedItem," retry='0'","")
 					sTmp = trim(sTmp)
@@ -183,8 +182,6 @@ Public Partial Class MainForm
 				root.AppendChild(newElem)
 			end if
 		Next
-			
-		
 		'Save
 		xmlDoc.Save(EditorFilePAth)
 		loadWindow

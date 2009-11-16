@@ -1,10 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-# SharpDevelop 3.1.0.4077
+# SharpDevelop 3.1.0.4977
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "DKSimVB", "DKSimVB.vbproj", "{57351287-BAFF-407A-9403-1EAA4F9E4DE8}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "DBExtractor", "..\DBExtractor\DBExtractor.vbproj", "{6C18DF04-6022-4FC1-974E-906031BA1E94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,9 +14,5 @@ Global
 		{57351287-BAFF-407A-9403-1EAA4F9E4DE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{57351287-BAFF-407A-9403-1EAA4F9E4DE8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{57351287-BAFF-407A-9403-1EAA4F9E4DE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6C18DF04-6022-4FC1-974E-906031BA1E94}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6C18DF04-6022-4FC1-974E-906031BA1E94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6C18DF04-6022-4FC1-974E-906031BA1E94}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6C18DF04-6022-4FC1-974E-906031BA1E94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 EndGlobal

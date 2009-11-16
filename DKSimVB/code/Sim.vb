@@ -382,8 +382,8 @@ Public Class Sim
 			UnholyBlight.total + Necrosis.total + BloodCakedBlade.total + _
 			WanderingPlague.total +FrostStrike.total  +HowlingBlast.total + _
 			BloodBoil.total  + DeathStrike.total + MainHand.total + _
-			OffHand.total  + Ghoul.total + Gargoyle.total + DRW.total + _
-			RuneForge.RazoriceTotal + DeathandDecay.total + RuneStrike.total + _
+			OffHand.total  + Ghoul.total + Gargoyle.total + DRW.total + _			
+			Trinkets.MHRazorIce.Total + Trinkets.OHRazorIce.Total + DeathandDecay.total + RuneStrike.total + _
 			Trinkets.Bandit.Total + Trinkets.DCDeath.Total + Trinkets.Necromantic.Total + _
 			Trinkets.MHSingedViskag.Total  + Trinkets.OHSingedViskag.Total + _
 			Trinkets.MHtemperedViskag.Total + Trinkets.OHtemperedViskag.Total + _
@@ -972,7 +972,7 @@ Public Class Sim
 	End Function
 	
 	Sub TryOnMHHitProc()
-		RuneForge.TryMHCinderglacier
+		RuneForge.MHCinderglacier.TryMe(timestamp)
 		
 		proc.MHFallenCrusader.TryMe(TimeStamp)
 		
@@ -991,7 +991,7 @@ Public Class Sim
 		RuneForge.MHRazorIce.TryMe(timestamp)
 	End Sub
 	Sub TryOnOHHitProc
-		RuneForge.TryOHCinderglacier
+		RuneForge.OHCinderglacier.TryMe(timestamp)
 		Proc.OHFallenCrusader.TryMe(TimeStamp)
 		proc.Berserking.TryMe(Timestamp)
 		

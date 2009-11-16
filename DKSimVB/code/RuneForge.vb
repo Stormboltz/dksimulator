@@ -46,27 +46,7 @@ Friend Class RuneForge
 		OHBerserkingActiveUntil = 0
 		RazorIceStack = 0
 	End Sub
-	
-	
-	
-	Sub TryMHCinderglacier()
-		if MHCinderglacier then
-			
-			If sim.RandomNumberGenerator.RNGProc < 1*sim.MainStat.MHWeaponSpeed/60 Then
-				CinderglacierProc = 2
-				if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp & vbtab & "Cinderglacier sim.proc on Main hand")
-			End If
-		end if
-	End Sub
-	Sub TryOHCinderglacier()
-		if OHCinderglacier then
-			If sim.RandomNumberGenerator.RNGProc < 1*sim.MainStat.OHWeaponSpeed/60 Then
-				CinderglacierProc = 2
-				if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp & vbtab & "Cinderglacier sim.proc on Off hand")
-			End If
-		end if
-	End Sub
-		
+
 	Function AreStarsAligned(T As Long) As Boolean
 		If sim._MainFrm.chkWaitFC.Checked = False Then Return True
 		If sim.proc.MHFallenCrusader.IsActive Or sim.proc.OHFallenCrusader.IsActive Then Return True

@@ -127,6 +127,24 @@ Friend Class Procs
 			.ProcValue = 1
 		End With
 		
+		
+		s.RuneForge.MHCinderglacier = new Proc(s)
+		With s.RuneForge.MHCinderglacier
+			.CD = 0
+			if s.RuneForge.MHCinderglacierRF	then .Equiped=1
+			.ProcChance = 1*S.MainStat.MHWeaponSpeed/60
+			.ProcLenght = 20
+			.ProcValue = 2
+		End With
+
+		s.RuneForge.OHCinderglacier = new Proc(s)
+		With s.RuneForge.OHCinderglacier
+			.CD = 0
+			if s.RuneForge.OHCinderglacierRF	then .Equiped=1
+			.ProcChance = 1*S.MainStat.OHWeaponSpeed/60
+			.ProcLenght = 20
+			.ProcValue = 2
+		End With
 		Berserking = New Proc(s)		
 		With Berserking
 			.CD = 0
