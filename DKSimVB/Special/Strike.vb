@@ -51,13 +51,13 @@ Public Class Strike
 		Dim RNG As Double
 		RNG = MyRNG
 		If sim.MainStat.FrostPresence = 1 Then
-			If math.Min(sim.mainstat.Expertise,0.065)+ math.Min(sim.mainstat.Expertise,0.14) + math.Min (sim.mainstat.Hit,0.08) + RNG < 0.285 Then
+			If math.Min(sim.mainstat.MHExpertise,0.065)+ math.Min(sim.mainstat.MHExpertise,0.14) + math.Min (sim.mainstat.Hit,0.08) + RNG < 0.285 Then
 				Return False
 			Else
 				return true
 			End If
 		Else
-			If math.Min(sim.mainstat.Expertise,0.065) + math.Min (sim.mainstat.Hit,0.08) + RNG < 0.145 Then
+			If math.Min(sim.mainstat.MHExpertise,0.065) + math.Min (sim.mainstat.Hit,0.08) + RNG < 0.145 Then
 				Return False
 			Else
 				return true

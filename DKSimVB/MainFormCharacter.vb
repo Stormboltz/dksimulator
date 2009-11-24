@@ -82,6 +82,13 @@ Public Partial Class MainForm
 		chkMeta.Checked = XmlDoc.SelectSingleNode("//character/misc/ChaoticSkyflareDiamond").InnerText
 		chkTailorEnchant.Checked = XmlDoc.SelectSingleNode("//character/misc/TailorEnchant").InnerText
 		
+		
+		txtMHExpBonus.Text = XmlDoc.SelectSingleNode("//character/racials/MHExpertiseBonus").InnerText
+		txtOHExpBonus.Text = XmlDoc.SelectSingleNode("//character/racials/OHExpertiseBonus").InnerText
+		chkBloodFury.Checked = XmlDoc.SelectSingleNode("//character/racials/Orc").InnerText
+		chkBerzerking.Checked = XmlDoc.SelectSingleNode("//character/racials/Troll").InnerText
+		chkArcaneTorrent.Checked = XmlDoc.SelectSingleNode("//character/racials/BloodElf").InnerText
+		
 	End Sub
 	
 	Sub InitCharacterPanel()
@@ -131,6 +138,10 @@ Public Partial Class MainForm
 		cmbWeaponProc2.Sorted = True
 		cmbSetBonus1.Sorted = True
 		cmbSetBonus2.Sorted = True
+		
+		
+		txtMHExpBonus.Text = 0
+		txtOHExpBonus.Text = 0
 		
 	End Sub
 	
@@ -336,8 +347,35 @@ Public Partial Class MainForm
 		xElem = xmlDoc.CreateNode(xml.XmlNodeType.Element,"TailorEnchant" , "")
 		xElem.InnerText = chkTailorEnchant.Checked
 		xMisc.AppendChild(xElem)
-		xmlDoc.Save(filepath)
 		
+		Dim xRacial As XmlNode = xmlDoc.CreateNode(xml.XmlNodeType.Element, "racials", "")
+		root.AppendChild(xRacial)
+		
+		'Racials		
+		xElem = xmlDoc.CreateNode(xml.XmlNodeType.Element,"MHExpertiseBonus" , "")
+		xElem.InnerText = txtMHExpBonus.Text
+		xRacial.AppendChild(xElem)
+		
+		
+		xElem = xmlDoc.CreateNode(xml.XmlNodeType.Element,"OHExpertiseBonus" , "")
+		xElem.InnerText = txtOHExpBonus.Text
+		xRacial.AppendChild(xElem)
+		
+		
+		xElem = xmlDoc.CreateNode(xml.XmlNodeType.Element,"Orc" , "")
+		xElem.InnerText = chkBloodFury.Checked
+		xRacial.AppendChild(xElem)
+		
+		
+		xElem = xmlDoc.CreateNode(xml.XmlNodeType.Element,"Troll" , "")
+		xElem.InnerText = chkBerzerking.Checked
+		xRacial.AppendChild(xElem)
+		
+		xElem = xmlDoc.CreateNode(xml.XmlNodeType.Element,"BloodElf" , "")
+		xElem.InnerText = chkArcaneTorrent.Checked
+		xRacial.AppendChild(xElem)
+		
+		xmlDoc.Save(filepath)
 	End Sub
 	
 	

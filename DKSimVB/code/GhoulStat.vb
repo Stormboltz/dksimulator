@@ -135,7 +135,7 @@ Friend Class GhoulStat
 		tmp = tmp * (1 - ArmorMitigation)
 		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
 		tmp = tmp * (1 + 0.02 *  sim.Buff.PhysicalVuln)
-		
+		if sim.Character.Orc then tmp = tmp * 1.05
 		return tmp
 	End Function
 	

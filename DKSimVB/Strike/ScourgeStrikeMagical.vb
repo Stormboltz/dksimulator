@@ -41,7 +41,9 @@ Public Class ScourgeStrikeMagical
 	
 	
 	public Overrides Function AvrgNonCrit(T As Long) As Double
-		dim tmpMagical as Integer
+		Dim tmpMagical As Integer
+		Dim addtiveDamage As Double
+		
 		tmpMagical = tmpPhysical
 		If sim.MainStat.T84PDPS = 1 Then
 			tmpMagical = tmpMagical * (0.25 * Sim.NumDesease * 1.2)
@@ -50,17 +52,19 @@ Public Class ScourgeStrikeMagical
 		End If
 		Dim tmp As Double
 		tmp = 1
-		
-		tmp = tmp * (1 + sim.mainstat.BloodPresence * 0.15)
+		addtiveDamage = 1
+		addtiveDamage += sim.mainstat.BloodPresence * 0.15
+		addtiveDamage += 0.02 * sim.BoneShield.Value(T)
+		If sim.Desolation.isActive(T) Then addtiveDamage += sim.Desolation.Bonus
+		addtiveDamage +=  TalentFrost.BlackIce * 2 / 100
+		tmp = tmp * addtiveDamage 
 		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
-		If sim.Desolation.isActive(T) Then tmp = tmp * (1+sim.Desolation.Bonus)
-		tmp = tmp * (1 + 0.02 * sim.BoneShield.Value(T))
 		tmp = tmp * (1 + 0.02 * TalentBlood.BloodGorged)
 		if sim.proc.T104PDPSFAde >= T then tmp = tmp * 1.03
 		tmp = tmp * (1 + 0.13 *  sim.Buff.SpellDamageTaken)
 		tmp = tmp * (1-0.05) 'Average partial resist
 		tmpMagical = tmpMagical * tmp
-		tmpMagical = tmpMagical * (1 + TalentFrost.BlackIce * 2 / 100)
+		
 		If sim.RuneForge.CinderglacierProc > 0 Then
 			tmpMagical = tmpMagical * 1.2
 			sim.RuneForge.CinderglacierProc = sim.RuneForge.CinderglacierProc -1

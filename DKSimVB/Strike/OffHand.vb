@@ -33,7 +33,7 @@ Friend Class OffHand
 		
 		ChanceNotToTouch = MeleeMissChance + MeleeDodgeChance  + MeleeParryChance
 		
-		If math.Min(sim.mainstat.Expertise,MeleeDodgeChance)+ math.Min(sim.mainstat.Expertise,MeleeParryChance) + math.Min (sim.mainstat.Hit,MeleeMissChance) + RNG < ChanceNotToTouch Then
+		If math.Min(sim.mainstat.OHExpertise,MeleeDodgeChance)+ math.Min(sim.mainstat.OHExpertise,MeleeParryChance) + math.Min (sim.mainstat.Hit,MeleeMissChance) + RNG < ChanceNotToTouch Then
 			MissCount = MissCount + 1
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH fail")
 			exit function

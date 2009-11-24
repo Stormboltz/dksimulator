@@ -12,32 +12,51 @@ Friend Class Character
 	Private _ExpertiseRating As Integer
 	Private _Dual As Integer
 	Protected sim as Sim
-	Friend XmlConfig as New Xml.XmlDocument
+	Friend XmlConfig As New Xml.XmlDocument
+	
+	Friend MHExpertiseBonus As Integer
+	Friend OHExpertiseBonus As Integer
+	Friend Orc As Boolean
+	Friend Troll As Boolean
+	Friend BloodElf as Boolean
+	
+	
+	
+	
+	
 
 
 
 	Sub New(S As Sim)
 		Sim = S
 		XmlConfig.Load("config.xml")
-		
 		XmlDoc.Load (Application.StartupPath & "\Characters\"  & XmlConfig.SelectSingleNode("//config/Character").InnerText)
 
-		
-		
 		'XmlDoc.Load(GetFilePath(sim._MainFrm.cmbCharacter.Text) )
 		
-		_Strength=0
-		_Agility=0
-		_Intel=0
-		_Armor=0
-		_AttackPower=0
-		_HitRating=0
-		_CritRating=0
-		_HasteRating=0
-		_ArmorPenetrationRating=0
-		_ExpertiseRating=0
-		_Dual =0
+		_Strength = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Strength").InnerText)
+		_Agility = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Agility").InnerText)
+		_Intel = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Intel").InnerText)
+		_Armor = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Armor").InnerText)
+		_AttackPower = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/AttackPower").InnerText)
+		_HitRating = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/HitRating").InnerText)
+		_CritRating = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/CritRating").InnerText)
+		_HasteRating = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/HasteRating").InnerText)
+		_ArmorPenetrationRating = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/ArmorPenetrationRating").InnerText)
+		_ExpertiseRating=int32.Parse(XmlDoc.SelectSingleNode("//character/stat/ExpertiseRating").InnerText)
+		_Dual = int32.Parse(XmlDoc.SelectSingleNode("//character/weapon/count").InnerText)
+		
+		Try
+			MHExpertiseBonus = int32.Parse(XmlDoc.SelectSingleNode("//character/racials/MHExpertiseBonus").InnerText)
+			OHExpertiseBonus = int32.Parse(XmlDoc.SelectSingleNode("//character/racials/OHExpertiseBonus").InnerText)
+			Orc = XmlDoc.SelectSingleNode("//character/racials/Orc").InnerText
+			Troll = XmlDoc.SelectSingleNode("//character/racials/Troll").InnerText
+			BloodElf = XmlDoc.SelectSingleNode("//character/racials/BloodElf").InnerText
+		Catch
+			
+		End Try
 		sim.boss = New Boss(S)
+		
 	End Sub
 	
 	Function GetCharacterFileName() as String
@@ -83,14 +102,14 @@ Friend Class Character
 	
 	Function Strength() As Integer
 		Dim tmp As Integer
-		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Strength").InnerText)
+		tmp = _Strength
 		If sim.EPStat="Strength" Then tmp = tmp + sim.EPBase
 		If InStr(sim.EPStat,"ScaStr") Then
 			tmp = tmp + Replace(sim.EPStat,"ScaStr","") * sim.EPBase
 		End If
 		
 		if sim.proc.Virulence.IsActive then tmp += sim.proc.Virulence.ProcValue
-		If sim.proc.T92PDPS.IsActive  Then 
+		If sim.proc.T92PDPS.IsActive  Then
 			tmp += sim.proc.T92PDPS.ProcValue
 		End If
 		tmp = tmp +155 * 1.15 *  sim.Buff.StrAgi
@@ -111,49 +130,34 @@ Friend Class Character
 		If Sim.Trinkets.DeathChoiceHeroic.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.DeathChoiceHeroic.ProcValue
 		
 		if sim.UnbreakableArmor.isActive then tmp = tmp * 1.1
-		_Strength= tmp
-		
-		return _Strength
+		return tmp
 	End Function
 	
 	Function Agility() As Integer
-		If _Agility <> 0 Then
-			return _Agility
-			exit function
-		End If
+		
 		Dim tmp As Integer
-		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Agility").InnerText)
+		tmp = _Agility
 		If sim.EPStat="Agility" Then tmp = tmp +sim.EPBase
 		If InStr(sim.EPStat,"ScaAgility") Then
 			tmp = tmp + Replace(sim.EPStat,"ScaAgility","") * sim.EPBase
 		End If
-		_Agility = (tmp + 155 * 1.15 *  sim.Buff.StrAgi + 37 * 1.4  *  sim.Buff.StatAdd) * (1 +  sim.Buff.StatMulti / 10)
+		tmp = (tmp + 155 * 1.15 *  sim.Buff.StrAgi + 37 * 1.4  *  sim.Buff.StatAdd) * (1 +  sim.Buff.StatMulti / 10)
 		
-		return _Agility
+		return tmp
 	End Function
 	
 	Function Intel() As Integer
-		If _Intel <> 0 Then
-			return _Intel
-			exit function
-		End If
 		Dim tmp As Integer
-		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Intel").InnerText)
+		tmp = _Intel
+		tmp = (tmp + 37 * 1.4  *  sim.Buff.StatAdd) * (1 +  sim.Buff.StatMulti / 10)
 		
-		_Intel = (tmp + 37 * 1.4  *  sim.Buff.StatAdd) * (1 +  sim.Buff.StatMulti / 10)
-		
-		return _Intel
+		return tmp
 	End Function
 	
 	Function Armor() As Integer
-		If _Armor <> 0 Then
-			return _Armor
-			exit function
-		End If
 		Dim tmp As Integer
 		Dim tmp2 As Integer
-		
-		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Armor").InnerText)
+		tmp = _Armor
 		tmp2 = sim.boss.SpecialArmor
 		tmp = tmp - tmp2
 		tmp = tmp + (750 * 1.4  *  sim.Buff.StatAdd)
@@ -162,101 +166,63 @@ Friend Class Character
 			tmp = tmp * 1.6
 		End If
 		tmp = tmp + tmp2
-		_Armor = tmp
-		return _Armor
+		return tmp
 	End Function
 	
 	Function AttackPower() As Integer
-		If _AttackPower <> 0 Then
-			return _AttackPower
-			exit function
-		End If
 		Dim tmp As Integer
-		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/AttackPower").InnerText)
+		tmp = _AttackPower
 		If sim.EPStat="AttackPower" Then tmp = tmp+100
 		If sim.EPStat="AttackPower0T7" Then tmp = tmp+100
 		If sim.EPStat="AttackPowerNoTrinket" Then tmp = tmp+100
 		If sim.EPStat="AfterSpellHitBaseAP" Then tmp = tmp+100
 		tmp = tmp + int(Armor/180)*BladedArmor
-		_AttackPower = tmp + 687 *  sim.Buff.AttackPower
+		tmp = tmp + 687 *  sim.Buff.AttackPower
 		
-		return _AttackPower
+		return tmp
 	End Function
 	
 	Function HitRating() As Integer
-		If _HitRating <> 0 Then
-			return _HitRating
-			exit function
-		End If
 		Dim tmp As Integer
-		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/HitRating").InnerText)
-		_HitRating = tmp
-		
-		Return _HitRating
+		tmp = _HitRating
+		Return tmp
 	End Function
 	
 	Function CritRating() As Integer
-		If _CritRating <> 0 Then
-			return _CritRating
-			exit function
-		End If
 		Dim tmp As Integer
-		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/CritRating").InnerText)
-		
-		_CritRating = tmp
-		
-		
-		
-		
+		tmp = _CritRating
 		If sim.EPStat="CritRating" Then
-			_CritRating = _CritRating+sim.EPBase
+			tmp = tmp+sim.EPBase
 		End If
-		
 		If InStr(sim.EPStat,"ScaCrit") Then
 			If InStr(sim.EPStat,"ScaCritA") Then
-				_CritRating = _CritRating  + Replace(sim.EPStat,"ScaCritA","") * sim.EPBase
+				tmp = tmp  + Replace(sim.EPStat,"ScaCritA","") * sim.EPBase
 			Else
-				_CritRating = Replace(sim.EPStat,"ScaCrit","") * sim.EPBase
+				tmp = Replace(sim.EPStat,"ScaCrit","") * sim.EPBase
 			End If
 		End If
-		
-		
-		
-		
-		
-		return _CritRating
+		return tmp
 	End Function
 	
 	Function HasteRating() As Integer
-		If _HasteRating <> 0 Then
-			return _HasteRating
-			exit function
-		End If
 		Dim tmp As Integer
-		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/HasteRating").InnerText)
-		_HasteRating = tmp
+		tmp = _HasteRating
 		If sim.EPStat="HasteRating" Then
-			_HasteRating = _HasteRating+sim.EPBase
+			tmp = tmp+sim.EPBase
 		End If
-		
-		
 		If InStr(sim.EPStat,"ScaHaste") Then
 			If InStr(sim.EPStat,"ScaHasteA") Then
-				_HasteRating =  _HasteRating  + Replace(sim.EPStat,"ScaHasteA","") * sim.EPBase
+				tmp =  tmp  + Replace(sim.EPStat,"ScaHasteA","") * sim.EPBase
 			Else
-				_HasteRating =  Replace(sim.EPStat,"ScaHaste","") * sim.EPBase
+				tmp =  Replace(sim.EPStat,"ScaHaste","") * sim.EPBase
 			end if
 		End If
-		
-		
-		return _HasteRating
+		return tmp
 	End Function
 	
 	Function ArmorPenetrationRating() As Integer
-
 		Dim tmp As Integer
-		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/ArmorPenetrationRating").InnerText)
-		
+		tmp = _ArmorPenetrationRating
 		If InStr(sim.EPStat,"ScaArP") Then
 			If InStr(sim.EPStat,"ScaArPA") Then
 				tmp =  tmp  + Replace(sim.EPStat,"ScaArPA","") * sim.EPBase
@@ -267,26 +233,15 @@ Friend Class Character
 		If sim.EPStat="ArmorPenetrationRating" Then
 			tmp = tmp+sim.EPBase
 		End If
-		
 		If Sim.Trinkets.MjolRune.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.MjolRune.procvalue
 		If Sim.Trinkets.GrimToll.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.GrimToll.ProcValue
-
-		'If GrimTollFade > sim.TimeStamp Then Debug.Print( "GrimToll, now:" & tmp)
-		_ArmorPenetrationRating = tmp
-		
-		return _ArmorPenetrationRating
+		return tmp
 	End Function
 	
 	Function ExpertiseRating() As Integer
-		If _ExpertiseRating <> 0 Then
-			return _ExpertiseRating
-			exit function
-		End If
 		Dim tmp As Integer
-		tmp = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/ExpertiseRating").InnerText)
-		_ExpertiseRating = tmp
-		
-		return _ExpertiseRating
+		tmp = _ExpertiseRating
+		return tmp
 	End Function
 	
 	Function SpellHitRating() As Integer
@@ -310,7 +265,6 @@ Friend Class Character
 			End If
 			exit function
 		End If
-
 		_Dual = int32.Parse(XmlDoc.SelectSingleNode("//character/weapon/count").InnerText)
 		If _Dual = 2 Then
 			Return True

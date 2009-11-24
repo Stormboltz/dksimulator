@@ -81,9 +81,7 @@ Friend Class MainStat
 		Else
 			CSD = 0
 		End If
-		
-		
-		
+
 		'Trinkets
 		Sim.Trinkets = New Trinkets(Sim)
 		Sim.Trinkets.MHRazorIce.ProcValue = MHWeaponDPS * MHWeaponSpeed * 0.02
@@ -184,6 +182,10 @@ Friend Class MainStat
 		Catch
 		End Try
 		
+		
+		
+		
+		
 		T72PDPS = 0
 		T74PDPS = 0
 		T82PDPS = 0
@@ -204,9 +206,7 @@ Friend Class MainStat
 			Case "2T8"
 				T82PDPS = 1
 			Case "4T8"
-				
 				T84PDPS = 1
-				
 			Case "2T9"
 				
 				T92PDPS = 1
@@ -248,18 +248,18 @@ Friend Class MainStat
 	Function BaseAP() As Integer
 		dim tmp as integer
 		If sim.proc.Strife.isactive Then tmp = sim.proc.Strife.ProcValue
-		If Sim.Trinkets.TailorEnchant.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.TailorEnchant.ProcValue
-		If Sim.Trinkets.Mirror.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.Mirror.ProcValue
-		If Sim.Trinkets.Oldgod.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.Oldgod.ProcValue
-		If Sim.Trinkets.pyrite.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.pyrite.ProcValue
-		If Sim.Trinkets.victory.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.victory.ProcValue
+		If Sim.Trinkets.TailorEnchant.IsActive Then tmp = tmp + Sim.Trinkets.TailorEnchant.ProcValue
+		If Sim.Trinkets.Mirror.IsActive Then tmp = tmp + Sim.Trinkets.Mirror.ProcValue
+		If Sim.Trinkets.Oldgod.IsActive Then tmp = tmp + Sim.Trinkets.Oldgod.ProcValue
+		If Sim.Trinkets.pyrite.IsActive Then tmp = tmp + Sim.Trinkets.pyrite.ProcValue
+		If Sim.Trinkets.victory.IsActive Then tmp = tmp + Sim.Trinkets.victory.ProcValue
 		If Sim.proc.Berserking.IsActive Then tmp = tmp + Sim.proc.Berserking.ProcValue
+		If Sim.proc.OrcRacial.IsActive Then tmp = tmp + Sim.proc.OrcRacial.ProcValue
 		
 		tmp = tmp + Character.AttackPower
 		tmp = tmp + Character.Strength * 2
 		tmp = tmp + 550
 		tmp = tmp * (1 +  sim.Buff.AttackPowerPc / 10)
-		'tmp = (tmp + Character.Strength * 2 + Character.AttackPower + 550) * (1 +  sim.Buff.AttackPowerPc / 10)
 		return tmp
 	End Function
 	
@@ -334,9 +334,9 @@ Friend Class MainStat
 		tmp = tmp + 0.2 *  sim.Buff.MeleeHaste
 		tmp = tmp + 0.03 *  sim.Buff.Haste
 		If sim.Bloodlust.IsActive(sim.TimeStamp) Then tmp = tmp + 0.3
-		If Sim.Trinkets.Comet.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.Comet.ProcValue/(32.79/1.3)/100
-		If Sim.Trinkets.BitterAnguish.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.BitterAnguish.ProcValue/(32.79/1.3)/100
-		
+		If Sim.Trinkets.Comet.IsActive  Then tmp = tmp + Sim.Trinkets.Comet.ProcValue/(32.79/1.3)/100
+		If Sim.Trinkets.BitterAnguish.IsActive Then tmp = tmp + Sim.Trinkets.BitterAnguish.ProcValue/(32.79/1.3)/100
+		if sim.proc.TrollRacial.IsActive then tmp = tmp * 1.2
 		return tmp
 	End Function
 	Function SpellHaste() As Double
@@ -354,6 +354,32 @@ Friend Class MainStat
 			return tmp
 		End If
 	End Function
+	
+	
+	Function MHExpertise() As Double
+		Dim tmp As Double
+		tmp = Expertise
+		If sim.EPStat<>"" And strings.InStr(sim.EPStat,"Sca")=0 Then
+		Else
+			tmp += sim.Character.MHExpertiseBonus*0.25
+		End If
+		return tmp
+	End Function
+	
+	Function OHExpertise() As Double
+		Dim tmp As Double
+		tmp = Expertise
+		If sim.EPStat<>"" And strings.InStr(sim.EPStat,"Sca")=0 Then
+		Else
+			tmp += sim.Character.OHExpertiseBonus*0.25
+		End If
+		
+		return tmp
+	End Function
+	
+	
+	
+	
 	Function Expertise() As Double
 		Dim tmp As Double
 		tmp = Character.ExpertiseRating / 32.79
@@ -374,8 +400,6 @@ Friend Class MainStat
 				tmp =  Replace(sim.EPStat,"ScaExp","") * sim.EPBase /  32.79
 			End If
 		End If
-		
-		
 		return  tmp / 100
 	End Function
 	Function Hit() As Double

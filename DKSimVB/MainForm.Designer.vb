@@ -108,6 +108,14 @@ Partial Class MainForm
 		Me.tabControl1 = New System.Windows.Forms.TabControl
 		Me.tbcharEditor = New System.Windows.Forms.TabPage
 		Me.groupBox4 = New System.Windows.Forms.GroupBox
+		Me.groupBox5 = New System.Windows.Forms.GroupBox
+		Me.chkArcaneTorrent = New System.Windows.Forms.CheckBox
+		Me.chkBerzerking = New System.Windows.Forms.CheckBox
+		Me.chkBloodFury = New System.Windows.Forms.CheckBox
+		Me.txtOHExpBonus = New System.Windows.Forms.TextBox
+		Me.txtMHExpBonus = New System.Windows.Forms.TextBox
+		Me.label41 = New System.Windows.Forms.Label
+		Me.label42 = New System.Windows.Forms.Label
 		Me.cmdSaveNewCharatec = New System.Windows.Forms.Button
 		Me.cmdSaveCharacter = New System.Windows.Forms.Button
 		Me.gbMisc = New System.Windows.Forms.GroupBox
@@ -263,6 +271,7 @@ Partial Class MainForm
 		Me.tabControl1.SuspendLayout
 		Me.tbcharEditor.SuspendLayout
 		Me.groupBox4.SuspendLayout
+		Me.groupBox5.SuspendLayout
 		Me.gbMisc.SuspendLayout
 		Me.gbSetBonus.SuspendLayout
 		Me.gbWeaponProc.SuspendLayout
@@ -1070,6 +1079,7 @@ Partial Class MainForm
 		Me.groupBox4.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom)  _
 						Or System.Windows.Forms.AnchorStyles.Left)  _
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.groupBox4.Controls.Add(Me.groupBox5)
 		Me.groupBox4.Controls.Add(Me.cmdSaveNewCharatec)
 		Me.groupBox4.Controls.Add(Me.cmdSaveCharacter)
 		Me.groupBox4.Controls.Add(Me.gbMisc)
@@ -1084,6 +1094,84 @@ Partial Class MainForm
 		Me.groupBox4.TabIndex = 0
 		Me.groupBox4.TabStop = false
 		Me.groupBox4.Text = "groupBox4"
+		'
+		'groupBox5
+		'
+		Me.groupBox5.Controls.Add(Me.chkArcaneTorrent)
+		Me.groupBox5.Controls.Add(Me.chkBerzerking)
+		Me.groupBox5.Controls.Add(Me.chkBloodFury)
+		Me.groupBox5.Controls.Add(Me.txtOHExpBonus)
+		Me.groupBox5.Controls.Add(Me.txtMHExpBonus)
+		Me.groupBox5.Controls.Add(Me.label41)
+		Me.groupBox5.Controls.Add(Me.label42)
+		Me.groupBox5.Location = New System.Drawing.Point(434, 189)
+		Me.groupBox5.Name = "groupBox5"
+		Me.groupBox5.Size = New System.Drawing.Size(312, 234)
+		Me.groupBox5.TabIndex = 13
+		Me.groupBox5.TabStop = false
+		Me.groupBox5.Text = "Racial"
+		'
+		'chkArcaneTorrent
+		'
+		Me.chkArcaneTorrent.Location = New System.Drawing.Point(-1, 124)
+		Me.chkArcaneTorrent.Name = "chkArcaneTorrent"
+		Me.chkArcaneTorrent.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+		Me.chkArcaneTorrent.Size = New System.Drawing.Size(169, 24)
+		Me.chkArcaneTorrent.TabIndex = 20
+		Me.chkArcaneTorrent.Text = "Arcane Torrent"
+		Me.chkArcaneTorrent.UseVisualStyleBackColor = true
+		'
+		'chkBerzerking
+		'
+		Me.chkBerzerking.Location = New System.Drawing.Point(-1, 94)
+		Me.chkBerzerking.Name = "chkBerzerking"
+		Me.chkBerzerking.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+		Me.chkBerzerking.Size = New System.Drawing.Size(169, 24)
+		Me.chkBerzerking.TabIndex = 20
+		Me.chkBerzerking.Text = "Berserking"
+		Me.chkBerzerking.UseVisualStyleBackColor = true
+		'
+		'chkBloodFury
+		'
+		Me.chkBloodFury.Location = New System.Drawing.Point(0, 64)
+		Me.chkBloodFury.Name = "chkBloodFury"
+		Me.chkBloodFury.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+		Me.chkBloodFury.Size = New System.Drawing.Size(169, 24)
+		Me.chkBloodFury.TabIndex = 20
+		Me.chkBloodFury.Text = "Blood Fury + Pet damage"
+		Me.chkBloodFury.UseVisualStyleBackColor = true
+		'
+		'txtOHExpBonus
+		'
+		Me.txtOHExpBonus.Location = New System.Drawing.Point(156, 43)
+		Me.txtOHExpBonus.Name = "txtOHExpBonus"
+		Me.txtOHExpBonus.Size = New System.Drawing.Size(100, 20)
+		Me.txtOHExpBonus.TabIndex = 19
+		'
+		'txtMHExpBonus
+		'
+		Me.txtMHExpBonus.Location = New System.Drawing.Point(156, 17)
+		Me.txtMHExpBonus.Name = "txtMHExpBonus"
+		Me.txtMHExpBonus.Size = New System.Drawing.Size(100, 20)
+		Me.txtMHExpBonus.TabIndex = 18
+		'
+		'label41
+		'
+		Me.label41.Location = New System.Drawing.Point(24, 45)
+		Me.label41.Name = "label41"
+		Me.label41.Size = New System.Drawing.Size(126, 18)
+		Me.label41.TabIndex = 17
+		Me.label41.Text = "Off Hand Expertise"
+		Me.label41.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		'
+		'label42
+		'
+		Me.label42.Location = New System.Drawing.Point(14, 19)
+		Me.label42.Name = "label42"
+		Me.label42.Size = New System.Drawing.Size(136, 18)
+		Me.label42.TabIndex = 16
+		Me.label42.Text = "Main Hand Expertise"
+		Me.label42.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		'
 		'cmdSaveNewCharatec
 		'
@@ -2623,6 +2711,8 @@ Partial Class MainForm
 		Me.tabControl1.ResumeLayout(false)
 		Me.tbcharEditor.ResumeLayout(false)
 		Me.groupBox4.ResumeLayout(false)
+		Me.groupBox5.ResumeLayout(false)
+		Me.groupBox5.PerformLayout
 		Me.gbMisc.ResumeLayout(false)
 		Me.gbSetBonus.ResumeLayout(false)
 		Me.gbWeaponProc.ResumeLayout(false)
@@ -2647,6 +2737,14 @@ Partial Class MainForm
 		Me.gbScaling.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Private chkArcaneTorrent As System.Windows.Forms.CheckBox
+	Private chkBerzerking As System.Windows.Forms.CheckBox
+	Private chkBloodFury As System.Windows.Forms.CheckBox
+	Private txtOHExpBonus As System.Windows.Forms.TextBox
+	Private txtMHExpBonus As System.Windows.Forms.TextBox
+	Private label42 As System.Windows.Forms.Label
+	Private label41 As System.Windows.Forms.Label
+	Private groupBox5 As System.Windows.Forms.GroupBox
 	Private cmdSaveNewCharatec As System.Windows.Forms.Button
 	Private cmdSaveCharacter As System.Windows.Forms.Button
 	Private chkMeta As System.Windows.Forms.CheckBox

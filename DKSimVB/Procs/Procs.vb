@@ -17,10 +17,17 @@ Friend Class Procs
 	Friend T104PDPS As proc
 	Friend MHFallenCrusader As Proc
 	Friend OHFallenCrusader As Proc
-	Friend Berserking as Proc
+	Friend Berserking As Proc
+	Friend OrcRacial As Proc
+	Friend TrollRacial As Proc
+	Friend BElfRacial As Trinket
 
 	Protected Sim as Sim
 	Friend T104PDPSFAde As Integer
+	
+	
+	Friend OnHitProcs As Collection
+	
 	
 
 	
@@ -41,9 +48,6 @@ Friend Class Procs
 			.ProcLenght = 60
 			.ProcChance = 5 * talentfrost.Rime/100
 		End With
-		
-		
-		
 		ScentOfBlood = New ScentOfBlood(s)
 		With ScentOfBlood
 			If s.MainStat.FrostPresence = 1 Then
@@ -87,13 +91,10 @@ Friend Class Procs
 			.ProcValue = 173
 			.ProcLenght = 10
 			.InternalCD  = 45
-			
 		End With
-		
-		
 		s.RuneForge.MHRazorIce = New RazorIce(S)
 		With s.RuneForge.MHRazorIce
-			.CD = 0
+			.InternalCD = 0
 			if s.RuneForge.MHRazoriceRF	then .Equiped=1
 			.ProcChance = S.MainStat.MHWeaponSpeed/60
 			.ProcLenght = 20
@@ -102,7 +103,7 @@ Friend Class Procs
 		
 		s.RuneForge.OHRazorIce = New RazorIce(S)
 		With s.RuneForge.OHRazorIce
-			.CD = 0
+			.InternalCD = 0
 			if s.RuneForge.OHRazoriceRF	then .Equiped=1
 			.ProcChance = S.MainStat.OHWeaponSpeed/60
 			.ProcLenght = 20
@@ -111,7 +112,7 @@ Friend Class Procs
 		
 		MHFallenCrusader = new Proc(s)
 		With MHFallenCrusader
-			.CD = 0
+			.InternalCD = 0
 			if s.RuneForge.MHFallenCrusader	then .Equiped=1
 			.ProcChance = 2*S.MainStat.MHWeaponSpeed/60
 			.ProcLenght = 20
@@ -120,7 +121,7 @@ Friend Class Procs
 		
 		OHFallenCrusader = new Proc(s)
 		With OHFallenCrusader
-			.CD = 0
+			.InternalCD = 0
 			if s.RuneForge.OHFallenCrusader	then .Equiped=1
 			.ProcChance = 2*S.MainStat.OHWeaponSpeed/60
 			.ProcLenght = 20
@@ -130,24 +131,26 @@ Friend Class Procs
 		
 		s.RuneForge.MHCinderglacier = new Proc(s)
 		With s.RuneForge.MHCinderglacier
-			.CD = 0
+			.InternalCD = 0
 			if s.RuneForge.MHCinderglacierRF	then .Equiped=1
 			.ProcChance = 1*S.MainStat.MHWeaponSpeed/60
 			.ProcLenght = 20
 			.ProcValue = 2
+			.DamageType = "cinderglacier"
 		End With
 
 		s.RuneForge.OHCinderglacier = new Proc(s)
 		With s.RuneForge.OHCinderglacier
-			.CD = 0
+			.InternalCD = 0
 			if s.RuneForge.OHCinderglacierRF	then .Equiped=1
 			.ProcChance = 1*S.MainStat.OHWeaponSpeed/60
 			.ProcLenght = 20
 			.ProcValue = 2
+			.DamageType = "cinderglacier"
 		End With
 		Berserking = New Proc(s)		
 		With Berserking
-			.CD = 0
+			.InternalCD = 0
 			if s.RuneForge.OHBerserking then .Equiped=1
 			.ProcChance = 1.2*s.MainStat.OHWeaponSpeed/60
 			.ProcLenght = 15
@@ -155,7 +158,34 @@ Friend Class Procs
 		End With
 		
 		
-
+		OrcRacial = New Proc(s)
+		With OrcRacial
+			.InternalCD  = 120
+			if s.Character.Orc then .Equiped=1
+			.ProcChance = 1
+			.ProcLenght = 15
+			.ProcValue = 322
+		End With
+		
+		TrollRacial = New Proc(s)		
+		With TrollRacial
+			.InternalCD = 180
+			if s.Character.Troll then .Equiped=1
+			.ProcChance = 1
+			.ProcLenght = 15
+			.ProcValue = 0.20
+		End With
+		
+		BElfRacial = New Trinket(s)
+		With BElfRacial
+			.InternalCD = 120
+			if s.Character.BloodElf then .Equiped=1
+			.ProcChance = 1
+			.ProcLenght = 0
+			.ProcValue = 15
+			.DamageType = "torrent"
+		End With
+		
 		T104PDPSFAde= 0
 		sim = S
 	End Sub

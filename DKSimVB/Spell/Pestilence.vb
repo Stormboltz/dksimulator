@@ -47,11 +47,11 @@ Friend Class Pestilence
 			'debug.Print ("PEST! at " & T )
 			If sim.BloodPlague.FadeAt > T Then
 				sim.BloodPlague.FadeAt = T + 1500 + 300 * talentunholy.Epidemic
-				'BloodPlague.nextTick = T + 300
+				if sim.Patch33 then sim.BloodPlague.AP = sim.MainStat.AP
 			End If
 			If sim.FrostFever.FadeAt > T Then
 				sim.FrostFever.FadeAt = T + 1500 + 300 * talentunholy.Epidemic
-				'FrostFever.nextTick = T + 300
+				if sim.Patch33 then sim.FrostFever.AP = sim.MainStat.AP
 			End If
 		End If
 		return true
@@ -62,35 +62,21 @@ Friend Class Pestilence
 		
 		If sim.runes.AnyBlood(T) Then
 			tmp1 = math.Min(sim.BloodPlague.FadeAt,sim.FrostFever.FadeAt)
-			'debug.Print (RuneState & "time left on disease= " & (tmp1-T)/100 & "s" & " - " & T/100)
 			If tmp1 < T Then
 				return false
 			End If
-			
-'			debug.Print ("BP = " & BloodPlague.FadeAt)
-'			debug.Print ("BP = " & FrostFever.FadeAt)
-
-			If sim.MainStat.AP > sim.BloodPlague.AP Then
-				BPToReapply = True
+			If sim.Patch33= False Then
+				If sim.MainStat.AP > sim.BloodPlague.AP Then
+					BPToReapply = True
+				End If
+				If sim.MainStat.AP > sim.FrostFever.AP Then
+					FFToReapply = True
+				End If
+				If BPToReapply Or FFToReapply Then Return False
 			End If
-			If sim.MainStat.AP > sim.FrostFever.AP Then
-				FFToReapply = True
-			End If
-			If BPToReapply Or FFToReapply Then Return False
-				
-			
-			
-			
-			
-'
-'			If sim.BloodPlague.FadeAt <> sim.FrostFever.FadeAt Then
-'				return true
-'			End If
 			
 			If tmp1 - T > 1000 Then Return False
-			'debug.Print (RuneState & "time left on disease= " & (tmp1-T)/100 & "s" & " - " & T/100)
 			tmp2 = sim.runes.GetNextBloodCD(t)
-			'debug.Print (RuneState & "Next blood in " & (tmp2-T)/100 & "s" )
 			If tmp2 > tmp1 or tmp2=0 Then
 				return true
 			End If

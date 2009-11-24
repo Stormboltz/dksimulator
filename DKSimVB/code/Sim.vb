@@ -564,9 +564,9 @@ Public Class Sim
 		Rotation = new Rotation(Me)
 		Priority = New Priority(Me)
 		Character = New Character(Me)
-		
-		
 		MainStat = new MainStat(Me)
+			
+		
 		' Buff.UnBuff
 		BloodPlague = new BloodPlague(Me)
 		FrostFever = New FrostFever(Me)
@@ -989,6 +989,11 @@ Public Class Sim
 		trinkets.HandMountedPyroRocket.TryMe(TimeStamp)
 		trinkets.TailorEnchant.TryMe(TimeStamp)
 		RuneForge.MHRazorIce.TryMe(timestamp)
+		
+		proc.TrollRacial.TryMe(timestamp)
+		proc.OrcRacial.TryMe(timestamp)
+		proc.BElfRacial.TryMe(timestamp)
+		
 	End Sub
 	Sub TryOnOHHitProc
 		RuneForge.OHCinderglacier.TryMe(timestamp)

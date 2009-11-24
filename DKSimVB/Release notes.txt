@@ -1,6 +1,11 @@
 ﻿1.1.8.1 Release notes
 * Razorice is now stacking and won't give 10% frost damage at the start of the simulation.
-* 
+* EP Value for trinkets are back.
+* Scourge Stirke Magical part: (additive bonus, not multiplicative)
+* Racials included (Expertise bonus, Blood Fury + pet damage bonus, Troll Berzerker, Arcane Torrent)
+* New GoD behavior if patch 3.3 option is checked
+* Some premade talent template.
+
 
 1.1.8.0 Release notes
 * New: A character editor. Old Character config files should work on the character editor but not on the sim.
