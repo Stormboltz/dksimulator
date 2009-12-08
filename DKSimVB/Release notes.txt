@@ -1,4 +1,10 @@
-﻿1.1.8.1 Release notes
+﻿1.1.8.2 Release notes
+* Correction on Dark Matter trinket.
+* Removal of 3.2 specific code.
+* Correction on ghoul not reseting correctly from a Master of ghoul spec to another.
+* Correction on GoDisease not recalculating damage correctly.
+
+1.1.8.1 Release notes
 * Razorice is now stacking and won't give 10% frost damage at the start of the simulation.
 * EP Value for trinkets are back.
 * Scourge Stirke Magical part: (additive bonus, not multiplicative)

@@ -32,7 +32,7 @@ Public Class Sim
 	Friend KeepRNGSeed As Boolean
 	Friend KeepDiseaseOnOthersTarget As Boolean
 
-	Friend Patch33 as Boolean
+	
 	
 	Friend RandomNumberGenerator as RandomNumberGenerator
 	
@@ -747,15 +747,7 @@ Public Class Sim
 			Case "Instead of Blood Boil"
 				Me.BoneShieldUsageStyle = 3
 		End Select
-		Patch33 = doc.SelectSingleNode("//config/BoneShield3.3").InnerText
-		
-		
-		'		chkCombatLog.Checked = doc.SelectSingleNode("//config/log").InnerText
-		'		ckLogRP.Checked = doc.SelectSingleNode("//config/logdetail").InnerText
-		
-		'		chkGhoulHaste.Checked = doc.SelectSingleNode("//config/ghoulhaste").InnerText
-		'		chkWaitFC.Checked = doc.SelectSingleNode("//config/WaitFC").InnerText
-		'		ckPet.Checked = doc.SelectSingleNode("//config/pet").InnerText
+
 		errH:
 	End Sub
 	

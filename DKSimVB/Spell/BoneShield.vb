@@ -11,11 +11,7 @@ Public Class BoneShield
 	Friend Charge as Integer
 	
 	Function BuffLength() as Integer
-		If sim.Patch33 Then
-			Return 300
-		Else
-			Return 60
-		End If
+		Return 300
 	End Function
 	
 	

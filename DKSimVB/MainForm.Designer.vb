@@ -55,7 +55,6 @@ Partial Class MainForm
 		Me.tabPage3 = New System.Windows.Forms.TabPage
 		Me.cmbIntro = New System.Windows.Forms.ComboBox
 		Me.label26 = New System.Windows.Forms.Label
-		Me.ckBoneshield33 = New System.Windows.Forms.CheckBox
 		Me.label20 = New System.Windows.Forms.Label
 		Me.cmbBShOption = New System.Windows.Forms.ComboBox
 		Me.chkDisease = New System.Windows.Forms.CheckBox
@@ -477,7 +476,6 @@ Partial Class MainForm
 		'
 		Me.tabPage3.Controls.Add(Me.cmbIntro)
 		Me.tabPage3.Controls.Add(Me.label26)
-		Me.tabPage3.Controls.Add(Me.ckBoneshield33)
 		Me.tabPage3.Controls.Add(Me.label20)
 		Me.tabPage3.Controls.Add(Me.cmbBShOption)
 		Me.tabPage3.Controls.Add(Me.chkDisease)
@@ -552,18 +550,6 @@ Partial Class MainForm
 		Me.label26.Size = New System.Drawing.Size(100, 13)
 		Me.label26.TabIndex = 43
 		Me.label26.Text = "Intro"
-		'
-		'ckBoneshield33
-		'
-		Me.ckBoneshield33.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.ckBoneshield33.Checked = true
-		Me.ckBoneshield33.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.ckBoneshield33.Location = New System.Drawing.Point(394, 487)
-		Me.ckBoneshield33.Name = "ckBoneshield33"
-		Me.ckBoneshield33.Size = New System.Drawing.Size(104, 24)
-		Me.ckBoneshield33.TabIndex = 42
-		Me.ckBoneshield33.Text = "Set to Patch 3.3"
-		Me.ckBoneshield33.UseVisualStyleBackColor = true
 		'
 		'label20
 		'
@@ -2805,7 +2791,6 @@ Partial Class MainForm
 	Friend chkEP4PT10 As System.Windows.Forms.CheckBox
 	Private btStart As System.Windows.Forms.Button
 	Private tbPrioEditor As System.Windows.Forms.TabPage
-	Private ckBoneshield33 As System.Windows.Forms.CheckBox
 	Friend txtEPBase As System.Windows.Forms.TextBox
 	Private label25 As System.Windows.Forms.Label
 	Private txtFPArmor As System.Windows.Forms.TextBox

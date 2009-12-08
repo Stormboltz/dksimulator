@@ -25,12 +25,7 @@ Friend Class FrostFever
 		nextTick = T + 3 * 100
 		sim.pestilence.FFToReapply = False
 		ScourgeStrikeGlyphCounter = 0
-		If sim.Patch33 Then
-			CritChance = 0
-			Else
-			CritChance = sim.MainStat.crit
-		End If
-		
+		CritChance = 0
 	End Function
 	
 	Overrides	Function AvrgNonCrit(T As Long) As Double
@@ -46,8 +41,7 @@ Friend Class FrostFever
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		tmp = tmp * 1.15
 		tmp = tmp *(1+sim.RuneForge.RazorIceStack/100) 'TODO: only on main target
-		If sim.glyph.IcyTouchII Then tmp = tmp * 1.2
-		if sim.patch33 And sim.glyph.IcyTouch Then tmp = tmp * 1.2		
+		if sim.glyph.IcyTouch Then tmp = tmp * 1.2		
 		AvrgNonCrit = tmp
 	End Function
 	

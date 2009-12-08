@@ -8,11 +8,8 @@ Friend Class UnholyBlight
 	
 	Function Apply(T As Long,damage As Integer) As Double
 		Dim dégat As Integer
-		If sim.Patch33 Then
-			dégat = damage * 0.1
-		Else
-			dégat = damage * 0.2
-		End If
+		dégat = damage * 0.1
+
 		If sim.glyph.UnholyBlight Then dégat = dégat * 1.4
 		HitCount = HitCount + 1
 		total = total + dégat

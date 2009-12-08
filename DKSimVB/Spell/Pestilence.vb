@@ -47,11 +47,13 @@ Friend Class Pestilence
 			'debug.Print ("PEST! at " & T )
 			If sim.BloodPlague.FadeAt > T Then
 				sim.BloodPlague.FadeAt = T + 1500 + 300 * talentunholy.Epidemic
-				if sim.Patch33 then sim.BloodPlague.AP = sim.MainStat.AP
+				sim.BloodPlague.AP = sim.MainStat.AP
+				sim.BloodPlague.DamageTick = sim.BloodPlague.AvrgNonCrit(T)
 			End If
 			If sim.FrostFever.FadeAt > T Then
 				sim.FrostFever.FadeAt = T + 1500 + 300 * talentunholy.Epidemic
-				if sim.Patch33 then sim.FrostFever.AP = sim.MainStat.AP
+				sim.FrostFever.AP = sim.MainStat.AP
+				sim.FrostFever.DamageTick = sim.FrostFever.AvrgNonCrit(T)
 			End If
 		End If
 		return true
@@ -65,16 +67,6 @@ Friend Class Pestilence
 			If tmp1 < T Then
 				return false
 			End If
-			If sim.Patch33= False Then
-				If sim.MainStat.AP > sim.BloodPlague.AP Then
-					BPToReapply = True
-				End If
-				If sim.MainStat.AP > sim.FrostFever.AP Then
-					FFToReapply = True
-				End If
-				If BPToReapply Or FFToReapply Then Return False
-			End If
-			
 			If tmp1 - T > 1000 Then Return False
 			tmp2 = sim.runes.GetNextBloodCD(t)
 			If tmp2 > tmp1 or tmp2=0 Then

@@ -23,13 +23,13 @@ Friend Class GhoulStat
 		sim.Ghoul.total = 0
 		sim.ghoul.TotalHit = 0
 		sim.ghoul.TotalCrit = 0
-		If TalentUnholy.MasterOfGhouls Then 
-			sim.Ghoul.ActiveUntil = sim.MaxTime
-			sim.Ghoul.cd = sim.MaxTime
-		Else
-			sim.Ghoul.ActiveUntil = 0
-			sim.Ghoul.cd = 0
-		End If
+'		If TalentUnholy.MasterOfGhouls Then 
+'			sim.Ghoul.ActiveUntil = sim.MaxTime
+'			sim.Ghoul.cd = sim.MaxTime
+'		Else
+'			sim.Ghoul.ActiveUntil = 0
+'			sim.Ghoul.cd = 0
+'		End If
 	end Sub
 	Function BaseAP() As Integer
 		return 1167 

@@ -31,7 +31,7 @@ Friend Class ScourgeStrike
 		End If
 		dim dégat as Integer
 		
-		If sim.Patch33 Then 'Patch 3.3 #######(
+
 			tmpPhysical = 0
 			tmpMagical = 0
 			'Physical part
@@ -49,43 +49,16 @@ Friend Class ScourgeStrike
 			dégat = tmpPhysical
 			'Magical part
 			sim.ScourgeStrikeMagical.ApplyDamage(dégat,T)
-'			RNG = MyRNG
-'			If RNG <= CritChance Then
-'				Magiccrit = Magiccrit + 1
-'				tmpMagical = AvrgNonCritMagical(T)* (1 + CritCoef)
-'				'dégat = dégat +  tmpPhysical + tmpMagical
-'				'sim.combatlog.write(T  & vbtab &  "SS Magical crit for " & dégat )
-'				sim.tryOnCrit
-'			Else
-'				MagicHit = MagicHit + 1
-'				tmpMagical = AvrgNonCritMagical(T)
-'				'dégat = dégat +  tmpPhysical + tmpMagical
-'				'sim.combatlog.write(T  & vbtab &  "SS Magical hit for " & dégat )
-'			End If
-		Else ')######
-			RNG = MyRNG
-			If RNG <= CritChance Then
-				CritCount = CritCount + 1
-				dégat = AvrgCrit(T)
-				sim.combatlog.write(T  & vbtab &  "SS crit for " & dégat )
-				sim.tryOnCrit
-			Else
-				HitCount = HitCount + 1
-				dégat = AvrgNonCrit(T)
-				sim.combatlog.write(T  & vbtab &  "SS hit for " & dégat )
-			End If
-		End If
 
-		If sim.Patch33 Then
+		
+
+
 			tmpPhysical = math.round(tmpPhysical,0)
-			'tmpMagical = math.round(tmpMagical,0)
-			'MagicTotal = MagicTotal + tmpMagical
+		
 			sim.combatlog.write(T  & vbtab &  "SS hit for " & tmpPhysical & " physical")
-			'sim.combatlog.write(T  & vbtab &  "SS hit for " & tmpMagical & " magical")
+		
 			total = total + tmpPhysical
-		Else
-			total = total +  dégat
-		End If
+		
 		
 		If sim.glyph.ScourgeStrike Then
 			If sim.BloodPlague.ScourgeStrikeGlyphCounter < 3 Then
@@ -196,8 +169,8 @@ Friend Class ScourgeStrike
 	End Function
 	
 	Public Overloads Overrides Function report() As String
-		If sim.Patch33 Then
-		End If
+'		If sim.Patch33 Then
+'		End If
 		Return MyBase.report()
 	End Function
 	

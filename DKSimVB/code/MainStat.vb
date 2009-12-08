@@ -275,8 +275,8 @@ Friend Class MainStat
 
 
 		if sim.proc.HauntedDreams.IsActive then tmp += sim.proc.HauntedDreams.ProcValue/45.91
-		If Sim.Trinkets.DarkMatter.Fade > sim.TimeStamp Then
-			tmp = tmp + Sim.Trinkets.DarkMatter.ProcValue / 45.91
+		If Sim.Trinkets.DarkMatter.IsActive Then
+			tmp += Sim.Trinkets.DarkMatter.ProcValue / 45.91
 		End If
 		
 		tmp = tmp + Character.Agility*0.016
@@ -294,8 +294,8 @@ Friend Class MainStat
 		'tmp = 5  'BaseCrit. What base crit?
 		tmp = tmp + Character.CritRating / 45.91
 		if sim.proc.HauntedDreams.IsActive then tmp += sim.proc.HauntedDreams.ProcValue/45.91
-		If Sim.Trinkets.DarkMatter.Fade > sim.TimeStamp Then
-			tmp = tmp + Sim.Trinkets.DarkMatter.ProcValue / 45.91
+		If Sim.Trinkets.DarkMatter.IsActive Then
+			tmp += Sim.Trinkets.DarkMatter.ProcValue / 45.91
 		End If
 		
 		tmp = tmp + Character.Agility / 62.5
@@ -311,10 +311,9 @@ Friend Class MainStat
 		Dim tmp As Double
 		tmp = Character.SpellCritRating / 45.91
 		if sim.proc.HauntedDreams.IsActive then tmp += sim.proc.HauntedDreams.ProcValue/45.91
-		If Sim.Trinkets.DarkMatter.Fade > sim.TimeStamp Then
-			tmp = Sim.Trinkets.DarkMatter.ProcValue + 612 / 45.91
+		If Sim.Trinkets.DarkMatter.IsActive Then
+			tmp += Sim.Trinkets.DarkMatter.ProcValue / 45.91
 		End If
-		
 		tmp = tmp + 3 *  sim.Buff.CritChanceTaken
 		tmp = tmp + 5 *  sim.Buff.SpellCrit
 		tmp = tmp + 5 *  sim.Buff.SpellCritTaken

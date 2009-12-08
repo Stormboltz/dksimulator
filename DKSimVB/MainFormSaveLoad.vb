@@ -373,12 +373,7 @@ Public Partial Class MainForm
 		root = doc.DocumentElement
 		root.AppendChild(newElem)
 		
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "BoneShield3.3", "")
-		newElem.InnerText = ckBoneshield33.Checked
-		root = doc.DocumentElement
-		root.AppendChild(newElem)
-		
-		
+	
 		
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "txtManyFights", "")
 		newElem.InnerText = txtManyFights.Text
@@ -435,7 +430,7 @@ Public Partial Class MainForm
 		chkWaitFC.Checked = doc.SelectSingleNode("//config/WaitFC").InnerText
 		ckPet.Checked = doc.SelectSingleNode("//config/pet").InnerText
 		txtNumberOfEnemies.Text  = doc.SelectSingleNode("//config/Enemies").InnerText
-		ckBoneshield33.Checked = doc.SelectSingleNode("//config/BoneShield3.3").InnerText
+		
 		txtManyFights.Text = doc.SelectSingleNode("//config/txtManyFights").InnerText
 		chkManyFights.Checked = doc.SelectSingleNode("//config/chkManyFights").InnerText
 		txtAMSrp.Text = doc.SelectSingleNode("//config/txtAMSrp").InnerText

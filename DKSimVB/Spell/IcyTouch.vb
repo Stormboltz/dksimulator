@@ -39,7 +39,6 @@ Friend Class IcyTouch
 		
 		
 		Sim.RunicPower.add (10 + (TalentFrost.ChillOfTheGrave * 2.5))
-		If sim.patch33 = False and sim.glyph.IcyTouch Then Sim.RunicPower.add (10)
 		If sim.DRW.IsActive(T) Then
 			sim.DRW.IcyTouch
 		End If
