@@ -26,7 +26,7 @@ Public Class ScourgeStrikeMagical
 		tmpPhysical = PhysicalDamage
 		RNG = MyRNG
 		
-		If RNG <= CritChance Then
+		If False Then 'RNG <= CritChance Then
 			CritCount +=1
 			TotalCrit = TotalCrit + 1
 			tmp = AvrgNonCrit(T)* (1 + CritCoef)
