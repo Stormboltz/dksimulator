@@ -16,7 +16,7 @@ Public Class Spell
 	Friend TotalCrit As Long
 	Friend CD As Long
 	Friend ActiveUntil As Long
-	Friend ThreadMultiplicator as double
+	Public ThreadMultiplicator as double
 	Protected Sim As Sim
 	Protected _RNG as Random
 	

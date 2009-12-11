@@ -24,7 +24,7 @@ Friend Class glyph
 	Friend  Ghoul As Boolean
 	Friend  UnholyBlight As Boolean
 	Friend  BoneShield As Boolean
-	Friend IcyTouchII as Boolean
+	
 	
 	Sub New(path As String)
 		on error resume next
@@ -45,6 +45,6 @@ Friend Class glyph
 		Ghoul = (xmlGlyph.SelectSingleNode("//Talents/Glyphs/Ghoul").InnerText =1)
 		UnholyBlight = (xmlGlyph.SelectSingleNode("//Talents/Glyphs/UnholyBlight").InnerText =1)
 		BoneShield = (xmlGlyph.SelectSingleNode("//Talents/Glyphs/BoneShield").InnerText =1)
-		IcyTouchII = (xmlGlyph.SelectSingleNode("//Talents/Glyphs/IcyTouchII").InnerText =1)
+		
 	End Sub
 End Class

@@ -18,7 +18,7 @@ Friend Class WanderingPlague
 	End Function
 	
 	Function ApplyDamage(Damage As Double, T As long) As Double
-		nextTick = T + 100
+		nextTick = T + 200
 		
 		Dim tmp As Integer
 		Dim intCount As Integer

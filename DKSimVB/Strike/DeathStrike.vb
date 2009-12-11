@@ -120,6 +120,7 @@ Friend Class DeathStrike
 			tmp = tmp * 0.5
 			tmp = tmp * (1 + TalentFrost.NervesofColdSteel * 5 / 100)
 		End If
+		
 		return tmp
 	End Function
 	public Overrides Function CritCoef() As Double

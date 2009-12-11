@@ -16,7 +16,7 @@ Public Class Strike
 	Friend TotalHit As Long
 	Friend TotalCrit As Long
 	Protected Sim as Sim
-	Friend ThreadMultiplicator As Double
+	Public ThreadMultiplicator As Double
 	Protected _RNG as Random
 	
 	

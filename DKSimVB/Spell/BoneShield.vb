@@ -32,7 +32,7 @@ Public Class BoneShield
 	Sub PreBuff
 		if TalentUnholy.BoneShield = 1 then
 			Me.CD = 60*100
-			Me.ActiveUntil = BuffLength*100
+			Me.ActiveUntil = sim.TimeStamp + BuffLength*100
 		end if
 	End Sub
 	Public Overloads Overrides Sub Init()

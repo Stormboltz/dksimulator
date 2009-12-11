@@ -22,7 +22,7 @@ Public Class Disease
 	Friend ScourgeStrikeGlyphCounter As Integer
 	Friend OtherTargetsFade As Integer
 	Friend CritChance As Double
-	Friend ThreadMultiplicator As Double
+	Public ThreadMultiplicator As Double
 	Friend ToReApply as Boolean
 	Protected _RNG as Random
 	

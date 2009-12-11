@@ -1,4 +1,11 @@
-﻿1.1.8.3 Release notes
+﻿1.1.8.4 Release notes
+* Removal of Glyph of Icy Touch II. 
+* Bone Shield Precast when Many Fight option is checked.
+* 2 pieces T9 and T10 bonus implemented.
+* Death and Decay / Rune strike are back in the report/DPS summary.
+
+
+1.1.8.3 Release notes
 * Scourge Strike magical part can't crit anymore.
 
 1.1.8.2 Release notes

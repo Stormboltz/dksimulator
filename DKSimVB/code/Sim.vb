@@ -376,20 +376,20 @@ Public Class Sim
 	End Sub
 	
 	Function TotalDamage() as Long
-		TotalDamage = ScourgeStrike.total + ScourgeStrikeMagical.Total + obliterate.total + PlagueStrike.total + _
-			BloodStrike.total + HeartStrike.total + frostfever.total + _
-			BloodPlague.total + IcyTouch.total + deathcoil.total + _
-			UnholyBlight.total + Necrosis.total + BloodCakedBlade.total + _
-			WanderingPlague.total +FrostStrike.total  +HowlingBlast.total + _
-			BloodBoil.total  + DeathStrike.total + MainHand.total + _
-			OffHand.total  + Ghoul.total + Gargoyle.total + DRW.total + _			
-			Trinkets.MHRazorIce.Total + Trinkets.OHRazorIce.Total + DeathandDecay.total + RuneStrike.total + _
-			Trinkets.Bandit.Total + Trinkets.DCDeath.Total + Trinkets.Necromantic.Total + _
-			Trinkets.MHSingedViskag.Total  + Trinkets.OHSingedViskag.Total + _
-			Trinkets.MHtemperedViskag.Total + Trinkets.OHtemperedViskag.Total + _
-			Trinkets.MHRagingDeathbringer.Total + Trinkets.OHRagingDeathbringer.Total + _
-			Trinkets.MHEmpoweredDeathbringer.Total + Trinkets.OHEmpoweredDeathbringer.Total + _
-			Trinkets.HandMountedPyroRocket.total
+'		TotalDamage = ScourgeStrike.total + ScourgeStrikeMagical.Total + obliterate.total + PlagueStrike.total + _
+'			BloodStrike.total + HeartStrike.total + frostfever.total + _
+'			BloodPlague.total + IcyTouch.total + deathcoil.total + _
+'			UnholyBlight.total + Necrosis.total + BloodCakedBlade.total + _
+'			WanderingPlague.total +FrostStrike.total  +HowlingBlast.total + _
+'			BloodBoil.total  + DeathStrike.total + MainHand.total + _
+'			OffHand.total  + Ghoul.total + Gargoyle.total + DRW.total + _			
+'			Trinkets.MHRazorIce.Total + Trinkets.OHRazorIce.Total + DeathandDecay.total + RuneStrike.total + _
+'			Trinkets.Bandit.Total + Trinkets.DCDeath.Total + Trinkets.Necromantic.Total + _
+'			Trinkets.MHSingedViskag.Total  + Trinkets.OHSingedViskag.Total + _
+'			Trinkets.MHtemperedViskag.Total + Trinkets.OHtemperedViskag.Total + _
+'			Trinkets.MHRagingDeathbringer.Total + Trinkets.OHRagingDeathbringer.Total + _
+'			Trinkets.MHEmpoweredDeathbringer.Total + Trinkets.OHEmpoweredDeathbringer.Total + _
+'			Trinkets.HandMountedPyroRocket.total
 			Dim i As long
 			dim obj as Object
 			
@@ -540,6 +540,7 @@ Public Class Sim
 		proc = New procs(Me)
 		Trinkets.SoftReset
 		BoneShield.CD = 0
+		BoneShield.PreBuff
 		NextFreeGCD = 0
 		AMSCd = _MainFrm.txtAMScd.text * 100
 		AMSTimer = _MainFrm.txtAMScd.text * 100
@@ -858,14 +859,12 @@ Public Class Sim
 		
 		Dim ThreatBeforePresence As Long = Threat
 		'TODO: Add the collection
-		Threat = ScourgeStrike.total + (ScourgeStrike.CritCount+ScourgeStrike.HitCount)*120 + _
-			obliterate.total + PlagueStrike.total + _
-			BloodStrike.total + HeartStrike.total + frostfever.total + _
-			BloodPlague.total + IcyTouch.total + deathcoil.total + _
-			UnholyBlight.total + Necrosis.total + BloodCakedBlade.total + _
-			WanderingPlague.total +FrostStrike.total  + HowlingBlast.total + _
-			BloodBoil.total  + DeathStrike.total + MainHand.total + _
-			OffHand.total  +  DeathandDecay.total*1.9 +  RuneStrike.total*1.5
+		
+		For Each obj In Me.DamagingObject
+				Threat += obj.Total * obj.ThreadMultiplicator
+			Next
+
+	
 		If MainStat.FrostPresence = 1 Then
 			Threat = Threat * 2.0735
 		Else

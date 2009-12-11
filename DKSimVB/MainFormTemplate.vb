@@ -573,14 +573,6 @@ Public Partial Class MainForm
 		Else
 			newElem.InnerText = 0
 		End If
-		glyphID = "99"
-		xmlGlyph.AppendChild(newElem)
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "IcyTouchII", "")
-		If glyph1 = glyphID Or glyph2 = glyphID Or glyph3 = glyphID  Then
-			newElem.InnerText = 1
-		Else
-			newElem.InnerText = 0
-		End If
 		
 		glyphID = "10"
 		xmlGlyph.AppendChild(newElem)

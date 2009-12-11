@@ -116,6 +116,7 @@ Friend class BloodStrike
 			tmp = tmp * 0.5
 			tmp = tmp * (1 + TalentFrost.NervesofColdSteel * 5 / 100)
 		End If
+		if sim.MainStat.T92PTNK =1 then tmp = tmp *1.05
 		AvrgNonCrit = tmp
 	End Function
 	

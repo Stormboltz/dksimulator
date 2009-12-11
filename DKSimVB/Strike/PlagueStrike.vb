@@ -1,6 +1,6 @@
 Friend Class PlagueStrike
 	Inherits Strikes.Strike
-		Sub New(S As sim)
+	Sub New(S As sim)
 		MyBase.New(s)
 	End Sub
 	public Overrides Function ApplyDamage(T As Long) As Boolean

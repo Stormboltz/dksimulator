@@ -148,15 +148,6 @@ Friend Class ScourgeStrike
 	End Function
 	
 	
-	Function MagicalCritCoef() As Double
-		return  (1+0.06*sim.mainstat.CSD)
-	End Function
-	
-	Function MagicalCritChance() As Double
-		dim tmp as Double
-		tmp = sim.MainStat.crit + sim.MainStat.T72PDPS * 5 / 100
-		return  tmp
-	End Function
 	
 	public Overrides Function CritChance() As Double
 		dim tmp as Double
@@ -172,30 +163,6 @@ Friend Class ScourgeStrike
 '		If sim.Patch33 Then
 '		End If
 		Return MyBase.report()
-	End Function
-	
-	
-	Function MagicReport As String
-		dim tmp as String
-		tmp = ShortenName(me.ToString) & " Magical"  & VBtab
-		
-		If total.ToString().Length < 8 Then
-			tmp = tmp & MagicTotal & "   " & VBtab
-		Else
-			tmp = tmp & MagicTotal & VBtab
-		End If
-		tmp = tmp & toDecimal(100*MagicTotal/sim.TotalDamage) & VBtab
-		tmp = tmp & toDecimal(MagicHit+MagicCrit) & VBtab
-		tmp = tmp & toDecimal(100*MagicHit/(MagicHit+0+MagicCrit)) & VBtab
-		tmp = tmp & toDecimal(100*MagicCrit/(MagicHit+0+MagicCrit)) & VBtab
-		tmp = tmp & toDecimal(100*0/(MagicHit+0+MagicCrit)) & VBtab
-		tmp = tmp & toDecimal(MagicTotal/(MagicHit+MagicCrit)) & VBtab
-		If sim.MainStat.FrostPresence Then
-			tmp = tmp & toDecimal((100 * MagicTotal * ThreadMultiplicator * 2.0735 ) / sim.TimeStamp) & VBtab
-		End If
-
-		tmp = tmp & vbCrLf
-		return tmp
 	End Function
 	
 	

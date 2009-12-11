@@ -35,6 +35,11 @@ Friend Class MainStat
 	Friend T102PDPS As integer
 	Friend T104PDPS As Integer
 	
+	Friend T92PTNK As integer
+	Friend T102PTNK As Integer
+	
+	
+	
 	Private _Mitigation As Double
 	Private _LastArP as Double
 	
@@ -237,6 +242,13 @@ Friend Class MainStat
 				Try
 					T102PDPS = XmlDoc.SelectSingleNode("//character/Set/T102PDPS").InnerText
 					T104PDPS = XmlDoc.SelectSingleNode("//character/Set/T104PDPS").InnerText
+					
+					T92PTNK = XmlDoc.SelectSingleNode("//character/Set/T92PTNK").InnerText
+					T102PTNK = XmlDoc.SelectSingleNode("//character/Set/T102PTNK").InnerText
+					
+			
+					
+					
 				Catch
 					
 				End Try

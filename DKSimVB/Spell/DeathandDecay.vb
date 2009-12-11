@@ -11,8 +11,8 @@ Friend Class DeathandDecay
 
 	Friend nextTick As Long
 	
-	Sub New(MySim as Sim)
-		sim = Mysim
+	Sub New(MySim As Sim)
+		MyBase.New(MySim)
 	End Sub
 	
 	Public Overloads Overrides Sub Init()
@@ -35,7 +35,6 @@ Friend Class DeathandDecay
 		cd = T + 3000 - TalentUnholy.Morbidity*500
 		sim.combatlog.write(T  & vbtab &  "D&D ")
 		Sim.RunicPower.add(15)
-		
 		return true
 	End Function
 	
@@ -74,7 +73,8 @@ Friend Class DeathandDecay
 		tmp = tmp + (0.0475 * (1 + 0.04 * TalentUnholy.Impurity) * sim.MainStat.AP)
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		tmp = tmp * (1 + TalentFrost.BlackIce * 2 / 100)
-		if sim.glyph.DeathandDecay then tmp = tmp *1.2
+		If sim.glyph.DeathandDecay Then tmp = tmp *1.2
+		if sim.MainStat.T102PTNK =1 then tmp = tmp *1.2
 		return tmp
 	End Function
 	overrides Function CritCoef() As Double

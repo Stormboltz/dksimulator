@@ -97,7 +97,7 @@ Sub New(S As sim)
 		If sim.MainStat.T102PDPS<>0 Then
 				tmp = tmp * 1.07
 		End If
-		
+		if sim.MainStat.T92PTNK =1 then tmp = tmp *1.05
 		AvrgNonCrit = tmp
 	End Function
 	

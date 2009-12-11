@@ -11,13 +11,8 @@ Public Class RuneStrike
 	 
 	Friend trigger as Boolean
 	
-	Sub new(S as sim )
-		total = 0
-		MissCount = 0
-		HitCount = 0
-		CritCount = 0
-		TotalHit = 0
-		TotalCrit = 0
+	Sub New(S As sim )
+		MyBase.New(s)
 		sim = S
 		ThreadMultiplicator = 1.5 * 1.17
 	End Sub
