@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <TrinketList>
-	<MjolnirRunestone></MjolnirRunestone>
+		<MjolnirRunestone></MjolnirRunestone>
+		<DeathbringersWill></DeathbringersWill>
+    	<DeathbringersWillHeroic></DeathbringersWillHeroic>
 		<GrimToll></GrimToll>
 		<BitterAnguish></BitterAnguish>
 		<Mirror></Mirror>

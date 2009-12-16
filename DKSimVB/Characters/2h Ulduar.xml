@@ -37,7 +37,9 @@
     <T94PDPS>0</T94PDPS>
   </Set>
   <trinket>
-    <Bandit>0</Bandit>
+    <DeathbringersWill>0</DeathbringersWill>
+    <DeathbringersWillHeroic>0</DeathbringersWillHeroic>
+  	<Bandit>0</Bandit>
     <BitterAnguish>0</BitterAnguish>
     <Comet>0</Comet>
     <DarkMatter>0</DarkMatter>

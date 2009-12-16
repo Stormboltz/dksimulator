@@ -22,10 +22,9 @@ Public Class Proc
 	Friend CritCount As Integer
 	Friend DamageType As String
 	Friend Count As Integer
-	friend name as String
+	Friend Name As String
+	Friend ProcType As String
 
-	
-	
 	Function RNGProc As Double
 		If _RNG Is nothing Then
 			_RNG =  New Random(ConvertToInt(me.ToString)+RNGSeeder)
@@ -60,9 +59,6 @@ Public Class Proc
 		count = 0
 	End Function
 	
-	
-	
-	
 	Overridable Sub TryMe(T As Long)
 		dim tmp as Integer
 		If Equiped = 0 Or CD > T Then Exit Sub
@@ -70,6 +66,44 @@ Public Class Proc
 			CD = T + InternalCD * 100
 			Select Case DamageType
 				Case ""
+					If sim.combatlog.LogDetails Then sim.combatlog.write(sim.TimeStamp  & vbtab &  Me.ToString & " proc")
+					Fade = T + ProcLenght * 100
+					HitCount += 1
+				Case "DeathbringersWill"
+					Dim RNG As Double
+					RNG = Rnd
+					
+					If RNG < 0.33 Then
+						ProcType = "str"
+					ElseIf RNG < 0.66 Then
+						ProcType = "crit"
+					Else
+						If TalentBlood.Hysteria = 1 Then
+							ProcType = "arp"
+						Else
+							ProcType = "haste"
+						End If
+					End If
+					
+					If sim.combatlog.LogDetails Then sim.combatlog.write(sim.TimeStamp  & vbtab &  Me.ToString & " proc")
+					Fade = T + ProcLenght * 100
+					HitCount += 1
+				Case "DeathbringersWillHeroic"
+					Dim RNG As Double
+					RNG = Rnd
+					
+					If RNG < 0.33 Then
+						ProcType = "str"
+					ElseIf RNG < 0.66 Then
+						ProcType = "crit"
+					Else
+						If TalentBlood.Hysteria = 1 Then
+							ProcType = "arp"
+						Else
+							ProcType = "haste"
+						End If
+					End If
+					
 					If sim.combatlog.LogDetails Then sim.combatlog.write(sim.TimeStamp  & vbtab &  Me.ToString & " proc")
 					Fade = T + ProcLenght * 100
 					HitCount += 1

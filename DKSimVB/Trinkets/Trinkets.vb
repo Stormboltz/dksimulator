@@ -7,10 +7,6 @@
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
 Public Class Trinkets
-
-
-	
-	
 	Friend GrimToll As Trinket
 	Friend BitterAnguish As Trinket
 	Friend Mirror As Trinket
@@ -26,6 +22,8 @@ Public Class Trinkets
 	Friend DeathChoiceHeroic As Trinket
 	Friend Greatness as Trinket
 	Friend MjolRune As Trinket
+	Friend DeathbringersWill As Trinket
+	Friend DeathbringersWillHeroic As Trinket
 	
 	Friend MHtemperedViskag As Trinket
 	Friend OHtemperedViskag As Trinket
@@ -42,12 +40,49 @@ Public Class Trinkets
 	Friend MHRazorIce As Trinket
 	Friend OHRazorIce As Trinket
 
-
-	
-	
 	Protected sim as Sim
 	Sub New(S As Sim)
 		Sim = S
+		
+		DeathbringersWill = New Trinket(s)
+		With DeathbringersWill 
+			.ProcChance = 0.35
+		 	.Equiped = 0
+		 	.ProcLenght = 30
+		 	.ProcValue = 600
+		 	.InternalCD = 105
+		 	.DamageType = "DeathbringersWill"
+		 	.ProcType = "str"
+		End With
+		
+		DeathbringersWillHeroic = New Trinket(s)
+		With DeathbringersWillHeroic 
+			.ProcChance = 0.35
+		 	.Equiped = 0
+		 	.ProcLenght = 30
+		 	.ProcValue = 700
+		 	.InternalCD = 105
+		 	.DamageType = "DeathbringersWillHeroic"
+		 	.ProcType = "str"
+		End With
+		
+		DeathChoice = New Trinket(s)
+		With DeathChoice 
+			.ProcChance = 0.35
+		 	.Equiped = 0
+		 	.ProcLenght = 15
+		 	.ProcValue = 450
+		 	.InternalCD = 45
+		End With
+		
+		DeathChoiceHeroic = New Trinket(s)
+		With DeathChoiceHeroic 
+			.ProcChance = 0.35
+		 	.Equiped = 0
+		 	.ProcLenght = 15
+		 	.ProcValue = 510
+		 	.InternalCD = 45
+		End With
 
 		Greatness = New Trinket(s)
 		With Greatness
@@ -76,7 +111,6 @@ Public Class Trinkets
 		 	.InternalCD = 45
 		End With
 
-	 	
 	 	BitterAnguish = New Trinket(s)
 	 	With BitterAnguish 
 			.ProcChance = 0.10
@@ -112,27 +146,6 @@ Public Class Trinkets
 		 	.ProcValue = 1284
 		 	.InternalCD = 45
 		End With
-		
-		DeathChoice = New Trinket(s)
-		With DeathChoice 
-			.ProcChance = 0.35
-		 	.Equiped = 0
-		 	.ProcLenght = 15
-		 	.ProcValue = 450
-		 	.InternalCD = 45
-		End With
-		
-		
-		DeathChoiceHeroic = New Trinket(s)
-		With DeathChoiceHeroic 
-			.ProcChance = 0.35
-		 	.Equiped = 0
-		 	.ProcLenght = 15
-		 	.ProcValue = 510
-		 	.InternalCD = 45
-		End With
-		
-		
 		
 		Victory = New Trinket(s)
 		With Victory 
@@ -238,7 +251,6 @@ Public Class Trinkets
 		 	.Name = "OHSingedViskag"
 		End With
 		
-		
 		MHEmpoweredDeathbringer = New Trinket(S)
 		With MHEmpoweredDeathbringer
 			.ProcChance = 0.065
@@ -325,8 +337,6 @@ Public Class Trinkets
 		 	.InternalCD = 0
 		 	.Name = "Off Hand RazorIce"
 		End With
-		
-		
 		
 		CollectDamagingTrinket
 	End Sub

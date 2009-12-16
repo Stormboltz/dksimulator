@@ -10,8 +10,6 @@
 Public Class Trinket
 	inherits Proc
 	
-	
-
 	Sub New()
 		mybase.New
 		_RNG = nothing
@@ -30,7 +28,6 @@ Public Class Trinket
 		Sim = S
 		s.TrinketsCollection.Add(me)
 	End Sub
-	
 	
 	Sub ApplyDamage(d As Integer)
 		If RNGProc < (0.17 - sim.MainStat.SpellHit) Then

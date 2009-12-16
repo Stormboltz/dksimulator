@@ -106,6 +106,9 @@ Friend Class MainStat
 		Sim.Trinkets.OldGod.Equiped = 0
 		Sim.Trinkets.Comet.Equiped = 0
 		Sim.Trinkets.DeathChoice.Equiped = 0
+		Sim.Trinkets.DeathChoiceHeroic.Equiped = 0
+		Sim.Trinkets.DeathbringersWill.Equiped = 0
+		Sim.Trinkets.DeathbringersWillHeroic.Equiped = 0
 		Try
 			sim.trinkets.MHSingedViskag.Equiped = XmlDoc.SelectSingleNode("//character/WeaponProc/MHSingedViskag").InnerText
 			sim.trinkets.MHtemperedViskag.Equiped = XmlDoc.SelectSingleNode("//character/WeaponProc/MHtemperedViskag").InnerText
@@ -167,6 +170,10 @@ Friend Class MainStat
 					Sim.Trinkets.DeathChoice.Equiped= 1
 				Case "DeathChoiceHeroic"
 					Sim.Trinkets.DeathChoiceHeroic.Equiped= 1
+				Case "DeathbringersWill"
+					Sim.Trinkets.DeathbringersWill.Equiped= 1
+				Case "DeathbringersWillHeroic"
+					Sim.Trinkets.DeathbringersWillHeroic.Equiped= 1
 				Case Else
 					Sim.Trinkets.MjolRune.Equiped = XmlDoc.SelectSingleNode("//character/trinket/MjolnirRunestone").InnerText
 					Sim.Trinkets.GrimToll.Equiped = XmlDoc.SelectSingleNode("//character/trinket/GrimToll").InnerText
@@ -183,6 +190,8 @@ Friend Class MainStat
 					Sim.Trinkets.Comet.Equiped = XmlDoc.SelectSingleNode("//character/trinket/Comet").InnerText
 					Sim.Trinkets.DeathChoice.Equiped = XmlDoc.SelectSingleNode("//character/trinket/DeathChoice").InnerText
 					Sim.Trinkets.DeathChoiceHeroic.Equiped = XmlDoc.SelectSingleNode("//character/trinket/DeathChoiceHeroic").InnerText
+					Sim.Trinkets.DeathbringersWill.Equiped = XmlDoc.SelectSingleNode("//character/trinket/DeathbringersWill").InnerText
+					Sim.Trinkets.DeathbringersWillHeroic.Equiped = XmlDoc.SelectSingleNode("//character/trinket/DeathbringersWillHeroic").InnerText
 			End Select
 		Catch
 		End Try

@@ -967,6 +967,8 @@ Public Class Sim
 		
 		proc.MHFallenCrusader.TryMe(TimeStamp)
 		
+		Trinkets.DeathbringersWill.TryMe(TimeStamp)
+		Trinkets.DeathbringersWillHeroic.TryMe(TimeStamp)
 		Trinkets.MjolRune.TryMe(TimeStamp)
 		Trinkets.GrimToll.TryMe(TimeStamp)
 		Trinkets.Greatness.TryMe(TimeStamp)
@@ -984,13 +986,14 @@ Public Class Sim
 		proc.TrollRacial.TryMe(timestamp)
 		proc.OrcRacial.TryMe(timestamp)
 		proc.BElfRacial.TryMe(timestamp)
-		
 	End Sub
 	Sub TryOnOHHitProc
 		RuneForge.OHCinderglacier.TryMe(timestamp)
 		Proc.OHFallenCrusader.TryMe(TimeStamp)
 		proc.Berserking.TryMe(Timestamp)
 		
+		Trinkets.DeathbringersWill.TryMe(TimeStamp)
+		Trinkets.DeathbringersWillHeroic.TryMe(TimeStamp)
 		Trinkets.MjolRune.TryMe(TimeStamp)
 		Trinkets.GrimToll.TryMe(TimeStamp)
 		Trinkets.Greatness.TryMe(TimeStamp)
@@ -1013,11 +1016,12 @@ Public Class Sim
 		Trinkets.OldGod.TryMe(TimeStamp)
 	End Sub
 	Sub TryOnSpellHit
+		Trinkets.DeathbringersWill.TryMe(TimeStamp)
+		Trinkets.DeathbringersWillHeroic.TryMe(TimeStamp)
 		Trinkets.Greatness.TryMe(TimeStamp)
 		Trinkets.DeathChoice.TryMe(TimeStamp)
 		Trinkets.DeathChoiceHeroic.TryMe(TimeStamp)
 		Trinkets.DCDeath.TryMe(TimeStamp)
-		
 	End Sub
 	
 End Class

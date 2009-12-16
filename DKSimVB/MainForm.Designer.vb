@@ -206,6 +206,7 @@ Partial Class MainForm
 		Me.label25 = New System.Windows.Forms.Label
 		Me.txtEPBase = New System.Windows.Forms.TextBox
 		Me.groupBox3 = New System.Windows.Forms.GroupBox
+		Me.chkEPDeathbringersWill = New System.Windows.Forms.CheckBox
 		Me.chkEPComet = New System.Windows.Forms.CheckBox
 		Me.chkEPDarkMatter = New System.Windows.Forms.CheckBox
 		Me.chkEPBandit = New System.Windows.Forms.CheckBox
@@ -263,6 +264,8 @@ Partial Class MainForm
 		Me.chkScaStr = New System.Windows.Forms.CheckBox
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.cmdRngSeeder = New System.Windows.Forms.Button
+		Me.chkEPDeathChoiceHeroic = New System.Windows.Forms.CheckBox
+		Me.chkEPDeathbringersWillHeroic = New System.Windows.Forms.CheckBox
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -2057,6 +2060,9 @@ Partial Class MainForm
 		'
 		'groupBox3
 		'
+		Me.groupBox3.Controls.Add(Me.chkEPDeathbringersWillHeroic)
+		Me.groupBox3.Controls.Add(Me.chkEPDeathChoiceHeroic)
+		Me.groupBox3.Controls.Add(Me.chkEPDeathbringersWill)
 		Me.groupBox3.Controls.Add(Me.chkEPComet)
 		Me.groupBox3.Controls.Add(Me.chkEPDarkMatter)
 		Me.groupBox3.Controls.Add(Me.chkEPBandit)
@@ -2078,6 +2084,15 @@ Partial Class MainForm
 		Me.groupBox3.TabStop = false
 		Me.groupBox3.Text = "Trinket"
 		'
+		'chkEPDeathbringersWill
+		'
+		Me.chkEPDeathbringersWill.Location = New System.Drawing.Point(6, 259)
+		Me.chkEPDeathbringersWill.Name = "chkEPDeathbringersWill"
+		Me.chkEPDeathbringersWill.Size = New System.Drawing.Size(141, 24)
+		Me.chkEPDeathbringersWill.TabIndex = 2
+		Me.chkEPDeathbringersWill.Text = "Deathbringer's Will"
+		Me.chkEPDeathbringersWill.UseVisualStyleBackColor = true
+		'
 		'chkEPComet
 		'
 		Me.chkEPComet.Location = New System.Drawing.Point(153, 199)
@@ -2093,7 +2108,7 @@ Partial Class MainForm
 		Me.chkEPDarkMatter.Name = "chkEPDarkMatter"
 		Me.chkEPDarkMatter.Size = New System.Drawing.Size(141, 24)
 		Me.chkEPDarkMatter.TabIndex = 2
-		Me.chkEPDarkMatter.Text = "DarkMatter"
+		Me.chkEPDarkMatter.Text = "Dark Matter"
 		Me.chkEPDarkMatter.UseVisualStyleBackColor = true
 		'
 		'chkEPBandit
@@ -2147,7 +2162,7 @@ Partial Class MainForm
 		Me.chkEPDeathChoice.Name = "chkEPDeathChoice"
 		Me.chkEPDeathChoice.Size = New System.Drawing.Size(141, 24)
 		Me.chkEPDeathChoice.TabIndex = 2
-		Me.chkEPDeathChoice.Text = "DeathChoice"
+		Me.chkEPDeathChoice.Text = "Death's Choice"
 		Me.chkEPDeathChoice.UseVisualStyleBackColor = true
 		'
 		'chkEPPyrite
@@ -2165,7 +2180,7 @@ Partial Class MainForm
 		Me.chkEPOldGod.Name = "chkEPOldGod"
 		Me.chkEPOldGod.Size = New System.Drawing.Size(141, 24)
 		Me.chkEPOldGod.TabIndex = 2
-		Me.chkEPOldGod.Text = "OldGod"
+		Me.chkEPOldGod.Text = "Old God"
 		Me.chkEPOldGod.UseVisualStyleBackColor = true
 		'
 		'chkEPMirror
@@ -2183,7 +2198,7 @@ Partial Class MainForm
 		Me.chkEPBitterAnguish.Name = "chkEPBitterAnguish"
 		Me.chkEPBitterAnguish.Size = New System.Drawing.Size(141, 24)
 		Me.chkEPBitterAnguish.TabIndex = 2
-		Me.chkEPBitterAnguish.Text = "BitterAnguish"
+		Me.chkEPBitterAnguish.Text = "Bitter Anguish"
 		Me.chkEPBitterAnguish.UseVisualStyleBackColor = true
 		'
 		'chkEPGrimToll
@@ -2201,7 +2216,7 @@ Partial Class MainForm
 		Me.chkEPMjolRune.Name = "chkEPMjolRune"
 		Me.chkEPMjolRune.Size = New System.Drawing.Size(141, 24)
 		Me.chkEPMjolRune.TabIndex = 2
-		Me.chkEPMjolRune.Text = "MjolnirRunestone"
+		Me.chkEPMjolRune.Text = "Mjolnir Runestone"
 		Me.chkEPMjolRune.UseVisualStyleBackColor = true
 		'
 		'groupBox2
@@ -2672,6 +2687,24 @@ Partial Class MainForm
 		Me.cmdRngSeeder.UseVisualStyleBackColor = true
 		AddHandler Me.cmdRngSeeder.Click, AddressOf Me.CmdRngSeederClick
 		'
+		'chkEPDeathChoiceHeroic
+		'
+		Me.chkEPDeathChoiceHeroic.Location = New System.Drawing.Point(6, 229)
+		Me.chkEPDeathChoiceHeroic.Name = "chkEPDeathChoiceHeroic"
+		Me.chkEPDeathChoiceHeroic.Size = New System.Drawing.Size(141, 24)
+		Me.chkEPDeathChoiceHeroic.TabIndex = 2
+		Me.chkEPDeathChoiceHeroic.Text = "Death's Choice (H)"
+		Me.chkEPDeathChoiceHeroic.UseVisualStyleBackColor = true
+		'
+		'chkEPDeathbringersWillHeroic
+		'
+		Me.chkEPDeathbringersWillHeroic.Location = New System.Drawing.Point(6, 289)
+		Me.chkEPDeathbringersWillHeroic.Name = "chkEPDeathbringersWillHeroic"
+		Me.chkEPDeathbringersWillHeroic.Size = New System.Drawing.Size(141, 24)
+		Me.chkEPDeathbringersWillHeroic.TabIndex = 2
+		Me.chkEPDeathbringersWillHeroic.Text = "Deathbringer's Will (H)"
+		Me.chkEPDeathbringersWillHeroic.UseVisualStyleBackColor = true
+		'
 		'MainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
@@ -2723,6 +2756,9 @@ Partial Class MainForm
 		Me.gbScaling.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Friend chkEPDeathbringersWillHeroic As System.Windows.Forms.CheckBox
+	Friend chkEPDeathChoiceHeroic As System.Windows.Forms.CheckBox
+	Friend chkEPDeathbringersWill As System.Windows.Forms.CheckBox
 	Private chkArcaneTorrent As System.Windows.Forms.CheckBox
 	Private chkBerzerking As System.Windows.Forms.CheckBox
 	Private chkBloodFury As System.Windows.Forms.CheckBox

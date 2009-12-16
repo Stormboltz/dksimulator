@@ -123,18 +123,17 @@ Friend Class Character
 			tmp = tmp * 1.15
 		End If
 		
-		
-		
 		If sim.Trinkets.Greatness.fade > sim.TimeStamp Then tmp = tmp + sim.Trinkets.Greatness.ProcValue
 		If Sim.Trinkets.DeathChoice.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.DeathChoice.ProcValue
 		If Sim.Trinkets.DeathChoiceHeroic.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.DeathChoiceHeroic.ProcValue
+		If Sim.Trinkets.DeathbringersWill.Fade > sim.TimeStamp And Sim.Trinkets.DeathbringersWill.ProcType = "str" Then tmp = tmp + Sim.Trinkets.DeathbringersWill.ProcValue
+		If Sim.Trinkets.DeathbringersWillHeroic.Fade > sim.TimeStamp And Sim.Trinkets.DeathbringersWillHeroic.ProcType = "str" Then tmp = tmp + Sim.Trinkets.DeathbringersWillHeroic.ProcValue
 		
 		if sim.UnbreakableArmor.isActive then tmp = tmp * 1.1
 		return tmp
 	End Function
 	
 	Function Agility() As Integer
-		
 		Dim tmp As Integer
 		tmp = _Agility
 		If sim.EPStat="Agility" Then tmp = tmp +sim.EPBase
@@ -201,6 +200,9 @@ Friend Class Character
 				tmp = Replace(sim.EPStat,"ScaCrit","") * sim.EPBase
 			End If
 		End If
+		If Sim.Trinkets.DeathbringersWill.Fade > sim.TimeStamp And Sim.Trinkets.DeathbringersWill.ProcType = "str" Then tmp = tmp + Sim.Trinkets.DeathbringersWill.ProcValue
+		If Sim.Trinkets.DeathbringersWillHeroic.Fade > sim.TimeStamp And Sim.Trinkets.DeathbringersWillHeroic.ProcType = "str" Then tmp = tmp + Sim.Trinkets.DeathbringersWillHeroic.ProcValue
+		
 		return tmp
 	End Function
 	
@@ -217,6 +219,9 @@ Friend Class Character
 				tmp =  Replace(sim.EPStat,"ScaHaste","") * sim.EPBase
 			end if
 		End If
+		If Sim.Trinkets.DeathbringersWill.Fade > sim.TimeStamp And Sim.Trinkets.DeathbringersWill.ProcType = "str" Then tmp = tmp + Sim.Trinkets.DeathbringersWill.ProcValue
+		If Sim.Trinkets.DeathbringersWillHeroic.Fade > sim.TimeStamp And Sim.Trinkets.DeathbringersWillHeroic.ProcType = "str" Then tmp = tmp + Sim.Trinkets.DeathbringersWillHeroic.ProcValue
+		
 		return tmp
 	End Function
 	
@@ -235,6 +240,9 @@ Friend Class Character
 		End If
 		If Sim.Trinkets.MjolRune.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.MjolRune.procvalue
 		If Sim.Trinkets.GrimToll.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.GrimToll.ProcValue
+		If Sim.Trinkets.DeathbringersWill.Fade > sim.TimeStamp And Sim.Trinkets.DeathbringersWill.ProcType = "str" Then tmp = tmp + Sim.Trinkets.DeathbringersWill.ProcValue
+		If Sim.Trinkets.DeathbringersWillHeroic.Fade > sim.TimeStamp And Sim.Trinkets.DeathbringersWillHeroic.ProcType = "str" Then tmp = tmp + Sim.Trinkets.DeathbringersWillHeroic.ProcValue
+		
 		return tmp
 	End Function
 	

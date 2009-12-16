@@ -425,10 +425,10 @@ Public Module SimConstructor
 		EPStat="AttackPowerNoTrinket"
 		SimConstructor.Start(pb,SimTime,MainFrm)
 		
-		if doc.SelectSingleNode("//config/Sets/chkEP2T7").InnerText = "True" then
-			EPStat="2T7"
-			SimConstructor.Start(pb,SimTime,MainFrm)
-		End If
+		'if doc.SelectSingleNode("//config/Sets/chkEP2T7").InnerText = "True" then
+		'	EPStat="2T7"
+		'	SimConstructor.Start(pb,SimTime,MainFrm)
+		'End If
 		
 '		Dim doc As xml.XmlDocument = New xml.XmlDocument
 		doc.Load("EPconfig.xml")
