@@ -11,7 +11,7 @@ Public Class Proc
 	Friend Fade As Integer
 	Friend ProcChance As Double
 	Friend _RNG As Random
-	Friend Equiped As Integer
+	friend Equiped As Integer
 	Friend ProcLenght As Integer
 	Friend ProcValue As Integer
 	Friend InternalCD As Integer
@@ -22,8 +22,14 @@ Public Class Proc
 	Friend CritCount As Integer
 	Friend DamageType As String
 	Friend Count As Integer
-	Friend Name As String
+	Public Name As String
 	Friend ProcType As String
+	Friend ProcOn As procs.ProcOnType
+	
+	
+	
+	
+	
 
 	Function RNGProc As Double
 		If _RNG Is nothing Then
@@ -44,11 +50,44 @@ Public Class Proc
 		ProcValue = 0
 		InternalCD = 0
 		count = 0
+		
 	End Sub
 	Sub New(S As Sim)
-		me.New
+		Me.New
+		name = Me.ToString
 		Sim = S
+		sim.proc.AllProcs.Add(me)
 	End Sub
+	
+	
+	Overridable Sub Equip()
+		Equiped = 1
+		sim.proc.EquipedTrinkets.Add(me)
+		Select Case Me.ProcOn
+			Case Procs.ProcOnType.OnMisc
+				
+			Case procs.ProcOnType.OnCrit
+				sim.proc.OnCritProcs.add(me)
+			Case procs.ProcOnType.OnDamage
+				sim.proc.OnDamageProcs.add(me)
+			Case procs.ProcOnType.OnDoT
+				sim.proc.OnDoTProcs.add(me)
+			Case procs.ProcOnType.OnHit
+				sim.proc.OnHitProcs.add(me)
+			Case procs.ProcOnType.OnMHhit
+				sim.proc.OnMHhitProcs.add(me)
+			Case procs.ProcOnType.OnOHhit
+				sim.proc.OnOHhitProcs.add(me)
+			Case Else
+				debug.Print ("No proc on value for " & me.Name)
+		End Select
+		
+		
+		
+		
+	End Sub
+	
+	
 	
 	Overridable Function IsActive() As Boolean
 		if Fade >= sim.TimeStamp then return true

@@ -12,16 +12,6 @@ Public Class Trinket
 	
 	Sub New()
 		mybase.New
-		_RNG = nothing
-		Total = 0
-		HitCount = 0
-		MissCount =0
-		CritCount = 0
-		ProcChance = 0
-		Equiped = 0
-		ProcLenght = 0
-		ProcValue = 0
-		InternalCD = 0
 	End Sub
 	Sub New(S As Sim)
 		me.New

@@ -91,115 +91,98 @@ Friend Class MainStat
 		Sim.Trinkets = New Trinkets(Sim)
 		Sim.Trinkets.MHRazorIce.ProcValue = MHWeaponDPS * MHWeaponSpeed * 0.02
 		Sim.Trinkets.OHRazorIce.ProcValue = MHWeaponDPS * MHWeaponSpeed * 0.02
-		
-		Sim.Trinkets.MjolRune.Equiped = 0
-		Sim.Trinkets.GrimToll.Equiped = 0
-		Sim.Trinkets.BitterAnguish.Equiped = 0
-		Sim.Trinkets.Mirror.Equiped = 0
-		Sim.Trinkets.Greatness.Equiped = 0
-		Sim.Trinkets.DCDeath.Equiped = 0
-		Sim.Trinkets.Victory.Equiped = 0
-		Sim.Trinkets.Necromantic.Equiped = 0
-		Sim.Trinkets.Bandit.Equiped = 0
-		Sim.Trinkets.Pyrite.Equiped = 0
-		Sim.Trinkets.DarkMatter.Equiped = 0
-		Sim.Trinkets.OldGod.Equiped = 0
-		Sim.Trinkets.Comet.Equiped = 0
-		Sim.Trinkets.DeathChoice.Equiped = 0
-		Sim.Trinkets.DeathChoiceHeroic.Equiped = 0
-		Sim.Trinkets.DeathbringersWill.Equiped = 0
-		Sim.Trinkets.DeathbringersWillHeroic.Equiped = 0
+
 		Try
-			sim.trinkets.MHSingedViskag.Equiped = XmlDoc.SelectSingleNode("//character/WeaponProc/MHSingedViskag").InnerText
-			sim.trinkets.MHtemperedViskag.Equiped = XmlDoc.SelectSingleNode("//character/WeaponProc/MHtemperedViskag").InnerText
-			sim.trinkets.OHtemperedViskag.Equiped = XmlDoc.SelectSingleNode("//character/WeaponProc/OHtemperedViskag").InnerText
-			sim.trinkets.OHSingedViskag.Equiped = XmlDoc.SelectSingleNode("//character/WeaponProc/OHSingedViskag").InnerText
+			If XmlDoc.SelectSingleNode("//character/WeaponProc/MHSingedViskag").InnerText = 1 Then sim.trinkets.MHSingedViskag.Equip
+			if XmlDoc.SelectSingleNode("//character/WeaponProc/MHtemperedViskag").InnerText= 1 then sim.trinkets.MHtemperedViskag.Equip
+			If XmlDoc.SelectSingleNode("//character/WeaponProc/OHtemperedViskag").InnerText = 1 Then sim.trinkets.OHtemperedViskag.Equip
+			If XmlDoc.SelectSingleNode("//character/WeaponProc/OHSingedViskag").InnerText = 1 Then sim.trinkets.OHSingedViskag.Equip
 		Catch
 		End Try
 		Try
-			sim.trinkets.MHRagingDeathbringer.Equiped = XmlDoc.SelectSingleNode("//character/WeaponProc/MHRagingDeathbringer").InnerText
-			sim.trinkets.OHRagingDeathbringer.Equiped = XmlDoc.SelectSingleNode("//character/WeaponProc/OHRagingDeathbringer").InnerText
-			sim.trinkets.MHEmpoweredDeathbringer.Equiped = XmlDoc.SelectSingleNode("//character/WeaponProc/MHEmpoweredDeathbringer").InnerText
-			sim.trinkets.OHEmpoweredDeathbringer.Equiped = XmlDoc.SelectSingleNode("//character/WeaponProc/OHEmpoweredDeathbringer").InnerText
+			if XmlDoc.SelectSingleNode("//character/WeaponProc/MHRagingDeathbringer").InnerText = 1 then sim.trinkets.MHRagingDeathbringer.Equip
+			if XmlDoc.SelectSingleNode("//character/WeaponProc/OHRagingDeathbringer").InnerText = 1 then sim.trinkets.OHRagingDeathbringer.Equip
+			if XmlDoc.SelectSingleNode("//character/WeaponProc/MHEmpoweredDeathbringer").InnerText = 1 then sim.trinkets.MHEmpoweredDeathbringer.Equip
+			if XmlDoc.SelectSingleNode("//character/WeaponProc/OHEmpoweredDeathbringer").InnerText = 1 then sim.trinkets.OHEmpoweredDeathbringer.Equip
 		Catch
 		End Try
 		
 		Try
 			If XmlDoc.SelectSingleNode("//character/misc/HandMountedPyroRocket").InnerText= True Then
-				sim.trinkets.HandMountedPyroRocket.Equiped = 1
+				sim.trinkets.HandMountedPyroRocket.Equip
 			End If
 			If XmlDoc.SelectSingleNode("//character/misc/TailorEnchant").InnerText= True Then
-				sim.trinkets.TailorEnchant.Equiped = 1
+				sim.trinkets.TailorEnchant.Equip
 			End If
 		Catch
 		End Try
-		
-		
 		try
-			
 			Select Case sim._EPStat
 				Case "NoTrinket"
 				Case "AttackPowerNoTrinket"
 				Case "MjolRune"
-					Sim.Trinkets.MjolRune.Equiped = 1
+					Sim.Trinkets.MjolRune.Equip
 				Case "GrimToll"
-					Sim.Trinkets.GrimToll.Equiped	= 1
+					Sim.Trinkets.GrimToll.Equip
 				Case "BitterAnguish"
-					Sim.Trinkets.BitterAnguish.Equiped	= 1
+					Sim.Trinkets.BitterAnguish.Equip
 				Case "Mirror"
-					Sim.Trinkets.Mirror.Equiped= 1
+					Sim.Trinkets.Mirror.Equip
 				Case "Greatness"
-					Sim.Trinkets.Greatness.Equiped = 1
+					Sim.Trinkets.Greatness.Equip
 				Case "DCDeath"
-					Sim.Trinkets.DCDeath.Equiped= 1
+					Sim.Trinkets.DCDeath.Equip
 				Case "Victory"
-					Sim.Trinkets.Victory.Equiped= 1
+					Sim.Trinkets.Victory.Equip
 				Case "Necromantic"
-					Sim.Trinkets.Necromantic.Equiped= 1
+					Sim.Trinkets.Necromantic.Equip
 				Case "Bandit"
-					Sim.Trinkets.Bandit.Equiped= 1
+					Sim.Trinkets.Bandit.Equip
 				Case "Pyrite"
-					Sim.Trinkets.Pyrite.Equiped= 1
+					Sim.Trinkets.Pyrite.Equip
 				Case "DarkMatter"
-					Sim.Trinkets.DarkMatter.Equiped= 1
+					Sim.Trinkets.DarkMatter.Equip
 				Case "OldGod"
-					Sim.Trinkets.OldGod.Equiped= 1
+					Sim.Trinkets.OldGod.Equip
 				Case "Comet"
-					Sim.Trinkets.Comet.Equiped= 1
+					Sim.Trinkets.Comet.Equip
 				Case "DeathChoice"
-					Sim.Trinkets.DeathChoice.Equiped= 1
+					Sim.Trinkets.DeathChoice.Equip
 				Case "DeathChoiceHeroic"
-					Sim.Trinkets.DeathChoiceHeroic.Equiped= 1
+					Sim.Trinkets.DeathChoiceHeroic.Equip
 				Case "DeathbringersWill"
-					Sim.Trinkets.DeathbringersWill.Equiped= 1
+					Sim.Trinkets.DeathbringersWill.Equip
 				Case "DeathbringersWillHeroic"
-					Sim.Trinkets.DeathbringersWillHeroic.Equiped= 1
+					Sim.Trinkets.DeathbringersWillHeroic.Equip
+				Case "WhisperingFangedSkull"
+					Sim.Trinkets.WhisperingFangedSkull.Equip
+				Case "NeedleEncrustedScorpion"
+					Sim.Trinkets.NeedleEncrustedScorpion.Equip
 				Case Else
-					Sim.Trinkets.MjolRune.Equiped = XmlDoc.SelectSingleNode("//character/trinket/MjolnirRunestone").InnerText
-					Sim.Trinkets.GrimToll.Equiped = XmlDoc.SelectSingleNode("//character/trinket/GrimToll").InnerText
-					Sim.Trinkets.BitterAnguish.Equiped = XmlDoc.SelectSingleNode("//character/trinket/BitterAnguish").InnerText
-					Sim.Trinkets.Mirror.Equiped = XmlDoc.SelectSingleNode("//character/trinket/Mirror").InnerText
-					Sim.Trinkets.Greatness.Equiped = XmlDoc.SelectSingleNode("//character/trinket/Greatness").InnerText
-					Sim.Trinkets.DCDeath.Equiped = XmlDoc.SelectSingleNode("//character/trinket/DCDeath").InnerText
-					Sim.Trinkets.Victory.Equiped = XmlDoc.SelectSingleNode("//character/trinket/Victory").InnerText
-					Sim.Trinkets.Necromantic.Equiped = XmlDoc.SelectSingleNode("//character/trinket/Necromantic").InnerText
-					Sim.Trinkets.Bandit.Equiped = XmlDoc.SelectSingleNode("//character/trinket/Bandit").InnerText
-					Sim.Trinkets.Pyrite.Equiped = XmlDoc.SelectSingleNode("//character/trinket/Pyrite").InnerText
-					Sim.Trinkets.DarkMatter.Equiped = XmlDoc.SelectSingleNode("//character/trinket/DarkMatter").InnerText
-					Sim.Trinkets.OldGod.Equiped = XmlDoc.SelectSingleNode("//character/trinket/OldGod").InnerText
-					Sim.Trinkets.Comet.Equiped = XmlDoc.SelectSingleNode("//character/trinket/Comet").InnerText
-					Sim.Trinkets.DeathChoice.Equiped = XmlDoc.SelectSingleNode("//character/trinket/DeathChoice").InnerText
-					Sim.Trinkets.DeathChoiceHeroic.Equiped = XmlDoc.SelectSingleNode("//character/trinket/DeathChoiceHeroic").InnerText
-					Sim.Trinkets.DeathbringersWill.Equiped = XmlDoc.SelectSingleNode("//character/trinket/DeathbringersWill").InnerText
-					Sim.Trinkets.DeathbringersWillHeroic.Equiped = XmlDoc.SelectSingleNode("//character/trinket/DeathbringersWillHeroic").InnerText
+					If XmlDoc.SelectSingleNode("//character/trinket/MjolnirRunestone").InnerText = 1 Then Sim.Trinkets.MjolRune.Equip
+					if XmlDoc.SelectSingleNode("//character/trinket/GrimToll").InnerText = 1 then Sim.Trinkets.GrimToll.Equip
+					if XmlDoc.SelectSingleNode("//character/trinket/BitterAnguish").InnerText = 1 then Sim.Trinkets.BitterAnguish.Equip
+					if XmlDoc.SelectSingleNode("//character/trinket/Mirror").InnerText = 1 then Sim.Trinkets.Mirror.Equip
+					If XmlDoc.SelectSingleNode("//character/trinket/Greatness").InnerText = 1 Then Sim.Trinkets.Greatness.Equip
+					if XmlDoc.SelectSingleNode("//character/trinket/DCDeath").InnerText = 1 then Sim.Trinkets.DCDeath.Equip
+					if XmlDoc.SelectSingleNode("//character/trinket/Victory").InnerText = 1 then Sim.Trinkets.Victory.Equip
+					if XmlDoc.SelectSingleNode("//character/trinket/Necromantic").InnerText = 1 then Sim.Trinkets.Necromantic.Equip
+					if XmlDoc.SelectSingleNode("//character/trinket/Bandit").InnerText = 1 then Sim.Trinkets.Bandit.Equip
+					if XmlDoc.SelectSingleNode("//character/trinket/Pyrite").InnerText = 1 then Sim.Trinkets.Pyrite.Equip
+					if XmlDoc.SelectSingleNode("//character/trinket/DarkMatter").InnerText = 1 then Sim.Trinkets.DarkMatter.Equip
+					if XmlDoc.SelectSingleNode("//character/trinket/OldGod").InnerText = 1 then Sim.Trinkets.OldGod.Equip
+					if XmlDoc.SelectSingleNode("//character/trinket/Comet").InnerText = 1 then Sim.Trinkets.Comet.Equip
+					if XmlDoc.SelectSingleNode("//character/trinket/DeathChoice").InnerText = 1 then Sim.Trinkets.DeathChoice.Equip
+					if XmlDoc.SelectSingleNode("//character/trinket/DeathChoiceHeroic").InnerText = 1 then Sim.Trinkets.DeathChoiceHeroic.Equip
+					if XmlDoc.SelectSingleNode("//character/trinket/DeathbringersWill").InnerText = 1 then Sim.Trinkets.DeathbringersWill.Equip
+					If XmlDoc.SelectSingleNode("//character/trinket/DeathbringersWillHeroic").InnerText = 1 Then Sim.Trinkets.DeathbringersWillHeroic.Equip
+					If XmlDoc.SelectSingleNode("//character/trinket/WhisperingFangedSkull").InnerText = 1 Then Sim.Trinkets.WhisperingFangedSkull.Equip
+					If XmlDoc.SelectSingleNode("//character/trinket/NeedleEncrustedScorpion").InnerText = 1 Then Sim.Trinkets.NeedleEncrustedScorpion.Equip
 			End Select
 		Catch
+			debug.Print ("ERROR")
 		End Try
-		
-		
-		
-		
-		
+
 		T72PDPS = 0
 		T74PDPS = 0
 		T82PDPS = 0
@@ -251,13 +234,9 @@ Friend Class MainStat
 				Try
 					T102PDPS = XmlDoc.SelectSingleNode("//character/Set/T102PDPS").InnerText
 					T104PDPS = XmlDoc.SelectSingleNode("//character/Set/T104PDPS").InnerText
-					
+
 					T92PTNK = XmlDoc.SelectSingleNode("//character/Set/T92PTNK").InnerText
 					T102PTNK = XmlDoc.SelectSingleNode("//character/Set/T102PTNK").InnerText
-					
-			
-					
-					
 				Catch
 					
 				End Try
@@ -267,16 +246,9 @@ Friend Class MainStat
 	End Sub
 	
 	Function BaseAP() As Integer
-		dim tmp as integer
-		If sim.proc.Strife.isactive Then tmp = sim.proc.Strife.ProcValue
-		If Sim.Trinkets.TailorEnchant.IsActive Then tmp = tmp + Sim.Trinkets.TailorEnchant.ProcValue
-		If Sim.Trinkets.Mirror.IsActive Then tmp = tmp + Sim.Trinkets.Mirror.ProcValue
-		If Sim.Trinkets.Oldgod.IsActive Then tmp = tmp + Sim.Trinkets.Oldgod.ProcValue
-		If Sim.Trinkets.pyrite.IsActive Then tmp = tmp + Sim.Trinkets.pyrite.ProcValue
-		If Sim.Trinkets.victory.IsActive Then tmp = tmp + Sim.Trinkets.victory.ProcValue
-		If Sim.proc.Berserking.IsActive Then tmp = tmp + Sim.proc.Berserking.ProcValue
-		If Sim.proc.OrcRacial.IsActive Then tmp = tmp + Sim.proc.OrcRacial.ProcValue
+		Dim tmp As Integer
 		
+		tmp += sim.proc.GetActiveBonus("ap")
 		tmp = tmp + Character.AttackPower
 		tmp = tmp + Character.Strength * 2
 		tmp = tmp + 550
@@ -290,16 +262,7 @@ Friend Class MainStat
 	
 	Function crit() As System.Double
 		Dim tmp As Double
-		'tmp = 5  'BaseCrit. What base crit?
 		tmp = tmp + Character.CritRating / 45.91
-		
-
-
-		if sim.proc.HauntedDreams.IsActive then tmp += sim.proc.HauntedDreams.ProcValue/45.91
-		If Sim.Trinkets.DarkMatter.IsActive Then
-			tmp += Sim.Trinkets.DarkMatter.ProcValue / 45.91
-		End If
-		
 		tmp = tmp + Character.Agility*0.016
 		tmp = tmp + 5 *  sim.Buff.MeleeCrit
 		tmp = tmp + 3 *  sim.Buff.CritChanceTaken
@@ -312,13 +275,7 @@ Friend Class MainStat
 	End Function
 	Function critAutoattack() As System.Double 'No Annihilation for autoattacks
 		Dim tmp As Double
-		'tmp = 5  'BaseCrit. What base crit?
 		tmp = tmp + Character.CritRating / 45.91
-		if sim.proc.HauntedDreams.IsActive then tmp += sim.proc.HauntedDreams.ProcValue/45.91
-		If Sim.Trinkets.DarkMatter.IsActive Then
-			tmp += Sim.Trinkets.DarkMatter.ProcValue / 45.91
-		End If
-		
 		tmp = tmp + Character.Agility / 62.5
 		tmp = tmp + 5 *  sim.Buff.MeleeCrit
 		tmp = tmp + 3 *  sim.Buff.CritChanceTaken
@@ -331,10 +288,6 @@ Friend Class MainStat
 	Function SpellCrit() As Single
 		Dim tmp As Double
 		tmp = Character.SpellCritRating / 45.91
-		if sim.proc.HauntedDreams.IsActive then tmp += sim.proc.HauntedDreams.ProcValue/45.91
-		If Sim.Trinkets.DarkMatter.IsActive Then
-			tmp += Sim.Trinkets.DarkMatter.ProcValue / 45.91
-		End If
 		tmp = tmp + 3 *  sim.Buff.CritChanceTaken
 		tmp = tmp + 5 *  sim.Buff.SpellCrit
 		tmp = tmp + 5 *  sim.Buff.SpellCritTaken
@@ -347,15 +300,11 @@ Friend Class MainStat
 	Function Haste() As Double
 		Dim tmp As Double
 		tmp = Character.HasteRating / (32.79/1.3) / 100 '1.3 is the buff haste rating received
-		
-		
 		tmp = tmp + UnholyPresence * 0.15
 		tmp = tmp + 0.05 * talentfrost.ImprovedIcyTalons
 		tmp = tmp + 0.2 *  sim.Buff.MeleeHaste
 		tmp = tmp + 0.03 *  sim.Buff.Haste
 		If sim.Bloodlust.IsActive(sim.TimeStamp) Then tmp = tmp + 0.3
-		If Sim.Trinkets.Comet.IsActive  Then tmp = tmp + Sim.Trinkets.Comet.ProcValue/(32.79/1.3)/100
-		If Sim.Trinkets.BitterAnguish.IsActive Then tmp = tmp + Sim.Trinkets.BitterAnguish.ProcValue/(32.79/1.3)/100
 		if sim.proc.TrollRacial.IsActive then tmp = tmp * 1.2
 		return tmp
 	End Function
@@ -368,9 +317,8 @@ Friend Class MainStat
 			tmp = tmp + 0.05 * sim.Buff.SpellHaste
 			tmp = tmp + 0.03 * sim.Buff.Haste
 			If sim.Bloodlust.IsActive(sim.TimeStamp)  Then	tmp = tmp + 0.3
-			If Sim.Trinkets.Comet.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.Comet.ProcValue/(32.79/1.3)/100
-			If Sim.Trinkets.BitterAnguish.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.BitterAnguish.ProcValue/(32.79/1.3)/100
-			
+			If Sim.Trinkets.Comet.IsActive Then tmp = tmp + Sim.Trinkets.Comet.ProcValue/(32.79/1.3)/100
+			If Sim.Trinkets.BitterAnguish.IsActive Then tmp = tmp + Sim.Trinkets.BitterAnguish.ProcValue/(32.79/1.3)/100
 			return tmp
 		End If
 	End Function

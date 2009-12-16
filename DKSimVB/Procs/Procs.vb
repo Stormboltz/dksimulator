@@ -25,18 +25,50 @@ Friend Class Procs
 	Protected Sim as Sim
 	Friend T104PDPSFAde As Integer
 	
-	
-	Friend OnHitProcs As Collection
-	
-	
+	Friend AllProcs As New Collection
+	Friend EquipedTrinkets as New Collection
+	Friend OnHitProcs As new Collection
+	Friend OnMHhitProcs As new Collection
+	Friend OnOHhitProcs As new Collection
+	Friend OnCritProcs As new Collection
+	Friend OnDamageProcs As new Collection
+	Friend OnDoTProcs As new Collection
+
+	Public Enum ProcOnType
+		OnMisc = 0
+		OnHit = 1
+		OnMHhit = 2
+		OnOHhit = 3
+		OnCrit = 4
+		OnDamage = 5
+		OnDoT = 6
+	End Enum
+		
 
 	
 
 	
 	
 	Sub New(S As Sim)
+		T104PDPSFAde= 0
+		sim = S
+	End Sub
+	Sub SoftReset
+		Dim prc As proc
+		For Each prc In AllProcs
+			prc.CD = 0
+			prc.Fade = 0			
+		Next
+	End Sub
+	
+	Sub Init()
+		Dim s As Sim
+		s= me.Sim
 		KillingMachine = New Proc(s)
 		With KillingMachine
+			.Name = "KillingMachine"
+			.ProcOn = procs.ProcOnType.OnMHhit
+			if Talentfrost.KillingMachine > 0 then .Equip
 			.Equiped  = Talentfrost.KillingMachine
 			.ProcLenght = 60
 			.ProcChance = (Talentfrost.KillingMachine)*S.MainStat.MHWeaponSpeed/60
@@ -44,13 +76,18 @@ Friend Class Procs
 		
 		Rime = New Proc(s)
 		With Rime
+			.Name = "Rime"
+			if talentfrost.Rime >  0 then .equip 
 			.Equiped  = talentfrost.Rime
 			.ProcLenght = 60
 			.ProcChance = 5 * talentfrost.Rime/100
 		End With
+		
 		ScentOfBlood = New ScentOfBlood(s)
 		With ScentOfBlood
+			.Name = "ScentOfBlood"
 			If s.MainStat.FrostPresence = 1 Then
+				.equip
 				.Equiped  = TalentBlood.ScentOfBlood
 			Else
 				.Equiped = 0
@@ -61,136 +98,177 @@ Friend Class Procs
 		
 		Virulence = New Proc(s)
 		With Virulence
-			if s.Sigils.Virulence then .equiped = 1
+			.Name = "Virulence"
+			if s.Sigils.Virulence then .equip
 			.ProcLenght = 20
 			.ProcChance = 0.85
 			.ProcValue = 200
+			.ProcType = "str"
 		End With
 		
 		Strife = New Proc(s)
 		With Strife
-			if s.Sigils.strife then .equiped = 1
+			.Name = "Strife"
 			.ProcChance = 1
 			.ProcValue = 144
 			.ProcLenght = 10
+			.ProcType = "ap"
+			if s.Sigils.strife then .equip
 		End With
 		
 		T92PDPS = New Proc(s)
 		With T92PDPS
-			.equiped = s.MainStat.T92PDPS
+			.Name = "T92PDPS"
 			.ProcChance = .50
 			.ProcValue = 180
 			.ProcLenght = 15
 			.InternalCD = 45
+			.ProcType ="str"
+			if s.MainStat.T92PDPS = 1 then .equip
 		End With
 
 		HauntedDreams = New Proc(s)
 		With HauntedDreams
-			If s.Sigils.HauntedDreams	Then .Equiped = 1
+			.Name = "HauntedDreams"
 			.ProcChance = 0.15
 			.ProcValue = 173
 			.ProcLenght = 10
 			.InternalCD  = 45
+			.ProcType = "crit"
+			'.ProcOn = procs.ProcOnType.OnMHhit
+			If s.Sigils.HauntedDreams	Then .Equip
 		End With
 		s.RuneForge.MHRazorIce = New RazorIce(S)
 		With s.RuneForge.MHRazorIce
+			.Name = "MHRazorIce"
 			.InternalCD = 0
-			if s.RuneForge.MHRazoriceRF	then .Equiped=1
+			.ProcOn = procs.ProcOnType.OnMHhit
 			.ProcChance = S.MainStat.MHWeaponSpeed/60
 			.ProcLenght = 20
 			.ProcValue = 1
+			if s.RuneForge.MHRazoriceRF	then .Equip
 		End With
 		
 		s.RuneForge.OHRazorIce = New RazorIce(S)
 		With s.RuneForge.OHRazorIce
+			.Name = "OHRazorIce"
 			.InternalCD = 0
-			if s.RuneForge.OHRazoriceRF	then .Equiped=1
+			.ProcOn = procs.ProcOnType.OnOHhit
 			.ProcChance = S.MainStat.OHWeaponSpeed/60
 			.ProcLenght = 20
 			.ProcValue = 1
+			if s.RuneForge.OHRazoriceRF	then .Equip
 		End With
 		
 		MHFallenCrusader = new Proc(s)
 		With MHFallenCrusader
+			.Name = "MHFallenCrusader"
 			.InternalCD = 0
-			if s.RuneForge.MHFallenCrusader	then .Equiped=1
+			.ProcOn = procs.ProcOnType.OnMHhit
 			.ProcChance = 2*S.MainStat.MHWeaponSpeed/60
 			.ProcLenght = 20
 			.ProcValue = 1
+			if s.RuneForge.MHFallenCrusader	then .Equip
 		End With
 		
 		OHFallenCrusader = new Proc(s)
 		With OHFallenCrusader
+			.Name = "OHFallenCrusader"
 			.InternalCD = 0
-			if s.RuneForge.OHFallenCrusader	then .Equiped=1
+			.ProcOn = procs.ProcOnType.OnMHhit
 			.ProcChance = 2*S.MainStat.OHWeaponSpeed/60
 			.ProcLenght = 20
 			.ProcValue = 1
+			if s.RuneForge.OHFallenCrusader	then .Equip
 		End With
 		
 		
 		s.RuneForge.MHCinderglacier = new Proc(s)
 		With s.RuneForge.MHCinderglacier
+			.Name = "MHCinderglacier"
 			.InternalCD = 0
-			if s.RuneForge.MHCinderglacierRF	then .Equiped=1
+			.ProcOn = procs.ProcOnType.OnMHhit
 			.ProcChance = 1*S.MainStat.MHWeaponSpeed/60
 			.ProcLenght = 20
 			.ProcValue = 2
 			.DamageType = "cinderglacier"
+			if s.RuneForge.MHCinderglacierRF then .Equip
 		End With
 
 		s.RuneForge.OHCinderglacier = new Proc(s)
 		With s.RuneForge.OHCinderglacier
+			.Name = "OHCinderglacier"
 			.InternalCD = 0
-			if s.RuneForge.OHCinderglacierRF	then .Equiped=1
 			.ProcChance = 1*S.MainStat.OHWeaponSpeed/60
 			.ProcLenght = 20
 			.ProcValue = 2
 			.DamageType = "cinderglacier"
+			.ProcOn = procs.ProcOnType.OnOHhit
+			if s.RuneForge.OHCinderglacierRF	then .Equip
 		End With
 		Berserking = New Proc(s)		
 		With Berserking
+			.Name = "Berserking"
 			.InternalCD = 0
-			if s.RuneForge.OHBerserking then .Equiped=1
+			.ProcOn = procs.ProcOnType.OnOHhit
 			.ProcChance = 1.2*s.MainStat.OHWeaponSpeed/60
 			.ProcLenght = 15
 			.ProcValue = 400
+			.ProcType = "ap"
+			if s.RuneForge.OHBerserking then .Equip
 		End With
 		
 		
 		OrcRacial = New Proc(s)
 		With OrcRacial
+			.Name = "OrcRacial"
 			.InternalCD  = 120
-			if s.Character.Orc then .Equiped=1
+			.ProcOn = procs.ProcOnType.OnDamage
 			.ProcChance = 1
 			.ProcLenght = 15
 			.ProcValue = 322
+			.ProcType = "ap"
+			If s.Character.Orc Then .Equip
 		End With
 		
 		TrollRacial = New Proc(s)		
 		With TrollRacial
+			.Name = "TrollRacial"
 			.InternalCD = 180
-			if s.Character.Troll then .Equiped=1
 			.ProcChance = 1
 			.ProcLenght = 15
 			.ProcValue = 0.20
+			.ProcOn = procs.ProcOnType.OnDamage
+			if s.Character.Troll then .Equip
 		End With
 		
 		BElfRacial = New Trinket(s)
 		With BElfRacial
+			.Name = "BElfRacial"
 			.InternalCD = 120
-			if s.Character.BloodElf then .Equiped=1
 			.ProcChance = 1
 			.ProcLenght = 0
 			.ProcValue = 15
 			.DamageType = "torrent"
+			.ProcOn = procs.ProcOnType.OnDamage
+			if s.Character.BloodElf then .Equip
 		End With
 		
-		T104PDPSFAde= 0
-		sim = S
+		
 	End Sub
 	
-	
+	Function GetActiveBonus(stat As String) As Integer
+		Dim prc As proc
+		dim tmp as Integer
+		For Each prc In EquipedTrinkets
+			If prc.ProcType = stat Then
+				If prc.IsActive Then 
+					tmp += prc.ProcValue
+				End If
+			End If
+		Next
+		return tmp
+	End Function
 	
 	
 	

@@ -31,9 +31,6 @@ Friend Class Character
 		Sim = S
 		XmlConfig.Load("config.xml")
 		XmlDoc.Load (Application.StartupPath & "\Characters\"  & XmlConfig.SelectSingleNode("//config/Character").InnerText)
-
-		'XmlDoc.Load(GetFilePath(sim._MainFrm.cmbCharacter.Text) )
-		
 		_Strength = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Strength").InnerText)
 		_Agility = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Agility").InnerText)
 		_Intel = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Intel").InnerText)
@@ -107,14 +104,9 @@ Friend Class Character
 		If InStr(sim.EPStat,"ScaStr") Then
 			tmp = tmp + Replace(sim.EPStat,"ScaStr","") * sim.EPBase
 		End If
-		
-		if sim.proc.Virulence.IsActive then tmp += sim.proc.Virulence.ProcValue
-		If sim.proc.T92PDPS.IsActive  Then
-			tmp += sim.proc.T92PDPS.ProcValue
-		End If
+		tmp += sim.proc.GetActiveBonus("str")
 		tmp = tmp +155 * 1.15 *  sim.Buff.StrAgi
 		tmp = tmp + 37 * 1.4 *  sim.Buff.StatAdd
-		
 		tmp = tmp * (1 +  sim.Buff.StatMulti / 10)
 		tmp = tmp * (1 + talentblood.Vot3W * 2 / 100)
 		tmp = tmp * (1 + talentblood.AbominationMight / 100)
@@ -122,13 +114,6 @@ Friend Class Character
 		If sim.proc.MHFallenCrusader.IsActive Or sim.proc.oHFallenCrusader.IsActive Then
 			tmp = tmp * 1.15
 		End If
-		
-		If sim.Trinkets.Greatness.fade > sim.TimeStamp Then tmp = tmp + sim.Trinkets.Greatness.ProcValue
-		If Sim.Trinkets.DeathChoice.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.DeathChoice.ProcValue
-		If Sim.Trinkets.DeathChoiceHeroic.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.DeathChoiceHeroic.ProcValue
-		If Sim.Trinkets.DeathbringersWill.Fade > sim.TimeStamp And Sim.Trinkets.DeathbringersWill.ProcType = "str" Then tmp = tmp + Sim.Trinkets.DeathbringersWill.ProcValue
-		If Sim.Trinkets.DeathbringersWillHeroic.Fade > sim.TimeStamp And Sim.Trinkets.DeathbringersWillHeroic.ProcType = "str" Then tmp = tmp + Sim.Trinkets.DeathbringersWillHeroic.ProcValue
-		
 		if sim.UnbreakableArmor.isActive then tmp = tmp * 1.1
 		return tmp
 	End Function
@@ -141,7 +126,6 @@ Friend Class Character
 			tmp = tmp + Replace(sim.EPStat,"ScaAgility","") * sim.EPBase
 		End If
 		tmp = (tmp + 155 * 1.15 *  sim.Buff.StrAgi + 37 * 1.4  *  sim.Buff.StatAdd) * (1 +  sim.Buff.StatMulti / 10)
-		
 		return tmp
 	End Function
 	
@@ -149,7 +133,6 @@ Friend Class Character
 		Dim tmp As Integer
 		tmp = _Intel
 		tmp = (tmp + 37 * 1.4  *  sim.Buff.StatAdd) * (1 +  sim.Buff.StatMulti / 10)
-		
 		return tmp
 	End Function
 	
@@ -177,7 +160,6 @@ Friend Class Character
 		If sim.EPStat="AfterSpellHitBaseAP" Then tmp = tmp+100
 		tmp = tmp + int(Armor/180)*BladedArmor
 		tmp = tmp + 687 *  sim.Buff.AttackPower
-		
 		return tmp
 	End Function
 	
@@ -200,9 +182,7 @@ Friend Class Character
 				tmp = Replace(sim.EPStat,"ScaCrit","") * sim.EPBase
 			End If
 		End If
-		If Sim.Trinkets.DeathbringersWill.Fade > sim.TimeStamp And Sim.Trinkets.DeathbringersWill.ProcType = "crit" Then tmp = tmp + Sim.Trinkets.DeathbringersWill.ProcValue
-		If Sim.Trinkets.DeathbringersWillHeroic.Fade > sim.TimeStamp And Sim.Trinkets.DeathbringersWillHeroic.ProcType = "crit" Then tmp = tmp + Sim.Trinkets.DeathbringersWillHeroic.ProcValue
-		
+		tmp +=  sim.proc.GetActiveBonus("crit")
 		return tmp
 	End Function
 	
@@ -219,9 +199,8 @@ Friend Class Character
 				tmp =  Replace(sim.EPStat,"ScaHaste","") * sim.EPBase
 			end if
 		End If
-		If Sim.Trinkets.DeathbringersWill.Fade > sim.TimeStamp And Sim.Trinkets.DeathbringersWill.ProcType = "haste" Then tmp = tmp + Sim.Trinkets.DeathbringersWill.ProcValue
-		If Sim.Trinkets.DeathbringersWillHeroic.Fade > sim.TimeStamp And Sim.Trinkets.DeathbringersWillHeroic.ProcType = "haste" Then tmp = tmp + Sim.Trinkets.DeathbringersWillHeroic.ProcValue
-		
+		tmp +=  sim.proc.GetActiveBonus("haste")
+
 		return tmp
 	End Function
 	
@@ -238,11 +217,7 @@ Friend Class Character
 		If sim.EPStat="ArmorPenetrationRating" Then
 			tmp = tmp+sim.EPBase
 		End If
-		If Sim.Trinkets.MjolRune.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.MjolRune.procvalue
-		If Sim.Trinkets.GrimToll.Fade > sim.TimeStamp Then tmp = tmp + Sim.Trinkets.GrimToll.ProcValue
-		If Sim.Trinkets.DeathbringersWill.Fade > sim.TimeStamp And Sim.Trinkets.DeathbringersWill.ProcType = "arp" Then tmp = tmp + Sim.Trinkets.DeathbringersWill.ProcValue
-		If Sim.Trinkets.DeathbringersWillHeroic.Fade > sim.TimeStamp And Sim.Trinkets.DeathbringersWillHeroic.ProcType = "arp" Then tmp = tmp + Sim.Trinkets.DeathbringersWillHeroic.ProcValue
-		
+		tmp +=  sim.proc.GetActiveBonus("arp")
 		return tmp
 	End Function
 	

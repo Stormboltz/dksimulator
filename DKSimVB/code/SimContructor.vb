@@ -154,7 +154,7 @@ Public Module SimConstructor
 		EPStat = "AttackPower"
 		APDPS = dpss("AttackPower")
 		WriteReport ("Average for " & EPStat & " | " & APDPS)
-		sReport = sReport +  ("<tr><td>" & EPStat & " | 1</td></tr>")
+		sReport = sReport +  ("<tr><td>" & EPStat & " | 1 (" & toDDecimal((APDPS-BaseDPS ) / 100) & " DPS/per AP) </td></tr>")
 		
 		Try
 			EPStat="Strength"

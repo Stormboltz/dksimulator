@@ -3,7 +3,9 @@
 * Bone Shield Precast when Many Fight option is checked.
 * 2 pieces T9 and T10 bonus implemented.
 * Death and Decay / Rune strike are back in the report/DPS summary.
-
+* 3.3 Trinkets implemented (Whispering Fanged Skull, Deathbringers Will, Needle-Encrusted Scorpion)
+* EP Value show DPS per AP.
+* Proc code optimization for better performance.
 
 1.1.8.3 Release notes
 * Scourge Strike magical part can't crit anymore.

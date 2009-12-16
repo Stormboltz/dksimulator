@@ -537,7 +537,7 @@ Public Class Sim
 		Gargoyle.cd = 0
 		Horn.CD = 0
 		Bloodlust.Cd = 0
-		proc = New procs(Me)
+		proc.SoftReset
 		Trinkets.SoftReset
 		BoneShield.CD = 0
 		BoneShield.PreBuff
@@ -561,7 +561,7 @@ Public Class Sim
 		Runes = New Runes.runes(Me)
 		
 		RunicPower = New RunicPower(Me)
-		
+		proc = New procs(Me)
 		Rotation = new Rotation(Me)
 		Priority = New Priority(Me)
 		Character = New Character(Me)
@@ -624,7 +624,8 @@ Public Class Sim
 		Horn = new Horn(Me)
 		Bloodlust= new Bloodlust(Me)
 		Pestilence = new Pestilence(Me)
-		proc = New procs(Me)
+		
+		proc.Init
 		BoneShield  = New BoneShield(Me)
 		ERW = New EmpowerRuneWeapon(Me)
 			
@@ -710,7 +711,7 @@ Public Class Sim
 				
 			Case "Razorice"
 				RuneForge.MHRazoriceRF = True
-				Trinkets.MHRazorIce.Equiped = 1
+				Trinkets.MHRazorIce.Equip
 		End Select
 		
 		RuneForge.OHCinderglacierRF = False
@@ -726,7 +727,7 @@ Public Class Sim
 					RuneForge.OHFallenCrusader = true
 				Case "Razorice"
 					RuneForge.OHRazoriceRF = True
-					Trinkets.OHRazorIce.Equiped = 1
+					Trinkets.OHRazorIce.Equip
 				Case "Berserking"
 					Runeforge.OHBerserking = True
 			End Select
@@ -773,7 +774,7 @@ Public Class Sim
 	Sub Report()
 		on error resume next
 		Dim Tw As System.IO.TextWriter
-		'if EPStat <> "" then exit sub
+		if EPStat <> "" then exit sub
 		Tw  =system.IO.File.appendText(ReportPath)
 		'Tw  = system.IO.File.Open(reportpath, system.IO.FileMode.Append)     '.OpenWrite(ReportPath)
 		Tw.Write ("<table border='0' cellspacing='2' style='font-family:Verdana; font-size:10px;'>")
@@ -963,65 +964,40 @@ Public Class Sim
 	End Function
 	
 	Sub TryOnMHHitProc()
-		RuneForge.MHCinderglacier.TryMe(timestamp)
+		dim obj as proc
+		For Each obj In Me.proc.OnMHhitProcs
+			obj.TryMe(timestamp)
+		Next
+		For Each obj In Me.proc.OnHitProcs
+			obj.TryMe(timestamp)
+		Next
+		For Each obj In Me.proc.OnDamageProcs
+			obj.TryMe(timestamp)
+		Next
 		
-		proc.MHFallenCrusader.TryMe(TimeStamp)
-		
-		Trinkets.DeathbringersWill.TryMe(TimeStamp)
-		Trinkets.DeathbringersWillHeroic.TryMe(TimeStamp)
-		Trinkets.MjolRune.TryMe(TimeStamp)
-		Trinkets.GrimToll.TryMe(TimeStamp)
-		Trinkets.Greatness.TryMe(TimeStamp)
-		Trinkets.DeathChoice.TryMe(TimeStamp)
-		Trinkets.DeathChoiceHeroic.TryMe(TimeStamp)
-		Trinkets.DCDeath.TryMe(TimeStamp)
-		Trinkets.Victory.TryMe(TimeStamp)
-		Trinkets.Bandit.TryMe(TimeStamp)
-		Trinkets.DarkMatter.TryMe(TimeStamp)
-		Trinkets.Comet.TryMe(TimeStamp)
-		trinkets.HandMountedPyroRocket.TryMe(TimeStamp)
-		trinkets.TailorEnchant.TryMe(TimeStamp)
-		RuneForge.MHRazorIce.TryMe(timestamp)
-		
-		proc.TrollRacial.TryMe(timestamp)
-		proc.OrcRacial.TryMe(timestamp)
-		proc.BElfRacial.TryMe(timestamp)
 	End Sub
 	Sub TryOnOHHitProc
-		RuneForge.OHCinderglacier.TryMe(timestamp)
-		Proc.OHFallenCrusader.TryMe(TimeStamp)
-		proc.Berserking.TryMe(Timestamp)
-		
-		Trinkets.DeathbringersWill.TryMe(TimeStamp)
-		Trinkets.DeathbringersWillHeroic.TryMe(TimeStamp)
-		Trinkets.MjolRune.TryMe(TimeStamp)
-		Trinkets.GrimToll.TryMe(TimeStamp)
-		Trinkets.Greatness.TryMe(TimeStamp)
-		Trinkets.DeathChoice.TryMe(TimeStamp)
-		Trinkets.DeathChoiceHeroic.TryMe(TimeStamp)
-		Trinkets.DCDeath.TryMe(TimeStamp)
-		Trinkets.Victory.TryMe(TimeStamp)
-		Trinkets.Bandit.TryMe(TimeStamp)
-		Trinkets.DarkMatter.TryMe(TimeStamp)
-		Trinkets.Comet.TryMe(TimeStamp)
-		trinkets.OHEmpoweredDeathbringer.TryMe(TimeStamp)
-		trinkets.OHRagingDeathbringer.TryMe(TimeStamp)
-		trinkets.TailorEnchant.TryMe(TimeStamp)
-		RuneForge.OHRazorIce.TryMe(timestamp)
+		dim obj as proc
+		For Each obj In Me.proc.OnOHhitProcs
+			obj.TryMe(timestamp)
+		Next
+		For Each obj In Me.proc.OnHitProcs
+			obj.TryMe(timestamp)
+		Next
+		For Each obj In Me.proc.OnDamageProcs
+			obj.TryMe(timestamp)
+		Next
 	End Sub
 	Sub tryOnCrit()
-		Trinkets.BitterAnguish.TryMe(TimeStamp)
-		Trinkets.Mirror.TryMe(TimeStamp)
-		Trinkets.Pyrite.TryMe(TimeStamp)
-		Trinkets.OldGod.TryMe(TimeStamp)
+		dim obj as proc
+		For Each obj In Me.proc.OnCritProcs
+			obj.TryMe(timestamp)
+		Next
 	End Sub
 	Sub TryOnSpellHit
-		Trinkets.DeathbringersWill.TryMe(TimeStamp)
-		Trinkets.DeathbringersWillHeroic.TryMe(TimeStamp)
-		Trinkets.Greatness.TryMe(TimeStamp)
-		Trinkets.DeathChoice.TryMe(TimeStamp)
-		Trinkets.DeathChoiceHeroic.TryMe(TimeStamp)
-		Trinkets.DCDeath.TryMe(TimeStamp)
+		dim obj as proc
+		For Each obj In Me.proc.OnDamageProcs
+			obj.TryMe(timestamp)
+		Next
 	End Sub
-	
 End Class

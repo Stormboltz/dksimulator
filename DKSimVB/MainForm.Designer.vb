@@ -206,6 +206,8 @@ Partial Class MainForm
 		Me.label25 = New System.Windows.Forms.Label
 		Me.txtEPBase = New System.Windows.Forms.TextBox
 		Me.groupBox3 = New System.Windows.Forms.GroupBox
+		Me.chkEPDeathbringersWillHeroic = New System.Windows.Forms.CheckBox
+		Me.chkEPDeathChoiceHeroic = New System.Windows.Forms.CheckBox
 		Me.chkEPDeathbringersWill = New System.Windows.Forms.CheckBox
 		Me.chkEPComet = New System.Windows.Forms.CheckBox
 		Me.chkEPDarkMatter = New System.Windows.Forms.CheckBox
@@ -264,8 +266,8 @@ Partial Class MainForm
 		Me.chkScaStr = New System.Windows.Forms.CheckBox
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.cmdRngSeeder = New System.Windows.Forms.Button
-		Me.chkEPDeathChoiceHeroic = New System.Windows.Forms.CheckBox
-		Me.chkEPDeathbringersWillHeroic = New System.Windows.Forms.CheckBox
+		Me.chkEPNeedleEncrustedScorpion = New System.Windows.Forms.CheckBox
+		Me.chkEPWhisperingFangedSkull = New System.Windows.Forms.CheckBox
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -2060,7 +2062,9 @@ Partial Class MainForm
 		'
 		'groupBox3
 		'
+		Me.groupBox3.Controls.Add(Me.chkEPWhisperingFangedSkull)
 		Me.groupBox3.Controls.Add(Me.chkEPDeathbringersWillHeroic)
+		Me.groupBox3.Controls.Add(Me.chkEPNeedleEncrustedScorpion)
 		Me.groupBox3.Controls.Add(Me.chkEPDeathChoiceHeroic)
 		Me.groupBox3.Controls.Add(Me.chkEPDeathbringersWill)
 		Me.groupBox3.Controls.Add(Me.chkEPComet)
@@ -2083,6 +2087,24 @@ Partial Class MainForm
 		Me.groupBox3.TabIndex = 6
 		Me.groupBox3.TabStop = false
 		Me.groupBox3.Text = "Trinket"
+		'
+		'chkEPDeathbringersWillHeroic
+		'
+		Me.chkEPDeathbringersWillHeroic.Location = New System.Drawing.Point(6, 289)
+		Me.chkEPDeathbringersWillHeroic.Name = "chkEPDeathbringersWillHeroic"
+		Me.chkEPDeathbringersWillHeroic.Size = New System.Drawing.Size(141, 24)
+		Me.chkEPDeathbringersWillHeroic.TabIndex = 2
+		Me.chkEPDeathbringersWillHeroic.Text = "Deathbringer's Will (H)"
+		Me.chkEPDeathbringersWillHeroic.UseVisualStyleBackColor = true
+		'
+		'chkEPDeathChoiceHeroic
+		'
+		Me.chkEPDeathChoiceHeroic.Location = New System.Drawing.Point(6, 229)
+		Me.chkEPDeathChoiceHeroic.Name = "chkEPDeathChoiceHeroic"
+		Me.chkEPDeathChoiceHeroic.Size = New System.Drawing.Size(141, 24)
+		Me.chkEPDeathChoiceHeroic.TabIndex = 2
+		Me.chkEPDeathChoiceHeroic.Text = "Death's Choice (H)"
+		Me.chkEPDeathChoiceHeroic.UseVisualStyleBackColor = true
 		'
 		'chkEPDeathbringersWill
 		'
@@ -2687,23 +2709,23 @@ Partial Class MainForm
 		Me.cmdRngSeeder.UseVisualStyleBackColor = true
 		AddHandler Me.cmdRngSeeder.Click, AddressOf Me.CmdRngSeederClick
 		'
-		'chkEPDeathChoiceHeroic
+		'chkEPNeedleEncrustedScorpion
 		'
-		Me.chkEPDeathChoiceHeroic.Location = New System.Drawing.Point(6, 229)
-		Me.chkEPDeathChoiceHeroic.Name = "chkEPDeathChoiceHeroic"
-		Me.chkEPDeathChoiceHeroic.Size = New System.Drawing.Size(141, 24)
-		Me.chkEPDeathChoiceHeroic.TabIndex = 2
-		Me.chkEPDeathChoiceHeroic.Text = "Death's Choice (H)"
-		Me.chkEPDeathChoiceHeroic.UseVisualStyleBackColor = true
+		Me.chkEPNeedleEncrustedScorpion.Location = New System.Drawing.Point(153, 229)
+		Me.chkEPNeedleEncrustedScorpion.Name = "chkEPNeedleEncrustedScorpion"
+		Me.chkEPNeedleEncrustedScorpion.Size = New System.Drawing.Size(171, 24)
+		Me.chkEPNeedleEncrustedScorpion.TabIndex = 2
+		Me.chkEPNeedleEncrustedScorpion.Text = "Needle-Encrusted Scorpion"
+		Me.chkEPNeedleEncrustedScorpion.UseVisualStyleBackColor = true
 		'
-		'chkEPDeathbringersWillHeroic
+		'chkEPWhisperingFangedSkull
 		'
-		Me.chkEPDeathbringersWillHeroic.Location = New System.Drawing.Point(6, 289)
-		Me.chkEPDeathbringersWillHeroic.Name = "chkEPDeathbringersWillHeroic"
-		Me.chkEPDeathbringersWillHeroic.Size = New System.Drawing.Size(141, 24)
-		Me.chkEPDeathbringersWillHeroic.TabIndex = 2
-		Me.chkEPDeathbringersWillHeroic.Text = "Deathbringer's Will (H)"
-		Me.chkEPDeathbringersWillHeroic.UseVisualStyleBackColor = true
+		Me.chkEPWhisperingFangedSkull.Location = New System.Drawing.Point(153, 259)
+		Me.chkEPWhisperingFangedSkull.Name = "chkEPWhisperingFangedSkull"
+		Me.chkEPWhisperingFangedSkull.Size = New System.Drawing.Size(171, 24)
+		Me.chkEPWhisperingFangedSkull.TabIndex = 2
+		Me.chkEPWhisperingFangedSkull.Text = "Whispering Fanged Skull"
+		Me.chkEPWhisperingFangedSkull.UseVisualStyleBackColor = true
 		'
 		'MainForm
 		'
@@ -2756,6 +2778,8 @@ Partial Class MainForm
 		Me.gbScaling.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Friend chkEPNeedleEncrustedScorpion As System.Windows.Forms.CheckBox
+	Friend chkEPWhisperingFangedSkull As System.Windows.Forms.CheckBox
 	Friend chkEPDeathbringersWillHeroic As System.Windows.Forms.CheckBox
 	Friend chkEPDeathChoiceHeroic As System.Windows.Forms.CheckBox
 	Friend chkEPDeathbringersWill As System.Windows.Forms.CheckBox
