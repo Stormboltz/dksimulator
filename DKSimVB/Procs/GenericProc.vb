@@ -117,10 +117,10 @@ Public Class Proc
 					ElseIf RNG < 0.66 Then
 						ProcType = "crit"
 					Else
-						If TalentBlood.Hysteria = 1 Then
-							ProcType = "arp"
-						Else
+						If TalentBlood.Gargoyle = 1 Then
 							ProcType = "haste"
+						Else
+							ProcType = "arp"
 						End If
 					End If
 					
