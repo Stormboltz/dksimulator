@@ -104,12 +104,10 @@ Public Module SimConstructor
 		if doc.SelectSingleNode("//config/Stats/chkEPExp").InnerText = "True" then
 			EPStat="ExpertiseRating"
 			SimConstructor.Start(pb,SimTime,MainFrm)
-			
 			If MainFrm.cmdPresence.SelectedItem = "Frost" Then
 				EPStat="ExpertiseRatingAfterCap"
 				SimConstructor.Start(pb,SimTime,MainFrm)
 			End If
-			
 		End If
 		if doc.SelectSingleNode("//config/Stats/chkEPHit").InnerText = "True" then
 			EPStat="HitRating"
@@ -210,6 +208,7 @@ Public Module SimConstructor
 			WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
 		End Try
+		
 		
 		Try
 			EPStat="ExpertiseRatingAfterCap"

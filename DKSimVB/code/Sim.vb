@@ -1,7 +1,7 @@
 Imports Microsoft.VisualBasic
 Public Class Sim
 	
-		
+	
 	Friend TotalDamageAlternative As Long
 	Friend NextFreeGCD As Long
 	Friend Lag As Long
@@ -31,7 +31,7 @@ Public Class Sim
 	Private InterruptCd As Integer
 	Friend KeepRNGSeed As Boolean
 	Friend KeepDiseaseOnOthersTarget As Boolean
-
+	
 	
 	
 	Friend RandomNumberGenerator as RandomNumberGenerator
@@ -339,11 +339,11 @@ Public Class Sim
 			End If
 			
 			If ShowDpsTimer <= TimeStamp Then
-					ShowDpsTimer = TimeStamp + 0.1 * 60 * 60 * 100
-				If TimeStamp <= pb.Maximum Then pb.Value = TimeStamp Else pb.Value = pb.Maximum
-					ElseIf ShowDpsTimer <= TimeStamp Then
-						ShowDpsTimer = TimeStamp + 0.1 * 60 * 60 * 100
-					If TimeStampCounter <= pb.Maximum Then pb.Value = TimeStampCounter Else pb.Value = pb.Maximum
+				ShowDpsTimer = TimeStamp + 0.1 * 60 * 60 * 100
+			If TimeStamp <= pb.Maximum Then pb.Value = TimeStamp Else pb.Value = pb.Maximum
+			ElseIf ShowDpsTimer <= TimeStamp Then
+				ShowDpsTimer = TimeStamp + 0.1 * 60 * 60 * 100
+			If TimeStampCounter <= pb.Maximum Then pb.Value = TimeStampCounter Else pb.Value = pb.Maximum
 			End If
 		Loop
 		
@@ -376,28 +376,28 @@ Public Class Sim
 	End Sub
 	
 	Function TotalDamage() as Long
-'		TotalDamage = ScourgeStrike.total + ScourgeStrikeMagical.Total + obliterate.total + PlagueStrike.total + _
-'			BloodStrike.total + HeartStrike.total + frostfever.total + _
-'			BloodPlague.total + IcyTouch.total + deathcoil.total + _
-'			UnholyBlight.total + Necrosis.total + BloodCakedBlade.total + _
-'			WanderingPlague.total +FrostStrike.total  +HowlingBlast.total + _
-'			BloodBoil.total  + DeathStrike.total + MainHand.total + _
-'			OffHand.total  + Ghoul.total + Gargoyle.total + DRW.total + _			
-'			Trinkets.MHRazorIce.Total + Trinkets.OHRazorIce.Total + DeathandDecay.total + RuneStrike.total + _
-'			Trinkets.Bandit.Total + Trinkets.DCDeath.Total + Trinkets.Necromantic.Total + _
-'			Trinkets.MHSingedViskag.Total  + Trinkets.OHSingedViskag.Total + _
-'			Trinkets.MHtemperedViskag.Total + Trinkets.OHtemperedViskag.Total + _
-'			Trinkets.MHRagingDeathbringer.Total + Trinkets.OHRagingDeathbringer.Total + _
-'			Trinkets.MHEmpoweredDeathbringer.Total + Trinkets.OHEmpoweredDeathbringer.Total + _
-'			Trinkets.HandMountedPyroRocket.total
-			Dim i As long
-			dim obj as Object
-			
-			For Each obj In Me.DamagingObject
-				i += obj.Total 
-			Next
-			return i
-			debug.Print(i)
+		'		TotalDamage = ScourgeStrike.total + ScourgeStrikeMagical.Total + obliterate.total + PlagueStrike.total + _
+		'			BloodStrike.total + HeartStrike.total + frostfever.total + _
+		'			BloodPlague.total + IcyTouch.total + deathcoil.total + _
+		'			UnholyBlight.total + Necrosis.total + BloodCakedBlade.total + _
+		'			WanderingPlague.total +FrostStrike.total  +HowlingBlast.total + _
+		'			BloodBoil.total  + DeathStrike.total + MainHand.total + _
+		'			OffHand.total  + Ghoul.total + Gargoyle.total + DRW.total + _
+		'			Trinkets.MHRazorIce.Total + Trinkets.OHRazorIce.Total + DeathandDecay.total + RuneStrike.total + _
+		'			Trinkets.Bandit.Total + Trinkets.DCDeath.Total + Trinkets.Necromantic.Total + _
+		'			Trinkets.MHSingedViskag.Total  + Trinkets.OHSingedViskag.Total + _
+		'			Trinkets.MHtemperedViskag.Total + Trinkets.OHtemperedViskag.Total + _
+		'			Trinkets.MHRagingDeathbringer.Total + Trinkets.OHRagingDeathbringer.Total + _
+		'			Trinkets.MHEmpoweredDeathbringer.Total + Trinkets.OHEmpoweredDeathbringer.Total + _
+		'			Trinkets.HandMountedPyroRocket.total
+		Dim i As long
+		dim obj as Object
+		
+		For Each obj In Me.DamagingObject
+			i += obj.Total
+		Next
+		return i
+		debug.Print(i)
 	End Function
 	
 	
@@ -566,7 +566,7 @@ Public Class Sim
 		Priority = New Priority(Me)
 		Character = New Character(Me)
 		MainStat = new MainStat(Me)
-			
+		
 		
 		' Buff.UnBuff
 		BloodPlague = new BloodPlague(Me)
@@ -603,7 +603,7 @@ Public Class Sim
 		KeepDiseaseOnOthersTarget = _MainFrm.chkDisease.Checked
 		ScourgeStrike = New ScourgeStrike(Me)
 		ScourgeStrikeMagical = New ScourgeStrikeMagical(Me)
-
+		
 		Obliterate = new Obliterate(Me)
 		PlagueStrike= new PlagueStrike(Me)
 		BloodStrike = New BloodStrike(Me)
@@ -628,7 +628,7 @@ Public Class Sim
 		proc.Init
 		BoneShield  = New BoneShield(Me)
 		ERW = New EmpowerRuneWeapon(Me)
-			
+		
 		
 		AMSCd = _MainFrm.txtAMScd.text * 100
 		AMSTimer = _MainFrm.txtAMScd.text * 100
@@ -749,7 +749,7 @@ Public Class Sim
 			Case "Instead of Blood Boil"
 				Me.BoneShieldUsageStyle = 3
 		End Select
-
+		
 		errH:
 	End Sub
 	
@@ -799,7 +799,9 @@ Public Class Sim
 		Dim myArray As New ArrayList
 		
 		For Each obj In DamagingObject
-			if obj.total <> 0 then  myArray.Add(obj.total)
+			If obj.total <> 0 Then
+				myArray.Add(obj.total)
+			End If
 		Next
 		myArray.Sort()
 		
@@ -859,13 +861,12 @@ Public Class Sim
 		STmp = sTmp &   "<tr><td COLSPAN=8>Total Damage" & VBtab & Math.Round(TotalDamage/1000000,2) & "m" & VBtab &  " in " & MaxTime / 100 / 60/60 & "h</td></tr>"
 		
 		Dim ThreatBeforePresence As Long = Threat
-		'TODO: Add the collection
 		
 		For Each obj In Me.DamagingObject
-				Threat += obj.Total * obj.ThreadMultiplicator
-			Next
-
-	
+			Threat += obj.Total * obj.ThreadMultiplicator
+		Next
+		
+		
 		If MainStat.FrostPresence = 1 Then
 			Threat = Threat * 2.0735
 		Else
@@ -963,6 +964,13 @@ Public Class Sim
 		return tmp
 	End Function
 	
+	
+	Sub tryOnDamageProc()
+		dim obj as proc
+		For Each obj In Me.proc.OnDamageProcs
+			obj.TryMe(timestamp)
+		Next
+	End Sub
 	Sub TryOnMHHitProc()
 		dim obj as proc
 		For Each obj In Me.proc.OnMHhitProcs
@@ -974,8 +982,8 @@ Public Class Sim
 		For Each obj In Me.proc.OnDamageProcs
 			obj.TryMe(timestamp)
 		Next
-		
 	End Sub
+	
 	Sub TryOnOHHitProc
 		dim obj as proc
 		For Each obj In Me.proc.OnOHhitProcs

@@ -1,4 +1,8 @@
-﻿1.1.8.4 Release notes
+﻿1.1.8.5 Release notes
+* Deathbringers Will 3rd proc on frost spec is ArP
+* Bryntroll proc implemented
+
+1.1.8.4 Release notes
 * Removal of Glyph of Icy Touch II. 
 * Bone Shield Precast when Many Fight option is checked.
 * 2 pieces T9 and T10 bonus implemented.

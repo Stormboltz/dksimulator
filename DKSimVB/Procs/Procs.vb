@@ -25,6 +25,8 @@ Friend Class Procs
 	Protected Sim as Sim
 	Friend T104PDPSFAde As Integer
 	
+	
+	
 	Friend AllProcs As New Collection
 	Friend EquipedTrinkets as New Collection
 	Friend OnHitProcs As new Collection
@@ -32,7 +34,8 @@ Friend Class Procs
 	Friend OnOHhitProcs As new Collection
 	Friend OnCritProcs As new Collection
 	Friend OnDamageProcs As new Collection
-	Friend OnDoTProcs As new Collection
+	Friend OnDoTProcs As New Collection
+	
 
 	Public Enum ProcOnType
 		OnMisc = 0
@@ -63,7 +66,12 @@ Friend Class Procs
 	
 	Sub Init()
 		Dim s As Sim
-		s= me.Sim
+		s= Me.Sim
+		
+		
+		
+		
+		
 		KillingMachine = New Proc(s)
 		With KillingMachine
 			.Name = "KillingMachine"

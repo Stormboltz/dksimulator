@@ -44,6 +44,7 @@ Public Class Trinkets
 	Friend WhisperingFangedSkull As Trinket
 	Friend NeedleEncrustedScorpion as Trinket
 	
+	Friend Bryntroll as New Trinket
 
 	Protected sim as Sim
 	Sub New(S As Sim)
@@ -394,6 +395,16 @@ Public Class Trinkets
 		 	.InternalCD = 0
 		 	.Name = "Off Hand RazorIce"
 		 	.ProcOn = procs.ProcOnType.OnMHhit
+		End With
+		
+		Bryntroll = New Trinket(s)
+		With Bryntroll
+			.Name = "Bryntroll"
+			.ProcOn = Procs.ProcOnType.OnDamage
+			.ProcChance  = 0.1133
+			.ProcValue = 2250
+			.DamageType = "Bryntroll"
+			.ProcLenght = 0
 		End With
 		
 		CollectDamagingTrinket

@@ -18,9 +18,23 @@ Friend Class DRW
 	Private MeleeGlacingChance As Single
 	private SpellMissChance as Single
 	Private Hyst As Boolean
+	Public ThreadMultiplicator as Double
 	Protected sim as Sim
 	
-	
+	Sub New(S as Sim)
+		total = 0
+		MissCount = 0
+		HitCount = 0
+		CritCount = 0
+		cd = 0
+		ActiveUntil= 0
+		NextDRW = 0
+		TotalHit = 0
+		TotalCrit = 0
+		Sim = S
+		sim.DamagingObject.Add(Me)
+		ThreadMultiplicator = 0
+	End Sub
 	
 	Function IsActive(T as Long) As Boolean
 		if ActiveUntil >= T then return true
@@ -171,19 +185,7 @@ Friend Class DRW
 		
 		return tmp
 	End Function
-	Sub New(S as Sim)
-		total = 0
-		MissCount = 0
-		HitCount = 0
-		CritCount = 0
-		cd = 0
-		ActiveUntil= 0
-		NextDRW = 0
-		TotalHit = 0
-		TotalCrit = 0
-		Sim = S
-		sim.DamagingObject.Add(me)
-	End Sub
+
 	Function report As String
 		Dim tmp As String
 		tmp = "Dancing Rune Weapon" & VBtab

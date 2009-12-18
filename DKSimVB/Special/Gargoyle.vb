@@ -10,7 +10,8 @@ Friend Class Gargoyle
 	Friend HitCount as Integer
 	Friend CritCount as Integer
 	Friend TotalHit As Long
-	Friend TotalCrit as Long
+	Friend TotalCrit As Long
+	Public ThreadMultiplicator as Double
 	Protected Sim  as Sim 
 	Sub New(S as Sim)
 		total = 0
@@ -22,7 +23,8 @@ Friend Class Gargoyle
 		TotalHit = 0
 		TotalCrit = 0
 		Sim = S
-		sim.DamagingObject.Add(me)
+		sim.DamagingObject.Add(Me)
+		ThreadMultiplicator = 0
 	End Sub
 	
 Function Summon(T As Long) as  boolean

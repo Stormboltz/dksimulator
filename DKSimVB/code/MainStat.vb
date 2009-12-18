@@ -106,6 +106,12 @@ Friend Class MainStat
 			if XmlDoc.SelectSingleNode("//character/WeaponProc/OHEmpoweredDeathbringer").InnerText = 1 then sim.trinkets.OHEmpoweredDeathbringer.Equip
 		Catch
 		End Try
+		Try
+			if XmlDoc.SelectSingleNode("//character/WeaponProc/MHBryntroll").InnerText = 1 then sim.trinkets.Bryntroll.Equip
+		Catch
+			
+		End Try
+		
 		
 		Try
 			If XmlDoc.SelectSingleNode("//character/misc/HandMountedPyroRocket").InnerText= True Then

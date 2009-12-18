@@ -16,7 +16,7 @@ Public Class Proc
 	Friend ProcValue As Integer
 	Friend InternalCD As Integer
 	protected Sim as Sim
-	Public Total as Integer
+	Public Total as long
 	Friend HitCount As Integer
 	Friend MissCount As Integer
 	Friend CritCount As Integer
@@ -25,6 +25,7 @@ Public Class Proc
 	Public Name As String
 	Friend ProcType As String
 	Friend ProcOn As procs.ProcOnType
+	Public ThreadMultiplicator As Double
 	
 	
 	
@@ -50,6 +51,7 @@ Public Class Proc
 		ProcValue = 0
 		InternalCD = 0
 		count = 0
+		ThreadMultiplicator = 1
 		
 	End Sub
 	Sub New(S As Sim)
@@ -154,7 +156,6 @@ Public Class Proc
 					If sim.RandomNumberGenerator.RNGProc <= sim.MainStat.SpellCrit Then
 						CritCount = CritCount + 1
 						tmp = ProcValue * 1.5 * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
-						tmp = tmp * (1 + sim.MainStat.BloodPresence*0.15)
 					Else
 						tmp = ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
 						HitCount = HitCount + 1
@@ -168,21 +169,17 @@ Public Class Proc
 						CritCount = CritCount + 1
 						
 						tmp = ProcValue * 1.5 * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
-						tmp = tmp * (1 + sim.MainStat.BloodPresence*0.15)
 						tmp = tmp * (1 + TalentFrost.BlackIce * 2 / 100)
 					Else
 						tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
-						tmp = tmp * (1 + sim.MainStat.BloodPresence*0.15)
 						HitCount = HitCount + 1
 					End If
 				Case "physical"
 					If sim.RandomNumberGenerator.RNGProc <= sim.MainStat.Crit Then
 						CritCount = CritCount + 1
 						tmp = ProcValue * 2 * sim.MainStat.StandardPhysicalDamageMultiplier(sim.TimeStamp)
-						tmp = tmp * (1 + sim.MainStat.BloodPresence*0.15)
 					Else
 						tmp= ProcValue * sim.MainStat.StandardPhysicalDamageMultiplier(sim.TimeStamp)
-						tmp = tmp * (1 + sim.MainStat.BloodPresence*0.15)
 						HitCount = HitCount + 1
 					End If
 					
@@ -194,6 +191,13 @@ Public Class Proc
 					HitCount = HitCount + 1
 				Case "cinderglacier"
 					sim.RuneForge.CinderglacierProc = 2
+				Case "Bryntroll"
+					If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
+						MissCount = MissCount + 1
+						Exit sub
+					End If
+					tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
+					HitCount = HitCount + 1
 			End Select
 			total += tmp
 			

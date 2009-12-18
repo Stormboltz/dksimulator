@@ -14,7 +14,8 @@ Friend class Ghoul
 	Private MeleeMissChance As Single
 	Private MeleeDodgeChance As Single
 	Private MeleeGlacingChance As Single
-	private SpellMissChance as Single
+	Private SpellMissChance As Single
+	Public ThreadMultiplicator as Double
 	protected sim As Sim
 	
 	Sub new(MySim as Sim)
@@ -30,7 +31,8 @@ Friend class Ghoul
 		TotalCrit = 0
 		sim = MySim
 		MeleeGlacingChance = 0.25
-		sim.DamagingObject.Add(me)
+		sim.DamagingObject.Add(Me)
+		ThreadMultiplicator = 0
 	End Sub
 	
 	Sub Summon(T As Long)
