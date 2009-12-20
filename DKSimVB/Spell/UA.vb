@@ -38,9 +38,6 @@ Sub New(S As sim)
 		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste)) + sim._MainFrm.txtLatency.Text/10
 		sim.RunicPower.add(10)
 		sim.combatlog.write(T  & vbtab &  "Unbreakable Armor")
-		
-		
-		
 		me.HitCount = me.HitCount +1
 		return true
 	End Function

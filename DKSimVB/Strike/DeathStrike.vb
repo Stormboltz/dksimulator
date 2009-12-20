@@ -68,12 +68,12 @@ Friend Class DeathStrike
 				If RNG <= CritChance Then
 					
 					dégat = AvrgCrit(T,false)
-					sim.combatlog.write(T  & vbtab &  "OH DS crit for " & dégat  )
+					if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH DS crit for " & dégat  )
 					sim.tryOnCrit
 				Else
 					
 					dégat = AvrgNonCrit(T,false)
-					sim.combatlog.write(T  & vbtab &  "OH DS hit for " & dégat )
+					if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH DS hit for " & dégat )
 				End If
 
 				total = total + dégat

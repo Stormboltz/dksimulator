@@ -100,7 +100,7 @@ Public Partial Class MainForm
 		
 		
 		
-		SimConstructor.PetFriendly = True
+		SimConstructor.PetFriendly = me.ckPet.Checked
 		
 		
 	End Sub

@@ -147,6 +147,7 @@ Friend Class Character
 		If sim.MainStat.FrostPresence = 1 Then
 			tmp = tmp * 1.6
 		End If
+		if sim.UnbreakableArmor.isActive then tmp = tmp * 1.25
 		tmp = tmp + tmp2
 		return tmp
 	End Function

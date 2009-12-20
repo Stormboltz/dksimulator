@@ -76,13 +76,13 @@ Friend Class FrostStrike
 				RNG = MyRNG
 				If RNG < ccT Then
 					dégat = AvrgCrit(T,true)
-					sim.combatlog.write(T  & vbtab &  "FS crit for " & dégat )
+					sim.combatlog.write(T  & vbtab &  "FS crit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.Value )
 					CritCount = CritCount + 1
 					sim.tryOnCrit
 				Else
 					dégat = AvrgNonCrit(T,true)
 					HitCount = HitCount + 1
-					sim.combatlog.write(T  & vbtab &  "FS hit for " & dégat )
+					sim.combatlog.write(T  & vbtab &  "FS hit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.Value )
 				End If
 
 				total = total + dégat
@@ -92,11 +92,11 @@ Friend Class FrostStrike
 			If OHHit Then
 				If RNG < ccT Then
 					dégat = AvrgCrit(T,false)
-					sim.combatlog.write(T  & vbtab &  "OH FS crit for " & dégat )
+					if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH FS crit for " & dégat )
 					sim.tryOnCrit
 				Else
 					dégat = AvrgNonCrit(T,false)
-					sim.combatlog.write(T  & vbtab &  "OH FS hit for " & dégat )
+					if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH FS hit for " & dégat )
 				End If
 
 				total = total + dégat

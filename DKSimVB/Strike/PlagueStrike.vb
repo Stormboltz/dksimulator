@@ -61,12 +61,12 @@ Friend Class PlagueStrike
 			If OHHit Then
 				If RNG <= CritChance Then
 					dégat = AvrgCrit(T,false)
-					sim.combatlog.write(T  & vbtab &  "OH PS crit for " & dégat  )
+					if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH PS crit for " & dégat  )
 					sim.tryOnCrit
 					
 				Else
 					dégat = AvrgNonCrit(T,false)
-					sim.combatlog.write(T  & vbtab &  "OH PS hit for " & dégat )
+					if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH PS hit for " & dégat )
 				End If
 
 				total = total + dégat
