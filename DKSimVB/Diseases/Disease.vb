@@ -89,16 +89,18 @@ Public Class Disease
 				If sim.RandomNumberGenerator.RNGT9P4 < CritChance Then
 					tmp = AvrgCrit(T)
 					CritCount = CritCount + 1
+					totalcrit += tmp
 				Else
 					tmp = DamageTick
 					HitCount = HitCount + 1
+					totalhit += tmp
 				End If
 			Else
 				tmp = DamageTick
 				HitCount = HitCount + 1
 			End If
 			total = total + tmp
-			If TalentUnholy.WanderingPlague > 0 Then
+			If sim.TalentUnholy.WanderingPlague > 0 Then
 				If Sim.WanderingPlague.isAvailable(T) = True Then
 					Dim RNG As Double
 					RNG = MyRNG
@@ -126,21 +128,27 @@ Public Class Disease
 		dim tmp as String
 		tmp = ShortenName(me.ToString) & VBtab
 	
-		If total.ToString().Length < 8 Then
-			tmp = tmp & total & "   " & VBtab
-		Else
-			tmp = tmp & total & VBtab
-		End If
+		tmp = tmp & total & VBtab
 		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
 		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
 		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
+		
+		tmp = tmp & toDecimal(HitCount) & VBtab
+		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
+		tmp = tmp & toDecimal(totalhit/(HitCount)) & VBtab
+		
+		tmp = tmp & toDecimal(CritCount) & VBtab
+		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
+		tmp = tmp & toDecimal(totalcrit/(CritCount)) & VBtab
+				
+		tmp = tmp & toDecimal(MissCount) & VBtab
+		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
+		
 		If sim.MainStat.FrostPresence Then
 			tmp = tmp & toDecimal((100 * total * ThreadMultiplicator * 2.0735 ) / sim.TimeStamp) & VBtab
 		End If
 		tmp = tmp & vbCrLf
+		tmp = replace(tmp, VBtab & 0, vbtab)
 		return tmp
 	End Function
 	

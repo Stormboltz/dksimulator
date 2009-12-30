@@ -748,4 +748,11 @@ Public Partial Class MainForm
 		ImportTemplate("")
 	End Sub
 	
+	
+	Sub CmdStartTalentDpsValueClick(sender As Object, e As EventArgs)
+		if LoadBeforeSim = false then exit sub
+		Me.tabControl1.SelectedIndex = 1
+		
+		SimConstructor.StartSpecDpsValue(PBsim,txtSimtime.Text,me)
+	End Sub
 End Class

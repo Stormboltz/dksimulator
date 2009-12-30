@@ -348,6 +348,11 @@ Public Partial Class MainForm
 		xElem.InnerText = chkTailorEnchant.Checked
 		xMisc.AppendChild(xElem)
 		
+		xElem = xmlDoc.CreateNode(xml.XmlNodeType.Element,"AshenBand" , "")
+		xElem.InnerText = chkAshenBand.Checked
+		xMisc.AppendChild(xElem)
+		
+		
 		Dim xRacial As XmlNode = xmlDoc.CreateNode(xml.XmlNodeType.Element, "racials", "")
 		root.AppendChild(xRacial)
 		
@@ -375,6 +380,8 @@ Public Partial Class MainForm
 		xElem.InnerText = chkArcaneTorrent.Checked
 		xRacial.AppendChild(xElem)
 		
+		
+		
 		xmlDoc.Save(filepath)
 	End Sub
 	
@@ -397,4 +404,6 @@ Public Partial Class MainForm
 		End If
 		truc.Dispose
 	End Sub
+	
+
 End Class

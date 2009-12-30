@@ -1,4 +1,10 @@
-﻿1.1.8.5 Release notes
+﻿1.1.9 Release notes
+* Better reporting
+* DPS Value for talents
+* Correction on Killing machine that would proc too much since 1.1.8.4
+* New option tell the sim to keep Blood Runes synchronised.
+
+1.1.8.5 Release notes
 * Deathbringers Will 3rd proc on frost spec is ArP
 * Bryntroll proc implemented
 

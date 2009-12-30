@@ -29,7 +29,9 @@ Friend Class Procs
 	
 	Friend AllProcs As New Collection
 	Friend EquipedTrinkets as New Collection
-	Friend OnHitProcs As new Collection
+	Friend OnHitProcs As New Collection
+	
+	Friend OnMHWhitehitProcs As new Collection
 	Friend OnMHhitProcs As new Collection
 	Friend OnOHhitProcs As new Collection
 	Friend OnCritProcs As new Collection
@@ -45,6 +47,7 @@ Friend Class Procs
 		OnCrit = 4
 		OnDamage = 5
 		OnDoT = 6
+		OnMHWhiteHit=7
 	End Enum
 		
 
@@ -75,20 +78,20 @@ Friend Class Procs
 		KillingMachine = New Proc(s)
 		With KillingMachine
 			.Name = "KillingMachine"
-			.ProcOn = procs.ProcOnType.OnMHhit
-			if Talentfrost.KillingMachine > 0 then .Equip
-			.Equiped  = Talentfrost.KillingMachine
+			.ProcOn = procs.ProcOnType.OnMHWhiteHit
+			if sim.TalentFrost.KillingMachine > 0 then .Equip
+			.Equiped  = sim.TalentFrost.KillingMachine
 			.ProcLenght = 60
-			.ProcChance = (Talentfrost.KillingMachine)*S.MainStat.MHWeaponSpeed/60
+			.ProcChance = (sim.Talentfrost.KillingMachine)*S.MainStat.MHWeaponSpeed/60
 		End With
 		
 		Rime = New Proc(s)
 		With Rime
 			.Name = "Rime"
-			if talentfrost.Rime >  0 then .equip 
-			.Equiped  = talentfrost.Rime
+			if sim.TalentFrost.Rime >  0 then .equip 
+			.Equiped  = sim.TalentFrost.Rime
 			.ProcLenght = 60
-			.ProcChance = 5 * talentfrost.Rime/100
+			.ProcChance = 5 * sim.TalentFrost.Rime/100
 		End With
 		
 		ScentOfBlood = New ScentOfBlood(s)
@@ -96,7 +99,7 @@ Friend Class Procs
 			.Name = "ScentOfBlood"
 			If s.MainStat.FrostPresence = 1 Then
 				.equip
-				.Equiped  = TalentBlood.ScentOfBlood
+				.Equiped  = sim.TalentBlood.ScentOfBlood
 			Else
 				.Equiped = 0
 			End If
@@ -159,10 +162,10 @@ Friend Class Procs
 		
 		s.RuneForge.OHRazorIce = New RazorIce(S)
 		With s.RuneForge.OHRazorIce
-			.Name = "OHRazorIce"
+			.Name = "Frost Vulnerability"
 			.InternalCD = 0
 			.ProcOn = procs.ProcOnType.OnOHhit
-			.ProcChance = S.MainStat.OHWeaponSpeed/60
+			.ProcChance = 5*S.MainStat.OHWeaponSpeed/60
 			.ProcLenght = 20
 			.ProcValue = 1
 			if s.RuneForge.OHRazoriceRF	then .Equip

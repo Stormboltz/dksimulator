@@ -8,17 +8,20 @@
 '
 Friend CLass Desolation
 	Friend FadeAt As long
-	Friend Bonus As Double
 	
-	Sub New
+	private sim as sim
+	
+	Sub New(S As sim)
+		sim = S
 		Init
 	End Sub
 		
 	Sub init()
 		FadeAt=0
-		Bonus = TalentUnholy.Desolation/100
 	End Sub
-
+	Function bonus As double
+		return (sim.TalentUnholy.Desolation/100)
+	End Function
 	Function isActive(T As long) As Boolean
 		If T >= FadeAt Then
 			isActive = False

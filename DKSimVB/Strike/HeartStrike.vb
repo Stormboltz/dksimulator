@@ -8,7 +8,7 @@
 '
 Friend Class HeartStrike
 	Inherits Strikes.Strike
-Sub New(S As sim)
+	Sub New(S As sim)
 		MyBase.New(s)
 	End Sub
 	
@@ -17,11 +17,7 @@ Sub New(S As sim)
 		
 		If sim.Hysteria.IsAvailable(T)  Then sim.Hysteria.use(T)
 		
-		If sim.MainStat.UnholyPresence Then
-			Sim.NextFreeGCD = T + 100 + sim._MainFrm.txtLatency.Text/10
-		Else
-			Sim.NextFreeGCD = T + 150 + sim._MainFrm.txtLatency.Text/10
-		End If
+		UseGCD(T)
 		
 		If DoMyStrikeHit = false Then
 			sim.combatlog.write(T  & vbtab &  "HS fail")
@@ -39,34 +35,39 @@ Sub New(S As sim)
 					CritCount = CritCount + 1
 					If intCount = 2 Then
 						dégat =  AvrgCritOnSecondtarget(T)
+						
+						totalcrit += dégat
 					Else
 						dégat = AvrgCrit(T)
+						
+						totalcrit += dégat
 					End If
-					
 					sim.combatlog.write(T  & vbtab &  "HS crit for " & dégat)
 				Else
 					HitCount = HitCount + 1
 					If intCount = 2 Then
 						dégat =  AvrgNonCritOnSecondtarget(T)
+						totalhit += dégat
 					Else
 						dégat =  AvrgNonCrit(T)
+						totalhit += dégat
 					End If
 					sim.combatlog.write(T  & vbtab &  "HS hit for " & dégat)
 				End If
-
-
+				
+				
 				total = total + dégat
 				sim.proc.HauntedDreams.TryMe(T)
 				sim.proc.T92PDPS.TryMe(T)
 				sim.TryOnMHHitProc
 				RNG = MyRNG
-				If rng < 0.05*talentblood.SuddenDoom Then
+				If rng < 0.05*sim.talentblood.SuddenDoom Then
 					sim.deathcoil.ApplyDamage(T,true)
 				End If
 			End If
 		Next intCount
 		
-		If TalentFrost.BloodoftheNorth = 3 Or TalentUnholy.Reaping = 3 Then
+		If sim.TalentFrost.BloodoftheNorth = 3 Or sim.TalentUnholy.Reaping = 3 Then
 			sim.runes.UseBlood(T,True)
 		Else
 			sim.runes.UseBlood(T,False)
@@ -88,14 +89,14 @@ Sub New(S As sim)
 		else
 			tmp = tmp * (1 + 0.1 * Sim.NumDesease)
 		end if
-		tmp = tmp * (1 + TalentBlood.BloodyStrikes * 15 / 100)
-		tmp = tmp * (1 + TalentFrost.BloodoftheNorth * 5 / 100)
+		tmp = tmp * (1 + sim.TalentBlood.BloodyStrikes * 15 / 100)
+		tmp = tmp * (1 + sim.TalentFrost.BloodoftheNorth * 5 / 100)
 		
 		if sim.sigils.DarkRider then tmp = tmp + 45 + 22.5 * Sim.NumDesease
 		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
 		
 		If sim.MainStat.T102PDPS<>0 Then
-				tmp = tmp * 1.07
+			tmp = tmp * 1.07
 		End If
 		if sim.MainStat.T92PTNK =1 then tmp = tmp *1.05
 		AvrgNonCrit = tmp
@@ -115,8 +116,8 @@ Sub New(S As sim)
 		else
 			tmp = tmp * (1 + 0.1 * NumDesease)
 		end if
-		tmp = tmp * (1 + TalentBlood.BloodyStrikes * 15 / 100)
-		tmp = tmp * (1 + TalentFrost.BloodoftheNorth * 5 / 100)
+		tmp = tmp * (1 + sim.TalentBlood.BloodyStrikes * 15 / 100)
+		tmp = tmp * (1 + sim.TalentFrost.BloodoftheNorth * 5 / 100)
 		
 		if sim.sigils.DarkRider then tmp = tmp + 45 + 22.5 * Sim.NumDesease
 		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
@@ -129,11 +130,11 @@ Sub New(S As sim)
 	End Function
 	
 	public Overrides Function CritCoef() As Double
-		CritCoef = 1* (1 + TalentBlood.MightofMograine * 15 / 100)
+		CritCoef = 1* (1 + sim.TalentBlood.MightofMograine * 15 / 100)
 		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
 	public Overrides Function CritChance() As Double
-		CritChance = sim.MainStat.crit + TalentBlood.Subversion * 3 / 100
+		CritChance = sim.MainStat.crit + sim.TalentBlood.Subversion * 3 / 100
 	End Function
 	public Overrides Function AvrgCrit(T As long) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)

@@ -27,12 +27,12 @@ Friend Class DeathandDecay
 	End Function
 	
 	Function Apply(T As Long) As Boolean
-		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste)) + sim._MainFrm.txtLatency.Text/10
+		UseGCD(T)
 		nextTick = T+100
 		sim.runes.UseBlood(T, False)
 		sim.runes.UseFU(T, False)
 		ActiveUntil = T+1000
-		cd = T + 3000 - TalentUnholy.Morbidity*500
+		cd = T + 3000 - sim.TalentUnholy.Morbidity*500
 		sim.combatlog.write(T  & vbtab &  "D&D ")
 		Sim.RunicPower.add(15)
 		return true
@@ -53,9 +53,13 @@ Friend Class DeathandDecay
 				dégat = AvrgCrit(T)
 				if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "D&D crit for " & dégat)
 				CritCount = CritCount + 1
+				totalcrit += dégat
+
+
 			Else
 				dégat= AvrgNonCrit(T)
 				HitCount = HitCount + 1
+				totalhit += dégat
 				if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "D&D hit for " & dégat)
 			End If
 			
@@ -70,9 +74,9 @@ Friend Class DeathandDecay
 	overrides Function AvrgNonCrit(T As long) As Double
 		Dim tmp As Double
 		tmp = 62
-		tmp = tmp + (0.0475 * (1 + 0.04 * TalentUnholy.Impurity) * sim.MainStat.AP)
+		tmp = tmp + (0.0475 * (1 + 0.04 * sim.TalentUnholy.Impurity) * sim.MainStat.AP)
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
-		tmp = tmp * (1 + TalentFrost.BlackIce * 2 / 100)
+		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
 		If sim.glyph.DeathandDecay Then tmp = tmp *1.2
 		if sim.MainStat.T102PTNK =1 then tmp = tmp *1.2
 		return tmp

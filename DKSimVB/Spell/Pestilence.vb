@@ -16,7 +16,7 @@ Friend Class Pestilence
 	Friend BPToReapply As Boolean
 	Friend FFToReapply As Boolean
 	Function use(T As double) As Boolean
-		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
+		UseGCD(T)
 		If DoMySpellHit = false Then
 			sim.combatlog.write(T  & vbtab &  "Pestilence fail")
 			MissCount = MissCount +1
@@ -25,7 +25,7 @@ Friend Class Pestilence
 		sim.combatlog.write(T  & vbtab &  "Pestilence")
 		HitCount = HitCount +1
 		
-		If TalentFrost.BloodoftheNorth = 3 Or TalentUnholy.Reaping = 3 Then
+		If sim.TalentFrost.BloodoftheNorth = 3 Or sim.TalentUnholy.Reaping = 3 Then
 			sim.runes.UseBlood(T,True)
 		Else
 			sim.runes.UseBlood(T,False)
@@ -33,11 +33,11 @@ Friend Class Pestilence
 		Sim.RunicPower.add (10)
 		
 		If sim.BloodPlague.FadeAt > T Then
-				sim.BloodPlague.OtherTargetsFade  = T + 1500 + 300 * talentunholy.Epidemic
+				sim.BloodPlague.OtherTargetsFade  = T + 1500 + 300 * sim.TalentUnholy.Epidemic
 				'BloodPlague.nextTick = T + 300
 			End If
 		If sim.FrostFever.FadeAt > T Then
-			sim.FrostFever.OtherTargetsFade = T + 1500 + 300 * talentunholy.Epidemic
+			sim.FrostFever.OtherTargetsFade = T + 1500 + 300 * sim.TalentUnholy.Epidemic
 			'FrostFever.nextTick = T + 300
 		End If
 	
@@ -46,12 +46,12 @@ Friend Class Pestilence
 		If sim.glyph.Disease Then
 			'debug.Print ("PEST! at " & T )
 			If sim.BloodPlague.FadeAt > T Then
-				sim.BloodPlague.FadeAt = T + 1500 + 300 * talentunholy.Epidemic
+				sim.BloodPlague.FadeAt = T + 1500 + 300 * sim.TalentUnholy.Epidemic
 				sim.BloodPlague.AP = sim.MainStat.AP
 				sim.BloodPlague.DamageTick = sim.BloodPlague.AvrgNonCrit(T)
 			End If
 			If sim.FrostFever.FadeAt > T Then
-				sim.FrostFever.FadeAt = T + 1500 + 300 * talentunholy.Epidemic
+				sim.FrostFever.FadeAt = T + 1500 + 300 * sim.TalentUnholy.Epidemic
 				sim.FrostFever.AP = sim.MainStat.AP
 				sim.FrostFever.DamageTick = sim.FrostFever.AvrgNonCrit(T)
 			End If

@@ -17,14 +17,12 @@ Sub New(S As sim)
 	
 	
 	Function IsAvailable(T As Long) As Boolean
-		If TalentFrost.UnbreakableArmor = 0 Then return false 
+		If sim.TalentFrost.UnbreakableArmor = 0 Then return false 
 		If CD >= T Then Return False
 		If sim.BloodTap.IsAvailable(T) and sim.Runes.Frost(T)=false Then return true
 	End Function
 	Function Use(T As Long) As Boolean
-		If TalentFrost.UnbreakableArmor = 0 Then Return False
-		
-		
+		If sim.TalentFrost.UnbreakableArmor = 0 Then Return False
 		If sim.runes.Frost(T) = False Then
 			If sim.BloodTap.IsAvailable(T) Then
 				sim.BloodTap.Use(T)
@@ -32,10 +30,20 @@ Sub New(S As sim)
 				return false
 			End If
 		End If
+		
+		If sim._MainFrm.chkBloodSync.Checked Then
+			If sim.BloodToSync = True Then
+				sim.BloodToSync  = False
+			Else
+				sim.BloodToSync  = true
+			End If
+		End If
+		
+		
 		cd = t + 60 * 100
 		sim.Runes.UseFrost(T,false)
 		ActiveUntil= T + 20 * 100
-		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste)) + sim._MainFrm.txtLatency.Text/10
+		UseGCD(T)
 		sim.RunicPower.add(10)
 		sim.combatlog.write(T  & vbtab &  "Unbreakable Armor")
 		me.HitCount = me.HitCount +1

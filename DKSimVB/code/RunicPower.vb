@@ -16,7 +16,7 @@ Friend Class RunicPower
 		if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp & vbtab & "Runic Power = " & Value)
 	End Sub
 	Function MaxValue as Integer
-		return 100 + ( 15*talentfrost.RPM)
+		return 100 + ( 15*sim.talentfrost.RPM)
 	End Function
 	
 	

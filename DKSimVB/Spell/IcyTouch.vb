@@ -6,7 +6,7 @@ Friend Class IcyTouch
 	
 	overrides Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
-		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
+		UseGCD(T)
 		
 		
 		
@@ -25,10 +25,14 @@ Friend Class IcyTouch
 		If RNG <= ccT Then
 			CritCount = CritCount + 1
 			dégat = AvrgCrit(T)
+			totalcrit += dégat
+
+
 			sim.combatlog.write(T  & vbtab &  "IT crit for " & dégat )
 		Else
 			HitCount = HitCount + 1
 			dégat =  AvrgNonCrit(T)
+			totalhit += dégat
 			sim.combatlog.write(T  & vbtab &  "IT hit for " & dégat)
 		End If
 		
@@ -38,7 +42,7 @@ Friend Class IcyTouch
 		
 		
 		
-		Sim.RunicPower.add (10 + (TalentFrost.ChillOfTheGrave * 2.5))
+		Sim.RunicPower.add (10 + (sim.TalentFrost.ChillOfTheGrave * 2.5))
 		If sim.DRW.IsActive(T) Then
 			sim.DRW.IcyTouch
 		End If
@@ -54,12 +58,12 @@ Friend Class IcyTouch
 		Dim tmp As Double
 		tmp = 236
 		
-		tmp = tmp + (0.1 * (1 + 0.04 * TalentUnholy.Impurity) * sim.MainStat.AP)
-		tmp = tmp * (1 + TalentFrost.ImprovedIcyTouch * 5 / 100)
-		If sim.NumDesease > 0 Then 	tmp = tmp * (1 + TalentFrost.GlacierRot * 6.6666666 / 100)
-		If (T/sim.MaxTime) >= 0.75 Then tmp = tmp *(1+ 0.06*talentfrost.MercilessCombat)
+		tmp = tmp + (0.1 * (1 + 0.04 * sim.TalentUnholy.Impurity) * sim.MainStat.AP)
+		tmp = tmp * (1 + sim.TalentFrost.ImprovedIcyTouch * 5 / 100)
+		If sim.NumDesease > 0 Then 	tmp = tmp * (1 + sim.TalentFrost.GlacierRot * 6.6666666 / 100)
+		If (T/sim.MaxTime) >= 0.75 Then tmp = tmp *(1+ 0.06*sim.talentfrost.MercilessCombat)
 		If sim.sigils.FrozenConscience Then tmp = tmp +111
-		tmp = tmp * (1 + TalentFrost.BlackIce * 2 / 100)
+		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
 		
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		tmp = tmp *(1+sim.RuneForge.RazorIceStack/100) 'TODO: only on main target
@@ -74,7 +78,7 @@ Friend Class IcyTouch
 		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
 	overrides Function CritChance() As Double
-		CritChance = sim.MainStat.SpellCrit + TalentFrost.Rime * 5 / 100
+		CritChance = sim.MainStat.SpellCrit + sim.TalentFrost.Rime * 5 / 100
 		If sim.proc.KillingMachine.IsActive Then return 1
 		
 	End Function

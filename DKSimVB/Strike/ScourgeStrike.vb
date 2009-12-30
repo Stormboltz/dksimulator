@@ -1,8 +1,8 @@
 Friend Class ScourgeStrike
 	Inherits strikes.Strike
 	
-	Private tmpPhysical As Double
-	Private tmpMagical As Double
+	Private tmpPhysical As integer
+	Private tmpMagical As integer
 	Private MagicHit As long
 	Private MagicCrit As long
 	Friend MagicTotal As Long
@@ -18,11 +18,7 @@ Friend Class ScourgeStrike
 	public Overrides Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
 		'scourgestrike glyph
-		If sim.MainStat.UnholyPresence Then
-			Sim.NextFreeGCD = T + 100+ sim._MainFrm.txtLatency.Text/10
-		Else
-			Sim.NextFreeGCD = T + 150+ sim._MainFrm.txtLatency.Text/10
-		End If
+		UseGCD(T)	
 		
 		If DoMyStrikeHit = false Then
 			sim.combatlog.write(T  & vbtab &  "SS fail")
@@ -38,25 +34,17 @@ Friend Class ScourgeStrike
 			RNG = MyRNG
 			If RNG <= CritChance Then
 				CritCount = CritCount + 1
-				tmpPhysical = AvrgNonCritPhysical(T)* (1 + CritCoef)
-				'sim.combatlog.write(T  & vbtab &  "SS Physical crit for " & dégat )
+				dégat = AvrgNonCritPhysical(T)* (1 + CritCoef)
+				sim.combatlog.write(T  & vbtab &  "SS Physical crit for " & dégat )
+				totalcrit += tmpPhysical
 				sim.tryOnCrit
 			Else
 				HitCount = HitCount + 1
-				tmpPhysical = AvrgNonCritPhysical(T)
-				'sim.combatlog.write(T  & vbtab &  "SS Physical hit for " & dégat )
+				dégat = AvrgNonCritPhysical(T)
+				totalhit += tmpPhysical
+				sim.combatlog.write(T  & vbtab &  "SS Physical hit for " & dégat )
 			End If
-			dégat = tmpPhysical
-			'Magical part
 			sim.ScourgeStrikeMagical.ApplyDamage(dégat,T)
-
-		
-
-
-			tmpPhysical = math.round(tmpPhysical,0)
-		
-			sim.combatlog.write(T  & vbtab &  "SS hit for " & tmpPhysical & " physical")
-		
 			total = total + tmpPhysical
 		
 		
@@ -71,7 +59,7 @@ Friend Class ScourgeStrike
 			End If
 		End If
 		sim.runes.UseFU(T,False)
-		Sim.RunicPower.add (15 + TalentUnholy.Dirge * 2.5 + 5*sim.MainStat.T74PDPS)
+		Sim.RunicPower.add (15 + sim.TalentUnholy.Dirge * 2.5 + 5*sim.MainStat.T74PDPS)
 		sim.proc.Virulence.TryMe(t)
 		sim.TryOnMHHitProc
 		return true
@@ -85,7 +73,7 @@ Friend Class ScourgeStrike
 		If sim.sigils.Awareness Then tmpPhysical = tmpPhysical + 189
 		If sim.sigils.ArthriticBinding Then tmpPhysical = tmpPhysical + 91.35
 		tmpPhysical = tmpPhysical * sim.MainStat.StandardPhysicalDamageMultiplier(T)
-		tmpPhysical = tmpPhysical * (1 + 6.6666666 * TalentUnholy.Outbreak / 100)
+		tmpPhysical = tmpPhysical * (1 + 6.6666666 * sim.TalentUnholy.Outbreak / 100)
 		If sim.MainStat.T102PDPS<>0 Then tmpPhysical = tmpPhysical * 1.1
 		
 		Return tmpPhysical
@@ -104,12 +92,12 @@ Friend Class ScourgeStrike
 		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
 		If sim.Desolation.isActive(T) Then tmp = tmp * (1+sim.Desolation.Bonus)
 		tmp = tmp * (1 + 0.02 * sim.BoneShield.Value(T))
-		tmp = tmp * (1 + 0.02 * TalentBlood.BloodGorged)
+		tmp = tmp * (1 + 0.02 * sim.TalentBlood.BloodGorged)
 		if sim.proc.T104PDPSFAde >= T then tmp = tmp * 1.03
 		tmp = tmp * (1 + 0.13 *  sim.Buff.SpellDamageTaken)
 		tmp = tmp * (1-0.05) 'Average partial resist
 		tmpMagical = tmpMagical * tmp
-		tmpMagical = tmpMagical * (1 + TalentFrost.BlackIce * 2 / 100)
+		tmpMagical = tmpMagical * (1 + sim.TalentFrost.BlackIce * 2 / 100)
 		If sim.RuneForge.CinderglacierProc > 0 Then
 			tmpMagical = tmpMagical * 1.2
 			sim.RuneForge.CinderglacierProc = sim.RuneForge.CinderglacierProc -1
@@ -130,9 +118,9 @@ Friend Class ScourgeStrike
 		else
 			tmp = tmp * (1 + 0.10 * Sim.NumDesease )
 		end if
-		tmp = tmp * (1 + 6.6666666 * TalentUnholy.Outbreak / 100)
+		tmp = tmp * (1 + 6.6666666 * sim.TalentUnholy.Outbreak / 100)
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
-		tmp = tmp * (1 + TalentFrost.BlackIce * 2 / 100)
+		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
 		if sim.RuneForge.CinderglacierProc > 0 then
 			tmp = tmp * 1.2
 			sim.RuneForge.CinderglacierProc = sim.RuneForge.CinderglacierProc -1
@@ -143,7 +131,7 @@ Friend Class ScourgeStrike
 		AvrgNonCrit = tmp
 	End Function
 	public Overrides Function CritCoef() As Double
-		CritCoef = 1 + TalentUnholy.ViciousStrikes * 15 / 100
+		CritCoef = 1 + sim.TalentUnholy.ViciousStrikes * 15 / 100
 		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
 	
@@ -151,7 +139,7 @@ Friend Class ScourgeStrike
 	
 	public Overrides Function CritChance() As Double
 		dim tmp as Double
-		tmp = sim.MainStat.crit + TalentUnholy.ViciousStrikes * 3 / 100 + sim.MainStat.T72PDPS * 5 / 100 + talentblood.Subversion * 3 / 100
+		tmp = sim.MainStat.crit + sim.TalentUnholy.ViciousStrikes * 3 / 100 + sim.MainStat.T72PDPS * 5 / 100 + sim.TalentBlood.Subversion * 3 / 100
 		return  tmp
 	End Function
 	

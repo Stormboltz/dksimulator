@@ -17,7 +17,18 @@ Public Class Strike
 	Friend TotalCrit As Long
 	Protected Sim as Sim
 	Public ThreadMultiplicator As Double
-	Protected _RNG as Random
+	Protected _RNG As Random
+	Friend OffHand  As Boolean
+	
+	
+	Sub UseGCD(T as Long)
+		If sim.MainStat.UnholyPresence Then
+			Sim.NextFreeGCD = T + 100+ sim._MainFrm.txtLatency.Text/10
+		Else
+			Sim.NextFreeGCD = T + 150+ sim._MainFrm.txtLatency.Text/10
+		End If
+	End Sub
+	
 	
 	
     
@@ -81,11 +92,8 @@ Public Class Strike
 	Overridable Public Function ApplyDamage(T As Long) As Boolean
 	End Function
 	
-	Overridable Public Function ApplyDamage(T As Long,MH as Boolean) As Boolean
-	End Function
+
 	
-	Overridable Function AvrgNonCrit(T as long, MH as Boolean) As Double
-	End Function
 	Overridable Function AvrgNonCrit(T as long) As Double
 	End Function
 	
@@ -95,31 +103,37 @@ Public Class Strike
 	Overridable Function CritChance() As Double
 	End Function
 	
-	Overridable Function AvrgCrit(T As long, MH as Boolean) As Double
-	End Function
 	Overridable Function AvrgCrit(T As long) As Double
 	End Function
 	
 	Overridable Function report As String
 		dim tmp as String
 		tmp = ShortenName(me.ToString)  & VBtab
-		
-		If total.ToString().Length < 8 Then
-			tmp = tmp & total & "   " & VBtab
-		Else
-			tmp = tmp & total & VBtab
-		End If
+
+		tmp = tmp & total & VBtab
 		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
 		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
 		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
+		
+		tmp = tmp & toDecimal(HitCount) & VBtab
+		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
+		tmp = tmp & toDecimal(totalhit/(HitCount)) & VBtab
+		
+		tmp = tmp & toDecimal(CritCount) & VBtab
+		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
+		tmp = tmp & toDecimal(totalcrit/(CritCount)) & VBtab
+				
+		tmp = tmp & toDecimal(MissCount) & VBtab
+		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
+
 		If sim.MainStat.FrostPresence Then
 			tmp = tmp & toDecimal((100 * total * ThreadMultiplicator * 2.0735 ) / sim.TimeStamp) & VBtab
 		End If
 
 		tmp = tmp & vbCrLf
+		
+		tmp = replace(tmp, VBtab & 0, vbtab)
+		
 		return tmp
 	End Function
 	

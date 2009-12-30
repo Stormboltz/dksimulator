@@ -363,6 +363,13 @@ Public Partial Class MainForm
 		root = doc.DocumentElement
 		root.AppendChild(newElem)
 		
+		
+		
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "BloodSync", "")
+		newElem.InnerText = chkBloodSync.Checked
+		root = doc.DocumentElement
+		root.AppendChild(newElem)
+		
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Enemies", "")
 		newElem.InnerText = txtNumberOfEnemies.Text
 		root = doc.DocumentElement
@@ -436,10 +443,8 @@ Public Partial Class MainForm
 		txtAMSrp.Text = doc.SelectSingleNode("//config/txtAMSrp").InnerText
 		txtAMScd.Text = doc.SelectSingleNode("//config/txtAMScd").InnerText
 				
-
-		
-
-		
+ 		chkBloodSync.Checked = doc.SelectSingleNode("//config/BloodSync").InnerText
+				
 		errH:
 	End Sub
 	

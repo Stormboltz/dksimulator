@@ -11,48 +11,48 @@ Friend class BloodCakedBlade
 Sub New(S As sim)
 		MyBase.New(s)
 	End Sub
-	public Overrides Function ApplyDamage(T As long,MH as Boolean) As boolean
-
+	Public Overrides Function ApplyDamage(T As Long) As Boolean
+		dim dégat as Integer
 		If DoMyStrikeHit = false Then
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "BCB fail")
 			MissCount = MissCount + 1
 			Exit function
 		End If
-		
-		total = total + AvrgNonCrit(T,MH)
-		
-		If MH Then
+		dégat = AvrgNonCrit(T)
+		totalhit += dégat
+		total = total + dégat 
+		If offhand = false Then
 			sim.TryOnMHHitProc
 		Else
 			sim.TryOnOHHitProc
 		End If
 		
 		
+		
 		HitCount = HitCount + 1
-		if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "BCB hit for " & int(AvrgNonCrit(T,MH)))
+		if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "BCB hit for " & dégat )
 		return true
 	End Function
-	public Overrides Function AvrgNonCrit(T as long, MH as Boolean) As Double
+	public Overrides Function AvrgNonCrit(T as long) As Double
 		Dim tmp As Double
-		If MH Then
+		If offhand = false Then
 			tmp = sim.MainStat.MHBaseDamage
 		Else
 			tmp = sim.MainStat.OHBaseDamage
 			tmp = tmp * 0.5
-			tmp = tmp * (1 + TalentFrost.NervesofColdSteel * 5 / 100)
+			tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 5 / 100)
 		End If
 		tmp = tmp * (0.25 + 0.125 * Sim.NumDesease)
 		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
 		return tmp
 	End Function
 	public Overrides Function CritCoef() As Double
-		
 	End Function
 	
 	public Overrides Function CritChance() As Double
 		return sim.MainStat.crit
 	End Function
-	public Overrides Function AvrgCrit(T as long,MH as Boolean) As Double
-		return AvrgNonCrit(T,MH) * (1 + CritCoef)
+	public Overrides Function AvrgCrit(T as long) As Double
+		return AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 End class

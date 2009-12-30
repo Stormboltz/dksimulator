@@ -6,6 +6,10 @@
 ' 
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
+
+
+
+
 Public Class Frenzy
 	Inherits Spells.Spell
 	
@@ -15,12 +19,12 @@ Public Class Frenzy
 	
 	
 	Function IsFrenzyAvailable(T As Long) As Boolean
-		if TalentUnholy.GhoulFrenzy = 0 then return false
+		if sim.TalentUnholy.GhoulFrenzy = 0 then return false
 		If CD < T  And sim.runes.Unholy(T) Then Return True
 	End Function
 	
 	Function IsAutoFrenzyAvailable(T As Long) As Boolean
-		If TalentUnholy.GhoulFrenzy = 0 Then Return False
+		If sim.TalentUnholy.GhoulFrenzy = 0 Then Return False
 		If sim.Rotate = True Then
 			If sim.Rotation.MyRotation.Contains("GhoulFrenzy") Then Return False
 		Else
@@ -45,11 +49,12 @@ Public Class Frenzy
 				return false
 			End If
 		End If
+		UseGCD(T)
 		sim.runes.UseUnholy(T,True)
 		Sim.RunicPower.add(10)
 		CD = T+3000
 		me.ActiveUntil = T+3000
-		If sim.combatlog.LogDetails Then 	sim.combatlog.write(T  & vbtab &  "Using Ghoul Frenzy")
+		If sim.combatlog.LogDetails Then sim.combatlog.write(T  & vbtab &  "Using Ghoul Frenzy")
 		HitCount =  HitCount +1
 		return true
 	End Function

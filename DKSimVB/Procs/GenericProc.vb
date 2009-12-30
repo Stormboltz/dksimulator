@@ -20,6 +20,11 @@ Public Class Proc
 	Friend HitCount As Integer
 	Friend MissCount As Integer
 	Friend CritCount As Integer
+	
+	Friend TotalHit As Long
+	Friend TotalCrit As Long
+	
+	
 	Friend DamageType As String
 	Friend Count As Integer
 	Public Name As String
@@ -27,10 +32,8 @@ Public Class Proc
 	Friend ProcOn As procs.ProcOnType
 	Public ThreadMultiplicator As Double
 	
-	
-	
-	
-	
+	Friend previousFade As Long
+	friend Uptime as Integer
 
 	Function RNGProc As Double
 		If _RNG Is nothing Then
@@ -52,6 +55,9 @@ Public Class Proc
 		InternalCD = 0
 		count = 0
 		ThreadMultiplicator = 1
+		
+		TotalHit = 0
+		TotalCrit = 0
 		
 	End Sub
 	Sub New(S As Sim)
@@ -79,14 +85,12 @@ Public Class Proc
 			Case procs.ProcOnType.OnMHhit
 				sim.proc.OnMHhitProcs.add(me)
 			Case procs.ProcOnType.OnOHhit
-				sim.proc.OnOHhitProcs.add(me)
+				sim.proc.OnOHhitProcs.add(Me)
+			Case procs.ProcOnType.OnMHWhiteHit
+				sim.proc.OnMHWhitehitProcs.add(Me)
 			Case Else
 				debug.Print ("No proc on value for " & me.Name)
 		End Select
-		
-		
-		
-		
 	End Sub
 	
 	
@@ -98,6 +102,7 @@ Public Class Proc
 	Overridable Function Use() As Boolean
 		Fade = 0
 		count = 0
+		RemoveUptime(sim.TimeStamp)
 	End Function
 	
 	Overridable Sub TryMe(T As Long)
@@ -109,17 +114,18 @@ Public Class Proc
 				Case ""
 					If sim.combatlog.LogDetails Then sim.combatlog.write(sim.TimeStamp  & vbtab &  Me.ToString & " proc")
 					Fade = T + ProcLenght * 100
+					AddUptime(T)
 					HitCount += 1
 				Case "DeathbringersWill"
 					Dim RNG As Double
 					RNG = Rnd
-					
+					AddUptime(T)
 					If RNG < 0.33 Then
 						ProcType = "str"
 					ElseIf RNG < 0.66 Then
 						ProcType = "crit"
 					Else
-						If TalentUnholy.Gargoyle = 1 Then
+						If sim.TalentUnholy.Gargoyle = 1 Then
 							ProcType = "haste"
 						Else
 							ProcType = "arp"
@@ -132,13 +138,13 @@ Public Class Proc
 				Case "DeathbringersWillHeroic"
 					Dim RNG As Double
 					RNG = Rnd
-					
+					AddUptime(T)
 					If RNG < 0.33 Then
 						ProcType = "str"
 					ElseIf RNG < 0.66 Then
 						ProcType = "crit"
 					Else
-						If TalentBlood.Hysteria = 1 Then
+						If sim.TalentBlood.Hysteria = 1 Then
 							ProcType = "arp"
 						Else
 							ProcType = "haste"
@@ -156,9 +162,11 @@ Public Class Proc
 					If sim.RandomNumberGenerator.RNGProc <= sim.MainStat.SpellCrit Then
 						CritCount = CritCount + 1
 						tmp = ProcValue * 1.5 * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
+						Totalcrit +=  tmp
 					Else
 						tmp = ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
 						HitCount = HitCount + 1
+						Totalhit +=  tmp
 					End If
 				Case "shadow"
 					If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
@@ -169,27 +177,32 @@ Public Class Proc
 						CritCount = CritCount + 1
 						
 						tmp = ProcValue * 1.5 * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
-						tmp = tmp * (1 + TalentFrost.BlackIce * 2 / 100)
+						tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
+						totalcrit += tmp
 					Else
 						tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
 						HitCount = HitCount + 1
+						totalhit += tmp
 					End If
 				Case "physical"
 					If sim.RandomNumberGenerator.RNGProc <= sim.MainStat.Crit Then
 						CritCount = CritCount + 1
 						tmp = ProcValue * 2 * sim.MainStat.StandardPhysicalDamageMultiplier(sim.TimeStamp)
+						totalcrit += tmp
 					Else
 						tmp= ProcValue * sim.MainStat.StandardPhysicalDamageMultiplier(sim.TimeStamp)
 						HitCount = HitCount + 1
+						totalhit += tmp
 					End If
-					
 				Case "razorice"
 					HitCount = HitCount + 1
 					tmp = procvalue
+					totalhit += tmp
 				Case "torrent"
 					sim.RunicPower.add (Me.ProcValue)
 					HitCount = HitCount + 1
 				Case "cinderglacier"
+					HitCount = HitCount + 1
 					sim.RuneForge.CinderglacierProc = 2
 				Case "Bryntroll"
 					If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
@@ -198,27 +211,68 @@ Public Class Proc
 					End If
 					tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
 					HitCount = HitCount + 1
+					totalhit += tmp
 			End Select
 			total += tmp
-			
 		end if
 	End Sub
 	
 	Overridable Function report as String
 		dim tmp as String
 		tmp = name & VBtab
+		
 		tmp = tmp & total & VBtab
-		tmp = tmp & toDecimal(100*Total/sim.TotalDamage) & VBtab
+		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
 		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
+		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
+		
+		tmp = tmp & toDecimal(HitCount) & VBtab
 		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
+		tmp = tmp & toDecimal(totalhit/(HitCount)) & VBtab
+		
+		tmp = tmp & toDecimal(CritCount) & VBtab
 		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
+		tmp = tmp & toDecimal(totalcrit/(CritCount)) & VBtab
+				
+		tmp = tmp & toDecimal(MissCount) & VBtab
 		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(Total/(HitCount+CritCount)) & VBtab
+
+		If sim.MainStat.FrostPresence Then
+			tmp = tmp & toDecimal((100 * total * ThreadMultiplicator * 2.0735 ) / sim.TimeStamp) & VBtab
+		End If
+		
+		tmp = tmp & ""& toDecimal(100*uptime/sim.MaxTime)  & "" & VBtab
+
 		tmp = tmp & vbCrLf
+		
+		
+		tmp = replace(tmp, VBtab & 0, vbtab)
 		return tmp
 	End Function
 	
 	
+	Sub AddUptime(T As Long)
+		dim tmp as Long
+		If ProcLenght*100 + T > sim.MaxTime Then
+			tmp = (sim.MaxTime - T)/100
+		Else
+			tmp = ProcLenght
+		End If
+		
+		If previousfade < T  Then
+		 	uptime += tmp*100
+		Else
+			uptime += tmp*100 - (previousFade-T)
+		End If
+		previousFade = T + tmp*100
+	End Sub
+	Sub RemoveUptime(T As Long)
+		If previousfade < T  Then
+		Else
+			uptime -= (previousFade-T)
+		End If
+		previousFade = T 
+	End Sub
 	
 	
 End Class

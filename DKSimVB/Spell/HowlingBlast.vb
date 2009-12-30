@@ -12,13 +12,13 @@ Friend Class HowlingBlast
 		MyBase.New(s)
 	End Sub
 	Function isAvailable(T As Long) As Boolean
-		if TalentFrost.HowlingBlast <> 1 then return false
+		if sim.TalentFrost.HowlingBlast <> 1 then return false
 		if cd <= T then return true
 	End Function
 	
 	overrides Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
-		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
+		UseGCD(T)
 		cd = T + 800
 		
 		If DoMySpellHit = false Then
@@ -39,10 +39,14 @@ Friend Class HowlingBlast
 				CritCount = CritCount + 1
 				dégat = AvrgCrit(T)
 				sim.combatlog.write(T  & vbtab &  "HB crit for " & dégat )
+				totalcrit += dégat
+
+
 			Else
 				HitCount = HitCount + 1
 				dégat = AvrgNonCrit(T)
 				sim.combatlog.write(T  & vbtab &  "HB hit for " & dégat)
+				totalhit += dégat
 			End If
 			
 
@@ -53,10 +57,10 @@ Friend Class HowlingBlast
 		
 		If sim.proc.rime.IsActive Then
 			sim.Proc.rime.Use 
-			Sim.RunicPower.add (TalentFrost.ChillOfTheGrave * 2.5)
+			Sim.RunicPower.add (sim.TalentFrost.ChillOfTheGrave * 2.5)
 		Else
 			sim.runes.UseFU(T,False)
-			Sim.RunicPower.add (15 + (TalentFrost.ChillOfTheGrave * 2.5))
+			Sim.RunicPower.add (15 + (sim.TalentFrost.ChillOfTheGrave * 2.5))
 		End If
 		
 		sim.proc.KillingMachine.Use
@@ -69,11 +73,11 @@ Friend Class HowlingBlast
 	overrides Function AvrgNonCrit(T As long) As Double
 		Dim tmp As Double
 		tmp = 585
-		tmp = tmp + (0.2 * (1 + 0.04 * TalentUnholy.Impurity) * sim.MainStat.AP)
-		tmp = tmp * (1 + TalentFrost.BlackIce * 2 / 100)
-		if sim.NumDesease > 0 then 	tmp = tmp * (1 + TalentFrost.GlacierRot * 6.6666666 / 100)
+		tmp = tmp + (0.2 * (1 + 0.04 * sim.TalentUnholy.Impurity) * sim.MainStat.AP)
+		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
+		if sim.NumDesease > 0 then 	tmp = tmp * (1 + sim.TalentFrost.GlacierRot * 6.6666666 / 100)
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
-		If (T/sim.MaxTime) >= 0.75 Then tmp = tmp *(1+ 0.06*talentfrost.MercilessCombat)
+		If (T/sim.MaxTime) >= 0.75 Then tmp = tmp *(1+ 0.06*sim.talentfrost.MercilessCombat)
 		tmp = tmp *(1+sim.RuneForge.RazorIceStack/100) 'TODO: only on main target
 		if sim.runeforge.CinderglacierProc > 0 then
 			tmp = tmp * 1.2
@@ -82,7 +86,7 @@ Friend Class HowlingBlast
 		AvrgNonCrit = tmp
 	End Function
 	overrides Function CritCoef() As Double
-		CritCoef = 1 * (1 + Talentfrost.GuileOfGorefiend * 0.5 * 15 / 100) 'GoG works off the 1.5 spell crit modifier or something like that
+		CritCoef = 1 * (1 + sim.TalentFrost.GuileOfGorefiend * 0.5 * 15 / 100) 'GoG works off the 1.5 spell crit modifier or something like that
 		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
 	overrides Function CritChance() As Double

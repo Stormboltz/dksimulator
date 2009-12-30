@@ -64,6 +64,11 @@ Public Class Spell
 		sim.DamagingObject.Add(me)
 	End Sub
 	
+	sub UseGCD(T as Long)
+		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste)) + sim._MainFrm.txtLatency.Text/10
+	End sub
+	
+	
 	
 	
 	Overridable Public Function ApplyDamage(T As Long) As Boolean
@@ -87,21 +92,27 @@ Public Class Spell
 		dim tmp as String
 		tmp = ShortenName(me.ToString)  & VBtab
 		
-		If total.ToString().Length < 8 Then
-			tmp = tmp & total & "   " & VBtab
-		Else
-			tmp = tmp & total & VBtab
-		End If
+		tmp = tmp & total & VBtab
 		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
 		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
 		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
+		
+		tmp = tmp & toDecimal(HitCount) & VBtab
+		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
+		tmp = tmp & toDecimal(totalhit/(HitCount)) & VBtab
+		
+		tmp = tmp & toDecimal(CritCount) & VBtab
+		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
+		tmp = tmp & toDecimal(totalcrit/(CritCount)) & VBtab
+				
+		tmp = tmp & toDecimal(MissCount) & VBtab
+		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
+		
 		If sim.MainStat.FrostPresence Then
 			tmp = tmp & toDecimal((100 * total * ThreadMultiplicator * 2.0735 ) / sim.TimeStamp) & VBtab
 		End If
 		tmp = tmp & vbCrLf
+		tmp = replace(tmp, VBtab & 0, vbtab)
 		return tmp
 	End Function
 	

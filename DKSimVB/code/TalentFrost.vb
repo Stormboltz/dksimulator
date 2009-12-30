@@ -1,4 +1,4 @@
-Friend module TalentFrost
+Friend Class TalentFrost
 
 Friend ImprovedIcyTouch As Integer
 Friend Toughness As Integer
@@ -20,8 +20,8 @@ Friend HowlingBlast as Integer
 Friend RPM As Integer
 Friend ThreatOfThassarian as Integer
 
-Sub init()
+Sub new()
    
 End Sub
 
-end module
+end Class

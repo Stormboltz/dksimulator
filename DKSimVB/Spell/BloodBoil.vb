@@ -16,12 +16,12 @@ Friend Class BloodBoil
 	overrides Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
 		
-		'If TalentFrost.BloodoftheNorth = 5 Or TalentUnholy.Reaping = 3 Then
+		'If sim.TalentFrost.BloodoftheNorth = 5 Or sim.TalentUnholy.Reaping = 3 Then
 		'	runes.UseBlood(T,True)
 		'Else
 		sim.runes.UseBlood(T,False)
 		'End If
-		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste)) + sim._MainFrm.txtLatency.Text/10
+		
 		Dim intCount As Integer
 		For intCount = 1 To Sim.NumberOfEnemies
 			If DoMySpellHit = False Then
@@ -36,13 +36,15 @@ Friend Class BloodBoil
 				dégat = AvrgCrit(T)
 				sim.combatlog.write(T  & vbtab &  "BB crit for " & dégat  )
 				CritCount = CritCount + 1
+				totalcrit += dégat
+
+
 			Else
 				dégat = AvrgNonCrit(T)
 				HitCount = HitCount + 1
+				totalhit += dégat
 				sim.combatlog.write(T  & vbtab &  "BB hit for " & dégat )
 			End If
-			
-
 			total = total + dégat
 			
 			Sim.TryOnSpellHit
@@ -56,11 +58,11 @@ Friend Class BloodBoil
 	overrides Function AvrgNonCrit(T As long) As Double
 		Dim tmp As Double
 		tmp = 200
-		tmp = tmp + (0.04 * (1 + 0.04 * TalentUnholy.Impurity) * sim.MainStat.AP)
-		tmp = tmp * (1+ 0.1*talentblood.BloodyStrikes)
+		tmp = tmp + (0.04 * (1 + 0.04 * sim.TalentUnholy.Impurity) * sim.MainStat.AP)
+		tmp = tmp * (1+ 0.1*sim.talentblood.BloodyStrikes)
 		if sim.NumDesease > 0 then tmp = tmp * 2
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
-		tmp = tmp * (1 + TalentFrost.BlackIce * 2 / 100)
+		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
 		if sim.runeforge.CinderglacierProc > 0 then
 			tmp = tmp * 1.2
 			sim.runeforge.CinderglacierProc = sim.runeforge.CinderglacierProc -1
@@ -68,7 +70,7 @@ Friend Class BloodBoil
 		return tmp
 	End Function
 	overrides Function CritCoef() As Double
-		CritCoef = 1 * (1 + TalentBlood.MightofMograine * 15 / 100) 
+		CritCoef = 1 * (1 + sim.TalentBlood.MightofMograine * 15 / 100) 
 		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
 	overrides Function CritChance() As Double
@@ -77,22 +79,22 @@ Friend Class BloodBoil
 	overrides Function AvrgCrit(T As long) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
-	overrides Function report As String
-		dim tmp as String
-		tmp = "Blood Boil" & VBtab
-	
-		If total.ToString().Length < 8 Then
-			tmp = tmp & total & "   " & VBtab
-		Else
-			tmp = tmp & total & VBtab
-		End If
-		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
-		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
-		tmp = tmp & vbCrLf
-		return tmp
-	End Function
+'	overrides Function report As String
+'		dim tmp as String
+'		tmp = "Blood Boil" & VBtab
+'	
+'		If total.ToString().Length < 8 Then
+'			tmp = tmp & total & "   " & VBtab
+'		Else
+'			tmp = tmp & total & VBtab
+'		End If
+'		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
+'		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
+'		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
+'		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
+'		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
+'		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
+'		tmp = tmp & vbCrLf
+'		return tmp
+'	End Function
 End Class

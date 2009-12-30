@@ -16,7 +16,7 @@ Friend Class Butchery
 	
 	Function apply(T As long) as Boolean
 		nextTick = T + 500
-		Sim.runicpower.add(1*talentblood.Butchery)
+		Sim.runicpower.add(1*sim.talentblood.Butchery)
 	End Function
 		
 	private Sub init()

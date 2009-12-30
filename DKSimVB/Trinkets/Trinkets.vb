@@ -40,6 +40,8 @@ Public Class Trinkets
 	Friend MHRazorIce As Trinket
 	Friend OHRazorIce As Trinket
 	
+	Friend AshenBand  as Trinket
+	
 	
 	Friend WhisperingFangedSkull As Trinket
 	Friend NeedleEncrustedScorpion as Trinket
@@ -49,6 +51,20 @@ Public Class Trinkets
 	Protected sim as Sim
 	Sub New(S As Sim)
 		Sim = S
+		
+		
+		AshenBand= New Trinket(s)
+		
+		With AshenBand
+			.Name = "AshenBand"
+			.ProcChance = 0.10
+		 	.ProcLenght = 10
+		 	.ProcValue = 480
+		 	.InternalCD = 45
+		 	.DamageType = ""
+		 	.ProcType = "ap"
+		 	.ProcOn = procs.ProcOnType.OnHit
+		End With
 		
 		DeathbringersWill = New Trinket(s)
 		With DeathbringersWill 
@@ -394,7 +410,7 @@ Public Class Trinkets
 		 	.DamageType = "razorice"
 		 	.InternalCD = 0
 		 	.Name = "Off Hand RazorIce"
-		 	.ProcOn = procs.ProcOnType.OnMHhit
+		 	.ProcOn = procs.ProcOnType.OnOHhit
 		End With
 		
 		Bryntroll = New Trinket(s)

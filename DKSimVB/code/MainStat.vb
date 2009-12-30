@@ -70,11 +70,11 @@ Friend Class MainStat
 		'XmlDoc.Load(GetFilePath(sim._MainFrm.cmbCharacter.Text) )
 		
 		MHWeaponDPS = (XmlDoc.SelectSingleNode("//character/weapon/mainhand/dps").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
-		If sim.EPStat="WeaponDPS" Then
+		If sim.EPStat="EP WeaponDPS" Then
 			MHWeaponDPS = MHWeaponDPS + 10
 		End If
 		MHWeaponSpeed = (XmlDoc.SelectSingleNode("//character/weapon/mainhand/speed").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
-		If sim.EPStat="WeaponSpeed" Then
+		If sim.EPStat="EP WeaponSpeed" Then
 			MHWeaponSpeed = MHWeaponSpeed + 0.1
 		End If
 		OHWeaponDPS = (XmlDoc.SelectSingleNode("//character/weapon/offhand/dps").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
@@ -120,49 +120,53 @@ Friend Class MainStat
 			If XmlDoc.SelectSingleNode("//character/misc/TailorEnchant").InnerText= True Then
 				sim.trinkets.TailorEnchant.Equip
 			End If
+			
+			If XmlDoc.SelectSingleNode("//character/misc/AshenBand").InnerText= True Then
+				sim.trinkets.AshenBand.Equip
+			End If
 		Catch
 		End Try
 		try
 			Select Case sim._EPStat
-				Case "NoTrinket"
-				Case "AttackPowerNoTrinket"
-				Case "MjolRune"
+				Case "EP NoTrinket"
+				Case "EP AttackPowerNoTrinket"
+				Case "EP MjolRune"
 					Sim.Trinkets.MjolRune.Equip
-				Case "GrimToll"
+				Case "EP GrimToll"
 					Sim.Trinkets.GrimToll.Equip
-				Case "BitterAnguish"
+				Case "EP BitterAnguish"
 					Sim.Trinkets.BitterAnguish.Equip
-				Case "Mirror"
+				Case "EP Mirror"
 					Sim.Trinkets.Mirror.Equip
-				Case "Greatness"
+				Case "EP Greatness"
 					Sim.Trinkets.Greatness.Equip
-				Case "DCDeath"
+				Case "EP DCDeath"
 					Sim.Trinkets.DCDeath.Equip
-				Case "Victory"
+				Case "EP Victory"
 					Sim.Trinkets.Victory.Equip
-				Case "Necromantic"
+				Case "EP Necromantic"
 					Sim.Trinkets.Necromantic.Equip
-				Case "Bandit"
+				Case "EP Bandit"
 					Sim.Trinkets.Bandit.Equip
-				Case "Pyrite"
+				Case "EP Pyrite"
 					Sim.Trinkets.Pyrite.Equip
-				Case "DarkMatter"
+				Case "EP DarkMatter"
 					Sim.Trinkets.DarkMatter.Equip
-				Case "OldGod"
+				Case "EP OldGod"
 					Sim.Trinkets.OldGod.Equip
-				Case "Comet"
+				Case "EP Comet"
 					Sim.Trinkets.Comet.Equip
-				Case "DeathChoice"
+				Case "EP DeathChoice"
 					Sim.Trinkets.DeathChoice.Equip
-				Case "DeathChoiceHeroic"
+				Case "EP DeathChoiceHeroic"
 					Sim.Trinkets.DeathChoiceHeroic.Equip
-				Case "DeathbringersWill"
+				Case "EP DeathbringersWill"
 					Sim.Trinkets.DeathbringersWill.Equip
-				Case "DeathbringersWillHeroic"
+				Case "EP DeathbringersWillHeroic"
 					Sim.Trinkets.DeathbringersWillHeroic.Equip
-				Case "WhisperingFangedSkull"
+				Case "EP WhisperingFangedSkull"
 					Sim.Trinkets.WhisperingFangedSkull.Equip
-				Case "NeedleEncrustedScorpion"
+				Case "EP NeedleEncrustedScorpion"
 					Sim.Trinkets.NeedleEncrustedScorpion.Equip
 				Case Else
 					If XmlDoc.SelectSingleNode("//character/trinket/MjolnirRunestone").InnerText = 1 Then Sim.Trinkets.MjolRune.Equip
@@ -200,29 +204,24 @@ Friend Class MainStat
 		
 		
 		Select Case sim._EPStat
-			Case "0T7"
-			Case "AttackPower0T7"
-			Case "2T7"
+			Case "EP 0T7"
+			Case "EP AttackPower0T7"
+			Case "EP 2T7"
 				T72PDPS = 1
-			Case "4T7"
+			Case "EP 4T7"
 				T74PDPS = 1
-			Case "2T8"
+			Case "EP 2T8"
 				T82PDPS = 1
-			Case "4T8"
+			Case "EP 4T8"
 				T84PDPS = 1
-			Case "2T9"
-				
+			Case "EP 2T9"
 				T92PDPS = 1
-				
-			Case "4T9"
-				
+			Case "EP 4T9"
 				T94PDPS = 1
-			Case "2T10"
+			Case "EP 2T10"
 				T102PDPS = 1
-				
-			Case "4T10"
+			Case "EP 4T10"
 				T104PDPS = 1
-				
 			Case Else
 				T72PDPS = XmlDoc.SelectSingleNode("//character/Set/T72PDPS").InnerText
 				T74PDPS = XmlDoc.SelectSingleNode("//character/Set/T74PDPS").InnerText
@@ -272,9 +271,9 @@ Friend Class MainStat
 		tmp = tmp + Character.Agility*0.016
 		tmp = tmp + 5 *  sim.Buff.MeleeCrit
 		tmp = tmp + 3 *  sim.Buff.CritChanceTaken
-		tmp = tmp + TalentBlood.Darkconv
-		tmp = tmp + TalentUnholy.EbonPlaguebringer
-		tmp = tmp + talentfrost.Annihilation
+		tmp = tmp + sim.TalentBlood.Darkconv
+		tmp = tmp + sim.TalentUnholy.EbonPlaguebringer
+		tmp = tmp + sim.TalentFrost.Annihilation
 		tmp = tmp - 4.8 'Crit malus vs bosses
 		
 		return tmp / 100
@@ -285,8 +284,8 @@ Friend Class MainStat
 		tmp = tmp + Character.Agility / 62.5
 		tmp = tmp + 5 *  sim.Buff.MeleeCrit
 		tmp = tmp + 3 *  sim.Buff.CritChanceTaken
-		tmp = tmp + TalentBlood.Darkconv
-		tmp = tmp + TalentUnholy.EbonPlaguebringer
+		tmp = tmp + sim.TalentBlood.Darkconv
+		tmp = tmp + sim.TalentUnholy.EbonPlaguebringer
 		tmp = tmp - 4.8 'Crit malus vs bosses
 		
 		return tmp / 100
@@ -297,8 +296,8 @@ Friend Class MainStat
 		tmp = tmp + 3 *  sim.Buff.CritChanceTaken
 		tmp = tmp + 5 *  sim.Buff.SpellCrit
 		tmp = tmp + 5 *  sim.Buff.SpellCritTaken
-		tmp = tmp + TalentBlood.Darkconv
-		tmp = tmp + TalentUnholy.EbonPlaguebringer
+		tmp = tmp + sim.TalentBlood.Darkconv
+		tmp = tmp + sim.TalentUnholy.EbonPlaguebringer
 		tmp = tmp - 2.1 'Spell crit malus vs bosses
 		
 		return  tmp / 100
@@ -307,7 +306,7 @@ Friend Class MainStat
 		Dim tmp As Double
 		tmp = Character.HasteRating / (32.79/1.3) / 100 '1.3 is the buff haste rating received
 		tmp = tmp + UnholyPresence * 0.15
-		tmp = tmp + 0.05 * talentfrost.ImprovedIcyTalons
+		tmp = tmp + 0.05 * sim.TalentFrost.ImprovedIcyTalons
 		tmp = tmp + 0.2 *  sim.Buff.MeleeHaste
 		tmp = tmp + 0.03 *  sim.Buff.Haste
 		If sim.Bloodlust.IsActive(sim.TimeStamp) Then tmp = tmp + 0.3
@@ -333,7 +332,7 @@ Friend Class MainStat
 	Function MHExpertise() As Double
 		Dim tmp As Double
 		tmp = Expertise
-		If sim.EPStat<>"" And strings.InStr(sim.EPStat,"Sca")=0 Then
+		If strings.InStr(sim.EPStat,"EP ")<> 0 Then
 		Else
 			tmp += sim.Character.MHExpertiseBonus*0.25
 		End If
@@ -343,7 +342,7 @@ Friend Class MainStat
 	Function OHExpertise() As Double
 		Dim tmp As Double
 		tmp = Expertise
-		If sim.EPStat<>"" And strings.InStr(sim.EPStat,"Sca")=0 Then
+		If strings.InStr(sim.EPStat,"EP ")<> 0 Then
 		Else
 			tmp += sim.Character.OHExpertiseBonus*0.25
 		End If
@@ -358,15 +357,15 @@ Friend Class MainStat
 		Dim tmp As Double
 		tmp = Character.ExpertiseRating / 32.79
 		dim str as String
-		tmp = tmp + 0.25 * talentblood.Vot3W*2
-		tmp = tmp + 0.25 * talentfrost.TundraStalker
-		tmp = tmp + 0.25 * talentunholy.RageofRivendare
+		tmp = tmp + 0.25 * sim.TalentBlood.Vot3W*2
+		tmp = tmp + 0.25 * sim.TalentFrost.TundraStalker
+		tmp = tmp + 0.25 * sim.TalentUnholy.RageofRivendare
 		str = sim.EPStat
-		If sim.EPStat<>"" And strings.InStr(sim.EPStat,"Sca")=0 Then
+		If strings.InStr(sim.EPStat,"EP ")<> 0 Then
 			tmp = 6.5 'For most EP stats we assume being exp capped
 		End If
-		If sim.EPStat="ExpertiseRating" Then tmp = 6.5 - sim.EPBase / 32.79
-		If sim.EPStat="ExpertiseRatingAfterCap" Then tmp = 6.5 + sim.EPBase / 32.79
+		If sim.EPStat="EP ExpertiseRating" Then tmp = 6.5 - sim.EPBase / 32.79
+		If sim.EPStat="EP ExpertiseRatingAfterCap" Then tmp = 6.5 + sim.EPBase / 32.79
 		If InStr(sim.EPStat,"ScaExp") Then
 			If InStr(sim.EPStat,"ScaExpA") Then
 				tmp = tmp +  Replace(sim.EPStat,"ScaExpA","") * sim.EPBase /  32.79
@@ -379,16 +378,15 @@ Friend Class MainStat
 	Function Hit() As Double
 		Dim tmp As Double
 		tmp = (Character.HitRating / 32.79)
-		If DualW Then tmp = tmp + 1 * TalentFrost.NervesofColdSteel
+		If DualW Then tmp = tmp + 1 * sim.TalentFrost.NervesofColdSteel
 		
-		If sim.EPStat<>"" and strings.InStr(sim.EPStat,"Sca")=0 Then tmp = 8 'For most EP stats we assume being hit capped
-		If sim.EPStat="HitRating" Then tmp = 8 - sim.EPBase / 32.79
-		If sim.EPStat="SpellHitRating" Then tmp = 8 + 26 / 32.79  ' +26 to not go over spell hit cap
-		
-		If sim.EPStat="AfterSpellHitBase" Then tmp = SpellHitCapRating / 32.79
-		If sim.EPStat="AfterSpellHitBaseAP" Then tmp = SpellHitCapRating / 32.79
-		If sim.EPStat="AfterSpellHitRating" Then tmp = (SpellHitCapRating + sim.EPBase) / 32.79
-		If sim.EPStat="" Then tmp = tmp + sim.Buff.Draenei
+		If strings.InStr(sim.EPStat,"EP ")<> 0 Then tmp = 8 'For most EP stats we assume being hit capped
+		If sim.EPStat="EP HitRating" Then tmp = 8 - sim.EPBase / 32.79
+		If sim.EPStat="EP SpellHitRating" Then tmp = 8 + 26 / 32.79  ' +26 to not go over spell hit cap
+		If sim.EPStat="EP AfterSpellHitBase" Then tmp = SpellHitCapRating / 32.79
+		If sim.EPStat="EP AfterSpellHitBaseAP" Then tmp = SpellHitCapRating / 32.79
+		If sim.EPStat="EP AfterSpellHitRating" Then tmp = (SpellHitCapRating + sim.EPBase) / 32.79
+		If strings.InStr(sim.EPStat,"EP ") = 0 Then tmp = tmp + sim.Buff.Draenei
 		If InStr(sim.EPStat,"ScaHit") Then
 			If InStr(sim.EPStat,"ScaHitA") Then
 				tmp = tmp + Replace(sim.EPStat,"ScaHitA","") * sim.EPBase / 32.79
@@ -403,7 +401,7 @@ Friend Class MainStat
 	Function SpellHitCapRating() as Integer
 		dim tmp as integer
 		tmp = 17
-		tmp = tmp - TalentUnholy.Virulence
+		tmp = tmp - sim.TalentUnholy.Virulence
 		tmp = tmp - 3*sim.Buff.SpellHitTaken
 		tmp = tmp * 26.23
 		return tmp
@@ -415,19 +413,20 @@ Friend Class MainStat
 		Dim tmp As Double
 		dim MeleHitCapRating as Integer
 		tmp = Character.SpellHitRating / 26.23
-		If sim.EPStat<>"" and strings.InStr(sim.EPStat,"Sca")=0 Then
-			MeleHitCapRating = 263 - 32.79 * TalentFrost.NervesofColdSteel
+		If  strings.InStr(sim.EPStat,"EP ")<> 0 Then
+			MeleHitCapRating = 263 - 32.79 * sim.TalentFrost.NervesofColdSteel
 			tmp = MeleHitCapRating / 26.23
-			If sim.EPStat="HitRating" Then tmp = MeleHitCapRating / 26.23 - sim.EPBase / 26.23
-			If sim.EPStat="SpellHitRating" Then tmp = MeleHitCapRating / 26.23 + 26 / 26.23
+			If sim.EPStat="EP HitRating" Then tmp = MeleHitCapRating / 26.23 - sim.EPBase / 26.23
+			If sim.EPStat="EP SpellHitRating" Then tmp = MeleHitCapRating / 26.23 + 26 / 26.23
 			
-			If sim.EPStat="AfterSpellHitBase" Then tmp = SpellHitCapRating / 26.23
-			If sim.EPStat="AfterSpellHitBaseAP" Then tmp = SpellHitCapRating / 26.23
-			If sim.EPStat="AfterSpellHitRating" Then tmp = (SpellHitCapRating + sim.EPBase) / 26.23
+			If sim.EPStat="EP AfterSpellHitBase" Then tmp = SpellHitCapRating / 26.23
+			If sim.EPStat="EP AfterSpellHitBaseAP" Then tmp = SpellHitCapRating / 26.23
+			If sim.EPStat="EP AfterSpellHitRating" Then tmp = (SpellHitCapRating + sim.EPBase) / 26.23
+		Else
+			tmp = tmp + sim.Buff.Draenei
 		End If
-		tmp = tmp + 1 * TalentUnholy.Virulence
+		tmp = tmp + 1 * sim.TalentUnholy.Virulence
 		tmp = tmp +  sim.Buff.SpellHitTaken * 3
-		if sim.EPStat="" then tmp = tmp + sim.Buff.Draenei
 		SpellHit = tmp / 100
 	End Function
 	Function NormalisedMHDamage() As Double
@@ -437,7 +436,7 @@ Friend Class MainStat
 			tmp =  tmp + 2.4*(AP / 14)
 		Else
 			tmp =  tmp + 3.3*(AP / 14)
-			tmp = tmp * (1 + TalentBlood.Weapspec * 2 / 100)
+			tmp = tmp * (1 + sim.TalentBlood.Weapspec * 2 / 100)
 		End If
 		return tmp
 	End Function
@@ -450,7 +449,7 @@ Friend Class MainStat
 	Function MHBaseDamage() As Double
 		Dim tmp As Double
 		tmp = (MHWeaponDPS + (AP / 14)) * MHWeaponSpeed
-		tmp = tmp * (1 + TalentBlood.Weapspec * 2 / 100)
+		tmp = tmp * (1 + sim.TalentBlood.Weapspec * 2 / 100)
 		return tmp
 	End Function
 	Function OHBaseDamage() As Double
@@ -460,7 +459,7 @@ Friend Class MainStat
 		Dim tmp As Double
 		tmp = character.ArmorPenetrationRating / 15.39
 		tmp = tmp *1.1 '1.1 with Patch 3.2.2, before 1.25
-		tmp = tmp + TalentBlood.BloodGorged * 2
+		tmp = tmp + sim.TalentBlood.BloodGorged * 2
 		return tmp / 100
 	End Function
 	Function ArmorMitigation() As Double
@@ -479,7 +478,7 @@ Friend Class MainStat
 		tmp = 1
 		tmp = tmp * (1- 20 *  sim.Buff.ArmorMajor / 100)
 		tmp = tmp * (1- 5 *  sim.Buff.ArmorMinor / 100)
-		tmp = tmp * (1 - TalentBlood.BloodGorged * 2 / 100)
+		tmp = tmp * (1 - sim.TalentBlood.BloodGorged * 2 / 100)
 		tmp = 1
 		x = ArmorPen
 		
@@ -562,11 +561,11 @@ Friend Class MainStat
 		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
 		If sim.Desolation.isActive(T) Then tmp = tmp * (1+sim.Desolation.Bonus)
 		tmp = tmp * (1 + 0.02 * sim.BoneShield.Value(T))
-		tmp = tmp * (1 + 0.02 * TalentBlood.BloodGorged)
+		tmp = tmp * (1 + 0.02 * sim.TalentBlood.BloodGorged)
 		
 		tmp = tmp * getMitigation
 		tmp = tmp * (1 + 0.04 *  sim.Buff.PhysicalVuln)
-		tmp = tmp * (1 + 0.03 * TalentBlood.BloodyVengeance)
+		tmp = tmp * (1 + 0.03 * sim.TalentBlood.BloodyVengeance)
 		If sim.proc.T104PDPSFAde >= T Then
 			tmp = tmp * 1.03
 		End If
@@ -581,15 +580,15 @@ Friend Class MainStat
 		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
 		If sim.Desolation.isActive(T) Then tmp = tmp * (1+sim.Desolation.Bonus)
 		tmp = tmp * (1 + 0.02 * sim.BoneShield.Value(T))
-		tmp = tmp * (1 + 0.02 * TalentBlood.BloodGorged)
+		tmp = tmp * (1 + 0.02 * sim.TalentBlood.BloodGorged)
 		
 		tmp = tmp * getMitigation
 		tmp = tmp * (1 + 0.04 *  sim.Buff.PhysicalVuln)
-		tmp = tmp * (1 + 0.03 * TalentBlood.BloodyVengeance)
+		tmp = tmp * (1 + 0.03 * sim.TalentBlood.BloodyVengeance)
 		If sim.Hysteria.IsActive(T) Then tmp = tmp * 1.2
 		
-		If sim.FrostFever.isActive(T) Then	tmp = tmp * (1 + 0.03 * TalentFrost.TundraStalker)
-		If sim.BloodPlague.isActive(T) Then tmp = tmp * (1 + 0.02 * talentunholy.RageofRivendare)
+		If sim.FrostFever.isActive(T) Then	tmp = tmp * (1 + 0.03 * sim.TalentFrost.TundraStalker)
+		If sim.BloodPlague.isActive(T) Then tmp = tmp * (1 + 0.02 * sim.TalentUnholy.RageofRivendare)
 		If sim.proc.T104PDPSFAde >= T Then tmp = tmp * 1.03
 		
 		return tmp
@@ -601,10 +600,10 @@ Friend Class MainStat
 		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
 		If sim.Desolation.isActive(T) Then tmp = tmp * (1+sim.Desolation.Bonus)
 		tmp = tmp * (1 + 0.02 * sim.BoneShield.Value(T))
-		tmp = tmp * (1 + 0.02 * TalentBlood.BloodGorged)
+		tmp = tmp * (1 + 0.02 * sim.TalentBlood.BloodGorged)
 		
-		If sim.FrostFever.isActive(T) Then	tmp = tmp * (1 + 0.03 * TalentFrost.TundraStalker)
-		If sim.BloodPlague.isActive(T) Then tmp = tmp * (1 + 0.02 * talentunholy.RageofRivendare)
+		If sim.FrostFever.isActive(T) Then	tmp = tmp * (1 + 0.03 * sim.TalentFrost.TundraStalker)
+		If sim.BloodPlague.isActive(T) Then tmp = tmp * (1 + 0.02 * sim.TalentUnholy.RageofRivendare)
 		if sim.proc.T104PDPSFAde >= T then tmp = tmp * 1.03
 		tmp = tmp * (1 + 0.13 *  sim.Buff.SpellDamageTaken)
 		tmp = tmp * (1-0.05) 'Average partial resist

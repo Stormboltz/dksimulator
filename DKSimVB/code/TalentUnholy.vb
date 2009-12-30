@@ -1,4 +1,4 @@
-Friend module TalentUnholy
+Friend Class TalentUnholy
 	
 	
 	Friend ViciousStrikes As Integer
@@ -26,5 +26,7 @@ Friend module TalentUnholy
 	Friend Gargoyle As Integer
 	Friend GhoulFrenzy as Integer
 	Friend Desecration as Integer
-	
-end module
+	Sub New()
+		
+	End Sub
+end Class

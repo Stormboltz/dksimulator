@@ -1,4 +1,4 @@
-Friend module TalentBlood
+Friend Class TalentBlood
 	
 	Friend Butchery as Integer
 	Friend Subversion As Integer
@@ -16,5 +16,11 @@ Friend module TalentBlood
 	Friend MightofMograine As Integer
 	Friend BloodGorged As Integer
 	Friend DRW As Integer
-	Friend DRM as Integer
-end module
+	Friend DRM As Integer
+	
+	Sub New()
+		
+	End Sub
+	
+	
+end Class

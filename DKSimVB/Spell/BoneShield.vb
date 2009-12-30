@@ -30,7 +30,7 @@ Public Class BoneShield
 	End Sub
 	
 	Sub PreBuff
-		if TalentUnholy.BoneShield = 1 then
+		if sim.TalentUnholy.BoneShield = 1 then
 			Me.CD = 60*100
 			Me.ActiveUntil = sim.TimeStamp + BuffLength*100
 		end if
@@ -42,7 +42,7 @@ Public Class BoneShield
 	
 	
 	Function Use(T as Long) As Boolean
-		If TalentUnholy.BoneShield = 0 Then Return False
+		If sim.TalentUnholy.BoneShield = 0 Then Return False
 		If sim.runes.Unholy(T) = False Then
 			If sim.BloodTap.IsAvailable(T) Then
 				sim.BloodTap.Use(T)
@@ -50,10 +50,20 @@ Public Class BoneShield
 				return false
 			End If
 		End If
+		
+		If sim._MainFrm.chkBloodSync.Checked Then
+			If sim.BloodToSync = True Then
+				sim.BloodToSync  = False
+			Else
+				sim.BloodToSync  = true
+			End If
+		End If
+		
+		
 		me.CD = T + 60*100
 		Me.ActiveUntil = T + BuffLength*100
 		sim.runes.UseUnholy(T,False)
-		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste)) + sim._MainFrm.txtLatency.Text/10
+		UseGCD(T)
 		sim.RunicPower.add(10)
 		sim.combatlog.write(T  & vbtab &  "Bone Shield")
 		Charge = 4
@@ -64,7 +74,7 @@ Public Class BoneShield
 	End Function
 	
 	Function IsAvailable(T As Long) As Boolean
-		If TalentUnholy.BoneShield =0 Then Return False
+		If sim.TalentUnholy.BoneShield =0 Then Return False
 		If ActiveUntil > T Then Return False
 		if sim.BloodTap.IsAvailable(T)=false Then Return false
 		If CD > T Then Return False

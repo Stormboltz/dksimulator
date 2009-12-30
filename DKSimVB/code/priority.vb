@@ -18,9 +18,29 @@ Friend Class priority
 	sub DoNext(TimeStamp As long )
 		Dim HighestPrio As Integer
 		HighestPrio = 1
-
+		
 		For Each item as String In prio
 			Select Case item
+					
+				Case "BloodSync"
+					If prio.Contains("BloodStrike") and sim.BloodToSync Then
+						If runes.Blood(TimeStamp) And sim.CanUseGCD(Timestamp) Then
+							If sim.BoneShieldUsageStyle = 1 Then
+								If sim.BoneShield.IsAvailable(TimeStamp) Then
+									sim.BoneShield.Use(TimeStamp)
+									exit sub
+								End If
+								If sim.UnbreakableArmor.IsAvailable(TimeStamp) Then
+									sim.UnbreakableArmor.Use(TimeStamp)
+									exit sub
+								End If
+							End If
+							sim.BloodStrike.ApplyDamage(TimeStamp)
+							
+							
+							exit sub
+						End If
+					End If
 				Case "BloodTap"
 					If sim.BloodTap.IsAvailable(Timestamp) and sim.Runes.BloodRune1.death = false and sim.Runes.BloodRune2.death = false    Then
 						sim.BloodTap.Use(Timestamp)
@@ -154,7 +174,7 @@ Friend Class priority
 							Exit Sub
 						Else
 							If sim.FrostFever.isActive(TimeStamp) = False or sim.pestilence.FFToReapply Then
-								If talentfrost.HowlingBlast = 1 And sim.glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp)  Then
+								If sim.TalentFrost.HowlingBlast = 1 And sim.glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp)  Then
 									If sim.proc.rime.IsActive Or runes.FU(TimeStamp) Then
 										sim.HowlingBlast.ApplyDamage(TimeStamp)
 										exit sub
@@ -168,7 +188,7 @@ Friend Class priority
 						End If
 					Else
 						If sim.FrostFever.PerfectUsage(TimeStamp) = true or sim.FrostFever.ToReApply Then
-							If talentfrost.HowlingBlast = 1 And sim.glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp)  Then
+							If sim.TalentFrost.HowlingBlast = 1 And sim.glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp)  Then
 								If sim.proc.rime.IsActive Or runes.FU(TimeStamp) Then
 									sim.HowlingBlast.ApplyDamage(TimeStamp)
 									exit sub
@@ -263,7 +283,7 @@ Friend Class priority
 					Else
 					End If
 				Case "KMRime"
-					If sim.proc.Rime.IsActive and sim.proc.KillingMachine.IsActive and sim.CanUseGCD(Timestamp)  Then
+					If  sim.HowlingBlast.isAvailable(TimeStamp) and sim.proc.Rime.IsActive and sim.proc.KillingMachine.IsActive and sim.CanUseGCD(Timestamp)  Then
 						sim.HowlingBlast.ApplyDamage(TimeStamp)
 					Else
 					End If

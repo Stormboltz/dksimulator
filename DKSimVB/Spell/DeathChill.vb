@@ -19,7 +19,7 @@ Friend Class DeathChill
 		Sim = Mysim	
 	End Sub
 	Function IsAvailable(T As Long) As Boolean
-		if talentfrost.Deathchill = 1 and CD <= T then return true
+		if sim.TalentFrost.Deathchill = 1 and CD <= T then return true
 	End Function
 	Sub use(T As Long)
 		CD = T + 3*60*100

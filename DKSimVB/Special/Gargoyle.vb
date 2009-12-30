@@ -39,13 +39,15 @@ Function Summon(T As Long) as  boolean
 		cd = T + 3 * 60 * 100
 		ActiveUntil = T + 30 * 100
 		SpellHit = sim.MainStat.SpellHit
-		Sim.NextFreeGCD = T + (150 / (1 + sim.mainstat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
+		UseGCD(T)
 		NextGargoyleStrike = T
 		sim.combatlog.write(T  & vbtab &  "Summon Gargoyle")
 		return true
 	End If
 End Function
-
+sub UseGCD(T as Long)
+		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste)) + sim._MainFrm.txtLatency.Text/10
+	End sub
 Function ApplyDamage(T As long) As boolean
 	NextGargoyleStrike = T + (2 * 100) / (1 + SpellHaste)
 	'Debug.Print( (2 * 100) / (1 + SpellHaste) )
@@ -68,10 +70,12 @@ Function ApplyDamage(T As long) As boolean
 	If RNG <= CritChance Then
 		dégat = AvrgCrit(T)
 		CritCount = CritCount + 1
+		totalcrit += dégat 
 		if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Gargoyle Strike crit for " & dégat )
 	Else
 		dégat = AvrgNonCrit(T)
 		HitCount = HitCount + 1
+		totalhit += dégat 
 		If sim.combatlog.LogDetails Then sim.combatlog.write(T  & vbtab &  "Gargoyle Strike hit for " & dégat )
 	End If
 	
@@ -116,17 +120,21 @@ Function report As String
 	dim tmp as String
 	tmp = "Gargoyle" & VBtab
 	
-	If total.ToString().Length < 8 Then
-		tmp = tmp & total & "   " & VBtab
-	Else
-		tmp = tmp & total & VBtab
-	End If
-	tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
-	tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-	tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-	tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-	tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-	tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
+	tmp = tmp & total & VBtab
+		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
+		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
+		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
+		
+		tmp = tmp & toDecimal(HitCount) & VBtab
+		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
+		tmp = tmp & toDecimal(totalhit/(HitCount)) & VBtab
+		
+		tmp = tmp & toDecimal(CritCount) & VBtab
+		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
+		tmp = tmp & toDecimal(totalcrit/(CritCount)) & VBtab
+				
+		tmp = tmp & toDecimal(MissCount) & VBtab
+		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
 	tmp = tmp & vbCrLf
 	return tmp
 End Function

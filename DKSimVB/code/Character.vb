@@ -100,7 +100,7 @@ Friend Class Character
 	Function Strength() As Integer
 		Dim tmp As Integer
 		tmp = _Strength
-		If sim.EPStat="Strength" Then tmp = tmp + sim.EPBase
+		If sim.EPStat="EP Strength" Then tmp = tmp + sim.EPBase
 		If InStr(sim.EPStat,"ScaStr") Then
 			tmp = tmp + Replace(sim.EPStat,"ScaStr","") * sim.EPBase
 		End If
@@ -108,9 +108,9 @@ Friend Class Character
 		tmp = tmp +155 * 1.15 *  sim.Buff.StrAgi
 		tmp = tmp + 37 * 1.4 *  sim.Buff.StatAdd
 		tmp = tmp * (1 +  sim.Buff.StatMulti / 10)
-		tmp = tmp * (1 + talentblood.Vot3W * 2 / 100)
-		tmp = tmp * (1 + talentblood.AbominationMight / 100)
-		tmp = tmp * (1 + talentunholy.ravenousdead / 100)
+		tmp = tmp * (1 + sim.TalentBlood.Vot3W * 2 / 100)
+		tmp = tmp * (1 + sim.TalentBlood.AbominationMight / 100)
+		tmp = tmp * (1 + sim.TalentUnholy.ravenousdead / 100)
 		If sim.proc.MHFallenCrusader.IsActive Or sim.proc.oHFallenCrusader.IsActive Then
 			tmp = tmp * 1.15
 		End If
@@ -121,7 +121,7 @@ Friend Class Character
 	Function Agility() As Integer
 		Dim tmp As Integer
 		tmp = _Agility
-		If sim.EPStat="Agility" Then tmp = tmp +sim.EPBase
+		If sim.EPStat="EP Agility" Then tmp = tmp +sim.EPBase
 		If InStr(sim.EPStat,"ScaAgility") Then
 			tmp = tmp + Replace(sim.EPStat,"ScaAgility","") * sim.EPBase
 		End If
@@ -143,7 +143,7 @@ Friend Class Character
 		tmp2 = sim.boss.SpecialArmor
 		tmp = tmp - tmp2
 		tmp = tmp + (750 * 1.4  *  sim.Buff.StatAdd)
-		tmp = tmp * (1 + talentfrost.Toughness * 0.02)
+		tmp = tmp * (1 + sim.TalentFrost.Toughness * 0.02)
 		If sim.MainStat.FrostPresence = 1 Then
 			tmp = tmp * 1.6
 		End If
@@ -155,11 +155,11 @@ Friend Class Character
 	Function AttackPower() As Integer
 		Dim tmp As Integer
 		tmp = _AttackPower
-		If sim.EPStat="AttackPower" Then tmp = tmp+100
-		If sim.EPStat="AttackPower0T7" Then tmp = tmp+100
-		If sim.EPStat="AttackPowerNoTrinket" Then tmp = tmp+100
-		If sim.EPStat="AfterSpellHitBaseAP" Then tmp = tmp+100
-		tmp = tmp + int(Armor/180)*BladedArmor
+		If sim.EPStat="EP AttackPower" Then tmp = tmp+100
+		If sim.EPStat="EP AttackPower0T7" Then tmp = tmp+100
+		If sim.EPStat="EP AttackPowerNoTrinket" Then tmp = tmp+100
+		If sim.EPStat="EP AfterSpellHitBaseAP" Then tmp = tmp+100
+		tmp = tmp + int(Armor/180)*sim.talentblood.BladedArmor
 		tmp = tmp + 687 *  sim.Buff.AttackPower
 		return tmp
 	End Function
@@ -173,7 +173,7 @@ Friend Class Character
 	Function CritRating() As Integer
 		Dim tmp As Integer
 		tmp = _CritRating
-		If sim.EPStat="CritRating" Then
+		If sim.EPStat="EP CritRating" Then
 			tmp = tmp+sim.EPBase
 		End If
 		If InStr(sim.EPStat,"ScaCrit") Then
@@ -190,7 +190,7 @@ Friend Class Character
 	Function HasteRating() As Integer
 		Dim tmp As Integer
 		tmp = _HasteRating
-		If sim.EPStat="HasteRating" Then
+		If sim.EPStat="EP HasteRating" Then
 			tmp = tmp+sim.EPBase
 		End If
 		If InStr(sim.EPStat,"ScaHaste") Then
@@ -215,7 +215,7 @@ Friend Class Character
 				tmp =  Replace(sim.EPStat,"ScaArP","") * sim.EPBase
 			End If
 		End If
-		If sim.EPStat="ArmorPenetrationRating" Then
+		If sim.EPStat="EP ArmorPenetrationRating" Then
 			tmp = tmp+sim.EPBase
 		End If
 		tmp +=  sim.proc.GetActiveBonus("arp")

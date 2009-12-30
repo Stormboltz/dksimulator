@@ -45,25 +45,23 @@ Friend class Ghoul
 			'If MeleeDodgeChance < 0 Then MeleeDodgeChance = 0
 			SpellMissChance = math.Max(0.17 - sim.GhoulStat.SpellHit,0)
 			'If SpellMissChance  < 0 Then SpellMissChance = 0
-			If TalentUnholy.MasterOfGhouls Then
+			If sim.TalentUnholy.MasterOfGhouls Then
 				ActiveUntil = sim.MaxTime
 				cd = sim.MaxTime
 			Else
 				ActiveUntil = T + 60 * 100
-				cd = ActiveUntil + (3*60*100) - (45*100*NightoftheDead)
+				cd = ActiveUntil + (3*60*100) - (45*100*sim.TalentUnholy.NightoftheDead)
 			End If
 			If T <=1 Then
 			Else
 				sim.combatlog.write(T  & vbtab &  "Summon Ghoul")
-				If sim.MainStat.UnholyPresence Then
-					Sim.NextFreeGCD = T + 100+ sim._MainFrm.txtLatency.Text/10
-				Else
-					Sim.NextFreeGCD = T + 150+ sim._MainFrm.txtLatency.Text/10
-				End If
+				UseGCD(T)
 			End If
 		End If
 	End Sub
-	
+	sub UseGCD(T as Long)
+		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste)) + sim._MainFrm.txtLatency.Text/10
+	End sub
 	Function Haste As Double
 		dim tmp as Double
 		tmp = sim.MainStat.Haste
@@ -77,7 +75,7 @@ Friend class Ghoul
 	End Function
 	
 	Function ApplyDamage(T As long) As boolean
-		Dim retour As Double
+		Dim dégat As integer
 		
 		
 		Dim WSpeed As Single
@@ -96,23 +94,26 @@ Friend class Ghoul
 			exit function
 		End If
 		If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then
-			retour = AvrgNonCrit(T)*0.7
-			total = total + retour
+			dégat = AvrgNonCrit(T)*0.7
+			total = total + dégat
+			totalhit += dégat 
 			HitCount = HitCount + 1
 		End If
 		If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) and RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance) Then
 			'CRIT !
-			retour = AvrgCrit(T)
+			dégat = AvrgCrit(T)
 			CritCount = CritCount + 1
-			total = total + retour
-			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Ghoul crit for " & int(AvrgCrit(T)) )
+			totalcrit += dégat
+			total = total + dégat
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Ghoul crit for " & dégat)
 		End If
 		If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance) Then
 			'normal hit3
 			HitCount = HitCount + 1
-			retour = AvrgNonCrit(T)
-			total = total + retour
-			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Ghoul hit for " & int(AvrgNonCrit(T)))
+			dégat = AvrgNonCrit(T)
+			total = total + dégat
+			totalhit += dégat 
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Ghoul hit for " & dégat)
 		End If
 		return true
 	End Function
@@ -133,6 +134,8 @@ Friend class Ghoul
 	End Function
 	Function Claw(T As Long) As Boolean
 		Dim RNG As Double
+		Dim dégat As Integer
+		
 		RNG = sim.RandomNumberGenerator.RNGPet
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Ghoul's Claw fail")
@@ -141,13 +144,17 @@ Friend class Ghoul
 		End If
 		RNG = sim.RandomNumberGenerator.RNGPet
 		If RNG <= CritChance Then
+			dégat = ClawAvrgCrit(T)
 			CritCount = CritCount + 1
-			total = total + AvrgCrit(T)
-			if sim.combatlog.LogDetails then 	sim.combatlog.write(T  & vbtab &  "Ghoul's Claw for " & int(ClawAvrgCrit(T)) )
+			total = total + dégat
+			totalcrit += dégat
+			if sim.combatlog.LogDetails then 	sim.combatlog.write(T  & vbtab &  "Ghoul's Claw for " & dégat)
 		Else
+			dégat = ClawAvrgNonCrit(T)
 			HitCount = HitCount + 1
-			total = total + AvrgNonCrit(T)
-			if sim.combatlog.LogDetails then 	sim.combatlog.write(T  & vbtab &  "Ghoul's Claw hit for " & int(ClawAvrgNonCrit(T)))
+			total = total + dégat
+			totalhit += dégat
+			if sim.combatlog.LogDetails then 	sim.combatlog.write(T  & vbtab &  "Ghoul's Claw hit for " & dégat)
 		End If
 		NextClaw = T+400
 		return true
@@ -167,17 +174,21 @@ Friend class Ghoul
 		dim tmp as String
 		tmp = "Ghoul" & VBtab
 		
-		If total.ToString().Length < 8 Then
-			tmp = tmp & total & "   " & VBtab
-		Else
-			tmp = tmp & total & VBtab
-		End If
+		tmp = tmp & total & VBtab
 		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
 		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
 		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
+		
+		tmp = tmp & toDecimal(HitCount) & VBtab
+		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
+		tmp = tmp & toDecimal(totalhit/(HitCount)) & VBtab
+		
+		tmp = tmp & toDecimal(CritCount) & VBtab
+		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
+		tmp = tmp & toDecimal(totalcrit/(CritCount)) & VBtab
+				
+		tmp = tmp & toDecimal(MissCount) & VBtab
+		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
 		tmp = tmp & vbCrLf
 		return tmp
 	End Function

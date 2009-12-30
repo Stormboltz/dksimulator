@@ -28,12 +28,14 @@ Public Class ScourgeStrikeMagical
 		
 		If False Then 'RNG <= CritChance Then
 			CritCount +=1
-			TotalCrit = TotalCrit + 1
+			
 			tmp = AvrgNonCrit(T)* (1 + CritCoef)
+			TotalCrit = TotalCrit + tmp
 			sim.tryOnCrit
 		Else
 			HitCount += 1 
 			tmp = AvrgNonCrit(T)
+			Totalhit += tmp
 		End If
 		sim.tryOnDamageProc()
 		total += tmp
@@ -56,20 +58,18 @@ Public Class ScourgeStrikeMagical
 		addtiveDamage += sim.mainstat.BloodPresence * 0.15
 		addtiveDamage += 0.02 * sim.BoneShield.Value(T)
 		If sim.Desolation.isActive(T) Then addtiveDamage += sim.Desolation.Bonus
-		addtiveDamage +=  TalentFrost.BlackIce * 2 / 100
+		addtiveDamage +=  sim.TalentFrost.BlackIce * 2 / 100
 		tmp = tmp * addtiveDamage 
 		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
-		tmp = tmp * (1 + 0.02 * TalentBlood.BloodGorged)
+		tmp = tmp * (1 + 0.02 * sim.TalentBlood.BloodGorged)
 		if sim.proc.T104PDPSFAde >= T then tmp = tmp * 1.03
 		tmp = tmp * (1 + 0.13 *  sim.Buff.SpellDamageTaken)
 		tmp = tmp * (1-0.05) 'Average partial resist
 		tmpMagical = tmpMagical * tmp
-		
 		If sim.RuneForge.CinderglacierProc > 0 Then
 			tmpMagical = tmpMagical * 1.2
 			sim.RuneForge.CinderglacierProc = sim.RuneForge.CinderglacierProc -1
 		End If
-
 		Return tmpMagical
 	End Function
 	

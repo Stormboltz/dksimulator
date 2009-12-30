@@ -17,8 +17,6 @@ Sub New(S As sim)
 
 	Overrides Function ApplyDamage(T As long) As boolean
 		Dim dégat As long
-		Dim BCB As Double
-		Dim Nec As Double
 		Dim WSpeed As Single
 		Dim MeleeMissChance As Single
 		Dim MeleeDodgeChance As Single
@@ -63,6 +61,7 @@ Sub New(S As sim)
 		If RNG < (ChanceNotToTouch + MeleeGlacingChance) Then
 			dégat = AvrgNonCrit(T)*0.7
 			HitCount = HitCount + 1
+			totalhit += dégat
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "MH glancing for " & dégat)
 		End If
 		
@@ -72,30 +71,31 @@ Sub New(S As sim)
 			CritCount = CritCount + 1
 			If sim.combatlog.LogDetails Then sim.combatlog.write(T  & vbtab &  "MH crit for " & dégat )
 			sim.tryOnCrit
+			
+			
+			totalcrit += dégat
+			
 		End If
 		If RNG >= (ChanceNotToTouch + MeleeGlacingChance + CritChance) Then
 			'normal hit3
 			dégat = AvrgNonCrit(T)
 			HitCount = HitCount + 1
+			totalhit += dégat
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "MH hit for " & dégat )
 		End If
 		
 
 		total = total + dégat
-		If TalentUnholy.Necrosis > 0 Then
-			Nec = sim.Necrosis.Apply(dégat, T)
-		End If
+		If sim.TalentUnholy.Necrosis > 0 Then sim.Necrosis.Apply(dégat, T)
 		RNG = sim.RandomNumberGenerator.RNGWhiteHit * 100
-		If RNG <= 10 * TalentUnholy.BloodCakedBlade Then
-			BCB = sim.BloodCakedBlade.ApplyDamage(T,true)
-		End If
-		sim.TryOnMHHitProc
-		sim.Trinkets.MHRazorIce.TryMe(T)
-		sim.proc.KillingMachine.TryMe(T)
-		sim.Trinkets.MHSingedViskag.TryMe(T)
-		sim.Trinkets.MHtemperedViskag.TryMe(T)
-		sim.trinkets.MHEmpoweredDeathbringer.TryMe(T)
-		sim.trinkets.MHRagingDeathbringer.TryMe(T)
+		If RNG <= 10 * sim.TalentUnholy.BloodCakedBlade Then sim.BloodCakedBlade.ApplyDamage(T)
+		sim.tryOnMHWhitehitProc
+'		sim.Trinkets.MHRazorIce.TryMe(T)
+'		sim.proc.KillingMachine.TryMe(T)
+'		sim.Trinkets.MHSingedViskag.TryMe(T)
+'		sim.Trinkets.MHtemperedViskag.TryMe(T)
+'		sim.trinkets.MHEmpoweredDeathbringer.TryMe(T)
+'		sim.trinkets.MHRagingDeathbringer.TryMe(T)
 		
 		If sim.proc.ScentOfBlood.IsActive  Then
 			sim.proc.ScentOfBlood.Use

@@ -53,6 +53,7 @@ Partial Class MainForm
 		Me.HtmlReport = New System.Windows.Forms.TabPage
 		Me.webBrowser1 = New System.Windows.Forms.WebBrowser
 		Me.tabPage3 = New System.Windows.Forms.TabPage
+		Me.chkBloodSync = New System.Windows.Forms.CheckBox
 		Me.cmbIntro = New System.Windows.Forms.ComboBox
 		Me.label26 = New System.Windows.Forms.Label
 		Me.label20 = New System.Windows.Forms.Label
@@ -120,6 +121,7 @@ Partial Class MainForm
 		Me.gbMisc = New System.Windows.Forms.GroupBox
 		Me.chkTailorEnchant = New System.Windows.Forms.CheckBox
 		Me.chkMeta = New System.Windows.Forms.CheckBox
+		Me.chkAshenBand = New System.Windows.Forms.CheckBox
 		Me.chkIngenieer = New System.Windows.Forms.CheckBox
 		Me.gbSetBonus = New System.Windows.Forms.GroupBox
 		Me.cmbSetBonus2 = New System.Windows.Forms.ComboBox
@@ -170,6 +172,7 @@ Partial Class MainForm
 		Me.cmbGlyph2 = New System.Windows.Forms.ComboBox
 		Me.cmbGlyph1 = New System.Windows.Forms.ComboBox
 		Me.cmdSaveNewTemplate = New System.Windows.Forms.Button
+		Me.cmdStartTalentDpsValue = New System.Windows.Forms.Button
 		Me.cmdSaveTemplate = New System.Windows.Forms.Button
 		Me.tbBuff = New System.Windows.Forms.TabPage
 		Me.grpBuff = New System.Windows.Forms.GroupBox
@@ -206,7 +209,9 @@ Partial Class MainForm
 		Me.label25 = New System.Windows.Forms.Label
 		Me.txtEPBase = New System.Windows.Forms.TextBox
 		Me.groupBox3 = New System.Windows.Forms.GroupBox
+		Me.chkEPWhisperingFangedSkull = New System.Windows.Forms.CheckBox
 		Me.chkEPDeathbringersWillHeroic = New System.Windows.Forms.CheckBox
+		Me.chkEPNeedleEncrustedScorpion = New System.Windows.Forms.CheckBox
 		Me.chkEPDeathChoiceHeroic = New System.Windows.Forms.CheckBox
 		Me.chkEPDeathbringersWill = New System.Windows.Forms.CheckBox
 		Me.chkEPComet = New System.Windows.Forms.CheckBox
@@ -266,8 +271,6 @@ Partial Class MainForm
 		Me.chkScaStr = New System.Windows.Forms.CheckBox
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.cmdRngSeeder = New System.Windows.Forms.Button
-		Me.chkEPNeedleEncrustedScorpion = New System.Windows.Forms.CheckBox
-		Me.chkEPWhisperingFangedSkull = New System.Windows.Forms.CheckBox
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -479,6 +482,7 @@ Partial Class MainForm
 		'
 		'tabPage3
 		'
+		Me.tabPage3.Controls.Add(Me.chkBloodSync)
 		Me.tabPage3.Controls.Add(Me.cmbIntro)
 		Me.tabPage3.Controls.Add(Me.label26)
 		Me.tabPage3.Controls.Add(Me.label20)
@@ -537,6 +541,18 @@ Partial Class MainForm
 		Me.tabPage3.Text = "Configuration"
 		Me.tabPage3.UseVisualStyleBackColor = true
 		'
+		'chkBloodSync
+		'
+		Me.chkBloodSync.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.chkBloodSync.Checked = true
+		Me.chkBloodSync.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkBloodSync.Location = New System.Drawing.Point(394, 487)
+		Me.chkBloodSync.Name = "chkBloodSync"
+		Me.chkBloodSync.Size = New System.Drawing.Size(179, 24)
+		Me.chkBloodSync.TabIndex = 45
+		Me.chkBloodSync.Text = "Keep Blood runes synchronized"
+		Me.chkBloodSync.UseVisualStyleBackColor = true
+		'
 		'cmbIntro
 		'
 		Me.cmbIntro.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
@@ -577,7 +593,7 @@ Partial Class MainForm
 		'
 		'chkDisease
 		'
-		Me.chkDisease.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.chkDisease.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.chkDisease.Checked = true
 		Me.chkDisease.CheckState = System.Windows.Forms.CheckState.Checked
 		Me.chkDisease.Location = New System.Drawing.Point(635, 424)
@@ -589,7 +605,7 @@ Partial Class MainForm
 		'
 		'txtNumberOfEnemies
 		'
-		Me.txtNumberOfEnemies.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.txtNumberOfEnemies.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.txtNumberOfEnemies.Location = New System.Drawing.Point(579, 434)
 		Me.txtNumberOfEnemies.Name = "txtNumberOfEnemies"
 		Me.txtNumberOfEnemies.Size = New System.Drawing.Size(50, 20)
@@ -598,7 +614,7 @@ Partial Class MainForm
 		'
 		'label19
 		'
-		Me.label19.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.label19.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.label19.Location = New System.Drawing.Point(471, 437)
 		Me.label19.Name = "label19"
 		Me.label19.Size = New System.Drawing.Size(102, 13)
@@ -1190,10 +1206,11 @@ Partial Class MainForm
 		'
 		Me.gbMisc.Controls.Add(Me.chkTailorEnchant)
 		Me.gbMisc.Controls.Add(Me.chkMeta)
+		Me.gbMisc.Controls.Add(Me.chkAshenBand)
 		Me.gbMisc.Controls.Add(Me.chkIngenieer)
 		Me.gbMisc.Location = New System.Drawing.Point(11, 495)
 		Me.gbMisc.Name = "gbMisc"
-		Me.gbMisc.Size = New System.Drawing.Size(417, 58)
+		Me.gbMisc.Size = New System.Drawing.Size(735, 58)
 		Me.gbMisc.TabIndex = 10
 		Me.gbMisc.TabStop = false
 		Me.gbMisc.Text = "Misc."
@@ -1215,6 +1232,15 @@ Partial Class MainForm
 		Me.chkMeta.TabIndex = 24
 		Me.chkMeta.Text = "3% Crit Damage"
 		Me.chkMeta.UseVisualStyleBackColor = true
+		'
+		'chkAshenBand
+		'
+		Me.chkAshenBand.Location = New System.Drawing.Point(400, 19)
+		Me.chkAshenBand.Name = "chkAshenBand"
+		Me.chkAshenBand.Size = New System.Drawing.Size(208, 24)
+		Me.chkAshenBand.TabIndex = 26
+		Me.chkAshenBand.Text = "Ashen Band of Endless Vengeance"
+		Me.chkAshenBand.UseVisualStyleBackColor = true
 		'
 		'chkIngenieer
 		'
@@ -1610,6 +1636,7 @@ Partial Class MainForm
 		Me.tbTpl.Controls.Add(Me.cmbGlyph2)
 		Me.tbTpl.Controls.Add(Me.cmbGlyph1)
 		Me.tbTpl.Controls.Add(Me.cmdSaveNewTemplate)
+		Me.tbTpl.Controls.Add(Me.cmdStartTalentDpsValue)
 		Me.tbTpl.Controls.Add(Me.cmdSaveTemplate)
 		Me.tbTpl.Location = New System.Drawing.Point(4, 22)
 		Me.tbTpl.Name = "tbTpl"
@@ -1675,6 +1702,16 @@ Partial Class MainForm
 		Me.cmdSaveNewTemplate.Text = "Save as new"
 		Me.cmdSaveNewTemplate.UseVisualStyleBackColor = true
 		AddHandler Me.cmdSaveNewTemplate.Click, AddressOf Me.CmdSaveNewTemplateClick
+		'
+		'cmdStartTalentDpsValue
+		'
+		Me.cmdStartTalentDpsValue.Location = New System.Drawing.Point(478, 32)
+		Me.cmdStartTalentDpsValue.Name = "cmdStartTalentDpsValue"
+		Me.cmdStartTalentDpsValue.Size = New System.Drawing.Size(207, 23)
+		Me.cmdStartTalentDpsValue.TabIndex = 0
+		Me.cmdStartTalentDpsValue.Text = "StartTalentDpsValue"
+		Me.cmdStartTalentDpsValue.UseVisualStyleBackColor = true
+		AddHandler Me.cmdStartTalentDpsValue.Click, AddressOf Me.CmdStartTalentDpsValueClick
 		'
 		'cmdSaveTemplate
 		'
@@ -2088,6 +2125,15 @@ Partial Class MainForm
 		Me.groupBox3.TabStop = false
 		Me.groupBox3.Text = "Trinket"
 		'
+		'chkEPWhisperingFangedSkull
+		'
+		Me.chkEPWhisperingFangedSkull.Location = New System.Drawing.Point(153, 259)
+		Me.chkEPWhisperingFangedSkull.Name = "chkEPWhisperingFangedSkull"
+		Me.chkEPWhisperingFangedSkull.Size = New System.Drawing.Size(171, 24)
+		Me.chkEPWhisperingFangedSkull.TabIndex = 2
+		Me.chkEPWhisperingFangedSkull.Text = "Whispering Fanged Skull"
+		Me.chkEPWhisperingFangedSkull.UseVisualStyleBackColor = true
+		'
 		'chkEPDeathbringersWillHeroic
 		'
 		Me.chkEPDeathbringersWillHeroic.Location = New System.Drawing.Point(6, 289)
@@ -2096,6 +2142,15 @@ Partial Class MainForm
 		Me.chkEPDeathbringersWillHeroic.TabIndex = 2
 		Me.chkEPDeathbringersWillHeroic.Text = "Deathbringer's Will (H)"
 		Me.chkEPDeathbringersWillHeroic.UseVisualStyleBackColor = true
+		'
+		'chkEPNeedleEncrustedScorpion
+		'
+		Me.chkEPNeedleEncrustedScorpion.Location = New System.Drawing.Point(153, 229)
+		Me.chkEPNeedleEncrustedScorpion.Name = "chkEPNeedleEncrustedScorpion"
+		Me.chkEPNeedleEncrustedScorpion.Size = New System.Drawing.Size(171, 24)
+		Me.chkEPNeedleEncrustedScorpion.TabIndex = 2
+		Me.chkEPNeedleEncrustedScorpion.Text = "Needle-Encrusted Scorpion"
+		Me.chkEPNeedleEncrustedScorpion.UseVisualStyleBackColor = true
 		'
 		'chkEPDeathChoiceHeroic
 		'
@@ -2709,24 +2764,6 @@ Partial Class MainForm
 		Me.cmdRngSeeder.UseVisualStyleBackColor = true
 		AddHandler Me.cmdRngSeeder.Click, AddressOf Me.CmdRngSeederClick
 		'
-		'chkEPNeedleEncrustedScorpion
-		'
-		Me.chkEPNeedleEncrustedScorpion.Location = New System.Drawing.Point(153, 229)
-		Me.chkEPNeedleEncrustedScorpion.Name = "chkEPNeedleEncrustedScorpion"
-		Me.chkEPNeedleEncrustedScorpion.Size = New System.Drawing.Size(171, 24)
-		Me.chkEPNeedleEncrustedScorpion.TabIndex = 2
-		Me.chkEPNeedleEncrustedScorpion.Text = "Needle-Encrusted Scorpion"
-		Me.chkEPNeedleEncrustedScorpion.UseVisualStyleBackColor = true
-		'
-		'chkEPWhisperingFangedSkull
-		'
-		Me.chkEPWhisperingFangedSkull.Location = New System.Drawing.Point(153, 259)
-		Me.chkEPWhisperingFangedSkull.Name = "chkEPWhisperingFangedSkull"
-		Me.chkEPWhisperingFangedSkull.Size = New System.Drawing.Size(171, 24)
-		Me.chkEPWhisperingFangedSkull.TabIndex = 2
-		Me.chkEPWhisperingFangedSkull.Text = "Whispering Fanged Skull"
-		Me.chkEPWhisperingFangedSkull.UseVisualStyleBackColor = true
-		'
 		'MainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
@@ -2778,6 +2815,9 @@ Partial Class MainForm
 		Me.gbScaling.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Friend chkBloodSync As System.Windows.Forms.CheckBox
+	Private cmdStartTalentDpsValue As System.Windows.Forms.Button
+	Private chkAshenBand As System.Windows.Forms.CheckBox
 	Friend chkEPNeedleEncrustedScorpion As System.Windows.Forms.CheckBox
 	Friend chkEPWhisperingFangedSkull As System.Windows.Forms.CheckBox
 	Friend chkEPDeathbringersWillHeroic As System.Windows.Forms.CheckBox
@@ -3011,4 +3051,6 @@ Partial Class MainForm
 	Private btEP As System.Windows.Forms.Button
 	Private tabPage3 As System.Windows.Forms.TabPage
 	Private PBsim As System.Windows.Forms.ProgressBar
+	
+	
 End Class

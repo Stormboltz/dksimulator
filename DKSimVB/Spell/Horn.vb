@@ -42,7 +42,7 @@ Public Class Horn
 		cd = t + 20 * 100
 		Sim.RunicPower.add(10)
 		HitCount = HitCount + 1
-		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste))+ sim._MainFrm.txtLatency.Text/10
+		UseGCD(T)
 		sim.combatlog.write(T  & vbtab &  "Horn used")
 		return true
 	End Function

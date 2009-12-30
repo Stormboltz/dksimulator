@@ -15,105 +15,72 @@ Friend Class Obliterate
 	End Sub
 	
 	public Overrides Function ApplyDamage(T As Long) As Boolean
-		Dim MHHit As Boolean
-		Dim OHHit As Boolean
-		MHHit = True
-		OHHit = true
 		Dim RNG As Double
-		
-		If sim.MainStat.UnholyPresence Then
-			Sim.NextFreeGCD = T + 100+ sim._MainFrm.txtLatency.Text/10
-		Else
-			Sim.NextFreeGCD = T + 150+ sim._MainFrm.txtLatency.Text/10
-		End If
+		UseGCD(T)	
 		RNG = MyRNG
-
-		If sim.MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
-			If DoMyStrikeHit = false Then
-				sim.combatlog.write(T  & vbtab &  "MH/OH OB fail" & vbtab & RNG)
-				MissCount = MissCount + 1
-				MHHit=False
-				OHHit=false
-			End If
-		Else
-			OHHit = false
-			If DoMyStrikeHit = false Then
-				sim.combatlog.write(T  & vbtab &  "OB fail" & vbtab & RNG)
-				MissCount = MissCount + 1
-				Exit function
-			End If
+		
+		If sim.MainStat.DualW And sim.TalentFrost.ThreatOfThassarian = 3 Then
+			If OffHand=False Then sim.OHObliterate.ApplyDamage(T)
 		End If
 		
-		if MHHit or OHHit then
-			
-			If talentblood.DRM = 3 Then
+		If DoMyStrikeHit = false Then
+			sim.combatlog.write(T  & vbtab &  "OB fail" & vbtab & RNG)
+			MissCount = MissCount + 1
+			exit function
+		End If
+		
+		If OffHand=False Then
+			If sim.TalentBlood.DRM = 3 Then
 				sim.runes.UseFU(T,True)
 			Else
 				sim.runes.UseFU(T,False)
 			End If
-			
-			If talentfrost.Annihilation <> 3 Then
-				sim.frostfever.FadeAt=T
-				sim.bloodplague.FadeAt=T
-			End If
-			
-			dim dégat as Integer
-			Dim ccT As Double
-			ccT = CritChance
-			If MHHit Then
-				RNG = MyRNG
-				If RNG <= ccT Then
-					CritCount = CritCount + 1
-					dégat =  AvrgCrit(T,true)
-					sim.combatlog.write(T  & vbtab &  "OB crit for " & dégat )
-					sim.tryOnCrit
-					
-				Else
-					HitCount = HitCount + 1
-					dégat =  AvrgNonCrit(T,true)
-					sim.combatlog.write(T  & vbtab &  "OB hit for " & dégat )
-				End If
-
-				total = total + dégat
-				sim.TryOnMHHitProc
-				sim.proc.Rime.TryMe(T)
-			End If
-			
-			If OHHit Then
-				If RNG <= ccT Then
-					
-					dégat =  AvrgCrit(T,false)
-					if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH OB crit for " & dégat )
-					sim.tryOnCrit
-				Else
-					
-					dégat =  AvrgNonCrit(T,false)
-					if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH OB hit for " & dégat )
-				End If
-
-				total = total + dégat
-				sim.TryOnOHHitProc
-			End If
-			
-			If sim.DRW.IsActive(T) Then
-				sim.drw.Obliterate
-			End If
-			sim.proc.Virulence.TryMe(t)
-			
-			Sim.runicpower.add(15 + 2.5*talentfrost.ChillOfTheGrave  + 5*sim.MainStat.T74PDPS )
+		End If
+		If sim.TalentFrost.Annihilation <> 3 Then
+			sim.frostfever.FadeAt=T
+			sim.bloodplague.FadeAt=T
 		End If
 		
+		dim dégat as Integer
+		Dim ccT As Double
+		ccT = CritChance
 		
+		If RNG <= ccT Then
+			CritCount = CritCount + 1
+			dégat =  AvrgCrit(T)
+			sim.combatlog.write(T  & vbtab &  "OB crit for " & dégat )
+			sim.tryOnCrit
+			
+			totalcrit += dégat
+		Else
+			HitCount = HitCount + 1
+			dégat =  AvrgNonCrit(T)
+			sim.combatlog.write(T  & vbtab &  "OB hit for " & dégat )
+			totalhit += dégat
+		End If
+		total = total + dégat
+		If OffHand Then
+			sim.TryOnOHHitProc
+		Else
+			sim.TryOnMHHitProc
+			Sim.runicpower.add(15 + 2.5*sim.talentfrost.ChillOfTheGrave  + 5*sim.MainStat.T74PDPS )
+		End If
+		sim.proc.Rime.TryMe(T)
+		
+		If sim.DRW.IsActive(T) Then
+			sim.drw.Obliterate
+		End If
+		sim.proc.Virulence.TryMe(t)
 		return true
 	End Function
 	
 	
-	public Overrides Function AvrgNonCrit(T as long, MH as Boolean) As Double
+	public Overrides Function AvrgNonCrit(T as long) As Double
 		Dim tmp As Double
-		If MH Then
-			tmp = sim.MainStat.NormalisedMHDamage * 0.8 + 467.2
-		Else
+		If OffHand Then
 			tmp = sim.MainStat.NormalisedOHDamage * 0.8 + 467.2
+		Else
+			tmp = sim.MainStat.NormalisedMHDamage * 0.8 + 467.2
 		End If
 		
 		if sim.sigils.Awareness then tmp = tmp + 336
@@ -122,13 +89,13 @@ Friend Class Obliterate
 		else
 			tmp = tmp * (1 + 0.125 * Sim.NumDesease)
 		end if
-		if (T/sim.MaxTime) >= 0.75 then tmp = tmp *(1+ 0.06*talentfrost.MercilessCombat)
+		if (T/sim.MaxTime) >= 0.75 then tmp = tmp *(1+ 0.06*sim.talentfrost.MercilessCombat)
 		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
 		If sim.glyph.Obliterate Then tmp = tmp *1.2
 		
-		If MH=false Then
+		If OffHand Then
 			tmp = tmp * 0.5
-			tmp = tmp * (1 + TalentFrost.NervesofColdSteel * 5 / 100)
+			tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 5 / 100)
 		End If
 		If sim.MainStat.T102PDPS<>0 Then
 			tmp = tmp * 1.1
@@ -139,7 +106,7 @@ Friend Class Obliterate
 	
 	
 	public Overrides Function CritCoef() As Double
-		CritCoef = 1 * (1 + talentfrost.GuileOfGorefiend * 15 / 100)
+		CritCoef = 1 * (1 + sim.TalentFrost.GuileOfGorefiend * 15 / 100)
 		return  CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
 	
@@ -150,12 +117,12 @@ Friend Class Obliterate
 			sim.DeathChill.Active = false
 			Return 1
 		End If
-		return  sim.MainStat.crit +  talentfrost.rime*5/100 + talentblood.Subversion*3/100 + sim.MainStat.T72PDPS * 5/100
+		return  sim.MainStat.crit +  sim.TalentFrost.rime*5/100 + sim.TalentBlood.Subversion*3/100 + sim.MainStat.T72PDPS * 5/100
 		
 	End Function
 	
-	public Overrides Function AvrgCrit(T As long, MH as Boolean) As Double
-		return AvrgNonCrit(T, MH) * (1 + CritCoef)
+	public Overrides Function AvrgCrit(T As long) As Double
+		return AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 	
 	

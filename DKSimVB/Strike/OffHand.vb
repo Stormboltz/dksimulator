@@ -43,6 +43,7 @@ Friend Class OffHand
 		If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then
 			'Glancing
 			dégat = AvrgNonCrit(T)*0.7
+			totalhit += dégat
 			HitCount = HitCount + 1
 		End If
 		
@@ -50,17 +51,18 @@ Friend Class OffHand
 			'CRIT !
 			CritCount = CritCount + 1
 			dégat = AvrgCrit(T)
-			
 			If sim.combatlog.LogDetails Then sim.combatlog.write(T  & vbtab &  "OH crit for " & dégat )
 			sim.tryOnCrit
-			
+			totalcrit += dégat
 		End If
 		
 		If RNG >= (ChanceNotToTouch + MeleeGlacingChance + CritChance) Then
 			'normal hit3
 			dégat = AvrgNonCrit(T)
 			HitCount = HitCount + 1
-			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH hit for " & dégat)
+			If sim.combatlog.LogDetails Then sim.combatlog.write(T  & vbtab &  "OH hit for " & dégat)
+			totalhit += dégat
+			
 		End If
 		
 		If sim.proc.ScentOfBlood.IsActive  Then
@@ -70,22 +72,19 @@ Friend Class OffHand
 
 		total = total + dégat
 
-		If TalentUnholy.Necrosis > 0 Then
+		If sim.TalentUnholy.Necrosis > 0 Then
 			Nec = sim.Necrosis.Apply(dégat, T)
 		End If
 
 		RNG = sim.RandomNumberGenerator.RNGWhiteHit * 100
-		If RNG <= 10 * TalentUnholy.BloodCakedBlade Then
-			sim.BloodCakedBlade.ApplyDamage(T,false)
-		End If
-		
+		If RNG <= 10 * sim.TalentUnholy.BloodCakedBlade Then sim.OHBloodCakedBlade.ApplyDamage(T)
 		
 		sim.TryOnOHHitProc
-		sim.Trinkets.OHRazorIce.TryMe(T)
-		sim.Trinkets.OHSingedViskag.TryMe(T)
-		sim.Trinkets.OHtemperedViskag.TryMe(T)
-		sim.trinkets.MHEmpoweredDeathbringer.TryMe(T)
-		sim.trinkets.MHRagingDeathbringer.TryMe(T)
+'		sim.Trinkets.OHRazorIce.TryMe(T)
+'		sim.Trinkets.OHSingedViskag.TryMe(T)
+'		sim.Trinkets.OHtemperedViskag.TryMe(T)
+'		sim.trinkets.MHEmpoweredDeathbringer.TryMe(T)
+'		sim.trinkets.MHRagingDeathbringer.TryMe(T)
 		
 		return true
 		'   'Debug.Print T & vbTab & "WhiteOH for " & Range("Abilities!N19").Value
@@ -95,7 +94,7 @@ Friend Class OffHand
 		tmp = sim.MainStat.OHBaseDamage
 		tmp = tmp * sim.MainStat.WhiteHitDamageMultiplier(T)
 		tmp = tmp * 0.5
-		tmp = tmp * (1 + TalentFrost.NervesofColdSteel * 5 / 100)
+		tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 5 / 100)
 		AvrgNonCrit = tmp
 	End Function
 	Overrides Function CritCoef() As Double

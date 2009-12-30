@@ -74,55 +74,55 @@ Public Module SimConstructor
 		End If
 		
 		'Dry run
-		EPStat="DryRun"
+		EPStat="EP DryRun"
 		SimConstructor.Start(pb,SimTime,MainFrm)
 		Application.DoEvents
 		
-		EPStat="AttackPower"
+		EPStat="EP AttackPower"
 		SimConstructor.Start(pb,SimTime,MainFrm)
 		
 		if doc.SelectSingleNode("//config/Stats/chkEPStr").InnerText = "True" then
-			EPStat="Strength"
+			EPStat="EP Strength"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Stats/chkEPAgility").InnerText = "True" then
-			EPStat="Agility"
+			EPStat="EP Agility"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Stats/chkEPCrit").InnerText = "True" then
-			EPStat="CritRating"
+			EPStat="EP CritRating"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Stats/chkEPHaste").InnerText = "True" then
-			EPStat="HasteRating"
+			EPStat="EP HasteRating"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Stats/chkEPArP").InnerText = "True" then
-			EPStat="ArmorPenetrationRating"
+			EPStat="EP ArmorPenetrationRating"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Stats/chkEPExp").InnerText = "True" then
-			EPStat="ExpertiseRating"
+			EPStat="EP ExpertiseRating"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 			If MainFrm.cmdPresence.SelectedItem = "Frost" Then
-				EPStat="ExpertiseRatingAfterCap"
+				EPStat="EP ExpertiseRatingAfterCap"
 				SimConstructor.Start(pb,SimTime,MainFrm)
 			End If
 		End If
 		if doc.SelectSingleNode("//config/Stats/chkEPHit").InnerText = "True" then
-			EPStat="HitRating"
+			EPStat="EP HitRating"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Stats/chkEPSpHit").InnerText = "True" then
-			EPStat="SpellHitRating"
+			EPStat="EP SpellHitRating"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Stats/chkEPSMHDPS").InnerText = "True" then
-			EPStat="WeaponDPS"
+			EPStat="EP WeaponDPS"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Stats/chkEPSMHSpeed").InnerText = "True" then
-			EPStat="WeaponSpeed"
+			EPStat="EP WeaponSpeed"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 
@@ -132,11 +132,11 @@ Public Module SimConstructor
 		Next
 		
 		if doc.SelectSingleNode("//config/Stats/chkEPAfterSpellHitRating").InnerText = "True" then
-			EPStat="AfterSpellHitBase"
+			EPStat="EP AfterSpellHitBase"
 			SimConstructor.Start(pb,SimTime,MainFrm)
-			EPStat="AfterSpellHitBaseAP"
+			EPStat="EP AfterSpellHitBaseAP"
 			SimConstructor.Start(pb,SimTime,MainFrm)
-			EPStat="AfterSpellHitRating"
+			EPStat="EP AfterSpellHitRating"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		
@@ -145,17 +145,17 @@ Public Module SimConstructor
 		Next
 		
 		
-		EPStat = "DryRun"
+		EPStat = "EP DryRun"
 		BaseDPS = dpss(EPStat)
 		WriteReport ("Average for " & EPStat & " | " & BaseDPS)
 		
-		EPStat = "AttackPower"
-		APDPS = dpss("AttackPower")
+		EPStat = "EP AttackPower"
+		APDPS = dpss(EPStat)
 		WriteReport ("Average for " & EPStat & " | " & APDPS)
 		sReport = sReport +  ("<tr><td>" & EPStat & " | 1 (" & toDDecimal((APDPS-BaseDPS ) / 100) & " DPS/per AP) </td></tr>")
 		
 		Try
-			EPStat="Strength"
+			EPStat="EP Strength"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS) / EPBase
@@ -164,7 +164,7 @@ Public Module SimConstructor
 		catch
 		End Try
 		Try
-			EPStat="Agility"
+			EPStat="EP Agility"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS) / EPBase
@@ -173,7 +173,7 @@ Public Module SimConstructor
 		catch
 		End Try
 		Try
-			EPStat="CritRating"
+			EPStat="EP CritRating"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS) / EPBase
@@ -182,7 +182,7 @@ Public Module SimConstructor
 		catch
 		End Try
 		Try
-			EPStat="HasteRating"
+			EPStat="EP HasteRating"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS) / EPBase
@@ -191,7 +191,7 @@ Public Module SimConstructor
 		catch
 		End Try
 		Try
-			EPStat="ArmorPenetrationRating"
+			EPStat="EP ArmorPenetrationRating"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS) / EPBase
@@ -200,7 +200,7 @@ Public Module SimConstructor
 		catch
 		End Try
 		Try
-			EPStat="ExpertiseRating"
+			EPStat="EP ExpertiseRating"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS) / EPBase
@@ -211,7 +211,7 @@ Public Module SimConstructor
 		
 		
 		Try
-			EPStat="ExpertiseRatingAfterCap"
+			EPStat="EP ExpertiseRatingAfterCap"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS) / EPBase
@@ -222,7 +222,7 @@ Public Module SimConstructor
 		
 		
 		Try
-			EPStat="HitRating"
+			EPStat="EP HitRating"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS) / EPBase
@@ -231,7 +231,7 @@ Public Module SimConstructor
 		catch
 		End Try
 		Try
-			EPStat="SpellHitRating"
+			EPStat="EP SpellHitRating"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS) / 26
@@ -240,7 +240,7 @@ Public Module SimConstructor
 		catch
 		End Try
 		Try
-			EPStat="WeaponDPS"
+			EPStat="EP WeaponDPS"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS) / 10
@@ -249,7 +249,7 @@ Public Module SimConstructor
 		catch
 		End Try
 		Try
-			EPStat="WeaponSpeed"
+			EPStat="EP WeaponSpeed"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS) / 0.1
@@ -260,11 +260,11 @@ Public Module SimConstructor
 		
 		
 		Try
-			EPStat="AfterSpellHitBase"
+			EPStat="EP AfterSpellHitBase"
 			BaseDPS = dpss(EPStat)
-			EPStat="AfterSpellHitBaseAP"
+			EPStat="EP AfterSpellHitBaseAP"
 			APDPS = dpss(EPStat)
-			EPStat="AfterSpellHitRating"
+			EPStat="EP AfterSpellHitRating"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS) / EPBase
@@ -283,42 +283,42 @@ Public Module SimConstructor
 			goto skipSets
 		End If
 		
-		EPStat="0T7"
+		EPStat="EP 0T7"
 		SimConstructor.Start(pb,SimTime,MainFrm)
 		
-		EPStat="AttackPower0T7"
+		EPStat="EP AttackPower0T7"
 		SimConstructor.Start(pb,SimTime,MainFrm)
 		
 		if doc.SelectSingleNode("//config/Sets/chkEP2T7").InnerText = "True" then
-			EPStat="2T7"
+			EPStat="EP 2T7"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Sets/chkEP4PT7").InnerText = "True" then
-			EPStat="4T7"
+			EPStat="EP 4T7"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Sets/chkEP2PT8").InnerText = "True" then
-			EPStat="2T8"
+			EPStat="EP 2T8"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Sets/chkEP4PT8").InnerText = "True" then
-			EPStat="4T8"
+			EPStat="EP 4T8"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Sets/chkEP2PT9").InnerText = "True" then
-			EPStat="2T9"
+			EPStat="EP 2T9"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Sets/chkEP4PT9").InnerText = "True" then
-			EPStat="4T9"
+			EPStat="EP 4T9"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Sets/chkEP2PT10").InnerText = "True" then
-			EPStat="2T10"
+			EPStat="EP 2T10"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Sets/chkEP4PT10").InnerText = "True" then
-			EPStat="4T10"
+			EPStat="EP 4T10"
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		
@@ -327,17 +327,17 @@ Public Module SimConstructor
 		Next
 
 		
-		EPStat = "0T7"
+		EPStat = "EP 0T7"
 		BaseDPS = dpss(EPStat)
 		WriteReport ("Average for " & EPStat & " | " & BaseDPS)
 		
-		EPStat = "AttackPower0T7"
+		EPStat = "EP AttackPower0T7"
 		APDPS = dpss(EPStat)
 		WriteReport ("Average for " & EPStat & " | " & APDPS)
 		'sReport = sReport +  ("<tr><td>" & EPStat & " | 1</td></tr>")
 		
 		Try
-			EPStat="2T7"
+			EPStat="EP 2T7"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS)/ 100
@@ -346,7 +346,7 @@ Public Module SimConstructor
 		catch
 		End Try
 		Try
-			EPStat="4T7"
+			EPStat="EP 4T7"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS)/ 100
@@ -355,7 +355,7 @@ Public Module SimConstructor
 		catch
 		End Try
 		Try
-			EPStat="2T8"
+			EPStat="EP 2T8"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS)/ 100
@@ -364,7 +364,7 @@ Public Module SimConstructor
 		catch
 		End Try
 		Try
-			EPStat="4T8"
+			EPStat="EP 4T8"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS)/ 100
@@ -373,7 +373,7 @@ Public Module SimConstructor
 		catch
 		End Try
 		Try
-			EPStat="2T9"
+			EPStat="EP 2T9"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS)/ 100
@@ -382,7 +382,7 @@ Public Module SimConstructor
 		catch
 		End Try
 		Try
-			EPStat="4T9"
+			EPStat="EP 4T9"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS)/ 100
@@ -391,7 +391,7 @@ Public Module SimConstructor
 		catch
 		End Try
 		Try
-			EPStat="2T10"
+			EPStat="EP 2T10"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS)/ 100
@@ -400,7 +400,7 @@ Public Module SimConstructor
 		Catch
 		End Try
 		Try
-			EPStat="4T10"
+			EPStat="EP 4T10"
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS)/ 100
@@ -418,18 +418,12 @@ Public Module SimConstructor
 			goto skipTrinket
 		End If
 		
-		EPStat="NoTrinket"
+		EPStat="EP NoTrinket"
 		SimConstructor.Start(pb,SimTime,MainFrm)
 		
-		EPStat="AttackPowerNoTrinket"
+		EPStat="EP AttackPowerNoTrinket"
 		SimConstructor.Start(pb,SimTime,MainFrm)
 		
-		'if doc.SelectSingleNode("//config/Sets/chkEP2T7").InnerText = "True" then
-		'	EPStat="2T7"
-		'	SimConstructor.Start(pb,SimTime,MainFrm)
-		'End If
-		
-'		Dim doc As xml.XmlDocument = New xml.XmlDocument
 		doc.Load("EPconfig.xml")
 		Dim trinketsList As Xml.XmlNode
 		dim tNode as Xml.XmlNode
@@ -437,7 +431,7 @@ Public Module SimConstructor
 		
 		For Each tNode In trinketsList.ChildNodes
 			If tNode.InnerText = "True" Then
-				EPStat= tNode.Name.Replace("chkEP","")
+				EPStat= tNode.Name.Replace("chkEP","EP ")
 				SimConstructor.Start(pb,SimTime,MainFrm)
 			End If
 		Next
@@ -446,11 +440,11 @@ Public Module SimConstructor
 			T.Join()
 		Next
 		
-		EPStat = "NoTrinket"
+		EPStat = "EP NoTrinket"
 		BaseDPS = dpss(EPStat)
 		WriteReport ("Average for " & EPStat & " | " & BaseDPS)
 		
-		EPStat = "AttackPowerNoTrinket"
+		EPStat = "EP AttackPowerNoTrinket"
 		APDPS = dpss(EPStat)
 		WriteReport ("Average for " & EPStat & " | " & APDPS)
 		
@@ -458,7 +452,7 @@ Public Module SimConstructor
 		For Each tNode In trinketsList.ChildNodes
 			If tNode.InnerText = "True" Then
 				Try
-					EPStat= tNode.Name.Replace("chkEP","")
+					EPStat= tNode.Name.Replace("chkEP","EP ")
 					DPS = dpss(EPStat)
 					tmp1 = (APDPS-BaseDPS ) / 100
 					tmp2 = (DPS-BaseDPS)/ 100
@@ -495,11 +489,6 @@ Public Module SimConstructor
 	
 	
 	Sub StartScaling(pb As ProgressBar,SimTime As Double,MainFrm As MainForm)
-		'DPSs.Clear
-		'FakeResultBuilder
-		'createGraph
-		'exit sub
-		
 		
 		DPSs.Clear
 		ThreadCollection.Clear
@@ -578,6 +567,51 @@ Public Module SimConstructor
 		'createGraph
 		EpStat = ""
 		
+	End Sub
+	Sub StartSpecDpsValue(pb As ProgressBar,SimTime As Double,MainFrm As MainForm)
+		'on error resume next
+		DPSs.Clear
+		ThreadCollection.Clear
+		EPBase = 50
+		_MainFrm = MainFrm
+		dim sReport as String
+		Dim doc As xml.XmlDocument = New xml.XmlDocument
+		Dim T As Threading.Thread
+		doc.Load(Application.StartupPath & "\Templates\" & MainFrm.cmbTemplate.Text)
+		Dim xNodelist As Xml.XmlNode
+		xNodelist = doc.SelectSingleNode("//Talents")
+		Dim xNode As Xml.XmlNode
+		
+		EpStat = "OriginalSpec"
+		SimConstructor.Start(pb,MainFrm.txtSimtime.Text,MainFrm)
+		
+		For Each xNode In xNodelist.ChildNodes
+			If (xNode.Name <> "URL" and xNode.Name <> "Glyphs") and xNode.InnerText <> "0" Then
+				EpStat = xNode.Name
+				SimConstructor.Start(pb,1,MainFrm)
+			End If
+		Next	
+		
+		For Each T In ThreadCollection
+			T.Join()
+		Next
+
+		dim BaseDPS as Integer
+		EpStat = "OriginalSpec"
+		BaseDPS = dpss(EPStat)
+		WriteReport ("Average for " & EPStat & " | " & BaseDPS)
+				
+		
+		For Each xNode In xNodelist.ChildNodes
+			If (xNode.Name <> "URL" and xNode.Name <> "Glyphs") and xNode.InnerText <> "0" Then
+				EpStat = xNode.Name
+				WriteReport ("Value for " & EPStat & " | " & toDDecimal((BaseDPS - dpss(EPStat))/xNode.InnerText))
+			End If
+		Next	
+		WriteReport("<hr width='80%' align='center' noshade ></hr>")
+		
+		
+		EpStat = ""
 	End Sub
 	Sub FakeResultBuilder
 		SimConstructor.DPSs.Add(6947,"ScaExp0")
@@ -1047,10 +1081,12 @@ Public Module SimConstructor
 			gr.DrawLine(pen,0,bmp.Height-i,bmp.Width,bmp.Height-i)
 			gr.DrawString((XSpace*i/10), new Font("Arial", 8,FontStyle.Regular ), SystemBrushes.WindowText, new Point( 10,bmp.Height-i ))
 		loop
-		
-		
-		
-	End sub
+	End Sub
+	
+	
+	
+	
+	
 	
 	
 End Module

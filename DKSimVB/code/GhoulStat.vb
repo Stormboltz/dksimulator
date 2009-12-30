@@ -23,7 +23,7 @@ Friend Class GhoulStat
 		sim.Ghoul.total = 0
 		sim.ghoul.TotalHit = 0
 		sim.ghoul.TotalCrit = 0
-'		If TalentUnholy.MasterOfGhouls Then 
+'		If sim.TalentUnholy.MasterOfGhouls Then 
 '			sim.Ghoul.ActiveUntil = sim.MaxTime
 '			sim.Ghoul.cd = sim.MaxTime
 '		Else
@@ -44,9 +44,9 @@ Friend Class GhoulStat
 	end function
 	Function Strength as integer
 		if sim.glyph.ghoul then
-				return 331 + (Character.Strength * (talentunholy.ravenousdead*0.7))+ (Character.Strength * .4) 
+				return 331 + (Character.Strength * (sim.talentunholy.ravenousdead*0.7))+ (Character.Strength * .4) 
 			else
-				return 331 + (Character.Strength * (talentunholy.ravenousdead*0.7))
+				return 331 + (Character.Strength * (sim.talentunholy.ravenousdead*0.7))
 		end if
 	end function
 	Function crit() As System.Double
@@ -67,7 +67,7 @@ Friend Class GhoulStat
 		Dim tmp As Double
 		tmp = Character.HasteRating / 32.79 / 100 'Haste change for 3.1 ?
 		tmp = tmp + sim.mainstat.UnholyPresence * 0.15
-		tmp = tmp + 0.05 * talentfrost.ImprovedIcyTalons
+		tmp = tmp + 0.05 * sim.TalentFrost.ImprovedIcyTalons
 		tmp = tmp + 0.2 *  sim.Buff.MeleeHaste
 		tmp = tmp + 0.03 *  sim.Buff.Haste
 		Haste = tmp
@@ -78,7 +78,7 @@ Friend Class GhoulStat
 			SpellHaste = 0.5
 		Else
 			tmp = Character.SpellHasteRating / 32.79 / 100
-			tmp = tmp + 0.05 * talentfrost.ImprovedIcyTalons
+			tmp = tmp + 0.05 * sim.TalentFrost.ImprovedIcyTalons
 			tmp = tmp + 0.05 *  sim.Buff.SpellHaste
 			tmp = tmp + 0.03 *  sim.Buff.Haste
 			SpellHaste = tmp

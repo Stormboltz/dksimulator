@@ -4,94 +4,53 @@ Friend Class PlagueStrike
 		MyBase.New(s)
 	End Sub
 	public Overrides Function ApplyDamage(T As Long) As Boolean
-		Dim MHHit As Boolean
-		Dim OHHit As Boolean
-		MHHit = True
-		OHHit = True
-		
-		
 		Dim RNG As Double
-		If sim.MainStat.UnholyPresence Then
-			Sim.NextFreeGCD = T + 100+ sim._MainFrm.txtLatency.Text/10
-		Else
-			Sim.NextFreeGCD = T + 150+ sim._MainFrm.txtLatency.Text/10
+		UseGCD(T)	
+	
+		If sim.MainStat.DualW And sim.TalentFrost.ThreatOfThassarian = 3 Then
+			if offhand=false then sim.OHPlagueStrike.ApplyDamage(T)
 		End If
 		
-		
-		If sim.MainStat.DualW And talentfrost.ThreatOfThassarian = 3 Then
-			'MH
-			If DoMyStrikeHit = false Then
-				MissCount = MissCount + 1
-				sim.combatlog.write(T  & vbtab &  "MH PS fail")
-				MHHit = False
-				OHHit=false
-			End If
-		Else
-			OHHit = false
-			If DoMyStrikeHit = false Then
-				MissCount = MissCount + 1
-				sim.combatlog.write(T  & vbtab &  "PS fail")
-				Exit function
-			End If
+		If DoMyStrikeHit = false Then
+			MissCount = MissCount + 1
+			sim.combatlog.write(T  & vbtab &  "PS fail")
+			Exit function
 		End If
-		
-		sim.proc.strife.tryme(t)
 		
 		Dim dégat As Integer
-		
-		If MHHit Or OHHit Then
-			RNG = MyRNG
-			If MHHit Then
-				RNG = MyRNG
-				If RNG <= CritChance Then
-					CritCount = CritCount + 1
-					dégat = AvrgCrit(T,true)
-					sim.combatlog.write(T  & vbtab &  "PS crit for " & dégat  )
-					sim.tryOnCrit
-					
-				Else
-					HitCount = HitCount + 1
-					dégat = AvrgNonCrit(T,true)
-					sim.combatlog.write(T  & vbtab &  "PS hit for " & dégat )
-				End If
-
-				total = total + dégat
-				sim.TryOnMHHitProc
-			End If
-			If OHHit Then
-				If RNG <= CritChance Then
-					dégat = AvrgCrit(T,false)
-					if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH PS crit for " & dégat  )
-					sim.tryOnCrit
-					
-				Else
-					dégat = AvrgNonCrit(T,false)
-					if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH PS hit for " & dégat )
-				End If
-
-				total = total + dégat
-				sim.TryOnOHHitProc
-			End If
+		RNG = MyRNG
+		If RNG <= CritChance Then
+			CritCount = CritCount + 1
+			dégat = AvrgCrit(T)
+			sim.combatlog.write(T  & vbtab &  "PS crit for " & dégat  )
+			sim.tryOnCrit
 			
-			
-			sim.runes.UseUnholy(T,False)
-			sim.BloodPlague.Apply(T)
-			
-			
-			If sim.DRW.IsActive(T) Then
-				sim.drw.PlagueStrike
-			End If
-			Sim.RunicPower.add (10 + TalentUnholy.Dirge * 2.5)
-			
-			
-			
-			Return True
+			totalcrit += dégat
+		Else
+			HitCount = HitCount + 1
+			dégat = AvrgNonCrit(T)
+			totalhit += dégat
+			sim.combatlog.write(T  & vbtab &  "PS hit for " & dégat )
 		End If
+		total = total + dégat
+		If OffHand = False Then
+			sim.TryOnMHHitProc
+			sim.runes.UseUnholy(T,False)
+			Sim.RunicPower.add (10 + sim.TalentUnholy.Dirge * 2.5)
+		Else
+			sim.TryOnOHHitProc
+		End If
+		sim.proc.strife.tryme(t)
+		sim.BloodPlague.Apply(T)
+		If sim.DRW.IsActive(T) Then
+			sim.drw.PlagueStrike
+		End If
+		Return True
 	End Function
-	public Overrides Function AvrgNonCrit(T As long, MH as Boolean) As Double
+	public Overrides Function AvrgNonCrit(T As long) As Double
 		Dim tmp As Double
 		
-		If MH Then
+		If OffHand = False Then
 			tmp = sim.MainStat.NormalisedMHDamage * 0.5
 		Else
 			tmp = sim.MainStat.NormalisedOHDamage * 0.5
@@ -99,27 +58,27 @@ Friend Class PlagueStrike
 		
 		tmp = tmp + 189
 		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
-		tmp = tmp * (1 + TalentUnholy.Outbreak * 10 / 100)
+		tmp = tmp * (1 + sim.TalentUnholy.Outbreak * 10 / 100)
 		If sim.glyph.PlagueStrike Then tmp = tmp * (1.2)
-		If MH=false Then
+		If OffHand  Then
 			tmp = tmp * 0.5
-			tmp = tmp * (1 + TalentFrost.NervesofColdSteel * 5 / 100)
+			tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 5 / 100)
 		End If
 		AvrgNonCrit = tmp
 	End Function
 	public Overrides Function CritCoef() As Double
-		CritCoef = (1 + TalentUnholy.ViciousStrikes * 15 / 100)
+		CritCoef = (1 + sim.TalentUnholy.ViciousStrikes * 15 / 100)
 		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
 	public Overrides Function CritChance() As Double
 		Dim tmp As Double
 		
-		tmp = sim.MainStat.crit + TalentUnholy.ViciousStrikes * 3 / 100 + sim.MainStat.T72PTNK*0.1
+		tmp = sim.MainStat.crit + sim.TalentUnholy.ViciousStrikes * 3 / 100 + sim.MainStat.T72PTNK*0.1
 		
 		return tmp
 	End Function
-	public Overrides Function AvrgCrit(T As long, MH as Boolean) As Double
-		AvrgCrit = AvrgNonCrit(T, MH) * (1 + CritCoef)
+	public Overrides Function AvrgCrit(T As long) As Double
+		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 	
 end Class
