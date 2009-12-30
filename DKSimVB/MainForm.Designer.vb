@@ -271,6 +271,7 @@ Partial Class MainForm
 		Me.chkScaStr = New System.Windows.Forms.CheckBox
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.cmdRngSeeder = New System.Windows.Forms.Button
+		Me.chkAccelerators = New System.Windows.Forms.CheckBox
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -1207,6 +1208,7 @@ Partial Class MainForm
 		Me.gbMisc.Controls.Add(Me.chkTailorEnchant)
 		Me.gbMisc.Controls.Add(Me.chkMeta)
 		Me.gbMisc.Controls.Add(Me.chkAshenBand)
+		Me.gbMisc.Controls.Add(Me.chkAccelerators)
 		Me.gbMisc.Controls.Add(Me.chkIngenieer)
 		Me.gbMisc.Location = New System.Drawing.Point(11, 495)
 		Me.gbMisc.Name = "gbMisc"
@@ -1235,7 +1237,7 @@ Partial Class MainForm
 		'
 		'chkAshenBand
 		'
-		Me.chkAshenBand.Location = New System.Drawing.Point(400, 19)
+		Me.chkAshenBand.Location = New System.Drawing.Point(499, 19)
 		Me.chkAshenBand.Name = "chkAshenBand"
 		Me.chkAshenBand.Size = New System.Drawing.Size(208, 24)
 		Me.chkAshenBand.TabIndex = 26
@@ -1244,7 +1246,7 @@ Partial Class MainForm
 		'
 		'chkIngenieer
 		'
-		Me.chkIngenieer.Location = New System.Drawing.Point(230, 19)
+		Me.chkIngenieer.Location = New System.Drawing.Point(229, 14)
 		Me.chkIngenieer.Name = "chkIngenieer"
 		Me.chkIngenieer.Size = New System.Drawing.Size(173, 24)
 		Me.chkIngenieer.TabIndex = 26
@@ -2764,6 +2766,15 @@ Partial Class MainForm
 		Me.cmdRngSeeder.UseVisualStyleBackColor = true
 		AddHandler Me.cmdRngSeeder.Click, AddressOf Me.CmdRngSeederClick
 		'
+		'chkAccelerators
+		'
+		Me.chkAccelerators.Location = New System.Drawing.Point(230, 34)
+		Me.chkAccelerators.Name = "chkAccelerators"
+		Me.chkAccelerators.Size = New System.Drawing.Size(173, 24)
+		Me.chkAccelerators.TabIndex = 26
+		Me.chkAccelerators.Text = "Hyperspeed Accelerators"
+		Me.chkAccelerators.UseVisualStyleBackColor = true
+		'
 		'MainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
@@ -2815,6 +2826,7 @@ Partial Class MainForm
 		Me.gbScaling.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Private chkAccelerators As System.Windows.Forms.CheckBox
 	Friend chkBloodSync As System.Windows.Forms.CheckBox
 	Private cmdStartTalentDpsValue As System.Windows.Forms.Button
 	Private chkAshenBand As System.Windows.Forms.CheckBox

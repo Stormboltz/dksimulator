@@ -117,6 +117,11 @@ Friend Class MainStat
 			If XmlDoc.SelectSingleNode("//character/misc/HandMountedPyroRocket").InnerText= True Then
 				sim.trinkets.HandMountedPyroRocket.Equip
 			End If
+			
+			If XmlDoc.SelectSingleNode("//character/misc/HyperspeedAccelerators").InnerText= True Then
+				sim.trinkets.HyperspeedAccelerators.Equip
+			End If
+
 			If XmlDoc.SelectSingleNode("//character/misc/TailorEnchant").InnerText= True Then
 				sim.trinkets.TailorEnchant.Equip
 			End If
@@ -355,45 +360,45 @@ Friend Class MainStat
 	
 	Function Expertise() As Double
 		Dim tmp As Double
+		
 		tmp = Character.ExpertiseRating / 32.79
-		dim str as String
-		tmp = tmp + 0.25 * sim.TalentBlood.Vot3W*2
-		tmp = tmp + 0.25 * sim.TalentFrost.TundraStalker
-		tmp = tmp + 0.25 * sim.TalentUnholy.RageofRivendare
-		str = sim.EPStat
-		If strings.InStr(sim.EPStat,"EP ")<> 0 Then
-			tmp = 6.5 'For most EP stats we assume being exp capped
-		End If
-		If sim.EPStat="EP ExpertiseRating" Then tmp = 6.5 - sim.EPBase / 32.79
-		If sim.EPStat="EP ExpertiseRatingAfterCap" Then tmp = 6.5 + sim.EPBase / 32.79
-		If InStr(sim.EPStat,"ScaExp") Then
-			If InStr(sim.EPStat,"ScaExpA") Then
-				tmp = tmp +  Replace(sim.EPStat,"ScaExpA","") * sim.EPBase /  32.79
-			Else
-				tmp =  Replace(sim.EPStat,"ScaExp","") * sim.EPBase /  32.79
-			End If
-		End If
+		tmp += 0.25 * sim.TalentBlood.Vot3W*2
+		tmp += 0.25 * sim.TalentFrost.TundraStalker
+		tmp += 0.25 * sim.TalentUnholy.RageofRivendare
+		
+		Select Case Sim.EPStat
+			Case ""
+			Case "EP ExpertiseRating"
+				tmp = 6.5 - sim.EPBase / 32.79
+			Case "EP ExpertiseRatingCap"
+				tmp = 6.5
+			Case "EP ExpertiseRatingCapAP"
+				tmp = 6.5
+			Case "EP ExpertiseRatingAfterCap"
+				tmp = 6.5 + sim.EPBase / 32.79
+			Case Else
+				If InStr(sim.EPStat,"ScaExp") Then
+					If InStr(sim.EPStat,"ScaExpA") Then
+						tmp = tmp +  Replace(sim.EPStat,"ScaExpA","") * sim.EPBase /  32.79
+					Else
+						tmp =  Replace(sim.EPStat,"ScaExp","") * sim.EPBase /  32.79
+					End If
+				End If
+		End Select
+
 		return  tmp / 100
 	End Function
 	Function Hit() As Double
 		Dim tmp As Double
 		tmp = (Character.HitRating / 32.79)
-		If DualW Then tmp = tmp + 1 * sim.TalentFrost.NervesofColdSteel
-		
-		If strings.InStr(sim.EPStat,"EP ")<> 0 Then tmp = 8 'For most EP stats we assume being hit capped
-		If sim.EPStat="EP HitRating" Then tmp = 8 - sim.EPBase / 32.79
-		If sim.EPStat="EP SpellHitRating" Then tmp = 8 + 26 / 32.79  ' +26 to not go over spell hit cap
-		If sim.EPStat="EP AfterSpellHitBase" Then tmp = SpellHitCapRating / 32.79
-		If sim.EPStat="EP AfterSpellHitBaseAP" Then tmp = SpellHitCapRating / 32.79
-		If sim.EPStat="EP AfterSpellHitRating" Then tmp = (SpellHitCapRating + sim.EPBase) / 32.79
-		If strings.InStr(sim.EPStat,"EP ") = 0 Then tmp = tmp + sim.Buff.Draenei
-		If InStr(sim.EPStat,"ScaHit") Then
-			If InStr(sim.EPStat,"ScaHitA") Then
-				tmp = tmp + Replace(sim.EPStat,"ScaHitA","") * sim.EPBase / 32.79
-			Else
-				tmp = Replace(sim.EPStat,"ScaHit","") * sim.EPBase / 32.79
-			end if
-			tmp = tmp + sim.Buff.Draenei
+		If DualW Then tmp += sim.TalentFrost.NervesofColdSteel
+
+		If instr(sim.EPStat,"EP ")=0 Then
+			If instr(sim.EPStat,"Hit")=0 Then
+				tmp += sim.Buff.Draenei	
+			End If
+		Else
+			tmp += sim.Buff.Draenei	
 		End If
 		Hit = tmp / 100
 	End Function
@@ -411,24 +416,19 @@ Friend Class MainStat
 	
 	Function SpellHit() As Double
 		Dim tmp As Double
-		dim MeleHitCapRating as Integer
 		tmp = Character.SpellHitRating / 26.23
-		If  strings.InStr(sim.EPStat,"EP ")<> 0 Then
-			MeleHitCapRating = 263 - 32.79 * sim.TalentFrost.NervesofColdSteel
-			tmp = MeleHitCapRating / 26.23
-			If sim.EPStat="EP HitRating" Then tmp = MeleHitCapRating / 26.23 - sim.EPBase / 26.23
-			If sim.EPStat="EP SpellHitRating" Then tmp = MeleHitCapRating / 26.23 + 26 / 26.23
-			
-			If sim.EPStat="EP AfterSpellHitBase" Then tmp = SpellHitCapRating / 26.23
-			If sim.EPStat="EP AfterSpellHitBaseAP" Then tmp = SpellHitCapRating / 26.23
-			If sim.EPStat="EP AfterSpellHitRating" Then tmp = (SpellHitCapRating + sim.EPBase) / 26.23
+		If instr(sim.EPStat,"EP ")=0 Then
+			If instr(sim.EPStat,"Hit")=0 Then
+				tmp += sim.Buff.Draenei	
+			End If
 		Else
-			tmp = tmp + sim.Buff.Draenei
+			tmp += sim.Buff.Draenei	
 		End If
-		tmp = tmp + 1 * sim.TalentUnholy.Virulence
-		tmp = tmp +  sim.Buff.SpellHitTaken * 3
+		tmp += 1 * sim.TalentUnholy.Virulence
+		tmp += sim.Buff.SpellHitTaken * 3
 		SpellHit = tmp / 100
 	End Function
+	
 	Function NormalisedMHDamage() As Double
 		Dim tmp As Double
 		tmp =  MHWeaponSpeed * MHWeaponDPS
@@ -487,53 +487,11 @@ Friend Class MainStat
 		
 		Dim retour As Double
 		retour = A/(A+B*(1-(z*x+y)+B/(A+B)*x*(1-y)*z))
-		
-		
-		
-		'(tmp = tmp * (1 - ArmorPen / 100)
-		'%Reduction = (Armor / ([467.5 * Enemy_Level] + Armor - 22167.5)) * 100
-		' tmp = (tmp /((467.5*83)+tmp-22167.5))
-		
 		Return (1.0 - Math.max(0.0, retour))
 	End Function
-'	function getMitigation() as Double
-'		dim l_bossArmor as double
-'		dim l_constant as double  = 15232.5
-'		l_bossArmor = 10643
-'
-'		Dim l_personalArpPercent As Double = ArmorPen
-'		'l_personalArpPercent = l_personalArpPercent + (TalentBlood.BloodGorged * 2 / 100)
-'		If l_personalArpPercent > 1 Then l_personalArpPercent = 1
-'
-'		dim l_debuffPercent as double = 0.0
-'		dim l_sunder as double = 1.0
-'		dim l_ff  as double = 1.0
-'		if   sim.Buff.ArmorMajor > 0 then l_sunder = 1- 0.20
-'		If  sim.Buff.ArmorMinor > 0 Then l_ff = 1 - 0.05
-'		l_debuffPercent = 1 - (l_sunder * l_ff)
-'
-'		dim l_tempA as double = l_constant + l_bossArmor * (1.0 - l_debuffPercent)
-'		dim l_termA  as double = (((1.0 - l_debuffPercent) * l_bossArmor + l_constant) / 3.0)
-'		dim l_termB  as double = l_bossArmor * (1.0 - l_debuffPercent)
-'		dim l_tempB  as double
-'
-'		if (l_termA < l_termB) then
-'			l_tempB = l_termA * l_personalArpPercent
-'		else
-'			l_tempB = l_termB * l_personalArpPercent
-'		end if
-'
-'		Dim l_answer  As Double = l_constant / (l_tempA - l_tempB)
-''		dim l_answer2 as Double = GetArmorDamageReduction
-''		debug.Print ("Methode 1 give "		& l_answer)
-''		debug.Print ("Methode 2 give "		& l_answer2)
-'		Return l_answer
-'	End Function
-	
+
 
 	Function getMitigation() As Double
-		'If _LastArP = ArmorPen and _Mitigation <>0 Then Return _Mitigation
-
 		Dim AttackerLevel As Integer = 80
 		Dim tmpArmor As Integer
 		Dim ArPDebuffs As Double

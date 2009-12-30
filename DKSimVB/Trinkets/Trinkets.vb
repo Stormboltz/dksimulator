@@ -36,6 +36,9 @@ Public Class Trinkets
 	Friend OHRagingDeathbringer As Trinket
 	
 	Friend HandMountedPyroRocket As Trinket
+	Friend HyperspeedAccelerators as Trinket
+	
+	
 	Friend TailorEnchant As Trinket
 	Friend MHRazorIce As Trinket
 	Friend OHRazorIce As Trinket
@@ -379,6 +382,21 @@ Public Class Trinkets
 		 	.Name = "Hand Mounted Pyro Rocket"
 		 	.ProcOn = procs.ProcOnType.Ondamage
 		End With
+		
+		HyperspeedAccelerators = New Trinket(s)
+		With HyperspeedAccelerators
+			.ProcChance = 0.5
+		 	.ProcLenght = 12
+		 	.ProcValue = 340
+		 	.InternalCD = 60
+		  	.ProcType="haste"
+		 	.Name = "Hyperspeed Accelerators"
+		 	.ProcOn = procs.ProcOnType.Onhit
+		End With
+		
+		
+		
+		
 		
 		TailorEnchant = New Trinket(s)
 		With TailorEnchant

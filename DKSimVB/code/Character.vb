@@ -155,20 +155,60 @@ Friend Class Character
 	Function AttackPower() As Integer
 		Dim tmp As Integer
 		tmp = _AttackPower
-		If sim.EPStat="EP AttackPower" Then tmp = tmp+100
-		If sim.EPStat="EP AttackPower0T7" Then tmp = tmp+100
-		If sim.EPStat="EP AttackPowerNoTrinket" Then tmp = tmp+100
-		If sim.EPStat="EP AfterSpellHitBaseAP" Then tmp = tmp+100
+		Select Case sim.EPStat
+			Case "EP AttackPower"
+				tmp = tmp+100
+			Case "EP AttackPower0T7"
+				tmp = tmp+100
+			Case "EP AttackPowerNoTrinket"
+				tmp = tmp+100
+			Case "EP AfterSpellHitBaseAP"
+				tmp = tmp+100
+			Case "EP ExpertiseRatingCapAP"
+				tmp = tmp+100
+			Case "EP HitRatingCapAP"
+				tmp = tmp+100
+			Case else
+		End Select
 		tmp = tmp + int(Armor/180)*sim.talentblood.BladedArmor
-		tmp = tmp + 687 *  sim.Buff.AttackPower
+		tmp = tmp + 687 * sim.Buff.AttackPower
 		return tmp
 	End Function
 	
 	Function HitRating() As Integer
 		Dim tmp As Integer
 		tmp = _HitRating
+		Select Case sim.EPStat
+			Case "EP HitRating"
+				tmp = 263 - sim.TalentFrost.NervesofColdSteel*32.79 - sim.EPBase 
+			Case "EP HitRatingCap"
+				tmp = 263 - sim.TalentFrost.NervesofColdSteel*32.79
+			Case "EP HitRatingCapAP"
+				tmp = 263 - sim.TalentFrost.NervesofColdSteel*32.79
+			Case "EP SpellHitRating"
+				tmp = 263 - sim.TalentFrost.NervesofColdSteel*32.79 + 26
+			Case "EP AfterSpellHitBase"
+				tmp = sim.MainStat.SpellHitCapRating
+			Case "EP AfterSpellHitBaseAP"
+				tmp = sim.MainStat.SpellHitCapRating
+			Case "EP AfterSpellHitRating"
+				tmp = sim.MainStat.SpellHitCapRating + sim.EPBase
+			Case ""
+			Case Else
+				If InStr(sim.EPStat,"ScaHit") Then
+					If InStr(sim.EPStat,"ScaHitA") Then
+						tmp += Replace(sim.EPStat,"ScaHitA","") * sim.EPBase
+					Else
+						tmp = Replace(sim.EPStat,"ScaHit","") * sim.EPBase
+					end if
+				End If
+		End Select
 		Return tmp
 	End Function
+	
+	
+	
+	
 	
 	Function CritRating() As Integer
 		Dim tmp As Integer

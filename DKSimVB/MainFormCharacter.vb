@@ -79,6 +79,7 @@ Public Partial Class MainForm
 		Next
 		
 		chkIngenieer.Checked = XmlDoc.SelectSingleNode("//character/misc/HandMountedPyroRocket").InnerText
+		chkAccelerators.Checked = XmlDoc.SelectSingleNode("//character/misc/HyperspeedAccelerators").InnerText
 		chkMeta.Checked = XmlDoc.SelectSingleNode("//character/misc/ChaoticSkyflareDiamond").InnerText
 		chkTailorEnchant.Checked = XmlDoc.SelectSingleNode("//character/misc/TailorEnchant").InnerText
 		
@@ -340,6 +341,10 @@ Public Partial Class MainForm
 		xElem.InnerText = chkIngenieer.Checked
 		xMisc.AppendChild(xElem)
 		
+		xElem = xmlDoc.CreateNode(xml.XmlNodeType.Element, "HyperspeedAccelerators", "")
+		xElem.InnerText = chkAccelerators.Checked
+		xMisc.AppendChild(xElem)
+	
 		xElem = xmlDoc.CreateNode(xml.XmlNodeType.Element, "ChaoticSkyflareDiamond", "")
 		xElem.InnerText = chkMeta.Checked
 		xMisc.AppendChild(xElem)
