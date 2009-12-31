@@ -46,8 +46,23 @@ Public Partial Class MainForm
 		dim node as XmlNode
 		AvailablePrio.Clear
 		Doc.Load(Application.StartupPath & "\config\PrioritiesList.xml")
+		
+		dim btn as PrioButton
+		Dim i As Integer
+		on error resume next
+		
 		For Each node In doc.SelectSingleNode("//Priorities").ChildNodes
+			
 			AvailablePrio.Add(node.Name)
+			
+			btn = New PrioButton
+			Me.grpAvailablePrio.Controls.Add(btn)
+			btn.init
+			btn.Top = 10+ 40 * i
+			i += 1
+			btn.lbl.Text = node.Name
+			btn.button.Image = new Bitmap("images\spell\" & node.Name & ".jpg")
+			btn.button.ImageAlign = System.Drawing.ContentAlignment.MiddleCenter
 		Next
 		
 	End Sub
@@ -90,11 +105,24 @@ Public Partial Class MainForm
 		LoadAvailablePrio
 		Doc.Load(Filepath)
 		
-		dim Nod as Xml.XmlNode
-		dim cmbx as ComboBox
-		For Each Nod In Doc.SelectSingleNode("//Priority").ChildNodes
+		dim Node as Xml.XmlNode
+		Dim cmbx As ComboBox
+		dim btn as PrioButton
+		Dim i As Integer
+
+		For Each Node In Doc.SelectSingleNode("//Priority").ChildNodes
 			cmbx = CreateCombobox("")
-			cmbx.SelectedItem =Nod.Name
+			cmbx.SelectedItem =Node.Name
+			
+			btn = New PrioButton
+			Me.grpCurrentPrio.Controls.Add(btn)
+			btn.init
+			btn.Top = 10+ 40 * i
+			i += 1
+			btn.lbl.Text = node.Name
+			btn.button.Image = new Bitmap("images\spell\" & node.Name & ".jpg")
+			btn.button.ImageAlign = System.Drawing.ContentAlignment.MiddleCenter
+			
 		Next
 		EditType = "prio"
 	End Sub

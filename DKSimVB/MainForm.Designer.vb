@@ -122,6 +122,7 @@ Partial Class MainForm
 		Me.chkTailorEnchant = New System.Windows.Forms.CheckBox
 		Me.chkMeta = New System.Windows.Forms.CheckBox
 		Me.chkAshenBand = New System.Windows.Forms.CheckBox
+		Me.chkAccelerators = New System.Windows.Forms.CheckBox
 		Me.chkIngenieer = New System.Windows.Forms.CheckBox
 		Me.gbSetBonus = New System.Windows.Forms.GroupBox
 		Me.cmbSetBonus2 = New System.Windows.Forms.ComboBox
@@ -269,9 +270,11 @@ Partial Class MainForm
 		Me.chkScaCrit = New System.Windows.Forms.CheckBox
 		Me.chkScaAgility = New System.Windows.Forms.CheckBox
 		Me.chkScaStr = New System.Windows.Forms.CheckBox
+		Me.TabPrio2 = New System.Windows.Forms.TabPage
+		Me.grpCurrentPrio = New System.Windows.Forms.GroupBox
+		Me.grpAvailablePrio = New System.Windows.Forms.GroupBox
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.cmdRngSeeder = New System.Windows.Forms.Button
-		Me.chkAccelerators = New System.Windows.Forms.CheckBox
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -298,6 +301,7 @@ Partial Class MainForm
 		Me.tbPrioEditor.SuspendLayout
 		Me.tbCaling.SuspendLayout
 		Me.gbScaling.SuspendLayout
+		Me.TabPrio2.SuspendLayout
 		Me.SuspendLayout
 		'
 		'btStart
@@ -1066,6 +1070,7 @@ Partial Class MainForm
 		Me.tabControl1.Controls.Add(Me.tbPrioEditor)
 		Me.tabControl1.Controls.Add(Me.tbCaling)
 		Me.tabControl1.Controls.Add(Me.tabPage1)
+		Me.tabControl1.Controls.Add(Me.TabPrio2)
 		Me.tabControl1.Location = New System.Drawing.Point(0, 0)
 		Me.tabControl1.Name = "tabControl1"
 		Me.tabControl1.SelectedIndex = 0
@@ -1243,6 +1248,15 @@ Partial Class MainForm
 		Me.chkAshenBand.TabIndex = 26
 		Me.chkAshenBand.Text = "Ashen Band of Endless Vengeance"
 		Me.chkAshenBand.UseVisualStyleBackColor = true
+		'
+		'chkAccelerators
+		'
+		Me.chkAccelerators.Location = New System.Drawing.Point(230, 34)
+		Me.chkAccelerators.Name = "chkAccelerators"
+		Me.chkAccelerators.Size = New System.Drawing.Size(173, 24)
+		Me.chkAccelerators.TabIndex = 26
+		Me.chkAccelerators.Text = "Hyperspeed Accelerators"
+		Me.chkAccelerators.UseVisualStyleBackColor = true
 		'
 		'chkIngenieer
 		'
@@ -2755,6 +2769,39 @@ Partial Class MainForm
 		Me.chkScaStr.Text = "Add Strength"
 		Me.chkScaStr.UseVisualStyleBackColor = true
 		'
+		'TabPrio2
+		'
+		Me.TabPrio2.AutoScroll = true
+		Me.TabPrio2.Controls.Add(Me.grpCurrentPrio)
+		Me.TabPrio2.Controls.Add(Me.grpAvailablePrio)
+		Me.TabPrio2.Location = New System.Drawing.Point(4, 22)
+		Me.TabPrio2.Name = "TabPrio2"
+		Me.TabPrio2.Size = New System.Drawing.Size(776, 566)
+		Me.TabPrio2.TabIndex = 14
+		Me.TabPrio2.Text = "Beta"
+		Me.TabPrio2.UseVisualStyleBackColor = true
+		'
+		'grpCurrentPrio
+		'
+		Me.grpCurrentPrio.AutoSize = true
+		Me.grpCurrentPrio.Location = New System.Drawing.Point(67, 15)
+		Me.grpCurrentPrio.Name = "grpCurrentPrio"
+		Me.grpCurrentPrio.Size = New System.Drawing.Size(232, 533)
+		Me.grpCurrentPrio.TabIndex = 1
+		Me.grpCurrentPrio.TabStop = false
+		Me.grpCurrentPrio.Text = "Current"
+		'
+		'grpAvailablePrio
+		'
+		Me.grpAvailablePrio.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.grpAvailablePrio.AutoSize = true
+		Me.grpAvailablePrio.Location = New System.Drawing.Point(519, 15)
+		Me.grpAvailablePrio.Name = "grpAvailablePrio"
+		Me.grpAvailablePrio.Size = New System.Drawing.Size(232, 533)
+		Me.grpAvailablePrio.TabIndex = 0
+		Me.grpAvailablePrio.TabStop = false
+		Me.grpAvailablePrio.Text = "Available"
+		'
 		'cmdRngSeeder
 		'
 		Me.cmdRngSeeder.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
@@ -2765,15 +2812,6 @@ Partial Class MainForm
 		Me.cmdRngSeeder.Text = "Change RNG Seed."
 		Me.cmdRngSeeder.UseVisualStyleBackColor = true
 		AddHandler Me.cmdRngSeeder.Click, AddressOf Me.CmdRngSeederClick
-		'
-		'chkAccelerators
-		'
-		Me.chkAccelerators.Location = New System.Drawing.Point(230, 34)
-		Me.chkAccelerators.Name = "chkAccelerators"
-		Me.chkAccelerators.Size = New System.Drawing.Size(173, 24)
-		Me.chkAccelerators.TabIndex = 26
-		Me.chkAccelerators.Text = "Hyperspeed Accelerators"
-		Me.chkAccelerators.UseVisualStyleBackColor = true
 		'
 		'MainForm
 		'
@@ -2824,8 +2862,13 @@ Partial Class MainForm
 		Me.tbPrioEditor.ResumeLayout(false)
 		Me.tbCaling.ResumeLayout(false)
 		Me.gbScaling.ResumeLayout(false)
+		Me.TabPrio2.ResumeLayout(false)
+		Me.TabPrio2.PerformLayout
 		Me.ResumeLayout(false)
 	End Sub
+	Private grpCurrentPrio As System.Windows.Forms.GroupBox
+	Private grpAvailablePrio As System.Windows.Forms.GroupBox
+	Private TabPrio2 As System.Windows.Forms.TabPage
 	Private chkAccelerators As System.Windows.Forms.CheckBox
 	Friend chkBloodSync As System.Windows.Forms.CheckBox
 	Private cmdStartTalentDpsValue As System.Windows.Forms.Button

@@ -45,7 +45,6 @@ Partial Class Form1
 		Me.textBox1.Name = "textBox1"
 		Me.textBox1.Size = New System.Drawing.Size(340, 20)
 		Me.textBox1.TabIndex = 0
-
 		'
 		'label1
 		'
@@ -61,7 +60,7 @@ Partial Class Form1
 		Me.label2.Name = "label2"
 		Me.label2.Size = New System.Drawing.Size(340, 18)
 		Me.label2.TabIndex = 2
-		Me.label2.Text = "Input the new file name and press enter"
+		Me.label2.Text = "Input the new file name "
 		'
 		'btOk
 		'
@@ -85,7 +84,6 @@ Partial Class Form1
 		Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow
 		Me.Name = "Form1"
 		Me.Text = "?"
-
 		Me.ResumeLayout(false)
 		Me.PerformLayout
 	End Sub

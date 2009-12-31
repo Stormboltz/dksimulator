@@ -6,6 +6,11 @@
 * EP Calculation: Hit and expertise are modified only to calculate their respective value.
 * Hyperspeed Accelerators implemented
 
+
+
+
+
+
 1.1.8.5 Release notes
 * Deathbringers Will 3rd proc on frost spec is ArP
 * Bryntroll proc implemented

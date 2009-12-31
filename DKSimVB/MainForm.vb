@@ -118,6 +118,7 @@ Public Partial Class MainForm
 		tr.Close
 		tabControl1.SelectedIndex = 8
 		OpenPrioForEdit(EditorFilePAth)
+		
 		errH:
 		
 	End Sub
