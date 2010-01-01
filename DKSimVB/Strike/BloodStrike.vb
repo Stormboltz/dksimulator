@@ -21,7 +21,7 @@ Friend class BloodStrike
 			MissCount  += 1
 			return false
 		End If
-		If sim._MainFrm.chkBloodSync.Checked Then
+		If sim.KeepBloodSync Then
 			If sim.BloodToSync = True Then
 				sim.BloodToSync  = False
 			Else
@@ -103,5 +103,19 @@ public Overrides Function AvrgCrit(T as long) As Double
 	AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 End Function
 
+
+	Public Overrides sub Merge()
+		Total += sim.OHBloodStrike.Total
+		TotalHit += sim.OHBloodStrike.TotalHit
+		TotalCrit += sim.OHBloodStrike.TotalCrit
+
+		MissCount = (MissCount + sim.OHBloodStrike.MissCount)/2
+		HitCount = (HitCount + sim.OHBloodStrike.HitCount)/2
+		CritCount = (CritCount + sim.OHBloodStrike.CritCount)/2
+		
+		sim.OHBloodStrike.Total = 0
+		sim.OHBloodStrike.TotalHit = 0
+		sim.OHBloodStrike.TotalCrit = 0
+	End sub
 
 End Class

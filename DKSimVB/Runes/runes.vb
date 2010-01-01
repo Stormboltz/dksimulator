@@ -106,7 +106,7 @@ Friend Class runes
 	
 	
 	Function RuneRefreshtime As Integer
-		If sim.mainstat.UnholyPresence Then
+		If sim.UnholyPresence Then
 			return 1000 - 50*sim.talentunholy.ImprovedUnholyPresence
 		Else
 			return 1000
@@ -630,10 +630,10 @@ Friend Class runes
 	
 	Function RuneRefreshTheNextGCD(T as long) As Boolean
 		Dim tmp As Long
-		If sim.MainStat.UnholyPresence Then
-			tmp = T + 100+ sim._MainFrm.txtLatency.Text/10
+		If sim.UnholyPresence Then
+			tmp = T + 100+ sim.latency/10
 		Else
-			tmp = T + 150+ sim._MainFrm.txtLatency.Text/10
+			tmp = T + 150+ sim.latency/10
 		End If
 		If BloodRune1.AvailableTime < tmp Then return false
 		If BloodRune2.AvailableTime < tmp Then return false

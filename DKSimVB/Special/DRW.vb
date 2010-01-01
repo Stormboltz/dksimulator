@@ -121,8 +121,11 @@ Friend Class DRW
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 	sub UseGCD(T as Long)
-		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste)) + sim._MainFrm.txtLatency.Text/10
-	End sub
+		Sim.NextFreeGCD = T + (150 / (1 + sim.latency)) + sim.latency/10
+	End Sub
+	Sub Merge()
+		
+	End Sub
 	Function PhysicalDamageMultiplier(T as long) As Double
 		dim tmp as Double
 		tmp = 1

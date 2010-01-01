@@ -11,6 +11,10 @@ Public Class RuneStrike
 	
 	Friend trigger as Boolean
 	
+	
+	
+	
+	
 	Sub New(S As sim )
 		MyBase.New(s)
 		sim = S
@@ -113,6 +117,20 @@ Public Class RuneStrike
 		return AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 	
+
+	Public Overrides sub Merge()
+		Total += sim.OHRuneStrike.Total
+		TotalHit += sim.OHRuneStrike.TotalHit
+		TotalCrit += sim.OHRuneStrike.TotalCrit
+
+		MissCount = (MissCount + sim.OHRuneStrike.MissCount)/2
+		HitCount = (HitCount + sim.OHRuneStrike.HitCount)/2
+		CritCount = (CritCount + sim.OHRuneStrike.CritCount)/2
+		
+		sim.OHRuneStrike.Total = 0
+		sim.OHRuneStrike.TotalHit = 0
+		sim.OHRuneStrike.TotalCrit = 0
+	End sub
 
 End Class
 

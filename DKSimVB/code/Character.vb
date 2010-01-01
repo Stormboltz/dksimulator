@@ -144,7 +144,7 @@ Friend Class Character
 		tmp = tmp - tmp2
 		tmp = tmp + (750 * 1.4  *  sim.Buff.StatAdd)
 		tmp = tmp * (1 + sim.TalentFrost.Toughness * 0.02)
-		If sim.MainStat.FrostPresence = 1 Then
+		If sim.FrostPresence = 1 Then
 			tmp = tmp * 1.6
 		End If
 		if sim.UnbreakableArmor.isActive then tmp = tmp * 1.25

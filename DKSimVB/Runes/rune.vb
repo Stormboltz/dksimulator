@@ -33,7 +33,7 @@ Public Class rune
 	End Sub
 
 	Function RuneRefreshtime As Integer
-		If sim.mainstat.UnholyPresence Then
+		If sim.UnholyPresence Then
 			return 1000 - 50*sim.talentunholy.ImprovedUnholyPresence
 		Else
 			return 1000

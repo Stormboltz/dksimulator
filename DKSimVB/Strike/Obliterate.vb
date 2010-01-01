@@ -16,7 +16,7 @@ Friend Class Obliterate
 	
 	public Overrides Function ApplyDamage(T As Long) As Boolean
 		Dim RNG As Double
-		UseGCD(T)	
+		UseGCD(T)
 		RNG = MyRNG
 		
 		If sim.MainStat.DualW And sim.TalentFrost.ThreatOfThassarian = 3 Then
@@ -124,6 +124,22 @@ Friend Class Obliterate
 	public Overrides Function AvrgCrit(T As long) As Double
 		return AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
+	
+
+	
+	Public Overrides sub Merge()
+		Total += sim.OHObliterate.Total
+		TotalHit += sim.OHObliterate.TotalHit
+		TotalCrit += sim.OHObliterate.TotalCrit
+
+		MissCount = (MissCount + sim.OHObliterate.MissCount)/2
+		HitCount = (HitCount + sim.OHObliterate.HitCount)/2
+		CritCount = (CritCount + sim.OHObliterate.CritCount)/2
+		
+		sim.OHObliterate.Total = 0
+		sim.OHObliterate.TotalHit = 0
+		sim.OHObliterate.TotalCrit = 0
+	End Sub
 	
 	
 End class

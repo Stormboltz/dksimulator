@@ -1,15 +1,14 @@
-﻿1.1.9 Release notes
+﻿1.2 Release notes
 * Better reporting.
 * DPS Value for talents. Check Template Editor tab.
 * Correction on Killing machine that would proc too much since 1.1.8.4
 * New option tell the sim to keep Blood Runes synchronised.
 * EP Calculation: Hit and expertise are modified only to calculate their respective value.
 * Hyperspeed Accelerators implemented
-
-
-
-
-
+* The sim should no more crach if no intro is selected.
+* Option to merge or not in the report Main Hand/Off hand Strikes, Scourge strike...
+* Option to add a title to the report.
+* Prio/Rotation Editor a lot more user friendly.
 
 1.1.8.5 Release notes
 * Deathbringers Will 3rd proc on frost spec is ArP

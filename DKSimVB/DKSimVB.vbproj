@@ -54,6 +54,7 @@
     <Import Include="System.Diagnostics" />
     <Import Include="System.Drawing" />
     <Import Include="System.Windows.Forms" />
+    <Compile Include="code\Supertype.vb" />
     <Compile Include="MainFormCharacter.vb">
       <DependentUpon>MainForm.vb</DependentUpon>
     </Compile>
@@ -111,6 +112,7 @@
     <Folder Include="Characters" />
     <Folder Include="Diseases" />
     <Folder Include="images" />
+    <Folder Include="images\icons" />
     <Folder Include="images\spell" />
     <Folder Include="Intro" />
     <Folder Include="Config" />
@@ -437,6 +439,18 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="images\IBloodPresenceG.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="images\icons\add.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="images\icons\down.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="images\icons\remove.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="images\icons\up.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="images\IcyReach.jpg">
@@ -815,6 +829,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Release notes.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Rotation\Unholy-Reaping.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Rotation\Unholy-ReapingLess.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Rotation\unholy.xml">

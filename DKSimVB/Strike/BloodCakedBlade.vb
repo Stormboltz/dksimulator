@@ -55,4 +55,18 @@ Sub New(S As sim)
 	public Overrides Function AvrgCrit(T as long) As Double
 		return AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
+	
+	Public Overrides sub Merge()
+		Total += sim.OHBloodCakedBlade.Total
+		TotalHit += sim.OHBloodCakedBlade.TotalHit
+		TotalCrit += sim.OHBloodCakedBlade.TotalCrit
+
+		MissCount = (MissCount + sim.OHBloodCakedBlade.MissCount)/2
+		HitCount = (HitCount + sim.OHBloodCakedBlade.HitCount)/2
+		CritCount = (CritCount + sim.OHBloodCakedBlade.CritCount)/2
+		
+		sim.OHBloodCakedBlade.Total = 0
+		sim.OHBloodCakedBlade.TotalHit = 0
+		sim.OHBloodCakedBlade.TotalCrit = 0
+	End sub
 End class

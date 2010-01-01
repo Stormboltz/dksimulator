@@ -79,22 +79,5 @@ Friend Class BloodBoil
 	overrides Function AvrgCrit(T As long) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
-'	overrides Function report As String
-'		dim tmp as String
-'		tmp = "Blood Boil" & VBtab
-'	
-'		If total.ToString().Length < 8 Then
-'			tmp = tmp & total & "   " & VBtab
-'		Else
-'			tmp = tmp & total & VBtab
-'		End If
-'		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
-'		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-'		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-'		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-'		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-'		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
-'		tmp = tmp & vbCrLf
-'		return tmp
-'	End Function
+
 End Class

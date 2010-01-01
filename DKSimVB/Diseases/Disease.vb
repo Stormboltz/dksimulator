@@ -11,9 +11,7 @@ Public Class Disease
 	
 	Friend nextTick As long
 	Friend FadeAt As long
-	Public total As Long
-	Friend TotalHit As Long
-	Friend TotalCrit as Long
+	
 	Friend AP as Integer
 	Friend MissCount As Integer
 	Friend HitCount as Integer
@@ -22,7 +20,12 @@ Public Class Disease
 	Friend ScourgeStrikeGlyphCounter As Integer
 	Friend OtherTargetsFade As Integer
 	Friend CritChance As Double
+	Public total As Long
+	Friend TotalHit As Long
+	Friend TotalCrit As Long
 	Public ThreadMultiplicator As Double
+	Protected sim As Sim
+	
 	Friend ToReApply as Boolean
 	Protected _RNG as Random
 	
@@ -34,7 +37,7 @@ Public Class Disease
 	End Function
 	
 
-	Protected sim As Sim
+	
 	Sub New
 		init()
 	End Sub
@@ -48,6 +51,7 @@ Public Class Disease
 	Overridable Protected Sub init()
 		nextTick = 0
 		FadeAt= 0
+		
 		total = 0
 		MissCount = 0
 		HitCount = 0
@@ -144,13 +148,18 @@ Public Class Disease
 		tmp = tmp & toDecimal(MissCount) & VBtab
 		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
 		
-		If sim.MainStat.FrostPresence Then
+		If sim.FrostPresence Then
 			tmp = tmp & toDecimal((100 * total * ThreadMultiplicator * 2.0735 ) / sim.TimeStamp) & VBtab
 		End If
 		tmp = tmp & vbCrLf
 		tmp = replace(tmp, VBtab & 0, vbtab)
 		return tmp
 	End Function
+	
+	Overridable Public Sub Merge()
+	End Sub
+	
+	
 	
 End Class
 end Namespace

@@ -27,7 +27,7 @@ Sub New(S As sim)
 		WSpeed = sim.MainStat.MHWeaponSpeed
 		NextWhiteMainHit = T + (WSpeed * 100) / ((1 + sim.MainStat.Haste))
 		
-		If sim.MainStat.FrostPresence = 1 Then
+		If sim.FrostPresence = 1 Then
 			if sim.RuneStrike.trigger = true and Sim.RunicPower.Value >= 20 then
 				sim.RuneStrike.ApplyDamage(T)
 				return true
@@ -38,7 +38,7 @@ Sub New(S As sim)
 		RNG = sim.RandomNumberGenerator.RNGWhiteHit
 		MeleeGlacingChance = 0.25
 		MeleeDodgeChance = 0.065
-		If sim.mainstat.FrostPresence =1 Then
+		If sim.FrostPresence =1 Then
 			MeleeParryChance = 0.14
 		Else
 			MeleeParryChance = 0
@@ -121,5 +121,19 @@ Sub New(S As sim)
 	Overrides Function AvrgCrit(T As long) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
+	
+	Public Overrides sub Merge()
+		Total += sim.OffHand.Total
+		TotalHit += sim.OffHand.TotalHit
+		TotalCrit += sim.OffHand.TotalCrit
+
+		MissCount = (MissCount + sim.OffHand.MissCount)/2
+		HitCount = (HitCount + sim.OffHand.HitCount)/2
+		CritCount = (CritCount + sim.OffHand.CritCount)/2
+		
+		sim.OffHand.Total = 0
+		sim.OffHand.TotalHit = 0
+		sim.OffHand.TotalCrit = 0
+	End Sub
 
 end Class

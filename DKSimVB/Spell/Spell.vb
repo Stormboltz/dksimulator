@@ -65,7 +65,7 @@ Public Class Spell
 	End Sub
 	
 	sub UseGCD(T as Long)
-		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste)) + sim._MainFrm.txtLatency.Text/10
+		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste)) + sim.latency/10
 	End sub
 	
 	
@@ -90,7 +90,7 @@ Public Class Spell
 	
 	Overridable Function report As String
 		dim tmp as String
-		tmp = ShortenName(me.ToString)  & VBtab
+		tmp = ShortenName(me.Name)  & VBtab
 		
 		tmp = tmp & total & VBtab
 		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
@@ -108,13 +108,22 @@ Public Class Spell
 		tmp = tmp & toDecimal(MissCount) & VBtab
 		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
 		
-		If sim.MainStat.FrostPresence Then
+		If sim.FrostPresence Then
 			tmp = tmp & toDecimal((100 * total * ThreadMultiplicator * 2.0735 ) / sim.TimeStamp) & VBtab
 		End If
 		tmp = tmp & vbCrLf
 		tmp = replace(tmp, VBtab & 0, vbtab)
 		return tmp
 	End Function
+	
+	Function Name() As String
+		return me.ToString
+	End Function
+	
+	Overridable Public Sub Merge()
+	End Sub
+	
+	
 	
 End Class
 end Namespace

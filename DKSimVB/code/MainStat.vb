@@ -12,9 +12,6 @@ Friend Class MainStat
 	Friend OHWeaponDPS As double
 	Friend OHWeaponSpeed As double
 	Friend BossArmor As Integer
-	Friend BloodPresence As Integer
-	Friend UnholyPresence As Integer
-	Friend FrostPresence As Integer
 	Private character As Character
 	
 	
@@ -310,7 +307,7 @@ Friend Class MainStat
 	Function Haste() As Double
 		Dim tmp As Double
 		tmp = Character.HasteRating / (32.79/1.3) / 100 '1.3 is the buff haste rating received
-		tmp = tmp + UnholyPresence * 0.15
+		tmp = tmp + sim.UnholyPresence * 0.15
 		tmp = tmp + 0.05 * sim.TalentFrost.ImprovedIcyTalons
 		tmp = tmp + 0.2 *  sim.Buff.MeleeHaste
 		tmp = tmp + 0.03 *  sim.Buff.Haste
@@ -320,7 +317,7 @@ Friend Class MainStat
 	End Function
 	Function SpellHaste() As Double
 		Dim tmp As Double
-		If UnholyPresence = 1 Then
+		If sim.UnholyPresence = 1 Then
 			SpellHaste = 0.5
 		Else
 			tmp = Character.SpellHasteRating / 32.79 / 100
@@ -449,7 +446,7 @@ Friend Class MainStat
 	Function MHBaseDamage() As Double
 		Dim tmp As Double
 		tmp = (MHWeaponDPS + (AP / 14)) * MHWeaponSpeed
-		tmp = tmp * (1 + sim.TalentBlood.Weapspec * 2 / 100)
+		If DualW = false Then tmp = tmp * (1 + sim.TalentBlood.Weapspec * 2 / 100)
 		return tmp
 	End Function
 	Function OHBaseDamage() As Double
@@ -515,7 +512,7 @@ Friend Class MainStat
 	Function WhiteHitDamageMultiplier(T as long) As Double
 		dim tmp as Double
 		tmp = 1
-		tmp = tmp * (1 + BloodPresence * 0.15)
+		tmp = tmp * (1 + sim.BloodPresence * 0.15)
 		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
 		If sim.Desolation.isActive(T) Then tmp = tmp * (1+sim.Desolation.Bonus)
 		tmp = tmp * (1 + 0.02 * sim.BoneShield.Value(T))
@@ -534,7 +531,7 @@ Friend Class MainStat
 	Function StandardPhysicalDamageMultiplier(T as long) As Double
 		dim tmp as Double
 		tmp = 1
-		tmp = tmp * (1 + BloodPresence * 0.15)
+		tmp = tmp * (1 + sim.BloodPresence * 0.15)
 		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
 		If sim.Desolation.isActive(T) Then tmp = tmp * (1+sim.Desolation.Bonus)
 		tmp = tmp * (1 + 0.02 * sim.BoneShield.Value(T))
@@ -554,7 +551,7 @@ Friend Class MainStat
 	Function StandardMagicalDamageMultiplier(T as long) As Double
 		Dim tmp As Double
 		tmp = 1
-		tmp = tmp * (1 + BloodPresence * 0.15)
+		tmp = tmp * (1 + sim.BloodPresence * 0.15)
 		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
 		If sim.Desolation.isActive(T) Then tmp = tmp * (1+sim.Desolation.Bonus)
 		tmp = tmp * (1 + 0.02 * sim.BoneShield.Value(T))

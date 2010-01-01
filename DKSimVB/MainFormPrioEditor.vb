@@ -8,73 +8,44 @@
 '
 Imports System.Xml
 Public Partial Class MainForm
-	Friend AvailablePrio As new Collection
-	Friend ComboCollection As New  Collection
 	Friend EditType as String
 	
 	
-	
-	
-	Sub FillThisComboBox(cmb As ComboBox)
-		dim i as Integer
-		For i = 1 To AvailablePrio.Count
-			cmb.Items.Add (AvailablePrio.Item(i))
-		Next
-		
-		
-		
-	End Sub
-
-	Function CreateCombobox( Tag as String) As Windows.Forms.ComboBox
-		Dim tmpCMB As New ComboBox
-		ComboCollection.Add(tmpCMB)
-		Me.tbPrioEditor.Controls.Add(tmpCMB)
-		tmpCMB.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		tmpCMB.FormattingEnabled = true
-		tmpCMB.Location = New System.Drawing.Point(25, 15 + 25*ComboCollection.Count )
-		tmpCMB.Name = "cmbPrio" & ComboCollection.Count-1
-		tmpCMB.Size = New System.Drawing.Size(250, 21)
-		tmpCMB.DropDownStyle = ComboBoxStyle.DropDownList
-		FillThisComboBox (tmpCMB)
-		tmpCMB.Tag = Tag
-		tmpCMB.Sorted = true
-		return tmpCMB
-	End Function
-	
 	Sub LoadAvailablePrio
 		Dim Doc As new Xml.XmlDocument
-		dim node as XmlNode
-		AvailablePrio.Clear
+		Dim node As XmlNode
+		grpAvailablePrio.Controls.Clear
 		Doc.Load(Application.StartupPath & "\config\PrioritiesList.xml")
-		
 		dim btn as PrioButton
 		Dim i As Integer
 		on error resume next
-		
 		For Each node In doc.SelectSingleNode("//Priorities").ChildNodes
-			
-			AvailablePrio.Add(node.Name)
-			
 			btn = New PrioButton
 			Me.grpAvailablePrio.Controls.Add(btn)
-			btn.init
-			btn.Top = 10+ 40 * i
+			btn.init(me)
+			btn.Top = 10+ btn.Height * i
+			btn.SetName(node.Name)
+			btn.buttonAdd.Visible = True
 			i += 1
-			btn.lbl.Text = node.Name
-			btn.button.Image = new Bitmap("images\spell\" & node.Name & ".jpg")
-			btn.button.ImageAlign = System.Drawing.ContentAlignment.MiddleCenter
 		Next
-		
 	End Sub
 	
 	Sub LoadAvailableRota
 		Dim Doc As new Xml.XmlDocument
-		dim node as XmlNode
-		AvailablePrio.Clear
+		Dim node As XmlNode
+		dim btn as PrioButton
+		Dim i As Integer
+		grpAvailablePrio.Controls.Clear
 		Doc.Load(Application.StartupPath & "\config\RotationList.xml")
 		For Each node In doc.SelectSingleNode("//Rotations").ChildNodes
-			AvailablePrio.Add(node.Name & " retry='0'")
-			AvailablePrio.Add(node.Name & " retry='1'")
+			btn = New PrioButton
+			Me.grpAvailablePrio.Controls.Add(btn)
+			btn.init(me)
+			btn.Top = 10+ btn.Height * i
+			i += 1
+			btn.SetName(node.Name)
+			btn.chkRetry.Visible = True
+			btn.buttonAdd.Visible = true
 		Next
 		
 	End Sub
@@ -82,17 +53,32 @@ Public Partial Class MainForm
 	
 	Sub OpenIntroForEdit(Filepath As String)
 		Dim doc As New Xml.XmlDocument
-		CleanPrioEditorCombo
+
+		Me.grpCurrentPrio.Controls.Clear
 		LoadAvailableRota
 		Doc.Load(Filepath)
-		dim Nod as Xml.XmlNode
-		dim cmbx as ComboBox
-		For Each Nod In Doc.SelectSingleNode("//Intro").ChildNodes
-			cmbx = CreateCombobox("")
-			If Nod.Attributes.GetNamedItem("retry").Value = 0 Then
-				cmbx.SelectedItem =Nod.Name & " retry='0'"
+		dim Node as Xml.XmlNode
+		dim btn as PrioButton
+		Dim i As Integer
+		
+		For Each Node In Doc.SelectSingleNode("//Intro").ChildNodes
+		
+			
+			btn = New PrioButton
+			btn.init(me)
+			btn.Top = 10+ btn.Height * i
+			btn.SetName (node.Name)
+			btn.buttonRemove.Visible = true
+			btn.buttonUp.Visible = true
+			btn.buttonDown.Visible = True
+			btn.chkRetry.Visible = True
+			Me.grpCurrentPrio.Controls.Add(btn)
+			btn.number = i
+			i += 1
+			If Node.Attributes.GetNamedItem("retry").Value = 0 Then
+				btn.chkRetry.Checked = false
 			Else
-				cmbx.SelectedItem =Nod.Name & " retry='1'"
+				btn.chkRetry.Checked = true
 			End If
 		Next
 		EditType = "intro"
@@ -101,72 +87,80 @@ Public Partial Class MainForm
 	
 	Sub OpenPrioForEdit(Filepath As String)
 		Dim doc As New Xml.XmlDocument
-		CleanPrioEditorCombo
+
 		LoadAvailablePrio
+		Me.grpCurrentPrio.Controls.Clear
+		
 		Doc.Load(Filepath)
 		
 		dim Node as Xml.XmlNode
-		Dim cmbx As ComboBox
 		dim btn as PrioButton
 		Dim i As Integer
 
 		For Each Node In Doc.SelectSingleNode("//Priority").ChildNodes
-			cmbx = CreateCombobox("")
-			cmbx.SelectedItem =Node.Name
-			
 			btn = New PrioButton
+			btn.init(me)
+			btn.Top = 10+ btn.Height * i
+			btn.SetName (node.Name)
+			btn.buttonRemove.Visible = true
+			btn.buttonUp.Visible = true
+			btn.buttonDown.Visible = true
 			Me.grpCurrentPrio.Controls.Add(btn)
-			btn.init
-			btn.Top = 10+ 40 * i
+			btn.number = i
 			i += 1
-			btn.lbl.Text = node.Name
-			btn.button.Image = new Bitmap("images\spell\" & node.Name & ".jpg")
-			btn.button.ImageAlign = System.Drawing.ContentAlignment.MiddleCenter
-			
 		Next
 		EditType = "prio"
 	End Sub
 	
 	Sub OpenRotaForEdit(Filepath As String)
 		Dim doc As New Xml.XmlDocument
-		CleanPrioEditorCombo
 		LoadAvailableRota
+		Me.grpCurrentPrio.Controls.Clear
 		Doc.Load(Filepath)
 		
-		dim Nod as Xml.XmlNode
-		Dim cmbx As ComboBox
+		dim Node as Xml.XmlNode
+
 		
-		For Each Nod In Doc.SelectSingleNode("//Rotation/Rotation").ChildNodes
-			cmbx = CreateCombobox("")
-			If Nod.Attributes.GetNamedItem("retry").Value = 0 Then
-				cmbx.SelectedItem =Nod.Name & " retry='0'"
+		dim btn as PrioButton
+		Dim i As Integer
+		
+		For Each Node In Doc.SelectSingleNode("//Rotation/Rotation").ChildNodes
+
+			
+			btn = New PrioButton
+			btn.init(me)
+			btn.Top = 10+ btn.Height * i
+			btn.SetName (node.Name)
+			btn.buttonRemove.Visible = true
+			btn.buttonUp.Visible = true
+			btn.buttonDown.Visible = True
+			btn.chkRetry.Visible = True
+			Me.grpCurrentPrio.Controls.Add(btn)
+			btn.number = i
+			i += 1
+			If Node.Attributes.GetNamedItem("retry").Value = 0 Then
+
+				btn.chkRetry.Checked = false
 			Else
-				cmbx.SelectedItem =Nod.Name & " retry='1'"
+
+				btn.chkRetry.Checked = true
 			End If
 		Next
 		EditType = "rota"
 	End Sub
 	
-	Sub CleanPrioEditorCombo()
-		dim crtl as Control
-		For Each crtl In 		ComboCollection
-			Me.tbPrioEditor.Controls.Remove 	(crtl)
-		Next
-		ComboCollection.Clear
-	End Sub
-	
-	
-	
-	
-	Sub CmdAddPrioItemClick(sender As Object, e As EventArgs)
-		CreateCombobox("")
-	End Sub
+'	Sub CleanPrioEditorCombo()
+'		dim crtl as Control
+'		For Each crtl In ComboCollection
+'			Me.tbPrioEditor.Controls.Remove (crtl)
+'		Next
+'		ComboCollection.Clear
+'	End Sub
 	
 	
 	
 	
 	Sub CmdSaveRotationClick(sender As Object, e As EventArgs)
-		Dim cmb As object
 		Dim xmlDoc As new Xml.XmlDocument
 		dim newAttrib as Xml.XmlAttribute
 		Dim root As xml.XmlElement
@@ -184,38 +178,101 @@ Public Partial Class MainForm
 		End Select
 		
 		Dim newElem As xml.XmlNode
-		dim sTmp as String
-		dim i as Integer
-		For i=1 To ComboCollection.Count
-			cmb = ComboCollection(i)
-			If instr(cmb.SelectedItem,"None") or cmb.SelectedItem="" Then
-			Else
-				If instr(cmb.SelectedItem, " retry='0'") Then
-					sTmp = replace(cmb.SelectedItem," retry='0'","")
-					sTmp = trim(sTmp)
-					newElem = xmlDoc.CreateNode(xml.XmlNodeType.Element, sTmp,"")
-					newAttrib = xmlDoc.CreateNode(xml.XmlNodeType.Attribute,"","retry","")
-					newAttrib.Value = 0
-					newElem.Attributes.Append(newAttrib)
-				Else If instr(cmb.SelectedItem, " retry='1'") Then
-					sTmp = replace(cmb.SelectedItem," retry='1'","")
-					sTmp = trim(sTmp)
-					newElem = xmlDoc.CreateNode(xml.XmlNodeType.Element, sTmp,"")
-					newAttrib = xmlDoc.CreateNode(xml.XmlNodeType.Attribute,"","retry","")
-					newAttrib.Value = 1
-					newElem.Attributes.Append(newAttrib)
-				Else
-					newElem = xmlDoc.CreateNode(xml.XmlNodeType.Element, cmb.SelectedItem,"")
+		Dim i As Integer
+		dim p as PrioButton
+		For i=0 To grpCurrentPrio.Controls.Count-1
+			For Each p In grpCurrentPrio.Controls
+				If p.number = i Then
+					newElem = xmlDoc.CreateNode(xml.XmlNodeType.Element, p.Name,"")
+					Select Case EditType
+						Case "prio"
+						Case Else
+							newAttrib = xmlDoc.CreateNode(xml.XmlNodeType.Attribute,"","retry","")
+							If p.chkRetry.Checked Then
+								newAttrib.Value = 1
+							Else
+								newAttrib.Value = 0
+							End If
+							newElem.Attributes.Append(newAttrib)
+					End Select
+					root.AppendChild(newElem)
 				End If
-				root.AppendChild(newElem)
-			end if
-		Next
+			Next
+		next
 		'Save
 		xmlDoc.Save(EditorFilePAth)
 		loadWindow
 		me.tabControl1.SelectedIndex = 0
 	End Sub
 	
+	Sub MoveUp(s As PrioButton)
+		Dim x As Integer
+		Dim y As Integer
+		dim p as PrioButton
+		For Each p In Me.grpCurrentPrio.Controls
+			If (p.number = s.number-1) And  (s.lbl.Text <> p.lbl.Text) Then
+				s.number -= 1
+				x = s.Left
+				y = s.Top
+				s.Left = p.Left
+				s.Top = p.Top
+				p.Left = x
+				p.top = y
+				p.number += 1
+				exit sub
+			End If
+		Next
+	End Sub
+	
+	Sub MoveDown(s As PrioButton)
+		Dim x As Integer
+		Dim y As Integer
+		dim p as PrioButton
+		For Each p In Me.grpCurrentPrio.Controls
+			If (p.number = s.number+1) And  (s.lbl.Text <> p.lbl.Text) Then
+				s.number += 1
+				x = s.Left
+				y = s.Top
+				s.Left = p.Left
+				s.Top = p.Top
+				p.Left = x
+				p.top = y
+				p.number -= 1
+				exit sub
+			End If
+		Next
+	End Sub
+	
+	Sub RemovePrio(s As PrioButton)
+		dim p as PrioButton
+		For Each p In Me.grpCurrentPrio.Controls
+			If (p.number > s.number) Then
+				MoveUp(p)
+			End If
+		Next
+		grpCurrentPrio.Controls.Remove(s)
+	End Sub
+	Sub AddPrio(s As PrioButton)
+		dim  i as Integer
+		i = Me.grpCurrentPrio.Controls.Count
+		
+		dim btn as new PrioButton
+		btn.init(me)
+		btn.Top = 10+ btn.Height * i
+		btn.SetName (s.Name)
+		
+		
+		btn.buttonRemove.Visible = true
+		btn.buttonUp.Visible = true
+		btn.buttonDown.Visible = true
+		Me.grpCurrentPrio.Controls.Add(btn)
+		btn.number = i
+		
+		If EditType = "prio" Then
+		Else
+			btn.chkRetry.Visible = true
+		End If
+	End Sub
 	
 	
 	

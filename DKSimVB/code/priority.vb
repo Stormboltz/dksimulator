@@ -8,12 +8,17 @@
 '
 Friend Class priority
 	Friend prio As New Collection
-	Private runes As runes.runes
+	
 	Private sim as Sim
 	Sub New(S As Sim)
 		Sim = S
-		Runes = sim.Runes
+		'Runes = sim.Runes
 	End Sub
+	
+	Function runes As runes.runes
+		return sim.Runes
+	End Function
+	
 	
 	sub DoNext(TimeStamp As long )
 		Dim HighestPrio As Integer

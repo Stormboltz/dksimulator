@@ -48,7 +48,7 @@ Friend Class RuneForge
 	End Sub
 
 	Function AreStarsAligned(T As Long) As Boolean
-		If sim._MainFrm.chkWaitFC.Checked = False Then Return True
+		If sim.WaitForFallenCrusader = False Then Return True
 		If sim.proc.MHFallenCrusader.IsActive Or sim.proc.OHFallenCrusader.IsActive Then Return True
 		If sim.proc.MHFallenCrusader.Equiped + sim.proc.OHFallenCrusader.Equiped > 0 Then Return False
 		return true

@@ -53,6 +53,9 @@ Partial Class MainForm
 		Me.HtmlReport = New System.Windows.Forms.TabPage
 		Me.webBrowser1 = New System.Windows.Forms.WebBrowser
 		Me.tabPage3 = New System.Windows.Forms.TabPage
+		Me.chkMergeReport = New System.Windows.Forms.CheckBox
+		Me.txtReportName = New System.Windows.Forms.TextBox
+		Me.label43 = New System.Windows.Forms.Label
 		Me.chkBloodSync = New System.Windows.Forms.CheckBox
 		Me.cmbIntro = New System.Windows.Forms.ComboBox
 		Me.label26 = New System.Windows.Forms.Label
@@ -251,8 +254,9 @@ Partial Class MainForm
 		Me.chkEPAgility = New System.Windows.Forms.CheckBox
 		Me.chkEPStr = New System.Windows.Forms.CheckBox
 		Me.tbPrioEditor = New System.Windows.Forms.TabPage
+		Me.grpAvailablePrio = New System.Windows.Forms.GroupBox
+		Me.grpCurrentPrio = New System.Windows.Forms.GroupBox
 		Me.cmdSaveRotationAsNew = New System.Windows.Forms.Button
-		Me.cmdAddPrioItem = New System.Windows.Forms.Button
 		Me.cmdSaveRotation = New System.Windows.Forms.Button
 		Me.tbCaling = New System.Windows.Forms.TabPage
 		Me.label21 = New System.Windows.Forms.Label
@@ -271,8 +275,6 @@ Partial Class MainForm
 		Me.chkScaAgility = New System.Windows.Forms.CheckBox
 		Me.chkScaStr = New System.Windows.Forms.CheckBox
 		Me.TabPrio2 = New System.Windows.Forms.TabPage
-		Me.grpCurrentPrio = New System.Windows.Forms.GroupBox
-		Me.grpAvailablePrio = New System.Windows.Forms.GroupBox
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.cmdRngSeeder = New System.Windows.Forms.Button
 		Me.tbTools.SuspendLayout
@@ -301,7 +303,6 @@ Partial Class MainForm
 		Me.tbPrioEditor.SuspendLayout
 		Me.tbCaling.SuspendLayout
 		Me.gbScaling.SuspendLayout
-		Me.TabPrio2.SuspendLayout
 		Me.SuspendLayout
 		'
 		'btStart
@@ -487,6 +488,9 @@ Partial Class MainForm
 		'
 		'tabPage3
 		'
+		Me.tabPage3.Controls.Add(Me.chkMergeReport)
+		Me.tabPage3.Controls.Add(Me.txtReportName)
+		Me.tabPage3.Controls.Add(Me.label43)
 		Me.tabPage3.Controls.Add(Me.chkBloodSync)
 		Me.tabPage3.Controls.Add(Me.cmbIntro)
 		Me.tabPage3.Controls.Add(Me.label26)
@@ -545,6 +549,37 @@ Partial Class MainForm
 		Me.tabPage3.TabIndex = 2
 		Me.tabPage3.Text = "Configuration"
 		Me.tabPage3.UseVisualStyleBackColor = true
+		'
+		'chkMergeReport
+		'
+		Me.chkMergeReport.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.chkMergeReport.AutoSize = true
+		Me.chkMergeReport.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
+		Me.chkMergeReport.Location = New System.Drawing.Point(577, 376)
+		Me.chkMergeReport.Name = "chkMergeReport"
+		Me.chkMergeReport.Size = New System.Drawing.Size(150, 17)
+		Me.chkMergeReport.TabIndex = 48
+		Me.chkMergeReport.Text = "Merge Strikes in the report"
+		Me.chkMergeReport.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		Me.chkMergeReport.UseVisualStyleBackColor = true
+		'
+		'txtReportName
+		'
+		Me.txtReportName.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.txtReportName.Location = New System.Drawing.Point(579, 399)
+		Me.txtReportName.Name = "txtReportName"
+		Me.txtReportName.Size = New System.Drawing.Size(154, 20)
+		Me.txtReportName.TabIndex = 47
+		'
+		'label43
+		'
+		Me.label43.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.label43.Location = New System.Drawing.Point(478, 399)
+		Me.label43.Name = "label43"
+		Me.label43.Size = New System.Drawing.Size(100, 23)
+		Me.label43.TabIndex = 46
+		Me.label43.Text = "Report Name:"
+		Me.label43.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		'
 		'chkBloodSync
 		'
@@ -2553,8 +2588,9 @@ Partial Class MainForm
 		'tbPrioEditor
 		'
 		Me.tbPrioEditor.AutoScroll = true
+		Me.tbPrioEditor.Controls.Add(Me.grpAvailablePrio)
+		Me.tbPrioEditor.Controls.Add(Me.grpCurrentPrio)
 		Me.tbPrioEditor.Controls.Add(Me.cmdSaveRotationAsNew)
-		Me.tbPrioEditor.Controls.Add(Me.cmdAddPrioItem)
 		Me.tbPrioEditor.Controls.Add(Me.cmdSaveRotation)
 		Me.tbPrioEditor.Location = New System.Drawing.Point(4, 22)
 		Me.tbPrioEditor.Name = "tbPrioEditor"
@@ -2563,8 +2599,30 @@ Partial Class MainForm
 		Me.tbPrioEditor.Text = "Rotation Editor"
 		Me.tbPrioEditor.UseVisualStyleBackColor = true
 		'
+		'grpAvailablePrio
+		'
+		Me.grpAvailablePrio.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.grpAvailablePrio.AutoSize = true
+		Me.grpAvailablePrio.Location = New System.Drawing.Point(508, 32)
+		Me.grpAvailablePrio.Name = "grpAvailablePrio"
+		Me.grpAvailablePrio.Size = New System.Drawing.Size(234, 518)
+		Me.grpAvailablePrio.TabIndex = 4
+		Me.grpAvailablePrio.TabStop = false
+		Me.grpAvailablePrio.Text = "Available"
+		'
+		'grpCurrentPrio
+		'
+		Me.grpCurrentPrio.AutoSize = true
+		Me.grpCurrentPrio.Location = New System.Drawing.Point(18, 32)
+		Me.grpCurrentPrio.Name = "grpCurrentPrio"
+		Me.grpCurrentPrio.Size = New System.Drawing.Size(232, 518)
+		Me.grpCurrentPrio.TabIndex = 3
+		Me.grpCurrentPrio.TabStop = false
+		Me.grpCurrentPrio.Text = "Current"
+		'
 		'cmdSaveRotationAsNew
 		'
+		Me.cmdSaveRotationAsNew.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmdSaveRotationAsNew.Location = New System.Drawing.Point(608, 3)
 		Me.cmdSaveRotationAsNew.Name = "cmdSaveRotationAsNew"
 		Me.cmdSaveRotationAsNew.Size = New System.Drawing.Size(75, 23)
@@ -2573,18 +2631,9 @@ Partial Class MainForm
 		Me.cmdSaveRotationAsNew.UseVisualStyleBackColor = true
 		AddHandler Me.cmdSaveRotationAsNew.Click, AddressOf Me.CmdSaveRotationAsNewClick
 		'
-		'cmdAddPrioItem
-		'
-		Me.cmdAddPrioItem.Location = New System.Drawing.Point(689, 32)
-		Me.cmdAddPrioItem.Name = "cmdAddPrioItem"
-		Me.cmdAddPrioItem.Size = New System.Drawing.Size(75, 23)
-		Me.cmdAddPrioItem.TabIndex = 1
-		Me.cmdAddPrioItem.Text = "Add Item"
-		Me.cmdAddPrioItem.UseVisualStyleBackColor = true
-		AddHandler Me.cmdAddPrioItem.Click, AddressOf Me.CmdAddPrioItemClick
-		'
 		'cmdSaveRotation
 		'
+		Me.cmdSaveRotation.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmdSaveRotation.Location = New System.Drawing.Point(689, 3)
 		Me.cmdSaveRotation.Name = "cmdSaveRotation"
 		Me.cmdSaveRotation.Size = New System.Drawing.Size(75, 23)
@@ -2772,35 +2821,12 @@ Partial Class MainForm
 		'TabPrio2
 		'
 		Me.TabPrio2.AutoScroll = true
-		Me.TabPrio2.Controls.Add(Me.grpCurrentPrio)
-		Me.TabPrio2.Controls.Add(Me.grpAvailablePrio)
 		Me.TabPrio2.Location = New System.Drawing.Point(4, 22)
 		Me.TabPrio2.Name = "TabPrio2"
 		Me.TabPrio2.Size = New System.Drawing.Size(776, 566)
 		Me.TabPrio2.TabIndex = 14
 		Me.TabPrio2.Text = "Beta"
 		Me.TabPrio2.UseVisualStyleBackColor = true
-		'
-		'grpCurrentPrio
-		'
-		Me.grpCurrentPrio.AutoSize = true
-		Me.grpCurrentPrio.Location = New System.Drawing.Point(67, 15)
-		Me.grpCurrentPrio.Name = "grpCurrentPrio"
-		Me.grpCurrentPrio.Size = New System.Drawing.Size(232, 533)
-		Me.grpCurrentPrio.TabIndex = 1
-		Me.grpCurrentPrio.TabStop = false
-		Me.grpCurrentPrio.Text = "Current"
-		'
-		'grpAvailablePrio
-		'
-		Me.grpAvailablePrio.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.grpAvailablePrio.AutoSize = true
-		Me.grpAvailablePrio.Location = New System.Drawing.Point(519, 15)
-		Me.grpAvailablePrio.Name = "grpAvailablePrio"
-		Me.grpAvailablePrio.Size = New System.Drawing.Size(232, 533)
-		Me.grpAvailablePrio.TabIndex = 0
-		Me.grpAvailablePrio.TabStop = false
-		Me.grpAvailablePrio.Text = "Available"
 		'
 		'cmdRngSeeder
 		'
@@ -2860,12 +2886,14 @@ Partial Class MainForm
 		Me.groupBox2.ResumeLayout(false)
 		Me.groupBox1.ResumeLayout(false)
 		Me.tbPrioEditor.ResumeLayout(false)
+		Me.tbPrioEditor.PerformLayout
 		Me.tbCaling.ResumeLayout(false)
 		Me.gbScaling.ResumeLayout(false)
-		Me.TabPrio2.ResumeLayout(false)
-		Me.TabPrio2.PerformLayout
 		Me.ResumeLayout(false)
 	End Sub
+	Private label43 As System.Windows.Forms.Label
+	Private txtReportName As System.Windows.Forms.TextBox
+	Private chkMergeReport As System.Windows.Forms.CheckBox
 	Private grpCurrentPrio As System.Windows.Forms.GroupBox
 	Private grpAvailablePrio As System.Windows.Forms.GroupBox
 	Private TabPrio2 As System.Windows.Forms.TabPage
@@ -2935,7 +2963,6 @@ Partial Class MainForm
 	Private gbMisc As System.Windows.Forms.GroupBox
 	Private groupBox4 As System.Windows.Forms.GroupBox
 	Private tbcharEditor As System.Windows.Forms.TabPage
-	Private cmdAddPrioItem As System.Windows.Forms.Button
 	Private cmdEditIntro As System.Windows.Forms.Button
 	Private label26 As System.Windows.Forms.Label
 	Friend cmbIntro As System.Windows.Forms.ComboBox

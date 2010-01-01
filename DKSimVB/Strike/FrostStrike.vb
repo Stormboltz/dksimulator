@@ -122,5 +122,18 @@ Friend Class FrostStrike
 	public Overrides Function AvrgCrit(T As long) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
+	
+	Public Overrides sub Merge()
+		Total += sim.OHFrostStrike.Total
+		TotalHit += sim.OHFrostStrike.TotalHit
+		TotalCrit += sim.OHFrostStrike.TotalCrit
 
+		MissCount = (MissCount + sim.OHFrostStrike.MissCount)/2
+		HitCount = (HitCount + sim.OHFrostStrike.HitCount)/2
+		CritCount = (CritCount + sim.OHFrostStrike.CritCount)/2
+		
+		sim.OHFrostStrike.Total = 0
+		sim.OHFrostStrike.TotalHit = 0
+		sim.OHFrostStrike.TotalCrit = 0
+	End Sub
 End Class

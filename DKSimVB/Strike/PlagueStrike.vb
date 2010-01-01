@@ -80,5 +80,22 @@ Friend Class PlagueStrike
 	public Overrides Function AvrgCrit(T As long) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
+
+	Public Overrides sub Merge()
+		Total += sim.OHPlagueStrike.Total
+		TotalHit += sim.OHPlagueStrike.TotalHit
+		TotalCrit += sim.OHPlagueStrike.TotalCrit
+
+		MissCount = (MissCount + sim.OHPlagueStrike.MissCount)/2
+		HitCount = (HitCount + sim.OHPlagueStrike.HitCount)/2
+		CritCount = (CritCount + sim.OHPlagueStrike.CritCount)/2
+		
+		sim.OHPlagueStrike.Total = 0
+		sim.OHPlagueStrike.TotalHit = 0
+		sim.OHPlagueStrike.TotalCrit = 0
+	End sub
+	
+	
+	
 	
 end Class

@@ -286,7 +286,7 @@ Public Partial Class MainForm
 	Sub RdPrioCheckedChanged(sender As Object, e As EventArgs)
 		If rdPrio.Checked Then
 			rdRot.Checked = False
-			SimConstructor.Rotate = False
+			SimConstructor.Rotate = false
 			cmbRotation.Enabled = False
 			cmbPrio.Enabled = true
 		End If
@@ -307,11 +307,7 @@ Public Partial Class MainForm
 		if LoadBeforeSim = false then exit sub
 		SimConstructor.StartScaling(PBsim,txtSimtime.Text,me)
 	End Sub
-	
-	Sub BtCreateCMBClick(sender As Object, e As EventArgs)
-		me.CreateCombobox("")
-	End Sub
-	
+
 	Sub CmdRngSeederClick(sender As Object, e As EventArgs)
 		RNGSeeder += 1 
 	End Sub

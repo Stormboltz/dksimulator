@@ -46,7 +46,7 @@ Function Summon(T As Long) as  boolean
 	End If
 End Function
 sub UseGCD(T as Long)
-		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste)) + sim._MainFrm.txtLatency.Text/10
+		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste)) + sim.latency/10
 	End sub
 Function ApplyDamage(T As long) As boolean
 	NextGargoyleStrike = T + (2 * 100) / (1 + SpellHaste)
@@ -115,6 +115,9 @@ Function SpellCrit() As Single
 	tmp = tmp + 5 *  sim.Buff.SpellCritTaken
 	SpellCrit = tmp / 100
 End Function
+Sub Merge()
+		
+	End Sub
 
 Function report As String
 	dim tmp as String

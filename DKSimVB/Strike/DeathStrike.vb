@@ -101,4 +101,20 @@ Friend Class DeathStrike
 		Return AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 	
+	Public Overrides sub Merge()
+		Total += sim.OHDeathStrike.Total
+		TotalHit += sim.OHDeathStrike.TotalHit
+		TotalCrit += sim.OHDeathStrike.TotalCrit
+
+		MissCount = (MissCount + sim.OHDeathStrike.MissCount)/2
+		HitCount = (HitCount + sim.OHDeathStrike.HitCount)/2
+		CritCount = (CritCount + sim.OHDeathStrike.CritCount)/2
+		
+		sim.OHDeathStrike.Total = 0
+		sim.OHDeathStrike.TotalHit = 0
+		sim.OHDeathStrike.TotalCrit = 0
+	End Sub
+	
+	
+	
 End Class

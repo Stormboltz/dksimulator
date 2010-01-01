@@ -60,7 +60,7 @@ Friend class Ghoul
 		End If
 	End Sub
 	sub UseGCD(T as Long)
-		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste)) + sim._MainFrm.txtLatency.Text/10
+		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste)) + sim.latency/10
 	End sub
 	Function Haste As Double
 		dim tmp as Double
@@ -73,7 +73,9 @@ Friend class Ghoul
 		End If
 		return tmp
 	End Function
-	
+	Sub Merge()
+		
+	End Sub
 	Function ApplyDamage(T As long) As boolean
 		Dim dégat As integer
 		

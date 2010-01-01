@@ -88,7 +88,7 @@ Friend Class ScourgeStrike
 		Dim tmp As Double
 		tmp = 1
 		
-		tmp = tmp * (1 + sim.mainstat.BloodPresence * 0.15)
+		tmp = tmp * (1 + sim.BloodPresence * 0.15)
 		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
 		If sim.Desolation.isActive(T) Then tmp = tmp * (1+sim.Desolation.Bonus)
 		tmp = tmp * (1 + 0.02 * sim.BoneShield.Value(T))
@@ -147,11 +147,23 @@ Friend Class ScourgeStrike
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 	
-	Public Overloads Overrides Function report() As String
-'		If sim.Patch33 Then
-'		End If
-		Return MyBase.report()
-	End Function
+
+	
+	Public Overrides sub Merge()
+		Total += sim.ScourgeStrikeMagical.Total
+		TotalHit += sim.ScourgeStrikeMagical.TotalHit
+		TotalCrit += sim.ScourgeStrikeMagical.TotalCrit
+
+		MissCount = (MissCount + sim.ScourgeStrikeMagical.MissCount)/2
+		HitCount = (HitCount + sim.ScourgeStrikeMagical.HitCount)/2
+		CritCount = (CritCount + sim.ScourgeStrikeMagical.CritCount)/2
+		
+		sim.ScourgeStrikeMagical.Total = 0
+		sim.ScourgeStrikeMagical.TotalHit = 0
+		sim.ScourgeStrikeMagical.TotalCrit = 0
+	End sub
+	
+	
 	
 	
 End Class

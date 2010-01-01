@@ -10,10 +10,10 @@ Public Module SimConstructor
 	
 	
 	Friend PetFriendly As Boolean
-	Friend Rotate as Boolean
+	
 	Friend ReportPath As String
 	Friend EpStat As String
-	
+	friend Rotate as Boolean
 	Friend DPSs as new Collection
 	Friend sThreadCollection as new Collection
 	Friend EPBase as Integer
@@ -490,9 +490,8 @@ Public Module SimConstructor
 		
 		'If sim.MainStat.DualW Then
 		sReport = sReport &   "<tr><td COLSPAN=8> | RuneEnchant | " & _MainFrm.cmbRuneMH.Text  & " / " & _MainFrm.cmbRuneOH.Text  & "</td></tr>"
-		'Else
-		sReport = sReport &   "<tr><td COLSPAN=8> | RuneEnchant | " & _MainFrm.cmbRuneMH.Text & "</td></tr>"
-		'End If
+		
+		
 		sReport = sReport &   "<tr><td COLSPAN=8> | Pet Calculation | " & _MainFrm.ckPet.Checked & "</td></tr>"
 		sReport = sReport +  ("</table>")
 		sReport = sReport +   ("<hr width='80%' align='center' noshade ></hr>")

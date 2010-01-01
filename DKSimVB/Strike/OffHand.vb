@@ -25,7 +25,7 @@ Friend Class OffHand
 		MeleeGlacingChance = 0.25
 		MeleeDodgeChance = 0.065
 		MeleeMissChance = 0.27
-		If sim.mainstat.FrostPresence =1 Then
+		If sim.FrostPresence =1 Then
 			MeleeParryChance = 0.14
 		Else
 			MeleeParryChance = 0
@@ -108,6 +108,5 @@ Friend Class OffHand
 	End Function
 	Overrides Function AvrgCrit(T As long) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
-	End Function
-	
+	End Function	
 end Class

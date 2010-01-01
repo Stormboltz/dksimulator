@@ -17,12 +17,12 @@ Public Class Proc
 	Friend InternalCD As Integer
 	protected Sim as Sim
 	Public Total as long
-	Friend HitCount As Integer
-	Friend MissCount As Integer
-	Friend CritCount As Integer
+	Friend HitCount As long
+	Friend MissCount As long
+	Friend CritCount As long
 	
-	Friend TotalHit As Long
-	Friend TotalCrit As Long
+	Friend TotalHit As long
+	Friend TotalCrit As long
 	
 	
 	Friend DamageType As String
@@ -33,7 +33,7 @@ Public Class Proc
 	Public ThreadMultiplicator As Double
 	
 	Friend previousFade As Long
-	friend Uptime as Integer
+	friend Uptime as long
 
 	Function RNGProc As Double
 		If _RNG Is nothing Then
@@ -216,9 +216,16 @@ Public Class Proc
 			total += tmp
 		end if
 	End Sub
+	Overridable Public Sub Merge()
+	End Sub
 	
 	Overridable Function report as String
-		dim tmp as String
+		Dim tmp As String
+		
+		If Name = "Virulence" Then
+			tmp=""
+		End If
+		
 		tmp = name & VBtab
 		
 		tmp = tmp & total & VBtab
@@ -237,7 +244,7 @@ Public Class Proc
 		tmp = tmp & toDecimal(MissCount) & VBtab
 		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
 
-		If sim.MainStat.FrostPresence Then
+		If sim.FrostPresence Then
 			tmp = tmp & toDecimal((100 * total * ThreadMultiplicator * 2.0735 ) / sim.TimeStamp) & VBtab
 		End If
 		

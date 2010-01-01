@@ -4,7 +4,7 @@ Public Class Sim
 	
 	Friend TotalDamageAlternative As Long
 	Friend NextFreeGCD As Long
-	Friend Lag As Long
+	Friend latency As Long
 	Friend TimeStamp As Long
 	Friend TimeStampCounter As Long
 	Friend _EPStat As String
@@ -17,11 +17,12 @@ Public Class Sim
 	Friend rotationPath As String
 	Friend IntroPath as String
 	Friend PetFriendly As Boolean
-	Friend BloodToSync as Boolean
+	Friend BloodToSync As Boolean
+	Friend KeepBloodSync as Boolean
 	
 	Friend NumberOfEnemies as Integer
 	Private SimStart as Date
-	Friend _MainFrm As MainForm
+	'Friend _MainFrm As MainForm
 	
 	Friend Threat as Long
 	Private AMSTimer As Long
@@ -128,8 +129,8 @@ Public Class Sim
 	Friend TrinketsCollection As New Collection
 	Friend ProcCollection As New Collection
 	
-	
-	
+	Friend MergeReport as Boolean
+	Friend WaitForFallenCrusader as Boolean
 	
 	
 	
@@ -137,8 +138,15 @@ Public Class Sim
 	
 	Friend CombatLog as new CombatLog(me)
 	Friend BoneShieldUsageStyle As Integer
+	Friend BloodPresence As Integer
+	Friend UnholyPresence As Integer
+	Friend FrostPresence As Integer
 	
-	Friend SaveRPForRS as Boolean
+	
+	Friend SaveRPForRS As Boolean
+	
+	
+	Friend ReportName as String
 	
 	Sub Init()
 	End Sub
@@ -193,6 +201,11 @@ Public Class Sim
 		End If
 	End Sub
 	Sub Start()
+		
+		LoadConfig
+		
+		
+		MergeReport = true
 		CreateProgressFrame
 		Rnd(-1) 'Tell VB to initialize using Randomize's parameter
 		RandomNumberGenerator = new RandomNumberGenerator 'init here, so that we don't get the same rng numbers for short fights.
@@ -210,12 +223,12 @@ Public Class Sim
 		
 		If _MainFrm.chkManyFights.Checked Then
 			NumberOfFights = Math.Round( ( SimTime * 60 * 60 ) / _MainFrm.txtManyFights.text )
-			Debug.Print( "SimTime = " & SimTime * 60 * 60)
-			Debug.Print( "_MainFrm.txtManyFights.text = " & _MainFrm.txtManyFights.text)
+			'Debug.Print( "SimTime = " & SimTime * 60 * 60)
+			'Debug.Print( "_MainFrm.txtManyFights.text = " & _MainFrm.txtManyFights.text)
 			'MaxTime =
 			resetTime = _MainFrm.txtManyFights.text * 100
 			NextReset = resetTime
-			Debug.Print( "NumberOfFights = " & NumberOfFights)
+			'Debug.Print( "NumberOfFights = " & NumberOfFights)
 		Else
 			NumberOfFights = 1
 			resetTime = MaxTime + 1
@@ -241,7 +254,7 @@ Public Class Sim
 			End If
 			
 			
-			If MainStat.FrostPresence = 1 Then
+			If FrostPresence = 1 Then
 				If Boss.NextHit <= TimeStamp Then
 					Boss.ApplyDamage(TimeStamp)
 				End If
@@ -441,10 +454,10 @@ Public Class Sim
 		If glyph.Disease Then
 			dim tGDC as long
 			'return false
-			If MainStat.UnholyPresence Then
-				tGDC = 100+ _MainFrm.txtLatency.Text/10 + 50
+			If UnholyPresence Then
+				tGDC = 100+ latency/10 + 50
 			Else
-				tGDC =  150+ _MainFrm.txtLatency.Text/10 + 50
+				tGDC =  150+ latency/10 + 50
 			End If
 			
 			If math.Min(BloodPlague.FadeAt,FrostFever.FadeAt) < (T +  tGDC) Then
@@ -588,19 +601,17 @@ Public Class Sim
 		'RandomNumberGenerator.Init 'done in Start
 		DamagingObject.Clear
 		PetFriendly = SimConstructor.PetFriendly
-		Rotate = SimConstructor.Rotate
+			
 		'_EpStat = SimConstructor.EpStat
 		
 		Buff = New Buff(Me)
 		'Keep this order for RuneX -> Runse -> Rotation/Prio
 		Runes = New Runes.runes(Me)
 		
-		RunicPower = New RunicPower(Me)
-		proc = New procs(Me)
+
 		Rotation = new Rotation(Me)
-		Priority = New Priority(Me)
-		Character = New Character(Me)
-		MainStat = New MainStat(Me)
+'		Character = New Character(Me)
+'		MainStat = New MainStat(Me)
 		
 		BloodPlague = new BloodPlague(Me)
 		FrostFever = New FrostFever(Me)
@@ -618,16 +629,16 @@ Public Class Sim
 		DeathChill = new DeathChill(Me)
 		
 		UnbreakableArmor = new UnbreakableArmor(Me)
-		RuneForge = new RuneForge(Me)
+		
 		Butchery = new Butchery(Me)
 		DRW = new DRW(Me)
 		RuneStrike = New RuneStrike(Me)
 		
 		
 		
-		Sigils = new Sigils(Me)
 		
-		LoadConfig
+		
+		'LoadConfig
 		Desolation = New Desolation(me)
 		
 		RunicPower.Value = 0
@@ -651,7 +662,7 @@ Public Class Sim
 		OHBloodStrike = New BloodStrike(Me)
 		OHBloodStrike.OffHand = true
 		OHFrostStrike = New FrostStrike(Me)
-		OHFrostStrike.OffHand = true	
+		OHFrostStrike.OffHand = true
 		OHRuneStrike = New RuneStrike(Me)
 		OHRuneStrike.OffHand = true
 		
@@ -694,18 +705,31 @@ Public Class Sim
 	
 	Sub LoadConfig
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
-		on error goto errH
+		'on error goto errH
 		doc.Load("config.xml")
 		loadtemplate (Application.StartupPath & "\Templates\" & doc.SelectSingleNode("//config/template").InnerText)
 		IntroPath = Application.StartupPath & "\Intro\"  &  doc.SelectSingleNode("//config/intro").InnerText
-		If rotate Then
+		If system.IO.File.Exists(IntroPath)  = False Then
+			IntroPath = Application.StartupPath & "\Intro\NoIntro.xml"
+		End If
+		
+		KeepBloodSync = doc.SelectSingleNode("//config/BloodSync").InnerText
+		If doc.SelectSingleNode("//config/mode").InnerText <> "priority" Then
+			rotate = True
 			rotationPath = Application.StartupPath & "\Rotation\"  &  doc.SelectSingleNode("//config/rotation").InnerText
 		Else
+			rotate = False
 			loadPriority (Application.StartupPath & "\Priority\" & doc.SelectSingleNode("//config/priority").InnerText)
 		End If
+		latency = doc.SelectSingleNode("//config/latency").InnerText
+		
+		
+		
 		'		cmbCharacter.SelectedItem = doc.SelectSingleNode("//config/Character").InnerText
 		
 		Dim Sigil As String
+		Sigils = New Sigils(Me)
+		
 		Sigil = doc.SelectSingleNode("//config/sigil").InnerText
 		Sigils.WildBuck = false
 		Sigils.FrozenConscience = false
@@ -734,22 +758,24 @@ Public Class Sim
 			Case "VengefulHeart"
 				sigils.VengefulHeart = True
 			Case "Virulence"
-				sigils.Virulence = true
+				sigils.Virulence = True
+				
 		end select
 		
 		Dim Presence As String
 		Presence = doc.SelectSingleNode("//config/presence").InnerText
-		MainStat.BloodPresence = 0
-		MainStat.UnholyPresence = 0
-		Mainstat.FrostPresence = 0
+		BloodPresence = 0
+		UnholyPresence = 0
+		FrostPresence = 0
 		Select Case Presence
 			Case "Blood"
-				MainStat.BloodPresence = 1
+				BloodPresence = 1
 			Case "Unholy"
-				MainStat.UnholyPresence=1
+				UnholyPresence=1
 			Case "Frost"
-				Mainstat.FrostPresence = 1
+				FrostPresence = 1
 		End Select
+		RuneForge = New RuneForge(Me)
 		
 		RuneForge.MHCinderglacierRF = False
 		RuneForge.MHFallenCrusader = false
@@ -769,8 +795,21 @@ Public Class Sim
 		RuneForge.OHFallenCrusader = false
 		RuneForge.OHRazoriceRF = False
 		Runeforge.OHBerserking = False
+		Dim xmlcharacter As New Xml.XmlDocument
 		
-		if MainStat.DualW then
+		RunicPower = New RunicPower(Me)
+		proc = New procs(Me)
+		Character = New Character(Me)
+		MainStat = New MainStat(Me)
+		
+		
+		
+		
+		xmlcharacter.Load(Application.StartupPath & "\characters\" & doc.SelectSingleNode("//config/Character").InnerText)
+		
+		 
+		
+		if xmlcharacter.SelectSingleNode("//character/weapon/count").InnerText = 2 then
 			Select Case doc.SelectSingleNode("//config/oh").InnerText
 				Case "Cinderglacier"
 					RuneForge.OHCinderglacierRF = true
@@ -784,12 +823,16 @@ Public Class Sim
 			End Select
 		End If
 		
-		
-		'		txtLatency.Text = doc.SelectSingleNode("//config/latency").InnerText
-		'
-		'		txtSimtime.Text = doc.SelectSingleNode("//config/simtime").InnerText
 		Me.CombatLog.enable = doc.SelectSingleNode("//config/log").InnerText
 		Me.CombatLog.LogDetails = doc.SelectSingleNode("//config/logdetail").InnerText
+		
+		MergeReport = doc.SelectSingleNode("//config/chkMergeReport").InnerText
+		ReportName = doc.SelectSingleNode("//config/txtReportName").InnerText
+		WaitForFallenCrusader = doc.SelectSingleNode("//config/WaitFC").InnerText
+		
+		
+		
+		
 		Dim tmp As String
 		tmp = doc.SelectSingleNode("//config/BShOption").InnerText
 		Select Case tmp
@@ -801,7 +844,10 @@ Public Class Sim
 				Me.BoneShieldUsageStyle = 3
 		End Select
 		
+		
+		Exit Sub
 		errH:
+		msgbox("Error reading config file")
 	End Sub
 	
 	Sub loadPriority(file As String)
@@ -811,7 +857,7 @@ Public Class Sim
 		XmlDoc.Load(file)
 		dim Nod as Xml.XmlNode
 		
-		If _MainFrm.chkBloodSync.checked=True Then
+		If KeepBloodSync Then
 			priority.prio.Add("BloodSync")
 		End If
 		
@@ -829,12 +875,12 @@ Public Class Sim
 	End Sub
 	
 	Sub Report()
-		on error resume next
+	'	on error resume next
 		Dim Tw As System.IO.TextWriter
 		if EPStat <> "" then exit sub
 		Tw  =system.IO.File.appendText(ReportPath)
 		'Tw  = system.IO.File.Open(reportpath, system.IO.FileMode.Append)     '.OpenWrite(ReportPath)
-		Tw.Write ("<FONT COLOR='white'>[TABLE]</FONT>")
+		Tw.Write ("<FONT COLOR='white'>[TABLE]</FONT>" & ReportName)
 		
 		Tw.Write ("<table border='0' cellspacing='2' style='font-family:Verdana; font-size:10px;'>")
 		Tw.Write ("<tr>")
@@ -851,7 +897,7 @@ Public Class Sim
 		Tw.Write ("	<th><b>Uptime</b><FONT COLOR='white'>|</FONT></th>")
 		
 		
-		If me.MainStat.FrostPresence Then
+		If FrostPresence Then
 			Tw.Write ("<th rowspan='2'><b>TPS</b><FONT COLOR='white'>|</FONT></th>")
 		End If
 		
@@ -889,6 +935,17 @@ Public Class Sim
 		' Sort report
 		dim obj as Object
 		Dim myArray As New ArrayList
+		
+		If MergeReport Then
+			For Each obj In DamagingObject
+				If obj.total <> 0 Then
+					obj.merge
+				End If
+			Next
+		End If
+		
+		
+		
 		
 		For Each obj In DamagingObject
 			If obj.total <> 0 Then
@@ -946,8 +1003,9 @@ Public Class Sim
 			STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
 			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 		End If
-		
+		on error resume next
 		For Each obj In proc.EquipedTrinkets
+			
 			STmp = obj.report
 			STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
 			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
@@ -967,7 +1025,7 @@ Public Class Sim
 		Next
 		
 		
-		If MainStat.FrostPresence = 1 Then
+		If FrostPresence = 1 Then
 			Threat = Threat * 2.0735
 		Else
 			Threat = (Threat * 0.80) * (1- TalentBlood.Subversion * 8.333/100 )
@@ -1050,7 +1108,7 @@ Public Class Sim
 			End If
 		End If
 		
-		If MainStat.FrostPresence = 1 Then
+		If FrostPresence = 1 Then
 			If Boss.NextHit < tmp Then
 				tmp = Boss.NextHit
 			End If

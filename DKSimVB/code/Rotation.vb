@@ -33,7 +33,6 @@ Friend Class Rotation
 		Next
 		dim i as integer
 		i = 0
-		sim.Rotate=true
 	End Sub
 	
 	Sub DoRoration(TimeStamp As long)

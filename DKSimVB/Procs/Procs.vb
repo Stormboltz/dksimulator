@@ -97,7 +97,7 @@ Friend Class Procs
 		ScentOfBlood = New ScentOfBlood(s)
 		With ScentOfBlood
 			.Name = "ScentOfBlood"
-			If s.MainStat.FrostPresence = 1 Then
+			If s.FrostPresence = 1 Then
 				.equip
 				.Equiped  = sim.TalentBlood.ScentOfBlood
 			Else
@@ -199,7 +199,7 @@ Friend Class Procs
 			.Name = "MHCinderglacier"
 			.InternalCD = 0
 			.ProcOn = procs.ProcOnType.OnMHhit
-			.ProcChance = 1*S.MainStat.MHWeaponSpeed/60
+			.ProcChance = 1.5*S.MainStat.MHWeaponSpeed/60
 			.ProcLenght = 20
 			.ProcValue = 2
 			.DamageType = "cinderglacier"
@@ -210,7 +210,7 @@ Friend Class Procs
 		With s.RuneForge.OHCinderglacier
 			.Name = "OHCinderglacier"
 			.InternalCD = 0
-			.ProcChance = 1*S.MainStat.OHWeaponSpeed/60
+			.ProcChance = 1.5*S.MainStat.OHWeaponSpeed/60
 			.ProcLenght = 20
 			.ProcValue = 2
 			.DamageType = "cinderglacier"

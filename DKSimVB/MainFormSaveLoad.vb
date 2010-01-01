@@ -401,6 +401,17 @@ Public Partial Class MainForm
 		newElem.InnerText = txtAMScd.Text
 		root = doc.DocumentElement
 		root.AppendChild(newElem)
+		
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "chkMergeReport", "")
+		newElem.InnerText = chkMergeReport.Checked
+		root = doc.DocumentElement
+		root.AppendChild(newElem)
+		
+		
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "txtReportName", "")
+		newElem.InnerText = txtReportName.Text
+		root = doc.DocumentElement
+		root.AppendChild(newElem)
 
 		doc.Save("config.xml")
 		
@@ -442,7 +453,9 @@ Public Partial Class MainForm
 		chkManyFights.Checked = doc.SelectSingleNode("//config/chkManyFights").InnerText
 		txtAMSrp.Text = doc.SelectSingleNode("//config/txtAMSrp").InnerText
 		txtAMScd.Text = doc.SelectSingleNode("//config/txtAMScd").InnerText
-				
+		
+		chkMergeReport.Checked = doc.SelectSingleNode("//config/chkMergeReport").InnerText
+		txtReportName.Text = doc.SelectSingleNode("//config/txtReportName").InnerText
  		chkBloodSync.Checked = doc.SelectSingleNode("//config/BloodSync").InnerText
 				
 		errH:

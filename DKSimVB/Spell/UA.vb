@@ -31,7 +31,7 @@ Sub New(S As sim)
 			End If
 		End If
 		
-		If sim._MainFrm.chkBloodSync.Checked Then
+		If sim.KeepBloodSync Then
 			If sim.BloodToSync = True Then
 				sim.BloodToSync  = False
 			Else

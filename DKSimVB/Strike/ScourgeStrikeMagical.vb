@@ -55,7 +55,7 @@ Public Class ScourgeStrikeMagical
 		Dim tmp As Double
 		tmp = 1
 		addtiveDamage = 1
-		addtiveDamage += sim.mainstat.BloodPresence * 0.15
+		addtiveDamage += sim.BloodPresence * 0.15
 		addtiveDamage += 0.02 * sim.BoneShield.Value(T)
 		If sim.Desolation.isActive(T) Then addtiveDamage += sim.Desolation.Bonus
 		addtiveDamage +=  sim.TalentFrost.BlackIce * 2 / 100
@@ -79,4 +79,7 @@ Public Class ScourgeStrikeMagical
 	Public Overrides Function CritChance() As Double
 		return sim.ScourgeStrike.CritChance
 	End Function
+	
+	
+	
 End Class
