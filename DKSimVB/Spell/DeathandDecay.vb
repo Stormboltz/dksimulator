@@ -78,7 +78,7 @@ Friend Class DeathandDecay
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
 		If sim.glyph.DeathandDecay Then tmp = tmp *1.2
-		if sim.MainStat.T102PTNK =1 then tmp = tmp *1.2
+		If sim.MainStat.T102PTNK =1 Then tmp = tmp *1.2
 		return tmp
 	End Function
 	overrides Function CritCoef() As Double

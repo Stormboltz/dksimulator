@@ -66,7 +66,7 @@ Friend Class BloodBoil
 		if sim.runeforge.CinderglacierProc > 0 then
 			tmp = tmp * 1.2
 			sim.runeforge.CinderglacierProc = sim.runeforge.CinderglacierProc -1
- 		end if
+ 		End If
 		return tmp
 	End Function
 	overrides Function CritCoef() As Double

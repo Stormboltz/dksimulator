@@ -64,7 +64,7 @@ Public Class ScourgeStrikeMagical
 		tmp = tmp * (1 + 0.02 * sim.TalentBlood.BloodGorged)
 		if sim.proc.T104PDPSFAde >= T then tmp = tmp * 1.03
 		tmp = tmp * (1 + 0.13 *  sim.Buff.SpellDamageTaken)
-		tmp = tmp * (1-0.05) 'Average partial resist
+		tmp = tmp * (1-15/(510+15)) 'Partial Resistance. It's about 0,029% less damage on average.
 		tmpMagical = tmpMagical * tmp
 		If sim.RuneForge.CinderglacierProc > 0 Then
 			tmpMagical = tmpMagical * 1.2
