@@ -34,6 +34,7 @@ Friend Class BloodPlague
 		Dim tmp As Double
 		tmp = 26
 		tmp = tmp + 0.055 * (1 + 0.04 * sim.TalentUnholy.Impurity) * AP
+		if sim.RuneForge.CinderglacierProc > 0 then tmp  *= 1.2
 		If  sim.Buff.CrypticFever Then
 			tmp = tmp * 1.3
 		Else

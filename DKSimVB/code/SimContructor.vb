@@ -602,7 +602,7 @@ Public Module SimConstructor
 		For Each xNode In xNodelist.ChildNodes
 			If (xNode.Name <> "URL" and xNode.Name <> "Glyphs") and xNode.InnerText <> "0" Then
 				EpStat = xNode.Name
-				SimConstructor.Start(pb,1,MainFrm)
+				SimConstructor.Start(pb,MainFrm.txtSimtime.Text,MainFrm)
 			End If
 		Next	
 		

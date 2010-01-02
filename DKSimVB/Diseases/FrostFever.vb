@@ -33,6 +33,7 @@ Friend Class FrostFever
 		tmp = 26
 		tmp = tmp + 0.055 * (1 + 0.04 * sim.TalentUnholy.Impurity) * AP
 		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
+		if sim.RuneForge.CinderglacierProc > 0 then tmp  *= 1.2
 		If  sim.Buff.CrypticFever Then
 			tmp = tmp * 1.3
 		Else
