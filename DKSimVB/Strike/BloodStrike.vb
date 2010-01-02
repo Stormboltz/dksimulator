@@ -104,7 +104,9 @@ public Overrides Function AvrgCrit(T as long) As Double
 End Function
 
 
-	Public Overrides sub Merge()
+	Public Overrides Sub Merge()
+		
+		If sim.MainStat.DualW = false Then exit sub
 		Total += sim.OHBloodStrike.Total
 		TotalHit += sim.OHBloodStrike.TotalHit
 		TotalCrit += sim.OHBloodStrike.TotalCrit
@@ -116,6 +118,7 @@ End Function
 		sim.OHBloodStrike.Total = 0
 		sim.OHBloodStrike.TotalHit = 0
 		sim.OHBloodStrike.TotalCrit = 0
+		
 	End sub
 
 End Class

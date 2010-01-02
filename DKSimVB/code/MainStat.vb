@@ -70,13 +70,32 @@ Friend Class MainStat
 		If sim.EPStat="EP WeaponDPS" Then
 			MHWeaponDPS = MHWeaponDPS + 10
 		End If
+		
+		If InStr(sim.EPStat,"ScaDPSA") Then
+			MHWeaponDPS += Replace(sim.EPStat,"ScaDPSA","")/10
+		End If
+		
+		
 		MHWeaponSpeed = (XmlDoc.SelectSingleNode("//character/weapon/mainhand/speed").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
 		If sim.EPStat="EP WeaponSpeed" Then
 			MHWeaponSpeed = MHWeaponSpeed + 0.1
 		End If
+		
+		
+		
+		
+		
 		OHWeaponDPS = (XmlDoc.SelectSingleNode("//character/weapon/offhand/dps").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
 		OHWeaponSpeed = (XmlDoc.SelectSingleNode("//character/weapon/offhand/speed").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
 		BossArmor = 10643
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		If XmlDoc.SelectSingleNode("//character/misc/ChaoticSkyflareDiamond").InnerText = True Then
 			CSD = 1

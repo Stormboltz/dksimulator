@@ -277,6 +277,7 @@ Partial Class MainForm
 		Me.TabPrio2 = New System.Windows.Forms.TabPage
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.cmdRngSeeder = New System.Windows.Forms.Button
+		Me.chkScaDPSA = New System.Windows.Forms.CheckBox
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -2660,14 +2661,14 @@ Partial Class MainForm
 		Me.label21.Name = "label21"
 		Me.label21.Size = New System.Drawing.Size(363, 81)
 		Me.label21.TabIndex = 12
-		Me.label21.Text = "The stat scaling fucntion runs multiple simulation incrementing at each run. "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"Ex"& _ 
-		"cept for Strengh and Agility, character stats are replaced or added. "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"Select 1h"& _ 
-		" simulation time or it may take long."
+		Me.label21.Text = "The stat scaling tool runs multiple simulation incrementing at each run. "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"Except"& _ 
+		" for Strengh and Agility, character stats are replaced or added. "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"Select 1h sim"& _ 
+		"ulation time or it may take long."
 		Me.label21.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
 		'
 		'cmdScaling
 		'
-		Me.cmdScaling.Location = New System.Drawing.Point(371, 326)
+		Me.cmdScaling.Location = New System.Drawing.Point(371, 359)
 		Me.cmdScaling.Name = "cmdScaling"
 		Me.cmdScaling.Size = New System.Drawing.Size(75, 23)
 		Me.cmdScaling.TabIndex = 11
@@ -2677,6 +2678,7 @@ Partial Class MainForm
 		'
 		'gbScaling
 		'
+		Me.gbScaling.Controls.Add(Me.chkScaDPSA)
 		Me.gbScaling.Controls.Add(Me.chkScaExpA)
 		Me.gbScaling.Controls.Add(Me.chkScaExp)
 		Me.gbScaling.Controls.Add(Me.chkScaHitA)
@@ -2691,7 +2693,7 @@ Partial Class MainForm
 		Me.gbScaling.Controls.Add(Me.chkScaStr)
 		Me.gbScaling.Location = New System.Drawing.Point(18, 88)
 		Me.gbScaling.Name = "gbScaling"
-		Me.gbScaling.Size = New System.Drawing.Size(426, 232)
+		Me.gbScaling.Size = New System.Drawing.Size(426, 265)
 		Me.gbScaling.TabIndex = 3
 		Me.gbScaling.TabStop = false
 		Me.gbScaling.Text = "Common stats"
@@ -2839,6 +2841,15 @@ Partial Class MainForm
 		Me.cmdRngSeeder.UseVisualStyleBackColor = true
 		AddHandler Me.cmdRngSeeder.Click, AddressOf Me.CmdRngSeederClick
 		'
+		'chkScaDPSA
+		'
+		Me.chkScaDPSA.Location = New System.Drawing.Point(259, 229)
+		Me.chkScaDPSA.Name = "chkScaDPSA"
+		Me.chkScaDPSA.Size = New System.Drawing.Size(161, 24)
+		Me.chkScaDPSA.TabIndex = 14
+		Me.chkScaDPSA.Text = "Add Weapon DPS"
+		Me.chkScaDPSA.UseVisualStyleBackColor = true
+		'
 		'MainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
@@ -2891,6 +2902,7 @@ Partial Class MainForm
 		Me.gbScaling.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Friend chkScaDPSA As System.Windows.Forms.CheckBox
 	Private label43 As System.Windows.Forms.Label
 	Private txtReportName As System.Windows.Forms.TextBox
 	Private chkMergeReport As System.Windows.Forms.CheckBox

@@ -81,7 +81,8 @@ Friend Class PlagueStrike
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 
-	Public Overrides sub Merge()
+	Public Overrides Sub Merge()
+		If sim.MainStat.DualW = false Then exit sub
 		Total += sim.OHPlagueStrike.Total
 		TotalHit += sim.OHPlagueStrike.TotalHit
 		TotalCrit += sim.OHPlagueStrike.TotalCrit

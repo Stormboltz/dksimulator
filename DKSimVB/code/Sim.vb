@@ -205,7 +205,7 @@ Public Class Sim
 		LoadConfig
 		
 		
-		MergeReport = true
+		'MergeReport = true
 		CreateProgressFrame
 		Rnd(-1) 'Tell VB to initialize using Randomize's parameter
 		RandomNumberGenerator = new RandomNumberGenerator 'init here, so that we don't get the same rng numbers for short fights.

@@ -123,7 +123,8 @@ Friend Class FrostStrike
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 	
-	Public Overrides sub Merge()
+	Public Overrides Sub Merge()
+		If sim.MainStat.DualW = false Then exit sub
 		Total += sim.OHFrostStrike.Total
 		TotalHit += sim.OHFrostStrike.TotalHit
 		TotalCrit += sim.OHFrostStrike.TotalCrit

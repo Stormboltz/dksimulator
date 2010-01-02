@@ -127,7 +127,8 @@ Friend Class Obliterate
 	
 
 	
-	Public Overrides sub Merge()
+	Public Overrides Sub Merge()
+		If sim.MainStat.DualW = false Then exit sub
 		Total += sim.OHObliterate.Total
 		TotalHit += sim.OHObliterate.TotalHit
 		TotalCrit += sim.OHObliterate.TotalCrit

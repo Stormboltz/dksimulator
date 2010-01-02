@@ -56,7 +56,8 @@ Sub New(S As sim)
 		return AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 	
-	Public Overrides sub Merge()
+	Public Overrides Sub Merge()
+		If sim.MainStat.DualW = false Then exit sub
 		Total += sim.OHBloodCakedBlade.Total
 		TotalHit += sim.OHBloodCakedBlade.TotalHit
 		TotalCrit += sim.OHBloodCakedBlade.TotalCrit

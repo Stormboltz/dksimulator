@@ -125,8 +125,6 @@ Public Partial Class MainForm
 		Dim i As Integer
 		
 		For Each Node In Doc.SelectSingleNode("//Rotation/Rotation").ChildNodes
-
-			
 			btn = New PrioButton
 			btn.init(me)
 			btn.Top = 10+ btn.Height * i
@@ -139,10 +137,8 @@ Public Partial Class MainForm
 			btn.number = i
 			i += 1
 			If Node.Attributes.GetNamedItem("retry").Value = 0 Then
-
 				btn.chkRetry.Checked = false
 			Else
-
 				btn.chkRetry.Checked = true
 			End If
 		Next
@@ -210,7 +206,7 @@ Public Partial Class MainForm
 		Dim y As Integer
 		dim p as PrioButton
 		For Each p In Me.grpCurrentPrio.Controls
-			If (p.number = s.number-1) And  (s.lbl.Text <> p.lbl.Text) Then
+			If (p.number = s.number-1) And  s.Equals(p)=false Then
 				s.number -= 1
 				x = s.Left
 				y = s.Top
@@ -229,7 +225,7 @@ Public Partial Class MainForm
 		Dim y As Integer
 		dim p as PrioButton
 		For Each p In Me.grpCurrentPrio.Controls
-			If (p.number = s.number+1) And  (s.lbl.Text <> p.lbl.Text) Then
+			If (p.number = s.number+1) And  s.Equals(p)=false  Then
 				s.number += 1
 				x = s.Left
 				y = s.Top

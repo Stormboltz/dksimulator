@@ -1,4 +1,16 @@
-﻿1.2 Release notes
+﻿1.2.0.2 Release notes
+* Correction on Priority editor.
+* Weapon Dps scaling option added.
+
+
+1.2.0.1 Release notes
+* DPS Value for talents correction.
+* Option to merge in the report should work correctly.
+* Magical Scourge strike appears as crit if orginal strike is crit.
+* Scourge strike calculation was not correct in the 1.2 release.
+
+
+1.2 Release notes
 * Better reporting.
 * DPS Value for talents. Check Template Editor tab.
 * Correction on Killing machine that would proc too much since 1.1.8.4

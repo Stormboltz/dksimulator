@@ -36,16 +36,18 @@ Friend Class ScourgeStrike
 				CritCount = CritCount + 1
 				dégat = AvrgNonCritPhysical(T)* (1 + CritCoef)
 				sim.combatlog.write(T  & vbtab &  "SS Physical crit for " & dégat )
-				totalcrit += tmpPhysical
+				totalcrit += dégat
 				sim.tryOnCrit
+				sim.ScourgeStrikeMagical.ApplyDamage(dégat,T,true)
 			Else
 				HitCount = HitCount + 1
 				dégat = AvrgNonCritPhysical(T)
-				totalhit += tmpPhysical
+				totalhit += dégat
 				sim.combatlog.write(T  & vbtab &  "SS Physical hit for " & dégat )
+				sim.ScourgeStrikeMagical.ApplyDamage(dégat,T,false)
 			End If
-			sim.ScourgeStrikeMagical.ApplyDamage(dégat,T)
-			total = total + tmpPhysical
+			
+			total = total + dégat
 		
 		
 		If sim.glyph.ScourgeStrike Then
