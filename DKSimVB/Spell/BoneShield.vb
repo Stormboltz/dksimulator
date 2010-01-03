@@ -62,7 +62,7 @@ Public Class BoneShield
 		
 		me.CD = T + 60*100
 		Me.ActiveUntil = T + BuffLength*100
-		sim.runes.UseUnholy(T,False)
+		sim.runes.UseDeathBlood(T,true)
 		UseGCD(T)
 		sim.RunicPower.add(10)
 		sim.combatlog.write(T  & vbtab &  "Bone Shield")

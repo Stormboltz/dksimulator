@@ -81,7 +81,7 @@ Friend Class Procs
 			.ProcOn = procs.ProcOnType.OnMHWhiteHit
 			if sim.TalentFrost.KillingMachine > 0 then .Equip
 			.Equiped  = sim.TalentFrost.KillingMachine
-			.ProcLenght = 60
+			.ProcLenght = 30
 			.ProcChance = (sim.Talentfrost.KillingMachine)*S.MainStat.MHWeaponSpeed/60
 		End With
 		
@@ -90,7 +90,7 @@ Friend Class Procs
 			.Name = "Rime"
 			if sim.TalentFrost.Rime >  0 then .equip 
 			.Equiped  = sim.TalentFrost.Rime
-			.ProcLenght = 60
+			.ProcLenght = 15
 			.ProcChance = 5 * sim.TalentFrost.Rime/100
 		End With
 		
@@ -281,6 +281,16 @@ Friend Class Procs
 		return tmp
 	End Function
 	
+	Function GetMaxPossibleBonus(stat As String) As Integer
+		Dim prc As proc
+		dim tmp as Integer
+		For Each prc In EquipedTrinkets
+			If prc.ProcType = stat Then
+				tmp += prc.ProcValue
+			End If
+		Next
+		return tmp
+	End Function
 	
 	
 	

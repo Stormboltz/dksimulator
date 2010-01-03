@@ -1,7 +1,12 @@
 ﻿1.2.0.2 Release notes
 * Correction on Priority editor.
 * Weapon Dps scaling option added.
-
+* Better Bone shield/UA usage when used after BloodStrike
+* New buff: Frost Fever/Blood Plague from another deathknight.
+* New Priority "FadeRime" to cast HB when Rime buff is about to fade.
+* Haste EP Calculation: Calculation will take longer due to the the sim calculating at multiple value of haste to have more consistent value.
+* Option Wait for FC modification: The flag will trigger when the AP of the character is greater than 80% of the maximum possible AP. 
+* Report DPS should contain back damaging proc.
 
 1.2.0.1 Release notes
 * DPS Value for talents correction.

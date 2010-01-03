@@ -41,7 +41,7 @@ Sub New(S As sim)
 		
 		
 		cd = t + 60 * 100
-		sim.Runes.UseFrost(T,false)
+		sim.Runes.UseDeathBlood(T,true)
 		ActiveUntil= T + 20 * 100
 		UseGCD(T)
 		sim.RunicPower.add(10)

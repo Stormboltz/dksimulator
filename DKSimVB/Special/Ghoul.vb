@@ -171,7 +171,14 @@ Friend class Ghoul
 	Function ClawAvrgCrit(T As long) As integer
 		return  AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
-	
+	Public Sub cleanup()
+		Total = 0
+		HitCount = 0
+		MissCount =0
+		CritCount = 0
+		TotalHit = 0
+		TotalCrit = 0
+	End Sub
 	Function report As String
 		dim tmp as String
 		tmp = "Ghoul" & VBtab

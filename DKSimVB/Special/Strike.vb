@@ -112,7 +112,14 @@ Public Class Strike
 	
 	Overridable Function AvrgCrit(T As long) As Double
 	End Function
-	
+	Overridable Public Sub cleanup()
+		Total = 0
+		HitCount = 0
+		MissCount =0
+		CritCount = 0
+		TotalHit = 0
+		TotalCrit = 0
+	End Sub
 	Overridable Function report As String
 		dim tmp as String
 		tmp = ShortenName(me.Name)  & VBtab

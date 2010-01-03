@@ -41,7 +41,8 @@ Friend Class MainStat
 	Private _LastArP as Double
 	
 	
-	Protected Sim as Sim
+	Protected Sim As Sim
+	Private _MaxAp as Integer
 	
 	
 	
@@ -72,7 +73,7 @@ Friend Class MainStat
 		End If
 		
 		If InStr(sim.EPStat,"ScaDPSA") Then
-			MHWeaponDPS += Replace(sim.EPStat,"ScaDPSA","")/10
+			MHWeaponDPS += Replace(sim.EPStat,"ScaDPSA","")
 		End If
 		
 		
@@ -281,6 +282,21 @@ Friend Class MainStat
 		tmp = tmp * (1 +  sim.Buff.AttackPowerPc / 10)
 		return tmp
 	End Function
+	
+	Function GetMAxAP As Integer
+		Dim tmp As Integer
+		If _MaxAp <> 0 Then Return _MaxAp
+		tmp += sim.proc.GetMaxPossibleBonus("ap")
+		
+		tmp += Character.AttackPower
+		tmp += Character.maxStrength * 2
+		tmp += 550
+		tmp = tmp * (1 +  sim.Buff.AttackPowerPc / 10)
+		_MaxAp = tmp
+		return tmp
+	End Function
+	
+	
 	
 	Function AP() As Integer
 		return  BaseAP
@@ -561,8 +577,8 @@ Friend Class MainStat
 		tmp = tmp * (1 + 0.03 * sim.TalentBlood.BloodyVengeance)
 		If sim.Hysteria.IsActive(T) Then tmp = tmp * 1.2
 		
-		If sim.FrostFever.isActive(T) Then	tmp = tmp * (1 + 0.03 * sim.TalentFrost.TundraStalker)
-		If sim.BloodPlague.isActive(T) Then tmp = tmp * (1 + 0.02 * sim.TalentUnholy.RageofRivendare)
+		If sim.FrostFever.isActive(T) or sim.Buff.FrostFever = 1 Then	tmp = tmp * (1 + 0.03 * sim.TalentFrost.TundraStalker)
+		If sim.BloodPlague.isActive(T) or sim.Buff.BloodPlague = 1 Then tmp = tmp * (1 + 0.02 * sim.TalentUnholy.RageofRivendare)
 		If sim.proc.T104PDPSFAde >= T Then tmp = tmp * 1.03
 		
 		return tmp
@@ -576,8 +592,8 @@ Friend Class MainStat
 		tmp = tmp * (1 + 0.02 * sim.BoneShield.Value(T))
 		tmp = tmp * (1 + 0.02 * sim.TalentBlood.BloodGorged)
 		
-		If sim.FrostFever.isActive(T) Then	tmp = tmp * (1 + 0.03 * sim.TalentFrost.TundraStalker)
-		If sim.BloodPlague.isActive(T) Then tmp = tmp * (1 + 0.02 * sim.TalentUnholy.RageofRivendare)
+		If sim.FrostFever.isActive(T) or sim.Buff.FrostFever = 1 Then	tmp = tmp * (1 + 0.03 * sim.TalentFrost.TundraStalker)
+		If sim.BloodPlague.isActive(T) or sim.Buff.BloodPlague = 1 Then tmp = tmp * (1 + 0.02 * sim.TalentUnholy.RageofRivendare)
 		if sim.proc.T104PDPSFAde >= T then tmp = tmp * 1.03
 		tmp = tmp * (1 + 0.13 *  sim.Buff.SpellDamageTaken)
 		tmp = tmp * (1-15/(510+15)) 'Partial Resistance. It's about 0,029% less damage on average.

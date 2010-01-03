@@ -23,11 +23,12 @@ Friend Class BloodPlague
 		ToReApply = false 
 		AP = sim.MainStat.AP
 		DamageTick = AvrgNonCrit(T)
-		FadeAt = T + 15 * 100 + 3 * 100 * sim.TalentUnholy.Epidemic
+		FadeAt = T + Lenght
 		nextTick = T + 3 * 100
 		sim.pestilence.BPToReapply = False
 		ScourgeStrikeGlyphCounter = 0
 		CritChance = sim.MainStat.crit
+		AddUptime(T)
 	End Function
 	
 	overrides Function AvrgNonCrit(T As long) As Double

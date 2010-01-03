@@ -136,6 +136,8 @@
     <Compile Include="Special\Bloodlust.vb" />
     <Compile Include="Special\DRW.vb" />
     <Compile Include="Special\Gargoyle.vb" />
+    <Compile Include="Special\Ghoul.vb" />
+    <Compile Include="Special\Spell.vb" />
     <Compile Include="Special\Strike.vb" />
     <Compile Include="Spell\BloodBoil.vb" />
     <Compile Include="Spell\BloodTap.vb" />
@@ -154,7 +156,6 @@
     <Compile Include="Spell\Necrosis.vb" />
     <Compile Include="Spell\Pestilence.vb">
     </Compile>
-    <Compile Include="Spell\Spell.vb" />
     <Compile Include="Spell\UA.vb" />
     <Compile Include="Spell\UnholyBlight.vb" />
     <Compile Include="Spell\WanderingPlague.vb" />
@@ -162,7 +163,6 @@
     <Compile Include="Strike\BloodStrike.vb" />
     <Compile Include="Strike\DeathStrike.vb" />
     <Compile Include="Strike\FrostStrike.vb" />
-    <Compile Include="Strike\Ghoul.vb" />
     <Compile Include="Strike\HeartStrike.vb" />
     <Compile Include="Strike\MainHand.vb" />
     <Compile Include="Strike\Obliterate.vb" />

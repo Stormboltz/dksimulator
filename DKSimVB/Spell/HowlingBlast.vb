@@ -75,7 +75,7 @@ Friend Class HowlingBlast
 		tmp = 585
 		tmp = tmp + (0.2 * (1 + 0.04 * sim.TalentUnholy.Impurity) * sim.MainStat.AP)
 		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
-		if sim.NumDesease > 0 then 	tmp = tmp * (1 + sim.TalentFrost.GlacierRot * 6.6666666 / 100)
+		if sim.NumDesease > 0 or (sim.Buff.BloodPlague+sim.Buff.FrostFever>0) then 	tmp = tmp * (1 + sim.TalentFrost.GlacierRot * 6.6666666 / 100)
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		If (T/sim.MaxTime) >= 0.75 Then tmp = tmp *(1+ 0.06*sim.talentfrost.MercilessCombat)
 		tmp = tmp *(1+sim.RuneForge.RazorIceStack/100) 'TODO: only on main target

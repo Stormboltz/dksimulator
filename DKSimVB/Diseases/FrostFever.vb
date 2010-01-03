@@ -21,11 +21,12 @@ Friend Class FrostFever
 		ToReApply = false
 		AP = sim.MainStat.AP
 		DamageTick = AvrgNonCrit(T)
-		FadeAt = T + 15 * 100 + 3 * 100 * sim.TalentUnholy.Epidemic
+		FadeAt = T + Lenght
 		nextTick = T + 3 * 100
 		sim.pestilence.FFToReapply = False
 		ScourgeStrikeGlyphCounter = 0
 		CritChance = 0
+		AddUptime(T)
 	End Function
 	
 	Overrides	Function AvrgNonCrit(T As Long) As Double

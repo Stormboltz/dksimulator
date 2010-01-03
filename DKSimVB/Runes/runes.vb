@@ -291,6 +291,20 @@ Friend Class runes
 		
 		
 	End Function
+	
+	Function UseDeathBlood(T As Long,Death As Boolean) As Boolean
+		If BloodRune1.Available(T) And BloodRune1.death = true Then
+			BloodRune1.Use(T,Death)
+		Else
+			If BloodRune2.Available(T) And BloodRune2.death = true Then
+				BloodRune2.Use(T,Death)
+			End If
+		End If
+	End Function
+	
+	
+	
+	
 	Function UseBlood(T as long,Death as Boolean) As Boolean
 		If BloodRune1.Available(T) And BloodRune1.death = False Then
 			BloodRune1.Use(T,Death)
@@ -463,11 +477,11 @@ Friend Class runes
 '						Debug.Print ("ERRRRRROOOOORRRR FU @ :" & T)
 '						Exit Function
 '					End If
-'					
+'
 '				End If
 '			End If
 '		End If
-'		
+'
 '		If Rune5.AvailableTime <= T Then
 '			If T - Rune5.AvailableTime <= 300 and Rune5.AvailableTime <> 0 Then
 '				Rune5.AvailableTime = Rune5.AvailableTime + RuneRefreshtime
@@ -506,7 +520,7 @@ Friend Class runes
 '						Debug.Print ("ERRRRRROOOOORRRR FU @ :" & T)
 '						Exit Function
 '					End If
-'					
+'
 '				End If
 '			End If
 '		End If

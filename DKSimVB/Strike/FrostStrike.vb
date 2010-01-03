@@ -96,7 +96,7 @@ Friend Class FrostStrike
 		tmp = tmp + 150
 		if sim.sigils.VengefulHeart then tmp= tmp + 113
 		tmp = tmp * (1+ sim.TalentFrost.BloodoftheNorth * 5 /100)
-		If sim.NumDesease > 0 Then 	tmp = tmp * (1 + sim.TalentFrost.GlacierRot * 6.6666666 / 100)
+		if sim.NumDesease > 0 or (sim.Buff.BloodPlague+sim.Buff.FrostFever>0) Then 	tmp = tmp * (1 + sim.TalentFrost.GlacierRot * 6.6666666 / 100)
 		if (T/sim.MaxTime) >= 0.75 then tmp = tmp *(1+ 0.06*sim.talentfrost.MercilessCombat)
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)

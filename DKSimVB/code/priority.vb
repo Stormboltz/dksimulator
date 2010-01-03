@@ -292,6 +292,12 @@ Friend Class priority
 						sim.HowlingBlast.ApplyDamage(TimeStamp)
 					Else
 					End If
+				Case "FadeRime"
+					If  sim.HowlingBlast.isAvailable(TimeStamp) and sim.proc.Rime.IsActive and sim.proc.Rime.Fade< TimeStamp+250 and sim.CanUseGCD(Timestamp)  Then
+						sim.HowlingBlast.ApplyDamage(TimeStamp)
+					Else
+					End If
+					
 				Case "DeathandDecay"
 					If sim.DeathAndDecay.isAvailable(TimeStamp) and sim.CanUseGCD(Timestamp) Then
 						sim.DeathAndDecay.Apply(TimeStamp)

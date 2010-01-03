@@ -118,6 +118,14 @@ End Function
 Sub Merge()
 		
 	End Sub
+	Public Sub cleanup()
+		Total = 0
+		HitCount = 0
+		MissCount =0
+		CritCount = 0
+		TotalHit = 0
+		TotalCrit = 0
+	End Sub
 
 Function report As String
 	dim tmp as String

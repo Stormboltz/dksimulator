@@ -23,7 +23,13 @@ Public Class Disease
 	Public total As Long
 	Friend TotalHit As Long
 	Friend TotalCrit As Long
+	Private _Lenght As Integer
+	Friend previousFade As Long
 	Public ThreadMultiplicator As Double
+	Friend uptime as Long
+	
+	
+	
 	Protected sim As Sim
 	
 	Friend ToReApply as Boolean
@@ -51,7 +57,6 @@ Public Class Disease
 	Overridable Protected Sub init()
 		nextTick = 0
 		FadeAt= 0
-		
 		total = 0
 		MissCount = 0
 		HitCount = 0
@@ -64,6 +69,15 @@ Public Class Disease
 		ToReApply = 0
 		_RNG=nothing
 	End sub
+	
+	Function Lenght() as Integer
+		If _Lenght = 0 Then
+			_Lenght = 1500 + 300 * sim.TalentUnholy.Epidemic
+		End If
+		return _Lenght
+	End Function
+	
+	
 	
 	Overridable Function PerfectUsage(T As Long) As Boolean
 		return false
@@ -151,6 +165,7 @@ Public Class Disease
 		If sim.FrostPresence Then
 			tmp = tmp & toDecimal((100 * total * ThreadMultiplicator * 2.0735 ) / sim.TimeStamp) & VBtab
 		End If
+		tmp = tmp & ""& toDecimal(100*uptime/sim.MaxTime)  & "" & VBtab
 		tmp = tmp & vbCrLf
 		tmp = replace(tmp, VBtab & 0, vbtab)
 		return tmp
@@ -158,8 +173,37 @@ Public Class Disease
 	
 	Overridable Public Sub Merge()
 	End Sub
+	Public Sub cleanup()
+		Total = 0
+		HitCount = 0
+		MissCount =0
+		CritCount = 0
+		TotalHit = 0
+		TotalCrit = 0
+	End Sub
 	
-	
+	Sub AddUptime(T As Long)
+		dim tmp as Long
+		If Lenght + T > sim.MaxTime Then
+			tmp = (sim.MaxTime - T)
+		Else
+			tmp = Lenght
+		End If
+		
+		If previousfade < T  Then
+		 	uptime += tmp
+		Else
+			uptime += tmp - (previousFade-T)
+		End If
+		previousFade = T + tmp
+	End Sub
+	Sub RemoveUptime(T As Long)
+		If previousfade < T  Then
+		Else
+			uptime -= (previousFade-T)
+		End If
+		previousFade = T 
+	End Sub
 	
 End Class
 end Namespace

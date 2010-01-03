@@ -262,6 +262,7 @@ Partial Class MainForm
 		Me.label21 = New System.Windows.Forms.Label
 		Me.cmdScaling = New System.Windows.Forms.Button
 		Me.gbScaling = New System.Windows.Forms.GroupBox
+		Me.chkScaDPSA = New System.Windows.Forms.CheckBox
 		Me.chkScaExpA = New System.Windows.Forms.CheckBox
 		Me.chkScaExp = New System.Windows.Forms.CheckBox
 		Me.chkScaHitA = New System.Windows.Forms.CheckBox
@@ -277,7 +278,8 @@ Partial Class MainForm
 		Me.TabPrio2 = New System.Windows.Forms.TabPage
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.cmdRngSeeder = New System.Windows.Forms.Button
-		Me.chkScaDPSA = New System.Windows.Forms.CheckBox
+		Me.chkFrostFever = New System.Windows.Forms.CheckBox
+		Me.chkBloodPlague = New System.Windows.Forms.CheckBox
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -1793,6 +1795,8 @@ Partial Class MainForm
 		Me.grpBuff.Controls.Add(Me.chkBStatAdd)
 		Me.grpBuff.Controls.Add(Me.chkBSpellHaste)
 		Me.grpBuff.Controls.Add(Me.chkBSpellCrit)
+		Me.grpBuff.Controls.Add(Me.chkBloodPlague)
+		Me.grpBuff.Controls.Add(Me.chkFrostFever)
 		Me.grpBuff.Controls.Add(Me.chkCrypticFever)
 		Me.grpBuff.Controls.Add(Me.chkBSpHitTaken)
 		Me.grpBuff.Controls.Add(Me.chkBMeleeCrit)
@@ -2698,6 +2702,15 @@ Partial Class MainForm
 		Me.gbScaling.TabStop = false
 		Me.gbScaling.Text = "Common stats"
 		'
+		'chkScaDPSA
+		'
+		Me.chkScaDPSA.Location = New System.Drawing.Point(259, 229)
+		Me.chkScaDPSA.Name = "chkScaDPSA"
+		Me.chkScaDPSA.Size = New System.Drawing.Size(161, 24)
+		Me.chkScaDPSA.TabIndex = 14
+		Me.chkScaDPSA.Text = "Add Weapon DPS"
+		Me.chkScaDPSA.UseVisualStyleBackColor = true
+		'
 		'chkScaExpA
 		'
 		Me.chkScaExpA.Location = New System.Drawing.Point(259, 199)
@@ -2841,14 +2854,27 @@ Partial Class MainForm
 		Me.cmdRngSeeder.UseVisualStyleBackColor = true
 		AddHandler Me.cmdRngSeeder.Click, AddressOf Me.CmdRngSeederClick
 		'
-		'chkScaDPSA
+		'chkFrostFever
 		'
-		Me.chkScaDPSA.Location = New System.Drawing.Point(259, 229)
-		Me.chkScaDPSA.Name = "chkScaDPSA"
-		Me.chkScaDPSA.Size = New System.Drawing.Size(161, 24)
-		Me.chkScaDPSA.TabIndex = 14
-		Me.chkScaDPSA.Text = "Add Weapon DPS"
-		Me.chkScaDPSA.UseVisualStyleBackColor = true
+		Me.chkFrostFever.Checked = true
+		Me.chkFrostFever.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkFrostFever.Location = New System.Drawing.Point(177, 290)
+		Me.chkFrostFever.Name = "chkFrostFever"
+		Me.chkFrostFever.Size = New System.Drawing.Size(209, 24)
+		Me.chkFrostFever.TabIndex = 0
+		Me.chkFrostFever.Text = "Frost Fever from another Deathknight"
+		Me.chkFrostFever.UseVisualStyleBackColor = true
+		'
+		'chkBloodPlague
+		'
+		Me.chkBloodPlague.Checked = true
+		Me.chkBloodPlague.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkBloodPlague.Location = New System.Drawing.Point(177, 320)
+		Me.chkBloodPlague.Name = "chkBloodPlague"
+		Me.chkBloodPlague.Size = New System.Drawing.Size(231, 24)
+		Me.chkBloodPlague.TabIndex = 0
+		Me.chkBloodPlague.Text = "Blood Plague from another Deathknight"
+		Me.chkBloodPlague.UseVisualStyleBackColor = true
 		'
 		'MainForm
 		'
@@ -2902,6 +2928,8 @@ Partial Class MainForm
 		Me.gbScaling.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Private chkFrostFever As System.Windows.Forms.CheckBox
+	Private chkBloodPlague As System.Windows.Forms.CheckBox
 	Friend chkScaDPSA As System.Windows.Forms.CheckBox
 	Private label43 As System.Windows.Forms.Label
 	Private txtReportName As System.Windows.Forms.TextBox

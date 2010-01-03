@@ -24,6 +24,9 @@ Friend Class Buff
 	Friend SpellHitTaken As Integer 
 	Friend Draenei as Integer
 	Friend CrypticFever As Integer
+	Friend BloodPlague As Integer
+	Friend FrostFever as Integer
+	
 	
 	
 	
@@ -63,6 +66,8 @@ Friend Class Buff
 		Bloodlust = liveXml.SelectSingleNode("/config/chkBloodlust").InnerText
 		Draenei = liveXml.SelectSingleNode("/config/chkDraeni").InnerText
 		CrypticFever = liveXml.SelectSingleNode("/config/chkCrypticFever").InnerText
+		BloodPlague = liveXml.SelectSingleNode("/config/chkBloodPlague").InnerText
+		FrostFever = liveXml.SelectSingleNode("/config/chkFrostFever").InnerText
 	End Sub
 	
 	Sub UnBuff()

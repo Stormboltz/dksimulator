@@ -50,7 +50,7 @@ Public Class Frenzy
 			End If
 		End If
 		UseGCD(T)
-		sim.runes.UseUnholy(T,True)
+		sim.runes.UseDeathBlood(T,True)
 		Sim.RunicPower.add(10)
 		CD = T+3000
 		me.ActiveUntil = T+3000

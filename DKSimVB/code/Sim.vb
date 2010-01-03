@@ -294,6 +294,25 @@ Public Class Sim
 				If isInGCD(TimeStamp) = False Then rotation.DoIntro(TimeStamp)
 				
 				If isInGCD(TimeStamp) = False Then
+					If BoneShieldUsageStyle = 2 Then
+						If runes.BloodRune1.Available(TimeStamp) = False Then
+							If runes.BloodRune2.Available(TimeStamp) = False Then
+								if BoneShield.IsAvailable(TimeStamp) Then
+									BoneShield.Use(TimeStamp)
+								End If
+								If UnbreakableArmor.IsAvailable(TimeStamp) Then
+									UnbreakableArmor.Use(TimeStamp)
+								End If
+							End If
+						End If
+					End If
+				End If
+				
+				
+				
+				
+				
+				If isInGCD(TimeStamp) = False Then
 					
 					if Rotate then
 						Rotation.DoRoration(TimeStamp)
@@ -302,34 +321,7 @@ Public Class Sim
 					End If
 				End If
 				
-				If isInGCD(TimeStamp) = False Then
-					If UnbreakableArmor.IsAvailable(TimeStamp) Then
-						UnbreakableArmor.Use(TimeStamp)
-					End If
-				End If
 				
-				If isInGCD(TimeStamp) = False Then
-					If BoneShieldUsageStyle = 2 Then
-						If runes.BloodRune1.Available(TimeStamp) = False Then
-							If runes.BloodRune2.Available(TimeStamp) = False Then
-								If runes.FrostRune1.Available(TimeStamp) = False Then
-									If runes.FrostRune2.Available(TimeStamp) = False Then
-										If runes.UnholyRune1.Available(TimeStamp) = False Then
-											If runes.UnholyRune2.Available(TimeStamp) = False Then
-												If BoneShield.IsAvailable(TimeStamp) Then
-													BoneShield.Use(TimeStamp)
-												End If
-												If UnbreakableArmor.IsAvailable(TimeStamp) Then
-													UnbreakableArmor.Use(TimeStamp)
-												End If
-											End If
-										End If
-									End If
-								End If
-							End If
-						End If
-					End If
-				End If
 				
 				
 				
@@ -599,7 +591,7 @@ Public Class Sim
 	
 	Sub Initialisation()
 		'RandomNumberGenerator.Init 'done in Start
-		DamagingObject.Clear
+		'DamagingObject.Clear
 		PetFriendly = SimConstructor.PetFriendly
 			
 		'_EpStat = SimConstructor.EpStat
@@ -880,7 +872,7 @@ Public Class Sim
 		if EPStat <> "" then exit sub
 		Tw  =system.IO.File.appendText(ReportPath)
 		'Tw  = system.IO.File.Open(reportpath, system.IO.FileMode.Append)     '.OpenWrite(ReportPath)
-		Tw.Write ("<FONT COLOR='white'>[TABLE]</FONT>" & ReportName)
+		Tw.Write (ReportName & "<FONT COLOR='white'>[TABLE]</FONT>"  )
 		
 		Tw.Write ("<table border='0' cellspacing='2' style='font-family:Verdana; font-size:10px;'>")
 		Tw.Write ("<tr>")
@@ -950,6 +942,7 @@ Public Class Sim
 		For Each obj In DamagingObject
 			If obj.total <> 0 Then
 				myArray.Add(obj.total)
+				
 			End If
 		Next
 		myArray.Sort()
@@ -966,6 +959,7 @@ Public Class Sim
 					STmp = obj.report
 					STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
 					Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+					'obj.cleanup 
 				End If
 			Next
 		Next
@@ -1003,12 +997,14 @@ Public Class Sim
 			STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
 			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 		End If
-		on error resume next
-		For Each obj In proc.EquipedTrinkets
-			
-			STmp = obj.report
-			STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+		'On Error Resume Next
+		dim pr as Proc
+		For Each pr In proc.EquipedTrinkets
+			if pr.Total = 0 then
+				STmp = pr.report
+				STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			End If
 		Next
 		
 		

@@ -33,11 +33,11 @@ Friend Class Pestilence
 		Sim.RunicPower.add (10)
 		
 		If sim.BloodPlague.FadeAt > T Then
-				sim.BloodPlague.OtherTargetsFade  = T + 1500 + 300 * sim.TalentUnholy.Epidemic
+				sim.BloodPlague.OtherTargetsFade  = T + sim.BloodPlague.Lenght
 				'BloodPlague.nextTick = T + 300
 			End If
 		If sim.FrostFever.FadeAt > T Then
-			sim.FrostFever.OtherTargetsFade = T + 1500 + 300 * sim.TalentUnholy.Epidemic
+			sim.FrostFever.OtherTargetsFade = T + sim.frostfever.Lenght
 			'FrostFever.nextTick = T + 300
 		End If
 	
@@ -46,14 +46,16 @@ Friend Class Pestilence
 		If sim.glyph.Disease Then
 			'debug.Print ("PEST! at " & T )
 			If sim.BloodPlague.FadeAt > T Then
-				sim.BloodPlague.FadeAt = T + 1500 + 300 * sim.TalentUnholy.Epidemic
+				sim.BloodPlague.FadeAt = T + sim.BloodPlague.Lenght
 				sim.BloodPlague.AP = sim.MainStat.AP
 				sim.BloodPlague.DamageTick = sim.BloodPlague.AvrgNonCrit(T)
+				sim.BloodPlague.AddUptime(T)
 			End If
 			If sim.FrostFever.FadeAt > T Then
-				sim.FrostFever.FadeAt = T + 1500 + 300 * sim.TalentUnholy.Epidemic
+				sim.FrostFever.FadeAt = T + sim.frostfever.Lenght
 				sim.FrostFever.AP = sim.MainStat.AP
 				sim.FrostFever.DamageTick = sim.FrostFever.AvrgNonCrit(T)
+				sim.FrostFever.AddUptime(T)
 			End If
 		End If
 		return true

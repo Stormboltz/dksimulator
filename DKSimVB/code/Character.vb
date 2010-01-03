@@ -118,6 +118,29 @@ Friend Class Character
 		return tmp
 	End Function
 	
+	Function MaxStrength() As Integer
+		Dim tmp As Integer
+		tmp = _Strength
+		If sim.EPStat="EP Strength" Then tmp = tmp + sim.EPBase
+		If InStr(sim.EPStat,"ScaStr") Then
+			tmp = tmp + Replace(sim.EPStat,"ScaStr","") * sim.EPBase
+		End If
+		tmp += sim.proc.GetMaxPossibleBonus("str")
+		tmp = tmp +155 * 1.15 *  sim.Buff.StrAgi
+		tmp = tmp + 37 * 1.4 *  sim.Buff.StatAdd
+		tmp = tmp * (1 +  sim.Buff.StatMulti / 10)
+		tmp = tmp * (1 + sim.TalentBlood.Vot3W * 2 / 100)
+		tmp = tmp * (1 + sim.TalentBlood.AbominationMight / 100)
+		tmp = tmp * (1 + sim.TalentUnholy.ravenousdead / 100)
+		If sim.proc.MHFallenCrusader.IsActive Or sim.proc.oHFallenCrusader.IsActive Then
+			tmp = tmp * 1.15
+		End If
+		if sim.UnbreakableArmor.isActive then tmp = tmp * 1.1
+		return tmp
+	End Function
+	
+	
+	
 	Function Agility() As Integer
 		Dim tmp As Integer
 		tmp = _Agility
@@ -180,7 +203,7 @@ Friend Class Character
 		tmp = _HitRating
 		Select Case sim.EPStat
 			Case "EP HitRating"
-				tmp = 263 - sim.TalentFrost.NervesofColdSteel*32.79 - sim.EPBase 
+				tmp = 263 - sim.TalentFrost.NervesofColdSteel*32.79 - sim.EPBase
 			Case "EP HitRatingCap"
 				tmp = 263 - sim.TalentFrost.NervesofColdSteel*32.79
 			Case "EP HitRatingCapAP"
@@ -230,18 +253,30 @@ Friend Class Character
 	Function HasteRating() As Integer
 		Dim tmp As Integer
 		tmp = _HasteRating
-		If sim.EPStat="EP HasteRating" Then
-			tmp = tmp+sim.EPBase
-		End If
-		If InStr(sim.EPStat,"ScaHaste") Then
-			If InStr(sim.EPStat,"ScaHasteA") Then
-				tmp =  tmp  + Replace(sim.EPStat,"ScaHasteA","") * sim.EPBase
-			Else
-				tmp =  Replace(sim.EPStat,"ScaHaste","") * sim.EPBase
-			end if
-		End If
+		Select Case sim.EPStat
+			Case ""
+			Case "EP HasteRating1"
+				tmp = tmp+sim.EPBase	
+			Case "EP HasteRating2"
+				tmp = tmp+sim.EPBase*2	
+			Case "EP HasteRating3"
+				tmp = tmp+sim.EPBase*3
+			Case "EP HasteRating4"
+				tmp = tmp+sim.EPBase*4
+			Case "EP HasteRating5"
+				tmp = tmp+sim.EPBase*5
+			Case "EP HasteRating6"
+				tmp = tmp+sim.EPBase*6
+			Case Else
+				If InStr(sim.EPStat,"ScaHaste") Then
+					If InStr(sim.EPStat,"ScaHasteA") Then
+						tmp =  tmp  + Replace(sim.EPStat,"ScaHasteA","") * sim.EPBase
+					Else
+						tmp =  Replace(sim.EPStat,"ScaHaste","") * sim.EPBase
+					end if
+				End If
+		End Select
 		tmp +=  sim.proc.GetActiveBonus("haste")
-
 		return tmp
 	End Function
 	

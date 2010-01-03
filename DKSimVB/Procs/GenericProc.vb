@@ -44,18 +44,22 @@ Public Class Proc
 	
 	Sub New()
 		_RNG = nothing
+
+		ProcChance = 0
+		
+		Equiped = 0
+		
+		ProcLenght = 0
+		ProcValue = 0
+		InternalCD = 0
+		
+		count = 0
+		ThreadMultiplicator = 1
+		
 		Total = 0
 		HitCount = 0
 		MissCount =0
 		CritCount = 0
-		ProcChance = 0
-		Equiped = 0
-		ProcLenght = 0
-		ProcValue = 0
-		InternalCD = 0
-		count = 0
-		ThreadMultiplicator = 1
-		
 		TotalHit = 0
 		TotalCrit = 0
 		
@@ -221,7 +225,7 @@ Public Class Proc
 	
 	Overridable Function report as String
 		Dim tmp As String
-		
+		if HitCount + CritCount = 0 then return ""
 		If Name = "Virulence" Then
 			tmp=""
 		End If
@@ -257,6 +261,14 @@ Public Class Proc
 		return tmp
 	End Function
 	
+	Public Sub cleanup()
+		Total = 0
+		HitCount = 0
+		MissCount =0
+		CritCount = 0
+		TotalHit = 0
+		TotalCrit = 0
+	End Sub
 	
 	Sub AddUptime(T As Long)
 		dim tmp as Long

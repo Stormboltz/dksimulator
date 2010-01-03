@@ -7,18 +7,13 @@ Friend Class IcyTouch
 	overrides Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
 		UseGCD(T)
-		
-		
-		
 		If DoMySpellHit = false Then
 			sim.combatlog.write(T  & vbtab &  "IT fail")
 			sim.proc.KillingMachine.Use
 			MissCount = MissCount + 1
 			Exit function
 		End If
-		
 		RNG = MyRNG
-		
 		Dim dégat As Integer
 		Dim ccT As Double
 		ccT = CritChance
@@ -26,8 +21,6 @@ Friend Class IcyTouch
 			CritCount = CritCount + 1
 			dégat = AvrgCrit(T)
 			totalcrit += dégat
-
-
 			sim.combatlog.write(T  & vbtab &  "IT crit for " & dégat )
 		Else
 			HitCount = HitCount + 1
@@ -35,18 +28,11 @@ Friend Class IcyTouch
 			totalhit += dégat
 			sim.combatlog.write(T  & vbtab &  "IT hit for " & dégat)
 		End If
-		
-
 		total = total + dégat
-		
-		
-		
-		
 		Sim.RunicPower.add (10 + (sim.TalentFrost.ChillOfTheGrave * 2.5))
 		If sim.DRW.IsActive(T) Then
 			sim.DRW.IcyTouch
 		End If
-		
 		sim.runes.UseFrost(T,false)
 		sim.proc.KillingMachine.Use
 		sim.FrostFever.Apply(T)
@@ -60,7 +46,7 @@ Friend Class IcyTouch
 		
 		tmp = tmp + (0.1 * (1 + 0.04 * sim.TalentUnholy.Impurity) * sim.MainStat.AP)
 		tmp = tmp * (1 + sim.TalentFrost.ImprovedIcyTouch * 5 / 100)
-		If sim.NumDesease > 0 Then 	tmp = tmp * (1 + sim.TalentFrost.GlacierRot * 6.6666666 / 100)
+		if sim.NumDesease > 0 or (sim.Buff.BloodPlague+sim.Buff.FrostFever>0) Then 	tmp = tmp * (1 + sim.TalentFrost.GlacierRot * 6.6666666 / 100)
 		If (T/sim.MaxTime) >= 0.75 Then tmp = tmp *(1+ 0.06*sim.talentfrost.MercilessCombat)
 		If sim.sigils.FrozenConscience Then tmp = tmp +111
 		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
