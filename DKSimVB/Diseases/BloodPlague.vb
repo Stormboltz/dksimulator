@@ -8,7 +8,7 @@ Friend Class BloodPlague
 	End Sub
 	Overrides Function PerfectUsage(T As Long) As Boolean
 		If sim.TalentUnholy.RageofRivendare>0 Then
-			If FadeAt <= sim.Runes.GetNextUnholy(T) Then 
+			If FadeAt <= sim.Runes.GetNextUnholy(T) Then
 				Sim.FrostFever.ToReApply = true
 				Return True
 			End If
@@ -20,7 +20,7 @@ Friend Class BloodPlague
 	End Function
 		
 	Overrides Function Apply(T As Long) As Boolean
-		ToReApply = false 
+		ToReApply = false
 		AP = sim.MainStat.AP
 		DamageTick = AvrgNonCrit(T)
 		FadeAt = T + Lenght
@@ -28,6 +28,11 @@ Friend Class BloodPlague
 		sim.pestilence.BPToReapply = False
 		ScourgeStrikeGlyphCounter = 0
 		CritChance = sim.MainStat.crit
+		If sim.RuneForge.CinderglacierProc > 0 Then
+			cinder = True
+		Else
+			cinder = false
+		End If
 		AddUptime(T)
 	End Function
 	
@@ -35,7 +40,7 @@ Friend Class BloodPlague
 		Dim tmp As Double
 		tmp = 26
 		tmp = tmp + 0.055 * (1 + 0.04 * sim.TalentUnholy.Impurity) * AP
-		if sim.RuneForge.CinderglacierProc > 0 then tmp  *= 1.2
+		if cinder then tmp  *= 1.2
 		If  sim.Buff.CrypticFever Then
 			tmp = tmp * 1.3
 		Else

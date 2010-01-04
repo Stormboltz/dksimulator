@@ -26,7 +26,8 @@ Public Class Disease
 	Private _Lenght As Integer
 	Friend previousFade As Long
 	Public ThreadMultiplicator As Double
-	Friend uptime as Long
+	Friend uptime As Long
+	Friend Cinder as Boolean
 	
 	
 	

@@ -26,7 +26,17 @@ Friend Class priority
 		
 		For Each item as String In prio
 			Select Case item
-					
+				Case "CinderDisease"
+					if sim.BloodPlague.Cinder = true and sim.FrostFever.Cinder = true then goto doNext
+					If sim.RuneForge.CinderglacierProc = 0 Then goto doNext
+					If runes.Unholy(TimeStamp) and sim.CanUseGCD(Timestamp) and sim.BloodPlague.Cinder = false  Then
+						sim.PlagueStrike.ApplyDamage(TimeStamp)
+						exit sub
+					End If
+					If runes.Frost(TimeStamp) and sim.CanUseGCD(Timestamp) and sim.FrostFever.Cinder = false  Then
+						sim.IcyTouch.ApplyDamage(TimeStamp)
+						exit sub
+					End If
 				Case "BloodSync"
 					If prio.Contains("BloodStrike") and sim.BloodToSync Then
 						If runes.Blood(TimeStamp) And sim.CanUseGCD(Timestamp) Then
@@ -41,8 +51,6 @@ Friend Class priority
 								End If
 							End If
 							sim.BloodStrike.ApplyDamage(TimeStamp)
-							
-							
 							exit sub
 						End If
 					End If

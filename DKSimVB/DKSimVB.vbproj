@@ -654,6 +654,9 @@
     <None Include="images\spell\BoneShield.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="images\spell\CinderDisease.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="images\spell\DeathandDecay.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
