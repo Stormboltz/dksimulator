@@ -274,7 +274,6 @@ Friend Class MainStat
 	
 	Function BaseAP() As Integer
 		Dim tmp As Integer
-		
 		tmp += sim.proc.GetActiveBonus("ap")
 		tmp = tmp + Character.AttackPower
 		tmp = tmp + Character.Strength * 2

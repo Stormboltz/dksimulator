@@ -129,13 +129,8 @@ Public Class Proc
 					ElseIf RNG < 0.66 Then
 						ProcType = "crit"
 					Else
-						If sim.TalentUnholy.Gargoyle = 1 Then
-							ProcType = "haste"
-						Else
-							ProcType = "arp"
-						End If
+						ProcType = "haste"
 					End If
-					
 					If sim.combatlog.LogDetails Then sim.combatlog.write(sim.TimeStamp  & vbtab &  Me.ToString & " proc")
 					Fade = T + ProcLenght * 100
 					HitCount += 1
@@ -148,13 +143,8 @@ Public Class Proc
 					ElseIf RNG < 0.66 Then
 						ProcType = "crit"
 					Else
-						If sim.TalentBlood.Hysteria = 1 Then
-							ProcType = "arp"
-						Else
-							ProcType = "haste"
-						End If
+						ProcType = "haste"
 					End If
-					
 					If sim.combatlog.LogDetails Then sim.combatlog.write(sim.TimeStamp  & vbtab &  Me.ToString & " proc")
 					Fade = T + ProcLenght * 100
 					HitCount += 1

@@ -1,4 +1,12 @@
-﻿1.2.0.2 Release notes
+﻿1.2.0.3 Release notes
+* Cinderglacier now has benefit on disease.
+* A new Priotiry element: CinderDisease, to cast desease on Ciderglacier proc.
+* Deathbringer hot fix.
+* Spell Partial resits tuning.
+* The ghoul only benefit from some raid buff if the ghoul is permanent(BoK and MotW) .
+
+
+1.2.0.2 Release notes
 * Correction on Priority editor.
 * Weapon Dps scaling option added.
 * Better Bone shield/UA usage when used after BloodStrike

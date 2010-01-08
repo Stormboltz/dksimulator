@@ -77,7 +77,7 @@ Public Class Trinkets
 		 	.ProcValue = 600
 		 	.InternalCD = 105
 		 	.DamageType = "DeathbringersWill"
-		 	.ProcType = "str"
+		 	.ProcType = "haste"
 		 	.ProcOn = procs.ProcOnType.OnDamage
 		End With
 		
@@ -89,7 +89,7 @@ Public Class Trinkets
 		 	.ProcValue = 700
 		 	.InternalCD = 105
 		 	.DamageType = "DeathbringersWillHeroic"
-		 	.ProcType = "str"
+		 	.ProcType = "haste"
 		 	.ProcOn = procs.ProcOnType.OnDamage
 		End With
 		

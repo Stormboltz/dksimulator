@@ -32,22 +32,33 @@ Friend Class GhoulStat
 '		End If
 	end Sub
 	Function BaseAP() As Integer
-		return 1167 
-     	'tmp = (tmp + Character.Strength * 2 + Character.AttackPower + 220) * (1 +  sim. sim. sim.Buff.AttackPowerPc / 10)
-		'return tmp
+		Dim tmp As Integer
+		tmp = 1167
+		If sim.TalentUnholy.MasterOfGhouls>0 Then
+			tmp = tmp + 687 * sim.Buff.AttackPower
+		End If
+		Return tmp		
 	End Function
+	
 	Function AP() As Integer
-		AP = Strength - 331 + BaseAP
+		AP = (Strength - 331 + BaseAP) * (1 +  sim.Buff.AttackPowerPc / 10)
 	End Function
 	function Base_Str as integer
-	
 	end function
-	Function Strength as integer
-		if sim.glyph.ghoul then
-				return 331 + (Character.Strength * (sim.talentunholy.ravenousdead*0.7))+ (Character.Strength * .4) 
-			else
-				return 331 + (Character.Strength * (sim.talentunholy.ravenousdead*0.7))
-		end if
+	Function Strength As Integer
+		Dim tmp As Integer
+		dim str as Integer
+		tmp = 331
+		str = Character.Strength
+		tmp += str/2
+		tmp += str * (sim.talentunholy.ravenousdead*0.2)
+		If sim.glyph.ghoul Then tmp += str * .4
+		tmp = tmp +155 * 1.15 *  sim.Buff.StrAgi
+		If sim.TalentUnholy.MasterOfGhouls>0 Then
+			tmp = tmp + 37 * 1.4 *  sim.Buff.StatAdd
+			tmp = tmp * (1 +  sim.Buff.StatMulti / 10)
+		End If
+		return tmp
 	end function
 	Function crit() As System.Double
 		Dim tmp As Double

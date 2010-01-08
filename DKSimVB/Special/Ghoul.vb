@@ -65,7 +65,6 @@ Friend class Ghoul
 	Function Haste As Double
 		dim tmp as Double
 		tmp = sim.MainStat.Haste
-		
 		If GhoulDoubleHaste Then
 			tmp = tmp + 0.2 *  sim.Buff.MeleeHaste
 			tmp = tmp + 0.03 *  sim.Buff.Haste
