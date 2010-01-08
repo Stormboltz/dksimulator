@@ -1,9 +1,9 @@
 ﻿1.2.0.3 Release notes
 * Cinderglacier now has benefit on disease.
-* A new Priotiry element: CinderDisease, to cast desease on Ciderglacier proc.
+* A new Priority element: CinderDisease, to cast disease on Ciderglacier proc.
 * Deathbringer hot fix.
-* Spell Partial resits tuning.
-* The ghoul only benefit from some raid buff if the ghoul is permanent(BoK and MotW) .
+* Spell partial resist tuning.
+* The ghoul only benefit from some raid buff if the ghoul is permanent(BoK and MotW).
 
 
 1.2.0.2 Release notes
