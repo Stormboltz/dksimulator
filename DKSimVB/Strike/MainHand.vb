@@ -128,9 +128,9 @@ Sub New(S As sim)
 		TotalHit += sim.OffHand.TotalHit
 		TotalCrit += sim.OffHand.TotalCrit
 
-		MissCount = (MissCount + sim.OffHand.MissCount)/2
-		HitCount = (HitCount + sim.OffHand.HitCount)/2
-		CritCount = (CritCount + sim.OffHand.CritCount)/2
+		MissCount = (MissCount + sim.OffHand.MissCount)
+		HitCount = (HitCount + sim.OffHand.HitCount)
+		CritCount = (CritCount + sim.OffHand.CritCount)
 		
 		sim.OffHand.Total = 0
 		sim.OffHand.TotalHit = 0

@@ -20,7 +20,7 @@ Public Class Proc
 	Friend HitCount As long
 	Friend MissCount As long
 	Friend CritCount As long
-	
+	Friend Stack as Integer
 	Friend TotalHit As long
 	Friend TotalCrit As long
 	
@@ -34,7 +34,7 @@ Public Class Proc
 	
 	Friend previousFade As Long
 	friend Uptime as long
-
+	
 	Function RNGProc As Double
 		If _RNG Is nothing Then
 			_RNG =  New Random(ConvertToInt(me.ToString)+RNGSeeder)
@@ -44,7 +44,7 @@ Public Class Proc
 	
 	Sub New()
 		_RNG = nothing
-
+		
 		ProcChance = 0
 		
 		Equiped = 0
@@ -120,6 +120,29 @@ Public Class Proc
 					Fade = T + ProcLenght * 100
 					AddUptime(T)
 					HitCount += 1
+				Case "TinyAbomination"
+					Me.Stack +=1
+					If Me.Stack =8 Then
+						Me.Stack=0
+						if sim.MainStat.DualW then
+							If RNGProc > 0.5 Then
+								tmp = sim.MainHand.AvrgNonCrit(T)/2
+							Else
+								tmp = sim.offhand.AvrgNonCrit(T)/2
+							End If
+						Else
+							tmp = sim.MainHand.AvrgNonCrit(T)/2
+						End If
+						If RNGProc < sim.MainStat.crit Then
+							tmp = tmp*2
+							CritCount += 1
+							TotalCrit += tmp
+						else
+							hitCount += 1
+							TotalHit += tmp
+						End If
+						
+					End If
 				Case "DeathbringersWill"
 					Dim RNG As Double
 					RNG = Rnd
@@ -151,7 +174,7 @@ Public Class Proc
 				Case "arcane"
 					If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
 						MissCount = MissCount + 1
-					Exit sub
+						Exit sub
 					End If
 					If sim.RandomNumberGenerator.RNGProc <= sim.MainStat.SpellCrit Then
 						CritCount = CritCount + 1
@@ -165,11 +188,10 @@ Public Class Proc
 				Case "shadow"
 					If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
 						MissCount = MissCount + 1
-					Exit sub
+						Exit sub
 					End If
 					If sim.RandomNumberGenerator.RNGProc <= sim.MainStat.SpellCrit Then
 						CritCount = CritCount + 1
-						
 						tmp = ProcValue * 1.5 * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
 						tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
 						totalcrit += tmp
@@ -234,16 +256,16 @@ Public Class Proc
 		tmp = tmp & toDecimal(CritCount) & VBtab
 		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
 		tmp = tmp & toDecimal(totalcrit/(CritCount)) & VBtab
-				
+		
 		tmp = tmp & toDecimal(MissCount) & VBtab
 		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-
+		
 		If sim.FrostPresence Then
 			tmp = tmp & toDecimal((100 * total * ThreadMultiplicator * 2.0735 ) / sim.TimeStamp) & VBtab
 		End If
 		
 		tmp = tmp & ""& toDecimal(100*uptime/sim.MaxTime)  & "" & VBtab
-
+		
 		tmp = tmp & vbCrLf
 		
 		
@@ -269,7 +291,7 @@ Public Class Proc
 		End If
 		
 		If previousfade < T  Then
-		 	uptime += tmp*100
+			uptime += tmp*100
 		Else
 			uptime += tmp*100 - (previousFade-T)
 		End If
@@ -280,7 +302,7 @@ Public Class Proc
 		Else
 			uptime -= (previousFade-T)
 		End If
-		previousFade = T 
+		previousFade = T
 	End Sub
 	
 	

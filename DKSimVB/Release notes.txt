@@ -1,4 +1,8 @@
-﻿1.2.0.3 Release notes
+﻿1.2.0.4 Release notes
+* TinyAbomination trinket
+
+
+1.2.0.3 Release notes
 * Cinderglacier now has benefit on disease.
 * A new Priority element: CinderDisease, to cast disease on Ciderglacier proc.
 * Deathbringer hot fix.

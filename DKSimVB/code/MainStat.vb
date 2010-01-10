@@ -184,6 +184,9 @@ Friend Class MainStat
 					Sim.Trinkets.DeathChoiceHeroic.Equip
 				Case "EP DeathbringersWill"
 					Sim.Trinkets.DeathbringersWill.Equip
+				Case "EP TinyAbomination"
+					sim.Trinkets.TinyAbomination.Equip
+					
 				Case "EP DeathbringersWillHeroic"
 					Sim.Trinkets.DeathbringersWillHeroic.Equip
 				Case "EP WhisperingFangedSkull"
@@ -210,6 +213,8 @@ Friend Class MainStat
 					If XmlDoc.SelectSingleNode("//character/trinket/DeathbringersWillHeroic").InnerText = 1 Then Sim.Trinkets.DeathbringersWillHeroic.Equip
 					If XmlDoc.SelectSingleNode("//character/trinket/WhisperingFangedSkull").InnerText = 1 Then Sim.Trinkets.WhisperingFangedSkull.Equip
 					If XmlDoc.SelectSingleNode("//character/trinket/NeedleEncrustedScorpion").InnerText = 1 Then Sim.Trinkets.NeedleEncrustedScorpion.Equip
+					If XmlDoc.SelectSingleNode("//character/trinket/TinyAbomination").InnerText = 1 Then Sim.Trinkets.TinyAbomination.Equip
+
 			End Select
 		Catch
 			debug.Print ("ERROR")
@@ -426,10 +431,10 @@ Friend Class MainStat
 
 		If instr(sim.EPStat,"EP ")=0 Then
 			If instr(sim.EPStat,"Hit")=0 Then
-				tmp += sim.Buff.Draenei	
+				tmp += sim.Buff.Draenei
 			End If
 		Else
-			tmp += sim.Buff.Draenei	
+			tmp += sim.Buff.Draenei
 		End If
 		Hit = tmp / 100
 	End Function
@@ -450,10 +455,10 @@ Friend Class MainStat
 		tmp = Character.SpellHitRating / 26.23
 		If instr(sim.EPStat,"EP ")=0 Then
 			If instr(sim.EPStat,"Hit")=0 Then
-				tmp += sim.Buff.Draenei	
+				tmp += sim.Buff.Draenei
 			End If
 		Else
-			tmp += sim.Buff.Draenei	
+			tmp += sim.Buff.Draenei
 		End If
 		tmp += 1 * sim.TalentUnholy.Virulence
 		tmp += sim.Buff.SpellHitTaken * 3

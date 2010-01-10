@@ -49,7 +49,10 @@ Public Class Trinkets
 	Friend WhisperingFangedSkull As Trinket
 	Friend NeedleEncrustedScorpion as Trinket
 	
-	Friend Bryntroll as New Trinket
+	Friend Bryntroll As Trinket
+	Friend TinyAbomination as Trinket
+	
+	
 
 	Protected sim as Sim
 	Sub New(S As Sim)
@@ -440,6 +443,17 @@ Public Class Trinkets
 			.DamageType = "Bryntroll"
 			.ProcLenght = 0
 		End With
+		
+		TinyAbomination = New Trinket(s)
+		With TinyAbomination
+			.Name = "TinyAbomination"
+			.ProcOn = Procs.ProcOnType.OnHit
+			.ProcChance  = 0.5
+			.ProcValue = 0
+			.ProcType = ""
+			.DamageType = "TinyAbomination"
+		End With
+		
 		
 		CollectDamagingTrinket
 	End Sub

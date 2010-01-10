@@ -186,6 +186,8 @@ Partial Class MainForm
 		Me.chkBStatAdd = New System.Windows.Forms.CheckBox
 		Me.chkBSpellHaste = New System.Windows.Forms.CheckBox
 		Me.chkBSpellCrit = New System.Windows.Forms.CheckBox
+		Me.chkBloodPlague = New System.Windows.Forms.CheckBox
+		Me.chkFrostFever = New System.Windows.Forms.CheckBox
 		Me.chkCrypticFever = New System.Windows.Forms.CheckBox
 		Me.chkBSpHitTaken = New System.Windows.Forms.CheckBox
 		Me.chkBMeleeCrit = New System.Windows.Forms.CheckBox
@@ -278,8 +280,7 @@ Partial Class MainForm
 		Me.TabPrio2 = New System.Windows.Forms.TabPage
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.cmdRngSeeder = New System.Windows.Forms.Button
-		Me.chkFrostFever = New System.Windows.Forms.CheckBox
-		Me.chkBloodPlague = New System.Windows.Forms.CheckBox
+		Me.chkTinyAbomination = New System.Windows.Forms.CheckBox
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -1885,6 +1886,28 @@ Partial Class MainForm
 		Me.chkBSpellCrit.Text = "Spell crit"
 		Me.chkBSpellCrit.UseVisualStyleBackColor = true
 		'
+		'chkBloodPlague
+		'
+		Me.chkBloodPlague.Checked = true
+		Me.chkBloodPlague.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkBloodPlague.Location = New System.Drawing.Point(177, 320)
+		Me.chkBloodPlague.Name = "chkBloodPlague"
+		Me.chkBloodPlague.Size = New System.Drawing.Size(231, 24)
+		Me.chkBloodPlague.TabIndex = 0
+		Me.chkBloodPlague.Text = "Blood Plague from another Deathknight"
+		Me.chkBloodPlague.UseVisualStyleBackColor = true
+		'
+		'chkFrostFever
+		'
+		Me.chkFrostFever.Checked = true
+		Me.chkFrostFever.CheckState = System.Windows.Forms.CheckState.Checked
+		Me.chkFrostFever.Location = New System.Drawing.Point(177, 290)
+		Me.chkFrostFever.Name = "chkFrostFever"
+		Me.chkFrostFever.Size = New System.Drawing.Size(209, 24)
+		Me.chkFrostFever.TabIndex = 0
+		Me.chkFrostFever.Text = "Frost Fever from another Deathknight"
+		Me.chkFrostFever.UseVisualStyleBackColor = true
+		'
 		'chkCrypticFever
 		'
 		Me.chkCrypticFever.Checked = true
@@ -2155,6 +2178,7 @@ Partial Class MainForm
 		'
 		'groupBox3
 		'
+		Me.groupBox3.Controls.Add(Me.chkTinyAbomination)
 		Me.groupBox3.Controls.Add(Me.chkEPWhisperingFangedSkull)
 		Me.groupBox3.Controls.Add(Me.chkEPDeathbringersWillHeroic)
 		Me.groupBox3.Controls.Add(Me.chkEPNeedleEncrustedScorpion)
@@ -2854,27 +2878,14 @@ Partial Class MainForm
 		Me.cmdRngSeeder.UseVisualStyleBackColor = true
 		AddHandler Me.cmdRngSeeder.Click, AddressOf Me.CmdRngSeederClick
 		'
-		'chkFrostFever
+		'chkTinyAbomination
 		'
-		Me.chkFrostFever.Checked = true
-		Me.chkFrostFever.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkFrostFever.Location = New System.Drawing.Point(177, 290)
-		Me.chkFrostFever.Name = "chkFrostFever"
-		Me.chkFrostFever.Size = New System.Drawing.Size(209, 24)
-		Me.chkFrostFever.TabIndex = 0
-		Me.chkFrostFever.Text = "Frost Fever from another Deathknight"
-		Me.chkFrostFever.UseVisualStyleBackColor = true
-		'
-		'chkBloodPlague
-		'
-		Me.chkBloodPlague.Checked = true
-		Me.chkBloodPlague.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkBloodPlague.Location = New System.Drawing.Point(177, 320)
-		Me.chkBloodPlague.Name = "chkBloodPlague"
-		Me.chkBloodPlague.Size = New System.Drawing.Size(231, 24)
-		Me.chkBloodPlague.TabIndex = 0
-		Me.chkBloodPlague.Text = "Blood Plague from another Deathknight"
-		Me.chkBloodPlague.UseVisualStyleBackColor = true
+		Me.chkTinyAbomination.Location = New System.Drawing.Point(153, 289)
+		Me.chkTinyAbomination.Name = "chkTinyAbomination"
+		Me.chkTinyAbomination.Size = New System.Drawing.Size(171, 24)
+		Me.chkTinyAbomination.TabIndex = 2
+		Me.chkTinyAbomination.Text = "Tiny Abomination"
+		Me.chkTinyAbomination.UseVisualStyleBackColor = true
 		'
 		'MainForm
 		'
@@ -2928,6 +2939,7 @@ Partial Class MainForm
 		Me.gbScaling.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Friend chkTinyAbomination As System.Windows.Forms.CheckBox
 	Private chkFrostFever As System.Windows.Forms.CheckBox
 	Private chkBloodPlague As System.Windows.Forms.CheckBox
 	Friend chkScaDPSA As System.Windows.Forms.CheckBox
