@@ -39,7 +39,7 @@ Friend Class priority
 					End If
 				Case "BloodSync"
 					If prio.Contains("BloodStrike") and sim.BloodToSync Then
-						If runes.Blood(TimeStamp) And sim.CanUseGCD(Timestamp) Then
+						If runes.anyBlood(TimeStamp) And sim.CanUseGCD(Timestamp) Then
 							If sim.BoneShieldUsageStyle = 1 Then
 								If sim.BoneShield.IsAvailable(TimeStamp) Then
 									sim.BoneShield.Use(TimeStamp)
@@ -128,7 +128,7 @@ Friend Class priority
 						exit sub
 					End If
 				Case "Desolation"
-					If runes.Blood(TimeStamp) And sim.CanUseGCD(Timestamp) Then
+					If runes.anyBlood(TimeStamp) And sim.CanUseGCD(Timestamp) Then
 						If sim.BoneShieldUsageStyle = 1 Then
 							If sim.BoneShield.IsAvailable(TimeStamp) Then
 								sim.BoneShield.Use(TimeStamp)
@@ -145,24 +145,44 @@ Friend Class priority
 						End If
 					End If
 				Case "BloodStrike"
-					If runes.Blood(TimeStamp) And sim.CanUseGCD(Timestamp) Then
-						If sim.BoneShieldUsageStyle = 1 Then
-							If sim.BoneShield.IsAvailable(TimeStamp) Then
-								sim.BoneShield.Use(TimeStamp)
-								exit sub
+					If sim.TalentUnholy.Reaping = 3 or sim.TalentFrost.BloodoftheNorth = 3 Then
+						If runes.Blood(TimeStamp) And sim.CanUseGCD(Timestamp) Then
+							If sim.BoneShieldUsageStyle = 1 Then
+								If sim.BoneShield.IsAvailable(TimeStamp) Then
+									sim.BoneShield.Use(TimeStamp)
+									exit sub
+								End If
+								If sim.UnbreakableArmor.IsAvailable(TimeStamp) Then
+									sim.UnbreakableArmor.Use(TimeStamp)
+									exit sub
+								End If
 							End If
-							If sim.UnbreakableArmor.IsAvailable(TimeStamp) Then
-								sim.UnbreakableArmor.Use(TimeStamp)
-								exit sub
-							End If
+							sim.BloodStrike.ApplyDamage(TimeStamp)
+							Exit Sub
 						End If
-						sim.BloodStrike.ApplyDamage(TimeStamp)
-						'debug.Print("BS")
-						exit sub
+					Else
+						If runes.anyBlood(TimeStamp) And sim.CanUseGCD(Timestamp) Then
+							If sim.BoneShieldUsageStyle = 1 Then
+								If sim.BoneShield.IsAvailable(TimeStamp) Then
+									sim.BoneShield.Use(TimeStamp)
+									exit sub
+								End If
+								If sim.UnbreakableArmor.IsAvailable(TimeStamp) Then
+									sim.UnbreakableArmor.Use(TimeStamp)
+									exit sub
+								End If
+							End If
+							sim.BloodStrike.ApplyDamage(TimeStamp)
+							exit sub
+						End If
 					End If
 					
+					
+					
+					
+					
 				Case "HeartStrike"
-					If runes.Blood(TimeStamp) = True and sim.CanUseGCD(Timestamp) Then
+					If runes.anyBlood(TimeStamp) = True and sim.CanUseGCD(Timestamp) Then
 						sim.Heartstrike.ApplyDamage(TimeStamp)
 						'debug.Print("HS")
 						exit sub
@@ -173,14 +193,11 @@ Friend Class priority
 						exit sub
 					End If
 				Case "FrostFever"
-					
 					If sim.NumberOfEnemies > 1 And sim.FrostFever.OtherTargetsFade < TimeStamp And sim.BloodPlague.OtherTargetsFade < TimeStamp and sim.KeepDiseaseOnOthersTarget Then
 						If runes.Blood(TimeStamp) Then
 							sim.Pestilence.use(TimeStamp)
 						End If
 					End If
-					
-					
 					If sim.glyph.Disease Then
 						if sim.Pestilence.PerfectUsage(TimeStamp) then
 							sim.Pestilence.use(TimeStamp)

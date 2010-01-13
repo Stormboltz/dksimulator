@@ -26,7 +26,9 @@ Public Class rune
 		if BTuntil > T then death = true
 		If T - AvailableTime <= 200 and AvailableTime <> 0 Then
 			AvailableTime = AvailableTime + RuneRefreshtime
-		Else
+		ElseIf AvailableTime <> 0 Then
+			AvailableTime = T + 800
+				else
 			AvailableTime = T + RuneRefreshtime
 		End If
 		sim.proc.tryT104PDPS(T)
@@ -42,6 +44,6 @@ Public Class rune
 	Function Available(T as Long) As Boolean
 		If AvailableTime <= T  Then Return True
 		return false
-	End Function	
+	End Function
 End Class
 End Namespace

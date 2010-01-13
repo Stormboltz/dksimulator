@@ -217,7 +217,7 @@ Friend Class MainStat
 
 			End Select
 		Catch
-			debug.Print ("ERROR")
+			debug.Print ("ERROR init trinket")
 		End Try
 
 		T72PDPS = 0
@@ -373,9 +373,9 @@ Friend Class MainStat
 	Function MHExpertise() As Double
 		Dim tmp As Double
 		tmp = Expertise
-		If strings.InStr(sim.EPStat,"EP ")<> 0 Then
+		If strings.InStr(sim.EPStat,"EP Expertise")<> 0 Then
 		Else
-			tmp += sim.Character.MHExpertiseBonus*0.25
+			tmp += sim.Character.MHExpertiseBonus/0.25
 		End If
 		return tmp
 	End Function
@@ -383,9 +383,9 @@ Friend Class MainStat
 	Function OHExpertise() As Double
 		Dim tmp As Double
 		tmp = Expertise
-		If strings.InStr(sim.EPStat,"EP ")<> 0 Then
+		If strings.InStr(sim.EPStat,"EP Expertise")<> 0 Then
 		Else
-			tmp += sim.Character.OHExpertiseBonus*0.25
+			tmp += sim.Character.OHExpertiseBonus/0.25
 		End If
 		
 		return tmp

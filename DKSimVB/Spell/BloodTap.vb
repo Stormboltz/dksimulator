@@ -25,11 +25,11 @@ Friend Class BloodTap
 		If sim.Runes.BloodRune1.AvailableTime > T And sim.runes.BloodRune1.death = False Then
 			sim.Runes.BloodRune1.AvailableTime = T
 			sim.Runes.BloodRune1.death = True
-			sim.Runes.BloodRune1.BTuntil = T + 500
+			'sim.Runes.BloodRune1.BTuntil = T + 500
 		Else
 			sim.Runes.BloodRune2.AvailableTime = T
 			sim.Runes.BloodRune2.death = True
-			sim.Runes.BloodRune2.BTuntil = T + 500
+			'sim.Runes.BloodRune2.BTuntil = T + 500
 		End If
 		sim.combatlog.write(T  & vbtab &  "Blood Tap")
 		sim.RunicPower.add(10)
