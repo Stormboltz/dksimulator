@@ -9,14 +9,9 @@
 Namespace Strikes
 
 Public Class Strike
-	Public Total As  long
-	Friend MissCount As Integer
-	Friend HitCount as Integer
-	Friend CritCount as Integer
-	Friend TotalHit As Long
-	Friend TotalCrit As Long
-	Protected Sim as Sim
-	Public ThreadMultiplicator As Double
+	Inherits Supertype
+	
+
 	Protected _RNG As Random
 	Friend OffHand  As Boolean
 	
@@ -54,7 +49,7 @@ Public Class Strike
 	End Sub
 
 	
-	Function Name() As String
+	overrides Function Name() As String
 		If offhand = False Then
 			return me.ToString
 		Else
@@ -98,8 +93,6 @@ Public Class Strike
 	Overridable Public Function ApplyDamage(T As Long) As Boolean
 	End Function
 	
-	Overridable Public Sub Merge()
-	End Sub
 	
 	Overridable Function AvrgNonCrit(T as long) As Double
 	End Function
@@ -120,36 +113,8 @@ Public Class Strike
 		TotalHit = 0
 		TotalCrit = 0
 	End Sub
-	Overridable Function report As String
-		dim tmp as String
-		tmp = ShortenName(me.Name)  & VBtab
-
-		tmp = tmp & total & VBtab
-		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
-		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
-		
-		tmp = tmp & toDecimal(HitCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(totalhit/(HitCount)) & VBtab
-		
-		tmp = tmp & toDecimal(CritCount) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(totalcrit/(CritCount)) & VBtab
-				
-		tmp = tmp & toDecimal(MissCount) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-
-		If sim.FrostPresence Then
-			tmp = tmp & toDecimal((100 * total * ThreadMultiplicator * 2.0735 ) / sim.TimeStamp) & VBtab
-		End If
-
-		tmp = tmp & vbCrLf
-		
-		tmp = replace(tmp, VBtab & 0, vbtab)
-		
-		return tmp
-	End Function
+	
+	
 	
 End Class
 end Namespace

@@ -8,16 +8,12 @@
 '
 NameSpace Spells
 Public Class Spell
-	Public Total As  long
-	Friend MissCount As Integer
-	Friend HitCount as Integer
-	Friend CritCount as Integer
-	Friend TotalHit As Long
-	Friend TotalCrit As Long
+	Inherits Supertype
+	
+
 	Friend CD As Long
 	Friend ActiveUntil As Long
-	Public ThreadMultiplicator as double
-	Protected Sim As Sim
+
 	Protected _RNG as Random
 	
 	Function MyRng as Double 
@@ -88,40 +84,8 @@ Public Class Spell
 	Overridable Function AvrgCrit(T As long) As Double
 	End Function
 	
-	Overridable Function report As String
-		dim tmp as String
-		tmp = ShortenName(me.Name)  & VBtab
-		
-		tmp = tmp & total & VBtab
-		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
-		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
-		
-		tmp = tmp & toDecimal(HitCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(totalhit/(HitCount)) & VBtab
-		
-		tmp = tmp & toDecimal(CritCount) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(totalcrit/(CritCount)) & VBtab
-				
-		tmp = tmp & toDecimal(MissCount) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-		
-		If sim.FrostPresence Then
-			tmp = tmp & toDecimal((100 * total * ThreadMultiplicator * 2.0735 ) / sim.TimeStamp) & VBtab
-		End If
-		tmp = tmp & vbCrLf
-		tmp = replace(tmp, VBtab & 0, vbtab)
-		return tmp
-	End Function
+
 	
-	Function Name() As String
-		return me.ToString
-	End Function
-	
-	Overridable Public Sub Merge()
-	End Sub
 	Public Sub cleanup()
 		Total = 0
 		HitCount = 0

@@ -35,21 +35,12 @@ Public Module GlobalFunction
 	Sub WriteReport(txt As String)
 		Dim Tw As System.IO.TextWriter
 		'On Error Resume Next
-		
 		Tw  =system.IO.File.appendText(ReportPath )
 		tw.WriteLine(txt & "<br>")
 		tw.Close
-		
 		_MainFrm.webBrowser1.Navigate(ReportPath)
 		'Dim doc As HtmlDocument
 		Application.DoEvents
-		
-		'MThreading problem
-		'SimConstructor._MainFrm.webBrowser1.Document.Window.ScrollTo(0,32767)
-'		doc = SimConstructor._MainFrm.webBrowser1.Document
-'		'doc.Body.ScrollTop = Integer.MaxValue
-'		doc.Window.ScrollTo(0,32767)
-		'_MainFrm.webBrowser1.Select
 	End Sub
 	
 	Function ShortenName(s As String) As String

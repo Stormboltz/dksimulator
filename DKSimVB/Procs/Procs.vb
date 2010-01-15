@@ -77,7 +77,7 @@ Friend Class Procs
 		
 		KillingMachine = New Proc(s)
 		With KillingMachine
-			.Name = "KillingMachine"
+			._Name = "KillingMachine"
 			.ProcOn = procs.ProcOnType.OnMHWhiteHit
 			if sim.TalentFrost.KillingMachine > 0 then .Equip
 			.Equiped  = sim.TalentFrost.KillingMachine
@@ -87,7 +87,7 @@ Friend Class Procs
 		
 		Rime = New Proc(s)
 		With Rime
-			.Name = "Rime"
+			._Name = "Rime"
 			if sim.TalentFrost.Rime >  0 then .equip 
 			.Equiped  = sim.TalentFrost.Rime
 			.ProcLenght = 15
@@ -96,7 +96,7 @@ Friend Class Procs
 		
 		ScentOfBlood = New ScentOfBlood(s)
 		With ScentOfBlood
-			.Name = "ScentOfBlood"
+			._Name = "ScentOfBlood"
 			If s.FrostPresence = 1 Then
 				.equip
 				.Equiped  = sim.TalentBlood.ScentOfBlood
@@ -109,7 +109,7 @@ Friend Class Procs
 		
 		Virulence = New Proc(s)
 		With Virulence
-			.Name = "Virulence"
+			._Name = "Virulence"
 			if s.Sigils.Virulence then .equip
 			.ProcLenght = 20
 			.ProcChance = 0.85
@@ -119,7 +119,7 @@ Friend Class Procs
 		
 		Strife = New Proc(s)
 		With Strife
-			.Name = "Strife"
+			._Name = "Strife"
 			.ProcChance = 1
 			.ProcValue = 144
 			.ProcLenght = 10
@@ -129,7 +129,7 @@ Friend Class Procs
 		
 		T92PDPS = New Proc(s)
 		With T92PDPS
-			.Name = "T92PDPS"
+			._Name = "T92PDPS"
 			.ProcChance = .50
 			.ProcValue = 180
 			.ProcLenght = 15
@@ -140,7 +140,7 @@ Friend Class Procs
 
 		HauntedDreams = New Proc(s)
 		With HauntedDreams
-			.Name = "HauntedDreams"
+			._Name = "HauntedDreams"
 			.ProcChance = 0.15
 			.ProcValue = 173
 			.ProcLenght = 10
@@ -151,7 +151,7 @@ Friend Class Procs
 		End With
 		s.RuneForge.MHRazorIce = New RazorIce(S)
 		With s.RuneForge.MHRazorIce
-			.Name = "MHRazorIce"
+			._Name = "MHRazorIce"
 			.InternalCD = 0
 			.ProcOn = procs.ProcOnType.OnMHhit
 			.ProcChance = S.MainStat.MHWeaponSpeed/60
@@ -162,7 +162,7 @@ Friend Class Procs
 		
 		s.RuneForge.OHRazorIce = New RazorIce(S)
 		With s.RuneForge.OHRazorIce
-			.Name = "Frost Vulnerability"
+			._Name = "Frost Vulnerability"
 			.InternalCD = 0
 			.ProcOn = procs.ProcOnType.OnOHhit
 			.ProcChance = 5*S.MainStat.OHWeaponSpeed/60
@@ -173,7 +173,7 @@ Friend Class Procs
 		
 		MHFallenCrusader = new Proc(s)
 		With MHFallenCrusader
-			.Name = "MHFallenCrusader"
+			._Name = "MHFallenCrusader"
 			.InternalCD = 0
 			.ProcOn = procs.ProcOnType.OnMHhit
 			.ProcChance = 2*S.MainStat.MHWeaponSpeed/60
@@ -184,7 +184,7 @@ Friend Class Procs
 		
 		OHFallenCrusader = new Proc(s)
 		With OHFallenCrusader
-			.Name = "OHFallenCrusader"
+			._Name = "OHFallenCrusader"
 			.InternalCD = 0
 			.ProcOn = procs.ProcOnType.OnMHhit
 			.ProcChance = 2*S.MainStat.OHWeaponSpeed/60
@@ -196,7 +196,7 @@ Friend Class Procs
 		
 		s.RuneForge.MHCinderglacier = new Proc(s)
 		With s.RuneForge.MHCinderglacier
-			.Name = "MHCinderglacier"
+			._Name = "MHCinderglacier"
 			.InternalCD = 0
 			.ProcOn = procs.ProcOnType.OnMHhit
 			.ProcChance = 1.5*S.MainStat.MHWeaponSpeed/60
@@ -208,7 +208,7 @@ Friend Class Procs
 
 		s.RuneForge.OHCinderglacier = new Proc(s)
 		With s.RuneForge.OHCinderglacier
-			.Name = "OHCinderglacier"
+			._Name = "OHCinderglacier"
 			.InternalCD = 0
 			.ProcChance = 1.5*S.MainStat.OHWeaponSpeed/60
 			.ProcLenght = 20
@@ -219,7 +219,7 @@ Friend Class Procs
 		End With
 		Berserking = New Proc(s)		
 		With Berserking
-			.Name = "Berserking"
+			._Name = "Berserking"
 			.InternalCD = 0
 			.ProcOn = procs.ProcOnType.OnOHhit
 			.ProcChance = 1.2*s.MainStat.OHWeaponSpeed/60
@@ -232,7 +232,7 @@ Friend Class Procs
 		
 		OrcRacial = New Proc(s)
 		With OrcRacial
-			.Name = "OrcRacial"
+			._Name = "OrcRacial"
 			.InternalCD  = 120
 			.ProcOn = procs.ProcOnType.OnDamage
 			.ProcChance = 1
@@ -244,7 +244,7 @@ Friend Class Procs
 		
 		TrollRacial = New Proc(s)		
 		With TrollRacial
-			.Name = "TrollRacial"
+			._Name = "TrollRacial"
 			.InternalCD = 180
 			.ProcChance = 1
 			.ProcLenght = 15
@@ -255,7 +255,7 @@ Friend Class Procs
 		
 		BElfRacial = New Trinket(s)
 		With BElfRacial
-			.Name = "BElfRacial"
+			._Name = "BElfRacial"
 			.InternalCD = 120
 			.ProcChance = 1
 			.ProcLenght = 0

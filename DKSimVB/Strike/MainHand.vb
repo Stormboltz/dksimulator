@@ -13,6 +13,7 @@ Sub New(S As sim)
 	Protected Overrides sub init()
 		MyBase.init()
 		NextWhiteMainHit = 0
+		HasteSensible = true
 	End Sub
 
 	Overrides Function ApplyDamage(T As long) As boolean
@@ -109,6 +110,9 @@ Sub New(S As sim)
 		Dim tmp As Double
 		tmp = sim.MainStat.MHBaseDamage
 		tmp = tmp * sim.MainStat.WhiteHitDamageMultiplier(T)
+		If sim.EPStat = "EP HasteEstimated" Then
+			tmp = tmp*sim.MainStat.EstimatedHasteBonus
+		End If
 		AvrgNonCrit = tmp
 	End Function
 	Overrides Function CritCoef() As Double

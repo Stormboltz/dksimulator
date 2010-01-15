@@ -1,22 +1,16 @@
 Friend class Ghoul
+	Inherits Supertype
 	
 	Friend NextWhiteMainHit As Long
 	Friend NextClaw as Long
-	Public total As Long
 	Friend ActiveUntil As Long
 	Friend cd As Long
-	Friend MissCount As Integer
-	Friend HitCount as Integer
-	Friend CritCount as Integer
 	Friend GhoulDoubleHaste As Boolean
-	Friend TotalHit As Long
-	Friend TotalCrit As Long
 	Private MeleeMissChance As Single
 	Private MeleeDodgeChance As Single
 	Private MeleeGlacingChance As Single
 	Private SpellMissChance As Single
-	Public ThreadMultiplicator as Double
-	protected sim As Sim
+
 	
 	Sub new(MySim as Sim)
 		total = 0
@@ -33,6 +27,7 @@ Friend class Ghoul
 		MeleeGlacingChance = 0.25
 		sim.DamagingObject.Add(Me)
 		ThreadMultiplicator = 0
+		HasteSensible = true
 	End Sub
 	
 	Sub Summon(T As Long)
@@ -40,11 +35,8 @@ Friend class Ghoul
 			
 			
 			MeleeMissChance = math.Max(0.08 - sim.GhoulStat.Hit,0)
-			'If MeleeMissChance < 0 Then MeleeMissChance = 0
 			MeleeDodgeChance =  math.Max(0.065 - sim.GhoulStat.Expertise,0)
-			'If MeleeDodgeChance < 0 Then MeleeDodgeChance = 0
 			SpellMissChance = math.Max(0.17 - sim.GhoulStat.SpellHit,0)
-			'If SpellMissChance  < 0 Then SpellMissChance = 0
 			If sim.TalentUnholy.MasterOfGhouls Then
 				ActiveUntil = sim.MaxTime
 				cd = sim.MaxTime
@@ -72,9 +64,6 @@ Friend class Ghoul
 		End If
 		return tmp
 	End Function
-	Sub Merge()
-		
-	End Sub
 	Function ApplyDamage(T As long) As boolean
 		Dim dégat As integer
 		
@@ -109,7 +98,7 @@ Friend class Ghoul
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Ghoul crit for " & dégat)
 		End If
 		If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance) Then
-			'normal hit3
+			'normal hit
 			HitCount = HitCount + 1
 			dégat = AvrgNonCrit(T)
 			total = total + dégat
@@ -122,6 +111,9 @@ Friend class Ghoul
 		Dim tmp As Double
 		tmp = sim.ghoulStat.MHBaseDamage
 		tmp = tmp * sim.GhoulStat.PhysicalDamageMultiplier(T)
+		If sim.EPStat = "EP HasteEstimated" Then
+			tmp = tmp*sim.MainStat.EstimatedHasteBonus
+		End If
 		AvrgNonCrit = tmp
 	End Function
 	Function CritCoef() As Double
@@ -178,30 +170,5 @@ Friend class Ghoul
 		TotalHit = 0
 		TotalCrit = 0
 	End Sub
-	Function report As String
-		dim tmp as String
-		tmp = "Ghoul" & VBtab
-		
-		tmp = tmp & total & VBtab
-		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
-		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
-		
-		tmp = tmp & toDecimal(HitCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(totalhit/(HitCount)) & VBtab
-		
-		tmp = tmp & toDecimal(CritCount) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(totalcrit/(CritCount)) & VBtab
-				
-		tmp = tmp & toDecimal(MissCount) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & vbCrLf
-		return tmp
-	End Function
-	
-
-	
 	
 end class

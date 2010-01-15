@@ -10,6 +10,7 @@ Friend class BloodCakedBlade
 	Inherits Strikes.Strike
 Sub New(S As sim)
 		MyBase.New(s)
+		HasteSensible = true
 	End Sub
 	Public Overrides Function ApplyDamage(T As Long) As Boolean
 		dim dégat as Integer
@@ -44,6 +45,9 @@ Sub New(S As sim)
 		End If
 		tmp = tmp * (0.25 + 0.125 * Sim.NumDesease)
 		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
+		If sim.EPStat = "EP HasteEstimated" Then
+			tmp = tmp*sim.MainStat.EstimatedHasteBonus
+		End If
 		return tmp
 	End Function
 	public Overrides Function CritCoef() As Double

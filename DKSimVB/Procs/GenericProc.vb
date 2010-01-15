@@ -7,6 +7,7 @@
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
 Public Class Proc
+	Inherits Supertype
 	Friend CD as Integer
 	Friend Fade As Integer
 	Friend ProcChance As Double
@@ -15,25 +16,18 @@ Public Class Proc
 	Friend ProcLenght As Integer
 	Friend ProcValue As Integer
 	Friend InternalCD As Integer
-	protected Sim as Sim
-	Public Total as long
-	Friend HitCount As long
-	Friend MissCount As long
-	Friend CritCount As long
 	Friend Stack as Integer
-	Friend TotalHit As long
-	Friend TotalCrit As long
-	
+
 	
 	Friend DamageType As String
 	Friend Count As Integer
-	Public Name As String
+	
 	Friend ProcType As String
 	Friend ProcOn As procs.ProcOnType
-	Public ThreadMultiplicator As Double
+
 	
 	Friend previousFade As Long
-	friend Uptime as long
+
 	
 	Function RNGProc As Double
 		If _RNG Is nothing Then
@@ -44,29 +38,23 @@ Public Class Proc
 	
 	Sub New()
 		_RNG = nothing
-		
 		ProcChance = 0
-		
 		Equiped = 0
-		
 		ProcLenght = 0
 		ProcValue = 0
 		InternalCD = 0
-		
 		count = 0
 		ThreadMultiplicator = 1
-		
 		Total = 0
 		HitCount = 0
 		MissCount =0
 		CritCount = 0
 		TotalHit = 0
 		TotalCrit = 0
-		
 	End Sub
 	Sub New(S As Sim)
 		Me.New
-		name = Me.ToString
+		_name = Me.ToString
 		Sim = S
 		sim.proc.AllProcs.Add(me)
 	End Sub
@@ -229,48 +217,18 @@ Public Class Proc
 					HitCount = HitCount + 1
 					totalhit += tmp
 			End Select
+			If sim.EPStat = "EP HasteEstimated" and HasteSensible Then
+				tmp = tmp*sim.MainStat.EstimatedHasteBonus
+			End If
+			
+			
 			total += tmp
 		end if
 	End Sub
-	Overridable Public Sub Merge()
-	End Sub
 	
-	Overridable Function report as String
-		Dim tmp As String
-		if HitCount + CritCount = 0 then return ""
-		If Name = "Virulence" Then
-			tmp=""
-		End If
-		
-		tmp = name & VBtab
-		
-		tmp = tmp & total & VBtab
-		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
-		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
-		
-		tmp = tmp & toDecimal(HitCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(totalhit/(HitCount)) & VBtab
-		
-		tmp = tmp & toDecimal(CritCount) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(totalcrit/(CritCount)) & VBtab
-		
-		tmp = tmp & toDecimal(MissCount) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-		
-		If sim.FrostPresence Then
-			tmp = tmp & toDecimal((100 * total * ThreadMultiplicator * 2.0735 ) / sim.TimeStamp) & VBtab
-		End If
-		
-		tmp = tmp & ""& toDecimal(100*uptime/sim.MaxTime)  & "" & VBtab
-		
-		tmp = tmp & vbCrLf
-		
-		
-		tmp = replace(tmp, VBtab & 0, vbtab)
-		return tmp
+	Overrides Function report as String
+		If HitCount + CritCount = 0 Then Return ""
+		return MyBase.report
 	End Function
 	
 	Public Sub cleanup()

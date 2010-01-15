@@ -92,20 +92,10 @@ Public Module SimConstructor
 			SimConstructor.Start(pb,SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Stats/chkEPHaste").InnerText = "True" then
-			
 			EPStat="EP HasteRating1"
 			SimConstructor.Start(pb,SimTime,MainFrm)
-			EPStat="EP HasteRating2"
+			EPStat="EP HasteEstimated"
 			SimConstructor.Start(pb,SimTime,MainFrm)
-			EPStat="EP HasteRating3"
-			SimConstructor.Start(pb,SimTime,MainFrm)
-			EPStat="EP HasteRating4"
-			SimConstructor.Start(pb,SimTime,MainFrm)
-			EPStat="EP HasteRating5"
-			SimConstructor.Start(pb,SimTime,MainFrm)
-			EPStat="EP HasteRating6"
-			SimConstructor.Start(pb,SimTime,MainFrm)
-			
 		End If
 		if doc.SelectSingleNode("//config/Stats/chkEPArP").InnerText = "True" then
 			EPStat="EP ArmorPenetrationRating"
@@ -205,29 +195,55 @@ Public Module SimConstructor
 		'	WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
 		End Try
+		
+		
 		Try
-			EPStat="EP HasteRating"
-'			DPS = dpss(EPStat)
-'			EPStat="EP HasteRating1"
-'			EPStat="EP HasteRating2"
-'			EPStat="EP HasteRating3"
-'			EPStat="EP HasteRating4"
-'			EPStat="EP HasteRating5"
-'			EPStat="EP HasteRating6"
+			EPStat="EP HasteEstimated"
+			DPS = DPSs(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
-			'tmp2 = (DPS-BaseDPS) / EPBase
-			tmp2 = 0
-			Dim i As Integer
-			For i=1 To 6
-				tmp2 += ((dpss("EP HasteRating" & i) - BaseDPS)/(i*EPBase))
-			Next
-			tmp2 = tmp2/6
-			
-			
+			tmp2 = (DPS-BaseDPS) / EPBase
 			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
-		'	WriteReport ("Average for " & EPStat & " | " & DPS)
-		catch
+		Catch
+			
 		End Try
+		
+		Try
+			EPStat="EP HasteRating1"
+			DPS = DPSs(EPStat)
+			tmp1 = (APDPS-BaseDPS ) / 100
+			tmp2 = (DPS-BaseDPS) / EPBase
+			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
+		Catch
+			
+		End Try
+		
+		
+		
+'		Try
+'			EPStat="EP HasteRating"
+''			DPS = dpss(EPStat)
+''			EPStat="EP HasteRating1"
+''			EPStat="EP HasteRating2"
+''			EPStat="EP HasteRating3"
+''			EPStat="EP HasteRating4"
+''			EPStat="EP HasteRating5"
+''			EPStat="EP HasteRating6"
+'			tmp1 = (APDPS-BaseDPS ) / 100
+'			'tmp2 = (DPS-BaseDPS) / EPBase
+'			tmp2 = 0
+'			Dim i As Integer
+'			For i=1 To 6
+'				tmp2 += ((dpss("EP HasteRating" & i) - BaseDPS)/(i*EPBase))
+'			Next
+'			tmp2 = tmp2/6
+'			
+'			
+'			
+'			
+'			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
+'		'	WriteReport ("Average for " & EPStat & " | " & DPS)
+'		catch
+'		End Try
 		Try
 			EPStat="EP ArmorPenetrationRating"
 			DPS = dpss(EPStat)
@@ -606,7 +622,7 @@ Public Module SimConstructor
 		ThreadCollection.Clear
 		EPBase = 50
 		_MainFrm = MainFrm
-		dim sReport as String
+
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
 		Dim T As Threading.Thread
 		doc.Load(Application.StartupPath & "\Templates\" & MainFrm.cmbTemplate.Text)
@@ -622,7 +638,7 @@ Public Module SimConstructor
 				EpStat = xNode.Name
 				SimConstructor.Start(pb,MainFrm.txtSimtime.Text,MainFrm)
 			End If
-		Next	
+		Next
 		
 		For Each T In ThreadCollection
 			T.Join()
@@ -639,7 +655,7 @@ Public Module SimConstructor
 				EpStat = xNode.Name
 				WriteReport ("Value for " & EPStat & " | " & toDDecimal((BaseDPS - dpss(EPStat))/xNode.InnerText))
 			End If
-		Next	
+		Next
 		WriteReport("<hr width='80%' align='center' noshade ></hr>")
 		
 		

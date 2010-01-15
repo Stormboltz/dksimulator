@@ -345,7 +345,7 @@ Friend Class MainStat
 	End Function
 	Function Haste() As Double
 		Dim tmp As Double
-		tmp = Character.HasteRating / (32.79/1.3) / 100 '1.3 is the buff haste rating received
+		tmp = Character.HasteRating / (25.22) / 100 '1.3 is the buff haste rating received
 		tmp = tmp + sim.UnholyPresence * 0.15
 		tmp = tmp + 0.05 * sim.TalentFrost.ImprovedIcyTalons
 		tmp = tmp + 0.2 *  sim.Buff.MeleeHaste
@@ -359,16 +359,28 @@ Friend Class MainStat
 		If sim.UnholyPresence = 1 Then
 			SpellHaste = 0.5
 		Else
-			tmp = Character.SpellHasteRating / 32.79 / 100
+			tmp = Character.SpellHasteRating / 25.22 / 100
 			tmp = tmp + 0.05 * sim.Buff.SpellHaste
 			tmp = tmp + 0.03 * sim.Buff.Haste
 			If sim.Bloodlust.IsActive(sim.TimeStamp)  Then	tmp = tmp + 0.3
-			If Sim.Trinkets.Comet.IsActive Then tmp = tmp + Sim.Trinkets.Comet.ProcValue/(32.79/1.3)/100
-			If Sim.Trinkets.BitterAnguish.IsActive Then tmp = tmp + Sim.Trinkets.BitterAnguish.ProcValue/(32.79/1.3)/100
 			return tmp
 		End If
 	End Function
-	
+	Function EstimatedHasteBonus As Double
+		Dim tmp As Double
+		tmp = (Character.HasteRating + sim.EPBase) / 25.22 / 100 'Haste change for 3.1 ?
+		tmp = tmp + sim.UnholyPresence * 0.15
+		tmp = tmp + 0.05 * sim.TalentFrost.ImprovedIcyTalons
+		tmp = tmp + 0.2 *  sim.Buff.MeleeHaste
+		tmp = tmp + 0.03 *  sim.Buff.Haste
+		
+		tmp = (1+tmp)/(1+Haste)
+		return tmp
+'		Dim tmp2 As Double
+'		tmp2 = (tmp-Haste)/(tmp+Haste)
+'		tmp2 = tmp2 / 2
+'		return (1+tmp2)
+	End Function
 	
 	Function MHExpertise() As Double
 		Dim tmp As Double

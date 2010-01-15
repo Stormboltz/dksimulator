@@ -1,25 +1,20 @@
 Friend Class DRW
+	Inherits Supertype
 	
 	Friend NextDRW As Long
-	Public total As Long
-	Friend TotalHit As Long
-	Friend TotalCrit as Long
 
 	Friend ActiveUntil As Long
 	Friend cd As Long
 	Private Haste As Double
 	Private SpellHaste As Double
 	Private AP As Integer
-	Friend MissCount As Integer
-	Friend HitCount as Integer
-	Friend CritCount as Integer
+	
 	Private MeleeMissChance As Single
 	Private MeleeDodgeChance As Single
 	Private MeleeGlacingChance As Single
 	private SpellMissChance as Single
 	Private Hyst As Boolean
-	Public ThreadMultiplicator as Double
-	Protected sim as Sim
+
 	
 	Sub New(S as Sim)
 		total = 0
@@ -34,6 +29,7 @@ Friend Class DRW
 		Sim = S
 		sim.DamagingObject.Add(Me)
 		ThreadMultiplicator = 0
+		HasteSensible = true
 	End Sub
 	
 	Function IsActive(T as Long) As Boolean
@@ -111,6 +107,9 @@ Friend Class DRW
 		Dim tmp As Double
 		tmp = MHBaseDamage
 		tmp = tmp * PhysicalDamageMultiplier(T)
+		If sim.EPStat = "EP HasteEstimated" Then
+			tmp = tmp*sim.MainStat.EstimatedHasteBonus
+		End If
 	'	tmp = tmp/2
 		return tmp
 	End Function
@@ -122,9 +121,6 @@ Friend Class DRW
 	End Function
 	sub UseGCD(T as Long)
 		Sim.NextFreeGCD = T + (150 / (1 + sim.latency)) + sim.latency/10
-	End Sub
-	Sub Merge()
-		
 	End Sub
 	Function PhysicalDamageMultiplier(T as long) As Double
 		dim tmp as Double
@@ -153,8 +149,6 @@ Friend Class DRW
 	Function crit() As System.Double
 		Dim tmp As Double
 		tmp = 20  'BaseCrit
-		'tmp = tmp + Character.CritRating / 45.91
-		'tmp = tmp + Character.Agility / 62.5
 		tmp = tmp + 5 *  sim.Buff.MeleeCrit
 		tmp = tmp + 3 *  sim.Buff.CritChanceTaken
 		crit = tmp / 100
@@ -162,7 +156,6 @@ Friend Class DRW
 	Function SpellCrit() As Single
 		Dim tmp As Double
 		tmp = 20
-		'tmp = Character.SpellCritRating / 45.91
 		tmp = tmp + 3 *  sim.Buff.CritChanceTaken
 		tmp = tmp + 5 *  sim.Buff.SpellCrit
 		tmp = tmp + 5  *  sim.Buff.SpellCritTaken
@@ -181,39 +174,16 @@ Friend Class DRW
 	Function MHBaseDamage() As Double
 		Dim tmp As Double
 		tmp = (sim.mainstat.MHWeaponDPS + (AP / 14)) * 3.5
-		
 		return tmp
 	End Function
 	Function NormalisedMHDamage() As Double
 		Dim tmp As Double
 		tmp =  sim.mainstat.MHWeaponSpeed * 3.5
 		tmp =  tmp + 3.3*(AP / 14)
-		
 		return tmp
 	End Function
 
-	Function report As String
-		Dim tmp As String
-		tmp = "Dancing Rune Weapon" & VBtab
-		
-		tmp = tmp & total & VBtab
-		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
-		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
-		
-		tmp = tmp & toDecimal(HitCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(totalhit/(HitCount)) & VBtab
-		
-		tmp = tmp & toDecimal(CritCount) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(totalcrit/(CritCount)) & VBtab
-				
-		tmp = tmp & toDecimal(MissCount) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & vbCrLf
-		return tmp
-	End Function
+
 	Sub Obliterate
 		Dim RNG As Double
 		dim damage as Integer

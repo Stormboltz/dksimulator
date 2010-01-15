@@ -1,18 +1,14 @@
 Friend Class Gargoyle
+	Inherits Supertype
+	
 	Friend NextGargoyleStrike As Long
-	Public total As Long
+
 	Friend ActiveUntil As Long
 	Friend cd As Long
 	Private SpellHaste As Double
 	Private AP As Integer
 	Private SpellHit As Double
-	Friend MissCount As Integer
-	Friend HitCount as Integer
-	Friend CritCount as Integer
-	Friend TotalHit As Long
-	Friend TotalCrit As Long
-	Public ThreadMultiplicator as Double
-	Protected Sim  as Sim 
+	
 	Sub New(S as Sim)
 		total = 0
 		MissCount = 0
@@ -25,6 +21,7 @@ Friend Class Gargoyle
 		Sim = S
 		sim.DamagingObject.Add(Me)
 		ThreadMultiplicator = 0
+		HasteSensible = true
 	End Sub
 	
 Function Summon(T As Long) as  boolean
@@ -89,6 +86,9 @@ Function AvrgNonCrit(T As long) As Double
 	tmp = 120
 	tmp = tmp + ( AP*0.3333)
 	tmp = tmp * MagicalDamageMultiplier(t)
+	If sim.EPStat = "EP HasteEstimated" Then
+			tmp = tmp*sim.MainStat.EstimatedHasteBonus
+	End If
 	return tmp
 End Function
 Function CritCoef() As Double
@@ -115,9 +115,6 @@ Function SpellCrit() As Single
 	tmp = tmp + 5 *  sim.Buff.SpellCritTaken
 	SpellCrit = tmp / 100
 End Function
-Sub Merge()
-		
-	End Sub
 	Public Sub cleanup()
 		Total = 0
 		HitCount = 0
@@ -127,26 +124,5 @@ Sub Merge()
 		TotalCrit = 0
 	End Sub
 
-Function report As String
-	dim tmp as String
-	tmp = "Gargoyle" & VBtab
-	
-	tmp = tmp & total & VBtab
-		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
-		tmp = tmp & toDecimal(HitCount+CritCount) & VBtab
-		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
-		
-		tmp = tmp & toDecimal(HitCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(totalhit/(HitCount)) & VBtab
-		
-		tmp = tmp & toDecimal(CritCount) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount)) & VBtab
-		tmp = tmp & toDecimal(totalcrit/(CritCount)) & VBtab
-				
-		tmp = tmp & toDecimal(MissCount) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount)) & VBtab
-	tmp = tmp & vbCrLf
-	return tmp
-End Function
+
 end Class 

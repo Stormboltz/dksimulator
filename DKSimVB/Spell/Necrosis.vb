@@ -3,6 +3,7 @@ Friend Class Necrosis
 	
 	Sub New(S As sim)
 		MyBase.New(s)
+		HasteSensible = true
 	End Sub
 	
 	Function Apply(Damage As Double, T As long) As Double

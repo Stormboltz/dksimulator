@@ -400,6 +400,7 @@ Public Class Sim
 		'_MainFrm.lblDPS.Text = DPS & " DPS"
 		Debug.Print( "DPS=" & DPS & " " & EPStat & " hit=" & mainstat.Hit & " sphit=" & mainstat.SpellHit & " exp=" & mainstat.expertise )
 		combatlog.finish
+		
 		on error resume next
 		SimConstructor.DPSs.Add(DPS, me.EPStat)
 		
@@ -407,26 +408,13 @@ Public Class Sim
 	End Sub
 	
 	Function TotalDamage() as Long
-		'		TotalDamage = ScourgeStrike.total + ScourgeStrikeMagical.Total + obliterate.total + PlagueStrike.total + _
-		'			BloodStrike.total + HeartStrike.total + frostfever.total + _
-		'			BloodPlague.total + IcyTouch.total + deathcoil.total + _
-		'			UnholyBlight.total + Necrosis.total + BloodCakedBlade.total + _
-		'			WanderingPlague.total +FrostStrike.total  +HowlingBlast.total + _
-		'			BloodBoil.total  + DeathStrike.total + MainHand.total + _
-		'			OffHand.total  + Ghoul.total + Gargoyle.total + DRW.total + _
-		'			Trinkets.MHRazorIce.Total + Trinkets.OHRazorIce.Total + DeathandDecay.total + RuneStrike.total + _
-		'			Trinkets.Bandit.Total + Trinkets.DCDeath.Total + Trinkets.Necromantic.Total + _
-		'			Trinkets.MHSingedViskag.Total  + Trinkets.OHSingedViskag.Total + _
-		'			Trinkets.MHtemperedViskag.Total + Trinkets.OHtemperedViskag.Total + _
-		'			Trinkets.MHRagingDeathbringer.Total + Trinkets.OHRagingDeathbringer.Total + _
-		'			Trinkets.MHEmpoweredDeathbringer.Total + Trinkets.OHEmpoweredDeathbringer.Total + _
-		'			Trinkets.HandMountedPyroRocket.total
 		Dim i As long
-		dim obj as Object
-		
+		dim obj as Supertype
+
 		For Each obj In Me.DamagingObject
 			i += obj.Total
 		Next
+		
 		return i
 		debug.Print(i)
 	End Function
@@ -867,65 +855,44 @@ Public Class Sim
 	End Sub
 	
 	Sub Report()
-	'	on error resume next
+		'on error resume next
 		Dim Tw As System.IO.TextWriter
 		if EPStat <> "" then exit sub
 		Tw  =system.IO.File.appendText(ReportPath)
 		'Tw  = system.IO.File.Open(reportpath, system.IO.FileMode.Append)     '.OpenWrite(ReportPath)
 		Tw.Write (ReportName & "<FONT COLOR='white'>[TABLE]</FONT>"  )
-		
 		Tw.Write ("<table border='0' cellspacing='2' style='font-family:Verdana; font-size:10px;'>")
 		Tw.Write ("<tr>")
 		Tw.Write ("	<th rowspan='2' ><b>Ability</b><FONT COLOR='white'>|</FONT></th>")
-		
 		Tw.Write ("	<th colspan='4'><b>Damage done</b><FONT COLOR='white'>||||</FONT></th>")
-		
 		Tw.Write ("	<th colspan='3'><b>hits</b><FONT COLOR='white'>|||</FONT></th>")
-		
 		Tw.Write ("	<th colspan='3'><b>Crits</b><FONT COLOR='white'>|||</FONT></th>")
-		
 		Tw.Write ("	<th colspan='2'><b>Misses</b><FONT COLOR='white'>||</FONT></th>")
-		
 		Tw.Write ("	<th><b>Uptime</b><FONT COLOR='white'>|</FONT></th>")
-		
 		
 		If FrostPresence Then
 			Tw.Write ("<th rowspan='2'><b>TPS</b><FONT COLOR='white'>|</FONT></th>")
 		End If
-		
-		
-		
-		
 		Tw.Write ("</tr>")
 		Tw.Write ("<tr>")
-		
 		Tw.Write ("	<th><FONT COLOR='white'>|</FONT><b>Total</b><FONT COLOR='white'>|</FONT></th>")
 		Tw.Write ("	<th><b>%</b><FONT COLOR='white'>|</FONT></th>")
 		Tw.Write ("	<th><b>#</b><FONT COLOR='white'>|</FONT></th>")
 		Tw.Write ("	<th><b>Avg</b><FONT COLOR='white'>|</FONT></th>")
-		
-		
 		Tw.Write ("	<th><b>#</b><FONT COLOR='white'>|</FONT></th>")
 		Tw.Write ("	<th><b>%</b><FONT COLOR='white'>|</FONT></th>")
 		Tw.Write ("	<th><b>Avg</b><FONT COLOR='white'>|</FONT></th>")
-		
 		Tw.Write ("	<th><b>#</b><FONT COLOR='white'>|</FONT></th>")
 		Tw.Write ("	<th><b>%</b><FONT COLOR='white'>|</FONT></th>")
 		Tw.Write ("	<td><b>Avg</b><FONT COLOR='white'>|</FONT></th>")
-		
 		Tw.Write ("	<th><b>#</b><FONT COLOR='white'>|</FONT></th>")
 		Tw.Write ("	<th><b>%</b><FONT COLOR='white'>|</FONT></th>")
-		
 		Tw.Write ("	<th><b>%</b><FONT COLOR='white'>|</FONT></th>")
-
 		Tw.Write ("</tr>")
-		
-		
-		
 		Tw.Write ("</tr>")
 		
 		' Sort report
-		dim obj as Object
+		dim obj as supertype
 		Dim myArray As New ArrayList
 		
 		If MergeReport Then
@@ -936,9 +903,6 @@ Public Class Sim
 			Next
 		End If
 		
-		
-		
-		
 		For Each obj In DamagingObject
 			If obj.total <> 0 Then
 				myArray.Add(obj.total)
@@ -946,8 +910,7 @@ Public Class Sim
 			End If
 		Next
 		myArray.Sort()
-		
-		
+
 		dim i as Integer
 		Dim tot As Long
 		dim STmp as string
@@ -959,11 +922,10 @@ Public Class Sim
 					STmp = obj.report
 					STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
 					Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-					'obj.cleanup 
+					'obj.cleanup
 				End If
 			Next
 		Next
-		
 		
 		If Horn.HitCount <> 0 Then
 			STmp = Horn.report
@@ -1007,20 +969,15 @@ Public Class Sim
 			End If
 		Next
 		
-		
-		
 		sTmp = ""
 		if EPStat <> "" then STmp =  "<tr><td COLSPAN=8>EP Stat <b>" &  EPStat & "</b></td></tr>"
 		STmp = sTmp &  "<tr><td COLSPAN=8>DPS<FONT COLOR='white'>|</FONT>" & VBtab & "<b>" &  DPS & "</b></td></tr>"
 		STmp = sTmp &   "<tr><td COLSPAN=8>Total Damage<FONT COLOR='white'>|</FONT>" & VBtab & Math.Round(TotalDamage/1000000,2) & "m" & VBtab &  "<FONT COLOR='white'>|</FONT> in " & MaxTime / 100 / 60/60 & "h</td></tr>"
-		
 		Dim ThreatBeforePresence As Long = Threat
 		
 		For Each obj In Me.DamagingObject
 			Threat += obj.Total * obj.ThreadMultiplicator
 		Next
-		
-		
 		If FrostPresence = 1 Then
 			Threat = Threat * 2.0735
 		Else
@@ -1050,9 +1007,11 @@ Public Class Sim
 		STmp = sTmp &   "<tr><td COLSPAN=8>Pet Calculation: <FONT COLOR='white'>|</FONT>" & Character.GetPetCalculation & "</td></tr>"
 		
 		stmp = stmp & "</table><FONT COLOR='white'>[/TABLE]</FONT><hr width='80%' align='center' noshade ></hr>"
+		Tw.WriteLine(stmp)
 		tw.Flush
 		tw.Close
-		WriteReport(stmp)
+		_MainFrm.webBrowser1.Navigate(ReportPath)
+		'WriteReport(stmp)
 	End Sub
 	Function FastFoward(T As Long) As Long
 		Dim tmp As Long

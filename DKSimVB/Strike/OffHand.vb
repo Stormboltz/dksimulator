@@ -1,7 +1,9 @@
 Friend Class OffHand
 	Inherits Strikes.Strike
+	
 	Sub New(S As sim)
 		MyBase.New(s)
+		HasteSensible = true
 	End Sub
 	friend NextWhiteOffHit as long
 	
@@ -95,6 +97,9 @@ Friend Class OffHand
 		tmp = tmp * sim.MainStat.WhiteHitDamageMultiplier(T)
 		tmp = tmp * 0.5
 		tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 5 / 100)
+		If sim.EPStat = "EP HasteEstimated" Then
+			tmp = tmp*sim.MainStat.EstimatedHasteBonus
+		End If
 		AvrgNonCrit = tmp
 	End Function
 	Overrides Function CritCoef() As Double

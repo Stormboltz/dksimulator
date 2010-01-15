@@ -19,6 +19,7 @@ Public Class RuneStrike
 		MyBase.New(s)
 		sim = S
 		ThreadMultiplicator = 1.5 * 1.17
+		HasteSensible = true
 	End Sub
 	
 	overrides Function ApplyDamage(T As long) As boolean
@@ -83,7 +84,6 @@ Public Class RuneStrike
 	End Function
 	overrides Function AvrgNonCrit(T As long) As Double
 		Dim tmp As Double
-		
 		If offhand Then
 			tmp = sim.MainStat.OHBaseDamage * 1.5
 		Else
@@ -94,6 +94,9 @@ Public Class RuneStrike
 		If offhand Then
 			tmp = tmp * 0.5
 			tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 5 / 100)
+		End If
+		If sim.EPStat = "EP HasteEstimated" Then
+			tmp = tmp*sim.MainStat.EstimatedHasteBonus
 		End If
 		return tmp
 	End Function

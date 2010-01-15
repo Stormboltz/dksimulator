@@ -62,7 +62,7 @@ Public Class Trinkets
 		AshenBand= New Trinket(s)
 		
 		With AshenBand
-			.Name = "AshenBand"
+			._Name = "AshenBand"
 			.ProcChance = 0.10
 		 	.ProcLenght = 10
 		 	.ProcValue = 480
@@ -74,7 +74,7 @@ Public Class Trinkets
 		
 		DeathbringersWill = New Trinket(s)
 		With DeathbringersWill 
-			.Name = "DeathbringersWill"
+			._Name = "DeathbringersWill"
 			.ProcChance = 0.35
 		 	.ProcLenght = 30
 		 	.ProcValue = 600
@@ -86,7 +86,7 @@ Public Class Trinkets
 		
 		DeathbringersWillHeroic = New Trinket(s)
 		With DeathbringersWillHeroic
-			.Name = "DeathbringersWillHeroic"
+			._Name = "DeathbringersWillHeroic"
 			.ProcChance = 0.35
 		 	.ProcLenght = 30
 		 	.ProcValue = 700
@@ -99,7 +99,7 @@ Public Class Trinkets
 		
 		WhisperingFangedSkull = New Trinket(s)
 		With WhisperingFangedSkull
-			.Name = "WhisperingFangedSkull"
+			._Name = "WhisperingFangedSkull"
 			.ProcChance = 0.35
 		 	.ProcLenght = 15
 		 	.ProcValue = 1100
@@ -111,7 +111,7 @@ Public Class Trinkets
 		
 		NeedleEncrustedScorpion = New Trinket(s)
 		With NeedleEncrustedScorpion
-			.Name = "NeedleEncrustedScorpion"
+			._Name = "NeedleEncrustedScorpion"
 			.ProcChance = 0.10
 		 	.ProcLenght = 10
 		 	.ProcValue = 678
@@ -124,7 +124,7 @@ Public Class Trinkets
 		
 		DeathChoice = New Trinket(s)
 		With DeathChoice 
-			.Name = "DeathChoice"
+			._Name = "DeathChoice"
 			.ProcChance = 0.35
 		 	.ProcLenght = 15
 		 	.ProcValue = 450
@@ -135,7 +135,7 @@ Public Class Trinkets
 		
 		DeathChoiceHeroic = New Trinket(s)
 		With DeathChoiceHeroic 
-			.Name = "DeathChoiceHeroic"
+			._Name = "DeathChoiceHeroic"
 			.ProcChance = 0.35
 		 	.ProcLenght = 15
 		 	.ProcValue = 510
@@ -146,7 +146,7 @@ Public Class Trinkets
 
 		Greatness = New Trinket(s)
 		With Greatness
-			.Name = "Greatness"
+			._Name = "Greatness"
 			.ProcChance = 0.35
 			.ProcLenght = 15
 			.ProcValue = 300
@@ -157,7 +157,7 @@ Public Class Trinkets
 		
 		MjolRune = New Trinket(s)
 		With MjolRune
-			.Name = "MjolRune"
+			._Name = "MjolRune"
 			.ProcChance = 0.15
 	 		.ProcLenght = 10
 	 		.ProcValue = 665
@@ -168,7 +168,7 @@ Public Class Trinkets
 
 		GrimToll = New Trinket(s)
 		With GrimToll 
-			.Name = "GrimToll"
+			._Name = "GrimToll"
 			.ProcChance = 0.15
 		 	.ProcLenght = 10
 		 	.ProcValue = 612
@@ -179,7 +179,7 @@ Public Class Trinkets
 
 	 	BitterAnguish = New Trinket(s)
 	 	With BitterAnguish
-	 		.Name = "BitterAnguish"
+	 		._Name = "BitterAnguish"
 			.ProcChance = 0.10
 		 	.ProcLenght = 10
 		 	.ProcValue = 410
@@ -190,7 +190,7 @@ Public Class Trinkets
 		
 		Mirror = New Trinket(s)
 		With Mirror 
-			.name = "Mirror"
+			._name = "Mirror"
 			.ProcChance = 0.10
 		 	.ProcLenght = 10
 		 	.ProcValue = 1000
@@ -201,7 +201,7 @@ Public Class Trinkets
 		
 	 	Pyrite = New Trinket(s)
 		With Pyrite 
-			.Name = "Pyrite"
+			._Name = "Pyrite"
 			.ProcChance = 0.10
 		 	.ProcLenght = 10
 		 	.ProcValue = 1234
@@ -212,7 +212,7 @@ Public Class Trinkets
 		
 		OldGod = New Trinket(s)
 		With OldGod 
-			.Name = "OldGod"
+			._Name = "OldGod"
 			.ProcChance = 0.10
 		 	.ProcLenght = 10
 		 	.ProcValue = 1284
@@ -223,7 +223,7 @@ Public Class Trinkets
 		
 		Victory = New Trinket(s)
 		With Victory 
-			.Name = "Victory"
+			._Name = "Victory"
 			.ProcChance = 0.20
 		 	.ProcLenght = 10
 		 	.ProcValue = 1008
@@ -234,7 +234,7 @@ Public Class Trinkets
 		
 		DarkMatter = New Trinket(s)
 		With DarkMatter 
-			.Name = "DarkMatter"
+			._Name = "DarkMatter"
 			.ProcChance = 0.15
 		 	.ProcLenght = 10
 		 	.ProcValue = 612
@@ -250,7 +250,7 @@ Public Class Trinkets
 		 	.ProcValue = 726
 		 	.InternalCD = 45
 		 	.ProcType = "haste"
-		 	.Name = "Comet"
+		 	._Name = "Comet"
 		 	.ProcOn = procs.ProcOnType.Onhit
 		End With
 		
@@ -261,7 +261,7 @@ Public Class Trinkets
 		 	.ProcValue = 2000
 		 	.InternalCD = 45
 		 	.DamageType = "shadow"
-		 	.Name = "DCDeath"
+		 	._Name = "DCDeath"
 		 	.ProcOn = procs.ProcOnType.OnDamage		 	
 		End With
 		
@@ -272,7 +272,7 @@ Public Class Trinkets
 		 	.ProcValue = 1050
 		 	.InternalCD = 15
 		 	.DamageType = "shadow"
-		 	.Name = "Necromantic"
+		 	._Name = "Necromantic"
 		 	.ProcOn = procs.ProcOnType.OnDoT
 		End With
 		
@@ -283,7 +283,7 @@ Public Class Trinkets
 		 	.ProcValue = 1880
 		 	.InternalCD = 45
 		 	.DamageType = "arcane"
-		 	.Name = "Bandit"
+		 	._Name = "Bandit"
 		 	.ProcOn = procs.ProcOnType.OnHit
 		End With
 		
@@ -294,8 +294,9 @@ Public Class Trinkets
 		 	.ProcValue = 2222
 		 	.InternalCD = 0
 		 	.DamageType = "physical"
-		 	.Name = "MHtemperedViskag"
+		 	._Name = "MHtemperedViskag"
 		 	.ProcOn = procs.ProcOnType.OnMHhit
+		 	.HasteSensible = true
 		End With
 		
 		OHtemperedViskag = New Trinket(s)
@@ -305,8 +306,9 @@ Public Class Trinkets
 		 	.ProcValue = 2222
 		 	.InternalCD = 0
 		 	.DamageType = "physical"
-		 	.Name = "OHtemperedViskag"
+		 	._Name = "OHtemperedViskag"
 		 	.ProcOn = procs.ProcOnType.OnOHhit
+		 	.HasteSensible = true
 		End With
 		
 		MHSingedViskag = New Trinket(s)
@@ -316,8 +318,9 @@ Public Class Trinkets
 		 	.ProcValue = 2000
 		 	.InternalCD = 0
 		 	.DamageType = "physical"
-		 	.Name = "MHSingedViskag"
+		 	._Name = "MHSingedViskag"
 		 	.ProcOn = procs.ProcOnType.OnMHhit
+		 	.HasteSensible = true
 		End With
 		
 		OHSingedViskag = New Trinket(s)
@@ -327,8 +330,9 @@ Public Class Trinkets
 		 	.ProcValue = 2000
 		 	.InternalCD = 0
 		 	.DamageType = "physical"
-		 	.Name = "OHSingedViskag"
+		 	._Name = "OHSingedViskag"
 		 	.ProcOn = procs.ProcOnType.OnOHhit
+		 	.HasteSensible = true
 		End With
 		
 		MHEmpoweredDeathbringer = New Trinket(S)
@@ -338,8 +342,9 @@ Public Class Trinkets
 		 	.ProcValue = 1500
 		 	.InternalCD = 0
 		 	.DamageType = "shadow"
-		 	.Name = "MH Empowered Deathbringer"
+		 	._Name = "MH Empowered Deathbringer"
 		 	.ProcOn = procs.ProcOnType.OnMHhit
+		 	.HasteSensible = true
 		End With
 		
 		OHEmpoweredDeathbringer = New Trinket(S)
@@ -349,8 +354,9 @@ Public Class Trinkets
 		 	.ProcValue = 1500
 		 	.InternalCD = 0
 		 	.DamageType = "shadow"
-		 	.Name = "OH Empowered Deathbringer"
+		 	._Name = "OH Empowered Deathbringer"
 		 	.ProcOn = procs.ProcOnType.OnOHhit
+		 	.HasteSensible = true
 		End With
 		
 		MHRagingDeathbringer = New Trinket(S)
@@ -360,8 +366,9 @@ Public Class Trinkets
 		 	.ProcValue = 1666
 		 	.InternalCD = 0
 		 	.DamageType = "shadow"
-		 	.Name = "MH Raging Deathbringer"
+		 	._Name = "MH Raging Deathbringer"
 		 	.ProcOn = procs.ProcOnType.OnMHhit
+		 	.HasteSensible = true
 		End With
 		
 		OHRagingDeathbringer = New Trinket(S)
@@ -371,8 +378,9 @@ Public Class Trinkets
 		 	.ProcValue = 1666
 		 	.InternalCD = 0
 		 	.DamageType = "shadow"
-		 	.Name = "OH Raging Deathbringer"
+		 	._Name = "OH Raging Deathbringer"
 		 	.ProcOn = procs.ProcOnType.OnOHhit
+		 	.HasteSensible = true
 		End With
 		
 		HandMountedPyroRocket = New Trinket(s)
@@ -382,7 +390,7 @@ Public Class Trinkets
 		 	.ProcValue = 1837
 		 	.InternalCD = 45
 		 	.DamageType = "arcane"
-		 	.Name = "Hand Mounted Pyro Rocket"
+		 	._Name = "Hand Mounted Pyro Rocket"
 		 	.ProcOn = procs.ProcOnType.Ondamage
 		End With
 		
@@ -393,7 +401,7 @@ Public Class Trinkets
 		 	.ProcValue = 340
 		 	.InternalCD = 60
 		  	.ProcType="haste"
-		 	.Name = "Hyperspeed Accelerators"
+		 	._Name = "Hyperspeed Accelerators"
 		 	.ProcOn = procs.ProcOnType.Onhit
 		End With
 		
@@ -408,7 +416,7 @@ Public Class Trinkets
 		 	.ProcValue = 400
 		 	.InternalCD = 60
 		 	.ProcType = "ap"
-		 	.Name = "Swordguard Embroidery"
+		 	._Name = "Swordguard Embroidery"
 		 	.ProcOn = procs.ProcOnType.OnHit
 		End With
 		
@@ -419,8 +427,9 @@ Public Class Trinkets
 		 	.ProcValue = 0
 		 	.DamageType = "razorice"
 		 	.InternalCD = 0
-		 	.Name = "Main Hand RazorIce"
+		 	._Name = "Main Hand RazorIce"
 		 	.ProcOn = procs.ProcOnType.OnMHhit
+		 	.HasteSensible = true
 		End With
 		
 		OHRazorIce = New Trinket(s)
@@ -430,28 +439,31 @@ Public Class Trinkets
 		 	.ProcValue = 0
 		 	.DamageType = "razorice"
 		 	.InternalCD = 0
-		 	.Name = "Off Hand RazorIce"
+		 	._Name = "Off Hand RazorIce"
 		 	.ProcOn = procs.ProcOnType.OnOHhit
+		 	.HasteSensible = true
 		End With
 		
 		Bryntroll = New Trinket(s)
 		With Bryntroll
-			.Name = "Bryntroll"
+			._Name = "Bryntroll"
 			.ProcOn = Procs.ProcOnType.OnDamage
 			.ProcChance  = 0.1133
 			.ProcValue = 2250
 			.DamageType = "Bryntroll"
 			.ProcLenght = 0
+			.HasteSensible = true
 		End With
 		
 		TinyAbomination = New Trinket(s)
 		With TinyAbomination
-			.Name = "TinyAbomination"
+			._Name = "TinyAbomination"
 			.ProcOn = Procs.ProcOnType.OnHit
 			.ProcChance  = 0.5
 			.ProcValue = 0
 			.ProcType = ""
 			.DamageType = "TinyAbomination"
+			.HasteSensible = true
 		End With
 		
 		

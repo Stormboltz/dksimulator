@@ -83,7 +83,6 @@
     <Compile Include="code\Sim.vb" />
     <Compile Include="code\SimContructor.vb" />
     <Compile Include="Diseases\BloodPlague.vb" />
-    <Compile Include="Diseases\Disease.vb" />
     <Compile Include="Diseases\FrostFever.vb" />
     <Compile Include="Form1.Designer.vb">
       <DependentUpon>Form1.vb</DependentUpon>
@@ -134,6 +133,7 @@
     <Compile Include="Runes\rune.vb" />
     <Compile Include="Runes\runes.vb" />
     <Compile Include="Special\Bloodlust.vb" />
+    <Compile Include="Special\Disease.vb" />
     <Compile Include="Special\DRW.vb" />
     <Compile Include="Special\Gargoyle.vb" />
     <Compile Include="Special\Ghoul.vb" />
