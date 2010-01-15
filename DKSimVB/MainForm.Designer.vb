@@ -215,6 +215,7 @@ Partial Class MainForm
 		Me.label25 = New System.Windows.Forms.Label
 		Me.txtEPBase = New System.Windows.Forms.TextBox
 		Me.groupBox3 = New System.Windows.Forms.GroupBox
+		Me.chkTinyAbomination = New System.Windows.Forms.CheckBox
 		Me.chkEPWhisperingFangedSkull = New System.Windows.Forms.CheckBox
 		Me.chkEPDeathbringersWillHeroic = New System.Windows.Forms.CheckBox
 		Me.chkEPNeedleEncrustedScorpion = New System.Windows.Forms.CheckBox
@@ -280,7 +281,6 @@ Partial Class MainForm
 		Me.TabPrio2 = New System.Windows.Forms.TabPage
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.cmdRngSeeder = New System.Windows.Forms.Button
-		Me.chkTinyAbomination = New System.Windows.Forms.CheckBox
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -2205,6 +2205,15 @@ Partial Class MainForm
 		Me.groupBox3.TabStop = false
 		Me.groupBox3.Text = "Trinket"
 		'
+		'chkTinyAbomination
+		'
+		Me.chkTinyAbomination.Location = New System.Drawing.Point(153, 289)
+		Me.chkTinyAbomination.Name = "chkTinyAbomination"
+		Me.chkTinyAbomination.Size = New System.Drawing.Size(171, 24)
+		Me.chkTinyAbomination.TabIndex = 2
+		Me.chkTinyAbomination.Text = "Tiny Abomination"
+		Me.chkTinyAbomination.UseVisualStyleBackColor = true
+		'
 		'chkEPWhisperingFangedSkull
 		'
 		Me.chkEPWhisperingFangedSkull.Location = New System.Drawing.Point(153, 259)
@@ -2878,15 +2887,6 @@ Partial Class MainForm
 		Me.cmdRngSeeder.UseVisualStyleBackColor = true
 		AddHandler Me.cmdRngSeeder.Click, AddressOf Me.CmdRngSeederClick
 		'
-		'chkTinyAbomination
-		'
-		Me.chkTinyAbomination.Location = New System.Drawing.Point(153, 289)
-		Me.chkTinyAbomination.Name = "chkTinyAbomination"
-		Me.chkTinyAbomination.Size = New System.Drawing.Size(171, 24)
-		Me.chkTinyAbomination.TabIndex = 2
-		Me.chkTinyAbomination.Text = "Tiny Abomination"
-		Me.chkTinyAbomination.UseVisualStyleBackColor = true
-		'
 		'MainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
@@ -2948,7 +2948,7 @@ Partial Class MainForm
 	Private chkMergeReport As System.Windows.Forms.CheckBox
 	Private grpCurrentPrio As System.Windows.Forms.GroupBox
 	Private grpAvailablePrio As System.Windows.Forms.GroupBox
-	Private TabPrio2 As System.Windows.Forms.TabPage
+	Friend TabPrio2 As System.Windows.Forms.TabPage
 	Private chkAccelerators As System.Windows.Forms.CheckBox
 	Friend chkBloodSync As System.Windows.Forms.CheckBox
 	Private cmdStartTalentDpsValue As System.Windows.Forms.Button

@@ -14,7 +14,7 @@ Friend Partial Class Form1
 		
 	End Sub
 	
-
+	
 	
 	Sub BtOkClick(sender As Object, e As EventArgs)
 		me.DialogResult = DialogResult.ok

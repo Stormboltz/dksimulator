@@ -176,6 +176,7 @@ Public Class Sim
 	Private Pb As ProgressBar
 	Private SimTime As Double
 	Sub Prepare (pbar As ProgressBar,SimTime As Double, MainFrm As MainForm)
+		Pb = pbar
 		me.SimTime = SimTime
 		_MainFrm=MainFrm
 	End Sub
@@ -200,6 +201,8 @@ Public Class Sim
 			ProgressFrame.Text = "Simulation"
 		End If
 	End Sub
+
+	
 	Sub Start()
 		
 		LoadConfig

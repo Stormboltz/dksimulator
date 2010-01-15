@@ -28,12 +28,20 @@ Public Module SimConstructor
 		Dim newthread As System.Threading.Thread
 		Sim = New Sim
 		_MainFrm = MainFrm
+		
+'		dim prb as New ProgressBar
+'		prb.Left = 10
+'		prb.height = 40
+'		prb.Width = 300
+'		prb.Top = ThreadCollection.Count * prb.height + 10
+'		MainFrm.TabPrio2.Controls.Add(prb)
+		
 		If EpStat <> "" Then
 			Sim.Prepare(pb,Simtime, Mainfrm,EPStat,EPBase)
 		Else
 			Sim.Prepare(pb,Simtime, Mainfrm)
 		End If
-		'Sim.Prepare(pb,Simtime, Mainfrm)
+		
 		
 		newthread = New System.Threading.Thread(AddressOf sim.Start)
 		newthread.Priority= Threading.ThreadPriority.BelowNormal 'Shouldn't be necessary, works fine for me without it.

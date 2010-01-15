@@ -206,6 +206,10 @@ Public Partial Class MainForm
 		errH:
 	End Sub
 	
+	Sub SetPBValue(ByVal i As integer)
+    	Me.PBsim.Value = i
+	End Sub
+
 	Sub TxtLatencyTextChanged(sender As Object, e As EventArgs)
 		
 		dim test as Boolean
