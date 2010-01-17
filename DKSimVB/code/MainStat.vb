@@ -373,8 +373,12 @@ Friend Class MainStat
 		tmp = tmp + 0.05 * sim.TalentFrost.ImprovedIcyTalons
 		tmp = tmp + 0.2 *  sim.Buff.MeleeHaste
 		tmp = tmp + 0.03 *  sim.Buff.Haste
-		
+		If sim.Bloodlust.IsActive(sim.TimeStamp) Then tmp = tmp + 0.3
+		if sim.proc.TrollRacial.IsActive then tmp = tmp * 1.2
 		tmp = (1+tmp)/(1+Haste)
+		If tmp < 1 Then
+			debug.Print ("??Oo??")
+		End If
 		return tmp
 '		Dim tmp2 As Double
 '		tmp2 = (tmp-Haste)/(tmp+Haste)
@@ -441,7 +445,7 @@ Friend Class MainStat
 		tmp = (Character.HitRating / 32.79)
 		If DualW Then tmp += sim.TalentFrost.NervesofColdSteel
 
-		If instr(sim.EPStat,"EP ")=0 Then
+		If instr(sim.EPStat,"EP ")<>0 Then
 			If instr(sim.EPStat,"Hit")=0 Then
 				tmp += sim.Buff.Draenei
 			End If
@@ -465,7 +469,7 @@ Friend Class MainStat
 	Function SpellHit() As Double
 		Dim tmp As Double
 		tmp = Character.SpellHitRating / 26.23
-		If instr(sim.EPStat,"EP ")=0 Then
+		If instr(sim.EPStat,"EP ")<>0 Then
 			If instr(sim.EPStat,"Hit")=0 Then
 				tmp += sim.Buff.Draenei
 			End If

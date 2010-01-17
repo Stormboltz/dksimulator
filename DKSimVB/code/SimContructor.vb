@@ -224,34 +224,6 @@ Public Module SimConstructor
 		Catch
 			
 		End Try
-		
-		
-		
-'		Try
-'			EPStat="EP HasteRating"
-''			DPS = dpss(EPStat)
-''			EPStat="EP HasteRating1"
-''			EPStat="EP HasteRating2"
-''			EPStat="EP HasteRating3"
-''			EPStat="EP HasteRating4"
-''			EPStat="EP HasteRating5"
-''			EPStat="EP HasteRating6"
-'			tmp1 = (APDPS-BaseDPS ) / 100
-'			'tmp2 = (DPS-BaseDPS) / EPBase
-'			tmp2 = 0
-'			Dim i As Integer
-'			For i=1 To 6
-'				tmp2 += ((dpss("EP HasteRating" & i) - BaseDPS)/(i*EPBase))
-'			Next
-'			tmp2 = tmp2/6
-'			
-'			
-'			
-'			
-'			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
-'		'	WriteReport ("Average for " & EPStat & " | " & DPS)
-'		catch
-'		End Try
 		Try
 			EPStat="EP ArmorPenetrationRating"
 			DPS = dpss(EPStat)
