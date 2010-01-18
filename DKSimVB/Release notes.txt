@@ -1,7 +1,7 @@
 ﻿1.2.0.5 Release notes
 * EP Haste Estimated correction.
 * Rune Strike is not proc'ing Necrosis anymore. 
-* Walkaround for the empty offhand weapond speed on a new character.
+* Walkaround for the empty offhand weapon speed on a new character.
 * You can now create a new Character/Template without first editing one.
 * Some GUI modification.
 * New option to show or not non damaging item in the report.
