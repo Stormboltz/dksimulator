@@ -5,6 +5,8 @@
 * You can now create a new Character/Template without first editing one.
 * Some GUI modification.
 * New option to show or not non damaging item in the report.
+* Unholy-reaping rotation update.
+* New Character templates for ICC.
 
 
 1.2.0.4 Release notes

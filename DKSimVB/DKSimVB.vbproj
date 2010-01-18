@@ -177,10 +177,16 @@
     <Compile Include="Trinkets\Trinket.vb" />
     <Compile Include="Trinkets\Trinkets.vb" />
     <Compile Include="UIFunctions.vb" />
+    <None Include="Characters\2h ICC.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Characters\2h ToC Blood.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Characters\2h ToC Unholy.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Characters\DW ICC.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Characters\DW ToC .xml">

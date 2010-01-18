@@ -12,7 +12,7 @@
     <ExpertiseRating>203</ExpertiseRating>
   </stat>
   <weapon>
-		<count>1</count>
+    <count>1</count>
     <mainhand>
       <dps>282</dps>
       <speed>3.6</speed>
@@ -24,6 +24,7 @@
   </weapon>
   <Set>
     <T102PDPS>0</T102PDPS>
+    <T102PTNK>0</T102PTNK>
     <T104PDPS>0</T104PDPS>
     <T72PDPS>0</T72PDPS>
     <T72PTNK>0</T72PTNK>
@@ -34,18 +35,17 @@
     <T84PDPS>0</T84PDPS>
     <T84PTNK>0</T84PTNK>
     <T92PDPS>1</T92PDPS>
+    <T92PTNK>0</T92PTNK>
     <T94PDPS>1</T94PDPS>
   </Set>
   <trinket>
-    <DeathbringersWill>0</DeathbringersWill>
-    <DeathbringersWillHeroic>0</DeathbringersWillHeroic>
-  	<NeedleEncrustedScorpion>0</NeedleEncrustedScorpion>
-    <WhisperingFangedSkull>0</WhisperingFangedSkull>
-  	<Bandit>0</Bandit>
+    <Bandit>0</Bandit>
     <BitterAnguish>0</BitterAnguish>
     <Comet>0</Comet>
     <DarkMatter>0</DarkMatter>
     <DCDeath>0</DCDeath>
+    <DeathbringersWill>0</DeathbringersWill>
+    <DeathbringersWillHeroic>0</DeathbringersWillHeroic>
     <DeathChoice>1</DeathChoice>
     <DeathChoiceHeroic>1</DeathChoiceHeroic>
     <Greatness>0</Greatness>
@@ -53,11 +53,15 @@
     <Mirror>0</Mirror>
     <MjolnirRunestone>0</MjolnirRunestone>
     <Necromantic>0</Necromantic>
+    <NeedleEncrustedScorpion>0</NeedleEncrustedScorpion>
     <OldGod>0</OldGod>
     <Pyrite>0</Pyrite>
+    <TinyAbomination>0</TinyAbomination>
     <Victory>0</Victory>
+    <WhisperingFangedSkull>0</WhisperingFangedSkull>
   </trinket>
   <WeaponProc>
+    <MHBryntroll>0</MHBryntroll>
     <MHEmpoweredDeathbringer>0</MHEmpoweredDeathbringer>
     <MHRagingDeathbringer>0</MHRagingDeathbringer>
     <MHSingedViskag>0</MHSingedViskag>
@@ -69,7 +73,16 @@
   </WeaponProc>
   <misc>
     <HandMountedPyroRocket>False</HandMountedPyroRocket>
+    <HyperspeedAccelerators>False</HyperspeedAccelerators>
     <ChaoticSkyflareDiamond>True</ChaoticSkyflareDiamond>
     <TailorEnchant>False</TailorEnchant>
+    <AshenBand>False</AshenBand>
   </misc>
+  <racials>
+    <MHExpertiseBonus>0</MHExpertiseBonus>
+    <OHExpertiseBonus>0</OHExpertiseBonus>
+    <Orc>False</Orc>
+    <Troll>False</Troll>
+    <BloodElf>False</BloodElf>
+  </racials>
 </character>

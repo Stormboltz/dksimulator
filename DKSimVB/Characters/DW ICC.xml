@@ -1,31 +1,31 @@
-<character>
+﻿<character>
   <stat>
-    <Strength>2000</Strength>
-    <Agility>300</Agility>
-    <Intel>58</Intel>
-    <Armor>15000</Armor>
-    <AttackPower>707</AttackPower>
-    <HitRating>368</HitRating>
-    <CritRating>899</CritRating>
-    <HasteRating>280</HasteRating>
-    <ArmorPenetrationRating>225</ArmorPenetrationRating>
-    <ExpertiseRating>185</ExpertiseRating>
+    <Strength>2068</Strength>
+    <Agility>286</Agility>
+    <Intel>45</Intel>
+    <Armor>15930</Armor>
+    <AttackPower>845</AttackPower>
+    <HitRating>254</HitRating>
+    <CritRating>947</CritRating>
+    <HasteRating>23</HasteRating>
+    <ArmorPenetrationRating>825</ArmorPenetrationRating>
+    <ExpertiseRating>182</ExpertiseRating>
   </stat>
   <weapon>
     <count>2</count>
     <mainhand>
-      <dps>216.5</dps>
+      <dps>226.5</dps>
       <speed>2.6</speed>
     </mainhand>
     <offhand>
-      <dps>216.5</dps>
+      <dps>226.5</dps>
       <speed>2.6</speed>
     </offhand>
   </weapon>
   <Set>
-    <T102PDPS>0</T102PDPS>
+    <T102PDPS>1</T102PDPS>
     <T102PTNK>0</T102PTNK>
-    <T104PDPS>0</T104PDPS>
+    <T104PDPS>1</T104PDPS>
     <T72PDPS>0</T72PDPS>
     <T72PTNK>0</T72PTNK>
     <T74PDPS>0</T74PDPS>
@@ -34,9 +34,9 @@
     <T82PTNK>0</T82PTNK>
     <T84PDPS>0</T84PDPS>
     <T84PTNK>0</T84PTNK>
-    <T92PDPS>1</T92PDPS>
+    <T92PDPS>0</T92PDPS>
     <T92PTNK>0</T92PTNK>
-    <T94PDPS>1</T94PDPS>
+    <T94PDPS>0</T94PDPS>
   </Set>
   <trinket>
     <Bandit>0</Bandit>
@@ -44,9 +44,9 @@
     <Comet>0</Comet>
     <DarkMatter>0</DarkMatter>
     <DCDeath>0</DCDeath>
-    <DeathbringersWill>0</DeathbringersWill>
+    <DeathbringersWill>1</DeathbringersWill>
     <DeathbringersWillHeroic>0</DeathbringersWillHeroic>
-    <DeathChoice>1</DeathChoice>
+    <DeathChoice>0</DeathChoice>
     <DeathChoiceHeroic>1</DeathChoiceHeroic>
     <Greatness>0</Greatness>
     <GrimToll>0</GrimToll>
@@ -76,7 +76,7 @@
     <HyperspeedAccelerators>False</HyperspeedAccelerators>
     <ChaoticSkyflareDiamond>True</ChaoticSkyflareDiamond>
     <TailorEnchant>False</TailorEnchant>
-    <AshenBand>False</AshenBand>
+    <AshenBand>True</AshenBand>
   </misc>
   <racials>
     <MHExpertiseBonus>0</MHExpertiseBonus>
