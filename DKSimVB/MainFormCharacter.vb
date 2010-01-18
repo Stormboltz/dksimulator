@@ -164,6 +164,21 @@ Public Partial Class MainForm
 		End If
 	End Sub
 	
+	Function CheckForInt(s as String) As String
+		If s <> "" Then
+			Return s
+		Else
+			return 0
+		End If
+	End Function
+	
+	Function CheckForDouble(s as String) As String
+		If s <> "" Then
+			Return s
+		Else
+			return 0
+		End If
+	End Function
 	
 	Sub SaveCharacter(filepath As String)
 		Dim xmlDoc As New XmlDocument
@@ -177,34 +192,34 @@ Public Partial Class MainForm
 		root.AppendChild(xStat)
 		
 		xElem = xmlDoc.CreateNode(xml.XmlNodeType.Element, "Strength", "")
-		xElem.InnerText = txtStr.Text
+		xElem.InnerText = CheckForInt(txtStr.Text)
 		xStat.AppendChild(xElem)
 		xElem = xmlDoc.CreateNode(xml.XmlNodeType.Element, "Agility", "")
-		xElem.InnerText = txtAgi.Text
+		xElem.InnerText = CheckForInt(txtAgi.Text)
 		xStat.AppendChild(xElem)
 		xElem = xmlDoc.CreateNode(xml.XmlNodeType.Element, "Intel", "")
-		xElem.InnerText = txtIntel.Text
+		xElem.InnerText = CheckForInt(txtIntel.Text)
 		xStat.AppendChild(xElem)
 		xElem = xmlDoc.CreateNode(xml.XmlNodeType.Element, "Armor", "")
-		xElem.InnerText = txtArmor.Text
+		xElem.InnerText = CheckForInt(txtArmor.Text)
 		xStat.AppendChild(xElem)
 		xElem = xmlDoc.CreateNode(xml.XmlNodeType.Element, "AttackPower", "")
-		xElem.InnerText = txtAP.Text
+		xElem.InnerText = CheckForInt(txtAP.Text)
 		xStat.AppendChild(xElem)
 		xElem = xmlDoc.CreateNode(xml.XmlNodeType.Element, "HitRating", "")
-		xElem.InnerText = txthit.Text
+		xElem.InnerText = CheckForInt(txthit.Text)
 		xStat.AppendChild(xElem)
 		xElem = xmlDoc.CreateNode(xml.XmlNodeType.Element, "CritRating", "")
-		xElem.InnerText = txtcrit.Text
+		xElem.InnerText = CheckForInt(txtcrit.Text)
 		xStat.AppendChild(xElem)
 		xElem = xmlDoc.CreateNode(xml.XmlNodeType.Element, "HasteRating", "")
-		xElem.InnerText = txtHaste.Text
+		xElem.InnerText = CheckForInt(txtHaste.Text)
 		xStat.AppendChild(xElem)
 		xElem = xmlDoc.CreateNode(xml.XmlNodeType.Element, "ArmorPenetrationRating", "")
-		xElem.InnerText = txtArP.Text
+		xElem.InnerText = CheckForInt(txtArP.Text)
 		xStat.AppendChild(xElem)
 		xElem = xmlDoc.CreateNode(xml.XmlNodeType.Element, "ExpertiseRating", "")
-		xElem.InnerText = txtExp.Text
+		xElem.InnerText = CheckForInt(txtExp.Text)
 		xStat.AppendChild(xElem)
 		
 		
@@ -227,18 +242,18 @@ Public Partial Class MainForm
 		xweapon.AppendChild(xweapon2)
 		
 		xElem = xmlDoc.CreateNode(xml.XmlNodeType.Element, "dps", "")
-		xElem.InnerText = txtMHDPS.Text
+		xElem.InnerText = CheckFordouble(txtMHDPS.Text)
 		xweapon1.AppendChild(xElem)
 		xElem = xmlDoc.CreateNode(xml.XmlNodeType.Element, "speed", "")
-		xElem.InnerText = txtMHWSpeed.Text
+		xElem.InnerText = CheckFordouble(txtMHWSpeed.Text)
 		xweapon1.AppendChild(xElem)
 		
 		xElem = xmlDoc.CreateNode(xml.XmlNodeType.Element, "dps", "")
-		xElem.InnerText = txtOHDPS.Text
+		xElem.InnerText = CheckFordouble(txtOHDPS.Text)
 		xweapon2.AppendChild(xElem)
 		
 		xElem = xmlDoc.CreateNode(xml.XmlNodeType.Element, "speed", "")
-		xElem.InnerText = txtOHWSpeed.Text
+		xElem.InnerText = CheckFordouble(txtOHWSpeed.Text)
 		xweapon2.AppendChild(xElem)
 		
 		Dim item As Object
@@ -361,14 +376,14 @@ Public Partial Class MainForm
 		Dim xRacial As XmlNode = xmlDoc.CreateNode(xml.XmlNodeType.Element, "racials", "")
 		root.AppendChild(xRacial)
 		
-		'Racials		
+		'Racials
 		xElem = xmlDoc.CreateNode(xml.XmlNodeType.Element,"MHExpertiseBonus" , "")
-		xElem.InnerText = txtMHExpBonus.Text
+		xElem.InnerText = CheckForint(txtMHExpBonus.Text)
 		xRacial.AppendChild(xElem)
 		
 		
 		xElem = xmlDoc.CreateNode(xml.XmlNodeType.Element,"OHExpertiseBonus" , "")
-		xElem.InnerText = txtOHExpBonus.Text
+		xElem.InnerText = CheckForint(txtOHExpBonus.Text)
 		xRacial.AppendChild(xElem)
 		
 		
@@ -395,6 +410,7 @@ Public Partial Class MainForm
 		SaveCharacter(EditorFilePAth)
 		loadWindow
 		tabControl1.SelectedIndex = 0
+		LockSaveButtons
 	End Sub
 	
 	Sub CmdSaveNewCharatecClick(sender As Object, e As EventArgs)
@@ -402,12 +418,13 @@ Public Partial Class MainForm
 		Dim res As DialogResult
 		res = truc.ShowDialog
 		If truc.textBox1.Text  <> "" and res = DialogResult.OK Then
-			EditorFilePAth = Strings.Left(EditorFilePAth,strings.InStrRev(EditorFilePAth,"\")) & truc.textBox1.Text & ".xml"
+			EditorFilePAth = application.StartupPath & "\Characters\" & truc.textBox1.Text & ".xml"
 			CmdSaveCharacterClick(sender, e)
 		Else
 			exit sub
 		End If
 		truc.Dispose
+		LockSaveButtons
 	End Sub
 	
 

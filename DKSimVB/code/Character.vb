@@ -29,31 +29,35 @@ Friend Class Character
 
 	Sub New(S As Sim)
 		Sim = S
-		XmlConfig.Load("config.xml")
-		XmlDoc.Load (Application.StartupPath & "\Characters\"  & XmlConfig.SelectSingleNode("//config/Character").InnerText)
-		_Strength = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Strength").InnerText)
-		_Agility = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Agility").InnerText)
-		_Intel = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Intel").InnerText)
-		_Armor = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Armor").InnerText)
-		_AttackPower = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/AttackPower").InnerText)
-		_HitRating = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/HitRating").InnerText)
-		_CritRating = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/CritRating").InnerText)
-		_HasteRating = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/HasteRating").InnerText)
-		_ArmorPenetrationRating = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/ArmorPenetrationRating").InnerText)
-		_ExpertiseRating=int32.Parse(XmlDoc.SelectSingleNode("//character/stat/ExpertiseRating").InnerText)
-		_Dual = int32.Parse(XmlDoc.SelectSingleNode("//character/weapon/count").InnerText)
-		
 		Try
+			XmlConfig.Load("config.xml")
+			XmlDoc.Load (Application.StartupPath & "\Characters\"  & XmlConfig.SelectSingleNode("//config/Character").InnerText)
+		Catch
+			msgbox("Error finding Character config file")
+		End Try
+		Try
+			_Strength = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Strength").InnerText)
+			_Agility = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Agility").InnerText)
+			_Intel = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Intel").InnerText)
+			_Armor = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/Armor").InnerText)
+			_AttackPower = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/AttackPower").InnerText)
+			_HitRating = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/HitRating").InnerText)
+			_CritRating = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/CritRating").InnerText)
+			_HasteRating = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/HasteRating").InnerText)
+			_ArmorPenetrationRating = int32.Parse(XmlDoc.SelectSingleNode("//character/stat/ArmorPenetrationRating").InnerText)
+			_ExpertiseRating=int32.Parse(XmlDoc.SelectSingleNode("//character/stat/ExpertiseRating").InnerText)
+			_Dual = int32.Parse(XmlDoc.SelectSingleNode("//character/weapon/count").InnerText)
+
 			MHExpertiseBonus = int32.Parse(XmlDoc.SelectSingleNode("//character/racials/MHExpertiseBonus").InnerText)
 			OHExpertiseBonus = int32.Parse(XmlDoc.SelectSingleNode("//character/racials/OHExpertiseBonus").InnerText)
 			Orc = XmlDoc.SelectSingleNode("//character/racials/Orc").InnerText
 			Troll = XmlDoc.SelectSingleNode("//character/racials/Troll").InnerText
 			BloodElf = XmlDoc.SelectSingleNode("//character/racials/BloodElf").InnerText
 		Catch
-			
+			debug.Print("Error reading Character config file.")
+			msgbox("Error reading Character config file. You should open and check it. ")
 		End Try
 		sim.boss = New Boss(S)
-		
 	End Sub
 	
 	Function GetCharacterFileName() as String
@@ -256,9 +260,9 @@ Friend Class Character
 		Select Case sim.EPStat
 			Case ""
 			Case "EP HasteRating1"
-				tmp = tmp+sim.EPBase	
+				tmp = tmp+sim.EPBase
 			Case "EP HasteRating2"
-				tmp = tmp+sim.EPBase*2	
+				tmp = tmp+sim.EPBase*2
 			Case "EP HasteRating3"
 				tmp = tmp+sim.EPBase*3
 			Case "EP HasteRating4"

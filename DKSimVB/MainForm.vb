@@ -101,6 +101,9 @@ Public Partial Class MainForm
 		tr.Close
 		tabControl1.SelectedIndex = 8
 		OpenIntroForEdit(EditorFilePAth)
+		cmdSaveRotation.Enabled=True		
+		cmdSave.Enabled=True
+		cmdSaveNew.Enabled = True
 		errH:
 	End Sub
 		
@@ -118,7 +121,9 @@ Public Partial Class MainForm
 		tr.Close
 		tabControl1.SelectedIndex = 8
 		OpenPrioForEdit(EditorFilePAth)
-		
+		cmdSaveRotation.Enabled=True		
+		cmdSave.Enabled=true
+		cmdSaveNew.Enabled = True
 		errH:
 		
 	End Sub
@@ -133,6 +138,9 @@ Public Partial Class MainForm
 		tr.Close
 		tabControl1.SelectedIndex = 8
 		OpenRotaForEdit(EditorFilePAth)
+		cmdSaveRotation.Enabled=True		
+		cmdSave.Enabled=True
+		cmdSaveNew.Enabled = True
 		errH:
 		
 	End Sub
@@ -147,7 +155,7 @@ Public Partial Class MainForm
 		Tw  =system.IO.File.CreateText(EditorFilePAth)
 		tw.WriteLine(rtfEditor.Text)
 		tw.Close
-		
+		LockSaveButtons
 		tabControl1.SelectedIndex = 0
 		Exit Sub
 		
@@ -182,9 +190,8 @@ Public Partial Class MainForm
 		tw.Close
 		loadWindow
 		tabControl1.SelectedIndex = 0
+		LockSaveButtons
 		Exit Sub
-		
-		
 		errXml:
 		msgbox("Xml can not be validated")
 		exit sub
@@ -203,6 +210,9 @@ Public Partial Class MainForm
 		tr.Close
 		tabControl1.SelectedIndex = 2
 		LoadCharacter(EditorFilePAth)
+		cmdSaveCharacter.Enabled=True		
+		cmdSave.Enabled=True
+		cmdSaveNew.Enabled = True
 		errH:
 	End Sub
 	
@@ -314,5 +324,9 @@ Public Partial Class MainForm
 
 	Sub CmdRngSeederClick(sender As Object, e As EventArgs)
 		RNGSeeder += 1 
+	End Sub
+	
+	Sub TxtSimtimeTextChanged(sender As Object, e As EventArgs)
+		
 	End Sub
 End Class

@@ -67,36 +67,32 @@ Friend Class MainStat
 		XmlDoc = character.XmlDoc
 		'XmlDoc.Load(GetFilePath(sim._MainFrm.cmbCharacter.Text) )
 		
-		MHWeaponDPS = (XmlDoc.SelectSingleNode("//character/weapon/mainhand/dps").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
-		If sim.EPStat="EP WeaponDPS" Then
-			MHWeaponDPS = MHWeaponDPS + 10
-		End If
-		
-		If InStr(sim.EPStat,"ScaDPSA") Then
-			MHWeaponDPS += Replace(sim.EPStat,"ScaDPSA","")
-		End If
-		
-		
-		MHWeaponSpeed = (XmlDoc.SelectSingleNode("//character/weapon/mainhand/speed").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
-		If sim.EPStat="EP WeaponSpeed" Then
-			MHWeaponSpeed = MHWeaponSpeed + 0.1
-		End If
-		
-		
-		
-		
-		
-		OHWeaponDPS = (XmlDoc.SelectSingleNode("//character/weapon/offhand/dps").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
-		OHWeaponSpeed = (XmlDoc.SelectSingleNode("//character/weapon/offhand/speed").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
+		try
+			MHWeaponDPS = (XmlDoc.SelectSingleNode("//character/weapon/mainhand/dps").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
+			If sim.EPStat="EP WeaponDPS" Then
+				MHWeaponDPS = MHWeaponDPS + 10
+			End If
+			
+			If InStr(sim.EPStat,"ScaDPSA") Then
+				MHWeaponDPS += Replace(sim.EPStat,"ScaDPSA","")
+			End If
+			
+			
+			MHWeaponSpeed = (XmlDoc.SelectSingleNode("//character/weapon/mainhand/speed").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
+			If sim.EPStat="EP WeaponSpeed" Then
+				MHWeaponSpeed = MHWeaponSpeed + 0.1
+			End If
+		Catch
+			Msgbox("Error reading MH Weapon characteristics")
+		End Try	
+			
+		try
+			OHWeaponDPS = (XmlDoc.SelectSingleNode("//character/weapon/offhand/dps").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
+			OHWeaponSpeed = (XmlDoc.SelectSingleNode("//character/weapon/offhand/speed").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
+		Catch
+			debug.Print("Error reading OH Weapon characteristics")
+		End Try
 		BossArmor = 10643
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		If XmlDoc.SelectSingleNode("//character/misc/ChaoticSkyflareDiamond").InnerText = True Then
 			CSD = 1

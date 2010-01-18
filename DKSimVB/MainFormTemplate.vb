@@ -23,6 +23,9 @@ Public Partial Class MainForm
 		xmlDoc.Load(EditorFilePAth)
 		TemplatePath = EditorFilePAth
 		displaytemplateInEditor (EditorFilePAth)
+		cmdSaveTemplate.Enabled=True		
+		cmdSave.Enabled=True
+		cmdSaveNew.Enabled = True
 		errH:
 	End Sub
 	
@@ -729,7 +732,8 @@ Public Partial Class MainForm
 		sTemp = sTemp & GlobalFunction.GetIdFromGlyphName(cmbGlyph3.SelectedItem.ToString)
 		sTemp = sTemp  & "&"
 		txtImportTemplate.Text = sTemp
-		ImportTemplate(me.TemplatePath)
+		ImportTemplate(Me.TemplatePath)
+		LockSaveButtons
 	End Sub
 	
 	Sub CmdSaveNewTemplateClick(sender As Object, e As EventArgs)
@@ -739,6 +743,7 @@ Public Partial Class MainForm
 		For Each BT In btList
 			sTemp = sTemp & BT.Value.ToString
 		Next
+		on error resume next
 		sTemp = sTemp & "&glyph="
 		sTemp = sTemp & GlobalFunction.GetIdFromGlyphName(cmbGlyph1.SelectedItem.ToString)
 		sTemp = sTemp & GlobalFunction.GetIdFromGlyphName(cmbGlyph2.SelectedItem.ToString)
@@ -746,6 +751,7 @@ Public Partial Class MainForm
 		sTemp = sTemp  & "&"
 		txtImportTemplate.Text = sTemp
 		ImportTemplate("")
+		LockSaveButtons
 	End Sub
 	
 	

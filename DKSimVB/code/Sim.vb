@@ -19,6 +19,7 @@ Public Class Sim
 	Friend PetFriendly As Boolean
 	Friend BloodToSync As Boolean
 	Friend KeepBloodSync as Boolean
+	Friend ShowProc As Boolean
 	
 	Friend NumberOfEnemies as Integer
 	Private SimStart as Date
@@ -590,18 +591,12 @@ Public Class Sim
 		Buff = New Buff(Me)
 		'Keep this order for RuneX -> Runse -> Rotation/Prio
 		Runes = New Runes.runes(Me)
-		
-
 		Rotation = new Rotation(Me)
-'		Character = New Character(Me)
-'		MainStat = New MainStat(Me)
 		
 		BloodPlague = new BloodPlague(Me)
 		FrostFever = New FrostFever(Me)
 		
 		UnholyBlight = New UnholyBlight(Me)
-		' Buff.UnBuff
-		
 		
 		BloodTap = new BloodTap(Me)
 		HowlingBlast = New HowlingBlast(Me)
@@ -706,7 +701,7 @@ Public Class Sim
 		End If
 		latency = doc.SelectSingleNode("//config/latency").InnerText
 		
-		
+		ShowProc = doc.SelectSingleNode("//config/ShowProc").InnerText
 		
 		'		cmbCharacter.SelectedItem = doc.SelectSingleNode("//config/Character").InnerText
 		
@@ -929,48 +924,49 @@ Public Class Sim
 				End If
 			Next
 		Next
-		
-		If Horn.HitCount <> 0 Then
-			STmp = Horn.report
-			STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-		End If
-		If Pestilence.HitCount <> 0 Then
-			STmp = Pestilence.report
-			STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-		End If
-		If BoneShield.HitCount <> 0 Then
-			STmp = BoneShield.report
-			STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-		End If
-		If BloodTap.HitCount <> 0 Then
-			STmp = BloodTap.report
-			STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-		End If
-		
-		If Frenzy.HitCount <> 0 Then
-			STmp = Frenzy.report
-			STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-		End If
-		
-		If UnbreakableArmor.HitCount <> 0 Then
-			STmp = UnbreakableArmor.report
-			STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
-			Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-		End If
-		'On Error Resume Next
-		dim pr as Proc
-		For Each pr In proc.EquipedTrinkets
-			if pr.Total = 0 then
-				STmp = pr.report
+		If ShowProc Then
+			If Horn.HitCount <> 0 Then
+				STmp = Horn.report
 				STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 			End If
-		Next
+			If Pestilence.HitCount <> 0 Then
+				STmp = Pestilence.report
+				STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			End If
+			If BoneShield.HitCount <> 0 Then
+				STmp = BoneShield.report
+				STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			End If
+			If BloodTap.HitCount <> 0 Then
+				STmp = BloodTap.report
+				STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			End If
+			
+			If Frenzy.HitCount <> 0 Then
+				STmp = Frenzy.report
+				STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			End If
+			
+			If UnbreakableArmor.HitCount <> 0 Then
+				STmp = UnbreakableArmor.report
+				STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			End If
+			'On Error Resume Next
+			Dim pr As Proc
+			For Each pr In proc.EquipedTrinkets
+				if pr.Total = 0 then
+					STmp = pr.report
+					STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
+					Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				End If
+			Next
+		End If
 		
 		sTmp = ""
 		if EPStat <> "" then STmp =  "<tr><td COLSPAN=8>EP Stat <b>" &  EPStat & "</b></td></tr>"

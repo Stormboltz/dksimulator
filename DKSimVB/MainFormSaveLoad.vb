@@ -101,7 +101,7 @@ Public Partial Class MainForm
 		
 		
 		SimConstructor.PetFriendly = me.ckPet.Checked
-		
+		LockSaveButtons
 		
 	End Sub
 	
@@ -344,8 +344,8 @@ Public Partial Class MainForm
 		
 		
 		'Ghouls2haste
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ghoulhaste", "")
-		newElem.InnerText = chkGhoulHaste.Checked
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ShowProc", "")
+		newElem.InnerText = chkShowProc.Checked
 		root = doc.DocumentElement
 		root.AppendChild(newElem)
 		
@@ -444,7 +444,7 @@ Public Partial Class MainForm
 		txtSimtime.Text = doc.SelectSingleNode("//config/simtime").InnerText
 		chkCombatLog.Checked = doc.SelectSingleNode("//config/log").InnerText
 		ckLogRP.Checked = doc.SelectSingleNode("//config/logdetail").InnerText
-		chkGhoulHaste.Checked = doc.SelectSingleNode("//config/ghoulhaste").InnerText
+		chkShowProc.Checked = doc.SelectSingleNode("//config/ShowProc").InnerText
 		chkWaitFC.Checked = doc.SelectSingleNode("//config/WaitFC").InnerText
 		ckPet.Checked = doc.SelectSingleNode("//config/pet").InnerText
 		txtNumberOfEnemies.Text  = doc.SelectSingleNode("//config/Enemies").InnerText
@@ -499,5 +499,11 @@ Public Partial Class MainForm
 	Sub SaveAll()
 		
 	End Sub
-	
+	Sub LockSaveButtons()
+		cmdSave.Enabled = False
+		cmdSaveNew.Enabled = False
+		cmdSaveCharacter.Enabled=False
+		cmdSaveRotation.Enabled=False
+		cmdSaveTemplate.Enabled = False
+	End Sub
 End Class

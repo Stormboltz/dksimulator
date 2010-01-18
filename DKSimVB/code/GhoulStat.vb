@@ -23,6 +23,15 @@ Friend Class GhoulStat
 		sim.Ghoul.total = 0
 		sim.ghoul.TotalHit = 0
 		sim.ghoul.TotalCrit = 0
+		
+		
+		Dim doc As xml.XmlDocument = New xml.XmlDocument
+		'on error goto errH
+		doc.Load("config.xml")
+			
+		sim.Ghoul.GhoulDoubleHaste = true 'doc.SelectSingleNode("//config/ghoulhaste").InnerText
+		
+		
 '		If sim.TalentUnholy.MasterOfGhouls Then 
 '			sim.Ghoul.ActiveUntil = sim.MaxTime
 '			sim.Ghoul.cd = sim.MaxTime

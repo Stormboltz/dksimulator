@@ -86,7 +86,7 @@ Friend class Ghoul
 		If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then
 			dégat = AvrgNonCrit(T)*0.7
 			total = total + dégat
-			totalhit += dégat 
+			totalhit += dégat
 			HitCount = HitCount + 1
 		End If
 		If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) and RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance) Then
@@ -102,7 +102,7 @@ Friend class Ghoul
 			HitCount = HitCount + 1
 			dégat = AvrgNonCrit(T)
 			total = total + dégat
-			totalhit += dégat 
+			totalhit += dégat
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Ghoul hit for " & dégat)
 		End If
 		return true
@@ -149,7 +149,7 @@ Friend class Ghoul
 			totalhit += dégat
 			if sim.combatlog.LogDetails then 	sim.combatlog.write(T  & vbtab &  "Ghoul's Claw hit for " & dégat)
 		End If
-		NextClaw = T+400
+		NextClaw = T+450
 		return true
 	End Function
 	Function ClawAvrgNonCrit(T As long) As integer

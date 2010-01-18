@@ -198,7 +198,8 @@ Public Partial Class MainForm
 		'Save
 		xmlDoc.Save(EditorFilePAth)
 		loadWindow
-		me.tabControl1.SelectedIndex = 0
+		Me.tabControl1.SelectedIndex = 0
+		LockSaveButtons
 	End Sub
 	
 	Sub MoveUp(s As PrioButton)
@@ -277,12 +278,20 @@ Public Partial Class MainForm
 		Dim truc As New Form1
 		Dim res As DialogResult
 		res = truc.ShowDialog
-		If truc.textBox1.Text  <> "" and res = DialogResult.OK Then
-			EditorFilePAth = Strings.Left(EditorFilePAth,strings.InStrRev(EditorFilePAth,"\")) & truc.textBox1.Text & ".xml"
+		If truc.textBox1.Text  <> "" And res = DialogResult.OK Then
+			Select Case EditType
+				Case "prio"
+					EditorFilePAth = application.StartupPath & "\Priority\" & truc.textBox1.Text & ".xml"
+				Case "intro"
+					EditorFilePAth = application.StartupPath & "\Intro\" & truc.textBox1.Text & ".xml"
+				Case "rota"
+					EditorFilePAth = application.StartupPath & "\Rotation\" & truc.textBox1.Text & ".xml"
+			End Select
 			CmdSaveRotationClick(sender, e)
 		Else
 			exit sub
 		End If
 		truc.Dispose
+		LockSaveButtons
 	End Sub
 End Class
