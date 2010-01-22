@@ -103,7 +103,8 @@ Public Class Strike
 	Overridable Function CritChance() As Double
 	End Function
 	
-	Overridable Function AvrgCrit(T As long) As Double
+	Overridable Function AvrgCrit(T As Long) As Double
+		Return AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 	Overridable Public Sub cleanup()
 		Total = 0

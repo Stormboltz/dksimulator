@@ -1,4 +1,9 @@
-﻿1.2.0.5 Release notes
+﻿1.2.0.6 Release notes
+* Reping rotation correction.
+* BloodWorms implemented, should not be too far from game.
+
+
+1.2.0.5 Release notes
 * EP Haste Estimated correction.
 * Rune Strike is not proc'ing Necrosis anymore. 
 * Walkaround for the empty offhand weapon speed on a new character.

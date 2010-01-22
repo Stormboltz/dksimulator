@@ -216,7 +216,24 @@ Public Class Proc
 					tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
 					HitCount = HitCount + 1
 					totalhit += tmp
+				Case "BloodWorms"
+					tmp =  50 + 0.006*sim.MainStat.AP
+					tmp = tmp * 10
+					tmp = tmp * (1+sim.MainStat.Haste)
+					tmp = tmp * sim.GhoulStat.PhysicalDamageMultiplier(T)
+					If RNGProc < 0.33 Then
+						tmp = tmp * 2
+						HitCount = HitCount + 20
+					ElseIf RNGProc < 0.66
+						tmp = tmp *3
+						HitCount = HitCount + 30
+					Else
+						tmp = tmp *4
+						HitCount = HitCount + 40
+					End If
 			End Select
+			
+			
 			If sim.EPStat = "EP HasteEstimated" and HasteSensible Then
 				tmp = tmp*sim.MainStat.EstimatedHasteBonus
 			End If

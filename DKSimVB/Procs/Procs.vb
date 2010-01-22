@@ -25,6 +25,7 @@ Friend Class Procs
 	Protected Sim as Sim
 	Friend T104PDPSFAde As Integer
 	
+	Friend BloodWorms As Proc
 	
 	
 	Friend AllProcs As New Collection
@@ -265,7 +266,19 @@ Friend Class Procs
 			if s.Character.BloodElf then .Equip
 		End With
 		
-		
+		BloodWorms = New Proc(s)
+		With BloodWorms
+			._Name = "BloodWorms"
+			.InternalCD = 20
+			.ProcChance = 3 * s.TalentBlood.BloodWorms/100
+			.DamageType = "BloodWorms"
+			.ProcOn = procs.ProcOnType.OnHit
+			If s.TalentBlood.BloodWorms > 0 Then 
+				.Equip
+				s.DamagingObject.Add(BloodWorms)
+			End If
+			
+		End With
 	End Sub
 	
 	Function GetActiveBonus(stat As String) As Integer

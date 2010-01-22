@@ -8,7 +8,7 @@
 		<DeathCoil retry="0" />
 		<DeathCoil retry="0" />
 		<ScourgeStrike retry="1" />
-		<Horn retry="1" />
+		<Horn retry="0" />
 		<ScourgeStrike retry="1" />
 		<ScourgeStrike retry="1" />
 		<DeathCoil retry="0" />

@@ -258,7 +258,6 @@ Public Module SimConstructor
 		
 		
 		Try
-
 			EPStat="EP HitRating"
 			DPS = dpss(EPStat)
 			tmp1 = (dpss("EP HitRatingCapAP")-dpss("EP HitRatingCap")) / 100
@@ -267,13 +266,13 @@ Public Module SimConstructor
 		'	WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
 		End Try
+		
 		Try
 			EPStat="EP SpellHitRating"
 			DPS = dpss(EPStat)
 			tmp1 = (dpss("EP HitRatingCapAP")-dpss("EP HitRatingCap")) / 100
 			tmp2 = (DPS-dpss("EP HitRatingCap")) / EPBase
 			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
-		'	WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
 		End Try
 		Try

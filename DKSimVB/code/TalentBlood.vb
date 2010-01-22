@@ -15,6 +15,7 @@ Friend Class TalentBlood
 	Friend SuddenDoom As Integer
 	Friend MightofMograine As Integer
 	Friend BloodGorged As Integer
+	Friend BloodWorms as Integer
 	Friend DRW As Integer
 	Friend DRM As Integer
 	
