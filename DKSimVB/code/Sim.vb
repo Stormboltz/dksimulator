@@ -174,15 +174,14 @@ Public Class Sim
 	
 	
 	
-	Private Pb As ProgressBar
+	
 	Private SimTime As Double
-	Sub Prepare (pbar As ProgressBar,SimTime As Double, MainFrm As MainForm)
-		Pb = pbar
+	Sub Prepare (SimTime As Double, MainFrm As MainForm)
+
 		me.SimTime = SimTime
 		_MainFrm=MainFrm
 	End Sub
-	Sub Prepare (pbar As ProgressBar,SimTime As Double, MainFrm As MainForm,EPS As String, EPBse as String )
-		Pb = pbar
+	Sub Prepare (SimTime As Double, MainFrm As MainForm,EPS As String, EPBse as String )
 		me.SimTime = SimTime
 		_MainFrm=MainFrm
 		_EPStat = EPS
@@ -194,7 +193,6 @@ Public Class Sim
 		ProgressFrame.Show()
 		ProgressFrame.TopMost = true
 		application.DoEvents
-		Pb = ProgressFrame.PBsim
 		
 		If EPStat <> "" Then
 			ProgressFrame.Text = EPStat
@@ -210,7 +208,7 @@ Public Class Sim
 		
 		
 		'MergeReport = true
-		CreateProgressFrame
+		'CreateProgressFrame
 		Rnd(-1) 'Tell VB to initialize using Randomize's parameter
 		RandomNumberGenerator = new RandomNumberGenerator 'init here, so that we don't get the same rng numbers for short fights.
 		'EPBase = 50
@@ -218,7 +216,6 @@ Public Class Sim
 		SimStart = now
 		
 		MaxTime = SimTime * 60 * 60 * 100
-		pb.Maximum = SimTime * 60 * 60 * 100
 		
 		TotalDamageAlternative = 0
 		TimeStampCounter = 1
@@ -375,10 +372,8 @@ Public Class Sim
 			
 			If ShowDpsTimer <= TimeStamp Then
 				ShowDpsTimer = TimeStamp + 0.1 * 60 * 60 * 100
-			If TimeStamp <= pb.Maximum Then pb.Value = TimeStamp Else pb.Value = pb.Maximum
 			ElseIf ShowDpsTimer <= TimeStamp Then
 				ShowDpsTimer = TimeStamp + 0.1 * 60 * 60 * 100
-			If TimeStampCounter <= pb.Maximum Then pb.Value = TimeStampCounter Else pb.Value = pb.Maximum
 			End If
 		Loop
 		
@@ -392,23 +387,15 @@ Public Class Sim
 		TimeStamp = TimeStampCounter
 		
 		DPS = 100 * TotalDamage / TimeStamp
-		'Problem with MThread
-		pb.Value = pb.Maximum
 		
-		'		If NumberOfFights > 1 then
-		'			WriteReport ("DPS: " & DPS)
-		'		Else
 		Report()
-		'		End If
-		'Problem with MThread
-		'_MainFrm.lblDPS.Text = DPS & " DPS"
+
 		Debug.Print( "DPS=" & DPS & " " & EPStat & " hit=" & mainstat.Hit & " sphit=" & mainstat.SpellHit & " exp=" & mainstat.expertise )
 		combatlog.finish
 		
 		on error resume next
-		SimConstructor.DPSs.Add(DPS, me.EPStat)
-		
-		
+		SimConstructor.DPSs.Add(DPS, Me.EPStat)
+		SimConstructor.simCollection.Remove(me)
 	End Sub
 	
 	Function TotalDamage() as Long

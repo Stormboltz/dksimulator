@@ -45,7 +45,7 @@ Public Partial Class MainForm
 	Sub Button1Click(sender As Object, e As EventArgs)
 		if LoadBeforeSim = false then exit sub
 		me.tabControl1.SelectedIndex = 1
-		SimConstructor.start(PBsim,txtSimtime.Text,me)
+		SimConstructor.start(txtSimtime.Text,me)
 	End Sub
 	
 	Sub BtEPClick(sender As Object, e As EventArgs)
@@ -57,7 +57,7 @@ Public Partial Class MainForm
 		'chkLissage.Checked	= true
 		if LoadBeforeSim = false then exit sub
 		me.tabControl1.SelectedIndex = 1
-		SimConstructor.startEP(PBsim,txtSimtime.Text,me)
+		SimConstructor.startEP(txtSimtime.Text,me)
 	End Sub
 	
 	Sub MainFormLoad(sender As Object, e As EventArgs)
@@ -329,4 +329,28 @@ Public Partial Class MainForm
 	Sub TxtSimtimeTextChanged(sender As Object, e As EventArgs)
 		
 	End Sub
+	
+	Sub TmrProgressTick(sender As Object, e As EventArgs)
+		UpdateProgressBar
+	End Sub
+	
+	Sub UpdateProgressBar()
+		Dim s As Sim
+		Dim i As Double
+		on error resume next
+'		Me.PBsim.Maximum = 100
+		If SimConstructor.simCollection.Count = 0 Then 
+			Me.PBsim.Value = 0
+			Exit Sub
+		End If
+		i=0
+		For Each s In SimConstructor.simCollection
+			i += (s.TimeStamp/s.MaxTime)/ SimConstructor.simCollection.Count
+		Next
+		i=i*100
+		Me.PBsim.Value = i
+	End Sub
+	
+	
+	
 End Class

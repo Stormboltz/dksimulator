@@ -36,7 +36,7 @@ Public Class ScourgeStrikeMagical
 			tmp = AvrgNonCrit(T)
 			Totalhit += tmp
 		End If
-		sim.tryOnDamageProc()
+		'sim.tryOnDamageProc()
 		total += tmp
 	End Function
 	

@@ -1,7 +1,9 @@
 ﻿1.2.0.6 Release notes
 * Reping rotation correction.
 * BloodWorms implemented, should not be too far from game.
-
+* Only one progress bar for all simulation
+* Remove Magical Scourge Strike procs (Bryntoll...)
+* Lootlink Link/ Pawn string
 
 1.2.0.5 Release notes
 * EP Haste Estimated correction.
@@ -12,6 +14,7 @@
 * New option to show or not non damaging item in the report.
 * Unholy-reaping rotation update.
 * New Character templates for ICC.
+
 
 
 1.2.0.4 Release notes

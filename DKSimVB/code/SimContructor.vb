@@ -18,43 +18,37 @@ Public Module SimConstructor
 	Friend sThreadCollection as new Collection
 	Friend EPBase as Integer
 	Friend ThreadCollection As New Collections.ArrayList
+	friend simCollection as New Collections.ArrayList
 	Public _MainFrm As MainForm
 	Sub New()
 		
 	End Sub
 	
-	Sub Start(pb As ProgressBar,SimTime As Double, MainFrm As MainForm)
+	Sub Start(SimTime As Double, MainFrm As MainForm)
 		Dim  sim As Sim
 		Dim newthread As System.Threading.Thread
 		Sim = New Sim
 		_MainFrm = MainFrm
 		
-'		dim prb as New ProgressBar
-'		prb.Left = 10
-'		prb.height = 40
-'		prb.Width = 300
-'		prb.Top = ThreadCollection.Count * prb.height + 10
-'		MainFrm.TabPrio2.Controls.Add(prb)
 		
 		If EpStat <> "" Then
-			Sim.Prepare(pb,Simtime, Mainfrm,EPStat,EPBase)
+			Sim.Prepare(Simtime, Mainfrm,EPStat,EPBase)
 		Else
-			Sim.Prepare(pb,Simtime, Mainfrm)
+			Sim.Prepare(Simtime, Mainfrm)
 		End If
-		
-		
 		newthread = New System.Threading.Thread(AddressOf sim.Start)
 		newthread.Priority= Threading.ThreadPriority.BelowNormal 'Shouldn't be necessary, works fine for me without it.
 		'Environment.ProcessorCount 'This gives you the number of cores. Maybe useful.
 		newthread.Start()
 		ThreadCollection.Add(newthread)
-		
+		simCollection.Add(sim)
 	End Sub
 	
 	
-	Sub StartEP(pb As ProgressBar,SimTime As Double,MainFrm As MainForm)
+	Sub StartEP(SimTime As Double,MainFrm As MainForm)
 		DPSs.Clear
 		ThreadCollection.Clear
+		simCollection.Clear
 		EPBase = MainFrm.txtEPBase.Text
 		_MainFrm = MainFrm
 		dim sReport as String
@@ -71,6 +65,30 @@ Public Module SimConstructor
 		Dim tmp1 As double
 		Dim tmp2 As Double
 		
+		Dim Str As string
+		Dim Agility As string
+		Dim MHSpeed As string
+		Dim Exp As string
+		Dim MHDPS As string
+		Dim SpHit As string
+		Dim Hit As string
+		Dim ArP As string
+		Dim Haste As string
+		Dim Crit As String
+		
+		Str =	0
+		Agility 	=	0
+		MHSpeed 	=	0
+		Exp 	=	0
+		MHDPS 	=	0
+		SpHit	=	0
+		Hit 	=	0
+		ArP 	=	0
+		Haste 	=	0
+		Crit  	=	0
+
+		
+		
 		If SimTime = 0 Then SimTime = 1
 		'Create EP table
 		sReport = "<table border='0' cellspacing='0' style='font-family:Verdana; font-size:10px;'>"
@@ -81,46 +99,46 @@ Public Module SimConstructor
 		
 		'Dry run
 		EPStat="EP DryRun"
-		SimConstructor.Start(pb,SimTime,MainFrm)
+		SimConstructor.Start(SimTime,MainFrm)
 		Application.DoEvents
 		
 		EPStat="EP AttackPower"
-		SimConstructor.Start(pb,SimTime,MainFrm)
+		SimConstructor.Start(SimTime,MainFrm)
 		
 		if doc.SelectSingleNode("//config/Stats/chkEPStr").InnerText = "True" then
 			EPStat="EP Strength"
-			SimConstructor.Start(pb,SimTime,MainFrm)
+			SimConstructor.Start(SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Stats/chkEPAgility").InnerText = "True" then
 			EPStat="EP Agility"
-			SimConstructor.Start(pb,SimTime,MainFrm)
+			SimConstructor.Start(SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Stats/chkEPCrit").InnerText = "True" then
 			EPStat="EP CritRating"
-			SimConstructor.Start(pb,SimTime,MainFrm)
+			SimConstructor.Start(SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Stats/chkEPHaste").InnerText = "True" then
 			EPStat="EP HasteRating1"
-			SimConstructor.Start(pb,SimTime,MainFrm)
+			SimConstructor.Start(SimTime,MainFrm)
 			EPStat="EP HasteEstimated"
-			SimConstructor.Start(pb,SimTime,MainFrm)
+			SimConstructor.Start(SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Stats/chkEPArP").InnerText = "True" then
 			EPStat="EP ArmorPenetrationRating"
-			SimConstructor.Start(pb,SimTime,MainFrm)
+			SimConstructor.Start(SimTime,MainFrm)
 		End If
 		
 		
 		if doc.SelectSingleNode("//config/Stats/chkEPExp").InnerText = "True" then
 			EPStat="EP ExpertiseRating"
-			SimConstructor.Start(pb,SimTime,MainFrm)
+			SimConstructor.Start(SimTime,MainFrm)
 			EPStat="EP ExpertiseRatingCap"
-			SimConstructor.Start(pb,SimTime,MainFrm)
+			SimConstructor.Start(SimTime,MainFrm)
 			EPStat="EP ExpertiseRatingCapAP"
-			SimConstructor.Start(pb,SimTime,MainFrm)
+			SimConstructor.Start(SimTime,MainFrm)
 			If MainFrm.cmdPresence.SelectedItem = "Frost" Then
 				EPStat="EP ExpertiseRatingAfterCap"
-				SimConstructor.Start(pb,SimTime,MainFrm)
+				SimConstructor.Start(SimTime,MainFrm)
 			End If
 		End If
 		
@@ -129,42 +147,50 @@ Public Module SimConstructor
 		
 		if doc.SelectSingleNode("//config/Stats/chkEPHit").InnerText = "True" then
 			EPStat="EP HitRating"
-			SimConstructor.Start(pb,SimTime,MainFrm)
+			SimConstructor.Start(SimTime,MainFrm)
 			EPStat="EP HitRatingCap"
-			SimConstructor.Start(pb,SimTime,MainFrm)
+			SimConstructor.Start(SimTime,MainFrm)
 			EPStat="EP HitRatingCapAP"
-			SimConstructor.Start(pb,SimTime,MainFrm)
+			SimConstructor.Start(SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Stats/chkEPSpHit").InnerText = "True" then
 			EPStat="EP SpellHitRating"
-			SimConstructor.Start(pb,SimTime,MainFrm)
+			SimConstructor.Start(SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Stats/chkEPSMHDPS").InnerText = "True" then
 			EPStat="EP WeaponDPS"
-			SimConstructor.Start(pb,SimTime,MainFrm)
+			SimConstructor.Start(SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Stats/chkEPSMHSpeed").InnerText = "True" then
 			EPStat="EP WeaponSpeed"
-			SimConstructor.Start(pb,SimTime,MainFrm)
+			SimConstructor.Start(SimTime,MainFrm)
 		End If
-
-		Dim T as Threading.Thread
-		For Each T In ThreadCollection
-			T.Join()
-		Next
+		
+		Dim T As Threading.Thread
+		
+		do until simCollection.Count = 0
+			For Each T In ThreadCollection
+				T.Join(100)
+			Next
+			_MainFrm.UpdateProgressBar
+		Loop
+		
 		
 		if doc.SelectSingleNode("//config/Stats/chkEPAfterSpellHitRating").InnerText = "True" then
 			EPStat="EP AfterSpellHitBase"
-			SimConstructor.Start(pb,SimTime,MainFrm)
+			SimConstructor.Start(SimTime,MainFrm)
 			EPStat="EP AfterSpellHitBaseAP"
-			SimConstructor.Start(pb,SimTime,MainFrm)
+			SimConstructor.Start(SimTime,MainFrm)
 			EPStat="EP AfterSpellHitRating"
-			SimConstructor.Start(pb,SimTime,MainFrm)
+			SimConstructor.Start(SimTime,MainFrm)
 		End If
 		
-		For Each T In ThreadCollection
-			T.Join()
-		Next
+		do until simCollection.Count = 0
+			For Each T In ThreadCollection
+				T.Join(100)
+			Next
+			_MainFrm.UpdateProgressBar
+		Loop
 		
 		
 		EPStat = "EP DryRun"
@@ -181,8 +207,10 @@ Public Module SimConstructor
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS) / EPBase
+			Str = toDDecimal (tmp2/tmp1)
 			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
-		'	WriteReport ("Average for " & EPStat & " | " & DPS)
+			
+			'	WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
 		End Try
 		Try
@@ -190,8 +218,9 @@ Public Module SimConstructor
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS) / EPBase
+			Agility = toDDecimal (tmp2/tmp1)
 			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
-		'	WriteReport ("Average for " & EPStat & " | " & DPS)
+			'	WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
 		End Try
 		Try
@@ -199,8 +228,9 @@ Public Module SimConstructor
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS) / EPBase
+			Crit = toDDecimal (tmp2/tmp1)
 			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
-		'	WriteReport ("Average for " & EPStat & " | " & DPS)
+			'	WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
 		End Try
 		
@@ -210,6 +240,7 @@ Public Module SimConstructor
 			DPS = DPSs(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS) / EPBase
+			Haste = toDDecimal (tmp2/tmp1)
 			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
 		Catch
 			
@@ -229,8 +260,9 @@ Public Module SimConstructor
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS) / EPBase
+			ArP = toDDecimal (tmp2/tmp1)
 			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
-		'	WriteReport ("Average for " & EPStat & " | " & DPS)
+			'	WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
 		End Try
 		Try
@@ -240,8 +272,9 @@ Public Module SimConstructor
 			
 			tmp1 = (dpss("EP ExpertiseRatingCapAP")-dpss("EP ExpertiseRatingCap") ) / 100
 			tmp2 = (DPS-dpss("EP ExpertiseRatingCap")) / EPBase
+			Exp = toDDecimal (-tmp2/tmp1)
 			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (-tmp2/tmp1)) & "</td></tr>"
-		'	WriteReport ("Average for " & EPStat & " | " & DPS)
+			'	WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
 		End Try
 		
@@ -252,7 +285,7 @@ Public Module SimConstructor
 			tmp1 = (dpss("EP ExpertiseRatingCapAP")-dpss("EP ExpertiseRatingCap") ) / 100
 			tmp2 = (DPS-dpss("EP ExpertiseRatingCap")) / EPBase
 			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | ExpertiseRating After Dodge Cap | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
-		'	WriteReport ("Average for " & EPStat & " | " & DPS)
+			'	WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
 		End Try
 		
@@ -262,8 +295,9 @@ Public Module SimConstructor
 			DPS = dpss(EPStat)
 			tmp1 = (dpss("EP HitRatingCapAP")-dpss("EP HitRatingCap")) / 100
 			tmp2 = (DPS-dpss("EP HitRatingCap")) / EPBase
+			Hit = toDDecimal (-tmp2/tmp1)
 			sReport = sReport +  ("<tr><td>BeforeMeleeHitCap<8% | " & toDDecimal (-tmp2/tmp1)) & "</td></tr>"
-		'	WriteReport ("Average for " & EPStat & " | " & DPS)
+			'	WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
 		End Try
 		
@@ -272,6 +306,7 @@ Public Module SimConstructor
 			DPS = dpss(EPStat)
 			tmp1 = (dpss("EP HitRatingCapAP")-dpss("EP HitRatingCap")) / 100
 			tmp2 = (DPS-dpss("EP HitRatingCap")) / EPBase
+			SpHit = toDDecimal (tmp2/tmp1)
 			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
 		catch
 		End Try
@@ -280,8 +315,9 @@ Public Module SimConstructor
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS) / 10
+			MHDPS = toDDecimal (tmp2/tmp1)
 			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
-		'	WriteReport ("Average for " & EPStat & " | " & DPS)
+			'	WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
 		End Try
 		Try
@@ -289,11 +325,11 @@ Public Module SimConstructor
 			DPS = dpss(EPStat)
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS) / 0.1
+			MHSpeed = toDDecimal (tmp2/tmp1)
 			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
-		'	WriteReport ("Average for " & EPStat & " | " & DPS)
+			'	WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
 		End Try
-		
 		
 		Try
 			EPStat="EP AfterSpellHitBase"
@@ -305,7 +341,7 @@ Public Module SimConstructor
 			tmp1 = (APDPS-BaseDPS ) / 100
 			tmp2 = (DPS-BaseDPS) / EPBase
 			sReport = sReport +  ("<tr><td>After spell hit cap | " & toDDecimal (tmp2/tmp1) & "</td></tr>")
-		'	WriteReport ("Average for " & EPStat & " | " & DPS)
+			'	WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
 		end try
 		
@@ -320,48 +356,50 @@ Public Module SimConstructor
 		End If
 		
 		EPStat="EP 0T7"
-		SimConstructor.Start(pb,SimTime,MainFrm)
+		SimConstructor.Start(SimTime,MainFrm)
 		
 		EPStat="EP AttackPower0T7"
-		SimConstructor.Start(pb,SimTime,MainFrm)
+		SimConstructor.Start(SimTime,MainFrm)
 		
 		if doc.SelectSingleNode("//config/Sets/chkEP2T7").InnerText = "True" then
 			EPStat="EP 2T7"
-			SimConstructor.Start(pb,SimTime,MainFrm)
+			SimConstructor.Start(SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Sets/chkEP4PT7").InnerText = "True" then
 			EPStat="EP 4T7"
-			SimConstructor.Start(pb,SimTime,MainFrm)
+			SimConstructor.Start(SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Sets/chkEP2PT8").InnerText = "True" then
 			EPStat="EP 2T8"
-			SimConstructor.Start(pb,SimTime,MainFrm)
+			SimConstructor.Start(SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Sets/chkEP4PT8").InnerText = "True" then
 			EPStat="EP 4T8"
-			SimConstructor.Start(pb,SimTime,MainFrm)
+			SimConstructor.Start(SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Sets/chkEP2PT9").InnerText = "True" then
 			EPStat="EP 2T9"
-			SimConstructor.Start(pb,SimTime,MainFrm)
+			SimConstructor.Start(SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Sets/chkEP4PT9").InnerText = "True" then
 			EPStat="EP 4T9"
-			SimConstructor.Start(pb,SimTime,MainFrm)
+			SimConstructor.Start(SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Sets/chkEP2PT10").InnerText = "True" then
 			EPStat="EP 2T10"
-			SimConstructor.Start(pb,SimTime,MainFrm)
+			SimConstructor.Start(SimTime,MainFrm)
 		End If
 		if doc.SelectSingleNode("//config/Sets/chkEP4PT10").InnerText = "True" then
 			EPStat="EP 4T10"
-			SimConstructor.Start(pb,SimTime,MainFrm)
+			SimConstructor.Start(SimTime,MainFrm)
 		End If
 		
-		For Each T In ThreadCollection
-			T.Join()
-		Next
-
+		do until simCollection.Count = 0
+			For Each T In ThreadCollection
+				T.Join(100)
+			Next
+			_MainFrm.UpdateProgressBar
+		Loop
 		
 		EPStat = "EP 0T7"
 		BaseDPS = dpss(EPStat)
@@ -455,10 +493,10 @@ Public Module SimConstructor
 		End If
 		
 		EPStat="EP NoTrinket"
-		SimConstructor.Start(pb,SimTime,MainFrm)
+		SimConstructor.Start(SimTime,MainFrm)
 		
 		EPStat="EP AttackPowerNoTrinket"
-		SimConstructor.Start(pb,SimTime,MainFrm)
+		SimConstructor.Start(SimTime,MainFrm)
 		
 		doc.Load("EPconfig.xml")
 		Dim trinketsList As Xml.XmlNode
@@ -468,13 +506,16 @@ Public Module SimConstructor
 		For Each tNode In trinketsList.ChildNodes
 			If tNode.InnerText = "True" Then
 				EPStat= tNode.Name.Replace("chkEP","EP ")
-				SimConstructor.Start(pb,SimTime,MainFrm)
+				SimConstructor.Start(SimTime,MainFrm)
 			End If
 		Next
 		
-		For Each T In ThreadCollection
-			T.Join()
-		Next
+		do until simCollection.Count = 0
+			For Each T In ThreadCollection
+				T.Join(100)
+			Next
+			_MainFrm.UpdateProgressBar
+		Loop
 		
 		EPStat = "EP NoTrinket"
 		BaseDPS = dpss(EPStat)
@@ -514,8 +555,39 @@ Public Module SimConstructor
 		
 		
 		sReport = sReport &   "<tr><td COLSPAN=8> | Pet Calculation | " & _MainFrm.ckPet.Checked & "</td></tr>"
-		sReport = sReport +  ("</table>")
+		
+		
+		Str 	=	Str.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator,".")
+		Agility 	=	Agility.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator,".")
+		MHSpeed 	=	MHSpeed.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator,".")
+		Exp 	=	Exp.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator,".")
+		MHDPS 	=	MHDPS.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator,".")
+		SpHit	=	SpHit.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator,".")
+		Hit 	=	Hit.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator,".")
+		ArP 	=	ArP.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator,".")
+		Haste 	=	Haste.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator,".")
+		Crit  	=	Crit.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator,".")
+		
+		
+		
+		
+		Dim lootlink As String
+		lootlink = "<tr><td COLSPAN=8><a href=http://www.guildox.com/wr.asp?Cla=2048&s7=3.2&str=" & Str & "&Arm=" & 0.028 & "&mh=" & Haste & "&dps=" & MHDPS & "&mcr=" & Crit & _
+			"&odps=" & 0 & "&Agi=" & Agility & "&mhit=" & Hit & "&map=1" & "&msp=" & MHSpeed & "&arp=" & ArP & "&osp=0" & "&Exp=" & Exp & " target='_blank'>lootlink non hit caped</a></td></tr>"
+		sReport = sReport & lootlink
+		
+		lootlink = "<tr><td COLSPAN=8><a href=http://www.guildox.com/wr.asp?Cla=2048&s7=3.2&str=" & Str & "&Arm=" & 0.028 & "&mh=" & Haste & "&dps=" & MHDPS & "&mcr=" & Crit & _
+			"&odps=" & 0 & "&Agi=" & Agility & "&mhit=" & SpHit & "&map=1" & "&msp=" & MHSpeed & "&arp=" & ArP & "&osp=0" & "&Exp=" & Exp & " target='_blank'>lootlink hit caped</a></td></tr>"
+		sReport = sReport & lootlink	
+		Dim pwan As String
+		pwan  = "<tr><td COLSPAN=8>Non hit caped ( Pawn: v1: "+chr(34)+"DK Sim"+chr(34)+": ArmorPenetration="+ArP+", HitRating="+Hit+", CritRating="+crit+", Dps="+MHDPS+", Strength="+Str+", Armor=0.028, Agility="+Agility+", HasteRating="+Haste+", Speed="+MHSpeed+", ExpertiseRating="+Exp+", Ap=1, GemQualityLevel=82 )</td></tr>"		
+		sReport = sReport + pwan
+		pwan  = "<tr><td COLSPAN=8>hit caped ( Pawn: v1: "+chr(34)+"DK Sim"+chr(34)+": ArmorPenetration="+ArP+", HitRating="+SpHit+", CritRating="+crit+", Dps="+MHDPS+", Strength="+Str+", Armor=0.028, Agility="+Agility+", HasteRating="+Haste+", Speed="+MHSpeed+", ExpertiseRating="+Exp+", Ap=1, GemQualityLevel=82 )</td></tr>"		
+		sReport = sReport + pwan
 		sReport = sReport +   ("<hr width='80%' align='center' noshade ></hr>")
+		
+		
+		sReport = sReport +  ("</table>")
 		
 		WriteReport(sReport)
 		EPStat = ""
@@ -555,11 +627,14 @@ Public Module SimConstructor
 			If xNode.InnerText = "True" Then
 				For i=0 To max
 					EpStat=Replace(xNode.Name,"chk","") & i
-					SimConstructor.Start(pb,1,MainFrm)
+					SimConstructor.Start(1,MainFrm)
 				Next i
-				For Each T In ThreadCollection
-					T.Join()
-				Next
+				do until simCollection.Count = 0
+					For Each T In ThreadCollection
+						T.Join(100)
+					Next
+					_MainFrm.UpdateProgressBar
+				Loop
 				EpStat= Replace(xNode.Name,"chk","")
 				
 				INSRTCOLOR = ""
@@ -601,7 +676,7 @@ Public Module SimConstructor
 		ThreadCollection.Clear
 		EPBase = 50
 		_MainFrm = MainFrm
-
+		
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
 		Dim T As Threading.Thread
 		doc.Load(Application.StartupPath & "\Templates\" & MainFrm.cmbTemplate.Text)
@@ -610,24 +685,27 @@ Public Module SimConstructor
 		Dim xNode As Xml.XmlNode
 		
 		EpStat = "OriginalSpec"
-		SimConstructor.Start(pb,MainFrm.txtSimtime.Text,MainFrm)
+		SimConstructor.Start(MainFrm.txtSimtime.Text,MainFrm)
 		
 		For Each xNode In xNodelist.ChildNodes
 			If (xNode.Name <> "URL" and xNode.Name <> "Glyphs") and xNode.InnerText <> "0" Then
 				EpStat = xNode.Name
-				SimConstructor.Start(pb,MainFrm.txtSimtime.Text,MainFrm)
+				SimConstructor.Start(MainFrm.txtSimtime.Text,MainFrm)
 			End If
 		Next
 		
-		For Each T In ThreadCollection
-			T.Join()
-		Next
-
+		do until simCollection.Count = 0
+			For Each T In ThreadCollection
+				T.Join(100)
+			Next
+			_MainFrm.UpdateProgressBar
+		Loop
+		
 		dim BaseDPS as Integer
 		EpStat = "OriginalSpec"
 		BaseDPS = dpss(EPStat)
 		WriteReport ("Average for " & EPStat & " | " & BaseDPS)
-				
+		
 		
 		For Each xNode In xNodelist.ChildNodes
 			If (xNode.Name <> "URL" and xNode.Name <> "Glyphs") and xNode.InnerText <> "0" Then
@@ -744,11 +822,4 @@ Public Module SimConstructor
 			gr.DrawString((XSpace*i/10), new Font("Arial", 8,FontStyle.Regular ), SystemBrushes.WindowText, new Point( 10,bmp.Height-i ))
 		loop
 	End Sub
-	
-	
-	
-	
-	
-	
-	
 End Module

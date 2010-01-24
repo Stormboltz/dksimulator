@@ -283,6 +283,7 @@ Partial Class MainForm
 		Me.TabPrio2 = New System.Windows.Forms.TabPage
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.cmdRngSeeder = New System.Windows.Forms.Button
+		Me.tmrProgress = New System.Windows.Forms.Timer(Me.components)
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -2903,6 +2904,12 @@ Partial Class MainForm
 		Me.cmdRngSeeder.UseVisualStyleBackColor = true
 		AddHandler Me.cmdRngSeeder.Click, AddressOf Me.CmdRngSeederClick
 		'
+		'tmrProgress
+		'
+		Me.tmrProgress.Enabled = true
+		Me.tmrProgress.Interval = 1000
+		AddHandler Me.tmrProgress.Tick, AddressOf Me.TmrProgressTick
+		'
 		'MainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
@@ -2958,6 +2965,7 @@ Partial Class MainForm
 		Me.gbScaling.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Private tmrProgress As System.Windows.Forms.Timer
 	Private chkShowProc As System.Windows.Forms.CheckBox
 	Private grpSimOption As System.Windows.Forms.GroupBox
 	Private groupBox6 As System.Windows.Forms.GroupBox
