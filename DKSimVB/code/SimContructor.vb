@@ -141,10 +141,7 @@ Public Module SimConstructor
 				SimConstructor.Start(SimTime,MainFrm)
 			End If
 		End If
-		
-		
-		
-		
+
 		if doc.SelectSingleNode("//config/Stats/chkEPHit").InnerText = "True" then
 			EPStat="EP HitRating"
 			SimConstructor.Start(SimTime,MainFrm)
@@ -166,16 +163,6 @@ Public Module SimConstructor
 			SimConstructor.Start(SimTime,MainFrm)
 		End If
 		
-		Dim T As Threading.Thread
-		
-		do until simCollection.Count = 0
-			For Each T In ThreadCollection
-				T.Join(100)
-			Next
-			_MainFrm.UpdateProgressBar
-		Loop
-		
-		
 		if doc.SelectSingleNode("//config/Stats/chkEPAfterSpellHitRating").InnerText = "True" then
 			EPStat="EP AfterSpellHitBase"
 			SimConstructor.Start(SimTime,MainFrm)
@@ -185,13 +172,14 @@ Public Module SimConstructor
 			SimConstructor.Start(SimTime,MainFrm)
 		End If
 		
+		Dim T As Threading.Thread
+		
 		do until simCollection.Count = 0
 			For Each T In ThreadCollection
 				T.Join(100)
 			Next
 			_MainFrm.UpdateProgressBar
 		Loop
-		
 		
 		EPStat = "EP DryRun"
 		BaseDPS = dpss(EPStat)

@@ -1,6 +1,6 @@
 ﻿1.2.0.6 Release notes
-* Reping rotation correction.
-* BloodWorms implemented, should not be too far from game.
+* Reaping rotation correction.
+* BloodWorms implemented, should not be too far from accurate.
 * Only one progress bar for all simulation
 * Remove Magical Scourge Strike procs (Bryntoll...)
 * Lootlink Link/ Pawn string

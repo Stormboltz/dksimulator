@@ -217,7 +217,7 @@ Partial Class MainForm
 		Me.label25 = New System.Windows.Forms.Label
 		Me.txtEPBase = New System.Windows.Forms.TextBox
 		Me.groupBox3 = New System.Windows.Forms.GroupBox
-		Me.chkTinyAbomination = New System.Windows.Forms.CheckBox
+		Me.chkEPTinyAbomination = New System.Windows.Forms.CheckBox
 		Me.chkEPWhisperingFangedSkull = New System.Windows.Forms.CheckBox
 		Me.chkEPDeathbringersWillHeroic = New System.Windows.Forms.CheckBox
 		Me.chkEPNeedleEncrustedScorpion = New System.Windows.Forms.CheckBox
@@ -2195,7 +2195,7 @@ Partial Class MainForm
 		'
 		'groupBox3
 		'
-		Me.groupBox3.Controls.Add(Me.chkTinyAbomination)
+		Me.groupBox3.Controls.Add(Me.chkEPTinyAbomination)
 		Me.groupBox3.Controls.Add(Me.chkEPWhisperingFangedSkull)
 		Me.groupBox3.Controls.Add(Me.chkEPDeathbringersWillHeroic)
 		Me.groupBox3.Controls.Add(Me.chkEPNeedleEncrustedScorpion)
@@ -2224,12 +2224,12 @@ Partial Class MainForm
 		'
 		'chkTinyAbomination
 		'
-		Me.chkTinyAbomination.Location = New System.Drawing.Point(153, 289)
-		Me.chkTinyAbomination.Name = "chkTinyAbomination"
-		Me.chkTinyAbomination.Size = New System.Drawing.Size(171, 24)
-		Me.chkTinyAbomination.TabIndex = 2
-		Me.chkTinyAbomination.Text = "Tiny Abomination"
-		Me.chkTinyAbomination.UseVisualStyleBackColor = true
+		Me.chkEPTinyAbomination.Location = New System.Drawing.Point(153, 289)
+		Me.chkEPTinyAbomination.Name = "chkEPTinyAbomination"
+		Me.chkEPTinyAbomination.Size = New System.Drawing.Size(171, 24)
+		Me.chkEPTinyAbomination.TabIndex = 2
+		Me.chkEPTinyAbomination.Text = "Tiny Abomination"
+		Me.chkEPTinyAbomination.UseVisualStyleBackColor = true
 		'
 		'chkEPWhisperingFangedSkull
 		'
@@ -2969,7 +2969,7 @@ Partial Class MainForm
 	Private chkShowProc As System.Windows.Forms.CheckBox
 	Private grpSimOption As System.Windows.Forms.GroupBox
 	Private groupBox6 As System.Windows.Forms.GroupBox
-	Friend chkTinyAbomination As System.Windows.Forms.CheckBox
+	Friend chkEPTinyAbomination As System.Windows.Forms.CheckBox
 	Private chkFrostFever As System.Windows.Forms.CheckBox
 	Private chkBloodPlague As System.Windows.Forms.CheckBox
 	Friend chkScaDPSA As System.Windows.Forms.CheckBox

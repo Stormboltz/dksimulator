@@ -38,6 +38,7 @@ Public Class CombatLog
 
 	End sub
 	Sub finish()
+		on error resume next
 		if enable then txtFile.Close
 	End Sub
 End Class
