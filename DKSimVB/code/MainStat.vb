@@ -148,7 +148,7 @@ Friend Class MainStat
 			Select Case sim._EPStat
 				Case "EP NoTrinket"
 				Case "EP AttackPowerNoTrinket"
-				Case "EP MjolRune"
+				Case "EP MjolnirRunestone"
 					Sim.Trinkets.MjolRune.Equip
 				Case "EP GrimToll"
 					Sim.Trinkets.GrimToll.Equip
@@ -182,7 +182,6 @@ Friend Class MainStat
 					Sim.Trinkets.DeathbringersWill.Equip
 				Case "EP TinyAbomination"
 					sim.Trinkets.TinyAbomination.Equip
-					
 				Case "EP DeathbringersWillHeroic"
 					Sim.Trinkets.DeathbringersWillHeroic.Equip
 				Case "EP WhisperingFangedSkull"
@@ -210,7 +209,6 @@ Friend Class MainStat
 					If XmlDoc.SelectSingleNode("//character/trinket/WhisperingFangedSkull").InnerText = 1 Then Sim.Trinkets.WhisperingFangedSkull.Equip
 					If XmlDoc.SelectSingleNode("//character/trinket/NeedleEncrustedScorpion").InnerText = 1 Then Sim.Trinkets.NeedleEncrustedScorpion.Equip
 					If XmlDoc.SelectSingleNode("//character/trinket/TinyAbomination").InnerText = 1 Then Sim.Trinkets.TinyAbomination.Equip
-
 			End Select
 		Catch
 			debug.Print ("ERROR init trinket")
@@ -387,7 +385,7 @@ Friend Class MainStat
 		tmp = Expertise
 		If strings.InStr(sim.EPStat,"EP Expertise")<> 0 Then
 		Else
-			tmp += sim.Character.MHExpertiseBonus/0.25
+			tmp += sim.Character.MHExpertiseBonus*0.25
 		End If
 		return tmp
 	End Function
@@ -397,7 +395,7 @@ Friend Class MainStat
 		tmp = Expertise
 		If strings.InStr(sim.EPStat,"EP Expertise")<> 0 Then
 		Else
-			tmp += sim.Character.OHExpertiseBonus/0.25
+			tmp += sim.Character.OHExpertiseBonus*0.25
 		End If
 		
 		return tmp

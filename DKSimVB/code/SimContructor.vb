@@ -188,12 +188,12 @@ Public Module SimConstructor
 		EPStat = "EP AttackPower"
 		APDPS = dpss(EPStat)
 		'WriteReport ("Average for " & EPStat & " | " & APDPS)
-		sReport = sReport +  ("<tr><td>" & EPStat & " | 1 (" & toDDecimal((APDPS-BaseDPS ) / 100) & " DPS/per AP) </td></tr>")
+		sReport = sReport +  ("<tr><td>" & EPStat & " | 1 (" & toDDecimal((APDPS-BaseDPS ) / (2*EPBase)) & " DPS/per AP) </td></tr>")
 		
 		Try
 			EPStat="EP Strength"
 			DPS = dpss(EPStat)
-			tmp1 = (APDPS-BaseDPS ) / 100
+			tmp1 = (APDPS-BaseDPS ) /  (2*EPBase)
 			tmp2 = (DPS-BaseDPS) / EPBase
 			Str = toDDecimal (tmp2/tmp1)
 			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
@@ -204,7 +204,7 @@ Public Module SimConstructor
 		Try
 			EPStat="EP Agility"
 			DPS = dpss(EPStat)
-			tmp1 = (APDPS-BaseDPS ) / 100
+			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
 			tmp2 = (DPS-BaseDPS) / EPBase
 			Agility = toDDecimal (tmp2/tmp1)
 			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
@@ -214,7 +214,7 @@ Public Module SimConstructor
 		Try
 			EPStat="EP CritRating"
 			DPS = dpss(EPStat)
-			tmp1 = (APDPS-BaseDPS ) / 100
+			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
 			tmp2 = (DPS-BaseDPS) / EPBase
 			Crit = toDDecimal (tmp2/tmp1)
 			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
@@ -226,7 +226,7 @@ Public Module SimConstructor
 		Try
 			EPStat="EP HasteEstimated"
 			DPS = DPSs(EPStat)
-			tmp1 = (APDPS-BaseDPS ) / 100
+			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
 			tmp2 = (DPS-BaseDPS) / EPBase
 			Haste = toDDecimal (tmp2/tmp1)
 			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
@@ -237,7 +237,7 @@ Public Module SimConstructor
 		Try
 			EPStat="EP HasteRating1"
 			DPS = DPSs(EPStat)
-			tmp1 = (APDPS-BaseDPS ) / 100
+			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
 			tmp2 = (DPS-BaseDPS) / EPBase
 			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
 		Catch
@@ -246,7 +246,7 @@ Public Module SimConstructor
 		Try
 			EPStat="EP ArmorPenetrationRating"
 			DPS = dpss(EPStat)
-			tmp1 = (APDPS-BaseDPS ) / 100
+			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
 			tmp2 = (DPS-BaseDPS) / EPBase
 			ArP = toDDecimal (tmp2/tmp1)
 			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
@@ -258,7 +258,7 @@ Public Module SimConstructor
 			DPS = dpss(EPStat)
 			
 			
-			tmp1 = (dpss("EP ExpertiseRatingCapAP")-dpss("EP ExpertiseRatingCap") ) / 100
+			tmp1 = (dpss("EP ExpertiseRatingCapAP")-dpss("EP ExpertiseRatingCap") ) / (2*EPBase)
 			tmp2 = (DPS-dpss("EP ExpertiseRatingCap")) / EPBase
 			Exp = toDDecimal (-tmp2/tmp1)
 			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (-tmp2/tmp1)) & "</td></tr>"
@@ -270,7 +270,7 @@ Public Module SimConstructor
 		Try
 			EPStat="EP ExpertiseRatingAfterCap"
 			DPS = dpss(EPStat)
-			tmp1 = (dpss("EP ExpertiseRatingCapAP")-dpss("EP ExpertiseRatingCap") ) / 100
+			tmp1 = (dpss("EP ExpertiseRatingCapAP")-dpss("EP ExpertiseRatingCap") ) / (2*EPBase)
 			tmp2 = (DPS-dpss("EP ExpertiseRatingCap")) / EPBase
 			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | ExpertiseRating After Dodge Cap | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
 			'	WriteReport ("Average for " & EPStat & " | " & DPS)
@@ -281,7 +281,7 @@ Public Module SimConstructor
 		Try
 			EPStat="EP HitRating"
 			DPS = dpss(EPStat)
-			tmp1 = (dpss("EP HitRatingCapAP")-dpss("EP HitRatingCap")) / 100
+			tmp1 = (dpss("EP HitRatingCapAP")-dpss("EP HitRatingCap")) / (2*EPBase)
 			tmp2 = (DPS-dpss("EP HitRatingCap")) / EPBase
 			Hit = toDDecimal (-tmp2/tmp1)
 			sReport = sReport +  ("<tr><td>BeforeMeleeHitCap<8% | " & toDDecimal (-tmp2/tmp1)) & "</td></tr>"
@@ -292,7 +292,7 @@ Public Module SimConstructor
 		Try
 			EPStat="EP SpellHitRating"
 			DPS = dpss(EPStat)
-			tmp1 = (dpss("EP HitRatingCapAP")-dpss("EP HitRatingCap")) / 100
+			tmp1 = (dpss("EP HitRatingCapAP")-dpss("EP HitRatingCap")) / (2*EPBase)
 			tmp2 = (DPS-dpss("EP HitRatingCap")) / EPBase
 			SpHit = toDDecimal (tmp2/tmp1)
 			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
@@ -301,7 +301,7 @@ Public Module SimConstructor
 		Try
 			EPStat="EP WeaponDPS"
 			DPS = dpss(EPStat)
-			tmp1 = (APDPS-BaseDPS ) / 100
+			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
 			tmp2 = (DPS-BaseDPS) / 10
 			MHDPS = toDDecimal (tmp2/tmp1)
 			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
@@ -311,7 +311,7 @@ Public Module SimConstructor
 		Try
 			EPStat="EP WeaponSpeed"
 			DPS = dpss(EPStat)
-			tmp1 = (APDPS-BaseDPS ) / 100
+			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
 			tmp2 = (DPS-BaseDPS) / 0.1
 			MHSpeed = toDDecimal (tmp2/tmp1)
 			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
@@ -326,7 +326,7 @@ Public Module SimConstructor
 			APDPS = dpss(EPStat)
 			EPStat="EP AfterSpellHitRating"
 			DPS = dpss(EPStat)
-			tmp1 = (APDPS-BaseDPS ) / 100
+			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
 			tmp2 = (DPS-BaseDPS) / EPBase
 			sReport = sReport +  ("<tr><td>After spell hit cap | " & toDDecimal (tmp2/tmp1) & "</td></tr>")
 			'	WriteReport ("Average for " & EPStat & " | " & DPS)
@@ -401,8 +401,8 @@ Public Module SimConstructor
 		Try
 			EPStat="EP 2T7"
 			DPS = dpss(EPStat)
-			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (DPS-BaseDPS)/ 100
+			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
+			tmp2 = (DPS-BaseDPS)/ (2*EPBase)
 			sReport = sReport +  ("<tr><td>"& EPStat & " | " & toDDecimal (100*tmp2/tmp1)) & "</td></tr>"
 			'WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
@@ -410,8 +410,8 @@ Public Module SimConstructor
 		Try
 			EPStat="EP 4T7"
 			DPS = dpss(EPStat)
-			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (DPS-BaseDPS)/ 100
+			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
+			tmp2 = (DPS-BaseDPS)/ (2*EPBase)
 			sReport = sReport +  ("<tr><td>"& EPStat & " | " & toDDecimal (100*tmp2/tmp1)) & "</td></tr>"
 			'WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
@@ -419,8 +419,8 @@ Public Module SimConstructor
 		Try
 			EPStat="EP 2T8"
 			DPS = dpss(EPStat)
-			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (DPS-BaseDPS)/ 100
+			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
+			tmp2 = (DPS-BaseDPS)/ (2*EPBase)
 			sReport = sReport +  ("<tr><td>"& EPStat & " | " & toDDecimal (100*tmp2/tmp1)) & "</td></tr>"
 			'WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
@@ -428,8 +428,8 @@ Public Module SimConstructor
 		Try
 			EPStat="EP 4T8"
 			DPS = dpss(EPStat)
-			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (DPS-BaseDPS)/ 100
+			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
+			tmp2 = (DPS-BaseDPS)/ (2*EPBase)
 			sReport = sReport +  ("<tr><td>"& EPStat & " | " & toDDecimal (100*tmp2/tmp1)) & "</td></tr>"
 			'WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
@@ -437,8 +437,8 @@ Public Module SimConstructor
 		Try
 			EPStat="EP 2T9"
 			DPS = dpss(EPStat)
-			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (DPS-BaseDPS)/ 100
+			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
+			tmp2 = (DPS-BaseDPS)/ (2*EPBase)
 			sReport = sReport +  ("<tr><td>"& EPStat & " | " & toDDecimal (100*tmp2/tmp1)) & "</td></tr>"
 			'WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
@@ -446,8 +446,8 @@ Public Module SimConstructor
 		Try
 			EPStat="EP 4T9"
 			DPS = dpss(EPStat)
-			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (DPS-BaseDPS)/ 100
+			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
+			tmp2 = (DPS-BaseDPS)/ (2*EPBase)
 			sReport = sReport +  ("<tr><td>"& EPStat & " | " & toDDecimal (100*tmp2/tmp1)) & "</td></tr>"
 			'WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
@@ -455,8 +455,8 @@ Public Module SimConstructor
 		Try
 			EPStat="EP 2T10"
 			DPS = dpss(EPStat)
-			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (DPS-BaseDPS)/ 100
+			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
+			tmp2 = (DPS-BaseDPS)/ (2*EPBase)
 			sReport = sReport +  ("<tr><td>"& EPStat & " | " & toDDecimal (100*tmp2/tmp1)) & "</td></tr>"
 			'WriteReport ("Average for " & EPStat & " | " & DPS)
 		Catch
@@ -464,8 +464,8 @@ Public Module SimConstructor
 		Try
 			EPStat="EP 4T10"
 			DPS = dpss(EPStat)
-			tmp1 = (APDPS-BaseDPS ) / 100
-			tmp2 = (DPS-BaseDPS)/ 100
+			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
+			tmp2 = (DPS-BaseDPS)/ (2*EPBase)
 			sReport = sReport +  ("<tr><td>"& EPStat & " | " & toDDecimal (100*tmp2/tmp1)) & "</td></tr>"
 			'WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
@@ -519,8 +519,8 @@ Public Module SimConstructor
 				Try
 					EPStat= tNode.Name.Replace("chkEP","EP ")
 					DPS = dpss(EPStat)
-					tmp1 = (APDPS-BaseDPS ) / 100
-					tmp2 = (DPS-BaseDPS)/ 100
+					tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
+					tmp2 = (DPS-BaseDPS)/ (2*EPBase)
 					sReport = sReport +  ("<tr><td>"& EPStat & " | " & toDDecimal (100*tmp2/tmp1)) & "</td></tr>"
 					'WriteReport ("Average for " & EPStat & " | " & DPS)
 				Catch

@@ -97,13 +97,32 @@ Public Partial Class MainForm
 		cmbBShOption.Items.Add("After BS/BB")
 		cmbBShOption.SelectedItem = stemp
 		
-		
+		LoadTrinket()
 		
 		
 		SimConstructor.PetFriendly = me.ckPet.Checked
 		LockSaveButtons
 		
 	End Sub
+	
+	Sub LoadTrinket()
+		Dim doc As xml.XmlDocument = New xml.XmlDocument
+		Doc.Load(Application.StartupPath & "\config\TrinketList.xml")
+		
+		Dim xNode As Xml.XmlNode
+		
+		For Each xNode In Doc.SelectsingleNode("/TrinketList").ChildNodes
+			dim ckTrinket as new CheckBox
+			ckTrinket.Left = 10
+			ckTrinket.Top = 10 + (20 * groupBox3.Controls.Count)
+			ckTrinket.Name = "chkEP" & xNode.Name
+			ckTrinket.Text = xNode.Name
+			ckTrinket.AutoSize = true
+			groupBox3.Controls.Add(ckTrinket)
+			'debug.Print (xNode.Name)			
+		Next
+	End Sub
+	
 	
 	Sub LoadTankOptions()
 		on error goto OUT

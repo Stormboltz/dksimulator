@@ -1,6 +1,11 @@
-﻿1.2.0.6 Release notes
+﻿1.2.0.7 Release notes
+* Racial Expertise correction.
+* Spell Hit EP value correction
+* 
+
+1.2.0.6 Release notes
 * Reaping rotation correction.
-* BloodWorms implemented, should not be too far from accurate.
+* BloodWorms implemented, should not be too far from game.
 * Only one progress bar for all simulation
 * Remove Magical Scourge Strike procs (Bryntoll...)
 * Lootlink Link/ Pawn string

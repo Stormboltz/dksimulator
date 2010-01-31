@@ -10,7 +10,8 @@ Imports System.Xml
 Public Partial Class MainForm
 	Private EditorFilePAth As String
 	Private TemplatePath As String
-	friend btList As New collection
+	Friend btList As New collection
+	Friend colTrinketEP as New Collection
 	
 	
 	Public Sub New()
@@ -68,6 +69,7 @@ Public Partial Class MainForm
 		LoadBuffOption
 		LoadScaling
 		LoadTankOptions
+		
 		CreateTreeTemplate
 		initReport
 		Randomize 'Initialize the random # generator

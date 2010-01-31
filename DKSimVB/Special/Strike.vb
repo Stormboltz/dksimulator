@@ -3,7 +3,7 @@
 ' Utilisateur: Fabien
 ' Date: 13/09/2009
 ' Heure: 14:25
-' 
+'
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
 Namespace Strikes
@@ -62,14 +62,23 @@ Public Class Strike
 	Function DoMyStrikeHit As Boolean
 		Dim RNG As Double
 		RNG = MyRNG
+		Dim exp As Double
+		
+		If Me.OffHand Then
+			exp = sim.mainstat.OHExpertise
+		Else
+			exp = sim.mainstat.MHExpertise
+		End If
+		
+		
 		If sim.FrostPresence = 1 Then
-			If math.Min(sim.mainstat.MHExpertise,0.065)+ math.Min(sim.mainstat.MHExpertise,0.14) + math.Min (sim.mainstat.Hit,0.08) + RNG < 0.285 Then
+			If math.Min(exp,0.065)+ math.Min(exp,0.14) + math.Min (sim.mainstat.Hit,0.08) + RNG < 0.285 Then
 				Return False
 			Else
 				return true
 			End If
 		Else
-			If math.Min(sim.mainstat.MHExpertise,0.065) + math.Min (sim.mainstat.Hit,0.08) + RNG < 0.145 Then
+			If math.Min(exp,0.065) + math.Min (sim.mainstat.Hit,0.08) + RNG < 0.145 Then
 				Return False
 			Else
 				return true
@@ -79,7 +88,7 @@ Public Class Strike
 	
 	
 	
-	Function MyRng as Double 
+	Function MyRng as Double
 		If _RNG Is nothing Then
 			_RNG =  New Random(ConvertToInt(me.name)+RNGSeeder)
 		End If

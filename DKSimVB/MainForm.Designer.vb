@@ -217,26 +217,6 @@ Partial Class MainForm
 		Me.label25 = New System.Windows.Forms.Label
 		Me.txtEPBase = New System.Windows.Forms.TextBox
 		Me.groupBox3 = New System.Windows.Forms.GroupBox
-		Me.chkEPTinyAbomination = New System.Windows.Forms.CheckBox
-		Me.chkEPWhisperingFangedSkull = New System.Windows.Forms.CheckBox
-		Me.chkEPDeathbringersWillHeroic = New System.Windows.Forms.CheckBox
-		Me.chkEPNeedleEncrustedScorpion = New System.Windows.Forms.CheckBox
-		Me.chkEPDeathChoiceHeroic = New System.Windows.Forms.CheckBox
-		Me.chkEPDeathbringersWill = New System.Windows.Forms.CheckBox
-		Me.chkEPComet = New System.Windows.Forms.CheckBox
-		Me.chkEPDarkMatter = New System.Windows.Forms.CheckBox
-		Me.chkEPBandit = New System.Windows.Forms.CheckBox
-		Me.chkEPNecromantic = New System.Windows.Forms.CheckBox
-		Me.chkEPVictory = New System.Windows.Forms.CheckBox
-		Me.chkEPDCDeath = New System.Windows.Forms.CheckBox
-		Me.chkEPGreatness = New System.Windows.Forms.CheckBox
-		Me.chkEPDeathChoice = New System.Windows.Forms.CheckBox
-		Me.chkEPPyrite = New System.Windows.Forms.CheckBox
-		Me.chkEPOldGod = New System.Windows.Forms.CheckBox
-		Me.chkEPMirror = New System.Windows.Forms.CheckBox
-		Me.chkEPBitterAnguish = New System.Windows.Forms.CheckBox
-		Me.chkEPGrimToll = New System.Windows.Forms.CheckBox
-		Me.chkEPMjolRune = New System.Windows.Forms.CheckBox
 		Me.groupBox2 = New System.Windows.Forms.GroupBox
 		Me.chkEP4PT10 = New System.Windows.Forms.CheckBox
 		Me.chkEP2PT10 = New System.Windows.Forms.CheckBox
@@ -306,7 +286,6 @@ Partial Class MainForm
 		Me.tbTank.SuspendLayout
 		Me.gbTank.SuspendLayout
 		Me.tbEPOptions.SuspendLayout
-		Me.groupBox3.SuspendLayout
 		Me.groupBox2.SuspendLayout
 		Me.groupBox1.SuspendLayout
 		Me.tbPrioEditor.SuspendLayout
@@ -2195,212 +2174,13 @@ Partial Class MainForm
 		'
 		'groupBox3
 		'
-		Me.groupBox3.Controls.Add(Me.chkEPTinyAbomination)
-		Me.groupBox3.Controls.Add(Me.chkEPWhisperingFangedSkull)
-		Me.groupBox3.Controls.Add(Me.chkEPDeathbringersWillHeroic)
-		Me.groupBox3.Controls.Add(Me.chkEPNeedleEncrustedScorpion)
-		Me.groupBox3.Controls.Add(Me.chkEPDeathChoiceHeroic)
-		Me.groupBox3.Controls.Add(Me.chkEPDeathbringersWill)
-		Me.groupBox3.Controls.Add(Me.chkEPComet)
-		Me.groupBox3.Controls.Add(Me.chkEPDarkMatter)
-		Me.groupBox3.Controls.Add(Me.chkEPBandit)
-		Me.groupBox3.Controls.Add(Me.chkEPNecromantic)
-		Me.groupBox3.Controls.Add(Me.chkEPVictory)
-		Me.groupBox3.Controls.Add(Me.chkEPDCDeath)
-		Me.groupBox3.Controls.Add(Me.chkEPGreatness)
-		Me.groupBox3.Controls.Add(Me.chkEPDeathChoice)
-		Me.groupBox3.Controls.Add(Me.chkEPPyrite)
-		Me.groupBox3.Controls.Add(Me.chkEPOldGod)
-		Me.groupBox3.Controls.Add(Me.chkEPMirror)
-		Me.groupBox3.Controls.Add(Me.chkEPBitterAnguish)
-		Me.groupBox3.Controls.Add(Me.chkEPGrimToll)
-		Me.groupBox3.Controls.Add(Me.chkEPMjolRune)
+		Me.groupBox3.AutoSize = true
 		Me.groupBox3.Location = New System.Drawing.Point(346, 48)
 		Me.groupBox3.Name = "groupBox3"
 		Me.groupBox3.Size = New System.Drawing.Size(330, 420)
 		Me.groupBox3.TabIndex = 6
 		Me.groupBox3.TabStop = false
 		Me.groupBox3.Text = "Trinket"
-		'
-		'chkTinyAbomination
-		'
-		Me.chkEPTinyAbomination.Location = New System.Drawing.Point(153, 289)
-		Me.chkEPTinyAbomination.Name = "chkEPTinyAbomination"
-		Me.chkEPTinyAbomination.Size = New System.Drawing.Size(171, 24)
-		Me.chkEPTinyAbomination.TabIndex = 2
-		Me.chkEPTinyAbomination.Text = "Tiny Abomination"
-		Me.chkEPTinyAbomination.UseVisualStyleBackColor = true
-		'
-		'chkEPWhisperingFangedSkull
-		'
-		Me.chkEPWhisperingFangedSkull.Location = New System.Drawing.Point(153, 259)
-		Me.chkEPWhisperingFangedSkull.Name = "chkEPWhisperingFangedSkull"
-		Me.chkEPWhisperingFangedSkull.Size = New System.Drawing.Size(171, 24)
-		Me.chkEPWhisperingFangedSkull.TabIndex = 2
-		Me.chkEPWhisperingFangedSkull.Text = "Whispering Fanged Skull"
-		Me.chkEPWhisperingFangedSkull.UseVisualStyleBackColor = true
-		'
-		'chkEPDeathbringersWillHeroic
-		'
-		Me.chkEPDeathbringersWillHeroic.Location = New System.Drawing.Point(6, 289)
-		Me.chkEPDeathbringersWillHeroic.Name = "chkEPDeathbringersWillHeroic"
-		Me.chkEPDeathbringersWillHeroic.Size = New System.Drawing.Size(141, 24)
-		Me.chkEPDeathbringersWillHeroic.TabIndex = 2
-		Me.chkEPDeathbringersWillHeroic.Text = "Deathbringer's Will (H)"
-		Me.chkEPDeathbringersWillHeroic.UseVisualStyleBackColor = true
-		'
-		'chkEPNeedleEncrustedScorpion
-		'
-		Me.chkEPNeedleEncrustedScorpion.Location = New System.Drawing.Point(153, 229)
-		Me.chkEPNeedleEncrustedScorpion.Name = "chkEPNeedleEncrustedScorpion"
-		Me.chkEPNeedleEncrustedScorpion.Size = New System.Drawing.Size(171, 24)
-		Me.chkEPNeedleEncrustedScorpion.TabIndex = 2
-		Me.chkEPNeedleEncrustedScorpion.Text = "Needle-Encrusted Scorpion"
-		Me.chkEPNeedleEncrustedScorpion.UseVisualStyleBackColor = true
-		'
-		'chkEPDeathChoiceHeroic
-		'
-		Me.chkEPDeathChoiceHeroic.Location = New System.Drawing.Point(6, 229)
-		Me.chkEPDeathChoiceHeroic.Name = "chkEPDeathChoiceHeroic"
-		Me.chkEPDeathChoiceHeroic.Size = New System.Drawing.Size(141, 24)
-		Me.chkEPDeathChoiceHeroic.TabIndex = 2
-		Me.chkEPDeathChoiceHeroic.Text = "Death's Choice (H)"
-		Me.chkEPDeathChoiceHeroic.UseVisualStyleBackColor = true
-		'
-		'chkEPDeathbringersWill
-		'
-		Me.chkEPDeathbringersWill.Location = New System.Drawing.Point(6, 259)
-		Me.chkEPDeathbringersWill.Name = "chkEPDeathbringersWill"
-		Me.chkEPDeathbringersWill.Size = New System.Drawing.Size(141, 24)
-		Me.chkEPDeathbringersWill.TabIndex = 2
-		Me.chkEPDeathbringersWill.Text = "Deathbringer's Will"
-		Me.chkEPDeathbringersWill.UseVisualStyleBackColor = true
-		'
-		'chkEPComet
-		'
-		Me.chkEPComet.Location = New System.Drawing.Point(153, 199)
-		Me.chkEPComet.Name = "chkEPComet"
-		Me.chkEPComet.Size = New System.Drawing.Size(141, 24)
-		Me.chkEPComet.TabIndex = 2
-		Me.chkEPComet.Text = "Comet"
-		Me.chkEPComet.UseVisualStyleBackColor = true
-		'
-		'chkEPDarkMatter
-		'
-		Me.chkEPDarkMatter.Location = New System.Drawing.Point(153, 169)
-		Me.chkEPDarkMatter.Name = "chkEPDarkMatter"
-		Me.chkEPDarkMatter.Size = New System.Drawing.Size(141, 24)
-		Me.chkEPDarkMatter.TabIndex = 2
-		Me.chkEPDarkMatter.Text = "Dark Matter"
-		Me.chkEPDarkMatter.UseVisualStyleBackColor = true
-		'
-		'chkEPBandit
-		'
-		Me.chkEPBandit.Location = New System.Drawing.Point(153, 139)
-		Me.chkEPBandit.Name = "chkEPBandit"
-		Me.chkEPBandit.Size = New System.Drawing.Size(141, 24)
-		Me.chkEPBandit.TabIndex = 2
-		Me.chkEPBandit.Text = "Bandit"
-		Me.chkEPBandit.UseVisualStyleBackColor = true
-		'
-		'chkEPNecromantic
-		'
-		Me.chkEPNecromantic.Location = New System.Drawing.Point(153, 109)
-		Me.chkEPNecromantic.Name = "chkEPNecromantic"
-		Me.chkEPNecromantic.Size = New System.Drawing.Size(141, 24)
-		Me.chkEPNecromantic.TabIndex = 2
-		Me.chkEPNecromantic.Text = "Necromantic"
-		Me.chkEPNecromantic.UseVisualStyleBackColor = true
-		'
-		'chkEPVictory
-		'
-		Me.chkEPVictory.Location = New System.Drawing.Point(153, 79)
-		Me.chkEPVictory.Name = "chkEPVictory"
-		Me.chkEPVictory.Size = New System.Drawing.Size(141, 24)
-		Me.chkEPVictory.TabIndex = 2
-		Me.chkEPVictory.Text = "Victory"
-		Me.chkEPVictory.UseVisualStyleBackColor = true
-		'
-		'chkEPDCDeath
-		'
-		Me.chkEPDCDeath.Location = New System.Drawing.Point(153, 49)
-		Me.chkEPDCDeath.Name = "chkEPDCDeath"
-		Me.chkEPDCDeath.Size = New System.Drawing.Size(141, 24)
-		Me.chkEPDCDeath.TabIndex = 2
-		Me.chkEPDCDeath.Text = "Death"
-		Me.chkEPDCDeath.UseVisualStyleBackColor = true
-		'
-		'chkEPGreatness
-		'
-		Me.chkEPGreatness.Location = New System.Drawing.Point(153, 19)
-		Me.chkEPGreatness.Name = "chkEPGreatness"
-		Me.chkEPGreatness.Size = New System.Drawing.Size(141, 24)
-		Me.chkEPGreatness.TabIndex = 2
-		Me.chkEPGreatness.Text = "Greatness"
-		Me.chkEPGreatness.UseVisualStyleBackColor = true
-		'
-		'chkEPDeathChoice
-		'
-		Me.chkEPDeathChoice.Location = New System.Drawing.Point(6, 199)
-		Me.chkEPDeathChoice.Name = "chkEPDeathChoice"
-		Me.chkEPDeathChoice.Size = New System.Drawing.Size(141, 24)
-		Me.chkEPDeathChoice.TabIndex = 2
-		Me.chkEPDeathChoice.Text = "Death's Choice"
-		Me.chkEPDeathChoice.UseVisualStyleBackColor = true
-		'
-		'chkEPPyrite
-		'
-		Me.chkEPPyrite.Location = New System.Drawing.Point(6, 169)
-		Me.chkEPPyrite.Name = "chkEPPyrite"
-		Me.chkEPPyrite.Size = New System.Drawing.Size(141, 24)
-		Me.chkEPPyrite.TabIndex = 2
-		Me.chkEPPyrite.Text = "Pyrite"
-		Me.chkEPPyrite.UseVisualStyleBackColor = true
-		'
-		'chkEPOldGod
-		'
-		Me.chkEPOldGod.Location = New System.Drawing.Point(6, 139)
-		Me.chkEPOldGod.Name = "chkEPOldGod"
-		Me.chkEPOldGod.Size = New System.Drawing.Size(141, 24)
-		Me.chkEPOldGod.TabIndex = 2
-		Me.chkEPOldGod.Text = "Old God"
-		Me.chkEPOldGod.UseVisualStyleBackColor = true
-		'
-		'chkEPMirror
-		'
-		Me.chkEPMirror.Location = New System.Drawing.Point(6, 109)
-		Me.chkEPMirror.Name = "chkEPMirror"
-		Me.chkEPMirror.Size = New System.Drawing.Size(141, 24)
-		Me.chkEPMirror.TabIndex = 2
-		Me.chkEPMirror.Text = "Mirror"
-		Me.chkEPMirror.UseVisualStyleBackColor = true
-		'
-		'chkEPBitterAnguish
-		'
-		Me.chkEPBitterAnguish.Location = New System.Drawing.Point(6, 79)
-		Me.chkEPBitterAnguish.Name = "chkEPBitterAnguish"
-		Me.chkEPBitterAnguish.Size = New System.Drawing.Size(141, 24)
-		Me.chkEPBitterAnguish.TabIndex = 2
-		Me.chkEPBitterAnguish.Text = "Bitter Anguish"
-		Me.chkEPBitterAnguish.UseVisualStyleBackColor = true
-		'
-		'chkEPGrimToll
-		'
-		Me.chkEPGrimToll.Location = New System.Drawing.Point(6, 49)
-		Me.chkEPGrimToll.Name = "chkEPGrimToll"
-		Me.chkEPGrimToll.Size = New System.Drawing.Size(141, 24)
-		Me.chkEPGrimToll.TabIndex = 2
-		Me.chkEPGrimToll.Text = "GrimToll"
-		Me.chkEPGrimToll.UseVisualStyleBackColor = true
-		'
-		'chkEPMjolRune
-		'
-		Me.chkEPMjolRune.Location = New System.Drawing.Point(6, 19)
-		Me.chkEPMjolRune.Name = "chkEPMjolRune"
-		Me.chkEPMjolRune.Size = New System.Drawing.Size(141, 24)
-		Me.chkEPMjolRune.TabIndex = 2
-		Me.chkEPMjolRune.Text = "Mjolnir Runestone"
-		Me.chkEPMjolRune.UseVisualStyleBackColor = true
 		'
 		'groupBox2
 		'
@@ -2956,7 +2736,6 @@ Partial Class MainForm
 		Me.gbTank.PerformLayout
 		Me.tbEPOptions.ResumeLayout(false)
 		Me.tbEPOptions.PerformLayout
-		Me.groupBox3.ResumeLayout(false)
 		Me.groupBox2.ResumeLayout(false)
 		Me.groupBox1.ResumeLayout(false)
 		Me.tbPrioEditor.ResumeLayout(false)
@@ -2969,7 +2748,6 @@ Partial Class MainForm
 	Private chkShowProc As System.Windows.Forms.CheckBox
 	Private grpSimOption As System.Windows.Forms.GroupBox
 	Private groupBox6 As System.Windows.Forms.GroupBox
-	Friend chkEPTinyAbomination As System.Windows.Forms.CheckBox
 	Private chkFrostFever As System.Windows.Forms.CheckBox
 	Private chkBloodPlague As System.Windows.Forms.CheckBox
 	Friend chkScaDPSA As System.Windows.Forms.CheckBox
@@ -2983,11 +2761,6 @@ Partial Class MainForm
 	Friend chkBloodSync As System.Windows.Forms.CheckBox
 	Private cmdStartTalentDpsValue As System.Windows.Forms.Button
 	Private chkAshenBand As System.Windows.Forms.CheckBox
-	Friend chkEPNeedleEncrustedScorpion As System.Windows.Forms.CheckBox
-	Friend chkEPWhisperingFangedSkull As System.Windows.Forms.CheckBox
-	Friend chkEPDeathbringersWillHeroic As System.Windows.Forms.CheckBox
-	Friend chkEPDeathChoiceHeroic As System.Windows.Forms.CheckBox
-	Friend chkEPDeathbringersWill As System.Windows.Forms.CheckBox
 	Private chkArcaneTorrent As System.Windows.Forms.CheckBox
 	Private chkBerzerking As System.Windows.Forms.CheckBox
 	Private chkBloodFury As System.Windows.Forms.CheckBox
@@ -3103,20 +2876,6 @@ Partial Class MainForm
 	Friend chkManyFights As System.Windows.Forms.CheckBox
 	Private label18 As System.Windows.Forms.Label
 	Friend chkEPAfterSpellHitRating As System.Windows.Forms.CheckBox
-	Friend chkEPDCDeath As System.Windows.Forms.CheckBox
-	Friend chkEPMjolRune As System.Windows.Forms.CheckBox
-	Friend chkEPDarkMatter As System.Windows.Forms.CheckBox
-	Friend chkEPComet As System.Windows.Forms.CheckBox
-	Friend chkEPGrimToll As System.Windows.Forms.CheckBox
-	Friend chkEPBitterAnguish As System.Windows.Forms.CheckBox
-	Friend chkEPMirror As System.Windows.Forms.CheckBox
-	Friend chkEPOldGod As System.Windows.Forms.CheckBox
-	Friend chkEPPyrite As System.Windows.Forms.CheckBox
-	Friend chkEPDeathChoice As System.Windows.Forms.CheckBox
-	Friend chkEPGreatness As System.Windows.Forms.CheckBox
-	Friend chkEPVictory As System.Windows.Forms.CheckBox
-	Friend chkEPNecromantic As System.Windows.Forms.CheckBox
-	Friend chkEPBandit As System.Windows.Forms.CheckBox
 	Friend chkEP4PT9 As System.Windows.Forms.CheckBox
 	Private groupBox3 As System.Windows.Forms.GroupBox
 	Friend txtInterruptAmount As System.Windows.Forms.TextBox

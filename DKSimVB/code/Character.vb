@@ -184,17 +184,17 @@ Friend Class Character
 		tmp = _AttackPower
 		Select Case sim.EPStat
 			Case "EP AttackPower"
-				tmp = tmp+100
+				tmp = tmp+ 2*sim.EPBase
 			Case "EP AttackPower0T7"
-				tmp = tmp+100
+				tmp = tmp+ 2*sim.EPBase
 			Case "EP AttackPowerNoTrinket"
-				tmp = tmp+100
+				tmp = tmp+ 2*sim.EPBase
 			Case "EP AfterSpellHitBaseAP"
-				tmp = tmp+100
+				tmp = tmp+ 2*sim.EPBase
 			Case "EP ExpertiseRatingCapAP"
-				tmp = tmp+100
+				tmp = tmp+ 2*sim.EPBase
 			Case "EP HitRatingCapAP"
-				tmp = tmp+100
+				tmp = tmp+ 2*sim.EPBase
 			Case else
 		End Select
 		tmp = tmp + int(Armor/180)*sim.talentblood.BladedArmor
@@ -213,7 +213,7 @@ Friend Class Character
 			Case "EP HitRatingCapAP"
 				tmp = 263 - sim.TalentFrost.NervesofColdSteel*32.79
 			Case "EP SpellHitRating"
-				tmp = 263 - sim.TalentFrost.NervesofColdSteel*32.79 + 26
+				tmp = 263 - sim.TalentFrost.NervesofColdSteel*32.79 + sim.EPBase 
 			Case "EP AfterSpellHitBase"
 				tmp = sim.MainStat.SpellHitCapRating
 			Case "EP AfterSpellHitBaseAP"
