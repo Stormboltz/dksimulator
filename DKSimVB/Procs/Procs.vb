@@ -72,10 +72,6 @@ Friend Class Procs
 		Dim s As Sim
 		s= Me.Sim
 		
-		
-		
-		
-		
 		KillingMachine = New Proc(s)
 		With KillingMachine
 			._Name = "KillingMachine"
@@ -218,6 +214,7 @@ Friend Class Procs
 			.ProcOn = procs.ProcOnType.OnOHhit
 			if s.RuneForge.OHCinderglacierRF	then .Equip
 		End With
+		
 		Berserking = New Proc(s)		
 		With Berserking
 			._Name = "Berserking"
@@ -229,7 +226,6 @@ Friend Class Procs
 			.ProcType = "ap"
 			if s.RuneForge.OHBerserking then .Equip
 		End With
-		
 		
 		OrcRacial = New Proc(s)
 		With OrcRacial
@@ -277,8 +273,8 @@ Friend Class Procs
 				.Equip
 				s.DamagingObject.Add(BloodWorms)
 			End If
-			
 		End With
+		
 	End Sub
 	
 	Function GetActiveBonus(stat As String) As Integer
@@ -289,6 +285,10 @@ Friend Class Procs
 				If prc.IsActive Then 
 					tmp += prc.ProcValue
 				End If
+			End If
+			
+			If prc.ProcTypeStack = stat Then
+				tmp += prc.ProcValueStack * prc.Stack
 			End If
 		Next
 		return tmp

@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <WeaponProcList>
-			<MHtemperedViskag>0</MHtemperedViskag>
+		<MHShadowmourne>0</MHShadowmourne>
+  		<MHBryntroll>0</MHBryntroll>
+		<MHBryntrollHeroic>0</MHBryntrollHeroic>
+		<MHtemperedViskag>0</MHtemperedViskag>
 		<MHSingedViskag>0</MHSingedViskag>
 		<OHtemperedViskag>0</OHtemperedViskag>
 		<OHSingedViskag>0</OHSingedViskag>
@@ -8,5 +11,4 @@
 		<OHRagingDeathbringer>0</OHRagingDeathbringer>
 		<MHEmpoweredDeathbringer>0</MHEmpoweredDeathbringer>
 		<OHEmpoweredDeathbringer>0</OHEmpoweredDeathbringer>
-		<MHBryntroll>0</MHBryntroll>
 </WeaponProcList>

@@ -50,17 +50,64 @@ Public Class Trinkets
 	Friend NeedleEncrustedScorpion as Trinket
 	
 	Friend Bryntroll As Trinket
+	Friend BryntrollHeroic As Trinket
 	Friend TinyAbomination as Trinket
-	
+	Friend Shadowmourne As Trinket
 	
 
 	Protected sim as Sim
 	Sub New(S As Sim)
 		Sim = S
 		
+		Shadowmourne = New Trinket(s)
+		With Shadowmourne
+			._Name = "Shadowmourne"
+			.ProcOn = Procs.ProcOnType.OnDamage
+			.ProcChance  = 0.60
+			.ProcValue = 270
+			.ProcValueStack = 30
+			.ProcValueDmg = 2000
+			.ProcLenght = 10
+			.ProcType = "str"
+			.ProcTypeStack = "str"
+			.DamageType = "Shadowmourne"
+			.HasteSensible = True
+		End With
+		
+		BryntrollHeroic = New Trinket(s)
+		With BryntrollHeroic
+			._Name = "BryntrollHeroic"
+			.ProcOn = Procs.ProcOnType.OnDamage
+			.ProcChance  = 0.1133
+			.ProcValue = 2538
+			.DamageType = "BryntrollHeroic"
+			.ProcLenght = 0
+			.HasteSensible = true
+		End With
+		
+		Bryntroll = New Trinket(s)
+		With Bryntroll
+			._Name = "Bryntroll"
+			.ProcOn = Procs.ProcOnType.OnDamage
+			.ProcChance  = 0.1133
+			.ProcValue = 2250
+			.DamageType = "Bryntroll"
+			.ProcLenght = 0
+			.HasteSensible = true
+		End With
+		
+		TinyAbomination = New Trinket(s)
+		With TinyAbomination
+			._Name = "TinyAbomination"
+			.ProcOn = Procs.ProcOnType.OnHit
+			.ProcChance  = 0.5
+			.ProcValue = 0
+			.ProcType = ""
+			.DamageType = "TinyAbomination"
+			.HasteSensible = true
+		End With
 		
 		AshenBand= New Trinket(s)
-		
 		With AshenBand
 			._Name = "AshenBand"
 			.ProcChance = 0.10
@@ -443,29 +490,6 @@ Public Class Trinkets
 		 	.ProcOn = procs.ProcOnType.OnOHhit
 		 	.HasteSensible = true
 		End With
-		
-		Bryntroll = New Trinket(s)
-		With Bryntroll
-			._Name = "Bryntroll"
-			.ProcOn = Procs.ProcOnType.OnDamage
-			.ProcChance  = 0.1133
-			.ProcValue = 2250
-			.DamageType = "Bryntroll"
-			.ProcLenght = 0
-			.HasteSensible = true
-		End With
-		
-		TinyAbomination = New Trinket(s)
-		With TinyAbomination
-			._Name = "TinyAbomination"
-			.ProcOn = Procs.ProcOnType.OnHit
-			.ProcChance  = 0.5
-			.ProcValue = 0
-			.ProcType = ""
-			.DamageType = "TinyAbomination"
-			.HasteSensible = true
-		End With
-		
 		
 		CollectDamagingTrinket
 	End Sub

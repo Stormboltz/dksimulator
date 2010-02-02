@@ -15,9 +15,11 @@ Public Class Proc
 	friend Equiped As Integer
 	Friend ProcLenght As Integer
 	Friend ProcValue As Integer
+	Friend ProcValueDmg As Integer
 	Friend InternalCD As Integer
 	Friend Stack as Integer
-
+	Friend ProcTypeStack as String
+	Friend ProcValueStack as Integer
 	
 	Friend DamageType As String
 	Friend Count As Integer
@@ -108,6 +110,39 @@ Public Class Proc
 					Fade = T + ProcLenght * 100
 					AddUptime(T)
 					HitCount += 1
+				Case "Shadowmourne"
+					Me.Stack +=1
+					If Me.Stack =10 Then
+						Me.Stack=0
+					
+						If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
+							MissCount = MissCount + 1
+							Exit sub
+						End If
+						tmp= ProcValueDmg * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
+						HitCount = HitCount + 1
+						totalhit += tmp
+						
+						If sim.combatlog.LogDetails Then sim.combatlog.write(sim.TimeStamp  & vbtab &  Me.ToString & " proc")
+						Fade = T + ProcLenght * 100
+						HitCount += 1
+					End If
+				Case "Bryntroll"
+					If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
+						MissCount = MissCount + 1
+						Exit sub
+					End If
+					tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
+					HitCount = HitCount + 1
+					totalhit += tmp
+				Case "BryntrollHeroic"
+					If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
+						MissCount = MissCount + 1
+						Exit sub
+					End If
+					tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
+					HitCount = HitCount + 1
+					totalhit += tmp
 				Case "TinyAbomination"
 					Me.Stack +=1
 					If Me.Stack =8 Then
@@ -208,14 +243,6 @@ Public Class Proc
 				Case "cinderglacier"
 					HitCount = HitCount + 1
 					sim.RuneForge.CinderglacierProc = 2
-				Case "Bryntroll"
-					If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
-						MissCount = MissCount + 1
-						Exit sub
-					End If
-					tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
-					HitCount = HitCount + 1
-					totalhit += tmp
 				Case "BloodWorms"
 					tmp =  50 + 0.006*sim.MainStat.AP
 					tmp = tmp * 10

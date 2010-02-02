@@ -352,7 +352,4 @@ Public Partial Class MainForm
 		i=i*100
 		Me.PBsim.Value = i
 	End Sub
-	
-	
-	
 End Class

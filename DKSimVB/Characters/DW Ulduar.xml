@@ -61,7 +61,8 @@
     <WhisperingFangedSkull>0</WhisperingFangedSkull>
   </trinket>
   <WeaponProc>
-    <MHBryntroll>0</MHBryntroll>
+    <MHShadowmourne>0</MHShadowmourne>
+  	<MHBryntroll>0</MHBryntroll>
     <MHEmpoweredDeathbringer>0</MHEmpoweredDeathbringer>
     <MHRagingDeathbringer>0</MHRagingDeathbringer>
     <MHSingedViskag>0</MHSingedViskag>

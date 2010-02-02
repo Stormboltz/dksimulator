@@ -84,7 +84,7 @@ Friend Class MainStat
 			End If
 		Catch
 			Msgbox("Error reading MH Weapon characteristics")
-		End Try	
+		End Try
 			
 		try
 			OHWeaponDPS = (XmlDoc.SelectSingleNode("//character/weapon/offhand/dps").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
@@ -112,6 +112,7 @@ Friend Class MainStat
 			If XmlDoc.SelectSingleNode("//character/WeaponProc/OHSingedViskag").InnerText = 1 Then sim.trinkets.OHSingedViskag.Equip
 		Catch
 		End Try
+		
 		Try
 			if XmlDoc.SelectSingleNode("//character/WeaponProc/MHRagingDeathbringer").InnerText = 1 then sim.trinkets.MHRagingDeathbringer.Equip
 			if XmlDoc.SelectSingleNode("//character/WeaponProc/OHRagingDeathbringer").InnerText = 1 then sim.trinkets.OHRagingDeathbringer.Equip
@@ -119,12 +120,21 @@ Friend Class MainStat
 			if XmlDoc.SelectSingleNode("//character/WeaponProc/OHEmpoweredDeathbringer").InnerText = 1 then sim.trinkets.OHEmpoweredDeathbringer.Equip
 		Catch
 		End Try
+		
 		Try
 			if XmlDoc.SelectSingleNode("//character/WeaponProc/MHBryntroll").InnerText = 1 then sim.trinkets.Bryntroll.Equip
 		Catch
-			
 		End Try
 		
+		Try
+			if XmlDoc.SelectSingleNode("//character/WeaponProc/MHBryntrollHeroic").InnerText = 1 then sim.trinkets.BryntrollHeroic.Equip
+		Catch
+		End Try
+		
+		Try
+			if XmlDoc.SelectSingleNode("//character/WeaponProc/MHShadowmourne").InnerText = 1 then sim.trinkets.Shadowmourne.Equip
+		Catch
+		End Try
 		
 		Try
 			If XmlDoc.SelectSingleNode("//character/misc/HandMountedPyroRocket").InnerText= True Then
