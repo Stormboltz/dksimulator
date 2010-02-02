@@ -399,7 +399,7 @@ Partial Class MainForm
 		Me.label11.Name = "label11"
 		Me.label11.Size = New System.Drawing.Size(159, 14)
 		Me.label11.TabIndex = 1
-		Me.label11.Text = "Import talents"
+		Me.label11.Text = "Import Talents"
 		'
 		'txtImportTemplate
 		'
@@ -556,9 +556,9 @@ Partial Class MainForm
 		Me.ckLogRP.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.ckLogRP.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
 		Me.ckLogRP.Enabled = false
-		Me.ckLogRP.Location = New System.Drawing.Point(543, 78)
+		Me.ckLogRP.Location = New System.Drawing.Point(494, 78)
 		Me.ckLogRP.Name = "ckLogRP"
-		Me.ckLogRP.Size = New System.Drawing.Size(194, 24)
+		Me.ckLogRP.Size = New System.Drawing.Size(243, 24)
 		Me.ckLogRP.TabIndex = 50
 		Me.ckLogRP.Text = "Very detailled combat log"
 		Me.ckLogRP.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -568,7 +568,7 @@ Partial Class MainForm
 		'
 		Me.chkShowProc.Location = New System.Drawing.Point(6, 71)
 		Me.chkShowProc.Name = "chkShowProc"
-		Me.chkShowProc.Size = New System.Drawing.Size(194, 24)
+		Me.chkShowProc.Size = New System.Drawing.Size(313, 24)
 		Me.chkShowProc.TabIndex = 49
 		Me.chkShowProc.Text = "Show Procs/Non Damaging spells in the report"
 		Me.chkShowProc.UseVisualStyleBackColor = true
@@ -577,9 +577,9 @@ Partial Class MainForm
 		'
 		Me.chkCombatLog.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.chkCombatLog.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-		Me.chkCombatLog.Location = New System.Drawing.Point(543, 48)
+		Me.chkCombatLog.Location = New System.Drawing.Point(494, 48)
 		Me.chkCombatLog.Name = "chkCombatLog"
-		Me.chkCombatLog.Size = New System.Drawing.Size(194, 24)
+		Me.chkCombatLog.Size = New System.Drawing.Size(243, 24)
 		Me.chkCombatLog.TabIndex = 49
 		Me.chkCombatLog.Text = "Generate Combat Log"
 		Me.chkCombatLog.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -643,7 +643,7 @@ Partial Class MainForm
 		Me.grpSimOption.Size = New System.Drawing.Size(749, 542)
 		Me.grpSimOption.TabIndex = 49
 		Me.grpSimOption.TabStop = false
-		Me.grpSimOption.Text = "Sim options"
+		Me.grpSimOption.Text = "Simulator Options"
 		'
 		'chkBloodSync
 		'
@@ -685,7 +685,7 @@ Partial Class MainForm
 		Me.chkDisease.Name = "chkDisease"
 		Me.chkDisease.Size = New System.Drawing.Size(98, 41)
 		Me.chkDisease.TabIndex = 84
-		Me.chkDisease.Text = "Keep disease on targets"
+		Me.chkDisease.Text = "Keep diseases on targets"
 		Me.chkDisease.UseVisualStyleBackColor = true
 		'
 		'txtNumberOfEnemies
@@ -983,7 +983,7 @@ Partial Class MainForm
 		Me.label26.Name = "label26"
 		Me.label26.Size = New System.Drawing.Size(100, 13)
 		Me.label26.TabIndex = 51
-		Me.label26.Text = "Intro"
+		Me.label26.Text = "Fight Intro"
 		'
 		'rdPrio
 		'
@@ -1137,7 +1137,7 @@ Partial Class MainForm
 		Me.groupBox4.Size = New System.Drawing.Size(734, 645)
 		Me.groupBox4.TabIndex = 0
 		Me.groupBox4.TabStop = false
-		Me.groupBox4.Text = "groupBox4"
+		Me.groupBox4.Text = "Editor"
 		'
 		'groupBox5
 		'
@@ -1157,32 +1157,32 @@ Partial Class MainForm
 		'
 		'chkArcaneTorrent
 		'
-		Me.chkArcaneTorrent.Location = New System.Drawing.Point(-1, 124)
+		Me.chkArcaneTorrent.Location = New System.Drawing.Point(14, 126)
 		Me.chkArcaneTorrent.Name = "chkArcaneTorrent"
 		Me.chkArcaneTorrent.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-		Me.chkArcaneTorrent.Size = New System.Drawing.Size(169, 24)
+		Me.chkArcaneTorrent.Size = New System.Drawing.Size(242, 24)
 		Me.chkArcaneTorrent.TabIndex = 20
 		Me.chkArcaneTorrent.Text = "Arcane Torrent"
 		Me.chkArcaneTorrent.UseVisualStyleBackColor = true
 		'
 		'chkBerzerking
 		'
-		Me.chkBerzerking.Location = New System.Drawing.Point(-1, 94)
+		Me.chkBerzerking.Location = New System.Drawing.Point(14, 96)
 		Me.chkBerzerking.Name = "chkBerzerking"
 		Me.chkBerzerking.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-		Me.chkBerzerking.Size = New System.Drawing.Size(169, 24)
+		Me.chkBerzerking.Size = New System.Drawing.Size(242, 24)
 		Me.chkBerzerking.TabIndex = 20
 		Me.chkBerzerking.Text = "Berserking"
 		Me.chkBerzerking.UseVisualStyleBackColor = true
 		'
 		'chkBloodFury
 		'
-		Me.chkBloodFury.Location = New System.Drawing.Point(0, 64)
+		Me.chkBloodFury.Location = New System.Drawing.Point(14, 66)
 		Me.chkBloodFury.Name = "chkBloodFury"
 		Me.chkBloodFury.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-		Me.chkBloodFury.Size = New System.Drawing.Size(169, 24)
+		Me.chkBloodFury.Size = New System.Drawing.Size(242, 24)
 		Me.chkBloodFury.TabIndex = 20
-		Me.chkBloodFury.Text = "Blood Fury + Pet damage"
+		Me.chkBloodFury.Text = "Blood Fury + Pet Damage"
 		Me.chkBloodFury.UseVisualStyleBackColor = true
 		'
 		'txtOHExpBonus
@@ -1406,7 +1406,7 @@ Partial Class MainForm
 		Me.gbStats.Size = New System.Drawing.Size(419, 164)
 		Me.gbStats.TabIndex = 7
 		Me.gbStats.TabStop = false
-		Me.gbStats.Text = "Statisitics"
+		Me.gbStats.Text = "Statistics"
 		'
 		'txtArP
 		'
@@ -1417,11 +1417,11 @@ Partial Class MainForm
 		'
 		'label35
 		'
-		Me.label35.Location = New System.Drawing.Point(203, 101)
+		Me.label35.Location = New System.Drawing.Point(200, 101)
 		Me.label35.Name = "label35"
-		Me.label35.Size = New System.Drawing.Size(96, 28)
+		Me.label35.Size = New System.Drawing.Size(99, 28)
 		Me.label35.TabIndex = 13
-		Me.label35.Text = "Armor Penetration rating"
+		Me.label35.Text = "Armor Penetration Rating"
 		Me.label35.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		'
 		'txtHit
@@ -1476,7 +1476,7 @@ Partial Class MainForm
 		Me.label29.Name = "label29"
 		Me.label29.Size = New System.Drawing.Size(75, 18)
 		Me.label29.TabIndex = 6
-		Me.label29.Text = "Intel"
+		Me.label29.Text = "Intelligence"
 		Me.label29.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		'
 		'label31
@@ -1485,7 +1485,7 @@ Partial Class MainForm
 		Me.label31.Name = "label31"
 		Me.label31.Size = New System.Drawing.Size(89, 31)
 		Me.label31.TabIndex = 14
-		Me.label31.Text = "Attack Power (the green part)"
+		Me.label31.Text = "Attack Power (Green Number)"
 		Me.label31.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		'
 		'txtCrit
@@ -1750,7 +1750,7 @@ Partial Class MainForm
 		Me.cmdSaveNewTemplate.Name = "cmdSaveNewTemplate"
 		Me.cmdSaveNewTemplate.Size = New System.Drawing.Size(108, 23)
 		Me.cmdSaveNewTemplate.TabIndex = 0
-		Me.cmdSaveNewTemplate.Text = "Save as new"
+		Me.cmdSaveNewTemplate.Text = "Save As New"
 		Me.cmdSaveNewTemplate.UseVisualStyleBackColor = true
 		AddHandler Me.cmdSaveNewTemplate.Click, AddressOf Me.CmdSaveNewTemplateClick
 		'
@@ -2092,7 +2092,7 @@ Partial Class MainForm
 		Me.gbTank.Size = New System.Drawing.Size(645, 191)
 		Me.gbTank.TabIndex = 2
 		Me.gbTank.TabStop = false
-		Me.gbTank.Text = "Frost Presence options"
+		Me.gbTank.Text = "Frost Presence Options"
 		'
 		'label22
 		'
