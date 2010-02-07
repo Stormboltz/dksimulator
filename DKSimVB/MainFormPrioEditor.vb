@@ -288,6 +288,16 @@ Public Partial Class MainForm
 					EditorFilePAth = application.StartupPath & "\Rotation\" & truc.textBox1.Text & ".xml"
 			End Select
 			CmdSaveRotationClick(sender, e)
+			Select Case EditType
+				Case "prio"
+					me.cmbPrio.SelectedItem = truc.textBox1.Text & ".xml"
+				Case "intro"
+					me.cmbIntro.SelectedItem = truc.textBox1.Text & ".xml"
+				Case "rota"
+					me.cmbRotation.SelectedItem = truc.textBox1.Text & ".xml"
+			End Select
+			
+			
 		Else
 			exit sub
 		End If

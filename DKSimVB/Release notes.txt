@@ -1,7 +1,12 @@
 ﻿1.2.0.7 Release notes
 * Racial Expertise correction.
-* Spell Hit EP value correction
-* 
+* Spell Hit EP value correction.
+* Shadowmourne and Bryntroll heroic procs.
+* EP Calculation/ Talent Value in Frost Presence are made againts TPS and not DPS.
+* Rune strike is no more considered as a White hit.
+* Sigil of Hanged Man.
+* When you "save as new" it's automaticaly selected.
+
 
 1.2.0.6 Release notes
 * Reaping rotation correction.

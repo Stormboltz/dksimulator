@@ -11,6 +11,7 @@ Friend Class Procs
 	Friend Rime As Proc
 	Friend ScentOfBlood As ScentOfBlood
 	Friend Virulence As Proc
+	Friend HangedMan as Proc
 	Friend Strife As Proc
 	Friend T92PDPS as Proc
 	Friend HauntedDreams As Proc
@@ -113,6 +114,20 @@ Friend Class Procs
 			.ProcValue = 200
 			.ProcType = "str"
 		End With
+		
+		HangedMan = New Proc(s)
+		With HangedMan
+			._Name = "HangedMan"
+			if s.Sigils.HangedMan then .equip
+			.ProcLenght = 15
+			.ProcChance = 1
+			.ProcValueStack = 73
+			'.ProcType = "str"
+			.ProcTypeStack = "str"
+			.Stack = 3
+			.DamageType = "HangedMan"
+		End With
+		
 		
 		Strife = New Proc(s)
 		With Strife

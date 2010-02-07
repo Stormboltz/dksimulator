@@ -17,7 +17,7 @@ Public Class Proc
 	Friend ProcValue As Integer
 	Friend ProcValueDmg As Integer
 	Friend InternalCD As Integer
-	Friend Stack as Integer
+	Friend Stack As Integer
 	Friend ProcTypeStack as String
 	Friend ProcValueStack as Integer
 	
@@ -122,7 +122,6 @@ Public Class Proc
 						tmp= ProcValueDmg * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
 						HitCount = HitCount + 1
 						totalhit += tmp
-						
 						If sim.combatlog.LogDetails Then sim.combatlog.write(sim.TimeStamp  & vbtab &  Me.ToString & " proc")
 						Fade = T + ProcLenght * 100
 						HitCount += 1
@@ -164,7 +163,6 @@ Public Class Proc
 							hitCount += 1
 							TotalHit += tmp
 						End If
-						
 					End If
 				Case "DeathbringersWill"
 					Dim RNG As Double
@@ -258,6 +256,11 @@ Public Class Proc
 						tmp = tmp *4
 						HitCount = HitCount + 40
 					End If
+				Case "HangedMan"
+					If Stack < 3 Then Stack += 1
+					Fade = T + ProcLenght * 100
+					AddUptime(T)
+					HitCount += 1
 			End Select
 			
 			

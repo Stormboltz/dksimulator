@@ -703,16 +703,16 @@ Public Partial Class MainForm
 			If truc.textBox1.Text  <> "" And res = DialogResult.OK Then
 				doc.Save(application.StartupPath & "\Templates\" & truc.textBox1.Text & ".xml")
 				EditorFilePAth = Strings.Left(EditorFilePAth,strings.InStrRev(EditorFilePAth,"\"))
+				loadWindow
+				me.cmbTemplate.SelectedItem= truc.textBox1.Text & ".xml"
 			Else
 				exit sub
 			End If
 			truc.Dispose
 		Else
 			doc.Save(name)
+			loadWindow
 		End If
-		
-		'Msgbox ( "Import done.")
-		loadWindow
 		tabControl1.SelectedIndex = 0
 		Exit Sub
 		errH :

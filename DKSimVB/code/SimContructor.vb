@@ -272,7 +272,7 @@ Public Module SimConstructor
 			DPS = dpss(EPStat)
 			tmp1 = (dpss("EP ExpertiseRatingCapAP")-dpss("EP ExpertiseRatingCap") ) / (2*EPBase)
 			tmp2 = (DPS-dpss("EP ExpertiseRatingCap")) / EPBase
-			sReport = sReport +  ("<tr><td>EP:" & EPBase & " | ExpertiseRating After Dodge Cap | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
+			sReport = sReport +  ("<tr><td>ExpertiseRating After Dodge Cap | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
 			'	WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
 		End Try
@@ -292,8 +292,8 @@ Public Module SimConstructor
 		Try
 			EPStat="EP SpellHitRating"
 			DPS = dpss(EPStat)
-			tmp1 = (dpss("EP HitRatingCapAP")-dpss("EP HitRatingCap")) / (2*EPBase)
-			tmp2 = (DPS-dpss("EP HitRatingCap")) / EPBase
+			tmp1 = (dpss("EP HitRatingCapAP")-dpss("EP HitRatingCap")) / (2*20)
+			tmp2 = (DPS-dpss("EP HitRatingCap")) / 20
 			SpHit = toDDecimal (tmp2/tmp1)
 			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
 		catch

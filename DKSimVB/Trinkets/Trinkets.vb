@@ -62,7 +62,7 @@ Public Class Trinkets
 		Shadowmourne = New Trinket(s)
 		With Shadowmourne
 			._Name = "Shadowmourne"
-			.ProcOn = Procs.ProcOnType.OnDamage
+			.ProcOn = Procs.ProcOnType.OnMHhit
 			.ProcChance  = 0.60
 			.ProcValue = 270
 			.ProcValueStack = 30

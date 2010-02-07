@@ -184,6 +184,8 @@ Public Partial Class MainForm
 		Else
 			exit sub
 		End If
+		
+		
 		truc.Dispose
 		Dim Tw As System.IO.TextWriter
 		

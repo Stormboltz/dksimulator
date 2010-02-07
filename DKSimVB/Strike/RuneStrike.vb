@@ -56,26 +56,27 @@ Public Class RuneStrike
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Rune Strike hit for " & dégat )
 		End If
 		total = total + dégat
-		If offhand=False Then sim.proc.KillingMachine.TryMe(T)
+		'If offhand=False Then sim.proc.KillingMachine.TryMe(T)
 		
 		'If sim.TalentUnholy.Necrosis > 0 Then sim.Necrosis.Apply(dégat, T)
 
-		RNG = sim.RandomNumberGenerator.RNGWhiteHit * 100
-		If RNG <= 10 * sim.TalentUnholy.BloodCakedBlade Then
-			If offhand=False Then
-				sim.BloodCakedBlade.ApplyDamage(T)
-			Else
-				sim.OHBloodCakedBlade.ApplyDamage(T)
-			End If
-		End If
+'		RNG = sim.RandomNumberGenerator.RNGWhiteHit * 100
+'		If RNG <= 10 * sim.TalentUnholy.BloodCakedBlade Then
+'			If offhand=False Then
+'				sim.BloodCakedBlade.ApplyDamage(T)
+'			Else
+'				sim.OHBloodCakedBlade.ApplyDamage(T)
+'			End If
+'		End If
 		
 		If offhand=False Then
-			sim.tryOnMHWhitehitProc
+			'sim.tryOnMHWhitehitProc
+			sim.TryOnMHHitProc
 '			sim.RuneForge.MHRazorIce.TryMe(T)
-			If sim.proc.ScentOfBlood.IsActive  Then
-				sim.proc.ScentOfBlood.Use
-				Sim.RunicPower.add(10)
-			End If
+'			If sim.proc.ScentOfBlood.IsActive  Then
+'				sim.proc.ScentOfBlood.Use
+'				Sim.RunicPower.add(10)
+'			End If
 		Else
 			sim.TryOnOHHitProc
 '			sim.RuneForge.OHRazorIce.TryMe(T)

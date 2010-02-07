@@ -10,6 +10,7 @@ Public Class Sim
 	Friend _EPStat As String
 	Friend EPBase as Integer
 	Friend DPS As Long
+	Friend TPS As Long
 	Friend MaxTime As Long
 	Friend NumberOfFights As Long
 	Friend RotationStep as Integer
@@ -390,11 +391,16 @@ Public Class Sim
 		
 		Report()
 
-		Debug.Print( "DPS=" & DPS & " " & EPStat & " hit=" & mainstat.Hit & " sphit=" & mainstat.SpellHit & " exp=" & mainstat.expertise )
+		Debug.Print( "DPS=" & DPS & " " & "TPS=" & TPS & " " & EPStat & " hit=" & mainstat.Hit & " sphit=" & mainstat.SpellHit & " exp=" & mainstat.expertise )
 		combatlog.finish
 		
-		on error resume next
-		SimConstructor.DPSs.Add(DPS, Me.EPStat)
+		On Error Resume Next
+		If Me.FrostPresence = 1 Then
+			SimConstructor.DPSs.Add(TPS, Me.EPStat)
+		Else
+			SimConstructor.DPSs.Add(DPS, Me.EPStat)
+		End If
+		
 		SimConstructor.simCollection.Remove(me)
 	End Sub
 	
@@ -706,7 +712,8 @@ Public Class Sim
 		Sigils.Strife = false
 		Sigils.HauntedDreams = false
 		sigils.VengefulHeart = False
-		sigils.Virulence = false
+		sigils.Virulence = False
+		sigils.HangedMan = False
 		select case Sigil
 			case "WildBuck"
 				Sigils.WildBuck = true
@@ -726,7 +733,8 @@ Public Class Sim
 				sigils.VengefulHeart = True
 			Case "Virulence"
 				sigils.Virulence = True
-				
+			Case "HangedMan"
+				sigils.HangedMan = True
 		end select
 		
 		Dim Presence As String
@@ -844,7 +852,47 @@ Public Class Sim
 	Sub Report()
 		'on error resume next
 		Dim Tw As System.IO.TextWriter
-		if EPStat <> "" then exit sub
+		
+		
+		' Sort report
+		dim obj as supertype
+		Dim myArray As New ArrayList
+		
+		If MergeReport Then
+			For Each obj In DamagingObject
+				If obj.total <> 0 Then
+					obj.merge
+				End If
+			Next
+		End If
+		
+		For Each obj In DamagingObject
+			If obj.total <> 0 Then
+				myArray.Add(obj.total)
+			End If
+		Next
+		myArray.Sort()
+		
+		Dim ThreatBeforePresence As Long = Threat
+		For Each obj In Me.DamagingObject
+			Threat += obj.Total * obj.ThreadMultiplicator
+		Next
+		If FrostPresence = 1 Then
+			Threat = Threat * 2.0735
+		Else
+			Threat = (Threat * 0.80) * (1- TalentBlood.Subversion * 8.333/100 )
+		End If
+		
+		Threat = Threat + ThreatBeforePresence
+		tps =  100 * Threat / TimeStamp
+		
+		
+		
+		
+		
+		If EPStat <> "" Then Exit Sub
+		
+		
 		Tw  =system.IO.File.appendText(ReportPath)
 		'Tw  = system.IO.File.Open(reportpath, system.IO.FileMode.Append)     '.OpenWrite(ReportPath)
 		Tw.Write (ReportName & "<FONT COLOR='white'>[TABLE]</FONT>"  )
@@ -878,25 +926,8 @@ Public Class Sim
 		Tw.Write ("</tr>")
 		Tw.Write ("</tr>")
 		
-		' Sort report
-		dim obj as supertype
-		Dim myArray As New ArrayList
 		
-		If MergeReport Then
-			For Each obj In DamagingObject
-				If obj.total <> 0 Then
-					obj.merge
-				End If
-			Next
-		End If
 		
-		For Each obj In DamagingObject
-			If obj.total <> 0 Then
-				myArray.Add(obj.total)
-				
-			End If
-		Next
-		myArray.Sort()
 
 		dim i as Integer
 		Dim tot As Long
@@ -961,19 +992,9 @@ Public Class Sim
 		if EPStat <> "" then STmp =  "<tr><td COLSPAN=8>EP Stat <b>" &  EPStat & "</b></td></tr>"
 		STmp = sTmp &  "<tr><td COLSPAN=8>DPS<FONT COLOR='white'>|</FONT>" & VBtab & "<b>" &  DPS & "</b></td></tr>"
 		STmp = sTmp &   "<tr><td COLSPAN=8>Total Damage<FONT COLOR='white'>|</FONT>" & VBtab & Math.Round(TotalDamage/1000000,2) & "m" & VBtab &  "<FONT COLOR='white'>|</FONT> in " & MaxTime / 100 / 60/60 & "h</td></tr>"
-		Dim ThreatBeforePresence As Long = Threat
 		
-		For Each obj In Me.DamagingObject
-			Threat += obj.Total * obj.ThreadMultiplicator
-		Next
-		If FrostPresence = 1 Then
-			Threat = Threat * 2.0735
-		Else
-			Threat = (Threat * 0.80) * (1- TalentBlood.Subversion * 8.333/100 )
-		End If
-		Dim tps As Integer
-		Threat = Threat + ThreatBeforePresence
-		tps =  100 * Threat / TimeStamp
+		
+		
 		STmp = sTmp &  "<tr><td COLSPAN=8>Threat Per Second<FONT COLOR='white'>|</FONT>" & VBtab & "<b>" &  tps & "</b></td></tr>"
 		STmp = sTmp &   "<tr><td COLSPAN=8>Generated in <FONT COLOR='white'>|</FONT>" & DateDiff( DateInterval.Second,SimStart,now())  & "s</td></tr>"
 		

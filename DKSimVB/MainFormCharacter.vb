@@ -420,6 +420,7 @@ Public Partial Class MainForm
 		If truc.textBox1.Text  <> "" and res = DialogResult.OK Then
 			EditorFilePAth = application.StartupPath & "\Characters\" & truc.textBox1.Text & ".xml"
 			CmdSaveCharacterClick(sender, e)
+			me.cmbCharacter.SelectedItem = truc.textBox1.Text & ".xml" 
 		Else
 			exit sub
 		End If

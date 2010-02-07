@@ -16,6 +16,7 @@ Friend Class Sigils
 	Friend HauntedDreams As Boolean '15% chance on BS/HS to add 173 Crit Rating
 	Friend VengefulHeart As Boolean
 	Friend Virulence As Boolean
+	Friend HangedMan as Boolean
 	
 	Private Sim as Sim
 	Sub New(S As Sim )

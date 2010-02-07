@@ -213,7 +213,7 @@ Friend Class Character
 			Case "EP HitRatingCapAP"
 				tmp = 263 - sim.TalentFrost.NervesofColdSteel*32.79
 			Case "EP SpellHitRating"
-				tmp = 263 - sim.TalentFrost.NervesofColdSteel*32.79 + sim.EPBase 
+				tmp = 263 - sim.TalentFrost.NervesofColdSteel*32.79 + 20 
 			Case "EP AfterSpellHitBase"
 				tmp = sim.MainStat.SpellHitCapRating
 			Case "EP AfterSpellHitBaseAP"

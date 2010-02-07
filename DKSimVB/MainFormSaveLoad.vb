@@ -70,6 +70,7 @@ Public Partial Class MainForm
 		cmbSigils.Items.Add("HauntedDreams")
 		cmbSigils.Items.Add("VengefulHeart")
 		cmbSigils.Items.Add("Virulence")
+		cmbSigils.Items.Add("HangedMan")
 		cmbSigils.SelectedItem = stemp
 		'cmbSigils.Sorted=true
 		
