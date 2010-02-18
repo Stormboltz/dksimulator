@@ -162,7 +162,9 @@ Public Module SimConstructor
 			EPStat="EP WeaponSpeed"
 			SimConstructor.Start(SimTime,MainFrm)
 		End If
-		
+		Dim tmpInt As Integer
+		tmpInt = EPBase
+		EPBase= 20
 		if doc.SelectSingleNode("//config/Stats/chkEPAfterSpellHitRating").InnerText = "True" then
 			EPStat="EP AfterSpellHitBase"
 			SimConstructor.Start(SimTime,MainFrm)
@@ -171,7 +173,7 @@ Public Module SimConstructor
 			EPStat="EP AfterSpellHitRating"
 			SimConstructor.Start(SimTime,MainFrm)
 		End If
-		
+		EPBase = tmpInt 
 		Dim T As Threading.Thread
 		
 		do until simCollection.Count = 0
@@ -537,17 +539,11 @@ Public Module SimConstructor
 		End If
 		sReport = sReport &   "<tr><td COLSPAN=8> | Presence | " & _MainFrm.cmdPresence.Text & vbCrLf & "</td></tr>"
 		sReport = sReport &   "<tr><td COLSPAN=8> | Sigil | " & _MainFrm.cmbSigils.Text & vbCrLf & "</td></tr>"
-		
-		'If sim.MainStat.DualW Then
 		sReport = sReport &   "<tr><td COLSPAN=8> | RuneEnchant | " & _MainFrm.cmbRuneMH.Text  & " / " & _MainFrm.cmbRuneOH.Text  & "</td></tr>"
-		
-		
 		sReport = sReport &   "<tr><td COLSPAN=8> | Pet Calculation | " & _MainFrm.ckPet.Checked & "</td></tr>"
-		
-		
 		Str 	=	Str.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator,".")
-		Agility 	=	Agility.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator,".")
-		MHSpeed 	=	MHSpeed.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator,".")
+		Agility =	Agility.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator,".")
+		MHSpeed =	MHSpeed.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator,".")
 		Exp 	=	Exp.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator,".")
 		MHDPS 	=	MHDPS.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator,".")
 		SpHit	=	SpHit.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator,".")

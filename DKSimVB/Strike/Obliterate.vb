@@ -89,7 +89,7 @@ Friend Class Obliterate
 		else
 			tmp = tmp * (1 + 0.125 * Sim.NumDesease)
 		end if
-		if (T/sim.MaxTime) >= 0.75 then tmp = tmp *(1+ 0.06*sim.talentfrost.MercilessCombat)
+		if sim.ExecuteRange then tmp = tmp *(1+ 0.06*sim.talentfrost.MercilessCombat)
 		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
 		If sim.glyph.Obliterate Then tmp = tmp *1.2
 		

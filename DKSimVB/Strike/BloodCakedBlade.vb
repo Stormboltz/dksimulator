@@ -22,11 +22,11 @@ Sub New(S As sim)
 		dégat = AvrgNonCrit(T)
 		totalhit += dégat
 		total = total + dégat 
-		If offhand = false Then
-			sim.TryOnMHHitProc
-		Else
-			sim.TryOnOHHitProc
-		End If
+'		If offhand = false Then
+'			sim.TryOnMHHitProc
+'		Else
+'			sim.TryOnOHHitProc
+'		End If
 		
 		
 		

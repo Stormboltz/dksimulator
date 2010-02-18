@@ -62,7 +62,8 @@ Public Partial Class MainForm
 	End Sub
 	
 	Sub MainFormLoad(sender As Object, e As EventArgs)
-		me.Text = "Kahorie's DK Simulator " & Application.ProductVersion
+		Me.Text = "Kahorie's DK Simulator " & Application.ProductVersion
+		LoadTrinket
 		loadWindow
 		loadConfig
 		LoadEPOptions
@@ -322,7 +323,8 @@ Public Partial Class MainForm
 	
 	
 	Sub CmdScalingClick(sender As Object, e As EventArgs)
-		if LoadBeforeSim = false then exit sub
+		If LoadBeforeSim = False Then Exit Sub
+		Me.tabControl1.SelectedIndex = 1
 		SimConstructor.StartScaling(PBsim,txtSimtime.Text,me)
 	End Sub
 

@@ -77,7 +77,7 @@ Public Class Trinkets
 		BryntrollHeroic = New Trinket(s)
 		With BryntrollHeroic
 			._Name = "BryntrollHeroic"
-			.ProcOn = Procs.ProcOnType.OnDamage
+			.ProcOn = Procs.ProcOnType.OnMHhit
 			.ProcChance  = 0.1133
 			.ProcValue = 2538
 			.DamageType = "BryntrollHeroic"
@@ -88,7 +88,7 @@ Public Class Trinkets
 		Bryntroll = New Trinket(s)
 		With Bryntroll
 			._Name = "Bryntroll"
-			.ProcOn = Procs.ProcOnType.OnDamage
+			.ProcOn = Procs.ProcOnType.OnMHhit
 			.ProcChance  = 0.1133
 			.ProcValue = 2250
 			.DamageType = "Bryntroll"

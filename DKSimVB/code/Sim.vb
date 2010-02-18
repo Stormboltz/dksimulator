@@ -21,10 +21,11 @@ Public Class Sim
 	Friend BloodToSync As Boolean
 	Friend KeepBloodSync as Boolean
 	Friend ShowProc As Boolean
-	
+	Friend MultipleDamage as new ArrayList
+	Friend NextReset As Integer
+	Friend LastReset as Integer
 	Friend NumberOfEnemies as Integer
 	Private SimStart as Date
-	'Friend _MainFrm As MainForm
 	
 	Friend Threat as Long
 	Private AMSTimer As Long
@@ -173,7 +174,13 @@ Public Class Sim
 	End Function
 	
 	
-	
+	Function ExecuteRange As Boolean
+		If (TimeStamp-LastReset) / (NextReset - LastReset) > 0.75 Then
+			Return True
+		Else
+			Return False
+		End If
+	End Function
 	
 	
 	Private SimTime As Double
@@ -208,83 +215,60 @@ Public Class Sim
 		LoadConfig
 		
 		
-		'MergeReport = true
-		'CreateProgressFrame
 		Rnd(-1) 'Tell VB to initialize using Randomize's parameter
 		RandomNumberGenerator = new RandomNumberGenerator 'init here, so that we don't get the same rng numbers for short fights.
-		'EPBase = 50
-		'combatlog.LogDetails = true
 		SimStart = now
-		
 		MaxTime = SimTime * 60 * 60 * 100
-		
 		TotalDamageAlternative = 0
 		TimeStampCounter = 1
-		dim resetTime as Integer
-		Dim NextReset as Integer
+		Dim resetTime As Integer
 		
 		If _MainFrm.chkManyFights.Checked Then
 			NumberOfFights = Math.Round( ( SimTime * 60 * 60 ) / _MainFrm.txtManyFights.text )
-			'Debug.Print( "SimTime = " & SimTime * 60 * 60)
-			'Debug.Print( "_MainFrm.txtManyFights.text = " & _MainFrm.txtManyFights.text)
-			'MaxTime =
 			resetTime = _MainFrm.txtManyFights.text * 100
 			NextReset = resetTime
-			'Debug.Print( "NumberOfFights = " & NumberOfFights)
 		Else
 			NumberOfFights = 1
 			resetTime = MaxTime + 1
 		End If
-		
 		Dim intCount As Integer
-		
 		'Init
 		Initialisation
 		TimeStamp = 1
 		If TalentUnholy.MasterOfGhouls=1 Then Ghoul.Summon(1)
 		Rotation.LoadIntro
 		If Rotate Then Rotation.loadRotation
-		
 		Do Until TimeStamp >= MaxTime
-			
 			Timestamp = FastFoward(Timestamp)
 			If TimeStamp >= MaxTime Then goto finnish
-			
 			If NextReset <= Timestamp Then
+				StoreMyDamage(TotalDamage)
 				SoftReset
+				LastReset = NextReset
 				NextReset = NextReset + resetTime
 			End If
-			
-			
 			If FrostPresence = 1 Then
 				If Boss.NextHit <= TimeStamp Then
 					Boss.ApplyDamage(TimeStamp)
 				End If
 			End If
-			
-			
 			application.DoEvents
-			
 			If AMSTimer < TimeStamp Then
 				AMSTimer = TimeStamp + AMSCd
 				RunicPower.add(AMSAmount)
 			End If
-			
 			If TalentBlood.Butchery > 0 And Butchery.nextTick <= TimeStamp Then
 				Butchery.apply(TimeStamp)
 			End If
-			
 			If true then 'InterruptTimer > TimeStamp Or InterruptAmount == 0 Then 'Interrupt fighting every InterruptCd secs
 				If Bloodlust.IsAvailable(TimeStamp) And TimeStamp > 500 Then
 					Bloodlust.use(TimeStamp)
 				End If
-				
 				if TalentBlood.DRW = 1 then
 					If DRW.IsActive(TimeStamp) Then
 						if DRW.NextDRW <= TimeStamp then DRW.ApplyDamage(TimeStamp)
 					End If
 				end if
-				
 				If PetFriendly Then
 					If TalentUnholy.SummonGargoyle = 1 Then
 						If Gargoyle.ActiveUntil >= TimeStamp Then
@@ -292,9 +276,7 @@ Public Class Sim
 						end if
 					End If
 				end if
-				
 				If isInGCD(TimeStamp) = False Then rotation.DoIntro(TimeStamp)
-				
 				If isInGCD(TimeStamp) = False Then
 					If BoneShieldUsageStyle = 2 Then
 						If runes.BloodRune1.Available(TimeStamp) = False Then
@@ -309,24 +291,13 @@ Public Class Sim
 						End If
 					End If
 				End If
-				
-				
-				
-				
-				
 				If isInGCD(TimeStamp) = False Then
-					
 					if Rotate then
 						Rotation.DoRoration(TimeStamp)
 					else
 						Priority.DoNext (TimeStamp)
 					End If
 				End If
-				
-				
-				
-				
-				
 				If PetFriendly Then
 					If isInGCD(TimeStamp) = False Then
 						If Ghoul.ActiveUntil < TimeStamp and Ghoul.cd < TimeStamp and CanUseGCD(TimeStamp) Then
@@ -341,7 +312,6 @@ Public Class Sim
 						End If
 					End If
 				End If
-				
 				If MainHand.NextWhiteMainHit <= TimeStamp Then MainHand.ApplyDamage(TimeStamp)
 				If MainStat.DualW Then
 					If OffHand.NextWhiteOffHit <= TimeStamp Then OffHand.ApplyDamage(TimeStamp)
@@ -349,17 +319,14 @@ Public Class Sim
 			Else
 				'InterruptTimer > TimeStamp Or InterruptAmount
 			End If
-			
 			If isInGCD(TimeStamp) = False Then
 				If horn.isAutoAvailable(TimeStamp) and CanUseGCD(TimeStamp) Then
 					horn.use(TimeStamp)
 				end if
 			End If
-			
 			If DeathandDecay.nextTick = TimeStamp Then
 				DeathandDecay.ApplyDamage(TimeStamp)
 			End If
-			
 			If BloodPlague.isActive(TimeStamp) Then
 				If BloodPlague.nextTick <= TimeStamp Then
 					BloodPlague.ApplyDamage(TimeStamp)
@@ -370,37 +337,28 @@ Public Class Sim
 					FrostFever.ApplyDamage(TimeStamp)
 				End If
 			End If
-			
 			If ShowDpsTimer <= TimeStamp Then
 				ShowDpsTimer = TimeStamp + 0.1 * 60 * 60 * 100
 			ElseIf ShowDpsTimer <= TimeStamp Then
 				ShowDpsTimer = TimeStamp + 0.1 * 60 * 60 * 100
 			End If
 		Loop
-		
 		'Finnish Line
 		finnish:
 		TotalDamageAlternative = TotalDamageAlternative + TotalDamage
 		TimeStampCounter = TimeStampCounter + TimeStamp
-		
-		
 		'TotalDamage = TotalDamageAlternative
 		TimeStamp = TimeStampCounter
-		
 		DPS = 100 * TotalDamage / TimeStamp
-		
 		Report()
-
 		Debug.Print( "DPS=" & DPS & " " & "TPS=" & TPS & " " & EPStat & " hit=" & mainstat.Hit & " sphit=" & mainstat.SpellHit & " exp=" & mainstat.expertise )
 		combatlog.finish
-		
 		On Error Resume Next
 		If Me.FrostPresence = 1 Then
 			SimConstructor.DPSs.Add(TPS, Me.EPStat)
 		Else
 			SimConstructor.DPSs.Add(DPS, Me.EPStat)
 		End If
-		
 		SimConstructor.simCollection.Remove(me)
 	End Sub
 	
@@ -777,9 +735,6 @@ Public Class Sim
 		Character = New Character(Me)
 		MainStat = New MainStat(Me)
 		
-		
-		
-		
 		xmlcharacter.Load(Application.StartupPath & "\characters\" & doc.SelectSingleNode("//config/Character").InnerText)
 		
 		 
@@ -804,9 +759,6 @@ Public Class Sim
 		MergeReport = doc.SelectSingleNode("//config/chkMergeReport").InnerText
 		ReportName = doc.SelectSingleNode("//config/txtReportName").InnerText
 		WaitForFallenCrusader = doc.SelectSingleNode("//config/WaitFC").InnerText
-		
-		
-		
 		
 		Dim tmp As String
 		tmp = doc.SelectSingleNode("//config/BShOption").InnerText
@@ -990,7 +942,23 @@ Public Class Sim
 		
 		sTmp = ""
 		if EPStat <> "" then STmp =  "<tr><td COLSPAN=8>EP Stat <b>" &  EPStat & "</b></td></tr>"
-		STmp = sTmp &  "<tr><td COLSPAN=8>DPS<FONT COLOR='white'>|</FONT>" & VBtab & "<b>" &  DPS & "</b></td></tr>"
+		'STmp = sTmp &  "<tr><td COLSPAN=8>DPS<FONT COLOR='white'>|</FONT>" & VBtab & "<b>" &  DPS & "</b></td></tr>"
+		
+		Dim minDPS As Integer
+		dim maxDPS as Integer
+		Dim MinMAx As Integer
+		Dim range As Double
+		
+		If 	MultipleDamage.Count > 1 Then
+			MultipleDamage.Sort
+			minDPS = MultipleDamage.Item(1)/(_MainFrm.txtManyFights.text)
+			maxDPS = MultipleDamage.Item(MultipleDamage.Count-1)/(_MainFrm.txtManyFights.text)
+			MinMAx = math.Max(DPS-minDPS,maxDPS-DPS)
+			range = (maxDPS-minDPS)/(2*DPS)
+			STmp = sTmp &  "<tr><td COLSPAN=8>DPS<FONT COLOR='white'>|</FONT>" & VBtab & "<b>" &  DPS & "(+/- " & MinMAx & ")</b></td></tr>"
+		Else
+			STmp = sTmp &  "<tr><td COLSPAN=8>DPS<FONT COLOR='white'>|</FONT>" & VBtab & "<b>" &  DPS & "</b></td></tr>"
+		End If
 		STmp = sTmp &   "<tr><td COLSPAN=8>Total Damage<FONT COLOR='white'>|</FONT>" & VBtab & Math.Round(TotalDamage/1000000,2) & "m" & VBtab &  "<FONT COLOR='white'>|</FONT> in " & MaxTime / 100 / 60/60 & "h</td></tr>"
 		
 		
@@ -1102,6 +1070,16 @@ Public Class Sim
 		TryOnMHHitProc
 	End Sub
 	
+	Sub StoreMyDamage(damage As Long)
+		Dim tmp As Long
+		Dim i As Integer
+		on error resume next
+		tmp = damage
+		For i=0 To MultipleDamage.Count
+			tmp = tmp - MultipleDamage.Item(i)
+		Next
+		MultipleDamage.Add(tmp)
+	End Sub
 	
 	
 	Sub TryOnMHHitProc()
@@ -1139,5 +1117,6 @@ Public Class Sim
 		For Each obj In Me.proc.OnDamageProcs
 			obj.TryMe(timestamp)
 		Next
+		tryOnDamageProc
 	End Sub
 End Class

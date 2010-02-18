@@ -32,11 +32,8 @@ Friend Class FrostStrike
 	End Function
 	
 	public Overrides Function ApplyDamage(T As Long) As Boolean
-		
 		Dim RNG As Double
-		
 		UseGCD(T)
-		
 		If OffHand = false Then
 			If sim.glyph.FrostStrike Then
 				Sim.RunicPower.Value = Sim.RunicPower.Value - 32
@@ -44,21 +41,15 @@ Friend Class FrostStrike
 				Sim.RunicPower.Value = Sim.RunicPower.Value - 40
 			End If
 		end if
-		
-		
 		If sim.MainStat.DualW And sim.TalentFrost.ThreatOfThassarian = 3 Then
 			if OffHand = false then sim.OHFrostStrike.ApplyDamage(T)
 		End If
-		
-		
-		
 		If DoMyStrikeHit = false Then
 			sim.combatlog.write(T  & vbtab & "FS fail")
 			If offhand = false Then sim.proc.KillingMachine.Use
 			MissCount = MissCount + 1
 			return false
 		End If
-
 		Dim ccT As Double
 		Dim dégat As Integer
 		ccT = CritChance
@@ -75,7 +66,6 @@ Friend Class FrostStrike
 			totalhit += dégat
 			sim.combatlog.write(T  & vbtab &  "FS hit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.Value )
 		End If
-
 		total = total + dégat
 		If offhand Then
 			sim.TryOnOHHitProc
@@ -84,7 +74,6 @@ Friend Class FrostStrike
 			sim.proc.KillingMachine.Use
 		End If
 		Return True
-
 	End Function
 	public Overrides Function AvrgNonCrit(T As long) As Double
 		Dim tmp As Double
@@ -97,7 +86,7 @@ Friend Class FrostStrike
 		if sim.sigils.VengefulHeart then tmp= tmp + 113
 		tmp = tmp * (1+ sim.TalentFrost.BloodoftheNorth * 5 /100)
 		if sim.NumDesease > 0 or (sim.Buff.BloodPlague+sim.Buff.FrostFever>0) Then 	tmp = tmp * (1 + sim.TalentFrost.GlacierRot * 6.6666666 / 100)
-		if (T/sim.MaxTime) >= 0.75 then tmp = tmp *(1+ 0.06*sim.talentfrost.MercilessCombat)
+		if sim.ExecuteRange then tmp = tmp *(1+ 0.06*sim.talentfrost.MercilessCombat)
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
 		tmp = tmp *(1+sim.RuneForge.RazorIceStack/100) 'TODO: only on main target

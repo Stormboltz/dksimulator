@@ -47,7 +47,7 @@ Friend Class IcyTouch
 		tmp = tmp + (0.1 * (1 + 0.04 * sim.TalentUnholy.Impurity) * sim.MainStat.AP)
 		tmp = tmp * (1 + sim.TalentFrost.ImprovedIcyTouch * 5 / 100)
 		if sim.NumDesease > 0 or (sim.Buff.BloodPlague+sim.Buff.FrostFever>0) Then 	tmp = tmp * (1 + sim.TalentFrost.GlacierRot * 6.6666666 / 100)
-		If (T/sim.MaxTime) >= 0.75 Then tmp = tmp *(1+ 0.06*sim.talentfrost.MercilessCombat)
+		If sim.ExecuteRange Then tmp = tmp *(1+ 0.06*sim.talentfrost.MercilessCombat)
 		If sim.sigils.FrozenConscience Then tmp = tmp +111
 		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
 		

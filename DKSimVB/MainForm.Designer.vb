@@ -729,6 +729,7 @@ Partial Class MainForm
 		Me.ckPet.TabIndex = 80
 		Me.ckPet.Text = "Use Pets(Ghoul, Gargoyle)"
 		Me.ckPet.UseVisualStyleBackColor = true
+		AddHandler Me.ckPet.CheckedChanged, AddressOf Me.CkPetCheckedChanged
 		'
 		'label18
 		'

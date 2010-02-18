@@ -301,7 +301,6 @@ Friend Class Procs
 					tmp += prc.ProcValue
 				End If
 			End If
-			
 			If prc.ProcTypeStack = stat Then
 				tmp += prc.ProcValueStack * prc.Stack
 			End If

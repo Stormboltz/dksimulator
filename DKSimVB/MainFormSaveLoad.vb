@@ -98,7 +98,7 @@ Public Partial Class MainForm
 		cmbBShOption.Items.Add("After BS/BB")
 		cmbBShOption.SelectedItem = stemp
 		
-		LoadTrinket()
+		
 		
 		
 		SimConstructor.PetFriendly = me.ckPet.Checked
@@ -109,7 +109,11 @@ Public Partial Class MainForm
 	Sub LoadTrinket()
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
 		Doc.Load(Application.StartupPath & "\config\TrinketList.xml")
-		
+		dim item as Control
+		For Each item In groupBox3.Controls
+			item.Dispose
+		Next
+		groupBox3.Controls.Clear
 		Dim xNode As Xml.XmlNode
 		
 		For Each xNode In Doc.SelectsingleNode("/TrinketList").ChildNodes

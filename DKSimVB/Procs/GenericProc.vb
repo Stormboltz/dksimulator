@@ -111,7 +111,7 @@ Public Class Proc
 					AddUptime(T)
 					HitCount += 1
 				Case "Shadowmourne"
-					Me.Stack +=1
+					Stack +=1
 					If Me.Stack =10 Then
 						Me.Stack=0
 					
