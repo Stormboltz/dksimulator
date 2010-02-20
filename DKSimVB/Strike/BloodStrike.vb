@@ -86,7 +86,11 @@ public Overrides Function AvrgNonCrit(T as Long) As Double
 	tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
 	If offhand Then
 		tmp = tmp * 0.5
-		tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 5 / 100)
+		If sim.patch Then
+				tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 8.3333 / 100)
+			Else
+				tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 5 / 100)
+			End If
 	End If
 	if sim.MainStat.T92PTNK =1 then tmp = tmp *1.05
 	AvrgNonCrit = tmp

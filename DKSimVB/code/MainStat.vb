@@ -432,6 +432,8 @@ Friend Class MainStat
 				tmp = 6.5
 			Case "EP ExpertiseRatingAfterCap"
 				tmp = 6.5 + sim.EPBase / 32.79
+			Case "EP RelativeExpertiseRating"
+				tmp += sim.EPBase / 32.79				
 			Case Else
 				If InStr(sim.EPStat,"ScaExp") Then
 					If InStr(sim.EPStat,"ScaExpA") Then

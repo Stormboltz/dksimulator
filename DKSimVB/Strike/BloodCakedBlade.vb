@@ -21,7 +21,7 @@ Sub New(S As sim)
 		End If
 		dégat = AvrgNonCrit(T)
 		totalhit += dégat
-		total = total + dégat 
+		total = total + dégat
 '		If offhand = false Then
 '			sim.TryOnMHHitProc
 '		Else
@@ -41,7 +41,12 @@ Sub New(S As sim)
 		Else
 			tmp = sim.MainStat.OHBaseDamage
 			tmp = tmp * 0.5
-			tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 5 / 100)
+			If sim.patch Then
+				tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 8.3333 / 100)
+			Else
+				tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 5 / 100)
+			End If
+			
 		End If
 		tmp = tmp * (0.25 + 0.125 * Sim.NumDesease)
 		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)

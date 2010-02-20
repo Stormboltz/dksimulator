@@ -86,7 +86,11 @@ Friend Class DeathStrike
 		
 		If offhand Then
 			tmp = tmp * 0.5
-			tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 5 / 100)
+			If sim.patch Then
+				tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 8.3333 / 100)
+			Else
+				tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 5 / 100)
+			End If
 		End If
 		return tmp
 	End Function

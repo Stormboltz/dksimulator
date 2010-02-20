@@ -3,7 +3,7 @@
 ' Utilisateur: e0030653
 ' Date: 11/12/2009
 ' Heure: 2:01 PM
-' 
+'
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
 Public Class ScourgeStrikeMagical
@@ -30,9 +30,8 @@ Public Class ScourgeStrikeMagical
 			CritCount +=1
 			tmp = AvrgNonCrit(T)
 			TotalCrit +=  tmp
-			sim.tryOnCrit
 		Else
-			HitCount += 1 
+			HitCount += 1
 			tmp = AvrgNonCrit(T)
 			Totalhit += tmp
 		End If
@@ -46,11 +45,13 @@ Public Class ScourgeStrikeMagical
 		Dim addtiveDamage As Double
 		
 		tmpMagical = tmpPhysical
-		If sim.MainStat.T84PDPS = 1 Then
-			tmpMagical = tmpMagical * (0.25 * Sim.NumDesease * 1.2)
+		
+		If sim.Patch Then
+			tmpMagical = tmpMagical * (0.12 * Sim.NumDesease )
 		Else
 			tmpMagical = tmpMagical * (0.25 * Sim.NumDesease )
 		End If
+		If sim.MainStat.T84PDPS = 1 Then tmpMagical =tmpMagical  * 1.2
 		Dim tmp As Double
 		tmp = 1
 		addtiveDamage = 1
@@ -58,7 +59,7 @@ Public Class ScourgeStrikeMagical
 		addtiveDamage += 0.02 * sim.BoneShield.Value(T)
 		If sim.Desolation.isActive(T) Then addtiveDamage += sim.Desolation.Bonus
 		addtiveDamage +=  sim.TalentFrost.BlackIce * 2 / 100
-		tmp = tmp * addtiveDamage 
+		tmp = tmp * addtiveDamage
 		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
 		tmp = tmp * (1 + 0.02 * sim.TalentBlood.BloodGorged)
 		if sim.proc.T104PDPSFAde >= T then tmp = tmp * 1.03

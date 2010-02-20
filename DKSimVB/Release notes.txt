@@ -1,8 +1,14 @@
-﻿
-1.2.0.8 Release notes
+﻿1.2.0.8 Release notes
 * Bryntroll normal/heroic should now be accurate.
 * Racial Expertise finally corrected.
-
+* A new EP value: Personal Expertise: Give you the expertise value regarding your actual Expertise.
+* Patch 3.3.3 - Check the box on the main screen to enable them:
+- Rune of Razorice: Now stacks 5 stacks of 2% Frost Vulnerability instead of 10 stacks of 1% Frost Vulnerability. Proc chance changed to 100%.
+- Endless Winter: No longer causes Frost Fever to be applied by Chains of Ice, but instead grants 2/4% strength. 
+- Nerves of Cold Steel: Now increases off-hand damage by 8/16/25%, up from 5/10/15%.
+- Unbreakable Armor: The amount of strength granted is now 20%, up from 10%.
+- Glyph of Obliterate increased to 25%, up from 20%
+- Scourge Strike: Now deals 70% weapon damage, plus 12% of physical damage done as shadow damage for each of the death knight's diseases on the targe
 
 1.2.0.7 Release notes
 * Racial Expertise correction.

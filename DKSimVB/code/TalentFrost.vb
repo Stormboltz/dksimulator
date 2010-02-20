@@ -18,7 +18,8 @@ Friend TundraStalker As Integer
 Friend ChillOfTheGrave  As Integer
 Friend HowlingBlast as Integer
 Friend RPM As Integer
-Friend ThreatOfThassarian as Integer
+Friend ThreatOfThassarian As Integer
+Friend EndlessWinter as Integer
 
 Sub new()
    

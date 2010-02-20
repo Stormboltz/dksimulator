@@ -56,7 +56,7 @@ Friend Class HowlingBlast
 		Next intCount
 		
 		If sim.proc.rime.IsActive Then
-			sim.Proc.rime.Use 
+			sim.Proc.rime.Use
 			Sim.RunicPower.add (sim.TalentFrost.ChillOfTheGrave * 2.5)
 		Else
 			sim.runes.UseFU(T,False)
@@ -78,7 +78,12 @@ Friend Class HowlingBlast
 		if sim.NumDesease > 0 or (sim.Buff.BloodPlague+sim.Buff.FrostFever>0) then 	tmp = tmp * (1 + sim.TalentFrost.GlacierRot * 6.6666666 / 100)
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		If sim.ExecuteRange Then tmp = tmp *(1+ 0.06*sim.talentfrost.MercilessCombat)
-		tmp = tmp *(1+sim.RuneForge.RazorIceStack/100) 'TODO: only on main target
+		If sim.patch Then
+			tmp = tmp *(1+2*sim.RuneForge.RazorIceStack/100) 'TODO: only on main target
+		Else
+			tmp = tmp *(1+sim.RuneForge.RazorIceStack/100) 'TODO: only on main target
+		End If
+		
 		if sim.runeforge.CinderglacierProc > 0 then
 			tmp = tmp * 1.2
 			sim.runeforge.CinderglacierProc = sim.runeforge.CinderglacierProc -1

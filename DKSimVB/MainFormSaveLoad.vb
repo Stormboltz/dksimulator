@@ -387,6 +387,11 @@ Public Partial Class MainForm
 		root = doc.DocumentElement
 		root.AppendChild(newElem)
 		
+		'Patch
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Patch", "")
+		newElem.InnerText = chkPatch.Checked
+		root = doc.DocumentElement
+		root.AppendChild(newElem)
 		
 		
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "BloodSync", "")
@@ -470,6 +475,8 @@ Public Partial Class MainForm
 		ckLogRP.Checked = doc.SelectSingleNode("//config/logdetail").InnerText
 		chkShowProc.Checked = doc.SelectSingleNode("//config/ShowProc").InnerText
 		chkWaitFC.Checked = doc.SelectSingleNode("//config/WaitFC").InnerText
+		chkPatch.Checked = doc.SelectSingleNode("//config/Patch").InnerText
+		
 		ckPet.Checked = doc.SelectSingleNode("//config/pet").InnerText
 		txtNumberOfEnemies.Text  = doc.SelectSingleNode("//config/Enemies").InnerText
 		

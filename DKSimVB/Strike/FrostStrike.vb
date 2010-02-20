@@ -89,14 +89,22 @@ Friend Class FrostStrike
 		if sim.ExecuteRange then tmp = tmp *(1+ 0.06*sim.talentfrost.MercilessCombat)
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
-		tmp = tmp *(1+sim.RuneForge.RazorIceStack/100) 'TODO: only on main target
+		If sim.patch Then
+			tmp = tmp *(1+2*sim.RuneForge.RazorIceStack/100) 'TODO: only on main target
+		Else
+			tmp = tmp *(1+sim.RuneForge.RazorIceStack/100) 'TODO: only on main target
+		End If
 		if sim.runeforge.CinderglacierProc > 0 then
 			tmp = tmp * 1.2
 			If offhand = false Then sim.runeforge.CinderglacierProc = sim.runeforge.CinderglacierProc -1
 		End If
 		If offhand Then
 			tmp = tmp * 0.5
-			tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 5 / 100)
+			If sim.patch Then
+				tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 8.3333 / 100)
+			Else
+				tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 5 / 100)
+			End If
 		End If
 		AvrgNonCrit = tmp
 	End Function

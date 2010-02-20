@@ -115,10 +115,19 @@ Friend Class Character
 		tmp = tmp * (1 + sim.TalentBlood.Vot3W * 2 / 100)
 		tmp = tmp * (1 + sim.TalentBlood.AbominationMight / 100)
 		tmp = tmp * (1 + sim.TalentUnholy.ravenousdead / 100)
+		If sim.Patch Then
+			tmp = tmp * (1 + sim.TalentFrost.EndlessWinter * 2 / 100)
+		End If
+		
 		If sim.proc.MHFallenCrusader.IsActive Or sim.proc.oHFallenCrusader.IsActive Then
 			tmp = tmp * 1.15
 		End If
-		if sim.UnbreakableArmor.isActive then tmp = tmp * 1.1
+		
+		If sim.Patch Then
+			if sim.UnbreakableArmor.isActive then tmp = tmp * 1.2
+		Else
+			if sim.UnbreakableArmor.isActive then tmp = tmp * 1.1
+		End If
 		return tmp
 	End Function
 	
@@ -213,7 +222,7 @@ Friend Class Character
 			Case "EP HitRatingCapAP"
 				tmp = 263 - sim.TalentFrost.NervesofColdSteel*32.79
 			Case "EP SpellHitRating"
-				tmp = 263 - sim.TalentFrost.NervesofColdSteel*32.79 + 20 
+				tmp = 263 - sim.TalentFrost.NervesofColdSteel*32.79 + 20
 			Case "EP AfterSpellHitBase"
 				tmp = sim.MainStat.SpellHitCapRating
 			Case "EP AfterSpellHitBaseAP"

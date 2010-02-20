@@ -1,7 +1,7 @@
 Imports Microsoft.VisualBasic
 Public Class Sim
 	
-	
+	Friend Patch as Boolean
 	Friend TotalDamageAlternative As Long
 	Friend NextFreeGCD As Long
 	Friend latency As Long
@@ -449,7 +449,9 @@ Public Class Sim
 		if me._EPStat <> "TundraStalker" then talentfrost.TundraStalker  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/TundraStalker").InnerText)
 		if me._EPStat <> "ChillOfTheGrave" then talentfrost.ChillOfTheGrave  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/ChillOfTheGrave").InnerText)
 		if me._EPStat <> "HowlingBlast" then TalentFrost.HowlingBlast = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/HowlingBlast").InnerText)
-		if me._EPStat <> "ThreatOfThassarian" then TalentFrost.ThreatOfThassarian= Integer.Parse(XmlDoc.SelectSingleNode("//Talents/ThreatOfThassarian").InnerText)
+		If Me._EPStat <> "ThreatOfThassarian" Then TalentFrost.ThreatOfThassarian= Integer.Parse(XmlDoc.SelectSingleNode("//Talents/ThreatOfThassarian").InnerText)
+		If Me._EPStat <> "EndlessWinter" Then TalentFrost.EndlessWinter= Integer.Parse(XmlDoc.SelectSingleNode("//Talents/EndlessWinter").InnerText)
+		
 		
 		if me._EPStat <> "ViciousStrikes" then talentunholy.ViciousStrikes  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/ViciousStrikes").InnerText)
 		if me._EPStat <> "Virulence" then talentunholy.Virulence  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Virulence").InnerText)
@@ -759,6 +761,7 @@ Public Class Sim
 		MergeReport = doc.SelectSingleNode("//config/chkMergeReport").InnerText
 		ReportName = doc.SelectSingleNode("//config/txtReportName").InnerText
 		WaitForFallenCrusader = doc.SelectSingleNode("//config/WaitFC").InnerText
+		Patch = doc.SelectSingleNode("//config/Patch").InnerText
 		
 		Dim tmp As String
 		tmp = doc.SelectSingleNode("//config/BShOption").InnerText

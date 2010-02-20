@@ -65,7 +65,7 @@ Friend Class Procs
 		Dim prc As proc
 		For Each prc In AllProcs
 			prc.CD = 0
-			prc.Fade = 0			
+			prc.Fade = 0
 		Next
 	End Sub
 	
@@ -86,7 +86,7 @@ Friend Class Procs
 		Rime = New Proc(s)
 		With Rime
 			._Name = "Rime"
-			if sim.TalentFrost.Rime >  0 then .equip 
+			if sim.TalentFrost.Rime >  0 then .equip
 			.Equiped  = sim.TalentFrost.Rime
 			.ProcLenght = 15
 			.ProcChance = 5 * sim.TalentFrost.Rime/100
@@ -166,7 +166,12 @@ Friend Class Procs
 			._Name = "MHRazorIce"
 			.InternalCD = 0
 			.ProcOn = procs.ProcOnType.OnMHhit
-			.ProcChance = S.MainStat.MHWeaponSpeed/60
+			If sim.patch Then
+				.ProcChance = 1 
+			Else
+				.ProcChance = 5*S.MainStat.MHWeaponSpeed/60
+			End If
+			
 			.ProcLenght = 20
 			.ProcValue = 1
 			if s.RuneForge.MHRazoriceRF	then .Equip
@@ -177,7 +182,11 @@ Friend Class Procs
 			._Name = "Frost Vulnerability"
 			.InternalCD = 0
 			.ProcOn = procs.ProcOnType.OnOHhit
-			.ProcChance = 5*S.MainStat.OHWeaponSpeed/60
+			If sim.patch Then
+				.ProcChance = 1 
+			Else
+				.ProcChance = 5*S.MainStat.OHWeaponSpeed/60
+			end if
 			.ProcLenght = 20
 			.ProcValue = 1
 			if s.RuneForge.OHRazoriceRF	then .Equip
@@ -230,7 +239,7 @@ Friend Class Procs
 			if s.RuneForge.OHCinderglacierRF	then .Equip
 		End With
 		
-		Berserking = New Proc(s)		
+		Berserking = New Proc(s)
 		With Berserking
 			._Name = "Berserking"
 			.InternalCD = 0
@@ -254,7 +263,7 @@ Friend Class Procs
 			If s.Character.Orc Then .Equip
 		End With
 		
-		TrollRacial = New Proc(s)		
+		TrollRacial = New Proc(s)
 		With TrollRacial
 			._Name = "TrollRacial"
 			.InternalCD = 180
@@ -284,7 +293,7 @@ Friend Class Procs
 			.ProcChance = 3 * s.TalentBlood.BloodWorms/100
 			.DamageType = "BloodWorms"
 			.ProcOn = procs.ProcOnType.OnHit
-			If s.TalentBlood.BloodWorms > 0 Then 
+			If s.TalentBlood.BloodWorms > 0 Then
 				.Equip
 				s.DamagingObject.Add(BloodWorms)
 			End If
@@ -297,7 +306,7 @@ Friend Class Procs
 		dim tmp as Integer
 		For Each prc In EquipedTrinkets
 			If prc.ProcType = stat Then
-				If prc.IsActive Then 
+				If prc.IsActive Then
 					tmp += prc.ProcValue
 				End If
 			End If

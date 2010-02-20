@@ -62,7 +62,11 @@ Friend Class RuneForge
 	
 	Sub AddRazorIceStack(T As Long)
 		RazorIceStack += 1
-		If RazorIceStack > 10 Then RazorIceStack=10
+		If sim.patch Then
+			If RazorIceStack > 5 Then RazorIceStack=5
+		Else
+			If RazorIceStack > 10 Then RazorIceStack=10
+		End If
 		HitCount += 1
 	End Sub
 	

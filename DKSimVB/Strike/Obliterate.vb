@@ -91,11 +91,20 @@ Friend Class Obliterate
 		end if
 		if sim.ExecuteRange then tmp = tmp *(1+ 0.06*sim.talentfrost.MercilessCombat)
 		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
-		If sim.glyph.Obliterate Then tmp = tmp *1.2
+		If sim.patch Then
+			If sim.glyph.Obliterate Then tmp = tmp *1.25
+		Else
+			If sim.glyph.Obliterate Then tmp = tmp *1.2
+		End If
+		
 		
 		If OffHand Then
 			tmp = tmp * 0.5
-			tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 5 / 100)
+			If sim.patch Then
+				tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 8.3333 / 100)
+			Else
+				tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 5 / 100)
+			End If
 		End If
 		If sim.MainStat.T102PDPS<>0 Then
 			tmp = tmp * 1.1

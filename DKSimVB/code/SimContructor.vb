@@ -136,6 +136,11 @@ Public Module SimConstructor
 			SimConstructor.Start(SimTime,MainFrm)
 			EPStat="EP ExpertiseRatingCapAP"
 			SimConstructor.Start(SimTime,MainFrm)
+			
+			EPStat="EP RelativeExpertiseRating"
+			SimConstructor.Start(SimTime,MainFrm)
+			
+			
 			If MainFrm.cmdPresence.SelectedItem = "Frost" Then
 				EPStat="EP ExpertiseRatingAfterCap"
 				SimConstructor.Start(SimTime,MainFrm)
@@ -264,6 +269,15 @@ Public Module SimConstructor
 			tmp2 = (DPS-dpss("EP ExpertiseRatingCap")) / EPBase
 			Exp = toDDecimal (-tmp2/tmp1)
 			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (-tmp2/tmp1)) & "</td></tr>"
+			
+			EPStat="EP RelativeExpertiseRating"
+			DPS = dpss(EPStat)
+			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
+			tmp2 = (DPS-BaseDPS) / EPBase
+			sReport = sReport +  ("<tr><td>Personal Expertise value | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
+			
+			
+			
 			'	WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
 		End Try

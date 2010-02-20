@@ -264,6 +264,7 @@ Partial Class MainForm
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.cmdRngSeeder = New System.Windows.Forms.Button
 		Me.tmrProgress = New System.Windows.Forms.Timer(Me.components)
+		Me.chkPatch = New System.Windows.Forms.CheckBox
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -589,6 +590,7 @@ Partial Class MainForm
 		'
 		Me.grpSimOption.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.grpSimOption.Controls.Add(Me.chkPatch)
 		Me.grpSimOption.Controls.Add(Me.chkBloodSync)
 		Me.grpSimOption.Controls.Add(Me.label20)
 		Me.grpSimOption.Controls.Add(Me.cmbBShOption)
@@ -2691,6 +2693,16 @@ Partial Class MainForm
 		Me.tmrProgress.Interval = 1000
 		AddHandler Me.tmrProgress.Tick, AddressOf Me.TmrProgressTick
 		'
+		'chkPatch
+		'
+		Me.chkPatch.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.chkPatch.Location = New System.Drawing.Point(413, 512)
+		Me.chkPatch.Name = "chkPatch"
+		Me.chkPatch.Size = New System.Drawing.Size(104, 24)
+		Me.chkPatch.TabIndex = 88
+		Me.chkPatch.Text = "Patch 3.3.3"
+		Me.chkPatch.UseVisualStyleBackColor = true
+		'
 		'MainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
@@ -2745,6 +2757,7 @@ Partial Class MainForm
 		Me.gbScaling.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Private chkPatch As System.Windows.Forms.CheckBox
 	Private tmrProgress As System.Windows.Forms.Timer
 	Private chkShowProc As System.Windows.Forms.CheckBox
 	Private grpSimOption As System.Windows.Forms.GroupBox

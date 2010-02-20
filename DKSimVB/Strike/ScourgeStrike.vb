@@ -18,7 +18,7 @@ Friend Class ScourgeStrike
 	public Overrides Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
 		'scourgestrike glyph
-		UseGCD(T)	
+		UseGCD(T)
 		
 		If DoMyStrikeHit = false Then
 			sim.combatlog.write(T  & vbtab &  "SS fail")
@@ -69,15 +69,20 @@ Friend Class ScourgeStrike
 	
 	Function AvrgNonCritPhysical(T As Long) As Double
 		tmpPhysical = sim.MainStat.NormalisedMHDamage
-		tmpPhysical = tmpPhysical * 0.50
-		tmpPhysical = tmpPhysical + 400
+		If sim.Patch Then
+			tmpPhysical = tmpPhysical * 0.70
+			tmpPhysical = tmpPhysical + 560
+		Else
+			tmpPhysical = tmpPhysical * 0.50
+			tmpPhysical = tmpPhysical + 400
+		End If
+		
 		
 		If sim.sigils.Awareness Then tmpPhysical = tmpPhysical + 189
 		If sim.sigils.ArthriticBinding Then tmpPhysical = tmpPhysical + 91.35
 		tmpPhysical = tmpPhysical * sim.MainStat.StandardPhysicalDamageMultiplier(T)
 		tmpPhysical = tmpPhysical * (1 + 6.6666666 * sim.TalentUnholy.Outbreak / 100)
 		If sim.MainStat.T102PDPS<>0 Then tmpPhysical = tmpPhysical * 1.1
-		
 		Return tmpPhysical
 	End Function
 	Function AvrgNonCritMagical(T As Long) As Double
