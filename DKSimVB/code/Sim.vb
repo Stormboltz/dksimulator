@@ -711,6 +711,10 @@ Public Class Sim
 				FrostPresence = 1
 		End Select
 		RuneForge = New RuneForge(Me)
+				RunicPower = New RunicPower(Me)
+		proc = New procs(Me)
+		Character = New Character(Me)
+		MainStat = New MainStat(Me)
 		
 		RuneForge.MHCinderglacierRF = False
 		RuneForge.MHFallenCrusader = false
@@ -720,7 +724,6 @@ Public Class Sim
 				RuneForge.MHCinderglacierRF = true
 			Case "FallenCrusader"
 				RuneForge.MHFallenCrusader = True
-				
 			Case "Razorice"
 				RuneForge.MHRazoriceRF = True
 				Trinkets.MHRazorIce.Equip
@@ -732,10 +735,7 @@ Public Class Sim
 		Runeforge.OHBerserking = False
 		Dim xmlcharacter As New Xml.XmlDocument
 		
-		RunicPower = New RunicPower(Me)
-		proc = New procs(Me)
-		Character = New Character(Me)
-		MainStat = New MainStat(Me)
+
 		
 		xmlcharacter.Load(Application.StartupPath & "\characters\" & doc.SelectSingleNode("//config/Character").InnerText)
 		

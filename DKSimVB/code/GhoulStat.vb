@@ -88,7 +88,8 @@ Friend Class GhoulStat
 		tmp = Character.HasteRating / 25.22 / 100 'Haste change for 3.1 ?
 		tmp = tmp + sim.UnholyPresence * 0.15
 		tmp = tmp + 0.05 * sim.TalentFrost.ImprovedIcyTalons
-		tmp = tmp + 0.2 *  sim.Buff.MeleeHaste
+		'if sim.Patch then tmp = tmp + 0.20 * sim.TalentFrost.ImprovedIcyTalons
+		tmp = tmp + 0.2 * sim.Buff.MeleeHaste
 		tmp = tmp + 0.03 *  sim.Buff.Haste
 		return tmp
 	End Function
@@ -99,7 +100,6 @@ Friend Class GhoulStat
 			SpellHaste = 0.5
 		Else
 			tmp = Character.SpellHasteRating / 25.22 / 100
-			tmp = tmp + 0.05 * sim.TalentFrost.ImprovedIcyTalons
 			tmp = tmp + 0.05 *  sim.Buff.SpellHaste
 			tmp = tmp + 0.03 *  sim.Buff.Haste
 			SpellHaste = tmp

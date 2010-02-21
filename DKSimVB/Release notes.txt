@@ -2,6 +2,7 @@
 * Bryntroll normal/heroic should now be accurate.
 * Racial Expertise finally corrected.
 * A new EP value: Personal Expertise: Give you the expertise value regarding your actual Expertise.
+* DPS Variance apears if Multiple fight are selected.
 * Patch 3.3.3 - Check the box on the main screen to enable them:
 - Rune of Razorice: Now stacks 5 stacks of 2% Frost Vulnerability instead of 10 stacks of 1% Frost Vulnerability. Proc chance changed to 100%.
 - Endless Winter: No longer causes Frost Fever to be applied by Chains of Ice, but instead grants 2/4% strength. 
