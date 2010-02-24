@@ -88,7 +88,7 @@ Friend Class GhoulStat
 		tmp = Character.HasteRating / 25.22 / 100 'Haste change for 3.1 ?
 		tmp = tmp + sim.UnholyPresence * 0.15
 		tmp = tmp + 0.05 * sim.TalentFrost.ImprovedIcyTalons
-		'if sim.Patch then tmp = tmp + 0.20 * sim.TalentFrost.ImprovedIcyTalons
+		if sim.Patch then tmp = tmp + 0.04 * sim.TalentFrost.IcyTalons
 		tmp = tmp + 0.2 * sim.Buff.MeleeHaste
 		tmp = tmp + 0.03 *  sim.Buff.Haste
 		return tmp

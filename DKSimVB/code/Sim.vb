@@ -451,7 +451,7 @@ Public Class Sim
 		if me._EPStat <> "HowlingBlast" then TalentFrost.HowlingBlast = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/HowlingBlast").InnerText)
 		If Me._EPStat <> "ThreatOfThassarian" Then TalentFrost.ThreatOfThassarian= Integer.Parse(XmlDoc.SelectSingleNode("//Talents/ThreatOfThassarian").InnerText)
 		If Me._EPStat <> "EndlessWinter" Then TalentFrost.EndlessWinter= Integer.Parse(XmlDoc.SelectSingleNode("//Talents/EndlessWinter").InnerText)
-		
+		if me._EPStat <> "IcyTalons" then talentfrost.IcyTalons  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/IcyTalons").InnerText)
 		
 		if me._EPStat <> "ViciousStrikes" then talentunholy.ViciousStrikes  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/ViciousStrikes").InnerText)
 		if me._EPStat <> "Virulence" then talentunholy.Virulence  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Virulence").InnerText)

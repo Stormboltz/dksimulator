@@ -19,7 +19,8 @@ Friend ChillOfTheGrave  As Integer
 Friend HowlingBlast as Integer
 Friend RPM As Integer
 Friend ThreatOfThassarian As Integer
-Friend EndlessWinter as Integer
+Friend EndlessWinter As Integer
+Friend IcyTalons As Integer
 
 Sub new()
    
