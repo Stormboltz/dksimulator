@@ -9,6 +9,7 @@ Friend KillingMachine As Integer
 Friend GlacierRot As Integer
 Friend Deathchill As Integer
 Friend ImprovedIcyTalons As Integer
+Friend IcyTalons As Integer
 Friend MercilessCombat As Integer
 Friend Rime As Integer
 Friend BloodoftheNorth As Integer
@@ -20,7 +21,7 @@ Friend HowlingBlast as Integer
 Friend RPM As Integer
 Friend ThreatOfThassarian As Integer
 Friend EndlessWinter As Integer
-Friend IcyTalons As Integer
+
 
 Sub new()
    

@@ -1,4 +1,11 @@
-﻿1.2.0.8 Release notes
+﻿1.2.0.10 Release notes
+* Icy Talon given 4% haste on patch mode
+
+1.2.0.9 Release notes
+* Glyph of Obliterate back to 20% on patch mode.
+* Razorice in Main hand should not crash the sim.
+
+1.2.0.8 Release notes
 * Bryntroll normal/heroic should now be accurate.
 * Racial Expertise finally corrected.
 * A new EP value: Personal Expertise: Give you the expertise value regarding your actual Expertise.
