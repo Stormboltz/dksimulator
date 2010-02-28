@@ -22,14 +22,6 @@ Sub New(S As sim)
 		dégat = AvrgNonCrit(T)
 		totalhit += dégat
 		total = total + dégat
-'		If offhand = false Then
-'			sim.TryOnMHHitProc
-'		Else
-'			sim.TryOnOHHitProc
-'		End If
-		
-		
-		
 		HitCount = HitCount + 1
 		if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "BCB hit for " & dégat )
 		return true

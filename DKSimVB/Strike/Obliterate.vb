@@ -85,9 +85,9 @@ Friend Class Obliterate
 		
 		if sim.sigils.Awareness then tmp = tmp + 336
 		if sim.MainStat.T84PDPS = 1 then
-			tmp = tmp * (1 + 0.125 * Sim.NumDesease * 1.2)
+			tmp = tmp * (1 + 0.1 * Sim.NumDesease * 1.2)
 		else
-			tmp = tmp * (1 + 0.125 * Sim.NumDesease)
+			tmp = tmp * (1 + 0.1 * Sim.NumDesease)
 		end if
 		if sim.ExecuteRange then tmp = tmp *(1+ 0.06*sim.talentfrost.MercilessCombat)
 		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)

@@ -692,7 +692,8 @@ Public Module SimConstructor
 			End If
 		Next
 		
-		do until simCollection.Count = 0
+		Do Until simCollection.Count = 0
+			'ThreadCollection.Item(0).Join(100)
 			For Each T In ThreadCollection
 				T.Join(100)
 			Next

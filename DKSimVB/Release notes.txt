@@ -1,4 +1,9 @@
-﻿1.2.0.10 Release notes
+﻿1.2.0.11 Release notes
+* Obliterate is 10% bonus damage per disease (In game tool tip is wrong) (Thanks to Starfox)
+* Off Hand BCB correction (Thanks to Larisroth)
+* Off Hand Fallen Crusader correction (Thanks to Larisroth)
+
+1.2.0.10 Release notes
 * Icy Talon given 4% haste on patch mode
 
 1.2.0.9 Release notes

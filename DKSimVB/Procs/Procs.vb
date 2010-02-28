@@ -207,7 +207,7 @@ Friend Class Procs
 		With OHFallenCrusader
 			._Name = "OHFallenCrusader"
 			.InternalCD = 0
-			.ProcOn = procs.ProcOnType.OnMHhit
+			.ProcOn = procs.ProcOnType.OnOHhit
 			.ProcChance = 2*S.MainStat.OHWeaponSpeed/60
 			.ProcLenght = 20
 			.ProcValue = 1

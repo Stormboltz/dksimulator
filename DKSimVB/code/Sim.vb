@@ -612,6 +612,8 @@ Public Class Sim
 		Frenzy = NEw Frenzy(Me)
 		BloodCakedBlade = New BloodCakedBlade(Me)
 		OHBloodCakedBlade = New BloodCakedBlade(Me)
+		OHBloodCakedBlade.OffHand = true
+		
 		DeathStrike = New DeathStrike(Me)
 		OHDeathStrike = New DeathStrike(Me)
 		BloodBoil = new BloodBoil(me)
