@@ -407,7 +407,7 @@ Friend Class MainStat
 		tmp = Expertise
 		If strings.InStr(sim.EPStat,"EP Expertise")<> 0 Then
 		Else
-			tmp += sim.Character.OHExpertiseBonus*0.25
+			tmp += (sim.Character.OHExpertiseBonus*0.25/100)
 		End If
 		
 		return tmp

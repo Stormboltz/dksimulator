@@ -50,10 +50,9 @@ Sub New(S As sim)
 			MeleeMissChance = 0.08
 		End If
 		
-		ChanceNotToTouch = MeleeMissChance + MeleeDodgeChance  + MeleeParryChance
+		ChanceNotToTouch = math.Max(0, MeleeMissChance - sim.mainstat.Hit) + math.Max(0, MeleeDodgeChance  - sim.mainstat.MHExpertise) + math.Max(0, MeleeParryChance - sim.mainstat.MHExpertise)
 		
-		
-		If math.Min(sim.mainstat.MHExpertise,MeleeDodgeChance)+ math.Min(sim.mainstat.MHExpertise,MeleeParryChance) + math.Min (sim.mainstat.Hit,MeleeMissChance) + RNG < ChanceNotToTouch Then
+		If RNG < ChanceNotToTouch Then
 			MissCount = MissCount + 1
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "MH fail")
 			exit function

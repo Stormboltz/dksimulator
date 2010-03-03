@@ -33,16 +33,16 @@ Friend Class OffHand
 			MeleeParryChance = 0
 		End If
 		
-		ChanceNotToTouch = MeleeMissChance + MeleeDodgeChance  + MeleeParryChance
+		ChanceNotToTouch = math.Max(0, MeleeMissChance - sim.mainstat.Hit) + math.Max(0, MeleeDodgeChance  - sim.mainstat.OHExpertise) + math.Max(0, MeleeParryChance - sim.mainstat.OHExpertise)
 		
-		If math.Min(sim.mainstat.OHExpertise,MeleeDodgeChance)+ math.Min(sim.mainstat.OHExpertise,MeleeParryChance) + math.Min (sim.mainstat.Hit,MeleeMissChance) + RNG < ChanceNotToTouch Then
+		If RNG < ChanceNotToTouch Then
 			MissCount = MissCount + 1
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH fail")
 			exit function
 		End If
 
 		dim dégat as Integer
-		If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then
+		If RNG < (ChanceNotToTouch + MeleeGlacingChance) Then
 			'Glancing
 			dégat = AvrgNonCrit(T)*0.7
 			totalhit += dégat
