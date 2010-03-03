@@ -28,7 +28,7 @@ Function Summon(T As Long) as  boolean
 	If sim.runeforge.AreStarsAligned(T) = False Then
  		return false
  	End If
-	SpellHaste = sim.MainStat.SpellHaste
+	SpellHaste = sim.MainStat.Haste
 	AP = sim.MainStat.AP
 	If cd <= T Then
 		Sim.RunicPower.Value = Sim.RunicPower.Value - 60
@@ -37,7 +37,7 @@ Function Summon(T As Long) as  boolean
 		ActiveUntil = T + 30 * 100
 		SpellHit = sim.MainStat.SpellHit
 		UseGCD(T)
-		NextGargoyleStrike = T
+		NextGargoyleStrike = T + 1000
 		sim.combatlog.write(T  & vbtab &  "Summon Gargoyle")
 		return true
 	End If
@@ -46,7 +46,7 @@ sub UseGCD(T as Long)
 		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste)) + sim.latency/10
 	End sub
 Function ApplyDamage(T As long) As boolean
-	NextGargoyleStrike = T + (2 * 100) / (1 + SpellHaste)
+	NextGargoyleStrike =  T + math.Max((2 * 100) / (1 + SpellHaste),1)
 	'Debug.Print( (2 * 100) / (1 + SpellHaste) )
 	Dim RNG As Double
 	

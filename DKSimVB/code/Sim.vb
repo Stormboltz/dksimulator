@@ -239,7 +239,7 @@ Public Class Sim
 		Rotation.LoadIntro
 		If Rotate Then Rotation.loadRotation
 		Do Until TimeStamp >= MaxTime
-			Timestamp = FastFoward(Timestamp)
+			TimeStamp = FastFoward(TimeStamp)
 			If TimeStamp >= MaxTime Then goto finnish
 			If NextReset <= Timestamp Then
 				StoreMyDamage(TotalDamage)
@@ -999,60 +999,67 @@ Public Class Sim
 	End Sub
 	Function FastFoward(T As Long) As Long
 		Dim tmp As Long
+		dim aT as new ArrayList
+		
 		
 		tmp = MaxTime+1
 		
 		If NextFreeGCD > T Then
-			tmp = NextFreeGCD
+			aT.Add(NextFreeGCD)
 		Else
-			if runes.BloodRune1.AvailableTime > T and runes.BloodRune1.AvailableTime < tmp then  tmp = runes.BloodRune1.AvailableTime
-			if runes.BloodRune2.AvailableTime > T and runes.BloodRune2.AvailableTime < tmp then  tmp = runes.BloodRune2.AvailableTime
-			If runes.FrostRune1.AvailableTime > T And runes.FrostRune1.AvailableTime < tmp Then  tmp = runes.FrostRune1.AvailableTime
-			If runes.FrostRune2.AvailableTime > T And runes.FrostRune2.AvailableTime < tmp Then  tmp = runes.FrostRune2.AvailableTime
-			If runes.UnholyRune1.AvailableTime > T And runes.UnholyRune1.AvailableTime < tmp Then  tmp = runes.UnholyRune1.AvailableTime
-			if runes.UnholyRune2.AvailableTime > T and runes.UnholyRune2.AvailableTime < tmp then  tmp = runes.UnholyRune2.AvailableTime
-			
+			if Runes.BloodRune1.AvailableTime > T  then  aT.Add(runes.BloodRune1.AvailableTime)
+			if Runes.BloodRune2.AvailableTime > T then  aT.Add (runes.BloodRune2.AvailableTime)
+			If Runes.FrostRune1.AvailableTime > T  Then  aT.Add (runes.FrostRune1.AvailableTime)
+			If Runes.FrostRune2.AvailableTime > T Then  aT.Add (runes.FrostRune2.AvailableTime)
+			If Runes.UnholyRune1.AvailableTime > T  Then  aT.Add (runes.UnholyRune1.AvailableTime)
+			if Runes.UnholyRune2.AvailableTime > T  then  aT.Add (runes.UnholyRune2.AvailableTime)
 		End If
 		
-		If Butchery.nextTick < tmp  And TalentBlood.Butchery > 0 Then tmp = Butchery.nextTick
+		If TalentBlood.Butchery > 0 Then aT.Add(Butchery.nextTick)
 		
-		if DeathandDecay.nextTick > TimeStamp and  DeathandDecay.nextTick < tmp then tmp = DeathandDecay.nextTick
+		if DeathandDecay.nextTick > TimeStamp then aT.Add( DeathandDecay.nextTick)
 		
 		if TalentBlood.DRW = 1 then
 			If DRW.IsActive(TimeStamp) Then
-				if DRW.NextDRW < tmp  then tmp = DRW.NextDRW
+				aT.Add(DRW.NextDRW)
 			End If
 		End If
 		If PetFriendly Then
 			If TalentUnholy.SummonGargoyle = 1 Then
 				If Gargoyle.ActiveUntil >= TimeStamp Then
-					If Gargoyle.NextGargoyleStrike < tmp then tmp = Gargoyle.NextGargoyleStrike
+					aT.Add(Gargoyle.NextGargoyleStrike)
 				end if
 			End If
 			If Ghoul.ActiveUntil >= TimeStamp Then
-				If Ghoul.NextWhiteMainHit < tmp Then tmp = Ghoul.NextWhiteMainHit
-				If Ghoul.NextClaw < tmp Then tmp = Ghoul.NextClaw
+				aT.Add(Ghoul.NextWhiteMainHit)
+				aT.Add(Ghoul.NextClaw)
 			End If
 		End If
-		If MainHand.NextWhiteMainHit < tmp Then tmp = MainHand.NextWhiteMainHit
+		aT.Add(MainHand.NextWhiteMainHit)
 		If MainStat.DualW Then
-			If OffHand.NextWhiteOffHit < tmp Then tmp = OffHand.NextWhiteOffHit
+			aT.Add(OffHand.NextWhiteOffHit)
 		End If
 		If BloodPlague.isActive(TimeStamp) Then
-			If BloodPlague.nextTick < tmp Then tmp = BloodPlague.nextTick
+			aT.Add(BloodPlague.nextTick)
 		End If
 		If FrostFever.isActive(TimeStamp) Then
-			If FrostFever.nextTick < tmp Then
-				tmp = FrostFever.nextTick
-			End If
+			aT.Add(FrostFever.nextTick)
 		End If
 		
 		If FrostPresence = 1 Then
-			If Boss.NextHit < tmp Then
-				tmp = Boss.NextHit
-			End If
+			aT.Add(Boss.NextHit)
 		End If
-		
+		aT.Sort
+		Dim i As Integer
+		Try
+			Do Until aT.Item(i) > T
+				application.DoEvents
+				aT.Remove(aT.Item(0))
+			Loop
+			tmp = aT.Item(0)
+		Catch
+			tmp = 0
+		End Try
 		If tmp < T Then
 			Return T
 		Else

@@ -83,12 +83,23 @@ Friend Class Obliterate
 			tmp = sim.MainStat.NormalisedMHDamage * 0.8 + 467.2
 		End If
 		
-		if sim.sigils.Awareness then tmp = tmp + 336
-		if sim.MainStat.T84PDPS = 1 then
-			tmp = tmp * (1 + 0.1 * Sim.NumDesease * 1.2)
-		else
-			tmp = tmp * (1 + 0.1 * Sim.NumDesease)
-		end if
+		If sim.sigils.Awareness Then tmp = tmp + 336
+		If sim.Patch Then
+			if sim.MainStat.T84PDPS = 1 then
+				tmp = tmp * (1 + 0.125 * Sim.NumDesease * 1.2)
+			else
+				tmp = tmp * (1 + 0.125 * Sim.NumDesease)
+			end if
+		Else
+			if sim.MainStat.T84PDPS = 1 then
+				tmp = tmp * (1 + 0.1 * Sim.NumDesease * 1.2)
+			else
+				tmp = tmp * (1 + 0.1 * Sim.NumDesease)
+			end if
+		End If
+		
+		
+		
 		if sim.ExecuteRange then tmp = tmp *(1+ 0.06*sim.talentfrost.MercilessCombat)
 		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
 		If sim.glyph.Obliterate Then tmp = tmp *1.2
@@ -128,14 +139,14 @@ Friend Class Obliterate
 		return AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 	
-
+	
 	
 	Public Overrides Sub Merge()
 		If sim.MainStat.DualW = false Then exit sub
 		Total += sim.OHObliterate.Total
 		TotalHit += sim.OHObliterate.TotalHit
 		TotalCrit += sim.OHObliterate.TotalCrit
-
+		
 		MissCount = (MissCount + sim.OHObliterate.MissCount)/2
 		HitCount = (HitCount + sim.OHObliterate.HitCount)/2
 		CritCount = (CritCount + sim.OHObliterate.CritCount)/2

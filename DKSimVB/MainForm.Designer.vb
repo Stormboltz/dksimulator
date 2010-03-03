@@ -62,6 +62,7 @@ Partial Class MainForm
 		Me.chkShowProc = New System.Windows.Forms.CheckBox
 		Me.chkCombatLog = New System.Windows.Forms.CheckBox
 		Me.grpSimOption = New System.Windows.Forms.GroupBox
+		Me.chkPatch = New System.Windows.Forms.CheckBox
 		Me.chkBloodSync = New System.Windows.Forms.CheckBox
 		Me.label20 = New System.Windows.Forms.Label
 		Me.cmbBShOption = New System.Windows.Forms.ComboBox
@@ -264,7 +265,6 @@ Partial Class MainForm
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.cmdRngSeeder = New System.Windows.Forms.Button
 		Me.tmrProgress = New System.Windows.Forms.Timer(Me.components)
-		Me.chkPatch = New System.Windows.Forms.CheckBox
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -585,6 +585,7 @@ Partial Class MainForm
 		Me.chkCombatLog.Text = "Generate Combat Log"
 		Me.chkCombatLog.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		Me.chkCombatLog.UseVisualStyleBackColor = true
+		AddHandler Me.chkCombatLog.CheckedChanged, AddressOf Me.ChkCombatLogCheckedChanged
 		'
 		'grpSimOption
 		'
@@ -646,6 +647,16 @@ Partial Class MainForm
 		Me.grpSimOption.TabIndex = 49
 		Me.grpSimOption.TabStop = false
 		Me.grpSimOption.Text = "Simulator Options"
+		'
+		'chkPatch
+		'
+		Me.chkPatch.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.chkPatch.Location = New System.Drawing.Point(413, 512)
+		Me.chkPatch.Name = "chkPatch"
+		Me.chkPatch.Size = New System.Drawing.Size(104, 24)
+		Me.chkPatch.TabIndex = 88
+		Me.chkPatch.Text = "Patch 3.3.3"
+		Me.chkPatch.UseVisualStyleBackColor = true
 		'
 		'chkBloodSync
 		'
@@ -2692,16 +2703,6 @@ Partial Class MainForm
 		Me.tmrProgress.Enabled = true
 		Me.tmrProgress.Interval = 1000
 		AddHandler Me.tmrProgress.Tick, AddressOf Me.TmrProgressTick
-		'
-		'chkPatch
-		'
-		Me.chkPatch.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.chkPatch.Location = New System.Drawing.Point(413, 512)
-		Me.chkPatch.Name = "chkPatch"
-		Me.chkPatch.Size = New System.Drawing.Size(104, 24)
-		Me.chkPatch.TabIndex = 88
-		Me.chkPatch.Text = "Patch 3.3.3"
-		Me.chkPatch.UseVisualStyleBackColor = true
 		'
 		'MainForm
 		'
