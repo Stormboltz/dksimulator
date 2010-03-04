@@ -265,6 +265,8 @@ Partial Class MainForm
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.cmdRngSeeder = New System.Windows.Forms.Button
 		Me.tmrProgress = New System.Windows.Forms.Timer(Me.components)
+		Me.cmbICCBuff = New System.Windows.Forms.ComboBox
+		Me.label44 = New System.Windows.Forms.Label
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -297,7 +299,7 @@ Partial Class MainForm
 		'btStart
 		'
 		Me.btStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-		Me.btStart.Location = New System.Drawing.Point(22, 696)
+		Me.btStart.Location = New System.Drawing.Point(22, 736)
 		Me.btStart.Name = "btStart"
 		Me.btStart.Size = New System.Drawing.Size(245, 23)
 		Me.btStart.TabIndex = 0
@@ -308,7 +310,7 @@ Partial Class MainForm
 		'PBsim
 		'
 		Me.PBsim.Dock = System.Windows.Forms.DockStyle.Bottom
-		Me.PBsim.Location = New System.Drawing.Point(0, 725)
+		Me.PBsim.Location = New System.Drawing.Point(0, 765)
 		Me.PBsim.Name = "PBsim"
 		Me.PBsim.Size = New System.Drawing.Size(763, 23)
 		Me.PBsim.TabIndex = 2
@@ -316,7 +318,7 @@ Partial Class MainForm
 		'btEP
 		'
 		Me.btEP.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.btEP.Location = New System.Drawing.Point(502, 696)
+		Me.btEP.Location = New System.Drawing.Point(502, 736)
 		Me.btEP.Name = "btEP"
 		Me.btEP.Size = New System.Drawing.Size(245, 23)
 		Me.btEP.TabIndex = 4
@@ -329,7 +331,7 @@ Partial Class MainForm
 		Me.lblDPS.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left)  _
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.lblDPS.BackColor = System.Drawing.Color.Transparent
-		Me.lblDPS.Location = New System.Drawing.Point(297, 709)
+		Me.lblDPS.Location = New System.Drawing.Point(297, 749)
 		Me.lblDPS.Name = "lblDPS"
 		Me.lblDPS.Size = New System.Drawing.Size(167, 13)
 		Me.lblDPS.TabIndex = 9
@@ -495,7 +497,7 @@ Partial Class MainForm
 		Me.tabControl1.Location = New System.Drawing.Point(0, 0)
 		Me.tabControl1.Name = "tabControl1"
 		Me.tabControl1.SelectedIndex = 0
-		Me.tabControl1.Size = New System.Drawing.Size(763, 678)
+		Me.tabControl1.Size = New System.Drawing.Size(763, 718)
 		Me.tabControl1.TabIndex = 3
 		'
 		'tabPage3
@@ -504,7 +506,7 @@ Partial Class MainForm
 		Me.tabPage3.Controls.Add(Me.grpSimOption)
 		Me.tabPage3.Location = New System.Drawing.Point(4, 22)
 		Me.tabPage3.Name = "tabPage3"
-		Me.tabPage3.Size = New System.Drawing.Size(755, 652)
+		Me.tabPage3.Size = New System.Drawing.Size(755, 692)
 		Me.tabPage3.TabIndex = 2
 		Me.tabPage3.Text = "Configuration"
 		Me.tabPage3.UseVisualStyleBackColor = true
@@ -519,7 +521,7 @@ Partial Class MainForm
 		Me.groupBox6.Controls.Add(Me.ckLogRP)
 		Me.groupBox6.Controls.Add(Me.chkShowProc)
 		Me.groupBox6.Controls.Add(Me.chkCombatLog)
-		Me.groupBox6.Location = New System.Drawing.Point(4, 546)
+		Me.groupBox6.Location = New System.Drawing.Point(4, 575)
 		Me.groupBox6.Name = "groupBox6"
 		Me.groupBox6.Size = New System.Drawing.Size(743, 103)
 		Me.groupBox6.TabIndex = 50
@@ -591,8 +593,10 @@ Partial Class MainForm
 		'
 		Me.grpSimOption.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.grpSimOption.Controls.Add(Me.cmbICCBuff)
 		Me.grpSimOption.Controls.Add(Me.chkPatch)
 		Me.grpSimOption.Controls.Add(Me.chkBloodSync)
+		Me.grpSimOption.Controls.Add(Me.label44)
 		Me.grpSimOption.Controls.Add(Me.label20)
 		Me.grpSimOption.Controls.Add(Me.cmbBShOption)
 		Me.grpSimOption.Controls.Add(Me.chkDisease)
@@ -643,15 +647,15 @@ Partial Class MainForm
 		Me.grpSimOption.Controls.Add(Me.cmbCharacter)
 		Me.grpSimOption.Location = New System.Drawing.Point(3, 4)
 		Me.grpSimOption.Name = "grpSimOption"
-		Me.grpSimOption.Size = New System.Drawing.Size(749, 542)
+		Me.grpSimOption.Size = New System.Drawing.Size(749, 574)
 		Me.grpSimOption.TabIndex = 49
 		Me.grpSimOption.TabStop = false
 		Me.grpSimOption.Text = "Simulator Options"
 		'
 		'chkPatch
 		'
-		Me.chkPatch.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.chkPatch.Location = New System.Drawing.Point(413, 512)
+		Me.chkPatch.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.chkPatch.Location = New System.Drawing.Point(413, 513)
 		Me.chkPatch.Name = "chkPatch"
 		Me.chkPatch.Size = New System.Drawing.Size(104, 24)
 		Me.chkPatch.TabIndex = 88
@@ -2690,7 +2694,7 @@ Partial Class MainForm
 		'cmdRngSeeder
 		'
 		Me.cmdRngSeeder.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-		Me.cmdRngSeeder.Location = New System.Drawing.Point(282, 696)
+		Me.cmdRngSeeder.Location = New System.Drawing.Point(282, 736)
 		Me.cmdRngSeeder.Name = "cmdRngSeeder"
 		Me.cmdRngSeeder.Size = New System.Drawing.Size(122, 23)
 		Me.cmdRngSeeder.TabIndex = 10
@@ -2704,11 +2708,30 @@ Partial Class MainForm
 		Me.tmrProgress.Interval = 1000
 		AddHandler Me.tmrProgress.Tick, AddressOf Me.TmrProgressTick
 		'
+		'cmbICCBuff
+		'
+		Me.cmbICCBuff.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.cmbICCBuff.FormattingEnabled = true
+		Me.cmbICCBuff.Location = New System.Drawing.Point(557, 544)
+		Me.cmbICCBuff.Name = "cmbICCBuff"
+		Me.cmbICCBuff.Size = New System.Drawing.Size(149, 21)
+		Me.cmbICCBuff.TabIndex = 89
+		'
+		'label44
+		'
+		Me.label44.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.label44.Location = New System.Drawing.Point(432, 544)
+		Me.label44.Name = "label44"
+		Me.label44.Size = New System.Drawing.Size(110, 21)
+		Me.label44.TabIndex = 86
+		Me.label44.Text = "ICC Damage Buff"
+		Me.label44.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		'
 		'MainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-		Me.ClientSize = New System.Drawing.Size(763, 748)
+		Me.ClientSize = New System.Drawing.Size(763, 788)
 		Me.Controls.Add(Me.cmdRngSeeder)
 		Me.Controls.Add(Me.lblDPS)
 		Me.Controls.Add(Me.btEP)
@@ -2758,6 +2781,8 @@ Partial Class MainForm
 		Me.gbScaling.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Private label44 As System.Windows.Forms.Label
+	Friend cmbICCBuff As System.Windows.Forms.ComboBox
 	Private chkPatch As System.Windows.Forms.CheckBox
 	Private tmrProgress As System.Windows.Forms.Timer
 	Private chkShowProc As System.Windows.Forms.CheckBox

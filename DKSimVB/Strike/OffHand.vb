@@ -45,8 +45,9 @@ Friend Class OffHand
 		If RNG < (ChanceNotToTouch + MeleeGlacingChance) Then
 			'Glancing
 			dégat = AvrgNonCrit(T)*0.7
-			totalhit += dégat
-			HitCount = HitCount + 1
+			GlancingCount = GlancingCount + 1
+			totalGlance += dégat
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH glancing for " & dégat)
 		End If
 		
 		If RNG >= (ChanceNotToTouch + MeleeGlacingChance) and RNG < (ChanceNotToTouch + MeleeGlacingChance + CritChance) Then
@@ -71,25 +72,14 @@ Friend Class OffHand
 			sim.proc.ScentOfBlood.Use
 			Sim.RunicPower.add(10)
 		End If
-
 		total = total + dégat
-
 		If sim.TalentUnholy.Necrosis > 0 Then
 			Nec = sim.Necrosis.Apply(dégat, T)
 		End If
-
 		RNG = sim.RandomNumberGenerator.RNGWhiteHit * 100
 		If RNG <= 10 * sim.TalentUnholy.BloodCakedBlade Then sim.OHBloodCakedBlade.ApplyDamage(T)
-		
 		sim.TryOnOHHitProc
-'		sim.Trinkets.OHRazorIce.TryMe(T)
-'		sim.Trinkets.OHSingedViskag.TryMe(T)
-'		sim.Trinkets.OHtemperedViskag.TryMe(T)
-'		sim.trinkets.MHEmpoweredDeathbringer.TryMe(T)
-'		sim.trinkets.MHRagingDeathbringer.TryMe(T)
-		
 		return true
-		'   'Debug.Print T & vbTab & "WhiteOH for " & Range("Abilities!N19").Value
 	End Function
 	Overrides Function AvrgNonCrit(T as long) As Double
 		Dim tmp As Double

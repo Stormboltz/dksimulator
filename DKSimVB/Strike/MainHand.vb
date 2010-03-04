@@ -60,8 +60,8 @@ Sub New(S As sim)
 		
 		If RNG < (ChanceNotToTouch + MeleeGlacingChance) Then
 			dégat = AvrgNonCrit(T)*0.7
-			HitCount = HitCount + 1
-			totalhit += dégat
+			GlancingCount = GlancingCount + 1
+			totalGlance += dégat
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "MH glancing for " & dégat)
 		End If
 		
@@ -71,10 +71,7 @@ Sub New(S As sim)
 			CritCount = CritCount + 1
 			If sim.combatlog.LogDetails Then sim.combatlog.write(T  & vbtab &  "MH crit for " & dégat )
 			sim.tryOnCrit
-			
-			
 			totalcrit += dégat
-			
 		End If
 		If RNG >= (ChanceNotToTouch + MeleeGlacingChance + CritChance) Then
 			'normal hit3
@@ -90,19 +87,10 @@ Sub New(S As sim)
 		RNG = sim.RandomNumberGenerator.RNGWhiteHit * 100
 		If RNG <= 10 * sim.TalentUnholy.BloodCakedBlade Then sim.BloodCakedBlade.ApplyDamage(T)
 		sim.tryOnMHWhitehitProc
-'		sim.Trinkets.MHRazorIce.TryMe(T)
-'		sim.proc.KillingMachine.TryMe(T)
-'		sim.Trinkets.MHSingedViskag.TryMe(T)
-'		sim.Trinkets.MHtemperedViskag.TryMe(T)
-'		sim.trinkets.MHEmpoweredDeathbringer.TryMe(T)
-'		sim.trinkets.MHRagingDeathbringer.TryMe(T)
-		
 		If sim.proc.ScentOfBlood.IsActive  Then
 			sim.proc.ScentOfBlood.Use
 			Sim.RunicPower.add(10)
 		End If
-		
-		
 		return true
 	End Function
 	Overrides Function AvrgNonCrit(T As long) As Double
@@ -130,14 +118,18 @@ Sub New(S As sim)
 		Total += sim.OffHand.Total
 		TotalHit += sim.OffHand.TotalHit
 		TotalCrit += sim.OffHand.TotalCrit
+		TotalGlance += sim.OffHand.TotalGlance
 
 		MissCount = (MissCount + sim.OffHand.MissCount)
 		HitCount = (HitCount + sim.OffHand.HitCount)
 		CritCount = (CritCount + sim.OffHand.CritCount)
+		GlancingCount = GlancingCount + sim.OffHand.GlancingCount
+		
 		
 		sim.OffHand.Total = 0
 		sim.OffHand.TotalHit = 0
 		sim.OffHand.TotalCrit = 0
+		sim.OffHand.TotalGlance = 0
 	End Sub
 
 end Class

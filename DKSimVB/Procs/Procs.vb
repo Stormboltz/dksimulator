@@ -297,6 +297,7 @@ Friend Class Procs
 				.Equip
 				s.DamagingObject.Add(BloodWorms)
 			End If
+			.isPet = true
 		End With
 		
 	End Sub

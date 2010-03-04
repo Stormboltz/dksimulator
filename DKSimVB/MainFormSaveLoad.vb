@@ -98,6 +98,18 @@ Public Partial Class MainForm
 		cmbBShOption.Items.Add("After BS/BB")
 		cmbBShOption.SelectedItem = stemp
 		
+		stemp = cmbICCBuff.SelectedItem
+		cmbICCBuff.Items.Clear
+		cmbICCBuff.Items.Add("0")
+		cmbICCBuff.Items.Add("5")
+		cmbICCBuff.Items.Add("10")
+		cmbICCBuff.Items.Add("15")
+		cmbICCBuff.Items.Add("20")
+		cmbICCBuff.Items.Add("25")
+		cmbICCBuff.Items.Add("30")
+		
+		
+		
 		
 		
 		
@@ -409,6 +421,11 @@ Public Partial Class MainForm
 		root = doc.DocumentElement
 		root.AppendChild(newElem)
 		
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ICCBuff", "")
+		newElem.InnerText = cmbICCBuff.SelectedItem.ToString
+		root = doc.DocumentElement
+		root.AppendChild(newElem)
+		
 	
 		
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "txtManyFights", "")
@@ -468,6 +485,7 @@ Public Partial Class MainForm
 		cmbRuneMH.SelectedItem = doc.SelectSingleNode("//config/mh").InnerText
 		cmbRuneOH.SelectedItem = doc.SelectSingleNode("//config/oh").InnerText
 		cmbBShOption.SelectedItem = doc.SelectSingleNode("//config/BShOption").InnerText
+		cmbICCBuff.SelectedItem = doc.SelectSingleNode("//config/ICCBuff").InnerText
 		txtLatency.Text = doc.SelectSingleNode("//config/latency").InnerText
 		
 		txtSimtime.Text = doc.SelectSingleNode("//config/simtime").InnerText

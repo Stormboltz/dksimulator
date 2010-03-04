@@ -25,7 +25,10 @@ Public Class Sim
 	Friend NextReset As Integer
 	Friend LastReset as Integer
 	Friend NumberOfEnemies as Integer
-	Private SimStart as Date
+	Private SimStart As Date
+	Friend ICCDamageBuff as Integer
+	
+	
 	
 	Friend Threat as Long
 	Private AMSTimer As Long
@@ -349,6 +352,22 @@ Public Class Sim
 		TimeStampCounter = TimeStampCounter + TimeStamp
 		'TotalDamage = TotalDamageAlternative
 		TimeStamp = TimeStampCounter
+		
+		
+		
+		dim obj as supertype
+		If ICCDamageBuff > 0 Then
+			For Each obj In DamagingObject
+				If obj.isPet = False Then
+					obj.total *= (1+ ICCDamageBuff/100)
+					obj.TotalCrit*= (1+ ICCDamageBuff/100)
+					obj.TotalHit*= (1+ ICCDamageBuff/100)
+					obj.TotalGlance*= (1+ ICCDamageBuff/100)
+				End If
+			Next
+		End If
+		
+		
 		DPS = 100 * TotalDamage / TimeStamp
 		Report()
 		Debug.Print( "DPS=" & DPS & " " & "TPS=" & TPS & " " & EPStat & " hit=" & mainstat.Hit & " sphit=" & mainstat.SpellHit & " exp=" & mainstat.expertise )
@@ -557,7 +576,8 @@ Public Class Sim
 		BloodTap = new BloodTap(Me)
 		HowlingBlast = New HowlingBlast(Me)
 		
-		Ghoul = new Ghoul(Me)
+		Ghoul = New Ghoul(Me)
+		Ghoul.isPet = true
 		GhoulStat = New GhoulStat(Me)
 		Hysteria = new Hysteria(Me)
 		DeathChill = new DeathChill(Me)
@@ -565,22 +585,18 @@ Public Class Sim
 		UnbreakableArmor = new UnbreakableArmor(Me)
 		
 		Butchery = new Butchery(Me)
-		DRW = new DRW(Me)
+		DRW = New DRW(Me)
+		DRW.isPet = true
 		RuneStrike = New RuneStrike(Me)
-		
-		
-		
-		
 		
 		'LoadConfig
 		Desolation = New Desolation(me)
-		
 		RunicPower.Value = 0
 		NextFreeGCD = 0
 		Threat = 0
-		
 		NumberOfEnemies = _MainFrm.txtNumberOfEnemies.text
 		KeepDiseaseOnOthersTarget = _MainFrm.chkDisease.Checked
+		
 		ScourgeStrike = New ScourgeStrike(Me)
 		ScourgeStrikeMagical = New ScourgeStrikeMagical(Me)
 		
@@ -619,7 +635,10 @@ Public Class Sim
 		BloodBoil = new BloodBoil(me)
 		HeartStrike = new HeartStrike(Me)
 		DeathandDecay = new DeathandDecay(Me)
-		Gargoyle = new Gargoyle(Me)
+		Gargoyle = New Gargoyle(Me)
+		Gargoyle.isPet = true
+		
+		
 		Horn = new Horn(Me)
 		Bloodlust= new Bloodlust(Me)
 		Pestilence = new Pestilence(Me)
@@ -779,6 +798,14 @@ Public Class Sim
 		End Select
 		
 		
+		Try
+			ICCDamageBuff = doc.SelectSingleNode("//config/ICCBuff").InnerText
+		Catch
+			
+			ICCDamageBuff  = 0
+		End Try
+		
+		
 		Exit Sub
 		errH:
 		msgbox("Error reading config file")
@@ -814,8 +841,10 @@ Public Class Sim
 		
 		
 		' Sort report
-		dim obj as supertype
+		
 		Dim myArray As New ArrayList
+		
+		dim obj as supertype
 		
 		If MergeReport Then
 			For Each obj In DamagingObject
@@ -862,6 +891,7 @@ Public Class Sim
 		Tw.Write ("	<th colspan='3'><b>hits</b><FONT COLOR='white'>|||</FONT></th>")
 		Tw.Write ("	<th colspan='3'><b>Crits</b><FONT COLOR='white'>|||</FONT></th>")
 		Tw.Write ("	<th colspan='2'><b>Misses</b><FONT COLOR='white'>||</FONT></th>")
+		Tw.Write ("	<th colspan='3'><b>Glances</b><FONT COLOR='white'>||</FONT></th>")
 		Tw.Write ("	<th><b>Uptime</b><FONT COLOR='white'>|</FONT></th>")
 		
 		If FrostPresence Then
@@ -870,17 +900,30 @@ Public Class Sim
 		Tw.Write ("</tr>")
 		Tw.Write ("<tr>")
 		Tw.Write ("	<th><FONT COLOR='white'>|</FONT><b>Total</b><FONT COLOR='white'>|</FONT></th>")
+		'Total
 		Tw.Write ("	<th><b>%</b><FONT COLOR='white'>|</FONT></th>")
 		Tw.Write ("	<th><b>#</b><FONT COLOR='white'>|</FONT></th>")
 		Tw.Write ("	<th><b>Avg</b><FONT COLOR='white'>|</FONT></th>")
+		
+		'Hit
 		Tw.Write ("	<th><b>#</b><FONT COLOR='white'>|</FONT></th>")
 		Tw.Write ("	<th><b>%</b><FONT COLOR='white'>|</FONT></th>")
 		Tw.Write ("	<th><b>Avg</b><FONT COLOR='white'>|</FONT></th>")
+		'Crit
 		Tw.Write ("	<th><b>#</b><FONT COLOR='white'>|</FONT></th>")
 		Tw.Write ("	<th><b>%</b><FONT COLOR='white'>|</FONT></th>")
 		Tw.Write ("	<td><b>Avg</b><FONT COLOR='white'>|</FONT></th>")
+		
+		'Misses
+		Tw.Write ("	<th><b>#</b><FONT COLOR='white'>|</FONT></th>")
+		Tw.Write ("	<th><b>Avg</b><FONT COLOR='white'>|</FONT></th>")
+		
+		'Glance
 		Tw.Write ("	<th><b>#</b><FONT COLOR='white'>|</FONT></th>")
 		Tw.Write ("	<th><b>%</b><FONT COLOR='white'>|</FONT></th>")
+		Tw.Write ("	<td><b>Avg</b><FONT COLOR='white'>|</FONT></th>")
+		
+		'Uptime
 		Tw.Write ("	<th><b>%</b><FONT COLOR='white'>|</FONT></th>")
 		Tw.Write ("</tr>")
 		Tw.Write ("</tr>")

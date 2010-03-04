@@ -137,14 +137,7 @@ Public Class Disease
 		return DamageTick * (1 + CritCoef)
 	End Function
 	
-	overrides Function report As String
-		dim tmp as String
-		tmp = replace(mybase.report,vbCrLf,"")
-		tmp = tmp & ""& toDecimal(100*uptime/sim.MaxTime)  & "" & VBtab
-		tmp = tmp & vbCrLf
-		tmp = replace(tmp, VBtab & 0, vbtab)
-		return tmp
-	End Function
+
 	
 	Public Sub cleanup()
 		Total = 0
