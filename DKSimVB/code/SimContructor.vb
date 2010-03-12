@@ -24,7 +24,7 @@ Public Module SimConstructor
 		
 	End Sub
 	
-	Sub Start(SimTime As Double, MainFrm As MainForm)
+	Sub Start(SimTime As Double, MainFrm As MainForm, optional StartNow as Boolean = false)
 		Dim  sim As Sim
 		Dim newthread As System.Threading.Thread
 		Sim = New Sim
@@ -37,9 +37,10 @@ Public Module SimConstructor
 			Sim.Prepare(Simtime, Mainfrm)
 		End If
 		newthread = New System.Threading.Thread(AddressOf sim.Start)
-		newthread.Priority= Threading.ThreadPriority.BelowNormal 'Shouldn't be necessary, works fine for me without it.
-		'Environment.ProcessorCount 'This gives you the number of cores. Maybe useful.
-		newthread.Start()
+		newthread.Priority= Threading.ThreadPriority.BelowNormal
+		if StartNow then
+			newthread.Start()
+		end if
 		ThreadCollection.Add(newthread)
 		simCollection.Add(sim)
 	End Sub
@@ -179,14 +180,15 @@ Public Module SimConstructor
 			SimConstructor.Start(SimTime,MainFrm)
 		End If
 		EPBase = tmpInt 
-		Dim T As Threading.Thread
-		
-		do until simCollection.Count = 0
-			For Each T In ThreadCollection
-				T.Join(100)
-			Next
-			_MainFrm.UpdateProgressBar
-		Loop
+		Jointhread
+'		Dim T As Threading.Thread
+'		
+'		do until simCollection.Count = 0
+'			For Each T In ThreadCollection
+'				T.Join(100)
+'			Next
+'			_MainFrm.UpdateProgressBar
+'		Loop
 		
 		EPStat = "EP DryRun"
 		BaseDPS = dpss(EPStat)
@@ -397,13 +399,13 @@ Public Module SimConstructor
 			EPStat="EP 4T10"
 			SimConstructor.Start(SimTime,MainFrm)
 		End If
-		
-		do until simCollection.Count = 0
-			For Each T In ThreadCollection
-				T.Join(100)
-			Next
-			_MainFrm.UpdateProgressBar
-		Loop
+		Jointhread
+'		do until simCollection.Count = 0
+'			For Each T In ThreadCollection
+'				T.Join(100)
+'			Next
+'			_MainFrm.UpdateProgressBar
+'		Loop
 		
 		EPStat = "EP 0T7"
 		BaseDPS = dpss(EPStat)
@@ -513,13 +515,14 @@ Public Module SimConstructor
 				SimConstructor.Start(SimTime,MainFrm)
 			End If
 		Next
-		
-		do until simCollection.Count = 0
-			For Each T In ThreadCollection
-				T.Join(100)
-			Next
-			_MainFrm.UpdateProgressBar
-		Loop
+		Jointhread
+'		
+'		do until simCollection.Count = 0
+'			For Each T In ThreadCollection
+'				T.Join(100)
+'			Next
+'			_MainFrm.UpdateProgressBar
+'		Loop
 		
 		EPStat = "EP NoTrinket"
 		BaseDPS = dpss(EPStat)
@@ -627,12 +630,7 @@ Public Module SimConstructor
 					EpStat=Replace(xNode.Name,"chk","") & i
 					SimConstructor.Start(1,MainFrm)
 				Next i
-				do until simCollection.Count = 0
-					For Each T In ThreadCollection
-						T.Join(100)
-					Next
-					_MainFrm.UpdateProgressBar
-				Loop
+				Jointhread
 				EpStat= Replace(xNode.Name,"chk","")
 				
 				INSRTCOLOR = ""
@@ -691,14 +689,7 @@ Public Module SimConstructor
 				SimConstructor.Start(MainFrm.txtSimtime.Text,MainFrm)
 			End If
 		Next
-		
-		Do Until simCollection.Count = 0
-			'ThreadCollection.Item(0).Join(100)
-			For Each T In ThreadCollection
-				T.Join(100)
-			Next
-			_MainFrm.UpdateProgressBar
-		Loop
+		Jointhread
 		
 		dim BaseDPS as Integer
 		EpStat = "OriginalSpec"
@@ -717,6 +708,47 @@ Public Module SimConstructor
 		
 		EpStat = ""
 	End Sub
+	
+	Sub RemoveStoppedthread
+		Dim j As Integer
+		Dim t As Threading.Thread
+		For j=0 To ThreadCollection.Count-1
+				t = ThreadCollection.Item(j)
+				If t.ThreadState = Threading.ThreadState.Stopped Then
+						ThreadCollection.Remove(t)
+						RemoveStoppedthread
+						exit sub
+				End If
+		Next
+	End Sub
+	
+	
+	
+	Sub Jointhread()
+		Dim t As Threading.Thread
+		Dim core As Integer =  Environment.ProcessorCount
+		Dim i As Integer
+		
+		
+		
+		
+		Do Until ThreadCollection.Count = 0
+			RemoveStoppedthread
+			i=0
+			For Each t In ThreadCollection
+				Application.DoEvents
+				If i < core Then
+					If t.ThreadState = Threading.ThreadState.Unstarted Then t.Start
+				End If
+				If i = 0  Then
+					t.Join(100)
+					_MainFrm.UpdateProgressBar
+				End If
+				i += 1
+			Next
+		Loop	
+	End Sub
+	
 	
 	Sub createGraph()
 		

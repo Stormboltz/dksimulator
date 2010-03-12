@@ -46,7 +46,7 @@ Public Partial Class MainForm
 	Sub Button1Click(sender As Object, e As EventArgs)
 		if LoadBeforeSim = false then exit sub
 		me.tabControl1.SelectedIndex = 1
-		SimConstructor.start(txtSimtime.Text,me)
+		SimConstructor.start(txtSimtime.Text,me,true)
 	End Sub
 	
 	Sub BtEPClick(sender As Object, e As EventArgs)
@@ -104,7 +104,7 @@ Public Partial Class MainForm
 		tr.Close
 		tabControl1.SelectedIndex = 8
 		OpenIntroForEdit(EditorFilePAth)
-		cmdSaveRotation.Enabled=True		
+		cmdSaveRotation.Enabled=True
 		cmdSave.Enabled=True
 		cmdSaveNew.Enabled = True
 		errH:
@@ -124,7 +124,7 @@ Public Partial Class MainForm
 		tr.Close
 		tabControl1.SelectedIndex = 8
 		OpenPrioForEdit(EditorFilePAth)
-		cmdSaveRotation.Enabled=True		
+		cmdSaveRotation.Enabled=True
 		cmdSave.Enabled=true
 		cmdSaveNew.Enabled = True
 		errH:
@@ -141,7 +141,7 @@ Public Partial Class MainForm
 		tr.Close
 		tabControl1.SelectedIndex = 8
 		OpenRotaForEdit(EditorFilePAth)
-		cmdSaveRotation.Enabled=True		
+		cmdSaveRotation.Enabled=True
 		cmdSave.Enabled=True
 		cmdSaveNew.Enabled = True
 		errH:
@@ -215,7 +215,7 @@ Public Partial Class MainForm
 		tr.Close
 		tabControl1.SelectedIndex = 2
 		LoadCharacter(EditorFilePAth)
-		cmdSaveCharacter.Enabled=True		
+		cmdSaveCharacter.Enabled=True
 		cmdSave.Enabled=True
 		cmdSaveNew.Enabled = True
 		errH:
@@ -329,7 +329,7 @@ Public Partial Class MainForm
 	End Sub
 
 	Sub CmdRngSeederClick(sender As Object, e As EventArgs)
-		RNGSeeder += 1 
+		RNGSeeder += 1
 	End Sub
 	
 	Sub TxtSimtimeTextChanged(sender As Object, e As EventArgs)
@@ -345,13 +345,17 @@ Public Partial Class MainForm
 		Dim i As Double
 		on error resume next
 '		Me.PBsim.Maximum = 100
-		If SimConstructor.simCollection.Count = 0 Then 
+		If SimConstructor.simCollection.Count = 0 Then
 			Me.PBsim.Value = 0
 			Exit Sub
 		End If
 		i=0
 		For Each s In SimConstructor.simCollection
-			i += (s.TimeStamp/s.MaxTime)/ SimConstructor.simCollection.Count
+			If s.MaxTime <> 0 Then
+				i += (s.TimeStamp/s.MaxTime)/ SimConstructor.simCollection.Count
+			Else
+				i += 0
+			End If
 		Next
 		i=i*100
 		Me.PBsim.Value = i

@@ -46,7 +46,14 @@ Friend Class FrostStrike
 		End If
 		If DoMyStrikeHit = false Then
 			sim.combatlog.write(T  & vbtab & "FS fail")
-			If offhand = false Then sim.proc.KillingMachine.Use
+			If offhand = False Then 
+				sim.proc.KillingMachine.Use
+				If sim.glyph.FrostStrike Then
+					Sim.RunicPower.add(29)
+				Else
+					Sim.RunicPower.add(36)
+				End If
+			End If
 			MissCount = MissCount + 1
 			return false
 		End If

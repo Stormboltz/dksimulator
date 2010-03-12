@@ -378,7 +378,7 @@ Public Class Sim
 		Else
 			SimConstructor.DPSs.Add(DPS, Me.EPStat)
 		End If
-		SimConstructor.simCollection.Remove(me)
+		'SimConstructor.simCollection.Remove(me)
 	End Sub
 	
 	Function TotalDamage() as Long
