@@ -1038,7 +1038,6 @@ Public Class Sim
 		tw.Flush
 		tw.Close
 		_MainFrm.webBrowser1.Navigate(ReportPath)
-		'WriteReport(stmp)
 	End Sub
 	Function FastFoward(T As Long) As Long
 		Dim tmp As Long
@@ -1160,6 +1159,13 @@ Public Class Sim
 			obj.TryMe(timestamp)
 		Next
 		tryOnDamageProc
+	End Sub
+	
+	Sub TryOnFU()
+		dim obj as proc
+		For Each obj In Me.proc.OnFUProcs
+			obj.TryMe(timestamp)
+		Next
 	End Sub
 	
 	Sub tryOnCrit()

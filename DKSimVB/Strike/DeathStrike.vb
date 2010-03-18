@@ -55,10 +55,11 @@ Friend Class DeathStrike
 			End If
 			Sim.runicpower.add(15 +  2.5*sim.talentunholy.Dirge )
 			Sim.runicpower.add(5*sim.MainStat.T74PDPS)
+			sim.TryOnFU
 		Else
 			sim.TryOnOHHitProc
 		End If
-		sim.proc.Virulence.TryMe(t)
+		
 		If sim.DRW.IsActive(T) Then
 			sim.drw.DeathStrike
 		End If

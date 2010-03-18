@@ -17,7 +17,12 @@ Public Class Proc
 	Friend ProcValue As Integer
 	Friend ProcValueDmg As Integer
 	Friend InternalCD As Integer
+
 	Friend Stack As Integer
+	Friend MaxStack As Integer
+	
+	
+	
 	Friend ProcTypeStack as String
 	Friend ProcValueStack as Integer
 	
@@ -82,6 +87,8 @@ Public Class Proc
 				sim.proc.OnOHhitProcs.add(Me)
 			Case procs.ProcOnType.OnMHWhiteHit
 				sim.proc.OnMHWhitehitProcs.add(Me)
+			Case procs.ProcOnType.OnFU
+				sim.proc.OnFUProcs.add(Me)
 			Case Else
 				debug.Print ("No proc on value for " & me.Name)
 		End Select
@@ -108,6 +115,9 @@ Public Class Proc
 				Case ""
 					If sim.combatlog.LogDetails Then sim.combatlog.write(sim.TimeStamp  & vbtab &  Me.ToString & " proc")
 					Fade = T + ProcLenght * 100
+					If MaxStack <> 0 Then
+						Stack = math.Min(Stack+1,MaxStack)
+					End If
 					AddUptime(T)
 					HitCount += 1
 				Case "Shadowmourne"
@@ -261,6 +271,8 @@ Public Class Proc
 					Fade = T + ProcLenght * 100
 					AddUptime(T)
 					HitCount += 1
+				Case Else
+					debug.Print ( ME.Name & " not implemented")
 			End Select
 			
 			

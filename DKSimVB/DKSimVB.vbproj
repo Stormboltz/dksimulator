@@ -55,6 +55,32 @@
     <Import Include="System.Drawing" />
     <Import Include="System.Windows.Forms" />
     <Compile Include="code\Supertype.vb" />
+    <Compile Include="GearSelector\Enchant.vb" />
+    <Compile Include="GearSelector\EnchantSelector\EnchantSelector.Designer.vb">
+      <DependentUpon>EnchantSelector.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GearSelector\EnchantSelector\EnchantSelector.vb" />
+    <Compile Include="GearSelector\EPValues.vb" />
+    <Compile Include="GearSelector\EquipSlot.vb" />
+    <Compile Include="GearSelector\Extractor.vb" />
+    <Compile Include="GearSelector\GearLoader.vb" />
+    <Compile Include="GearSelector\GearSelector.Designer.vb">
+      <DependentUpon>GearSelector.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GearSelector\GearSelector.vb" />
+    <Compile Include="GearSelector\GearSelectorMainForm.Designer.vb">
+      <DependentUpon>GearSelectorMainForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GearSelector\GearSelectorMainForm.vb">
+    </Compile>
+    <Compile Include="GearSelector\Gem.vb" />
+    <Compile Include="GearSelector\GemSelector\GemSelector.Designer.vb">
+      <DependentUpon>GemSelector.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GearSelector\GemSelector\GemSelector.vb" />
+    <Compile Include="GearSelector\Item.vb" />
+    <Compile Include="GearSelector\ListViewItemComparer.vb" />
+    <Compile Include="GearSelector\Module1.vb" />
     <Compile Include="MainFormCharacter.vb">
       <DependentUpon>MainForm.vb</DependentUpon>
     </Compile>
@@ -110,11 +136,14 @@
     <Folder Include="CombatLog" />
     <Folder Include="Characters" />
     <Folder Include="Diseases" />
+    <Folder Include="GearSelector\EnchantSelector" />
+    <Folder Include="GearSelector\GemSelector" />
     <Folder Include="images" />
     <Folder Include="images\icons" />
     <Folder Include="images\spell" />
     <Folder Include="Intro" />
     <Folder Include="Config" />
+    <Folder Include="GearSelector" />
     <Folder Include="Procs" />
     <Folder Include="Trinkets" />
     <Folder Include="Special" />
@@ -205,6 +234,31 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Config\WeaponProcList.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="GearSelector\Enchant.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="GearSelector\GemBonus.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="GearSelector\gems.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="GearSelector\Goal.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="GearSelector\itemDB.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="GearSelector\sample.xml" />
+    <None Include="GearSelector\SetBonus.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="GearSelector\TrinketList.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="GearSelector\WeaponProcList.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="images\AbominationMight.jpg">
@@ -914,6 +968,18 @@
     </None>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GearSelector\EnchantSelector\EnchantSelector.resx">
+      <DependentUpon>EnchantSelector.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GearSelector\GearSelector.resx">
+      <DependentUpon>GearSelector.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GearSelector\GearSelectorMainForm.resx">
+      <DependentUpon>GearSelectorMainForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GearSelector\GemSelector\GemSelector.resx">
+      <DependentUpon>GemSelector.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.vb</DependentUpon>

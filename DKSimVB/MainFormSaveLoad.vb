@@ -107,8 +107,7 @@ Public Partial Class MainForm
 		cmbICCBuff.Items.Add("20")
 		cmbICCBuff.Items.Add("25")
 		cmbICCBuff.Items.Add("30")
-		
-		
+		cmbICCBuff.SelectedItem = stemp
 		
 		
 		

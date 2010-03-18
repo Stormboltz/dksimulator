@@ -85,7 +85,7 @@ Friend Class MainStat
 		Catch
 			Msgbox("Error reading MH Weapon characteristics")
 		End Try
-			
+		
 		try
 			OHWeaponDPS = (XmlDoc.SelectSingleNode("//character/weapon/offhand/dps").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
 			OHWeaponSpeed = (XmlDoc.SelectSingleNode("//character/weapon/offhand/speed").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
@@ -99,12 +99,12 @@ Friend Class MainStat
 		Else
 			CSD = 0
 		End If
-
+		
 		'Trinkets
 		Sim.Trinkets = New Trinkets(Sim)
 		Sim.Trinkets.MHRazorIce.ProcValue = MHWeaponDPS * MHWeaponSpeed * 0.02
 		Sim.Trinkets.OHRazorIce.ProcValue = MHWeaponDPS * MHWeaponSpeed * 0.02
-
+		
 		Try
 			If XmlDoc.SelectSingleNode("//character/WeaponProc/MHSingedViskag").InnerText = 1 Then sim.trinkets.MHSingedViskag.Equip
 			if XmlDoc.SelectSingleNode("//character/WeaponProc/MHtemperedViskag").InnerText= 1 then sim.trinkets.MHtemperedViskag.Equip
@@ -144,7 +144,7 @@ Friend Class MainStat
 			If XmlDoc.SelectSingleNode("//character/misc/HyperspeedAccelerators").InnerText= True Then
 				sim.trinkets.HyperspeedAccelerators.Equip
 			End If
-
+			
 			If XmlDoc.SelectSingleNode("//character/misc/TailorEnchant").InnerText= True Then
 				sim.trinkets.TailorEnchant.Equip
 			End If
@@ -196,34 +196,132 @@ Friend Class MainStat
 					Sim.Trinkets.DeathbringersWillHeroic.Equip
 				Case "EP WhisperingFangedSkull"
 					Sim.Trinkets.WhisperingFangedSkull.Equip
+				Case "EP WhisperingFangedSkullHeroic"
+					Sim.Trinkets.WhisperingFangedSkullHeroic.Equip
 				Case "EP NeedleEncrustedScorpion"
 					Sim.Trinkets.NeedleEncrustedScorpion.Equip
+				Case "EP HerkumlWarToken"
+					Sim.Trinkets.HerkumlWarToken.Equip
+				Case "EP MarkofSupremacy"
+					Sim.Trinkets.MarkofSupremacy.Equip
+				Case "EP VengeanceoftheForsaken"
+					Sim.Trinkets.VengeanceoftheForsaken.Equip
+				Case "EP VengeanceoftheForsakenHeroic"
+					Sim.Trinkets.VengeanceoftheForsakenHeroic.Equip
+					
+					
+					
 				Case Else
-					If XmlDoc.SelectSingleNode("//character/trinket/MjolnirRunestone").InnerText = 1 Then Sim.Trinkets.MjolRune.Equip
-					if XmlDoc.SelectSingleNode("//character/trinket/GrimToll").InnerText = 1 then Sim.Trinkets.GrimToll.Equip
-					if XmlDoc.SelectSingleNode("//character/trinket/BitterAnguish").InnerText = 1 then Sim.Trinkets.BitterAnguish.Equip
-					if XmlDoc.SelectSingleNode("//character/trinket/Mirror").InnerText = 1 then Sim.Trinkets.Mirror.Equip
-					If XmlDoc.SelectSingleNode("//character/trinket/Greatness").InnerText = 1 Then Sim.Trinkets.Greatness.Equip
-					if XmlDoc.SelectSingleNode("//character/trinket/DCDeath").InnerText = 1 then Sim.Trinkets.DCDeath.Equip
-					if XmlDoc.SelectSingleNode("//character/trinket/Victory").InnerText = 1 then Sim.Trinkets.Victory.Equip
-					if XmlDoc.SelectSingleNode("//character/trinket/Necromantic").InnerText = 1 then Sim.Trinkets.Necromantic.Equip
-					if XmlDoc.SelectSingleNode("//character/trinket/Bandit").InnerText = 1 then Sim.Trinkets.Bandit.Equip
-					if XmlDoc.SelectSingleNode("//character/trinket/Pyrite").InnerText = 1 then Sim.Trinkets.Pyrite.Equip
-					if XmlDoc.SelectSingleNode("//character/trinket/DarkMatter").InnerText = 1 then Sim.Trinkets.DarkMatter.Equip
-					if XmlDoc.SelectSingleNode("//character/trinket/OldGod").InnerText = 1 then Sim.Trinkets.OldGod.Equip
-					if XmlDoc.SelectSingleNode("//character/trinket/Comet").InnerText = 1 then Sim.Trinkets.Comet.Equip
-					if XmlDoc.SelectSingleNode("//character/trinket/DeathChoice").InnerText = 1 then Sim.Trinkets.DeathChoice.Equip
-					if XmlDoc.SelectSingleNode("//character/trinket/DeathChoiceHeroic").InnerText = 1 then Sim.Trinkets.DeathChoiceHeroic.Equip
-					if XmlDoc.SelectSingleNode("//character/trinket/DeathbringersWill").InnerText = 1 then Sim.Trinkets.DeathbringersWill.Equip
-					If XmlDoc.SelectSingleNode("//character/trinket/DeathbringersWillHeroic").InnerText = 1 Then Sim.Trinkets.DeathbringersWillHeroic.Equip
-					If XmlDoc.SelectSingleNode("//character/trinket/WhisperingFangedSkull").InnerText = 1 Then Sim.Trinkets.WhisperingFangedSkull.Equip
-					If XmlDoc.SelectSingleNode("//character/trinket/NeedleEncrustedScorpion").InnerText = 1 Then Sim.Trinkets.NeedleEncrustedScorpion.Equip
-					If XmlDoc.SelectSingleNode("//character/trinket/TinyAbomination").InnerText = 1 Then Sim.Trinkets.TinyAbomination.Equip
+					Try
+						If XmlDoc.SelectSingleNode("//character/trinket/MjolnirRunestone").InnerText = 1 Then Sim.Trinkets.MjolRune.Equip
+					Catch
+					End Try
+					Try
+						if XmlDoc.SelectSingleNode("//character/trinket/GrimToll").InnerText = 1 then Sim.Trinkets.GrimToll.Equip
+					Catch
+					End Try
+					Try
+						if XmlDoc.SelectSingleNode("//character/trinket/BitterAnguish").InnerText = 1 then Sim.Trinkets.BitterAnguish.Equip
+					Catch
+					End Try
+					Try
+						if XmlDoc.SelectSingleNode("//character/trinket/Mirror").InnerText = 1 then Sim.Trinkets.Mirror.Equip
+					Catch
+					End Try
+					Try
+						If XmlDoc.SelectSingleNode("//character/trinket/Greatness").InnerText = 1 Then Sim.Trinkets.Greatness.Equip
+					Catch
+					End Try
+					Try
+						If XmlDoc.SelectSingleNode("//character/trinket/DCDeath").InnerText = 1 Then Sim.Trinkets.DCDeath.Equip
+					Catch
+					End Try
+					Try
+						If XmlDoc.SelectSingleNode("//character/trinket/Victory").InnerText = 1 Then Sim.Trinkets.Victory.Equip
+					Catch
+					End Try
+					Try
+						If XmlDoc.SelectSingleNode("//character/trinket/Necromantic").InnerText = 1 Then Sim.Trinkets.Necromantic.Equip
+					Catch
+					End Try
+					Try
+						If XmlDoc.SelectSingleNode("//character/trinket/Bandit").InnerText = 1 Then Sim.Trinkets.Bandit.Equip
+					Catch
+					End Try
+					Try
+						If XmlDoc.SelectSingleNode("//character/trinket/Pyrite").InnerText = 1 Then Sim.Trinkets.Pyrite.Equip
+					Catch
+					End Try
+					Try
+						If XmlDoc.SelectSingleNode("//character/trinket/DarkMatter").InnerText = 1 Then Sim.Trinkets.DarkMatter.Equip
+					Catch
+					End Try
+					Try
+						If XmlDoc.SelectSingleNode("//character/trinket/OldGod").InnerText = 1 Then Sim.Trinkets.OldGod.Equip
+					Catch
+					End Try
+					Try
+						If XmlDoc.SelectSingleNode("//character/trinket/Comet").InnerText = 1 Then Sim.Trinkets.Comet.Equip
+					Catch
+					End Try
+					Try
+						If XmlDoc.SelectSingleNode("//character/trinket/DeathChoice").InnerText = 1 Then Sim.Trinkets.DeathChoice.Equip
+					Catch
+					End Try
+					Try
+						If XmlDoc.SelectSingleNode("//character/trinket/DeathChoiceHeroic").InnerText = 1 Then Sim.Trinkets.DeathChoiceHeroic.Equip
+					Catch
+					End Try
+					Try
+						If XmlDoc.SelectSingleNode("//character/trinket/DeathbringersWill").InnerText = 1 Then Sim.Trinkets.DeathbringersWill.Equip
+					Catch
+					End Try
+					Try
+						If XmlDoc.SelectSingleNode("//character/trinket/DeathbringersWillHeroic").InnerText = 1 Then Sim.Trinkets.DeathbringersWillHeroic.Equip
+					Catch
+					End Try
+					Try
+						If XmlDoc.SelectSingleNode("//character/trinket/WhisperingFangedSkull").InnerText = 1 Then Sim.Trinkets.WhisperingFangedSkull.Equip
+					Catch
+					End Try
+					Try
+						If XmlDoc.SelectSingleNode("//character/trinket/WhisperingFangedSkullHeroic").InnerText = 1 Then Sim.Trinkets.WhisperingFangedSkullHeroic.Equip
+					Catch
+					End Try
+					Try
+						If XmlDoc.SelectSingleNode("//character/trinket/NeedleEncrustedScorpion").InnerText = 1 Then Sim.Trinkets.NeedleEncrustedScorpion.Equip
+					Catch
+					End Try
+					Try
+						If XmlDoc.SelectSingleNode("//character/trinket/TinyAbomination").InnerText = 1 Then Sim.Trinkets.TinyAbomination.Equip
+					Catch
+					End Try
+					Try
+						If XmlDoc.SelectSingleNode("//character/trinket/HerkumlWarToken").InnerText = 1 Then Sim.Trinkets.HerkumlWarToken.Equip
+					Catch
+					End Try
+					Try
+						If XmlDoc.SelectSingleNode("//character/trinket/MarkofSupremacy").InnerText = 1 Then Sim.Trinkets.MarkofSupremacy.Equip
+					Catch
+					End Try
+					
+					Try
+						If XmlDoc.SelectSingleNode("//character/trinket/VengeanceoftheForsaken").InnerText = 1 Then Sim.Trinkets.VengeanceoftheForsaken.Equip
+					Catch
+					End Try
+					
+					Try
+						If XmlDoc.SelectSingleNode("//character/trinket/VengeanceoftheForsakenHeroic").InnerText = 1 Then Sim.Trinkets.VengeanceoftheForsakenHeroic.Equip
+					Catch
+					End Try
+					
+					
+					
 			End Select
 		Catch
 			debug.Print ("ERROR init trinket")
 		End Try
-
+		
 		T72PDPS = 0
 		T74PDPS = 0
 		T82PDPS = 0
@@ -270,7 +368,7 @@ Friend Class MainStat
 				Try
 					T102PDPS = XmlDoc.SelectSingleNode("//character/Set/T102PDPS").InnerText
 					T104PDPS = XmlDoc.SelectSingleNode("//character/Set/T104PDPS").InnerText
-
+					
 					T92PTNK = XmlDoc.SelectSingleNode("//character/Set/T92PTNK").InnerText
 					T102PTNK = XmlDoc.SelectSingleNode("//character/Set/T102PTNK").InnerText
 				Catch
@@ -386,10 +484,10 @@ Friend Class MainStat
 			debug.Print ("??Oo??")
 		End If
 		return tmp
-'		Dim tmp2 As Double
-'		tmp2 = (tmp-Haste)/(tmp+Haste)
-'		tmp2 = tmp2 / 2
-'		return (1+tmp2)
+		'		Dim tmp2 As Double
+		'		tmp2 = (tmp-Haste)/(tmp+Haste)
+		'		tmp2 = tmp2 / 2
+		'		return (1+tmp2)
 	End Function
 	
 	Function MHExpertise() As Double
@@ -435,7 +533,7 @@ Friend Class MainStat
 			Case "EP ExpertiseRatingAfterCap"
 				tmp = 6.5 + sim.EPBase / 32.79
 			Case "EP RelativeExpertiseRating"
-				tmp += sim.EPBase / 32.79				
+				tmp += sim.EPBase / 32.79
 			Case Else
 				If InStr(sim.EPStat,"ScaExp") Then
 					If InStr(sim.EPStat,"ScaExpA") Then
@@ -445,14 +543,14 @@ Friend Class MainStat
 					End If
 				End If
 		End Select
-
+		
 		return  tmp / 100
 	End Function
 	Function Hit() As Double
 		Dim tmp As Double
 		tmp = (Character.HitRating / 32.79)
 		If DualW Then tmp += sim.TalentFrost.NervesofColdSteel
-
+		
 		If instr(sim.EPStat,"EP ")<>0 Then
 			If instr(sim.EPStat,"Hit")=0 Then
 				tmp += sim.Buff.Draenei
@@ -549,8 +647,8 @@ Friend Class MainStat
 		retour = A/(A+B*(1-(z*x+y)+B/(A+B)*x*(1-y)*z))
 		Return (1.0 - Math.max(0.0, retour))
 	End Function
-
-
+	
+	
 	Function getMitigation() As Double
 		Dim AttackerLevel As Integer = 80
 		Dim tmpArmor As Integer
@@ -560,13 +658,13 @@ Friend Class MainStat
 		if sim.Buff.ArmorMajor > 0 then l_sunder = 1- 0.20
 		If sim.Buff.ArmorMinor > 0 Then l_ff = 1 - 0.05
 		ArPDebuffs = (l_sunder * l_ff)
-        dim ArmorConstant as Double = 400 + (85 * 80) + 4.5 * 85 * (80 - 59)
-        tmpArmor = BossArmor  *  ArPDebuffs
-        dim ArPCap as Double = Math.Min((tmpArmor + ArmorConstant) / 3, tmpArmor)
-        tmpArmor = tmpArmor -  ArPCap * Math.Min(1,ArmorPen)
-        _Mitigation = ArmorConstant / (ArmorConstant + tmpArmor)
-        return _Mitigation
-      end function
+		dim ArmorConstant as Double = 400 + (85 * 80) + 4.5 * 85 * (80 - 59)
+		tmpArmor = BossArmor  *  ArPDebuffs
+		dim ArPCap as Double = Math.Min((tmpArmor + ArmorConstant) / 3, tmpArmor)
+		tmpArmor = tmpArmor -  ArPCap * Math.Min(1,ArmorPen)
+		_Mitigation = ArmorConstant / (ArmorConstant + tmpArmor)
+		return _Mitigation
+	end function
 	
 	
 	

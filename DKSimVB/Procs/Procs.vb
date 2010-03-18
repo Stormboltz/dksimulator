@@ -35,7 +35,8 @@ Friend Class Procs
 	
 	Friend OnMHWhitehitProcs As new Collection
 	Friend OnMHhitProcs As new Collection
-	Friend OnOHhitProcs As new Collection
+	Friend OnOHhitProcs As New Collection
+	Friend OnFUProcs As new Collection
 	Friend OnCritProcs As new Collection
 	Friend OnDamageProcs As new Collection
 	Friend OnDoTProcs As New Collection
@@ -50,6 +51,7 @@ Friend Class Procs
 		OnDamage = 5
 		OnDoT = 6
 		OnMHWhiteHit=7
+		OnFU=8
 	End Enum
 		
 
@@ -66,6 +68,7 @@ Friend Class Procs
 		For Each prc In AllProcs
 			prc.CD = 0
 			prc.Fade = 0
+			prc.Stack = 0
 		Next
 	End Sub
 	
@@ -108,24 +111,25 @@ Friend Class Procs
 		Virulence = New Proc(s)
 		With Virulence
 			._Name = "Virulence"
-			if s.Sigils.Virulence then .equip
 			.ProcLenght = 20
 			.ProcChance = 0.85
 			.ProcValue = 200
 			.ProcType = "str"
+			.ProcOn = procs.ProcOnType.OnFU
+			if s.Sigils.Virulence then .equip
 		End With
 		
 		HangedMan = New Proc(s)
 		With HangedMan
 			._Name = "HangedMan"
-			if s.Sigils.HangedMan then .equip
 			.ProcLenght = 15
 			.ProcChance = 1
 			.ProcValueStack = 73
-			'.ProcType = "str"
 			.ProcTypeStack = "str"
-			.Stack = 3
-			.DamageType = "HangedMan"
+			.MaxStack = 3
+			.DamageType = ""
+			.ProcOn = procs.ProcOnType.OnFU
+			if s.Sigils.HangedMan then .equip
 		End With
 		
 		

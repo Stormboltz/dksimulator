@@ -38,7 +38,8 @@ Public Module SimConstructor
 		End If
 		newthread = New System.Threading.Thread(AddressOf sim.Start)
 		newthread.Priority= Threading.ThreadPriority.BelowNormal
-		if StartNow then
+		If StartNow Then
+			simCollection.Clear
 			newthread.Start()
 		end if
 		ThreadCollection.Add(newthread)
@@ -181,22 +182,12 @@ Public Module SimConstructor
 		End If
 		EPBase = tmpInt 
 		Jointhread
-'		Dim T As Threading.Thread
-'		
-'		do until simCollection.Count = 0
-'			For Each T In ThreadCollection
-'				T.Join(100)
-'			Next
-'			_MainFrm.UpdateProgressBar
-'		Loop
-		
+
 		EPStat = "EP DryRun"
 		BaseDPS = dpss(EPStat)
-		'WriteReport ("Average for " & EPStat & " | " & BaseDPS)
 		
 		EPStat = "EP AttackPower"
 		APDPS = dpss(EPStat)
-		'WriteReport ("Average for " & EPStat & " | " & APDPS)
 		sReport = sReport +  ("<tr><td>" & EPStat & " | 1 (" & toDDecimal((APDPS-BaseDPS ) / (2*EPBase)) & " DPS/per AP) </td></tr>")
 		
 		Try
@@ -206,8 +197,6 @@ Public Module SimConstructor
 			tmp2 = (DPS-BaseDPS) / EPBase
 			Str = toDDecimal (tmp2/tmp1)
 			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
-			
-			'	WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
 		End Try
 		Try
@@ -217,7 +206,6 @@ Public Module SimConstructor
 			tmp2 = (DPS-BaseDPS) / EPBase
 			Agility = toDDecimal (tmp2/tmp1)
 			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"
-			'	WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
 		End Try
 		Try
@@ -356,7 +344,7 @@ Public Module SimConstructor
 		skipStats:
 		DPSs.Clear
 		ThreadCollection.Clear
-		
+		simCollection.Clear
 		If  doc.SelectSingleNode("//config/Sets").InnerText.Contains("True")=false Then
 			goto skipSets
 		End If
@@ -400,21 +388,13 @@ Public Module SimConstructor
 			SimConstructor.Start(SimTime,MainFrm)
 		End If
 		Jointhread
-'		do until simCollection.Count = 0
-'			For Each T In ThreadCollection
-'				T.Join(100)
-'			Next
-'			_MainFrm.UpdateProgressBar
-'		Loop
+
 		
 		EPStat = "EP 0T7"
 		BaseDPS = dpss(EPStat)
-		'WriteReport ("Average for " & EPStat & " | " & BaseDPS)
 		
 		EPStat = "EP AttackPower0T7"
 		APDPS = dpss(EPStat)
-		'WriteReport ("Average for " & EPStat & " | " & APDPS)
-		'sReport = sReport +  ("<tr><td>" & EPStat & " | 1</td></tr>")
 		
 		Try
 			EPStat="EP 2T7"
@@ -422,7 +402,7 @@ Public Module SimConstructor
 			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
 			tmp2 = (DPS-BaseDPS)/ (2*EPBase)
 			sReport = sReport +  ("<tr><td>"& EPStat & " | " & toDDecimal (100*tmp2/tmp1)) & "</td></tr>"
-			'WriteReport ("Average for " & EPStat & " | " & DPS)
+
 		catch
 		End Try
 		Try
@@ -431,7 +411,7 @@ Public Module SimConstructor
 			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
 			tmp2 = (DPS-BaseDPS)/ (2*EPBase)
 			sReport = sReport +  ("<tr><td>"& EPStat & " | " & toDDecimal (100*tmp2/tmp1)) & "</td></tr>"
-			'WriteReport ("Average for " & EPStat & " | " & DPS)
+
 		catch
 		End Try
 		Try
@@ -440,7 +420,7 @@ Public Module SimConstructor
 			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
 			tmp2 = (DPS-BaseDPS)/ (2*EPBase)
 			sReport = sReport +  ("<tr><td>"& EPStat & " | " & toDDecimal (100*tmp2/tmp1)) & "</td></tr>"
-			'WriteReport ("Average for " & EPStat & " | " & DPS)
+
 		catch
 		End Try
 		Try
@@ -449,7 +429,7 @@ Public Module SimConstructor
 			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
 			tmp2 = (DPS-BaseDPS)/ (2*EPBase)
 			sReport = sReport +  ("<tr><td>"& EPStat & " | " & toDDecimal (100*tmp2/tmp1)) & "</td></tr>"
-			'WriteReport ("Average for " & EPStat & " | " & DPS)
+
 		catch
 		End Try
 		Try
@@ -458,7 +438,7 @@ Public Module SimConstructor
 			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
 			tmp2 = (DPS-BaseDPS)/ (2*EPBase)
 			sReport = sReport +  ("<tr><td>"& EPStat & " | " & toDDecimal (100*tmp2/tmp1)) & "</td></tr>"
-			'WriteReport ("Average for " & EPStat & " | " & DPS)
+
 		catch
 		End Try
 		Try
@@ -467,7 +447,6 @@ Public Module SimConstructor
 			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
 			tmp2 = (DPS-BaseDPS)/ (2*EPBase)
 			sReport = sReport +  ("<tr><td>"& EPStat & " | " & toDDecimal (100*tmp2/tmp1)) & "</td></tr>"
-			'WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
 		End Try
 		Try
@@ -476,7 +455,6 @@ Public Module SimConstructor
 			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
 			tmp2 = (DPS-BaseDPS)/ (2*EPBase)
 			sReport = sReport +  ("<tr><td>"& EPStat & " | " & toDDecimal (100*tmp2/tmp1)) & "</td></tr>"
-			'WriteReport ("Average for " & EPStat & " | " & DPS)
 		Catch
 		End Try
 		Try
@@ -485,7 +463,6 @@ Public Module SimConstructor
 			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
 			tmp2 = (DPS-BaseDPS)/ (2*EPBase)
 			sReport = sReport +  ("<tr><td>"& EPStat & " | " & toDDecimal (100*tmp2/tmp1)) & "</td></tr>"
-			'WriteReport ("Average for " & EPStat & " | " & DPS)
 		catch
 		End Try
 		
@@ -516,21 +493,13 @@ Public Module SimConstructor
 			End If
 		Next
 		Jointhread
-'		
-'		do until simCollection.Count = 0
-'			For Each T In ThreadCollection
-'				T.Join(100)
-'			Next
-'			_MainFrm.UpdateProgressBar
-'		Loop
+
 		
 		EPStat = "EP NoTrinket"
 		BaseDPS = dpss(EPStat)
-		'WriteReport ("Average for " & EPStat & " | " & BaseDPS)
 		
 		EPStat = "EP AttackPowerNoTrinket"
 		APDPS = dpss(EPStat)
-		'WriteReport ("Average for " & EPStat & " | " & APDPS)
 		
 		
 		For Each tNode In trinketsList.ChildNodes
@@ -541,7 +510,6 @@ Public Module SimConstructor
 					tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
 					tmp2 = (DPS-BaseDPS)/ (2*EPBase)
 					sReport = sReport +  ("<tr><td>"& EPStat & " | " & toDDecimal (100*tmp2/tmp1)) & "</td></tr>"
-					'WriteReport ("Average for " & EPStat & " | " & DPS)
 				Catch
 					
 				End Try
@@ -600,11 +568,12 @@ Public Module SimConstructor
 		
 		DPSs.Clear
 		ThreadCollection.Clear
+		simCollection.Clear
 		EPBase = 50
 		_MainFrm = MainFrm
 		dim sReport as String
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
-		Dim T as Threading.Thread
+
 		
 		doc.Load("ScalingConfig.xml")
 		Dim xNodelist As Xml.XmlNode
@@ -667,14 +636,17 @@ Public Module SimConstructor
 		
 	End Sub
 	Sub StartSpecDpsValue(pb As ProgressBar,SimTime As Double,MainFrm As MainForm)
+		dim sReport as String
+		
 		'on error resume next
 		DPSs.Clear
 		ThreadCollection.Clear
+		simCollection.Clear
 		EPBase = 50
 		_MainFrm = MainFrm
 		
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
-		Dim T As Threading.Thread
+
 		doc.Load(Application.StartupPath & "\Templates\" & MainFrm.cmbTemplate.Text)
 		Dim xNodelist As Xml.XmlNode
 		xNodelist = doc.SelectSingleNode("//Talents")
@@ -682,6 +654,8 @@ Public Module SimConstructor
 		
 		EpStat = "OriginalSpec"
 		SimConstructor.Start(MainFrm.txtSimtime.Text,MainFrm)
+		
+		
 		
 		For Each xNode In xNodelist.ChildNodes
 			If (xNode.Name <> "URL" and xNode.Name <> "Glyphs") and xNode.InnerText <> "0" Then
@@ -694,18 +668,21 @@ Public Module SimConstructor
 		dim BaseDPS as Integer
 		EpStat = "OriginalSpec"
 		BaseDPS = dpss(EPStat)
-		WriteReport ("Average for " & EPStat & " | " & BaseDPS)
+		
+		sReport = "<table border='0' cellspacing='0' style='font-family:Verdana; font-size:10px;'>"
+		
+		sReport += "<tr><td>Average for " & EPStat & " | " & BaseDPS & "</tr></td>"
 		
 		
 		For Each xNode In xNodelist.ChildNodes
 			If (xNode.Name <> "URL" and xNode.Name <> "Glyphs") and xNode.InnerText <> "0" Then
 				EpStat = xNode.Name
-				WriteReport ("Value for " & EPStat & " | " & toDDecimal((BaseDPS - dpss(EPStat))/xNode.InnerText))
+				sReport += "<tr><td>Value for " & EPStat & " | " & toDDecimal((BaseDPS - dpss(EPStat))/xNode.InnerText) & "</tr></td>"
 			End If
 		Next
-		WriteReport("<hr width='80%' align='center' noshade ></hr>")
-		
-		
+		sReport += "</table>"
+		sReport += "<hr width='80%' align='center' noshade ></hr>"
+		WriteReport(sReport)
 		EpStat = ""
 	End Sub
 	
@@ -728,10 +705,6 @@ Public Module SimConstructor
 		Dim t As Threading.Thread
 		Dim core As Integer =  Environment.ProcessorCount
 		Dim i As Integer
-		
-		
-		
-		
 		Do Until ThreadCollection.Count = 0
 			RemoveStoppedthread
 			i=0

@@ -25,6 +25,12 @@ Public Class Trinkets
 	Friend DeathbringersWill As Trinket
 	Friend DeathbringersWillHeroic As Trinket
 	
+	Friend HerkumlWarToken as Trinket
+	Friend MarkofSupremacy As Trinket
+	Friend VengeanceoftheForsaken As Trinket
+	Friend VengeanceoftheForsakenHeroic As Trinket
+	
+	
 	Friend MHtemperedViskag As Trinket
 	Friend OHtemperedViskag As Trinket
 	Friend MHSingedViskag As Trinket
@@ -47,6 +53,7 @@ Public Class Trinkets
 	
 	
 	Friend WhisperingFangedSkull As Trinket
+	Friend WhisperingFangedSkullHeroic As Trinket
 	Friend NeedleEncrustedScorpion as Trinket
 	
 	Friend Bryntroll As Trinket
@@ -73,7 +80,7 @@ Public Class Trinkets
 			.DamageType = "Shadowmourne"
 			.HasteSensible = True
 		End With
-		
+
 		BryntrollHeroic = New Trinket(s)
 		With BryntrollHeroic
 			._Name = "BryntrollHeroic"
@@ -94,6 +101,52 @@ Public Class Trinkets
 			.DamageType = "Bryntroll"
 			.ProcLenght = 0
 			.HasteSensible = true
+		End With
+		
+		
+		HerkumlWarToken = New Trinket(s)
+		With HerkumlWarToken
+			._Name = "HerkumlWarToken"
+			.ProcOn = Procs.ProcOnType.Onhit
+			.ProcChance  = 1
+		 	.InternalCD = 0
+		 	.MaxStack = 10
+		 	.ProcTypeStack = "ap"
+		 	.ProcValueStack = "17"
+		 	.ProcLenght = "10"
+		End With
+		
+		MarkofSupremacy = New Trinket(s)
+		With MarkofSupremacy
+			._Name = "MarkofSupremacy"
+			.ProcOn = Procs.ProcOnType.Onhit
+			.ProcChance  = 0.5
+		 	.InternalCD = 120
+		 	.ProcLenght = "20"
+		 	.ProcType = "ap"
+		 	.ProcValue = "1024"
+		End With
+		
+		VengeanceoftheForsaken = New Trinket(s)
+		With VengeanceoftheForsaken
+			._Name = "VengeanceoftheForsaken"
+			.ProcOn = Procs.ProcOnType.Onhit
+			.ProcChance  = 0.5
+		 	.InternalCD = 120
+		 	.ProcLenght = "20"
+		 	.ProcType = "ap"
+		 	.ProcValue = "860"
+		End With
+		
+		VengeanceoftheForsakenHeroic = New Trinket(s)
+		With VengeanceoftheForsakenHeroic
+			._Name = "VengeanceoftheForsakenHeroic"
+			.ProcOn = Procs.ProcOnType.Onhit
+			.ProcChance  = 0.5
+		 	.InternalCD = 120
+		 	.ProcLenght = "20"
+		 	.ProcType = "ap"
+		 	.ProcValue = "1000"
 		End With
 		
 		TinyAbomination = New Trinket(s)
@@ -150,6 +203,18 @@ Public Class Trinkets
 			.ProcChance = 0.35
 		 	.ProcLenght = 15
 		 	.ProcValue = 1100
+		 	.InternalCD = 45
+		 	.DamageType = ""
+		 	.ProcType = "ap"
+		 	.ProcOn = procs.ProcOnType.OnDamage
+		End With
+		
+		WhisperingFangedSkullHeroic = New Trinket(s)
+		With WhisperingFangedSkullHeroic
+			._Name = "WhisperingFangedSkullHeroic"
+			.ProcChance = 0.35
+		 	.ProcLenght = 15
+		 	.ProcValue = 1250
 		 	.InternalCD = 45
 		 	.DamageType = ""
 		 	.ProcType = "ap"

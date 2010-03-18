@@ -62,7 +62,7 @@ Friend Class ScourgeStrike
 		End If
 		sim.runes.UseFU(T,False)
 		Sim.RunicPower.add (15 + sim.TalentUnholy.Dirge * 2.5 + 5*sim.MainStat.T74PDPS)
-		sim.proc.Virulence.TryMe(t)
+		sim.TryOnFU
 		sim.TryOnMHHitProc
 		return true
 	End Function

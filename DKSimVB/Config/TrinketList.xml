@@ -1,23 +1,32 @@
 <?xml version="1.0"?>
 <TrinketList>
-		<MjolnirRunestone></MjolnirRunestone>
-		<DeathbringersWill></DeathbringersWill>
-    	<DeathbringersWillHeroic></DeathbringersWillHeroic>
-		<WhisperingFangedSkull></WhisperingFangedSkull>
-		<NeedleEncrustedScorpion></NeedleEncrustedScorpion>
-		<GrimToll></GrimToll>
-		<BitterAnguish></BitterAnguish>
-		<Mirror></Mirror>
-		<Greatness></Greatness>
-		<DCDeath></DCDeath>
-		<Victory></Victory>
-		<Necromantic></Necromantic>
-		<Bandit></Bandit>
-		<Pyrite></Pyrite>
-		<DarkMatter></DarkMatter>
-		<OldGod></OldGod>
-		<Comet></Comet>
-		<DeathChoice></DeathChoice>
-        <DeathChoiceHeroic></DeathChoiceHeroic>
-		<TinyAbomination></TinyAbomination>
+	<MjolnirRunestone id='45931'></MjolnirRunestone>
+	<DeathbringersWill id='50362'></DeathbringersWill>
+	<DeathbringersWillHeroic id='50363'></DeathbringersWillHeroic>
+	<WhisperingFangedSkull id='50342'></WhisperingFangedSkull>
+	<WhisperingFangedSkullHeroic id='50343'></WhisperingFangedSkullHeroic>
+	<HerkumlWarToken id='50355'></HerkumlWarToken>
+	<MarkofSupremacy id='47734'></MarkofSupremacy>
+	<VengeanceoftheForsaken id='47881'></VengeanceoftheForsaken>
+	<VengeanceoftheForsaken id='47725'></VengeanceoftheForsaken>
+	<VengeanceoftheForsakenHeroic id='47948'></VengeanceoftheForsakenHeroic>
+	<VengeanceoftheForsakenHeroic id='48020'></VengeanceoftheForsakenHeroic>
+	<NeedleEncrustedScorpion id='50198'></NeedleEncrustedScorpion>
+	<GrimToll id='40256'></GrimToll>
+	<BitterAnguish id='43573'></BitterAnguish>
+	<Mirror id='40684'></Mirror>
+	<Greatness id='42987'></Greatness>
+	<DCDeath id='42990'></DCDeath>
+	<Victory id='47214'></Victory>
+	<Necromantic id='40373'></Necromantic>
+	<Bandit id='40371'></Bandit>
+	<Pyrite id='45286'></Pyrite>
+	<DarkMatter id='46038'></DarkMatter>
+	<OldGod id='45522'></OldGod>
+	<Comet id='45609'></Comet>
+	<DeathChoice id='47303'></DeathChoice>
+	<DeathChoiceHeroic id='47464'></DeathChoiceHeroic>
+	<DeathChoice id='47115'></DeathChoice>
+	<DeathChoiceHeroic id='47131'></DeathChoiceHeroic>
+	<TinyAbomination id='50351'></TinyAbomination>
 </TrinketList>

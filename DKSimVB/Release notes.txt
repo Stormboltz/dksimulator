@@ -1,6 +1,11 @@
 ﻿1.2.0.12 Release notes
 * Better Multithreading management. Main frame should not hang when calculating.
-* Missed/Dodge/Parried Frost Strike refunds 90% of its RP 
+* Missed/Dodge/Parried Frost Strike refunds 90% of its RP. 
+* Whispering Fanged Skull Heroic, Herkuml War Token, Mark of Supremacy, Vengeance of the Forsaken (normal and heroic).
+* IT threat buff.
+* Correction: ICC buff selection reset when editing a character/spec.
+* New: Character Builder using internal Item Database.
+
 
 
 1.2.0.11 Release notes

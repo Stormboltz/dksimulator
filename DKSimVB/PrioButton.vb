@@ -8,6 +8,7 @@
 '
 Public Class PrioButton
 	Inherits System.Windows.Forms.GroupBox
+	
 	friend button as System.Windows.Forms.Button
 	Friend lbl As System.Windows.Forms.Label
 	

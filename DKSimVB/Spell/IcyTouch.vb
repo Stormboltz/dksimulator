@@ -2,6 +2,9 @@ Friend Class IcyTouch
 	inherits Spells.Spell
 	Sub New(S As sim)
 		MyBase.New(s)
+		If s.FrostPresence = 1 Then
+			if sim.Patch then ThreadMultiplicator = 7
+		End If
 	End Sub
 	
 	overrides Function ApplyDamage(T As long) As boolean

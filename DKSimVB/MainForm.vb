@@ -360,4 +360,9 @@ Public Partial Class MainForm
 		i=i*100
 		Me.PBsim.Value = i
 	End Sub
+	
+	Sub CmdEditGearSelectorClick(sender As Object, e As EventArgs)
+		Dim gearSelector As New GearSelectorMainForm
+		gearSelector.Show(me)
+	End Sub
 End Class

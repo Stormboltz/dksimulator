@@ -63,6 +63,7 @@ Friend Class Obliterate
 			sim.TryOnOHHitProc
 		Else
 			sim.TryOnMHHitProc
+			sim.TryOnFU
 			Sim.runicpower.add(15 + 2.5*sim.talentfrost.ChillOfTheGrave  + 5*sim.MainStat.T74PDPS )
 		End If
 		sim.proc.Rime.TryMe(T)
@@ -70,7 +71,8 @@ Friend Class Obliterate
 		If sim.DRW.IsActive(T) Then
 			sim.drw.Obliterate
 		End If
-		sim.proc.Virulence.TryMe(t)
+		
+		
 		return true
 	End Function
 	

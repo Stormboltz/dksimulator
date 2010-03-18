@@ -1,0 +1,446 @@
+<bonus>
+  <item>
+    <id>2927</id>
+    <Strength>4</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>4 Strength</Desc>
+  </item>
+  <item>
+    <id>3094</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>4</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>4 Expertise Rating</Desc>
+  </item>
+  <item>
+    <id>2873</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>4 </HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>4 Hit Rating</Desc>
+  </item>
+  <item>
+    <id>3301</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>6</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>6 Critical Strike Rating</Desc>
+  </item>
+  <item>
+    <id>2936</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>8</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>8 Attack Power</Desc>
+  </item>
+  <item>
+    <id>3764</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>12</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>12 Attack Power</Desc>
+  </item>
+  <item>
+    <id>3303</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>8</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>8 Haste Rating</Desc>
+  </item>
+  <item>
+    <id>3312</id>
+    <Strength>8</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>8 Strength</Desc>
+  </item>
+  <item>
+    <id>3263</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>4</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>4 Critical Strike Rating</Desc>
+  </item>
+  <item>
+    <id>3351</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>6 </HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>6 Hit Rating</Desc>
+  </item>
+  <item>
+    <id>2892</id>
+    <Strength>4</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>4 Strength</Desc>
+  </item>
+  <item>
+    <id>3765</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>4</ArmorPenetrationRating>
+    <Desc>4 Armor Penetration Rating</Desc>
+  </item>
+  <item>
+    <id>3355</id>
+    <Strength>0</Strength>
+    <Agility>6</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>6 Agility</Desc>
+  </item>
+  <item>
+    <id>3308</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>4</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>4 Haste Rating</Desc>
+  </item>
+  <item>
+    <id>3357</id>
+    <Strength>6</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>6 Strength</Desc>
+  </item>
+  <item>
+    <id>3356</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>12</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>12 Attack Power</Desc>
+  </item>
+  <item>
+    <id>2908</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>4 </HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>4 Hit Rating</Desc>
+  </item>
+  <item>
+    <id>2877</id>
+    <Strength>0</Strength>
+    <Agility>4</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>4 Agility</Desc>
+  </item>
+  <item>
+    <id>2787</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>8</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>8 Critical Strike Rating</Desc>
+  </item>
+  <item>
+    <id>3778</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>8</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>8 Expertise Rating</Desc>
+  </item>
+  <item>
+    <id>2771</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>8</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>8 Critical Strike Rating</Desc>
+  </item>
+  <item>
+    <id>2767</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>8 </HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>8 Hit Rating</Desc>
+  </item>
+  <item>
+    <id>3316</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>6</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>6 Critical Strike Rating</Desc>
+  </item>
+  <item>
+    <id>3314</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>8</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>8 Critical Strike Rating</Desc>
+  </item>
+  <item>
+    <id>3313</id>
+    <Strength>0</Strength>
+    <Agility>8</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>8 Agility</Desc>
+  </item>
+  <item>
+    <id>2952</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>4</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>4 Critical Strike Rating</Desc>
+  </item>
+  <item>
+    <id>1597</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>32</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>32 Attack Power</Desc>
+  </item>
+  <item>
+    <id>2864</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>4</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>4 Critical Strike Rating</Desc>
+  </item>
+  <item>
+    <id>1587</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>12</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>12 Attack Power</Desc>
+  </item>
+  <item>
+    <id>3877</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>16</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>16 Attack Power</Desc>
+  </item>
+  <item>
+    <id>3267</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>4</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>4 Haste Rating</Desc>
+  </item>
+  <item>
+    <id>3114</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>4</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>4 Attack Power</Desc>
+  </item>
+  <item>
+    <id>2874</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>4</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>4 Critical Strike Rating</Desc>
+  </item>
+  <item>
+    <id>3309</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>6</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>6 Haste Rating</Desc>
+  </item>
+  <item>
+    <id>3880</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>6</ArmorPenetrationRating>
+    <Desc>6 Armor Penetration Rating</Desc>
+  </item>
+  <item>
+    <id>3882</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>8</ArmorPenetrationRating>
+    <Desc>8 Armor Penetration Rating</Desc>
+  </item>
+  <item>
+    <id>1585</id>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>8</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <Desc>8 Attack Power</Desc>
+  </item>
+</bonus>
