@@ -37,7 +37,7 @@ Public Module SimConstructor
 			Sim.Prepare(Simtime, Mainfrm)
 		End If
 		newthread = New System.Threading.Thread(AddressOf sim.Start)
-		newthread.Priority= Threading.ThreadPriority.BelowNormal
+		'newthread.Priority= Threading.ThreadPriority.BelowNormal
 		If StartNow Then
 			simCollection.Clear
 			newthread.Start()
@@ -46,6 +46,108 @@ Public Module SimConstructor
 		simCollection.Add(sim)
 	End Sub
 	
+	Sub GetFastEPValue(MainFrm As MainForm)
+		DPSs.Clear
+		ThreadCollection.Clear
+		simCollection.Clear
+		EPBase = 20
+		_MainFrm = MainFrm
+		Dim EPVal As EPValues = MainFrm.EPVal
+		dim SimTime as Double = 1
+		EPStat="EP DryRun"
+		SimConstructor.Start(SimTime,MainFrm)
+		EPStat="EP AttackPower"
+		SimConstructor.Start(SimTime,MainFrm)
+		EPStat="EP Strength"
+		SimConstructor.Start(SimTime,MainFrm)
+		EPStat="EP Agility"
+		SimConstructor.Start(SimTime,MainFrm)
+		EPStat="EP CritRating"
+		SimConstructor.Start(SimTime,MainFrm)
+		EPStat="EP HasteEstimated"
+		SimConstructor.Start(SimTime,MainFrm)
+		EPStat="EP ArmorPenetrationRating"
+		SimConstructor.Start(SimTime,MainFrm)
+		EPStat="EP RelativeExpertiseRating"
+		SimConstructor.Start(SimTime,MainFrm)
+		EPStat="EP RelativeHitRating"
+		SimConstructor.Start(SimTime,MainFrm)
+		EPStat="EP WeaponDPS"
+		SimConstructor.Start(SimTime,MainFrm)
+		EPStat="EP WeaponSpeed"
+		SimConstructor.Start(SimTime,MainFrm)
+		
+		Jointhread
+		
+		Dim BaseDPS As Double
+		dim APDPS as Double
+		Dim tmp1 As Double
+		Dim tmp2 As Double
+		dim DPS as Double
+		
+		EPStat = "EP DryRun"
+		BaseDPS = dpss(EPStat)
+		EPStat = "EP AttackPower"
+		APDPS = dpss(EPStat)
+		tmp1 = (APDPS-BaseDPS ) /  (2*EPBase)
+		
+		EPStat="EP Strength"
+		DPS = dpss(EPStat)
+		tmp2 = (DPS-BaseDPS) / EPBase
+		EPVal.Str = math.Max(0,toDDecimal (tmp2/tmp1))
+		
+		EPStat="EP Agility"
+		DPS = dpss(EPStat)
+		tmp2 = (DPS-BaseDPS) / EPBase
+		EPVal.Agility =math.Max(0, toDDecimal (tmp2/tmp1))
+		
+		EPStat="EP CritRating"
+		DPS = dpss(EPStat)
+		tmp2 = (DPS-BaseDPS) / EPBase
+		EPVal.Crit = math.Max(0,toDDecimal (tmp2/tmp1))
+		
+		EPStat="EP HasteEstimated"
+		DPS = DPSs(EPStat)
+		tmp2 = (DPS-BaseDPS) / EPBase
+		EPVal.Haste = math.Max(0,toDDecimal (tmp2/tmp1))
+		
+		EPStat="EP ArmorPenetrationRating"
+		DPS = dpss(EPStat)
+		tmp2 = (DPS-BaseDPS) / EPBase
+		EPVal.ArP = math.Max(0,toDDecimal (tmp2/tmp1))
+		
+		
+		EPStat="EP RelativeExpertiseRating"
+		DPS = dpss(EPStat)
+		tmp2 = (DPS-BaseDPS) / EPBase
+		EPVal.Exp = math.Max(0, toDDecimal (tmp2/tmp1))
+		
+		
+		EPStat="EP RelativeHitRating"
+		DPS = dpss(EPStat)
+		tmp2 = (DPS-BaseDPS) / EPBase
+		EPVal.Hit = math.Max(0,toDDecimal (tmp2/tmp1))
+		
+		EPStat="EP WeaponDPS"
+		DPS = dpss(EPStat)
+		tmp2 = (DPS-BaseDPS) / 10
+		EPVal.MHDPS = math.Max(0,toDDecimal (tmp2/tmp1))
+		
+		EPStat="EP WeaponSpeed"
+		DPS = dpss(EPStat)
+		tmp2 = (DPS-BaseDPS) / 0.1
+		EPVal.MHSpeed = math.Max(0,toDDecimal (tmp2/tmp1))
+		
+		
+		EPStat = ""
+		
+		skipStats:
+		DPSs.Clear
+		ThreadCollection.Clear
+		simCollection.Clear
+		
+		
+	End Sub
 	
 	Sub StartEP(SimTime As Double,MainFrm As MainForm)
 		DPSs.Clear
@@ -88,7 +190,7 @@ Public Module SimConstructor
 		ArP 	=	0
 		Haste 	=	0
 		Crit  	=	0
-
+		
 		
 		
 		If SimTime = 0 Then SimTime = 1
@@ -148,7 +250,7 @@ Public Module SimConstructor
 				SimConstructor.Start(SimTime,MainFrm)
 			End If
 		End If
-
+		
 		if doc.SelectSingleNode("//config/Stats/chkEPHit").InnerText = "True" then
 			EPStat="EP HitRating"
 			SimConstructor.Start(SimTime,MainFrm)
@@ -180,9 +282,9 @@ Public Module SimConstructor
 			EPStat="EP AfterSpellHitRating"
 			SimConstructor.Start(SimTime,MainFrm)
 		End If
-		EPBase = tmpInt 
+		EPBase = tmpInt
 		Jointhread
-
+		
 		EPStat = "EP DryRun"
 		BaseDPS = dpss(EPStat)
 		
@@ -388,7 +490,7 @@ Public Module SimConstructor
 			SimConstructor.Start(SimTime,MainFrm)
 		End If
 		Jointhread
-
+		
 		
 		EPStat = "EP 0T7"
 		BaseDPS = dpss(EPStat)
@@ -402,7 +504,7 @@ Public Module SimConstructor
 			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
 			tmp2 = (DPS-BaseDPS)/ (2*EPBase)
 			sReport = sReport +  ("<tr><td>"& EPStat & " | " & toDDecimal (100*tmp2/tmp1)) & "</td></tr>"
-
+			
 		catch
 		End Try
 		Try
@@ -411,7 +513,7 @@ Public Module SimConstructor
 			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
 			tmp2 = (DPS-BaseDPS)/ (2*EPBase)
 			sReport = sReport +  ("<tr><td>"& EPStat & " | " & toDDecimal (100*tmp2/tmp1)) & "</td></tr>"
-
+			
 		catch
 		End Try
 		Try
@@ -420,7 +522,7 @@ Public Module SimConstructor
 			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
 			tmp2 = (DPS-BaseDPS)/ (2*EPBase)
 			sReport = sReport +  ("<tr><td>"& EPStat & " | " & toDDecimal (100*tmp2/tmp1)) & "</td></tr>"
-
+			
 		catch
 		End Try
 		Try
@@ -429,7 +531,7 @@ Public Module SimConstructor
 			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
 			tmp2 = (DPS-BaseDPS)/ (2*EPBase)
 			sReport = sReport +  ("<tr><td>"& EPStat & " | " & toDDecimal (100*tmp2/tmp1)) & "</td></tr>"
-
+			
 		catch
 		End Try
 		Try
@@ -438,7 +540,7 @@ Public Module SimConstructor
 			tmp1 = (APDPS-BaseDPS ) / (2*EPBase)
 			tmp2 = (DPS-BaseDPS)/ (2*EPBase)
 			sReport = sReport +  ("<tr><td>"& EPStat & " | " & toDDecimal (100*tmp2/tmp1)) & "</td></tr>"
-
+			
 		catch
 		End Try
 		Try
@@ -493,7 +595,7 @@ Public Module SimConstructor
 			End If
 		Next
 		Jointhread
-
+		
 		
 		EPStat = "EP NoTrinket"
 		BaseDPS = dpss(EPStat)
@@ -547,11 +649,11 @@ Public Module SimConstructor
 		
 		lootlink = "<tr><td COLSPAN=8><a href=http://www.guildox.com/wr.asp?Cla=2048&s7=3.2&str=" & Str & "&Arm=" & 0.028 & "&mh=" & Haste & "&dps=" & MHDPS & "&mcr=" & Crit & _
 			"&odps=" & 0 & "&Agi=" & Agility & "&mhit=" & SpHit & "&map=1" & "&msp=" & MHSpeed & "&arp=" & ArP & "&osp=0" & "&Exp=" & Exp & " target='_blank'>lootlink hit caped</a></td></tr>"
-		sReport = sReport & lootlink	
+		sReport = sReport & lootlink
 		Dim pwan As String
-		pwan  = "<tr><td COLSPAN=8>Non hit caped ( Pawn: v1: "+chr(34)+"DK Sim"+chr(34)+": ArmorPenetration="+ArP+", HitRating="+Hit+", CritRating="+crit+", Dps="+MHDPS+", Strength="+Str+", Armor=0.028, Agility="+Agility+", HasteRating="+Haste+", Speed="+MHSpeed+", ExpertiseRating="+Exp+", Ap=1, GemQualityLevel=82 )</td></tr>"		
+		pwan  = "<tr><td COLSPAN=8>Non hit caped ( Pawn: v1: "+chr(34)+"DK Sim"+chr(34)+": ArmorPenetration="+ArP+", HitRating="+Hit+", CritRating="+crit+", Dps="+MHDPS+", Strength="+Str+", Armor=0.028, Agility="+Agility+", HasteRating="+Haste+", Speed="+MHSpeed+", ExpertiseRating="+Exp+", Ap=1, GemQualityLevel=82 )</td></tr>"
 		sReport = sReport + pwan
-		pwan  = "<tr><td COLSPAN=8>hit caped ( Pawn: v1: "+chr(34)+"DK Sim"+chr(34)+": ArmorPenetration="+ArP+", HitRating="+SpHit+", CritRating="+crit+", Dps="+MHDPS+", Strength="+Str+", Armor=0.028, Agility="+Agility+", HasteRating="+Haste+", Speed="+MHSpeed+", ExpertiseRating="+Exp+", Ap=1, GemQualityLevel=82 )</td></tr>"		
+		pwan  = "<tr><td COLSPAN=8>hit caped ( Pawn: v1: "+chr(34)+"DK Sim"+chr(34)+": ArmorPenetration="+ArP+", HitRating="+SpHit+", CritRating="+crit+", Dps="+MHDPS+", Strength="+Str+", Armor=0.028, Agility="+Agility+", HasteRating="+Haste+", Speed="+MHSpeed+", ExpertiseRating="+Exp+", Ap=1, GemQualityLevel=82 )</td></tr>"
 		sReport = sReport + pwan
 		sReport = sReport +   ("<hr width='80%' align='center' noshade ></hr>")
 		
@@ -573,7 +675,7 @@ Public Module SimConstructor
 		_MainFrm = MainFrm
 		dim sReport as String
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
-
+		
 		
 		doc.Load("ScalingConfig.xml")
 		Dim xNodelist As Xml.XmlNode
@@ -646,7 +748,7 @@ Public Module SimConstructor
 		_MainFrm = MainFrm
 		
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
-
+		
 		doc.Load(Application.StartupPath & "\Templates\" & MainFrm.cmbTemplate.Text)
 		Dim xNodelist As Xml.XmlNode
 		xNodelist = doc.SelectSingleNode("//Talents")
@@ -690,12 +792,12 @@ Public Module SimConstructor
 		Dim j As Integer
 		Dim t As Threading.Thread
 		For j=0 To ThreadCollection.Count-1
-				t = ThreadCollection.Item(j)
-				If t.ThreadState = Threading.ThreadState.Stopped Then
-						ThreadCollection.Remove(t)
-						RemoveStoppedthread
-						exit sub
-				End If
+			t = ThreadCollection.Item(j)
+			If t.ThreadState = Threading.ThreadState.Stopped Then
+				ThreadCollection.Remove(t)
+				RemoveStoppedthread
+				exit sub
+			End If
 		Next
 	End Sub
 	
@@ -719,7 +821,7 @@ Public Module SimConstructor
 				End If
 				i += 1
 			Next
-		Loop	
+		Loop
 	End Sub
 	
 	

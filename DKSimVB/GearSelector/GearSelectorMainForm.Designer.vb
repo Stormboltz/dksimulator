@@ -34,7 +34,7 @@ Partial Class GearSelectorMainForm
 	''' </summary>
 	Private Sub InitializeComponent()
 		Me.cmdExtrator = New System.Windows.Forms.Button
-		Me.cmdLoadGear = New System.Windows.Forms.Button
+		Me.cmdSaveAsNew = New System.Windows.Forms.Button
 		Me.cmdSave = New System.Windows.Forms.Button
 		Me.gbStats = New System.Windows.Forms.GroupBox
 		Me.txtArP = New System.Windows.Forms.TextBox
@@ -94,6 +94,7 @@ Partial Class GearSelectorMainForm
 		Me.txtMHExpBonus = New System.Windows.Forms.TextBox
 		Me.label41 = New System.Windows.Forms.Label
 		Me.label42 = New System.Windows.Forms.Label
+		Me.cmdQuickEP = New System.Windows.Forms.Button
 		Me.gbStats.SuspendLayout
 		Me.gbWeapons.SuspendLayout
 		Me.gbMisc.SuspendLayout
@@ -107,7 +108,7 @@ Partial Class GearSelectorMainForm
 		'cmdExtrator
 		'
 		Me.cmdExtrator.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdExtrator.Location = New System.Drawing.Point(729, 4232)
+		Me.cmdExtrator.Location = New System.Drawing.Point(627, 7690)
 		Me.cmdExtrator.Name = "cmdExtrator"
 		Me.cmdExtrator.Size = New System.Drawing.Size(75, 23)
 		Me.cmdExtrator.TabIndex = 0
@@ -115,21 +116,21 @@ Partial Class GearSelectorMainForm
 		Me.cmdExtrator.UseVisualStyleBackColor = true
 		AddHandler Me.cmdExtrator.Click, AddressOf Me.CmdExtratorClick
 		'
-		'cmdLoadGear
+		'cmdSaveAsNew
 		'
-		Me.cmdLoadGear.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdLoadGear.Location = New System.Drawing.Point(722, 12)
-		Me.cmdLoadGear.Name = "cmdLoadGear"
-		Me.cmdLoadGear.Size = New System.Drawing.Size(75, 23)
-		Me.cmdLoadGear.TabIndex = 2
-		Me.cmdLoadGear.Text = "Load"
-		Me.cmdLoadGear.UseVisualStyleBackColor = true
-		AddHandler Me.cmdLoadGear.Click, AddressOf Me.CmdLoadGearClick
+		Me.cmdSaveAsNew.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.cmdSaveAsNew.Location = New System.Drawing.Point(783, 16)
+		Me.cmdSaveAsNew.Name = "cmdSaveAsNew"
+		Me.cmdSaveAsNew.Size = New System.Drawing.Size(92, 23)
+		Me.cmdSaveAsNew.TabIndex = 2
+		Me.cmdSaveAsNew.Text = "Save As New"
+		Me.cmdSaveAsNew.UseVisualStyleBackColor = true
+		AddHandler Me.cmdSaveAsNew.Click, AddressOf Me.cmdSaveAsNewClick
 		'
 		'cmdSave
 		'
 		Me.cmdSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdSave.Location = New System.Drawing.Point(819, 12)
+		Me.cmdSave.Location = New System.Drawing.Point(881, 16)
 		Me.cmdSave.Name = "cmdSave"
 		Me.cmdSave.Size = New System.Drawing.Size(72, 23)
 		Me.cmdSave.TabIndex = 4
@@ -330,7 +331,7 @@ Partial Class GearSelectorMainForm
 		'
 		Me.cmbRace.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbRace.FormattingEnabled = true
-		Me.cmbRace.Location = New System.Drawing.Point(785, 41)
+		Me.cmbRace.Location = New System.Drawing.Point(847, 45)
 		Me.cmbRace.Name = "cmbRace"
 		Me.cmbRace.Size = New System.Drawing.Size(100, 21)
 		Me.cmbRace.TabIndex = 16
@@ -339,7 +340,7 @@ Partial Class GearSelectorMainForm
 		'label1
 		'
 		Me.label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.label1.Location = New System.Drawing.Point(705, 41)
+		Me.label1.Location = New System.Drawing.Point(767, 45)
 		Me.label1.Name = "label1"
 		Me.label1.Size = New System.Drawing.Size(75, 18)
 		Me.label1.TabIndex = 17
@@ -527,7 +528,7 @@ Partial Class GearSelectorMainForm
 		Me.groupBox1.Controls.Add(Me.gbWeapons)
 		Me.groupBox1.Controls.Add(Me.groupBox5)
 		Me.groupBox1.Controls.Add(Me.gbStats)
-		Me.groupBox1.Location = New System.Drawing.Point(645, 68)
+		Me.groupBox1.Location = New System.Drawing.Point(713, 72)
 		Me.groupBox1.Name = "groupBox1"
 		Me.groupBox1.Size = New System.Drawing.Size(240, 1109)
 		Me.groupBox1.TabIndex = 20
@@ -686,18 +687,31 @@ Partial Class GearSelectorMainForm
 		Me.label42.Text = "Main Hand Expertise"
 		Me.label42.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		'
+		'cmdQuickEP
+		'
+		Me.cmdQuickEP.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.cmdQuickEP.Location = New System.Drawing.Point(703, 16)
+		Me.cmdQuickEP.Name = "cmdQuickEP"
+		Me.cmdQuickEP.Size = New System.Drawing.Size(74, 56)
+		Me.cmdQuickEP.TabIndex = 21
+		Me.cmdQuickEP.Text = "Get Quick EP Values"
+		Me.cmdQuickEP.UseVisualStyleBackColor = true
+		AddHandler Me.cmdQuickEP.Click, AddressOf Me.CmdQuickEPClick
+		'
 		'GearSelectorMainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 		Me.AutoScroll = true
-		Me.ClientSize = New System.Drawing.Size(982, 687)
+		Me.ClientSize = New System.Drawing.Size(999, 687)
+		Me.Controls.Add(Me.cmdQuickEP)
 		Me.Controls.Add(Me.groupBox1)
 		Me.Controls.Add(Me.label1)
 		Me.Controls.Add(Me.cmbRace)
 		Me.Controls.Add(Me.cmdSave)
-		Me.Controls.Add(Me.cmdLoadGear)
+		Me.Controls.Add(Me.cmdSaveAsNew)
 		Me.Controls.Add(Me.cmdExtrator)
+		Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow
 		Me.Name = "GearSelectorMainForm"
 		Me.Text = "Gear Selector"
 		AddHandler Load, AddressOf Me.MainFormLoad
@@ -718,6 +732,8 @@ Partial Class GearSelectorMainForm
 		Me.ResumeLayout(false)
 		Me.PerformLayout
 	End Sub
+	Private cmdQuickEP As System.Windows.Forms.Button
+	Private cmdSaveAsNew As System.Windows.Forms.Button
 	Private cmbWeaponProc1 As System.Windows.Forms.TextBox
 	Private cmbWeaponProc2 As System.Windows.Forms.TextBox
 	Private gbWeaponProc As System.Windows.Forms.GroupBox
@@ -777,7 +793,6 @@ Partial Class GearSelectorMainForm
 	Private gbStats As System.Windows.Forms.GroupBox
 	Private txtStr As System.Windows.Forms.TextBox
 	Private cmdSave As System.Windows.Forms.Button
-	Private cmdLoadGear As System.Windows.Forms.Button
 	Private cmdExtrator As System.Windows.Forms.Button
 	
 	

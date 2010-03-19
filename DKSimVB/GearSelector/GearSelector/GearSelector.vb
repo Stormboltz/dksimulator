@@ -12,7 +12,7 @@ Public Partial Class GearSelector
 	
 	Friend ItemDB As New Xml.XmlDocument
 	Friend Slot As String
-	Friend SelectedItem As String
+	Friend SelectedItem As String = -1
 	Friend MainFrame as GearSelectorMainForm
 	
 	
@@ -79,16 +79,21 @@ Public Partial Class GearSelector
 	End Sub
 	
 	Sub LoadItem(Slot As String)
-		
+		me.Slot = slot
 		listView1.SelectedItems.Clear
-		SelectedItem = 0
 		listView1.Items.Clear
+		If Me.textBox1.Text.Trim <> "" Then
+			listView1.ListViewItemSorter = nothing
+			FilterList(Me.textBox1.Text)
+			exit sub
+		End If
+		
 		
 		
 		
 		Dim xList As Xml.XmlNodeList
 		Dim xNode As Xml.XmlNode
-		me.Slot = slot
+		
 		xList = ItemDB.SelectNodes("/items/item[slot="& slot &"]")
 		For Each xNode In xList
 			AddItem(xNode)
@@ -229,5 +234,10 @@ Public Partial Class GearSelector
 		if SelectedItem <> "" then me.DialogResult = DialogResult.OK
 		
 		
+	End Sub
+	
+	Sub CmdClearClick(sender As Object, e As EventArgs)
+		SelectedItem = 0
+		me.Close
 	End Sub
 End Class

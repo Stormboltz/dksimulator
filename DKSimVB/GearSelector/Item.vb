@@ -53,14 +53,14 @@ Public Class Item
 	
 	
 	
-	
-	
-	
-	
-	
 	Sub New(MainFrm As GearSelectorMainForm, Optional ItemId As Integer = 0)
 		MainFrame = MainFrm
 		ItemDB = MainFrame.ItemDB
+		
+		gem1 = New Gem(Me.MainFrame,0)
+		gem2 = New Gem(Me.MainFrame,0)
+		gem3 = New Gem(Me.MainFrame,0)
+		Enchant = new Enchant(Me.MainFrame)
 		if ItemId <> 0 then LoadItem(ItemId)
 	End Sub
 	
@@ -69,6 +69,10 @@ Public Class Item
 	Sub LoadItem(ItemId As Integer)
 		AdditionalGemNotSet = True
 		id = ItemId
+		If id = 0 Then
+			Unload
+			exit sub
+		End If
 		name  =ItemDB.SelectSingleNode("/items/item[id=" & ItemId & "]/name").InnerText
 		ilvl =ItemDB.SelectSingleNode("/items/item[id=" & ItemId & "]/ilvl").InnerText
 		slot =ItemDB.SelectSingleNode("/items/item[id=" & ItemId & "]/slot").InnerText
@@ -131,11 +135,6 @@ Public Class Item
 				gem3 = new Gem(me.MainFrame,0)
 			End If
 		End If
-		
-		Enchant = new Enchant(Me.MainFrame)
-		
-		
-		
 		gembonus = ItemDB.SelectSingleNode("/items/item[id=" & ItemId & "]/gembonus").InnerText
 		keywords = ItemDB.SelectSingleNode("/items/item[id=" & ItemId & "]/keywords").InnerText
 	End Sub
@@ -165,6 +164,8 @@ Public Class Item
 		gem1.Detach
 		gem2.Detach
 		gem3.Detach
+		Enchant.Detach
+		
 		gembonus = 0
 		keywords = ""
 	End Sub

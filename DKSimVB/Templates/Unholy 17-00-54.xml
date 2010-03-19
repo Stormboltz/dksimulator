@@ -1,5 +1,5 @@
 <Talents>
-  <URL>=2305020500000000000000000000000000000000000000000000000002300303350032152000150003033151&amp;glyph=081727&amp;</URL>
+  <URL>=2305020500000000000000000000000000000000000000000000000002302003350032152000150003133151&amp;glyph=081727&amp;</URL>
   <Butchery>2</Butchery>
   <Subversion>3</Subversion>
   <BladeBarrier>0</BladeBarrier>
@@ -60,8 +60,8 @@
   <ViciousStrikes>2</ViciousStrikes>
   <Virulence>3</Virulence>
   <Anticipation>0</Anticipation>
-  <Epidemic>0</Epidemic>
-  <Morbidity>3</Morbidity>
+  <Epidemic>2</Epidemic>
+  <Morbidity>0</Morbidity>
   <UnholyCommand>0</UnholyCommand>
   <RavenousDead>3</RavenousDead>
   <Outbreak>3</Outbreak>
@@ -82,7 +82,7 @@
   <ImprovedUnholyPresence>0</ImprovedUnholyPresence>
   <GhoulFrenzy>0</GhoulFrenzy>
   <CryptFever>3</CryptFever>
-  <BoneShield>0</BoneShield>
+  <BoneShield>1</BoneShield>
   <WanderingPlague>3</WanderingPlague>
   <EbonPlaguebringer>3</EbonPlaguebringer>
   <ScourgeStrike>1</ScourgeStrike>
@@ -91,7 +91,6 @@
   <Glyphs>
     <BloodStrike>0</BloodStrike>
     <DarkDeath>1</DarkDeath>
-    <IcyTouchII>0</IcyTouchII>
     <DeathStrike>0</DeathStrike>
     <FrostStrike>0</FrostStrike>
     <HowlingBlast>0</HowlingBlast>

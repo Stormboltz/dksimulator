@@ -6,7 +6,7 @@
 ' 
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
-Partial Class EnchantSelector
+Partial Class GearSelector
 	''' <summary>
 	''' Designer variable used to keep track of non-visual components.
 	''' </summary>
@@ -63,15 +63,15 @@ Partial Class EnchantSelector
 		'cmdClear
 		'
 		Me.cmdClear.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdClear.Location = New System.Drawing.Point(655, 12)
+		Me.cmdClear.Location = New System.Drawing.Point(654, 16)
 		Me.cmdClear.Name = "cmdClear"
 		Me.cmdClear.Size = New System.Drawing.Size(75, 23)
-		Me.cmdClear.TabIndex = 3
+		Me.cmdClear.TabIndex = 4
 		Me.cmdClear.Text = "None"
 		Me.cmdClear.UseVisualStyleBackColor = true
 		AddHandler Me.cmdClear.Click, AddressOf Me.CmdClearClick
 		'
-		'EnchantSelector
+		'GearSelector
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -80,7 +80,7 @@ Partial Class EnchantSelector
 		Me.Controls.Add(Me.listView1)
 		Me.Controls.Add(Me.textBox1)
 		Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow
-		Me.Name = "EnchantSelector"
+		Me.Name = "GearSelector"
 		AddHandler Load, AddressOf Me.GearSelectorLoad
 		AddHandler Closing, AddressOf Me.GearSelectorClose
 		Me.ResumeLayout(false)

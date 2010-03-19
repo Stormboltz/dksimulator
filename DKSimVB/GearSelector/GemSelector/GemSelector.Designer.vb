@@ -33,6 +33,7 @@ Partial Class GemSelector
 	Private Sub InitializeComponent()
 		Me.textBox1 = New System.Windows.Forms.TextBox
 		Me.listView1 = New System.Windows.Forms.ListView
+		Me.cmdClear = New System.Windows.Forms.Button
 		Me.SuspendLayout
 		'
 		'textBox1
@@ -59,20 +60,33 @@ Partial Class GemSelector
 		AddHandler Me.listView1.SelectedIndexChanged, AddressOf Me.ListView1SelectedIndexChanged
 		AddHandler Me.listView1.ColumnClick, AddressOf Me.ListView1ColumnClick
 		'
-		'GearSelector
+		'cmdClear
+		'
+		Me.cmdClear.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.cmdClear.Location = New System.Drawing.Point(654, 12)
+		Me.cmdClear.Name = "cmdClear"
+		Me.cmdClear.Size = New System.Drawing.Size(75, 23)
+		Me.cmdClear.TabIndex = 4
+		Me.cmdClear.Text = "None"
+		Me.cmdClear.UseVisualStyleBackColor = true
+		AddHandler Me.cmdClear.Click, AddressOf Me.CmdClearClick
+		'
+		'GemSelector
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 		Me.ClientSize = New System.Drawing.Size(750, 550)
+		Me.Controls.Add(Me.cmdClear)
 		Me.Controls.Add(Me.listView1)
 		Me.Controls.Add(Me.textBox1)
-		Me.Name = "GearSelector"
+		Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow
+		Me.Name = "GemSelector"
 		AddHandler Load, AddressOf Me.GearSelectorLoad
 		AddHandler Closing, AddressOf Me.GearSelectorClose
-		
 		Me.ResumeLayout(false)
 		Me.PerformLayout
 	End Sub
+	Private cmdClear As System.Windows.Forms.Button
 	Private listView1 As System.Windows.Forms.ListView
 	Private textBox1 As System.Windows.Forms.TextBox
 End Class

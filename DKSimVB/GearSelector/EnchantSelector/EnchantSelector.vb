@@ -58,9 +58,16 @@ Public Partial Class EnchantSelector
 	End Sub
 	
 	Sub LoadItem(slot As Integer)
-		listView1.SelectedItems.Clear
-		SelectedItem = 0
 		
+		me.Slot = slot
+		listView1.SelectedItems.Clear
+		listView1.Items.Clear
+		If Me.textBox1.Text.Trim <> "" Then
+			listView1.ListViewItemSorter = nothing
+			FilterList(Me.textBox1.Text)
+			exit sub
+		End If
+	
 		listView1.Items.Clear
 		If Me.textBox1.Text.Trim <> "" Then
 			listView1.ListViewItemSorter = nothing
@@ -156,5 +163,10 @@ Public Partial Class EnchantSelector
 	End Sub
 	Sub GearSelectorClose (sender As Object, e As FormClosingEventArgs)
 		if SelectedItem <> "" then me.DialogResult = DialogResult.OK
+	End Sub
+	
+	Sub CmdClearClick(sender As Object, e As EventArgs)
+		SelectedItem = 0
+		me.Close
 	End Sub
 End Class

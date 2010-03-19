@@ -60,19 +60,23 @@
       <DependentUpon>EnchantSelector.vb</DependentUpon>
     </Compile>
     <Compile Include="GearSelector\EnchantSelector\EnchantSelector.vb" />
+    <Compile Include="GearSelector\EPDisplay\EPDisplay.Designer.vb">
+      <DependentUpon>EPDisplay.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GearSelector\EPDisplay\EPDisplay.vb" />
     <Compile Include="GearSelector\EPValues.vb" />
     <Compile Include="GearSelector\EquipSlot.vb" />
     <Compile Include="GearSelector\Extractor.vb" />
     <Compile Include="GearSelector\GearLoader.vb" />
-    <Compile Include="GearSelector\GearSelector.Designer.vb">
-      <DependentUpon>GearSelector.vb</DependentUpon>
-    </Compile>
-    <Compile Include="GearSelector\GearSelector.vb" />
     <Compile Include="GearSelector\GearSelectorMainForm.Designer.vb">
       <DependentUpon>GearSelectorMainForm.vb</DependentUpon>
     </Compile>
     <Compile Include="GearSelector\GearSelectorMainForm.vb">
     </Compile>
+    <Compile Include="GearSelector\GearSelector\GearSelector.Designer.vb">
+      <DependentUpon>GearSelector.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GearSelector\GearSelector\GearSelector.vb" />
     <Compile Include="GearSelector\Gem.vb" />
     <Compile Include="GearSelector\GemSelector\GemSelector.Designer.vb">
       <DependentUpon>GemSelector.vb</DependentUpon>
@@ -138,12 +142,15 @@
     <Folder Include="Diseases" />
     <Folder Include="GearSelector\EnchantSelector" />
     <Folder Include="GearSelector\GemSelector" />
+    <Folder Include="GearSelector\GearSelector" />
+    <Folder Include="GearSelector\EPDisplay" />
     <Folder Include="images" />
     <Folder Include="images\icons" />
     <Folder Include="images\spell" />
     <Folder Include="Intro" />
     <Folder Include="Config" />
     <Folder Include="GearSelector" />
+    <Folder Include="CharactersWithGear" />
     <Folder Include="Procs" />
     <Folder Include="Trinkets" />
     <Folder Include="Special" />
@@ -206,6 +213,12 @@
     <Compile Include="Trinkets\Trinket.vb" />
     <Compile Include="Trinkets\Trinkets.vb" />
     <Compile Include="UIFunctions.vb" />
+    <None Include="CharactersWithGear\2H ICC.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="CharactersWithGear\DW ICC.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Characters\2h ICC.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -245,13 +258,9 @@
     <None Include="GearSelector\gems.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="GearSelector\Goal.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="GearSelector\itemDB.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="GearSelector\sample.xml" />
     <None Include="GearSelector\SetBonus.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -936,22 +945,28 @@
     <None Include="Rotation\Blood.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Templates\Blood 51-00-20-GoD.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\Blood 51-00-20.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\Blood 51-00-20-01-GoD.xml">
+    <None Include="Templates\Frost 00-54-17.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\Frost 0-54-17.xml">
+    <None Include="Templates\Frost 03-53-15.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\Frost 3-51-17.xml">
+    <None Include="Templates\Frost 15-54-02.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\Unholy 0-10-61.xml">
+    <None Include="Templates\Unholy 00-17-54.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\Unholy 12-0-59.xml">
+    <None Include="Templates\Unholy 12-00-59.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\Unholy 14-00-57.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\Unholy 17-00-54-3.3.xml">
@@ -963,20 +978,20 @@
     <None Include="Templates\Unholy DW 0-17-54.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\Unholy Oblit 0-17-54.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GearSelector\EnchantSelector\EnchantSelector.resx">
       <DependentUpon>EnchantSelector.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GearSelector\GearSelector.resx">
-      <DependentUpon>GearSelector.vb</DependentUpon>
+    <EmbeddedResource Include="GearSelector\EPDisplay\EPDisplay.resx">
+      <DependentUpon>EPDisplay.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GearSelector\GearSelectorMainForm.resx">
       <DependentUpon>GearSelectorMainForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GearSelector\GearSelector\GearSelector.resx">
+      <DependentUpon>GearSelector.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GearSelector\GemSelector\GemSelector.resx">
       <DependentUpon>GemSelector.vb</DependentUpon>

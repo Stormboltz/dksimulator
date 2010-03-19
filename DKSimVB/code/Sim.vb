@@ -577,7 +577,12 @@ Public Class Sim
 		HowlingBlast = New HowlingBlast(Me)
 		
 		Ghoul = New Ghoul(Me)
-		Ghoul.isPet = true
+		If Patch Then 'ICC Buff
+			Ghoul.isPet = true
+		Else
+			Ghoul.isPet = true
+		End If
+		
 		GhoulStat = New GhoulStat(Me)
 		Hysteria = new Hysteria(Me)
 		DeathChill = new DeathChill(Me)
@@ -681,8 +686,6 @@ Public Class Sim
 		
 		ShowProc = doc.SelectSingleNode("//config/ShowProc").InnerText
 		
-		'		cmbCharacter.SelectedItem = doc.SelectSingleNode("//config/Character").InnerText
-		
 		Dim Sigil As String
 		Sigils = New Sigils(Me)
 		
@@ -759,10 +762,13 @@ Public Class Sim
 		Dim xmlcharacter As New Xml.XmlDocument
 		
 
+		If doc.SelectSingleNode("//config/UseCharacter").InnerText = True Then
+			xmlcharacter.Load(Application.StartupPath & "\characters\" & doc.SelectSingleNode("//config/Character").InnerText)
+		Else
+			xmlcharacter.Load(Application.StartupPath & "\CharactersWithGear\" & doc.SelectSingleNode("//config/CharacterWithGear").InnerText)
+		End If
 		
-		xmlcharacter.Load(Application.StartupPath & "\characters\" & doc.SelectSingleNode("//config/Character").InnerText)
 		
-		 
 		
 		if xmlcharacter.SelectSingleNode("//character/weapon/count").InnerText = 2 then
 			Select Case doc.SelectSingleNode("//config/oh").InnerText

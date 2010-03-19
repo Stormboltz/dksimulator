@@ -12,7 +12,7 @@ Public Class Gem
 	Friend name As String
 	Friend ilvl As Integer
 	Friend classs As Integer
-	Friend subclass As Integer
+	Friend subclass As Integer = -1
 
 	friend Strength As Integer
 	friend Intel as Integer
@@ -57,11 +57,11 @@ Public Class Gem
 	
 	Sub Detach()
 		Id = 0
+		ColorId = 0
 		name  =""
 		ilvl =0
 		classs =0
-		subclass=0
-		
+		subclass=-1
 		Strength = 0
 		Agility = 0
 		HasteRating = 0
@@ -115,19 +115,19 @@ Public Class Gem
 	
 	Function IsGemrightColor() As Boolean
 		
-		if subClass = 8 then return true
+		if subclass = 8 then return true
 		Select Case ColorId
 			Case 0 '??
 				return false
 			Case 1 ' Meta
-				if subClass = 6 then return true
+				if subclass = 6 then return true
 			Case 2 ' Red
-				if subClass = 0 or subClass = 3  or subClass = 5 then return true
+				if subclass = 0 or subclass = 3  or subclass = 5 then return true
 				
 			Case 4 'Yellow
-				if subClass = 2 or subClass = 4  or subClass = 5 then return true
+				if subclass = 2 or subclass = 4  or subclass = 5 then return true
 			Case 8 ' Blue
-				if subClass = 1 or subClass = 3  or subClass = 4 then return true
+				if subclass = 1 or subclass = 3  or subclass = 4 then return true
 			Case 16 'Prim
 				return true
 			Case Else

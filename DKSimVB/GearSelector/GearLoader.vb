@@ -11,8 +11,6 @@ Public Class GearLoader
 	
 	Sub Init
 		ItemDB.Load(Application.StartupPath & "\GearSelector\" & "itemDB.xml")
-		
-		
 	End Sub
 	
 	Sub FillThis(cmb As ComboBox,slot As String)

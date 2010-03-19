@@ -151,20 +151,22 @@ Public Class EquipSlot
 			.Text = ""
 			.Name = "lblBonus"
 		End With
-		
-		if m.EnchantDB.SelectNodes("/enchant/item[slot=" & slot & "]").Count > 0 then
-			lblEnchant = New Label
-			me.Controls.Add(lblEnchant)
-			With lblEnchant
-				.Enabled = True
-				.Location = New System.Drawing.Point(200, 45)
-				.AutoSize = True
-				.Text = "Enchant"
-				.Name = "lblEnchant"
-				AddHandler .Click, AddressOf Me.EnchantClick
-			End With
+		lblEnchant = New Label
+		me.Controls.Add(lblEnchant)
+		With lblEnchant
+			.Enabled = True
+			.Location = New System.Drawing.Point(200, 45)
+			.AutoSize = True
+			.Text = "Enchant"
+			.Name = "lblEnchant"
+			AddHandler .Click, AddressOf Me.EnchantClick
+		End With
+		If m.EnchantDB.SelectNodes("/enchant/item[slot=" & slot & "]").Count = 0 Then
+			lblEnchant.Enabled = false
+			lblEnchant.visible = false
 		End If
 		
+		Item = new Item(me.Mainframe,0)
 		xGemBonus = m.GemBonusDB
 	End Sub
 	
@@ -182,19 +184,20 @@ Public Class EquipSlot
 			Case 3
 				GS.LoadItem(Item.gem3.ColorId)
 		End Select
+		GS.SelectedItem = "-1"
 		GS.ShowDialog(Me)
+		
 		If GS.DialogResult = DialogResult.OK Then
-			Select Case strings.Right(s,1)
-				Case 1
-					Item.gem1.Attach(GS.SelectedItem)
-					
-				Case 2
-					Item.gem2.Attach(GS.SelectedItem)
-					
-				Case 3
-					Item.gem3.Attach(GS.SelectedItem)
-					
-			End Select
+			If GS.SelectedItem <> "-1" Then
+				Select Case strings.Right(s,1)
+					Case 1
+						Item.gem1.Attach(GS.SelectedItem)
+					Case 2
+						Item.gem2.Attach(GS.SelectedItem)
+					Case 3
+						Item.gem3.Attach(GS.SelectedItem)
+				End Select
+			End If
 		End If
 		Me.Focus
 		DisplayGem()
@@ -206,10 +209,12 @@ Public Class EquipSlot
 		Dim s As String
 		s = sender.name
 		GS.LoadItem(SlotId)
-		
+		GS.SelectedItem = "-1"
 		GS.ShowDialog(Me)
+		If GS.SelectedItem <> "-1" Then
+			Item.enchant.attach(GS.SelectedItem)
+		End If
 		
-		Item.enchant.attach(GS.SelectedItem)
 		DisplayEnchant
 		me.Focus
 	End Sub
@@ -273,14 +278,16 @@ Public Class EquipSlot
 		Dim GS As GearSelector
 		GS = Mainframe.GearSelector
 		
-		GS.LoadItem(me.SlotId)
+		GS.LoadItem(Me.SlotId)
+		GS.SelectedItem = "-1"
 		GS.ShowDialog(Me)
 		If GS.DialogResult = DialogResult.OK Then
-			DisplayItem(GS.SelectedItem)
+			If GS.SelectedItem <> "-1" Then
+				Item.LoadItem(GS.SelectedItem)
+				DisplayItem()
+			End If
 		End If
-		
 		me.Focus
-		
 	End Sub
 	
 	
@@ -288,19 +295,7 @@ Public Class EquipSlot
 	
 	
 	
-	Sub DisplayItem(id As String)
-		
-		Dim AdditionalGemNotSet As Boolean = true
-		If id = 0 Then
-			exit sub
-		End If
-		
-		If Item Is Nothing Then
-			Item = new Item(me.Mainframe,id)
-		Else
-			Item = Nothing
-			Item = new Item(me.Mainframe,id)
-		End If
+	Sub DisplayItem()
 		
 		Me.Equipment.Text = Item.name & "(" & Item.ilvl & ")"
 		If Item.gem1.GemSlotColorName <> "" Then
@@ -340,9 +335,10 @@ Public Class EquipSlot
 		try
 			lblBonus.Text = xGemBonus.SelectSingleNode("/bonus/item[id=" & Item.gembonus &"]/Desc").InnerText
 		Catch
+			lblBonus.Text = ""
 		End Try
 		DisplayGem()
-		
+		DisplayEnchant()
 		Mainframe.GetStats
 	End Sub
 	

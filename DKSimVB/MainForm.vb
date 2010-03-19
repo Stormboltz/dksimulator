@@ -11,7 +11,8 @@ Public Partial Class MainForm
 	Private EditorFilePAth As String
 	Private TemplatePath As String
 	Friend btList As New collection
-	Friend colTrinketEP as New Collection
+	Friend colTrinketEP As New Collection
+	Friend EPVal as New EPValues
 	
 	
 	Public Sub New()
@@ -77,7 +78,8 @@ Public Partial Class MainForm
 		'CombatLog.init
 		LoadAvailablePrio
 		InitCharacterPanel
-		_MainFrm = me
+		_MainFrm = Me
+		
 	End Sub
 	
 	Sub MainFormClose(sender As Object, e As EventArgs)
@@ -362,7 +364,39 @@ Public Partial Class MainForm
 	End Sub
 	
 	Sub CmdEditGearSelectorClick(sender As Object, e As EventArgs)
-		Dim gearSelector As New GearSelectorMainForm
-		gearSelector.Show(me)
+		Dim gearSelector As New GearSelectorMainForm(me)
+		Try
+			gearSelector.FilePath = cmbGearSelector.SelectedItem.ToString
+			gearSelector.ShowDialog
+			loadWindow
+			cmbGearSelector.SelectedItem = gearSelector.FilePath
+		Catch
+			gearSelector.Dispose
+		End Try
+		
+	End Sub
+	
+	Sub Label45Click(sender As Object, e As EventArgs)
+		
+	End Sub
+	
+	Sub RCharacterCheckedChanged(sender As Object, e As EventArgs)
+		If RCharacter.Checked Then
+			rCharwithGear.Checked=False
+			cmbCharacter.Enabled = True
+			cmdEditChar.Enabled = True
+			cmbGearSelector.Enabled = false
+			cmdEditGearSelector.Enabled = false
+		End If
+	End Sub
+	
+	Sub RadioButton2CheckedChanged(sender As Object, e As EventArgs)
+		If rCharwithGear.Checked Then
+			RCharacter.Checked=False
+			cmbCharacter.Enabled = false
+			cmdEditChar.Enabled = false
+			cmbGearSelector.Enabled = true
+			cmdEditGearSelector.Enabled = true
+		End If
 	End Sub
 End Class

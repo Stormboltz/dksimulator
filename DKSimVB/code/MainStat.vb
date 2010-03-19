@@ -352,28 +352,66 @@ Friend Class MainStat
 			Case "EP 4T10"
 				T104PDPS = 1
 			Case Else
-				T72PDPS = XmlDoc.SelectSingleNode("//character/Set/T72PDPS").InnerText
-				T74PDPS = XmlDoc.SelectSingleNode("//character/Set/T74PDPS").InnerText
-				
-				T82PDPS = XmlDoc.SelectSingleNode("//character/Set/T82PDPS").InnerText
-				T84PDPS = XmlDoc.SelectSingleNode("//character/Set/T84PDPS").InnerText
-				
-				T92PDPS = XmlDoc.SelectSingleNode("//character/Set/T92PDPS").InnerText
-				T94PDPS = XmlDoc.SelectSingleNode("//character/Set/T94PDPS").InnerText
-				
-				T72PTNK = XmlDoc.SelectSingleNode("//character/Set/T72PTNK").InnerText
-				T74PTNK = XmlDoc.SelectSingleNode("//character/Set/T74PTNK").InnerText
-				T82PTNK = XmlDoc.SelectSingleNode("//character/Set/T82PTNK").InnerText
-				T84PTNK = XmlDoc.SelectSingleNode("//character/Set/T84PTNK").InnerText
+				Try
+					T72PDPS = XmlDoc.SelectSingleNode("//character/Set/T72PDPS").InnerText
+				Catch
+				End Try
+				Try
+					T74PDPS = XmlDoc.SelectSingleNode("//character/Set/T74PDPS").InnerText
+				Catch
+				End Try
+				Try
+					T82PDPS = XmlDoc.SelectSingleNode("//character/Set/T82PDPS").InnerText
+				Catch
+				End Try
+				Try
+					T84PDPS = XmlDoc.SelectSingleNode("//character/Set/T84PDPS").InnerText
+				Catch
+				End Try
+				Try
+					
+					T92PDPS = XmlDoc.SelectSingleNode("//character/Set/T92PDPS").InnerText
+				Catch
+				End Try
+				Try
+					T94PDPS = XmlDoc.SelectSingleNode("//character/Set/T94PDPS").InnerText
+				Catch
+				End Try
+				Try
+					
+					T72PTNK = XmlDoc.SelectSingleNode("//character/Set/T72PTNK").InnerText
+				Catch
+				End Try
+				Try
+					T74PTNK = XmlDoc.SelectSingleNode("//character/Set/T74PTNK").InnerText
+				Catch
+				End Try
+				Try
+					T82PTNK = XmlDoc.SelectSingleNode("//character/Set/T82PTNK").InnerText
+				Catch
+				End Try
+				Try
+					T84PTNK = XmlDoc.SelectSingleNode("//character/Set/T84PTNK").InnerText
+				Catch
+				End Try
 				Try
 					T102PDPS = XmlDoc.SelectSingleNode("//character/Set/T102PDPS").InnerText
+				Catch
+				End Try
+				Try
 					T104PDPS = XmlDoc.SelectSingleNode("//character/Set/T104PDPS").InnerText
+				Catch
+				End Try
+				Try
 					
 					T92PTNK = XmlDoc.SelectSingleNode("//character/Set/T92PTNK").InnerText
+				Catch
+				End Try
+				Try
 					T102PTNK = XmlDoc.SelectSingleNode("//character/Set/T102PTNK").InnerText
 				Catch
-					
 				End Try
+				
 		End Select
 		
 		
@@ -554,6 +592,8 @@ Friend Class MainStat
 		If instr(sim.EPStat,"EP ")<>0 Then
 			If instr(sim.EPStat,"Hit")=0 Then
 				tmp += sim.Buff.Draenei
+			Else
+				If sim.EPStat = "EP RelativeHitRating" Then tmp += sim.Buff.Draenei
 			End If
 		Else
 			tmp += sim.Buff.Draenei

@@ -12,7 +12,7 @@ Public Partial Class GearSelectorMainForm
 	friend EquipmentList as new Collection
 	Friend InLoad As Boolean
 	Friend EnchantSelector As New EnchantSelector
-	Friend GemSelector As New GemSelector
+	Friend GemSelector As New GemSelector(me)
 	Friend GearSelector As new GearSelector(me)
 	Friend ItemDB As New Xml.XmlDocument
 	Friend GemDB As New Xml.XmlDocument
@@ -20,17 +20,22 @@ Public Partial Class GearSelectorMainForm
 	Friend EnchantDB As New Xml.XmlDocument
 	Friend trinketDB As New Xml.XmlDocument
 	Friend SetBonusDB As New Xml.XmlDocument
-	Friend WeapProcDB as New Xml.XmlDocument
+	Friend WeapProcDB As New Xml.XmlDocument
+	Friend FilePath As String
 	
-	Friend EPvalues as new EPValues
+	Friend ParentFrame as MainForm
 	
-	Public Sub New()
+	Friend EPvalues as EPValues
+	
+	Public Sub New(PFrame as MainForm)
 		' The Me.InitializeComponent call is required for Windows Forms designer support.
 		Me.InitializeComponent()
 		
 		'
 		' TODO : Add constructor code after InitializeComponents
 		'
+		ParentFrame = PFrame
+		EPvalues = PFrame.EPVal
 	End Sub
 	
 	Sub CmdExtratorClick(sender As Object, e As EventArgs)
@@ -39,11 +44,19 @@ Public Partial Class GearSelectorMainForm
 		MyExtractor.Start
 	End Sub
 	
-	Sub CmdLoadGearClick(sender As Object, e As EventArgs)
-		Dim Gear As New GearLoader
-		
-		Gear.Init
-		LoadMycharacter
+	Sub cmdSaveAsNewClick(sender As Object, e As EventArgs)
+		Dim truc As New Form1
+		Dim res As DialogResult
+		res = truc.ShowDialog
+		If truc.textBox1.Text  <> "" And res = DialogResult.OK Then
+			FilePath = truc.textBox1.Text & ".xml"
+			SaveMycharacter
+		Else
+			exit sub
+		End If
+		truc.Dispose
+		me.Close
+		'LoadMycharacter
 	End Sub
 	
 	Sub GetStats()
@@ -399,6 +412,7 @@ Public Partial Class GearSelectorMainForm
 	
 	Sub CmdSaveClick(sender As Object, e As EventArgs)
 		SaveMycharacter
+		me.Close
 	End Sub
 	
 	Sub SaveMycharacter
@@ -547,13 +561,10 @@ Public Partial Class GearSelectorMainForm
 		xElem.InnerText = CheckFordouble(txtOHWSpeed.Text)
 		xweapon2.AppendChild(xElem)
 		
-		Dim item As Object
 		
 		Dim xSet As XmlNode = xmlChar.CreateNode(xml.XmlNodeType.Element, "Set", "")
 		root.AppendChild(xSet)
 		
-		Dim tmp1 As String
-		Dim tmp2 As String
 		
 		Try
 			xElem = xmlChar.CreateNode(xml.XmlNodeType.Element, cmbSetBonus1.Text, "")
@@ -663,22 +674,13 @@ Public Partial Class GearSelectorMainForm
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		xmlChar.Save("mycharacter.xml")
+		xmlChar.Save(Application.StartupPath & "\CharactersWithGear\" & FilePath)
 	End Sub
 	
 	Sub LoadMycharacter
 		InLoad = true
 		Dim xmlChar As New Xml.XmlDocument
-		xmlChar.Load(Application.StartupPath & "\GearSelector\" & "mycharacter.xml")
+		xmlChar.Load(Application.StartupPath & "\CharactersWithGear\" & FilePath)
 		Dim root As xml.XmlElement = xmlChar.DocumentElement
 		Dim iSlot As EquipSlot
 		Try
@@ -705,7 +707,8 @@ Public Partial Class GearSelectorMainForm
 		
 		For Each iSlot In me.EquipmentList
 			Try
-				iSlot.DisplayItem( xmlChar.SelectSingleNode("/character/" & iSlot.Text & "/id").InnerText)
+				iSlot.Item.LoadItem(xmlChar.SelectSingleNode("/character/" & iSlot.Text & "/id").InnerText)
+				iSlot.DisplayItem
 				Try
 					iSlot.Item.gem1.Attach(xmlChar.SelectSingleNode("/character/" & iSlot.Text & "/gem1").InnerText)
 					
@@ -738,20 +741,6 @@ Public Partial Class GearSelectorMainForm
 	
 	
 	
-	Sub Button1Click(sender As Object, e As EventArgs)
-		Dim HeadLoad As New GearSelector(me)
-		HeadLoad.Show
-		HeadLoad.Visible = true
-		HeadLoad.LoadItem("1")
-	End Sub
-	
-	Sub Button2Click(sender As Object, e As EventArgs)
-		Dim HeadLoad As New GearSelector(me)
-		HeadLoad.Show
-		HeadLoad.Visible = true
-		HeadLoad.LoadItem("2")
-	End Sub
-	
 	
 	
 	Sub MainFormLoad(sender As Object, e As EventArgs)
@@ -760,6 +749,10 @@ Public Partial Class GearSelectorMainForm
 		'				xtr.init
 		'				xtr.GetSigils
 		'				exit sub
+		
+		Dim Gear As New GearLoader
+		
+		Gear.Init
 		
 		ItemDB.Load(Application.StartupPath & "\GearSelector\" & "ItemDB.xml")
 		GemDB.Load(Application.StartupPath & "\GearSelector\" & "gems.xml")
@@ -924,7 +917,7 @@ Public Partial Class GearSelectorMainForm
 			.Location = New System.Drawing.Point(400,560)
 			
 		End With
-		
+		LoadMycharacter
 	End Sub
 	
 	
@@ -960,5 +953,22 @@ Public Partial Class GearSelectorMainForm
 			Next
 			GetStats
 		End If
+	End Sub
+	
+	Sub CmdQuickEPClick(sender As Object, e As EventArgs)
+		Dim tmp As String
+		tmp = Me.FilePath
+		Me.FilePath = "tmp.xml"
+		SaveMycharacter
+		Me.ParentFrame.cmbGearSelector.Items.Add ("tmp.xml")
+		Me.ParentFrame.cmbGearSelector.SelectedItem =  "tmp.xml"
+		If Me.ParentFrame.LoadBeforeSim = True Then
+			SimConstructor.GetFastEPValue(Me.ParentFrame)
+		End If
+		Me.ParentFrame.cmbGearSelector.SelectedItem = tmp
+		Me.ParentFrame.cmbGearSelector.Items.Remove("tmp.xml")
+		My.Computer.FileSystem.DeleteFile(Application.StartupPath & "\CharactersWithGear\" & "tmp.xml")
+		Dim dis As New EPDisplay(me)
+		dis.ShowDialog
 	End Sub
 End Class

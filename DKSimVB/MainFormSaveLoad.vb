@@ -3,7 +3,7 @@
 ' Utilisateur: Fabien
 ' Date: 07/10/2009
 ' Heure: 19:14
-' 
+'
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 
 Imports System.Xml
@@ -19,6 +19,15 @@ Public Partial Class MainForm
 			CmbCharacter.Items.Add(strings.Right(item,item.Length- InStrRev(item,"\") ) )
 		Next
 		CmbCharacter.SelectedItem=sTemp
+		
+		
+		sTemp = cmbGearSelector.SelectedItem
+		cmbGearSelector.Items.Clear
+		For Each item In system.IO.Directory.GetFiles(Application.StartupPath & "\CharactersWithGear\")
+			cmbGearSelector.Items.Add(strings.Right(item,item.Length- InStrRev(item,"\") ) )
+		Next
+		cmbGearSelector.SelectedItem=sTemp
+		
 		
 		stemp = cmbTemplate.SelectedItem
 		cmbTemplate.Items.Clear
@@ -135,7 +144,7 @@ Public Partial Class MainForm
 			ckTrinket.Text = xNode.Name
 			ckTrinket.AutoSize = true
 			groupBox3.Controls.Add(ckTrinket)
-			'debug.Print (xNode.Name)			
+			'debug.Print (xNode.Name)
 		Next
 	End Sub
 	
@@ -293,15 +302,27 @@ Public Partial Class MainForm
 		'	Try
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
 		doc.LoadXml("<config></config>")
-		' Create a new element node.
-		Dim newElem as xml.XmlNode = doc.CreateNode(xml.XmlNodeType.Element, "Character", "")
-		newElem.InnerText = cmbCharacter.SelectedItem.tostring
-		Dim root as xml.XmlElement = doc.DocumentElement
+		
+		Dim root As xml.XmlElement = doc.DocumentElement
+		
+		
+		Dim newElem As xml.XmlNode
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "UseCharacter", "")
+		newElem.InnerText = rCharacter.Checked
 		root.AppendChild(newElem)
+		
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Character", "")
+		newElem.InnerText = cmbCharacter.SelectedItem.tostring
+		root.AppendChild(newElem)
+		
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "CharacterWithGear", "")
+		newElem.InnerText = cmbGearSelector.SelectedItem.tostring
+		root.AppendChild(newElem)
+		
+		
 		
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "template", "")
 		newElem.InnerText = cmbTemplate.SelectedItem.tostring
-		root = doc.DocumentElement
 		root.AppendChild(newElem)
 		
 		
@@ -469,7 +490,19 @@ Public Partial Class MainForm
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
 		on error resume next
 		doc.Load("config.xml")
+		Select Case doc.SelectSingleNode("//config/UseCharacter").InnerText
+			Case True
+				rCharacter.Checked = True
+				rCharwithGear.Checked = false
+			Case False
+				rCharacter.Checked = false
+				rCharwithGear.Checked = true
+		End Select
+		
+		
+		
 		cmbCharacter.SelectedItem = doc.SelectSingleNode("//config/Character").InnerText
+		cmbGearSelector.SelectedItem = doc.SelectSingleNode("//config/CharacterWithGear").InnerText
 		cmbTemplate.SelectedItem = doc.SelectSingleNode("//config/template").InnerText
 		If doc.SelectSingleNode("//config/mode").InnerText <> "rotation" Then
 			rdPrio.Checked = true

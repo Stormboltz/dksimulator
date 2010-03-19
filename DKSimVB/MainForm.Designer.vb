@@ -62,6 +62,8 @@ Partial Class MainForm
 		Me.chkShowProc = New System.Windows.Forms.CheckBox
 		Me.chkCombatLog = New System.Windows.Forms.CheckBox
 		Me.grpSimOption = New System.Windows.Forms.GroupBox
+		Me.rCharwithGear = New System.Windows.Forms.RadioButton
+		Me.rCharacter = New System.Windows.Forms.RadioButton
 		Me.cmbICCBuff = New System.Windows.Forms.ComboBox
 		Me.chkPatch = New System.Windows.Forms.CheckBox
 		Me.chkBloodSync = New System.Windows.Forms.CheckBox
@@ -113,8 +115,6 @@ Partial Class MainForm
 		Me.cmbTemplate = New System.Windows.Forms.ComboBox
 		Me.cmdEditGearSelector = New System.Windows.Forms.Button
 		Me.cmdEditChar = New System.Windows.Forms.Button
-		Me.label45 = New System.Windows.Forms.Label
-		Me.label9 = New System.Windows.Forms.Label
 		Me.cmbGearSelector = New System.Windows.Forms.ComboBox
 		Me.cmbCharacter = New System.Windows.Forms.ComboBox
 		Me.tbcharEditor = New System.Windows.Forms.TabPage
@@ -270,6 +270,7 @@ Partial Class MainForm
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.cmdRngSeeder = New System.Windows.Forms.Button
 		Me.tmrProgress = New System.Windows.Forms.Timer(Me.components)
+		Me.groupBox7 = New System.Windows.Forms.GroupBox
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -297,12 +298,13 @@ Partial Class MainForm
 		Me.tbPrioEditor.SuspendLayout
 		Me.tbCaling.SuspendLayout
 		Me.gbScaling.SuspendLayout
+		Me.groupBox7.SuspendLayout
 		Me.SuspendLayout
 		'
 		'btStart
 		'
 		Me.btStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-		Me.btStart.Location = New System.Drawing.Point(22, 769)
+		Me.btStart.Location = New System.Drawing.Point(22, 787)
 		Me.btStart.Name = "btStart"
 		Me.btStart.Size = New System.Drawing.Size(245, 23)
 		Me.btStart.TabIndex = 0
@@ -313,7 +315,7 @@ Partial Class MainForm
 		'PBsim
 		'
 		Me.PBsim.Dock = System.Windows.Forms.DockStyle.Bottom
-		Me.PBsim.Location = New System.Drawing.Point(0, 798)
+		Me.PBsim.Location = New System.Drawing.Point(0, 816)
 		Me.PBsim.Name = "PBsim"
 		Me.PBsim.Size = New System.Drawing.Size(763, 23)
 		Me.PBsim.TabIndex = 2
@@ -321,7 +323,7 @@ Partial Class MainForm
 		'btEP
 		'
 		Me.btEP.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.btEP.Location = New System.Drawing.Point(502, 769)
+		Me.btEP.Location = New System.Drawing.Point(502, 787)
 		Me.btEP.Name = "btEP"
 		Me.btEP.Size = New System.Drawing.Size(245, 23)
 		Me.btEP.TabIndex = 4
@@ -334,7 +336,7 @@ Partial Class MainForm
 		Me.lblDPS.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left)  _
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.lblDPS.BackColor = System.Drawing.Color.Transparent
-		Me.lblDPS.Location = New System.Drawing.Point(297, 782)
+		Me.lblDPS.Location = New System.Drawing.Point(297, 800)
 		Me.lblDPS.Name = "lblDPS"
 		Me.lblDPS.Size = New System.Drawing.Size(167, 13)
 		Me.lblDPS.TabIndex = 9
@@ -350,7 +352,7 @@ Partial Class MainForm
 		Me.tbTools.Controls.Add(Me.txtImportTemplate)
 		Me.tbTools.Location = New System.Drawing.Point(4, 22)
 		Me.tbTools.Name = "tbTools"
-		Me.tbTools.Size = New System.Drawing.Size(755, 725)
+		Me.tbTools.Size = New System.Drawing.Size(755, 743)
 		Me.tbTools.TabIndex = 5
 		Me.tbTools.Text = "Import"
 		Me.tbTools.UseVisualStyleBackColor = true
@@ -423,7 +425,7 @@ Partial Class MainForm
 		Me.tabPage1.Controls.Add(Me.rtfEditor)
 		Me.tabPage1.Location = New System.Drawing.Point(4, 22)
 		Me.tabPage1.Name = "tabPage1"
-		Me.tabPage1.Size = New System.Drawing.Size(755, 725)
+		Me.tabPage1.Size = New System.Drawing.Size(755, 743)
 		Me.tabPage1.TabIndex = 4
 		Me.tabPage1.Text = "Text Editor"
 		Me.tabPage1.UseVisualStyleBackColor = true
@@ -457,7 +459,7 @@ Partial Class MainForm
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.rtfEditor.Location = New System.Drawing.Point(3, 20)
 		Me.rtfEditor.Name = "rtfEditor"
-		Me.rtfEditor.Size = New System.Drawing.Size(749, 702)
+		Me.rtfEditor.Size = New System.Drawing.Size(749, 720)
 		Me.rtfEditor.TabIndex = 0
 		Me.rtfEditor.Text = ""
 		'
@@ -466,7 +468,7 @@ Partial Class MainForm
 		Me.HtmlReport.Controls.Add(Me.webBrowser1)
 		Me.HtmlReport.Location = New System.Drawing.Point(4, 22)
 		Me.HtmlReport.Name = "HtmlReport"
-		Me.HtmlReport.Size = New System.Drawing.Size(755, 725)
+		Me.HtmlReport.Size = New System.Drawing.Size(755, 743)
 		Me.HtmlReport.TabIndex = 3
 		Me.HtmlReport.Text = "Report"
 		Me.HtmlReport.UseVisualStyleBackColor = true
@@ -477,7 +479,7 @@ Partial Class MainForm
 		Me.webBrowser1.Location = New System.Drawing.Point(0, 0)
 		Me.webBrowser1.MinimumSize = New System.Drawing.Size(20, 20)
 		Me.webBrowser1.Name = "webBrowser1"
-		Me.webBrowser1.Size = New System.Drawing.Size(755, 725)
+		Me.webBrowser1.Size = New System.Drawing.Size(755, 743)
 		Me.webBrowser1.TabIndex = 0
 		'
 		'tabControl1
@@ -500,7 +502,7 @@ Partial Class MainForm
 		Me.tabControl1.Location = New System.Drawing.Point(0, 0)
 		Me.tabControl1.Name = "tabControl1"
 		Me.tabControl1.SelectedIndex = 0
-		Me.tabControl1.Size = New System.Drawing.Size(763, 751)
+		Me.tabControl1.Size = New System.Drawing.Size(763, 769)
 		Me.tabControl1.TabIndex = 3
 		'
 		'tabPage3
@@ -509,7 +511,7 @@ Partial Class MainForm
 		Me.tabPage3.Controls.Add(Me.grpSimOption)
 		Me.tabPage3.Location = New System.Drawing.Point(4, 22)
 		Me.tabPage3.Name = "tabPage3"
-		Me.tabPage3.Size = New System.Drawing.Size(755, 725)
+		Me.tabPage3.Size = New System.Drawing.Size(755, 743)
 		Me.tabPage3.TabIndex = 2
 		Me.tabPage3.Text = "Configuration"
 		Me.tabPage3.UseVisualStyleBackColor = true
@@ -524,7 +526,7 @@ Partial Class MainForm
 		Me.groupBox6.Controls.Add(Me.ckLogRP)
 		Me.groupBox6.Controls.Add(Me.chkShowProc)
 		Me.groupBox6.Controls.Add(Me.chkCombatLog)
-		Me.groupBox6.Location = New System.Drawing.Point(4, 619)
+		Me.groupBox6.Location = New System.Drawing.Point(4, 637)
 		Me.groupBox6.Name = "groupBox6"
 		Me.groupBox6.Size = New System.Drawing.Size(743, 103)
 		Me.groupBox6.TabIndex = 50
@@ -596,6 +598,9 @@ Partial Class MainForm
 		'
 		Me.grpSimOption.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.grpSimOption.Controls.Add(Me.groupBox7)
+		Me.grpSimOption.Controls.Add(Me.rCharwithGear)
+		Me.grpSimOption.Controls.Add(Me.rCharacter)
 		Me.grpSimOption.Controls.Add(Me.cmbICCBuff)
 		Me.grpSimOption.Controls.Add(Me.chkPatch)
 		Me.grpSimOption.Controls.Add(Me.chkBloodSync)
@@ -636,8 +641,6 @@ Partial Class MainForm
 		Me.grpSimOption.Controls.Add(Me.cmdPresence)
 		Me.grpSimOption.Controls.Add(Me.cmbIntro)
 		Me.grpSimOption.Controls.Add(Me.label26)
-		Me.grpSimOption.Controls.Add(Me.rdPrio)
-		Me.grpSimOption.Controls.Add(Me.rdRot)
 		Me.grpSimOption.Controls.Add(Me.cmdEditIntro)
 		Me.grpSimOption.Controls.Add(Me.cmdEditPrio)
 		Me.grpSimOption.Controls.Add(Me.label2)
@@ -647,22 +650,42 @@ Partial Class MainForm
 		Me.grpSimOption.Controls.Add(Me.cmbTemplate)
 		Me.grpSimOption.Controls.Add(Me.cmdEditGearSelector)
 		Me.grpSimOption.Controls.Add(Me.cmdEditChar)
-		Me.grpSimOption.Controls.Add(Me.label45)
-		Me.grpSimOption.Controls.Add(Me.label9)
 		Me.grpSimOption.Controls.Add(Me.cmbGearSelector)
 		Me.grpSimOption.Controls.Add(Me.cmbCharacter)
 		Me.grpSimOption.Location = New System.Drawing.Point(3, 4)
 		Me.grpSimOption.Name = "grpSimOption"
-		Me.grpSimOption.Size = New System.Drawing.Size(749, 609)
+		Me.grpSimOption.Size = New System.Drawing.Size(749, 627)
 		Me.grpSimOption.TabIndex = 49
 		Me.grpSimOption.TabStop = false
 		Me.grpSimOption.Text = "Simulator Options"
+		'
+		'rCharwithGear
+		'
+		Me.rCharwithGear.Location = New System.Drawing.Point(123, 17)
+		Me.rCharwithGear.Name = "rCharwithGear"
+		Me.rCharwithGear.Size = New System.Drawing.Size(177, 24)
+		Me.rCharwithGear.TabIndex = 90
+		Me.rCharwithGear.Text = "Character With Gear"
+		Me.rCharwithGear.UseVisualStyleBackColor = true
+		AddHandler Me.rCharwithGear.CheckedChanged, AddressOf Me.RadioButton2CheckedChanged
+		'
+		'rCharacter
+		'
+		Me.rCharacter.Checked = true
+		Me.rCharacter.Location = New System.Drawing.Point(7, 17)
+		Me.rCharacter.Name = "rCharacter"
+		Me.rCharacter.Size = New System.Drawing.Size(104, 24)
+		Me.rCharacter.TabIndex = 90
+		Me.rCharacter.TabStop = true
+		Me.rCharacter.Text = "Character"
+		Me.rCharacter.UseVisualStyleBackColor = true
+		AddHandler Me.rCharacter.CheckedChanged, AddressOf Me.RCharacterCheckedChanged
 		'
 		'cmbICCBuff
 		'
 		Me.cmbICCBuff.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbICCBuff.FormattingEnabled = true
-		Me.cmbICCBuff.Location = New System.Drawing.Point(557, 577)
+		Me.cmbICCBuff.Location = New System.Drawing.Point(557, 595)
 		Me.cmbICCBuff.Name = "cmbICCBuff"
 		Me.cmbICCBuff.Size = New System.Drawing.Size(149, 21)
 		Me.cmbICCBuff.TabIndex = 89
@@ -670,7 +693,7 @@ Partial Class MainForm
 		'chkPatch
 		'
 		Me.chkPatch.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.chkPatch.Location = New System.Drawing.Point(413, 546)
+		Me.chkPatch.Location = New System.Drawing.Point(413, 564)
 		Me.chkPatch.Name = "chkPatch"
 		Me.chkPatch.Size = New System.Drawing.Size(104, 24)
 		Me.chkPatch.TabIndex = 88
@@ -682,7 +705,7 @@ Partial Class MainForm
 		Me.chkBloodSync.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.chkBloodSync.Checked = true
 		Me.chkBloodSync.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkBloodSync.Location = New System.Drawing.Point(523, 494)
+		Me.chkBloodSync.Location = New System.Drawing.Point(523, 512)
 		Me.chkBloodSync.Name = "chkBloodSync"
 		Me.chkBloodSync.Size = New System.Drawing.Size(179, 24)
 		Me.chkBloodSync.TabIndex = 87
@@ -692,7 +715,7 @@ Partial Class MainForm
 		'label44
 		'
 		Me.label44.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.label44.Location = New System.Drawing.Point(432, 577)
+		Me.label44.Location = New System.Drawing.Point(432, 595)
 		Me.label44.Name = "label44"
 		Me.label44.Size = New System.Drawing.Size(110, 21)
 		Me.label44.TabIndex = 86
@@ -702,7 +725,7 @@ Partial Class MainForm
 		'label20
 		'
 		Me.label20.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.label20.Location = New System.Drawing.Point(441, 455)
+		Me.label20.Location = New System.Drawing.Point(441, 473)
 		Me.label20.Name = "label20"
 		Me.label20.Size = New System.Drawing.Size(110, 21)
 		Me.label20.TabIndex = 86
@@ -713,7 +736,7 @@ Partial Class MainForm
 		Me.cmbBShOption.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbBShOption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cmbBShOption.FormattingEnabled = true
-		Me.cmbBShOption.Location = New System.Drawing.Point(557, 452)
+		Me.cmbBShOption.Location = New System.Drawing.Point(557, 470)
 		Me.cmbBShOption.Name = "cmbBShOption"
 		Me.cmbBShOption.Size = New System.Drawing.Size(149, 21)
 		Me.cmbBShOption.TabIndex = 85
@@ -723,7 +746,7 @@ Partial Class MainForm
 		Me.chkDisease.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.chkDisease.Checked = true
 		Me.chkDisease.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkDisease.Location = New System.Drawing.Point(613, 416)
+		Me.chkDisease.Location = New System.Drawing.Point(613, 434)
 		Me.chkDisease.Name = "chkDisease"
 		Me.chkDisease.Size = New System.Drawing.Size(98, 41)
 		Me.chkDisease.TabIndex = 84
@@ -733,7 +756,7 @@ Partial Class MainForm
 		'txtNumberOfEnemies
 		'
 		Me.txtNumberOfEnemies.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.txtNumberOfEnemies.Location = New System.Drawing.Point(557, 426)
+		Me.txtNumberOfEnemies.Location = New System.Drawing.Point(557, 444)
 		Me.txtNumberOfEnemies.Name = "txtNumberOfEnemies"
 		Me.txtNumberOfEnemies.Size = New System.Drawing.Size(50, 20)
 		Me.txtNumberOfEnemies.TabIndex = 83
@@ -742,7 +765,7 @@ Partial Class MainForm
 		'label19
 		'
 		Me.label19.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.label19.Location = New System.Drawing.Point(449, 429)
+		Me.label19.Location = New System.Drawing.Point(449, 447)
 		Me.label19.Name = "label19"
 		Me.label19.Size = New System.Drawing.Size(102, 13)
 		Me.label19.TabIndex = 82
@@ -753,7 +776,7 @@ Partial Class MainForm
 		Me.chkWaitFC.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.chkWaitFC.Checked = true
 		Me.chkWaitFC.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkWaitFC.Location = New System.Drawing.Point(523, 546)
+		Me.chkWaitFC.Location = New System.Drawing.Point(523, 564)
 		Me.chkWaitFC.Name = "chkWaitFC"
 		Me.chkWaitFC.Size = New System.Drawing.Size(179, 24)
 		Me.chkWaitFC.TabIndex = 81
@@ -765,7 +788,7 @@ Partial Class MainForm
 		Me.ckPet.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.ckPet.Checked = true
 		Me.ckPet.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.ckPet.Location = New System.Drawing.Point(523, 520)
+		Me.ckPet.Location = New System.Drawing.Point(523, 538)
 		Me.ckPet.Name = "ckPet"
 		Me.ckPet.Size = New System.Drawing.Size(179, 24)
 		Me.ckPet.TabIndex = 80
@@ -775,7 +798,7 @@ Partial Class MainForm
 		'
 		'label18
 		'
-		Me.label18.Location = New System.Drawing.Point(112, 533)
+		Me.label18.Location = New System.Drawing.Point(112, 551)
 		Me.label18.Name = "label18"
 		Me.label18.Size = New System.Drawing.Size(79, 13)
 		Me.label18.TabIndex = 79
@@ -783,7 +806,7 @@ Partial Class MainForm
 		'
 		'txtManyFights
 		'
-		Me.txtManyFights.Location = New System.Drawing.Point(56, 530)
+		Me.txtManyFights.Location = New System.Drawing.Point(56, 548)
 		Me.txtManyFights.Name = "txtManyFights"
 		Me.txtManyFights.Size = New System.Drawing.Size(50, 20)
 		Me.txtManyFights.TabIndex = 78
@@ -791,7 +814,7 @@ Partial Class MainForm
 		'
 		'chkManyFights
 		'
-		Me.chkManyFights.Location = New System.Drawing.Point(5, 528)
+		Me.chkManyFights.Location = New System.Drawing.Point(5, 546)
 		Me.chkManyFights.Name = "chkManyFights"
 		Me.chkManyFights.Size = New System.Drawing.Size(60, 24)
 		Me.chkManyFights.TabIndex = 77
@@ -800,7 +823,7 @@ Partial Class MainForm
 		'
 		'label17
 		'
-		Me.label17.Location = New System.Drawing.Point(5, 479)
+		Me.label17.Location = New System.Drawing.Point(5, 497)
 		Me.label17.Name = "label17"
 		Me.label17.Size = New System.Drawing.Size(116, 13)
 		Me.label17.TabIndex = 76
@@ -808,7 +831,7 @@ Partial Class MainForm
 		'
 		'label15
 		'
-		Me.label15.Location = New System.Drawing.Point(273, 479)
+		Me.label15.Location = New System.Drawing.Point(273, 497)
 		Me.label15.Name = "label15"
 		Me.label15.Size = New System.Drawing.Size(16, 13)
 		Me.label15.TabIndex = 75
@@ -817,7 +840,7 @@ Partial Class MainForm
 		'txtInterruptAmount
 		'
 		Me.txtInterruptAmount.Enabled = false
-		Me.txtInterruptAmount.Location = New System.Drawing.Point(217, 476)
+		Me.txtInterruptAmount.Location = New System.Drawing.Point(217, 494)
 		Me.txtInterruptAmount.Name = "txtInterruptAmount"
 		Me.txtInterruptAmount.Size = New System.Drawing.Size(50, 20)
 		Me.txtInterruptAmount.TabIndex = 74
@@ -826,7 +849,7 @@ Partial Class MainForm
 		'txtInterruptCd
 		'
 		Me.txtInterruptCd.Enabled = false
-		Me.txtInterruptCd.Location = New System.Drawing.Point(123, 476)
+		Me.txtInterruptCd.Location = New System.Drawing.Point(123, 494)
 		Me.txtInterruptCd.Name = "txtInterruptCd"
 		Me.txtInterruptCd.Size = New System.Drawing.Size(50, 20)
 		Me.txtInterruptCd.TabIndex = 73
@@ -834,7 +857,7 @@ Partial Class MainForm
 		'
 		'label16
 		'
-		Me.label16.Location = New System.Drawing.Point(179, 479)
+		Me.label16.Location = New System.Drawing.Point(179, 497)
 		Me.label16.Name = "label16"
 		Me.label16.Size = New System.Drawing.Size(32, 13)
 		Me.label16.TabIndex = 72
@@ -842,7 +865,7 @@ Partial Class MainForm
 		'
 		'label14
 		'
-		Me.label14.Location = New System.Drawing.Point(173, 505)
+		Me.label14.Location = New System.Drawing.Point(173, 523)
 		Me.label14.Name = "label14"
 		Me.label14.Size = New System.Drawing.Size(20, 13)
 		Me.label14.TabIndex = 71
@@ -850,7 +873,7 @@ Partial Class MainForm
 		'
 		'txtAMScd
 		'
-		Me.txtAMScd.Location = New System.Drawing.Point(117, 502)
+		Me.txtAMScd.Location = New System.Drawing.Point(117, 520)
 		Me.txtAMScd.Name = "txtAMScd"
 		Me.txtAMScd.Size = New System.Drawing.Size(50, 20)
 		Me.txtAMScd.TabIndex = 70
@@ -858,7 +881,7 @@ Partial Class MainForm
 		'
 		'txtAMSrp
 		'
-		Me.txtAMSrp.Location = New System.Drawing.Point(5, 502)
+		Me.txtAMSrp.Location = New System.Drawing.Point(5, 520)
 		Me.txtAMSrp.Name = "txtAMSrp"
 		Me.txtAMSrp.Size = New System.Drawing.Size(50, 20)
 		Me.txtAMSrp.TabIndex = 69
@@ -866,7 +889,7 @@ Partial Class MainForm
 		'
 		'label13
 		'
-		Me.label13.Location = New System.Drawing.Point(64, 505)
+		Me.label13.Location = New System.Drawing.Point(64, 523)
 		Me.label13.Name = "label13"
 		Me.label13.Size = New System.Drawing.Size(47, 13)
 		Me.label13.TabIndex = 68
@@ -874,7 +897,7 @@ Partial Class MainForm
 		'
 		'txtLatency
 		'
-		Me.txtLatency.Location = New System.Drawing.Point(86, 445)
+		Me.txtLatency.Location = New System.Drawing.Point(86, 463)
 		Me.txtLatency.Name = "txtLatency"
 		Me.txtLatency.Size = New System.Drawing.Size(50, 20)
 		Me.txtLatency.TabIndex = 67
@@ -882,7 +905,7 @@ Partial Class MainForm
 		'
 		'txtSimtime
 		'
-		Me.txtSimtime.Location = New System.Drawing.Point(110, 419)
+		Me.txtSimtime.Location = New System.Drawing.Point(110, 437)
 		Me.txtSimtime.Name = "txtSimtime"
 		Me.txtSimtime.Size = New System.Drawing.Size(50, 20)
 		Me.txtSimtime.TabIndex = 64
@@ -891,7 +914,7 @@ Partial Class MainForm
 		'
 		'label10
 		'
-		Me.label10.Location = New System.Drawing.Point(5, 448)
+		Me.label10.Location = New System.Drawing.Point(5, 466)
 		Me.label10.Name = "label10"
 		Me.label10.Size = New System.Drawing.Size(76, 13)
 		Me.label10.TabIndex = 65
@@ -899,7 +922,7 @@ Partial Class MainForm
 		'
 		'label4
 		'
-		Me.label4.Location = New System.Drawing.Point(5, 422)
+		Me.label4.Location = New System.Drawing.Point(5, 440)
 		Me.label4.Name = "label4"
 		Me.label4.Size = New System.Drawing.Size(100, 13)
 		Me.label4.TabIndex = 66
@@ -908,7 +931,7 @@ Partial Class MainForm
 		'label8
 		'
 		Me.label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.label8.Location = New System.Drawing.Point(451, 368)
+		Me.label8.Location = New System.Drawing.Point(451, 386)
 		Me.label8.Name = "label8"
 		Me.label8.Size = New System.Drawing.Size(100, 13)
 		Me.label8.TabIndex = 63
@@ -917,7 +940,7 @@ Partial Class MainForm
 		'cmdEditRot
 		'
 		Me.cmdEditRot.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdEditRot.Location = New System.Drawing.Point(698, 262)
+		Me.cmdEditRot.Location = New System.Drawing.Point(698, 280)
 		Me.cmdEditRot.Name = "cmdEditRot"
 		Me.cmdEditRot.Size = New System.Drawing.Size(42, 23)
 		Me.cmdEditRot.TabIndex = 62
@@ -930,14 +953,14 @@ Partial Class MainForm
 		Me.cmbRuneOH.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbRuneOH.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cmbRuneOH.FormattingEnabled = true
-		Me.cmbRuneOH.Location = New System.Drawing.Point(448, 384)
+		Me.cmbRuneOH.Location = New System.Drawing.Point(448, 402)
 		Me.cmbRuneOH.Name = "cmbRuneOH"
 		Me.cmbRuneOH.Size = New System.Drawing.Size(250, 21)
 		Me.cmbRuneOH.TabIndex = 61
 		'
 		'label7
 		'
-		Me.label7.Location = New System.Drawing.Point(5, 368)
+		Me.label7.Location = New System.Drawing.Point(5, 386)
 		Me.label7.Name = "label7"
 		Me.label7.Size = New System.Drawing.Size(100, 13)
 		Me.label7.TabIndex = 60
@@ -947,14 +970,14 @@ Partial Class MainForm
 		'
 		Me.cmbRuneMH.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cmbRuneMH.FormattingEnabled = true
-		Me.cmbRuneMH.Location = New System.Drawing.Point(5, 384)
+		Me.cmbRuneMH.Location = New System.Drawing.Point(5, 402)
 		Me.cmbRuneMH.Name = "cmbRuneMH"
 		Me.cmbRuneMH.Size = New System.Drawing.Size(250, 21)
 		Me.cmbRuneMH.TabIndex = 59
 		'
 		'label6
 		'
-		Me.label6.Location = New System.Drawing.Point(5, 248)
+		Me.label6.Location = New System.Drawing.Point(5, 266)
 		Me.label6.Name = "label6"
 		Me.label6.Size = New System.Drawing.Size(100, 13)
 		Me.label6.TabIndex = 58
@@ -966,14 +989,14 @@ Partial Class MainForm
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbRotation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cmbRotation.FormattingEnabled = true
-		Me.cmbRotation.Location = New System.Drawing.Point(5, 264)
+		Me.cmbRotation.Location = New System.Drawing.Point(5, 282)
 		Me.cmbRotation.Name = "cmbRotation"
 		Me.cmbRotation.Size = New System.Drawing.Size(693, 21)
 		Me.cmbRotation.TabIndex = 57
 		'
 		'label5
 		'
-		Me.label5.Location = New System.Drawing.Point(5, 328)
+		Me.label5.Location = New System.Drawing.Point(5, 346)
 		Me.label5.Name = "label5"
 		Me.label5.Size = New System.Drawing.Size(100, 13)
 		Me.label5.TabIndex = 56
@@ -985,14 +1008,14 @@ Partial Class MainForm
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbSigils.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cmbSigils.FormattingEnabled = true
-		Me.cmbSigils.Location = New System.Drawing.Point(5, 344)
+		Me.cmbSigils.Location = New System.Drawing.Point(5, 362)
 		Me.cmbSigils.Name = "cmbSigils"
 		Me.cmbSigils.Size = New System.Drawing.Size(693, 21)
 		Me.cmbSigils.TabIndex = 55
 		'
 		'label3
 		'
-		Me.label3.Location = New System.Drawing.Point(5, 288)
+		Me.label3.Location = New System.Drawing.Point(5, 306)
 		Me.label3.Name = "label3"
 		Me.label3.Size = New System.Drawing.Size(100, 13)
 		Me.label3.TabIndex = 54
@@ -1004,7 +1027,7 @@ Partial Class MainForm
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmdPresence.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cmdPresence.FormattingEnabled = true
-		Me.cmdPresence.Location = New System.Drawing.Point(5, 304)
+		Me.cmdPresence.Location = New System.Drawing.Point(5, 322)
 		Me.cmdPresence.Name = "cmdPresence"
 		Me.cmdPresence.Size = New System.Drawing.Size(693, 21)
 		Me.cmdPresence.TabIndex = 53
@@ -1015,14 +1038,14 @@ Partial Class MainForm
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbIntro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cmbIntro.FormattingEnabled = true
-		Me.cmbIntro.Location = New System.Drawing.Point(5, 151)
+		Me.cmbIntro.Location = New System.Drawing.Point(5, 169)
 		Me.cmbIntro.Name = "cmbIntro"
 		Me.cmbIntro.Size = New System.Drawing.Size(693, 21)
 		Me.cmbIntro.TabIndex = 52
 		'
 		'label26
 		'
-		Me.label26.Location = New System.Drawing.Point(5, 135)
+		Me.label26.Location = New System.Drawing.Point(5, 153)
 		Me.label26.Name = "label26"
 		Me.label26.Size = New System.Drawing.Size(100, 13)
 		Me.label26.TabIndex = 51
@@ -1030,22 +1053,20 @@ Partial Class MainForm
 		'
 		'rdPrio
 		'
-		Me.rdPrio.Location = New System.Drawing.Point(5, 178)
+		Me.rdPrio.Location = New System.Drawing.Point(6, 4)
 		Me.rdPrio.Name = "rdPrio"
 		Me.rdPrio.Size = New System.Drawing.Size(104, 24)
 		Me.rdPrio.TabIndex = 49
-		Me.rdPrio.TabStop = true
 		Me.rdPrio.Text = "Priority"
 		Me.rdPrio.UseVisualStyleBackColor = true
 		AddHandler Me.rdPrio.CheckedChanged, AddressOf Me.RdPrioCheckedChanged
 		'
 		'rdRot
 		'
-		Me.rdRot.Location = New System.Drawing.Point(123, 178)
+		Me.rdRot.Location = New System.Drawing.Point(90, 4)
 		Me.rdRot.Name = "rdRot"
 		Me.rdRot.Size = New System.Drawing.Size(104, 24)
 		Me.rdRot.TabIndex = 50
-		Me.rdRot.TabStop = true
 		Me.rdRot.Text = "Rotation"
 		Me.rdRot.UseVisualStyleBackColor = true
 		AddHandler Me.rdRot.CheckedChanged, AddressOf Me.RdRotCheckedChanged
@@ -1053,7 +1074,7 @@ Partial Class MainForm
 		'cmdEditIntro
 		'
 		Me.cmdEditIntro.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdEditIntro.Location = New System.Drawing.Point(698, 149)
+		Me.cmdEditIntro.Location = New System.Drawing.Point(698, 167)
 		Me.cmdEditIntro.Name = "cmdEditIntro"
 		Me.cmdEditIntro.Size = New System.Drawing.Size(42, 23)
 		Me.cmdEditIntro.TabIndex = 47
@@ -1064,7 +1085,7 @@ Partial Class MainForm
 		'cmdEditPrio
 		'
 		Me.cmdEditPrio.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdEditPrio.Location = New System.Drawing.Point(698, 219)
+		Me.cmdEditPrio.Location = New System.Drawing.Point(698, 237)
 		Me.cmdEditPrio.Name = "cmdEditPrio"
 		Me.cmdEditPrio.Size = New System.Drawing.Size(42, 23)
 		Me.cmdEditPrio.TabIndex = 48
@@ -1074,7 +1095,7 @@ Partial Class MainForm
 		'
 		'label2
 		'
-		Me.label2.Location = New System.Drawing.Point(5, 205)
+		Me.label2.Location = New System.Drawing.Point(5, 223)
 		Me.label2.Name = "label2"
 		Me.label2.Size = New System.Drawing.Size(100, 13)
 		Me.label2.TabIndex = 46
@@ -1086,7 +1107,7 @@ Partial Class MainForm
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbPrio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cmbPrio.FormattingEnabled = true
-		Me.cmbPrio.Location = New System.Drawing.Point(5, 221)
+		Me.cmbPrio.Location = New System.Drawing.Point(5, 239)
 		Me.cmbPrio.Name = "cmbPrio"
 		Me.cmbPrio.Size = New System.Drawing.Size(693, 21)
 		Me.cmbPrio.TabIndex = 45
@@ -1094,7 +1115,7 @@ Partial Class MainForm
 		'cmdEditTemplate
 		'
 		Me.cmdEditTemplate.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdEditTemplate.Location = New System.Drawing.Point(698, 105)
+		Me.cmdEditTemplate.Location = New System.Drawing.Point(698, 123)
 		Me.cmdEditTemplate.Name = "cmdEditTemplate"
 		Me.cmdEditTemplate.Size = New System.Drawing.Size(42, 23)
 		Me.cmdEditTemplate.TabIndex = 25
@@ -1104,7 +1125,7 @@ Partial Class MainForm
 		'
 		'label1
 		'
-		Me.label1.Location = New System.Drawing.Point(5, 91)
+		Me.label1.Location = New System.Drawing.Point(5, 109)
 		Me.label1.Name = "label1"
 		Me.label1.Size = New System.Drawing.Size(100, 13)
 		Me.label1.TabIndex = 24
@@ -1116,7 +1137,7 @@ Partial Class MainForm
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbTemplate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cmbTemplate.FormattingEnabled = true
-		Me.cmbTemplate.Location = New System.Drawing.Point(5, 107)
+		Me.cmbTemplate.Location = New System.Drawing.Point(5, 125)
 		Me.cmbTemplate.Name = "cmbTemplate"
 		Me.cmbTemplate.Size = New System.Drawing.Size(693, 21)
 		Me.cmbTemplate.TabIndex = 23
@@ -1124,7 +1145,8 @@ Partial Class MainForm
 		'cmdEditGearSelector
 		'
 		Me.cmdEditGearSelector.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdEditGearSelector.Location = New System.Drawing.Point(698, 67)
+		Me.cmdEditGearSelector.Enabled = false
+		Me.cmdEditGearSelector.Location = New System.Drawing.Point(698, 74)
 		Me.cmdEditGearSelector.Name = "cmdEditGearSelector"
 		Me.cmdEditGearSelector.Size = New System.Drawing.Size(42, 23)
 		Me.cmdEditGearSelector.TabIndex = 22
@@ -1135,7 +1157,7 @@ Partial Class MainForm
 		'cmdEditChar
 		'
 		Me.cmdEditChar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdEditChar.Location = New System.Drawing.Point(698, 32)
+		Me.cmdEditChar.Location = New System.Drawing.Point(698, 45)
 		Me.cmdEditChar.Name = "cmdEditChar"
 		Me.cmdEditChar.Size = New System.Drawing.Size(42, 23)
 		Me.cmdEditChar.TabIndex = 22
@@ -1143,29 +1165,14 @@ Partial Class MainForm
 		Me.cmdEditChar.UseVisualStyleBackColor = true
 		AddHandler Me.cmdEditChar.Click, AddressOf Me.CmdEditCharClick
 		'
-		'label45
-		'
-		Me.label45.Location = New System.Drawing.Point(5, 51)
-		Me.label45.Name = "label45"
-		Me.label45.Size = New System.Drawing.Size(100, 13)
-		Me.label45.TabIndex = 21
-		Me.label45.Text = "Character2"
-		'
-		'label9
-		'
-		Me.label9.Location = New System.Drawing.Point(5, 16)
-		Me.label9.Name = "label9"
-		Me.label9.Size = New System.Drawing.Size(100, 13)
-		Me.label9.TabIndex = 21
-		Me.label9.Text = "Character"
-		'
 		'cmbGearSelector
 		'
 		Me.cmbGearSelector.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbGearSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+		Me.cmbGearSelector.Enabled = false
 		Me.cmbGearSelector.FormattingEnabled = true
-		Me.cmbGearSelector.Location = New System.Drawing.Point(5, 67)
+		Me.cmbGearSelector.Location = New System.Drawing.Point(5, 74)
 		Me.cmbGearSelector.Name = "cmbGearSelector"
 		Me.cmbGearSelector.Size = New System.Drawing.Size(693, 21)
 		Me.cmbGearSelector.TabIndex = 20
@@ -1176,7 +1183,7 @@ Partial Class MainForm
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbCharacter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cmbCharacter.FormattingEnabled = true
-		Me.cmbCharacter.Location = New System.Drawing.Point(5, 32)
+		Me.cmbCharacter.Location = New System.Drawing.Point(5, 47)
 		Me.cmbCharacter.Name = "cmbCharacter"
 		Me.cmbCharacter.Size = New System.Drawing.Size(693, 21)
 		Me.cmbCharacter.TabIndex = 20
@@ -1186,7 +1193,7 @@ Partial Class MainForm
 		Me.tbcharEditor.Controls.Add(Me.groupBox4)
 		Me.tbcharEditor.Location = New System.Drawing.Point(4, 22)
 		Me.tbcharEditor.Name = "tbcharEditor"
-		Me.tbcharEditor.Size = New System.Drawing.Size(755, 725)
+		Me.tbcharEditor.Size = New System.Drawing.Size(755, 743)
 		Me.tbcharEditor.TabIndex = 13
 		Me.tbcharEditor.Text = "Character Editor"
 		Me.tbcharEditor.UseVisualStyleBackColor = true
@@ -1207,7 +1214,7 @@ Partial Class MainForm
 		Me.groupBox4.Controls.Add(Me.gbWeapons)
 		Me.groupBox4.Location = New System.Drawing.Point(9, 4)
 		Me.groupBox4.Name = "groupBox4"
-		Me.groupBox4.Size = New System.Drawing.Size(734, 718)
+		Me.groupBox4.Size = New System.Drawing.Size(734, 736)
 		Me.groupBox4.TabIndex = 0
 		Me.groupBox4.TabStop = false
 		Me.groupBox4.Text = "Editor"
@@ -1764,7 +1771,7 @@ Partial Class MainForm
 		Me.tbTpl.Controls.Add(Me.cmdSaveTemplate)
 		Me.tbTpl.Location = New System.Drawing.Point(4, 22)
 		Me.tbTpl.Name = "tbTpl"
-		Me.tbTpl.Size = New System.Drawing.Size(755, 725)
+		Me.tbTpl.Size = New System.Drawing.Size(755, 743)
 		Me.tbTpl.TabIndex = 9
 		Me.tbTpl.Text = "Talents"
 		Me.tbTpl.UseVisualStyleBackColor = true
@@ -1852,7 +1859,7 @@ Partial Class MainForm
 		Me.tbBuff.Controls.Add(Me.grpBuff)
 		Me.tbBuff.Location = New System.Drawing.Point(4, 22)
 		Me.tbBuff.Name = "tbBuff"
-		Me.tbBuff.Size = New System.Drawing.Size(755, 725)
+		Me.tbBuff.Size = New System.Drawing.Size(755, 743)
 		Me.tbBuff.TabIndex = 8
 		Me.tbBuff.Text = "Buffs"
 		Me.tbBuff.UseVisualStyleBackColor = true
@@ -2147,7 +2154,7 @@ Partial Class MainForm
 		Me.tbTank.Controls.Add(Me.gbTank)
 		Me.tbTank.Location = New System.Drawing.Point(4, 22)
 		Me.tbTank.Name = "tbTank"
-		Me.tbTank.Size = New System.Drawing.Size(755, 725)
+		Me.tbTank.Size = New System.Drawing.Size(755, 743)
 		Me.tbTank.TabIndex = 11
 		Me.tbTank.Text = "Tank Options"
 		Me.tbTank.UseVisualStyleBackColor = true
@@ -2224,7 +2231,7 @@ Partial Class MainForm
 		Me.tbEPOptions.Controls.Add(Me.groupBox1)
 		Me.tbEPOptions.Location = New System.Drawing.Point(4, 22)
 		Me.tbEPOptions.Name = "tbEPOptions"
-		Me.tbEPOptions.Size = New System.Drawing.Size(755, 725)
+		Me.tbEPOptions.Size = New System.Drawing.Size(755, 743)
 		Me.tbEPOptions.TabIndex = 7
 		Me.tbEPOptions.Text = "EP Options"
 		Me.tbEPOptions.UseVisualStyleBackColor = true
@@ -2502,7 +2509,7 @@ Partial Class MainForm
 		Me.tbPrioEditor.Controls.Add(Me.cmdSaveRotation)
 		Me.tbPrioEditor.Location = New System.Drawing.Point(4, 22)
 		Me.tbPrioEditor.Name = "tbPrioEditor"
-		Me.tbPrioEditor.Size = New System.Drawing.Size(755, 725)
+		Me.tbPrioEditor.Size = New System.Drawing.Size(755, 743)
 		Me.tbPrioEditor.TabIndex = 12
 		Me.tbPrioEditor.Text = "Rotation Editor"
 		Me.tbPrioEditor.UseVisualStyleBackColor = true
@@ -2557,7 +2564,7 @@ Partial Class MainForm
 		Me.tbCaling.Controls.Add(Me.gbScaling)
 		Me.tbCaling.Location = New System.Drawing.Point(4, 22)
 		Me.tbCaling.Name = "tbCaling"
-		Me.tbCaling.Size = New System.Drawing.Size(755, 725)
+		Me.tbCaling.Size = New System.Drawing.Size(755, 743)
 		Me.tbCaling.TabIndex = 10
 		Me.tbCaling.Text = "Stat Scaling"
 		Me.tbCaling.UseVisualStyleBackColor = true
@@ -2741,7 +2748,7 @@ Partial Class MainForm
 		Me.TabPrio2.AutoScroll = true
 		Me.TabPrio2.Location = New System.Drawing.Point(4, 22)
 		Me.TabPrio2.Name = "TabPrio2"
-		Me.TabPrio2.Size = New System.Drawing.Size(755, 725)
+		Me.TabPrio2.Size = New System.Drawing.Size(755, 743)
 		Me.TabPrio2.TabIndex = 14
 		Me.TabPrio2.Text = "Beta"
 		Me.TabPrio2.UseVisualStyleBackColor = true
@@ -2749,7 +2756,7 @@ Partial Class MainForm
 		'cmdRngSeeder
 		'
 		Me.cmdRngSeeder.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left),System.Windows.Forms.AnchorStyles)
-		Me.cmdRngSeeder.Location = New System.Drawing.Point(282, 769)
+		Me.cmdRngSeeder.Location = New System.Drawing.Point(282, 787)
 		Me.cmdRngSeeder.Name = "cmdRngSeeder"
 		Me.cmdRngSeeder.Size = New System.Drawing.Size(122, 23)
 		Me.cmdRngSeeder.TabIndex = 10
@@ -2763,11 +2770,22 @@ Partial Class MainForm
 		Me.tmrProgress.Interval = 1000
 		AddHandler Me.tmrProgress.Tick, AddressOf Me.TmrProgressTick
 		'
+		'groupBox7
+		'
+		Me.groupBox7.Controls.Add(Me.rdRot)
+		Me.groupBox7.Controls.Add(Me.rdPrio)
+		Me.groupBox7.ForeColor = System.Drawing.SystemColors.ControlText
+		Me.groupBox7.Location = New System.Drawing.Point(9, 196)
+		Me.groupBox7.Name = "groupBox7"
+		Me.groupBox7.Size = New System.Drawing.Size(164, 28)
+		Me.groupBox7.TabIndex = 91
+		Me.groupBox7.TabStop = false
+		'
 		'MainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-		Me.ClientSize = New System.Drawing.Size(763, 821)
+		Me.ClientSize = New System.Drawing.Size(763, 839)
 		Me.Controls.Add(Me.cmdRngSeeder)
 		Me.Controls.Add(Me.lblDPS)
 		Me.Controls.Add(Me.btEP)
@@ -2815,10 +2833,13 @@ Partial Class MainForm
 		Me.tbPrioEditor.PerformLayout
 		Me.tbCaling.ResumeLayout(false)
 		Me.gbScaling.ResumeLayout(false)
+		Me.groupBox7.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Private groupBox7 As System.Windows.Forms.GroupBox
+	Private rCharwithGear As System.Windows.Forms.RadioButton
+	Private rCharacter As System.Windows.Forms.RadioButton
 	Friend cmbGearSelector As System.Windows.Forms.ComboBox
-	Private label45 As System.Windows.Forms.Label
 	Private cmdEditGearSelector As System.Windows.Forms.Button
 	Private label44 As System.Windows.Forms.Label
 	Friend cmbICCBuff As System.Windows.Forms.ComboBox
@@ -3019,7 +3040,6 @@ Partial Class MainForm
 	Friend chkWaitFC As System.Windows.Forms.CheckBox
 	Friend lblDPS As System.Windows.Forms.Label
 	Friend cmbCharacter As System.Windows.Forms.ComboBox
-	Private label9 As System.Windows.Forms.Label
 	Private cmdEditChar As System.Windows.Forms.Button
 	Private cmdSaveNew As System.Windows.Forms.Button
 	Private cmdSave As System.Windows.Forms.Button

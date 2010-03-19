@@ -1,5 +1,5 @@
 <Talents>
-  <URL>http://talent.mmo-champion.com/?deathknight=2305020000000000000000000000000000000000000000000000000002302303340032152003150003133151&amp;glyph=220827000000&amp;version=10048</URL>
+  <URL>=2305020000000000000000000000000000000000000000000000000002302203350032152003150003133151&amp;glyph=081727&amp;</URL>
   <Butchery>2</Butchery>
   <Subversion>3</Subversion>
   <BladeBarrier>0</BladeBarrier>
@@ -61,11 +61,11 @@
   <Virulence>3</Virulence>
   <Anticipation>0</Anticipation>
   <Epidemic>2</Epidemic>
-  <Morbidity>3</Morbidity>
+  <Morbidity>2</Morbidity>
   <UnholyCommand>0</UnholyCommand>
   <RavenousDead>3</RavenousDead>
   <Outbreak>3</Outbreak>
-  <Necrosis>4</Necrosis>
+  <Necrosis>5</Necrosis>
   <CorpseExplosion>0</CorpseExplosion>
   <PaleHorse>0</PaleHorse>
   <BloodCakedBlade>3</BloodCakedBlade>
@@ -94,15 +94,16 @@
     <DeathStrike>0</DeathStrike>
     <FrostStrike>0</FrostStrike>
     <HowlingBlast>0</HowlingBlast>
-    <IcyTouch>0</IcyTouch>
+    <IcyTouch>1</IcyTouch>
     <Obliterate>0</Obliterate>
     <PlagueStrike>0</PlagueStrike>
-    <ScourgeStrike>1</ScourgeStrike>
+    <ScourgeStrike>0</ScourgeStrike>
     <UnholyBlight>0</UnholyBlight>
     <Ghoul>1</Ghoul>
     <DeathandDecay>0</DeathandDecay>
     <DRW>0</DRW>
     <Disease>0</Disease>
     <RuneStrike>0</RuneStrike>
+    <BoneShield>0</BoneShield>
   </Glyphs>
 </Talents>

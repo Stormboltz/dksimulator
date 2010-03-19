@@ -31,7 +31,13 @@ Friend Class Character
 		Sim = S
 		Try
 			XmlConfig.Load("config.xml")
-			XmlDoc.Load (Application.StartupPath & "\Characters\"  & XmlConfig.SelectSingleNode("//config/Character").InnerText)
+			
+			If XmlConfig.SelectSingleNode("//config/UseCharacter").InnerText = True Then
+				XmlDoc.Load (Application.StartupPath & "\Characters\"  & XmlConfig.SelectSingleNode("//config/Character").InnerText)
+			Else
+				XmlDoc.Load (Application.StartupPath & "\CharactersWithGear\"  & XmlConfig.SelectSingleNode("//config/CharacterWithGear").InnerText)
+			End If
+			
 		Catch
 			msgbox("Error finding Character config file")
 		End Try
@@ -60,8 +66,12 @@ Friend Class Character
 		sim.boss = New Boss(S)
 	End Sub
 	
-	Function GetCharacterFileName() as String
-		Return XmlConfig.SelectSingleNode("//config/Character").InnerText
+	Function GetCharacterFileName() As String
+		If XmlConfig.SelectSingleNode("//config/UseCharacter").InnerText = True Then
+			Return XmlConfig.SelectSingleNode("//config/Character").InnerText
+		Else
+			Return XmlConfig.SelectSingleNode("//config/CharacterWithGear").InnerText
+		End If
 	End Function
 	
 	Function GetTemplateFileName() as String
@@ -229,6 +239,8 @@ Friend Class Character
 				tmp = sim.MainStat.SpellHitCapRating
 			Case "EP AfterSpellHitRating"
 				tmp = sim.MainStat.SpellHitCapRating + sim.EPBase
+			Case "EP RelativeHitRating"
+				tmp +=  sim.EPBase
 			Case ""
 			Case Else
 				If InStr(sim.EPStat,"ScaHit") Then
