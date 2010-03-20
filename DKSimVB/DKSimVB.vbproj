@@ -966,9 +966,6 @@
     <None Include="Templates\Unholy 12-00-59.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\Unholy 14-00-57.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Templates\Unholy 17-00-54-3.3.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

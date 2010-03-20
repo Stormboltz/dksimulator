@@ -121,10 +121,13 @@ Public Class Proc
 					AddUptime(T)
 					HitCount += 1
 				Case "Shadowmourne"
-					Stack +=1
-					If Me.Stack =10 Then
-						Me.Stack=0
-					
+					If Stack < 9 Then
+						Fade = T + ProcLenght * 100
+						Stack +=1
+						AddUptime(T)
+					Else
+						Fade = T
+						Stack = 0
 						If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
 							MissCount = MissCount + 1
 							Exit sub
@@ -135,6 +138,8 @@ Public Class Proc
 						If sim.combatlog.LogDetails Then sim.combatlog.write(sim.TimeStamp  & vbtab &  Me.ToString & " proc")
 						Fade = T + ProcLenght * 100
 						HitCount += 1
+						CD = T + 10 * 100
+						RemoveUptime(T)
 					End If
 				Case "Bryntroll"
 					If RNGProc < (0.17 - sim.MainStat.SpellHit) Then

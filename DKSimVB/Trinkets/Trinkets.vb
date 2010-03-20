@@ -70,11 +70,12 @@ Public Class Trinkets
 		With Shadowmourne
 			._Name = "Shadowmourne"
 			.ProcOn = Procs.ProcOnType.OnMHhit
-			.ProcChance  = 0.60
+			.ProcChance  = 1
+			'.InternalCD = 10
 			.ProcValue = 270
 			.ProcValueStack = 30
 			.ProcValueDmg = 2000
-			.ProcLenght = 10
+			.ProcLenght = 60
 			.ProcType = "str"
 			.ProcTypeStack = "str"
 			.DamageType = "Shadowmourne"
