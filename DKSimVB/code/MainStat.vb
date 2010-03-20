@@ -725,7 +725,7 @@ Friend Class MainStat
 		If sim.proc.T104PDPSFAde >= T Then
 			tmp = tmp * 1.03
 		End If
-		if sim.Hysteria.IsActive(T) then tmp = tmp * 1.2
+		If sim.Hysteria.IsActive(T) Then tmp = tmp * 1.2
 		
 		return tmp
 	End Function
