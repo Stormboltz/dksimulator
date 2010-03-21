@@ -90,7 +90,8 @@ Public Class Sim
 	Friend OffHand As OffHand
 	
 	Friend GhoulStat  As GhoulStat
-	Friend Ghoul as Ghoul
+	Friend Ghoul As Ghoul
+	Friend AotD as AotD
 	
 	'Spell Creation
 	Friend BloodBoil As BloodBoil
@@ -239,6 +240,7 @@ Public Class Sim
 		Initialisation
 		TimeStamp = 1
 		If TalentUnholy.MasterOfGhouls=1 Then Ghoul.Summon(1)
+		AotD.Summon(-500)
 		Rotation.LoadIntro
 		If Rotate Then Rotation.loadRotation
 		Do Until TimeStamp >= MaxTime
@@ -315,6 +317,20 @@ Public Class Sim
 						End If
 					End If
 				End If
+				
+				If PetFriendly Then
+					If isInGCD(TimeStamp) = False Then
+						If AoTD.cd < TimeStamp and CanUseGCD(TimeStamp) Then
+							AoTD.Summon(TimeStamp)
+						end if
+					End If
+					if AoTD.ActiveUntil >= TimeStamp then
+						If AoTD.NextWhiteMainHit <= TimeStamp Then AoTD.ApplyDamage(TimeStamp)
+						If AoTD.NextClaw <= TimeStamp Then AoTD.Claw(TimeStamp)
+					End If
+				End If
+				
+				
 				If MainHand.NextWhiteMainHit <= TimeStamp Then MainHand.ApplyDamage(TimeStamp)
 				If MainStat.DualW Then
 					If OffHand.NextWhiteOffHit <= TimeStamp Then OffHand.ApplyDamage(TimeStamp)
@@ -525,7 +541,7 @@ Public Class Sim
 		Me.Runes.UnholyRune1.AvailableTime = 0
 		Me.Runes.UnholyRune2.AvailableTime = 0
 		
-		RunicPower.Value = 0
+		RunicPower.Value = 10 'Start fight with some RP
 		BloodPlague.nextTick = 0
 		BloodPlague.FadeAt = 0
 		FrostFever.nextTick = 0
@@ -533,6 +549,7 @@ Public Class Sim
 		BloodTap.CD  = 0
 		HowlingBlast.CD = 0
 		Ghoul.cd = 0
+		AoTD.cd = 0
 		Hysteria.CD = 0
 		DeathChill.Cd = 0
 		Desolation = New Desolation(me)
@@ -583,6 +600,10 @@ Public Class Sim
 			Ghoul.isPet = true
 		End If
 		
+		AotD = New AotD(Me)
+		
+		
+		
 		GhoulStat = New GhoulStat(Me)
 		Hysteria = new Hysteria(Me)
 		DeathChill = new DeathChill(Me)
@@ -596,7 +617,7 @@ Public Class Sim
 		
 		'LoadConfig
 		Desolation = New Desolation(me)
-		RunicPower.Value = 0
+		RunicPower.Value = 10
 		NextFreeGCD = 0
 		Threat = 0
 		NumberOfEnemies = _MainFrm.txtNumberOfEnemies.text
@@ -825,7 +846,7 @@ Public Class Sim
 		dim Nod as Xml.XmlNode
 		
 		If KeepBloodSync Then
-			priority.prio.Add("BloodSync")
+			priority.prio.Add("BloodSync","BloodSync")
 		End If
 		
 		
@@ -834,7 +855,7 @@ Public Class Sim
 			If Nod.Name = "SaveRPForRuneStrike" Then
 				SaveRPForRS = true
 			Else
-				priority.prio.Add(Nod.Name)
+				priority.prio.Add(Nod.Name,Nod.Name)
 			End If
 			
 		Next
@@ -1081,6 +1102,10 @@ Public Class Sim
 			If Ghoul.ActiveUntil >= TimeStamp Then
 				aT.Add(Ghoul.NextWhiteMainHit)
 				aT.Add(Ghoul.NextClaw)
+			End If
+			If AoTD.ActiveUntil >= TimeStamp Then
+				aT.Add(AoTD.NextWhiteMainHit)
+				aT.Add(AoTD.NextClaw)
 			End If
 		End If
 		aT.Add(MainHand.NextWhiteMainHit)

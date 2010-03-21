@@ -38,25 +38,25 @@ Partial Class GearSelectorMainForm
 		Me.cmdSave = New System.Windows.Forms.Button
 		Me.gbStats = New System.Windows.Forms.GroupBox
 		Me.txtArP = New System.Windows.Forms.TextBox
-		Me.label35 = New System.Windows.Forms.Label
+		Me.lblArP = New System.Windows.Forms.Label
 		Me.txtHit = New System.Windows.Forms.TextBox
-		Me.label32 = New System.Windows.Forms.Label
+		Me.lblHit = New System.Windows.Forms.Label
 		Me.txtHaste = New System.Windows.Forms.TextBox
 		Me.txtIntel = New System.Windows.Forms.TextBox
 		Me.txtAP = New System.Windows.Forms.TextBox
-		Me.label34 = New System.Windows.Forms.Label
-		Me.label29 = New System.Windows.Forms.Label
-		Me.label31 = New System.Windows.Forms.Label
+		Me.lblHaste = New System.Windows.Forms.Label
+		Me.lblInt = New System.Windows.Forms.Label
+		Me.lblAP = New System.Windows.Forms.Label
 		Me.txtCrit = New System.Windows.Forms.TextBox
 		Me.txtAgi = New System.Windows.Forms.TextBox
 		Me.txtExp = New System.Windows.Forms.TextBox
 		Me.txtArmor = New System.Windows.Forms.TextBox
-		Me.label33 = New System.Windows.Forms.Label
-		Me.label36 = New System.Windows.Forms.Label
-		Me.label28 = New System.Windows.Forms.Label
-		Me.label30 = New System.Windows.Forms.Label
+		Me.lblCrit = New System.Windows.Forms.Label
+		Me.lblExp = New System.Windows.Forms.Label
+		Me.lblAgi = New System.Windows.Forms.Label
+		Me.lblArM = New System.Windows.Forms.Label
 		Me.txtStr = New System.Windows.Forms.TextBox
-		Me.label27 = New System.Windows.Forms.Label
+		Me.lblStr = New System.Windows.Forms.Label
 		Me.cmbRace = New System.Windows.Forms.ComboBox
 		Me.label1 = New System.Windows.Forms.Label
 		Me.gbWeapons = New System.Windows.Forms.GroupBox
@@ -95,6 +95,8 @@ Partial Class GearSelectorMainForm
 		Me.label41 = New System.Windows.Forms.Label
 		Me.label42 = New System.Windows.Forms.Label
 		Me.cmdQuickEP = New System.Windows.Forms.Button
+		Me.cmdGetDps = New System.Windows.Forms.Button
+		Me.lblDPS = New System.Windows.Forms.Label
 		Me.gbStats.SuspendLayout
 		Me.gbWeapons.SuspendLayout
 		Me.gbMisc.SuspendLayout
@@ -108,7 +110,7 @@ Partial Class GearSelectorMainForm
 		'cmdExtrator
 		'
 		Me.cmdExtrator.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdExtrator.Location = New System.Drawing.Point(627, 7690)
+		Me.cmdExtrator.Location = New System.Drawing.Point(303, 10356)
 		Me.cmdExtrator.Name = "cmdExtrator"
 		Me.cmdExtrator.Size = New System.Drawing.Size(75, 23)
 		Me.cmdExtrator.TabIndex = 0
@@ -119,7 +121,7 @@ Partial Class GearSelectorMainForm
 		'cmdSaveAsNew
 		'
 		Me.cmdSaveAsNew.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdSaveAsNew.Location = New System.Drawing.Point(783, 16)
+		Me.cmdSaveAsNew.Location = New System.Drawing.Point(558, 4)
 		Me.cmdSaveAsNew.Name = "cmdSaveAsNew"
 		Me.cmdSaveAsNew.Size = New System.Drawing.Size(92, 23)
 		Me.cmdSaveAsNew.TabIndex = 2
@@ -130,7 +132,7 @@ Partial Class GearSelectorMainForm
 		'cmdSave
 		'
 		Me.cmdSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdSave.Location = New System.Drawing.Point(881, 16)
+		Me.cmdSave.Location = New System.Drawing.Point(656, 4)
 		Me.cmdSave.Name = "cmdSave"
 		Me.cmdSave.Size = New System.Drawing.Size(72, 23)
 		Me.cmdSave.TabIndex = 4
@@ -141,25 +143,25 @@ Partial Class GearSelectorMainForm
 		'gbStats
 		'
 		Me.gbStats.Controls.Add(Me.txtArP)
-		Me.gbStats.Controls.Add(Me.label35)
+		Me.gbStats.Controls.Add(Me.lblArP)
 		Me.gbStats.Controls.Add(Me.txtHit)
-		Me.gbStats.Controls.Add(Me.label32)
+		Me.gbStats.Controls.Add(Me.lblHit)
 		Me.gbStats.Controls.Add(Me.txtHaste)
 		Me.gbStats.Controls.Add(Me.txtIntel)
 		Me.gbStats.Controls.Add(Me.txtAP)
-		Me.gbStats.Controls.Add(Me.label34)
-		Me.gbStats.Controls.Add(Me.label29)
-		Me.gbStats.Controls.Add(Me.label31)
+		Me.gbStats.Controls.Add(Me.lblHaste)
+		Me.gbStats.Controls.Add(Me.lblInt)
+		Me.gbStats.Controls.Add(Me.lblAP)
 		Me.gbStats.Controls.Add(Me.txtCrit)
 		Me.gbStats.Controls.Add(Me.txtAgi)
 		Me.gbStats.Controls.Add(Me.txtExp)
 		Me.gbStats.Controls.Add(Me.txtArmor)
-		Me.gbStats.Controls.Add(Me.label33)
-		Me.gbStats.Controls.Add(Me.label36)
-		Me.gbStats.Controls.Add(Me.label28)
-		Me.gbStats.Controls.Add(Me.label30)
+		Me.gbStats.Controls.Add(Me.lblCrit)
+		Me.gbStats.Controls.Add(Me.lblExp)
+		Me.gbStats.Controls.Add(Me.lblAgi)
+		Me.gbStats.Controls.Add(Me.lblArM)
 		Me.gbStats.Controls.Add(Me.txtStr)
-		Me.gbStats.Controls.Add(Me.label27)
+		Me.gbStats.Controls.Add(Me.lblStr)
 		Me.gbStats.Location = New System.Drawing.Point(6, 14)
 		Me.gbStats.Name = "gbStats"
 		Me.gbStats.Size = New System.Drawing.Size(207, 298)
@@ -174,14 +176,14 @@ Partial Class GearSelectorMainForm
 		Me.txtArP.Size = New System.Drawing.Size(100, 20)
 		Me.txtArP.TabIndex = 9
 		'
-		'label35
+		'lblArP
 		'
-		Me.label35.Location = New System.Drawing.Point(-4, 235)
-		Me.label35.Name = "label35"
-		Me.label35.Size = New System.Drawing.Size(99, 28)
-		Me.label35.TabIndex = 13
-		Me.label35.Text = "Armor Penetration Rating"
-		Me.label35.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		Me.lblArP.Location = New System.Drawing.Point(-23, 235)
+		Me.lblArP.Name = "lblArP"
+		Me.lblArP.Size = New System.Drawing.Size(118, 28)
+		Me.lblArP.TabIndex = 13
+		Me.lblArP.Text = "Armor Penetration Rating"
+		Me.lblArP.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		'
 		'txtHit
 		'
@@ -190,14 +192,14 @@ Partial Class GearSelectorMainForm
 		Me.txtHit.Size = New System.Drawing.Size(100, 20)
 		Me.txtHit.TabIndex = 6
 		'
-		'label32
+		'lblHit
 		'
-		Me.label32.Location = New System.Drawing.Point(20, 155)
-		Me.label32.Name = "label32"
-		Me.label32.Size = New System.Drawing.Size(75, 18)
-		Me.label32.TabIndex = 12
-		Me.label32.Text = "Hit Rating"
-		Me.label32.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		Me.lblHit.Location = New System.Drawing.Point(0, 157)
+		Me.lblHit.Name = "lblHit"
+		Me.lblHit.Size = New System.Drawing.Size(94, 18)
+		Me.lblHit.TabIndex = 12
+		Me.lblHit.Text = "Hit Rating"
+		Me.lblHit.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		'
 		'txtHaste
 		'
@@ -220,32 +222,32 @@ Partial Class GearSelectorMainForm
 		Me.txtAP.Size = New System.Drawing.Size(100, 20)
 		Me.txtAP.TabIndex = 5
 		'
-		'label34
+		'lblHaste
 		'
-		Me.label34.Location = New System.Drawing.Point(20, 209)
-		Me.label34.Name = "label34"
-		Me.label34.Size = New System.Drawing.Size(75, 18)
-		Me.label34.TabIndex = 7
-		Me.label34.Text = "Haste Rating"
-		Me.label34.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		Me.lblHaste.Location = New System.Drawing.Point(-19, 211)
+		Me.lblHaste.Name = "lblHaste"
+		Me.lblHaste.Size = New System.Drawing.Size(114, 18)
+		Me.lblHaste.TabIndex = 7
+		Me.lblHaste.Text = "Haste Rating"
+		Me.lblHaste.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		'
-		'label29
+		'lblInt
 		'
-		Me.label29.Location = New System.Drawing.Point(20, 68)
-		Me.label29.Name = "label29"
-		Me.label29.Size = New System.Drawing.Size(75, 18)
-		Me.label29.TabIndex = 6
-		Me.label29.Text = "Intelligence"
-		Me.label29.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		Me.lblInt.Location = New System.Drawing.Point(20, 68)
+		Me.lblInt.Name = "lblInt"
+		Me.lblInt.Size = New System.Drawing.Size(75, 18)
+		Me.lblInt.TabIndex = 6
+		Me.lblInt.Text = "Intelligence"
+		Me.lblInt.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		'
-		'label31
+		'lblAP
 		'
-		Me.label31.Location = New System.Drawing.Point(6, 120)
-		Me.label31.Name = "label31"
-		Me.label31.Size = New System.Drawing.Size(89, 31)
-		Me.label31.TabIndex = 14
-		Me.label31.Text = "Attack Power (Green Number)"
-		Me.label31.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		Me.lblAP.Location = New System.Drawing.Point(6, 120)
+		Me.lblAP.Name = "lblAP"
+		Me.lblAP.Size = New System.Drawing.Size(89, 31)
+		Me.lblAP.TabIndex = 14
+		Me.lblAP.Text = "Attack Power (Green Number)"
+		Me.lblAP.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		'
 		'txtCrit
 		'
@@ -275,41 +277,41 @@ Partial Class GearSelectorMainForm
 		Me.txtArmor.Size = New System.Drawing.Size(100, 20)
 		Me.txtArmor.TabIndex = 4
 		'
-		'label33
+		'lblCrit
 		'
-		Me.label33.Location = New System.Drawing.Point(20, 183)
-		Me.label33.Name = "label33"
-		Me.label33.Size = New System.Drawing.Size(75, 18)
-		Me.label33.TabIndex = 8
-		Me.label33.Text = "Crit Rating"
-		Me.label33.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		Me.lblCrit.Location = New System.Drawing.Point(1, 183)
+		Me.lblCrit.Name = "lblCrit"
+		Me.lblCrit.Size = New System.Drawing.Size(94, 18)
+		Me.lblCrit.TabIndex = 8
+		Me.lblCrit.Text = "Crit Rating"
+		Me.lblCrit.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		'
-		'label36
+		'lblExp
 		'
-		Me.label36.Location = New System.Drawing.Point(8, 267)
-		Me.label36.Name = "label36"
-		Me.label36.Size = New System.Drawing.Size(87, 18)
-		Me.label36.TabIndex = 11
-		Me.label36.Text = "Expertise Rating"
-		Me.label36.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		Me.lblExp.Location = New System.Drawing.Point(-30, 267)
+		Me.lblExp.Name = "lblExp"
+		Me.lblExp.Size = New System.Drawing.Size(125, 28)
+		Me.lblExp.TabIndex = 11
+		Me.lblExp.Text = "Expertise Rating"
+		Me.lblExp.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		'
-		'label28
+		'lblAgi
 		'
-		Me.label28.Location = New System.Drawing.Point(20, 42)
-		Me.label28.Name = "label28"
-		Me.label28.Size = New System.Drawing.Size(75, 18)
-		Me.label28.TabIndex = 10
-		Me.label28.Text = "Agility"
-		Me.label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		Me.lblAgi.Location = New System.Drawing.Point(20, 42)
+		Me.lblAgi.Name = "lblAgi"
+		Me.lblAgi.Size = New System.Drawing.Size(75, 18)
+		Me.lblAgi.TabIndex = 10
+		Me.lblAgi.Text = "Agility"
+		Me.lblAgi.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		'
-		'label30
+		'lblArM
 		'
-		Me.label30.Location = New System.Drawing.Point(20, 94)
-		Me.label30.Name = "label30"
-		Me.label30.Size = New System.Drawing.Size(75, 18)
-		Me.label30.TabIndex = 9
-		Me.label30.Text = "Armor"
-		Me.label30.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		Me.lblArM.Location = New System.Drawing.Point(20, 94)
+		Me.lblArM.Name = "lblArM"
+		Me.lblArM.Size = New System.Drawing.Size(75, 18)
+		Me.lblArM.TabIndex = 9
+		Me.lblArM.Text = "Armor"
+		Me.lblArM.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		'
 		'txtStr
 		'
@@ -318,20 +320,20 @@ Partial Class GearSelectorMainForm
 		Me.txtStr.Size = New System.Drawing.Size(100, 20)
 		Me.txtStr.TabIndex = 1
 		'
-		'label27
+		'lblStr
 		'
-		Me.label27.Location = New System.Drawing.Point(20, 16)
-		Me.label27.Name = "label27"
-		Me.label27.Size = New System.Drawing.Size(75, 18)
-		Me.label27.TabIndex = 5
-		Me.label27.Text = "Strength"
-		Me.label27.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		Me.lblStr.Location = New System.Drawing.Point(20, 16)
+		Me.lblStr.Name = "lblStr"
+		Me.lblStr.Size = New System.Drawing.Size(75, 18)
+		Me.lblStr.TabIndex = 5
+		Me.lblStr.Text = "Strength"
+		Me.lblStr.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		'
 		'cmbRace
 		'
 		Me.cmbRace.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbRace.FormattingEnabled = true
-		Me.cmbRace.Location = New System.Drawing.Point(847, 45)
+		Me.cmbRace.Location = New System.Drawing.Point(622, 33)
 		Me.cmbRace.Name = "cmbRace"
 		Me.cmbRace.Size = New System.Drawing.Size(100, 21)
 		Me.cmbRace.TabIndex = 16
@@ -340,7 +342,7 @@ Partial Class GearSelectorMainForm
 		'label1
 		'
 		Me.label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.label1.Location = New System.Drawing.Point(767, 45)
+		Me.label1.Location = New System.Drawing.Point(542, 33)
 		Me.label1.Name = "label1"
 		Me.label1.Size = New System.Drawing.Size(75, 18)
 		Me.label1.TabIndex = 17
@@ -528,7 +530,7 @@ Partial Class GearSelectorMainForm
 		Me.groupBox1.Controls.Add(Me.gbWeapons)
 		Me.groupBox1.Controls.Add(Me.groupBox5)
 		Me.groupBox1.Controls.Add(Me.gbStats)
-		Me.groupBox1.Location = New System.Drawing.Point(713, 72)
+		Me.groupBox1.Location = New System.Drawing.Point(491, 112)
 		Me.groupBox1.Name = "groupBox1"
 		Me.groupBox1.Size = New System.Drawing.Size(240, 1109)
 		Me.groupBox1.TabIndex = 20
@@ -690,20 +692,42 @@ Partial Class GearSelectorMainForm
 		'cmdQuickEP
 		'
 		Me.cmdQuickEP.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdQuickEP.Location = New System.Drawing.Point(703, 16)
+		Me.cmdQuickEP.Location = New System.Drawing.Point(545, 66)
 		Me.cmdQuickEP.Name = "cmdQuickEP"
-		Me.cmdQuickEP.Size = New System.Drawing.Size(74, 56)
+		Me.cmdQuickEP.Size = New System.Drawing.Size(74, 40)
 		Me.cmdQuickEP.TabIndex = 21
 		Me.cmdQuickEP.Text = "Get Quick EP Values"
 		Me.cmdQuickEP.UseVisualStyleBackColor = true
 		AddHandler Me.cmdQuickEP.Click, AddressOf Me.CmdQuickEPClick
+		'
+		'cmdGetDps
+		'
+		Me.cmdGetDps.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.cmdGetDps.Location = New System.Drawing.Point(622, 66)
+		Me.cmdGetDps.Name = "cmdGetDps"
+		Me.cmdGetDps.Size = New System.Drawing.Size(117, 23)
+		Me.cmdGetDps.TabIndex = 22
+		Me.cmdGetDps.Text = "Get Quick DPS"
+		Me.cmdGetDps.UseVisualStyleBackColor = true
+		AddHandler Me.cmdGetDps.Click, AddressOf Me.CmdGetDpsClick
+		'
+		'lblDPS
+		'
+		Me.lblDPS.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.lblDPS.Location = New System.Drawing.Point(625, 92)
+		Me.lblDPS.Name = "lblDPS"
+		Me.lblDPS.Size = New System.Drawing.Size(115, 17)
+		Me.lblDPS.TabIndex = 23
+		Me.lblDPS.Text = "0 dps"
 		'
 		'GearSelectorMainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 		Me.AutoScroll = true
-		Me.ClientSize = New System.Drawing.Size(999, 687)
+		Me.ClientSize = New System.Drawing.Size(760, 687)
+		Me.Controls.Add(Me.lblDPS)
+		Me.Controls.Add(Me.cmdGetDps)
 		Me.Controls.Add(Me.cmdQuickEP)
 		Me.Controls.Add(Me.groupBox1)
 		Me.Controls.Add(Me.label1)
@@ -732,6 +756,18 @@ Partial Class GearSelectorMainForm
 		Me.ResumeLayout(false)
 		Me.PerformLayout
 	End Sub
+	Private lblArP As System.Windows.Forms.Label
+	Private lblHit As System.Windows.Forms.Label
+	Private lblHaste As System.Windows.Forms.Label
+	Private lblInt As System.Windows.Forms.Label
+	Private lblAP As System.Windows.Forms.Label
+	Private lblCrit As System.Windows.Forms.Label
+	Private lblExp As System.Windows.Forms.Label
+	Private lblAgi As System.Windows.Forms.Label
+	Private lblArM As System.Windows.Forms.Label
+	Private lblStr As System.Windows.Forms.Label
+	Private lblDPS As System.Windows.Forms.Label
+	Private cmdGetDps As System.Windows.Forms.Button
 	Private cmdQuickEP As System.Windows.Forms.Button
 	Private cmdSaveAsNew As System.Windows.Forms.Button
 	Private cmbWeaponProc1 As System.Windows.Forms.TextBox
@@ -771,24 +807,14 @@ Partial Class GearSelectorMainForm
 	Private gbWeapons As System.Windows.Forms.GroupBox
 	Private label1 As System.Windows.Forms.Label
 	Private cmbRace As System.Windows.Forms.ComboBox
-	Private label27 As System.Windows.Forms.Label
-	Private label30 As System.Windows.Forms.Label
-	Private label28 As System.Windows.Forms.Label
-	Private label36 As System.Windows.Forms.Label
-	Private label33 As System.Windows.Forms.Label
 	Private txtArmor As System.Windows.Forms.TextBox
 	Private txtExp As System.Windows.Forms.TextBox
 	Private txtAgi As System.Windows.Forms.TextBox
 	Private txtCrit As System.Windows.Forms.TextBox
-	Private label31 As System.Windows.Forms.Label
-	Private label29 As System.Windows.Forms.Label
-	Private label34 As System.Windows.Forms.Label
 	Private txtAP As System.Windows.Forms.TextBox
 	Private txtIntel As System.Windows.Forms.TextBox
 	Private txtHaste As System.Windows.Forms.TextBox
-	Private label32 As System.Windows.Forms.Label
 	Private txtHit As System.Windows.Forms.TextBox
-	Private label35 As System.Windows.Forms.Label
 	Private txtArP As System.Windows.Forms.TextBox
 	Private gbStats As System.Windows.Forms.GroupBox
 	Private txtStr As System.Windows.Forms.TextBox

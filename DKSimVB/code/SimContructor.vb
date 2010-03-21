@@ -46,6 +46,26 @@ Public Module SimConstructor
 		simCollection.Add(sim)
 	End Sub
 	
+	Function GetFastDPS(MainFrm As MainForm) As Integer
+		dim i as Integer
+		DPSs.Clear
+		ThreadCollection.Clear
+		simCollection.Clear
+		start(1,MainFrm,True)
+		Jointhread
+
+		Try
+			
+			i = DPSs.Item(1)
+	
+		
+		
+		 Catch e As Exception
+    		debug.Print(e.ToString)
+		End Try
+		return i
+	End Function
+	
 	Sub GetFastEPValue(MainFrm As MainForm)
 		DPSs.Clear
 		ThreadCollection.Clear

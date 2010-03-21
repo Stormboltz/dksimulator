@@ -57,7 +57,7 @@ Public Class Gem
 	
 	Sub Detach()
 		Id = 0
-		ColorId = 0
+		'ColorId = 0
 		name  =""
 		ilvl =0
 		classs =0

@@ -100,6 +100,21 @@
 	</item>
 	
 	<item>
+		<id>3605</id>
+		<slot>16</slot>
+		<name>Flexweave Underlay</name>
+		<Strength>0</Strength>
+		<Agility>23</Agility>
+		<HasteRating>0</HasteRating>
+		<ExpertiseRating>0</ExpertiseRating>
+		<HitRating>0</HitRating>
+		<AttackPower>0</AttackPower>
+		<CritRating>0</CritRating>
+		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<Desc></Desc>
+	</item>
+	
+	<item>
 		<id>8</id>
 		<slot>5</slot>
 		<name>Powerful Stats</name>
@@ -200,6 +215,21 @@
 		<Desc></Desc>
 	</item>
 	<item>
+		<id>684</id>
+		<slot>10</slot>
+		<name>Major Strength</name>
+		<Strength>15</Strength>
+		<Agility>0</Agility>
+		<HasteRating>0</HasteRating>
+		<ExpertiseRating>0</ExpertiseRating>
+		<HitRating>0</HitRating>
+		<AttackPower>0</AttackPower>
+		<CritRating>0</CritRating>
+		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<Desc></Desc>
+	</item>
+	
+	<item>
 		<id>3603</id>
 		<slot>10</slot>
 		<name>Hand-Mounted Pyro Rocket</name>
@@ -272,6 +302,22 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<Desc></Desc>
 	</item>
+	
+	<item>
+		<id>3606</id>
+		<slot>8</slot>
+		<name>Nitro Boosts</name>
+		<Strength>0</Strength>
+		<Agility>0</Agility>
+		<HasteRating>0</HasteRating>
+		<ExpertiseRating>0</ExpertiseRating>
+		<HitRating>0</HitRating>
+		<AttackPower></AttackPower>
+		<CritRating>24</CritRating>
+		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<Desc>Critical Strike Rating</Desc>
+	</item>
+	
 	<item>
 		<id>18</id>
 		<slot>11</slot>

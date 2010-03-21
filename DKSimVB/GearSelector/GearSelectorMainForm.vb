@@ -14,14 +14,15 @@ Public Partial Class GearSelectorMainForm
 	Friend EnchantSelector As New EnchantSelector
 	Friend GemSelector As New GemSelector(me)
 	Friend GearSelector As new GearSelector(me)
-	Friend ItemDB As New Xml.XmlDocument
-	Friend GemDB As New Xml.XmlDocument
-	Friend GemBonusDB As New Xml.XmlDocument
-	Friend EnchantDB As New Xml.XmlDocument
-	Friend trinketDB As New Xml.XmlDocument
-	Friend SetBonusDB As New Xml.XmlDocument
-	Friend WeapProcDB As New Xml.XmlDocument
+	Friend ItemDB As  Xml.XmlDocument
+	Friend GemDB As  Xml.XmlDocument
+	Friend GemBonusDB As  Xml.XmlDocument
+	Friend EnchantDB As  Xml.XmlDocument
+	Friend trinketDB As  Xml.XmlDocument
+	Friend SetBonusDB As  Xml.XmlDocument
+	Friend WeapProcDB As  Xml.XmlDocument
 	Friend FilePath As String
+	dim LastDPSResult as Integer
 	
 	Friend ParentFrame as MainForm
 	
@@ -318,7 +319,7 @@ Public Partial Class GearSelectorMainForm
 			End If
 			
 			' Ashen band
-			If iSlot.Item.Id = 50401 or iSlot.Item.Id = 50403 Then
+			If iSlot.Item.Id = 50401 Or iSlot.Item.Id=50402 Or iSlot.Item.Id=52572  Or iSlot.Item.Id= 52571 Then
 				chkAshenBand.Checked = true
 			End If
 			NextItem:
@@ -374,11 +375,18 @@ Public Partial Class GearSelectorMainForm
 		'		BonusArmor
 		txtArmor.Text = Armor
 		txtHaste.Text = HasteRating
+		lblHaste.Text = "Haste Rating (" & toDDecimal(HasteRating/25.22) & "%)"
+		
 		txtExp.Text = ExpertiseRating
+		lblExp.Text = "Expertise Rating(" &  (toDDecimal(ExpertiseRating/32.79))*4 & ")"
 		txtHit.Text = HitRating
+		lblHit.Text = "Hit Rating(" &  toDDecimal(HitRating/32.79) & "%)"
 		txtAP.Text = AttackPower
 		txtArP.Text = ArmorPenetrationRating
+		lblArP.Text = "Armor Penetration Rating(" & toDDecimal(ArmorPenetrationRating/13.99) & ")"
+		
 		txtCrit.Text = CritRating
+		lblCrit.Text = "CritRating(" &  toDDecimal(CritRating/45.91) & "%)"
 		txtIntel.Text = Intel
 		txtMHDPS.Text = DPS1
 		txtMHWSpeed.Text = Speed1
@@ -711,7 +719,6 @@ Public Partial Class GearSelectorMainForm
 				iSlot.DisplayItem
 				Try
 					iSlot.Item.gem1.Attach(xmlChar.SelectSingleNode("/character/" & iSlot.Text & "/gem1").InnerText)
-					
 				Catch
 				End Try
 				Try
@@ -754,13 +761,13 @@ Public Partial Class GearSelectorMainForm
 		
 		Gear.Init
 		
-		ItemDB.Load(Application.StartupPath & "\GearSelector\" & "ItemDB.xml")
-		GemDB.Load(Application.StartupPath & "\GearSelector\" & "gems.xml")
-		GemBonusDB.Load(Application.StartupPath & "\GearSelector\" & "GemBonus.xml")
-		EnchantDB.Load(Application.StartupPath & "\GearSelector\" & "Enchant.xml")
-		trinketDB.Load(Application.StartupPath & "\GearSelector\" & "TrinketList.xml")
-		SetBonusDB.Load(Application.StartupPath & "\GearSelector\" & "SetBonus.xml")
-		WeapProcDB.Load(Application.StartupPath & "\GearSelector\" & "WeaponProcList.xml")
+		ItemDB = ParentFrame.ItemDB
+		GemDB = ParentFrame.GemDB
+		GemBonusDB = ParentFrame.GemBonusDB
+		EnchantDB = ParentFrame.EnchantDB
+		trinketDB = ParentFrame.trinketDB
+		SetBonusDB = ParentFrame.SetBonusDB
+		WeapProcDB = ParentFrame.WeapProcDB
 		cmdExtrator.Hide
 		
 		
@@ -966,9 +973,33 @@ Public Partial Class GearSelectorMainForm
 			SimConstructor.GetFastEPValue(Me.ParentFrame)
 		End If
 		Me.ParentFrame.cmbGearSelector.SelectedItem = tmp
+		Me.FilePath = tmp
 		Me.ParentFrame.cmbGearSelector.Items.Remove("tmp.xml")
 		My.Computer.FileSystem.DeleteFile(Application.StartupPath & "\CharactersWithGear\" & "tmp.xml")
 		Dim dis As New EPDisplay(me)
 		dis.ShowDialog
+	End Sub
+	
+	Sub CmdGetDpsClick(sender As Object, e As EventArgs)
+		Dim tmp As String
+		Dim i As Integer
+		
+		
+		
+		tmp = Me.FilePath
+		Me.FilePath = "tmp.xml"
+		SaveMycharacter
+		Me.ParentFrame.cmbGearSelector.Items.Add ("tmp.xml")
+		Me.ParentFrame.cmbGearSelector.SelectedItem =  "tmp.xml"
+		If Me.ParentFrame.LoadBeforeSim = True Then
+			i = SimConstructor.GetFastDPS(Me.ParentFrame)
+			lblDPS.Text = i & " dps (" & i-LastDPSResult & ")"
+			LastDPSResult = i
+		End If
+		
+		Me.ParentFrame.cmbGearSelector.SelectedItem = tmp
+		Me.FilePath = tmp
+		Me.ParentFrame.cmbGearSelector.Items.Remove("tmp.xml")
+		My.Computer.FileSystem.DeleteFile(Application.StartupPath & "\CharactersWithGear\" & "tmp.xml")
 	End Sub
 End Class

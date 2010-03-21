@@ -1,4 +1,28 @@
-﻿1.2.1.0 Release notes
+﻿1.2.1.1 Release notes
+* AotD
+* Blacksimithing sockets vanish and won't came back until reselection of the item after choosing "None" as gem
+* Major Strength for gloves is missing
+* Selecting an ICC ring with proc doesn't automatically trigger the option for "Ashen Band of Endless Vengeance"
+* +10 Stats Gem misspelled (Nightmare Tears instead of [Nightmare Tear])
+* Nitro Boosts(24crit) 
+
+
+TODO
+* Option to add flask or elixir and buff food stats
+* Armsman for gloves (threat simulator) is missing (The whole +2% option is actually missing, as I recognized.)
+* Would still love the possibility to model EP values for weapon proccs
+
+* Flexweave Underlay(23agi) 
+* Saronite Bombs
+
+
+
+
+
+
+
+
+1.2.1.0 Release notes
 * Better Multithreading management. Main frame should not hang when calculating.
 * Missed/Dodge/Parried Frost Strike refunds 90% of its RP. 
 * Whispering Fanged Skull Heroic, Herkuml War Token, Mark of Supremacy, Vengeance of the Forsaken (normal and heroic).

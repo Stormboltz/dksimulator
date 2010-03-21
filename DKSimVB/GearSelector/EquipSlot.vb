@@ -238,16 +238,19 @@ Public Class EquipSlot
 		lblGem2.Text = Item.gem2.name
 		lblGem3.Text = Item.gem3.name
 		If Item.gem1.ColorId <> 0 Then
+			lblGemcolor1.backcolor = Item.gem1.GemSlotColor
 			If Item.gem1.IsGemrightColor Then
 				lblGemcolor1.Text = "X"
 			Else
 				lblGemcolor1.Text = " "
 			End If
+			
 		Else
 			lblGemcolor1.Text = ""
 			lblGemcolor1.backcolor = Color.Transparent
 		end if
 		If Item.gem2.ColorId <> 0 Then
+			lblGemcolor2.backcolor = Item.gem2.GemSlotColor
 			If Item.gem2.IsGemrightColor Then
 				lblGemcolor2.Text = "X"
 			Else
@@ -260,6 +263,7 @@ Public Class EquipSlot
 		
 		
 		If Item.gem3.ColorId <> 0 Then
+			lblGemcolor3.backcolor = Item.gem3.GemSlotColor
 			If Item.gem3.IsGemrightColor Then
 				lblGemcolor3.Text = "X"
 			Else
@@ -325,6 +329,7 @@ Public Class EquipSlot
 		If Item.gem3.GemSlotColorName <> "" Then
 			lblGemcolor3.Text = " "
 			lblGemcolor3.BackColor = Item.gem3.GemSlotColor
+			lblGemcolor3.Width = 10
 			lblGemcolor3.Enabled = true
 		Else
 			lblGemcolor3.Text = ""

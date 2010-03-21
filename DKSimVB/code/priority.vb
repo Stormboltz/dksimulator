@@ -16,7 +16,7 @@ Friend Class priority
 	End Sub
 	
 	Function runes As runes.runes
-		return sim.Runes
+		Return sim.Runes
 	End Function
 	
 	
@@ -218,12 +218,12 @@ Friend Class priority
 						End If
 					Else
 						If sim.FrostFever.PerfectUsage(TimeStamp) = true or sim.FrostFever.ToReApply Then
-'							If sim.TalentFrost.HowlingBlast = 1 And sim.glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp)  Then
-'								If sim.proc.rime.IsActive Or runes.FU(TimeStamp) Then
-'									sim.HowlingBlast.ApplyDamage(TimeStamp)
-'									exit sub
-'								End If
-'							end if
+							If sim.TalentFrost.HowlingBlast = 1 And sim.glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp)  Then
+								If sim.proc.rime.IsActive Or runes.FU(TimeStamp) Then
+									sim.HowlingBlast.ApplyDamage(TimeStamp)
+									exit sub
+								End If
+							end if
 							if runes.Frost(TimeStamp) = True Then
 								sim.IcyTouch.ApplyDamage(TimeStamp)
 								Exit Sub
@@ -231,7 +231,10 @@ Friend Class priority
 						End If
 					End If
 					
-					
+				Case "EmpowerRuneWeapon"
+					If sim.ERW.CD <= TimeStamp Then
+						sim.ERW.Use(TimeStamp)
+					End If
 				Case "BloodPlague"
 					If sim.glyph.Disease Then
 						if sim.Pestilence.PerfectUsage(TimeStamp)  then

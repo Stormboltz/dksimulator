@@ -32,8 +32,6 @@ Friend class Ghoul
 	
 	Sub Summon(T As Long)
 		If cd <= T Then
-			
-			
 			MeleeMissChance = math.Max(0.08 - sim.GhoulStat.Hit,0)
 			MeleeDodgeChance =  math.Max(0.065 - sim.GhoulStat.Expertise,0)
 			SpellMissChance = math.Max(0.17 - sim.GhoulStat.SpellHit,0)

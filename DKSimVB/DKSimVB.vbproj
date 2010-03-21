@@ -168,6 +168,7 @@
     <Compile Include="code\TalentUnholy.vb" />
     <Compile Include="Runes\rune.vb" />
     <Compile Include="Runes\runes.vb" />
+    <Compile Include="Special\AotD.vb" />
     <Compile Include="Special\Bloodlust.vb" />
     <Compile Include="Special\Disease.vb" />
     <Compile Include="Special\DRW.vb" />

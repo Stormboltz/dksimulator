@@ -12,7 +12,14 @@ Public Partial Class MainForm
 	Private TemplatePath As String
 	Friend btList As New collection
 	Friend colTrinketEP As New Collection
-	Friend EPVal as New EPValues
+	Friend EPVal As New EPValues
+	Friend ItemDB As New Xml.XmlDocument
+	Friend GemDB As New Xml.XmlDocument
+	Friend GemBonusDB As New Xml.XmlDocument
+	Friend EnchantDB As New Xml.XmlDocument
+	Friend trinketDB As New Xml.XmlDocument
+	Friend SetBonusDB As New Xml.XmlDocument
+	Friend WeapProcDB As New Xml.XmlDocument
 	
 	
 	Public Sub New()
@@ -71,7 +78,7 @@ Public Partial Class MainForm
 		LoadBuffOption
 		LoadScaling
 		LoadTankOptions
-		
+		LoadDB()
 		CreateTreeTemplate
 		initReport
 		Randomize 'Initialize the random # generator
@@ -81,7 +88,16 @@ Public Partial Class MainForm
 		_MainFrm = Me
 		
 	End Sub
-	
+	Sub LoadDB()
+		ItemDB.Load(Application.StartupPath & "\GearSelector\" & "ItemDB.xml")
+		GemDB.Load(Application.StartupPath & "\GearSelector\" & "gems.xml")
+		GemBonusDB.Load(Application.StartupPath & "\GearSelector\" & "GemBonus.xml")
+		EnchantDB.Load(Application.StartupPath & "\GearSelector\" & "Enchant.xml")
+		trinketDB.Load(Application.StartupPath & "\GearSelector\" & "TrinketList.xml")
+		SetBonusDB.Load(Application.StartupPath & "\GearSelector\" & "SetBonus.xml")
+		WeapProcDB.Load(Application.StartupPath & "\GearSelector\" & "WeaponProcList.xml")
+		
+	End Sub
 	Sub MainFormClose(sender As Object, e As EventArgs)
 		
 		
