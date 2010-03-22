@@ -75,7 +75,7 @@ Public Class Trinkets
 			.ProcValue = 270
 			.ProcValueStack = 30
 			.ProcValueDmg = 2000
-			.ProcLenght = 60
+			.ProcLenght = 10
 			.ProcType = "str"
 			.ProcTypeStack = "str"
 			.DamageType = "Shadowmourne"

@@ -122,11 +122,8 @@ Public Class Proc
 					HitCount += 1
 				Case "Shadowmourne"
 					If Stack < 9 Then
-						Fade = T + ProcLenght * 100
 						Stack +=1
-						AddUptime(T)
 					Else
-						Fade = T
 						Stack = 0
 						If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
 							MissCount = MissCount + 1
@@ -139,7 +136,7 @@ Public Class Proc
 						Fade = T + ProcLenght * 100
 						HitCount += 1
 						CD = T + 10 * 100
-						RemoveUptime(T)
+						AddUptime(T)
 					End If
 				Case "Bryntroll"
 					If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
