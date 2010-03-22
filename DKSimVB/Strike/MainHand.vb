@@ -8,7 +8,8 @@ Sub New(S As sim)
 	End Sub
 	
 	
-	Friend NextWhiteMainHit As long
+	Friend NextWhiteMainHit As Long
+	Friend dNextWhiteMainHit As double
 	
 	Protected Overrides sub init()
 		MyBase.init()
@@ -26,7 +27,10 @@ Sub New(S As sim)
 		Dim ChanceNotToTouch As Single
 		
 		WSpeed = sim.MainStat.MHWeaponSpeed
-		NextWhiteMainHit = T + (WSpeed * 100) / ((1 + sim.MainStat.Haste))
+		
+		dNextWhiteMainHit = dNextWhiteMainHit + (WSpeed * 100) / ((1 + sim.MainStat.Haste))
+		NextWhiteMainHit = dNextWhiteMainHit
+		
 		
 		If sim.FrostPresence = 1 Then
 			if sim.RuneStrike.trigger = true and Sim.RunicPower.Value >= 20 then

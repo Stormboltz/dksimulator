@@ -110,7 +110,7 @@ Partial Class GearSelectorMainForm
 		'cmdExtrator
 		'
 		Me.cmdExtrator.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdExtrator.Location = New System.Drawing.Point(303, 10356)
+		Me.cmdExtrator.Location = New System.Drawing.Point(520, 10890)
 		Me.cmdExtrator.Name = "cmdExtrator"
 		Me.cmdExtrator.Size = New System.Drawing.Size(75, 23)
 		Me.cmdExtrator.TabIndex = 0
@@ -121,7 +121,7 @@ Partial Class GearSelectorMainForm
 		'cmdSaveAsNew
 		'
 		Me.cmdSaveAsNew.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdSaveAsNew.Location = New System.Drawing.Point(558, 4)
+		Me.cmdSaveAsNew.Location = New System.Drawing.Point(775, 4)
 		Me.cmdSaveAsNew.Name = "cmdSaveAsNew"
 		Me.cmdSaveAsNew.Size = New System.Drawing.Size(92, 23)
 		Me.cmdSaveAsNew.TabIndex = 2
@@ -132,7 +132,7 @@ Partial Class GearSelectorMainForm
 		'cmdSave
 		'
 		Me.cmdSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdSave.Location = New System.Drawing.Point(656, 4)
+		Me.cmdSave.Location = New System.Drawing.Point(873, 4)
 		Me.cmdSave.Name = "cmdSave"
 		Me.cmdSave.Size = New System.Drawing.Size(72, 23)
 		Me.cmdSave.TabIndex = 4
@@ -164,21 +164,23 @@ Partial Class GearSelectorMainForm
 		Me.gbStats.Controls.Add(Me.lblStr)
 		Me.gbStats.Location = New System.Drawing.Point(6, 14)
 		Me.gbStats.Name = "gbStats"
-		Me.gbStats.Size = New System.Drawing.Size(207, 298)
+		Me.gbStats.Size = New System.Drawing.Size(265, 298)
 		Me.gbStats.TabIndex = 15
 		Me.gbStats.TabStop = false
 		Me.gbStats.Text = "Statistics"
 		'
 		'txtArP
 		'
-		Me.txtArP.Location = New System.Drawing.Point(101, 235)
+		Me.txtArP.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.txtArP.Location = New System.Drawing.Point(159, 235)
 		Me.txtArP.Name = "txtArP"
 		Me.txtArP.Size = New System.Drawing.Size(100, 20)
 		Me.txtArP.TabIndex = 9
 		'
 		'lblArP
 		'
-		Me.lblArP.Location = New System.Drawing.Point(-23, 235)
+		Me.lblArP.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.lblArP.Location = New System.Drawing.Point(35, 235)
 		Me.lblArP.Name = "lblArP"
 		Me.lblArP.Size = New System.Drawing.Size(118, 28)
 		Me.lblArP.TabIndex = 13
@@ -187,14 +189,16 @@ Partial Class GearSelectorMainForm
 		'
 		'txtHit
 		'
-		Me.txtHit.Location = New System.Drawing.Point(101, 155)
+		Me.txtHit.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.txtHit.Location = New System.Drawing.Point(159, 155)
 		Me.txtHit.Name = "txtHit"
 		Me.txtHit.Size = New System.Drawing.Size(100, 20)
 		Me.txtHit.TabIndex = 6
 		'
 		'lblHit
 		'
-		Me.lblHit.Location = New System.Drawing.Point(0, 157)
+		Me.lblHit.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.lblHit.Location = New System.Drawing.Point(58, 157)
 		Me.lblHit.Name = "lblHit"
 		Me.lblHit.Size = New System.Drawing.Size(94, 18)
 		Me.lblHit.TabIndex = 12
@@ -203,28 +207,32 @@ Partial Class GearSelectorMainForm
 		'
 		'txtHaste
 		'
-		Me.txtHaste.Location = New System.Drawing.Point(101, 209)
+		Me.txtHaste.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.txtHaste.Location = New System.Drawing.Point(159, 209)
 		Me.txtHaste.Name = "txtHaste"
 		Me.txtHaste.Size = New System.Drawing.Size(100, 20)
 		Me.txtHaste.TabIndex = 8
 		'
 		'txtIntel
 		'
-		Me.txtIntel.Location = New System.Drawing.Point(101, 68)
+		Me.txtIntel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.txtIntel.Location = New System.Drawing.Point(159, 68)
 		Me.txtIntel.Name = "txtIntel"
 		Me.txtIntel.Size = New System.Drawing.Size(100, 20)
 		Me.txtIntel.TabIndex = 3
 		'
 		'txtAP
 		'
-		Me.txtAP.Location = New System.Drawing.Point(101, 120)
+		Me.txtAP.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.txtAP.Location = New System.Drawing.Point(159, 120)
 		Me.txtAP.Name = "txtAP"
 		Me.txtAP.Size = New System.Drawing.Size(100, 20)
 		Me.txtAP.TabIndex = 5
 		'
 		'lblHaste
 		'
-		Me.lblHaste.Location = New System.Drawing.Point(-19, 211)
+		Me.lblHaste.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.lblHaste.Location = New System.Drawing.Point(39, 211)
 		Me.lblHaste.Name = "lblHaste"
 		Me.lblHaste.Size = New System.Drawing.Size(114, 18)
 		Me.lblHaste.TabIndex = 7
@@ -233,7 +241,8 @@ Partial Class GearSelectorMainForm
 		'
 		'lblInt
 		'
-		Me.lblInt.Location = New System.Drawing.Point(20, 68)
+		Me.lblInt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.lblInt.Location = New System.Drawing.Point(78, 68)
 		Me.lblInt.Name = "lblInt"
 		Me.lblInt.Size = New System.Drawing.Size(75, 18)
 		Me.lblInt.TabIndex = 6
@@ -242,7 +251,8 @@ Partial Class GearSelectorMainForm
 		'
 		'lblAP
 		'
-		Me.lblAP.Location = New System.Drawing.Point(6, 120)
+		Me.lblAP.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.lblAP.Location = New System.Drawing.Point(64, 120)
 		Me.lblAP.Name = "lblAP"
 		Me.lblAP.Size = New System.Drawing.Size(89, 31)
 		Me.lblAP.TabIndex = 14
@@ -251,35 +261,40 @@ Partial Class GearSelectorMainForm
 		'
 		'txtCrit
 		'
-		Me.txtCrit.Location = New System.Drawing.Point(101, 183)
+		Me.txtCrit.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.txtCrit.Location = New System.Drawing.Point(159, 183)
 		Me.txtCrit.Name = "txtCrit"
 		Me.txtCrit.Size = New System.Drawing.Size(100, 20)
 		Me.txtCrit.TabIndex = 7
 		'
 		'txtAgi
 		'
-		Me.txtAgi.Location = New System.Drawing.Point(101, 42)
+		Me.txtAgi.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.txtAgi.Location = New System.Drawing.Point(159, 42)
 		Me.txtAgi.Name = "txtAgi"
 		Me.txtAgi.Size = New System.Drawing.Size(100, 20)
 		Me.txtAgi.TabIndex = 2
 		'
 		'txtExp
 		'
-		Me.txtExp.Location = New System.Drawing.Point(101, 267)
+		Me.txtExp.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.txtExp.Location = New System.Drawing.Point(159, 267)
 		Me.txtExp.Name = "txtExp"
 		Me.txtExp.Size = New System.Drawing.Size(100, 20)
 		Me.txtExp.TabIndex = 10
 		'
 		'txtArmor
 		'
-		Me.txtArmor.Location = New System.Drawing.Point(101, 94)
+		Me.txtArmor.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.txtArmor.Location = New System.Drawing.Point(159, 94)
 		Me.txtArmor.Name = "txtArmor"
 		Me.txtArmor.Size = New System.Drawing.Size(100, 20)
 		Me.txtArmor.TabIndex = 4
 		'
 		'lblCrit
 		'
-		Me.lblCrit.Location = New System.Drawing.Point(1, 183)
+		Me.lblCrit.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.lblCrit.Location = New System.Drawing.Point(59, 183)
 		Me.lblCrit.Name = "lblCrit"
 		Me.lblCrit.Size = New System.Drawing.Size(94, 18)
 		Me.lblCrit.TabIndex = 8
@@ -288,7 +303,8 @@ Partial Class GearSelectorMainForm
 		'
 		'lblExp
 		'
-		Me.lblExp.Location = New System.Drawing.Point(-30, 267)
+		Me.lblExp.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.lblExp.Location = New System.Drawing.Point(28, 267)
 		Me.lblExp.Name = "lblExp"
 		Me.lblExp.Size = New System.Drawing.Size(125, 28)
 		Me.lblExp.TabIndex = 11
@@ -297,7 +313,8 @@ Partial Class GearSelectorMainForm
 		'
 		'lblAgi
 		'
-		Me.lblAgi.Location = New System.Drawing.Point(20, 42)
+		Me.lblAgi.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.lblAgi.Location = New System.Drawing.Point(78, 42)
 		Me.lblAgi.Name = "lblAgi"
 		Me.lblAgi.Size = New System.Drawing.Size(75, 18)
 		Me.lblAgi.TabIndex = 10
@@ -306,7 +323,8 @@ Partial Class GearSelectorMainForm
 		'
 		'lblArM
 		'
-		Me.lblArM.Location = New System.Drawing.Point(20, 94)
+		Me.lblArM.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.lblArM.Location = New System.Drawing.Point(78, 94)
 		Me.lblArM.Name = "lblArM"
 		Me.lblArM.Size = New System.Drawing.Size(75, 18)
 		Me.lblArM.TabIndex = 9
@@ -315,14 +333,16 @@ Partial Class GearSelectorMainForm
 		'
 		'txtStr
 		'
-		Me.txtStr.Location = New System.Drawing.Point(101, 16)
+		Me.txtStr.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.txtStr.Location = New System.Drawing.Point(159, 16)
 		Me.txtStr.Name = "txtStr"
 		Me.txtStr.Size = New System.Drawing.Size(100, 20)
 		Me.txtStr.TabIndex = 1
 		'
 		'lblStr
 		'
-		Me.lblStr.Location = New System.Drawing.Point(20, 16)
+		Me.lblStr.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.lblStr.Location = New System.Drawing.Point(78, 16)
 		Me.lblStr.Name = "lblStr"
 		Me.lblStr.Size = New System.Drawing.Size(75, 18)
 		Me.lblStr.TabIndex = 5
@@ -333,7 +353,7 @@ Partial Class GearSelectorMainForm
 		'
 		Me.cmbRace.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbRace.FormattingEnabled = true
-		Me.cmbRace.Location = New System.Drawing.Point(622, 33)
+		Me.cmbRace.Location = New System.Drawing.Point(839, 33)
 		Me.cmbRace.Name = "cmbRace"
 		Me.cmbRace.Size = New System.Drawing.Size(100, 21)
 		Me.cmbRace.TabIndex = 16
@@ -342,7 +362,7 @@ Partial Class GearSelectorMainForm
 		'label1
 		'
 		Me.label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.label1.Location = New System.Drawing.Point(542, 33)
+		Me.label1.Location = New System.Drawing.Point(759, 33)
 		Me.label1.Name = "label1"
 		Me.label1.Size = New System.Drawing.Size(75, 18)
 		Me.label1.TabIndex = 17
@@ -363,16 +383,17 @@ Partial Class GearSelectorMainForm
 		Me.gbWeapons.Controls.Add(Me.label37)
 		Me.gbWeapons.Location = New System.Drawing.Point(6, 318)
 		Me.gbWeapons.Name = "gbWeapons"
-		Me.gbWeapons.Size = New System.Drawing.Size(207, 174)
+		Me.gbWeapons.Size = New System.Drawing.Size(259, 174)
 		Me.gbWeapons.TabIndex = 18
 		Me.gbWeapons.TabStop = false
 		Me.gbWeapons.Text = "Weapon(s)"
 		'
 		'rDW
 		'
-		Me.rDW.Location = New System.Drawing.Point(122, 19)
+		Me.rDW.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.rDW.Location = New System.Drawing.Point(174, 19)
 		Me.rDW.Name = "rDW"
-		Me.rDW.Size = New System.Drawing.Size(104, 24)
+		Me.rDW.Size = New System.Drawing.Size(79, 24)
 		Me.rDW.TabIndex = 12
 		Me.rDW.Text = "Dual wield"
 		Me.rDW.UseVisualStyleBackColor = true
@@ -380,8 +401,9 @@ Partial Class GearSelectorMainForm
 		'
 		'r2Hand
 		'
+		Me.r2Hand.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.r2Hand.Checked = true
-		Me.r2Hand.Location = New System.Drawing.Point(48, 19)
+		Me.r2Hand.Location = New System.Drawing.Point(100, 19)
 		Me.r2Hand.Name = "r2Hand"
 		Me.r2Hand.Size = New System.Drawing.Size(104, 24)
 		Me.r2Hand.TabIndex = 11
@@ -392,8 +414,9 @@ Partial Class GearSelectorMainForm
 		'
 		'txtOHWSpeed
 		'
+		Me.txtOHWSpeed.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.txtOHWSpeed.Enabled = false
-		Me.txtOHWSpeed.Location = New System.Drawing.Point(89, 135)
+		Me.txtOHWSpeed.Location = New System.Drawing.Point(141, 135)
 		Me.txtOHWSpeed.Name = "txtOHWSpeed"
 		Me.txtOHWSpeed.Size = New System.Drawing.Size(100, 20)
 		Me.txtOHWSpeed.TabIndex = 16
@@ -401,7 +424,8 @@ Partial Class GearSelectorMainForm
 		'
 		'txtMHWSpeed
 		'
-		Me.txtMHWSpeed.Location = New System.Drawing.Point(89, 75)
+		Me.txtMHWSpeed.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.txtMHWSpeed.Location = New System.Drawing.Point(141, 75)
 		Me.txtMHWSpeed.Name = "txtMHWSpeed"
 		Me.txtMHWSpeed.Size = New System.Drawing.Size(100, 20)
 		Me.txtMHWSpeed.TabIndex = 14
@@ -409,7 +433,8 @@ Partial Class GearSelectorMainForm
 		'
 		'label40
 		'
-		Me.label40.Location = New System.Drawing.Point(8, 135)
+		Me.label40.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.label40.Location = New System.Drawing.Point(60, 135)
 		Me.label40.Name = "label40"
 		Me.label40.Size = New System.Drawing.Size(75, 31)
 		Me.label40.TabIndex = 9
@@ -418,7 +443,8 @@ Partial Class GearSelectorMainForm
 		'
 		'label38
 		'
-		Me.label38.Location = New System.Drawing.Point(-6, 75)
+		Me.label38.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.label38.Location = New System.Drawing.Point(46, 75)
 		Me.label38.Name = "label38"
 		Me.label38.Size = New System.Drawing.Size(89, 31)
 		Me.label38.TabIndex = 7
@@ -427,8 +453,9 @@ Partial Class GearSelectorMainForm
 		'
 		'txtOHDPS
 		'
+		Me.txtOHDPS.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.txtOHDPS.Enabled = false
-		Me.txtOHDPS.Location = New System.Drawing.Point(89, 109)
+		Me.txtOHDPS.Location = New System.Drawing.Point(141, 109)
 		Me.txtOHDPS.Name = "txtOHDPS"
 		Me.txtOHDPS.Size = New System.Drawing.Size(100, 20)
 		Me.txtOHDPS.TabIndex = 15
@@ -436,7 +463,8 @@ Partial Class GearSelectorMainForm
 		'
 		'txtMHDPS
 		'
-		Me.txtMHDPS.Location = New System.Drawing.Point(89, 49)
+		Me.txtMHDPS.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.txtMHDPS.Location = New System.Drawing.Point(141, 49)
 		Me.txtMHDPS.Name = "txtMHDPS"
 		Me.txtMHDPS.Size = New System.Drawing.Size(100, 20)
 		Me.txtMHDPS.TabIndex = 13
@@ -444,7 +472,8 @@ Partial Class GearSelectorMainForm
 		'
 		'label39
 		'
-		Me.label39.Location = New System.Drawing.Point(8, 109)
+		Me.label39.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.label39.Location = New System.Drawing.Point(60, 109)
 		Me.label39.Name = "label39"
 		Me.label39.Size = New System.Drawing.Size(75, 18)
 		Me.label39.TabIndex = 8
@@ -453,7 +482,8 @@ Partial Class GearSelectorMainForm
 		'
 		'label37
 		'
-		Me.label37.Location = New System.Drawing.Point(-2, 49)
+		Me.label37.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.label37.Location = New System.Drawing.Point(50, 49)
 		Me.label37.Name = "label37"
 		Me.label37.Size = New System.Drawing.Size(85, 18)
 		Me.label37.TabIndex = 6
@@ -469,54 +499,69 @@ Partial Class GearSelectorMainForm
 		Me.gbMisc.Controls.Add(Me.chkIngenieer)
 		Me.gbMisc.Location = New System.Drawing.Point(6, 498)
 		Me.gbMisc.Name = "gbMisc"
-		Me.gbMisc.Size = New System.Drawing.Size(210, 169)
+		Me.gbMisc.Size = New System.Drawing.Size(259, 169)
 		Me.gbMisc.TabIndex = 19
 		Me.gbMisc.TabStop = false
 		Me.gbMisc.Text = "Misc."
 		'
 		'chkTailorEnchant
 		'
-		Me.chkTailorEnchant.Location = New System.Drawing.Point(10, 49)
+		Me.chkTailorEnchant.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.chkTailorEnchant.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
+		Me.chkTailorEnchant.Location = New System.Drawing.Point(147, 49)
 		Me.chkTailorEnchant.Name = "chkTailorEnchant"
 		Me.chkTailorEnchant.Size = New System.Drawing.Size(104, 24)
 		Me.chkTailorEnchant.TabIndex = 25
 		Me.chkTailorEnchant.Text = "Tailor Enchant"
+		Me.chkTailorEnchant.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		Me.chkTailorEnchant.UseVisualStyleBackColor = true
 		'
 		'chkMeta
 		'
-		Me.chkMeta.Location = New System.Drawing.Point(10, 19)
+		Me.chkMeta.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.chkMeta.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
+		Me.chkMeta.Location = New System.Drawing.Point(147, 19)
 		Me.chkMeta.Name = "chkMeta"
 		Me.chkMeta.Size = New System.Drawing.Size(104, 24)
 		Me.chkMeta.TabIndex = 24
 		Me.chkMeta.Text = "3% Crit Damage"
+		Me.chkMeta.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		Me.chkMeta.UseVisualStyleBackColor = true
 		'
 		'chkAshenBand
 		'
-		Me.chkAshenBand.Location = New System.Drawing.Point(10, 137)
+		Me.chkAshenBand.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.chkAshenBand.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
+		Me.chkAshenBand.Location = New System.Drawing.Point(43, 139)
 		Me.chkAshenBand.Name = "chkAshenBand"
 		Me.chkAshenBand.Size = New System.Drawing.Size(208, 24)
 		Me.chkAshenBand.TabIndex = 26
 		Me.chkAshenBand.Text = "Ashen Band of Endless Vengeance"
+		Me.chkAshenBand.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		Me.chkAshenBand.UseVisualStyleBackColor = true
 		'
 		'chkAccelerators
 		'
-		Me.chkAccelerators.Location = New System.Drawing.Point(10, 109)
+		Me.chkAccelerators.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.chkAccelerators.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
+		Me.chkAccelerators.Location = New System.Drawing.Point(78, 109)
 		Me.chkAccelerators.Name = "chkAccelerators"
 		Me.chkAccelerators.Size = New System.Drawing.Size(173, 24)
 		Me.chkAccelerators.TabIndex = 26
 		Me.chkAccelerators.Text = "Hyperspeed Accelerators"
+		Me.chkAccelerators.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		Me.chkAccelerators.UseVisualStyleBackColor = true
 		'
 		'chkIngenieer
 		'
-		Me.chkIngenieer.Location = New System.Drawing.Point(10, 79)
+		Me.chkIngenieer.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.chkIngenieer.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
+		Me.chkIngenieer.Location = New System.Drawing.Point(78, 79)
 		Me.chkIngenieer.Name = "chkIngenieer"
 		Me.chkIngenieer.Size = New System.Drawing.Size(173, 24)
 		Me.chkIngenieer.TabIndex = 26
 		Me.chkIngenieer.Text = "Hand-Mounted Pyro Rocket"
+		Me.chkIngenieer.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		Me.chkIngenieer.UseVisualStyleBackColor = true
 		'
 		'groupBox1
@@ -530,9 +575,9 @@ Partial Class GearSelectorMainForm
 		Me.groupBox1.Controls.Add(Me.gbWeapons)
 		Me.groupBox1.Controls.Add(Me.groupBox5)
 		Me.groupBox1.Controls.Add(Me.gbStats)
-		Me.groupBox1.Location = New System.Drawing.Point(491, 112)
+		Me.groupBox1.Location = New System.Drawing.Point(668, 112)
 		Me.groupBox1.Name = "groupBox1"
-		Me.groupBox1.Size = New System.Drawing.Size(240, 1109)
+		Me.groupBox1.Size = New System.Drawing.Size(280, 1109)
 		Me.groupBox1.TabIndex = 20
 		Me.groupBox1.TabStop = false
 		'
@@ -542,23 +587,25 @@ Partial Class GearSelectorMainForm
 		Me.gbWeaponProc.Controls.Add(Me.cmbWeaponProc1)
 		Me.gbWeaponProc.Location = New System.Drawing.Point(7, 1018)
 		Me.gbWeaponProc.Name = "gbWeaponProc"
-		Me.gbWeaponProc.Size = New System.Drawing.Size(217, 72)
+		Me.gbWeaponProc.Size = New System.Drawing.Size(258, 72)
 		Me.gbWeaponProc.TabIndex = 21
 		Me.gbWeaponProc.TabStop = false
 		Me.gbWeaponProc.Text = "Weapon Proc"
 		'
 		'cmbWeaponProc2
 		'
-		Me.cmbWeaponProc2.Location = New System.Drawing.Point(13, 43)
+		Me.cmbWeaponProc2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.cmbWeaponProc2.Location = New System.Drawing.Point(12, 43)
 		Me.cmbWeaponProc2.Name = "cmbWeaponProc2"
-		Me.cmbWeaponProc2.Size = New System.Drawing.Size(189, 20)
+		Me.cmbWeaponProc2.Size = New System.Drawing.Size(231, 20)
 		Me.cmbWeaponProc2.TabIndex = 21
 		'
 		'cmbWeaponProc1
 		'
+		Me.cmbWeaponProc1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbWeaponProc1.Location = New System.Drawing.Point(13, 17)
 		Me.cmbWeaponProc1.Name = "cmbWeaponProc1"
-		Me.cmbWeaponProc1.Size = New System.Drawing.Size(189, 20)
+		Me.cmbWeaponProc1.Size = New System.Drawing.Size(230, 20)
 		Me.cmbWeaponProc1.TabIndex = 21
 		'
 		'gbTrinkets
@@ -567,23 +614,25 @@ Partial Class GearSelectorMainForm
 		Me.gbTrinkets.Controls.Add(Me.cmbTrinket1)
 		Me.gbTrinkets.Location = New System.Drawing.Point(6, 927)
 		Me.gbTrinkets.Name = "gbTrinkets"
-		Me.gbTrinkets.Size = New System.Drawing.Size(217, 83)
+		Me.gbTrinkets.Size = New System.Drawing.Size(259, 83)
 		Me.gbTrinkets.TabIndex = 22
 		Me.gbTrinkets.TabStop = false
 		Me.gbTrinkets.Text = "Trinkets"
 		'
 		'cmbTrinket2
 		'
-		Me.cmbTrinket2.Location = New System.Drawing.Point(13, 47)
+		Me.cmbTrinket2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.cmbTrinket2.Location = New System.Drawing.Point(14, 47)
 		Me.cmbTrinket2.Name = "cmbTrinket2"
-		Me.cmbTrinket2.Size = New System.Drawing.Size(188, 20)
+		Me.cmbTrinket2.Size = New System.Drawing.Size(229, 20)
 		Me.cmbTrinket2.TabIndex = 21
 		'
 		'cmbTrinket1
 		'
-		Me.cmbTrinket1.Location = New System.Drawing.Point(13, 21)
+		Me.cmbTrinket1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.cmbTrinket1.Location = New System.Drawing.Point(14, 21)
 		Me.cmbTrinket1.Name = "cmbTrinket1"
-		Me.cmbTrinket1.Size = New System.Drawing.Size(188, 20)
+		Me.cmbTrinket1.Size = New System.Drawing.Size(229, 20)
 		Me.cmbTrinket1.TabIndex = 21
 		'
 		'gbSetBonus
@@ -592,23 +641,25 @@ Partial Class GearSelectorMainForm
 		Me.gbSetBonus.Controls.Add(Me.cmbSetBonus1)
 		Me.gbSetBonus.Location = New System.Drawing.Point(6, 834)
 		Me.gbSetBonus.Name = "gbSetBonus"
-		Me.gbSetBonus.Size = New System.Drawing.Size(214, 77)
+		Me.gbSetBonus.Size = New System.Drawing.Size(259, 77)
 		Me.gbSetBonus.TabIndex = 23
 		Me.gbSetBonus.TabStop = false
 		Me.gbSetBonus.Text = "Set Bonus"
 		'
 		'cmbSetBonus2
 		'
+		Me.cmbSetBonus2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbSetBonus2.Location = New System.Drawing.Point(13, 48)
 		Me.cmbSetBonus2.Name = "cmbSetBonus2"
-		Me.cmbSetBonus2.Size = New System.Drawing.Size(189, 20)
+		Me.cmbSetBonus2.Size = New System.Drawing.Size(234, 20)
 		Me.cmbSetBonus2.TabIndex = 24
 		'
 		'cmbSetBonus1
 		'
+		Me.cmbSetBonus1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbSetBonus1.Location = New System.Drawing.Point(13, 21)
 		Me.cmbSetBonus1.Name = "cmbSetBonus1"
-		Me.cmbSetBonus1.Size = New System.Drawing.Size(188, 20)
+		Me.cmbSetBonus1.Size = New System.Drawing.Size(233, 20)
 		Me.cmbSetBonus1.TabIndex = 23
 		'
 		'groupBox5
@@ -622,14 +673,15 @@ Partial Class GearSelectorMainForm
 		Me.groupBox5.Controls.Add(Me.label42)
 		Me.groupBox5.Location = New System.Drawing.Point(6, 673)
 		Me.groupBox5.Name = "groupBox5"
-		Me.groupBox5.Size = New System.Drawing.Size(228, 155)
+		Me.groupBox5.Size = New System.Drawing.Size(259, 155)
 		Me.groupBox5.TabIndex = 21
 		Me.groupBox5.TabStop = false
 		Me.groupBox5.Text = "Racial"
 		'
 		'chkArcaneTorrent
 		'
-		Me.chkArcaneTorrent.Location = New System.Drawing.Point(61, 128)
+		Me.chkArcaneTorrent.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.chkArcaneTorrent.Location = New System.Drawing.Point(92, 128)
 		Me.chkArcaneTorrent.Name = "chkArcaneTorrent"
 		Me.chkArcaneTorrent.RightToLeft = System.Windows.Forms.RightToLeft.Yes
 		Me.chkArcaneTorrent.Size = New System.Drawing.Size(155, 24)
@@ -639,7 +691,8 @@ Partial Class GearSelectorMainForm
 		'
 		'chkBerzerking
 		'
-		Me.chkBerzerking.Location = New System.Drawing.Point(32, 98)
+		Me.chkBerzerking.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.chkBerzerking.Location = New System.Drawing.Point(63, 98)
 		Me.chkBerzerking.Name = "chkBerzerking"
 		Me.chkBerzerking.RightToLeft = System.Windows.Forms.RightToLeft.Yes
 		Me.chkBerzerking.Size = New System.Drawing.Size(184, 24)
@@ -649,7 +702,8 @@ Partial Class GearSelectorMainForm
 		'
 		'chkBloodFury
 		'
-		Me.chkBloodFury.Location = New System.Drawing.Point(6, 68)
+		Me.chkBloodFury.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.chkBloodFury.Location = New System.Drawing.Point(37, 68)
 		Me.chkBloodFury.Name = "chkBloodFury"
 		Me.chkBloodFury.RightToLeft = System.Windows.Forms.RightToLeft.Yes
 		Me.chkBloodFury.Size = New System.Drawing.Size(210, 24)
@@ -659,21 +713,24 @@ Partial Class GearSelectorMainForm
 		'
 		'txtOHExpBonus
 		'
-		Me.txtOHExpBonus.Location = New System.Drawing.Point(116, 45)
+		Me.txtOHExpBonus.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.txtOHExpBonus.Location = New System.Drawing.Point(147, 45)
 		Me.txtOHExpBonus.Name = "txtOHExpBonus"
 		Me.txtOHExpBonus.Size = New System.Drawing.Size(100, 20)
 		Me.txtOHExpBonus.TabIndex = 19
 		'
 		'txtMHExpBonus
 		'
-		Me.txtMHExpBonus.Location = New System.Drawing.Point(116, 19)
+		Me.txtMHExpBonus.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.txtMHExpBonus.Location = New System.Drawing.Point(147, 19)
 		Me.txtMHExpBonus.Name = "txtMHExpBonus"
 		Me.txtMHExpBonus.Size = New System.Drawing.Size(100, 20)
 		Me.txtMHExpBonus.TabIndex = 18
 		'
 		'label41
 		'
-		Me.label41.Location = New System.Drawing.Point(6, 47)
+		Me.label41.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.label41.Location = New System.Drawing.Point(37, 47)
 		Me.label41.Name = "label41"
 		Me.label41.Size = New System.Drawing.Size(104, 18)
 		Me.label41.TabIndex = 17
@@ -682,7 +739,8 @@ Partial Class GearSelectorMainForm
 		'
 		'label42
 		'
-		Me.label42.Location = New System.Drawing.Point(0, 21)
+		Me.label42.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.label42.Location = New System.Drawing.Point(31, 21)
 		Me.label42.Name = "label42"
 		Me.label42.Size = New System.Drawing.Size(110, 18)
 		Me.label42.TabIndex = 16
@@ -692,7 +750,7 @@ Partial Class GearSelectorMainForm
 		'cmdQuickEP
 		'
 		Me.cmdQuickEP.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdQuickEP.Location = New System.Drawing.Point(545, 66)
+		Me.cmdQuickEP.Location = New System.Drawing.Point(762, 66)
 		Me.cmdQuickEP.Name = "cmdQuickEP"
 		Me.cmdQuickEP.Size = New System.Drawing.Size(74, 40)
 		Me.cmdQuickEP.TabIndex = 21
@@ -703,7 +761,7 @@ Partial Class GearSelectorMainForm
 		'cmdGetDps
 		'
 		Me.cmdGetDps.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdGetDps.Location = New System.Drawing.Point(622, 66)
+		Me.cmdGetDps.Location = New System.Drawing.Point(839, 66)
 		Me.cmdGetDps.Name = "cmdGetDps"
 		Me.cmdGetDps.Size = New System.Drawing.Size(117, 23)
 		Me.cmdGetDps.TabIndex = 22
@@ -714,7 +772,7 @@ Partial Class GearSelectorMainForm
 		'lblDPS
 		'
 		Me.lblDPS.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.lblDPS.Location = New System.Drawing.Point(625, 92)
+		Me.lblDPS.Location = New System.Drawing.Point(842, 92)
 		Me.lblDPS.Name = "lblDPS"
 		Me.lblDPS.Size = New System.Drawing.Size(115, 17)
 		Me.lblDPS.TabIndex = 23
@@ -725,7 +783,7 @@ Partial Class GearSelectorMainForm
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 		Me.AutoScroll = true
-		Me.ClientSize = New System.Drawing.Size(760, 687)
+		Me.ClientSize = New System.Drawing.Size(994, 776)
 		Me.Controls.Add(Me.lblDPS)
 		Me.Controls.Add(Me.cmdGetDps)
 		Me.Controls.Add(Me.cmdQuickEP)
@@ -735,7 +793,7 @@ Partial Class GearSelectorMainForm
 		Me.Controls.Add(Me.cmdSave)
 		Me.Controls.Add(Me.cmdSaveAsNew)
 		Me.Controls.Add(Me.cmdExtrator)
-		Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow
+		Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
 		Me.Name = "GearSelectorMainForm"
 		Me.Text = "Gear Selector"
 		AddHandler Load, AddressOf Me.MainFormLoad

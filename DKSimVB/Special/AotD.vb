@@ -57,6 +57,19 @@ Public Class AotD
 		End If
 	End Sub
 	
+	
+	Sub PrePull(T As Long)
+		MeleeMissChance = math.Max(0.08 - Hit,0)
+		MeleeDodgeChance =  math.Max(0.065 - Expertise,0)
+		SpellMissChance = math.Max(0.17 - SpellHit,0)
+		ActiveUntil = T + 30 * 100
+		cd =  T + (10*60*100) - (120*100*sim.TalentUnholy.NightoftheDead)
+		sim.combatlog.write(T  & vbtab &  "Pre-Pull AoTD")
+	End Sub
+	
+	
+	
+	
 	sub UseGCD(T as Long)
 		Sim.NextFreeGCD = T + sim.latency/10 + 400
 	End Sub

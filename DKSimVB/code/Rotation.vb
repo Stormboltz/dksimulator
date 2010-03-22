@@ -10,7 +10,8 @@ Friend Class Rotation
 	Friend XMLRo As New Xml.XmlDocument
 	Friend XMLIntro As New Xml.XmlDocument
 	Friend MyRotation As New Collection
-	Friend MyIntro as new Collection
+	Friend MyIntro As New Collection
+	Friend IntroDone as Boolean
 	Private Runes As runes.runes
 	Friend IntroStep as integer
 	Private sim as Sim
@@ -37,6 +38,10 @@ Friend Class Rotation
 	
 	Sub DoRoration(TimeStamp As long)
 		Dim ret As Boolean
+		
+		If MyIntro.Count > 0 and IntroStep < MyIntro.Count Then exit sub
+		
+		
 		ret = DoRoration(TimeStamp,MyRotation.Item(sim.RotationStep+1),XMLRo.SelectSingleNode("//Rotation/Rotation/" & MyRotation.Item(sim.RotationStep+1) ).Attributes.GetNamedItem("retry").Value )
 		If ret = True Then sim.RotationStep = sim.RotationStep + 1
 		if MyRotation.Count <= sim.RotationStep then sim.RotationStep=0
@@ -207,6 +212,24 @@ Friend Class Rotation
 				Else
 					if retry = 0 then return true
 				End If
+			Case "BloodPresence"
+				If sim.BloodPresenceSwitch.IsAvailable(TimeStamp) Then
+					Return sim.BloodPresenceSwitch.Use(TimeStamp)
+				Else
+					if retry = 0 then return true
+				End If
+			Case "FrostPresence"
+				If sim.FrostPresenceSwitch.IsAvailable(TimeStamp) Then
+					Return sim.FrostPresenceSwitch.Use(TimeStamp)
+				Else
+					if retry = 0 then return true
+				End If
+			Case "UnholyPresence"
+				If sim.UnholyPresenceSwitch.IsAvailable(TimeStamp) Then
+					Return sim.UnholyPresenceSwitch.Use(TimeStamp)
+				Else
+					if retry = 0 then return true
+				End If
 		End Select
 	End function
 	Sub DoIntro(TimeStamp As Long)
@@ -214,7 +237,9 @@ Friend Class Rotation
 		If MyIntro.Count > 0 and IntroStep < MyIntro.Count    Then
 			ret = DoRoration(TimeStamp,MyIntro.Item(IntroStep+1),XMLIntro.SelectSingleNode("//Intro/" & MyIntro.Item(IntroStep+1) ).Attributes.GetNamedItem("retry").Value )
 			If ret = True Then IntroStep = IntroStep + 1
-			exit sub
+			Exit Sub
+		Else
+			IntroDone = true
 		End If
 		
 	End Sub
@@ -228,6 +253,7 @@ Friend Class Rotation
 				MyIntro.Add(Nod.Name)
 			end try
 		Next
+		if MyIntro.Count = 0 then IntroDone = true
 	End Sub
 End Class
  

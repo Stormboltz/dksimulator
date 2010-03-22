@@ -867,7 +867,7 @@ Public Partial Class GearSelectorMainForm
 		With HandSlot
 			.Text = "Hand"
 			.init(Me,10)
-			.Location = New System.Drawing.Point(400,000)
+			.Location = New System.Drawing.Point(330,000)
 			
 		End With
 		
@@ -875,7 +875,7 @@ Public Partial Class GearSelectorMainForm
 		With BeltSlot
 			.Text = "Waist"
 			.init(Me,6)
-			.Location = New System.Drawing.Point(400,80)
+			.Location = New System.Drawing.Point(330,80)
 			
 		End With
 		
@@ -883,14 +883,14 @@ Public Partial Class GearSelectorMainForm
 		With LegSlot
 			.Text = "Legs"
 			.init(Me,7)
-			.Location = New System.Drawing.Point(400,160)
+			.Location = New System.Drawing.Point(330,160)
 			
 		End With
 		Dim FeetSlot As New EquipSlot
 		With FeetSlot
 			.Text = "Feets"
 			.init(Me,8)
-			.Location = New System.Drawing.Point(400,240)
+			.Location = New System.Drawing.Point(330,240)
 			
 		End With
 		
@@ -898,7 +898,7 @@ Public Partial Class GearSelectorMainForm
 		With ring1Slot
 			.Text = "Finger1"
 			.init(Me,11)
-			.Location = New System.Drawing.Point(400,320)
+			.Location = New System.Drawing.Point(330,320)
 			
 		End With
 		
@@ -906,7 +906,7 @@ Public Partial Class GearSelectorMainForm
 		With ring2Slot
 			.Text = "Finger2"
 			.init(Me,11)
-			.Location = New System.Drawing.Point(400,400)
+			.Location = New System.Drawing.Point(330,400)
 			
 		End With
 		
@@ -914,14 +914,14 @@ Public Partial Class GearSelectorMainForm
 		With Trinket1Slot
 			.Text = "Trinket1"
 			.init(Me,12)
-			.Location = New System.Drawing.Point(400,480)
+			.Location = New System.Drawing.Point(330,480)
 			
 		End With
 		Dim Trinket2Slot As New EquipSlot
 		With Trinket2Slot
 			.Text = "Trinket2"
 			.init(Me,12)
-			.Location = New System.Drawing.Point(400,560)
+			.Location = New System.Drawing.Point(330,560)
 			
 		End With
 		LoadMycharacter

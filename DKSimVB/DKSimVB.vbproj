@@ -170,12 +170,15 @@
     <Compile Include="Runes\runes.vb" />
     <Compile Include="Special\AotD.vb" />
     <Compile Include="Special\Bloodlust.vb" />
+    <Compile Include="Special\BloodPresence.vb" />
     <Compile Include="Special\Disease.vb" />
     <Compile Include="Special\DRW.vb" />
+    <Compile Include="Special\FrostPresence.vb" />
     <Compile Include="Special\Gargoyle.vb" />
     <Compile Include="Special\Ghoul.vb" />
     <Compile Include="Special\Spell.vb" />
     <Compile Include="Special\Strike.vb" />
+    <Compile Include="Special\UnholyPresence.vb" />
     <Compile Include="Spell\BloodBoil.vb" />
     <Compile Include="Spell\BloodTap.vb" />
     <Compile Include="Spell\BoneShield.vb" />

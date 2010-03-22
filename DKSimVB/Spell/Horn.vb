@@ -21,7 +21,7 @@ Public Class Horn
 			if sim.Priority.prio.Contains("Horn") then return false
 		End If
 		if sim.runes.RuneRefreshTheNextGCD(T) = true then
-				Return isAvailable(T)
+			Return isAvailable(T)
 		Else
 			Return False
 		End If

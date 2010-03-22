@@ -649,12 +649,12 @@ Friend Class runes
 		Else
 			tmp = T + 150+ sim.latency/10
 		End If
-		If BloodRune1.AvailableTime < tmp Then return false
-		If BloodRune2.AvailableTime < tmp Then return false
-		If FrostRune1.AvailableTime < tmp Then return false
-		If FrostRune2.AvailableTime < tmp Then return false
-		If UnholyRune1.AvailableTime < tmp Then return false
-		If UnholyRune2.AvailableTime < tmp Then Return False
+		If BloodRune1.AvailableTime >= T and BloodRune1.AvailableTime < tmp Then return false
+		If BloodRune2.AvailableTime >= T and BloodRune2.AvailableTime < tmp Then return false
+		If FrostRune1.AvailableTime >= T and FrostRune1.AvailableTime < tmp Then return false
+		If FrostRune2.AvailableTime >= T and FrostRune2.AvailableTime < tmp Then return false
+		If UnholyRune1.AvailableTime >= T and UnholyRune1.AvailableTime < tmp Then return false
+		If UnholyRune2.AvailableTime >= T and UnholyRune2.AvailableTime < tmp Then Return False
 		return true
 	End Function
 	

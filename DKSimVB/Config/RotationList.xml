@@ -19,5 +19,8 @@
 	<Pestilence retry='0'/>
 	<Horn retry='0'/>
 	<EmpowerRuneWeapon retry='0'/>
+	<BloodPresence retry='0'/>
+	<FrostPresence retry='0'/>
+	<UnholyPresence retry='0'/>
 	<_None/>
 </Rotations>

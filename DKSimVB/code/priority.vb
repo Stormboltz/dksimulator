@@ -20,7 +20,10 @@ Friend Class priority
 	End Function
 	
 	
-	sub DoNext(TimeStamp As long )
+	Sub DoNext(TimeStamp As Long )
+		
+		If sim.Rotation.MyIntro.Count > 0 and sim.Rotation.IntroStep < sim.Rotation.MyIntro.Count Then exit sub
+		
 		Dim HighestPrio As Integer
 		HighestPrio = 1
 		

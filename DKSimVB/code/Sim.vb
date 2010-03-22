@@ -149,6 +149,10 @@ Public Class Sim
 	Friend UnholyPresence As Integer
 	Friend FrostPresence As Integer
 	
+	Friend BloodPresenceSwitch As BloodPresence
+	Friend UnholyPresenceSwitch As UnholyPresence
+	Friend FrostPresenceSwitch As FrostPresence
+	
 	
 	Friend SaveRPForRS As Boolean
 	
@@ -212,7 +216,10 @@ Public Class Sim
 			ProgressFrame.Text = "Simulation"
 		End If
 	End Sub
-
+	Sub PrePull(T as Long)
+		AotD.PrePull(T)
+		'Pot Usage
+	End Sub
 	
 	Sub Start()
 		
@@ -226,7 +233,6 @@ Public Class Sim
 		TotalDamageAlternative = 0
 		TimeStampCounter = 1
 		Dim resetTime As Integer
-		
 		If _MainFrm.chkManyFights.Checked Then
 			NumberOfFights = Math.Round( ( SimTime * 60 * 60 ) / _MainFrm.txtManyFights.text )
 			resetTime = _MainFrm.txtManyFights.text * 100
@@ -240,9 +246,13 @@ Public Class Sim
 		Initialisation
 		TimeStamp = 1
 		If TalentUnholy.MasterOfGhouls=1 Then Ghoul.Summon(1)
-		AotD.Summon(-500)
 		Rotation.LoadIntro
 		If Rotate Then Rotation.loadRotation
+		' Pre Pull Activities
+		
+		PrePull(TimeStamp)
+		
+		
 		Do Until TimeStamp >= MaxTime
 			TimeStamp = FastFoward(TimeStamp)
 			If TimeStamp >= MaxTime Then goto finnish
@@ -281,7 +291,9 @@ Public Class Sim
 						end if
 					End If
 				end if
-				If isInGCD(TimeStamp) = False Then rotation.DoIntro(TimeStamp)
+				If isInGCD(TimeStamp) = False and me.Rotation.IntroDone = false Then 
+					rotation.DoIntro(TimeStamp)
+				End If
 				If isInGCD(TimeStamp) = False Then
 					If BoneShieldUsageStyle = 2 Then
 						If runes.BloodRune1.Available(TimeStamp) = False Then
@@ -296,7 +308,8 @@ Public Class Sim
 						End If
 					End If
 				End If
-				If isInGCD(TimeStamp) = False Then
+				
+				If isInGCD(TimeStamp) = False and me.Rotation.IntroDone = true Then
 					if Rotate then
 						Rotation.DoRoration(TimeStamp)
 					else
@@ -338,7 +351,7 @@ Public Class Sim
 			Else
 				'InterruptTimer > TimeStamp Or InterruptAmount
 			End If
-			If isInGCD(TimeStamp) = False Then
+			If isInGCD(TimeStamp) = False and me.Rotation.IntroDone = true Then
 				If horn.isAutoAvailable(TimeStamp) and CanUseGCD(TimeStamp) Then
 					horn.use(TimeStamp)
 				end if
@@ -550,11 +563,11 @@ Public Class Sim
 		HowlingBlast.CD = 0
 		Ghoul.cd = 0
 		AoTD.cd = 0
-		Hysteria.CD = 0
+		Hysteria.CD = TimeStamp
 		DeathChill.Cd = 0
 		Desolation = New Desolation(me)
-		MainHand.NextWhiteMainHit = 0
-		OffHand.NextWhiteOffHit = 0
+		MainHand.NextWhiteMainHit = TimeStamp
+		OffHand.NextWhiteOffHit = TimeStamp
 		Frenzy.CD = 0
 		DeathandDecay.CD = 0
 		Gargoyle.cd = 0
@@ -570,6 +583,9 @@ Public Class Sim
 		AMSAmount = _MainFrm.txtAMSrp.text
 		ERW.CD = 0
 		RuneForge.RazorIceStack = 0
+		me.Rotation.IntroDone = false
+		
+		PrePull(TimeStamp)
 	End Sub
 	
 	
@@ -642,6 +658,9 @@ Public Class Sim
 		OHRuneStrike = New RuneStrike(Me)
 		OHRuneStrike.OffHand = true
 		
+		BloodPresenceSwitch = new BloodPresence(me)
+		UnholyPresenceSwitch = new UnholyPresence(me)
+		FrostPresenceSwitch = new FrostPresence(me)
 		
 		
 		MainHand = New MainHand(Me)
