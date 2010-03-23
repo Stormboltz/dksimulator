@@ -36,6 +36,7 @@ Friend Class Obliterate
 				sim.runes.UseFU(T,False)
 			End If
 		End If
+		
 		If sim.TalentFrost.Annihilation <> 3 Then
 			sim.frostfever.FadeAt=T
 			sim.bloodplague.FadeAt=T
@@ -65,8 +66,9 @@ Friend Class Obliterate
 			sim.TryOnMHHitProc
 			sim.TryOnFU
 			Sim.runicpower.add(15 + 2.5*sim.talentfrost.ChillOfTheGrave  + 5*sim.MainStat.T74PDPS )
+			sim.proc.Rime.TryMe(T)
 		End If
-		sim.proc.Rime.TryMe(T)
+		
 		
 		If sim.DRW.IsActive(T) Then
 			sim.drw.Obliterate
