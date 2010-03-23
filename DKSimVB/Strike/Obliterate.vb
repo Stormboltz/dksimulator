@@ -67,6 +67,7 @@ Friend Class Obliterate
 			sim.TryOnMHHitProc
 			sim.TryOnFU
 			Sim.runicpower.add(15 + 2.5*sim.talentfrost.ChillOfTheGrave  + 5*sim.MainStat.T74PDPS )
+			sim.proc.Rime.TryMe(T)
 		End If
 		
 		

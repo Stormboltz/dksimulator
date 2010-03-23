@@ -830,7 +830,8 @@ Public Class Sim
 		MergeReport = doc.SelectSingleNode("//config/chkMergeReport").InnerText
 		ReportName = doc.SelectSingleNode("//config/txtReportName").InnerText
 		WaitForFallenCrusader = doc.SelectSingleNode("//config/WaitFC").InnerText
-		Patch = doc.SelectSingleNode("//config/Patch").InnerText
+		'Patch = doc.SelectSingleNode("//config/Patch").InnerText
+		Patch = true
 		
 		Dim tmp As String
 		tmp = doc.SelectSingleNode("//config/BShOption").InnerText

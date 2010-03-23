@@ -1,4 +1,16 @@
-﻿1.2.1.1 Release notes
+﻿1.2.1.2 Release notes
+* Rime correction
+* All code set to WoW 3.3.3
+
+TODO in the nexts releases
+* Option to add flask or elixir and buff food stats
+* Armsman for gloves (threat simulator) is missing (The whole +2% option is actually missing, as I recognized.)
+* EP values for weapon proccs
+* Saronite Bombs
+* Sapper charge
+
+
+1.2.1.1 Release notes
 * AotD
 * Blood/Unholy Presence switch possible during intro.
 * BloodTap correction.
@@ -12,12 +24,6 @@
 * 3.3.3 : Rime: Dual wielding will no longer grant two chances to proc this effect from Obliterate.
 * 3.3.3 : Rune Strike: This ability can now proc Necrosis and Blood-Caked Blade.
 
-TODO in the nexts releases
-* Option to add flask or elixir and buff food stats
-* Armsman for gloves (threat simulator) is missing (The whole +2% option is actually missing, as I recognized.)
-* EP values for weapon proccs
-* Saronite Bombs
-* Sapper charge
 
 1.2.1.0 Release notes
 * Better Multithreading management. Main frame should not hang when calculating.

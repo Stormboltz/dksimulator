@@ -51,7 +51,7 @@ Public Module SimConstructor
 		DPSs.Clear
 		ThreadCollection.Clear
 		simCollection.Clear
-		start(1,MainFrm,True)
+		start(10,MainFrm,True)
 		Jointhread
 
 		Try
@@ -73,7 +73,7 @@ Public Module SimConstructor
 		EPBase = 20
 		_MainFrm = MainFrm
 		Dim EPVal As EPValues = MainFrm.EPVal
-		dim SimTime as Double = 1
+		dim SimTime as Double = 10
 		EPStat="EP DryRun"
 		SimConstructor.Start(SimTime,MainFrm)
 		EPStat="EP AttackPower"

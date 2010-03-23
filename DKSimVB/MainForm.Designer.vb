@@ -68,7 +68,6 @@ Partial Class MainForm
 		Me.rCharwithGear = New System.Windows.Forms.RadioButton
 		Me.rCharacter = New System.Windows.Forms.RadioButton
 		Me.cmbICCBuff = New System.Windows.Forms.ComboBox
-		Me.chkPatch = New System.Windows.Forms.CheckBox
 		Me.chkBloodSync = New System.Windows.Forms.CheckBox
 		Me.label44 = New System.Windows.Forms.Label
 		Me.label20 = New System.Windows.Forms.Label
@@ -603,7 +602,6 @@ Partial Class MainForm
 		Me.grpSimOption.Controls.Add(Me.rCharwithGear)
 		Me.grpSimOption.Controls.Add(Me.rCharacter)
 		Me.grpSimOption.Controls.Add(Me.cmbICCBuff)
-		Me.grpSimOption.Controls.Add(Me.chkPatch)
 		Me.grpSimOption.Controls.Add(Me.chkBloodSync)
 		Me.grpSimOption.Controls.Add(Me.label44)
 		Me.grpSimOption.Controls.Add(Me.label20)
@@ -721,16 +719,6 @@ Partial Class MainForm
 		Me.cmbICCBuff.Name = "cmbICCBuff"
 		Me.cmbICCBuff.Size = New System.Drawing.Size(149, 21)
 		Me.cmbICCBuff.TabIndex = 89
-		'
-		'chkPatch
-		'
-		Me.chkPatch.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.chkPatch.Location = New System.Drawing.Point(684, 564)
-		Me.chkPatch.Name = "chkPatch"
-		Me.chkPatch.Size = New System.Drawing.Size(104, 24)
-		Me.chkPatch.TabIndex = 88
-		Me.chkPatch.Text = "Patch 3.3.3"
-		Me.chkPatch.UseVisualStyleBackColor = true
 		'
 		'chkBloodSync
 		'
@@ -2847,7 +2835,6 @@ Partial Class MainForm
 	Private cmdEditGearSelector As System.Windows.Forms.Button
 	Private label44 As System.Windows.Forms.Label
 	Friend cmbICCBuff As System.Windows.Forms.ComboBox
-	Private chkPatch As System.Windows.Forms.CheckBox
 	Private tmrProgress As System.Windows.Forms.Timer
 	Private chkShowProc As System.Windows.Forms.CheckBox
 	Private grpSimOption As System.Windows.Forms.GroupBox
