@@ -61,6 +61,10 @@ Public Class Trinkets
 	Friend TinyAbomination as Trinket
 	Friend Shadowmourne As Trinket
 	
+	
+	Friend SaroniteBomb As Trinket
+	Friend SapperCharge as Trinket
+	
 
 	Protected sim as Sim
 	Sub New(S As Sim)
@@ -556,6 +560,32 @@ Public Class Trinkets
 		 	.ProcOn = procs.ProcOnType.OnOHhit
 		 	.HasteSensible = true
 		End With
+		
+		
+		SaroniteBomb = New Trinket(s)
+		With SaroniteBomb
+			.ProcChance = 0.5
+		 	.ProcLenght = 0
+		 	.ProcValue = 1325
+		 	.DamageType = "SaroniteBomb"
+		 	.InternalCD = 60
+		 	._Name = "Saronite Bomb"
+		 	.ProcOn = procs.ProcOnType.OnOHhit
+		 	.HasteSensible = false
+		End With
+		
+		SapperCharge = new Trinket(s)
+		With SapperCharge
+			.ProcChance = 0.5
+		 	.ProcLenght = 0
+		 	.ProcValue = 2500
+		 	.DamageType = "SapperCharge"
+		 	.InternalCD = 300
+		 	._Name = "Global Thermal Sapper Charge"
+		 	.ProcOn = procs.ProcOnType.OnOHhit
+		 	.HasteSensible = false
+		End With
+		
 		
 		CollectDamagingTrinket
 	End Sub

@@ -89,8 +89,6 @@ Public Class AotD
 	
 	Function ApplyDamage(T As long) As boolean
 		Dim dégat As integer
-		
-		
 		Dim WSpeed As Single
 		WSpeed = MHWeaponSpeed
 		NextWhiteMainHit = T + (WSpeed * 100) / ((1 + Haste))
@@ -100,7 +98,7 @@ Public Class AotD
 
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			MissCount = MissCount + 8
-			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Ghoul fail")
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "AotD fail")
 			exit function
 		End If
 		If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then
@@ -115,7 +113,7 @@ Public Class AotD
 			CritCount = CritCount + 8
 			totalcrit += dégat
 			total = total + dégat
-			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Ghoul crit for " & dégat)
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "AotD crit for " & dégat)
 		End If
 		If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance) Then
 			'normal hit
@@ -123,7 +121,7 @@ Public Class AotD
 			dégat = AvrgNonCrit(T)
 			total = total + dégat
 			totalhit += dégat
-			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Ghoul hit for " & dégat)
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "AotD hit for " & dégat)
 		End If
 		return true
 	End Function

@@ -230,9 +230,26 @@ Public Class Proc
 						totalcrit += tmp
 					Else
 						tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
+						tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
 						HitCount = HitCount + 1
 						totalhit += tmp
 					End If
+				Case "SaroniteBomb"
+					tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
+					HitCount = HitCount + 1
+					totalhit += tmp
+				Case "SapperCharge"
+					If sim.RandomNumberGenerator.RNGProc <= sim.MainStat.Crit Then
+						CritCount = CritCount + 1
+						tmp = ProcValue * 1.5 * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
+						tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
+						totalcrit += tmp
+					Else
+						tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
+						HitCount = HitCount + 1
+						totalhit += tmp
+					End If
+					
 				Case "physical"
 					If sim.RandomNumberGenerator.RNGProc <= sim.MainStat.Crit Then
 						CritCount = CritCount + 1

@@ -110,7 +110,7 @@ Partial Class GearSelectorMainForm
 		'cmdExtrator
 		'
 		Me.cmdExtrator.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdExtrator.Location = New System.Drawing.Point(520, 10890)
+		Me.cmdExtrator.Location = New System.Drawing.Point(433, 12224)
 		Me.cmdExtrator.Name = "cmdExtrator"
 		Me.cmdExtrator.Size = New System.Drawing.Size(75, 23)
 		Me.cmdExtrator.TabIndex = 0
@@ -121,7 +121,7 @@ Partial Class GearSelectorMainForm
 		'cmdSaveAsNew
 		'
 		Me.cmdSaveAsNew.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdSaveAsNew.Location = New System.Drawing.Point(775, 4)
+		Me.cmdSaveAsNew.Location = New System.Drawing.Point(756, 3)
 		Me.cmdSaveAsNew.Name = "cmdSaveAsNew"
 		Me.cmdSaveAsNew.Size = New System.Drawing.Size(92, 23)
 		Me.cmdSaveAsNew.TabIndex = 2
@@ -132,7 +132,7 @@ Partial Class GearSelectorMainForm
 		'cmdSave
 		'
 		Me.cmdSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdSave.Location = New System.Drawing.Point(873, 4)
+		Me.cmdSave.Location = New System.Drawing.Point(854, 3)
 		Me.cmdSave.Name = "cmdSave"
 		Me.cmdSave.Size = New System.Drawing.Size(72, 23)
 		Me.cmdSave.TabIndex = 4
@@ -353,7 +353,7 @@ Partial Class GearSelectorMainForm
 		'
 		Me.cmbRace.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbRace.FormattingEnabled = true
-		Me.cmbRace.Location = New System.Drawing.Point(839, 33)
+		Me.cmbRace.Location = New System.Drawing.Point(820, 32)
 		Me.cmbRace.Name = "cmbRace"
 		Me.cmbRace.Size = New System.Drawing.Size(100, 21)
 		Me.cmbRace.TabIndex = 16
@@ -362,7 +362,7 @@ Partial Class GearSelectorMainForm
 		'label1
 		'
 		Me.label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.label1.Location = New System.Drawing.Point(759, 33)
+		Me.label1.Location = New System.Drawing.Point(740, 32)
 		Me.label1.Name = "label1"
 		Me.label1.Size = New System.Drawing.Size(75, 18)
 		Me.label1.TabIndex = 17
@@ -575,7 +575,7 @@ Partial Class GearSelectorMainForm
 		Me.groupBox1.Controls.Add(Me.gbWeapons)
 		Me.groupBox1.Controls.Add(Me.groupBox5)
 		Me.groupBox1.Controls.Add(Me.gbStats)
-		Me.groupBox1.Location = New System.Drawing.Point(668, 112)
+		Me.groupBox1.Location = New System.Drawing.Point(649, 111)
 		Me.groupBox1.Name = "groupBox1"
 		Me.groupBox1.Size = New System.Drawing.Size(280, 1109)
 		Me.groupBox1.TabIndex = 20
@@ -750,7 +750,7 @@ Partial Class GearSelectorMainForm
 		'cmdQuickEP
 		'
 		Me.cmdQuickEP.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdQuickEP.Location = New System.Drawing.Point(762, 66)
+		Me.cmdQuickEP.Location = New System.Drawing.Point(743, 65)
 		Me.cmdQuickEP.Name = "cmdQuickEP"
 		Me.cmdQuickEP.Size = New System.Drawing.Size(74, 40)
 		Me.cmdQuickEP.TabIndex = 21
@@ -761,7 +761,7 @@ Partial Class GearSelectorMainForm
 		'cmdGetDps
 		'
 		Me.cmdGetDps.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdGetDps.Location = New System.Drawing.Point(839, 66)
+		Me.cmdGetDps.Location = New System.Drawing.Point(820, 65)
 		Me.cmdGetDps.Name = "cmdGetDps"
 		Me.cmdGetDps.Size = New System.Drawing.Size(117, 23)
 		Me.cmdGetDps.TabIndex = 22
@@ -772,7 +772,7 @@ Partial Class GearSelectorMainForm
 		'lblDPS
 		'
 		Me.lblDPS.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.lblDPS.Location = New System.Drawing.Point(842, 92)
+		Me.lblDPS.Location = New System.Drawing.Point(823, 91)
 		Me.lblDPS.Name = "lblDPS"
 		Me.lblDPS.Size = New System.Drawing.Size(115, 17)
 		Me.lblDPS.TabIndex = 23
@@ -783,7 +783,7 @@ Partial Class GearSelectorMainForm
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 		Me.AutoScroll = true
-		Me.ClientSize = New System.Drawing.Size(994, 776)
+		Me.ClientSize = New System.Drawing.Size(958, 786)
 		Me.Controls.Add(Me.lblDPS)
 		Me.Controls.Add(Me.cmdGetDps)
 		Me.Controls.Add(Me.cmdQuickEP)

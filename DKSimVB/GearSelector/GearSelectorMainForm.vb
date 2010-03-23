@@ -758,7 +758,7 @@ Public Partial Class GearSelectorMainForm
 		'				exit sub
 		
 		Dim Gear As New GearLoader
-		
+		me.Size = new Size(980, 800)
 		Gear.Init
 		
 		ItemDB = ParentFrame.ItemDB

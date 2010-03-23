@@ -1,32 +1,23 @@
 ﻿1.2.1.1 Release notes
-* AotD pre-pull only
+* AotD
 * Blood/Unholy Presence switch possible during intro.
 * BloodTap correction.
 * Blacksimithing sockets vanish and won't came back until reselection of the item after choosing "None" as gem
-* Major Strength for gloves is missing
-* Selecting an ICC ring with proc doesn't automatically trigger the option for "Ashen Band of Endless Vengeance"
-* +10 Stats Gem misspelled (Nightmare Tears instead of [Nightmare Tear])
+* Major Strength gloves enchant
+* ICC ring 
+* +10 Stats Gem misspelled
 * Nitro Boosts(24crit) 
-TODO
+* Flexweave Underlay(23agi) 
+* ScrollBar on the main frame.
+* 3.3.3 : Rime: Dual wielding will no longer grant two chances to proc this effect from Obliterate.
+* 3.3.3 : Rune Strike: This ability can now proc Necrosis and Blood-Caked Blade.
+
+TODO in the nexts releases
 * Option to add flask or elixir and buff food stats
 * Armsman for gloves (threat simulator) is missing (The whole +2% option is actually missing, as I recognized.)
-* Would still love the possibility to model EP values for weapon proccs
-* Flexweave Underlay(23agi) 
+* EP values for weapon proccs
 * Saronite Bombs
-*Saper charge
-Regarding the sapper charge, can you confirm:
-- 5 min cooldown. - Yes
-- Damage is modified by Blood Presence, Blood Gorged, RoR or TS. - Yes anything that modifys the death knight damage by a % except 2 hand specialization
-- Damage is modified by Spell modifier like EP (13% magical) - Yes
-- Do not consume a GCD. Yes
-- Cannot miss. yes
-- Can crit, but chance is very low(5% of totem of wrath). - Unlike the saronite bombs the sapper charge uses Mele crit chance , i have tested this on the welps at ony, and got the same % crit as my mele crit chance
-
-
-
-
-
-
+* Sapper charge
 
 1.2.1.0 Release notes
 * Better Multithreading management. Main frame should not hang when calculating.

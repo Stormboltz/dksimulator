@@ -256,6 +256,9 @@
     <None Include="GearSelector\Enchant.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="GearSelector\Flask.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="GearSelector\GemBonus.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

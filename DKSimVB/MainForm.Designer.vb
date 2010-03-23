@@ -336,9 +336,9 @@ Partial Class MainForm
 		Me.lblDPS.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left)  _
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.lblDPS.BackColor = System.Drawing.Color.Transparent
-		Me.lblDPS.Location = New System.Drawing.Point(297, 803)
+		Me.lblDPS.Location = New System.Drawing.Point(441, 802)
 		Me.lblDPS.Name = "lblDPS"
-		Me.lblDPS.Size = New System.Drawing.Size(438, 13)
+		Me.lblDPS.Size = New System.Drawing.Size(186, 14)
 		Me.lblDPS.TabIndex = 9
 		Me.lblDPS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
 		'
@@ -352,7 +352,7 @@ Partial Class MainForm
 		Me.tbTools.Controls.Add(Me.txtImportTemplate)
 		Me.tbTools.Location = New System.Drawing.Point(4, 22)
 		Me.tbTools.Name = "tbTools"
-		Me.tbTools.Size = New System.Drawing.Size(755, 743)
+		Me.tbTools.Size = New System.Drawing.Size(1026, 746)
 		Me.tbTools.TabIndex = 5
 		Me.tbTools.Text = "Import"
 		Me.tbTools.UseVisualStyleBackColor = true
@@ -393,7 +393,7 @@ Partial Class MainForm
 		'cmdImportTemplate
 		'
 		Me.cmdImportTemplate.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdImportTemplate.Location = New System.Drawing.Point(613, 17)
+		Me.cmdImportTemplate.Location = New System.Drawing.Point(884, 17)
 		Me.cmdImportTemplate.Name = "cmdImportTemplate"
 		Me.cmdImportTemplate.Size = New System.Drawing.Size(42, 23)
 		Me.cmdImportTemplate.TabIndex = 2
@@ -415,7 +415,7 @@ Partial Class MainForm
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.txtImportTemplate.Location = New System.Drawing.Point(8, 19)
 		Me.txtImportTemplate.Name = "txtImportTemplate"
-		Me.txtImportTemplate.Size = New System.Drawing.Size(599, 20)
+		Me.txtImportTemplate.Size = New System.Drawing.Size(870, 20)
 		Me.txtImportTemplate.TabIndex = 0
 		'
 		'tabPage1
@@ -425,7 +425,7 @@ Partial Class MainForm
 		Me.tabPage1.Controls.Add(Me.rtfEditor)
 		Me.tabPage1.Location = New System.Drawing.Point(4, 22)
 		Me.tabPage1.Name = "tabPage1"
-		Me.tabPage1.Size = New System.Drawing.Size(755, 743)
+		Me.tabPage1.Size = New System.Drawing.Size(1026, 746)
 		Me.tabPage1.TabIndex = 4
 		Me.tabPage1.Text = "Text Editor"
 		Me.tabPage1.UseVisualStyleBackColor = true
@@ -433,7 +433,7 @@ Partial Class MainForm
 		'cmdSaveNew
 		'
 		Me.cmdSaveNew.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdSaveNew.Location = New System.Drawing.Point(663, 0)
+		Me.cmdSaveNew.Location = New System.Drawing.Point(934, 0)
 		Me.cmdSaveNew.Name = "cmdSaveNew"
 		Me.cmdSaveNew.Size = New System.Drawing.Size(84, 19)
 		Me.cmdSaveNew.TabIndex = 1
@@ -444,7 +444,7 @@ Partial Class MainForm
 		'cmdSave
 		'
 		Me.cmdSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdSave.Location = New System.Drawing.Point(573, 0)
+		Me.cmdSave.Location = New System.Drawing.Point(844, 0)
 		Me.cmdSave.Name = "cmdSave"
 		Me.cmdSave.Size = New System.Drawing.Size(84, 19)
 		Me.cmdSave.TabIndex = 1
@@ -459,7 +459,7 @@ Partial Class MainForm
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.rtfEditor.Location = New System.Drawing.Point(3, 20)
 		Me.rtfEditor.Name = "rtfEditor"
-		Me.rtfEditor.Size = New System.Drawing.Size(749, 720)
+		Me.rtfEditor.Size = New System.Drawing.Size(1020, 723)
 		Me.rtfEditor.TabIndex = 0
 		Me.rtfEditor.Text = ""
 		'
@@ -507,6 +507,7 @@ Partial Class MainForm
 		'
 		'tabPage3
 		'
+		Me.tabPage3.AutoScroll = true
 		Me.tabPage3.Controls.Add(Me.groupBox6)
 		Me.tabPage3.Controls.Add(Me.grpSimOption)
 		Me.tabPage3.Location = New System.Drawing.Point(4, 22)
@@ -845,6 +846,8 @@ Partial Class MainForm
 		'
 		'chkManyFights
 		'
+		Me.chkManyFights.Checked = true
+		Me.chkManyFights.CheckState = System.Windows.Forms.CheckState.Checked
 		Me.chkManyFights.Location = New System.Drawing.Point(5, 546)
 		Me.chkManyFights.Name = "chkManyFights"
 		Me.chkManyFights.Size = New System.Drawing.Size(60, 24)
@@ -1782,7 +1785,7 @@ Partial Class MainForm
 		Me.tbTpl.Controls.Add(Me.cmdSaveTemplate)
 		Me.tbTpl.Location = New System.Drawing.Point(4, 22)
 		Me.tbTpl.Name = "tbTpl"
-		Me.tbTpl.Size = New System.Drawing.Size(755, 743)
+		Me.tbTpl.Size = New System.Drawing.Size(1026, 746)
 		Me.tbTpl.TabIndex = 9
 		Me.tbTpl.Text = "Talents"
 		Me.tbTpl.UseVisualStyleBackColor = true
@@ -1870,7 +1873,7 @@ Partial Class MainForm
 		Me.tbBuff.Controls.Add(Me.grpBuff)
 		Me.tbBuff.Location = New System.Drawing.Point(4, 22)
 		Me.tbBuff.Name = "tbBuff"
-		Me.tbBuff.Size = New System.Drawing.Size(755, 743)
+		Me.tbBuff.Size = New System.Drawing.Size(1026, 746)
 		Me.tbBuff.TabIndex = 8
 		Me.tbBuff.Text = "Buffs"
 		Me.tbBuff.UseVisualStyleBackColor = true
@@ -2165,7 +2168,7 @@ Partial Class MainForm
 		Me.tbTank.Controls.Add(Me.gbTank)
 		Me.tbTank.Location = New System.Drawing.Point(4, 22)
 		Me.tbTank.Name = "tbTank"
-		Me.tbTank.Size = New System.Drawing.Size(755, 743)
+		Me.tbTank.Size = New System.Drawing.Size(1026, 746)
 		Me.tbTank.TabIndex = 11
 		Me.tbTank.Text = "Tank Options"
 		Me.tbTank.UseVisualStyleBackColor = true
@@ -2242,7 +2245,7 @@ Partial Class MainForm
 		Me.tbEPOptions.Controls.Add(Me.groupBox1)
 		Me.tbEPOptions.Location = New System.Drawing.Point(4, 22)
 		Me.tbEPOptions.Name = "tbEPOptions"
-		Me.tbEPOptions.Size = New System.Drawing.Size(755, 743)
+		Me.tbEPOptions.Size = New System.Drawing.Size(1026, 746)
 		Me.tbEPOptions.TabIndex = 7
 		Me.tbEPOptions.Text = "EP Options"
 		Me.tbEPOptions.UseVisualStyleBackColor = true
@@ -2520,7 +2523,7 @@ Partial Class MainForm
 		Me.tbPrioEditor.Controls.Add(Me.cmdSaveRotation)
 		Me.tbPrioEditor.Location = New System.Drawing.Point(4, 22)
 		Me.tbPrioEditor.Name = "tbPrioEditor"
-		Me.tbPrioEditor.Size = New System.Drawing.Size(755, 743)
+		Me.tbPrioEditor.Size = New System.Drawing.Size(1026, 746)
 		Me.tbPrioEditor.TabIndex = 12
 		Me.tbPrioEditor.Text = "Rotation Editor"
 		Me.tbPrioEditor.UseVisualStyleBackColor = true
@@ -2529,7 +2532,7 @@ Partial Class MainForm
 		'
 		Me.grpAvailablePrio.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.grpAvailablePrio.AutoSize = true
-		Me.grpAvailablePrio.Location = New System.Drawing.Point(487, 32)
+		Me.grpAvailablePrio.Location = New System.Drawing.Point(758, 32)
 		Me.grpAvailablePrio.Name = "grpAvailablePrio"
 		Me.grpAvailablePrio.Size = New System.Drawing.Size(234, 518)
 		Me.grpAvailablePrio.TabIndex = 4
@@ -2549,7 +2552,7 @@ Partial Class MainForm
 		'cmdSaveRotationAsNew
 		'
 		Me.cmdSaveRotationAsNew.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdSaveRotationAsNew.Location = New System.Drawing.Point(587, 3)
+		Me.cmdSaveRotationAsNew.Location = New System.Drawing.Point(858, 3)
 		Me.cmdSaveRotationAsNew.Name = "cmdSaveRotationAsNew"
 		Me.cmdSaveRotationAsNew.Size = New System.Drawing.Size(75, 23)
 		Me.cmdSaveRotationAsNew.TabIndex = 2
@@ -2560,7 +2563,7 @@ Partial Class MainForm
 		'cmdSaveRotation
 		'
 		Me.cmdSaveRotation.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdSaveRotation.Location = New System.Drawing.Point(668, 3)
+		Me.cmdSaveRotation.Location = New System.Drawing.Point(939, 3)
 		Me.cmdSaveRotation.Name = "cmdSaveRotation"
 		Me.cmdSaveRotation.Size = New System.Drawing.Size(75, 23)
 		Me.cmdSaveRotation.TabIndex = 1
@@ -2575,7 +2578,7 @@ Partial Class MainForm
 		Me.tbCaling.Controls.Add(Me.gbScaling)
 		Me.tbCaling.Location = New System.Drawing.Point(4, 22)
 		Me.tbCaling.Name = "tbCaling"
-		Me.tbCaling.Size = New System.Drawing.Size(755, 743)
+		Me.tbCaling.Size = New System.Drawing.Size(1026, 746)
 		Me.tbCaling.TabIndex = 10
 		Me.tbCaling.Text = "Stat Scaling"
 		Me.tbCaling.UseVisualStyleBackColor = true
@@ -2759,7 +2762,7 @@ Partial Class MainForm
 		Me.TabPrio2.AutoScroll = true
 		Me.TabPrio2.Location = New System.Drawing.Point(4, 22)
 		Me.TabPrio2.Name = "TabPrio2"
-		Me.TabPrio2.Size = New System.Drawing.Size(755, 743)
+		Me.TabPrio2.Size = New System.Drawing.Size(1026, 746)
 		Me.TabPrio2.TabIndex = 14
 		Me.TabPrio2.Text = "Beta"
 		Me.TabPrio2.UseVisualStyleBackColor = true
@@ -2785,6 +2788,7 @@ Partial Class MainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+		Me.AutoScroll = true
 		Me.ClientSize = New System.Drawing.Size(1034, 842)
 		Me.Controls.Add(Me.cmdRngSeeder)
 		Me.Controls.Add(Me.lblDPS)
