@@ -58,17 +58,18 @@ Public Class RuneStrike
 		total = total + dégat
 		'If offhand=False Then sim.proc.KillingMachine.TryMe(T)
 		
-		If sim.TalentUnholy.Necrosis > 0 Then sim.Necrosis.Apply(dégat, T)
-
-		RNG = sim.RandomNumberGenerator.RNGWhiteHit * 100
-		If RNG <= 10 * sim.TalentUnholy.BloodCakedBlade Then
-			If offhand=False Then
-				sim.BloodCakedBlade.ApplyDamage(T)
-			Else
-				sim.OHBloodCakedBlade.ApplyDamage(T)
+		
+		If sim.patch Then
+			If sim.TalentUnholy.Necrosis > 0 Then sim.Necrosis.Apply(dégat, T)			
+			RNG = sim.RandomNumberGenerator.RNGWhiteHit * 100
+			If RNG <= 10 * sim.TalentUnholy.BloodCakedBlade Then
+				If offhand=False Then
+					sim.BloodCakedBlade.ApplyDamage(T)
+				Else
+					sim.OHBloodCakedBlade.ApplyDamage(T)
+				End If
 			End If
 		End If
-		
 		If offhand=False Then
 			'sim.tryOnMHWhitehitProc
 			sim.TryOnMHHitProc
