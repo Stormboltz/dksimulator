@@ -62,11 +62,11 @@ Friend Class Obliterate
 		total = total + dégat
 		If OffHand Then
 			sim.TryOnOHHitProc
+			If sim.Patch = False Then sim.proc.Rime.TryMe(T)
 		Else
 			sim.TryOnMHHitProc
 			sim.TryOnFU
 			Sim.runicpower.add(15 + 2.5*sim.talentfrost.ChillOfTheGrave  + 5*sim.MainStat.T74PDPS )
-			sim.proc.Rime.TryMe(T)
 		End If
 		
 		
