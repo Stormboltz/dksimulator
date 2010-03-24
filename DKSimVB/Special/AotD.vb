@@ -40,6 +40,7 @@ Public Class AotD
 		HasteSensible = True
 		MHWeaponDPS = 0
 		MHWeaponSpeed = 2
+		isGuardian = true
 	End Sub
 	
 	Sub Summon(T As Long)
@@ -190,7 +191,7 @@ Public Class AotD
 	End Sub
 	
 	
-		Function BaseAP() As Integer
+	Function BaseAP() As Integer
 		Dim tmp As Integer
 		tmp = 1167
 		Return tmp		

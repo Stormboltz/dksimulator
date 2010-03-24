@@ -49,7 +49,7 @@ Friend Class RuneForge
 
 	Function AreStarsAligned(T As Long) As Boolean
 		If sim.WaitForFallenCrusader = False Then Return True
-		If sim.MainStat.AP >=  sim.MainStat.GetMAxAP * 0.8 Then
+		If sim.MainStat.AP >=  sim.MainStat.GetMaxAP * 0.7 Then
 			Return True
 		Else
 			return false
@@ -62,11 +62,7 @@ Friend Class RuneForge
 	
 	Sub AddRazorIceStack(T As Long)
 		RazorIceStack += 1
-		If sim.patch Then
 			If RazorIceStack > 5 Then RazorIceStack=5
-		Else
-			If RazorIceStack > 10 Then RazorIceStack=10
-		End If
 		HitCount += 1
 	End Sub
 	

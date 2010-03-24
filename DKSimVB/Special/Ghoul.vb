@@ -38,9 +38,11 @@ Friend class Ghoul
 			If sim.TalentUnholy.MasterOfGhouls Then
 				ActiveUntil = sim.MaxTime
 				cd = sim.MaxTime
+				isGuardian = false
 			Else
 				ActiveUntil = T + 60 * 100
 				cd = ActiveUntil + (3*60*100) - (45*100*sim.TalentUnholy.NightoftheDead)
+				isGuardian = true
 			End If
 			If T <=1 Then
 			Else

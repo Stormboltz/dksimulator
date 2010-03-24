@@ -21,7 +21,8 @@ Friend Class Gargoyle
 		Sim = S
 		sim.DamagingObject.Add(Me)
 		ThreadMultiplicator = 0
-		HasteSensible = true
+		HasteSensible = True
+		isGuardian = true
 	End Sub
 	
 Function Summon(T As Long) as  boolean

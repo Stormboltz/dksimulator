@@ -11,6 +11,7 @@
 		<AttackPower>50</AttackPower>
 		<CritRating>20</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<reqskill>0</reqskill>
 		<Desc></Desc>
 	</item>
 	
@@ -26,6 +27,7 @@
 		<AttackPower>120</AttackPower>
 		<CritRating>15</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<reqskill>773</reqskill>
 		<Desc></Desc>
 	</item>
 	<item>
@@ -40,6 +42,7 @@
 		<AttackPower>40</AttackPower>
 		<CritRating>15</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<reqskill>0</reqskill>
 		<Desc></Desc>
 	</item>
 	<item>
@@ -54,6 +57,7 @@
 		<AttackPower>30</AttackPower>
 		<CritRating>10</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<reqskill>0</reqskill>
 		<Desc></Desc>
 	</item>
 	<item>
@@ -68,6 +72,7 @@
 		<AttackPower>0</AttackPower>
 		<CritRating>0</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<reqskill>0</reqskill>
 		<Desc></Desc>
 	</item>
 	<item>
@@ -82,6 +87,7 @@
 		<AttackPower>0</AttackPower>
 		<CritRating>0</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<reqskill>0</reqskill>
 		<Desc></Desc>
 	</item>
 	<item>
@@ -96,6 +102,7 @@
 		<AttackPower>0</AttackPower>
 		<CritRating>0</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<reqskill>197</reqskill>
 		<Desc></Desc>
 	</item>
 	
@@ -111,6 +118,7 @@
 		<AttackPower>0</AttackPower>
 		<CritRating>0</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<reqskill>202</reqskill>
 		<Desc></Desc>
 	</item>
 	
@@ -126,6 +134,7 @@
 		<AttackPower>0</AttackPower>
 		<CritRating>0</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<reqskill>0</reqskill>
 		<Desc></Desc>
 	</item>
 	
@@ -141,6 +150,7 @@
 		<AttackPower>130</AttackPower>
 		<CritRating>0</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<reqskill>165</reqskill>
 		<Desc></Desc>
 	</item>
 	<item>
@@ -155,6 +165,7 @@
 		<AttackPower>50</AttackPower>
 		<CritRating>0</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<reqskill>0</reqskill>
 		<Desc></Desc>
 	</item>
 	
@@ -170,6 +181,7 @@
 		<AttackPower>0</AttackPower>
 		<CritRating>0</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<reqskill>0</reqskill>
 		<Desc></Desc>
 	</item>
 	<item>
@@ -184,6 +196,7 @@
 		<AttackPower>0</AttackPower>
 		<CritRating>0</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<reqskill>0</reqskill>
 		<Desc></Desc>
 	</item>
 	<item>
@@ -198,6 +211,7 @@
 		<AttackPower>0</AttackPower>
 		<CritRating>0</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<reqskill>0</reqskill>
 		<Desc></Desc>
 	</item>
 	<item>
@@ -212,6 +226,7 @@
 		<AttackPower>44</AttackPower>
 		<CritRating>0</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<reqskill>0</reqskill>
 		<Desc></Desc>
 	</item>
 	<item>
@@ -226,6 +241,7 @@
 		<AttackPower>0</AttackPower>
 		<CritRating>0</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<reqskill>0</reqskill>
 		<Desc></Desc>
 	</item>
 	
@@ -240,7 +256,8 @@
 		<HitRating>0</HitRating>
 		<AttackPower>0</AttackPower>
 		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<ArmorPenetrationRating>202</ArmorPenetrationRating>
+		<reqskill>202</reqskill>
 		<Desc></Desc>
 	</item>
 	<item>
@@ -255,6 +272,7 @@
 		<AttackPower>0</AttackPower>
 		<CritRating>0</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<reqskill>202</reqskill>
 		<Desc></Desc>
 	</item>
 	
@@ -272,6 +290,7 @@
 		<AttackPower>75</AttackPower>
 		<CritRating>22</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<reqskill>0</reqskill>
 		<Desc></Desc>
 	</item>
 	<item>
@@ -286,6 +305,7 @@
 		<AttackPower>0</AttackPower>
 		<CritRating>12</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<reqskill>0</reqskill>
 		<Desc></Desc>
 	</item>
 	<item>
@@ -300,6 +320,7 @@
 		<AttackPower>32</AttackPower>
 		<CritRating>0</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<reqskill>0</reqskill>
 		<Desc></Desc>
 	</item>
 	
@@ -315,11 +336,12 @@
 		<AttackPower></AttackPower>
 		<CritRating>24</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<reqskill>202</reqskill>
 		<Desc>Critical Strike Rating</Desc>
 	</item>
 	
 	<item>
-		<id>18</id>
+		<id>3839</id>
 		<slot>11</slot>
 		<name>Enchant Ring - Assault</name>
 		<Strength>0</Strength>
@@ -330,23 +352,25 @@
 		<AttackPower>40</AttackPower>
 		<CritRating>0</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<reqskill>333</reqskill>
 		<Desc></Desc>
 	</item>
 	<item>
-			<id>19</id>
-			<slot>17</slot>
-			<name>Fallen Crusader</name>
-			<Strength>0</Strength>
-			<Agility>0</Agility>
-			<HasteRating>0</HasteRating>
-			<ExpertiseRating>0</ExpertiseRating>
-			<HitRating>0</HitRating>
-			<AttackPower>0</AttackPower>
-			<CritRating>0</CritRating>
-			<ArmorPenetrationRating>0</ArmorPenetrationRating>
-			<Desc></Desc>
-		</item>
-<item>
+		<id>19</id>
+		<slot>17</slot>
+		<name>Fallen Crusader</name>
+		<Strength>0</Strength>
+		<Agility>0</Agility>
+		<HasteRating>0</HasteRating>
+		<ExpertiseRating>0</ExpertiseRating>
+		<HitRating>0</HitRating>
+		<AttackPower>0</AttackPower>
+		<CritRating>0</CritRating>
+		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<reqskill>0</reqskill>
+		<Desc></Desc>
+	</item>
+	<item>
 		<id>20</id>
 		<slot>13</slot>
 		<name>Fallen Crusader</name>
@@ -358,10 +382,10 @@
 		<AttackPower>0</AttackPower>
 		<CritRating>0</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<reqskill>0</reqskill>
 		<Desc></Desc>
 	</item>
-	
-<item>
+	<item>
 		<id>21</id>
 		<slot>13</slot>
 		<name>Razorice</name>
@@ -373,9 +397,10 @@
 		<AttackPower>0</AttackPower>
 		<CritRating>0</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<reqskill>0</reqskill>
 		<Desc></Desc>
 	</item>
-<item>
+	<item>
 		<id>22</id>
 		<slot>13</slot>
 		<name>Cinderglacier</name>
@@ -387,6 +412,7 @@
 		<AttackPower>0</AttackPower>
 		<CritRating>0</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<reqskill>0</reqskill>
 		<Desc></Desc>
 	</item>
 </enchant>

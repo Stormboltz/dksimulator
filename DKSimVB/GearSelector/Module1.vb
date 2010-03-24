@@ -95,6 +95,33 @@ Public Module Module1
 	End Function
 	
 	
-	
+	Function GetSkillID(skill As String) As integer
+		Select Case skill
+			Case "Alchemy"
+				return 0
+			Case"Blacksmithing"
+				return 164
+			Case"Enchanting"
+				return 333
+			Case"Engineering"
+				return 202
+			Case"Inscription"
+				return 773
+			Case"Jewelcrafting"
+				return 755
+			Case"Leatherworking"
+				return 165
+			Case"Herb Gathering"
+				return 0
+			Case"Mining"
+				return 0
+			Case"Skinning"
+				return 0
+			case"Tailoring"
+				return 197
+			Case Else
+				return 0
+		End Select
+	End Function
 	
 End Module

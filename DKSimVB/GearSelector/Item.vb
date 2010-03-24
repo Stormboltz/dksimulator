@@ -172,7 +172,13 @@ Public Class Item
 	
 	Function AdditionalGem As Boolean
 		Select Case slot
-			Case 9,10,6
+			Case 9,10
+				If GetSkillID(Me.MainFrame.cmbSkill1.SelectedItem) =  164 Or GetSkillID(Me.MainFrame.cmbSkill2.SelectedItem) = 164 Then
+					Return True
+				Else
+					return false
+				End If
+			Case 6
 				return true
 			Case Else
 				return false

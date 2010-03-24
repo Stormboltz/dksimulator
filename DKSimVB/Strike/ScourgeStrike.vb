@@ -69,15 +69,8 @@ Friend Class ScourgeStrike
 	
 	Function AvrgNonCritPhysical(T As Long) As Double
 		tmpPhysical = sim.MainStat.NormalisedMHDamage
-		If sim.Patch Then
-			tmpPhysical = tmpPhysical * 0.70
-			tmpPhysical = tmpPhysical + 560
-		Else
-			tmpPhysical = tmpPhysical * 0.50
-			tmpPhysical = tmpPhysical + 400
-		End If
-		
-		
+		tmpPhysical = tmpPhysical * 0.70
+		tmpPhysical = tmpPhysical + 560
 		If sim.sigils.Awareness Then tmpPhysical = tmpPhysical + 189
 		If sim.sigils.ArthriticBinding Then tmpPhysical = tmpPhysical + 91.35
 		tmpPhysical = tmpPhysical * sim.MainStat.StandardPhysicalDamageMultiplier(T)

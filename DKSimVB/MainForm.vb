@@ -20,6 +20,7 @@ Public Partial Class MainForm
 	Friend trinketDB As New Xml.XmlDocument
 	Friend SetBonusDB As New Xml.XmlDocument
 	Friend WeapProcDB As New Xml.XmlDocument
+	Friend gearSelector As GearSelectorMainForm
 	
 	
 	Public Sub New()
@@ -380,14 +381,18 @@ Public Partial Class MainForm
 	End Sub
 	
 	Sub CmdEditGearSelectorClick(sender As Object, e As EventArgs)
-		Dim gearSelector As New GearSelectorMainForm(me)
+		If gearSelector Is Nothing Then
+			gearSelector = new GearSelectorMainForm(Me)
+		end if		
+		
 		Try
 			gearSelector.FilePath = cmbGearSelector.SelectedItem.ToString
 			gearSelector.ShowDialog
 			loadWindow
 			cmbGearSelector.SelectedItem = gearSelector.FilePath
-		Catch
+		Catch Err as Exception
 			gearSelector.Dispose
+			gearSelector = nothing
 		End Try
 		
 	End Sub

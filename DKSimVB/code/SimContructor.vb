@@ -180,8 +180,7 @@ Public Module SimConstructor
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
 		doc.Load("EPconfig.xml")
 		
-		Dim XmlDoc As New Xml.XmlDocument
-		XmlDoc.Load(Application.StartupPath & "\Characters\"  & _MainFrm.cmbCharacter.Text)
+	
 		
 		Dim BaseDPS As long
 		Dim APDPS As Long

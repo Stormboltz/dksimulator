@@ -1,7 +1,7 @@
 Imports Microsoft.VisualBasic
 Public Class Sim
 	
-	Friend Patch as Boolean
+	'Friend Patch as Boolean
 	Friend TotalDamageAlternative As Long
 	Friend NextFreeGCD As Long
 	Friend latency As Long
@@ -387,7 +387,7 @@ Public Class Sim
 		dim obj as supertype
 		If ICCDamageBuff > 0 Then
 			For Each obj In DamagingObject
-				If obj.isPet = False Then
+				If obj.isGuardian = False Then
 					obj.total *= (1+ ICCDamageBuff/100)
 					obj.TotalCrit*= (1+ ICCDamageBuff/100)
 					obj.TotalHit*= (1+ ICCDamageBuff/100)
@@ -610,27 +610,14 @@ Public Class Sim
 		HowlingBlast = New HowlingBlast(Me)
 		
 		Ghoul = New Ghoul(Me)
-		If Patch Then 'ICC Buff
-			Ghoul.isPet = true
-		Else
-			Ghoul.isPet = true
-		End If
-		
 		AotD = New AotD(Me)
-		
-		
-		
 		GhoulStat = New GhoulStat(Me)
 		Hysteria = new Hysteria(Me)
 		DeathChill = new DeathChill(Me)
-		
 		UnbreakableArmor = new UnbreakableArmor(Me)
-		
 		Butchery = new Butchery(Me)
 		DRW = New DRW(Me)
-		DRW.isPet = true
 		RuneStrike = New RuneStrike(Me)
-		
 		'LoadConfig
 		Desolation = New Desolation(me)
 		RunicPower.Value = 10
@@ -681,7 +668,6 @@ Public Class Sim
 		HeartStrike = new HeartStrike(Me)
 		DeathandDecay = new DeathandDecay(Me)
 		Gargoyle = New Gargoyle(Me)
-		Gargoyle.isPet = true
 		
 		
 		Horn = new Horn(Me)
@@ -831,8 +817,6 @@ Public Class Sim
 		ReportName = doc.SelectSingleNode("//config/txtReportName").InnerText
 		WaitForFallenCrusader = doc.SelectSingleNode("//config/WaitFC").InnerText
 		'Patch = doc.SelectSingleNode("//config/Patch").InnerText
-		Patch = true
-		
 		Dim tmp As String
 		tmp = doc.SelectSingleNode("//config/BShOption").InnerText
 		Select Case tmp

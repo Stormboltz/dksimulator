@@ -102,11 +102,7 @@ Friend Class OffHand
 		tmp = sim.MainStat.OHBaseDamage
 		tmp = tmp * sim.MainStat.WhiteHitDamageMultiplier(T)
 		tmp = tmp * 0.5
-		If sim.patch Then
-				tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 8.3333 / 100)
-			Else
-				tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 5 / 100)
-			End If
+		tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 8.3333 / 100)
 		If sim.EPStat = "EP HasteEstimated" Then
 			tmp = tmp*sim.MainStat.EstimatedHasteBonus
 		End If

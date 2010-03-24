@@ -11,7 +11,7 @@ Public Partial Class GearSelectorMainForm
 	
 	friend EquipmentList as new Collection
 	Friend InLoad As Boolean
-	Friend EnchantSelector As New EnchantSelector
+	Friend EnchantSelector As New EnchantSelector(me)
 	Friend GemSelector As New GemSelector(me)
 	Friend GearSelector As new GearSelector(me)
 	Friend ItemDB As  Xml.XmlDocument
@@ -21,6 +21,30 @@ Public Partial Class GearSelectorMainForm
 	Friend trinketDB As  Xml.XmlDocument
 	Friend SetBonusDB As  Xml.XmlDocument
 	Friend WeapProcDB As  Xml.XmlDocument
+	
+	
+	dim space as Integer = 10
+	Dim HeadSlot As New EquipSlot
+	Dim NeckSlot As New EquipSlot
+	Dim ShoulderSlot As New EquipSlot
+	Dim BackSlot As New EquipSlot
+	Dim ChestSlot As New EquipSlot
+	Dim WristSlot As New EquipSlot
+	Dim TwoHWeapSlot As New EquipSlot
+	Dim MHWeapSlot As New EquipSlot
+	Dim OHWeapSlot As New EquipSlot
+	Dim SigilSlot As New EquipSlot
+	Dim HandSlot As New EquipSlot
+	Dim BeltSlot As New EquipSlot
+	Dim LegSlot As New EquipSlot
+	Dim FeetSlot As New EquipSlot
+	Dim ring1Slot As New EquipSlot
+	Dim ring2Slot As New EquipSlot
+	Dim Trinket1Slot As New EquipSlot
+	Dim Trinket2Slot As New EquipSlot
+	
+	
+	
 	Friend FilePath As String
 	dim LastDPSResult as Integer
 	
@@ -37,6 +61,7 @@ Public Partial Class GearSelectorMainForm
 		'
 		ParentFrame = PFrame
 		EPvalues = PFrame.EPVal
+		InitDisplay
 	End Sub
 	
 	Sub CmdExtratorClick(sender As Object, e As EventArgs)
@@ -45,20 +70,7 @@ Public Partial Class GearSelectorMainForm
 		MyExtractor.Start
 	End Sub
 	
-	Sub cmdSaveAsNewClick(sender As Object, e As EventArgs)
-		Dim truc As New Form1
-		Dim res As DialogResult
-		res = truc.ShowDialog
-		If truc.textBox1.Text  <> "" And res = DialogResult.OK Then
-			FilePath = truc.textBox1.Text & ".xml"
-			SaveMycharacter
-		Else
-			exit sub
-		End If
-		truc.Dispose
-		me.Close
-		'LoadMycharacter
-	End Sub
+
 	
 	Sub GetStats()
 		if InLoad then exit sub
@@ -439,6 +451,20 @@ Public Partial Class GearSelectorMainForm
 		Catch
 		End Try
 		
+		newElem = xmlChar.CreateNode(xml.XmlNodeType.Element, "skill1", "")
+		Try
+			newElem.InnerText = cmbskill1.SelectedItem
+			root.AppendChild(newElem)
+		Catch
+		End Try
+		
+		newElem = xmlChar.CreateNode(xml.XmlNodeType.Element, "skill2", "")
+		Try
+			newElem.InnerText = cmbskill2.SelectedItem
+			root.AppendChild(newElem)
+		Catch
+		End Try
+		
 		newElem = xmlChar.CreateNode(xml.XmlNodeType.Element, "DW", "")
 		Try
 			newElem.InnerText = rDW.Checked
@@ -452,10 +478,6 @@ Public Partial Class GearSelectorMainForm
 			root.AppendChild(newElem)
 		Catch
 		End Try
-		
-		
-		
-		
 		
 		For Each iSlot In me.EquipmentList
 			try
@@ -490,14 +512,9 @@ Public Partial Class GearSelectorMainForm
 					newElem.AppendChild(gemNode)
 				Catch
 				End Try
-				
-				
-				
-				
 				root.AppendChild(newElem)
 			Catch
 			End Try
-			
 		Next
 		
 		Dim xElem As XmlElement
@@ -689,13 +706,25 @@ Public Partial Class GearSelectorMainForm
 		InLoad = true
 		Dim xmlChar As New Xml.XmlDocument
 		xmlChar.Load(Application.StartupPath & "\CharactersWithGear\" & FilePath)
-		Dim root As xml.XmlElement = xmlChar.DocumentElement
+		'Dim root As xml.XmlElement = xmlChar.DocumentElement
 		Dim iSlot As EquipSlot
 		Try
 			cmbRace.SelectedItem = xmlChar.SelectSingleNode("/character/race").InnerText
 		Catch
 		End Try
 		
+		
+		
+		
+		Try
+			cmbskill1.SelectedItem = xmlChar.SelectSingleNode("/character/skill1").InnerText
+		Catch
+		End Try
+		
+		Try
+			cmbskill2.SelectedItem = xmlChar.SelectSingleNode("/character/skill2").InnerText
+		Catch
+		End Try
 		
 		
 		
@@ -746,21 +775,98 @@ Public Partial Class GearSelectorMainForm
 		GetStats
 	End Sub
 	
-	
-	
-	
-	
-	Sub MainFormLoad(sender As Object, e As EventArgs)
+	Sub Redraw()
+		With HeadSlot
+			.Location = New System.Drawing.Point(space*2,toolStrip1.Top + toolStrip1.Height+space)
+			
+		End With
+		With NeckSlot
+			.Location = New System.Drawing.Point(HeadSlot.Left,HeadSlot.Top+HeadSlot.Height+space)
+			
+		End With
+		With ShoulderSlot
+			.Location = New System.Drawing.Point(NeckSlot.Left,NeckSlot.Top+NeckSlot.Height+space)
+			
+		End With
 		
-		'				Dim xtr As New Extractor
-		'				xtr.init
-		'				xtr.GetSigils
-		'				exit sub
+		With BackSlot
+			.Location = New System.Drawing.Point(ShoulderSlot.Left,ShoulderSlot.Top+ShoulderSlot.Height+space)
+			
+		End With
 		
-		Dim Gear As New GearLoader
-		me.Size = new Size(980, 800)
-		Gear.Init
+		With ChestSlot
+			.Location = New System.Drawing.Point(BackSlot.Left,BackSlot.Top+BackSlot.Height+space)
+			
+		End With
 		
+		With WristSlot
+			.Location = New System.Drawing.Point(ChestSlot.Left,ChestSlot.Top+ChestSlot.Height+space)
+			
+		End With
+		
+		
+		With TwoHWeapSlot
+			.Location = New System.Drawing.Point(WristSlot.Left,WristSlot.Top+WristSlot.Height+space)
+		End With
+		
+		With MHWeapSlot
+			.Location = New System.Drawing.Point(WristSlot.Left,WristSlot.Top+WristSlot.Height+space)
+		End With
+		
+		With OHWeapSlot
+			.Location = New System.Drawing.Point(MHWeapSlot.Left,MHWeapSlot.Top+MHWeapSlot.Height+space)
+		End With
+		
+		With SigilSlot
+			.Location = New System.Drawing.Point(OHWeapSlot.left,OHWeapSlot.Top+OHWeapSlot.Height+space)
+			
+		End With
+		
+		With HandSlot
+			.Location = New System.Drawing.Point(HeadSlot.left+HeadSlot.Width+space,HeadSlot.Top)
+			
+		End With
+		
+		With BeltSlot
+			.Location = New System.Drawing.Point(HandSlot.left,HandSlot.Top+HandSlot.Height+space)
+		End With
+		
+		With LegSlot
+			.Location = New System.Drawing.Point(BeltSlot.left,BeltSlot.Top+BeltSlot.Height+space)
+		End With
+		With FeetSlot
+			.Location = New System.Drawing.Point(LegSlot.left,LegSlot.Top+LegSlot.Height+space)
+		End With
+		
+		With ring1Slot
+			.Location = New System.Drawing.Point(FeetSlot.left,FeetSlot.Top+FeetSlot.Height+space)
+		End With
+		
+		With ring2Slot
+			.Location = New System.Drawing.Point(ring1Slot.left,ring1Slot.Top+ring1Slot.Height+space)
+		End With
+		
+		With Trinket1Slot
+			.Location = New System.Drawing.Point(ring2Slot.left,ring2Slot.Top+ring2Slot.Height+space)
+		End With
+		With Trinket2Slot
+			.Location = New System.Drawing.Point(Trinket1Slot.left,Trinket1Slot.Top+Trinket1Slot.Height+space)
+		End With
+		
+		groupBox1.Left = Trinket1Slot.left + Trinket1Slot.Width + space
+		groupBox1.Top = HeadSlot.Top
+		Me.Size = New Size(groupBox1.Left + groupBox1.Width + space , SigilSlot.Top + SigilSlot.Height + space)
+		InLoad = false
+		
+		
+		
+		
+		
+		
+	End Sub
+	
+	Sub InitDisplay()
+		InLoad = true
 		ItemDB = ParentFrame.ItemDB
 		GemDB = ParentFrame.GemDB
 		GemBonusDB = ParentFrame.GemBonusDB
@@ -785,145 +891,189 @@ Public Partial Class GearSelectorMainForm
 		cmbRace.Items.Add ("Worgen")
 		cmbRace.SelectedIndex = 0
 		
-		Dim HeadSlot As New EquipSlot
+		
+		cmbSkill1.Items.Add("Alchemy")
+		cmbSkill1.Items.Add("Blacksmithing")
+		cmbSkill1.Items.Add("Enchanting")
+		cmbSkill1.Items.Add("Engineering")
+		cmbSkill1.Items.Add("Inscription")
+		cmbSkill1.Items.Add("Jewelcrafting")
+		cmbSkill1.Items.Add("Leatherworking")
+		cmbSkill1.Items.Add("Herb Gathering")
+		cmbSkill1.Items.Add("Mining")
+		cmbSkill1.Items.Add("Skinning")
+		cmbSkill1.Items.Add("Tailoring")
+		cmbSkill1.SelectedIndex = 0
+		
+		cmbSkill2.Items.Add("Alchemy")
+		cmbSkill2.Items.Add("Blacksmithing")
+		cmbSkill2.Items.Add("Enchanting")
+		cmbSkill2.Items.Add("Engineering")
+		cmbSkill2.Items.Add("Inscription")
+		cmbSkill2.Items.Add("Jewelcrafting")
+		cmbSkill2.Items.Add("Leatherworking")
+		cmbSkill2.Items.Add("Herb Gathering")
+		cmbSkill2.Items.Add("Mining")
+		cmbSkill2.Items.Add("Skinning")
+		cmbSkill2.Items.Add("Tailoring")
+		cmbSkill2.SelectedIndex = 0
+		
+		
 		With HeadSlot
 			.Text = "Head"
 			.init(Me,1)
-			.Location = New System.Drawing.Point(20,0)
+			.Location = New System.Drawing.Point(space*2,toolStrip1.Top + toolStrip1.Height+space)
 			
 		End With
-		Dim NeckSlot As New EquipSlot
+		
 		With NeckSlot
 			.Text = "Neck"
 			.init(Me,2)
-			.Location = New System.Drawing.Point(20,80)
+			.Location = New System.Drawing.Point(HeadSlot.Left,HeadSlot.Top+HeadSlot.Height+space)
 			
 		End With
-		Dim ShoulderSlot As New EquipSlot
+		
 		With ShoulderSlot
 			.Text = "Shoulder"
 			.init(Me,3)
-			.Location = New System.Drawing.Point(20,160)
-			
+			.Location = New System.Drawing.Point(NeckSlot.Left,NeckSlot.Top+NeckSlot.Height+space)
 		End With
 		
-		Dim BackSlot As New EquipSlot
+		
 		With BackSlot
 			.Text = "Back"
 			.init(Me,16)
-			.Location = New System.Drawing.Point(20,240)
+			.Location = New System.Drawing.Point(ShoulderSlot.Left,ShoulderSlot.Top+ShoulderSlot.Height+space)
 			
 		End With
 		
-		Dim ChestSlot As New EquipSlot
+		
 		With ChestSlot
 			.Text = "Chest"
 			.init(Me,5)
-			.Location = New System.Drawing.Point(20,320)
-			
+			.Location = New System.Drawing.Point(BackSlot.Left,BackSlot.Top+BackSlot.Height+space)
 		End With
 		
-		Dim WristSlot As New EquipSlot
+		
 		With WristSlot
 			.Text = "Wrist"
 			.init(Me,9)
-			.Location = New System.Drawing.Point(20,400)
+			.Location = New System.Drawing.Point(ChestSlot.Left,ChestSlot.Top+ChestSlot.Height+space)
 			
 		End With
 		
+
 		
-		Dim TwoHWeapSlot As New EquipSlot
 		With TwoHWeapSlot
 			.Text = "TwoHand"
 			.init(Me,17)
-			.Location = New System.Drawing.Point(20,480)
+			.Location = New System.Drawing.Point(WristSlot.Left,WristSlot.Top+WristSlot.Height+space)
 		End With
 		
-		Dim MHWeapSlot As New EquipSlot
+		
 		With MHWeapSlot
 			.Text = "MainHand"
 			.init(Me,13)
-			.Location = New System.Drawing.Point(20,480)
+			.Location = New System.Drawing.Point(WristSlot.Left,WristSlot.Top+WristSlot.Height+space)
 			.Visible = false
 		End With
 		
-		Dim OHWeapSlot As New EquipSlot
+		
 		With OHWeapSlot
 			.Text = "OffHand"
 			.init(Me,13)
-			.Location = New System.Drawing.Point(20,560)
+			.Location = New System.Drawing.Point(MHWeapSlot.Left,MHWeapSlot.Top+MHWeapSlot.Height+space)
 			.Visible = false
 		End With
 		
-		Dim SigilSlot As New EquipSlot
+		
 		With SigilSlot
 			.Text = "Sigil"
 			.init(Me,28)
-			.Location = New System.Drawing.Point(20,640)
+			.Location = New System.Drawing.Point(OHWeapSlot.left,OHWeapSlot.Top+OHWeapSlot.Height+space)
 			
 		End With
 		
-		Dim HandSlot As New EquipSlot
+		
 		With HandSlot
 			.Text = "Hand"
 			.init(Me,10)
-			.Location = New System.Drawing.Point(330,000)
+			.Location = New System.Drawing.Point(HeadSlot.left+HeadSlot.Width+space,HeadSlot.Top)
 			
 		End With
 		
-		Dim BeltSlot As New EquipSlot
+		
 		With BeltSlot
 			.Text = "Waist"
 			.init(Me,6)
-			.Location = New System.Drawing.Point(330,80)
-			
+			.Location = New System.Drawing.Point(HandSlot.left,HandSlot.Top+HandSlot.Height+space)
 		End With
 		
-		Dim LegSlot As New EquipSlot
+		
 		With LegSlot
 			.Text = "Legs"
 			.init(Me,7)
-			.Location = New System.Drawing.Point(330,160)
+			.Location = New System.Drawing.Point(BeltSlot.left,BeltSlot.Top+BeltSlot.Height+space)
 			
 		End With
-		Dim FeetSlot As New EquipSlot
+		
 		With FeetSlot
 			.Text = "Feets"
 			.init(Me,8)
-			.Location = New System.Drawing.Point(330,240)
+			.Location = New System.Drawing.Point(LegSlot.left,LegSlot.Top+LegSlot.Height+space)
 			
 		End With
 		
-		Dim ring1Slot As New EquipSlot
+		
 		With ring1Slot
 			.Text = "Finger1"
 			.init(Me,11)
-			.Location = New System.Drawing.Point(330,320)
+			.Location = New System.Drawing.Point(FeetSlot.left,FeetSlot.Top+FeetSlot.Height+space)
 			
 		End With
 		
-		Dim ring2Slot As New EquipSlot
+	
 		With ring2Slot
 			.Text = "Finger2"
 			.init(Me,11)
-			.Location = New System.Drawing.Point(330,400)
+			.Location = New System.Drawing.Point(ring1Slot.left,ring1Slot.Top+ring1Slot.Height+space)
 			
 		End With
 		
-		Dim Trinket1Slot As New EquipSlot
+		
 		With Trinket1Slot
 			.Text = "Trinket1"
 			.init(Me,12)
-			.Location = New System.Drawing.Point(330,480)
+			.Location = New System.Drawing.Point(ring2Slot.left,ring2Slot.Top+ring2Slot.Height+space)
 			
 		End With
-		Dim Trinket2Slot As New EquipSlot
+		
 		With Trinket2Slot
 			.Text = "Trinket2"
 			.init(Me,12)
-			.Location = New System.Drawing.Point(330,560)
-			
+			.Location = New System.Drawing.Point(Trinket1Slot.left,Trinket1Slot.Top+Trinket1Slot.Height+space)
 		End With
+		
+		groupBox1.Left = Trinket1Slot.left + Trinket1Slot.Width + space
+		groupBox1.Top = HeadSlot.Top
+		Me.Size = New Size(groupBox1.Left + groupBox1.Width + space , SigilSlot.Top + SigilSlot.Height + space)
+		InLoad = false
+	End Sub
+	
+	Sub MainFormLoad(sender As Object, e As EventArgs)
+		
+'		Dim xtr As New Extractor
+'		xtr.init
+'		xtr.GemExtrator
+'		exit sub
+
+		
+		'Me.Size = New Size(980, 800)
+		
+		
+		
+		
+		
 		LoadMycharacter
 	End Sub
 	
@@ -962,23 +1112,7 @@ Public Partial Class GearSelectorMainForm
 		End If
 	End Sub
 	
-	Sub CmdQuickEPClick(sender As Object, e As EventArgs)
-		Dim tmp As String
-		tmp = Me.FilePath
-		Me.FilePath = "tmp.xml"
-		SaveMycharacter
-		Me.ParentFrame.cmbGearSelector.Items.Add ("tmp.xml")
-		Me.ParentFrame.cmbGearSelector.SelectedItem =  "tmp.xml"
-		If Me.ParentFrame.LoadBeforeSim = True Then
-			SimConstructor.GetFastEPValue(Me.ParentFrame)
-		End If
-		Me.ParentFrame.cmbGearSelector.SelectedItem = tmp
-		Me.FilePath = tmp
-		Me.ParentFrame.cmbGearSelector.Items.Remove("tmp.xml")
-		My.Computer.FileSystem.DeleteFile(Application.StartupPath & "\CharactersWithGear\" & "tmp.xml")
-		Dim dis As New EPDisplay(me)
-		dis.ShowDialog
-	End Sub
+	
 	
 	Sub CmdGetDpsClick(sender As Object, e As EventArgs)
 		Dim tmp As String
@@ -1001,5 +1135,43 @@ Public Partial Class GearSelectorMainForm
 		Me.FilePath = tmp
 		Me.ParentFrame.cmbGearSelector.Items.Remove("tmp.xml")
 		My.Computer.FileSystem.DeleteFile(Application.StartupPath & "\CharactersWithGear\" & "tmp.xml")
+	End Sub
+	
+	Sub TsGetQuickEPClick(sender As Object, e As EventArgs)
+		Dim tmp As String
+		tmp = Me.FilePath
+		Me.FilePath = "tmp.xml"
+		SaveMycharacter
+		Me.ParentFrame.cmbGearSelector.Items.Add ("tmp.xml")
+		Me.ParentFrame.cmbGearSelector.SelectedItem =  "tmp.xml"
+		If Me.ParentFrame.LoadBeforeSim = True Then
+			SimConstructor.GetFastEPValue(Me.ParentFrame)
+		End If
+		Me.ParentFrame.cmbGearSelector.SelectedItem = tmp
+		Me.FilePath = tmp
+		Me.ParentFrame.cmbGearSelector.Items.Remove("tmp.xml")
+		My.Computer.FileSystem.DeleteFile(Application.StartupPath & "\CharactersWithGear\" & "tmp.xml")
+		Dim dis As New EPDisplay(me)
+		dis.ShowDialog
+	End Sub
+	
+
+	
+	Sub CmdSaveAsNewClick(sender As Object, e As EventArgs)
+		Dim truc As New Form1
+		Dim res As DialogResult
+		res = truc.ShowDialog
+		If truc.textBox1.Text  <> "" And res = DialogResult.OK Then
+			FilePath = truc.textBox1.Text & ".xml"
+			SaveMycharacter
+		Else
+			exit sub
+		End If
+		truc.Dispose
+		me.Close
+	End Sub
+	
+	Sub CmbRaceClick(sender As Object, e As EventArgs)
+		
 	End Sub
 End Class

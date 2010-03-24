@@ -62,7 +62,6 @@ Friend Class Obliterate
 		total = total + dégat
 		If OffHand Then
 			sim.TryOnOHHitProc
-			If sim.Patch = False Then sim.proc.Rime.TryMe(T)
 		Else
 			sim.TryOnMHHitProc
 			sim.TryOnFU
@@ -89,19 +88,11 @@ Friend Class Obliterate
 		End If
 		
 		If sim.sigils.Awareness Then tmp = tmp + 336
-		If sim.Patch Then
-			if sim.MainStat.T84PDPS = 1 then
-				tmp = tmp * (1 + 0.125 * Sim.NumDesease * 1.2)
-			else
-				tmp = tmp * (1 + 0.125 * Sim.NumDesease)
-			end if
-		Else
-			if sim.MainStat.T84PDPS = 1 then
-				tmp = tmp * (1 + 0.1 * Sim.NumDesease * 1.2)
-			else
-				tmp = tmp * (1 + 0.1 * Sim.NumDesease)
-			end if
-		End If
+		if sim.MainStat.T84PDPS = 1 then
+			tmp = tmp * (1 + 0.125 * Sim.NumDesease * 1.2)
+		else
+			tmp = tmp * (1 + 0.125 * Sim.NumDesease)
+		end if
 		
 		
 		
@@ -110,11 +101,7 @@ Friend Class Obliterate
 		If sim.glyph.Obliterate Then tmp = tmp *1.2
 		If OffHand Then
 			tmp = tmp * 0.5
-			If sim.patch Then
 				tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 8.3333 / 100)
-			Else
-				tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 5 / 100)
-			End If
 		End If
 		If sim.MainStat.T102PDPS<>0 Then
 			tmp = tmp * 1.1

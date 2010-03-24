@@ -1,1381 +1,1498 @@
 <?xml version="1.0"?>
 <gems>
-	<item id="49110">
-		<id>49110</id>
-		<name>Nightmare Tear</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>8</subclass>
-		<Strength>10</Strength>
-		<Agility>10</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>AllStatStrengthAgility</keywords>
-	</item>
+  <item id="49110">
+    <id>49110</id>
+    <name>Nightmare Tear</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>8</subclass>
+    <Strength>10</Strength>
+    <Agility>10</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>AllStatStrengthAgility</keywords>
+  </item>
 	
-	
-	<item id="36766">
-		<id>36766</id>
-		<name>Bright Dragon's Eye</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>0</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>68</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>AttackPower</keywords>
-	</item>
-	<item id="40111">
-		<id>40111</id>
-		<name>Bold Cardinal Ruby</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>0</subclass>
-		<Strength>20</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>Strength</keywords>
-	</item>
-	<item id="40112">
-		<id>40112</id>
-		<name>Delicate Cardinal Ruby</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>0</subclass>
-		<Strength>0</Strength>
-		<Agility>20</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>Agility</keywords>
-	</item>
-	<item id="40114">
-		<id>40114</id>
-		<name>Bright Cardinal Ruby</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>0</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>40</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>AttackPower</keywords>
-	</item>
-	<item id="40117">
-		<id>40117</id>
-		<name>Fractured Cardinal Ruby</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>0</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>20</ArmorPenetrationRating>
-		<keywords>ArmorPenetrationRating</keywords>
-	</item>
-	<item id="40118">
-		<id>40118</id>
-		<name>Precise Cardinal Ruby</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>0</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>20</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>ExpertiseRating</keywords>
-	</item>
-	<item id="40124">
-		<id>40124</id>
-		<name>Smooth King's Amber</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>2</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>20</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>CritRating</keywords>
-	</item>
-	<item id="40125">
-		<id>40125</id>
-		<name>Rigid King's Amber</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>2</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>20</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HitRating</keywords>
-	</item>
-	<item id="40128">
-		<id>40128</id>
-		<name>Quick King's Amber</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>2</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>20</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HasteRating</keywords>
-	</item>
-	<item id="40129">
-		<id>40129</id>
-		<name>Sovereign Dreadstone</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>3</subclass>
-		<Strength>10</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>Strength</keywords>
-	</item>
-	<item id="40130">
-		<id>40130</id>
-		<name>Shifting Dreadstone</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>3</subclass>
-		<Strength>0</Strength>
-		<Agility>10</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>Agility</keywords>
-	</item>
-	<item id="40136">
-		<id>40136</id>
-		<name>Balanced Dreadstone</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>3</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>20</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>AttackPower</keywords>
-	</item>
-	<item id="40140">
-		<id>40140</id>
-		<name>Puissant Dreadstone</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>3</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>10</ArmorPenetrationRating>
-		<keywords>ArmorPenetrationRating</keywords>
-	</item>
-	<item id="40141">
-		<id>40141</id>
-		<name>Guardian's Dreadstone</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>3</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>10</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>ExpertiseRating</keywords>
-	</item>
-	<item id="40142">
-		<id>40142</id>
-		<name>Inscribed Ametrine</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>10</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>10</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>CritRatingStrength</keywords>
-	</item>
-	<item id="40143">
-		<id>40143</id>
-		<name>Etched Ametrine</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>10</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>10</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HitRatingStrength</keywords>
-	</item>
-	<item id="40144">
-		<id>40144</id>
-		<name>Champion's Ametrine</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>10</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>Strength</keywords>
-	</item>
-	<item id="40146">
-		<id>40146</id>
-		<name>Fierce Ametrine</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>10</Strength>
-		<Agility>0</Agility>
-		<HasteRating>10</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HasteRatingStrength</keywords>
-	</item>
-	<item id="40147">
-		<id>40147</id>
-		<name>Deadly Ametrine</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>0</Strength>
-		<Agility>10</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>10</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>CritRatingAgility</keywords>
-	</item>
-	<item id="40148">
-		<id>40148</id>
-		<name>Glinting Ametrine</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>0</Strength>
-		<Agility>10</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>10</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HitRatingAgility</keywords>
-	</item>
-	<item id="40150">
-		<id>40150</id>
-		<name>Deft Ametrine</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>0</Strength>
-		<Agility>10</Agility>
-		<HasteRating>10</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HasteRatingAgility</keywords>
-	</item>
-	<item id="40152">
-		<id>40152</id>
-		<name>Potent Ametrine</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>10</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>CritRating</keywords>
-	</item>
-	<item id="40153">
-		<id>40153</id>
-		<name>Veiled Ametrine</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>10</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HitRating</keywords>
-	</item>
-	<item id="40155">
-		<id>40155</id>
-		<name>Reckless Ametrine</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>10</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HasteRating</keywords>
-	</item>
-	<item id="40156">
-		<id>40156</id>
-		<name>Wicked Ametrine</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>20</AttackPower>
-		<CritRating>10</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>CritRatingAttackPower</keywords>
-	</item>
-	<item id="40157">
-		<id>40157</id>
-		<name>Pristine Ametrine</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>10</HitRating>
-		<AttackPower>20</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>AttackPowerHitRating</keywords>
-	</item>
-	<item id="40159">
-		<id>40159</id>
-		<name>Stark Ametrine</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>10</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>20</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>AttackPowerHasteRating</keywords>
-	</item>
-	<item id="40162">
-		<id>40162</id>
-		<name>Accurate Ametrine</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>10</ExpertiseRating>
-		<HitRating>10</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HitRatingExpertiseRating</keywords>
-	</item>
-	<item id="40163">
-		<id>40163</id>
-		<name>Resolute Ametrine</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>10</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>ExpertiseRating</keywords>
-	</item>
-	<item id="40165">
-		<id>40165</id>
-		<name>Jagged Eye of Zul</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>4</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>10</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>CritRating</keywords>
-	</item>
-	<item id="40166">
-		<id>40166</id>
-		<name>Vivid Eye of Zul</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>4</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>10</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HitRating</keywords>
-	</item>
-	<item id="40169">
-		<id>40169</id>
-		<name>Forceful Eye of Zul</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>4</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>10</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HasteRating</keywords>
-	</item>
-	<item id="40180">
-		<id>40180</id>
-		<name>Radiant Eye of Zul</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>4</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>10</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>CritRating</keywords>
-	</item>
-	<item id="40181">
-		<id>40181</id>
-		<name>Tense Eye of Zul</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>4</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>10</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HitRating</keywords>
-	</item>
-	<item id="40182">
-		<id>40182</id>
-		<name>Shattered Eye of Zul</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>4</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>10</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HasteRating</keywords>
-	</item>
-	<item id="42142">
-		<id>42142</id>
-		<name>Bold Dragon's Eye</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>0</subclass>
-		<Strength>34</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>Strength</keywords>
-	</item>
-	<item id="42143">
-		<id>42143</id>
-		<name>Delicate Dragon's Eye</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>0</subclass>
-		<Strength>0</Strength>
-		<Agility>34</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>Agility</keywords>
-	</item>
-	<item id="42149">
-		<id>42149</id>
-		<name>Smooth Dragon's Eye</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>2</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>34</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>CritRating</keywords>
-	</item>
-	<item id="42150">
-		<id>42150</id>
-		<name>Quick Dragon's Eye</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>2</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>34</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HasteRating</keywords>
-	</item>
-	<item id="42153">
-		<id>42153</id>
-		<name>Fractured Dragon's Eye</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>0</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>34</ArmorPenetrationRating>
-		<keywords>ArmorPenetrationRating</keywords>
-	</item>
-	<item id="42154">
-		<id>42154</id>
-		<name>Precise Dragon's Eye</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>0</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>34</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>ExpertiseRating</keywords>
-	</item>
-	<item id="42156">
-		<id>42156</id>
-		<name>Rigid Dragon's Eye</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>2</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>34</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HitRating</keywords>
-	</item>
-	<item id="39996">
-		<id>39996</id>
-		<name>Bold Scarlet Ruby</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>0</subclass>
-		<Strength>16</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>Strength</keywords>
-	</item>
-	<item id="39997">
-		<id>39997</id>
-		<name>Delicate Scarlet Ruby</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>0</subclass>
-		<Strength>0</Strength>
-		<Agility>16</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>Agility</keywords>
-	</item>
-	<item id="39999">
-		<id>39999</id>
-		<name>Bright Scarlet Ruby</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>0</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>32</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>AttackPower</keywords>
-	</item>
-	<item id="40002">
-		<id>40002</id>
-		<name>Fractured Scarlet Ruby</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>0</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>16</ArmorPenetrationRating>
-		<keywords>ArmorPenetrationRating</keywords>
-	</item>
-	<item id="40003">
-		<id>40003</id>
-		<name>Precise Scarlet Ruby</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>0</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>16</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>ExpertiseRating</keywords>
-	</item>
-	<item id="40013">
-		<id>40013</id>
-		<name>Smooth Autumn's Glow</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>2</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>16</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>CritRating</keywords>
-	</item>
-	<item id="40014">
-		<id>40014</id>
-		<name>Rigid Autumn's Glow</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>2</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>16</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HitRating</keywords>
-	</item>
-	<item id="40017">
-		<id>40017</id>
-		<name>Quick Autumn's Glow</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>2</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>16</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HasteRating</keywords>
-	</item>
-	<item id="40022">
-		<id>40022</id>
-		<name>Sovereign Twilight Opal</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>3</subclass>
-		<Strength>8</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>Strength</keywords>
-	</item>
-	<item id="40023">
-		<id>40023</id>
-		<name>Shifting Twilight Opal</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>3</subclass>
-		<Strength>0</Strength>
-		<Agility>8</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>Agility</keywords>
-	</item>
-	<item id="40029">
-		<id>40029</id>
-		<name>Balanced Twilight Opal</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>3</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>16</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>AttackPower</keywords>
-	</item>
-	<item id="40033">
-		<id>40033</id>
-		<name>Puissant Twilight Opal</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>3</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>8</ArmorPenetrationRating>
-		<keywords>ArmorPenetrationRating</keywords>
-	</item>
-	<item id="40034">
-		<id>40034</id>
-		<name>Guardian's Twilight Opal</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>3</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>8</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>ExpertiseRating</keywords>
-	</item>
-	<item id="40037">
-		<id>40037</id>
-		<name>Inscribed Monarch Topaz</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>8</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>8</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>CritRatingStrength</keywords>
-	</item>
-	<item id="40038">
-		<id>40038</id>
-		<name>Etched Monarch Topaz</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>8</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>8</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HitRatingStrength</keywords>
-	</item>
-	<item id="40039">
-		<id>40039</id>
-		<name>Champion's Monarch Topaz</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>8</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>Strength</keywords>
-	</item>
-	<item id="40041">
-		<id>40041</id>
-		<name>Fierce Monarch Topaz</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>8</Strength>
-		<Agility>0</Agility>
-		<HasteRating>8</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HasteRatingStrength</keywords>
-	</item>
-	<item id="40043">
-		<id>40043</id>
-		<name>Deadly Monarch Topaz</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>0</Strength>
-		<Agility>8</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>8</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>CritRatingAgility</keywords>
-	</item>
-	<item id="40044">
-		<id>40044</id>
-		<name>Glinting Monarch Topaz</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>0</Strength>
-		<Agility>8</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>8</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HitRatingAgility</keywords>
-	</item>
-	<item id="40046">
-		<id>40046</id>
-		<name>Deft Monarch Topaz</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>0</Strength>
-		<Agility>8</Agility>
-		<HasteRating>8</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HasteRatingAgility</keywords>
-	</item>
-	<item id="40048">
-		<id>40048</id>
-		<name>Potent Monarch Topaz</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>8</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>CritRating</keywords>
-	</item>
-	<item id="40049">
-		<id>40049</id>
-		<name>Veiled Monarch Topaz</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>8</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HitRating</keywords>
-	</item>
-	<item id="40051">
-		<id>40051</id>
-		<name>Reckless Monarch Topaz</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>8</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HasteRating</keywords>
-	</item>
-	<item id="40052">
-		<id>40052</id>
-		<name>Wicked Monarch Topaz</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>16</AttackPower>
-		<CritRating>8</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>CritRatingAttackPower</keywords>
-	</item>
-	<item id="40053">
-		<id>40053</id>
-		<name>Pristine Monarch Topaz</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>8</HitRating>
-		<AttackPower>16</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>AttackPowerHitRating</keywords>
-	</item>
-	<item id="40055">
-		<id>40055</id>
-		<name>Stark Monarch Topaz</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>8</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>16</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>AttackPowerHasteRating</keywords>
-	</item>
-	<item id="40058">
-		<id>40058</id>
-		<name>Accurate Monarch Topaz</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>8</ExpertiseRating>
-		<HitRating>8</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HitRatingExpertiseRating</keywords>
-	</item>
-	<item id="40059">
-		<id>40059</id>
-		<name>Resolute Monarch Topaz</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>5</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>8</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>ExpertiseRating</keywords>
-	</item>
-	<item id="40086">
-		<id>40086</id>
-		<name>Jagged Forest Emerald</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>4</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>8</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>CritRating</keywords>
-	</item>
-	<item id="40088">
-		<id>40088</id>
-		<name>Vivid Forest Emerald</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>4</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>8</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HitRating</keywords>
-	</item>
-	<item id="40091">
-		<id>40091</id>
-		<name>Forceful Forest Emerald</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>4</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>8</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HasteRating</keywords>
-	</item>
-	<item id="40098">
-		<id>40098</id>
-		<name>Radiant Forest Emerald</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>4</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>8</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>CritRating</keywords>
-	</item>
-	<item id="40101">
-		<id>40101</id>
-		<name>Tense Forest Emerald</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>4</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>8</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HitRating</keywords>
-	</item>
-	<item id="40106">
-		<id>40106</id>
-		<name>Shattered Forest Emerald</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>4</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>8</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>HasteRating</keywords>
-	</item>
-	<item id="41285">
-		<id>41285</id>
-		<name>Chaotic Skyflare Diamond</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>6</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>21</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>CritRating</keywords>
-	</item>
-	<item id="41307">
-		<id>41307</id>
-		<name>Destructive Skyflare Diamond</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>6</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>25</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>CritRating</keywords>
-	</item>
-	<item id="41335">
-		<id>41335</id>
-		<name>Enigmatic Skyflare Diamond</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>6</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>21</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>CritRating</keywords>
-	</item>
-	<item id="41339">
-		<id>41339</id>
-		<name>Swift Skyflare Diamond</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>6</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>42</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>AttackPower</keywords>
-	</item>
-	<item id="41379">
-		<id>41379</id>
-		<name>Impassive Skyflare Diamond</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>6</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>21</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>CritRating</keywords>
-	</item>
-	<item id="41381">
-		<id>41381</id>
-		<name>Persistent Earthsiege Diamond</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>6</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>42</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>AttackPower</keywords>
-	</item>
-	<item id="41385">
-		<id>41385</id>
-		<name>Invigorating Earthsiege Diamond</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>6</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>42</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>AttackPower</keywords>
-	</item>
-	<item id="41389">
-		<id>41389</id>
-		<name>Beaming Earthsiege Diamond</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>6</subclass>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>21</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>CritRating</keywords>
-	</item>
-	<item id="41398">
-		<id>41398</id>
-		<name>Relentless Earthsiege Diamond</name>
-		<ilvl>80</ilvl>
-		<class>3</class>
-		<subclass>6</subclass>
-		<Strength>0</Strength>
-		<Agility>21</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<keywords>Agility</keywords>
-	</item>
+  <item id="36766">
+    <id>36766</id>
+    <name>Bright Dragon's Eye</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>0</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>68</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>755</reqskill>
+    <keywords>AttackPower</keywords>
+  </item>
+  <item id="40111">
+    <id>40111</id>
+    <name>Bold Cardinal Ruby</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>0</subclass>
+    <Strength>20</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>Strength</keywords>
+  </item>
+  <item id="40112">
+    <id>40112</id>
+    <name>Delicate Cardinal Ruby</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>0</subclass>
+    <Strength>0</Strength>
+    <Agility>20</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>Agility</keywords>
+  </item>
+  <item id="40114">
+    <id>40114</id>
+    <name>Bright Cardinal Ruby</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>0</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>40</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>AttackPower</keywords>
+  </item>
+  <item id="40117">
+    <id>40117</id>
+    <name>Fractured Cardinal Ruby</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>0</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>20</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>ArmorPenetrationRatingArp</keywords>
+  </item>
+  <item id="40118">
+    <id>40118</id>
+    <name>Precise Cardinal Ruby</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>0</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>20</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>ExpertiseRating</keywords>
+  </item>
+  <item id="40124">
+    <id>40124</id>
+    <name>Smooth King's Amber</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>2</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>20</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>CritRating</keywords>
+  </item>
+  <item id="40125">
+    <id>40125</id>
+    <name>Rigid King's Amber</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>2</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>20</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>HitRating</keywords>
+  </item>
+  <item id="40128">
+    <id>40128</id>
+    <name>Quick King's Amber</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>2</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>20</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>HasteRating</keywords>
+  </item>
+  <item id="40129">
+    <id>40129</id>
+    <name>Sovereign Dreadstone</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>3</subclass>
+    <Strength>10</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>Strength</keywords>
+  </item>
+  <item id="40130">
+    <id>40130</id>
+    <name>Shifting Dreadstone</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>3</subclass>
+    <Strength>0</Strength>
+    <Agility>10</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>Agility</keywords>
+  </item>
+  <item id="40136">
+    <id>40136</id>
+    <name>Balanced Dreadstone</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>3</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>20</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>AttackPower</keywords>
+  </item>
+  <item id="40140">
+    <id>40140</id>
+    <name>Puissant Dreadstone</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>3</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>10</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>ArmorPenetrationRatingArp</keywords>
+  </item>
+  <item id="40141">
+    <id>40141</id>
+    <name>Guardian's Dreadstone</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>3</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>10</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>ExpertiseRating</keywords>
+  </item>
+  <item id="40142">
+    <id>40142</id>
+    <name>Inscribed Ametrine</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>10</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>10</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>CritRatingStrength</keywords>
+  </item>
+  <item id="40143">
+    <id>40143</id>
+    <name>Etched Ametrine</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>10</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>10</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>HitRatingStrength</keywords>
+  </item>
+  <item id="40144">
+    <id>40144</id>
+    <name>Champion's Ametrine</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>10</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>Strength</keywords>
+  </item>
+  <item id="40146">
+    <id>40146</id>
+    <name>Fierce Ametrine</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>10</Strength>
+    <Agility>0</Agility>
+    <HasteRating>10</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>HasteRatingStrength</keywords>
+  </item>
+  <item id="40147">
+    <id>40147</id>
+    <name>Deadly Ametrine</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>0</Strength>
+    <Agility>10</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>10</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>CritRatingAgility</keywords>
+  </item>
+  <item id="40148">
+    <id>40148</id>
+    <name>Glinting Ametrine</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>0</Strength>
+    <Agility>10</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>10</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>HitRatingAgility</keywords>
+  </item>
+  <item id="40150">
+    <id>40150</id>
+    <name>Deft Ametrine</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>0</Strength>
+    <Agility>10</Agility>
+    <HasteRating>10</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>HasteRatingAgility</keywords>
+  </item>
+  <item id="40152">
+    <id>40152</id>
+    <name>Potent Ametrine</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>10</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>CritRating</keywords>
+  </item>
+  <item id="40153">
+    <id>40153</id>
+    <name>Veiled Ametrine</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>10</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>HitRating</keywords>
+  </item>
+  <item id="40155">
+    <id>40155</id>
+    <name>Reckless Ametrine</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>10</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>HasteRating</keywords>
+  </item>
+  <item id="40156">
+    <id>40156</id>
+    <name>Wicked Ametrine</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>20</AttackPower>
+    <CritRating>10</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>CritRatingAttackPower</keywords>
+  </item>
+  <item id="40157">
+    <id>40157</id>
+    <name>Pristine Ametrine</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>10</HitRating>
+    <AttackPower>20</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>AttackPowerHitRating</keywords>
+  </item>
+  <item id="40159">
+    <id>40159</id>
+    <name>Stark Ametrine</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>10</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>20</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>AttackPowerHasteRating</keywords>
+  </item>
+  <item id="40162">
+    <id>40162</id>
+    <name>Accurate Ametrine</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>10</ExpertiseRating>
+    <HitRating>10</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>HitRatingExpertiseRating</keywords>
+  </item>
+  <item id="40163">
+    <id>40163</id>
+    <name>Resolute Ametrine</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>10</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>ExpertiseRating</keywords>
+  </item>
+  <item id="40165">
+    <id>40165</id>
+    <name>Jagged Eye of Zul</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>4</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>10</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>CritRating</keywords>
+  </item>
+  <item id="40166">
+    <id>40166</id>
+    <name>Vivid Eye of Zul</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>4</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>10</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>HitRating</keywords>
+  </item>
+  <item id="40169">
+    <id>40169</id>
+    <name>Forceful Eye of Zul</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>4</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>10</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>HasteRating</keywords>
+  </item>
+  <item id="40180">
+    <id>40180</id>
+    <name>Radiant Eye of Zul</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>4</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>10</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>CritRating</keywords>
+  </item>
+  <item id="42142">
+    <id>42142</id>
+    <name>Bold Dragon's Eye</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>0</subclass>
+    <Strength>34</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>755</reqskill>
+    <keywords>Strength</keywords>
+  </item>
+  <item id="42143">
+    <id>42143</id>
+    <name>Delicate Dragon's Eye</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>0</subclass>
+    <Strength>0</Strength>
+    <Agility>34</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>755</reqskill>
+    <keywords>Agility</keywords>
+  </item>
+  <item id="42149">
+    <id>42149</id>
+    <name>Smooth Dragon's Eye</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>2</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>34</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>755</reqskill>
+    <keywords>CritRating</keywords>
+  </item>
+  <item id="42150">
+    <id>42150</id>
+    <name>Quick Dragon's Eye</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>2</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>34</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>755</reqskill>
+    <keywords>HasteRating</keywords>
+  </item>
+  <item id="42153">
+    <id>42153</id>
+    <name>Fractured Dragon's Eye</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>0</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>34</ArmorPenetrationRating>
+    <reqskill>755</reqskill>
+    <keywords>ArmorPenetrationRatingArp</keywords>
+  </item>
+  <item id="42154">
+    <id>42154</id>
+    <name>Precise Dragon's Eye</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>0</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>34</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>755</reqskill>
+    <keywords>ExpertiseRating</keywords>
+  </item>
+  <item id="42156">
+    <id>42156</id>
+    <name>Rigid Dragon's Eye</name>
+    <quality>4</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>2</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>34</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>755</reqskill>
+    <keywords>HitRating</keywords>
+  </item>
+  <item id="39996">
+    <id>39996</id>
+    <name>Bold Scarlet Ruby</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>0</subclass>
+    <Strength>16</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>Strength</keywords>
+  </item>
+  <item id="39997">
+    <id>39997</id>
+    <name>Delicate Scarlet Ruby</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>0</subclass>
+    <Strength>0</Strength>
+    <Agility>16</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>Agility</keywords>
+  </item>
+  <item id="39999">
+    <id>39999</id>
+    <name>Bright Scarlet Ruby</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>0</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>32</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>AttackPower</keywords>
+  </item>
+  <item id="40002">
+    <id>40002</id>
+    <name>Fractured Scarlet Ruby</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>0</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>16</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>ArmorPenetrationRatingArp</keywords>
+  </item>
+  <item id="40003">
+    <id>40003</id>
+    <name>Precise Scarlet Ruby</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>0</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>16</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>ExpertiseRating</keywords>
+  </item>
+  <item id="40013">
+    <id>40013</id>
+    <name>Smooth Autumn's Glow</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>2</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>16</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>CritRating</keywords>
+  </item>
+  <item id="40014">
+    <id>40014</id>
+    <name>Rigid Autumn's Glow</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>2</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>16</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>HitRating</keywords>
+  </item>
+  <item id="40017">
+    <id>40017</id>
+    <name>Quick Autumn's Glow</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>2</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>16</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>HasteRating</keywords>
+  </item>
+  <item id="40022">
+    <id>40022</id>
+    <name>Sovereign Twilight Opal</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>3</subclass>
+    <Strength>8</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>Strength</keywords>
+  </item>
+  <item id="40023">
+    <id>40023</id>
+    <name>Shifting Twilight Opal</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>3</subclass>
+    <Strength>0</Strength>
+    <Agility>8</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>Agility</keywords>
+  </item>
+  <item id="40029">
+    <id>40029</id>
+    <name>Balanced Twilight Opal</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>3</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>16</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>AttackPower</keywords>
+  </item>
+  <item id="40033">
+    <id>40033</id>
+    <name>Puissant Twilight Opal</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>3</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>8</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>ArmorPenetrationRatingArp</keywords>
+  </item>
+  <item id="40034">
+    <id>40034</id>
+    <name>Guardian's Twilight Opal</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>3</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>8</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>ExpertiseRating</keywords>
+  </item>
+  <item id="40037">
+    <id>40037</id>
+    <name>Inscribed Monarch Topaz</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>8</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>8</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>CritRatingStrength</keywords>
+  </item>
+  <item id="40038">
+    <id>40038</id>
+    <name>Etched Monarch Topaz</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>8</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>8</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>HitRatingStrength</keywords>
+  </item>
+  <item id="40039">
+    <id>40039</id>
+    <name>Champion's Monarch Topaz</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>8</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>Strength</keywords>
+  </item>
+  <item id="40041">
+    <id>40041</id>
+    <name>Fierce Monarch Topaz</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>8</Strength>
+    <Agility>0</Agility>
+    <HasteRating>8</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>HasteRatingStrength</keywords>
+  </item>
+  <item id="40043">
+    <id>40043</id>
+    <name>Deadly Monarch Topaz</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>0</Strength>
+    <Agility>8</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>8</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>CritRatingAgility</keywords>
+  </item>
+  <item id="40044">
+    <id>40044</id>
+    <name>Glinting Monarch Topaz</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>0</Strength>
+    <Agility>8</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>8</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>HitRatingAgility</keywords>
+  </item>
+  <item id="40046">
+    <id>40046</id>
+    <name>Deft Monarch Topaz</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>0</Strength>
+    <Agility>8</Agility>
+    <HasteRating>8</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>HasteRatingAgility</keywords>
+  </item>
+  <item id="40049">
+    <id>40049</id>
+    <name>Veiled Monarch Topaz</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>8</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>HitRating</keywords>
+  </item>
+  <item id="40051">
+    <id>40051</id>
+    <name>Reckless Monarch Topaz</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>8</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>HasteRating</keywords>
+  </item>
+  <item id="40052">
+    <id>40052</id>
+    <name>Wicked Monarch Topaz</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>16</AttackPower>
+    <CritRating>8</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>CritRatingAttackPower</keywords>
+  </item>
+  <item id="40053">
+    <id>40053</id>
+    <name>Pristine Monarch Topaz</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>8</HitRating>
+    <AttackPower>16</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>AttackPowerHitRating</keywords>
+  </item>
+  <item id="40055">
+    <id>40055</id>
+    <name>Stark Monarch Topaz</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>8</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>16</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>AttackPowerHasteRating</keywords>
+  </item>
+  <item id="40058">
+    <id>40058</id>
+    <name>Accurate Monarch Topaz</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>8</ExpertiseRating>
+    <HitRating>8</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>HitRatingExpertiseRating</keywords>
+  </item>
+  <item id="40059">
+    <id>40059</id>
+    <name>Resolute Monarch Topaz</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>5</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>8</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>ExpertiseRating</keywords>
+  </item>
+  <item id="40086">
+    <id>40086</id>
+    <name>Jagged Forest Emerald</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>4</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>8</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>CritRating</keywords>
+  </item>
+  <item id="40088">
+    <id>40088</id>
+    <name>Vivid Forest Emerald</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>4</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>8</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>HitRating</keywords>
+  </item>
+  <item id="40091">
+    <id>40091</id>
+    <name>Forceful Forest Emerald</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>4</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>8</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>HasteRating</keywords>
+  </item>
+  <item id="40098">
+    <id>40098</id>
+    <name>Radiant Forest Emerald</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>4</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>8</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>CritRating</keywords>
+  </item>
+  <item id="40101">
+    <id>40101</id>
+    <name>Tense Forest Emerald</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>4</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>8</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>HitRating</keywords>
+  </item>
+  <item id="40106">
+    <id>40106</id>
+    <name>Shattered Forest Emerald</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>4</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>8</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>HasteRating</keywords>
+  </item>
+  <item id="41285">
+    <id>41285</id>
+    <name>Chaotic Skyflare Diamond</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>6</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>21</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>CritRating</keywords>
+  </item>
+  <item id="41307">
+    <id>41307</id>
+    <name>Destructive Skyflare Diamond</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>6</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>25</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>CritRating</keywords>
+  </item>
+  <item id="41335">
+    <id>41335</id>
+    <name>Enigmatic Skyflare Diamond</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>6</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>21</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>CritRating</keywords>
+  </item>
+  <item id="41339">
+    <id>41339</id>
+    <name>Swift Skyflare Diamond</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>6</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>42</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>AttackPower</keywords>
+  </item>
+  <item id="41379">
+    <id>41379</id>
+    <name>Impassive Skyflare Diamond</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>6</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>21</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>CritRating</keywords>
+  </item>
+  <item id="41381">
+    <id>41381</id>
+    <name>Persistent Earthsiege Diamond</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>6</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>42</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>AttackPower</keywords>
+  </item>
+  <item id="41385">
+    <id>41385</id>
+    <name>Invigorating Earthsiege Diamond</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>6</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>42</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>AttackPower</keywords>
+  </item>
+  <item id="41389">
+    <id>41389</id>
+    <name>Beaming Earthsiege Diamond</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>6</subclass>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>21</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>CritRating</keywords>
+  </item>
+  <item id="41398">
+    <id>41398</id>
+    <name>Relentless Earthsiege Diamond</name>
+    <quality>3</quality>
+    <ilvl>80</ilvl>
+    <class>3</class>
+    <subclass>6</subclass>
+    <Strength>0</Strength>
+    <Agility>21</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <keywords>Agility</keywords>
+  </item>
 </gems>

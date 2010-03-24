@@ -18,7 +18,7 @@ Public Class Supertype
 	Friend TotalCrit As Long
 	Friend TotalGlance as Long
 	Friend _Name  as String
-	Friend isPet as Boolean = false
+	Friend isGuardian as Boolean = false
 	Friend HasteSensible as Boolean
 	Public ThreadMultiplicator As Double
 	Friend uptime As Long

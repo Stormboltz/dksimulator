@@ -78,11 +78,10 @@ Public Partial Class GemSelector
 		Me.Slot = slot
 		If Me.textBox1.Text.Trim <> "" Then
 			listView1.ListViewItemSorter = nothing
-			FilterList(Me.textBox1.Text)
+			FilterList(Me.textBox1.Text.Split(" "))
 			listView1.ListViewItemSorter = New ListViewItemComparer(sortColumn, listView1.Sorting)
 			exit sub
 		End If
-		
 		
 		Dim xList As Xml.XmlNodeList
 		Dim xNode As Xml.XmlNode
@@ -90,7 +89,7 @@ Public Partial Class GemSelector
 		If slot = 1 Then
 			xList = gemDB.SelectNodes("/gems/item[subclass='6']")
 		Else
-			xList = gemDB.SelectNodes("/gems/item[subclass!='6']")
+			xList = gemDB.SelectNodes("/gems/item[quality='4'][reqskill='0' or reqskill='" & GetSkillID(Me.MainFrame.cmbSkill1.SelectedItem) & "'    or reqskill='" & GetSkillID(Me.MainFrame.cmbSkill2.SelectedItem) & "']")
 		End If
 		
 		For Each xNode In xList
@@ -123,7 +122,7 @@ Public Partial Class GemSelector
 		If sender.Text.Trim <> "" Then
 			listView1.ListViewItemSorter = nothing
 			listView1.Items.Clear
-			FilterList(sender.Text)
+			FilterList(sender.Text.Split(" "))
 			listView1.ListViewItemSorter = New ListViewItemComparer(sortColumn, listView1.Sorting)
 		Else
 			listView1.ListViewItemSorter = nothing
@@ -133,19 +132,24 @@ Public Partial Class GemSelector
 		End If
 	End Sub
 	
-	Sub FilterList( filter As String)
+	Sub FilterList( filter As String())
 		Dim xList As Xml.XmlNodeList
 		Dim xNode As Xml.XmlNode
 		If slot = 1 Then
 			xList = gemDB.SelectNodes("/gems/item[subclass='6']")
 		Else
-			xList = gemDB.SelectNodes("/gems/item[subclass!='6']")
+		xList = gemDB.SelectNodes("/gems/item[quality='4'][reqskill='0' or reqskill='" & GetSkillID(Me.MainFrame.cmbSkill1.SelectedItem) & "'    or reqskill='" & GetSkillID(Me.MainFrame.cmbSkill2.SelectedItem) & "']")
 		End If
-		
+		Dim s As String
+		dim ToAdd as Boolean
 		For Each xNode In xList
-			If xNode.InnerText.ToUpper.Contains(filter.ToUpper) Then
-				AddItem(xNode)
-			End If
+			ToAdd = true
+			For Each s In filter
+				If xNode.InnerText.ToUpper.Contains(S.ToUpper)=False Then
+					ToAdd = false
+				End If
+			Next
+			If ToAdd Then AddItem(xNode)
 		Next
 	End Sub
 	Sub AddItem(xNode As Xml.XmlNode)
@@ -189,6 +193,9 @@ Public Partial Class GemSelector
 		tmp += txDoc.SelectSingleNode("/item/CritRating").InnerText* MainFrame.EPvalues.Crit
 		tmp += txDoc.SelectSingleNode("/item/ArmorPenetrationRating").InnerText* MainFrame.EPvalues.ArP
 		tmp += txDoc.SelectSingleNode("/item/HasteRating").InnerText* MainFrame.EPvalues.Haste
+		
+		
+				
 		return tmp
 	End Function
 	Sub CmdClearClick(sender As Object, e As EventArgs)

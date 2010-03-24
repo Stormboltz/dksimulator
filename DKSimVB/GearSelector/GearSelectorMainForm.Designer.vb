@@ -33,9 +33,8 @@ Partial Class GearSelectorMainForm
 	''' not be able to load this method if it was changed manually.
 	''' </summary>
 	Private Sub InitializeComponent()
+		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(GearSelectorMainForm))
 		Me.cmdExtrator = New System.Windows.Forms.Button
-		Me.cmdSaveAsNew = New System.Windows.Forms.Button
-		Me.cmdSave = New System.Windows.Forms.Button
 		Me.gbStats = New System.Windows.Forms.GroupBox
 		Me.txtArP = New System.Windows.Forms.TextBox
 		Me.lblArP = New System.Windows.Forms.Label
@@ -57,8 +56,6 @@ Partial Class GearSelectorMainForm
 		Me.lblArM = New System.Windows.Forms.Label
 		Me.txtStr = New System.Windows.Forms.TextBox
 		Me.lblStr = New System.Windows.Forms.Label
-		Me.cmbRace = New System.Windows.Forms.ComboBox
-		Me.label1 = New System.Windows.Forms.Label
 		Me.gbWeapons = New System.Windows.Forms.GroupBox
 		Me.rDW = New System.Windows.Forms.RadioButton
 		Me.r2Hand = New System.Windows.Forms.RadioButton
@@ -94,9 +91,26 @@ Partial Class GearSelectorMainForm
 		Me.txtMHExpBonus = New System.Windows.Forms.TextBox
 		Me.label41 = New System.Windows.Forms.Label
 		Me.label42 = New System.Windows.Forms.Label
-		Me.cmdQuickEP = New System.Windows.Forms.Button
-		Me.cmdGetDps = New System.Windows.Forms.Button
-		Me.lblDPS = New System.Windows.Forms.Label
+		Me.toolStrip1 = New System.Windows.Forms.ToolStrip
+		Me.cmdQuickEP = New System.Windows.Forms.ToolStripButton
+		Me.toolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator
+		Me.cmdGetDps = New System.Windows.Forms.ToolStripButton
+		Me.lblDPS = New System.Windows.Forms.ToolStripLabel
+		Me.toolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator
+		Me.toolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator
+		Me.toolStripLabel1 = New System.Windows.Forms.ToolStripLabel
+		Me.cmbRace = New System.Windows.Forms.ToolStripComboBox
+		Me.toolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator
+		Me.cmdSave = New System.Windows.Forms.ToolStripButton
+		Me.toolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator
+		Me.cmdSaveAsNew = New System.Windows.Forms.ToolStripButton
+		Me.toolStripSeparator8 = New System.Windows.Forms.ToolStripSeparator
+		Me.toolStripLabel2 = New System.Windows.Forms.ToolStripLabel
+		Me.cmbSkill1 = New System.Windows.Forms.ToolStripComboBox
+		Me.toolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator
+		Me.toolStripLabel3 = New System.Windows.Forms.ToolStripLabel
+		Me.cmbSkill2 = New System.Windows.Forms.ToolStripComboBox
+		Me.toolStripSeparator7 = New System.Windows.Forms.ToolStripSeparator
 		Me.gbStats.SuspendLayout
 		Me.gbWeapons.SuspendLayout
 		Me.gbMisc.SuspendLayout
@@ -105,40 +119,19 @@ Partial Class GearSelectorMainForm
 		Me.gbTrinkets.SuspendLayout
 		Me.gbSetBonus.SuspendLayout
 		Me.groupBox5.SuspendLayout
+		Me.toolStrip1.SuspendLayout
 		Me.SuspendLayout
 		'
 		'cmdExtrator
 		'
 		Me.cmdExtrator.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdExtrator.Location = New System.Drawing.Point(433, 12224)
+		Me.cmdExtrator.Location = New System.Drawing.Point(201, 19726)
 		Me.cmdExtrator.Name = "cmdExtrator"
 		Me.cmdExtrator.Size = New System.Drawing.Size(75, 23)
 		Me.cmdExtrator.TabIndex = 0
 		Me.cmdExtrator.Text = "Extract"
 		Me.cmdExtrator.UseVisualStyleBackColor = true
 		AddHandler Me.cmdExtrator.Click, AddressOf Me.CmdExtratorClick
-		'
-		'cmdSaveAsNew
-		'
-		Me.cmdSaveAsNew.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdSaveAsNew.Location = New System.Drawing.Point(756, 3)
-		Me.cmdSaveAsNew.Name = "cmdSaveAsNew"
-		Me.cmdSaveAsNew.Size = New System.Drawing.Size(92, 23)
-		Me.cmdSaveAsNew.TabIndex = 2
-		Me.cmdSaveAsNew.Text = "Save As New"
-		Me.cmdSaveAsNew.UseVisualStyleBackColor = true
-		AddHandler Me.cmdSaveAsNew.Click, AddressOf Me.cmdSaveAsNewClick
-		'
-		'cmdSave
-		'
-		Me.cmdSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdSave.Location = New System.Drawing.Point(854, 3)
-		Me.cmdSave.Name = "cmdSave"
-		Me.cmdSave.Size = New System.Drawing.Size(72, 23)
-		Me.cmdSave.TabIndex = 4
-		Me.cmdSave.Text = "Save"
-		Me.cmdSave.UseVisualStyleBackColor = true
-		AddHandler Me.cmdSave.Click, AddressOf Me.CmdSaveClick
 		'
 		'gbStats
 		'
@@ -349,26 +342,6 @@ Partial Class GearSelectorMainForm
 		Me.lblStr.Text = "Strength"
 		Me.lblStr.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		'
-		'cmbRace
-		'
-		Me.cmbRace.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmbRace.FormattingEnabled = true
-		Me.cmbRace.Location = New System.Drawing.Point(820, 32)
-		Me.cmbRace.Name = "cmbRace"
-		Me.cmbRace.Size = New System.Drawing.Size(100, 21)
-		Me.cmbRace.TabIndex = 16
-		AddHandler Me.cmbRace.SelectedIndexChanged, AddressOf Me.CmbRaceSelectedIndexChanged
-		'
-		'label1
-		'
-		Me.label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.label1.Location = New System.Drawing.Point(740, 32)
-		Me.label1.Name = "label1"
-		Me.label1.Size = New System.Drawing.Size(75, 18)
-		Me.label1.TabIndex = 17
-		Me.label1.Text = "Race"
-		Me.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-		'
 		'gbWeapons
 		'
 		Me.gbWeapons.Controls.Add(Me.rDW)
@@ -566,7 +539,6 @@ Partial Class GearSelectorMainForm
 		'
 		'groupBox1
 		'
-		Me.groupBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.groupBox1.AutoSize = true
 		Me.groupBox1.Controls.Add(Me.gbWeaponProc)
 		Me.groupBox1.Controls.Add(Me.gbTrinkets)
@@ -575,9 +547,9 @@ Partial Class GearSelectorMainForm
 		Me.groupBox1.Controls.Add(Me.gbWeapons)
 		Me.groupBox1.Controls.Add(Me.groupBox5)
 		Me.groupBox1.Controls.Add(Me.gbStats)
-		Me.groupBox1.Location = New System.Drawing.Point(649, 111)
+		Me.groupBox1.Location = New System.Drawing.Point(720, 28)
 		Me.groupBox1.Name = "groupBox1"
-		Me.groupBox1.Size = New System.Drawing.Size(280, 1109)
+		Me.groupBox1.Size = New System.Drawing.Size(277, 1109)
 		Me.groupBox1.TabIndex = 20
 		Me.groupBox1.TabStop = false
 		'
@@ -747,51 +719,151 @@ Partial Class GearSelectorMainForm
 		Me.label42.Text = "Main Hand Expertise"
 		Me.label42.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		'
+		'toolStrip1
+		'
+		Me.toolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdQuickEP, Me.toolStripSeparator3, Me.cmdGetDps, Me.lblDPS, Me.toolStripSeparator1, Me.toolStripSeparator2, Me.toolStripLabel1, Me.cmbRace, Me.toolStripSeparator4, Me.cmdSave, Me.toolStripSeparator5, Me.cmdSaveAsNew, Me.toolStripSeparator8, Me.toolStripLabel2, Me.cmbSkill1, Me.toolStripSeparator6, Me.toolStripLabel3, Me.cmbSkill2, Me.toolStripSeparator7})
+		Me.toolStrip1.Location = New System.Drawing.Point(0, 0)
+		Me.toolStrip1.Name = "toolStrip1"
+		Me.toolStrip1.Size = New System.Drawing.Size(997, 25)
+		Me.toolStrip1.TabIndex = 24
+		Me.toolStrip1.Text = "toolStrip1"
+		'
 		'cmdQuickEP
 		'
-		Me.cmdQuickEP.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdQuickEP.Location = New System.Drawing.Point(743, 65)
+		Me.cmdQuickEP.BackColor = System.Drawing.SystemColors.Control
+		Me.cmdQuickEP.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+		Me.cmdQuickEP.Image = CType(resources.GetObject("cmdQuickEP.Image"),System.Drawing.Image)
+		Me.cmdQuickEP.ImageTransparentColor = System.Drawing.Color.Magenta
 		Me.cmdQuickEP.Name = "cmdQuickEP"
-		Me.cmdQuickEP.Size = New System.Drawing.Size(74, 40)
-		Me.cmdQuickEP.TabIndex = 21
+		Me.cmdQuickEP.Size = New System.Drawing.Size(106, 22)
 		Me.cmdQuickEP.Text = "Get Quick EP Values"
-		Me.cmdQuickEP.UseVisualStyleBackColor = true
-		AddHandler Me.cmdQuickEP.Click, AddressOf Me.CmdQuickEPClick
+		AddHandler Me.cmdQuickEP.Click, AddressOf Me.TsGetQuickEPClick
+		'
+		'toolStripSeparator3
+		'
+		Me.toolStripSeparator3.Name = "toolStripSeparator3"
+		Me.toolStripSeparator3.Size = New System.Drawing.Size(6, 25)
 		'
 		'cmdGetDps
 		'
-		Me.cmdGetDps.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdGetDps.Location = New System.Drawing.Point(820, 65)
+		Me.cmdGetDps.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+		Me.cmdGetDps.Image = CType(resources.GetObject("cmdGetDps.Image"),System.Drawing.Image)
+		Me.cmdGetDps.ImageTransparentColor = System.Drawing.Color.Magenta
 		Me.cmdGetDps.Name = "cmdGetDps"
-		Me.cmdGetDps.Size = New System.Drawing.Size(117, 23)
-		Me.cmdGetDps.TabIndex = 22
+		Me.cmdGetDps.Size = New System.Drawing.Size(79, 22)
 		Me.cmdGetDps.Text = "Get Quick DPS"
-		Me.cmdGetDps.UseVisualStyleBackColor = true
 		AddHandler Me.cmdGetDps.Click, AddressOf Me.CmdGetDpsClick
 		'
 		'lblDPS
 		'
-		Me.lblDPS.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.lblDPS.Location = New System.Drawing.Point(823, 91)
 		Me.lblDPS.Name = "lblDPS"
-		Me.lblDPS.Size = New System.Drawing.Size(115, 17)
-		Me.lblDPS.TabIndex = 23
+		Me.lblDPS.Size = New System.Drawing.Size(33, 22)
 		Me.lblDPS.Text = "0 dps"
+		'
+		'toolStripSeparator1
+		'
+		Me.toolStripSeparator1.Name = "toolStripSeparator1"
+		Me.toolStripSeparator1.Size = New System.Drawing.Size(6, 25)
+		'
+		'toolStripSeparator2
+		'
+		Me.toolStripSeparator2.Name = "toolStripSeparator2"
+		Me.toolStripSeparator2.Size = New System.Drawing.Size(6, 25)
+		'
+		'toolStripLabel1
+		'
+		Me.toolStripLabel1.Name = "toolStripLabel1"
+		Me.toolStripLabel1.Size = New System.Drawing.Size(38, 22)
+		Me.toolStripLabel1.Text = "Race: "
+		'
+		'cmbRace
+		'
+		Me.cmbRace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+		Me.cmbRace.Name = "cmbRace"
+		Me.cmbRace.Size = New System.Drawing.Size(121, 25)
+		AddHandler Me.cmbRace.SelectedIndexChanged, AddressOf Me.CmbRaceSelectedIndexChanged
+		AddHandler Me.cmbRace.Click, AddressOf Me.CmbRaceClick
+		'
+		'toolStripSeparator4
+		'
+		Me.toolStripSeparator4.Name = "toolStripSeparator4"
+		Me.toolStripSeparator4.Size = New System.Drawing.Size(6, 25)
+		'
+		'cmdSave
+		'
+		Me.cmdSave.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+		Me.cmdSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+		Me.cmdSave.ImageTransparentColor = System.Drawing.Color.Magenta
+		Me.cmdSave.Name = "cmdSave"
+		Me.cmdSave.Size = New System.Drawing.Size(35, 22)
+		Me.cmdSave.Text = "Save"
+		AddHandler Me.cmdSave.Click, AddressOf Me.CmdSaveClick
+		'
+		'toolStripSeparator5
+		'
+		Me.toolStripSeparator5.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+		Me.toolStripSeparator5.Name = "toolStripSeparator5"
+		Me.toolStripSeparator5.Size = New System.Drawing.Size(6, 25)
+		'
+		'cmdSaveAsNew
+		'
+		Me.cmdSaveAsNew.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+		Me.cmdSaveAsNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+		Me.cmdSaveAsNew.Image = CType(resources.GetObject("cmdSaveAsNew.Image"),System.Drawing.Image)
+		Me.cmdSaveAsNew.ImageTransparentColor = System.Drawing.Color.Magenta
+		Me.cmdSaveAsNew.Name = "cmdSaveAsNew"
+		Me.cmdSaveAsNew.Size = New System.Drawing.Size(72, 22)
+		Me.cmdSaveAsNew.Text = "Save as new"
+		AddHandler Me.cmdSaveAsNew.Click, AddressOf Me.CmdSaveAsNewClick
+		'
+		'toolStripSeparator8
+		'
+		Me.toolStripSeparator8.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+		Me.toolStripSeparator8.Name = "toolStripSeparator8"
+		Me.toolStripSeparator8.Size = New System.Drawing.Size(6, 25)
+		'
+		'toolStripLabel2
+		'
+		Me.toolStripLabel2.Name = "toolStripLabel2"
+		Me.toolStripLabel2.Size = New System.Drawing.Size(37, 22)
+		Me.toolStripLabel2.Text = "Skill 1:"
+		'
+		'cmbSkill1
+		'
+		Me.cmbSkill1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+		Me.cmbSkill1.Name = "cmbSkill1"
+		Me.cmbSkill1.Size = New System.Drawing.Size(121, 25)
+		'
+		'toolStripSeparator6
+		'
+		Me.toolStripSeparator6.Name = "toolStripSeparator6"
+		Me.toolStripSeparator6.Size = New System.Drawing.Size(6, 25)
+		'
+		'toolStripLabel3
+		'
+		Me.toolStripLabel3.Name = "toolStripLabel3"
+		Me.toolStripLabel3.Size = New System.Drawing.Size(37, 22)
+		Me.toolStripLabel3.Text = "Skill 2:"
+		'
+		'cmbSkill2
+		'
+		Me.cmbSkill2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+		Me.cmbSkill2.Name = "cmbSkill2"
+		Me.cmbSkill2.Size = New System.Drawing.Size(121, 25)
+		'
+		'toolStripSeparator7
+		'
+		Me.toolStripSeparator7.Name = "toolStripSeparator7"
+		Me.toolStripSeparator7.Size = New System.Drawing.Size(6, 25)
 		'
 		'GearSelectorMainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 		Me.AutoScroll = true
-		Me.ClientSize = New System.Drawing.Size(958, 786)
-		Me.Controls.Add(Me.lblDPS)
-		Me.Controls.Add(Me.cmdGetDps)
-		Me.Controls.Add(Me.cmdQuickEP)
+		Me.ClientSize = New System.Drawing.Size(1009, 786)
+		Me.Controls.Add(Me.toolStrip1)
 		Me.Controls.Add(Me.groupBox1)
-		Me.Controls.Add(Me.label1)
-		Me.Controls.Add(Me.cmbRace)
-		Me.Controls.Add(Me.cmdSave)
-		Me.Controls.Add(Me.cmdSaveAsNew)
 		Me.Controls.Add(Me.cmdExtrator)
 		Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
 		Me.Name = "GearSelectorMainForm"
@@ -811,9 +883,25 @@ Partial Class GearSelectorMainForm
 		Me.gbSetBonus.PerformLayout
 		Me.groupBox5.ResumeLayout(false)
 		Me.groupBox5.PerformLayout
+		Me.toolStrip1.ResumeLayout(false)
+		Me.toolStrip1.PerformLayout
 		Me.ResumeLayout(false)
 		Me.PerformLayout
 	End Sub
+	Private toolStripSeparator7 As System.Windows.Forms.ToolStripSeparator
+	Friend cmbSkill2 As System.Windows.Forms.ToolStripComboBox
+	Private toolStripLabel3 As System.Windows.Forms.ToolStripLabel
+	Private toolStripSeparator6 As System.Windows.Forms.ToolStripSeparator
+	Friend cmbSkill1 As System.Windows.Forms.ToolStripComboBox
+	Private toolStripLabel2 As System.Windows.Forms.ToolStripLabel
+	Private toolStripSeparator8 As System.Windows.Forms.ToolStripSeparator
+	Private toolStripSeparator5 As System.Windows.Forms.ToolStripSeparator
+	Private toolStripSeparator4 As System.Windows.Forms.ToolStripSeparator
+	Private toolStripSeparator3 As System.Windows.Forms.ToolStripSeparator
+	Private toolStripLabel1 As System.Windows.Forms.ToolStripLabel
+	Private toolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
+	Private toolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
+	Private toolStrip1 As System.Windows.Forms.ToolStrip
 	Private lblArP As System.Windows.Forms.Label
 	Private lblHit As System.Windows.Forms.Label
 	Private lblHaste As System.Windows.Forms.Label
@@ -824,10 +912,10 @@ Partial Class GearSelectorMainForm
 	Private lblAgi As System.Windows.Forms.Label
 	Private lblArM As System.Windows.Forms.Label
 	Private lblStr As System.Windows.Forms.Label
-	Private lblDPS As System.Windows.Forms.Label
-	Private cmdGetDps As System.Windows.Forms.Button
-	Private cmdQuickEP As System.Windows.Forms.Button
-	Private cmdSaveAsNew As System.Windows.Forms.Button
+	Private lblDPS As System.Windows.Forms.ToolStripLabel
+	Private cmdGetDps As System.Windows.Forms.ToolStripButton
+	Private cmdQuickEP As System.Windows.Forms.ToolStripButton
+	Private cmdSaveAsNew As System.Windows.Forms.ToolStripButton
 	Private cmbWeaponProc1 As System.Windows.Forms.TextBox
 	Private cmbWeaponProc2 As System.Windows.Forms.TextBox
 	Private gbWeaponProc As System.Windows.Forms.GroupBox
@@ -863,8 +951,7 @@ Partial Class GearSelectorMainForm
 	Private r2Hand As System.Windows.Forms.RadioButton
 	Private rDW As System.Windows.Forms.RadioButton
 	Private gbWeapons As System.Windows.Forms.GroupBox
-	Private label1 As System.Windows.Forms.Label
-	Private cmbRace As System.Windows.Forms.ComboBox
+	Friend cmbRace As System.Windows.Forms.ToolStripComboBox
 	Private txtArmor As System.Windows.Forms.TextBox
 	Private txtExp As System.Windows.Forms.TextBox
 	Private txtAgi As System.Windows.Forms.TextBox
@@ -876,7 +963,7 @@ Partial Class GearSelectorMainForm
 	Private txtArP As System.Windows.Forms.TextBox
 	Private gbStats As System.Windows.Forms.GroupBox
 	Private txtStr As System.Windows.Forms.TextBox
-	Private cmdSave As System.Windows.Forms.Button
+	Private cmdSave As System.Windows.Forms.ToolStripButton
 	Private cmdExtrator As System.Windows.Forms.Button
 	
 	

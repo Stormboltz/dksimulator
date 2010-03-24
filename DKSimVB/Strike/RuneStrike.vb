@@ -56,31 +56,19 @@ Public Class RuneStrike
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Rune Strike hit for " & dégat )
 		End If
 		total = total + dégat
-		'If offhand=False Then sim.proc.KillingMachine.TryMe(T)
-		
-		
-		If sim.patch Then
-			If sim.TalentUnholy.Necrosis > 0 Then sim.Necrosis.Apply(dégat, T)			
-			RNG = sim.RandomNumberGenerator.RNGWhiteHit * 100
-			If RNG <= 10 * sim.TalentUnholy.BloodCakedBlade Then
-				If offhand=False Then
-					sim.BloodCakedBlade.ApplyDamage(T)
-				Else
-					sim.OHBloodCakedBlade.ApplyDamage(T)
-				End If
+		If sim.TalentUnholy.Necrosis > 0 Then sim.Necrosis.Apply(dégat, T)			
+		RNG = sim.RandomNumberGenerator.RNGWhiteHit * 100
+		If RNG <= 10 * sim.TalentUnholy.BloodCakedBlade Then
+			If offhand=False Then
+				sim.BloodCakedBlade.ApplyDamage(T)
+			Else
+				sim.OHBloodCakedBlade.ApplyDamage(T)
 			End If
 		End If
 		If offhand=False Then
-			'sim.tryOnMHWhitehitProc
 			sim.TryOnMHHitProc
-'			sim.RuneForge.MHRazorIce.TryMe(T)
-'			If sim.proc.ScentOfBlood.IsActive  Then
-'				sim.proc.ScentOfBlood.Use
-'				Sim.RunicPower.add(10)
-'			End If
 		Else
 			sim.TryOnOHHitProc
-'			sim.RuneForge.OHRazorIce.TryMe(T)
 		End If
 		return true
 	End Function
@@ -95,11 +83,7 @@ Public Class RuneStrike
 		tmp = tmp * (1+ sim.MainStat.T82PTNK*0.1)
 		If offhand Then
 			tmp = tmp * 0.5
-			If sim.patch Then
-				tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 8.3333 / 100)
-			Else
-				tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 5 / 100)
-			End If
+			tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 8.3333 / 100)
 		End If
 		If sim.EPStat = "EP HasteEstimated" Then
 			tmp = tmp*sim.MainStat.EstimatedHasteBonus

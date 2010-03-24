@@ -31,7 +31,16 @@ Public Class Extractor
 		Next
 	End Sub
 	Sub GemExtrator
-		
+		Dim i As Integer
+		Dim str As String
+		col.Clear
+		GetListofGems
+		For Each str In col
+			ExtractThisGem(GetXmlFromID(str))
+			'debug.Print (i & "/"  & col.Count)
+			i+=1
+		Next
+		col.Clear
 	End Sub
 	
 	Sub init()
@@ -141,6 +150,7 @@ Public Class Extractor
 	Sub GetListofGems ()
 		dim url as String
 		url  = "http://www.wowhead.com/?items=3&filter=qu=3:4;minle=75;cr=23:61:79:24:86;crs=3:3:3:3:7;crv=0:0:0:0:0#0+2+1"
+			   'http://www.wowhead.com/?items=3&filter=qu=4;minle=75;cr=23:61:79:24:86;crs=3:3:3:3:7;crv=0:0:0:0:0#0+1
 		Dim data As Stream = client.OpenRead(URL)
 		Dim reader As StreamReader = New StreamReader(data)
 		Dim str As String = ""
@@ -199,6 +209,7 @@ Public Class Extractor
 		dim id as String = myXML.SelectSingleNode("/wowhead/item").Attributes.GetNamedItem("id").Value
 		Dim name As String = myXML.SelectSingleNode("/wowhead/item/name").InnerText
 		Dim ilvl As String =  myXML.SelectSingleNode("/wowhead/item/level").InnerText
+		dim quality as String = myXML.SelectSingleNode("/wowhead/item/quality").Attributes.GetNamedItem("id").Value
 		Dim slot as String = myXML.SelectSingleNode("/wowhead/item/inventorySlot").Attributes.GetNamedItem("id").Value
 		Dim heroic As String = 0
 		if myXML.SelectSingleNode("/wowhead/item/json").InnerText.Contains("heroic:1") then heroic = 1
@@ -224,13 +235,22 @@ Public Class Extractor
 		Dim gem3 as String= GetValue(aStr,"socket3")
 		Dim gembonus as String= GetValue(aStr,"socketbonus")
 		Dim classs As String = myXML.SelectSingleNode("/wowhead/item/class").Attributes.GetNamedItem("id").Value
-		Dim subclass as String = myXML.SelectSingleNode("/wowhead/item/subclass ").Attributes.GetNamedItem("id").Value
+		Dim subclass As String = myXML.SelectSingleNode("/wowhead/item/subclass ").Attributes.GetNamedItem("id").Value
+		Dim reqskill as String = GetValue(aStr,"reqskill")
 		Dim keywords as String = ""
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
 
 		'doc.Load("itemDB.xml")
 		doc.Load(Application.StartupPath & "\GearSelector\" & "gems.xml")
 		
+		dim xNode as Xml.XmlNode
+		Try
+			xNode = doc.SelectSingleNode("/gems/item[id="& id &"]")
+			xNode.ParentNode.RemoveChild(xNode)
+		Catch e As Exception
+			debug.Print ("Didn't found " &id)
+			'debug.Print (e.ToString)
+		End Try
 		
 		
 		Dim root as xml.XmlElement = doc.DocumentElement
@@ -252,6 +272,11 @@ Public Class Extractor
 		
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "name", "")
 		newElem.InnerText = name
+		newItem.AppendChild(newElem)
+		
+		
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "quality", "")
+		newElem.InnerText = quality
 		newItem.AppendChild(newElem)
 		
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ilvl", "")
@@ -298,7 +323,14 @@ Public Class Extractor
 		newElem.InnerText = ArmorPenetrationRating
 		newItem.AppendChild(newElem)
 		
-		If ArmorPenetrationRating <> "0" Then keywords += "ArmorPenetrationRating"
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "reqskill", "")
+		newElem.InnerText = reqskill
+		newItem.AppendChild(newElem)
+		
+		
+		
+		
+		If ArmorPenetrationRating <> "0" Then keywords += "ArmorPenetrationRatingArp"
 		If CritRating <> "0" Then keywords += "CritRating"
 		If AttackPower <> "0" Then keywords += "AttackPower"
 		If HitRating <> "0" Then keywords += "HitRating"
@@ -307,6 +339,7 @@ Public Class Extractor
 		If Agility <> "0" Then keywords += "Agility"
 		If Strength <> "0" Then keywords += "Strength"
 		If keywords = "" Then
+			debug.Print ("skipping " & name)
 			exit sub
 		End If
 		
@@ -314,7 +347,7 @@ Public Class Extractor
 		newElem.InnerText = keywords
 		newItem.AppendChild(newElem)
 
-		doc.Save("gems.xml")
+		doc.Save(Application.StartupPath & "\GearSelector\" & "gems.xml")
 	End Sub
 	
 	
@@ -480,7 +513,7 @@ Public Class Extractor
 		newElem.InnerText = gembonus
 		newItem.AppendChild(newElem)
 		
-		If ArmorPenetrationRating <> "0" Then keywords += "ArmorPenetrationRating"
+		If ArmorPenetrationRating <> "0" Then keywords += "ArmorPenetrationRatingArP"
 		If CritRating <> "0" Then keywords += "CritRating"
 		If AttackPower <> "0" Then keywords += "AttackPower"
 		If HitRating <> "0" Then keywords += "HitRating"
@@ -575,7 +608,7 @@ Public Class Extractor
 					'debug.Print(bns.Substring(i) & " N/A")
 			End Select
 			
-			If ArmorPenetrationRating <> "0" Then keywords += "ArmorPenetrationRating"
+			If ArmorPenetrationRating <> "0" Then keywords += "ArmorPenetrationRatingArP"
 			If CritRating <> "0" Then keywords += "CritRating"
 			If AttackPower <> "0" Then keywords += "AttackPower"
 			If HitRating <> "0" Then keywords += "HitRating"

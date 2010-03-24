@@ -45,12 +45,7 @@ Public Class ScourgeStrikeMagical
 		Dim addtiveDamage As Double
 		
 		tmpMagical = tmpPhysical
-		
-		If sim.Patch Then
-			tmpMagical = tmpMagical * (0.12 * Sim.NumDesease )
-		Else
-			tmpMagical = tmpMagical * (0.25 * Sim.NumDesease )
-		End If
+		tmpMagical = tmpMagical * (0.12 * Sim.NumDesease )
 		If sim.MainStat.T84PDPS = 1 Then tmpMagical =tmpMagical  * 1.2
 		Dim tmp As Double
 		tmp = 1

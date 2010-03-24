@@ -3,7 +3,7 @@ Friend Class IcyTouch
 	Sub New(S As sim)
 		MyBase.New(s)
 		If s.FrostPresence = 1 Then
-			if sim.Patch then ThreadMultiplicator = 7
+			ThreadMultiplicator = 7
 		End If
 	End Sub
 	
@@ -55,11 +55,7 @@ Friend Class IcyTouch
 		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
 		
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
-		If sim.patch Then
 			tmp = tmp *(1+2*sim.RuneForge.RazorIceStack/100) 'TODO: only on main target
-		Else
-			tmp = tmp *(1+sim.RuneForge.RazorIceStack/100) 'TODO: only on main target
-		End If
 		if sim.runeforge.CinderglacierProc > 0 then
 			tmp = tmp * 1.2
 			sim.runeforge.CinderglacierProc = sim.runeforge.CinderglacierProc -1

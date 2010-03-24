@@ -12,10 +12,17 @@ Public Partial Class EnchantSelector
 	Dim sortColumn As Integer = -1
 	Friend gemDB As New Xml.XmlDocument
 	Friend Slot As String
-	Friend SelectedItem as String
-	Public Sub New()
+	Friend SelectedItem As String
+	Friend MainFrame as GearSelectorMainForm
+	
+	
+	
+	
+	Public Sub New(GS as GearSelectorMainForm)
 		' The Me.InitializeComponent call is required for Windows Forms designer support.
 		Me.InitializeComponent()
+		MainFrame = GS
+		
 		ListView1.Columns.Add("Name")
 		ListView1.Columns.Add("id")
 		ListView1.Columns.Add("Str")
@@ -64,14 +71,14 @@ Public Partial Class EnchantSelector
 		listView1.Items.Clear
 		If Me.textBox1.Text.Trim <> "" Then
 			listView1.ListViewItemSorter = nothing
-			FilterList(Me.textBox1.Text)
+			FilterList(Me.textBox1.Text.Split(" "))
 			exit sub
 		End If
 	
 		listView1.Items.Clear
 		If Me.textBox1.Text.Trim <> "" Then
 			listView1.ListViewItemSorter = nothing
-			FilterList(Me.textBox1.Text)
+			FilterList(Me.textBox1.Text.Split(" "))
 			exit sub
 		End If
 		
@@ -79,7 +86,7 @@ Public Partial Class EnchantSelector
 		Dim xList As Xml.XmlNodeList
 		Dim xNode As Xml.XmlNode
 		Me.Slot = slot
-		xList = gemDB.SelectNodes("/enchant/item[slot="& slot & "]")
+		xList = gemDB.SelectNodes("/enchant/item[slot="& slot & "][reqskill='0' or reqskill='" & GetSkillID(Me.MainFrame.cmbSkill1.SelectedItem) & "'    or reqskill='" & GetSkillID(Me.MainFrame.cmbSkill2.SelectedItem) & "']")
 		
 		
 		For Each xNode In xList
@@ -112,27 +119,32 @@ Public Partial Class EnchantSelector
 		If sender.Text.Trim <> "" Then
 			listView1.ListViewItemSorter = nothing
 			listView1.Items.Clear
-			FilterList(sender.Text)
-			'listView1.ListViewItemSorter = New ListViewItemComparer(sortColumn, listView1.Sorting)
+			FilterList(sender.Text.Split(" "))
 		Else
 			listView1.ListViewItemSorter = nothing
 			listView1.Items.Clear
 			LoadItem(me.Slot)
-			'listView1.ListViewItemSorter = New ListViewItemComparer(sortColumn, listView1.Sorting)
 		End If
 	End Sub
 	
-	Sub FilterList( filter As String)
+	Sub FilterList( filter As String())
 		Dim xList As Xml.XmlNodeList
 		Dim xNode As Xml.XmlNode
 	
-		xList = gemDB.SelectNodes("/enchant/item[slot="& slot & "]")
-
+		xList = gemDB.SelectNodes("/enchant/item[slot="& slot & "][reqskill='0' or reqskill='" & GetSkillID(Me.MainFrame.cmbSkill1.SelectedItem) & "'    or reqskill='" & GetSkillID(Me.MainFrame.cmbSkill2.SelectedItem) & "']")
 		
+		
+		
+		Dim s As String
+		dim ToAdd as Boolean
 		For Each xNode In xList
-			If xNode.InnerText.ToUpper.Contains(filter.ToUpper) Then
-				AddItem(xNode)
-			End If
+			ToAdd = true
+			For Each s In filter
+				If xNode.InnerText.ToUpper.Contains(S.ToUpper)=False Then
+					ToAdd = false
+				End If
+			Next
+			If ToAdd Then AddItem(xNode)
 		Next
 	End Sub
 	Sub AddItem(xNode As Xml.XmlNode)

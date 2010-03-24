@@ -84,7 +84,7 @@ Public Partial Class GearSelector
 		listView1.Items.Clear
 		If Me.textBox1.Text.Trim <> "" Then
 			listView1.ListViewItemSorter = nothing
-			FilterList(Me.textBox1.Text)
+			FilterList(Me.textBox1.Text.Split(" "))
 			exit sub
 		End If
 		
@@ -136,7 +136,7 @@ Public Partial Class GearSelector
 		If sender.Text.Trim <> "" Then
 			listView1.Items.Clear
 			listView1.ListViewItemSorter = nothing
-			FilterList(sender.Text)
+			FilterList(sender.Text.Split(" "))
 			listView1.ListViewItemSorter = New ListViewItemComparer(sortColumn, listView1.Sorting)
 		Else
 			listView1.Items.Clear
@@ -147,14 +147,21 @@ Public Partial Class GearSelector
 		
 	End Sub
 	
-	Sub FilterList( filter As String)
+	Sub FilterList( filter As string())
 		Dim xList As Xml.XmlNodeList
 		Dim xNode As Xml.XmlNode
+	
 		xList = ItemDB.SelectNodes("/items/item[slot="& slot &"]")
+		Dim s As String
+		dim ToAdd as Boolean
 		For Each xNode In xList
-			If xNode.InnerText.ToUpper.Contains(filter.ToUpper) Then
-				AddItem(xNode)
-			End If
+			ToAdd = true
+			For Each s In filter
+				If xNode.InnerText.ToUpper.Contains(S.ToUpper)=False Then
+					ToAdd = false
+				End If
+			Next
+			If ToAdd Then AddItem(xNode)
 		Next
 		
 		

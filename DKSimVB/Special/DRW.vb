@@ -28,8 +28,9 @@ Friend Class DRW
 		TotalCrit = 0
 		Sim = S
 		sim.DamagingObject.Add(Me)
-		ThreadMultiplicator = 0
-		HasteSensible = true
+		ThreadMultiplicator = 1
+		HasteSensible = True
+		isGuardian = true
 	End Sub
 	
 	Function IsActive(T as Long) As Boolean

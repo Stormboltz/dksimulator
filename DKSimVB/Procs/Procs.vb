@@ -170,12 +170,7 @@ Friend Class Procs
 			._Name = "MHRazorIce"
 			.InternalCD = 0
 			.ProcOn = procs.ProcOnType.OnMHhit
-			If sim.patch Then
-				.ProcChance = 1 
-			Else
-				.ProcChance = 5*S.MainStat.MHWeaponSpeed/60
-			End If
-			
+			.ProcChance = 1 
 			.ProcLenght = 20
 			.ProcValue = 1
 			if s.RuneForge.MHRazoriceRF	then .Equip
@@ -186,11 +181,7 @@ Friend Class Procs
 			._Name = "Frost Vulnerability"
 			.InternalCD = 0
 			.ProcOn = procs.ProcOnType.OnOHhit
-			If sim.patch Then
-				.ProcChance = 1 
-			Else
-				.ProcChance = 5*S.MainStat.OHWeaponSpeed/60
-			end if
+			.ProcChance = 1 
 			.ProcLenght = 20
 			.ProcValue = 1
 			if s.RuneForge.OHRazoriceRF	then .Equip
@@ -301,7 +292,7 @@ Friend Class Procs
 				.Equip
 				s.DamagingObject.Add(BloodWorms)
 			End If
-			.isPet = true
+			.isGuardian = true
 		End With
 		
 	End Sub
