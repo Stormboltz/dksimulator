@@ -121,7 +121,7 @@ Friend Class Character
 		tmp += sim.proc.GetActiveBonus("str")
 		tmp = tmp +155 * 1.15 *  sim.Buff.StrAgi
 		tmp = tmp + 37 * 1.4 *  sim.Buff.StatAdd
-		tmp = tmp * (1 +  sim.Buff.StatMulti / 10)
+		tmp = tmp * (1 + sim.Buff.StatMulti / 10)
 		tmp = tmp * (1 + sim.TalentBlood.Vot3W * 2 / 100)
 		tmp = tmp * (1 + sim.TalentBlood.AbominationMight / 100)
 		tmp = tmp * (1 + sim.TalentUnholy.ravenousdead / 100)
@@ -147,6 +147,7 @@ Friend Class Character
 		tmp = tmp * (1 + sim.TalentBlood.Vot3W * 2 / 100)
 		tmp = tmp * (1 + sim.TalentBlood.AbominationMight / 100)
 		tmp = tmp * (1 + sim.TalentUnholy.ravenousdead / 100)
+		tmp = tmp * (1 + sim.TalentFrost.EndlessWinter * 2 / 100)
 		If sim.proc.MHFallenCrusader.IsActive Or sim.proc.oHFallenCrusader.IsActive Then
 			tmp = tmp * 1.15
 		End If
