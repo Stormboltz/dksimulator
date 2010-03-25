@@ -1168,7 +1168,7 @@ Public Class Sim
 		on error resume next
 		tmp = damage
 		For i=0 To MultipleDamage.Count
-			tmp = tmp - MultipleDamage.Item(i)
+			tmp = tmp - integer.Parse(MultipleDamage.Item(i).ToString)
 		Next
 		MultipleDamage.Add(tmp)
 	End Sub
