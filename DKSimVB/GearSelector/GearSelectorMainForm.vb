@@ -21,6 +21,9 @@ Public Partial Class GearSelectorMainForm
 	Friend trinketDB As  Xml.XmlDocument
 	Friend SetBonusDB As  Xml.XmlDocument
 	Friend WeapProcDB As  Xml.XmlDocument
+	Friend FoodDB As  Xml.XmlDocument
+	Friend FlaskDB As  Xml.XmlDocument
+	Friend ConsumableDB as Xml.XmlDocument
 	
 	
 	dim space as Integer = 10
@@ -42,14 +45,14 @@ Public Partial Class GearSelectorMainForm
 	Dim ring2Slot As New EquipSlot
 	Dim Trinket1Slot As New EquipSlot
 	Dim Trinket2Slot As New EquipSlot
-	
+	Dim Food As Food
+	dim Flask as Flask
 	
 	
 	Friend FilePath As String
 	dim LastDPSResult as Integer
 	
 	Friend ParentFrame as MainForm
-	
 	Friend EPvalues as EPValues
 	
 	Public Sub New(PFrame as MainForm)
@@ -158,6 +161,27 @@ Public Partial Class GearSelectorMainForm
 				Agility = 110
 				Intel = 33
 		End Select
+		'Food
+		Strength += food.Strength
+		Agility += food.Agility
+		HasteRating += food.HasteRating
+		ExpertiseRating += food.ExpertiseRating
+		HitRating += food.HitRating
+		AttackPower += food.AttackPower
+		CritRating += food.CritRating
+		ArmorPenetrationRating +=food.ArmorPenetrationRating
+		
+		'Flask
+		Strength += flask.Strength
+		Agility += flask.Agility
+		HasteRating += flask.HasteRating
+		ExpertiseRating += flask.ExpertiseRating
+		HitRating += flask.HitRating
+		AttackPower += flask.AttackPower
+		CritRating += flask.CritRating
+		ArmorPenetrationRating +=flask.ArmorPenetrationRating
+		Armor += flask.armor
+		
 		
 		txtMHExpBonus.Text = 0
 		txtOHExpBonus.Text = 0
@@ -465,6 +489,23 @@ Public Partial Class GearSelectorMainForm
 		Catch
 		End Try
 		
+		newElem = xmlChar.CreateNode(xml.XmlNodeType.Element, "food", "")
+		Try
+			newElem.InnerText = cmbFood.SelectedItem
+			root.AppendChild(newElem)
+		Catch
+		End Try
+		
+		newElem = xmlChar.CreateNode(xml.XmlNodeType.Element, "flask", "")
+		Try
+			newElem.InnerText = cmbFlask.SelectedItem
+			root.AppendChild(newElem)
+		Catch
+		End Try
+		
+		
+		
+		
 		newElem = xmlChar.CreateNode(xml.XmlNodeType.Element, "DW", "")
 		Try
 			newElem.InnerText = rDW.Checked
@@ -714,6 +755,15 @@ Public Partial Class GearSelectorMainForm
 		End Try
 		
 		
+		Try
+			cmbfood.SelectedItem = xmlChar.SelectSingleNode("/character/food").InnerText
+		Catch
+		End Try
+		
+		Try
+			cmbflask.SelectedItem = xmlChar.SelectSingleNode("/character/flask").InnerText
+		Catch
+		End Try
 		
 		
 		Try
@@ -778,91 +828,62 @@ Public Partial Class GearSelectorMainForm
 	Sub Redraw()
 		With HeadSlot
 			.Location = New System.Drawing.Point(space*2,toolStrip1.Top + toolStrip1.Height+space)
-			
 		End With
 		With NeckSlot
 			.Location = New System.Drawing.Point(HeadSlot.Left,HeadSlot.Top+HeadSlot.Height+space)
-			
 		End With
 		With ShoulderSlot
 			.Location = New System.Drawing.Point(NeckSlot.Left,NeckSlot.Top+NeckSlot.Height+space)
-			
 		End With
-		
 		With BackSlot
 			.Location = New System.Drawing.Point(ShoulderSlot.Left,ShoulderSlot.Top+ShoulderSlot.Height+space)
-			
 		End With
-		
 		With ChestSlot
 			.Location = New System.Drawing.Point(BackSlot.Left,BackSlot.Top+BackSlot.Height+space)
-			
 		End With
-		
 		With WristSlot
 			.Location = New System.Drawing.Point(ChestSlot.Left,ChestSlot.Top+ChestSlot.Height+space)
-			
 		End With
-		
-		
 		With TwoHWeapSlot
 			.Location = New System.Drawing.Point(WristSlot.Left,WristSlot.Top+WristSlot.Height+space)
 		End With
-		
 		With MHWeapSlot
 			.Location = New System.Drawing.Point(WristSlot.Left,WristSlot.Top+WristSlot.Height+space)
 		End With
-		
 		With OHWeapSlot
 			.Location = New System.Drawing.Point(MHWeapSlot.Left,MHWeapSlot.Top+MHWeapSlot.Height+space)
 		End With
-		
 		With SigilSlot
 			.Location = New System.Drawing.Point(OHWeapSlot.left,OHWeapSlot.Top+OHWeapSlot.Height+space)
-			
 		End With
-		
 		With HandSlot
 			.Location = New System.Drawing.Point(HeadSlot.left+HeadSlot.Width+space,HeadSlot.Top)
-			
 		End With
-		
 		With BeltSlot
 			.Location = New System.Drawing.Point(HandSlot.left,HandSlot.Top+HandSlot.Height+space)
 		End With
-		
 		With LegSlot
 			.Location = New System.Drawing.Point(BeltSlot.left,BeltSlot.Top+BeltSlot.Height+space)
 		End With
 		With FeetSlot
 			.Location = New System.Drawing.Point(LegSlot.left,LegSlot.Top+LegSlot.Height+space)
 		End With
-		
 		With ring1Slot
 			.Location = New System.Drawing.Point(FeetSlot.left,FeetSlot.Top+FeetSlot.Height+space)
 		End With
-		
 		With ring2Slot
 			.Location = New System.Drawing.Point(ring1Slot.left,ring1Slot.Top+ring1Slot.Height+space)
 		End With
-		
 		With Trinket1Slot
 			.Location = New System.Drawing.Point(ring2Slot.left,ring2Slot.Top+ring2Slot.Height+space)
 		End With
 		With Trinket2Slot
 			.Location = New System.Drawing.Point(Trinket1Slot.left,Trinket1Slot.Top+Trinket1Slot.Height+space)
 		End With
-		
 		groupBox1.Left = Trinket1Slot.left + Trinket1Slot.Width + space
 		groupBox1.Top = HeadSlot.Top
 		Me.Size = New Size(groupBox1.Left + groupBox1.Width + space , SigilSlot.Top + SigilSlot.Height + space)
 		InLoad = false
-		
-		
-		
-		
-		
-		
 	End Sub
 	
 	Sub InitDisplay()
@@ -874,7 +895,40 @@ Public Partial Class GearSelectorMainForm
 		trinketDB = ParentFrame.trinketDB
 		SetBonusDB = ParentFrame.SetBonusDB
 		WeapProcDB = ParentFrame.WeapProcDB
+		FlaskDB = ParentFrame.FlaskDB
+		FoodDB = ParentFrame.FoodDB
+		ConsumableDB = ParentFrame.ConsumableDB
+		Flask = New Flask(Me)
+		Food = new Food(me)
+		
+		
+		
 		cmdExtrator.Hide
+		Dim x As Xml.XmlNode
+		cmbFlask.Items.Add("")
+		For Each x in FlaskDB.SelectNodes("/flask/item/name")
+			cmbFlask.Items.Add(x.InnerText)
+		Next
+		
+		cmbFood.Items.Add("")
+		For Each x in FoodDB.SelectNodes("/food/item/name")
+			cmbFood.Items.Add(x.InnerText)
+		Next
+		
+		cmbFood.Items.Add("")
+		For Each x in FoodDB.SelectNodes("/food/item/name")
+			cmbFood.Items.Add(x.InnerText)
+		Next
+		
+		dim itm as System.Windows.Forms.ToolStripMenuItem  
+		For Each x In ConsumableDB.SelectNodes("/Consumables/item")
+			itm = new ToolStripMenuItem(x.InnerText)
+			ddConsumable.DropDownItems.Add(itm)
+			itm.CheckOnClick = true
+		Next
+		
+		
+		
 		
 		
 		cmbRace.Items.Add ("Blood Elf")
@@ -1066,14 +1120,7 @@ Public Partial Class GearSelectorMainForm
 '		xtr.init
 '		xtr.GemExtrator
 '		exit sub
-
-		
 		'Me.Size = New Size(980, 800)
-		
-		
-		
-		
-		
 		LoadMycharacter
 	End Sub
 	
@@ -1117,9 +1164,6 @@ Public Partial Class GearSelectorMainForm
 	Sub CmdGetDpsClick(sender As Object, e As EventArgs)
 		Dim tmp As String
 		Dim i As Integer
-		
-		
-		
 		tmp = Me.FilePath
 		Me.FilePath = "tmp.xml"
 		SaveMycharacter
@@ -1171,7 +1215,33 @@ Public Partial Class GearSelectorMainForm
 		me.Close
 	End Sub
 	
-	Sub CmbRaceClick(sender As Object, e As EventArgs)
-		
+	
+	Sub CmbSkillClick(sender As Object, e As EventArgs)
+		Dim eq As EquipSlot
+		If InLoad Then Exit Sub
+		InLoad = true
+		For Each eq In EquipmentList
+			
+			eq.Item.LoadItem(eq.Item.Id)
+			eq.DisplayItem
+		Next
+		InLoad = False
+		GetStats
+	End Sub
+	
+	Sub CmbFlaskSelectionChange(sender As Object, e As EventArgs)
+			Flask.Attach(CmbFlask.SelectedItem.ToString)
+			GetStats
+	End Sub
+	
+	Sub cmbFoodSelectionChange(sender As Object, e As EventArgs)
+			Food.Attach(CmbFood.SelectedItem.ToString)
+			GetStats
+	End Sub
+	
+	
+	
+	Sub GreedyToolStripMenuItemClick(sender As Object, e As EventArgs)
+		debug.Print(e.ToString) 
 	End Sub
 End Class

@@ -20,6 +20,9 @@ Public Partial Class MainForm
 	Friend trinketDB As New Xml.XmlDocument
 	Friend SetBonusDB As New Xml.XmlDocument
 	Friend WeapProcDB As New Xml.XmlDocument
+	Friend FoodDB As new  Xml.XmlDocument
+	Friend FlaskDB As New Xml.XmlDocument
+	Friend ConsumableDB as New Xml.XmlDocument
 	Friend gearSelector As GearSelectorMainForm
 	
 	
@@ -97,7 +100,9 @@ Public Partial Class MainForm
 		trinketDB.Load(Application.StartupPath & "\GearSelector\" & "TrinketList.xml")
 		SetBonusDB.Load(Application.StartupPath & "\GearSelector\" & "SetBonus.xml")
 		WeapProcDB.Load(Application.StartupPath & "\GearSelector\" & "WeaponProcList.xml")
-		
+		FoodDB.Load(Application.StartupPath & "\GearSelector\" & "Food.xml")
+		FlaskDB.Load(Application.StartupPath & "\GearSelector\" & "Flask.xml")
+		ConsumableDB.Load(Application.StartupPath & "\GearSelector\" & "Consumables.xml")
 	End Sub
 	Sub MainFormClose(sender As Object, e As EventArgs)
 		

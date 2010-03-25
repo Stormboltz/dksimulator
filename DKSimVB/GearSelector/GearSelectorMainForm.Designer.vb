@@ -91,7 +91,7 @@ Partial Class GearSelectorMainForm
 		Me.txtMHExpBonus = New System.Windows.Forms.TextBox
 		Me.label41 = New System.Windows.Forms.Label
 		Me.label42 = New System.Windows.Forms.Label
-		Me.toolStrip1 = New System.Windows.Forms.ToolStrip
+		Me.toolStrip2 = New System.Windows.Forms.ToolStrip
 		Me.cmdQuickEP = New System.Windows.Forms.ToolStripButton
 		Me.toolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator
 		Me.cmdGetDps = New System.Windows.Forms.ToolStripButton
@@ -111,6 +111,15 @@ Partial Class GearSelectorMainForm
 		Me.toolStripLabel3 = New System.Windows.Forms.ToolStripLabel
 		Me.cmbSkill2 = New System.Windows.Forms.ToolStripComboBox
 		Me.toolStripSeparator7 = New System.Windows.Forms.ToolStripSeparator
+		Me.toolStrip1 = New System.Windows.Forms.ToolStrip
+		Me.toolStripLabel4 = New System.Windows.Forms.ToolStripLabel
+		Me.cmbFlask = New System.Windows.Forms.ToolStripComboBox
+		Me.toolStripSeparator9 = New System.Windows.Forms.ToolStripSeparator
+		Me.toolStripLabel5 = New System.Windows.Forms.ToolStripLabel
+		Me.cmbFood = New System.Windows.Forms.ToolStripComboBox
+		Me.toolStripSeparator10 = New System.Windows.Forms.ToolStripSeparator
+		Me.ddConsumable = New System.Windows.Forms.ToolStripDropDownButton
+		Me.toolStripSeparator11 = New System.Windows.Forms.ToolStripSeparator
 		Me.gbStats.SuspendLayout
 		Me.gbWeapons.SuspendLayout
 		Me.gbMisc.SuspendLayout
@@ -119,13 +128,14 @@ Partial Class GearSelectorMainForm
 		Me.gbTrinkets.SuspendLayout
 		Me.gbSetBonus.SuspendLayout
 		Me.groupBox5.SuspendLayout
+		Me.toolStrip2.SuspendLayout
 		Me.toolStrip1.SuspendLayout
 		Me.SuspendLayout
 		'
 		'cmdExtrator
 		'
 		Me.cmdExtrator.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdExtrator.Location = New System.Drawing.Point(201, 19726)
+		Me.cmdExtrator.Location = New System.Drawing.Point(33, 24640)
 		Me.cmdExtrator.Name = "cmdExtrator"
 		Me.cmdExtrator.Size = New System.Drawing.Size(75, 23)
 		Me.cmdExtrator.TabIndex = 0
@@ -719,14 +729,14 @@ Partial Class GearSelectorMainForm
 		Me.label42.Text = "Main Hand Expertise"
 		Me.label42.TextAlign = System.Drawing.ContentAlignment.MiddleRight
 		'
-		'toolStrip1
+		'toolStrip2
 		'
-		Me.toolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdQuickEP, Me.toolStripSeparator3, Me.cmdGetDps, Me.lblDPS, Me.toolStripSeparator1, Me.toolStripSeparator2, Me.toolStripLabel1, Me.cmbRace, Me.toolStripSeparator4, Me.cmdSave, Me.toolStripSeparator5, Me.cmdSaveAsNew, Me.toolStripSeparator8, Me.toolStripLabel2, Me.cmbSkill1, Me.toolStripSeparator6, Me.toolStripLabel3, Me.cmbSkill2, Me.toolStripSeparator7})
-		Me.toolStrip1.Location = New System.Drawing.Point(0, 0)
-		Me.toolStrip1.Name = "toolStrip1"
-		Me.toolStrip1.Size = New System.Drawing.Size(997, 25)
-		Me.toolStrip1.TabIndex = 24
-		Me.toolStrip1.Text = "toolStrip1"
+		Me.toolStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdQuickEP, Me.toolStripSeparator3, Me.cmdGetDps, Me.lblDPS, Me.toolStripSeparator1, Me.toolStripSeparator2, Me.toolStripLabel1, Me.cmbRace, Me.toolStripSeparator4, Me.cmdSave, Me.toolStripSeparator5, Me.cmdSaveAsNew, Me.toolStripSeparator8, Me.toolStripLabel2, Me.cmbSkill1, Me.toolStripSeparator6, Me.toolStripLabel3, Me.cmbSkill2, Me.toolStripSeparator7})
+		Me.toolStrip2.Location = New System.Drawing.Point(0, 0)
+		Me.toolStrip2.Name = "toolStrip2"
+		Me.toolStrip2.Size = New System.Drawing.Size(997, 25)
+		Me.toolStrip2.TabIndex = 24
+		Me.toolStrip2.Text = "toolStrip1"
 		'
 		'cmdQuickEP
 		'
@@ -780,9 +790,8 @@ Partial Class GearSelectorMainForm
 		'
 		Me.cmbRace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cmbRace.Name = "cmbRace"
-		Me.cmbRace.Size = New System.Drawing.Size(121, 25)
+		Me.cmbRace.Size = New System.Drawing.Size(80, 25)
 		AddHandler Me.cmbRace.SelectedIndexChanged, AddressOf Me.CmbRaceSelectedIndexChanged
-		AddHandler Me.cmbRace.Click, AddressOf Me.CmbRaceClick
 		'
 		'toolStripSeparator4
 		'
@@ -832,7 +841,8 @@ Partial Class GearSelectorMainForm
 		'
 		Me.cmbSkill1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cmbSkill1.Name = "cmbSkill1"
-		Me.cmbSkill1.Size = New System.Drawing.Size(121, 25)
+		Me.cmbSkill1.Size = New System.Drawing.Size(100, 25)
+		AddHandler Me.cmbSkill1.SelectedIndexChanged, AddressOf Me.CmbSkillClick
 		'
 		'toolStripSeparator6
 		'
@@ -849,12 +859,72 @@ Partial Class GearSelectorMainForm
 		'
 		Me.cmbSkill2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cmbSkill2.Name = "cmbSkill2"
-		Me.cmbSkill2.Size = New System.Drawing.Size(121, 25)
+		Me.cmbSkill2.Size = New System.Drawing.Size(100, 25)
+		AddHandler Me.cmbSkill2.SelectedIndexChanged, AddressOf Me.CmbSkillClick
 		'
 		'toolStripSeparator7
 		'
 		Me.toolStripSeparator7.Name = "toolStripSeparator7"
 		Me.toolStripSeparator7.Size = New System.Drawing.Size(6, 25)
+		'
+		'toolStrip1
+		'
+		Me.toolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.toolStripLabel4, Me.cmbFlask, Me.toolStripSeparator9, Me.toolStripLabel5, Me.cmbFood, Me.toolStripSeparator10, Me.ddConsumable, Me.toolStripSeparator11})
+		Me.toolStrip1.Location = New System.Drawing.Point(0, 25)
+		Me.toolStrip1.Name = "toolStrip1"
+		Me.toolStrip1.Size = New System.Drawing.Size(997, 25)
+		Me.toolStrip1.TabIndex = 25
+		Me.toolStrip1.Text = "toolStrip2"
+		'
+		'toolStripLabel4
+		'
+		Me.toolStripLabel4.Name = "toolStripLabel4"
+		Me.toolStripLabel4.Size = New System.Drawing.Size(38, 22)
+		Me.toolStripLabel4.Text = "Flask: "
+		'
+		'cmbFlask
+		'
+		Me.cmbFlask.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+		Me.cmbFlask.Name = "cmbFlask"
+		Me.cmbFlask.Size = New System.Drawing.Size(150, 25)
+		AddHandler Me.cmbFlask.SelectedIndexChanged, AddressOf Me.CmbFlaskSelectionChange
+		'
+		'toolStripSeparator9
+		'
+		Me.toolStripSeparator9.Name = "toolStripSeparator9"
+		Me.toolStripSeparator9.Size = New System.Drawing.Size(6, 25)
+		'
+		'toolStripLabel5
+		'
+		Me.toolStripLabel5.Name = "toolStripLabel5"
+		Me.toolStripLabel5.Size = New System.Drawing.Size(38, 22)
+		Me.toolStripLabel5.Text = "Food: "
+		'
+		'cmbFood
+		'
+		Me.cmbFood.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+		Me.cmbFood.Name = "cmbFood"
+		Me.cmbFood.Size = New System.Drawing.Size(150, 25)
+		AddHandler Me.cmbFood.SelectedIndexChanged, AddressOf Me.cmbFoodSelectionChange
+		'
+		'toolStripSeparator10
+		'
+		Me.toolStripSeparator10.Name = "toolStripSeparator10"
+		Me.toolStripSeparator10.Size = New System.Drawing.Size(6, 25)
+		'
+		'ddConsumable
+		'
+		Me.ddConsumable.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+		Me.ddConsumable.Image = CType(resources.GetObject("ddConsumable.Image"),System.Drawing.Image)
+		Me.ddConsumable.ImageTransparentColor = System.Drawing.Color.Magenta
+		Me.ddConsumable.Name = "ddConsumable"
+		Me.ddConsumable.Size = New System.Drawing.Size(83, 22)
+		Me.ddConsumable.Text = "Consumables"
+		'
+		'toolStripSeparator11
+		'
+		Me.toolStripSeparator11.Name = "toolStripSeparator11"
+		Me.toolStripSeparator11.Size = New System.Drawing.Size(6, 25)
 		'
 		'GearSelectorMainForm
 		'
@@ -863,6 +933,7 @@ Partial Class GearSelectorMainForm
 		Me.AutoScroll = true
 		Me.ClientSize = New System.Drawing.Size(1009, 786)
 		Me.Controls.Add(Me.toolStrip1)
+		Me.Controls.Add(Me.toolStrip2)
 		Me.Controls.Add(Me.groupBox1)
 		Me.Controls.Add(Me.cmdExtrator)
 		Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
@@ -883,11 +954,23 @@ Partial Class GearSelectorMainForm
 		Me.gbSetBonus.PerformLayout
 		Me.groupBox5.ResumeLayout(false)
 		Me.groupBox5.PerformLayout
+		Me.toolStrip2.ResumeLayout(false)
+		Me.toolStrip2.PerformLayout
 		Me.toolStrip1.ResumeLayout(false)
 		Me.toolStrip1.PerformLayout
 		Me.ResumeLayout(false)
 		Me.PerformLayout
 	End Sub
+	Private toolStripSeparator11 As System.Windows.Forms.ToolStripSeparator
+	Private ddConsumable As System.Windows.Forms.ToolStripDropDownButton
+	Private toolStripSeparator10 As System.Windows.Forms.ToolStripSeparator
+	Private toolStrip1 As System.Windows.Forms.ToolStrip
+	Friend cmbFood As System.Windows.Forms.ToolStripComboBox
+	Private toolStripLabel5 As System.Windows.Forms.ToolStripLabel
+	Private toolStripSeparator9 As System.Windows.Forms.ToolStripSeparator
+	Friend cmbFlask As System.Windows.Forms.ToolStripComboBox
+	Private toolStripLabel4 As System.Windows.Forms.ToolStripLabel
+	Private toolStrip2 As System.Windows.Forms.ToolStrip
 	Private toolStripSeparator7 As System.Windows.Forms.ToolStripSeparator
 	Friend cmbSkill2 As System.Windows.Forms.ToolStripComboBox
 	Private toolStripLabel3 As System.Windows.Forms.ToolStripLabel
@@ -901,7 +984,6 @@ Partial Class GearSelectorMainForm
 	Private toolStripLabel1 As System.Windows.Forms.ToolStripLabel
 	Private toolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
 	Private toolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
-	Private toolStrip1 As System.Windows.Forms.ToolStrip
 	Private lblArP As System.Windows.Forms.Label
 	Private lblHit As System.Windows.Forms.Label
 	Private lblHaste As System.Windows.Forms.Label

@@ -102,37 +102,46 @@ Public Class Item
 		Dim gem1Col As Integer = ItemDB.SelectSingleNode("/items/item[id=" & ItemId & "]/gem1").InnerText
 		Dim gem2Col As Integer = ItemDB.SelectSingleNode("/items/item[id=" & ItemId & "]/gem2").InnerText
 		Dim gem3Col as Integer = ItemDB.SelectSingleNode("/items/item[id=" & ItemId & "]/gem3").InnerText
-		
+		Dim i As Integer
+		i = gem1.Id 
 		If gem1Col <> 0 Then
-			gem1 = new Gem(me.MainFrame,gem1Col)
+			i = gem1.Id 
+			gem1 = New Gem(Me.MainFrame,gem1Col)
+			gem1.Attach(i)
 		Else
 			If AdditionalGem And AdditionalGemNotSet Then
 				gem1 = New Gem(Me.MainFrame,16)
+				gem1.Attach(i)
 				AdditionalGemNotSet=false
 			Else
 				gem1 = New Gem(Me.MainFrame,0)
 			End If
 		End If
-		
+		i = gem2.Id 
 		If gem2Col <> 0 Then
-			gem2 = new Gem(me.MainFrame,gem2Col)
+			gem2 = New Gem(Me.MainFrame,gem2Col)
+			gem2.Attach(i)
 		Else
 			If AdditionalGem And AdditionalGemNotSet Then
 				gem2 = New Gem(Me.MainFrame,16)
+				gem2.Attach(i)
 				AdditionalGemNotSet=false
 			Else
 				gem2 = New Gem(Me.MainFrame,0)
 			End If
 			
 		End If
+		i = gem3.Id 
 		If gem3Col <> 0 Then
-			gem3 = new Gem(me.MainFrame,gem3Col)
+			gem3 = New Gem(Me.MainFrame,gem3Col)
+			gem3.Attach(i)
 		Else
 			If AdditionalGem And AdditionalGemNotSet Then
 				gem3 = New Gem(Me.MainFrame,16)
+				gem3.Attach(i)
 				AdditionalGemNotSet=false
 			Else
-				gem3 = new Gem(me.MainFrame,0)
+				gem3 = New Gem(Me.MainFrame,0)
 			End If
 		End If
 		gembonus = ItemDB.SelectSingleNode("/items/item[id=" & ItemId & "]/gembonus").InnerText

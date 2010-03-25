@@ -67,7 +67,8 @@
     <Compile Include="GearSelector\EPValues.vb" />
     <Compile Include="GearSelector\EquipSlot.vb" />
     <Compile Include="GearSelector\Extractor.vb" />
-    <Compile Include="GearSelector\GearLoader.vb" />
+    <Compile Include="GearSelector\Flask.vb" />
+    <Compile Include="GearSelector\Food.vb" />
     <Compile Include="GearSelector\GearSelectorMainForm.Designer.vb">
       <DependentUpon>GearSelectorMainForm.vb</DependentUpon>
     </Compile>
@@ -253,10 +254,16 @@
     <None Include="Config\WeaponProcList.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="GearSelector\Consumables.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="GearSelector\Enchant.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="GearSelector\Flask.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="GearSelector\food.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="GearSelector\GemBonus.xml">

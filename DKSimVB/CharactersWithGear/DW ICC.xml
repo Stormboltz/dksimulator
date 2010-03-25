@@ -1,11 +1,15 @@
 <character>
   <race>Night Elf</race>
+  <skill1>Blacksmithing</skill1>
+  <skill2>Jewelcrafting</skill2>
+  <food>Strength Food</food>
+  <flask>Flask of Endless Rage</flask>
   <DW>True</DW>
   <TwoHand>False</TwoHand>
   <Head>
     <id>51312</id>
     <gem1>41398</gem1>
-    <gem2>40111</gem2>
+    <gem2>42142</gem2>
     <gem3>0</gem3>
     <enchant>1</enchant>
   </Head>
@@ -18,7 +22,7 @@
   </Neck>
   <Shoulder>
     <id>51314</id>
-    <gem1>40111</gem1>
+    <gem1>42142</gem1>
     <gem2>0</gem2>
     <gem3>0</gem3>
     <enchant>3</enchant>
@@ -40,7 +44,7 @@
   <Wrist>
     <id>50659</id>
     <gem1>40142</gem1>
-    <gem2>0</gem2>
+    <gem2>40111</gem2>
     <gem3>0</gem3>
     <enchant>10</enchant>
   </Wrist>
@@ -52,15 +56,15 @@
     <enchant>19</enchant>
   </TwoHand>
   <MainHand>
-    <id>50012</id>
-    <gem1>0</gem1>
+    <id>50672</id>
+    <gem1>40111</gem1>
     <gem2>0</gem2>
     <gem3>0</gem3>
     <enchant>0</enchant>
   </MainHand>
   <OffHand>
-    <id>50012</id>
-    <gem1>0</gem1>
+    <id>50672</id>
+    <gem1>40111</gem1>
     <gem2>0</gem2>
     <gem3>0</gem3>
     <enchant>0</enchant>
@@ -76,7 +80,7 @@
     <id>50690</id>
     <gem1>40142</gem1>
     <gem2>40111</gem2>
-    <gem3>0</gem3>
+    <gem3>40111</gem3>
     <enchant>14</enchant>
   </Hand>
   <Waist>
@@ -129,25 +133,25 @@
     <enchant>0</enchant>
   </Trinket2>
   <stat>
-    <Strength>2192</Strength>
-    <Agility>306</Agility>
+    <Strength>2340</Strength>
+    <Agility>298</Agility>
     <Intel>35</Intel>
-    <Armor>16645</Armor>
-    <AttackPower>825</AttackPower>
-    <HitRating>131</HitRating>
-    <CritRating>1213</CritRating>
-    <HasteRating>255</HasteRating>
-    <ArmorPenetrationRating>734</ArmorPenetrationRating>
+    <Armor>16629</Armor>
+    <AttackPower>935</AttackPower>
+    <HitRating>235</HitRating>
+    <CritRating>1115</CritRating>
+    <HasteRating>157</HasteRating>
+    <ArmorPenetrationRating>822</ArmorPenetrationRating>
     <ExpertiseRating>158</ExpertiseRating>
   </stat>
   <weapon>
     <count>2</count>
     <mainhand>
-      <dps>239.2</dps>
+      <dps>250.6</dps>
       <speed>2.60</speed>
     </mainhand>
     <offhand>
-      <dps>239.2</dps>
+      <dps>250.6</dps>
       <speed>2.60</speed>
     </offhand>
   </weapon>
@@ -165,7 +169,7 @@
     <HyperspeedAccelerators>False</HyperspeedAccelerators>
     <ChaoticSkyflareDiamond>True</ChaoticSkyflareDiamond>
     <TailorEnchant>False</TailorEnchant>
-    <AshenBand>False</AshenBand>
+    <AshenBand>True</AshenBand>
   </misc>
   <racials>
     <MHExpertiseBonus>0</MHExpertiseBonus>

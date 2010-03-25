@@ -85,6 +85,7 @@ Public Partial Class GearSelector
 		If Me.textBox1.Text.Trim <> "" Then
 			listView1.ListViewItemSorter = nothing
 			FilterList(Me.textBox1.Text.Split(" "))
+			listView1.ListViewItemSorter = New ListViewItemComparer(sortColumn, listView1.Sorting)
 			exit sub
 		End If
 		

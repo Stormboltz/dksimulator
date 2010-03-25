@@ -1,27 +1,13 @@
-<flask>
+<food>
 	<item>
-		<id>46377</id>
-		<name>Flask of Endless Rage</name>
+		<id>8</id>
+		<name>AP Food</name>
 		<Strength>0</Strength>
 		<Agility>0</Agility>
 		<HasteRating>0</HasteRating>
 		<ExpertiseRating>0</ExpertiseRating>
 		<HitRating>0</HitRating>
-		<AttackPower>180</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<Armor>0</Armor>
-		<Desc></Desc>
-	</item>
-	<item>
-		<id>47499</id>
-		<name>Flask of the North</name>
-		<Strength>4</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
+		<AttackPower>80</AttackPower>
 		<CritRating>0</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<Armor>0</Armor>
@@ -30,21 +16,21 @@
 	
 	<item>
 		<id>1</id>
-		<name>Elixir of Accuracy</name>
+		<name>Hit Food</name>
 		<Strength>0</Strength>
 		<Agility>0</Agility>
 		<HasteRating>0</HasteRating>
 		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>45</HitRating>
+		<HitRating>40</HitRating>
 		<AttackPower>0</AttackPower>
 		<CritRating>0</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<Armor>800</Armor>
+		<Armor>0</Armor>
 		<Desc></Desc>
 	</item>
 <item>
 		<id>2</id>
-		<name>Elixir of Armor Piercing</name>
+		<name>ArP Food</name>
 		<Strength>0</Strength>
 		<Agility>0</Agility>
 		<HasteRating>0</HasteRating>
@@ -52,70 +38,70 @@
 		<HitRating>0</HitRating>
 		<AttackPower>0</AttackPower>
 		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>45</ArmorPenetrationRating>
-		<Armor>800</Armor>
+		<ArmorPenetrationRating>40</ArmorPenetrationRating>
+		<Armor>0</Armor>
 		<Desc></Desc>
 	</item>
 <item>
 		<id>3</id>
-		<name>Elixir of Deadly Strikes</name>
+		<name>Crit Food</name>
 		<Strength>0</Strength>
 		<Agility>0</Agility>
 		<HasteRating>0</HasteRating>
 		<ExpertiseRating>0</ExpertiseRating>
 		<HitRating>0</HitRating>
 		<AttackPower>0</AttackPower>
-		<CritRating>45</CritRating>
+		<CritRating>40</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<Armor>800</Armor>
+		<Armor>0</Armor>
 		<Desc></Desc>
 	</item>
 <item>
 		<id>4</id>
-		<name>Elixir of Expertise</name>
+		<name>Expertise food</name>
 		<Strength>0</Strength>
 		<Agility>0</Agility>
 		<HasteRating>0</HasteRating>
-		<ExpertiseRating>45</ExpertiseRating>
+		<ExpertiseRating>40</ExpertiseRating>
 		<HitRating>0</HitRating>
 		<AttackPower>0</AttackPower>
 		<CritRating>0</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<Armor>800</Armor>
+		<Armor>0</Armor>
 		<Desc></Desc>
 	</item>
 <item>
 		<id>5</id>
-		<name>Elixir of Lightning Speed</name>
+		<name>Haste food</name>
 		<Strength>0</Strength>
 		<Agility>0</Agility>
-		<HasteRating>45</HasteRating>
+		<HasteRating>40</HasteRating>
 		<ExpertiseRating>0</ExpertiseRating>
 		<HitRating>0</HitRating>
 		<AttackPower>0</AttackPower>
 		<CritRating>0</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<Armor>800</Armor>
+		<Armor>0</Armor>
 		<Desc></Desc>
 	</item>
 <item>
 		<id>6</id>
-		<name>Elixir of Mighty Agility</name>
+		<name>Agility Food</name>
 		<Strength>0</Strength>
-		<Agility>45</Agility>
+		<Agility>40</Agility>
 		<HasteRating>0</HasteRating>
 		<ExpertiseRating>0</ExpertiseRating>
 		<HitRating>0</HitRating>
 		<AttackPower>0</AttackPower>
 		<CritRating>0</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<Armor>800</Armor>
+		<Armor>0</Armor>
 		<Desc></Desc>
 	</item>
 <item>
 		<id>7</id>
-		<name>Elixir of Mighty Strength</name>
-		<Strength>45</Strength>
+		<name>Strength Food</name>
+		<Strength>40</Strength>
 		<Agility>0</Agility>
 		<HasteRating>0</HasteRating>
 		<ExpertiseRating>0</ExpertiseRating>
@@ -123,35 +109,10 @@
 		<AttackPower>0</AttackPower>
 		<CritRating>0</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<Armor>800</Armor>
+		<Armor>0</Armor>
 		<Desc></Desc>
 	</item>
-<item>
-		<id>8</id>
-		<name>Guru's Elixir</name>
-		<Strength>20</Strength>
-		<Agility>20</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<Armor>800</Armor>
-		<Desc></Desc>
-	</item>
-<item>
-		<id>9</id>
-		<name>Wrath Elixir</name>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>90</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<Armor>800</Armor>
-		<Desc></Desc>
-	</item>
-</flask>
+
+
+	
+</food>
