@@ -52,13 +52,13 @@ Public Class ScourgeStrikeMagical
 		addtiveDamage = 1
 		addtiveDamage += sim.BloodPresence * 0.15
 		addtiveDamage += 0.02 * sim.BoneShield.Value(T)
-		If sim.Desolation.isActive(T) Then addtiveDamage += sim.Desolation.Bonus
+		If sim.proc.Desolation.IsActiveAt(T) Then addtiveDamage += sim.proc.Desolation.ProcValue / 100
 		addtiveDamage +=  sim.TalentFrost.BlackIce * 2 / 100
 		tmp = tmp * addtiveDamage
 		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
 		tmp = tmp * (1 + 0.02 * sim.TalentBlood.BloodGorged)
-		if sim.proc.T104PDPSFAde >= T then tmp = tmp * 1.03
-		tmp = tmp * (1 + 0.13 *  sim.Buff.SpellDamageTaken)
+		If sim.proc.T104PDPS.IsActiveAt(T) Then tmp = tmp * 1.03
+		tmp = tmp * (1 + 0.13 * sim.Buff.SpellDamageTaken)
 		tmp = tmp * (1-15/(510+15)) 'Partial Resistance. It's about 0,029% less damage on average.
 		tmpMagical = tmpMagical * tmp
 		If sim.RuneForge.CinderglacierProc > 0 Then

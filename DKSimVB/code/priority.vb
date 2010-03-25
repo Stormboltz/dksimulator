@@ -58,7 +58,7 @@ Friend Class priority
 						End If
 					End If
 				Case "BloodTap"
-					If sim.BloodTap.IsAvailable(Timestamp) and sim.Runes.BloodRune1.death = false and sim.Runes.BloodRune2.death = false    Then
+					If sim.BloodTap.IsAvailable(Timestamp) and sim.Runes.BloodRune1.death = false and sim.Runes.BloodRune2.death = false Then
 						sim.BloodTap.Use(Timestamp)
 						'debug.Print("BT")
 					End If
@@ -142,9 +142,9 @@ Friend Class priority
 								exit sub
 							End If
 						End If
-						If sim.Desolation.Bonus <> 0 and sim.Desolation.isActive(TimeStamp) = false Then
+						If Not sim.proc.Desolation.IsActiveAt(TimeStamp) Then
 							sim.BloodStrike.ApplyDamage(TimeStamp)
-							exit sub
+							Exit Sub
 						End If
 					End If
 				Case "BloodStrike"

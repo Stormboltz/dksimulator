@@ -94,6 +94,10 @@ Public Class Proc
 		End Select
 	End Sub
 	
+	Overridable Function IsActiveAt(ByVal T As Long) As Boolean
+		If Fade >= T Then Return True
+	End Function
+
 	
 	
 	Overridable Function IsActive() As Boolean

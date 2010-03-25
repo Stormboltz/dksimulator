@@ -7,6 +7,11 @@
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
 Friend Class Procs
+	
+	Friend T104PDPS As Proc
+	Friend IcyTalons As Proc
+	Friend Desolation As Proc
+	
 	Friend KillingMachine As Proc
 	Friend Rime As Proc
 	Friend ScentOfBlood As ScentOfBlood
@@ -15,7 +20,6 @@ Friend Class Procs
 	Friend Strife As Proc
 	Friend T92PDPS as Proc
 	Friend HauntedDreams As Proc
-	Friend T104PDPS As proc
 	Friend MHFallenCrusader As Proc
 	Friend OHFallenCrusader As Proc
 	Friend Berserking As Proc
@@ -24,7 +28,7 @@ Friend Class Procs
 	Friend BElfRacial As Trinket
 
 	Protected Sim as Sim
-	Friend T104PDPSFAde As Integer
+	'Friend T104PDPSFAde As Integer
 	
 	Friend BloodWorms As Proc
 	
@@ -60,7 +64,7 @@ Friend Class Procs
 	
 	
 	Sub New(S As Sim)
-		T104PDPSFAde= 0
+		'T104PDPSFAde= 0
 		sim = S
 	End Sub
 	Sub SoftReset
@@ -75,6 +79,35 @@ Friend Class Procs
 	Sub Init()
 		Dim s As Sim
 		s= Me.Sim
+		
+		T104PDPS = New Proc(s)
+		With T104PDPS
+			._Name = "T104PDPS"
+			If Sim.MainStat.T104PDPS Then .Equip()
+			.ProcLenght = 15
+			.ProcValue = 3
+			.ProcChance = 1
+
+		End With
+
+		IcyTalons = New Proc(s)
+		With IcyTalons
+			._Name = "IcyTalons"
+			If Sim.TalentFrost.IcyTalons > 0 Then .Equip()
+			.ProcValue = Sim.TalentFrost.IcyTalons
+			.ProcLenght = 20
+			.ProcChance = 1
+		End With
+
+		Desolation = New Proc(s)
+		With Desolation
+			._Name = "Desolation"
+			If Sim.TalentUnholy.Desolation > 0 Then .Equip()
+			.ProcValue = Sim.TalentUnholy.Desolation
+			.ProcLenght = 20
+			.ProcChance = 1
+		End With
+
 		
 		KillingMachine = New Proc(s)
 		With KillingMachine
@@ -336,6 +369,6 @@ Friend Class Procs
 		If sim.Runes.FrostRune2.AvailableTime < T Then Exit Sub
 		If sim.Runes.UnholyRune1.AvailableTime < T Then Exit Sub
 		If sim.Runes.UnholyRune2.AvailableTime < T Then Exit Sub
-		T104PDPSFAde = T +15 *100
+		T104PDPS.TryMe(T)
 	End Sub
 end Class

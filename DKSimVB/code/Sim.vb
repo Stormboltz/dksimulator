@@ -99,7 +99,8 @@ Public Class Sim
 	Friend Butchery As Butchery
 	Friend DeathandDecay as DeathandDecay
 	Friend DeathChill As DeathChill
-	Friend Desolation as Desolation
+
+    'Friend Desolation As Desolation
 	Friend Horn As Horn
 	Friend HowlingBlast As HowlingBlast
 	Friend Hysteria  as Hysteria
@@ -130,11 +131,11 @@ Public Class Sim
 	Friend Rotation as Rotation
 	Friend RuneForge As RuneForge
 	
-	Friend Trinkets As Trinkets
+    Friend Trinkets As Trinkets
 	
 	Friend DamagingObject as new Collection
-	Friend TrinketsCollection As New Collection
-	Friend ProcCollection As New Collection
+    Friend TrinketsCollection As New Collection
+    Friend ProcCollection As New Collection
 	
 	Friend MergeReport as Boolean
 	Friend WaitForFallenCrusader as Boolean
@@ -565,7 +566,7 @@ Public Class Sim
 		AoTD.cd = 0
 		Hysteria.CD = TimeStamp
 		DeathChill.Cd = 0
-		Desolation = New Desolation(me)
+        'Desolation = New Desolation(me)
 		MainHand.NextWhiteMainHit = TimeStamp
 		OffHand.NextWhiteOffHit = TimeStamp
 		Frenzy.CD = 0
@@ -619,7 +620,7 @@ Public Class Sim
 		DRW = New DRW(Me)
 		RuneStrike = New RuneStrike(Me)
 		'LoadConfig
-		Desolation = New Desolation(me)
+        'Desolation = New Desolation(me)
 		RunicPower.Value = 10
 		NextFreeGCD = 0
 		Threat = 0

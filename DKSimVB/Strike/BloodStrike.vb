@@ -58,8 +58,11 @@ Friend class BloodStrike
 		End If
 		sim.proc.T92PDPS.TryMe(T)
 		sim.proc.HauntedDreams.TryMe(t)
-		If rng < 0.05*sim.talentblood.SuddenDoom Then sim.deathcoil.ApplyDamage(T,True)
-		If sim.Desolation.Bonus > 0 Then sim.Desolation.Apply(T)
+		sim.proc.Desolation.TryMe(T)
+
+		If RNG < 0.05 * sim.TalentBlood.SuddenDoom Then sim.DeathCoil.ApplyDamage(T, True)
+		'If sim.Desolation.bonus > 0 Then sim.Desolation.Apply(T)
+
 		Return True
 
 End Function

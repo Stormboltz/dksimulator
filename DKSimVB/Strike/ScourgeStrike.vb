@@ -78,7 +78,7 @@ Friend Class ScourgeStrike
 		If sim.MainStat.T102PDPS<>0 Then tmpPhysical = tmpPhysical * 1.1
 		Return tmpPhysical
 	End Function
-	Function AvrgNonCritMagical(T As Long) As Double
+	Function AvrgNonCritMagical(T As Long) As Double 'This routine isn't actually used.
 		tmpMagical = tmpPhysical
 		If sim.MainStat.T84PDPS = 1 Then
 			tmpMagical = tmpMagical * (0.25 * Sim.NumDesease * 1.2)
@@ -90,10 +90,10 @@ Friend Class ScourgeStrike
 		
 		tmp = tmp * (1 + sim.BloodPresence * 0.15)
 		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
-		If sim.Desolation.isActive(T) Then tmp = tmp * (1+sim.Desolation.Bonus)
+		'If sim.Desolation.isActive(T) Then tmp = tmp * (1+sim.Desolation.Bonus)
 		tmp = tmp * (1 + 0.02 * sim.BoneShield.Value(T))
 		tmp = tmp * (1 + 0.02 * sim.TalentBlood.BloodGorged)
-		if sim.proc.T104PDPSFAde >= T then tmp = tmp * 1.03
+		'if sim.proc.T104PDPSFAde >= T then tmp = tmp * 1.03
 		tmp = tmp * (1 + 0.13 *  sim.Buff.SpellDamageTaken)
 		tmp = tmp * (1-0.05) 'Average partial resist
 		tmpMagical = tmpMagical * tmp

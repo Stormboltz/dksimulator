@@ -36,6 +36,7 @@ Friend Class FrostFever
 	
 	Overrides	Function AvrgNonCrit(T As Long) As Double
 		Dim tmp As Double
+		sim.proc.IcyTalons.TryMe(T)
 		tmp = 26
 		tmp = tmp + 0.055 * (1 + 0.04 * sim.TalentUnholy.Impurity) * AP
 		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)

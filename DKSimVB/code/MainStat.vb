@@ -484,49 +484,33 @@ Friend Class MainStat
 	End Function
 	Function Haste() As Double
 		Dim tmp As Double
-		tmp = Character.HasteRating / (25.22) / 100 '1.3 is the buff haste rating received
-		tmp = tmp + sim.UnholyPresence * 0.15
-		tmp = tmp + 0.05 * sim.TalentFrost.ImprovedIcyTalons
-		tmp = tmp + 0.04 * sim.TalentFrost.IcyTalons
-		tmp = tmp + 0.2 *  sim.Buff.MeleeHaste
-		tmp = tmp + 0.03 *  sim.Buff.Haste
-		If sim.Bloodlust.IsActive(sim.TimeStamp) Then tmp = tmp + 0.3
-		if sim.proc.TrollRacial.IsActive then tmp = tmp * 1.2
-		return tmp
+		tmp = 1 + character.HasteRating / (25.22) / 100 '1.3 is the buff haste rating received
+		tmp = tmp * (1 + Sim.UnholyPresence * 0.15)
+		If Sim.TalentFrost.ImprovedIcyTalons Then tmp = tmp * 1.05
+		If Sim.proc.IcyTalons.IsActive Then tmp = tmp * (1 + 0.04 * Sim.proc.IcyTalons.ProcValue)
+		If Sim.Buff.MeleeHaste Then tmp = tmp * 1.2
+		If Sim.Buff.Haste Then tmp = tmp * 1.03
+		If Sim.Bloodlust.IsActive(Sim.TimeStamp) Then tmp = tmp * 1.3
+		If Sim.proc.TrollRacial.IsActive Then tmp = tmp * 1.2
+		Return tmp - 1
 	End Function
 	Function SpellHaste() As Double
 		Dim tmp As Double
 		If sim.UnholyPresence = 1 Then
-			SpellHaste = 0.5
+			Return 0.5
 		Else
-			tmp = Character.SpellHasteRating / 25.22 / 100
-			tmp = tmp + 0.05 * sim.Buff.SpellHaste
-			tmp = tmp + 0.03 * sim.Buff.Haste
-			If sim.Bloodlust.IsActive(sim.TimeStamp)  Then	tmp = tmp + 0.3
-			return tmp
+			tmp = 1 + character.SpellHasteRating / 25.22 / 100
+			If Sim.Buff.SpellHaste then tmp = tmp * 1.05
+			If sim.Buff.Haste then tmp = tmp * 1.03
+			If Sim.Bloodlust.IsActive(Sim.TimeStamp) Then tmp = tmp * 1.3
+			return tmp - 1
 		End If
 	End Function
 	Function EstimatedHasteBonus As Double
 		Dim tmp As Double
-		tmp = (Character.HasteRating + sim.EPBase) / 25.22 / 100 'Haste change for 3.1 ?
-		tmp = tmp + sim.UnholyPresence * 0.15
-		tmp = tmp + 0.05 * sim.TalentFrost.ImprovedIcyTalons
-		tmp = tmp + 0.04 * sim.TalentFrost.IcyTalons
-		tmp = tmp + 0.2 *  sim.Buff.MeleeHaste
-		tmp = tmp + 0.03 *  sim.Buff.Haste
-		If sim.Bloodlust.IsActive(sim.TimeStamp) Then tmp = tmp + 0.3
-		if sim.proc.TrollRacial.IsActive then tmp = tmp * 1.2
-		tmp = (1+tmp)/(1+Haste)
-		If tmp < 1 Then
-			debug.Print ("??Oo??")
-		End If
-		return tmp
-		'		Dim tmp2 As Double
-		'		tmp2 = (tmp-Haste)/(tmp+Haste)
-		'		tmp2 = tmp2 / 2
-		'		return (1+tmp2)
+		tmp = 1 + (character.HasteRating + Sim.EPBase) / 25.22 / 100 'Haste change for 3.1 ?
+		Return tmp / (1 + character.HasteRating / 25.22 / 100)
 	End Function
-	
 	Function MHExpertise() As Double
 		Dim tmp As Double
 		tmp = Expertise
@@ -707,62 +691,40 @@ Friend Class MainStat
 	
 	
 	
-	
-	
-	Function WhiteHitDamageMultiplier(T as long) As Double
-		dim tmp as Double
-		tmp = 1
-		tmp = tmp * (1 + sim.BloodPresence * 0.15)
-		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
-		If sim.Desolation.isActive(T) Then tmp = tmp * (1+sim.Desolation.Bonus)
-		tmp = tmp * (1 + 0.02 * sim.BoneShield.Value(T))
-		tmp = tmp * (1 + 0.02 * sim.TalentBlood.BloodGorged)
-		
-		tmp = tmp * getMitigation
-		tmp = tmp * (1 + 0.04 *  sim.Buff.PhysicalVuln)
-		tmp = tmp * (1 + 0.03 * sim.TalentBlood.BloodyVengeance)
-		If sim.proc.T104PDPSFAde >= T Then
-			tmp = tmp * 1.03
-		End If
-		If sim.Hysteria.IsActive(T) Then tmp = tmp * 1.2
-		
-		return tmp
-	End Function
-	Function StandardPhysicalDamageMultiplier(T as long) As Double
-		dim tmp as Double
-		tmp = 1
-		tmp = tmp * (1 + sim.BloodPresence * 0.15)
-		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
-		If sim.Desolation.isActive(T) Then tmp = tmp * (1+sim.Desolation.Bonus)
-		tmp = tmp * (1 + 0.02 * sim.BoneShield.Value(T))
-		tmp = tmp * (1 + 0.02 * sim.TalentBlood.BloodGorged)
-		
-		tmp = tmp * getMitigation
-		tmp = tmp * (1 + 0.04 *  sim.Buff.PhysicalVuln)
-		tmp = tmp * (1 + 0.03 * sim.TalentBlood.BloodyVengeance)
-		If sim.Hysteria.IsActive(T) Then tmp = tmp * 1.2
-		
-		If sim.FrostFever.isActive(T) or sim.Buff.FrostFever = 1 Then	tmp = tmp * (1 + 0.03 * sim.TalentFrost.TundraStalker)
-		If sim.BloodPlague.isActive(T) or sim.Buff.BloodPlague = 1 Then tmp = tmp * (1 + 0.02 * sim.TalentUnholy.RageofRivendare)
-		If sim.proc.T104PDPSFAde >= T Then tmp = tmp * 1.03
-		
-		return tmp
-	End Function
-	Function StandardMagicalDamageMultiplier(T as long) As Double
+	Function _BaseDamageMultiplier(ByVal T As Long) As Double
 		Dim tmp As Double
-		tmp = 1
-		tmp = tmp * (1 + sim.BloodPresence * 0.15)
-		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
-		If sim.Desolation.isActive(T) Then tmp = tmp * (1+sim.Desolation.Bonus)
-		tmp = tmp * (1 + 0.02 * sim.BoneShield.Value(T))
-		tmp = tmp * (1 + 0.02 * sim.TalentBlood.BloodGorged)
-		
-		If sim.FrostFever.isActive(T) or sim.Buff.FrostFever = 1 Then	tmp = tmp * (1 + 0.03 * sim.TalentFrost.TundraStalker)
-		If sim.BloodPlague.isActive(T) or sim.Buff.BloodPlague = 1 Then tmp = tmp * (1 + 0.02 * sim.TalentUnholy.RageofRivendare)
-		if sim.proc.T104PDPSFAde >= T then tmp = tmp * 1.03
-		tmp = tmp * (1 + 0.13 *  sim.Buff.SpellDamageTaken)
-		tmp = tmp * (1-15/(510+15)) 'Partial Resistance. It's about 0,029% less damage on average.
-		
-		return tmp
+		tmp = 1 + Sim.BloodPresence * 0.15
+		tmp = tmp * (1 + 0.03 * Sim.Buff.PcDamage)
+		tmp = tmp * (1 + 0.02 * Sim.BoneShield.Value(T))
+		tmp = tmp * (1 + 0.02 * Sim.TalentBlood.BloodGorged)
+		If Sim.proc.Desolation.IsActiveAt(T) Then tmp = tmp * (1 + Sim.proc.Desolation.ProcValue * 0.01)
+		If Sim.proc.T104PDPS.IsActiveAt(T) Then tmp = tmp * 1.03
+		Return tmp
+	End Function
+
+	Function WhiteHitDamageMultiplier(ByVal T As Long) As Double
+		Dim tmp As Double
+		tmp = _BaseDamageMultiplier(T) * getMitigation()
+		tmp = tmp * (1 + 0.04 * Sim.Buff.PhysicalVuln)
+		tmp = tmp * (1 + 0.03 * Sim.TalentBlood.BloodyVengeance)
+		If Sim.Hysteria.IsActive(T) Then tmp = tmp * 1.2
+		Return tmp
+	End Function
+	Function StandardPhysicalDamageMultiplier(ByVal T As Long) As Double
+		Dim tmp As Double
+		tmp = WhiteHitDamageMultiplier(T)
+		If Sim.FrostFever.isActive(T) Or Sim.Buff.FrostFever = 1 Then tmp = tmp * (1 + 0.03 * Sim.TalentFrost.TundraStalker)
+		If Sim.BloodPlague.isActive(T) Or Sim.Buff.BloodPlague = 1 Then tmp = tmp * (1 + 0.02 * Sim.TalentUnholy.RageofRivendare)
+		Return tmp
+	End Function
+	Function StandardMagicalDamageMultiplier(ByVal T As Long) As Double
+		Dim tmp As Double
+		tmp = _BaseDamageMultiplier(T)
+		If Sim.FrostFever.isActive(T) Or Sim.Buff.FrostFever = 1 Then tmp = tmp * (1 + 0.03 * Sim.TalentFrost.TundraStalker)
+		If Sim.BloodPlague.isActive(T) Or Sim.Buff.BloodPlague = 1 Then tmp = tmp * (1 + 0.02 * Sim.TalentUnholy.RageofRivendare)
+		tmp = tmp * (1 + 0.13 * Sim.Buff.SpellDamageTaken)
+		tmp = tmp * (1 - 15 / (510 + 15)) 'Partial Resistance. It's about 0,029% less damage on average.
+
+		Return tmp
 	End Function
 End Class
