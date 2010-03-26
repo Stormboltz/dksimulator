@@ -482,6 +482,7 @@ Friend Class MainStat
 		
 		return  tmp / 100
 	End Function
+	
 	Function Haste() As Double
 		Dim tmp As Double
 		tmp = 1 + character.HasteRating / (25.22) / 100 '1.3 is the buff haste rating received
@@ -490,21 +491,17 @@ Friend Class MainStat
 		If Sim.proc.IcyTalons.IsActive Then tmp = tmp * (1 + 0.04 * Sim.proc.IcyTalons.ProcValue)
 		If Sim.Buff.MeleeHaste Then tmp = tmp * 1.2
 		If Sim.Buff.Haste Then tmp = tmp * 1.03
-		If Sim.Bloodlust.IsActive(Sim.TimeStamp) Then tmp = tmp * 1.3
+		If Sim.Bloodlust.IsActive(sim.TimeStamp) Then tmp = tmp * 1.3
 		If Sim.proc.TrollRacial.IsActive Then tmp = tmp * 1.2
-		Return tmp - 1
+		Return tmp
 	End Function
 	Function SpellHaste() As Double
 		Dim tmp As Double
-		If sim.UnholyPresence = 1 Then
-			Return 0.5
-		Else
-			tmp = 1 + character.SpellHasteRating / 25.22 / 100
-			If Sim.Buff.SpellHaste then tmp = tmp * 1.05
-			If sim.Buff.Haste then tmp = tmp * 1.03
-			If Sim.Bloodlust.IsActive(Sim.TimeStamp) Then tmp = tmp * 1.3
-			return tmp - 1
-		End If
+		tmp = 1 + character.SpellHasteRating / 25.22 / 100
+		If Sim.Buff.SpellHaste Then tmp = tmp * 1.05
+		If Sim.Buff.Haste Then tmp = tmp * 1.03
+		If Sim.Bloodlust.IsActive(sim.TimeStamp) Then tmp = tmp * 1.3
+		Return tmp
 	End Function
 	Function EstimatedHasteBonus As Double
 		Dim tmp As Double

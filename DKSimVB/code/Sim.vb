@@ -423,7 +423,18 @@ Public Class Sim
 		debug.Print(i)
 	End Function
 	
-	
+	Sub UseGCD(T As Long, Spell As Boolean)
+		Dim tmp As Long
+		If UnholyPresence Then
+			tmp = 100
+		ElseIf Spell Then
+			tmp = Math.Max(150.0 / MainStat.SpellHaste, 100)
+		Else
+			tmp = 150
+		End If
+		tmp = T + tmp + latency / 10
+		If tmp > NextFreeGCD Then NextFreeGCD = tmp
+	End Sub
 	
 	Function isInGCD(T As long ) As Boolean
 		If NextFreeGCD <= T Then

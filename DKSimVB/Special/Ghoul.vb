@@ -52,17 +52,18 @@ Friend class Ghoul
 		End If
 	End Sub
 	sub UseGCD(T as Long)
-		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste)) + sim.latency/10
+		Sim.UseGCD(T, True)
 	End sub
-	Function Haste As Double
-		dim tmp as Double
+	Function Haste() As Double
+		Dim tmp As Double
 		tmp = sim.MainStat.Haste
 		If GhoulDoubleHaste Then
-			tmp = tmp + 0.2 *  sim.Buff.MeleeHaste
-			tmp = tmp + 0.03 *  sim.Buff.Haste
-			if sim.Bloodlust.IsActive(sim.TimeStamp) then tmp = tmp + 0.3
+			tmp = tmp * (1 + 0.2 * sim.Buff.MeleeHaste)
+			If sim.Bloodlust.IsActive(sim.TimeStamp) Then tmp = tmp * 1.3
+			tmp = tmp * (1 + 0.03 * sim.Buff.Haste)
 		End If
-		return tmp
+		If sim.Frenzy.ActiveUntil >= sim.TimeStamp Then tmp = tmp * 1.25
+		Return tmp
 	End Function
 	Function ApplyDamage(T As long) As boolean
 		Dim dégat As integer
@@ -70,11 +71,7 @@ Friend class Ghoul
 		
 		Dim WSpeed As Single
 		WSpeed = sim.GhoulStat.MHWeaponSpeed
-		If sim.Frenzy.ActiveUntil >= T Then
-			NextWhiteMainHit = T + (WSpeed * 100) / ((1 + Haste + 0.25))
-		Else
-			NextWhiteMainHit = T + (WSpeed * 100) / ((1 + Haste))
-		End If
+		NextWhiteMainHit = T + (WSpeed * 100) / Haste
 		Dim RNG As Double
 		RNG = sim.RandomNumberGenerator.RNGPet
 

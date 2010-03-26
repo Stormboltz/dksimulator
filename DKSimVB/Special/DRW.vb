@@ -70,7 +70,7 @@ Friend Class DRW
 		End If
 	End Function
 	Function ApplyDamage(T As long) As boolean
-		NextDRW = T + (100*3.5 / (1 + Haste))
+		NextDRW = T + (100 * 3.5 / Haste)
 		Dim RNG As Double
 		dim retour as Integer
 		RNG = sim.RandomNumberGenerator.RNGPet
@@ -121,7 +121,7 @@ Friend Class DRW
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 	sub UseGCD(T as Long)
-		Sim.NextFreeGCD = T + (150 / (1 + sim.latency)) + sim.latency/10
+		Sim.UseGCD(T, True)
 	End Sub
 	Function PhysicalDamageMultiplier(T as long) As Double
 		dim tmp as Double

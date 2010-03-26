@@ -61,7 +61,7 @@ Public Class Spell
 	End Sub
 	
 	sub UseGCD(T as Long)
-		Sim.NextFreeGCD = T + (150 / (1 + sim.MainStat.SpellHaste)) + sim.latency/10
+		Sim.UseGCD(T, True)
 	End sub
 	
 	

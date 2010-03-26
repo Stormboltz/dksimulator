@@ -17,11 +17,7 @@ Public Class Strike
 	
 	
 	Sub UseGCD(T as Long)
-		If sim.UnholyPresence Then
-			Sim.NextFreeGCD = T + 100+ sim.latency/10
-		Else
-			Sim.NextFreeGCD = T + 150+ sim.latency/10
-		End If
+		Sim.UseGCD(T, False)
 	End Sub
 	
 	

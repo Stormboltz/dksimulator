@@ -75,15 +75,15 @@ Public Class AotD
 		Sim.NextFreeGCD = T + sim.latency/10 + 400
 	End Sub
 	
-	Function Haste As Double
-		dim tmp as Double
+	Function Haste() As Double
+		Dim tmp As Double
 		tmp = sim.MainStat.Haste
 		If GhoulDoubleHaste Then
-			tmp = tmp + 0.2 *  sim.Buff.MeleeHaste
-			tmp = tmp + 0.03 *  sim.Buff.Haste
-			if sim.Bloodlust.IsActive(sim.TimeStamp) then tmp = tmp + 0.3
+			tmp = tmp * (1 + 0.2 * sim.Buff.MeleeHaste)
+			If sim.Bloodlust.IsActive(sim.TimeStamp) Then tmp = tmp * 1.3
+			tmp = tmp * (1 + 0.03 * sim.Buff.Haste)
 		End If
-		return tmp
+		Return tmp
 	End Function
 	
 
@@ -92,7 +92,7 @@ Public Class AotD
 		Dim dégat As integer
 		Dim WSpeed As Single
 		WSpeed = MHWeaponSpeed
-		NextWhiteMainHit = T + (WSpeed * 100) / ((1 + Haste))
+		NextWhiteMainHit = T + (WSpeed * 100) / Haste
 		
 		Dim RNG As Double
 		RNG = sim.RandomNumberGenerator.RNGPet

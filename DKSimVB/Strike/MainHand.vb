@@ -28,7 +28,7 @@ Sub New(S As sim)
 		
 		WSpeed = sim.MainStat.MHWeaponSpeed
 		
-		dNextWhiteMainHit = dNextWhiteMainHit + (WSpeed * 100) / ((1 + sim.MainStat.Haste))
+        dNextWhiteMainHit = dNextWhiteMainHit + (WSpeed * 100) / sim.MainStat.Haste
 		NextWhiteMainHit = dNextWhiteMainHit
 		
 		

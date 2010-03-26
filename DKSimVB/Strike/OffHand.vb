@@ -17,7 +17,7 @@ Friend Class OffHand
 		Dim prvWhiteOffHit As Long
 		prvWhiteOffHit = NextWhiteOffHit
 		
-		dNextWhiteOffHit = dNextWhiteOffHit + (WSpeed * 100) / ((1 + sim.MainStat.Haste))
+        dNextWhiteOffHit = dNextWhiteOffHit + (WSpeed * 100) / sim.MainStat.Haste
 		NextWhiteOffHit = dNextWhiteOffHit
 
 		
