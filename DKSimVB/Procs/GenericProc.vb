@@ -142,7 +142,7 @@ Public Class Proc
 	Overridable Function TryMe(ByVal T As Long) As Boolean
 		If Equiped = 0 Then
 			sim.UselessCheck += 1
-			debug.Print (me.Name)
+			'debug.Print (me.Name)
 			Return False
 		End If
 		if CD > T Then Return False
