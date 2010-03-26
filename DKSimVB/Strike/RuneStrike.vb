@@ -29,7 +29,8 @@ Public Class RuneStrike
 		
 		trigger = false
 		Sim.RunicPower.Value = Sim.RunicPower.Value - 20
-		RNG = sim.RandomNumberGenerator.RNGWhiteHit
+		
+		RNG = MyRng
 		MeleeMissChance = math.Min(sim.mainstat.Hit, 0.08)
 		If MeleeMissChance + RNG < 0.08 Then
 			MissCount = MissCount + 1
@@ -37,7 +38,7 @@ Public Class RuneStrike
 			exit function
 		End If
 		
-		RNG = sim.RandomNumberGenerator.RNGWhiteHit
+		RNG = MyRng
 		If OffHand = False Then
 			If sim.proc.ThreatOfThassarian.TryMe(T) Then sim.OHRuneStrike.ApplyDamage(T)
 		End If
@@ -56,15 +57,18 @@ Public Class RuneStrike
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Rune Strike hit for " & dégat )
 		End If
 		total = total + dégat
-		If sim.TalentUnholy.Necrosis > 0 Then sim.Necrosis.Apply(dégat, T)			
-		RNG = sim.RandomNumberGenerator.RNGWhiteHit * 100
-		If RNG <= 10 * sim.TalentUnholy.BloodCakedBlade Then
-			If offhand=False Then
+		If sim.TalentUnholy.Necrosis > 0 Then sim.Necrosis.Apply(dégat, T)
+		
+		If offhand=False Then
+			If sim.proc.MHBloodCakedBlade.TryMe(T) Then
 				sim.BloodCakedBlade.ApplyDamage(T)
-			Else
+			End If
+		Else
+			If sim.proc.OHBloodCakedBlade.TryMe(T) Then
 				sim.OHBloodCakedBlade.ApplyDamage(T)
 			End If
 		End If
+		
 		If offhand=False Then
 			sim.TryOnMHHitProc
 		Else

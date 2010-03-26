@@ -102,8 +102,8 @@ Friend Class MainStat
 		
 		'Trinkets
 		Sim.Trinkets = New Trinkets(Sim)
-		Sim.Trinkets.MHRazorIce.ProcValue = MHWeaponDPS * MHWeaponSpeed * 0.02
-		Sim.Trinkets.OHRazorIce.ProcValue = MHWeaponDPS * MHWeaponSpeed * 0.02
+		
+		
 		
 		try
 			Select Case sim._EPStat

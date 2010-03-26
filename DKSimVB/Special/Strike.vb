@@ -12,7 +12,7 @@ Public Class Strike
 	Inherits Supertype
 	
 
-	Protected _RNG As Random
+
 	Friend OffHand  As Boolean
 	
 	
@@ -84,12 +84,7 @@ Public Class Strike
 	
 	
 	
-	Function MyRng as Double
-		If _RNG Is nothing Then
-			_RNG =  New Random(ConvertToInt(me.name)+RNGSeeder)
-		End If
-		return _RNG.NextDouble
-	End Function
+	
 	
 	
 	Overridable Public Function isAvailable(T As Long) As Boolean

@@ -28,16 +28,6 @@ Public Class Disease
 
 	
 	Friend ToReApply as Boolean
-	Protected _RNG as Random
-	
-	Function MyRng as Double 
-		If _RNG Is nothing Then
-			_RNG =  New Random(ConvertToInt(me.ToString)+RNGSeeder)
-		End If
-		return _RNG.NextDouble
-	End Function
-	
-
 	
 	Sub New
 		init()
@@ -99,7 +89,7 @@ Public Class Disease
 		For intCount = 1 To Sim.NumberOfEnemies
 			if intCount > 1 and OtherTargetsFade < T then return true
 			If sim.MainStat.T94PDPS =1 Then
-				If sim.RandomNumberGenerator.RNGT9P4 < CritChance Then
+				If MyRng < CritChance Then
 					tmp = AvrgCrit(T)
 					CritCount = CritCount + 1
 					totalcrit += tmp
@@ -110,6 +100,7 @@ Public Class Disease
 				End If
 			Else
 				tmp = DamageTick
+			'	totalhit += tmp
 				HitCount = HitCount + 1
 			End If
 			total = total + tmp

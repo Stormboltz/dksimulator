@@ -11,7 +11,6 @@ Public Class Proc
 	Friend CD as Integer
 	Friend Fade As Integer
 	Friend ProcChance As Double
-	Friend _RNG As Random
 	friend Equiped As Integer
 	Friend ProcLenght As Integer
 	Friend ProcValue As Integer
@@ -36,12 +35,7 @@ Public Class Proc
 	Friend previousFade As Long
 
 	
-	Function RNGProc As Double
-		If _RNG Is nothing Then
-			_RNG =  New Random(ConvertToInt(me.Name)+RNGSeeder)
-		End If
-		return _RNG.NextDouble
-	End Function
+	
 	
 	Sub New()
 		_RNG = nothing
@@ -146,8 +140,13 @@ Public Class Proc
 	End Function
 
 	Overridable Function TryMe(ByVal T As Long) As Boolean
-		If Equiped = 0 Or CD > T Then Return False
-		If RNGProc() > ProcChance Then Return False
+		If Equiped = 0 Then
+			sim.UselessCheck += 1
+			debug.Print (me.Name)
+			Return False
+		End If
+		if CD > T Then Return False
+		If MyRng() > ProcChance Then Return False
 		ApplyMe(T)
 		Return True
 	End Function
@@ -170,7 +169,7 @@ Public Class Proc
 					Stack +=1
 				Else
 					Stack = 0
-					If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
+					If MyRng < (0.17 - sim.MainStat.SpellHit) Then
 						MissCount = MissCount + 1
 						Exit sub
 					End If
@@ -184,7 +183,7 @@ Public Class Proc
 					AddUptime(T)
 				End If
 			Case "Bryntroll"
-				If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
+				If MyRng < (0.17 - sim.MainStat.SpellHit) Then
 					MissCount = MissCount + 1
 					Exit sub
 				End If
@@ -192,7 +191,7 @@ Public Class Proc
 				HitCount = HitCount + 1
 				totalhit += tmp
 			Case "BryntrollHeroic"
-				If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
+				If MyRng < (0.17 - sim.MainStat.SpellHit) Then
 					MissCount = MissCount + 1
 					Exit sub
 				End If
@@ -205,7 +204,7 @@ Public Class Proc
 				If Me.Stack =8 Then
 					Me.Stack=0
 					if sim.MainStat.DualW then
-						If RNGProc > 0.5 Then
+						If MyRng > 0.5 Then
 							tmp = sim.MainHand.AvrgNonCrit(T)/2
 						Else
 							tmp = sim.offhand.AvrgNonCrit(T)/2
@@ -213,7 +212,7 @@ Public Class Proc
 					Else
 						tmp = sim.MainHand.AvrgNonCrit(T)/2
 					End If
-					If RNGProc < sim.MainStat.crit Then
+					If MyRng < sim.MainStat.crit Then
 						tmp = tmp*2
 						CritCount += 1
 						TotalCrit += tmp
@@ -251,11 +250,11 @@ Public Class Proc
 				Fade = T + ProcLenght * 100
 				HitCount += 1
 			Case "arcane"
-				If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
+				If MyRng < (0.17 - sim.MainStat.SpellHit) Then
 					MissCount = MissCount + 1
 					Exit sub
 				End If
-				If sim.RandomNumberGenerator.RNGProc <= sim.MainStat.SpellCrit Then
+				If MyRng <= sim.MainStat.SpellCrit Then
 					CritCount = CritCount + 1
 					tmp = ProcValue * 1.5 * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
 					Totalcrit +=  tmp
@@ -265,11 +264,11 @@ Public Class Proc
 					Totalhit +=  tmp
 				End If
 			Case "shadow"
-				If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
+				If MyRng < (0.17 - sim.MainStat.SpellHit) Then
 					MissCount = MissCount + 1
 					Exit sub
 				End If
-				If sim.RandomNumberGenerator.RNGProc <= sim.MainStat.SpellCrit Then
+				If MyRng <= sim.MainStat.SpellCrit Then
 					CritCount = CritCount + 1
 					tmp = ProcValue * 1.5 * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
 					tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
@@ -285,7 +284,7 @@ Public Class Proc
 				HitCount = HitCount + 1
 				totalhit += tmp
 			Case "SapperCharge"
-				If sim.RandomNumberGenerator.RNGProc <= sim.MainStat.Crit Then
+				If MyRng <= sim.MainStat.Crit Then
 					CritCount = CritCount + 1
 					tmp = ProcValue * 1.5 * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
 					tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
@@ -297,7 +296,7 @@ Public Class Proc
 				End If
 				
 			Case "physical"
-				If sim.RandomNumberGenerator.RNGProc <= sim.MainStat.Crit Then
+				If MyRng <= sim.MainStat.Crit Then
 					CritCount = CritCount + 1
 					tmp = ProcValue * 2 * sim.MainStat.StandardPhysicalDamageMultiplier(sim.TimeStamp)
 					totalcrit += tmp
@@ -321,10 +320,10 @@ Public Class Proc
 				tmp = tmp * 10
 				tmp = tmp * (1+sim.MainStat.Haste)
 				tmp = tmp * sim.GhoulStat.PhysicalDamageMultiplier(T)
-				If RNGProc < 0.33 Then
+				If MyRng < 0.33 Then
 					tmp = tmp * 2
 					HitCount = HitCount + 20
-				ElseIf RNGProc < 0.66
+				ElseIf MyRng < 0.66
 					tmp = tmp *3
 					HitCount = HitCount + 30
 				Else

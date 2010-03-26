@@ -32,7 +32,13 @@ Friend Class Procs
 	Friend Berserking As Proc
 	Friend OrcRacial As Proc
 	Friend TrollRacial As Proc
-	Friend BElfRacial As Trinket
+	Friend BElfRacial As Proc
+	
+	Friend MHBloodCakedBlade As Proc
+	Friend OHBloodCakedBlade As Proc
+	
+	
+	
 
 	Protected Sim as Sim
 	'Friend T104PDPSFAde As Integer
@@ -89,6 +95,26 @@ Friend Class Procs
 	Sub Init()
 		Dim s As Sim
 		s= Me.Sim
+		
+		
+		MHBloodCakedBlade = New Proc(s)
+		With MHBloodCakedBlade
+			._Name = "MH Blood-Caked Blade"
+			.ProcChance = sim.TalentUnholy.BloodCakedBlade * 0.1
+			If .ProcChance > 0 Then
+				.Equip()
+			End If
+		End With
+		
+		OHBloodCakedBlade = New Proc(s)
+		With OHBloodCakedBlade
+			._Name = "OH Blood-Caked Blade"
+			.ProcChance = sim.TalentUnholy.BloodCakedBlade * 0.1
+			If .ProcChance > 0 Then
+				.Equip()
+			End If
+		End With
+		
 
 		Bloodlust = New Proc(s)
 		With Bloodlust
@@ -265,17 +291,18 @@ Friend Class Procs
 			'.ProcOn = procs.ProcOnType.OnMHhit
 			If s.Sigils.HauntedDreams Then .Equip()
 		End With
+		
 		s.RuneForge.MHRazorIce = New RazorIce(s)
 		With s.RuneForge.MHRazorIce
-			._Name = "MHRazorIce"
+			._Name = "Frost Vulnerability"
 			.InternalCD = 0
 			.ProcOn = Procs.ProcOnType.OnMHhit
 			.ProcChance = 1
 			.ProcLenght = 20
-			.ProcValue = 1
+			.ProcValue = 1 
 			If s.RuneForge.MHRazoriceRF Then .Equip()
 		End With
-
+		
 		s.RuneForge.OHRazorIce = New RazorIce(s)
 		With s.RuneForge.OHRazorIce
 			._Name = "Frost Vulnerability"
@@ -719,6 +746,54 @@ Friend Class Procs
 			Catch ex As System.Exception
 			End Try
 		End With
+		
+		
+		dim MHRazorIce as New Proc(s)
+		With MHRazorIce
+			.ProcChance = 1
+			.ProcLenght = 15
+			.ProcValue = 0
+			.DamageType = "razorice"
+			.InternalCD = 0
+			._Name = "Main Hand RazorIce"
+			.ProcOn = procs.ProcOnType.OnMHhit
+			.HasteSensible = True
+			
+			Try
+				If sim.XmlConfig.SelectSingleNode("//config/mh").InnerText ="Razorice" Then
+					.ProcValue = Sim.MainStat.MHWeaponSpeed * Sim.MainStat.MHWeaponDPS * 0.02
+					.Equip
+				End If
+			Catch ex As System.Exception
+			End Try
+			
+			
+			
+			
+		End With
+		
+		dim OHRazorIce as New Proc(s)
+		With OHRazorIce
+			.ProcChance = 1
+			.ProcLenght = 15
+			.ProcValue = 0
+			.DamageType = "razorice"
+			.InternalCD = 0
+			._Name = "Off Hand RazorIce"
+			.ProcOn = procs.ProcOnType.OnOHhit
+			.HasteSensible = True
+			Try
+				If sim.XmlConfig.SelectSingleNode("//config/oh").InnerText ="Razorice" Then
+					.ProcValue = Sim.MainStat.MHWeaponSpeed * Sim.MainStat.MHWeaponDPS * 0.02
+					.Equip
+				End If
+			Catch ex As System.Exception
+			End Try
+		End With
+		
+		
+		
+		
 	End Sub
 	
 	Function GetActiveBonus(stat As String) As Integer

@@ -23,7 +23,7 @@ Public Class Supertype
 	Public ThreadMultiplicator As Double
 	Friend uptime As Long
 	Protected sim As Sim
-	
+	Protected _RNG as Random
 	
 	
 	
@@ -75,6 +75,14 @@ Public Class Supertype
 	Overridable Public Function Name() As String
 		if _name <> "" then return _name
 		return me.ToString
+	End Function
+	
+	Function MyRng as Double
+		If _RNG Is nothing Then
+			_RNG =  New Random(ConvertToInt(Me.name)+RNGSeeder)
+			
+		End If
+		return _RNG.NextDouble
 	End Function
 	
 	

@@ -1,5 +1,8 @@
 Imports Microsoft.VisualBasic
 Public Class Sim
+	Friend UselessCheck As Long
+	Friend UselessCheckColl as New Collection
+	
 	
 	'Friend Patch as Boolean
 	Friend TotalDamageAlternative As Long
@@ -230,13 +233,13 @@ Public Class Sim
 	End Sub
 	
 	Sub Start()
-		
+		SimStart = now
 		LoadConfig
 		
 		
 		Rnd(-1) 'Tell VB to initialize using Randomize's parameter
 		RandomNumberGenerator = new RandomNumberGenerator 'init here, so that we don't get the same rng numbers for short fights.
-		SimStart = now
+		
 		MaxTime = SimTime * 60 * 60 * 100
 		TotalDamageAlternative = 0
 		TimeStampCounter = 1
@@ -406,6 +409,7 @@ Public Class Sim
 		DPS = 100 * TotalDamage / TimeStamp
 		Report()
 		Debug.Print( "DPS=" & DPS & " " & "TPS=" & TPS & " " & EPStat & " hit=" & mainstat.Hit & " sphit=" & mainstat.SpellHit & " exp=" & mainstat.expertise )
+		Debug.Print( "UselessCheck = " & UselessCheckColl.Count)
 		combatlog.finish
 		On Error Resume Next
 		If Me.FrostPresence = 1 Then
@@ -415,6 +419,9 @@ Public Class Sim
 		End If
 		'SimConstructor.simCollection.Remove(me)
 	End Sub
+	
+	
+	
 	
 	Function TotalDamage() as Long
 		Dim i As long
@@ -800,7 +807,6 @@ Public Class Sim
 				RuneForge.MHFallenCrusader = True
 			Case "Razorice"
 				RuneForge.MHRazoriceRF = True
-				Trinkets.MHRazorIce.Equip
 		End Select
 		
 		RuneForge.OHCinderglacierRF = False
@@ -822,7 +828,6 @@ Public Class Sim
 					RuneForge.OHFallenCrusader = true
 				Case "Razorice"
 					RuneForge.OHRazoriceRF = True
-					Trinkets.OHRazorIce.Equip
 				Case "Berserking"
 					Runeforge.OHBerserking = True
 			End Select

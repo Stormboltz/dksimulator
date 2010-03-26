@@ -12,18 +12,26 @@ Public Class Boss
 	Private Sim As Sim
 	Private Speed As Integer
 	Friend SpecialArmor as Integer
+	Friend _RNG As Random
+		
+	
+	Function MyRng as Double
+		If _RNG Is nothing Then
+			_RNG =  New Random(ConvertToInt("Boss")+RNGSeeder)
+		End If
+		return _RNG.NextDouble
+	End Function
 	
 	
 	Sub New(S as Sim)
 		NextHit = 0
 		Sim = S
 		LoadTankOptions
-		
 	End Sub
 	
 	Function ApplyDamage(T as Long) As Boolean
 		Dim RNGHit As Double
-		RNGHit = sim.RandomNumberGenerator.RNGTank
+		RNGHit = MyRng
 		NextHit = T+Speed
 		If RNGHit > Avoidance Then
 			'Boss hit

@@ -52,7 +52,7 @@ Friend Class Gargoyle
 		'Debug.Print( (2 * 100) / (1 + SpellHaste) )
 		Dim RNG As Double
 
-		RNG = sim.RandomNumberGenerator.RNGPet
+		RNG = MyRng
 		If SpellHit >= 0.17 Then
 			RNG = RNG + 0.17
 		Else
@@ -64,7 +64,7 @@ Friend Class Gargoyle
 			Exit Function
 		End If
 
-		RNG = sim.RandomNumberGenerator.RNGPet
+		RNG = MyRng
 		Dim dégat As Integer
 		If RNG <= CritChance() Then
 			dégat = AvrgCrit(T)

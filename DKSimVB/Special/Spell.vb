@@ -14,14 +14,7 @@ Public Class Spell
 	Friend CD As Long
 	Friend ActiveUntil As Long
 
-	Protected _RNG as Random
 	
-	Function MyRng as Double 
-		If _RNG Is nothing Then
-			_RNG =  New Random(ConvertToInt(me.ToString)+RNGSeeder)
-		End If
-		return _RNG.NextDouble
-	End Function
 	
 	Function DoMySpellHit As Boolean
 		Dim RNG As Double

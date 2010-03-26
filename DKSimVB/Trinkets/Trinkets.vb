@@ -28,23 +28,13 @@ Public Class Trinkets
 	Friend MjolRune As Trinket
 	Friend DeathbringersWill As Trinket
 	Friend DeathbringersWillHeroic As Trinket
-	
 	Friend HerkumlWarToken as Trinket
 	Friend MarkofSupremacy As Trinket
 	Friend VengeanceoftheForsaken As Trinket
 	Friend VengeanceoftheForsakenHeroic As Trinket
-	
-	
-	
-	
-	
-	
 	Friend WhisperingFangedSkull As Trinket
 	Friend WhisperingFangedSkullHeroic As Trinket
 	Friend NeedleEncrustedScorpion as Trinket
-	Friend MHRazorIce As Trinket
-	Friend OHRazorIce As Trinket
-	
 	Friend TinyAbomination as Trinket
 	
 	
@@ -346,29 +336,7 @@ Public Class Trinkets
 		
 	
 		
-		MHRazorIce = New Trinket(s)
-		With MHRazorIce
-			.ProcChance = 1
-			.ProcLenght = 15
-			.ProcValue = 0
-			.DamageType = "razorice"
-			.InternalCD = 0
-			._Name = "Main Hand RazorIce"
-			.ProcOn = procs.ProcOnType.OnMHhit
-			.HasteSensible = true
-		End With
 		
-		OHRazorIce = New Trinket(s)
-		With OHRazorIce
-			.ProcChance = 1
-			.ProcLenght = 15
-			.ProcValue = 0
-			.DamageType = "razorice"
-			.InternalCD = 0
-			._Name = "Off Hand RazorIce"
-			.ProcOn = procs.ProcOnType.OnOHhit
-			.HasteSensible = true
-		End With
 		
 		
 		'CollectDamagingTrinket

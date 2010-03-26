@@ -31,7 +31,7 @@ Friend Class OffHand
 		
 
 		
-		RNG = sim.RandomNumberGenerator.RNGWhiteHit
+		RNG = MyRng
 		MeleeGlacingChance = 0.25
 		MeleeDodgeChance = 0.065
 		MeleeMissChance = 0.27
@@ -92,8 +92,7 @@ Friend Class OffHand
 		If sim.TalentUnholy.Necrosis > 0 Then
 			Nec = sim.Necrosis.Apply(dégat, T)
 		End If
-		RNG = sim.RandomNumberGenerator.RNGWhiteHit * 100
-		If RNG <= 10 * sim.TalentUnholy.BloodCakedBlade Then sim.OHBloodCakedBlade.ApplyDamage(T)
+		If sim.proc.OHBloodCakedBlade.TryMe(T) Then sim.OHBloodCakedBlade.ApplyDamage(T)
 		sim.TryOnOHHitProc
 		return true
 	End Function

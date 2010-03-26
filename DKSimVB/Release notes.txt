@@ -1,19 +1,19 @@
 ﻿1.2.1.3 Release notes
-* Old code clean up
 * "Wait for Fallen Crusader option" tweak.
 * Haste correction
+* Saronite Bombs
+* Sapper charge
 * Gear Selector:
 	- Search filter take "space" as separator.
 	- Top menu
 	- Won't show rare quality gem except for meta.
 	- Professions
 	- Food and Flask/Elixir
+* Old code clean up/Reorganisation
 
 TODO in the nexts releases
 * Armsman for gloves (threat simulator) is missing (The whole +2% option is actually missing, as I recognized.)
 * EP values for weapon proccs
-* Saronite Bombs
-* Sapper charge
 
 
 1.2.1.2 Release notes
