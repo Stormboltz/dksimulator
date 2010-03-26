@@ -7,8 +7,8 @@ Friend Class PlagueStrike
 		Dim RNG As Double
 		UseGCD(T)	
 	
-		If sim.MainStat.DualW And sim.TalentFrost.ThreatOfThassarian = 3 Then
-			if offhand=false then sim.OHPlagueStrike.ApplyDamage(T)
+		If OffHand = False Then
+			If sim.proc.ThreatOfThassarian.TryMe(T) Then sim.OHPlagueStrike.ApplyDamage(T)
 		End If
 		
 		If DoMyStrikeHit = false Then

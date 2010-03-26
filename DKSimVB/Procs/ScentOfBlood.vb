@@ -17,14 +17,11 @@ Public Class ScentOfBlood
 		if count <= 0 then Fade = 0
 	End Function
 	
-	Overrides Sub TryMe(T As Long)
-		If Equiped = 0 Or CD > T Then Exit Sub
-		If RNGProc <= ProcChance Then
-			If sim.combatlog.LogDetails Then sim.combatlog.write(sim.TimeStamp  & vbtab &  Me.ToString & " proc")
-			Fade = T + ProcLenght * 100
-			Count = Equiped
-			HitCount += 1
-		end if
+	Overrides Sub ApplyMe(T As Long)
+		If sim.CombatLog.LogDetails Then sim.CombatLog.write(sim.TimeStamp & vbTab & Me.ToString & " proc")
+		Fade = T + ProcLenght * 100
+		Count = Equiped
+		HitCount += 1
 	End Sub
 	
 End Class

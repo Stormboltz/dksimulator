@@ -14,13 +14,10 @@ Public Class RazorIce
 		sim.RuneForge.RazorIceStack = 0
 	End Sub
 	
-	Overrides Sub TryMe(T As Long)
-		If Equiped = 0 Then Exit Sub
-		If RNGProc <= ProcChance Then
-			HitCount +=1
-			me.AddUptime(T)
-			If sim.combatlog.LogDetails Then sim.combatlog.write(sim.TimeStamp  & vbtab &  Me.ToString & " proc")
-			sim.RuneForge.AddRazorIceStack(T)
-		end if
+	Overrides Sub ApplyMe(T As Long)
+		HitCount += 1
+		Me.AddUptime(T)
+		If sim.CombatLog.LogDetails Then sim.CombatLog.write(sim.TimeStamp & vbTab & Me.ToString & " proc")
+		sim.RuneForge.AddRazorIceStack(T)
 	End Sub
 End Class

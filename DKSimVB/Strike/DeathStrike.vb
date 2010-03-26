@@ -22,8 +22,8 @@ Friend Class DeathStrike
 		
 		
 		
-		If sim.MainStat.DualW And sim.TalentFrost.ThreatOfThassarian = 3 Then
-			if OffHand = false then sim.OHDeathStrike.ApplyDamage(T)
+		If OffHand = False Then
+			If sim.proc.ThreatOfThassarian.TryMe(T) Then sim.OHDeathStrike.ApplyDamage(T)
 		End If
 		If DoMyStrikeHit = false Then
 			sim.combatlog.write(T  & vbtab & "DS fail")
@@ -48,10 +48,10 @@ Friend Class DeathStrike
 		total = total + dégat
 		If OffHand = False Then
 			sim.TryOnMHHitProc
-			If sim.TalentBlood.DRM = 3 Then
-				sim.runes.UseFU(T,True)
+			If sim.proc.DRM.TryMe(T) Then
+				sim.Runes.UseFU(T, True)
 			Else
-				sim.runes.UseFU(T,False)
+				sim.Runes.UseFU(T, False)
 			End If
 			Sim.runicpower.add(15 +  2.5*sim.talentunholy.Dirge )
 			Sim.runicpower.add(5*sim.MainStat.T74PDPS)

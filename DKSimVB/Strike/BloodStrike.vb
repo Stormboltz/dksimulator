@@ -12,55 +12,55 @@ Friend class BloodStrike
 
 		UseGCD(T)
 		
-		If sim.MainStat.DualW And sim.TalentFrost.ThreatOfThassarian = 3 Then
-			if offhand=false then sim.OHBloodStrike.ApplyDamage(T)
+		If OffHand = False Then
+			If sim.proc.ThreatOfThassarian.TryMe(T) Then sim.OHBloodStrike.ApplyDamage(T)
 		End If
-		
-		If DoMyStrikeHit = false Then
-			sim.combatlog.write(T  & vbtab &  "BS fail")
-			MissCount  += 1
-			return false
+
+		If DoMyStrikeHit() = False Then
+			sim.CombatLog.write(T & vbTab & "BS fail")
+			MissCount += 1
+			Return False
 		End If
 		If sim.KeepBloodSync Then
 			If sim.BloodToSync = True Then
-				sim.BloodToSync  = False
+				sim.BloodToSync = False
 			Else
-				sim.BloodToSync  = true
+				sim.BloodToSync = True
 			End If
 		End If
-		
-		RNG = MyRNG
-		
-		If RNG <= CritChance Then
+
+		RNG = MyRng()
+
+		If RNG <= CritChance() Then
 			dégat = AvrgCrit(T)
 			CritCount = CritCount + 1
-			sim.combatlog.write(T  & vbtab &  "BS crit for " & dégat )
-			totalcrit += dégat
-			sim.tryOnCrit
+			sim.CombatLog.write(T & vbTab & "BS crit for " & dégat)
+			TotalCrit += dégat
+			sim.tryOnCrit()
 		Else
 			dégat = AvrgNonCrit(T)
 			HitCount = HitCount + 1
-			totalhit += dégat
-			sim.combatlog.write(T  & vbtab &  "BS hit for " & dégat )
+			TotalHit += dégat
+			sim.CombatLog.write(T & vbTab & "BS hit for " & dégat)
 		End If
 		total = total + dégat
-		
-		If offhand = False Then
-			sim.TryOnMHHitProc
-			If sim.TalentFrost.BloodoftheNorth = 3 Or sim.TalentUnholy.Reaping = 3 Then
-				sim.runes.UseBlood(T,True)
+
+		If OffHand = False Then
+			sim.TryOnMHHitProc()
+			If sim.proc.ReapingBotN.TryMe(T) Then
+				sim.Runes.UseBlood(T, True)
 			Else
-				sim.runes.UseBlood(T,False)
+				sim.Runes.UseBlood(T, False)
 			End If
-			Sim.RunicPower.add (10)
+			sim.RunicPower.add(10)
+			If sim.proc.SuddenDoom.TryMe(T) Then sim.DeathCoil.ApplyDamage(T, True)
 		Else
-			sim.TryOnOHHitProc
+			sim.TryOnOHHitProc()
 		End If
 		sim.proc.T92PDPS.TryMe(T)
-		sim.proc.HauntedDreams.TryMe(t)
+		sim.proc.HauntedDreams.TryMe(T)
 		sim.proc.Desolation.TryMe(T)
 
-		If RNG < 0.05 * sim.TalentBlood.SuddenDoom Then sim.DeathCoil.ApplyDamage(T, True)
 		'If sim.Desolation.bonus > 0 Then sim.Desolation.Apply(T)
 
 		Return True

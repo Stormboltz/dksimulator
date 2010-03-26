@@ -41,8 +41,8 @@ Friend Class FrostStrike
 				Sim.RunicPower.Value = Sim.RunicPower.Value - 40
 			End If
 		end if
-		If sim.MainStat.DualW And sim.TalentFrost.ThreatOfThassarian = 3 Then
-			if OffHand = false then sim.OHFrostStrike.ApplyDamage(T)
+		If OffHand = False Then
+			If sim.proc.ThreatOfThassarian.TryMe(T) Then sim.OHFrostStrike.ApplyDamage(T)
 		End If
 		If DoMyStrikeHit = false Then
 			sim.combatlog.write(T  & vbtab & "FS fail")

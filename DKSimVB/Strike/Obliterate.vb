@@ -19,8 +19,8 @@ Friend Class Obliterate
 		UseGCD(T)
 		RNG = MyRNG
 		
-		If sim.MainStat.DualW And sim.TalentFrost.ThreatOfThassarian = 3 Then
-			If OffHand=False Then sim.OHObliterate.ApplyDamage(T)
+		If OffHand = False Then
+			If sim.proc.ThreatOfThassarian.TryMe(T) Then sim.OHObliterate.ApplyDamage(T)
 		End If
 		
 		If DoMyStrikeHit = false Then
@@ -30,10 +30,10 @@ Friend Class Obliterate
 		End If
 		
 		If OffHand=False Then
-			If sim.TalentBlood.DRM = 3 Then
-				sim.runes.UseFU(T,True)
+			If sim.proc.DRM.TryMe(T) Then
+				sim.Runes.UseFU(T, True)
 			Else
-				sim.runes.UseFU(T,False)
+				sim.Runes.UseFU(T, False)
 			End If
 		End If
 		

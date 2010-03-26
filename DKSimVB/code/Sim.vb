@@ -110,7 +110,7 @@ Public Class Sim
 	Friend Pestilence as Pestilence
 	Friend UnbreakableArmor as UnbreakableArmor
 	Friend UnholyBlight as UnholyBlight
-	Friend Bloodlust as Bloodlust
+	'Friend Bloodlust as Bloodlust
 	Friend DRW As DRW
 	Friend WanderingPlague as WanderingPlague
 	Friend Gargoyle As Gargoyle
@@ -277,9 +277,7 @@ Public Class Sim
 				Butchery.apply(TimeStamp)
 			End If
 			If true then 'InterruptTimer > TimeStamp Or InterruptAmount == 0 Then 'Interrupt fighting every InterruptCd secs
-				If Bloodlust.IsAvailable(TimeStamp) And TimeStamp > 500 Then
-					Bloodlust.use(TimeStamp)
-				End If
+				proc.Bloodlust.TryMe(TimeStamp)
 				if TalentBlood.DRW = 1 then
 					If DRW.IsActive(TimeStamp) Then
 						if DRW.NextDRW <= TimeStamp then DRW.ApplyDamage(TimeStamp)
@@ -584,7 +582,7 @@ Public Class Sim
 		DeathandDecay.CD = 0
 		Gargoyle.cd = 0
 		Horn.CD = 0
-		Bloodlust.Cd = 0
+		'Bloodlust.Cd = 0
 		proc.SoftReset
 		Trinkets.SoftReset
 		BoneShield.CD = 0
@@ -683,7 +681,7 @@ Public Class Sim
 		
 		
 		Horn = new Horn(Me)
-		Bloodlust= new Bloodlust(Me)
+		'Bloodlust= new Bloodlust(Me)
 		Pestilence = new Pestilence(Me)
 		
 		proc.Init

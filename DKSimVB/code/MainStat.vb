@@ -491,7 +491,7 @@ Friend Class MainStat
 		If Sim.proc.IcyTalons.IsActive Then tmp = tmp * (1 + 0.04 * Sim.proc.IcyTalons.ProcValue)
 		If Sim.Buff.MeleeHaste Then tmp = tmp * 1.2
 		If Sim.Buff.Haste Then tmp = tmp * 1.03
-		If Sim.Bloodlust.IsActive(sim.TimeStamp) Then tmp = tmp * 1.3
+		If Sim.proc.Bloodlust.IsActive Then tmp = tmp * 1.3
 		If Sim.proc.TrollRacial.IsActive Then tmp = tmp * 1.2
 		Return tmp
 	End Function
@@ -500,7 +500,7 @@ Friend Class MainStat
 		tmp = 1 + character.SpellHasteRating / 25.22 / 100
 		If Sim.Buff.SpellHaste Then tmp = tmp * 1.05
 		If Sim.Buff.Haste Then tmp = tmp * 1.03
-		If Sim.Bloodlust.IsActive(sim.TimeStamp) Then tmp = tmp * 1.3
+		If Sim.proc.Bloodlust.IsActive Then tmp = tmp * 1.3
 		Return tmp
 	End Function
 	Function EstimatedHasteBonus As Double

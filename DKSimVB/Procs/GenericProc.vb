@@ -110,202 +110,212 @@ Public Class Proc
 		RemoveUptime(sim.TimeStamp)
 	End Function
 	
-	Overridable Sub TryMe(T As Long)
+	Overridable Function IsAvailable(ByVal T As Long) As Boolean
+		If Equiped = 0 Or CD > T Then Return False
+		Return True
+	End Function
+
+	Overridable Function TryMe(ByVal T As Long) As Boolean
+		If Equiped = 0 Or CD > T Then Return False
+		If RNGProc() > ProcChance Then Return False
+		ApplyMe(T)
+		Return True
+	End Function
+
+
+	Overridable Sub ApplyMe(ByVal T As Long)
 		dim tmp as Integer
-		If Equiped = 0 Or CD > T Then Exit Sub
-		If RNGProc <= ProcChance Then
-			CD = T + InternalCD * 100
-			Select Case DamageType
-				Case ""
+		CD = T + InternalCD * 100
+		Select Case DamageType
+			Case ""
+				If sim.combatlog.LogDetails Then sim.combatlog.write(sim.TimeStamp  & vbtab &  Me.ToString & " proc")
+				Fade = T + ProcLenght * 100
+				If MaxStack <> 0 Then
+					Stack = math.Min(Stack+1,MaxStack)
+				End If
+				AddUptime(T)
+				HitCount += 1
+			Case "Shadowmourne"
+				If Stack < 9 Then
+					Stack +=1
+				Else
+					Stack = 0
+					If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
+						MissCount = MissCount + 1
+						Exit sub
+					End If
+					tmp= ProcValueDmg * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
+					HitCount = HitCount + 1
+					totalhit += tmp
 					If sim.combatlog.LogDetails Then sim.combatlog.write(sim.TimeStamp  & vbtab &  Me.ToString & " proc")
 					Fade = T + ProcLenght * 100
-					If MaxStack <> 0 Then
-						Stack = math.Min(Stack+1,MaxStack)
-					End If
-					AddUptime(T)
 					HitCount += 1
-				Case "Shadowmourne"
-					If Stack < 9 Then
-						Stack +=1
-					Else
-						Stack = 0
-						If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
-							MissCount = MissCount + 1
-							Exit sub
-						End If
-						tmp= ProcValueDmg * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
-						HitCount = HitCount + 1
-						totalhit += tmp
-						If sim.combatlog.LogDetails Then sim.combatlog.write(sim.TimeStamp  & vbtab &  Me.ToString & " proc")
-						Fade = T + ProcLenght * 100
-						HitCount += 1
-						CD = T + 10 * 100
-						AddUptime(T)
-					End If
-				Case "Bryntroll"
-					If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
-						MissCount = MissCount + 1
-						Exit sub
-					End If
-					tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
-					HitCount = HitCount + 1
-					totalhit += tmp
-				Case "BryntrollHeroic"
-					If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
-						MissCount = MissCount + 1
-						Exit sub
-					End If
-					tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
-					HitCount = HitCount + 1
-					totalhit += tmp
-				Case "TinyAbomination"
-					Me.Stack +=1
-					If Me.Stack =8 Then
-						Me.Stack=0
-						if sim.MainStat.DualW then
-							If RNGProc > 0.5 Then
-								tmp = sim.MainHand.AvrgNonCrit(T)/2
-							Else
-								tmp = sim.offhand.AvrgNonCrit(T)/2
-							End If
-						Else
+					CD = T + 10 * 100
+					AddUptime(T)
+				End If
+			Case "Bryntroll"
+				If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
+					MissCount = MissCount + 1
+					Exit sub
+				End If
+				tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
+				HitCount = HitCount + 1
+				totalhit += tmp
+			Case "BryntrollHeroic"
+				If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
+					MissCount = MissCount + 1
+					Exit sub
+				End If
+				tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
+				HitCount = HitCount + 1
+				totalhit += tmp
+			Case "TinyAbomination"
+				Me.Stack +=1
+				If Me.Stack =8 Then
+					Me.Stack=0
+					if sim.MainStat.DualW then
+						If RNGProc > 0.5 Then
 							tmp = sim.MainHand.AvrgNonCrit(T)/2
+						Else
+							tmp = sim.offhand.AvrgNonCrit(T)/2
 						End If
-						If RNGProc < sim.MainStat.crit Then
-							tmp = tmp*2
-							CritCount += 1
-							TotalCrit += tmp
-						else
-							hitCount += 1
-							TotalHit += tmp
-						End If
-					End If
-				Case "DeathbringersWill"
-					Dim RNG As Double
-					RNG = Rnd
-					AddUptime(T)
-					If RNG < 0.33 Then
-						ProcType = "str"
-					ElseIf RNG < 0.66 Then
-						ProcType = "crit"
 					Else
-						ProcType = "haste"
+						tmp = sim.MainHand.AvrgNonCrit(T)/2
 					End If
-					If sim.combatlog.LogDetails Then sim.combatlog.write(sim.TimeStamp  & vbtab &  Me.ToString & " proc")
-					Fade = T + ProcLenght * 100
-					HitCount += 1
-				Case "DeathbringersWillHeroic"
-					Dim RNG As Double
-					RNG = Rnd
-					AddUptime(T)
-					If RNG < 0.33 Then
-						ProcType = "str"
-					ElseIf RNG < 0.66 Then
-						ProcType = "crit"
-					Else
-						ProcType = "haste"
+					If RNGProc < sim.MainStat.crit Then
+						tmp = tmp*2
+						CritCount += 1
+						TotalCrit += tmp
+					else
+						hitCount += 1
+						TotalHit += tmp
 					End If
-					If sim.combatlog.LogDetails Then sim.combatlog.write(sim.TimeStamp  & vbtab &  Me.ToString & " proc")
-					Fade = T + ProcLenght * 100
-					HitCount += 1
-				Case "arcane"
-					If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
-						MissCount = MissCount + 1
-						Exit sub
-					End If
-					If sim.RandomNumberGenerator.RNGProc <= sim.MainStat.SpellCrit Then
-						CritCount = CritCount + 1
-						tmp = ProcValue * 1.5 * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
-						Totalcrit +=  tmp
-					Else
-						tmp = ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
-						HitCount = HitCount + 1
-						Totalhit +=  tmp
-					End If
-				Case "shadow"
-					If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
-						MissCount = MissCount + 1
-						Exit sub
-					End If
-					If sim.RandomNumberGenerator.RNGProc <= sim.MainStat.SpellCrit Then
-						CritCount = CritCount + 1
-						tmp = ProcValue * 1.5 * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
-						tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
-						totalcrit += tmp
-					Else
-						tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
-						tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
-						HitCount = HitCount + 1
-						totalhit += tmp
-					End If
-				Case "SaroniteBomb"
+				End If
+			Case "DeathbringersWill"
+				Dim RNG As Double
+				RNG = Rnd
+				AddUptime(T)
+				If RNG < 0.33 Then
+					ProcType = "str"
+				ElseIf RNG < 0.66 Then
+					ProcType = "crit"
+				Else
+					ProcType = "haste"
+				End If
+				If sim.combatlog.LogDetails Then sim.combatlog.write(sim.TimeStamp  & vbtab &  Me.ToString & " proc")
+				Fade = T + ProcLenght * 100
+				HitCount += 1
+			Case "DeathbringersWillHeroic"
+				Dim RNG As Double
+				RNG = Rnd
+				AddUptime(T)
+				If RNG < 0.33 Then
+					ProcType = "str"
+				ElseIf RNG < 0.66 Then
+					ProcType = "crit"
+				Else
+					ProcType = "haste"
+				End If
+				If sim.combatlog.LogDetails Then sim.combatlog.write(sim.TimeStamp  & vbtab &  Me.ToString & " proc")
+				Fade = T + ProcLenght * 100
+				HitCount += 1
+			Case "arcane"
+				If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
+					MissCount = MissCount + 1
+					Exit sub
+				End If
+				If sim.RandomNumberGenerator.RNGProc <= sim.MainStat.SpellCrit Then
+					CritCount = CritCount + 1
+					tmp = ProcValue * 1.5 * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
+					Totalcrit +=  tmp
+				Else
+					tmp = ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
+					HitCount = HitCount + 1
+					Totalhit +=  tmp
+				End If
+			Case "shadow"
+				If RNGProc < (0.17 - sim.MainStat.SpellHit) Then
+					MissCount = MissCount + 1
+					Exit sub
+				End If
+				If sim.RandomNumberGenerator.RNGProc <= sim.MainStat.SpellCrit Then
+					CritCount = CritCount + 1
+					tmp = ProcValue * 1.5 * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
+					tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
+					totalcrit += tmp
+				Else
+					tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
+					tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
+					HitCount = HitCount + 1
+					totalhit += tmp
+				End If
+			Case "SaroniteBomb"
+				tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
+				HitCount = HitCount + 1
+				totalhit += tmp
+			Case "SapperCharge"
+				If sim.RandomNumberGenerator.RNGProc <= sim.MainStat.Crit Then
+					CritCount = CritCount + 1
+					tmp = ProcValue * 1.5 * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
+					tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
+					totalcrit += tmp
+				Else
 					tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
 					HitCount = HitCount + 1
 					totalhit += tmp
-				Case "SapperCharge"
-					If sim.RandomNumberGenerator.RNGProc <= sim.MainStat.Crit Then
-						CritCount = CritCount + 1
-						tmp = ProcValue * 1.5 * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
-						tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
-						totalcrit += tmp
-					Else
-						tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
-						HitCount = HitCount + 1
-						totalhit += tmp
-					End If
-					
-				Case "physical"
-					If sim.RandomNumberGenerator.RNGProc <= sim.MainStat.Crit Then
-						CritCount = CritCount + 1
-						tmp = ProcValue * 2 * sim.MainStat.StandardPhysicalDamageMultiplier(sim.TimeStamp)
-						totalcrit += tmp
-					Else
-						tmp= ProcValue * sim.MainStat.StandardPhysicalDamageMultiplier(sim.TimeStamp)
-						HitCount = HitCount + 1
-						totalhit += tmp
-					End If
-				Case "razorice"
+				End If
+				
+			Case "physical"
+				If sim.RandomNumberGenerator.RNGProc <= sim.MainStat.Crit Then
+					CritCount = CritCount + 1
+					tmp = ProcValue * 2 * sim.MainStat.StandardPhysicalDamageMultiplier(sim.TimeStamp)
+					totalcrit += tmp
+				Else
+					tmp= ProcValue * sim.MainStat.StandardPhysicalDamageMultiplier(sim.TimeStamp)
 					HitCount = HitCount + 1
-					tmp = procvalue
 					totalhit += tmp
-				Case "torrent"
-					sim.RunicPower.add (Me.ProcValue)
-					HitCount = HitCount + 1
-				Case "cinderglacier"
-					HitCount = HitCount + 1
-					sim.RuneForge.CinderglacierProc = 2
-				Case "BloodWorms"
-					tmp =  50 + 0.006*sim.MainStat.AP
-					tmp = tmp * 10
-					tmp = tmp * (1+sim.MainStat.Haste)
-					tmp = tmp * sim.GhoulStat.PhysicalDamageMultiplier(T)
-					If RNGProc < 0.33 Then
-						tmp = tmp * 2
-						HitCount = HitCount + 20
-					ElseIf RNGProc < 0.66
-						tmp = tmp *3
-						HitCount = HitCount + 30
-					Else
-						tmp = tmp *4
-						HitCount = HitCount + 40
-					End If
-				Case "HangedMan"
-					If Stack < 3 Then Stack += 1
-					Fade = T + ProcLenght * 100
-					AddUptime(T)
-					HitCount += 1
-				Case Else
-					debug.Print ( ME.Name & " not implemented")
-			End Select
-			
-			
-			If sim.EPStat = "EP HasteEstimated" and HasteSensible Then
-				tmp = tmp*sim.MainStat.EstimatedHasteBonus
-			End If
-			
-			
-			total += tmp
-		end if
+				End If
+			Case "razorice"
+				HitCount = HitCount + 1
+				tmp = procvalue
+				totalhit += tmp
+			Case "torrent"
+				sim.RunicPower.add (Me.ProcValue)
+				HitCount = HitCount + 1
+			Case "cinderglacier"
+				HitCount = HitCount + 1
+				sim.RuneForge.CinderglacierProc = 2
+			Case "BloodWorms"
+				tmp =  50 + 0.006*sim.MainStat.AP
+				tmp = tmp * 10
+				tmp = tmp * (1+sim.MainStat.Haste)
+				tmp = tmp * sim.GhoulStat.PhysicalDamageMultiplier(T)
+				If RNGProc < 0.33 Then
+					tmp = tmp * 2
+					HitCount = HitCount + 20
+				ElseIf RNGProc < 0.66
+					tmp = tmp *3
+					HitCount = HitCount + 30
+				Else
+					tmp = tmp *4
+					HitCount = HitCount + 40
+				End If
+			Case "HangedMan"
+				If Stack < 3 Then Stack += 1
+				Fade = T + ProcLenght * 100
+				AddUptime(T)
+				HitCount += 1
+			Case Else
+				debug.Print ( ME.Name & " not implemented")
+		End Select
+		
+		
+		If sim.EPStat = "EP HasteEstimated" and HasteSensible Then
+			tmp = tmp*sim.MainStat.EstimatedHasteBonus
+		End If
+		
+		
+		total += tmp
 	End Sub
 	
 	Overrides Function report as String

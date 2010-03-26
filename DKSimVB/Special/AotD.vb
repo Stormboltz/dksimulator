@@ -80,7 +80,7 @@ Public Class AotD
 		tmp = sim.MainStat.Haste
 		If GhoulDoubleHaste Then
 			tmp = tmp * (1 + 0.2 * sim.Buff.MeleeHaste)
-			If sim.Bloodlust.IsActive(sim.TimeStamp) Then tmp = tmp * 1.3
+			If sim.proc.Bloodlust.IsActive Then tmp = tmp * 1.3
 			tmp = tmp * (1 + 0.03 * sim.Buff.Haste)
 		End If
 		Return tmp

@@ -38,8 +38,8 @@ Public Class RuneStrike
 		End If
 		
 		RNG = sim.RandomNumberGenerator.RNGWhiteHit
-		If sim.MainStat.DualW And sim.TalentFrost.ThreatOfThassarian = 3 Then
-			if offhand=false then sim.OHRuneStrike.ApplyDamage(T)
+		If OffHand = False Then
+			If sim.proc.ThreatOfThassarian.TryMe(T) Then sim.OHRuneStrike.ApplyDamage(T)
 		End If
 		If RNG < CritChance Then
 			'CRIT !

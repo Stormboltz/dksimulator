@@ -15,15 +15,14 @@ Public Class Rime
 		MyBase.New(S)
 	End Sub
 	
-	Overrides Sub TryMe(T As Long)
-		If Equiped = 0 Or CD > T Then Exit Sub
-		If RNGProc <= ProcChance Then
-			If sim.combatlog.LogDetails Then sim.combatlog.write(sim.TimeStamp  & vbtab &  Me.ToString & " proc")
-			Fade = T + ProcLenght * 100
-			Count += 1
-			HitCount += 1
-			sim.HowlingBlast.CD = 0
-		end if
+	Overrides Sub ApplyMe(T As Long)
+
+		If sim.CombatLog.LogDetails Then sim.CombatLog.write(sim.TimeStamp & vbTab & Me.ToString & " proc")
+		Fade = T + ProcLenght * 100
+		Count += 1
+		HitCount += 1
+		sim.HowlingBlast.CD = 0
+
 	End Sub
 	
 End Class

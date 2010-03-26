@@ -25,10 +25,10 @@ Friend Class Pestilence
 		sim.combatlog.write(T  & vbtab &  "Pestilence")
 		HitCount = HitCount +1
 		
-		If sim.TalentFrost.BloodoftheNorth = 3 Or sim.TalentUnholy.Reaping = 3 Then
-			sim.runes.UseBlood(T,True)
+		If sim.proc.ReapingBotN.TryMe(T) Then
+			sim.Runes.UseBlood(T, True)
 		Else
-			sim.runes.UseBlood(T,False)
+			sim.Runes.UseBlood(T, False)
 		End If
 		Sim.RunicPower.add (10)
 		

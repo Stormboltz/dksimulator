@@ -61,16 +61,14 @@ Friend Class HeartStrike
 				sim.proc.T92PDPS.TryMe(T)
 				sim.TryOnMHHitProc
 				RNG = MyRNG
-				If rng < 0.05*sim.talentblood.SuddenDoom Then
-					sim.deathcoil.ApplyDamage(T,true)
-				End If
+				If sim.proc.SuddenDoom.TryMe(T) Then sim.DeathCoil.ApplyDamage(T, True)
 			End If
 		Next intCount
 		
-		If sim.TalentFrost.BloodoftheNorth = 3 Or sim.TalentUnholy.Reaping = 3 Then
-			sim.runes.UseBlood(T,True)
+		If sim.proc.ReapingBotN.TryMe(T) Then
+			sim.Runes.UseBlood(T, True)
 		Else
-			sim.runes.UseBlood(T,False)
+			sim.Runes.UseBlood(T, False)
 		End If
 		
 		If sim.DRW.IsActive(T) Then

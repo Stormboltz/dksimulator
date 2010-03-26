@@ -7,7 +7,14 @@
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
 Friend Class Procs
-	
+	Friend Bloodlust As Proc
+
+	Friend DRM As Proc
+	Friend SuddenDoom As Proc
+
+	Friend ThreatOfThassarian As Proc
+	Friend ReapingBotN As Proc
+
 	Friend T104PDPS As Proc
 	Friend IcyTalons As Proc
 	Friend Desolation As Proc
@@ -74,12 +81,71 @@ Friend Class Procs
 			prc.Fade = 0
 			prc.Stack = 0
 		Next
+		Bloodlust.CD = Sim.TimeStamp + 500
 	End Sub
 	
 	Sub Init()
 		Dim s As Sim
 		s= Me.Sim
-		
+
+		Bloodlust = New Proc(s)
+		With Bloodlust
+			._Name = "Bloodlust"
+			.ProcChance = 1
+			.ProcLenght = 40
+			.InternalCD = 10 * 60
+			.CD = 500
+			If Sim.Buff.Bloodlust Then .Equip()
+
+		End With
+
+		DRM = New Proc(s)
+		With DRM
+			._Name = "DeathRuneMastery"
+			.ProcChance = Sim.TalentBlood.DRM * 0.33
+			If .ProcChance > 0 Then
+				If .ProcChance > 0.85 Then .ProcChance = 1.0
+				.Equip()
+			End If
+		End With
+
+		SuddenDoom = New Proc(s)
+		With SuddenDoom
+			._Name = "SuddenDoom"
+			.ProcChance = Sim.TalentBlood.SuddenDoom * 0.05
+			If .ProcChance > 0 Then
+				.Equip()
+			End If
+		End With
+
+
+		ThreatOfThassarian = New Proc(s)
+		With ThreatOfThassarian
+			._Name = "ThreatOfThassarian"
+			.ProcChance = 0.3 * Sim.TalentFrost.ThreatOfThassarian
+			If .ProcChance > 0 Then
+				If .ProcChance > 0.85 Then .ProcChance = 1.0
+				If Sim.MainStat.DualW Then .Equip()
+			End If
+		End With
+
+		ReapingBotN = New Proc(s)
+		With ReapingBotN
+			If Sim.TalentUnholy.Reaping Then
+				._Name = "Reaping"
+				.ProcChance = Sim.TalentUnholy.Reaping * 0.33
+			ElseIf Sim.TalentFrost.BloodoftheNorth Then
+				._Name = "BloodoftheNorth"
+				.ProcChance = Sim.TalentFrost.BloodoftheNorth * 0.3
+			End If
+
+			If .ProcChance > 0 Then
+				If .ProcChance > 0.85 Then .ProcChance = 1.0
+				.Equip()
+			End If
+		End With
+
+
 		T104PDPS = New Proc(s)
 		With T104PDPS
 			._Name = "T104PDPS"
@@ -108,39 +174,39 @@ Friend Class Procs
 			.ProcChance = 1
 		End With
 
-		
+
 		KillingMachine = New Proc(s)
 		With KillingMachine
 			._Name = "KillingMachine"
-			.ProcOn = procs.ProcOnType.OnMHWhiteHit
-			if sim.TalentFrost.KillingMachine > 0 then .Equip
-			.Equiped  = sim.TalentFrost.KillingMachine
+			.ProcOn = Procs.ProcOnType.OnMHWhiteHit
+			If Sim.TalentFrost.KillingMachine > 0 Then .Equip()
+			.Equiped = Sim.TalentFrost.KillingMachine
 			.ProcLenght = 30
-			.ProcChance = (sim.Talentfrost.KillingMachine)*S.MainStat.MHWeaponSpeed/60
+			.ProcChance = (Sim.TalentFrost.KillingMachine) * s.MainStat.MHWeaponSpeed / 60
 		End With
-		
+
 		Rime = New Proc(s)
 		With Rime
 			._Name = "Rime"
-			if sim.TalentFrost.Rime >  0 then .equip
-			.Equiped  = sim.TalentFrost.Rime
+			If Sim.TalentFrost.Rime > 0 Then .Equip()
+			.Equiped = Sim.TalentFrost.Rime
 			.ProcLenght = 15
-			.ProcChance = 5 * sim.TalentFrost.Rime/100
+			.ProcChance = 5 * Sim.TalentFrost.Rime / 100
 		End With
-		
+
 		ScentOfBlood = New ScentOfBlood(s)
 		With ScentOfBlood
 			._Name = "ScentOfBlood"
 			If s.FrostPresence = 1 Then
-				.equip
-				.Equiped  = sim.TalentBlood.ScentOfBlood
+				.Equip()
+				.Equiped = Sim.TalentBlood.ScentOfBlood
 			Else
 				.Equiped = 0
 			End If
 			.ProcLenght = 60
 			.ProcChance = 0.15
 		End With
-		
+
 		Virulence = New Proc(s)
 		With Virulence
 			._Name = "Virulence"
@@ -148,10 +214,10 @@ Friend Class Procs
 			.ProcChance = 0.85
 			.ProcValue = 200
 			.ProcType = "str"
-			.ProcOn = procs.ProcOnType.OnFU
-			if s.Sigils.Virulence then .equip
+			.ProcOn = Procs.ProcOnType.OnFU
+			If s.Sigils.Virulence Then .Equip()
 		End With
-		
+
 		HangedMan = New Proc(s)
 		With HangedMan
 			._Name = "HangedMan"
@@ -161,11 +227,11 @@ Friend Class Procs
 			.ProcTypeStack = "str"
 			.MaxStack = 3
 			.DamageType = ""
-			.ProcOn = procs.ProcOnType.OnFU
-			if s.Sigils.HangedMan then .equip
+			.ProcOn = Procs.ProcOnType.OnFU
+			If s.Sigils.HangedMan Then .Equip()
 		End With
-		
-		
+
+
 		Strife = New Proc(s)
 		With Strife
 			._Name = "Strife"
@@ -173,18 +239,18 @@ Friend Class Procs
 			.ProcValue = 144
 			.ProcLenght = 10
 			.ProcType = "ap"
-			if s.Sigils.strife then .equip
+			If s.Sigils.Strife Then .Equip()
 		End With
-		
+
 		T92PDPS = New Proc(s)
 		With T92PDPS
 			._Name = "T92PDPS"
-			.ProcChance = .50
+			.ProcChance = 0.5
 			.ProcValue = 180
 			.ProcLenght = 15
 			.InternalCD = 45
-			.ProcType ="str"
-			if s.MainStat.T92PDPS = 1 then .equip
+			.ProcType = "str"
+			If s.MainStat.T92PDPS = 1 Then .Equip()
 		End With
 
 		HauntedDreams = New Proc(s)
@@ -193,115 +259,115 @@ Friend Class Procs
 			.ProcChance = 0.15
 			.ProcValue = 173
 			.ProcLenght = 10
-			.InternalCD  = 45
+			.InternalCD = 45
 			.ProcType = "crit"
 			'.ProcOn = procs.ProcOnType.OnMHhit
-			If s.Sigils.HauntedDreams	Then .Equip
+			If s.Sigils.HauntedDreams Then .Equip()
 		End With
-		s.RuneForge.MHRazorIce = New RazorIce(S)
+		s.RuneForge.MHRazorIce = New RazorIce(s)
 		With s.RuneForge.MHRazorIce
 			._Name = "MHRazorIce"
 			.InternalCD = 0
-			.ProcOn = procs.ProcOnType.OnMHhit
-			.ProcChance = 1 
+			.ProcOn = Procs.ProcOnType.OnMHhit
+			.ProcChance = 1
 			.ProcLenght = 20
 			.ProcValue = 1
-			if s.RuneForge.MHRazoriceRF	then .Equip
+			If s.RuneForge.MHRazoriceRF Then .Equip()
 		End With
-		
-		s.RuneForge.OHRazorIce = New RazorIce(S)
+
+		s.RuneForge.OHRazorIce = New RazorIce(s)
 		With s.RuneForge.OHRazorIce
 			._Name = "Frost Vulnerability"
 			.InternalCD = 0
-			.ProcOn = procs.ProcOnType.OnOHhit
-			.ProcChance = 1 
+			.ProcOn = Procs.ProcOnType.OnOHhit
+			.ProcChance = 1
 			.ProcLenght = 20
 			.ProcValue = 1
-			if s.RuneForge.OHRazoriceRF	then .Equip
+			If s.RuneForge.OHRazoriceRF Then .Equip()
 		End With
-		
-		MHFallenCrusader = new Proc(s)
+
+		MHFallenCrusader = New Proc(s)
 		With MHFallenCrusader
 			._Name = "MHFallenCrusader"
 			.InternalCD = 0
-			.ProcOn = procs.ProcOnType.OnMHhit
-			.ProcChance = 2*S.MainStat.MHWeaponSpeed/60
+			.ProcOn = Procs.ProcOnType.OnMHhit
+			.ProcChance = 2 * s.MainStat.MHWeaponSpeed / 60
 			.ProcLenght = 20
 			.ProcValue = 1
-			if s.RuneForge.MHFallenCrusader	then .Equip
+			If s.RuneForge.MHFallenCrusader Then .Equip()
 		End With
-		
-		OHFallenCrusader = new Proc(s)
+
+		OHFallenCrusader = New Proc(s)
 		With OHFallenCrusader
 			._Name = "OHFallenCrusader"
 			.InternalCD = 0
-			.ProcOn = procs.ProcOnType.OnOHhit
-			.ProcChance = 2*S.MainStat.OHWeaponSpeed/60
+			.ProcOn = Procs.ProcOnType.OnOHhit
+			.ProcChance = 2 * s.MainStat.OHWeaponSpeed / 60
 			.ProcLenght = 20
 			.ProcValue = 1
-			if s.RuneForge.OHFallenCrusader	then .Equip
+			If s.RuneForge.OHFallenCrusader Then .Equip()
 		End With
-		
-		
-		s.RuneForge.MHCinderglacier = new Proc(s)
+
+
+		s.RuneForge.MHCinderglacier = New Proc(s)
 		With s.RuneForge.MHCinderglacier
 			._Name = "MHCinderglacier"
 			.InternalCD = 0
-			.ProcOn = procs.ProcOnType.OnMHhit
-			.ProcChance = 1.5*S.MainStat.MHWeaponSpeed/60
+			.ProcOn = Procs.ProcOnType.OnMHhit
+			.ProcChance = 1.5 * s.MainStat.MHWeaponSpeed / 60
 			.ProcLenght = 20
 			.ProcValue = 2
 			.DamageType = "cinderglacier"
-			if s.RuneForge.MHCinderglacierRF then .Equip
+			If s.RuneForge.MHCinderglacierRF Then .Equip()
 		End With
 
-		s.RuneForge.OHCinderglacier = new Proc(s)
+		s.RuneForge.OHCinderglacier = New Proc(s)
 		With s.RuneForge.OHCinderglacier
 			._Name = "OHCinderglacier"
 			.InternalCD = 0
-			.ProcChance = 1.5*S.MainStat.OHWeaponSpeed/60
+			.ProcChance = 1.5 * s.MainStat.OHWeaponSpeed / 60
 			.ProcLenght = 20
 			.ProcValue = 2
 			.DamageType = "cinderglacier"
-			.ProcOn = procs.ProcOnType.OnOHhit
-			if s.RuneForge.OHCinderglacierRF	then .Equip
+			.ProcOn = Procs.ProcOnType.OnOHhit
+			If s.RuneForge.OHCinderglacierRF Then .Equip()
 		End With
-		
+
 		Berserking = New Proc(s)
 		With Berserking
 			._Name = "Berserking"
 			.InternalCD = 0
-			.ProcOn = procs.ProcOnType.OnOHhit
-			.ProcChance = 1.2*s.MainStat.OHWeaponSpeed/60
+			.ProcOn = Procs.ProcOnType.OnOHhit
+			.ProcChance = 1.2 * s.MainStat.OHWeaponSpeed / 60
 			.ProcLenght = 15
 			.ProcValue = 400
 			.ProcType = "ap"
-			if s.RuneForge.OHBerserking then .Equip
+			If s.RuneForge.OHBerserking Then .Equip()
 		End With
-		
+
 		OrcRacial = New Proc(s)
 		With OrcRacial
 			._Name = "OrcRacial"
-			.InternalCD  = 120
-			.ProcOn = procs.ProcOnType.OnDamage
+			.InternalCD = 120
+			.ProcOn = Procs.ProcOnType.OnDamage
 			.ProcChance = 1
 			.ProcLenght = 15
 			.ProcValue = 322
 			.ProcType = "ap"
-			If s.Character.Orc Then .Equip
+			If s.Character.Orc Then .Equip()
 		End With
-		
+
 		TrollRacial = New Proc(s)
 		With TrollRacial
 			._Name = "TrollRacial"
 			.InternalCD = 180
 			.ProcChance = 1
 			.ProcLenght = 15
-			.ProcValue = 0.20
-			.ProcOn = procs.ProcOnType.OnDamage
-			if s.Character.Troll then .Equip
+			.ProcValue = 0.2
+			.ProcOn = Procs.ProcOnType.OnDamage
+			If s.Character.Troll Then .Equip()
 		End With
-		
+
 		BElfRacial = New Trinket(s)
 		With BElfRacial
 			._Name = "BElfRacial"
@@ -310,24 +376,24 @@ Friend Class Procs
 			.ProcLenght = 0
 			.ProcValue = 15
 			.DamageType = "torrent"
-			.ProcOn = procs.ProcOnType.OnDamage
-			if s.Character.BloodElf then .Equip
+			.ProcOn = Procs.ProcOnType.OnDamage
+			If s.Character.BloodElf Then .Equip()
 		End With
-		
+
 		BloodWorms = New Proc(s)
 		With BloodWorms
 			._Name = "BloodWorms"
 			.InternalCD = 20
-			.ProcChance = 3 * s.TalentBlood.BloodWorms/100
+			.ProcChance = 3 * s.TalentBlood.BloodWorms / 100
 			.DamageType = "BloodWorms"
-			.ProcOn = procs.ProcOnType.OnHit
+			.ProcOn = Procs.ProcOnType.OnHit
 			If s.TalentBlood.BloodWorms > 0 Then
-				.Equip
+				.Equip()
 				s.DamagingObject.Add(BloodWorms)
 			End If
-			.isGuardian = true
+			.isGuardian = True
 		End With
-		
+
 	End Sub
 	
 	Function GetActiveBonus(stat As String) As Integer
@@ -369,6 +435,6 @@ Friend Class Procs
 		If sim.Runes.FrostRune2.AvailableTime < T Then Exit Sub
 		If sim.Runes.UnholyRune1.AvailableTime < T Then Exit Sub
 		If sim.Runes.UnholyRune2.AvailableTime < T Then Exit Sub
-		T104PDPS.TryMe(T)
+		T104PDPS.ApplyMe(T)
 	End Sub
 end Class
