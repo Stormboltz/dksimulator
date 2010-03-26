@@ -298,25 +298,6 @@ Public Partial Class MainForm
 		
 	End Sub
 	
-	Sub CmbHeadSelectedIndexChanged(sender As Object, e As EventArgs)
-		Dim xDoc As new Xml.XmlDocument
-		xDoc.Load("wowheaddbEpic.xml")
-		Dim node As Xml.XmlNode
-		node = xDoc.SelectSingleNode("/wowhead/item[name=Furious Gladiator's Sigil of Strife]")
-		'		textBox1.Text = node.InnerXml
-		
-	End Sub
-	
-	Sub CkBHeadSelectedIndexChanged(sender As Object, e As EventArgs)
-		Dim xDoc As New Xml.XmlDocument
-		on error resume next
-		xDoc.Load("wowheaddbEpic.xml")
-		Dim node As Xml.XmlNode
-		node = xDoc.SelectSingleNode("/wowhead/item[name='" & sender.SelectedItem.ToString & "']")
-		
-		
-		
-	End Sub
 	
 	Sub ChkEPAfterSpellHitRatingCheckedChanged(sender As Object, e As EventArgs)
 		if ChkEPAfterSpellHitRating.Checked then chkEPSpHit.Checked=true

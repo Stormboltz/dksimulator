@@ -22,7 +22,8 @@ Public Class AotD
 	Friend MHWeaponDPS As Integer
 	Friend MHWeaponSpeed As Double
 	
-	Sub new(MySim as Sim)
+	Sub New(MySim As Sim)
+		_Name = "Army of the Dead"
 		total = 0
 		MissCount = 0
 		HitCount = 0
@@ -35,7 +36,7 @@ Public Class AotD
 		TotalCrit = 0
 		sim = MySim
 		MeleeGlacingChance = 0.25
-		sim.DamagingObject.Add(Me)
+		sim.DamagingObject.Add(Me,Name)
 		ThreadMultiplicator = 0
 		HasteSensible = True
 		MHWeaponDPS = 0

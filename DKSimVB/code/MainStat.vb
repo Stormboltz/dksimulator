@@ -13,7 +13,7 @@ Friend Class MainStat
 	Friend OHWeaponSpeed As double
 	Friend BossArmor As Integer
 	Private character As Character
-	
+	private XmlCharacter As Xml.XmlDocument
 	
 	Friend T72PDPS As integer
 	Friend T74PDPS As integer
@@ -63,12 +63,12 @@ Friend Class MainStat
 		
 		'On Error Resume Next
 		character = sim.Character
-		dim XmlDoc As New Xml.XmlDocument
-		XmlDoc = character.XmlDoc
-		'XmlDoc.Load(GetFilePath(sim._MainFrm.cmbCharacter.Text) )
+		
+		XmlCharacter = character.XmlDoc
+		
 		
 		try
-			MHWeaponDPS = (XmlDoc.SelectSingleNode("//character/weapon/mainhand/dps").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
+			MHWeaponDPS = (XmlCharacter.SelectSingleNode("//character/weapon/mainhand/dps").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
 			If sim.EPStat="EP WeaponDPS" Then
 				MHWeaponDPS = MHWeaponDPS + 10
 			End If
@@ -78,7 +78,7 @@ Friend Class MainStat
 			End If
 			
 			
-			MHWeaponSpeed = (XmlDoc.SelectSingleNode("//character/weapon/mainhand/speed").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
+			MHWeaponSpeed = (XmlCharacter.SelectSingleNode("//character/weapon/mainhand/speed").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
 			If sim.EPStat="EP WeaponSpeed" Then
 				MHWeaponSpeed = MHWeaponSpeed + 0.1
 			End If
@@ -87,14 +87,14 @@ Friend Class MainStat
 		End Try
 		
 		try
-			OHWeaponDPS = (XmlDoc.SelectSingleNode("//character/weapon/offhand/dps").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
-			OHWeaponSpeed = (XmlDoc.SelectSingleNode("//character/weapon/offhand/speed").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
+			OHWeaponDPS = (XmlCharacter.SelectSingleNode("//character/weapon/offhand/dps").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
+			OHWeaponSpeed = (XmlCharacter.SelectSingleNode("//character/weapon/offhand/speed").InnerText).Replace(".",System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
 		Catch
 			debug.Print("Error reading OH Weapon characteristics")
 		End Try
 		BossArmor = 10643
 		
-		If XmlDoc.SelectSingleNode("//character/misc/ChaoticSkyflareDiamond").InnerText = True Then
+		If XmlCharacter.SelectSingleNode("//character/misc/ChaoticSkyflareDiamond").InnerText = True Then
 			CSD = 1
 		Else
 			CSD = 0
@@ -105,55 +105,6 @@ Friend Class MainStat
 		Sim.Trinkets.MHRazorIce.ProcValue = MHWeaponDPS * MHWeaponSpeed * 0.02
 		Sim.Trinkets.OHRazorIce.ProcValue = MHWeaponDPS * MHWeaponSpeed * 0.02
 		
-		Try
-			If XmlDoc.SelectSingleNode("//character/WeaponProc/MHSingedViskag").InnerText = 1 Then sim.trinkets.MHSingedViskag.Equip
-			if XmlDoc.SelectSingleNode("//character/WeaponProc/MHtemperedViskag").InnerText= 1 then sim.trinkets.MHtemperedViskag.Equip
-			If XmlDoc.SelectSingleNode("//character/WeaponProc/OHtemperedViskag").InnerText = 1 Then sim.trinkets.OHtemperedViskag.Equip
-			If XmlDoc.SelectSingleNode("//character/WeaponProc/OHSingedViskag").InnerText = 1 Then sim.trinkets.OHSingedViskag.Equip
-		Catch
-		End Try
-		
-		Try
-			if XmlDoc.SelectSingleNode("//character/WeaponProc/MHRagingDeathbringer").InnerText = 1 then sim.trinkets.MHRagingDeathbringer.Equip
-			if XmlDoc.SelectSingleNode("//character/WeaponProc/OHRagingDeathbringer").InnerText = 1 then sim.trinkets.OHRagingDeathbringer.Equip
-			if XmlDoc.SelectSingleNode("//character/WeaponProc/MHEmpoweredDeathbringer").InnerText = 1 then sim.trinkets.MHEmpoweredDeathbringer.Equip
-			if XmlDoc.SelectSingleNode("//character/WeaponProc/OHEmpoweredDeathbringer").InnerText = 1 then sim.trinkets.OHEmpoweredDeathbringer.Equip
-		Catch
-		End Try
-		
-		Try
-			if XmlDoc.SelectSingleNode("//character/WeaponProc/MHBryntroll").InnerText = 1 then sim.trinkets.Bryntroll.Equip
-		Catch
-		End Try
-		
-		Try
-			if XmlDoc.SelectSingleNode("//character/WeaponProc/MHBryntrollHeroic").InnerText = 1 then sim.trinkets.BryntrollHeroic.Equip
-		Catch
-		End Try
-		
-		Try
-			if XmlDoc.SelectSingleNode("//character/WeaponProc/MHShadowmourne").InnerText = 1 then sim.trinkets.Shadowmourne.Equip
-		Catch
-		End Try
-		
-		Try
-			If XmlDoc.SelectSingleNode("//character/misc/HandMountedPyroRocket").InnerText= True Then
-				sim.trinkets.HandMountedPyroRocket.Equip
-			End If
-			
-			If XmlDoc.SelectSingleNode("//character/misc/HyperspeedAccelerators").InnerText= True Then
-				sim.trinkets.HyperspeedAccelerators.Equip
-			End If
-			
-			If XmlDoc.SelectSingleNode("//character/misc/TailorEnchant").InnerText= True Then
-				sim.trinkets.TailorEnchant.Equip
-			End If
-			
-			If XmlDoc.SelectSingleNode("//character/misc/AshenBand").InnerText= True Then
-				sim.trinkets.AshenBand.Equip
-			End If
-		Catch
-		End Try
 		try
 			Select Case sim._EPStat
 				Case "EP NoTrinket"
@@ -213,105 +164,105 @@ Friend Class MainStat
 					
 				Case Else
 					Try
-						If XmlDoc.SelectSingleNode("//character/trinket/MjolnirRunestone").InnerText = 1 Then Sim.Trinkets.MjolRune.Equip
+						If XmlCharacter.SelectSingleNode("//character/trinket/MjolnirRunestone").InnerText = 1 Then Sim.Trinkets.MjolRune.Equip
 					Catch
 					End Try
 					Try
-						if XmlDoc.SelectSingleNode("//character/trinket/GrimToll").InnerText = 1 then Sim.Trinkets.GrimToll.Equip
+						if XmlCharacter.SelectSingleNode("//character/trinket/GrimToll").InnerText = 1 then Sim.Trinkets.GrimToll.Equip
 					Catch
 					End Try
 					Try
-						if XmlDoc.SelectSingleNode("//character/trinket/BitterAnguish").InnerText = 1 then Sim.Trinkets.BitterAnguish.Equip
+						if XmlCharacter.SelectSingleNode("//character/trinket/BitterAnguish").InnerText = 1 then Sim.Trinkets.BitterAnguish.Equip
 					Catch
 					End Try
 					Try
-						if XmlDoc.SelectSingleNode("//character/trinket/Mirror").InnerText = 1 then Sim.Trinkets.Mirror.Equip
+						if XmlCharacter.SelectSingleNode("//character/trinket/Mirror").InnerText = 1 then Sim.Trinkets.Mirror.Equip
 					Catch
 					End Try
 					Try
-						If XmlDoc.SelectSingleNode("//character/trinket/Greatness").InnerText = 1 Then Sim.Trinkets.Greatness.Equip
+						If XmlCharacter.SelectSingleNode("//character/trinket/Greatness").InnerText = 1 Then Sim.Trinkets.Greatness.Equip
 					Catch
 					End Try
 					Try
-						If XmlDoc.SelectSingleNode("//character/trinket/DCDeath").InnerText = 1 Then Sim.Trinkets.DCDeath.Equip
+						If XmlCharacter.SelectSingleNode("//character/trinket/DCDeath").InnerText = 1 Then Sim.Trinkets.DCDeath.Equip
 					Catch
 					End Try
 					Try
-						If XmlDoc.SelectSingleNode("//character/trinket/Victory").InnerText = 1 Then Sim.Trinkets.Victory.Equip
+						If XmlCharacter.SelectSingleNode("//character/trinket/Victory").InnerText = 1 Then Sim.Trinkets.Victory.Equip
 					Catch
 					End Try
 					Try
-						If XmlDoc.SelectSingleNode("//character/trinket/Necromantic").InnerText = 1 Then Sim.Trinkets.Necromantic.Equip
+						If XmlCharacter.SelectSingleNode("//character/trinket/Necromantic").InnerText = 1 Then Sim.Trinkets.Necromantic.Equip
 					Catch
 					End Try
 					Try
-						If XmlDoc.SelectSingleNode("//character/trinket/Bandit").InnerText = 1 Then Sim.Trinkets.Bandit.Equip
+						If XmlCharacter.SelectSingleNode("//character/trinket/Bandit").InnerText = 1 Then Sim.Trinkets.Bandit.Equip
 					Catch
 					End Try
 					Try
-						If XmlDoc.SelectSingleNode("//character/trinket/Pyrite").InnerText = 1 Then Sim.Trinkets.Pyrite.Equip
+						If XmlCharacter.SelectSingleNode("//character/trinket/Pyrite").InnerText = 1 Then Sim.Trinkets.Pyrite.Equip
 					Catch
 					End Try
 					Try
-						If XmlDoc.SelectSingleNode("//character/trinket/DarkMatter").InnerText = 1 Then Sim.Trinkets.DarkMatter.Equip
+						If XmlCharacter.SelectSingleNode("//character/trinket/DarkMatter").InnerText = 1 Then Sim.Trinkets.DarkMatter.Equip
 					Catch
 					End Try
 					Try
-						If XmlDoc.SelectSingleNode("//character/trinket/OldGod").InnerText = 1 Then Sim.Trinkets.OldGod.Equip
+						If XmlCharacter.SelectSingleNode("//character/trinket/OldGod").InnerText = 1 Then Sim.Trinkets.OldGod.Equip
 					Catch
 					End Try
 					Try
-						If XmlDoc.SelectSingleNode("//character/trinket/Comet").InnerText = 1 Then Sim.Trinkets.Comet.Equip
+						If XmlCharacter.SelectSingleNode("//character/trinket/Comet").InnerText = 1 Then Sim.Trinkets.Comet.Equip
 					Catch
 					End Try
 					Try
-						If XmlDoc.SelectSingleNode("//character/trinket/DeathChoice").InnerText = 1 Then Sim.Trinkets.DeathChoice.Equip
+						If XmlCharacter.SelectSingleNode("//character/trinket/DeathChoice").InnerText = 1 Then Sim.Trinkets.DeathChoice.Equip
 					Catch
 					End Try
 					Try
-						If XmlDoc.SelectSingleNode("//character/trinket/DeathChoiceHeroic").InnerText = 1 Then Sim.Trinkets.DeathChoiceHeroic.Equip
+						If XmlCharacter.SelectSingleNode("//character/trinket/DeathChoiceHeroic").InnerText = 1 Then Sim.Trinkets.DeathChoiceHeroic.Equip
 					Catch
 					End Try
 					Try
-						If XmlDoc.SelectSingleNode("//character/trinket/DeathbringersWill").InnerText = 1 Then Sim.Trinkets.DeathbringersWill.Equip
+						If XmlCharacter.SelectSingleNode("//character/trinket/DeathbringersWill").InnerText = 1 Then Sim.Trinkets.DeathbringersWill.Equip
 					Catch
 					End Try
 					Try
-						If XmlDoc.SelectSingleNode("//character/trinket/DeathbringersWillHeroic").InnerText = 1 Then Sim.Trinkets.DeathbringersWillHeroic.Equip
+						If XmlCharacter.SelectSingleNode("//character/trinket/DeathbringersWillHeroic").InnerText = 1 Then Sim.Trinkets.DeathbringersWillHeroic.Equip
 					Catch
 					End Try
 					Try
-						If XmlDoc.SelectSingleNode("//character/trinket/WhisperingFangedSkull").InnerText = 1 Then Sim.Trinkets.WhisperingFangedSkull.Equip
+						If XmlCharacter.SelectSingleNode("//character/trinket/WhisperingFangedSkull").InnerText = 1 Then Sim.Trinkets.WhisperingFangedSkull.Equip
 					Catch
 					End Try
 					Try
-						If XmlDoc.SelectSingleNode("//character/trinket/WhisperingFangedSkullHeroic").InnerText = 1 Then Sim.Trinkets.WhisperingFangedSkullHeroic.Equip
+						If XmlCharacter.SelectSingleNode("//character/trinket/WhisperingFangedSkullHeroic").InnerText = 1 Then Sim.Trinkets.WhisperingFangedSkullHeroic.Equip
 					Catch
 					End Try
 					Try
-						If XmlDoc.SelectSingleNode("//character/trinket/NeedleEncrustedScorpion").InnerText = 1 Then Sim.Trinkets.NeedleEncrustedScorpion.Equip
+						If XmlCharacter.SelectSingleNode("//character/trinket/NeedleEncrustedScorpion").InnerText = 1 Then Sim.Trinkets.NeedleEncrustedScorpion.Equip
 					Catch
 					End Try
 					Try
-						If XmlDoc.SelectSingleNode("//character/trinket/TinyAbomination").InnerText = 1 Then Sim.Trinkets.TinyAbomination.Equip
+						If XmlCharacter.SelectSingleNode("//character/trinket/TinyAbomination").InnerText = 1 Then Sim.Trinkets.TinyAbomination.Equip
 					Catch
 					End Try
 					Try
-						If XmlDoc.SelectSingleNode("//character/trinket/HerkumlWarToken").InnerText = 1 Then Sim.Trinkets.HerkumlWarToken.Equip
+						If XmlCharacter.SelectSingleNode("//character/trinket/HerkumlWarToken").InnerText = 1 Then Sim.Trinkets.HerkumlWarToken.Equip
 					Catch
 					End Try
 					Try
-						If XmlDoc.SelectSingleNode("//character/trinket/MarkofSupremacy").InnerText = 1 Then Sim.Trinkets.MarkofSupremacy.Equip
-					Catch
-					End Try
-					
-					Try
-						If XmlDoc.SelectSingleNode("//character/trinket/VengeanceoftheForsaken").InnerText = 1 Then Sim.Trinkets.VengeanceoftheForsaken.Equip
+						If XmlCharacter.SelectSingleNode("//character/trinket/MarkofSupremacy").InnerText = 1 Then Sim.Trinkets.MarkofSupremacy.Equip
 					Catch
 					End Try
 					
 					Try
-						If XmlDoc.SelectSingleNode("//character/trinket/VengeanceoftheForsakenHeroic").InnerText = 1 Then Sim.Trinkets.VengeanceoftheForsakenHeroic.Equip
+						If XmlCharacter.SelectSingleNode("//character/trinket/VengeanceoftheForsaken").InnerText = 1 Then Sim.Trinkets.VengeanceoftheForsaken.Equip
+					Catch
+					End Try
+					
+					Try
+						If XmlCharacter.SelectSingleNode("//character/trinket/VengeanceoftheForsakenHeroic").InnerText = 1 Then Sim.Trinkets.VengeanceoftheForsakenHeroic.Equip
 					Catch
 					End Try
 					
@@ -353,62 +304,62 @@ Friend Class MainStat
 				T104PDPS = 1
 			Case Else
 				Try
-					T72PDPS = XmlDoc.SelectSingleNode("//character/Set/T72PDPS").InnerText
+					T72PDPS = XmlCharacter.SelectSingleNode("//character/Set/T72PDPS").InnerText
 				Catch
 				End Try
 				Try
-					T74PDPS = XmlDoc.SelectSingleNode("//character/Set/T74PDPS").InnerText
+					T74PDPS = XmlCharacter.SelectSingleNode("//character/Set/T74PDPS").InnerText
 				Catch
 				End Try
 				Try
-					T82PDPS = XmlDoc.SelectSingleNode("//character/Set/T82PDPS").InnerText
+					T82PDPS = XmlCharacter.SelectSingleNode("//character/Set/T82PDPS").InnerText
 				Catch
 				End Try
 				Try
-					T84PDPS = XmlDoc.SelectSingleNode("//character/Set/T84PDPS").InnerText
-				Catch
-				End Try
-				Try
-					
-					T92PDPS = XmlDoc.SelectSingleNode("//character/Set/T92PDPS").InnerText
-				Catch
-				End Try
-				Try
-					T94PDPS = XmlDoc.SelectSingleNode("//character/Set/T94PDPS").InnerText
+					T84PDPS = XmlCharacter.SelectSingleNode("//character/Set/T84PDPS").InnerText
 				Catch
 				End Try
 				Try
 					
-					T72PTNK = XmlDoc.SelectSingleNode("//character/Set/T72PTNK").InnerText
+					T92PDPS = XmlCharacter.SelectSingleNode("//character/Set/T92PDPS").InnerText
 				Catch
 				End Try
 				Try
-					T74PTNK = XmlDoc.SelectSingleNode("//character/Set/T74PTNK").InnerText
-				Catch
-				End Try
-				Try
-					T82PTNK = XmlDoc.SelectSingleNode("//character/Set/T82PTNK").InnerText
-				Catch
-				End Try
-				Try
-					T84PTNK = XmlDoc.SelectSingleNode("//character/Set/T84PTNK").InnerText
-				Catch
-				End Try
-				Try
-					T102PDPS = XmlDoc.SelectSingleNode("//character/Set/T102PDPS").InnerText
-				Catch
-				End Try
-				Try
-					T104PDPS = XmlDoc.SelectSingleNode("//character/Set/T104PDPS").InnerText
+					T94PDPS = XmlCharacter.SelectSingleNode("//character/Set/T94PDPS").InnerText
 				Catch
 				End Try
 				Try
 					
-					T92PTNK = XmlDoc.SelectSingleNode("//character/Set/T92PTNK").InnerText
+					T72PTNK = XmlCharacter.SelectSingleNode("//character/Set/T72PTNK").InnerText
 				Catch
 				End Try
 				Try
-					T102PTNK = XmlDoc.SelectSingleNode("//character/Set/T102PTNK").InnerText
+					T74PTNK = XmlCharacter.SelectSingleNode("//character/Set/T74PTNK").InnerText
+				Catch
+				End Try
+				Try
+					T82PTNK = XmlCharacter.SelectSingleNode("//character/Set/T82PTNK").InnerText
+				Catch
+				End Try
+				Try
+					T84PTNK = XmlCharacter.SelectSingleNode("//character/Set/T84PTNK").InnerText
+				Catch
+				End Try
+				Try
+					T102PDPS = XmlCharacter.SelectSingleNode("//character/Set/T102PDPS").InnerText
+				Catch
+				End Try
+				Try
+					T104PDPS = XmlCharacter.SelectSingleNode("//character/Set/T104PDPS").InnerText
+				Catch
+				End Try
+				Try
+					
+					T92PTNK = XmlCharacter.SelectSingleNode("//character/Set/T92PTNK").InnerText
+				Catch
+				End Try
+				Try
+					T102PTNK = XmlCharacter.SelectSingleNode("//character/Set/T102PTNK").InnerText
 				Catch
 				End Try
 				

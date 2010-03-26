@@ -602,7 +602,7 @@ Public Module SimConstructor
 		EPStat="EP AttackPowerNoTrinket"
 		SimConstructor.Start(SimTime,MainFrm)
 		
-		doc.Load("EPconfig.xml")
+		
 		Dim trinketsList As Xml.XmlNode
 		dim tNode as Xml.XmlNode
 		trinketsList = doc.SelectsingleNode("//config/Trinket")

@@ -100,9 +100,8 @@ Public Module GlobalFunction
 		
 		charEnum = s.GetEnumerator
 		
-		Do 	Until charEnum.MoveNext = False
+		Do Until charEnum.MoveNext = False
 			tmp = tmp  + Microsoft.VisualBasic.Asc(charEnum.Current)
-			
 		Loop
 		
 		

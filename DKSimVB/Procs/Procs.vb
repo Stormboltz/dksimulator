@@ -52,6 +52,8 @@ Friend Class Procs
 	Friend OnDamageProcs As new Collection
 	Friend OnDoTProcs As New Collection
 	
+	Private XmlCharacter as Xml.XmlDocument
+	
 
 	Public Enum ProcOnType
 		OnMisc = 0
@@ -71,8 +73,8 @@ Friend Class Procs
 	
 	
 	Sub New(S As Sim)
-		'T104PDPSFAde= 0
 		sim = S
+		XmlCharacter = S.XmlCharacter
 	End Sub
 	Sub SoftReset
 		Dim prc As proc
@@ -96,7 +98,6 @@ Friend Class Procs
 			.InternalCD = 10 * 60
 			.CD = 500
 			If Sim.Buff.Bloodlust Then .Equip()
-
 		End With
 
 		DRM = New Proc(s)
@@ -389,11 +390,335 @@ Friend Class Procs
 			.ProcOn = Procs.ProcOnType.OnHit
 			If s.TalentBlood.BloodWorms > 0 Then
 				.Equip()
-				s.DamagingObject.Add(BloodWorms)
 			End If
 			.isGuardian = True
 		End With
-
+		dim Shadowmourne as New Proc(s)
+		With Shadowmourne
+			._Name = "Shadowmourne"
+			.ProcOn = Procs.ProcOnType.OnMHhit
+			.ProcChance  = 1
+			'.InternalCD = 10
+			.ProcValue = 270
+			.ProcValueStack = 30
+			.ProcValueDmg = 2000
+			.ProcLenght = 10
+			.ProcType = "str"
+			.ProcTypeStack = "str"
+			.DamageType = "Shadowmourne"
+			.HasteSensible = True
+			Try
+				if XmlCharacter.SelectSingleNode("//character/WeaponProc/MHShadowmourne").InnerText = 1 then .Equip
+			Catch
+			End Try
+		End With
+		
+		dim BryntrollHeroic as New Proc(s)
+		With BryntrollHeroic
+			._Name = "BryntrollHeroic"
+			.ProcOn = Procs.ProcOnType.OnMHhit
+			.ProcChance  = 0.1133
+			.ProcValue = 2538
+			.DamageType = "BryntrollHeroic"
+			.ProcLenght = 0
+			.HasteSensible = True
+			Try
+				if XmlCharacter.SelectSingleNode("//character/WeaponProc/MHBryntrollHeroic").InnerText = 1 then .Equip
+			Catch
+			End Try
+			
+		End With
+		
+		dim Bryntroll as New Proc(s)
+		With Bryntroll
+			._Name = "Bryntroll"
+			.ProcOn = Procs.ProcOnType.OnMHhit
+			.ProcChance  = 0.1133
+			.ProcValue = 2250
+			.DamageType = "Bryntroll"
+			.ProcLenght = 0
+			.HasteSensible = True
+			Try
+				if XmlCharacter.SelectSingleNode("//character/WeaponProc/MHBryntroll").InnerText = 1 then .Equip
+			Catch
+			End Try
+		End With
+		dim AshenBand as New Proc(s)
+		With AshenBand
+			._Name = "AshenBand"
+			.ProcChance = 0.10
+			.ProcLenght = 10
+			.ProcValue = 480
+			.InternalCD = 45
+			.DamageType = ""
+			.ProcType = "ap"
+			.ProcOn = procs.ProcOnType.OnHit
+			Try
+				If XmlCharacter.SelectSingleNode("//character/misc/AshenBand").InnerText= True Then
+					.Equip
+				End If
+			Catch ex As System.Exception
+				
+			End Try
+		End With
+			dim	MHtemperedViskag as New Proc(s)
+		With MHtemperedViskag
+			.ProcChance = 0.04
+			.ProcLenght = 0
+			.ProcValue = 2222
+			.InternalCD = 0
+			.DamageType = "physical"
+			._Name = "MHtemperedViskag"
+			.ProcOn = procs.ProcOnType.OnMHhit
+			.HasteSensible = True
+			Try
+				If sim.XmlCharacter.SelectSingleNode("//character/WeaponProc/MHtemperedViskag").InnerText= 1 Then .Equip
+			catch
+			End Try
+		End With
+		
+		dim OHtemperedViskag as New Proc(s)
+		With OHtemperedViskag
+			.ProcChance = 0.04
+			.ProcLenght = 0
+			.ProcValue = 2222
+			.InternalCD = 0
+			.DamageType = "physical"
+			._Name = "OHtemperedViskag"
+			.ProcOn = procs.ProcOnType.OnOHhit
+			.HasteSensible = True
+			Try
+				if sim.XmlCharacter.SelectSingleNode("//character/WeaponProc/OHtemperedViskag").InnerText = 1 Then .Equip
+			Catch
+			End Try
+		End With
+		
+		dim MHSingedViskag as New Proc(s)
+		With MHSingedViskag
+			.ProcChance = 0.04
+			.ProcLenght = 0
+			.ProcValue = 2000
+			.InternalCD = 0
+			.DamageType = "physical"
+			._Name = "MHSingedViskag"
+			.ProcOn = procs.ProcOnType.OnMHhit
+			.HasteSensible = True
+			Try
+				If sim.XmlCharacter.SelectSingleNode("//character/WeaponProc/MHSingedViskag").InnerText = 1 Then .Equip
+			catch
+			End Try
+			
+			
+		End With
+		
+		dim OHSingedViskag as New Proc(s)
+		With OHSingedViskag
+			.ProcChance = 0.04
+			.ProcLenght = 0
+			.ProcValue = 2000
+			.InternalCD = 0
+			.DamageType = "physical"
+			._Name = "OHSingedViskag"
+			.ProcOn = procs.ProcOnType.OnOHhit
+			.HasteSensible = True
+			Try
+				If sim.XmlCharacter.SelectSingleNode("//character/WeaponProc/OHSingedViskag").InnerText = 1 Then .Equip
+			catch
+			End Try
+		End With
+		
+		dim MHEmpoweredDeathbringer as New Proc(S)
+		With MHEmpoweredDeathbringer
+			.ProcChance = 0.065
+			.ProcLenght = 0
+			.ProcValue = 1500
+			.InternalCD = 0
+			.DamageType = "shadow"
+			._Name = "MH Empowered Deathbringer"
+			.ProcOn = procs.ProcOnType.OnMHhit
+			.HasteSensible = True
+			Try
+				if sim.XmlCharacter.SelectSingleNode("//character/WeaponProc/MHEmpoweredDeathbringer").InnerText = 1 then .Equip
+			Catch ex As System.Exception
+				
+			End Try
+		End With
+		
+		dim OHEmpoweredDeathbringer as New Proc(S)
+		With OHEmpoweredDeathbringer
+			.ProcChance = 0.065
+			.ProcLenght = 0
+			.ProcValue = 1500
+			.InternalCD = 0
+			.DamageType = "shadow"
+			._Name = "OH Deathbringer"
+			.ProcOn = procs.ProcOnType.OnOHhit
+			.HasteSensible = True
+			Try
+				if sim.XmlCharacter.SelectSingleNode("//character/WeaponProc/OHEmpoweredDeathbringer").InnerText = 1 then .Equip
+			Catch ex As System.Exception
+			End Try
+		End With
+		
+		dim MHRagingDeathbringer as New Proc(S)
+		With MHRagingDeathbringer
+			.ProcChance = 0.065
+			.ProcLenght = 0
+			.ProcValue = 1666
+			.InternalCD = 0
+			.DamageType = "shadow"
+			._Name = "MH Raging Deathbringer"
+			.ProcOn = procs.ProcOnType.OnMHhit
+			.HasteSensible = True
+			Try
+				if sim.XmlCharacter.SelectSingleNode("//character/WeaponProc/MHRagingDeathbringer").InnerText = 1 then .Equip
+			Catch
+			End Try
+			
+		End With
+		
+		dim OHRagingDeathbringer as New Proc(S)
+		With OHRagingDeathbringer
+			.ProcChance = 0.065
+			.ProcLenght = 0
+			.ProcValue = 1666
+			.InternalCD = 0
+			.DamageType = "shadow"
+			._Name = "OH Raging Deathbringer"
+			.ProcOn = procs.ProcOnType.OnOHhit
+			.HasteSensible = True
+			Try
+				if sim.XmlCharacter.SelectSingleNode("//character/WeaponProc/OHRagingDeathbringer").InnerText = 1 then .Equip
+			Catch ex As System.Exception
+				
+			End Try
+			
+			
+		End With
+		
+		dim HandMountedPyroRocket as New Proc(s)
+		With HandMountedPyroRocket
+			.ProcChance = 1
+			.ProcLenght = 0
+			.ProcValue = 1837
+			.InternalCD = 45
+			.DamageType = "arcane"
+			._Name = "Hand Mounted Pyro Rocket"
+			.ProcOn = procs.ProcOnType.Ondamage
+			Try
+				If XmlCharacter.SelectSingleNode("//character/misc/HandMountedPyroRocket").InnerText= True Then
+					.Equip
+				End If
+			Catch ex As System.Exception
+				
+			End Try
+		End With
+		
+		dim HyperspeedAccelerators as New Proc(s)
+		With HyperspeedAccelerators
+			.ProcChance = 0.5
+			.ProcLenght = 12
+			.ProcValue = 340
+			.InternalCD = 60
+			.ProcType="haste"
+			._Name = "Hyperspeed Accelerators"
+			.ProcOn = procs.ProcOnType.Onhit
+			Try
+				If XmlCharacter.SelectSingleNode("//character/misc/HyperspeedAccelerators").InnerText= True Then
+					.Equip
+				End If
+			Catch ex As System.Exception
+			End Try
+		End With
+		
+		
+		
+		
+		
+		dim TailorEnchant as New Proc(s)
+		With TailorEnchant
+			.ProcChance = 0.25
+			.ProcLenght = 15
+			.ProcValue = 400
+			.InternalCD = 60
+			.ProcType = "ap"
+			._Name = "Swordguard Embroidery"
+			.ProcOn = procs.ProcOnType.OnHit
+			
+			Try
+				If XmlCharacter.SelectSingleNode("//character/misc/TailorEnchant").InnerText= True Then
+					.Equip
+				End If
+			Catch ex As System.Exception
+				
+			End Try
+		End With
+		
+		dim SaroniteBomb as New Proc(s)
+		With SaroniteBomb
+			.ProcChance = 0.5
+			.ProcLenght = 0
+			.ProcValue = 1325
+			.DamageType = "SaroniteBomb"
+			.InternalCD = 60
+			._Name = "Saronite Bomb"
+			.ProcOn = procs.ProcOnType.OnMHhit
+			.HasteSensible = False
+			Try
+				if sim.XmlCharacter.SelectSingleNode("//character/misc/SaroniteBomb").InnerText then .Equip
+			Catch ex As System.Exception
+			End Try
+		End With
+		
+		dim SapperCharge as new Proc(s)
+		With SapperCharge
+			.ProcChance = 0.5
+			.ProcLenght = 0
+			.ProcValue = 2500
+			.DamageType = "SapperCharge"
+			.InternalCD = 300
+			._Name = "Global Thermal Sapper Charge"
+			.ProcOn = procs.ProcOnType.OnMHhit
+			.HasteSensible = False
+			Try
+				if sim.XmlCharacter.SelectSingleNode("//character/misc/SapperCharge").InnerText then .Equip
+			Catch ex As System.Exception
+			End Try
+		End With
+		
+		Dim IndestructiblePotion As New Proc(s)
+		With IndestructiblePotion
+			.ProcChance = 0.5
+			.ProcLenght = 120
+			.ProcValue = 2500
+			.ProcType = "armor"
+			.InternalCD = 6000 '10 minutes
+			._Name = "Indestructible Potion"
+			.ProcOn = procs.ProcOnType.OnMHhit
+			.HasteSensible = False
+			Try
+				if XmlCharacter.SelectSingleNode("//character/misc/IndestructiblePotion").InnerText then .Equip
+			Catch ex As System.Exception
+			End Try
+		End With
+		
+		Dim PotionofSpeed As New Proc(s)
+		With PotionofSpeed
+			.ProcChance = 0.5
+			.ProcLenght = 15
+			.ProcValue = 500
+			.ProcType = "haste"
+			.InternalCD = 6000 '10 minutes
+			._Name = "Potion of Speed"
+			.ProcOn = procs.ProcOnType.OnMHhit
+			.HasteSensible = False
+			Try
+				If sim.XmlCharacter.SelectSingleNode("//character/misc/PotionofSpeed").InnerText Then
+					.Equip
+				End If
+			Catch ex As System.Exception
+			End Try
+		End With
 	End Sub
 	
 	Function GetActiveBonus(stat As String) As Integer
@@ -428,7 +753,6 @@ Friend Class Procs
 	
 	Sub tryT104PDPS(T As Long)
 		If sim.MainStat.T104PDPS = 0 Then Exit Sub
-		'Debug.Print(T & vbtab & sim.Runes.Rune1.AvailableTime & vbtab & sim.Runes.Rune2.AvailableTime & vbtab & sim.Runes.Rune3.AvailableTime & vbtab & sim.Runes.Rune4.AvailableTime & vbtab & sim.Runes.Rune5.AvailableTime & vbtab  & sim.Runes.Rune6.AvailableTime)
 		If sim.Runes.BloodRune1.AvailableTime < T Then Exit Sub
 		If sim.Runes.BloodRune2.AvailableTime < T Then Exit Sub
 		If sim.Runes.FrostRune1.AvailableTime < T Then Exit Sub

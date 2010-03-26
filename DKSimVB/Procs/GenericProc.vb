@@ -38,7 +38,7 @@ Public Class Proc
 	
 	Function RNGProc As Double
 		If _RNG Is nothing Then
-			_RNG =  New Random(ConvertToInt(me.ToString)+RNGSeeder)
+			_RNG =  New Random(ConvertToInt(me.Name)+RNGSeeder)
 		End If
 		return _RNG.NextDouble
 	End Function
@@ -69,30 +69,60 @@ Public Class Proc
 	
 	Overridable Sub Equip()
 		Equiped = 1
-		sim.proc.EquipedTrinkets.Add(me)
+		sim.proc.EquipedTrinkets.Add(me,Name)
 		Select Case Me.ProcOn
 			Case Procs.ProcOnType.OnMisc
 				
 			Case procs.ProcOnType.OnCrit
-				sim.proc.OnCritProcs.add(me)
+				sim.proc.OnCritProcs.add(me,Name)
 			Case procs.ProcOnType.OnDamage
-				sim.proc.OnDamageProcs.add(me)
+				sim.proc.OnDamageProcs.add(me,Name)
 			Case procs.ProcOnType.OnDoT
-				sim.proc.OnDoTProcs.add(me)
+				sim.proc.OnDoTProcs.add(me,Name)
 			Case procs.ProcOnType.OnHit
-				sim.proc.OnHitProcs.add(me)
+				sim.proc.OnHitProcs.add(me,Name)
 			Case procs.ProcOnType.OnMHhit
-				sim.proc.OnMHhitProcs.add(me)
+				sim.proc.OnMHhitProcs.add(me,Name)
 			Case procs.ProcOnType.OnOHhit
-				sim.proc.OnOHhitProcs.add(Me)
+				sim.proc.OnOHhitProcs.add(me,Name)
 			Case procs.ProcOnType.OnMHWhiteHit
-				sim.proc.OnMHWhitehitProcs.add(Me)
+				sim.proc.OnMHWhitehitProcs.add(me,Name)
 			Case procs.ProcOnType.OnFU
-				sim.proc.OnFUProcs.add(Me)
+				sim.proc.OnFUProcs.add(me,Name)
 			Case Else
 				debug.Print ("No proc on value for " & me.Name)
 		End Select
+		sim.DamagingObject.Add(me,Name)
 	End Sub
+	
+	Overridable Sub UnEquip()
+		Me.Equiped = 0
+		sim.proc.EquipedTrinkets.Remove(Name)
+		Select Case Me.ProcOn
+			Case Procs.ProcOnType.OnMisc
+				
+			Case procs.ProcOnType.OnCrit
+				sim.proc.OnCritProcs.Remove(Name)
+			Case procs.ProcOnType.OnDamage
+				sim.proc.OnDamageProcs.Remove(Name)
+			Case procs.ProcOnType.OnDoT
+				sim.proc.OnDoTProcs.Remove(Name)
+			Case procs.ProcOnType.OnHit
+				sim.proc.OnHitProcs.Remove(Name)
+			Case procs.ProcOnType.OnMHhit
+				sim.proc.OnMHhitProcs.Remove(Name)
+			Case procs.ProcOnType.OnOHhit
+				sim.proc.OnOHhitProcs.Remove(Name)
+			Case procs.ProcOnType.OnMHWhiteHit
+				sim.proc.OnMHWhitehitProcs.Remove(Name)
+			Case procs.ProcOnType.OnFU
+				sim.proc.OnFUProcs.Remove(Name)
+			Case Else
+				debug.Print ("No proc on value for " & me.Name)
+		End Select
+		sim.DamagingObject.remove(Name)
+	End Sub
+	
 	
 	Overridable Function IsActiveAt(ByVal T As Long) As Boolean
 		If Fade >= T Then Return True
@@ -169,6 +199,7 @@ Public Class Proc
 				tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
 				HitCount = HitCount + 1
 				totalhit += tmp
+				
 			Case "TinyAbomination"
 				Me.Stack +=1
 				If Me.Stack =8 Then

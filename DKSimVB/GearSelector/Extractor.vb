@@ -240,7 +240,7 @@ Public Class Extractor
 		Dim keywords as String = ""
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
 
-		'doc.Load("itemDB.xml")
+		
 		doc.Load(Application.StartupPath & "\GearSelector\" & "gems.xml")
 		
 		dim xNode as Xml.XmlNode

@@ -1,5 +1,12 @@
 Friend Class Character
+	
+	
+	
 	Friend XmlDoc As New Xml.XmlDocument
+	Friend XmlConfig As Xml.XmlDocument
+	
+	
+	
 	Private _Strength As Integer
 	Private _Agility As Integer
 	Private _Intel As Integer
@@ -12,7 +19,7 @@ Friend Class Character
 	Private _ExpertiseRating As Integer
 	Private _Dual As Integer
 	Protected sim as Sim
-	Friend XmlConfig As New Xml.XmlDocument
+	
 	
 	Friend MHExpertiseBonus As Integer
 	Friend OHExpertiseBonus As Integer
@@ -29,9 +36,8 @@ Friend Class Character
 
 	Sub New(S As Sim)
 		Sim = S
+		XmlConfig = Sim.XmlConfig
 		Try
-			XmlConfig.Load("config.xml")
-			
 			If XmlConfig.SelectSingleNode("//config/UseCharacter").InnerText = True Then
 				XmlDoc.Load (Application.StartupPath & "\Characters\"  & XmlConfig.SelectSingleNode("//config/Character").InnerText)
 			Else

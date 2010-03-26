@@ -707,7 +707,13 @@ Public Partial Class GearSelectorMainForm
 		xElem = xmlChar.CreateNode(xml.XmlNodeType.Element,"AshenBand" , "")
 		xElem.InnerText = chkAshenBand.Checked
 		xMisc.AppendChild(xElem)
+		Dim itm As System.Windows.Forms.ToolStripMenuItem
 		
+		For Each itm  In ddConsumable.DropDownItems
+			xElem = xmlChar.CreateNode(xml.XmlNodeType.Element, itm.Name , "")
+			xElem.InnerText = itm.Checked
+			xMisc.AppendChild(xElem)
+		Next
 		
 		Dim xRacial As XmlNode = xmlChar.CreateNode(xml.XmlNodeType.Element, "racials", "")
 		root.AppendChild(xRacial)
@@ -789,6 +795,19 @@ Public Partial Class GearSelectorMainForm
 			
 		Catch
 		End Try
+		
+		
+		Dim itm As System.Windows.Forms.ToolStripMenuItem
+		
+		For Each itm  In ddConsumable.DropDownItems
+			Try
+				itm.Checked = xmlChar.SelectSingleNode("/character/misc/" & itm.Name ).InnerText
+			Catch
+				itm.Checked = false
+			End Try
+		Next
+		
+		
 		
 		
 		
@@ -909,27 +928,17 @@ Public Partial Class GearSelectorMainForm
 		For Each x in FlaskDB.SelectNodes("/flask/item/name")
 			cmbFlask.Items.Add(x.InnerText)
 		Next
-		
 		cmbFood.Items.Add("")
 		For Each x in FoodDB.SelectNodes("/food/item/name")
 			cmbFood.Items.Add(x.InnerText)
 		Next
-		
-		cmbFood.Items.Add("")
-		For Each x in FoodDB.SelectNodes("/food/item/name")
-			cmbFood.Items.Add(x.InnerText)
-		Next
-		
-		dim itm as System.Windows.Forms.ToolStripMenuItem  
+		dim itm as System.Windows.Forms.ToolStripMenuItem
 		For Each x In ConsumableDB.SelectNodes("/Consumables/item")
-			itm = new ToolStripMenuItem(x.InnerText)
+			itm = New ToolStripMenuItem(x.InnerText)
+			itm.Name = x.InnerText.Replace(" ","")
 			ddConsumable.DropDownItems.Add(itm)
 			itm.CheckOnClick = true
 		Next
-		
-		
-		
-		
 		
 		cmbRace.Items.Add ("Blood Elf")
 		cmbRace.Items.Add ("Draenei")
@@ -1242,6 +1251,6 @@ Public Partial Class GearSelectorMainForm
 	
 	
 	Sub GreedyToolStripMenuItemClick(sender As Object, e As EventArgs)
-		debug.Print(e.ToString) 
+		debug.Print(e.ToString)
 	End Sub
 End Class

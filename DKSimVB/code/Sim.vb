@@ -158,7 +158,14 @@ Public Class Sim
 	Friend SaveRPForRS As Boolean
 	
 	
-	Friend ReportName as String
+	Friend ReportName As String
+	
+	Friend XmlCharacter As New xml.XmlDocument
+	Friend XmlConfig As New Xml.XmlDocument
+	
+	
+	
+	
 	
 	Sub Init()
 	End Sub
@@ -701,31 +708,36 @@ Public Class Sim
 	End Sub
 	
 	Sub LoadConfig
-		Dim doc As xml.XmlDocument = New xml.XmlDocument
-		'on error goto errH
-		doc.Load("config.xml")
-		loadtemplate (Application.StartupPath & "\Templates\" & doc.SelectSingleNode("//config/template").InnerText)
-		IntroPath = Application.StartupPath & "\Intro\"  &  doc.SelectSingleNode("//config/intro").InnerText
+		XmlConfig.Load("config.xml")
+		
+		If XmlConfig.SelectSingleNode("//config/UseCharacter").InnerText = True Then
+			XmlCharacter.Load(Application.StartupPath & "\characters\" & XmlConfig.SelectSingleNode("//config/Character").InnerText)
+		Else
+			xmlcharacter.Load(Application.StartupPath & "\CharactersWithGear\" & XmlConfig.SelectSingleNode("//config/CharacterWithGear").InnerText)
+		End If
+		
+		loadtemplate (Application.StartupPath & "\Templates\" & XmlConfig.SelectSingleNode("//config/template").InnerText)
+		IntroPath = Application.StartupPath & "\Intro\"  &  XmlConfig.SelectSingleNode("//config/intro").InnerText
+		
 		If system.IO.File.Exists(IntroPath)  = False Then
 			IntroPath = Application.StartupPath & "\Intro\NoIntro.xml"
 		End If
 		
-		KeepBloodSync = doc.SelectSingleNode("//config/BloodSync").InnerText
-		If doc.SelectSingleNode("//config/mode").InnerText <> "priority" Then
+		KeepBloodSync = XmlConfig.SelectSingleNode("//config/BloodSync").InnerText
+		If XmlConfig.SelectSingleNode("//config/mode").InnerText <> "priority" Then
 			rotate = True
-			rotationPath = Application.StartupPath & "\Rotation\"  &  doc.SelectSingleNode("//config/rotation").InnerText
+			rotationPath = Application.StartupPath & "\Rotation\"  &  XmlConfig.SelectSingleNode("//config/rotation").InnerText
 		Else
 			rotate = False
-			loadPriority (Application.StartupPath & "\Priority\" & doc.SelectSingleNode("//config/priority").InnerText)
+			loadPriority (Application.StartupPath & "\Priority\" & XmlConfig.SelectSingleNode("//config/priority").InnerText)
 		End If
-		latency = doc.SelectSingleNode("//config/latency").InnerText
-		
-		ShowProc = doc.SelectSingleNode("//config/ShowProc").InnerText
-		
+		latency = XmlConfig.SelectSingleNode("//config/latency").InnerText
+		ShowProc = XmlConfig.SelectSingleNode("//config/ShowProc").InnerText
+
 		Dim Sigil As String
 		Sigils = New Sigils(Me)
 		
-		Sigil = doc.SelectSingleNode("//config/sigil").InnerText
+		Sigil = XmlConfig.SelectSingleNode("//config/sigil").InnerText
 		Sigils.WildBuck = false
 		Sigils.FrozenConscience = false
 		Sigils.DarkRider = false
@@ -760,7 +772,7 @@ Public Class Sim
 		end select
 		
 		Dim Presence As String
-		Presence = doc.SelectSingleNode("//config/presence").InnerText
+		Presence = XmlConfig.SelectSingleNode("//config/presence").InnerText
 		BloodPresence = 0
 		UnholyPresence = 0
 		FrostPresence = 0
@@ -773,7 +785,7 @@ Public Class Sim
 				FrostPresence = 1
 		End Select
 		RuneForge = New RuneForge(Me)
-				RunicPower = New RunicPower(Me)
+		RunicPower = New RunicPower(Me)
 		proc = New procs(Me)
 		Character = New Character(Me)
 		MainStat = New MainStat(Me)
@@ -781,7 +793,7 @@ Public Class Sim
 		RuneForge.MHCinderglacierRF = False
 		RuneForge.MHFallenCrusader = false
 		RuneForge.MHRazoriceRF = false
-		Select Case doc.SelectSingleNode("//config/mh").InnerText
+		Select Case XmlConfig.SelectSingleNode("//config/mh").InnerText
 			Case "Cinderglacier"
 				RuneForge.MHCinderglacierRF = true
 			Case "FallenCrusader"
@@ -795,19 +807,15 @@ Public Class Sim
 		RuneForge.OHFallenCrusader = false
 		RuneForge.OHRazoriceRF = False
 		Runeforge.OHBerserking = False
-		Dim xmlcharacter As New Xml.XmlDocument
+		
 		
 
-		If doc.SelectSingleNode("//config/UseCharacter").InnerText = True Then
-			xmlcharacter.Load(Application.StartupPath & "\characters\" & doc.SelectSingleNode("//config/Character").InnerText)
-		Else
-			xmlcharacter.Load(Application.StartupPath & "\CharactersWithGear\" & doc.SelectSingleNode("//config/CharacterWithGear").InnerText)
-		End If
+		
 		
 		
 		
 		if xmlcharacter.SelectSingleNode("//character/weapon/count").InnerText = 2 then
-			Select Case doc.SelectSingleNode("//config/oh").InnerText
+			Select Case XmlConfig.SelectSingleNode("//config/oh").InnerText
 				Case "Cinderglacier"
 					RuneForge.OHCinderglacierRF = true
 				Case "FallenCrusader"
@@ -820,15 +828,15 @@ Public Class Sim
 			End Select
 		End If
 		
-		Me.CombatLog.enable = doc.SelectSingleNode("//config/log").InnerText
-		Me.CombatLog.LogDetails = doc.SelectSingleNode("//config/logdetail").InnerText
+		Me.CombatLog.enable = XmlConfig.SelectSingleNode("//config/log").InnerText
+		Me.CombatLog.LogDetails = XmlConfig.SelectSingleNode("//config/logdetail").InnerText
 		
-		MergeReport = doc.SelectSingleNode("//config/chkMergeReport").InnerText
-		ReportName = doc.SelectSingleNode("//config/txtReportName").InnerText
-		WaitForFallenCrusader = doc.SelectSingleNode("//config/WaitFC").InnerText
+		MergeReport = XmlConfig.SelectSingleNode("//config/chkMergeReport").InnerText
+		ReportName = XmlConfig.SelectSingleNode("//config/txtReportName").InnerText
+		WaitForFallenCrusader = XmlConfig.SelectSingleNode("//config/WaitFC").InnerText
 		'Patch = doc.SelectSingleNode("//config/Patch").InnerText
 		Dim tmp As String
-		tmp = doc.SelectSingleNode("//config/BShOption").InnerText
+		tmp = XmlConfig.SelectSingleNode("//config/BShOption").InnerText
 		Select Case tmp
 			Case "Instead of Blood Strike"
 				Me.BoneShieldUsageStyle =1
@@ -840,7 +848,7 @@ Public Class Sim
 		
 		
 		Try
-			ICCDamageBuff = doc.SelectSingleNode("//config/ICCBuff").InnerText
+			ICCDamageBuff = XmlConfig.SelectSingleNode("//config/ICCBuff").InnerText
 		Catch
 			
 			ICCDamageBuff  = 0
@@ -932,7 +940,7 @@ Public Class Sim
 		Tw.Write ("	<th colspan='3'><b>hits</b><FONT COLOR='white'>|||</FONT></th>")
 		Tw.Write ("	<th colspan='3'><b>Crits</b><FONT COLOR='white'>|||</FONT></th>")
 		Tw.Write ("	<th colspan='2'><b>Misses</b><FONT COLOR='white'>||</FONT></th>")
-		Tw.Write ("	<th colspan='3'><b>Glances</b><FONT COLOR='white'>||</FONT></th>")
+		Tw.Write ("	<th colspan='3'><b>Glances</b><FONT COLOR='white'>|||</FONT></th>")
 		Tw.Write ("	<th><b>Uptime</b><FONT COLOR='white'>|</FONT></th>")
 		
 		If FrostPresence Then
