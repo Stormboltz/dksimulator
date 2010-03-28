@@ -267,36 +267,37 @@ Public Partial Class MainForm
 		url = "http://eu.wowarmory.com/character-sheet.xml?r=Chants+eternels&n=Kahorie"
 		
 		' Retrieve XML document
-		Dim reader As XmlTextReader = New XmlTextReader(url)
-		' Skip non-significant whitespace
-		reader.WhitespaceHandling = WhitespaceHandling.Significant
-		
-		' Read nodes one at a time
-		While reader.Read()
-			' Print out info on node
-			Console.WriteLine("{0}: {1}", reader.NodeType.ToString(), reader.Name)
-		End While
-		
-		
-		
-		Dim doc As xml.XmlDocument = New xml.XmlDocument
-		Dim bw As New WebBrowser
-		
-		dim webClient as New System.Net.WebClient
+'		Dim reader As XmlTextReader = New XmlTextReader(url)
+'		' Skip non-significant whitespace
+'		reader.WhitespaceHandling = WhitespaceHandling.Significant
+'		
+'		' Read nodes one at a time
+'		While reader.Read()
+'			' Print out info on node
+'			Console.WriteLine("{0}: {1}", reader.NodeType.ToString(), reader.Name)
+'		End While
+'		
+'		
+'		
+'		Dim doc As xml.XmlDocument = New xml.XmlDocument
+'		Dim bw As New WebBrowser
+'		
+		Dim webClient As New System.Net.WebClient
+		webClient.Proxy = System.Net.WebRequest.GetSystemWebProxy
+		webClient.Proxy.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials
 		
 		url = "http://eu.wowarmory.com/character-sheet.xml?r=Chants+eternels&n=Kahorie"
-		Dim myUri As Uri = New Uri("http://eu.wowarmory.com/character-sheet.xml?r=Chants+eternels&n=Kahorie")
-		webClient.Dispose()
-		'		wbTemplate.Url = myUri
-		'		wbTemplate.Navigate(myUri)
+		Dim data As System.IO.Stream = webClient.OpenRead(URL)
+		Dim reader As System.IO.StreamReader = New System.IO.StreamReader(data)
 		
-		'	bw.Navigate(myUri)
-		doc.Load(URL)
-		debug.Print(doc.OuterXml)
-		
+		Do Until reader.EndOfStream
+			debug.Print(reader.ReadLine)
+		Loop
 		errH:
-		
 	End Sub
+	
+	
+	
 	
 	
 	Sub ChkEPAfterSpellHitRatingCheckedChanged(sender As Object, e As EventArgs)

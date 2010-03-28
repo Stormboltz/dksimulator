@@ -49,15 +49,14 @@ Friend Class RuneForge
 
 	Function AreStarsAligned(T As Long) As Boolean
 		If sim.WaitForFallenCrusader = False Then Return True
-		If sim.MainStat.AP >=  sim.MainStat.GetMaxAP * 0.7 Then
-			Return True
-		Else
-			return false
-		End If
-		'If sim.proc.MHFallenCrusader.IsActive Or sim.proc.OHFallenCrusader.IsActive Then Return True
-		'If sim.proc.MHFallenCrusader.Equiped + sim.proc.OHFallenCrusader.Equiped > 0 Then Return False
-		'return true
-		
+		If sim.proc.MHFallenCrusader.IsActive Or sim.proc.OHFallenCrusader.IsActive Then Return True
+		If sim.proc.MHFallenCrusader.Equiped + sim.proc.OHFallenCrusader.Equiped > 0 Then Return False
+		return true
+'		If sim.MainStat.AP >=  sim.MainStat.GetMaxAP * 0.7 Then
+'			Return True
+'		Else
+'			return false
+'		End If
 	End Function
 	
 	Sub AddRazorIceStack(T As Long)

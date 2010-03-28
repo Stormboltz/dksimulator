@@ -1126,8 +1126,10 @@ Public Partial Class GearSelectorMainForm
 	Sub MainFormLoad(sender As Object, e As EventArgs)
 		
 '		Dim xtr As New Extractor
-'		xtr.init
-'		xtr.GemExtrator
+'''		
+'		xtr.Start
+'''		
+'''		
 '		exit sub
 		'Me.Size = New Size(980, 800)
 		LoadMycharacter
@@ -1230,7 +1232,6 @@ Public Partial Class GearSelectorMainForm
 		If InLoad Then Exit Sub
 		InLoad = true
 		For Each eq In EquipmentList
-			
 			eq.Item.LoadItem(eq.Item.Id)
 			eq.DisplayItem
 		Next

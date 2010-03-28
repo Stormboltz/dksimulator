@@ -47,24 +47,18 @@ Friend class BloodStrike
 
 		If OffHand = False Then
 			sim.TryOnMHHitProc()
+			
 			If sim.proc.ReapingBotN.TryMe(T) Then
 				sim.Runes.UseBlood(T, True)
 			Else
 				sim.Runes.UseBlood(T, False)
 			End If
 			sim.RunicPower.add(10)
-			If sim.proc.SuddenDoom.TryMe(T) Then sim.DeathCoil.ApplyDamage(T, True)
 		Else
 			sim.TryOnOHHitProc()
 		End If
-		sim.proc.T92PDPS.TryMe(T)
-		sim.proc.HauntedDreams.TryMe(T)
-		sim.proc.Desolation.TryMe(T)
-
-		'If sim.Desolation.bonus > 0 Then sim.Desolation.Apply(T)
-
+		sim.TryOnBloodStrike
 		Return True
-
 End Function
 
 public Overrides Function AvrgNonCrit(T as Long) As Double

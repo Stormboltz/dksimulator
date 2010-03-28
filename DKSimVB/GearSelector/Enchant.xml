@@ -333,7 +333,7 @@
 		<HasteRating>0</HasteRating>
 		<ExpertiseRating>0</ExpertiseRating>
 		<HitRating>0</HitRating>
-		<AttackPower></AttackPower>
+		<AttackPower>0</AttackPower>
 		<CritRating>24</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<reqskill>202</reqskill>

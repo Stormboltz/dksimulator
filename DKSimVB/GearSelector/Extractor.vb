@@ -19,7 +19,8 @@ Public Class Extractor
 	Sub Start
 		dim i as Integer
 		init
-		GenerateWowheadFilter
+		' GenerateWowheadFilter
+		GenerateWowheadFilterMAil
 		'GetListofGems
 		Dim str As String
 		col.Sort
@@ -63,8 +64,6 @@ Public Class Extractor
 		
 	End Sub
 	
-	
-	
 	Sub GenerateWowheadFilter()
 		GetListofID(200,212)
 		GetListofID(213,218)
@@ -76,6 +75,10 @@ Public Class Extractor
 		GetListofID(258,263)
 		GetListofID(264,270)
 		GetListofID(271,300)
+	End Sub
+	
+	Sub GenerateWowheadFilterMAil()
+		GetListofMail
 	End Sub
 	
 	Sub GetListofSigils
@@ -110,7 +113,38 @@ Public Class Extractor
 			End If
 		Next
 	End Sub
-	
+	Sub GetListofMail ()
+		dim url as String
+		url  = "http://www.wowhead.com/?items=4.3&filter=qu=4;minle=251;maxle=290;ub=6;cr=123:61:79;crs=3:3:3;crv=0:0:0"
+		Dim data As Stream = client.OpenRead(URL)
+		Dim reader As StreamReader = New StreamReader(data)
+		Dim str As String = ""
+		Dim tmp As String = ""
+		dim num as Integer
+		dim iList as String()
+		Do Until reader.EndOfStream
+			tmp = reader.ReadLine
+			If instr(tmp,"?item=") Then	str += tmp
+		Loop
+		'debug.Print(str)
+		Dim i As Integer
+		If instr(str,"?item=") Then
+			i= instr(str,"?item=")
+			str = right(str,str.Length-i)
+		End If
+		iList = str.Split("=")
+		num = 0
+		For Each tmp In iList
+			If instr(tmp,Chr(34) & ">") Then
+				i= instr(tmp,Chr(34))
+				tmp = left(tmp,i-1)
+				col.Add (tmp)
+				'debug.Print(tmp)
+				num  += 1
+				if num > 200 then debug.Print("trop de résultat")
+			End If
+		Next
+	End Sub
 	
 	
 	Sub GetListofID (MinLvl As String, MaxLvl as String)
@@ -365,7 +399,7 @@ Public Class Extractor
 		Dim heroic As String = 0
 		if myXML.SelectSingleNode("/wowhead/item/json").InnerText.Contains("heroic:1") then heroic = 1
 		Dim aStr As string()
-		aStr = myXML.SelectSingleNode("/wowhead/item/jsonEquip").InnerText.Split(",")
+		aStr = myXML.SelectSingleNode("/wowhead/item/jsonEquip").InnerText.Replace(chr(34),"").Split(",")
 		Dim Strength as String = GetValue(aStr,"str")
 		Dim Agility as String= GetValue(aStr,"agi")
 		Dim BonusArmor as String= GetValue(aStr,"armorbonus")
@@ -397,7 +431,7 @@ Public Class Extractor
 		
 		Try
 			xNode = doc.SelectSingleNode("/items/item[id="& id &"]")
-			doc.RemoveChild (xNode)
+			xNode.ParentNode.RemoveChild (xNode)
 		Catch
 			
 		End Try
@@ -527,7 +561,7 @@ Public Class Extractor
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "keywords", "")
 		newElem.InnerText = keywords
 		newItem.AppendChild(newElem)
-		doc.Save("itemDB.xml")
+		doc.Save(Application.StartupPath & "\GearSelector\" & "itemDB.xml")
 	End Sub
 	
 	Function GetValue(jString As String(),attrib As String) As String

@@ -192,7 +192,9 @@ Friend Class Character
 		If sim.FrostPresence = 1 Then
 			tmp = tmp * 1.6
 		End If
-		if sim.UnbreakableArmor.isActive then tmp = tmp * 1.25
+		If sim.UnbreakableArmor.isActive Then tmp = tmp * 1.25
+		
+		tmp2 += sim.proc.GetActiveBonus("armor")
 		tmp = tmp + tmp2
 		return tmp
 	End Function

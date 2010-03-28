@@ -47,7 +47,7 @@ Friend Class Procs
 	
 	
 	Friend AllProcs As New Collection
-	Friend EquipedTrinkets as New Collection
+	Friend EquipedProc as New Collection
 	Friend OnHitProcs As New Collection
 	
 	Friend OnMHWhitehitProcs As new Collection
@@ -57,7 +57,8 @@ Friend Class Procs
 	Friend OnCritProcs As new Collection
 	Friend OnDamageProcs As new Collection
 	Friend OnDoTProcs As New Collection
-	
+	Friend OnBloodStrikeProcs As New Collection
+	Friend OnPlagueStrikeProcs As New Collection
 	Private XmlCharacter as Xml.XmlDocument
 	
 
@@ -71,6 +72,9 @@ Friend Class Procs
 		OnDoT = 6
 		OnMHWhiteHit=7
 		OnFU=8
+		OnBloodStrike=9
+		OnPlagueStrike = 10
+		'OnUse=9
 	End Enum
 		
 
@@ -82,6 +86,21 @@ Friend Class Procs
 		sim = S
 		XmlCharacter = S.XmlCharacter
 	End Sub
+	
+	Function Find(name As String) As Proc
+		Dim prc As proc
+		For Each prc In AllProcs
+			If prc.Name = name Then
+				Return prc
+			Else
+				'debug.Print (prc.Name)
+			End If
+		Next
+		return nothing
+	End Function
+	
+	
+	
 	Sub SoftReset
 		Dim prc As proc
 		For Each prc In AllProcs
@@ -140,6 +159,7 @@ Friend Class Procs
 		With SuddenDoom
 			._Name = "SuddenDoom"
 			.ProcChance = Sim.TalentBlood.SuddenDoom * 0.05
+			.ProcOn = procs.ProcOnType.OnBloodStrike
 			If .ProcChance > 0 Then
 				.Equip()
 			End If
@@ -195,10 +215,11 @@ Friend Class Procs
 		Desolation = New Proc(s)
 		With Desolation
 			._Name = "Desolation"
-			If Sim.TalentUnholy.Desolation > 0 Then .Equip()
+			.ProcOn = procs.ProcOnType.OnBloodStrike
 			.ProcValue = Sim.TalentUnholy.Desolation
 			.ProcLenght = 20
 			.ProcChance = 1
+			If Sim.TalentUnholy.Desolation > 0 Then .Equip()
 		End With
 
 
@@ -277,6 +298,7 @@ Friend Class Procs
 			.ProcLenght = 15
 			.InternalCD = 45
 			.ProcType = "str"
+			.ProcOn = procs.ProcOnType.OnBloodStrike
 			If s.MainStat.T92PDPS = 1 Then .Equip()
 		End With
 
@@ -288,7 +310,7 @@ Friend Class Procs
 			.ProcLenght = 10
 			.InternalCD = 45
 			.ProcType = "crit"
-			'.ProcOn = procs.ProcOnType.OnMHhit
+			.ProcOn = procs.ProcOnType.OnBloodStrike
 			If s.Sigils.HauntedDreams Then .Equip()
 		End With
 		
@@ -299,7 +321,7 @@ Friend Class Procs
 			.ProcOn = Procs.ProcOnType.OnMHhit
 			.ProcChance = 1
 			.ProcLenght = 20
-			.ProcValue = 1 
+			.ProcValue = 1
 			If s.RuneForge.MHRazoriceRF Then .Equip()
 		End With
 		
@@ -799,7 +821,7 @@ Friend Class Procs
 	Function GetActiveBonus(stat As String) As Integer
 		Dim prc As proc
 		dim tmp as Integer
-		For Each prc In EquipedTrinkets
+		For Each prc In EquipedProc
 			If prc.ProcType = stat Then
 				If prc.IsActive Then
 					tmp += prc.ProcValue
@@ -815,7 +837,7 @@ Friend Class Procs
 	Function GetMaxPossibleBonus(stat As String) As Integer
 		Dim prc As proc
 		dim tmp as Integer
-		For Each prc In EquipedTrinkets
+		For Each prc In EquipedProc
 			If prc.ProcType = stat Then
 				tmp += prc.ProcValue
 			End If

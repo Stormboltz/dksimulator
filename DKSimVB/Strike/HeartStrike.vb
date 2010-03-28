@@ -57,11 +57,10 @@ Friend Class HeartStrike
 				
 				
 				total = total + dégat
-				sim.proc.HauntedDreams.TryMe(T)
-				sim.proc.T92PDPS.TryMe(T)
+				sim.TryOnBloodStrike
 				sim.TryOnMHHitProc
 				RNG = MyRNG
-				If sim.proc.SuddenDoom.TryMe(T) Then sim.DeathCoil.ApplyDamage(T, True)
+
 			End If
 		Next intCount
 		

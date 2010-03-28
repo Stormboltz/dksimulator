@@ -62,8 +62,9 @@ Public Class Proc
 	
 	
 	Overridable Sub Equip()
+		If Equiped = 1 Then Exit Sub
 		Equiped = 1
-		sim.proc.EquipedTrinkets.Add(me,Name)
+		sim.proc.EquipedProc.Add(me,Name)
 		Select Case Me.ProcOn
 			Case Procs.ProcOnType.OnMisc
 				
@@ -82,7 +83,9 @@ Public Class Proc
 			Case procs.ProcOnType.OnMHWhiteHit
 				sim.proc.OnMHWhitehitProcs.add(me,Name)
 			Case procs.ProcOnType.OnFU
-				sim.proc.OnFUProcs.add(me,Name)
+				sim.proc.OnFUProcs.add(Me,Name)
+			Case procs.ProcOnType.OnBloodStrike
+				sim.proc.OnBloodStrikeProcs.add(Me,Name)
 			Case Else
 				debug.Print ("No proc on value for " & me.Name)
 		End Select
@@ -91,7 +94,7 @@ Public Class Proc
 	
 	Overridable Sub UnEquip()
 		Me.Equiped = 0
-		sim.proc.EquipedTrinkets.Remove(Name)
+		sim.proc.EquipedProc.Remove(Name)
 		Select Case Me.ProcOn
 			Case Procs.ProcOnType.OnMisc
 				
@@ -111,6 +114,8 @@ Public Class Proc
 				sim.proc.OnMHWhitehitProcs.Remove(Name)
 			Case procs.ProcOnType.OnFU
 				sim.proc.OnFUProcs.Remove(Name)
+			Case procs.ProcOnType.OnBloodStrike
+				sim.proc.OnBloodStrikeProcs.Remove(Name)
 			Case Else
 				debug.Print ("No proc on value for " & me.Name)
 		End Select

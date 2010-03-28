@@ -230,6 +230,34 @@ Public Class Sim
 	Sub PrePull(T as Long)
 		AotD.PrePull(T)
 		'Pot Usage
+		Try
+			If Me.Character.XmlDoc.SelectSingleNode("/character/misc/PrePullIndestructiblePotion").InnerText Then
+				Dim p As Proc
+				p = proc.Find("Indestructible Potion")
+				If p.Equiped = 0 Then
+					p.Equip
+					p.ProcChance = 0
+				End If
+				p.ApplyMe(T-1000)
+				p.CD = T+120*100
+			End If
+		Catch ex As System.Exception
+			
+		End Try
+		Try
+			If Me.Character.XmlDoc.SelectSingleNode("/character/misc/PrePullPotionofSpeed").InnerText Then
+				Dim p As Proc
+				p = proc.Find("Potion of Speed")
+				If p.Equiped = 0 Then
+					p.Equip
+					p.ProcChance = 0
+				End If
+				p.ApplyMe(T-1000)
+				p.CD = T+60*100
+			End If
+		Catch ex As System.Exception
+			
+		End Try
 	End Sub
 	
 	Sub Start()
@@ -300,7 +328,7 @@ Public Class Sim
 						end if
 					End If
 				end if
-				If isInGCD(TimeStamp) = False and me.Rotation.IntroDone = false Then 
+				If isInGCD(TimeStamp) = False and me.Rotation.IntroDone = false Then
 					rotation.DoIntro(TimeStamp)
 				End If
 				If isInGCD(TimeStamp) = False Then
@@ -409,7 +437,7 @@ Public Class Sim
 		DPS = 100 * TotalDamage / TimeStamp
 		Report()
 		Debug.Print( "DPS=" & DPS & " " & "TPS=" & TPS & " " & EPStat & " hit=" & mainstat.Hit & " sphit=" & mainstat.SpellHit & " exp=" & mainstat.expertise )
-		Debug.Print( "UselessCheck = " & UselessCheckColl.Count)
+		'Debug.Print( "UselessCheck = " & UselessCheck)
 		combatlog.finish
 		On Error Resume Next
 		If Me.FrostPresence = 1 Then
@@ -1035,7 +1063,7 @@ Public Class Sim
 			End If
 			'On Error Resume Next
 			Dim pr As Proc
-			For Each pr In proc.EquipedTrinkets
+			For Each pr In proc.EquipedProc
 				if pr.Total = 0 then
 					STmp = pr.report
 					STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
@@ -1233,6 +1261,14 @@ Public Class Sim
 		Next
 	End Sub
 	
+	Sub tryOnDoT()
+		dim obj as proc
+		For Each obj In Me.proc.OnDoTProcs
+			obj.TryMe(timestamp)
+		Next
+		tryOnDamageProc
+	End Sub
+	
 	Sub TryOnSpellHit
 		dim obj as proc
 		For Each obj In Me.proc.OnDamageProcs
@@ -1240,4 +1276,16 @@ Public Class Sim
 		Next
 		tryOnDamageProc
 	End Sub
+	
+	Sub TryOnBloodStrike
+		dim obj as proc
+		For Each obj In Me.proc.OnBloodStrikeProcs
+			obj.TryMe(timestamp)
+		Next
+	End Sub
+	
+	
+	
+	
+	
 End Class
