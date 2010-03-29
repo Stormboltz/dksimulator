@@ -620,6 +620,9 @@ Public Class Sim
         'Desolation = New Desolation(me)
 		MainHand.NextWhiteMainHit = TimeStamp
 		OffHand.NextWhiteOffHit = TimeStamp
+		Gargoyle.NextGargoyleStrike = TimeStamp
+		Ghoul.NextClaw = TimeStamp
+		Ghoul.NextWhiteMainHit = TimeStamp 
 		Frenzy.CD = 0
 		DeathandDecay.CD = 0
 		Gargoyle.cd = 0

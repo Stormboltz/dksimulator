@@ -60,7 +60,7 @@ Friend Class FrostStrike
 		Dim ccT As Double
 		Dim dégat As Integer
 		ccT = CritChance
-		RNG = MyRNG
+		RNG = RngCrit
 		If RNG < ccT Then
 			dégat = AvrgCrit(T)
 			sim.combatlog.write(T  & vbtab &  "FS crit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.Value )

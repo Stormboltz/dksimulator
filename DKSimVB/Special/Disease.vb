@@ -52,7 +52,7 @@ Public Class Disease
 		OtherTargetsFade = 0
 		ThreadMultiplicator = 1
 		ToReApply = 0
-		_RNG=nothing
+		_RNG1=nothing
 	End sub
 	
 	Function Lenght() as Integer
@@ -86,10 +86,12 @@ Public Class Disease
 	Function ApplyDamage(T As long) As boolean
 		Dim tmp As Double
 		Dim intCount As Integer
+		RngHit
+		
 		For intCount = 1 To Sim.NumberOfEnemies
 			if intCount > 1 and OtherTargetsFade < T then return true
 			If sim.MainStat.T94PDPS =1 Then
-				If MyRng < CritChance Then
+				If RngCrit < CritChance Then
 					tmp = AvrgCrit(T)
 					CritCount = CritCount + 1
 					totalcrit += tmp
@@ -107,7 +109,7 @@ Public Class Disease
 			If sim.TalentUnholy.WanderingPlague > 0 Then
 				If Sim.WanderingPlague.isAvailable(T) = True Then
 					Dim RNG As Double
-					RNG = MyRNG
+					RNG = Rng3
 					If RNG <= sim.MainStat.crit Then
 						Sim.WanderingPlague.ApplyDamage(tmp, T)
 					End If

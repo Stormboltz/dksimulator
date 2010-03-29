@@ -31,7 +31,7 @@ Friend Class OffHand
 		
 
 		
-		RNG = MyRng
+		RNG = RngHit
 		MeleeGlacingChance = 0.25
 		MeleeDodgeChance = 0.065
 		MeleeMissChance = 0.27

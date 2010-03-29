@@ -18,7 +18,7 @@ Friend Class PlagueStrike
 		End If
 		
 		Dim dégat As Integer
-		RNG = MyRNG
+		RNG = RngCrit
 		If RNG <= CritChance Then
 			CritCount = CritCount + 1
 			dégat = AvrgCrit(T)

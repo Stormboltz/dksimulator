@@ -40,7 +40,7 @@ Sub New(S As sim)
 		End If
 		
 		Dim RNG As Double
-		RNG = MyRng
+		RNG = RngHit
 		MeleeGlacingChance = 0.25
 		MeleeDodgeChance = 0.065
 		If sim.FrostPresence =1 Then
@@ -89,7 +89,6 @@ Sub New(S As sim)
 		total = total + dégat
 		If sim.TalentUnholy.Necrosis > 0 Then sim.Necrosis.Apply(dégat, T)
 		If sim.proc.MHBloodCakedBlade.TryMe(T) Then sim.BloodCakedBlade.ApplyDamage(T)
-		RNG = MyRng * 100
 		sim.tryOnMHWhitehitProc
 		If sim.proc.ScentOfBlood.IsActive  Then
 			sim.proc.ScentOfBlood.Use

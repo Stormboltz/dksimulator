@@ -35,7 +35,7 @@ Public Class Strike
 		TotalHit = 0
 		TotalCrit = 0
 		ThreadMultiplicator = 1
-		_RNG = nothing
+		_RNG1 = nothing
 	End Sub
 	
 	Sub New(S As sim)
@@ -57,7 +57,7 @@ Public Class Strike
 	
 	Function DoMyStrikeHit As Boolean
 		Dim RNG As Double
-		RNG = MyRNG
+		RNG = RngHit
 		Dim exp As Double
 		
 		If Me.OffHand Then

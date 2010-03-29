@@ -73,7 +73,7 @@ Friend Class DRW
 		NextDRW = T + (100 * 3.5 / Haste)
 		Dim RNG As Double
 		dim retour as Integer
-		RNG = MyRng
+		RNG = RngHit
 
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "DRW fail")
@@ -188,19 +188,20 @@ Friend Class DRW
 	Sub Obliterate
 		Dim RNG As Double
 		dim damage as Integer
-		RNG = MyRng
+		RNG = RngHit
 		
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Obliterate fail")
 			MissCount = MissCount + 1
 			exit sub
 		End If
-		RNG = MyRng
+		RNG = RngHit
 		damage = NormalisedMHDamage * 0.8 + 467.2
 		damage = damage * PhysicalDamageMultiplier(sim.TimeStamp)
 		damage = damage * (1 + 0.125 * Sim.NumDesease)
 		damage = damage /2
-		If RNG < crit Then
+		
+		If RngCrit < crit Then
 			damage = damage* 2
 			CritCount = CritCount +1
 			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Obliterate crit for " & damage)
@@ -213,13 +214,13 @@ Friend Class DRW
 	Sub DeathStrike
 		Dim RNG As Double
 		dim damage as Integer
-		RNG = MyRng
+		RNG = RngHit
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Death Strike fail")
 			MissCount = MissCount + 1
 			exit sub
 		End If
-		RNG = MyRng
+		RNG = RngCrit
 		damage = NormalisedMHDamage*0.75 + 222.75
 		damage = damage * PhysicalDamageMultiplier(sim.TimeStamp)
 		'damage = damage /2
@@ -237,7 +238,7 @@ Friend Class DRW
 		
 		Dim RNG As Double
 		dim damage as Integer
-		RNG = MyRng
+		RNG = RngHit
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Heart Strike fail")
 			MissCount = MissCount + 1
@@ -247,7 +248,7 @@ Friend Class DRW
 		Dim intCount As Integer
 		For intCount = 1 To Sim.NumberOfEnemies
 			if intCount <= 2 then
-				RNG = MyRng
+				RNG = RngCrit
 				damage = NormalisedMHDamage * 0.5 + 368
 				damage = damage * PhysicalDamageMultiplier(sim.TimeStamp)
 				damage = damage * (1 + 0.1 * Sim.NumDesease)
@@ -269,14 +270,14 @@ Friend Class DRW
 		
 		Dim RNG As Double
 		Dim damage As Integer
-		RNG = MyRng
+		RNG = RngHit
 	
 		If RNG < SpellMissChance Then
 			MissCount = MissCount + 1
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "DRW Death Coil fail")
 			exit sub
 		end if
-		RNG = MyRng
+		RNG = RngCrit
 		
 		damage = 0.15 * AP + 443
 		damage = damage * MagicalDamageMultiplier(sim.TimeStamp)
@@ -295,13 +296,13 @@ Friend Class DRW
 	Sub PlagueStrike
 		Dim RNG As Double
 		dim damage as Integer
-		RNG =  MyRng
+		RNG = RngHit
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Plague Strike fail")
 			MissCount = MissCount + 1
 			exit sub
 		End If
-		RNG = MyRng
+		RNG = RngCrit
 		damage = NormalisedMHDamage * 0.5 + 189
 		damage = damage * PhysicalDamageMultiplier(sim.TimeStamp)
 		'damage = damage /2
@@ -319,14 +320,14 @@ Friend Class DRW
 		
 		Dim RNG As Double
 		Dim damage As Integer
-		RNG = MyRng
+		RNG = RngHit
 
 		If RNG < SpellMissChance Then
 			MissCount = MissCount + 1
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "DRW Icy Touch fail")
 			exit sub
 		end if
-		RNG = MyRng
+		RNG = RngCrit
 		
 		
 		damage = 0.1 * AP + 236

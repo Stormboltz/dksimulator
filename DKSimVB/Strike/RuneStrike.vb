@@ -30,7 +30,7 @@ Public Class RuneStrike
 		trigger = false
 		Sim.RunicPower.Value = Sim.RunicPower.Value - 20
 		
-		RNG = MyRng
+		RNG = RngHit
 		MeleeMissChance = math.Min(sim.mainstat.Hit, 0.08)
 		If MeleeMissChance + RNG < 0.08 Then
 			MissCount = MissCount + 1
@@ -38,10 +38,13 @@ Public Class RuneStrike
 			exit function
 		End If
 		
-		RNG = MyRng
+		
 		If OffHand = False Then
 			If sim.proc.ThreatOfThassarian.TryMe(T) Then sim.OHRuneStrike.ApplyDamage(T)
 		End If
+		
+		RNG = RngCrit
+		
 		If RNG < CritChance Then
 			'CRIT !
 			dégat = AvrgCrit(T)

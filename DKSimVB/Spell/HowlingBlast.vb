@@ -31,7 +31,7 @@ Friend Class HowlingBlast
 		
 		Dim intCount As Integer
 		For intCount = 1 To Sim.NumberOfEnemies
-			RNG = MyRNG
+			RNG = RngCrit
 			Dim dégat As Integer
 			Dim ccT As Double
 			ccT = CritChance
@@ -40,8 +40,6 @@ Friend Class HowlingBlast
 				dégat = AvrgCrit(T)
 				sim.combatlog.write(T  & vbtab &  "HB crit for " & dégat )
 				totalcrit += dégat
-
-
 			Else
 				HitCount = HitCount + 1
 				dégat = AvrgNonCrit(T)

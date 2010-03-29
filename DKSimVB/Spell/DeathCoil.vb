@@ -44,7 +44,7 @@ Friend class DeathCoil
 			Exit function
 		End If
 		
-		RNG = MyRNG
+		RNG = RngCrit
 		dim dégat as Integer
 		If RNG <= CritChance Then
 			CritCount = CritCount + 1

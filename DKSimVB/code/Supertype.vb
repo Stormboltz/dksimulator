@@ -3,7 +3,7 @@
 ' User: Fabien
 ' Date: 01/01/2010
 ' Time: 18:15
-' 
+'
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
 Public Class Supertype
@@ -23,10 +23,14 @@ Public Class Supertype
 	Public ThreadMultiplicator As Double
 	Friend uptime As Long
 	Protected sim As Sim
-	Protected _RNG as Random
-	
-	
-	
+	Protected _RNG1 As Random
+	Protected _RNG2 As Random
+	Protected _RNG3 As Random
+	Protected _RNG4 As Random
+	Protected _RNG5 As Random
+	Friend RngCrit As Double
+	Friend  Rng3 As Double
+	Friend  Rng4 As Double
 	
 	Overridable Function report As String
 		Dim tmp As String
@@ -77,12 +81,18 @@ Public Class Supertype
 		return me.ToString
 	End Function
 	
-	Function MyRng as Double
-		If _RNG Is nothing Then
-			_RNG =  New Random(ConvertToInt(Me.name)+RNGSeeder)
-			
+	Function RngHit as Double
+		If _RNG1 Is Nothing Then
+			' I have made that to not mess up the RNG is a strike miss
+			_RNG1 =  New Random(ConvertToInt(Me.name)+RNGSeeder)
+			_RNG2 =  New Random(ConvertToInt(Me.name)+RNGSeeder+1)
+			_RNG3 =  New Random(ConvertToInt(Me.name)+RNGSeeder+2)
+			_RNG4 =  New Random(ConvertToInt(Me.name)+RNGSeeder+3)
 		End If
-		return _RNG.NextDouble
+		RngCrit = _RNG2.NextDouble
+		Rng3 = _RNG3.NextDouble
+		Rng4 = _RNG4.NextDouble
+		return _RNG1.NextDouble
 	End Function
 	
 	

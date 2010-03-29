@@ -47,15 +47,13 @@ Friend Class DeathandDecay
 				MissCount = MissCount + 1
 				Exit function
 			End If
-			RNG = MyRNG
+			RNG = RngCrit
 			dim dégat as Integer
-			If MyRNG <= CritChance Then
+			If RNG <= CritChance Then
 				dégat = AvrgCrit(T)
 				if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "D&D crit for " & dégat)
 				CritCount = CritCount + 1
 				totalcrit += dégat
-
-
 			Else
 				dégat= AvrgNonCrit(T)
 				HitCount = HitCount + 1

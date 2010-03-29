@@ -16,7 +16,7 @@ Friend Class IcyTouch
 			MissCount = MissCount + 1
 			Exit function
 		End If
-		RNG = MyRNG
+		RNG = RngCrit
 		Dim dégat As Integer
 		Dim ccT As Double
 		ccT = CritChance

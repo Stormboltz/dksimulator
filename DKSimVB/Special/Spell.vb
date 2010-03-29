@@ -18,7 +18,7 @@ Public Class Spell
 	
 	Function DoMySpellHit As Boolean
 		Dim RNG As Double
-		RNG = MyRNG
+		RNG = RngHit
 		If math.Min(sim.mainstat.SpellHit,0.17) + RNG < 0.17 Then
 			Return False
 		Else
@@ -43,7 +43,7 @@ Public Class Spell
 		CD = 0
 		ActiveUntil = 0
 		ThreadMultiplicator = 1
-		_RNG = Nothing
+		_RNG1 = Nothing
 
 	End Sub
 	

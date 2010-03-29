@@ -30,7 +30,7 @@ Friend Class BloodBoil
 				MissCount = MissCount + 1
 				Exit function
 			End If
-			RNG = MyRNG
+			RNG = RngCrit
 			dim dégat as Integer
 			If RNG <= CritChance Then
 				dégat = AvrgCrit(T)

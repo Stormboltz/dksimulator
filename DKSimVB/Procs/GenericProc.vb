@@ -38,7 +38,7 @@ Public Class Proc
 	
 	
 	Sub New()
-		_RNG = nothing
+		_RNG1 = nothing
 		ProcChance = 0
 		Equiped = 0
 		ProcLenght = 0
@@ -151,7 +151,7 @@ Public Class Proc
 			Return False
 		End If
 		if CD > T Then Return False
-		If MyRng() > ProcChance Then Return False
+		If RngHit > ProcChance Then Return False
 		ApplyMe(T)
 		Return True
 	End Function
@@ -174,7 +174,7 @@ Public Class Proc
 					Stack +=1
 				Else
 					Stack = 0
-					If MyRng < (0.17 - sim.MainStat.SpellHit) Then
+					If Rng3 < (0.17 - sim.MainStat.SpellHit) Then
 						MissCount = MissCount + 1
 						Exit sub
 					End If
@@ -188,7 +188,7 @@ Public Class Proc
 					AddUptime(T)
 				End If
 			Case "Bryntroll"
-				If MyRng < (0.17 - sim.MainStat.SpellHit) Then
+				If Rng3 < (0.17 - sim.MainStat.SpellHit) Then
 					MissCount = MissCount + 1
 					Exit sub
 				End If
@@ -196,7 +196,7 @@ Public Class Proc
 				HitCount = HitCount + 1
 				totalhit += tmp
 			Case "BryntrollHeroic"
-				If MyRng < (0.17 - sim.MainStat.SpellHit) Then
+				If Rng3 < (0.17 - sim.MainStat.SpellHit) Then
 					MissCount = MissCount + 1
 					Exit sub
 				End If
@@ -209,7 +209,7 @@ Public Class Proc
 				If Me.Stack =8 Then
 					Me.Stack=0
 					if sim.MainStat.DualW then
-						If MyRng > 0.5 Then
+						If Rng4 > 0.5 Then
 							tmp = sim.MainHand.AvrgNonCrit(T)/2
 						Else
 							tmp = sim.offhand.AvrgNonCrit(T)/2
@@ -217,7 +217,7 @@ Public Class Proc
 					Else
 						tmp = sim.MainHand.AvrgNonCrit(T)/2
 					End If
-					If MyRng < sim.MainStat.crit Then
+					If RngCrit < sim.MainStat.crit Then
 						tmp = tmp*2
 						CritCount += 1
 						TotalCrit += tmp
@@ -228,7 +228,7 @@ Public Class Proc
 				End If
 			Case "DeathbringersWill"
 				Dim RNG As Double
-				RNG = Rnd
+				RNG = Rng3
 				AddUptime(T)
 				If RNG < 0.33 Then
 					ProcType = "str"
@@ -242,7 +242,7 @@ Public Class Proc
 				HitCount += 1
 			Case "DeathbringersWillHeroic"
 				Dim RNG As Double
-				RNG = Rnd
+				RNG = Rng3
 				AddUptime(T)
 				If RNG < 0.33 Then
 					ProcType = "str"
@@ -255,11 +255,11 @@ Public Class Proc
 				Fade = T + ProcLenght * 100
 				HitCount += 1
 			Case "arcane"
-				If MyRng < (0.17 - sim.MainStat.SpellHit) Then
+				If Rng3 < (0.17 - sim.MainStat.SpellHit) Then
 					MissCount = MissCount + 1
 					Exit sub
 				End If
-				If MyRng <= sim.MainStat.SpellCrit Then
+				If RngCrit <= sim.MainStat.SpellCrit Then
 					CritCount = CritCount + 1
 					tmp = ProcValue * 1.5 * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
 					Totalcrit +=  tmp
@@ -269,11 +269,11 @@ Public Class Proc
 					Totalhit +=  tmp
 				End If
 			Case "shadow"
-				If MyRng < (0.17 - sim.MainStat.SpellHit) Then
+				If Rng3 < (0.17 - sim.MainStat.SpellHit) Then
 					MissCount = MissCount + 1
 					Exit sub
 				End If
-				If MyRng <= sim.MainStat.SpellCrit Then
+				If RngCrit <= sim.MainStat.SpellCrit Then
 					CritCount = CritCount + 1
 					tmp = ProcValue * 1.5 * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
 					tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
@@ -289,7 +289,7 @@ Public Class Proc
 				HitCount = HitCount + 1
 				totalhit += tmp
 			Case "SapperCharge"
-				If MyRng <= sim.MainStat.Crit Then
+				If RngCrit <= sim.MainStat.Crit Then
 					CritCount = CritCount + 1
 					tmp = ProcValue * 1.5 * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
 					tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
@@ -301,7 +301,7 @@ Public Class Proc
 				End If
 				
 			Case "physical"
-				If MyRng <= sim.MainStat.Crit Then
+				If RngCrit <= sim.MainStat.Crit Then
 					CritCount = CritCount + 1
 					tmp = ProcValue * 2 * sim.MainStat.StandardPhysicalDamageMultiplier(sim.TimeStamp)
 					totalcrit += tmp
@@ -325,10 +325,11 @@ Public Class Proc
 				tmp = tmp * 10
 				tmp = tmp * (1+sim.MainStat.Haste)
 				tmp = tmp * sim.GhoulStat.PhysicalDamageMultiplier(T)
-				If MyRng < 0.33 Then
+				dim RNG as Double = RngCrit
+				If Rng < 0.33 Then
 					tmp = tmp * 2
 					HitCount = HitCount + 20
-				ElseIf MyRng < 0.66
+				ElseIf Rng < 0.66
 					tmp = tmp *3
 					HitCount = HitCount + 30
 				Else

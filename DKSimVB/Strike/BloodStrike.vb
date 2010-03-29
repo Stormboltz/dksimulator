@@ -29,7 +29,7 @@ Friend class BloodStrike
 			End If
 		End If
 
-		RNG = MyRng()
+		RNG = RngCrit
 
 		If RNG <= CritChance() Then
 			dégat = AvrgCrit(T)

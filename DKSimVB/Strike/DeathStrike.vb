@@ -31,7 +31,7 @@ Friend Class DeathStrike
 			return false
 		End If
 		dim dégat as Integer
-		RNG = MyRNG
+		RNG = RngCrit
 		If RNG <= CritChance Then
 			CritCount = CritCount + 1
 			dégat = AvrgCrit(T)

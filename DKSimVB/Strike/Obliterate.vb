@@ -17,7 +17,7 @@ Friend Class Obliterate
 	public Overrides Function ApplyDamage(T As Long) As Boolean
 		Dim RNG As Double
 		UseGCD(T)
-		RNG = MyRNG
+		
 		
 		If OffHand = False Then
 			If sim.proc.ThreatOfThassarian.TryMe(T) Then sim.OHObliterate.ApplyDamage(T)
@@ -46,12 +46,12 @@ Friend Class Obliterate
 		Dim ccT As Double
 		ccT = CritChance
 		
+		RNG = RngCrit
 		If RNG <= ccT Then
 			CritCount = CritCount + 1
 			dégat =  AvrgCrit(T)
 			sim.combatlog.write(T  & vbtab &  "OB crit for " & dégat )
 			sim.tryOnCrit
-			
 			totalcrit += dégat
 		Else
 			HitCount = HitCount + 1

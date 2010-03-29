@@ -96,7 +96,7 @@ Public Class AotD
 		NextWhiteMainHit = T + (WSpeed * 100) / Haste
 		
 		Dim RNG As Double
-		RNG = MyRng
+		RNG = RngHit
 
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			MissCount = MissCount + 8
@@ -149,25 +149,25 @@ Public Class AotD
 		Dim RNG As Double
 		Dim dégat As Integer
 		
-		RNG = MyRng
+		RNG = RngHit
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
-			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Ghoul's Claw fail")
+			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "AotD Ghoul's Claw fail")
 			MissCount = MissCount + 1
 			Exit function
 		End If
-		RNG = MyRng
+		RNG = RngCrit
 		If RNG <= CritChance Then
 			dégat = ClawAvrgCrit(T)
 			CritCount = CritCount + 1
 			total = total + dégat
 			totalcrit += dégat
-			if sim.combatlog.LogDetails then 	sim.combatlog.write(T  & vbtab &  "Ghoul's Claw for " & dégat)
+			if sim.combatlog.LogDetails then 	sim.combatlog.write(T  & vbtab &  "AotD Ghoul's Claw for " & dégat)
 		Else
 			dégat = ClawAvrgNonCrit(T)
 			HitCount = HitCount + 1
 			total = total + dégat
 			totalhit += dégat
-			if sim.combatlog.LogDetails then 	sim.combatlog.write(T  & vbtab &  "Ghoul's Claw hit for " & dégat)
+			if sim.combatlog.LogDetails then 	sim.combatlog.write(T  & vbtab &  "AotD Ghoul's Claw hit for " & dégat)
 		End If
 		NextClaw = T+450
 		return true

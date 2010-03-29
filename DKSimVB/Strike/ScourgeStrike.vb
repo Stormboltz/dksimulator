@@ -31,7 +31,7 @@ Friend Class ScourgeStrike
 			tmpPhysical = 0
 			tmpMagical = 0
 			'Physical part
-			RNG = MyRNG
+			RNG = RngCrit
 			If RNG <= CritChance Then
 				CritCount = CritCount + 1
 				dégat = AvrgNonCritPhysical(T)* (1 + CritCoef)

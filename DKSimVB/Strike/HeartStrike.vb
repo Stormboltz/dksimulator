@@ -28,9 +28,8 @@ Friend Class HeartStrike
 		Dim intCount As Integer
 		For intCount = 1 To Sim.NumberOfEnemies
 			if intCount <= 2 then
-				RNG = MyRNG
+				RNG = RngCrit
 				Dim dégat As Integer
-				
 				If RNG <= CritChance Then
 					CritCount = CritCount + 1
 					If intCount = 2 Then
@@ -54,13 +53,9 @@ Friend Class HeartStrike
 					End If
 					sim.combatlog.write(T  & vbtab &  "HS hit for " & dégat)
 				End If
-				
-				
 				total = total + dégat
 				sim.TryOnBloodStrike
 				sim.TryOnMHHitProc
-				RNG = MyRNG
-
 			End If
 		Next intCount
 		

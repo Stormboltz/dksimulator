@@ -21,10 +21,9 @@ Public Class ScourgeStrikeMagical
 	
 	
 	Function ApplyDamage(PhysicalDamage As Integer,T As Long, IsCrit as Boolean) As Boolean
-		Dim RNG As Double
 		dim tmp as Integer
 		tmpPhysical = PhysicalDamage
-		RNG = MyRNG
+		
 		
 		If IsCrit Then 'RNG <= CritChance Then
 			CritCount +=1

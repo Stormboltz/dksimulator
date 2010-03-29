@@ -73,7 +73,7 @@ Friend class Ghoul
 		WSpeed = sim.GhoulStat.MHWeaponSpeed
 		NextWhiteMainHit = T + (WSpeed * 100) / Haste
 		Dim RNG As Double
-		RNG = MyRng
+		RNG = RngHit
 
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			MissCount = MissCount + 1
@@ -83,8 +83,8 @@ Friend class Ghoul
 		If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then
 			dégat = AvrgNonCrit(T)*0.7
 			total = total + dégat
-			totalhit += dégat
-			HitCount = HitCount + 1
+			TotalGlance += dégat
+			GlancingCount += 1
 		End If
 		If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) and RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance) Then
 			'CRIT !
@@ -126,13 +126,13 @@ Friend class Ghoul
 		Dim RNG As Double
 		Dim dégat As Integer
 		
-		RNG = MyRng
+		RNG = Rng3
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Ghoul's Claw fail")
 			MissCount = MissCount + 1
 			Exit function
 		End If
-		RNG = MyRng
+		RNG = Rng4
 		If RNG <= CritChance Then
 			dégat = ClawAvrgCrit(T)
 			CritCount = CritCount + 1
