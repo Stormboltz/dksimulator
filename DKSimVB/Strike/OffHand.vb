@@ -29,7 +29,6 @@ Friend Class OffHand
 		Dim MeleeParryChance As Single
 		Dim ChanceNotToTouch As Single
 		
-
 		
 		RNG = RngHit
 		MeleeGlacingChance = 0.25
@@ -90,7 +89,7 @@ Friend Class OffHand
 		End If
 		total = total + dégat
 		If sim.TalentUnholy.Necrosis > 0 Then
-			Nec = sim.Necrosis.Apply(dégat, T)
+			Nec = sim.OHNecrosis.Apply(dégat, T)
 		End If
 		If sim.proc.OHBloodCakedBlade.TryMe(T) Then sim.OHBloodCakedBlade.ApplyDamage(T)
 		sim.TryOnOHHitProc

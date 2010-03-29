@@ -1,5 +1,5 @@
 Friend Class Necrosis
-	Inherits Spells.Spell
+	Inherits Strikes.Strike
 	
 	Sub New(S As sim)
 		MyBase.New(s)
@@ -16,4 +16,15 @@ Friend Class Necrosis
 		return tmp
 	End Function
 	
+	Public Overrides Sub Merge()
+		If sim.MainStat.DualW = false Then exit sub
+		Total += sim.OHNecrosis.Total
+		TotalHit += sim.OHNecrosis.TotalHit
+		
+		HitCount = (HitCount + sim.OHNecrosis.HitCount)/2
+		
+		sim.OHNecrosis.Total = 0
+		sim.OHNecrosis.TotalHit = 0
+		
+	End Sub
 End Class

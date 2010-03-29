@@ -109,6 +109,7 @@ Public Class Sim
 	Friend Hysteria  as Hysteria
 	Friend IcyTouch As IcyTouch
 	Friend Necrosis As Necrosis
+	Friend OHNecrosis As Necrosis
 	Friend DeathCoil as DeathCoil
 	Friend Pestilence as Pestilence
 	Friend UnbreakableArmor as UnbreakableArmor
@@ -360,11 +361,7 @@ Public Class Sim
 						end if
 					End If
 					if Ghoul.ActiveUntil >= TimeStamp then
-						If Ghoul.NextWhiteMainHit <= TimeStamp Then Ghoul.ApplyDamage(TimeStamp)
-						If Ghoul.NextClaw <= TimeStamp Then Ghoul.Claw(TimeStamp)
-						If isInGCD(TimeStamp) And Frenzy.IsAutoFrenzyAvailable(Timestamp) Then
-							Frenzy.Frenzy(TimeStamp)
-						End If
+						Ghoul.TryActions(TimeStamp)
 					End If
 				End If
 				
@@ -710,6 +707,8 @@ Public Class Sim
 		DeathCoil = new DeathCoil(Me)
 		IcyTouch = new IcyTouch(Me)
 		Necrosis = new Necrosis(Me)
+		OHNecrosis = New Necrosis(Me)
+		OHNecrosis.Offhand = True
 		WanderingPlague = new WanderingPlague(Me)
 		
 		Frenzy = NEw Frenzy(Me)
@@ -1158,8 +1157,7 @@ Public Class Sim
 				end if
 			End If
 			If Ghoul.ActiveUntil >= TimeStamp Then
-				aT.Add(Ghoul.NextWhiteMainHit)
-				aT.Add(Ghoul.NextClaw)
+				aT.Add(Ghoul.NextActionTime())
 			End If
 			If AoTD.ActiveUntil >= TimeStamp Then
 				aT.Add(AoTD.NextWhiteMainHit)
