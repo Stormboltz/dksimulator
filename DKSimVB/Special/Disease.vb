@@ -19,7 +19,8 @@ Public Class Disease
 	Friend ScourgeStrikeGlyphCounter As Integer
 	Friend OtherTargetsFade As Integer
 	Friend CritChance As Double
-
+	Friend Multiplier As Double
+	
 	Private _Lenght As Integer
 	Friend previousFade As Long
 	
@@ -76,11 +77,46 @@ Public Class Disease
 		End If
 	End Function
 	
-	Overridable Function Apply(T As Long) As Boolean
+	Overridable Function ShouldReapply(T As Long) As Boolean
+		return ToReapply or not isActive(T)
 	End Function
 	
+	Overridable Function CalculateMultiplier(T As Long) As Double
+		Dim tmp As Double
+		tmp = sim.MainStat.StandardMagicalDamageMultiplier(T)
+		if sim.RuneForge.CinderglacierProc > 0 then tmp  *= 1.2
+		If  sim.Buff.CrypticFever Then
+			tmp = tmp * 1.3
+		Else
+			tmp = tmp * (1 + sim.TalentUnholy.CryptFever * 10 / 100)
+		End If
+		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
+		return tmp
+	End Function
 	
-	Overridable Function AvrgNonCrit(T As long) As Double
+	Overridable Function Apply(T As Long) As Boolean
+		ToReApply = false
+		nextTick = T + 3 * 100
+		ScourgeStrikeGlyphCounter = 0
+		CritChance = sim.MainStat.crit
+		If sim.RuneForge.CinderglacierProc > 0 Then
+			cinder = True
+		Else
+			cinder = False
+		End If
+		Multiplier = CalculateMultiplier(T)
+		Refresh(T)
+	End Function
+	
+	Overridable Function Refresh(T As Long) As Boolean
+		FadeAt = T + Lenght
+		AP = sim.MainStat.AP
+		DamageTick = AvrgNonCrit(T)
+		AddUptime(T)
+	End Function
+	
+	Overridable Function AvrgNonCrit(T As Long) As Double
+		Return Multiplier * 1.15 * (26 + 0.055 * (1 + 0.04 * sim.TalentUnholy.Impurity) * AP)
 	End Function
 	
 	Function ApplyDamage(T As long) As boolean

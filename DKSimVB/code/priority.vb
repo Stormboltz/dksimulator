@@ -206,7 +206,7 @@ Friend Class priority
 							sim.Pestilence.use(TimeStamp)
 							Exit Sub
 						Else
-							If sim.FrostFever.isActive(TimeStamp) = False or sim.pestilence.FFToReapply Then
+							If sim.FrostFever.ShouldReapply(TimeStamp) Then
 								If sim.TalentFrost.HowlingBlast = 1 And sim.glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp)  Then
 									If sim.proc.rime.IsActive Or runes.FU(TimeStamp) Then
 										sim.HowlingBlast.ApplyDamage(TimeStamp)
@@ -244,7 +244,7 @@ Friend Class priority
 							sim.Pestilence.use(TimeStamp)
 							Exit Sub
 						Else
-							If sim.BloodPlague.isActive(TimeStamp) = False or sim.pestilence.BPToReapply then
+							If sim.BloodPlague.ShouldReapply(TimeStamp) then
 								If runes.Unholy(TimeStamp) = True Then
 									sim.PlagueStrike.ApplyDamage(TimeStamp)
 									exit sub

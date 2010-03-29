@@ -38,7 +38,6 @@ Friend Class IcyTouch
 		End If
 		sim.runes.UseFrost(T,false)
 		sim.proc.KillingMachine.Use
-		sim.FrostFever.Apply(T)
 		sim.TryOnSpellHit
 		return true
 	End Function
@@ -56,6 +55,10 @@ Friend Class IcyTouch
 		
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 			tmp = tmp *(1+2*sim.RuneForge.RazorIceStack/100) 'TODO: only on main target
+		
+		sim.FrostFever.Apply(T) 
+		'Moved this here as an IcyTouch with 1 CG charge left will reapply a CG buffed FF
+		'I'm pretty sure GlacierRot will not apply to the first icy touch if there are no other diseases up
 		if sim.runeforge.CinderglacierProc > 0 then
 			tmp = tmp * 1.2
 			sim.runeforge.CinderglacierProc = sim.runeforge.CinderglacierProc -1

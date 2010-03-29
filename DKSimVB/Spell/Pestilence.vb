@@ -13,8 +13,6 @@ Friend Class Pestilence
 		MyBase.New(s)
 	End Sub
 
-	Friend BPToReapply As Boolean
-	Friend FFToReapply As Boolean
 	Function use(T As double) As Boolean
 		UseGCD(T)
 		If DoMySpellHit = false Then
@@ -46,16 +44,10 @@ Friend Class Pestilence
 		If sim.glyph.Disease Then
 			'debug.Print ("PEST! at " & T )
 			If sim.BloodPlague.FadeAt > T Then
-				sim.BloodPlague.FadeAt = T + sim.BloodPlague.Lenght
-				sim.BloodPlague.AP = sim.MainStat.AP
-				sim.BloodPlague.DamageTick = sim.BloodPlague.AvrgNonCrit(T)
-				sim.BloodPlague.AddUptime(T)
+				sim.BloodPlague.Refresh(T)
 			End If
 			If sim.FrostFever.FadeAt > T Then
-				sim.FrostFever.FadeAt = T + sim.frostfever.Lenght
-				sim.FrostFever.AP = sim.MainStat.AP
-				sim.FrostFever.DamageTick = sim.FrostFever.AvrgNonCrit(T)
-				sim.FrostFever.AddUptime(T)
+				sim.FrostFever.Refresh(T)
 			End If
 		End If
 		return true

@@ -16,41 +16,17 @@ Friend Class FrostFever
 		End If
 		return false
 	End Function
-	
-	overrides Function Apply(T As Long) As Boolean
-		ToReApply = false
-		AP = sim.MainStat.AP
-		DamageTick = AvrgNonCrit(T)
-		FadeAt = T + Lenght
-		nextTick = T + 3 * 100
-		sim.pestilence.FFToReapply = False
-		ScourgeStrikeGlyphCounter = 0
-		CritChance = 0
-		If sim.RuneForge.CinderglacierProc > 0 Then
-			cinder = True
-		Else
-			cinder = false
-		End If
-		AddUptime(T)
-	End Function
-	
-	Overrides	Function AvrgNonCrit(T As Long) As Double
+
+	Overrides Function CalculateMultiplier(T As Long) As Double
 		Dim tmp As Double
-		sim.proc.IcyTalons.TryMe(T)
-		tmp = 26
-		tmp = tmp + 0.055 * (1 + 0.04 * sim.TalentUnholy.Impurity) * AP
-		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
-		if cinder then tmp  *= 1.2
-		If  sim.Buff.CrypticFever Then
-			tmp = tmp * 1.3
-		Else
-			tmp = tmp * (1 + sim.TalentUnholy.CryptFever * 10 / 100)
-		End If
-		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
-		tmp = tmp * 1.15
-		tmp = tmp *(1+sim.RuneForge.RazorIceStack/100) 'TODO: only on main target
-		if sim.glyph.IcyTouch Then tmp = tmp * 1.2		
-		AvrgNonCrit = tmp
+		tmp = MyBase.CalculateMultiplier(T) *(1+sim.RuneForge.RazorIceStack/100) 'TODO: only on main target
+		If sim.glyph.IcyTouch Then tmp = tmp * 1.2
+		return tmp
 	End Function
 	
+	Overrides Function Refresh(T As Long) As Boolean
+		sim.proc.IcyTalons.TryMe(T)
+		Mybase.Refresh(T)
+	End Function
+
 End Class
