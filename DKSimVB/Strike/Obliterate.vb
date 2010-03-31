@@ -71,7 +71,7 @@ Friend Class Obliterate
 		
 		
 		If sim.DRW.IsActive(T) Then
-			sim.drw.Obliterate
+			sim.drw.DRWObliterate
 		End If
 		
 		

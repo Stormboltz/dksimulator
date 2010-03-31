@@ -117,6 +117,7 @@ Sub New(S As sim)
 	End Function
 	
 	Public Overrides Sub Merge()
+		_Name = "Melee"
 		If sim.MainStat.DualW = false Then exit sub
 		Total += sim.OffHand.Total
 		TotalHit += sim.OffHand.TotalHit

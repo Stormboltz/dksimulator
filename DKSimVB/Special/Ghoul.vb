@@ -12,7 +12,7 @@ Friend class Ghoul
 	Private MeleeDodgeChance As Single
 	Private MeleeGlacingChance As Single
 	Private SpellMissChance As Single
-	Private Claw As Spells.Spell
+	Private Claw As Strikes.Strike
 	
 	Sub new(MySim as Sim)
 		total = 0
@@ -30,8 +30,8 @@ Friend class Ghoul
 		sim.DamagingObject.Add(Me)
 		ThreadMultiplicator = 0
 		HasteSensible = True
-		Claw = New Spells.Spell(Sim)
-		Claw._Name = "GhoulClaw"
+		Claw = New Strikes.Strike(Sim)
+		Claw._Name = "Ghoul: Claw"
 	End Sub
 	
 	Sub Summon(T As Long)
@@ -173,13 +173,13 @@ Friend class Ghoul
 		Dim RNG As Double
 		Dim dégat As Integer
 		If NextClaw > T Then Return False
-		RNG = Rng3
+		RNG = me.Claw.RngHit
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Ghoul's Claw fail")
 			Claw.MissCount += 1
 			Exit function
 		End If
-		RNG = Rng4
+		RNG = me.Claw.RngCrit
 		If RNG <= CritChance Then
 			dégat = ClawAvrgCrit(T)
 			Claw.CritCount += 1

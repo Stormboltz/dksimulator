@@ -34,7 +34,7 @@ Friend Class IcyTouch
 		total = total + dégat
 		Sim.RunicPower.add (10 + (sim.TalentFrost.ChillOfTheGrave * 2.5))
 		If sim.DRW.IsActive(T) Then
-			sim.DRW.IcyTouch
+			sim.DRW.DRWIcyTouch
 		End If
 		sim.runes.UseFrost(T,false)
 		sim.proc.KillingMachine.Use

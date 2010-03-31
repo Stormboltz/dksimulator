@@ -2,21 +2,32 @@ Friend Class DRW
 	Inherits Supertype
 	
 	Friend NextDRW As Long
-
+	
 	Friend ActiveUntil As Long
 	Friend cd As Long
 	Private Haste As Double
 	Private SpellHaste As Double
 	Private AP As Integer
+	Private _Crit As Double
+	Private _SpellCrit as Double
 	
 	Private MeleeMissChance As Single
 	Private MeleeDodgeChance As Single
 	Private MeleeGlacingChance As Single
 	private SpellMissChance as Single
 	Private Hyst As Boolean
-
 	
-	Sub New(S as Sim)
+	
+	Friend PlaqueStrike As Strikes.Strike
+	Friend Obliterate As Strikes.Strike
+	Friend HeartStrike As Strikes.Strike
+	Friend DeathStrike As Strikes.Strike
+	Friend DeathCoil As Spells.Spell
+	Friend IcyTouch as Spells.Spell
+	
+	
+	Sub New(S As Sim)
+		_Name = "DRW: Melee"
 		total = 0
 		MissCount = 0
 		HitCount = 0
@@ -30,7 +41,27 @@ Friend Class DRW
 		sim.DamagingObject.Add(Me)
 		ThreadMultiplicator = 1
 		HasteSensible = True
-		isGuardian = true
+		isGuardian = True
+		
+		PlaqueStrike = New Strikes.Strike(sim)
+		PlaqueStrike._Name = "DRW: Plaque Strike"
+		
+		Obliterate = New Strikes.Strike(sim)
+		Obliterate._Name = "DRW: Obliterate"
+		
+		HeartStrike = New Strikes.Strike(sim)
+		HeartStrike._Name = "DRW: Heart Strike"
+		
+		DeathStrike = New Strikes.Strike(sim)
+		DeathStrike._Name = "DRW: Death Strike"
+		
+		DeathCoil = New Spells.Spell(sim)
+		DeathCoil._Name = "DRW: Death Coil"
+		
+		IcyTouch = New Spells.Spell(sim)
+		IcyTouch._Name = "DRW: Icy Touch"
+		
+		
 	End Sub
 	
 	Function IsActive(T as Long) As Boolean
@@ -51,6 +82,8 @@ Friend Class DRW
 			SpellHaste = sim.MainStat.SpellHaste
 			Haste = sim.MainStat.Haste
 			AP = sim.MainStat.AP
+			_Crit = sim.MainStat.critAutoattack ' Crit seems based on charater crit 
+			_SpellCrit = sim.MainStat.SpellCrit '
 			MeleeGlacingChance = 0.25
 			MeleeMissChance = 0.08 - sim.MainStat.Hit
 			If MeleeMissChance < 0 Then MeleeMissChance = 0
@@ -74,7 +107,7 @@ Friend Class DRW
 		Dim RNG As Double
 		dim retour as Integer
 		RNG = RngHit
-
+		
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "DRW fail")
 			MissCount = MissCount + 1
@@ -84,7 +117,8 @@ Friend Class DRW
 		If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then
 			retour = AvrgNonCrit(T)*0.7
 			total = total + retour
-			HitCount = HitCount + 1
+			TotalGlance += retour
+			GlancingCount = GlancingCount + 1
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "DRW glancing for " & retour)
 		End If
 		
@@ -92,6 +126,7 @@ Friend Class DRW
 			'CRIT !
 			retour = AvrgCrit(T)
 			total = total + retour
+			TotalCrit += retour
 			CritCount = CritCount + 1
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "DRW crit for " & retour)
 		End If
@@ -100,6 +135,7 @@ Friend Class DRW
 			retour = AvrgNonCrit(T)
 			HitCount = HitCount + 1
 			total = total + retour
+			TotalHit += retour
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "DRW hit for " & retour)
 		End If
 		Return True
@@ -111,7 +147,7 @@ Friend Class DRW
 		If sim.EPStat = "EP HasteEstimated" Then
 			tmp = tmp*sim.MainStat.EstimatedHasteBonus
 		End If
-	'	tmp = tmp/2
+		'	tmp = tmp/2
 		return tmp
 	End Function
 	Function CritCoef() As Double
@@ -126,20 +162,35 @@ Friend Class DRW
 	Function PhysicalDamageMultiplier(T as long) As Double
 		dim tmp as Double
 		tmp = 1
-		tmp = tmp * (1 - ArmorMitigation)
+		tmp = tmp * getMitigation
 		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
 		tmp = tmp * (1 + 0.02 *  sim.Buff.PhysicalVuln)
 		if Hyst then tmp = tmp * (1 + 0.2)
 		return tmp
 	End Function
-	Function ArmorMitigation() As Double
-		Dim tmp As Double
-		tmp = sim.MainStat.BossArmor
-		tmp = tmp * (1- 20 *  sim.Buff.ArmorMajor / 100)
-		tmp = tmp * (1- 5 *  sim.Buff.ArmorMinor / 100)
-		tmp = (tmp /((467.5*83)+tmp-22167.5))
-		Return tmp
-	End Function
+	
+	
+	Function getMitigation() As Double
+		Dim AttackerLevel As Integer = 80
+		Dim tmpArmor As Integer
+		Dim ArPDebuffs As Double
+		dim l_sunder as double = 1.0
+		Dim l_ff  As Double = 1.0
+		dim _Mitigation as Double
+		
+		
+		if sim.Buff.ArmorMajor > 0 then l_sunder = 1- 0.20
+		If sim.Buff.ArmorMinor > 0 Then l_ff = 1 - 0.05
+		ArPDebuffs = (l_sunder * l_ff)
+		Dim ArmorConstant As Double = 400 + (85 * 80) + 4.5 * 85 * (80 - 59)
+		
+		tmpArmor = sim.MainStat.BossArmor  *  ArPDebuffs
+		dim ArPCap as Double = Math.Min((tmpArmor + ArmorConstant) / 3, tmpArmor)
+		tmpArmor = tmpArmor -  ArPCap * Math.Min(1,0)
+		_Mitigation = ArmorConstant / (ArmorConstant + tmpArmor)
+		return _Mitigation
+	end function
+	
 	Function MagicalDamageMultiplier(T as long) As Double
 		Dim tmp As Double
 		tmp = 1
@@ -148,19 +199,21 @@ Friend Class DRW
 		return tmp
 	End Function
 	Function crit() As System.Double
-		Dim tmp As Double
-		tmp = 20  'BaseCrit
-		tmp = tmp + 5 *  sim.Buff.MeleeCrit
-		tmp = tmp + 3 *  sim.Buff.CritChanceTaken
-		crit = tmp / 100
+		return _crit
+'		Dim tmp As Double
+'		tmp = 20  'BaseCrit
+'		tmp = tmp + 5 *  sim.Buff.MeleeCrit
+'		tmp = tmp + 3 *  sim.Buff.CritChanceTaken
+'		crit = tmp / 100
 	End Function
 	Function SpellCrit() As Single
-		Dim tmp As Double
-		tmp = 20
-		tmp = tmp + 3 *  sim.Buff.CritChanceTaken
-		tmp = tmp + 5 *  sim.Buff.SpellCrit
-		tmp = tmp + 5  *  sim.Buff.SpellCritTaken
-		SpellCrit = tmp / 100
+		return _Spellcrit
+'		Dim tmp As Double
+'		tmp = 20
+'		tmp = tmp + 3 *  sim.Buff.CritChanceTaken
+'		tmp = tmp + 5 *  sim.Buff.SpellCrit
+'		tmp = tmp + 5  *  sim.Buff.SpellCritTaken
+'		SpellCrit = tmp / 100
 	End Function
 	Function Hit() As Double
 		Dim tmp As Double
@@ -183,101 +236,106 @@ Friend Class DRW
 		tmp =  tmp + 3.3*(AP / 14)
 		return tmp
 	End Function
-
-
-	Sub Obliterate
+	
+	
+	Sub DRWObliterate
 		Dim RNG As Double
 		dim damage as Integer
-		RNG = RngHit
-		
+		RNG = Obliterate.RngHit
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Obliterate fail")
-			MissCount = MissCount + 1
+			Obliterate.MissCount += 1
 			exit sub
 		End If
-		RNG = RngHit
 		damage = NormalisedMHDamage * 0.8 + 467.2
 		damage = damage * PhysicalDamageMultiplier(sim.TimeStamp)
 		damage = damage * (1 + 0.125 * Sim.NumDesease)
 		damage = damage /2
 		
+		RNG = Obliterate.RngCrit
 		If RngCrit < crit Then
 			damage = damage* 2
-			CritCount = CritCount +1
+			Obliterate.CritCount += 1
+			Obliterate.TotalCrit += damage
 			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Obliterate crit for " & damage)
 		Else
-			hitcount = hitcount + 1
+			Obliterate.hitcount += 1
+			Obliterate.Totalhit += damage
 			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Obliterate hit for " & damage)
 		End If
-		total= total+damage
+		Obliterate.total= Obliterate.total+damage
 	End Sub
-	Sub DeathStrike
+	Sub DRWDeathStrike
 		Dim RNG As Double
 		dim damage as Integer
-		RNG = RngHit
+		RNG = DeathStrike.RngHit
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Death Strike fail")
-			MissCount = MissCount + 1
+			DeathStrike.MissCount = DeathStrike.MissCount + 1
 			exit sub
 		End If
-		RNG = RngCrit
+		RNG = DeathStrike.RngCrit
 		damage = NormalisedMHDamage*0.75 + 222.75
 		damage = damage * PhysicalDamageMultiplier(sim.TimeStamp)
 		'damage = damage /2
 		If RNG < crit Then
 			damage = damage* 2
-			CritCount = CritCount +1
+			DeathStrike.CritCount = DeathStrike.CritCount +1
+			DeathStrike.TotalCrit += damage
 			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Death Strike crit for " & damage)
 		Else
-			hitcount = hitcount + 1
+			DeathStrike.hitcount = DeathStrike.hitcount + 1
+			DeathStrike.Totalhit += damage
 			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Death Strike hit for " & damage)
 		End If
-		total= total+damage
+		DeathStrike.total= DeathStrike.total+damage
 	End Sub
-	Sub HeartStrike
+	Sub DRWHeartStrike
 		
 		Dim RNG As Double
-		dim damage as Integer
-		RNG = RngHit
+		Dim damage As Integer
+		
+		RNG = HeartStrike.RngHit
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Heart Strike fail")
-			MissCount = MissCount + 1
+			HeartStrike.MissCount = HeartStrike.MissCount + 1
 			exit sub
 		End If
 		
 		Dim intCount As Integer
 		For intCount = 1 To Sim.NumberOfEnemies
 			if intCount <= 2 then
-				RNG = RngCrit
+				RNG = HeartStrike.RngCrit
 				damage = NormalisedMHDamage * 0.5 + 368
 				damage = damage * PhysicalDamageMultiplier(sim.TimeStamp)
 				damage = damage * (1 + 0.1 * Sim.NumDesease)
 				'damage = damage /2
 				If RNG < crit Then
 					damage = damage* 2
-					CritCount = CritCount +1
+					HeartStrike.CritCount = HeartStrike.CritCount +1
+					HeartStrike.TotalCrit += damage
 					if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Heart Strike crit for " & damage)
 				Else
-					hitcount = hitcount + 1
+					HeartStrike.hitcount = HeartStrike.hitcount + 1
+					HeartStrike.Totalhit += damage
 					if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Heart Strike hit for " & damage)
 				End If
 				If intCount = 2 Then damage = damage * 0.5
-				total= total+damage
+				HeartStrike.total= HeartStrike.total+damage
 			End If
 		Next intCount
 	End Sub
-	Sub DeathCoil
-		
+	Sub DRWDeathCoil
 		Dim RNG As Double
 		Dim damage As Integer
-		RNG = RngHit
-	
+		RNG = DeathCoil.RngHit
+		
 		If RNG < SpellMissChance Then
-			MissCount = MissCount + 1
+			DeathCoil.MissCount = DeathCoil.MissCount + 1
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "DRW Death Coil fail")
 			exit sub
 		end if
-		RNG = RngCrit
+		RNG = DeathCoil.RngCrit
 		
 		damage = 0.15 * AP + 443
 		damage = damage * MagicalDamageMultiplier(sim.TimeStamp)
@@ -285,49 +343,54 @@ Friend Class DRW
 		
 		If RNG <= sim.drw.SpellCrit Then
 			damage = damage * 2
-			CritCount = CritCount +1
+			DeathCoil.CritCount = DeathCoil.CritCount +1
+			DeathCoil.TotalCrit += damage
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "DRW Death Coil crit for " & damage )
 		Else
-			hitcount = hitcount + 1
+			DeathCoil.hitcount = DeathCoil.hitcount + 1
+			DeathCoil.Totalhit += damage
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "DRW Death Coil hit for " & damage)
 		End If
-		total = total + damage
+		DeathCoil.total = DeathCoil.total + damage
 	End Sub
-	Sub PlagueStrike
+	Sub DRWPlagueStrike
 		Dim RNG As Double
-		dim damage as Integer
-		RNG = RngHit
+		Dim damage As Integer
+		
+		RNG = PlaqueStrike.RngHit
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Plague Strike fail")
-			MissCount = MissCount + 1
+			PlaqueStrike.MissCount = PlaqueStrike.MissCount + 1
 			exit sub
 		End If
-		RNG = RngCrit
+		RNG = PlaqueStrike.RngCrit
 		damage = NormalisedMHDamage * 0.5 + 189
 		damage = damage * PhysicalDamageMultiplier(sim.TimeStamp)
 		'damage = damage /2
 		If RNG < crit Then
 			damage = damage* 2
-			CritCount = CritCount +1
+			DeathCoil.TotalCrit += damage
+			PlaqueStrike.CritCount = PlaqueStrike.CritCount +1
 			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Plague Strike crit for " & damage)
 		Else
-			hitcount = hitcount + 1
+			PlaqueStrike.hitcount = PlaqueStrike.hitcount + 1
+			PlaqueStrike.Totalhit += damage
 			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Plague Strike hit for " & damage)
 		End If
-		total= total+damage
+		PlaqueStrike.total= PlaqueStrike.total+damage
 	End Sub
-	Sub IcyTouch
+	Sub DRWIcyTouch
 		
 		Dim RNG As Double
 		Dim damage As Integer
-		RNG = RngHit
-
+		RNG = IcyTouch.RngHit
+		
 		If RNG < SpellMissChance Then
-			MissCount = MissCount + 1
+			IcyTouch.MissCount = IcyTouch.MissCount + 1
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "DRW Icy Touch fail")
 			exit sub
 		end if
-		RNG = RngCrit
+		RNG = IcyTouch.RngCrit
 		
 		
 		damage = 0.1 * AP + 236
@@ -335,13 +398,15 @@ Friend Class DRW
 		damage = damage /2
 		If RNG <= sim.drw.SpellCrit Then
 			damage = damage * 2
-			CritCount = CritCount +1
+			IcyTouch.CritCount = IcyTouch.CritCount +1
+			IcyTouch.TotalCrit += damage
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "DRW Icy Touch crit for " & damage )
 		Else
-			hitcount = hitcount + 1
+			IcyTouch.hitcount = IcyTouch.hitcount + 1
+			IcyTouch.Totalhit += damage
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "DRW Icy Touch hit for " & damage)
 		End If
-		total = total + damage
+		IcyTouch.total = IcyTouch.total + damage
 		
 		
 		
@@ -354,9 +419,31 @@ Friend Class DRW
 		TotalHit = 0
 		TotalCrit = 0
 	End Sub
-	Function T As Long
+	Function T() As Long
 		return sim.TimeStamp
 	End Function
-	
+	Public Overloads Overrides Sub Merge()
+		_Name = "Dancing Rune Weapon"
+		total += PlaqueStrike.total + Obliterate.total + HeartStrike.total + DeathStrike.total + DeathCoil.total + IcyTouch.total
+		TotalHit += PlaqueStrike.TotalHit + Obliterate.TotalHit + HeartStrike.TotalHit + DeathStrike.TotalHit + DeathCoil.TotalHit + IcyTouch.TotalHit
+		TotalCrit += PlaqueStrike.TotalCrit + Obliterate.TotalCrit + HeartStrike.TotalCrit + DeathStrike.TotalCrit + DeathCoil.TotalCrit + IcyTouch.TotalCrit
+
+		MissCount += PlaqueStrike.MissCount + Obliterate.MissCount + HeartStrike.MissCount + DeathStrike.MissCount + DeathCoil.MissCount + IcyTouch.MissCount
+		HitCount += PlaqueStrike.HitCount + Obliterate.HitCount + HeartStrike.HitCount + DeathStrike.HitCount + DeathCoil.HitCount + IcyTouch.HitCount
+		CritCount += PlaqueStrike.CritCount + Obliterate.CritCount + HeartStrike.CritCount + DeathStrike.CritCount + DeathCoil.CritCount + IcyTouch.CritCount
+		
+		PlaqueStrike.cleanup
+		
+		Obliterate.cleanup 
+		HeartStrike.cleanup 
+		DeathStrike.cleanup
+		DeathCoil.cleanup 
+		IcyTouch.cleanup 
+		
+
+		
+		
+		
+	End Sub
 	
 end Class

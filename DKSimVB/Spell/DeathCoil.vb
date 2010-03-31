@@ -80,7 +80,7 @@ Friend class DeathCoil
 			sim.UnholyBlight.Apply(T,dégat)
 		End If
 		If sim.DRW.IsActive(T) Then
-			sim.DRW.DeathCoil
+			sim.DRW.DRWDeathCoil
 		End If
 		return true
 		

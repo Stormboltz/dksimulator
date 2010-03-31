@@ -43,7 +43,7 @@ Friend Class PlagueStrike
 		sim.proc.strife.tryme(t)
 		sim.BloodPlague.Apply(T)
 		If sim.DRW.IsActive(T) Then
-			sim.drw.PlagueStrike
+			sim.drw.DRWPlagueStrike
 		End If
 		Return True
 	End Function

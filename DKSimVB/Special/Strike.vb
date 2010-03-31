@@ -45,7 +45,8 @@ Public Class Strike
 	End Sub
 
 	
-	overrides Function Name() As String
+	Overrides Function Name() As String
+		if _Name <> "" then return _Name
 		If offhand = False Then
 			return me.ToString
 		Else
@@ -106,6 +107,7 @@ Public Class Strike
 	Overridable Function AvrgCrit(T As Long) As Double
 		Return AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
+	
 	Overridable Public Sub cleanup()
 		Total = 0
 		HitCount = 0

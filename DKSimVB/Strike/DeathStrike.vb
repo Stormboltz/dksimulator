@@ -61,7 +61,7 @@ Friend Class DeathStrike
 		End If
 		
 		If sim.DRW.IsActive(T) Then
-			sim.drw.DeathStrike
+			sim.drw.DRWDeathStrike
 		End If
 		return true
 	End Function

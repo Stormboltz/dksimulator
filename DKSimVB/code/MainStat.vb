@@ -591,35 +591,7 @@ Friend Class MainStat
 		tmp = tmp + sim.TalentBlood.BloodGorged * 2
 		return tmp / 100
 	End Function
-	Function ArmorMitigation() As Double
-		Dim tmp As Double
 		
-		Dim A As Double
-		Dim B As Double
-		Dim x As Double
-		Dim y As Double
-		Dim z as Double
-		
-		A = 15232.5
-		B = BossArmor
-		
-		
-		tmp = 1
-		tmp = tmp * (1- 20 *  sim.Buff.ArmorMajor / 100)
-		tmp = tmp * (1- 5 *  sim.Buff.ArmorMinor / 100)
-		tmp = tmp * (1 - sim.TalentBlood.BloodGorged * 2 / 100)
-		tmp = 1
-		x = ArmorPen
-		
-		y = tmp
-		z = (A+B)/3 / B
-		
-		Dim retour As Double
-		retour = A/(A+B*(1-(z*x+y)+B/(A+B)*x*(1-y)*z))
-		Return (1.0 - Math.max(0.0, retour))
-	End Function
-	
-	
 	Function getMitigation() As Double
 		Dim AttackerLevel As Integer = 80
 		Dim tmpArmor As Integer

@@ -66,7 +66,7 @@ Friend Class HeartStrike
 		End If
 		
 		If sim.DRW.IsActive(T) Then
-			sim.DRW.HeartStrike
+			sim.DRW.DRWHeartStrike
 		End If
 		Sim.RunicPower.add (10)
 		
