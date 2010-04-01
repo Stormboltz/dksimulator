@@ -59,10 +59,7 @@ Friend Class IcyTouch
 		sim.FrostFever.Apply(T) 
 		'Moved this here as an IcyTouch with 1 CG charge left will reapply a CG buffed FF
 		'I'm pretty sure GlacierRot will not apply to the first icy touch if there are no other diseases up
-		if sim.runeforge.CinderglacierProc > 0 then
-			tmp = tmp * 1.2
-			sim.runeforge.CinderglacierProc = sim.runeforge.CinderglacierProc -1
-		end if
+		if sim.RuneForge.CheckCinderglacier(True) > 0 then tmp *= 1.2
 		AvrgNonCrit = tmp
 	End Function
 	overrides Function CritCoef() As Double

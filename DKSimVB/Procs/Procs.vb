@@ -12,6 +12,7 @@ Friend Class Procs
 	Friend DRM As Proc
 	Friend SuddenDoom As Proc
 
+	Friend AnnihilateDiseases As Proc
 	Friend ThreatOfThassarian As Proc
 	Friend ReapingBotN As Proc
 
@@ -176,6 +177,16 @@ Friend Class Procs
 			End If
 		End With
 
+		AnnihilateDiseases = New Proc(s)
+		With AnnihilateDiseases
+			._Name = "AnnihilateDiseases"
+			.ProcChance = 1 - 0.33 * Sim.TalentFrost.Annihilation
+			If .ProcChance > 0.1 Then
+				.Equip()
+			End If
+		End With
+
+
 		ReapingBotN = New Proc(s)
 		With ReapingBotN
 			If Sim.TalentUnholy.Reaping Then
@@ -274,7 +285,6 @@ Friend Class Procs
 			.ProcValueStack = 73
 			.ProcTypeStack = "str"
 			.MaxStack = 3
-			.DamageType = ""
 			.ProcOn = Procs.ProcOnType.OnFU
 			If s.Sigils.HangedMan Then .Equip()
 		End With

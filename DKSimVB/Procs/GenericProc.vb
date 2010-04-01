@@ -319,7 +319,7 @@ Public Class Proc
 				HitCount = HitCount + 1
 			Case "cinderglacier"
 				HitCount = HitCount + 1
-				sim.RuneForge.CinderglacierProc = 2
+				sim.RuneForge.ProcCinderglacier()
 			Case "BloodWorms"
 				tmp =  50 + 0.006*sim.MainStat.AP
 				tmp = tmp * 10
@@ -336,11 +336,6 @@ Public Class Proc
 					tmp = tmp *4
 					HitCount = HitCount + 40
 				End If
-			Case "HangedMan"
-				If Stack < 3 Then Stack += 1
-				Fade = T + ProcLenght * 100
-				AddUptime(T)
-				HitCount += 1
 			Case Else
 				debug.Print ( ME.Name & " not implemented")
 		End Select

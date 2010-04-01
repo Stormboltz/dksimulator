@@ -63,10 +63,7 @@ Friend Class BloodBoil
 		if sim.NumDesease > 0 then tmp = tmp * 2
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
-		if sim.runeforge.CinderglacierProc > 0 then
-			tmp = tmp * 1.2
-			sim.runeforge.CinderglacierProc = sim.runeforge.CinderglacierProc -1
- 		End If
+		if sim.RuneForge.CheckCinderglacier(True) > 0 then tmp *= 1.2
 		return tmp
 	End Function
 	overrides Function CritCoef() As Double

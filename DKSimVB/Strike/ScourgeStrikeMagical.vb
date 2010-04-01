@@ -60,11 +60,8 @@ Public Class ScourgeStrikeMagical
 		tmp = tmp * (1 + 0.13 * sim.Buff.SpellDamageTaken)
 		tmp = tmp * (1-15/(510+15)) 'Partial Resistance. It's about 0,029% less damage on average.
 		tmpMagical = tmpMagical * tmp
-		If sim.RuneForge.CinderglacierProc > 0 Then
-			tmpMagical = tmpMagical * 1.2
-			sim.RuneForge.CinderglacierProc = sim.RuneForge.CinderglacierProc -1
-		End If
-		Return tmpMagical
+		if sim.RuneForge.CheckCinderglacier(True) > 0 then tmpMagical *= 1.2
+		return tmpMagical
 	End Function
 	
 	Public Overrides Function CritCoef() As Double

@@ -18,17 +18,19 @@ Friend Class DeathStrike
 
 	public Overrides Function ApplyDamage(T As Long) As Boolean
 		Dim RNG As Double
-		UseGCD(T)	
+		UseGCD(T)
 		
 		
 		
 		If OffHand = False Then
 			If sim.proc.ThreatOfThassarian.TryMe(T) Then sim.OHDeathStrike.ApplyDamage(T)
-		End If
-		If DoMyStrikeHit = false Then
-			sim.combatlog.write(T  & vbtab & "DS fail")
-			MissCount = MissCount + 1
-			return false
+			If DoMyStrikeHit = false Then
+				sim.combatlog.write(T  & vbtab & "DS fail")
+				MissCount = MissCount + 1
+				return false
+			End If
+		Else
+			If DoMyToTHit = False Then Exit Function
 		End If
 		dim dégat as Integer
 		RNG = RngCrit

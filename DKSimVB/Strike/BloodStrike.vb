@@ -14,12 +14,14 @@ Friend class BloodStrike
 		
 		If OffHand = False Then
 			If sim.proc.ThreatOfThassarian.TryMe(T) Then sim.OHBloodStrike.ApplyDamage(T)
-		End If
 
-		If DoMyStrikeHit() = False Then
-			sim.CombatLog.write(T & vbTab & "BS fail")
-			MissCount += 1
-			Return False
+			If DoMyStrikeHit() = False Then
+				sim.CombatLog.write(T & vbTab & "BS fail")
+				MissCount += 1
+				Return False
+			End If
+		Else
+			If DoMyToTHit = False Then Exit Function
 		End If
 		If sim.KeepBloodSync Then
 			If sim.BloodToSync = True Then

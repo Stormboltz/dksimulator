@@ -21,26 +21,30 @@ Friend Class Obliterate
 		
 		If OffHand = False Then
 			If sim.proc.ThreatOfThassarian.TryMe(T) Then sim.OHObliterate.ApplyDamage(T)
-		End If
+			If DoMyStrikeHit = false Then
+				sim.combatlog.write(T  & vbtab &  "OB fail" & vbtab & RNG)
+				MissCount = MissCount + 1
+				exit function
+			End If
 		
-		If DoMyStrikeHit = false Then
-			sim.combatlog.write(T  & vbtab &  "OB fail" & vbtab & RNG)
-			MissCount = MissCount + 1
-			exit function
-		End If
-		
-		If OffHand=False Then
 			If sim.proc.DRM.TryMe(T) Then
 				sim.Runes.UseFU(T, True)
 			Else
 				sim.Runes.UseFU(T, False)
 			End If
+			
+			If sim.Proc.AnnihilateDiseases.TryMe(T) Then
+				'I changed Annihilation to function as a reverse proc.
+				'All frost specs at least should max out the talent and so it
+				'won't be equiped and so won't proc.
+				sim.frostfever.FadeAt=T
+				sim.bloodplague.FadeAt=T
+			End If
+			
+		Else
+			If DoMyToTHit = False Then Exit Function
 		End If
 		
-		If sim.TalentFrost.Annihilation <> 3 Then
-			sim.frostfever.FadeAt=T
-			sim.bloodplague.FadeAt=T
-		End If
 		
 		dim dégat as Integer
 		Dim ccT As Double

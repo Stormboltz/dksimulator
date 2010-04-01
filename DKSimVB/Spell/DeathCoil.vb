@@ -97,10 +97,7 @@ Friend class DeathCoil
 		If sim.glyph.DarkDeath Then
 			tmp = tmp * (1.15)
 		End If
-		if sim.runeforge.CinderglacierProc > 0 then
-			tmp = tmp * 1.2
-			sim.runeforge.CinderglacierProc = sim.runeforge.CinderglacierProc -1
- 		end if
+		if sim.RuneForge.CheckCinderglacier(True) > 0 then tmp *= 1.2
 		return tmp
 	End Function
 	overrides Function CritCoef() As Double

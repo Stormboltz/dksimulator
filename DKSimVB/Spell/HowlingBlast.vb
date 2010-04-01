@@ -77,10 +77,7 @@ Friend Class HowlingBlast
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		If sim.ExecuteRange Then tmp = tmp *(1+ 0.06*sim.talentfrost.MercilessCombat)
 			tmp = tmp *(1+2*sim.RuneForge.RazorIceStack/100) 'TODO: only on main target
-		if sim.runeforge.CinderglacierProc > 0 then
-			tmp = tmp * 1.2
-			sim.runeforge.CinderglacierProc = sim.runeforge.CinderglacierProc -1
-		end if
+		if sim.RuneForge.CheckCinderglacier(True) > 0 then tmp *= 1.2
 		AvrgNonCrit = tmp
 	End Function
 	overrides Function CritCoef() As Double

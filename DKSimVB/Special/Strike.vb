@@ -54,7 +54,10 @@ Public Class Strike
 		End If
 	End Function
 	
-	
+	Function DoMyToTHit As Boolean
+		RngHit
+		return True
+	End Function
 	
 	Function DoMyStrikeHit As Boolean
 		Dim RNG As Double

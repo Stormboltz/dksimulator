@@ -65,7 +65,7 @@ Public Class Disease
 	
 	
 	
-	Overridable Function PerfectUsage(T As Long) As Boolean
+	Overridable Function PerfectUsage(T As Long) As Boolean 'Unused
 		return false
 	End Function
 		
@@ -84,7 +84,7 @@ Public Class Disease
 	Overridable Function CalculateMultiplier(T As Long) As Double
 		Dim tmp As Double
 		tmp = sim.MainStat.StandardMagicalDamageMultiplier(T)
-		if sim.RuneForge.CinderglacierProc > 0 then tmp  *= 1.2
+		if sim.RuneForge.CheckCinderglacier(False) > 0 then tmp  *= 1.2
 		If  sim.Buff.CrypticFever Then
 			tmp = tmp * 1.3
 		Else
@@ -99,7 +99,7 @@ Public Class Disease
 		nextTick = T + 3 * 100
 		ScourgeStrikeGlyphCounter = 0
 		CritChance = sim.MainStat.crit
-		If sim.RuneForge.CinderglacierProc > 0 Then
+		If sim.RuneForge.CheckCinderglacier(False) > 0 Then
 			cinder = True
 		Else
 			cinder = False

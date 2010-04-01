@@ -9,13 +9,16 @@ Friend Class PlagueStrike
 	
 		If OffHand = False Then
 			If sim.proc.ThreatOfThassarian.TryMe(T) Then sim.OHPlagueStrike.ApplyDamage(T)
+			If DoMyStrikeHit = false Then
+				MissCount = MissCount + 1
+				sim.combatlog.write(T  & vbtab &  "PS fail")
+				Exit function
+			End If
+		Else
+			If DoMyToTHit = False Then Exit Function
+
 		End If
 		
-		If DoMyStrikeHit = false Then
-			MissCount = MissCount + 1
-			sim.combatlog.write(T  & vbtab &  "PS fail")
-			Exit function
-		End If
 		
 		Dim dégat As Integer
 		RNG = RngCrit

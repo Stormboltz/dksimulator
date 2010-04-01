@@ -31,7 +31,7 @@ Friend Class priority
 			Select Case item
 				Case "CinderDisease"
 					if sim.BloodPlague.Cinder = true and sim.FrostFever.Cinder = true then goto doNext
-					If sim.RuneForge.CinderglacierProc = 0 Then goto doNext
+					If sim.RuneForge.CheckCinderglacier(False) = 0 Then goto doNext
 					If runes.Unholy(TimeStamp) and sim.CanUseGCD(Timestamp) and sim.BloodPlague.Cinder = false  Then
 						sim.PlagueStrike.ApplyDamage(TimeStamp)
 						exit sub

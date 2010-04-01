@@ -34,28 +34,26 @@ Friend Class FrostStrike
 	public Overrides Function ApplyDamage(T As Long) As Boolean
 		Dim RNG As Double
 		UseGCD(T)
-		If OffHand = false Then
+		If OffHand = False Then
 			If sim.glyph.FrostStrike Then
 				Sim.RunicPower.Value = Sim.RunicPower.Value - 32
 			Else
 				Sim.RunicPower.Value = Sim.RunicPower.Value - 40
 			End If
-		end if
-		If OffHand = False Then
 			If sim.proc.ThreatOfThassarian.TryMe(T) Then sim.OHFrostStrike.ApplyDamage(T)
-		End If
-		If DoMyStrikeHit = false Then
-			sim.combatlog.write(T  & vbtab & "FS fail")
-			If offhand = False Then 
+			If DoMyStrikeHit = false Then
+				sim.combatlog.write(T  & vbtab & "FS fail")
 				sim.proc.KillingMachine.Use
 				If sim.glyph.FrostStrike Then
 					Sim.RunicPower.add(29)
 				Else
 					Sim.RunicPower.add(36)
 				End If
+				MissCount = MissCount + 1
+				Return False
 			End If
-			MissCount = MissCount + 1
-			return false
+		Else
+			If DoMyToTHit = False Then Exit Function
 		End If
 		Dim ccT As Double
 		Dim dégat As Integer
@@ -97,10 +95,7 @@ Friend Class FrostStrike
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
 		tmp = tmp *(1+2*sim.RuneForge.RazorIceStack/100) 'TODO: only on main target
-		if sim.runeforge.CinderglacierProc > 0 then
-			tmp = tmp * 1.2
-			If offhand = false Then sim.runeforge.CinderglacierProc = sim.runeforge.CinderglacierProc -1
-		End If
+		If sim.RuneForge.CheckCinderglacier(offhand) > 0 then tmp *= 1.2
 		If offhand Then
 			tmp = tmp * 0.5
 				tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 8.3333 / 100)

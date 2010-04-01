@@ -23,7 +23,8 @@ Friend Class RuneForge
 	Friend OHRazoriceRF as Boolean
 	Friend OHFallenCrusader As Boolean
 	
-	Friend CinderglacierProc as Integer
+	Private CinderglacierProc As Integer
+	Private WastedCG as Integer
 	Friend FallenCrusaderActiveUntil As Long
 
 	
@@ -43,9 +44,25 @@ Friend Class RuneForge
 		CritCount = 0
 		FallenCrusaderActiveUntil = 0
 		CinderglacierProc = 0
+		WastedCG = 0
 		OHBerserkingActiveUntil = 0
 		RazorIceStack = 0
 	End Sub
+
+	Sub ProcCinderglacier()
+		WastedCG += CinderglacierProc
+		CinderglacierProc = 2
+		
+	End Sub
+	
+	Function CheckCinderglacier(consume As Boolean) As Integer
+		Dim rv As Integer
+		rv = CinderglacierProc
+		If consume Then
+			if CinderglacierProc > 0 then CinderglacierProc -=1
+		End If
+		return rv
+	End Function
 
 	Function AreStarsAligned(T As Long) As Boolean
 		If sim.WaitForFallenCrusader = False Then Return True
