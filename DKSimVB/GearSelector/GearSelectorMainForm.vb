@@ -7,6 +7,8 @@
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
 Imports System.Xml
+Imports System.Net
+
 Public Partial Class GearSelectorMainForm
 	
 	friend EquipmentList as new Collection
@@ -749,6 +751,91 @@ Public Partial Class GearSelectorMainForm
 		xmlChar.Save(Application.StartupPath & "\CharactersWithGear\" & FilePath)
 	End Sub
 	
+	
+	Sub ImportMyCharacter
+		dim realmName as string = "Chants+eternels"
+		dim characterName as String = "Kahorie"
+		Dim webClient As WebClient = New WebClient()
+		
+		webClient.QueryString.Add("r", realmName)
+		webClient.QueryString.Add("n", characterName)
+		webClient.Headers.Add("user-agent", "MSIE 7.0")
+		webClient.Proxy = WebRequest.GetSystemWebProxy
+		webClient.Proxy.Credentials = CredentialCache.DefaultNetworkCredentials
+		dim xmlReaderSettings as XmlReaderSettings = new XmlReaderSettings()
+		xmlReaderSettings.IgnoreComments = true
+		xmlReaderSettings.IgnoreWhitespace = True
+		Dim iSlot As EquipSlot
+		Dim  xmlReader As XmlReader = XmlReader.Create(webClient.OpenRead("http://eu.wowarmory.com/character-sheet.xml"), xmlReaderSettings)
+		Do While xmlReader.Read()
+			If (xmlReader.NodeType = XmlNodeType.Element And xmlReader.Name = "item") Then
+				debug.Print	("Name= " & xmlReader.GetAttribute("name") & "slot=" & xmlReader.GetAttribute(" slot") )
+				
+				For Each iSlot In Me.EquipmentList
+					If iSlot.Text = ArmorySlot2MySlot(xmlReader.GetAttribute("slot")) Then
+						Try
+							iSlot.Item.LoadItem(xmlReader.GetAttribute("id"))
+							iSlot.DisplayItem
+							iSlot.Item.gem1.Attach(xmlReader.GetAttribute("gem0Id"))
+							iSlot.Item.gem2.Attach(xmlReader.GetAttribute("gem1Id"))
+							iSlot.Item.gem3.Attach(xmlReader.GetAttribute("gem2Id"))
+							iSlot.DisplayGem
+							iSlot.Item.Enchant.Attach(xmlReader.GetAttribute("permanentEnchantItemId"))
+							iSlot.DisplayEnchant()
+						Catch ex As System.Exception
+							debug.Print (ex.ToString)
+						End Try
+						
+					End If
+				next
+			End If
+		Loop
+	End Sub
+	Function ArmorySlot2MySlot(armorySlotId As Integer) As string
+		Select Case armorySlotId
+			Case 0
+				return "Head"
+			Case 1
+				return "Neck"
+			Case 2
+				Return "Shoulder"
+			Case 3
+				Return "Back"
+			Case 4
+				Return "Chest"
+			Case 5
+				Return "Waist"
+			Case 6
+				Return "Legs"
+			Case 7
+				Return "Feets"
+			Case 8
+				Return "Wrist"
+			Case 9
+				Return "Hand"
+			Case 10
+				Return "Finger1"
+			Case 11
+				Return "Finger2"
+			Case 12
+				Return "Trinket1"
+			Case 13
+				Return "Trinket2"
+			Case 14
+				Return "Back"
+			Case 15
+				Return "TwoHand"
+			Case 16
+				Return "OffHand"
+			Case 17
+				Return "Sigil"
+			
+			Case Else
+				Return ""
+				End Select
+				
+	End Function
+	
 	Sub LoadMycharacter
 		InLoad = true
 		Dim xmlChar As New Xml.XmlDocument
@@ -1126,13 +1213,14 @@ Public Partial Class GearSelectorMainForm
 	Sub MainFormLoad(sender As Object, e As EventArgs)
 		
 '		Dim xtr As New Extractor
-'''		
+'''
 '		xtr.Start
-'''		
-'''		
+'''
+'''
 '		exit sub
 		'Me.Size = New Size(980, 800)
 		LoadMycharacter
+		'ImportMyCharacter
 	End Sub
 	
 	

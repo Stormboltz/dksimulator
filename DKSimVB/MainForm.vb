@@ -7,6 +7,8 @@
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
 Imports System.Xml
+Imports System.Net
+
 Public Partial Class MainForm
 	Private EditorFilePAth As String
 	Private TemplatePath As String
@@ -42,7 +44,7 @@ Public Partial Class MainForm
 			msgbox("Could not determine template. Please reselect it.")
 			exit function
 		End try
-	
+		
 		SaveEPOptions()
 		SaveBuffOption()
 		saveScaling()
@@ -133,7 +135,7 @@ Public Partial Class MainForm
 		cmdSaveNew.Enabled = True
 		errH:
 	End Sub
-		
+	
 	
 	
 	
@@ -156,7 +158,7 @@ Public Partial Class MainForm
 	End Sub
 	
 	Sub CmdEditRotClick(sender As Object, e As EventArgs)
-	'	on error goto errH
+		'	on error goto errH
 		Dim tr As IO.Textreader
 		
 		EditorFilePAth = Application.StartupPath & "\Rotation\"  & cmbRotation.Text
@@ -246,9 +248,9 @@ Public Partial Class MainForm
 	End Sub
 	
 	Sub SetPBValue(ByVal i As integer)
-    	Me.PBsim.Value = i
+		Me.PBsim.Value = i
 	End Sub
-
+	
 	Sub TxtLatencyTextChanged(sender As Object, e As EventArgs)
 		
 		dim test as Boolean
@@ -265,35 +267,24 @@ Public Partial Class MainForm
 	Sub CmdImportArmoryClick(sender As Object, e As EventArgs)
 		Dim URL As String = txtArmory.Text
 		url = "http://eu.wowarmory.com/character-sheet.xml?r=Chants+eternels&n=Kahorie"
+		dim realmName as string = "Chants+eternels"
+		dim characterName as String = "Kahorie"
+		Dim webClient As WebClient = New WebClient()
 		
-		' Retrieve XML document
-'		Dim reader As XmlTextReader = New XmlTextReader(url)
-'		' Skip non-significant whitespace
-'		reader.WhitespaceHandling = WhitespaceHandling.Significant
-'		
-'		' Read nodes one at a time
-'		While reader.Read()
-'			' Print out info on node
-'			Console.WriteLine("{0}: {1}", reader.NodeType.ToString(), reader.Name)
-'		End While
-'		
-'		
-'		
-'		Dim doc As xml.XmlDocument = New xml.XmlDocument
-'		Dim bw As New WebBrowser
-'		
-		Dim webClient As New System.Net.WebClient
-		webClient.Proxy = System.Net.WebRequest.GetSystemWebProxy
-		webClient.Proxy.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials
-		
-		url = "http://eu.wowarmory.com/character-sheet.xml?r=Chants+eternels&n=Kahorie"
-		Dim data As System.IO.Stream = webClient.OpenRead(URL)
-		Dim reader As System.IO.StreamReader = New System.IO.StreamReader(data)
-		
-		Do Until reader.EndOfStream
-			debug.Print(reader.ReadLine)
+		webClient.QueryString.Add("r", realmName)
+		webClient.QueryString.Add("n", characterName)
+		webClient.Headers.Add("user-agent", "MSIE 7.0")
+		webClient.Proxy = WebRequest.GetSystemWebProxy
+		webClient.Proxy.Credentials = CredentialCache.DefaultNetworkCredentials
+		dim xmlReaderSettings as XmlReaderSettings = new XmlReaderSettings()
+		xmlReaderSettings.IgnoreComments = true
+		xmlReaderSettings.IgnoreWhitespace = true
+		Dim  xmlReader As XmlReader = XmlReader.Create(webClient.OpenRead("http://eu.wowarmory.com/character-sheet.xml"), xmlReaderSettings)
+		Do While xmlReader.Read()
+			If (xmlReader.NodeType = XmlNodeType.Element And xmlReader.Name = "item") Then
+				debug.Print	("Name= " & xmlReader.GetAttribute("name") & "slot=" & xmlReader.GetAttribute(" slot") )
+			End If
 		Loop
-		errH:
 	End Sub
 	
 	
@@ -333,7 +324,7 @@ Public Partial Class MainForm
 		Me.tabControl1.SelectedIndex = 1
 		SimConstructor.StartScaling(PBsim,txtSimtime.Text,me)
 	End Sub
-
+	
 	Sub CmdRngSeederClick(sender As Object, e As EventArgs)
 		RNGSeeder += 1
 	End Sub
@@ -350,7 +341,7 @@ Public Partial Class MainForm
 		Dim s As Sim
 		Dim i As Double
 		on error resume next
-'		Me.PBsim.Maximum = 100
+		'		Me.PBsim.Maximum = 100
 		If SimConstructor.simCollection.Count = 0 Then
 			Me.PBsim.Value = 0
 			Exit Sub
@@ -370,7 +361,7 @@ Public Partial Class MainForm
 	Sub CmdEditGearSelectorClick(sender As Object, e As EventArgs)
 		If gearSelector Is Nothing Then
 			gearSelector = new GearSelectorMainForm(Me)
-		end if		
+		end if
 		
 		Try
 			gearSelector.FilePath = cmbGearSelector.SelectedItem.ToString

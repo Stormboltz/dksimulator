@@ -218,6 +218,7 @@
     <Compile Include="Trinkets\Trinket.vb" />
     <Compile Include="Trinkets\Trinkets.vb" />
     <Compile Include="UIFunctions.vb" />
+    <None Include="armory.xml" />
     <None Include="CharactersWithGear\2H ICC.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
