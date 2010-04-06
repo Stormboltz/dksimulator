@@ -171,6 +171,8 @@ Public Partial Class MainForm
 			Case "intro"
 				xmlDoc.LoadXml("<Intro></Intro>")
 				root = xmlDoc.SelectSingleNode("/Intro")
+			Case else
+				root = nothing
 		End Select
 		
 		Dim newElem As xml.XmlNode

@@ -1,5 +1,5 @@
 Friend Class RunicPower
-	Private Value As Integer
+	Private Value As Double
 	Friend MaxValue As Integer
 	Friend Wasted As Integer
 	Friend Total As Integer
@@ -46,7 +46,7 @@ Friend Class RunicPower
 	End Function
 	
 	
-	Sub add(i As Integer)
+	Sub add(i As double)
 		sim.Threat = sim.Threat  + i*5
 		Value = i + Value
 		'debug.Print ("RP= " & Value)

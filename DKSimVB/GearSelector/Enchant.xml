@@ -1,6 +1,6 @@
 <enchant>
 	<item>
-		<id>1</id>
+		<id>3817</id>
 		<slot>1</slot>
 		<name>Arcanum of Torment</name>
 		<Strength>0</Strength>
@@ -14,9 +14,8 @@
 		<reqskill>0</reqskill>
 		<Desc></Desc>
 	</item>
-	
 	<item>
-		<id>2</id>
+		<id>3835</id>
 		<slot>3</slot>
 		<name>Master's Inscription of the Axe</name>
 		<Strength>0</Strength>
@@ -31,7 +30,7 @@
 		<Desc></Desc>
 	</item>
 	<item>
-		<id>3</id>
+		<id>3808</id>
 		<slot>3</slot>
 		<name>Greater Inscription of the Axe</name>
 		<Strength>0</Strength>
@@ -46,7 +45,7 @@
 		<Desc></Desc>
 	</item>
 	<item>
-		<id>4</id>
+		<id>3875</id>
 		<slot>3</slot>
 		<name>Lesser Inscription of the Axe</name>
 		<Strength>0</Strength>
@@ -61,7 +60,7 @@
 		<Desc></Desc>
 	</item>
 	<item>
-		<id>5</id>
+		<id>3831</id>
 		<slot>16</slot>
 		<name>Greater Speed</name>
 		<Strength>0</Strength>
@@ -76,7 +75,7 @@
 		<Desc></Desc>
 	</item>
 	<item>
-		<id>6</id>
+		<id>1099</id>
 		<slot>16</slot>
 		<name>Major Agility</name>
 		<Strength>0</Strength>
@@ -91,7 +90,7 @@
 		<Desc></Desc>
 	</item>
 	<item>
-		<id>7</id>
+		<id>3730</id>
 		<slot>16</slot>
 		<name>Swordguard Embroidery</name>
 		<Strength>0</Strength>
@@ -105,7 +104,6 @@
 		<reqskill>197</reqskill>
 		<Desc></Desc>
 	</item>
-	
 	<item>
 		<id>3605</id>
 		<slot>16</slot>
@@ -121,9 +119,8 @@
 		<reqskill>202</reqskill>
 		<Desc></Desc>
 	</item>
-	
 	<item>
-		<id>8</id>
+		<id>3832</id>
 		<slot>5</slot>
 		<name>Powerful Stats</name>
 		<Strength>10</Strength>
@@ -137,9 +134,8 @@
 		<reqskill>0</reqskill>
 		<Desc></Desc>
 	</item>
-	
 	<item>
-		<id>9</id>
+		<id>3756</id>
 		<slot>9</slot>
 		<name>Fur Lining - Attack Power</name>
 		<Strength>0</Strength>
@@ -154,7 +150,7 @@
 		<Desc></Desc>
 	</item>
 	<item>
-		<id>10</id>
+		<id>3845</id>
 		<slot>9</slot>
 		<name>Greater Assault</name>
 		<Strength>0</Strength>
@@ -168,9 +164,8 @@
 		<reqskill>0</reqskill>
 		<Desc></Desc>
 	</item>
-	
 	<item>
-		<id>11</id>
+		<id>3231</id>
 		<slot>9</slot>
 		<name>Expertise</name>
 		<Strength>0</Strength>
@@ -185,7 +180,7 @@
 		<Desc></Desc>
 	</item>
 	<item>
-		<id>12</id>
+		<id>3231</id>
 		<slot>10</slot>
 		<name>Expertise</name>
 		<Strength>0</Strength>
@@ -200,7 +195,7 @@
 		<Desc></Desc>
 	</item>
 	<item>
-		<id>13</id>
+		<id>3234</id>
 		<slot>10</slot>
 		<name>Precision</name>
 		<Strength>0</Strength>
@@ -215,7 +210,7 @@
 		<Desc></Desc>
 	</item>
 	<item>
-		<id>14</id>
+		<id>1603</id>
 		<slot>10</slot>
 		<name>Crusher</name>
 		<Strength>0</Strength>
@@ -244,7 +239,6 @@
 		<reqskill>0</reqskill>
 		<Desc></Desc>
 	</item>
-	
 	<item>
 		<id>3603</id>
 		<slot>10</slot>
@@ -275,11 +269,8 @@
 		<reqskill>202</reqskill>
 		<Desc></Desc>
 	</item>
-	
-	
-	
 	<item>
-		<id>15</id>
+		<id>3823</id>
 		<slot>7</slot>
 		<name>Icescale Leg Armor</name>
 		<Strength>0</Strength>
@@ -294,9 +285,9 @@
 		<Desc></Desc>
 	</item>
 	<item>
-		<id>16</id>
+		<id>3826</id>
 		<slot>8</slot>
-		<name>Ice Walker</name>
+		<name>IceWalker</name>
 		<Strength>0</Strength>
 		<Agility>0</Agility>
 		<HasteRating>0</HasteRating>
@@ -309,7 +300,7 @@
 		<Desc></Desc>
 	</item>
 	<item>
-		<id>17</id>
+		<id>1597</id>
 		<slot>8</slot>
 		<name>Greater Assault</name>
 		<Strength>0</Strength>
@@ -356,7 +347,7 @@
 		<Desc></Desc>
 	</item>
 	<item>
-		<id>19</id>
+		<id>3368</id>
 		<slot>17</slot>
 		<name>Fallen Crusader</name>
 		<Strength>0</Strength>
@@ -371,7 +362,7 @@
 		<Desc></Desc>
 	</item>
 	<item>
-		<id>20</id>
+		<id>3368</id>
 		<slot>13</slot>
 		<name>Fallen Crusader</name>
 		<Strength>0</Strength>
@@ -386,7 +377,7 @@
 		<Desc></Desc>
 	</item>
 	<item>
-		<id>21</id>
+		<id>3370</id>
 		<slot>13</slot>
 		<name>Razorice</name>
 		<Strength>0</Strength>
@@ -401,7 +392,7 @@
 		<Desc></Desc>
 	</item>
 	<item>
-		<id>22</id>
+		<id>3369</id>
 		<slot>13</slot>
 		<name>Cinderglacier</name>
 		<Strength>0</Strength>

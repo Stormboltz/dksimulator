@@ -55,6 +55,10 @@
     <Import Include="System.Drawing" />
     <Import Include="System.Windows.Forms" />
     <Compile Include="code\Supertype.vb" />
+    <Compile Include="GearSelector\ArmoryImport\frmArmoryImport.Designer.vb">
+      <DependentUpon>frmArmoryImport.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GearSelector\ArmoryImport\frmArmoryImport.vb" />
     <Compile Include="GearSelector\Enchant.vb" />
     <Compile Include="GearSelector\EnchantSelector\EnchantSelector.Designer.vb">
       <DependentUpon>EnchantSelector.vb</DependentUpon>
@@ -145,6 +149,7 @@
     <Folder Include="GearSelector\GemSelector" />
     <Folder Include="GearSelector\GearSelector" />
     <Folder Include="GearSelector\EPDisplay" />
+    <Folder Include="GearSelector\ArmoryImport" />
     <Folder Include="images" />
     <Folder Include="images\icons" />
     <Folder Include="images\spell" />
@@ -992,6 +997,9 @@
     </None>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GearSelector\ArmoryImport\frmArmoryImport.resx">
+      <DependentUpon>frmArmoryImport.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GearSelector\EnchantSelector\EnchantSelector.resx">
       <DependentUpon>EnchantSelector.vb</DependentUpon>

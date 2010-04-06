@@ -19,8 +19,8 @@ Public Class Extractor
 	Sub Start
 		dim i as Integer
 		init
-		' GenerateWowheadFilter
-		GenerateWowheadFilterMAil
+		GenerateWowheadFilter
+		'GenerateWowheadFilterMAil
 		'GetListofGems
 		Dim str As String
 		col.Sort
@@ -109,7 +109,7 @@ Public Class Extractor
 				col.Add (tmp)
 				'debug.Print(tmp)
 				num  += 1
-				if num > 200 then debug.Print("trop de résultat " )
+				if num > 180 then debug.Print("trop de résultat " )
 			End If
 		Next
 	End Sub
@@ -128,8 +128,8 @@ Public Class Extractor
 		Loop
 		'debug.Print(str)
 		Dim i As Integer
-		If instr(str,"?item=") Then
-			i= instr(str,"?item=")
+		If instr(str,"/item=") Then
+			i= instr(str,"/item=")
 			str = right(str,str.Length-i)
 		End If
 		iList = str.Split("=")
@@ -141,7 +141,7 @@ Public Class Extractor
 				col.Add (tmp)
 				'debug.Print(tmp)
 				num  += 1
-				if num > 200 then debug.Print("trop de résultat")
+				if num > 180 then debug.Print("trop de résultat")
 			End If
 		Next
 	End Sub
@@ -158,12 +158,13 @@ Public Class Extractor
 		dim iList as String()
 		Do Until reader.EndOfStream
 			tmp = reader.ReadLine
-			If instr(tmp,"?item=") Then	str += tmp
+			'debug.Print(tmp)
+			If instr(tmp,"/item=") Then	str += tmp
 		Loop
 		'debug.Print(str)
 		Dim i As Integer
-		If instr(str,"?item=") Then
-			i= instr(str,"?item=")
+		If instr(str,"/item=") Then
+			i= instr(str,"/item=")
 			str = right(str,str.Length-i)
 		End If
 		iList = str.Split("=")
@@ -175,7 +176,7 @@ Public Class Extractor
 				col.Add (tmp)
 				'debug.Print(tmp)
 				num  += 1
-				if num > 200 then debug.Print("trop de résultat pour" & MinLvl & "/" & MaxLvl )
+				if num > 180 then debug.Print("trop de résultat pour" & MinLvl & "/" & MaxLvl )
 			End If
 		Next
 	End Sub

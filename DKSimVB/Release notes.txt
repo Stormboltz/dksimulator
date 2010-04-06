@@ -1,4 +1,16 @@
-﻿1.2.1.3 Release notes
+﻿1.2.1.4 Release notes
+* Runic power: Report at the end of the sim some data about runic power usage.
+* ToT strike always hit.
+* Report:
+- DRW - Show strikes separeted
+- Ghoul attack separeted.
+- Necrosis MH/OH separately.
+* Character with gear:
+ - Armory import
+ - Enchants will have to be reselected for characters created with previous release.
+ - Database update (item correction/addition).
+
+1.2.1.3 Release notes
 * "Wait for Fallen Crusader option" tweak.
 * Haste corrections
 * Saronite Bombs (Charater with gear only)

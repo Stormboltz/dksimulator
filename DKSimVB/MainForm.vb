@@ -368,7 +368,8 @@ Public Partial Class MainForm
 			gearSelector.ShowDialog
 			loadWindow
 			cmbGearSelector.SelectedItem = gearSelector.FilePath
-		Catch Err as Exception
+		Catch Err As Exception
+			
 			gearSelector.Dispose
 			gearSelector = nothing
 		End Try

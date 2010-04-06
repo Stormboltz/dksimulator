@@ -75,7 +75,7 @@ Public Partial Class GearSelectorMainForm
 		MyExtractor.Start
 	End Sub
 	
-
+	
 	
 	Sub GetStats()
 		if InLoad then exit sub
@@ -752,9 +752,8 @@ Public Partial Class GearSelectorMainForm
 	End Sub
 	
 	
-	Sub ImportMyCharacter
-		dim realmName as string = "Chants+eternels"
-		dim characterName as String = "Kahorie"
+	Sub ImportMyCharacter(region as String, realmName as String,characterName as String)
+		
 		Dim webClient As WebClient = New WebClient()
 		
 		webClient.QueryString.Add("r", realmName)
@@ -766,30 +765,121 @@ Public Partial Class GearSelectorMainForm
 		xmlReaderSettings.IgnoreComments = true
 		xmlReaderSettings.IgnoreWhitespace = True
 		Dim iSlot As EquipSlot
-		Dim  xmlReader As XmlReader = XmlReader.Create(webClient.OpenRead("http://eu.wowarmory.com/character-sheet.xml"), xmlReaderSettings)
-		Do While xmlReader.Read()
-			If (xmlReader.NodeType = XmlNodeType.Element And xmlReader.Name = "item") Then
-				debug.Print	("Name= " & xmlReader.GetAttribute("name") & "slot=" & xmlReader.GetAttribute(" slot") )
+		Me.InLoad = True
+		Dim charfound As Boolean = False
+		Dim tmp As String = ""
+		Try
+			Dim  xmlReader As XmlReader
+			
+			Select Case region
+				Case "US"
+					xmlReader = XmlReader.Create(webClient.OpenRead("http://www.wowarmory.com/character-sheet.xml"), xmlReaderSettings)
+				Case "EU"
+					xmlReader = XmlReader.Create(webClient.OpenRead("http://eu.wowarmory.com/character-sheet.xml"), xmlReaderSettings)
+				Case "TW"
+					xmlReader = XmlReader.Create(webClient.OpenRead("http://tw.wowarmory.com/character-sheet.xml"), xmlReaderSettings)
+				Case "CN"
+					xmlReader = XmlReader.Create(webClient.OpenRead("http://cn.wowarmory.com/character-sheet.xml"), xmlReaderSettings)
+				Case "KR"
+					xmlReader = XmlReader.Create(webClient.OpenRead("http://kr.wowarmory.com/character-sheet.xml"), xmlReaderSettings)
+				Case Else
+					xmlReader = nothing
+					debug.Print ("region unknown: " & region)
+			End Select
+			
+			
+			
+			
+			Dim xmlChar As New Xml.XmlDocument
+			
+			
+			Do While xmlReader.Read()
+				tmp += xmlReader.ReadInnerXml
+			Loop
+			xmlChar.LoadXml("<page globalSearch='1' lang='en_us' requestUrl='/character-sheet.xml'> " & tmp & "</page>")
+			InLoad = True
+			
+			Try
+				cmbRace.SelectedItem = xmlChar.SelectSingleNode("/page/characterInfo/character").Attributes.GetNamedItem("race").InnerText
+			Catch
+			End Try
+			
+			
+			Try
+				cmbfood.SelectedItem = nothing
+			Catch
+			End Try
+			
+			Try
+				cmbflask.SelectedItem = nothing
+			Catch
+			End Try
+			
+			Dim xItem As XmlNode
+			cmbskill1.SelectedItem = Nothing
+			cmbskill2.SelectedItem = Nothing
+			For Each xItem In xmlChar.SelectNodes("/page/characterInfo/characterTab/professions/skill")
+				If cmbskill1.SelectedItem <> "" Then
+					cmbskill2.SelectedItem = xItem.Attributes.GetNamedItem("name").InnerText
+				Else
+					cmbskill1.SelectedItem = xItem.Attributes.GetNamedItem("name").InnerText
+				End If
+			Next
+			
+			Try
+				If xmlChar.SelectSingleNode("/page/characterInfo/characterTab/items/item[@slot=16]").OuterXml <> "" Then
+					rDW.Checked = True
+					r2Hand.Checked = false
+				End If
 				
-				For Each iSlot In Me.EquipmentList
-					If iSlot.Text = ArmorySlot2MySlot(xmlReader.GetAttribute("slot")) Then
-						Try
-							iSlot.Item.LoadItem(xmlReader.GetAttribute("id"))
-							iSlot.DisplayItem
-							iSlot.Item.gem1.Attach(xmlReader.GetAttribute("gem0Id"))
-							iSlot.Item.gem2.Attach(xmlReader.GetAttribute("gem1Id"))
-							iSlot.Item.gem3.Attach(xmlReader.GetAttribute("gem2Id"))
-							iSlot.DisplayGem
-							iSlot.Item.Enchant.Attach(xmlReader.GetAttribute("permanentEnchantItemId"))
-							iSlot.DisplayEnchant()
-						Catch ex As System.Exception
-							debug.Print (ex.ToString)
-						End Try
-						
-					End If
-				next
+			Catch
+				rDW.Checked = false
+				r2Hand.Checked = true
+			End Try
+			
+			Dim itm As System.Windows.Forms.ToolStripMenuItem
+			
+			For Each itm  In ddConsumable.DropDownItems
+				itm.Checked = false
+			Next
+			
+			
+			For Each xItem In xmlChar.SelectNodes("/page/characterInfo/characterTab/items/item")
+					charfound = true
+					For Each iSlot In Me.EquipmentList
+						If iSlot.Text = ArmorySlot2MySlot(xItem.Attributes.GetNamedItem("slot").InnerText) Then
+							Try
+								iSlot.Item.LoadItem(xItem.Attributes.GetNamedItem("id").InnerText)
+								iSlot.DisplayItem
+								iSlot.Item.gem1.Attach(xItem.Attributes.GetNamedItem("gem0Id").InnerText)
+								iSlot.Item.gem2.Attach(xItem.Attributes.GetNamedItem("gem1Id").InnerText)
+								iSlot.Item.gem3.Attach(xItem.Attributes.GetNamedItem("gem2Id").InnerText)
+								iSlot.DisplayGem
+								iSlot.Item.Enchant.Attach(xItem.Attributes.GetNamedItem("permanentenchant").InnerText)
+								iSlot.DisplayEnchant()
+							Catch ex As System.Exception
+								'debug.Print (ex.ToString)
+							End Try
+							
+						End If
+					next
+
+			Next
+			InLoad = false
+			GetStats
+		Catch ex As Exception
+			
+		Finally
+			
+			If charfound = False Then
+				msgbox ("Unable to retrieve the character")
 			End If
-		Loop
+			me.InLoad = false
+		End Try
+		
+		
+		
+		
 	End Sub
 	Function ArmorySlot2MySlot(armorySlotId As Integer) As string
 		Select Case armorySlotId
@@ -824,16 +914,21 @@ Public Partial Class GearSelectorMainForm
 			Case 14
 				Return "Back"
 			Case 15
-				Return "TwoHand"
+				If rDW.Checked Then
+					Return "MainHand"
+				Else
+					Return "TwoHand"
+				End If
+				
 			Case 16
 				Return "OffHand"
 			Case 17
 				Return "Sigil"
-			
+				
 			Case Else
 				Return ""
-				End Select
-				
+		End Select
+		
 	End Function
 	
 	Sub LoadMycharacter
@@ -1112,7 +1207,7 @@ Public Partial Class GearSelectorMainForm
 			
 		End With
 		
-
+		
 		
 		With TwoHWeapSlot
 			.Text = "TwoHand"
@@ -1182,7 +1277,7 @@ Public Partial Class GearSelectorMainForm
 			
 		End With
 		
-	
+		
 		With ring2Slot
 			.Text = "Finger2"
 			.init(Me,11)
@@ -1212,12 +1307,9 @@ Public Partial Class GearSelectorMainForm
 	
 	Sub MainFormLoad(sender As Object, e As EventArgs)
 		
-'		Dim xtr As New Extractor
-'''
-'		xtr.Start
-'''
-'''
-'		exit sub
+		'Dim xtr As New Extractor
+		'xtr.Start
+		'exit sub
 		'Me.Size = New Size(980, 800)
 		LoadMycharacter
 		'ImportMyCharacter
@@ -1298,7 +1390,7 @@ Public Partial Class GearSelectorMainForm
 		dis.ShowDialog
 	End Sub
 	
-
+	
 	
 	Sub CmdSaveAsNewClick(sender As Object, e As EventArgs)
 		Dim truc As New Form1
@@ -1328,18 +1420,29 @@ Public Partial Class GearSelectorMainForm
 	End Sub
 	
 	Sub CmbFlaskSelectionChange(sender As Object, e As EventArgs)
-			Flask.Attach(CmbFlask.SelectedItem.ToString)
-			GetStats
+		Flask.Attach(CmbFlask.SelectedItem.ToString)
+		GetStats
 	End Sub
 	
 	Sub cmbFoodSelectionChange(sender As Object, e As EventArgs)
-			Food.Attach(CmbFood.SelectedItem.ToString)
-			GetStats
+		Food.Attach(CmbFood.SelectedItem.ToString)
+		GetStats
 	End Sub
 	
 	
 	
 	Sub GreedyToolStripMenuItemClick(sender As Object, e As EventArgs)
 		debug.Print(e.ToString)
+	End Sub
+	
+	Sub CmdArmoryImportClick(sender As Object, e As EventArgs)
+		Dim f As New frmArmoryImport
+		dim r as DialogResult
+		r= f.ShowDialog
+		If r= vbOK Then
+			ImportMyCharacter(f.cmbRegion.SelectedItem,f.txtRealm.Text,f.txtCharacter.Text)
+		End If
+		f.Dispose
+		
 	End Sub
 End Class

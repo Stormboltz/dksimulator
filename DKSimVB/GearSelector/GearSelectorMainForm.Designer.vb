@@ -120,6 +120,8 @@ Partial Class GearSelectorMainForm
 		Me.toolStripSeparator10 = New System.Windows.Forms.ToolStripSeparator
 		Me.ddConsumable = New System.Windows.Forms.ToolStripDropDownButton
 		Me.toolStripSeparator11 = New System.Windows.Forms.ToolStripSeparator
+		Me.cmdArmoryImport = New System.Windows.Forms.ToolStripButton
+		Me.toolStripSeparator12 = New System.Windows.Forms.ToolStripSeparator
 		Me.gbStats.SuspendLayout
 		Me.gbWeapons.SuspendLayout
 		Me.gbMisc.SuspendLayout
@@ -135,7 +137,7 @@ Partial Class GearSelectorMainForm
 		'cmdExtrator
 		'
 		Me.cmdExtrator.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdExtrator.Location = New System.Drawing.Point(21, 24991)
+		Me.cmdExtrator.Location = New System.Drawing.Point(9, 25342)
 		Me.cmdExtrator.Name = "cmdExtrator"
 		Me.cmdExtrator.Size = New System.Drawing.Size(75, 23)
 		Me.cmdExtrator.TabIndex = 0
@@ -731,7 +733,7 @@ Partial Class GearSelectorMainForm
 		'
 		'toolStrip2
 		'
-		Me.toolStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdQuickEP, Me.toolStripSeparator3, Me.cmdGetDps, Me.lblDPS, Me.toolStripSeparator1, Me.toolStripSeparator2, Me.toolStripLabel1, Me.cmbRace, Me.toolStripSeparator4, Me.cmdSave, Me.toolStripSeparator5, Me.cmdSaveAsNew, Me.toolStripSeparator8, Me.toolStripLabel2, Me.cmbSkill1, Me.toolStripSeparator6, Me.toolStripLabel3, Me.cmbSkill2, Me.toolStripSeparator7})
+		Me.toolStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdQuickEP, Me.toolStripSeparator3, Me.cmdGetDps, Me.lblDPS, Me.toolStripSeparator1, Me.toolStripSeparator2, Me.toolStripLabel1, Me.cmbRace, Me.toolStripSeparator4, Me.cmdSave, Me.toolStripSeparator5, Me.cmdSaveAsNew, Me.toolStripSeparator8, Me.toolStripLabel2, Me.cmbSkill1, Me.toolStripSeparator6, Me.toolStripLabel3, Me.cmbSkill2, Me.toolStripSeparator7, Me.cmdArmoryImport, Me.toolStripSeparator12})
 		Me.toolStrip2.Location = New System.Drawing.Point(0, 0)
 		Me.toolStrip2.Name = "toolStrip2"
 		Me.toolStrip2.Size = New System.Drawing.Size(997, 25)
@@ -926,6 +928,23 @@ Partial Class GearSelectorMainForm
 		Me.toolStripSeparator11.Name = "toolStripSeparator11"
 		Me.toolStripSeparator11.Size = New System.Drawing.Size(6, 25)
 		'
+		'cmdArmoryImport
+		'
+		Me.cmdArmoryImport.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+		Me.cmdArmoryImport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+		Me.cmdArmoryImport.Image = CType(resources.GetObject("cmdArmoryImport.Image"),System.Drawing.Image)
+		Me.cmdArmoryImport.ImageTransparentColor = System.Drawing.Color.Magenta
+		Me.cmdArmoryImport.Name = "cmdArmoryImport"
+		Me.cmdArmoryImport.Size = New System.Drawing.Size(46, 22)
+		Me.cmdArmoryImport.Text = "Armory"
+		AddHandler Me.cmdArmoryImport.Click, AddressOf Me.CmdArmoryImportClick
+		'
+		'toolStripSeparator12
+		'
+		Me.toolStripSeparator12.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+		Me.toolStripSeparator12.Name = "toolStripSeparator12"
+		Me.toolStripSeparator12.Size = New System.Drawing.Size(6, 25)
+		'
 		'GearSelectorMainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
@@ -961,6 +980,8 @@ Partial Class GearSelectorMainForm
 		Me.ResumeLayout(false)
 		Me.PerformLayout
 	End Sub
+	Private toolStripSeparator12 As System.Windows.Forms.ToolStripSeparator
+	Private cmdArmoryImport As System.Windows.Forms.ToolStripButton
 	Private toolStripSeparator11 As System.Windows.Forms.ToolStripSeparator
 	Private ddConsumable As System.Windows.Forms.ToolStripDropDownButton
 	Private toolStripSeparator10 As System.Windows.Forms.ToolStripSeparator

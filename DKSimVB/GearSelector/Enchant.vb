@@ -3,7 +3,7 @@
 ' Utilisateur: Fabien
 ' Date: 18/03/2010
 ' Heure: 18:21
-' 
+'
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
 Public Class Enchant
@@ -37,23 +37,29 @@ Public Class Enchant
 			Exit sub
 		End If
 		id = EnchantId
-		name = EnchantDB.SelectSingleNode("/enchant/item[id=" & EnchantId & "]/name").InnerText
-		slot = EnchantDB.SelectSingleNode("/enchant/item[id=" & EnchantId & "]/slot").InnerText
-		Strength = EnchantDB.SelectSingleNode("/enchant/item[id=" & EnchantId & "]/Strength").InnerText
-		Agility = EnchantDB.SelectSingleNode("/enchant/item[id=" & EnchantId & "]/Agility").InnerText
-		HasteRating = EnchantDB.SelectSingleNode("/enchant/item[id=" & EnchantId & "]/HasteRating").InnerText
-		ExpertiseRating = EnchantDB.SelectSingleNode("/enchant/item[id=" & EnchantId & "]/ExpertiseRating").InnerText
-		HitRating = EnchantDB.SelectSingleNode("/enchant/item[id=" & EnchantId & "]/HitRating").InnerText
-		AttackPower = EnchantDB.SelectSingleNode("/enchant/item[id=" & EnchantId & "]/AttackPower").InnerText
-		CritRating = EnchantDB.SelectSingleNode("/enchant/item[id=" & EnchantId & "]/CritRating").InnerText
-		ArmorPenetrationRating = EnchantDB.SelectSingleNode("/enchant/item[id=" & EnchantId & "]/ArmorPenetrationRating").InnerText
-		Desc = EnchantDB.SelectSingleNode("/enchant/item[id=" & EnchantId & "]/Desc").InnerText
+		
+		Try
+			name = EnchantDB.SelectSingleNode("/enchant/item[id=" & EnchantId & "]/name").InnerText
+			slot = EnchantDB.SelectSingleNode("/enchant/item[id=" & EnchantId & "]/slot").InnerText
+			Strength = EnchantDB.SelectSingleNode("/enchant/item[id=" & EnchantId & "]/Strength").InnerText
+			Agility = EnchantDB.SelectSingleNode("/enchant/item[id=" & EnchantId & "]/Agility").InnerText
+			HasteRating = EnchantDB.SelectSingleNode("/enchant/item[id=" & EnchantId & "]/HasteRating").InnerText
+			ExpertiseRating = EnchantDB.SelectSingleNode("/enchant/item[id=" & EnchantId & "]/ExpertiseRating").InnerText
+			HitRating = EnchantDB.SelectSingleNode("/enchant/item[id=" & EnchantId & "]/HitRating").InnerText
+			AttackPower = EnchantDB.SelectSingleNode("/enchant/item[id=" & EnchantId & "]/AttackPower").InnerText
+			CritRating = EnchantDB.SelectSingleNode("/enchant/item[id=" & EnchantId & "]/CritRating").InnerText
+			ArmorPenetrationRating = EnchantDB.SelectSingleNode("/enchant/item[id=" & EnchantId & "]/ArmorPenetrationRating").InnerText
+			Desc = EnchantDB.SelectSingleNode("/enchant/item[id=" & EnchantId & "]/Desc").InnerText
+		Catch ex As System.Exception
+			debug.Print ("error with enchant " & EnchantId) 
+			Detach
+		End Try
 	End Sub
 	
 	Sub Detach()
 		Id = 0
 		slot = 0
-		name = ""
+		name = "Enchant"
 		Strength = 0
 		Agility = 0
 		HasteRating = 0
