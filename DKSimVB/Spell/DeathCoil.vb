@@ -10,12 +10,7 @@ Friend class DeathCoil
 		'If sim.DRW.cd <= T And sim.TalentBlood.DRW = 1 And Sim.RunicPower.Value < 100 Then Return False
 		'If sim.Gargoyle.cd <= T And sim.TalentUnholy.SummonGargoyle = 1 And Sim.RunicPower.Value < 100 Then Return False
 		'If glyph.DeathStrike And RunicPower.Value <= 65  Then Return False 'This is not really important
-		If sim.SaveRPForRS Then
-			If Sim.RunicPower.Value >= 60 Then isAvailable = True
-		Else
-			If Sim.RunicPower.Value >= 40 Then isAvailable = True
-		End If
-		
+		return Sim.RunicPower.CheckRS(40)
 	End Function
 	
     overrides Function ApplyDamage(T As long,SDoom as Boolean) As boolean
@@ -25,17 +20,17 @@ Friend class DeathCoil
 			
 		Else
 			if sim.TalentBlood.DRW = 1 then
-				If sim.DRW.cd < T And sim.RunicPower.Value  >= 60 Then
+				If sim.DRW.cd < T And sim.RunicPower.Check(60) Then
 					if sim.DRW.Summon(T) = True Then return true
 				End If
 			End If
 			If sim.PetFriendly And sim.talentunholy.SummonGargoyle = 1 Then
-				If sim.Gargoyle.cd < T and sim.RunicPower.Value >= 60 Then
+				If sim.Gargoyle.cd < T and sim.RunicPower.Check(60) Then
 					If sim.Gargoyle.Summon(T) = True Then return true
 				end if
 			End If
 			UseGCD(T)
-			Sim.RunicPower.Value = Sim.RunicPower.Value - 40
+			Sim.RunicPower.Use(40)
 		End If
 		
 		If DoMySpellHit = false Then
@@ -54,10 +49,10 @@ Friend class DeathCoil
 
 			If SDoom Then
 				If sim.CombatLog.LogDetails Then
-					sim.combatlog.write(T  & vbtab &  "DC SDoom crit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.Value)
+					sim.combatlog.write(T  & vbtab &  "DC SDoom crit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.GetValue())
 				End If
 			Else
-				sim.combatlog.write(T  & vbtab &  "DC crit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.Value)
+				sim.combatlog.write(T  & vbtab &  "DC crit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.GetValue())
 			End If
 		Else
 			dégat= AvrgNonCrit(T)
@@ -65,10 +60,10 @@ Friend class DeathCoil
 			HitCount = HitCount + 1
 			If SDoom Then
 				If sim.CombatLog.LogDetails Then
-					sim.combatlog.write(T  & vbtab &  "DC SDoom hit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.Value)
+					sim.combatlog.write(T  & vbtab &  "DC SDoom hit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.GetValue())
 				End If
 			Else
-				sim.combatlog.write(T  & vbtab &  "DC hit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.Value)
+				sim.combatlog.write(T  & vbtab &  "DC hit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.GetValue())
 			End If
 			
 		End If

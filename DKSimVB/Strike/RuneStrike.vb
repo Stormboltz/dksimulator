@@ -28,7 +28,7 @@ Public Class RuneStrike
 		Dim RNG As Double
 		
 		trigger = false
-		Sim.RunicPower.Value = Sim.RunicPower.Value - 20
+		Sim.RunicPower.Use(20)
 		
 		RNG = RngHit
 		MeleeMissChance = math.Min(sim.mainstat.Hit, 0.08)

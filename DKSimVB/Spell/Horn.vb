@@ -30,7 +30,7 @@ Public Class Horn
 	
 	
 	Function isAvailable(T As Long) As Boolean
-		If Sim.RunicPower.Value + 10 >= Sim.RunicPower.MaxValue Then Return False
+		If Sim.RunicPower.CheckMax(10) Then Return False
 		If sim.glyph.Disease Then
 			'return false
 			'if math.Min(BloodPlague.FadeAt,FrostFever.FadeAt) < T + 500 then return false

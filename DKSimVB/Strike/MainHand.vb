@@ -33,7 +33,7 @@ Sub New(S As sim)
 		
 		
 		If sim.FrostPresence = 1 Then
-			if sim.RuneStrike.trigger = true and Sim.RunicPower.Value >= 20 then
+			if sim.RuneStrike.trigger = true and Sim.RunicPower.Check(20) then
 				sim.RuneStrike.ApplyDamage(T)
 				return true
 			End If

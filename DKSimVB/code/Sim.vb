@@ -603,7 +603,7 @@ Public Class Sim
 		Me.Runes.UnholyRune1.AvailableTime = 0
 		Me.Runes.UnholyRune2.AvailableTime = 0
 		
-		RunicPower.Value = 10 'Start fight with some RP
+		RunicPower.Reset()
 		BloodPlague.nextTick = 0
 		BloodPlague.FadeAt = 0
 		FrostFever.nextTick = 0
@@ -672,7 +672,7 @@ Public Class Sim
 		RuneStrike = New RuneStrike(Me)
 		'LoadConfig
         'Desolation = New Desolation(me)
-		RunicPower.Value = 10
+		RunicPower.Reset()
 		NextFreeGCD = 0
 		Threat = 0
 		NumberOfEnemies = _MainFrm.txtNumberOfEnemies.text
@@ -1094,7 +1094,7 @@ Public Class Sim
 			STmp = sTmp &  "<tr><td COLSPAN=8>DPS<FONT COLOR='white'>|</FONT>" & VBtab & "<b>" &  DPS & "</b></td></tr>"
 		End If
 		STmp = sTmp &   "<tr><td COLSPAN=8>Total Damage<FONT COLOR='white'>|</FONT>" & VBtab & Math.Round(TotalDamage/1000000,2) & "m" & VBtab &  "<FONT COLOR='white'>|</FONT> in " & MaxTime / 100 / 60/60 & "h</td></tr>"
-		
+		STmp = sTmp & "<tr><td COLSPAN=8>" & RunicPower.report() & "</td></tr>"
 		
 		
 		STmp = sTmp &  "<tr><td COLSPAN=8>Threat Per Second<FONT COLOR='white'>|</FONT>" & VBtab & "<b>" &  tps & "</b></td></tr>"

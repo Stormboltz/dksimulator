@@ -79,10 +79,10 @@ Friend Class DeathStrike
 		if sim.sigils.Awareness then tmp = tmp + 315
 		tmp = tmp * (1 + sim.TalentBlood.ImprovedDeathStrike * 15/100)
 		If sim.glyph.DeathStrike Then
-			If Sim.RunicPower.Value >= 25 Then
+			If Sim.RunicPower.Check(25) Then
 				tmp = tmp * (1 + 25/100)
 			Else
-				tmp = tmp * (1 + Sim.RunicPower.Value /100)
+				tmp = tmp * (1 + Sim.RunicPower.GetValue() /100)
 			End If
 		End If
 		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)

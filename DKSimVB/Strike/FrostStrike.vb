@@ -15,19 +15,9 @@ Friend Class FrostStrike
 	
 	public Overrides Function isAvailable(T As long) As Boolean
 		If sim.glyph.FrostStrike Then
-			If sim.SaveRPForRS Then
-				If Sim.RunicPower.Value >= 52 Then isAvailable = True
-			Else
-				If Sim.RunicPower.Value >= 32 Then isAvailable = True
-			End If
-			
+			isAvailable = Sim.RunicPower.CheckRS(32)
 		Else
-			If sim.SaveRPForRS Then
-				If Sim.RunicPower.Value >= 60 Then isAvailable = True
-			Else
-				If Sim.RunicPower.Value >= 40 Then isAvailable = True
-			End If
-			
+			isAvailable = Sim.RunicPower.CheckRS(40)
 		end if
 	End Function
 	
@@ -36,9 +26,9 @@ Friend Class FrostStrike
 		UseGCD(T)
 		If OffHand = False Then
 			If sim.glyph.FrostStrike Then
-				Sim.RunicPower.Value = Sim.RunicPower.Value - 32
+				Sim.RunicPower.Use(32)
 			Else
-				Sim.RunicPower.Value = Sim.RunicPower.Value - 40
+				Sim.RunicPower.Use(40)
 			End If
 			If sim.proc.ThreatOfThassarian.TryMe(T) Then sim.OHFrostStrike.ApplyDamage(T)
 			If DoMyStrikeHit = false Then
@@ -61,7 +51,7 @@ Friend Class FrostStrike
 		RNG = RngCrit
 		If RNG < ccT Then
 			dégat = AvrgCrit(T)
-			sim.combatlog.write(T  & vbtab &  "FS crit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.Value )
+			sim.combatlog.write(T  & vbtab &  "FS crit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.GetValue() )
 			CritCount = CritCount + 1
 			sim.tryOnCrit
 			totalcrit += dégat
@@ -69,7 +59,7 @@ Friend Class FrostStrike
 			dégat = AvrgNonCrit(T)
 			HitCount = HitCount + 1
 			totalhit += dégat
-			sim.combatlog.write(T  & vbtab &  "FS hit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.Value )
+			sim.combatlog.write(T  & vbtab &  "FS hit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.GetValue() )
 		End If
 		total = total + dégat
 		If offhand Then

@@ -91,7 +91,7 @@ Friend Class DRW
 			SpellMissChance = 0.17 - sim.MainStat.SpellHit
 			if SpellMissChance  < 0 then SpellMissChance = 0
 			cd = T + (1.5*6000)
-			Sim.RunicPower.Value = Sim.RunicPower.Value - 60
+			Sim.RunicPower.Use(60)
 			ActiveUntil = T + 1200
 			If sim.glyph.DRW Then
 				ActiveUntil = ActiveUntil  + 500
