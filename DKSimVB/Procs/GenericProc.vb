@@ -163,16 +163,19 @@ Public Class Proc
 		Select Case DamageType
 			Case ""
 				If sim.combatlog.LogDetails Then sim.combatlog.write(sim.TimeStamp  & vbtab &  Me.ToString & " proc")
-				Fade = T + ProcLenght * 100
 				If MaxStack <> 0 Then
 					Stack = math.Min(Stack+1,MaxStack)
 				End If
+				Fade = T + ProcLenght * 100
 				AddUptime(T)
 				HitCount += 1
 			Case "Shadowmourne"
 				If Stack < 9 Then
 					Stack +=1
+					CD = T
+					Fade = T + ProcLenght * 100
 				Else
+					Fade = CD
 					Stack = 0
 					If Rng3 < (0.17 - sim.MainStat.SpellHit) Then
 						MissCount = MissCount + 1
@@ -182,20 +185,11 @@ Public Class Proc
 					HitCount = HitCount + 1
 					totalhit += tmp
 					If sim.combatlog.LogDetails Then sim.combatlog.write(sim.TimeStamp  & vbtab &  Me.ToString & " proc")
-					Fade = T + ProcLenght * 100
+					
 					HitCount += 1
-					CD = T + 10 * 100
 					AddUptime(T)
 				End If
 			Case "Bryntroll"
-				If Rng3 < (0.17 - sim.MainStat.SpellHit) Then
-					MissCount = MissCount + 1
-					Exit sub
-				End If
-				tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
-				HitCount = HitCount + 1
-				totalhit += tmp
-			Case "BryntrollHeroic"
 				If Rng3 < (0.17 - sim.MainStat.SpellHit) Then
 					MissCount = MissCount + 1
 					Exit sub

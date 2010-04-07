@@ -454,51 +454,56 @@ Friend Class Procs
 		End With
 		dim Shadowmourne as New Proc(s)
 		With Shadowmourne
-			._Name = "Shadowmourne"
 			.ProcOn = Procs.ProcOnType.OnMHhit
 			.ProcChance  = 1
-			'.InternalCD = 10
 			.ProcValue = 270
 			.ProcValueStack = 30
 			.ProcValueDmg = 2000
-			.ProcLenght = 10
+			.ProcLenght = 60 ' Soul Fragment Duration
 			.ProcType = "str"
 			.ProcTypeStack = "str"
 			.DamageType = "Shadowmourne"
 			.HasteSensible = True
 			Try
-				if XmlCharacter.SelectSingleNode("//character/WeaponProc/MHShadowmourne").InnerText = 1 then .Equip
+				If XmlCharacter.SelectSingleNode("//character/WeaponProc/MHShadowmourne").InnerText = 1 Then
+					._Name = "Shadowmourne"
+					.Equip
+					.InternalCD = 10 'Chaos Bane Duration
+				End If
 			Catch
 			End Try
-		End With
-		
-		dim BryntrollHeroic as New Proc(s)
-		With BryntrollHeroic
-			._Name = "BryntrollHeroic"
-			.ProcOn = Procs.ProcOnType.OnMHhit
-			.ProcChance  = 0.1133
-			.ProcValue = 2538
-			.DamageType = "BryntrollHeroic"
-			.ProcLenght = 0
-			.HasteSensible = True
 			Try
-				if XmlCharacter.SelectSingleNode("//character/WeaponProc/MHBryntrollHeroic").InnerText = 1 then .Equip
+				If XmlCharacter.SelectSingleNode("//character/WeaponProc/MHShadowmourneCancelCB").InnerText = 1 Then
+					._Name = "Shadowmourne (Cancel CB)"
+					.Equip
+					.InternalCD = 0.1 'Chaos Bane Duration
+				End If
 			Catch
-			End Try
 			
+			End Try
 		End With
 		
 		dim Bryntroll as New Proc(s)
 		With Bryntroll
-			._Name = "Bryntroll"
 			.ProcOn = Procs.ProcOnType.OnMHhit
 			.ProcChance  = 0.1133
-			.ProcValue = 2250
 			.DamageType = "Bryntroll"
 			.ProcLenght = 0
 			.HasteSensible = True
 			Try
-				if XmlCharacter.SelectSingleNode("//character/WeaponProc/MHBryntroll").InnerText = 1 then .Equip
+				If XmlCharacter.SelectSingleNode("//character/WeaponProc/MHBryntrollHeroic").InnerText = 1 Then
+					._Name = "BryntrollHeroic"
+					.ProcValue = 2538
+					.Equip
+				End If
+			Catch
+			End Try
+			Try
+				 If XmlCharacter.SelectSingleNode("//character/WeaponProc/MHBryntroll").InnerText = 1 Then
+					._Name = "Bryntroll"
+					.ProcValue = 2250
+					.Equip
+				End If
 			Catch
 			End Try
 		End With
@@ -838,7 +843,13 @@ Friend Class Procs
 				End If
 			End If
 			If prc.ProcTypeStack = stat Then
-				tmp += prc.ProcValueStack * prc.Stack
+				if prc.IsActive Then
+					tmp += prc.ProcValueStack * prc.Stack
+				Else
+					prc.Stack = 0 
+					'I don't think this ever arises in practice
+					'but when such buffs fade they should set the stack back to 0
+				End if
 			End If
 		Next
 		return tmp

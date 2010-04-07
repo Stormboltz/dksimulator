@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <WeaponProcList>
 		<MHShadowmourne>0</MHShadowmourne>
+		<MHShadowmourneCancelCB>0</MHShadowmourneCancelCB>
   		<MHBryntroll>0</MHBryntroll>
 		<MHBryntrollHeroic>0</MHBryntrollHeroic>
 		<MHtemperedViskag>0</MHtemperedViskag>
