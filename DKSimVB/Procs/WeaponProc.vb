@@ -60,8 +60,15 @@ Public Class WeaponProc
 					if sim.MainStat.DualW then
 						If Rng4 > 0.5 Then
 							tmp = sim.MainHand.AvrgNonCrit(T)/2
+							me.CD = T+1
+							sim.TryOnMHHitProc
+							me.CD = 0
 						Else
+							
 							tmp = sim.offhand.AvrgNonCrit(T)/2
+							Me.CD = T+1
+							sim.TryOnOHHitProc
+							me.CD = 0
 						End If
 					Else
 						tmp = sim.MainHand.AvrgNonCrit(T)/2
