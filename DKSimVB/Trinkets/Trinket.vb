@@ -8,13 +8,10 @@
 '
 
 Public Class Trinket
-	inherits Proc
+	inherits WeaponProc
 	
-	Sub New()
-		mybase.New
-	End Sub
 	Sub New(S As Sim)
-		me.New
+		mybase.New(S)
 		Sim = S
 		s.TrinketsCollection.Add(Me)
 	End Sub

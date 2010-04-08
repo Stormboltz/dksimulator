@@ -827,42 +827,6 @@ Public Class Sim
 		Character = New Character(Me)
 		MainStat = New MainStat(Me)
 		
-		RuneForge.MHCinderglacierRF = False
-		RuneForge.MHFallenCrusader = false
-		RuneForge.MHRazoriceRF = false
-		Select Case XmlConfig.SelectSingleNode("//config/mh").InnerText
-			Case "Cinderglacier"
-				RuneForge.MHCinderglacierRF = true
-			Case "FallenCrusader"
-				RuneForge.MHFallenCrusader = True
-			Case "Razorice"
-				RuneForge.MHRazoriceRF = True
-		End Select
-		
-		RuneForge.OHCinderglacierRF = False
-		RuneForge.OHFallenCrusader = false
-		RuneForge.OHRazoriceRF = False
-		Runeforge.OHBerserking = False
-		
-		
-
-		
-		
-		
-		
-		if xmlcharacter.SelectSingleNode("//character/weapon/count").InnerText = 2 then
-			Select Case XmlConfig.SelectSingleNode("//config/oh").InnerText
-				Case "Cinderglacier"
-					RuneForge.OHCinderglacierRF = true
-				Case "FallenCrusader"
-					RuneForge.OHFallenCrusader = true
-				Case "Razorice"
-					RuneForge.OHRazoriceRF = True
-				Case "Berserking"
-					Runeforge.OHBerserking = True
-			End Select
-		End If
-		
 		Me.CombatLog.enable = XmlConfig.SelectSingleNode("//config/log").InnerText
 		Me.CombatLog.LogDetails = XmlConfig.SelectSingleNode("//config/logdetail").InnerText
 		

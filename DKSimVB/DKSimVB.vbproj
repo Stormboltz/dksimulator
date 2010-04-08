@@ -135,6 +135,7 @@
     <Compile Include="Procs\Rime.vb" />
     <Compile Include="Procs\Procs.vb" />
     <Compile Include="Procs\ScentOfBlood.vb" />
+    <Compile Include="Procs\WeaponProc.vb" />
     <Compile Include="Program.vb" />
     <Compile Include="Progress.Designer.vb">
       <DependentUpon>Progress.vb</DependentUpon>

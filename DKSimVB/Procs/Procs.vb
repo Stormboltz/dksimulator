@@ -28,12 +28,10 @@ Friend Class Procs
 	Friend Strife As Proc
 	Friend T92PDPS as Proc
 	Friend HauntedDreams As Proc
-	Friend MHFallenCrusader As Proc
-	Friend OHFallenCrusader As Proc
 	Friend Berserking As Proc
 	Friend OrcRacial As Proc
 	Friend TrollRacial As Proc
-	Friend BElfRacial As Proc
+	Friend BElfRacial As WeaponProc
 	
 	Friend MHBloodCakedBlade As Proc
 	Friend OHBloodCakedBlade As Proc
@@ -44,7 +42,7 @@ Friend Class Procs
 	Protected Sim as Sim
 	'Friend T104PDPSFAde As Integer
 	
-	Friend BloodWorms As Proc
+	Friend BloodWorms As WeaponProc
 	
 	
 	Friend AllProcs As New Collection
@@ -116,6 +114,7 @@ Friend Class Procs
 		Dim s As Sim
 		s= Me.Sim
 		
+		s.RuneForge.Init()
 		
 		MHBloodCakedBlade = New Proc(s)
 		With MHBloodCakedBlade
@@ -323,87 +322,7 @@ Friend Class Procs
 			.ProcOn = procs.ProcOnType.OnBloodStrike
 			If s.Sigils.HauntedDreams Then .Equip()
 		End With
-		
-		s.RuneForge.MHRazorIce = New RazorIce(s)
-		With s.RuneForge.MHRazorIce
-			._Name = "Frost Vulnerability"
-			.InternalCD = 0
-			.ProcOn = Procs.ProcOnType.OnMHhit
-			.ProcChance = 1
-			.ProcLenght = 20
-			.ProcValue = 1
-			If s.RuneForge.MHRazoriceRF Then .Equip()
-		End With
-		
-		s.RuneForge.OHRazorIce = New RazorIce(s)
-		With s.RuneForge.OHRazorIce
-			._Name = "Frost Vulnerability"
-			.InternalCD = 0
-			.ProcOn = Procs.ProcOnType.OnOHhit
-			.ProcChance = 1
-			.ProcLenght = 20
-			.ProcValue = 1
-			If s.RuneForge.OHRazoriceRF Then .Equip()
-		End With
 
-		MHFallenCrusader = New Proc(s)
-		With MHFallenCrusader
-			._Name = "MHFallenCrusader"
-			.InternalCD = 0
-			.ProcOn = Procs.ProcOnType.OnMHhit
-			.ProcChance = 2 * s.MainStat.MHWeaponSpeed / 60
-			.ProcLenght = 20
-			.ProcValue = 1
-			If s.RuneForge.MHFallenCrusader Then .Equip()
-		End With
-
-		OHFallenCrusader = New Proc(s)
-		With OHFallenCrusader
-			._Name = "OHFallenCrusader"
-			.InternalCD = 0
-			.ProcOn = Procs.ProcOnType.OnOHhit
-			.ProcChance = 2 * s.MainStat.OHWeaponSpeed / 60
-			.ProcLenght = 20
-			.ProcValue = 1
-			If s.RuneForge.OHFallenCrusader Then .Equip()
-		End With
-
-
-		s.RuneForge.MHCinderglacier = New Proc(s)
-		With s.RuneForge.MHCinderglacier
-			._Name = "MHCinderglacier"
-			.InternalCD = 0
-			.ProcOn = Procs.ProcOnType.OnMHhit
-			.ProcChance = 1.5 * s.MainStat.MHWeaponSpeed / 60
-			.ProcLenght = 20
-			.ProcValue = 2
-			.DamageType = "cinderglacier"
-			If s.RuneForge.MHCinderglacierRF Then .Equip()
-		End With
-
-		s.RuneForge.OHCinderglacier = New Proc(s)
-		With s.RuneForge.OHCinderglacier
-			._Name = "OHCinderglacier"
-			.InternalCD = 0
-			.ProcChance = 1.5 * s.MainStat.OHWeaponSpeed / 60
-			.ProcLenght = 20
-			.ProcValue = 2
-			.DamageType = "cinderglacier"
-			.ProcOn = Procs.ProcOnType.OnOHhit
-			If s.RuneForge.OHCinderglacierRF Then .Equip()
-		End With
-
-		Berserking = New Proc(s)
-		With Berserking
-			._Name = "Berserking"
-			.InternalCD = 0
-			.ProcOn = Procs.ProcOnType.OnOHhit
-			.ProcChance = 1.2 * s.MainStat.OHWeaponSpeed / 60
-			.ProcLenght = 15
-			.ProcValue = 400
-			.ProcType = "ap"
-			If s.RuneForge.OHBerserking Then .Equip()
-		End With
 
 		OrcRacial = New Proc(s)
 		With OrcRacial
@@ -428,7 +347,7 @@ Friend Class Procs
 			If s.Character.Troll Then .Equip()
 		End With
 
-		BElfRacial = New Trinket(s)
+		BElfRacial = New WeaponProc(s)
 		With BElfRacial
 			._Name = "BElfRacial"
 			.InternalCD = 120
@@ -440,7 +359,7 @@ Friend Class Procs
 			If s.Character.BloodElf Then .Equip()
 		End With
 
-		BloodWorms = New Proc(s)
+		BloodWorms = New WeaponProc(s)
 		With BloodWorms
 			._Name = "BloodWorms"
 			.InternalCD = 20
@@ -452,7 +371,7 @@ Friend Class Procs
 			End If
 			.isGuardian = True
 		End With
-		dim Shadowmourne as New Proc(s)
+		dim Shadowmourne as New WeaponProc(s)
 		With Shadowmourne
 			.ProcOn = Procs.ProcOnType.OnMHhit
 			.ProcChance  = 1
@@ -483,7 +402,7 @@ Friend Class Procs
 			End Try
 		End With
 		
-		dim Bryntroll as New Proc(s)
+		dim Bryntroll as New WeaponProc(s)
 		With Bryntroll
 			.ProcOn = Procs.ProcOnType.OnMHhit
 			.ProcChance  = 0.1133
@@ -514,7 +433,6 @@ Friend Class Procs
 			.ProcLenght = 10
 			.ProcValue = 480
 			.InternalCD = 45
-			.DamageType = ""
 			.ProcType = "ap"
 			.ProcOn = procs.ProcOnType.OnHit
 			Try
@@ -525,7 +443,7 @@ Friend Class Procs
 				
 			End Try
 		End With
-			dim	MHtemperedViskag as New Proc(s)
+			dim	MHtemperedViskag as New WeaponProc(s)
 		With MHtemperedViskag
 			.ProcChance = 0.04
 			.ProcLenght = 0
@@ -541,7 +459,7 @@ Friend Class Procs
 			End Try
 		End With
 		
-		dim OHtemperedViskag as New Proc(s)
+		dim OHtemperedViskag as New WeaponProc(s)
 		With OHtemperedViskag
 			.ProcChance = 0.04
 			.ProcLenght = 0
@@ -557,7 +475,7 @@ Friend Class Procs
 			End Try
 		End With
 		
-		dim MHSingedViskag as New Proc(s)
+		dim MHSingedViskag as New WeaponProc(s)
 		With MHSingedViskag
 			.ProcChance = 0.04
 			.ProcLenght = 0
@@ -575,7 +493,7 @@ Friend Class Procs
 			
 		End With
 		
-		dim OHSingedViskag as New Proc(s)
+		dim OHSingedViskag as New WeaponProc(s)
 		With OHSingedViskag
 			.ProcChance = 0.04
 			.ProcLenght = 0
@@ -591,7 +509,7 @@ Friend Class Procs
 			End Try
 		End With
 		
-		dim MHEmpoweredDeathbringer as New Proc(S)
+		dim MHEmpoweredDeathbringer as New WeaponProc(S)
 		With MHEmpoweredDeathbringer
 			.ProcChance = 0.065
 			.ProcLenght = 0
@@ -608,7 +526,7 @@ Friend Class Procs
 			End Try
 		End With
 		
-		dim OHEmpoweredDeathbringer as New Proc(S)
+		dim OHEmpoweredDeathbringer as New WeaponProc(S)
 		With OHEmpoweredDeathbringer
 			.ProcChance = 0.065
 			.ProcLenght = 0
@@ -624,7 +542,7 @@ Friend Class Procs
 			End Try
 		End With
 		
-		dim MHRagingDeathbringer as New Proc(S)
+		dim MHRagingDeathbringer as New WeaponProc(S)
 		With MHRagingDeathbringer
 			.ProcChance = 0.065
 			.ProcLenght = 0
@@ -641,7 +559,7 @@ Friend Class Procs
 			
 		End With
 		
-		dim OHRagingDeathbringer as New Proc(S)
+		dim OHRagingDeathbringer as New WeaponProc(S)
 		With OHRagingDeathbringer
 			.ProcChance = 0.065
 			.ProcLenght = 0
@@ -660,7 +578,7 @@ Friend Class Procs
 			
 		End With
 		
-		dim HandMountedPyroRocket as New Proc(s)
+		dim HandMountedPyroRocket as New WeaponProc(s)
 		With HandMountedPyroRocket
 			.ProcChance = 1
 			.ProcLenght = 0
@@ -678,7 +596,7 @@ Friend Class Procs
 			End Try
 		End With
 		
-		dim HyperspeedAccelerators as New Proc(s)
+		dim HyperspeedAccelerators as New WeaponProc(s)
 		With HyperspeedAccelerators
 			.ProcChance = 0.5
 			.ProcLenght = 12
@@ -718,7 +636,7 @@ Friend Class Procs
 			End Try
 		End With
 		
-		dim SaroniteBomb as New Proc(s)
+		dim SaroniteBomb as New WeaponProc(s)
 		With SaroniteBomb
 			.ProcChance = 0.5
 			.ProcLenght = 0
@@ -734,7 +652,7 @@ Friend Class Procs
 			End Try
 		End With
 		
-		dim SapperCharge as new Proc(s)
+		dim SapperCharge as new WeaponProc(s)
 		With SapperCharge
 			.ProcChance = 0.5
 			.ProcLenght = 0
@@ -783,53 +701,6 @@ Friend Class Procs
 			Catch ex As System.Exception
 			End Try
 		End With
-		
-		
-		dim MHRazorIce as New Proc(s)
-		With MHRazorIce
-			.ProcChance = 1
-			.ProcLenght = 15
-			.ProcValue = 0
-			.DamageType = "razorice"
-			.InternalCD = 0
-			._Name = "Main Hand RazorIce"
-			.ProcOn = procs.ProcOnType.OnMHhit
-			.HasteSensible = True
-			
-			Try
-				If sim.XmlConfig.SelectSingleNode("//config/mh").InnerText ="Razorice" Then
-					.ProcValue = Sim.MainStat.MHWeaponSpeed * Sim.MainStat.MHWeaponDPS * 0.02
-					.Equip
-				End If
-			Catch ex As System.Exception
-			End Try
-			
-			
-			
-			
-		End With
-		
-		dim OHRazorIce as New Proc(s)
-		With OHRazorIce
-			.ProcChance = 1
-			.ProcLenght = 15
-			.ProcValue = 0
-			.DamageType = "razorice"
-			.InternalCD = 0
-			._Name = "Off Hand RazorIce"
-			.ProcOn = procs.ProcOnType.OnOHhit
-			.HasteSensible = True
-			Try
-				If sim.XmlConfig.SelectSingleNode("//config/oh").InnerText ="Razorice" Then
-					.ProcValue = Sim.MainStat.MHWeaponSpeed * Sim.MainStat.MHWeaponDPS * 0.02
-					.Equip
-				End If
-			Catch ex As System.Exception
-			End Try
-		End With
-		
-		
-		
 		
 	End Sub
 	

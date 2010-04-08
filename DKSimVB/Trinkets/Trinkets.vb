@@ -55,10 +55,10 @@ Public Class Trinkets
 			.ProcOn = Procs.ProcOnType.Onhit
 			.ProcChance  = 1
 			.InternalCD = 0
-			.MaxStack = 10
+			.MaxStack = 20
 			.ProcTypeStack = "ap"
-			.ProcValueStack = "17"
-			.ProcLenght = "10"
+			.ProcValueStack = 17
+			.ProcLenght = 10
 		End With
 		
 		MarkofSupremacy = New Trinket(s)

@@ -11,13 +11,13 @@ Public Class RazorIce
 
 	Sub New(S As Sim)
 		MyBase.New(S)
-		sim.RuneForge.RazorIceStack = 0
+		'Not Used
 	End Sub
 	
 	Overrides Sub ApplyMe(T As Long)
 		HitCount += 1
 		Me.AddUptime(T)
 		If sim.CombatLog.LogDetails Then sim.CombatLog.write(sim.TimeStamp & vbTab & Me.ToString & " proc")
-		sim.RuneForge.AddRazorIceStack(T)
+		'sim.RuneForge.AddRazorIceStack(T)
 	End Sub
 End Class

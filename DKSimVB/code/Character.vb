@@ -132,7 +132,7 @@ Friend Class Character
 		tmp = tmp * (1 + sim.TalentBlood.AbominationMight / 100)
 		tmp = tmp * (1 + sim.TalentUnholy.ravenousdead / 100)
 		tmp = tmp * (1 + sim.TalentFrost.EndlessWinter * 2 / 100)
-		If sim.proc.MHFallenCrusader.IsActive Or sim.proc.oHFallenCrusader.IsActive Then
+		If sim.runeForge.CheckFallenCrusader Then
 			tmp = tmp * 1.15
 		End If
 		if sim.UnbreakableArmor.isActive then tmp = tmp * 1.2
@@ -154,7 +154,7 @@ Friend Class Character
 		tmp = tmp * (1 + sim.TalentBlood.AbominationMight / 100)
 		tmp = tmp * (1 + sim.TalentUnholy.ravenousdead / 100)
 		tmp = tmp * (1 + sim.TalentFrost.EndlessWinter * 2 / 100)
-		If sim.proc.MHFallenCrusader.IsActive Or sim.proc.oHFallenCrusader.IsActive Then
+		If sim.RuneForge.HasFallenCrusader Then
 			tmp = tmp * 1.15
 		End If
 		if sim.UnbreakableArmor.isActive then tmp = tmp * 1.1
