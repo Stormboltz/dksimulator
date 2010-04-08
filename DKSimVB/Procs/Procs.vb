@@ -23,15 +23,8 @@ Friend Class Procs
 	Friend KillingMachine As Proc
 	Friend Rime As Proc
 	Friend ScentOfBlood As ScentOfBlood
-	Friend Virulence As Proc
-	Friend HangedMan as Proc
 	Friend Strife As Proc
-	Friend T92PDPS as Proc
-	Friend HauntedDreams As Proc
-	Friend Berserking As Proc
-	Friend OrcRacial As Proc
 	Friend TrollRacial As Proc
-	Friend BElfRacial As WeaponProc
 	
 	Friend MHBloodCakedBlade As Proc
 	Friend OHBloodCakedBlade As Proc
@@ -42,7 +35,6 @@ Friend Class Procs
 	Protected Sim as Sim
 	'Friend T104PDPSFAde As Integer
 	
-	Friend BloodWorms As WeaponProc
 	
 	
 	Friend AllProcs As New Collection
@@ -265,8 +257,7 @@ Friend Class Procs
 			.ProcChance = 0.15
 		End With
 
-		Virulence = New Proc(s)
-		With Virulence
+		With New Proc(s)
 			._Name = "Virulence"
 			.ProcLenght = 20
 			.ProcChance = 0.85
@@ -276,8 +267,7 @@ Friend Class Procs
 			If s.Sigils.Virulence Then .Equip()
 		End With
 
-		HangedMan = New Proc(s)
-		With HangedMan
+		With New Proc(s)
 			._Name = "HangedMan"
 			.ProcLenght = 15
 			.ProcChance = 1
@@ -299,8 +289,7 @@ Friend Class Procs
 			If s.Sigils.Strife Then .Equip()
 		End With
 
-		T92PDPS = New Proc(s)
-		With T92PDPS
+		With New Proc(s)
 			._Name = "T92PDPS"
 			.ProcChance = 0.5
 			.ProcValue = 180
@@ -311,8 +300,7 @@ Friend Class Procs
 			If s.MainStat.T92PDPS = 1 Then .Equip()
 		End With
 
-		HauntedDreams = New Proc(s)
-		With HauntedDreams
+		With New Proc(s)
 			._Name = "HauntedDreams"
 			.ProcChance = 0.15
 			.ProcValue = 173
@@ -324,8 +312,7 @@ Friend Class Procs
 		End With
 
 
-		OrcRacial = New Proc(s)
-		With OrcRacial
+		With New Proc(s)
 			._Name = "OrcRacial"
 			.InternalCD = 120
 			.ProcOn = Procs.ProcOnType.OnDamage
@@ -347,8 +334,7 @@ Friend Class Procs
 			If s.Character.Troll Then .Equip()
 		End With
 
-		BElfRacial = New WeaponProc(s)
-		With BElfRacial
+		With New WeaponProc(s)
 			._Name = "BElfRacial"
 			.InternalCD = 120
 			.ProcChance = 1
@@ -359,8 +345,7 @@ Friend Class Procs
 			If s.Character.BloodElf Then .Equip()
 		End With
 
-		BloodWorms = New WeaponProc(s)
-		With BloodWorms
+		With New WeaponProc(s)
 			._Name = "BloodWorms"
 			.InternalCD = 20
 			.ProcChance = 3 * s.TalentBlood.BloodWorms / 100
@@ -375,11 +360,9 @@ Friend Class Procs
 		With Shadowmourne
 			.ProcOn = Procs.ProcOnType.OnMHhit
 			.ProcChance  = 1
-			.ProcValue = 270
 			.ProcValueStack = 30
-			.ProcValueDmg = 2000
+			.ProcValue = 2000
 			.ProcLenght = 60 ' Soul Fragment Duration
-			.ProcType = "str"
 			.ProcTypeStack = "str"
 			.DamageType = "Shadowmourne"
 			.HasteSensible = True
@@ -426,8 +409,7 @@ Friend Class Procs
 			Catch
 			End Try
 		End With
-		dim AshenBand as New Proc(s)
-		With AshenBand
+		With New Proc(s)
 			._Name = "AshenBand"
 			.ProcChance = 0.10
 			.ProcLenght = 10

@@ -17,25 +17,27 @@ Public Class WeaponProc
 	
 	
 	Overrides Sub ApplyMe(T As Long)
+		If DamageType = "" Then
+			MyBase.ApplyMe(T)
+			Exit Sub
+		End If
+		CD = T + InternalCD * 100
 		dim tmp as Double
 		Select Case DamageType
-			Case ""
-				MyBase.ApplyMe(T)
-				
 			Case "Shadowmourne"
+				If Fade <= T Then Stack = 0
+				
 				If Stack < 9 Then
 					Stack +=1
 					CD = T
 					Fade = T + ProcLenght * 100
 				Else
 					Fade = CD
-					Stack = 0
 					If Rng3 < (0.17 - sim.MainStat.SpellHit) Then
 						MissCount = MissCount + 1
 						Exit sub
 					End If
-					tmp= ProcValueDmg * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
-					HitCount = HitCount + 1
+					tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
 					totalhit += tmp
 					If sim.combatlog.LogDetails Then sim.combatlog.write(sim.TimeStamp  & vbtab &  Me.ToString & " proc")
 					

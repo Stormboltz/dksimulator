@@ -8,14 +8,6 @@
 '
 Friend Class RuneForge
 	
-	Private OHRazorIce As WeaponProc
-	Private MHRazorIce As WeaponProc
-	Private MHCinderglacier as WeaponProc
-	Private OHCinderglacier as WeaponProc
-	Private MHFallenCrusader As WeaponProc
-	Private OHFallenCrusader As WeaponProc
-	Private OHBerserking As WeaponProc
-	
 	Friend RazorIceStack as Integer
 	
 	Private CinderglacierProc As Integer
@@ -39,115 +31,80 @@ Friend Class RuneForge
 		WastedCG = 0
 		OHBerserkingActiveUntil = 0
 		RazorIceStack = 0
-		
+		FallenCrusaderActiveUntil = -100
+	End Sub
+
+
+	Sub ConfigRuneForgeProc(Proc As WeaponProc, RuneForge As String)
+		If RuneForge = "" Then Exit Sub
+		With Proc
+			.DamageType = RuneForge
+			Select Case RuneForge
+
+				Case "FallenCrusader"
+					.ProcChance *= 2
+					.ProcLenght = 15
+					.ProcValue = 1
+					FallenCrusaderActiveUntil = 0
+					
+				Case "Razorice"
+					.ProcChance = 1
+					.ProcLenght = 20
+					.HasteSensible = True
+					.ProcValue = Sim.MainStat.MHWeaponSpeed * Sim.MainStat.MHWeaponDPS * 0.02
+
+				Case "Cinderglacier"
+					.ProcChance *= 1.5
+					.ProcLenght = 30
+					.ProcValue = 2
+
+				Case "Berzerking"
+					.DamageType = ""
+					.ProcChance *= 1.2
+					.ProcLenght = 15
+					.ProcValue = 400
+					.ProcType = "ap"
+				
+				Case Else
+					debug.Print ( "Runeforge: " & RuneForge & " not implemented")
+					Exit Sub
+					
+			End Select
+			._Name = RuneForge
+			.Equip()
+			
+		End With
 	End Sub
 
 	Sub Init()
 		dim s as Sim
 		s = Sim
 		MHRuneForge = s.XmlConfig.SelectSingleNode("//config/mh").InnerText
+		MHProc = New WeaponProc(s)
+		With MHProc
+			.InternalCD = 0
+			.ProcOn = Procs.ProcOnType.OnMHhit
+			.ProcChance = s.MainStat.MHWeaponSpeed / 60
+		End With
+		ConfigRuneForgeProc(MHProc, MHRuneForge)
+
+		
 		If s.MainStat.DualW Then
+			OHProc = New WeaponProc(s)
 			OHRuneForge = s.XmlConfig.SelectSingleNode("//config/oh").InnerText
+			With OHProc
+				.InternalCD = 0
+				.ProcOn = Procs.ProcOnType.OnOHhit
+				.ProcChance = s.MainStat.OHWeaponSpeed / 60
+			End With
+			ConfigRuneForgeProc(OHProc, OHRuneForge)
+			MHProc._Name = "MH " & MHProc._Name
+			OHProc._Name = "OH " & OHProc._Name
+			
 		Else
 			OHRuneForge = ""
 		
 		End If
-		if MHRuneForge = "FallenCrusader" or OHRuneForge = "FallenCrusader" then
-			FallenCrusaderActiveUntil = 0
-		Else
-			FallenCrusaderActiveUntil = -100
-		End If
-		
-		MHRazorIce = New WeaponProc(s)
-		With MHRazorIce
-			.InternalCD = 0
-			.ProcOn = Procs.ProcOnType.OnMHhit
-			.ProcChance = 1
-			.ProcLenght = 20
-			.DamageType = "Razorice"
-			._Name = "Main Hand RazorIce"
-			.HasteSensible = True
-			If MHRuneForge = "Razorice" Then
-				.ProcValue = Sim.MainStat.MHWeaponSpeed * Sim.MainStat.MHWeaponDPS * 0.02
-				.Equip()
-			End If
-		End With
-		
-		OHRazorIce = New WeaponProc(s)
-		With OHRazorIce
-			.InternalCD = 0
-			.ProcOn = Procs.ProcOnType.OnOHhit
-			.ProcChance = 1
-			.ProcLenght = 20
-			.DamageType = "Razorice"
-			._Name = "Off Hand RazorIce"
-			.HasteSensible = True
-			If OHRuneForge = "Razorice" Then
-				.ProcValue = Sim.MainStat.MHWeaponSpeed * Sim.MainStat.MHWeaponDPS * 0.02
-				.Equip()
-			End If
-		End With
-
-		MHFallenCrusader = New WeaponProc(s)
-		With MHFallenCrusader
-			._Name = "MHFallenCrusader"
-			.InternalCD = 0
-			.ProcOn = Procs.ProcOnType.OnMHhit
-			.ProcChance = 2 * s.MainStat.MHWeaponSpeed / 60
-			.ProcLenght = 15
-			.ProcValue = 1
-			.DamageType = "FallenCrusader"
-			If MHRuneForge = "FallenCrusader" Then .Equip()
-		End With
-
-		OHFallenCrusader = New WeaponProc(s)
-		With OHFallenCrusader
-			._Name = "OHFallenCrusader"
-			.InternalCD = 0
-			.ProcOn = Procs.ProcOnType.OnOHhit
-			.ProcChance = 2 * s.MainStat.OHWeaponSpeed / 60
-			.ProcLenght = 15
-			.ProcValue = 1
-			.DamageType = "FallenCrusader"
-			If OHRuneForge = "FallenCrusader" Then .Equip()
-		End With
-
-
-		MHCinderglacier = New WeaponProc(s)
-		With MHCinderglacier
-			._Name = "MHCinderglacier"
-			.InternalCD = 0
-			.ProcOn = Procs.ProcOnType.OnMHhit
-			.ProcChance = 1.5 * s.MainStat.MHWeaponSpeed / 60
-			.ProcLenght = 30
-			.ProcValue = 2
-			.DamageType = "Cinderglacier"
-			If MHRuneForge = "Cinderglacier" Then .Equip()
-		End With
-
-		OHCinderglacier = New WeaponProc(s)
-		With OHCinderglacier
-			._Name = "OHCinderglacier"
-			.InternalCD = 0
-			.ProcChance = 1.5 * s.MainStat.OHWeaponSpeed / 60
-			.ProcLenght = 30
-			.ProcValue = 2
-			.DamageType = "Cinderglacier"
-			.ProcOn = Procs.ProcOnType.OnOHhit
-			If OHRuneForge = "Cinderglacier" Then .Equip()
-		End With
-
-		OHBerserking = New WeaponProc(s)
-		With OHBerserking
-			._Name = "Berserking"
-			.InternalCD = 0
-			.ProcOn = Procs.ProcOnType.OnOHhit
-			.ProcChance = 1.2 * s.MainStat.OHWeaponSpeed / 60
-			.ProcLenght = 15
-			.ProcValue = 400
-			.ProcType = "ap"
-			If OHRuneForge = "Berserking" Then .Equip()
-		End With
 End Sub
 
 	Sub ProcFallenCrusader(Fade As Long)

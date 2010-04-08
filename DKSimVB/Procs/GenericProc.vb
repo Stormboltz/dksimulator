@@ -14,7 +14,6 @@ Public Class Proc
 	friend Equiped As Integer
 	Friend ProcLenght As Integer
 	Friend ProcValue As Integer
-	Friend ProcValueDmg As Integer
 	Friend InternalCD As Integer
 
 	Friend Stack As Integer
