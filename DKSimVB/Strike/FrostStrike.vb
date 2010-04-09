@@ -84,7 +84,7 @@ Friend Class FrostStrike
 		if sim.ExecuteRange then tmp = tmp *(1+ 0.06*sim.talentfrost.MercilessCombat)
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
-		tmp = tmp *(1+2*sim.RuneForge.RazorIceStack/100) 'TODO: only on main target
+		tmp *= sim.RuneForge.RazorIceMultiplier(T)
 		If sim.RuneForge.CheckCinderglacier(offhand) > 0 then tmp *= 1.2
 		If offhand Then
 			tmp = tmp * 0.5

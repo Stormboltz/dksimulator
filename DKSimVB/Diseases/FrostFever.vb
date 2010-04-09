@@ -19,7 +19,7 @@ Friend Class FrostFever
 
 	Overrides Function CalculateMultiplier(T As Long) As Double
 		Dim tmp As Double
-		tmp = MyBase.CalculateMultiplier(T) *(1+sim.RuneForge.RazorIceStack/100) 'TODO: only on main target
+		tmp = MyBase.CalculateMultiplier(T) * sim.RuneForge.RazorIceMultiplier(T) 'TODO: only on main target
 		If sim.glyph.IcyTouch Then tmp = tmp * 1.2
 		return tmp
 	End Function

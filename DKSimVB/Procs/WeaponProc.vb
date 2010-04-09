@@ -11,14 +11,16 @@ Public Class WeaponProc
 
 	Sub New(S As Sim)
 		MyBase.New(S)
-		sim.RuneForge.RazorIceStack = 0
+		_Name = ""
 	End Sub
 	
-	
+	Sub BaseApplyMe(T As Long)
+		MyBase.ApplyMe(T)
+	End Sub
 	
 	Overrides Sub ApplyMe(T As Long)
 		If DamageType = "" Then
-			MyBase.ApplyMe(T)
+			BaseApplyMe(T)
 			Exit Sub
 		End If
 		CD = T + InternalCD * 100
@@ -167,26 +169,13 @@ Public Class WeaponProc
 					totalhit += tmp
 				End If
 			Case "FallenCrusader"
-				HitCount += 1
-				Me.AddUptime(T)
-				Fade = T + ProcLenght * 100
-				If sim.CombatLog.LogDetails Then sim.CombatLog.write(sim.TimeStamp & vbTab & Me.ToString & " proc")
-				sim.RuneForge.ProcFallenCrusader(Fade)
+				sim.RuneForge.ProcFallenCrusader(Me, T)
 				
 			Case "Razorice"
-				HitCount += 1
-				Me.AddUptime(T)
-				If sim.CombatLog.LogDetails Then sim.CombatLog.write(sim.TimeStamp & vbTab & Me.ToString & " proc")
-				sim.RuneForge.ProcRazorIce()
-				Fade = T + ProcLenght * 100
-				tmp = procvalue
-				totalhit += tmp
+				sim.RuneForge.ProcRazorice(Me, T)
 			
 			Case "Cinderglacier"
-				HitCount = HitCount + 1
-				Fade = T + ProcLenght * 100
-				Me.AddUptime(T)
-				sim.RuneForge.ProcCinderglacier()
+				sim.RuneForge.ProcCinderglacier(Me, T)
 
 			Case "torrent"
 				sim.RunicPower.add (Me.ProcValue)

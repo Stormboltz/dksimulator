@@ -131,11 +131,13 @@ Public Class Proc
 		if Fade >= sim.TimeStamp then return true
 	End Function
 	
-	Overridable Function Use() As Boolean
-		Fade = 0
-		count = 0
-		RemoveUptime(sim.TimeStamp)
-	End Function
+	Sub Use()
+		count -= 1
+		If count <= 0 Then 
+			Fade = 0
+			RemoveUptime(sim.TimeStamp)
+		End If
+	End Sub
 	
 	Overridable Function IsAvailable(ByVal T As Long) As Boolean
 		If Equiped = 0 Or CD > T Then Return False
@@ -154,6 +156,13 @@ Public Class Proc
 		Return True
 	End Function
 
+	Sub ApplyFade(T As Long)
+		if ProcLenght Then 
+			Fade = T + ProcLenght * 100
+			AddUptime(T)
+		End IF
+		HitCount += 1
+	End Sub
 
 	Overridable Sub ApplyMe(ByVal T As Long)
 		CD = T + InternalCD * 100
@@ -161,9 +170,7 @@ Public Class Proc
 		If MaxStack <> 0 Then
 			Stack = math.Min(Stack+1,MaxStack)
 		End If
-		Fade = T + ProcLenght * 100
-		AddUptime(T)
-		HitCount += 1
+		ApplyFade(T)
 	End Sub
 	
 	Overrides Function report as String

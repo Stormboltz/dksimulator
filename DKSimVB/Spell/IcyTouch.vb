@@ -54,7 +54,7 @@ Friend Class IcyTouch
 		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
 		
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
-			tmp = tmp *(1+2*sim.RuneForge.RazorIceStack/100) 'TODO: only on main target
+		tmp *= sim.RuneForge.RazorIceMultiplier(T) 'TODO: only on main target
 		
 		sim.FrostFever.Apply(T) 
 		'Moved this here as an IcyTouch with 1 CG charge left will reapply a CG buffed FF

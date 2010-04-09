@@ -634,7 +634,7 @@ Public Class Sim
 		AMSTimer = _MainFrm.txtAMScd.text * 100
 		AMSAmount = _MainFrm.txtAMSrp.text
 		ERW.CD = 0
-		RuneForge.RazorIceStack = 0
+		RuneForge.SoftReset
 		me.Rotation.IntroDone = false
 		
 		PrePull(TimeStamp)

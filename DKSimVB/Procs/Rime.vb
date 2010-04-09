@@ -19,7 +19,7 @@ Public Class Rime
 
 		If sim.CombatLog.LogDetails Then sim.CombatLog.write(sim.TimeStamp & vbTab & Me.ToString & " proc")
 		Fade = T + ProcLenght * 100
-		Count += 1
+		Count = 1
 		HitCount += 1
 		sim.HowlingBlast.CD = 0
 

@@ -76,7 +76,7 @@ Friend Class HowlingBlast
 		if sim.NumDesease > 0 or (sim.Buff.BloodPlague+sim.Buff.FrostFever>0) then 	tmp = tmp * (1 + sim.TalentFrost.GlacierRot * 6.6666666 / 100)
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		If sim.ExecuteRange Then tmp = tmp *(1+ 0.06*sim.talentfrost.MercilessCombat)
-			tmp = tmp *(1+2*sim.RuneForge.RazorIceStack/100) 'TODO: only on main target
+		tmp *= sim.RuneForge.RazorIceMultiplier(T) 'TODO: only on main target
 		if sim.RuneForge.CheckCinderglacier(True) > 0 then tmp *= 1.2
 		AvrgNonCrit = tmp
 	End Function
