@@ -32,6 +32,7 @@ Public Class rune
 			AvailableTime = T + RuneRefreshtime
 		End If
 		sim.proc.tryT104PDPS(T)
+		sim.FutureEventManager.Add(AvailableTime,"Rune")
 	End Sub
 
 	Function RuneRefreshtime As Integer

@@ -98,12 +98,15 @@ Friend Class DRW
 			End If
 			UseGCD(T)
 			NextDRW = T
+			sim.FutureEventManager.Add(NextDRW,"DRW")
 			sim.combatlog.write(T  & vbtab &  "Summon DRW")
 			return true
 		End If
 	End Function
 	Function ApplyDamage(T As long) As boolean
 		NextDRW = T + (100 * 3.5 / Haste)
+		sim.FutureEventManager.Add(NextDRW,"DRW")
+		
 		Dim RNG As Double
 		dim retour as Integer
 		RNG = RngHit

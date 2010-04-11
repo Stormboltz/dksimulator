@@ -1,5 +1,6 @@
 Imports Microsoft.VisualBasic
 Public Class Sim
+	Friend Cataclysm as Boolean
 	Friend UselessCheck As Long
 	Friend UselessCheckColl as New Collection
 	
@@ -30,9 +31,7 @@ Public Class Sim
 	Friend NumberOfEnemies as Integer
 	Private SimStart As Date
 	Friend ICCDamageBuff as Integer
-	
-	
-	
+	Friend FutureEventManager as New FutureEventManager
 	Friend Threat as Long
 	Private AMSTimer As Long
 	Private AMSCd As Integer
@@ -102,8 +101,8 @@ Public Class Sim
 	Friend Butchery As Butchery
 	Friend DeathandDecay as DeathandDecay
 	Friend DeathChill As DeathChill
-
-    'Friend Desolation As Desolation
+	
+	'Friend Desolation As Desolation
 	Friend Horn As Horn
 	Friend HowlingBlast As HowlingBlast
 	Friend Hysteria  as Hysteria
@@ -135,11 +134,11 @@ Public Class Sim
 	Friend Rotation as Rotation
 	Friend RuneForge As RuneForge
 	
-    Friend Trinkets As Trinkets
+	Friend Trinkets As Trinkets
 	
 	Friend DamagingObject as new Collection
-    Friend TrinketsCollection As New Collection
-    Friend ProcCollection As New Collection
+	Friend TrinketsCollection As New Collection
+	Friend ProcCollection As New Collection
 	
 	Friend MergeReport as Boolean
 	Friend WaitForFallenCrusader as Boolean
@@ -205,7 +204,7 @@ Public Class Sim
 	
 	Private SimTime As Double
 	Sub Prepare (SimTime As Double, MainFrm As MainForm)
-
+		
 		me.SimTime = SimTime
 		_MainFrm=MainFrm
 	End Sub
@@ -291,10 +290,14 @@ Public Class Sim
 		' Pre Pull Activities
 		
 		PrePull(TimeStamp)
-		
-		
+		SoftReset
+		Dim FE As FutureEvent
 		Do Until TimeStamp >= MaxTime
-			TimeStamp = FastFoward(TimeStamp)
+			'TimeStamp = FastFoward(TimeStamp)
+			
+			FE = Me.FutureEventManager.GetFirst
+			TimeStamp = FE.T
+			
 			If TimeStamp >= MaxTime Then goto finnish
 			If NextReset <= Timestamp Then
 				StoreMyDamage(TotalDamage)
@@ -302,112 +305,121 @@ Public Class Sim
 				LastReset = NextReset
 				NextReset = NextReset + resetTime
 			End If
-			If FrostPresence = 1 Then
-				If Boss.NextHit <= TimeStamp Then
-					Boss.ApplyDamage(TimeStamp)
-				End If
-			End If
-			application.DoEvents
-			If AMSTimer < TimeStamp Then
-				AMSTimer = TimeStamp + AMSCd
-				RunicPower.add(AMSAmount)
-			End If
-			If TalentBlood.Butchery > 0 And Butchery.nextTick <= TimeStamp Then
-				Butchery.apply(TimeStamp)
-			End If
-			If true then 'InterruptTimer > TimeStamp Or InterruptAmount == 0 Then 'Interrupt fighting every InterruptCd secs
-				proc.Bloodlust.TryMe(TimeStamp)
-				if TalentBlood.DRW = 1 then
-					If DRW.IsActive(TimeStamp) Then
-						if DRW.NextDRW <= TimeStamp then DRW.ApplyDamage(TimeStamp)
+			proc.Bloodlust.TryMe(TimeStamp)
+			Select Case FE.Ev
+				Case "Boss"
+					If FrostPresence = 1 Then
+						If Boss.NextHit <= TimeStamp Then
+							Boss.ApplyDamage(TimeStamp)
+						End If
 					End If
-				end if
-				If PetFriendly Then
-					If TalentUnholy.SummonGargoyle = 1 Then
-						If Gargoyle.ActiveUntil >= TimeStamp Then
-							If Gargoyle.NextGargoyleStrike <= TimeStamp Then Gargoyle.ApplyDamage(TimeStamp)
-						end if
+				Case "GCD", "Rune"
+					If isInGCD(TimeStamp) = False and me.Rotation.IntroDone = false Then
+						rotation.DoIntro(TimeStamp)
 					End If
-				end if
-				If isInGCD(TimeStamp) = False and me.Rotation.IntroDone = false Then
-					rotation.DoIntro(TimeStamp)
-				End If
-				If isInGCD(TimeStamp) = False Then
-					If BoneShieldUsageStyle = 2 Then
-						If runes.BloodRune1.Available(TimeStamp) = False Then
-							If runes.BloodRune2.Available(TimeStamp) = False Then
-								if BoneShield.IsAvailable(TimeStamp) Then
-									BoneShield.Use(TimeStamp)
-								End If
-								If UnbreakableArmor.IsAvailable(TimeStamp) Then
-									UnbreakableArmor.Use(TimeStamp)
+					
+					If isInGCD(TimeStamp) = False Then
+						If BoneShieldUsageStyle = 2 Then
+							If runes.BloodRune1.Available(TimeStamp) = False Then
+								If runes.BloodRune2.Available(TimeStamp) = False Then
+									if BoneShield.IsAvailable(TimeStamp) Then
+										BoneShield.Use(TimeStamp)
+									End If
+									If UnbreakableArmor.IsAvailable(TimeStamp) Then
+										UnbreakableArmor.Use(TimeStamp)
+									End If
 								End If
 							End If
 						End If
 					End If
-				End If
-				
-				If isInGCD(TimeStamp) = False and me.Rotation.IntroDone = true Then
-					if Rotate then
-						Rotation.DoRoration(TimeStamp)
-					else
-						Priority.DoNext (TimeStamp)
+					
+					If isInGCD(TimeStamp) = False and me.Rotation.IntroDone = true Then
+						if Rotate then
+							Rotation.DoRoration(TimeStamp)
+						else
+							Priority.DoNext (TimeStamp)
+						End If
 					End If
-				End If
-				If PetFriendly Then
+					
 					If isInGCD(TimeStamp) = False Then
 						If Ghoul.ActiveUntil < TimeStamp and Ghoul.cd < TimeStamp and CanUseGCD(TimeStamp) Then
 							Ghoul.Summon(TimeStamp)
 						end if
 					End If
-					if Ghoul.ActiveUntil >= TimeStamp then
-						Ghoul.TryActions(TimeStamp)
-					End If
-				End If
-				
-				If PetFriendly Then
+					
 					If isInGCD(TimeStamp) = False Then
 						If AoTD.cd < TimeStamp and CanUseGCD(TimeStamp) Then
 							AoTD.Summon(TimeStamp)
 						end if
 					End If
+					
+					If isInGCD(TimeStamp) = False and me.Rotation.IntroDone = true Then
+						If horn.isAutoAvailable(TimeStamp) and CanUseGCD(TimeStamp) Then
+							horn.use(TimeStamp)
+						end if
+					End If
+					
+				Case "AotD"
 					if AoTD.ActiveUntil >= TimeStamp then
 						If AoTD.NextWhiteMainHit <= TimeStamp Then AoTD.ApplyDamage(TimeStamp)
 						If AoTD.NextClaw <= TimeStamp Then AoTD.Claw(TimeStamp)
 					End If
-				End If
-				
-				
-				If MainHand.NextWhiteMainHit <= TimeStamp Then MainHand.ApplyDamage(TimeStamp)
-				If MainStat.DualW Then
-					If OffHand.NextWhiteOffHit <= TimeStamp Then OffHand.ApplyDamage(TimeStamp)
-				End If
-			Else
-				'InterruptTimer > TimeStamp Or InterruptAmount
+					
+				Case "Disease"
+					If BloodPlague.isActive(TimeStamp) Then
+						If BloodPlague.nextTick <= TimeStamp Then
+							BloodPlague.ApplyDamage(TimeStamp)
+						End If
+					End If
+					If FrostFever.isActive(TimeStamp) Then
+						If FrostFever.nextTick <= TimeStamp Then
+							FrostFever.ApplyDamage(TimeStamp)
+						End If
+					End If
+					
+				Case "DRW"
+					If DRW.IsActive(TimeStamp) Then
+						if DRW.NextDRW <= TimeStamp then DRW.ApplyDamage(TimeStamp)
+					End If
+					
+				Case "Gargoyle"
+					If Gargoyle.ActiveUntil >= TimeStamp Then
+						If Gargoyle.NextGargoyleStrike <= TimeStamp Then Gargoyle.ApplyDamage(TimeStamp)
+					End If
+					
+				Case "Ghoul"
+					if Ghoul.ActiveUntil >= TimeStamp then
+						Ghoul.TryActions(TimeStamp)
+					End If
+					
+				Case "Butchery"
+					Butchery.apply(TimeStamp)
+					
+				Case "MainHand"
+					MainHand.ApplyDamage(TimeStamp)
+					
+				Case "OffHand"
+					OffHand.ApplyDamage(TimeStamp)
+					
+				Case "D&D"
+					DeathandDecay.ApplyDamage(TimeStamp)
+					
+				Case Else
+					Debug.Print ("WTF is this event ?")
+					
+			End Select
+			
+			
+			application.DoEvents
+			If AMSTimer < TimeStamp Then
+				AMSTimer = TimeStamp + AMSCd
+				RunicPower.add(AMSAmount)
 			End If
-			If isInGCD(TimeStamp) = False and me.Rotation.IntroDone = true Then
-				If horn.isAutoAvailable(TimeStamp) and CanUseGCD(TimeStamp) Then
-					horn.use(TimeStamp)
-				end if
-			End If
-			If DeathandDecay.nextTick = TimeStamp Then
-				DeathandDecay.ApplyDamage(TimeStamp)
-			End If
-			If BloodPlague.isActive(TimeStamp) Then
-				If BloodPlague.nextTick <= TimeStamp Then
-					BloodPlague.ApplyDamage(TimeStamp)
-				End If
-			End If
-			If FrostFever.isActive(TimeStamp) Then
-				If FrostFever.nextTick <= TimeStamp Then
-					FrostFever.ApplyDamage(TimeStamp)
-				End If
-			End If
-			If ShowDpsTimer <= TimeStamp Then
-				ShowDpsTimer = TimeStamp + 0.1 * 60 * 60 * 100
-			ElseIf ShowDpsTimer <= TimeStamp Then
-				ShowDpsTimer = TimeStamp + 0.1 * 60 * 60 * 100
-			End If
+'			If ShowDpsTimer <= TimeStamp Then
+'				ShowDpsTimer = TimeStamp + 0.1 * 60 * 60 * 100
+'			ElseIf ShowDpsTimer <= TimeStamp Then
+'				ShowDpsTimer = TimeStamp + 0.1 * 60 * 60 * 100
+'			End If
 		Loop
 		'Finnish Line
 		finnish:
@@ -435,6 +447,7 @@ Public Class Sim
 		Report()
 		Debug.Print( "DPS=" & DPS & " " & "TPS=" & TPS & " " & EPStat & " hit=" & mainstat.Hit & " sphit=" & mainstat.SpellHit & " exp=" & mainstat.expertise )
 		'Debug.Print( "UselessCheck = " & UselessCheck)
+		Debug.Print("Max events in queue " & me.FutureEventManager.Max )
 		combatlog.finish
 		On Error Resume Next
 		If Me.FrostPresence = 1 Then
@@ -451,7 +464,7 @@ Public Class Sim
 	Function TotalDamage() as Long
 		Dim i As long
 		dim obj as Supertype
-
+		
 		For Each obj In Me.DamagingObject
 			i += obj.Total
 		Next
@@ -471,6 +484,7 @@ Public Class Sim
 		End If
 		tmp = T + tmp + latency / 10
 		If tmp > NextFreeGCD Then NextFreeGCD = tmp
+		FutureEventManager.Add(NextFreeGCD,"GCD")
 	End Sub
 	
 	Function isInGCD(T As long ) As Boolean
@@ -577,7 +591,7 @@ Public Class Sim
 		if me._EPStat <> "Desecration" then talentunholy.Desecration = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Desecration").InnerText)
 		if me._EPStat <> "Desolation" then  talentunholy.Desolation = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Desolation").InnerText)
 		
-			
+		
 		
 		
 		
@@ -593,7 +607,7 @@ Public Class Sim
 	End Function
 	
 	Sub SoftReset()
-		
+		FutureEventManager.Clear
 		Me.RotationStep = 0
 		Me.Rotation.IntroStep=0
 		Me.Runes.BloodRune1.AvailableTime = 0
@@ -602,6 +616,10 @@ Public Class Sim
 		Me.Runes.FrostRune2.AvailableTime = 0
 		Me.Runes.UnholyRune1.AvailableTime = 0
 		Me.Runes.UnholyRune2.AvailableTime = 0
+		
+		FutureEventManager.Add(TimeStamp,"Rune")
+		
+		
 		
 		RunicPower.Reset()
 		BloodPlague.nextTick = 0
@@ -614,12 +632,20 @@ Public Class Sim
 		AoTD.cd = 0
 		Hysteria.CD = TimeStamp
 		DeathChill.Cd = 0
-        'Desolation = New Desolation(me)
+		'Desolation = New Desolation(me)
 		MainHand.NextWhiteMainHit = TimeStamp
-		OffHand.NextWhiteOffHit = TimeStamp
-		Gargoyle.NextGargoyleStrike = TimeStamp
+		FutureEventManager.Add(TimeStamp,"MainHand")
+		
+		if MainStat.DualW then		
+			OffHand.NextWhiteOffHit = TimeStamp
+			FutureEventManager.Add(TimeStamp,"OffHand")
+		End If
+			
+		Gargoyle.NextGargoyleStrike = 0
+		
 		Ghoul.NextClaw = TimeStamp
-		Ghoul.NextWhiteMainHit = TimeStamp 
+		Ghoul.NextWhiteMainHit = TimeStamp
+		FutureEventManager.Add(TimeStamp,"Ghoul")
 		Frenzy.CD = 0
 		DeathandDecay.CD = 0
 		Gargoyle.cd = 0
@@ -635,8 +661,11 @@ Public Class Sim
 		AMSAmount = _MainFrm.txtAMSrp.text
 		ERW.CD = 0
 		RuneForge.SoftReset
+		If TalentBlood.Butchery > 0 Then
+			Butchery.nextTick = TimeStamp + 500
+			FutureEventManager.Add(Butchery.nextTick,"Butchery")
+		End If
 		me.Rotation.IntroDone = false
-		
 		PrePull(TimeStamp)
 	End Sub
 	
@@ -645,7 +674,7 @@ Public Class Sim
 		'RandomNumberGenerator.Init 'done in Start
 		'DamagingObject.Clear
 		PetFriendly = SimConstructor.PetFriendly
-			
+		
 		'_EpStat = SimConstructor.EpStat
 		
 		Buff = New Buff(Me)
@@ -671,7 +700,7 @@ Public Class Sim
 		DRW = New DRW(Me)
 		RuneStrike = New RuneStrike(Me)
 		'LoadConfig
-        'Desolation = New Desolation(me)
+		'Desolation = New Desolation(me)
 		RunicPower.Reset()
 		NextFreeGCD = 0
 		Threat = 0
@@ -770,7 +799,7 @@ Public Class Sim
 		End If
 		latency = XmlConfig.SelectSingleNode("//config/latency").InnerText
 		ShowProc = XmlConfig.SelectSingleNode("//config/ShowProc").InnerText
-
+		
 		Dim Sigil As String
 		Sigils = New Sigils(Me)
 		
@@ -978,7 +1007,7 @@ Public Class Sim
 		
 		
 		
-
+		
 		dim i as Integer
 		Dim tot As Long
 		dim STmp as string
@@ -1128,6 +1157,7 @@ Public Class Sim
 				aT.Add(AoTD.NextClaw)
 			End If
 		End If
+		
 		aT.Add(MainHand.NextWhiteMainHit)
 		If MainStat.DualW Then
 			aT.Add(OffHand.NextWhiteOffHit)

@@ -1,6 +1,8 @@
 ﻿1.2.1.4 Release notes
 * Runic power: Report at the end of the sim some data about runic power usage.
 * ToT strike always hit.
+* Herkuml War Token max stack correction.
+* Tiny Abomination that can now proc other stuff.
 * Report:
 - DRW - Show strikes separeted
 - Ghoul attack separeted.
@@ -8,7 +10,7 @@
 * Character with gear:
  - Armory import
  - Enchants will have to be reselected for characters created with previous release.
- - Database update (item correction/addition).
+ - Database update (item correction/addition (Arthas weapons)).
 
 1.2.1.3 Release notes
 * "Wait for Fallen Crusader option" tweak.

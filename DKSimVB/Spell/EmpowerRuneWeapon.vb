@@ -25,6 +25,7 @@ Public Class EmpowerRuneWeapon
 		sim.RunicPower.add(25)
 		sim.combatlog.write(T  & vbtab &  "EmpowerRuneWeapon"  )
 		sim.NextFreeGCD = T+1
+		sim.FutureEventManager.Add(sim.NextFreeGCD,"GCD")
 		return true
 	End Function
 	

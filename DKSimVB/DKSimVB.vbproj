@@ -54,6 +54,8 @@
     <Import Include="System.Diagnostics" />
     <Import Include="System.Drawing" />
     <Import Include="System.Windows.Forms" />
+    <Compile Include="code\FutureEventManager\FutureEvent.vb" />
+    <Compile Include="code\FutureEventManager\FutureEventManager.vb" />
     <Compile Include="code\Supertype.vb" />
     <Compile Include="GearSelector\ArmoryImport\frmArmoryImport.Designer.vb">
       <DependentUpon>frmArmoryImport.vb</DependentUpon>
@@ -143,6 +145,7 @@
     <Compile Include="Progress.vb" />
     <Compile Include="Properties\AssemblyInfo.vb" />
     <Folder Include="code" />
+    <Folder Include="code\FutureEventManager" />
     <Folder Include="CombatLog" />
     <Folder Include="Characters" />
     <Folder Include="Diseases" />
@@ -173,6 +176,7 @@
     <Compile Include="code\TalentBlood.vb" />
     <Compile Include="code\TalentFrost.vb" />
     <Compile Include="code\TalentUnholy.vb" />
+    <Compile Include="Runes\CataRune.vb" />
     <Compile Include="Runes\rune.vb" />
     <Compile Include="Runes\runes.vb" />
     <Compile Include="Special\AotD.vb" />

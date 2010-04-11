@@ -33,6 +33,7 @@ Public Class Boss
 		Dim RNGHit As Double
 		RNGHit = MyRng
 		NextHit = T+Speed
+		sim.FutureEventManager.Add(NextHit,"Boss")
 		If RNGHit > Avoidance Then
 			'Boss hit
 			sim.BoneShield.UseCharge(T)

@@ -90,6 +90,7 @@ Friend Class BloodTap
 		sim.RunicPower.add(10)
 		Me.HitCount = Me.HitCount + 1
 		sim.NextFreeGCD = T+1
+		sim.FutureEventManager.Add(sim.NextFreeGCD,"GCD")
 		return true
 	End Function
 	
@@ -108,6 +109,7 @@ Friend Class BloodTap
 		sim.RunicPower.add(10)
 		Me.HitCount = Me.HitCount + 1
 		sim.NextFreeGCD = T+1
+		sim.FutureEventManager.Add(sim.NextFreeGCD,"GCD")
 		return true
 	End Function
 	

@@ -30,7 +30,7 @@ Sub New(S As sim)
 		
         dNextWhiteMainHit = dNextWhiteMainHit + (WSpeed * 100) / sim.MainStat.Haste
 		NextWhiteMainHit = dNextWhiteMainHit
-		
+		sim.FutureEventManager.Add(NextWhiteMainHit,"MainHand")
 		
 		If sim.FrostPresence = 1 Then
 			if sim.RuneStrike.trigger = true and Sim.RunicPower.Check(20) then

@@ -16,11 +16,7 @@ Friend Class BloodBoil
 	overrides Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
 		
-		'If sim.TalentFrost.BloodoftheNorth = 5 Or sim.TalentUnholy.Reaping = 3 Then
-		'	runes.UseBlood(T,True)
-		'Else
 		sim.runes.UseBlood(T,False)
-		'End If
 		
 		Dim intCount As Integer
 		For intCount = 1 To Sim.NumberOfEnemies
@@ -53,7 +49,7 @@ Friend Class BloodBoil
 		Sim.RunicPower.add (10) 
 		
 		return true
-		'Debug.Print T & vbTab & "DeathCoil for " & Range("Abilities!N24").Value
+		
 	End Function
 	overrides Function AvrgNonCrit(T As long) As Double
 		Dim tmp As Double

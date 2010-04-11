@@ -56,6 +56,7 @@ Public Class AotD
 				sim.combatlog.write(T  & vbtab &  "Summon AoTD")
 				UseGCD(T)
 			End If
+			sim.FutureEventManager.Add(T,"AotD")
 		End If
 	End Sub
 	
@@ -67,6 +68,7 @@ Public Class AotD
 		ActiveUntil = T + 30 * 100
 		cd =  T + (10*60*100) - (120*100*sim.TalentUnholy.NightoftheDead)
 		sim.combatlog.write(T  & vbtab &  "Pre-Pull AoTD")
+		sim.FutureEventManager.Add(T,"AotD")
 	End Sub
 	
 	
@@ -74,6 +76,7 @@ Public Class AotD
 	
 	sub UseGCD(T as Long)
 		Sim.NextFreeGCD = T + sim.latency/10 + 400
+		sim.FutureEventManager.Add(sim.NextFreeGCD,"GCD")
 	End Sub
 	
 	Function Haste() As Double
@@ -94,7 +97,7 @@ Public Class AotD
 		Dim WSpeed As Single
 		WSpeed = MHWeaponSpeed
 		NextWhiteMainHit = T + (WSpeed * 100) / Haste
-		
+		sim.FutureEventManager.Add(NextWhiteMainHit,"AotD")
 		Dim RNG As Double
 		RNG = RngHit
 
@@ -170,6 +173,7 @@ Public Class AotD
 			if sim.combatlog.LogDetails then 	sim.combatlog.write(T  & vbtab &  "AotD Ghoul's Claw hit for " & dégat)
 		End If
 		NextClaw = T+450
+		sim.FutureEventManager.Add(NextClaw,"AotD")
 		return true
 	End Function
 	Function ClawAvrgNonCrit(T As long) As integer

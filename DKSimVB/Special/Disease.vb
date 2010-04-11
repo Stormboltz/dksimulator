@@ -97,6 +97,7 @@ Public Class Disease
 	Overridable Function Apply(T As Long) As Boolean
 		ToReApply = false
 		nextTick = T + 3 * 100
+		sim.FutureEventManager.Add(nextTick,"Disease")
 		ScourgeStrikeGlyphCounter = 0
 		CritChance = sim.MainStat.crit
 		If sim.RuneForge.CheckCinderglacier(False) > 0 Then
@@ -153,6 +154,7 @@ Public Class Disease
 			End If
 			sim.tryOnDoT
 			nextTick = T + 300
+			sim.FutureEventManager.Add(nextTick,"Disease")
 			If sim.combatlog.LogDetails Then sim.combatlog.write(T  & vbtab & Me.ToString & " hit for " & tmp )
 		Next intCount
 		return true

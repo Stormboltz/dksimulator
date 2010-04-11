@@ -94,10 +94,10 @@
     <DeathStrike>0</DeathStrike>
     <FrostStrike>0</FrostStrike>
     <HowlingBlast>0</HowlingBlast>
-    <IcyTouch>0</IcyTouch>
+    <IcyTouch>1</IcyTouch>
     <Obliterate>0</Obliterate>
     <PlagueStrike>0</PlagueStrike>
-    <ScourgeStrike>1</ScourgeStrike>
+    <ScourgeStrike>0</ScourgeStrike>
     <UnholyBlight>0</UnholyBlight>
     <Ghoul>1</Ghoul>
     <DeathandDecay>0</DeathandDecay>

@@ -40,6 +40,7 @@ Friend Class Gargoyle
 			SpellHit = sim.MainStat.SpellHit
 			UseGCD(T)
 			NextGargoyleStrike = T + 1000
+			sim.FutureEventManager.Add(NextGargoyleStrike,"Gargoyle")
 			sim.CombatLog.write(T & vbTab & "Summon Gargoyle")
 			Return True
 		End If
@@ -49,7 +50,7 @@ Friend Class Gargoyle
 	End Sub
 	Function ApplyDamage(ByVal T As Long) As Boolean
 		NextGargoyleStrike = T + StrikeCastTime
-		'Debug.Print( (2 * 100) / (1 + SpellHaste) )
+		sim.FutureEventManager.Add(NextGargoyleStrike,"Gargoyle")
 		Dim RNG As Double
 
 		RNG = RngHit

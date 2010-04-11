@@ -19,7 +19,7 @@ Friend Class OffHand
 		
         dNextWhiteOffHit = dNextWhiteOffHit + (WSpeed * 100) / sim.MainStat.Haste
 		NextWhiteOffHit = dNextWhiteOffHit
-
+		sim.FutureEventManager.Add(NextWhiteOffHit,"OffHand")
 		
 		
 		

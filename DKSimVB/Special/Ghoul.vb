@@ -36,6 +36,7 @@ Friend class Ghoul
 	
 	Sub Summon(T As Long)
 		If cd <= T Then
+			sim.FutureEventManager.Add(T,"Ghoul")
 			MeleeMissChance = math.Max(0.08 - sim.GhoulStat.Hit,0)
 			MeleeDodgeChance =  math.Max(0.065 - sim.GhoulStat.Expertise,0)
 			SpellMissChance = math.Max(0.17 - sim.GhoulStat.SpellHit,0)
@@ -120,6 +121,7 @@ Friend class Ghoul
 		Dim WSpeed As Single
 		WSpeed = sim.GhoulStat.MHWeaponSpeed
 		NextWhiteMainHit = T + sim.GhoulStat.SwingTime(Haste()) * 100
+		sim.FutureEventManager.Add(NextWhiteMainHit,"Ghoul")
 		Dim RNG As Double
 		RNG = RngHit
 
@@ -194,6 +196,7 @@ Friend class Ghoul
 			if sim.combatlog.LogDetails then 	sim.combatlog.write(T  & vbtab &  "Ghoul's Claw hit for " & dégat)
 		End If
 		NextClaw = T+sim.GhoulStat.ClawTime(haste()) * 100
+		sim.FutureEventManager.Add(NextClaw,"Ghoul")
 		return true
 	End Function
 	Function ClawAvrgNonCrit(T As long) As integer
