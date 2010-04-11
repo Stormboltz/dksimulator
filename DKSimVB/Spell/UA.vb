@@ -26,6 +26,7 @@ Sub New(S As sim)
 		If sim.runes.Frost(T) = False Then
 			If sim.BloodTap.IsAvailable(T) Then
 				sim.BloodTap.Use(T)
+				return true
 			Else
 				return false
 			End If

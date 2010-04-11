@@ -10,7 +10,7 @@ Public Class CataRune
 	Friend Value As Integer
 	Friend reserved As Boolean
 	Friend death As Boolean
-	Friend RefillRate as Double ' rune value per second
+	
 	
 	Friend BTuntil as Long
 	Protected Sim As Sim
@@ -30,6 +30,13 @@ Public Class CataRune
 		sim.proc.tryT104PDPS(T)
 		sim.FutureEventManager.Add(AvailableTime,"Rune")
 	End Sub
+	Function RefillRate As Double 'Rune fraction per second
+		'withoutHaste 5s per rune 
+		Dim tmp As Double
+		tmp = (1/5)*sim.MainStat.Haste
+		return tmp
+	End Function
+	
 	
 	Function Available(T As Long) As Boolean
 		If value >= 100 Then
@@ -39,7 +46,8 @@ Public Class CataRune
 		End If
 	End Function
 	Function AvailableTime As Long
-		
+		Dim tmp As Long
+		return ((100-value)*RefillRate + T)
 	End Function
 	
 End Class

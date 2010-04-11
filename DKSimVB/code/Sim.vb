@@ -314,48 +314,49 @@ Public Class Sim
 						End If
 					End If
 				Case "GCD", "Rune"
-					If isInGCD(TimeStamp) = False and me.Rotation.IntroDone = false Then
+					If isInGCD(TimeStamp) Then GoTo NextOne
+					If me.Rotation.IntroDone = false Then
 						rotation.DoIntro(TimeStamp)
+						if isInGCD(TimeStamp) then goto NextOne
 					End If
 					
-					If isInGCD(TimeStamp) = False Then
-						If BoneShieldUsageStyle = 2 Then
-							If runes.BloodRune1.Available(TimeStamp) = False Then
-								If runes.BloodRune2.Available(TimeStamp) = False Then
-									if BoneShield.IsAvailable(TimeStamp) Then
-										BoneShield.Use(TimeStamp)
-									End If
-									If UnbreakableArmor.IsAvailable(TimeStamp) Then
-										UnbreakableArmor.Use(TimeStamp)
-									End If
+					If BoneShieldUsageStyle = 2 Then
+						If runes.BloodRune1.Available(TimeStamp) = False Then
+							If runes.BloodRune2.Available(TimeStamp) = False Then
+								if BoneShield.IsAvailable(TimeStamp) Then
+									if BoneShield.Use(TimeStamp) then goto NextOne
+								End If
+								If UnbreakableArmor.IsAvailable(TimeStamp) Then
+									if UnbreakableArmor.Use(TimeStamp) then goto NextOne
 								End If
 							End If
 						End If
 					End If
 					
-					If isInGCD(TimeStamp) = False and me.Rotation.IntroDone = true Then
+					If me.Rotation.IntroDone = true Then
 						if Rotate then
 							Rotation.DoRoration(TimeStamp)
 						else
 							Priority.DoNext (TimeStamp)
 						End If
 					End If
+					If isInGCD(TimeStamp) Then GoTo NextOne
 					
-					If isInGCD(TimeStamp) = False Then
+					if PetFriendly then
 						If Ghoul.ActiveUntil < TimeStamp and Ghoul.cd < TimeStamp and CanUseGCD(TimeStamp) Then
 							Ghoul.Summon(TimeStamp)
+							If isInGCD(TimeStamp) Then GoTo NextOne
 						end if
-					End If
-					
-					If isInGCD(TimeStamp) = False Then
 						If AoTD.cd < TimeStamp and CanUseGCD(TimeStamp) Then
 							AoTD.Summon(TimeStamp)
+							If isInGCD(TimeStamp) Then GoTo NextOne
 						end if
 					End If
 					
-					If isInGCD(TimeStamp) = False and me.Rotation.IntroDone = true Then
+					If me.Rotation.IntroDone Then
 						If horn.isAutoAvailable(TimeStamp) and CanUseGCD(TimeStamp) Then
 							horn.use(TimeStamp)
+							If isInGCD(TimeStamp) Then GoTo NextOne
 						end if
 					End If
 					
@@ -403,7 +404,10 @@ Public Class Sim
 					
 				Case "D&D"
 					DeathandDecay.ApplyDamage(TimeStamp)
-					
+				Case "AMS"
+						AMSTimer = TimeStamp + AMSCd
+						RunicPower.add(AMSAmount)
+						FutureEventManager.Add(AMSTimer + AMSCd,"AMS")
 				Case Else
 					Debug.Print ("WTF is this event ?")
 					
@@ -411,15 +415,7 @@ Public Class Sim
 			
 			
 			application.DoEvents
-			If AMSTimer < TimeStamp Then
-				AMSTimer = TimeStamp + AMSCd
-				RunicPower.add(AMSAmount)
-			End If
-'			If ShowDpsTimer <= TimeStamp Then
-'				ShowDpsTimer = TimeStamp + 0.1 * 60 * 60 * 100
-'			ElseIf ShowDpsTimer <= TimeStamp Then
-'				ShowDpsTimer = TimeStamp + 0.1 * 60 * 60 * 100
-'			End If
+			NextOne:
 		Loop
 		'Finnish Line
 		finnish:
@@ -636,7 +632,7 @@ Public Class Sim
 		MainHand.NextWhiteMainHit = TimeStamp
 		FutureEventManager.Add(TimeStamp,"MainHand")
 		
-		if MainStat.DualW then		
+		if MainStat.DualW then
 			OffHand.NextWhiteOffHit = TimeStamp
 			FutureEventManager.Add(TimeStamp,"OffHand")
 		End If
@@ -657,8 +653,12 @@ Public Class Sim
 		BoneShield.PreBuff
 		NextFreeGCD = 0
 		AMSCd = _MainFrm.txtAMScd.text * 100
-		AMSTimer = _MainFrm.txtAMScd.text * 100
+		AMSTimer = TimeStamp + AMSCd
 		AMSAmount = _MainFrm.txtAMSrp.text
+		If AMSAmount <> 0 and AMSCd <> 0  Then
+			FutureEventManager.Add(AMSTimer + AMSCd,"AMS")
+		End If
+		
 		ERW.CD = 0
 		RuneForge.SoftReset
 		If TalentBlood.Butchery > 0 Then
