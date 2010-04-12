@@ -189,9 +189,10 @@ End Sub
 	Sub ProcRazorIce(Proc As WeaponProc, T As Long)
 		Dim tmp As Double
 		tmp = RIProc.procvalue
-		If sim.EPStat = "EP HasteEstimated" Then 
-			tmp *= sim.MainStat.EstimatedHasteBonus
-		End If
+		'Hastebonus should only be applied to procs from hasteable attacks
+		'If sim.EPStat = "EP HasteEstimated" Then 
+		'	tmp *= sim.MainStat.EstimatedHasteBonus
+		'End If
 		RIProc.ApplyFade(T)
 		With Proc
 			If Proc IsNot RIProc Then .HitCount += 1

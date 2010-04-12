@@ -8,12 +8,13 @@
 '
 Friend Class UnbreakableArmor
 	Inherits Spells.Spell
+	Friend previousFade as Long
+	
 	
 Sub New(S As sim)
 		MyBase.New(s)
 	End Sub
 	
-
 	
 	
 	Function IsAvailable(T As Long) As Boolean
@@ -26,7 +27,6 @@ Sub New(S As sim)
 		If sim.runes.Frost(T) = False Then
 			If sim.BloodTap.IsAvailable(T) Then
 				sim.BloodTap.Use(T)
-				return true
 			Else
 				return false
 			End If
@@ -47,12 +47,38 @@ Sub New(S As sim)
 		UseGCD(T)
 		sim.RunicPower.add(10)
 		sim.combatlog.write(T  & vbtab &  "Unbreakable Armor")
-		me.HitCount = me.HitCount +1
+		Me.HitCount = Me.HitCount +1
+		AddUptime(T)
 		return true
 	End Function
 	Function isActive() As Boolean
 		if ActiveUntil >= sim.TimeStamp then return true
 	End Function
+
+
+	Sub AddUptime(T As Long)
+		dim tmp as Long
+		If ActiveUntil > sim.MaxTime Then
+			tmp = (sim.MaxTime - T)
+		Else
+			tmp = ActiveUntil - T
+		End If
+		
+		If previousfade < T  Then
+		 	uptime += tmp
+		Else
+			uptime += tmp - (previousFade-T)
+		End If
+		previousFade = T + tmp
+	End Sub
+	
+	Sub RemoveUptime(T As Long)
+		If previousfade < T  Then
+		Else
+			uptime -= (previousFade-T)
+		End If
+		previousFade = T
+	End Sub
 
 		
 End Class

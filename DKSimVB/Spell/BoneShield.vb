@@ -8,7 +8,8 @@
 '
 Public Class BoneShield
 	Inherits Spells.Spell
-	Friend Charge as Integer
+	Friend Charge As Integer
+	Friend previousFade As Long
 	
 	Function BuffLength() as Integer
 		Return 300
@@ -25,6 +26,7 @@ Public Class BoneShield
 		Charge = Charge -1
 		If Charge = 0 Then
 			Me.ActiveUntil = T
+			RemoveUptime(T)
 			Charge = 0
 		End If
 	End Sub
@@ -46,7 +48,6 @@ Public Class BoneShield
 		If sim.runes.Unholy(T) = False Then
 			If sim.BloodTap.IsAvailable(T) Then
 				sim.BloodTap.Use(T)
-				return true
 			Else
 				return false
 			End If
@@ -67,11 +68,10 @@ Public Class BoneShield
 		UseGCD(T)
 		sim.RunicPower.add(10)
 		sim.combatlog.write(T  & vbtab &  "Bone Shield")
-		Charge = 4
-		If sim.Glyph.BoneShield Then
-			Charge = Charge + 1
-		End If
-		me.HitCount = me.HitCount +1
+		Charge = 3
+		If sim.Glyph.BoneShield Then Charge += 1
+		HitCount += 1
+		AddUptime(T)
 	End Function
 	
 	Function IsAvailable(T As Long) As Boolean
@@ -89,5 +89,31 @@ Public Class BoneShield
 			Return 0
 		End If
 	End Function
+
+	Sub AddUptime(T As Long)
+		dim tmp as Long
+		If ActiveUntil > sim.MaxTime Then
+			tmp = (sim.MaxTime - T)
+		Else
+			tmp = ActiveUntil - T
+		End If
+		
+		If previousfade < T  Then
+		 	uptime += tmp
+		Else
+			uptime += tmp - (previousFade-T)
+		End If
+		previousFade = T + tmp
+	End Sub
+	
+	Sub RemoveUptime(T As Long)
+		If previousfade < T  Then
+		Else
+			uptime -= (previousFade-T)
+		End If
+		previousFade = T
+	End Sub
+
+	
 	
 End Class

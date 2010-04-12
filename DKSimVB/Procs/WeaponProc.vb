@@ -5,6 +5,7 @@
 '
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
+
 Public Class WeaponProc
 	Inherits Proc
 	Friend DamageType As String
@@ -202,10 +203,10 @@ Public Class WeaponProc
 				debug.Print ( ME.Name & " not implemented")
 		End Select
 		
-		
-		If sim.EPStat = "EP HasteEstimated" and HasteSensible Then
-			tmp = tmp*sim.MainStat.EstimatedHasteBonus
-		End If
+		'Disabling Haste scaling for most procs
+		'If sim.EPStat = "EP HasteEstimated" and HasteSensible Then
+		'	tmp = tmp*sim.MainStat.EstimatedHasteBonus
+		'End If
 		total += tmp
 	End Sub
 
