@@ -181,8 +181,8 @@ Public Class Disease
 	
 	Sub AddUptime(T As Long)
 		dim tmp as Long
-		If Lenght + T > sim.MaxTime Then
-			tmp = (sim.MaxTime - T)
+		If Lenght + T > sim.NextReset Then
+			tmp = (sim.NextReset - T)
 		Else
 			tmp = Lenght
 		End If

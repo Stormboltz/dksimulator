@@ -19,7 +19,6 @@ Public Class BoneShield
 	
 	Sub New(MySim as Sim)
 		sim = MySim
-		PreBuff
 	End Sub
 	
 	Sub UseCharge(T as Long)
@@ -35,6 +34,7 @@ Public Class BoneShield
 		if sim.TalentUnholy.BoneShield = 1 then
 			Me.CD = 60*100
 			Me.ActiveUntil = sim.TimeStamp + BuffLength*100
+			AddUptime(sim.TimeStamp)
 		end if
 	End Sub
 	Public Overloads Overrides Sub Init()
@@ -92,8 +92,8 @@ Public Class BoneShield
 
 	Sub AddUptime(T As Long)
 		dim tmp as Long
-		If ActiveUntil > sim.MaxTime Then
-			tmp = (sim.MaxTime - T)
+		If ActiveUntil > sim.NextReset Then
+			tmp = (sim.NextReset - T)
 		Else
 			tmp = ActiveUntil - T
 		End If

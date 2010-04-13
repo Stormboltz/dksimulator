@@ -260,6 +260,118 @@ Public Class Sim
 		End Try
 	End Sub
 	
+	Function ProcessEvent(FE As FutureEvent) As Boolean
+		'this routine returns whether an explicit action was taken
+		proc.Bloodlust.TryMe(TimeStamp)
+		Select Case FE.Ev
+			Case "Boss"
+				If FrostPresence = 1 Then
+					If Boss.NextHit <= TimeStamp Then
+						Boss.ApplyDamage(TimeStamp)
+					End If
+				End If
+			Case "GCD", "Rune"
+				If isInGCD(TimeStamp) Then Return True
+				If me.Rotation.IntroDone = false Then
+					rotation.DoIntro(TimeStamp)
+					if isInGCD(TimeStamp) then Return True
+				End If
+				
+				If BoneShieldUsageStyle = 2 Then
+					If runes.BloodRune1.Available(TimeStamp) = False Then
+						If runes.BloodRune2.Available(TimeStamp) = False Then
+							if BoneShield.IsAvailable(TimeStamp) Then
+								if BoneShield.Use(TimeStamp) then Return True
+							End If
+							If UnbreakableArmor.IsAvailable(TimeStamp) Then
+								if UnbreakableArmor.Use(TimeStamp) then Return True
+							End If
+						End If
+					End If
+				End If
+				
+				If me.Rotation.IntroDone = true Then
+					if Rotate then
+						Rotation.DoRoration(TimeStamp)
+					else
+						Priority.DoNext (TimeStamp)
+					End If
+				End If
+				If isInGCD(TimeStamp) Then Return True
+				
+				if PetFriendly then
+					If Ghoul.ActiveUntil < TimeStamp and Ghoul.cd < TimeStamp and CanUseGCD(TimeStamp) Then
+						Ghoul.Summon(TimeStamp)
+						If isInGCD(TimeStamp) Then Return True
+					end if
+					If AoTD.cd < TimeStamp and CanUseGCD(TimeStamp) Then
+						AoTD.Summon(TimeStamp)
+						If isInGCD(TimeStamp) Then Return True
+					end if
+				End If
+				
+				If me.Rotation.IntroDone Then
+					If horn.isAutoAvailable(TimeStamp) and CanUseGCD(TimeStamp) Then
+						horn.use(TimeStamp)
+						If isInGCD(TimeStamp) Then Return True
+					end if
+				End If
+				
+			Case "AotD"
+				if AoTD.ActiveUntil >= TimeStamp then
+					If AoTD.NextWhiteMainHit <= TimeStamp Then AoTD.ApplyDamage(TimeStamp)
+					If AoTD.NextClaw <= TimeStamp Then AoTD.Claw(TimeStamp)
+				End If
+				
+			Case "Disease"
+				If BloodPlague.isActive(TimeStamp) Then
+					If BloodPlague.nextTick <= TimeStamp Then
+						BloodPlague.ApplyDamage(TimeStamp)
+					End If
+				End If
+				If FrostFever.isActive(TimeStamp) Then
+					If FrostFever.nextTick <= TimeStamp Then
+						FrostFever.ApplyDamage(TimeStamp)
+					End If
+				End If
+				
+			Case "DRW"
+				If DRW.IsActive(TimeStamp) Then
+					if DRW.NextDRW <= TimeStamp then DRW.ApplyDamage(TimeStamp)
+				End If
+				
+			Case "Gargoyle"
+				If Gargoyle.ActiveUntil >= TimeStamp Then
+					If Gargoyle.NextGargoyleStrike <= TimeStamp Then Gargoyle.ApplyDamage(TimeStamp)
+				End If
+				
+			Case "Ghoul"
+				if Ghoul.ActiveUntil >= TimeStamp then
+					Ghoul.TryActions(TimeStamp)
+				End If
+				
+			Case "Butchery"
+				Butchery.apply(TimeStamp)
+				
+			Case "MainHand"
+				MainHand.ApplyDamage(TimeStamp)
+				
+			Case "OffHand"
+				OffHand.ApplyDamage(TimeStamp)
+				
+			Case "D&D"
+				DeathandDecay.ApplyDamage(TimeStamp)
+			Case "AMS"
+					AMSTimer = TimeStamp + AMSCd
+					RunicPower.add(AMSAmount)
+					FutureEventManager.Add(AMSTimer + AMSCd,"AMS")
+			Case Else
+				Debug.Print ("WTF is this event ?")
+				
+		End Select
+		return False
+	End Function
+	
 	Sub Start()
 		SimStart = now
 		LoadConfig
@@ -279,6 +391,7 @@ Public Class Sim
 		Else
 			NumberOfFights = 1
 			resetTime = MaxTime + 1
+			NextReset = MaxTime
 		End If
 		Dim intCount As Integer
 		'Init
@@ -292,133 +405,24 @@ Public Class Sim
 		PrePull(TimeStamp)
 		SoftReset
 		Dim FE As FutureEvent
-		Do Until TimeStamp >= MaxTime
+		Do Until False
 			'TimeStamp = FastFoward(TimeStamp)
 			
 			FE = Me.FutureEventManager.GetFirst
 			TimeStamp = FE.T
 			
-			If TimeStamp >= MaxTime Then goto finnish
-			If NextReset <= Timestamp Then
+			If TimeStamp >= NextReset Then 
+				If MaxTime = NextReset Then Exit Do
 				StoreMyDamage(TotalDamage)
-				SoftReset
 				LastReset = NextReset
-				NextReset = NextReset + resetTime
+				NextReset += resetTime
+				If NextReset > MaxTime Then NextReset = MaxTime
+				SoftReset
 			End If
-			proc.Bloodlust.TryMe(TimeStamp)
-			Select Case FE.Ev
-				Case "Boss"
-					If FrostPresence = 1 Then
-						If Boss.NextHit <= TimeStamp Then
-							Boss.ApplyDamage(TimeStamp)
-						End If
-					End If
-				Case "GCD", "Rune"
-					If isInGCD(TimeStamp) Then GoTo NextOne
-					If me.Rotation.IntroDone = false Then
-						rotation.DoIntro(TimeStamp)
-						if isInGCD(TimeStamp) then goto NextOne
-					End If
-					
-					If BoneShieldUsageStyle = 2 Then
-						If runes.BloodRune1.Available(TimeStamp) = False Then
-							If runes.BloodRune2.Available(TimeStamp) = False Then
-								if BoneShield.IsAvailable(TimeStamp) Then
-									if BoneShield.Use(TimeStamp) then goto NextOne
-								End If
-								If UnbreakableArmor.IsAvailable(TimeStamp) Then
-									if UnbreakableArmor.Use(TimeStamp) then goto NextOne
-								End If
-							End If
-						End If
-					End If
-					
-					If me.Rotation.IntroDone = true Then
-						if Rotate then
-							Rotation.DoRoration(TimeStamp)
-						else
-							Priority.DoNext (TimeStamp)
-						End If
-					End If
-					If isInGCD(TimeStamp) Then GoTo NextOne
-					
-					if PetFriendly then
-						If Ghoul.ActiveUntil < TimeStamp and Ghoul.cd < TimeStamp and CanUseGCD(TimeStamp) Then
-							Ghoul.Summon(TimeStamp)
-							If isInGCD(TimeStamp) Then GoTo NextOne
-						end if
-						If AoTD.cd < TimeStamp and CanUseGCD(TimeStamp) Then
-							AoTD.Summon(TimeStamp)
-							If isInGCD(TimeStamp) Then GoTo NextOne
-						end if
-					End If
-					
-					If me.Rotation.IntroDone Then
-						If horn.isAutoAvailable(TimeStamp) and CanUseGCD(TimeStamp) Then
-							horn.use(TimeStamp)
-							If isInGCD(TimeStamp) Then GoTo NextOne
-						end if
-					End If
-					
-				Case "AotD"
-					if AoTD.ActiveUntil >= TimeStamp then
-						If AoTD.NextWhiteMainHit <= TimeStamp Then AoTD.ApplyDamage(TimeStamp)
-						If AoTD.NextClaw <= TimeStamp Then AoTD.Claw(TimeStamp)
-					End If
-					
-				Case "Disease"
-					If BloodPlague.isActive(TimeStamp) Then
-						If BloodPlague.nextTick <= TimeStamp Then
-							BloodPlague.ApplyDamage(TimeStamp)
-						End If
-					End If
-					If FrostFever.isActive(TimeStamp) Then
-						If FrostFever.nextTick <= TimeStamp Then
-							FrostFever.ApplyDamage(TimeStamp)
-						End If
-					End If
-					
-				Case "DRW"
-					If DRW.IsActive(TimeStamp) Then
-						if DRW.NextDRW <= TimeStamp then DRW.ApplyDamage(TimeStamp)
-					End If
-					
-				Case "Gargoyle"
-					If Gargoyle.ActiveUntil >= TimeStamp Then
-						If Gargoyle.NextGargoyleStrike <= TimeStamp Then Gargoyle.ApplyDamage(TimeStamp)
-					End If
-					
-				Case "Ghoul"
-					if Ghoul.ActiveUntil >= TimeStamp then
-						Ghoul.TryActions(TimeStamp)
-					End If
-					
-				Case "Butchery"
-					Butchery.apply(TimeStamp)
-					
-				Case "MainHand"
-					MainHand.ApplyDamage(TimeStamp)
-					
-				Case "OffHand"
-					OffHand.ApplyDamage(TimeStamp)
-					
-				Case "D&D"
-					DeathandDecay.ApplyDamage(TimeStamp)
-				Case "AMS"
-						AMSTimer = TimeStamp + AMSCd
-						RunicPower.add(AMSAmount)
-						FutureEventManager.Add(AMSTimer + AMSCd,"AMS")
-				Case Else
-					Debug.Print ("WTF is this event ?")
-					
-			End Select
-			
-			
+			ProcessEvent(FE)
 			application.DoEvents
-			NextOne:
 		Loop
-		'Finnish Line
-		finnish:
+
 		TotalDamageAlternative = TotalDamageAlternative + TotalDamage
 		TimeStampCounter = TimeStampCounter + TimeStamp
 		'TotalDamage = TotalDamageAlternative

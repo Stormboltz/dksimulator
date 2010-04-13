@@ -189,8 +189,8 @@ Public Class Proc
 	
 	Sub AddUptime(T As Long)
 		dim tmp as Long
-		If ProcLenght*100 + T > sim.MaxTime Then
-			tmp = (sim.MaxTime - T)/100
+		If ProcLenght*100 + T > sim.NextReset Then
+			tmp = (sim.NextReset - T)/100
 		Else
 			tmp = ProcLenght
 		End If

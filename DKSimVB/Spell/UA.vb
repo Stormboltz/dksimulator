@@ -58,8 +58,8 @@ Sub New(S As sim)
 
 	Sub AddUptime(T As Long)
 		dim tmp as Long
-		If ActiveUntil > sim.MaxTime Then
-			tmp = (sim.MaxTime - T)
+		If ActiveUntil > sim.NextReset Then
+			tmp = (sim.NextReset - T)
 		Else
 			tmp = ActiveUntil - T
 		End If
