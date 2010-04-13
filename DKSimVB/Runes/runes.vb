@@ -1,38 +1,50 @@
 Namespace Runes
-Friend Class runes
+Friend Partial Class runes
 	friend BloodRune1 As Rune
 	friend BloodRune2 As Rune
 	friend FrostRune1 As Rune
 	friend FrostRune2 As Rune
 	friend UnholyRune1 As Rune
-	friend UnholyRune2 As Rune
+	Friend UnholyRune2 As Rune
+	
+
+	
 	Protected sim As Sim
 	
 	Sub New(S As Sim)
 		Sim = S
-		BloodRune1 = new rune(s)
-		BloodRune2 = new rune(s)
-		FrostRune1 = new rune(s)
-		FrostRune2 = new rune(s)
-		UnholyRune1 = new rune(s)
-		UnholyRune2 = new rune(s)
-		
+		If s.Cataclysm Then
+			BloodRunes = New CataRune(s)
+			FrostRunes = New CataRune(s)
+			UnholyRunes = New CataRune(s)
+		Else
+			'I'm sure the sim will make the sim crash if something has been forgoten
+			BloodRune1 = new rune(s)
+			BloodRune2 = new rune(s)
+			FrostRune1 = new rune(s)
+			FrostRune2 = new rune(s)
+			UnholyRune1 = new rune(s)
+			UnholyRune2 = New rune(s)
+			BloodRune1.AvailableTime = 0
+			BloodRune1.death = False
+			BloodRune2.AvailableTime = 0
+			BloodRune2.death = False
+			FrostRune1.AvailableTime = 0
+			FrostRune1.death = False
+			FrostRune2.AvailableTime = 0
+			FrostRune2.death = False
+			UnholyRune1.AvailableTime = 0
+			UnholyRune1.death = False
+			UnholyRune2.AvailableTime = 0
+			UnholyRune2.death = False
+		End If
 		UnReserveFU(0)
-		BloodRune1.AvailableTime = 0
-		BloodRune1.death = False
-		BloodRune2.AvailableTime = 0
-		BloodRune2.death = False
-		FrostRune1.AvailableTime = 0
-		FrostRune1.death = False
-		FrostRune2.AvailableTime = 0
-		FrostRune2.death = False
-		UnholyRune1.AvailableTime = 0
-		UnholyRune1.death = False
-		UnholyRune2.AvailableTime = 0
-		UnholyRune2.death = False
 	End Sub
 	
+	
+	
 	Function RuneState() As String
+		if sim.Cataclysm then return CataRuneState
 		Dim T As Long
 		T = sim.TimeStamp
 		Dim tmp As String
@@ -100,11 +112,6 @@ Friend Class runes
 	End Function
 	
 	
-	
-	
-	
-	
-	
 	Function RuneRefreshtime As Integer
 		If sim.UnholyPresence Then
 			return 1000 - 50*sim.talentunholy.ImprovedUnholyPresence
@@ -114,6 +121,7 @@ Friend Class runes
 	End Function
 	
 	Function BFU (T As Long) As Boolean
+		if sim.Cataclysm then return cataBFU(T)
 		If BloodRune1.AvailableTime <= T Or BloodRune2.AvailableTime <= T Then
 			If FrostRune1.AvailableTime <= T or FrostRune2.AvailableTime <= T Then
 				If UnholyRune1.AvailableTime <= T Or UnholyRune2.AvailableTime <= T Then
@@ -125,6 +133,7 @@ Friend Class runes
 	
 	
 	Function GetNextUnholy(T As Long) As Long
+		if sim.Cataclysm then return CataGetNextUnholy(T)
 		Dim bArray As new ArrayList
 		if BloodRune1.AvailableTime > T 	And BloodRune1.death = true then bArray.Add(BloodRune1.AvailableTime)
 		If BloodRune2.AvailableTime > T 	And BloodRune2.death = true Then bArray.Add(BloodRune2.AvailableTime)
@@ -141,6 +150,7 @@ Friend Class runes
 	
 	
 	Function GetNextFrost(T As Long) As Long
+		if sim.Cataclysm then return CataGetNextFrost(T)
 		Dim bArray As new ArrayList
 		if BloodRune1.AvailableTime > T 	And BloodRune1.death = true then bArray.Add(BloodRune1.AvailableTime)
 		If BloodRune2.AvailableTime > T 	And BloodRune2.death = true Then bArray.Add(BloodRune2.AvailableTime)
@@ -158,6 +168,7 @@ Friend Class runes
 	
 	
 	Function GetNextBloodCD(T As Long) As Long
+		if sim.Cataclysm then return CataGetNextBloodCD(T)
 		Dim bArray As new ArrayList
 		
 '		if Rune1.AvailableTime > T 	And Rune1.death = false then bArray.Add(Rune1.AvailableTime)
@@ -179,7 +190,8 @@ Friend Class runes
 	
 	
 	
-	Function AnyBlood(T as long) As Boolean
+	Function AnyBlood(T As Long) As Boolean
+		if sim.Cataclysm then return CataAnyBlood(T)
 		If BloodRune1.AvailableTime <= T And BloodRune1.reserved=false Then return  True
 		If BloodRune2.AvailableTime <= T And BloodRune2.reserved=false Then return  True
 		If FrostRune1.AvailableTime <= T And FrostRune1.death = True and FrostRune1.reserved=false Then return  True
@@ -189,7 +201,8 @@ Friend Class runes
 	End Function
 	
 	
-	Function Blood(T as long) As Boolean
+	Function Blood(T As Long) As Boolean
+		if sim.Cataclysm then return CataBlood(T)
 		If BloodRune1.AvailableTime <= T And BloodRune1.death = False and BloodRune1.reserved=false Then return  True
 		If BloodRune2.AvailableTime <= T And BloodRune2.death = False and BloodRune2.reserved=false Then return  True
 		If FrostRune1.AvailableTime <= T And FrostRune1.death = True and FrostRune1.reserved=false Then return  True
@@ -198,24 +211,28 @@ Friend Class runes
 		If UnholyRune2.AvailableTime <= T And UnholyRune2.death = True and UnholyRune2.reserved=false Then return  True
 	End Function
 	
-	Function BloodOnly(T as long) As Boolean
+	Function BloodOnly(T As Long) As Boolean
+		if sim.Cataclysm then return CataBloodOnly(T)
 		If BloodRune1.AvailableTime <= T Then return  True
 		If BloodRune2.AvailableTime <= T Then return  True
 	End Function
 	
 	
 	Function FrostOnly(T As Long) As Boolean
+		if sim.Cataclysm then return CataFrostOnly(T)
 		If FrostRune1.AvailableTime <= T and FrostRune1.reserved=false Then return True
 		If FrostRune2.AvailableTime <= T and FrostRune2.reserved=false Then return True
 	End Function
 	
-	Function UnholyOnly(T as long) As Boolean
+	Function UnholyOnly(T As Long) As Boolean
+		if sim.Cataclysm then return CataUnholyOnly(T)
 		If UnholyRune1.AvailableTime <= T and UnholyRune1.reserved=false Then return True
 		If UnholyRune2.AvailableTime <= T and UnholyRune2.reserved=false Then return True
 	End Function
 	
 	
-	Function Frost(T as long) As Boolean
+	Function Frost(T As Long) As Boolean
+		if sim.Cataclysm then return CataFrost(T)
 		If BloodRune1.AvailableTime <= T And BloodRune1.death = True and BloodRune1.reserved=false Then return  True
 		If BloodRune2.AvailableTime <= T And BloodRune2.death = True and BloodRune2.reserved=false Then return True
 		If FrostRune1.AvailableTime <= T and FrostRune1.reserved=false Then return True
@@ -224,7 +241,8 @@ Friend Class runes
 		If UnholyRune2.AvailableTime <= T And UnholyRune2.death = True and UnholyRune2.reserved=false Then return True
 	End Function
 	
-	Function Unholy(T as long) As Boolean
+	Function Unholy(T As Long) As Boolean
+		if sim.Cataclysm then return CataUnholy(T)
 		If BloodRune1.AvailableTime <= T And BloodRune1.death = True and BloodRune1.reserved=false Then return  True
 		If BloodRune2.AvailableTime <= T And BloodRune2.death = True and BloodRune2.reserved=false Then return True
 		If FrostRune1.AvailableTime <= T And FrostRune1.death = True and FrostRune1.reserved=false Then return True
@@ -233,7 +251,8 @@ Friend Class runes
 		If UnholyRune2.AvailableTime <= T and UnholyRune2.reserved=false Then return True
 	End Function
 	
-	Function FU(T As long) As Boolean
+	Function FU(T As Long) As Boolean
+		if sim.Cataclysm then return CataFU(T)
 		Dim UH As Boolean
 		Dim Rune1reserved As Boolean
 		Dim Rune2reserved As Boolean
@@ -293,6 +312,7 @@ Friend Class runes
 	End Function
 	
 	Function UseDeathBlood(T As Long,Death As Boolean) As Boolean
+		if sim.Cataclysm then return  CataUseDeathBlood(T,Death)
 		If BloodRune1.Available(T) And BloodRune1.death = true Then
 			BloodRune1.Use(T,Death)
 		Else
@@ -305,7 +325,8 @@ Friend Class runes
 	
 	
 	
-	Function UseBlood(T as long,Death as Boolean) As Boolean
+	Function UseBlood(T As Long,Death As Boolean) As Boolean
+		if sim.Cataclysm then return CataUseBlood(T,Death)
 		If BloodRune1.Available(T) And BloodRune1.death = False Then
 			BloodRune1.Use(T,Death)
 		Else
@@ -343,7 +364,8 @@ Friend Class runes
 		
 		
 	End Function
-	Function UseFrost(T as long,Death as Boolean) As Boolean
+	Function UseFrost(T As Long,Death As Boolean) As Boolean
+		if sim.Cataclysm then return CataUseFrost(T,Death)
 		If FrostRune1.Available(T) Then
 			FrostRune1.Use(T,Death)
 		Else
@@ -371,7 +393,8 @@ Friend Class runes
 		End If
 	End Function
 	
-	Function UseUnholy(T as long,Death as Boolean) As Boolean
+	Function UseUnholy(T As Long,Death As Boolean) As Boolean
+		if sim.Cataclysm then return CataUseUnholy(T,Death)
 		If UnholyRune1.AvailableTime <= T Then
 			UnholyRune1.Use(T,Death)
 		Else
@@ -398,7 +421,8 @@ Friend Class runes
 			End If
 		End If
 	End Function
-	Function UseFU(T as long,Death as Boolean) As Boolean
+	Function UseFU(T As Long,Death As Boolean) As Boolean
+		if sim.Cataclysm then return CataUseFU(T,Death)
 		If FrostRune1.AvailableTime <= T Then
 			FrostRune1.Use(T,Death)
 		Else
@@ -437,97 +461,11 @@ Friend Class runes
 			End If
 		End If
 	End Function
-'	Function UseFU(T as long,Death as Boolean,UseReservation as Boolean) As Boolean
-'		If Rune3.AvailableTime <= T Then
-'			If T - Rune3.AvailableTime <= 300 and Rune3.AvailableTime <> 0 Then
-'				Rune3.AvailableTime = Rune3.AvailableTime + RuneRefreshtime
-'			Else
-'				Rune3.AvailableTime = T + RuneRefreshtime
-'			End If
-'			rune3.death=False
-'			If death Then Rune3.death=true
-'		Else
-'			If Rune4.AvailableTime <= T Then
-'				If T - Rune4.AvailableTime <= 300 and Rune4.AvailableTime <> 0 Then
-'					Rune4.AvailableTime = Rune4.AvailableTime + RuneRefreshtime
-'				Else
-'					Rune4.AvailableTime = T + RuneRefreshtime
-'				End If
-'				Rune4.death=false
-'				If death Then Rune4.death=true
-'			Else
-'				If Rune1.AvailableTime <= T And Rune1.death = True Then
-'					If T - Rune1.AvailableTime <= 300 and Rune1.AvailableTime <> 0 Then
-'						Rune1.AvailableTime = Rune1.AvailableTime + RuneRefreshtime
-'					Else
-'						Rune1.AvailableTime = T + RuneRefreshtime
-'					End If
-'					Rune1.death = False
-'					If death Then Rune1.death=true
-'				Else
-'					If Rune2.AvailableTime <= T And Rune2.death = True Then
-'						If T - Rune2.AvailableTime <= 300 and Rune2.AvailableTime <> 0  Then
-'							Rune2.AvailableTime = Rune2.AvailableTime + RuneRefreshtime
-'						Else
-'							Rune2.AvailableTime = T + RuneRefreshtime
-'						End If
-'						Rune2.death = False
-'						If death Then Rune2.death=true
-'					Else
-'						Debug.Print ("ERRRRRROOOOORRRR FU @ :" & T)
-'						Exit Function
-'					End If
-'
-'				End If
-'			End If
-'		End If
-'
-'		If Rune5.AvailableTime <= T Then
-'			If T - Rune5.AvailableTime <= 300 and Rune5.AvailableTime <> 0 Then
-'				Rune5.AvailableTime = Rune5.AvailableTime + RuneRefreshtime
-'			Else
-'				Rune5.AvailableTime = T + RuneRefreshtime
-'			End If
-'			If death Then Rune5.death=true
-'		Else
-'			If Rune6.AvailableTime <= T Then
-'				If T - Rune6.AvailableTime <= 300 and Rune6.AvailableTime <> 0 Then
-'					Rune6.AvailableTime = Rune6.AvailableTime + RuneRefreshtime
-'				Else
-'					Rune6.AvailableTime = T + RuneRefreshtime
-'				End If
-'				Rune6.death=false
-'				If death Then Rune6.death=true
-'			Else
-'				If Rune1.AvailableTime <= T And Rune1.death = True Then
-'					If T - Rune1.AvailableTime <= 300 and Rune1.AvailableTime <> 0  Then
-'						Rune1.AvailableTime = Rune1.AvailableTime + RuneRefreshtime
-'					Else
-'						Rune1.AvailableTime = T + RuneRefreshtime
-'					End If
-'					Rune1.death = False
-'					If death Then Rune1.death=true
-'				Else
-'					If Rune2.AvailableTime <= T And Rune2.death = True Then
-'						If T - Rune2.AvailableTime <= 300 and Rune2.AvailableTime <> 0 Then
-'							Rune2.AvailableTime = Rune2.AvailableTime + RuneRefreshtime
-'						Else
-'							Rune2.AvailableTime = T + RuneRefreshtime
-'						End If
-'						Rune2.death = False
-'						If death Then Rune2.death=true
-'					Else
-'						Debug.Print ("ERRRRRROOOOORRRR FU @ :" & T)
-'						Exit Function
-'					End If
-'
-'				End If
-'			End If
-'		End If
-'	End Function
+
 	
 	
-	Function ReserveFU(T As long) as Boolean
+	Function ReserveFU(T As Long) As Boolean
+		if sim.Cataclysm then return  CataReserveFU(T)
 		' Reserve F
 		Dim FReserved As Boolean
 		
@@ -623,7 +561,8 @@ Friend Class runes
 		End If
 		ToEnd:
 	End Function
-	Function UnReserveFU(T As long) as Boolean
+	Function UnReserveFU(T As Long) As Boolean
+		if sim.Cataclysm then return CataUnReserveFU(T)
 		BloodRune1.reserved=False
 		BloodRune2.reserved=False
 		FrostRune1.reserved=False
@@ -634,7 +573,7 @@ Friend Class runes
 	
 	
 	Function DRMFU( T as Long) As Boolean
-		
+		if sim.Cataclysm then return CataDRMFU(T)
 		If (FrostRune1.AvailableTime <= T And FrostRune1.death = False) And (UnholyRune1.AvailableTime <= T And UnholyRune1.death = False) Then Return True
 		If (FrostRune1.AvailableTime <= T And FrostRune1.death = False) And (UnholyRune2.AvailableTime <= T And UnholyRune2.death = False) Then Return True
 		If (FrostRune2.AvailableTime <= T And FrostRune2.death = False) And (UnholyRune1.AvailableTime <= T And UnholyRune1.death = False) Then Return True
@@ -642,7 +581,8 @@ Friend Class runes
 		
 	End Function
 	
-	Function RuneRefreshTheNextGCD(T as long) As Boolean
+	Function RuneRefreshTheNextGCD(T As Long) As Boolean
+		if sim.Cataclysm then return CataRuneRefreshTheNextGCD(T)
 		Dim tmp As Long
 		If sim.UnholyPresence Then
 			tmp = T + 100+ sim.latency/10

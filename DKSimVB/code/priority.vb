@@ -113,7 +113,7 @@ Friend Class priority
 					End If
 					
 				Case "FrostStrikeMaxRp"
-					If Sim.RunicPower.CheckMax(0) and sim.CanUseGCD(Timestamp)  Then
+					If Sim.RunicPower.CheckMax(20) and sim.CanUseGCD(Timestamp)  Then
 						sim.FrostStrike.ApplyDamage(TimeStamp)
 						'debug.Print("FS")
 						exit sub

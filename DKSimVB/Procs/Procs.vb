@@ -699,7 +699,7 @@ Friend Class Procs
 				if prc.IsActive Then
 					tmp += prc.ProcValueStack * prc.Stack
 				Else
-					prc.Stack = 0 
+					prc.Stack = 0
 					'I don't think this ever arises in practice
 					'but when such buffs fade they should set the stack back to 0
 				End if
@@ -724,12 +724,19 @@ Friend Class Procs
 	
 	Sub tryT104PDPS(T As Long)
 		If sim.MainStat.T104PDPS = 0 Then Exit Sub
-		If sim.Runes.BloodRune1.AvailableTime < T Then Exit Sub
-		If sim.Runes.BloodRune2.AvailableTime < T Then Exit Sub
-		If sim.Runes.FrostRune1.AvailableTime < T Then Exit Sub
-		If sim.Runes.FrostRune2.AvailableTime < T Then Exit Sub
-		If sim.Runes.UnholyRune1.AvailableTime < T Then Exit Sub
-		If sim.Runes.UnholyRune2.AvailableTime < T Then Exit Sub
+		
+		If sim.Cataclysm Then
+			if sim.Runes.BloodRunes.Available Then Exit Sub
+			if sim.Runes.FrostRunes.Available Then Exit Sub
+			if sim.Runes.UnholyRunes.Available Then Exit Sub
+		Else
+			If sim.Runes.BloodRune1.AvailableTime < T Then Exit Sub
+			If sim.Runes.BloodRune2.AvailableTime < T Then Exit Sub
+			If sim.Runes.FrostRune1.AvailableTime < T Then Exit Sub
+			If sim.Runes.FrostRune2.AvailableTime < T Then Exit Sub
+			If sim.Runes.UnholyRune1.AvailableTime < T Then Exit Sub
+			If sim.Runes.UnholyRune2.AvailableTime < T Then Exit Sub
+		End If
 		T104PDPS.ApplyMe(T)
 	End Sub
 end Class

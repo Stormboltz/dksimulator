@@ -1,13 +1,13 @@
 Imports Microsoft.VisualBasic
 Public Class Sim
-	Friend Cataclysm as Boolean
+	Friend Cataclysm as Boolean = false
 	Friend UselessCheck As Long
 	Friend UselessCheckColl as New Collection
 	
 	
 	'Friend Patch as Boolean
 	Friend TotalDamageAlternative As Long
-	Private NextFreeGCD As Long
+	Friend NextFreeGCD As Long
 	Friend GCDUsage As Spells.Spell
 	
 	Friend latency As Long
@@ -367,6 +367,8 @@ Public Class Sim
 					AMSTimer = TimeStamp + AMSCd
 					RunicPower.add(AMSAmount)
 					FutureEventManager.Add(AMSTimer + AMSCd,"AMS")
+			Case "RuneFill"
+				me.Runes.FillRunes
 			Case Else
 				Debug.Print ("WTF is this event ?")
 				
@@ -633,12 +635,22 @@ Public Class Sim
 		FutureEventManager.Clear
 		Me.RotationStep = 0
 		Me.Rotation.IntroStep=0
-		Me.Runes.BloodRune1.AvailableTime = 0
-		Me.Runes.BloodRune2.AvailableTime = 0
-		Me.Runes.FrostRune1.AvailableTime = 0
-		Me.Runes.FrostRune2.AvailableTime = 0
-		Me.Runes.UnholyRune1.AvailableTime = 0
-		Me.Runes.UnholyRune2.AvailableTime = 0
+		
+		If Cataclysm Then
+			If Cataclysm Then me.runes.FillRunes
+		Else
+			Me.Runes.BloodRune1.AvailableTime = 0
+			Me.Runes.BloodRune2.AvailableTime = 0
+			Me.Runes.FrostRune1.AvailableTime = 0
+			Me.Runes.FrostRune2.AvailableTime = 0
+			Me.Runes.UnholyRune1.AvailableTime = 0
+			Me.Runes.UnholyRune2.AvailableTime = 0
+		End If
+		
+		
+		
+		
+		
 		
 		FutureEventManager.Add(TimeStamp,"Rune")
 		
@@ -694,6 +706,7 @@ Public Class Sim
 		End If
 		me.Rotation.IntroDone = false
 		PrePull(TimeStamp)
+		
 	End Sub
 	
 	

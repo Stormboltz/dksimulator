@@ -12,7 +12,8 @@ Friend Class BloodTap
 	Sub New(s As Sim)
 		MyBase.New(s)
 	End Sub
-	Function IsAvailable(T as long) As Boolean
+	Function IsAvailable(T As Long) As Boolean
+		if sim.Cataclysm then return false
 		If T >= cd Then
 			return true
 		End If

@@ -27,6 +27,7 @@ Public Class CataRune
 		death = D
 		If BTuntil > T Then death = True
 		Value = Value - 100
+		if Value < 0 then debug.Print ("Negative Rune")
 		sim.proc.tryT104PDPS(T)
 		sim.FutureEventManager.Add(AvailableTime,"Rune")
 	End Sub
@@ -34,20 +35,41 @@ Public Class CataRune
 		'withoutHaste 5s per rune 
 		Dim tmp As Double
 		tmp = (1/5)*sim.MainStat.Haste
+		If sim.UnholyPresence = 1 Then
+			tmp = tmp * (1+0.05*sim.TalentUnholy.ImprovedUnholyPresence/100)
+		End If
 		return tmp
 	End Function
 	
+	Sub Refill(second As Double)
+		dim tmp as Double
+		tmp = RefillRate * second
+		value = math.Max(200,value+tmp)
+	End Sub
 	
-	Function Available(T As Long) As Boolean
+	
+	
+	Function Available() As Boolean
 		If value >= 100 Then
 			Return True
 		Else
 			return false
 		End If
 	End Function
-	Function AvailableTime As Long
-		Dim tmp As Long
-		return ((100-value)*RefillRate + T)
+	
+	Function AvailableTwice() As Boolean
+		If value >= 100 Then
+			Return True
+		Else
+			return false
+		End If
+	End Function
+	
+	
+	
+	Function AvailableTime() As Long
+		'Dim tmp As Long
+		return ((100-value)*RefillRate + sim.TimeStamp)
 	End Function
 	
 End Class

@@ -177,6 +177,9 @@
     <Compile Include="code\TalentFrost.vb" />
     <Compile Include="code\TalentUnholy.vb" />
     <Compile Include="Runes\CataRune.vb" />
+    <Compile Include="Runes\CataRunesManagement.vb">
+      <DependentUpon>runes.vb</DependentUpon>
+    </Compile>
     <Compile Include="Runes\rune.vb" />
     <Compile Include="Runes\runes.vb" />
     <Compile Include="Special\AotD.vb" />
