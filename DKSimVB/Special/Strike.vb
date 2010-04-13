@@ -16,7 +16,7 @@ Public Class Strike
 	Friend OffHand  As Boolean
 	
 	
-	Sub UseGCD(T as Long)
+	Sub UseGCD(T As Long)
 		Sim.UseGCD(T, False)
 	End Sub
 	

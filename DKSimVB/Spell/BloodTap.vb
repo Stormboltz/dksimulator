@@ -89,8 +89,7 @@ Friend Class BloodTap
 		sim.combatlog.write(T  & vbtab &  "Blood Tap")
 		sim.RunicPower.add(10)
 		Me.HitCount = Me.HitCount + 1
-		sim.NextFreeGCD = T+1
-		sim.FutureEventManager.Add(sim.NextFreeGCD,"GCD")
+		sim._UseGCD(T, 1)
 		return true
 	End Function
 	
@@ -108,8 +107,7 @@ Friend Class BloodTap
 		sim.combatlog.write(T  & vbtab &  "Blood Tap with Cancel Aura")
 		sim.RunicPower.add(10)
 		Me.HitCount = Me.HitCount + 1
-		sim.NextFreeGCD = T+1
-		sim.FutureEventManager.Add(sim.NextFreeGCD,"GCD")
+		sim._UseGCD(T, 1)
 		return true
 	End Function
 	

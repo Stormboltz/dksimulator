@@ -16,10 +16,10 @@ Friend Class Obliterate
 	
 	public Overrides Function ApplyDamage(T As Long) As Boolean
 		Dim RNG As Double
-		UseGCD(T)
 		
 		
 		If OffHand = False Then
+			UseGCD(T)
 			If sim.proc.ThreatOfThassarian.TryMe(T) Then sim.OHObliterate.ApplyDamage(T)
 			If DoMyStrikeHit = false Then
 				sim.combatlog.write(T  & vbtab &  "OB fail" & vbtab & RNG)

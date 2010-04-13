@@ -7,7 +7,9 @@ Public Class Sim
 	
 	'Friend Patch as Boolean
 	Friend TotalDamageAlternative As Long
-	Friend NextFreeGCD As Long
+	Private NextFreeGCD As Long
+	Friend GCDUsage As Spells.Spell
+	
 	Friend latency As Long
 	Friend TimeStamp As Long
 	Friend TimeStampCounter As Long
@@ -411,7 +413,7 @@ Public Class Sim
 			FE = Me.FutureEventManager.GetFirst
 			TimeStamp = FE.T
 			
-			If TimeStamp >= NextReset Then 
+			If TimeStamp >= NextReset Then
 				If MaxTime = NextReset Then Exit Do
 				StoreMyDamage(TotalDamage)
 				LastReset = NextReset
@@ -473,6 +475,28 @@ Public Class Sim
 		debug.Print(i)
 	End Function
 	
+	Sub _UseGCD(T As Long, Length As Long)
+		dim tmp as Long
+		GCDUsage.HitCount += 1
+		
+		
+		If Length + T > NextReset Then
+			tmp = (NextReset - T)
+		Else
+			tmp = Length
+		End If
+		If NextFreeGCD > T Then
+			'should never happen currently is called when use BS etc is after a special
+			tmp += T - NextFreeGCD
+		End If
+		GCDUsage.uptime += tmp
+		T += Length
+		If T > NextFreeGCD Then
+			NextFreeGCD = T
+			FutureEventManager.Add(NextFreeGCD,"GCD")
+		End If
+	End Sub
+	
 	Sub UseGCD(T As Long, Spell As Boolean)
 		Dim tmp As Long
 		If UnholyPresence Then
@@ -482,9 +506,8 @@ Public Class Sim
 		Else
 			tmp = 150
 		End If
-		tmp = T + tmp + latency / 10
-		If tmp > NextFreeGCD Then NextFreeGCD = tmp
-		FutureEventManager.Add(NextFreeGCD,"GCD")
+		tmp += latency / 10
+		_UseGCD(T, tmp)
 	End Sub
 	
 	Function isInGCD(T As long ) As Boolean
@@ -775,6 +798,10 @@ Public Class Sim
 		InterruptAmount = _MainFrm.txtInterruptAmount.text
 		
 		ShowDpsTimer = 1
+		
+		GCDUsage = New Spells.Spell(Me)
+		GCDUsage._Name = "GCD Usage"
+		
 	End Sub
 	
 	Sub LoadConfig
@@ -1028,6 +1055,12 @@ Public Class Sim
 			Next
 		Next
 		If ShowProc Then
+			If True Then
+				STmp = GCDUsage.report
+				STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+			End If
+
 			If Horn.HitCount <> 0 Then
 				STmp = Horn.report
 				STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")

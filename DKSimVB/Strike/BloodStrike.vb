@@ -10,9 +10,9 @@ Friend class BloodStrike
 		Dim RNG As Double
 		dim dégat as Integer
 
-		UseGCD(T)
-		
 		If OffHand = False Then
+			UseGCD(T)
+
 			If sim.proc.ThreatOfThassarian.TryMe(T) Then sim.OHBloodStrike.ApplyDamage(T)
 
 			If DoMyStrikeHit() = False Then

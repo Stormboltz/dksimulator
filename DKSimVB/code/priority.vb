@@ -321,11 +321,13 @@ Friend Class priority
 				Case "KMRime"
 					If  sim.HowlingBlast.isAvailable(TimeStamp) and sim.proc.Rime.IsActive and sim.proc.KillingMachine.IsActive and sim.CanUseGCD(Timestamp)  Then
 						sim.HowlingBlast.ApplyDamage(TimeStamp)
+						exit sub
 					Else
 					End If
 				Case "FadeRime"
 					If  sim.HowlingBlast.isAvailable(TimeStamp) and sim.proc.Rime.IsActive and sim.proc.Rime.Fade< TimeStamp+250 and sim.CanUseGCD(Timestamp)  Then
 						sim.HowlingBlast.ApplyDamage(TimeStamp)
+						exit sub
 					Else
 					End If
 					

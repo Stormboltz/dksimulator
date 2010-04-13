@@ -23,8 +23,8 @@ Friend Class FrostStrike
 	
 	public Overrides Function ApplyDamage(T As Long) As Boolean
 		Dim RNG As Double
-		UseGCD(T)
 		If OffHand = False Then
+			UseGCD(T)
 			If sim.glyph.FrostStrike Then
 				Sim.RunicPower.Use(32)
 			Else

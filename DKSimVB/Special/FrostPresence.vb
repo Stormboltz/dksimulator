@@ -26,8 +26,8 @@ Public Class FrostPresence
 		sim.Runes.UseFrost(T,false)
 		sim.combatlog.write(T  & vbtab &  "Switch to Frost Presence")
 		Me.HitCount = Me.HitCount +1
-		sim.NextFreeGCD = T+1
-		sim.FutureEventManager.Add(sim.NextFreeGCD,"GCD")
+		sim._UseGCD(T, 1)
+
 		return true
 	End Function
 	

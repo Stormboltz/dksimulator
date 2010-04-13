@@ -74,9 +74,8 @@ Public Class AotD
 	
 	
 	
-	sub UseGCD(T as Long)
-		Sim.NextFreeGCD = T + sim.latency/10 + 400
-		sim.FutureEventManager.Add(sim.NextFreeGCD,"GCD")
+	Sub UseGCD(T As Long)
+		Sim._UseGCD(T, sim.latency/10 + 400)
 	End Sub
 	
 	Function Haste() As Double

@@ -24,8 +24,7 @@ Public Class EmpowerRuneWeapon
 		sim.Runes.UnholyRune2.AvailableTime = math.Min(sim.Runes.UnholyRune2.AvailableTime, T)
 		sim.RunicPower.add(25)
 		sim.combatlog.write(T  & vbtab &  "EmpowerRuneWeapon"  )
-		sim.NextFreeGCD = T+1
-		sim.FutureEventManager.Add(sim.NextFreeGCD,"GCD")
+		sim._UseGCD(T, 1)
 		return true
 	End Function
 	
