@@ -43,8 +43,8 @@ Public Class CataRune
 	
 	Sub Refill(second As Double)
 		dim tmp as Double
-		tmp = RefillRate * second
-		value = math.Max(200,value+tmp)
+		tmp = RefillRate * second*100
+		value = math.min(200,value+tmp)
 	End Sub
 	
 	
@@ -66,9 +66,17 @@ Public Class CataRune
 	End Function
 	
 	
+	Function NextAvailableTime() As Long
+		'Dim tmp As Long
+		if value >= 200 then return sim.TimeStamp
+
+		return ((200-value)*RefillRate + sim.TimeStamp)
+	End Function
 	
 	Function AvailableTime() As Long
 		'Dim tmp As Long
+		if value >= 100 then return sim.TimeStamp
+
 		return ((100-value)*RefillRate + sim.TimeStamp)
 	End Function
 	

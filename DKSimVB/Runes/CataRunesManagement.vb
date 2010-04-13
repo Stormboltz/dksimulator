@@ -29,8 +29,8 @@ Friend Partial Class runes
 		Dim tmp As String
 		tmp = "["
 		tmp = tmp & BloodRunes.Value
-		tmp = tmp & FrostRunes.Value
-		tmp = tmp & UnholyRunes.Value
+		tmp = tmp & ":" & FrostRunes.Value
+		tmp = tmp & ":" & UnholyRunes.Value
 		tmp = tmp & "]"
 		return tmp
 	End Function
@@ -44,9 +44,9 @@ Friend Partial Class runes
 	End Function
 	Function CataGetNextUnholy(T As Long) As Long
 		Dim bArray As New ArrayList
-		if BloodRunes.AvailableTime > T And BloodRunes.death = true then bArray.Add(BloodRunes.AvailableTime)
-		If FrostRunes.AvailableTime > T And FrostRunes.death = True	Then bArray.Add(FrostRunes.AvailableTime)
-		If UnholyRunes.AvailableTime > T Then bArray.Add(UnholyRunes.AvailableTime)
+		if BloodRunes.NextAvailableTime > T And BloodRunes.death = true then bArray.Add(BloodRunes.AvailableTime)
+		If FrostRunes.NextAvailableTime > T And FrostRunes.death = True	Then bArray.Add(FrostRunes.AvailableTime)
+		If UnholyRunes.NextAvailableTime > T Then bArray.Add(UnholyRunes.AvailableTime)
 		If bArray.Count > 0 Then
 			bArray.Sort()
 			return bArray.Item(0)

@@ -1,6 +1,6 @@
 Imports Microsoft.VisualBasic
 Public Class Sim
-	Friend Cataclysm as Boolean = false
+	Friend Cataclysm as Boolean = true
 	Friend UselessCheck As Long
 	Friend UselessCheckColl as New Collection
 	
