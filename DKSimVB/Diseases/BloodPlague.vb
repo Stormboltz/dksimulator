@@ -6,6 +6,13 @@ Friend Class BloodPlague
 	Sub New(S As sim)
 		MyBase.New(S)
 	End Sub
+	
+	Overrides Function CalculateCritChance(T As Long) As Double
+		If sim.MainStat.T94PDPS = 1 Then Return sim.MainStat.crit
+		return 0.0
+	End Function
+	
+	
 	Overrides Function PerfectUsage(T As Long) As Boolean
 		If sim.TalentUnholy.RageofRivendare>0 Then
 			If FadeAt <= sim.Runes.GetNextUnholy(T) Then

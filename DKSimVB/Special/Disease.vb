@@ -81,6 +81,10 @@ Public Class Disease
 		return ToReapply or not isActive(T)
 	End Function
 	
+	Overridable Function CalculateCritChance(T As Long) As Double
+		return 0.0
+	End Function
+	
 	Overridable Function CalculateMultiplier(T As Long) As Double
 		Dim tmp As Double
 		tmp = sim.MainStat.StandardMagicalDamageMultiplier(T)
@@ -99,7 +103,7 @@ Public Class Disease
 		nextTick = T + 3 * 100
 		sim.FutureEventManager.Add(nextTick,"Disease")
 		ScourgeStrikeGlyphCounter = 0
-		CritChance = sim.MainStat.crit
+		CritChance = CalculateCritChance(T)
 		If sim.RuneForge.CheckCinderglacier(False) > 0 Then
 			cinder = True
 		Else
@@ -127,20 +131,14 @@ Public Class Disease
 		
 		For intCount = 1 To Sim.NumberOfEnemies
 			if intCount > 1 and OtherTargetsFade < T then return true
-			If sim.MainStat.T94PDPS =1 Then
-				If RngCrit < CritChance Then
-					tmp = AvrgCrit(T)
-					CritCount = CritCount + 1
-					totalcrit += tmp
-				Else
-					tmp = DamageTick
-					HitCount = HitCount + 1
-					totalhit += tmp
-				End If
+			If RngCrit < CritChance Then
+				tmp = AvrgCrit(T)
+				CritCount = CritCount + 1
+				totalcrit += tmp
 			Else
 				tmp = DamageTick
-			'	totalhit += tmp
 				HitCount = HitCount + 1
+				totalhit += tmp
 			End If
 			total = total + tmp
 			If sim.TalentUnholy.WanderingPlague > 0 Then
