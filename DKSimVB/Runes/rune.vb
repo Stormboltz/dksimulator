@@ -9,28 +9,56 @@
 Namespace Runes
 	
 Public Class rune
+	Inherits Supertype
+	
 	Friend reserved As Boolean
 	Friend death As Boolean
-	Friend AvailableTime As Long
 	Friend BTuntil as Long
-	Protected Sim As Sim
+	'Protected Sim As Sim
+	
+	Friend AvailableTime As Long
+    
+    Sub SetAvailableTime(T As Long)
+    	If AvailableTime > 0 Then
+    		If AvailableTime > T Then Uptime -= (Math.Min(AvailableTime, Sim.NextReset) - T)
+    	End If
+    	AvailableTime = T
+    End Sub
+
+	Sub Reset()
+		AvailableTime = 0
+		Death = False
+		Reserved = False
+	End Sub
+	
 	
 	Sub New(S As Sim)
-		Me.reserved=False
-		Me.death=False
-		Me.AvailableTime=0
 		Sim = S
+		Reset()
 	End Sub
+	
 	Sub Use(T As Long, D As Boolean)
+		dim NextAvailable as Long
 		death = D
+		HitCount+=1
 		if BTuntil > T then death = true
-		If T - AvailableTime <= 200 and AvailableTime <> 0 Then
-			AvailableTime = AvailableTime + RuneRefreshtime
-		ElseIf AvailableTime <> 0 Then
-			AvailableTime = T + 800
-				else
-			AvailableTime = T + RuneRefreshtime
+		If AvailableTime <> 0 Then
+			If T - AvailableTime <= 200 Then
+				NextAvailable = AvailableTime + RuneRefreshtime
+			Else
+			'	Uptime += T - AvailableTime - 200
+				NextAvailable = T + 800
+			End If
+		else
+			NextAvailable = T + RuneRefreshtime
 		End If
+		uptime += RuneRefreshTime
+		If NextAvailable > Sim.NextReset Then
+			uptime -= NextAvailable - Sim.NextReset
+		End If
+
+		AvailableTime = NextAvailable
+		
 		sim.proc.tryT104PDPS(T)
 		sim.FutureEventManager.Add(AvailableTime,"Rune")
 	End Sub

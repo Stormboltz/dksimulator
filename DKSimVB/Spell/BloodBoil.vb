@@ -15,7 +15,7 @@ Friend Class BloodBoil
 
 	overrides Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
-		
+		UseGCD(T)
 		sim.runes.UseBlood(T,False)
 		
 		Dim intCount As Integer

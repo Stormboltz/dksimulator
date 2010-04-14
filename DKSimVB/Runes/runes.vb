@@ -25,20 +25,30 @@ Friend Partial Class runes
 			FrostRune2 = new rune(s)
 			UnholyRune1 = new rune(s)
 			UnholyRune2 = New rune(s)
-			BloodRune1.AvailableTime = 0
-			BloodRune1.death = False
-			BloodRune2.AvailableTime = 0
-			BloodRune2.death = False
-			FrostRune1.AvailableTime = 0
-			FrostRune1.death = False
-			FrostRune2.AvailableTime = 0
-			FrostRune2.death = False
-			UnholyRune1.AvailableTime = 0
-			UnholyRune1.death = False
-			UnholyRune2.AvailableTime = 0
-			UnholyRune2.death = False
+			
+			BloodRune1._Name = "Blood Rune 1"
+			BloodRune2._Name = "Blood Rune 2"
+			FrostRune1._Name = "Frost Rune 1"
+			FrostRune2._Name = "Frost Rune 2"
+			UnholyRune1._Name = "Unholy Rune 1"
+			UnholyRune2._Name = "Unholy Rune 2"
+
 		End If
 		UnReserveFU(0)
+	End Sub
+
+	Sub SoftReset()
+		If Sim.Cataclysm Then
+			FillRunes
+		Else
+			BloodRune1.Reset()
+			BloodRune2.Reset()
+			FrostRune1.Reset()
+			FrostRune2.Reset()
+			UnholyRune1.Reset()
+			UnholyRune2.Reset()
+		End If
+
 	End Sub
 	
 	

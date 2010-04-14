@@ -142,7 +142,7 @@ Friend Class priority
 								exit sub
 							End If
 						End If
-						If Not sim.proc.Desolation.IsActiveAt(TimeStamp) Then
+						If sim.BloodStrike.CheckDesolation(TimeStamp) Then
 							sim.BloodStrike.ApplyDamage(TimeStamp)
 							Exit Sub
 						End If

@@ -1,6 +1,6 @@
 Imports Microsoft.VisualBasic
 Public Class Sim
-	Friend Cataclysm as Boolean = true
+	Friend Cataclysm as Boolean = false
 	Friend UselessCheck As Long
 	Friend UselessCheckColl as New Collection
 	
@@ -635,23 +635,7 @@ Public Class Sim
 		FutureEventManager.Clear
 		Me.RotationStep = 0
 		Me.Rotation.IntroStep=0
-		
-		If Cataclysm Then
-			If Cataclysm Then me.runes.FillRunes
-		Else
-			Me.Runes.BloodRune1.AvailableTime = 0
-			Me.Runes.BloodRune2.AvailableTime = 0
-			Me.Runes.FrostRune1.AvailableTime = 0
-			Me.Runes.FrostRune2.AvailableTime = 0
-			Me.Runes.UnholyRune1.AvailableTime = 0
-			Me.Runes.UnholyRune2.AvailableTime = 0
-		End If
-		
-		
-		
-		
-		
-		
+		Runes.SoftReset()
 		FutureEventManager.Add(TimeStamp,"Rune")
 		
 		
@@ -1072,6 +1056,30 @@ Public Class Sim
 				STmp = GCDUsage.report
 				STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				
+				STmp = Runes.BloodRune1.report
+				STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				STmp = Runes.BloodRune2.report
+				STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+
+				STmp = Runes.FrostRune1.report
+				STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+
+				STmp = Runes.FrostRune2.report
+				STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+
+				STmp = Runes.UnholyRune1.report
+				STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+				STmp = Runes.UnholyRune2.report
+				STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
+				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
+
+
 			End If
 
 			If Horn.HitCount <> 0 Then

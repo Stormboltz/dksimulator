@@ -6,6 +6,15 @@ Friend class BloodStrike
 		MyBase.New(s)
 	End Sub
 	
+	Function CheckDesolation(T As Long) As Boolean
+		dim OtherT as Long
+		If sim.proc.Desolation.IsActiveAt(T + 1000) Then Return False
+		OtherT = sim.Runes.GetNextBloodCD(T)
+		If OtherT = 0 Then Return Not sim.proc.Desolation.IsActiveAt(T)
+		Return Not sim.proc.Desolation.IsActiveAt(OtherT+150)
+		
+	End Function
+	
 	public Overrides Function ApplyDamage(T As Long) As Boolean
 		Dim RNG As Double
 		dim dégat as Integer
