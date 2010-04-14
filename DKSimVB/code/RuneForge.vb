@@ -101,7 +101,7 @@ Friend Class RuneForge
 				.ProcChance = s.MainStat.OHWeaponSpeed / 60
 			End With
 			ConfigRuneForgeProc(OHProc, OHRuneForge)
-			If OHProc.ProcChance > 0.0 Then 
+			If OHProc.ProcChance > 0.0 Then
 				OHProc.Equip()
 			
 				If MHRuneForge = OHRuneForge Then
@@ -117,7 +117,7 @@ Friend Class RuneForge
 		
 		
 		End If
-		If RIProc IsNot Nothing Then 
+		If RIProc IsNot Nothing Then
 			With RIProc
 				.ProcLenght = 20
 				.ProcValue = Sim.MainStat.MHWeaponSpeed * Sim.MainStat.MHWeaponDPS * 0.02
@@ -183,19 +183,24 @@ End Sub
 	
 	Function RazorIceMultiplier(T As Long) as Double
 		If RIProc Is Nothing Then Return 1.0
-		Return 1.0 + 0.02 * RIProc.Stack		
+		Return 1.0 + 0.02 * RIProc.Stack
 	End Function
 	
 	Sub ProcRazorIce(Proc As WeaponProc, T As Long)
 		Dim tmp As Double
 		tmp = RIProc.procvalue
 		'Hastebonus should only be applied to procs from hasteable attacks
-		'If sim.EPStat = "EP HasteEstimated" Then 
+		'If sim.EPStat = "EP HasteEstimated" Then
 		'	tmp *= sim.MainStat.EstimatedHasteBonus
 		'End If
 		RIProc.ApplyFade(T)
 		With Proc
-			If Proc IsNot RIProc Then .HitCount += 1
+			If Proc IsNot RIProc Then
+				.HitCount += 1
+			Else
+				RIProc.Stack += 1
+				if RIProc.Stack > RIProc.MaxStack then RIProc.Stack = RIProc.MaxStack
+			End If
 			If sim.CombatLog.LogDetails Then sim.CombatLog.write(sim.TimeStamp & vbTab & .ToString & " proc")
 			.total += tmp
 		End With
