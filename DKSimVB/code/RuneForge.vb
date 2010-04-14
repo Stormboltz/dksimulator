@@ -194,13 +194,11 @@ End Sub
 		'	tmp *= sim.MainStat.EstimatedHasteBonus
 		'End If
 		RIProc.ApplyFade(T)
+		
+		if RIProc.Stack < RIProc.MaxStack then RIProc.Stack += 1
+
 		With Proc
-			If Proc IsNot RIProc Then
-				.HitCount += 1
-			Else
-				RIProc.Stack += 1
-				if RIProc.Stack > RIProc.MaxStack then RIProc.Stack = RIProc.MaxStack
-			End If
+			If Proc IsNot RIProc Then .HitCount += 1
 			If sim.CombatLog.LogDetails Then sim.CombatLog.write(sim.TimeStamp & vbTab & .ToString & " proc")
 			.total += tmp
 		End With
