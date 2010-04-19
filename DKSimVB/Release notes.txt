@@ -1,4 +1,8 @@
-﻿1.2.1.4 Release notes
+﻿1.2.1.5 Release notes
+* Bug fixes: Razorice, 4PT9, Bloodboil, KM + Rime 
+* Added Rune, GCD usage to the report.
+
+1.2.1.4 Release notes
 * Runic power: Report at the end of the sim some data about runic power usage.
 * ToT strike always hit.
 * Herkuml War Token max stack correction.

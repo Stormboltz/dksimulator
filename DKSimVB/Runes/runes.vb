@@ -181,8 +181,6 @@ Friend Partial Class runes
 		if sim.Cataclysm then return CataGetNextBloodCD(T)
 		Dim bArray As new ArrayList
 		
-'		if Rune1.AvailableTime > T 	And Rune1.death = false then bArray.Add(Rune1.AvailableTime)
-'		If Rune2.AvailableTime > T 	And Rune2.death = False Then bArray.Add(Rune2.AvailableTime)
 		if BloodRune1.AvailableTime > T 	then bArray.Add(BloodRune1.AvailableTime)
 		If BloodRune2.AvailableTime > T 	Then bArray.Add(BloodRune2.AvailableTime)
 		

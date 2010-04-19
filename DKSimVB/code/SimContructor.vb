@@ -419,7 +419,7 @@ Public Module SimConstructor
 		Try
 			EPStat="EP SpellHitRating"
 			DPS = dpss(EPStat)
-			tmp1 = (dpss("EP HitRatingCapAP")-dpss("EP HitRatingCap")) / (2*20)
+			tmp1 = (dpss("EP HitRatingCapAP")-dpss("EP HitRatingCap")) / (2*EPBase)
 			tmp2 = (DPS-dpss("EP HitRatingCap")) / 20
 			SpHit = toDDecimal (tmp2/tmp1)
 			sReport = sReport +  ("<tr><td>" & EPStat & " | " & toDDecimal (tmp2/tmp1)) & "</td></tr>"

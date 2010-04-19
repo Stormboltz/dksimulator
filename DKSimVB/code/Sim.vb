@@ -392,6 +392,7 @@ Public Class Sim
 			NumberOfFights = Math.Round( ( SimTime * 60 * 60 ) / _MainFrm.txtManyFights.text )
 			resetTime = _MainFrm.txtManyFights.text * 100
 			NextReset = resetTime
+			if NextReset > MaxTime then NextReset = MaxTime
 		Else
 			NumberOfFights = 1
 			resetTime = MaxTime + 1

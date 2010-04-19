@@ -45,7 +45,7 @@ Friend Class OffHand
 		If RNG < ChanceNotToTouch Then
 			MissCount = MissCount + 1
 			'If sim.combatlog.LogDetails Then 
-				sim.combatlog.write(T  & vbtab &  "OH fail")
+				if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH fail")
 			'End If
 			exit function
 		End If
@@ -57,7 +57,7 @@ Friend Class OffHand
 			GlancingCount = GlancingCount + 1
 			totalGlance += dégat
 			'If sim.combatlog.LogDetails Then 
-				sim.combatlog.write(T  & vbtab &  "OH glancing for " & dégat)
+				if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH glancing for " & dégat)
 			'End If
 		End If
 		
@@ -66,7 +66,7 @@ Friend Class OffHand
 			CritCount = CritCount + 1
 			dégat = AvrgCrit(T)
 			'If sim.combatlog.LogDetails Then 
-				sim.combatlog.write(T  & vbtab &  "OH crit for " & dégat )
+				if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH crit for " & dégat )
 			'End If
 			sim.tryOnCrit
 			totalcrit += dégat
@@ -77,7 +77,7 @@ Friend Class OffHand
 			dégat = AvrgNonCrit(T)
 			HitCount = HitCount + 1
 			'If sim.combatlog.LogDetails Then 
-				sim.combatlog.write(T  & vbtab &  "OH hit for " & dégat)
+				if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH hit for " & dégat)
 			'End If
 			totalhit += dégat
 			

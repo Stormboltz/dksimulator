@@ -1019,7 +1019,8 @@ Public Partial Class GearSelectorMainForm
 				
 				
 				
-			catch
+			Catch er As Exception
+				debug.Print (er.ToString)
 			end try
 		Next
 		InLoad = false

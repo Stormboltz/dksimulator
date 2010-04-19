@@ -185,13 +185,19 @@ Public Class Disease
 			tmp = Lenght
 		End If
 		
-		If previousfade < T  Then
+		If previousFade < T  Then
 		 	uptime += tmp
 		Else
 			uptime += tmp - (previousFade-T)
 		End If
 		previousFade = T + tmp
 	End Sub
+	
+	
+	
+	
+	
+	
 	Sub RemoveUptime(T As Long)
 		If previousfade < T  Then
 		Else

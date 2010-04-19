@@ -42,7 +42,6 @@ Friend Class Pestilence
 		
 		
 		If sim.glyph.Disease Then
-			'debug.Print ("PEST! at " & T )
 			If sim.BloodPlague.FadeAt > T Then
 				sim.BloodPlague.Refresh(T)
 			End If
@@ -61,7 +60,9 @@ Friend Class Pestilence
 			If tmp1 < T Then
 				return false
 			End If
-			If tmp1 - T > 1000 Then Return False
+			
+			'if sim.BloodPlague.nextTick <> sim.FrostFever.nextTick then return true
+			'If tmp1 - T > 1000 Then Return False
 			tmp2 = sim.runes.GetNextBloodCD(t)
 			If tmp2 > tmp1 or tmp2=0 Then
 				return true
