@@ -19,6 +19,16 @@ Friend Class BloodTap
 		End If
 	End Function
 	
+	Sub CancelAura()
+		If sim.runes.BloodRune1.BTuntil > sim.TimeStamp Then
+			sim.runes.BloodRune1.BTuntil = 0
+			sim.runes.BloodRune1.death = false
+		End If
+		If sim.runes.BloodRune2.BTuntil > sim.TimeStamp Then
+			sim.runes.BloodRune2.BTuntil = 0
+			sim.runes.BloodRune2.death = false
+		End If
+	End Sub
 	
 	
 	Function Use(T As long) As Boolean
@@ -87,8 +97,9 @@ Friend Class BloodTap
 				
 		
 		Out:
-		sim.combatlog.write(T  & vbtab &  "Blood Tap")
 		sim.RunicPower.add(10)
+		sim.combatlog.write(T  & vbtab &  "Blood Tap")
+		
 		Me.HitCount = Me.HitCount + 1
 		sim._UseGCD(T, 1)
 		return true
@@ -105,8 +116,8 @@ Friend Class BloodTap
 			sim.Runes.BloodRune2.death = True
 			'sim.Runes.BloodRune2.BTuntil = T + 2000
 		End If
-		sim.combatlog.write(T  & vbtab &  "Blood Tap with Cancel Aura")
 		sim.RunicPower.add(10)
+		sim.combatlog.write(T  & vbtab &  "Blood Tap with Cancel Aura")
 		Me.HitCount = Me.HitCount + 1
 		sim._UseGCD(T, 1)
 		return true

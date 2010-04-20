@@ -12,7 +12,7 @@ Friend Class Pestilence
 	Sub New(S As sim)
 		MyBase.New(s)
 	End Sub
-
+	
 	Function use(T As double) As Boolean
 		UseGCD(T)
 		If DoMySpellHit = false Then
@@ -20,6 +20,7 @@ Friend Class Pestilence
 			MissCount = MissCount +1
 			Exit function
 		End If
+		Sim.RunicPower.add (10)
 		sim.combatlog.write(T  & vbtab &  "Pestilence")
 		HitCount = HitCount +1
 		
@@ -28,17 +29,17 @@ Friend Class Pestilence
 		Else
 			sim.Runes.UseBlood(T, False)
 		End If
-		Sim.RunicPower.add (10)
+		
 		
 		If sim.BloodPlague.FadeAt > T Then
-				sim.BloodPlague.OtherTargetsFade  = T + sim.BloodPlague.Lenght
-				'BloodPlague.nextTick = T + 300
-			End If
+			sim.BloodPlague.OtherTargetsFade  = T + sim.BloodPlague.Lenght
+			'BloodPlague.nextTick = T + 300
+		End If
 		If sim.FrostFever.FadeAt > T Then
 			sim.FrostFever.OtherTargetsFade = T + sim.frostfever.Lenght
 			'FrostFever.nextTick = T + 300
 		End If
-	
+		
 		
 		
 		If sim.glyph.Disease Then
@@ -49,20 +50,43 @@ Friend Class Pestilence
 				sim.FrostFever.Refresh(T)
 			End If
 		End If
+		
+		If sim.KeepBloodSync Then
+			If sim.BloodToSync = True Then
+				sim.BloodToSync = False
+			Else
+				sim.BloodToSync = True
+			End If
+		End If
+		
+		
+		
+		
 		return true
 	End Function
 	Function PerfectUsage(T As Double) As Boolean
 		Dim tmp1 As Long
 		Dim tmp2 As Long
 		
-		If sim.runes.AnyBlood(T) Then
+		Dim blood As Boolean
+		
+		If sim.TalentUnholy.Gargoyle = 1 Then
+			blood = sim.runes.BloodOnly(T)
+		ElseIf sim.TalentFrost.GuileOfGorefiend > 1 Then
+			blood = sim.runes.BloodOnly(T)
+		Else 
+			blood = sim.runes.AnyBlood(T)
+		End If
+		If blood Then
 			tmp1 = math.Min(sim.BloodPlague.FadeAt,sim.FrostFever.FadeAt)
 			If tmp1 < T Then
 				return false
 			End If
 			
-			'if sim.BloodPlague.nextTick <> sim.FrostFever.nextTick then return true
-			'If tmp1 - T > 1000 Then Return False
+			If sim.BloodPlague.FadeAt <> sim.FrostFever.FadeAt Then
+				return true
+			End If
+			If tmp1 - T > 800 Then Return False
 			tmp2 = sim.runes.GetNextBloodCD(t)
 			If tmp2 > tmp1 or tmp2=0 Then
 				return true
@@ -71,6 +95,6 @@ Friend Class Pestilence
 			t=t
 		End If
 	End Function
-
+	
 End Class
 

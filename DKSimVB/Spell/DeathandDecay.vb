@@ -33,9 +33,10 @@ Friend Class DeathandDecay
 		sim.runes.UseFU(T, False)
 		ActiveUntil = T+1000
 		cd = T + 3000 - sim.TalentUnholy.Morbidity*500
+		Sim.RunicPower.add(15)
 		sim.combatlog.write(T  & vbtab &  "D&D ")
 		sim.FutureEventManager.Add(nextTick,"D&D")
-		Sim.RunicPower.add(15)
+		
 		return true
 	End Function
 	

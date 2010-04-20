@@ -29,6 +29,14 @@ Friend Class HowlingBlast
 			Exit function
 		End If
 		
+		If sim.proc.rime.IsActive Then
+			sim.Proc.rime.Use
+			Sim.RunicPower.add (sim.TalentFrost.ChillOfTheGrave * 2.5)
+		Else
+			sim.runes.UseFU(T,False)
+			Sim.RunicPower.add (15 + (sim.TalentFrost.ChillOfTheGrave * 2.5))
+		End If
+		
 		Dim intCount As Integer
 		For intCount = 1 To Sim.NumberOfEnemies
 			RNG = RngCrit
@@ -46,20 +54,11 @@ Friend Class HowlingBlast
 				sim.combatlog.write(T  & vbtab &  "HB hit for " & dégat)
 				totalhit += dégat
 			End If
-			
-
 			total = total + dégat
-			
 			sim.TryOnSpellHit
 		Next intCount
 		
-		If sim.proc.rime.IsActive Then
-			sim.Proc.rime.Use
-			Sim.RunicPower.add (sim.TalentFrost.ChillOfTheGrave * 2.5)
-		Else
-			sim.runes.UseFU(T,False)
-			Sim.RunicPower.add (15 + (sim.TalentFrost.ChillOfTheGrave * 2.5))
-		End If
+		
 		
 		sim.proc.KillingMachine.Use
 		if sim.glyph.HowlingBlast then

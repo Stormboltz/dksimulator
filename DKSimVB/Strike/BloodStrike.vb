@@ -21,9 +21,7 @@ Friend class BloodStrike
 
 		If OffHand = False Then
 			UseGCD(T)
-
 			If sim.proc.ThreatOfThassarian.TryMe(T) Then sim.OHBloodStrike.ApplyDamage(T)
-
 			If DoMyStrikeHit() = False Then
 				sim.CombatLog.write(T & vbTab & "BS fail")
 				MissCount += 1
@@ -39,7 +37,10 @@ Friend class BloodStrike
 				sim.BloodToSync = True
 			End If
 		End If
-
+		If OffHand = False Then 
+			sim.RunicPower.add(10)
+		End If
+		
 		RNG = RngCrit
 
 		If RNG <= CritChance() Then
@@ -58,13 +59,11 @@ Friend class BloodStrike
 
 		If OffHand = False Then
 			sim.TryOnMHHitProc()
-			
 			If sim.proc.ReapingBotN.TryMe(T) Then
 				sim.Runes.UseBlood(T, True)
 			Else
 				sim.Runes.UseBlood(T, False)
 			End If
-			sim.RunicPower.add(10)
 		Else
 			sim.TryOnOHHitProc()
 		End If

@@ -32,7 +32,8 @@ Public Class Sim
 	Friend LastReset as Integer
 	Friend NumberOfEnemies as Integer
 	Private SimStart As Date
-	Friend ICCDamageBuff as Integer
+	Friend ICCDamageBuff As Integer
+	Friend BoneShieldTTL as Integer
 	Friend FutureEventManager as New FutureEventManager
 	Friend Threat as Long
 	Private AMSTimer As Long
@@ -279,9 +280,13 @@ Public Class Sim
 					if isInGCD(TimeStamp) then Return True
 				End If
 				
-				If BoneShieldUsageStyle = 2 Then
-					If runes.BloodRune1.Available(TimeStamp) = False Then
-						If runes.BloodRune2.Available(TimeStamp) = False Then
+				
+				
+				
+				
+				If BoneShieldUsageStyle = 2 Then 'after BS
+					If runes.BloodRune1.Available(TimeStamp) = False and runes.BloodRune1.death = true  Then
+						If runes.BloodRune2.Available(TimeStamp) = False and runes.BloodRune2.death = true Then
 							if BoneShield.IsAvailable(TimeStamp) Then
 								if BoneShield.Use(TimeStamp) then Return True
 							End If
@@ -292,6 +297,7 @@ Public Class Sim
 					End If
 				End If
 				
+				
 				If me.Rotation.IntroDone = true Then
 					if Rotate then
 						Rotation.DoRoration(TimeStamp)
@@ -300,6 +306,25 @@ Public Class Sim
 					End If
 				End If
 				If isInGCD(TimeStamp) Then Return True
+				
+				If BoneShieldUsageStyle = 4 Then 'after Death rune OB/SS with cancel aura
+					If runes.BloodRune1.Available(TimeStamp) = False and runes.BloodRune1.death = false Then
+						If runes.BloodRune2.Available(TimeStamp) = False and runes.BloodRune2.death = false Then
+							if BoneShield.IsAvailable(TimeStamp) Then
+								If BoneShield.Use(TimeStamp) Then
+									BloodTap.CancelAura
+									Return True
+								End If
+							End If
+							If UnbreakableArmor.IsAvailable(TimeStamp) Then
+								If UnbreakableArmor.Use(TimeStamp) Then
+									BloodTap.CancelAura
+									Return True
+								End If
+							End If
+						End If
+					End If
+				End If
 				
 				if PetFriendly then
 					If Ghoul.ActiveUntil < TimeStamp and Ghoul.cd < TimeStamp and CanUseGCD(TimeStamp) Then
@@ -901,6 +926,10 @@ Public Class Sim
 				Me.BoneShieldUsageStyle= 2
 			Case "Instead of Blood Boil"
 				Me.BoneShieldUsageStyle = 3
+			Case "After Death rune OB/SS with cancel aura"
+				Me.BoneShieldUsageStyle = 4
+			Case Else
+				Me.BoneShieldUsageStyle= 2
 		End Select
 		
 		
@@ -909,6 +938,12 @@ Public Class Sim
 		Catch
 			
 			ICCDamageBuff  = 0
+		End Try
+		
+		Try
+			BoneShieldTTL = XmlConfig.SelectSingleNode("//config/BSTTL").InnerText
+		Catch
+			BoneShieldTTL = 300
 		End Try
 		
 		

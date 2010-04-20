@@ -1,4 +1,9 @@
-﻿1.2.1.5 Release notes
+﻿1.2.1.6 Release notes
+* Spell hit EP Value correction
+* Correction on the GoDisease that sometime let the disease fall on frost spec.
+* Added a new option for Boneshield/UA: "After Death rune OB/SS with cancel aura"
+
+1.2.1.5 Release notes
 * Bug fixes: Razorice, 4PT9, Bloodboil, KM + Rime 
 * Added Rune, GCD usage to the report.
 

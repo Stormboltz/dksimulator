@@ -45,7 +45,9 @@ Friend Class Obliterate
 			If DoMyToTHit = False Then Exit Function
 		End If
 		
-		
+		If OffHand = False Then 
+			Sim.runicpower.add(15 + 2.5*sim.talentfrost.ChillOfTheGrave + 5*sim.MainStat.T74PDPS)
+		End If
 		dim dégat as Integer
 		Dim ccT As Double
 		ccT = CritChance
@@ -69,7 +71,6 @@ Friend Class Obliterate
 		Else
 			sim.TryOnMHHitProc
 			sim.TryOnFU
-			Sim.runicpower.add(15 + 2.5*sim.talentfrost.ChillOfTheGrave  + 5*sim.MainStat.T74PDPS )
 			sim.proc.Rime.TryMe(T)
 		End If
 		

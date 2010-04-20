@@ -31,16 +31,17 @@ Sub New(S As sim)
 				return false
 			End If
 		End If
-		
-		If sim.KeepBloodSync Then
-			If sim.BloodToSync = True Then
-				sim.BloodToSync  = False
-			Else
-				sim.BloodToSync  = true
+		If sim.BoneShieldUsageStyle = 1 Or sim.BoneShieldUsageStyle = 2 Then
+			If sim.KeepBloodSync Then
+				If sim.BloodToSync = True Then
+					sim.BloodToSync  = False
+				Else
+					sim.BloodToSync  = true
+				End If
 			End If
+		Else
+			sim.BloodToSync = false
 		End If
-		
-		
 		cd = t + 60 * 100
 		sim.Runes.UseDeathBlood(T,true)
 		ActiveUntil= T + 20 * 100

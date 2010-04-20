@@ -24,7 +24,7 @@ Friend Class HeartStrike
 			MissCount = MissCount + 1
 			Exit function
 		End If
-		
+		Sim.RunicPower.add (10)
 		Dim intCount As Integer
 		For intCount = 1 To Sim.NumberOfEnemies
 			if intCount <= 2 then
@@ -68,7 +68,7 @@ Friend Class HeartStrike
 		If sim.DRW.IsActive(T) Then
 			sim.DRW.DRWHeartStrike
 		End If
-		Sim.RunicPower.add (10)
+		
 		
 		return true
 	End Function

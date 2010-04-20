@@ -105,6 +105,7 @@ Public Partial Class MainForm
 		cmbBShOption.Items.Add("Instead of Blood Strike")
 		cmbBShOption.Items.Add("Instead of Blood Boil")
 		cmbBShOption.Items.Add("After BS/BB")
+		cmbBShOption.Items.Add("After Death rune OB/SS with cancel aura")
 		cmbBShOption.SelectedItem = stemp
 		
 		stemp = cmbICCBuff.SelectedItem
@@ -382,6 +383,11 @@ Public Partial Class MainForm
 		root = doc.DocumentElement
 		root.AppendChild(newElem)
 		
+		'Bone shield Time to live
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "BSTTL", "")
+		newElem.InnerText = txtBSTTL.Text
+		root = doc.DocumentElement
+		root.AppendChild(newElem)
 		
 		'Genere combat log
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "log", "")
@@ -519,7 +525,7 @@ Public Partial Class MainForm
 		cmbBShOption.SelectedItem = doc.SelectSingleNode("//config/BShOption").InnerText
 		cmbICCBuff.SelectedItem = doc.SelectSingleNode("//config/ICCBuff").InnerText
 		txtLatency.Text = doc.SelectSingleNode("//config/latency").InnerText
-		
+		txtBSTTL.Text = doc.SelectSingleNode("//config/BSTTL").InnerText
 		txtSimtime.Text = doc.SelectSingleNode("//config/simtime").InnerText
 		chkCombatLog.Checked = doc.SelectSingleNode("//config/log").InnerText
 		ckLogRP.Checked = doc.SelectSingleNode("//config/logdetail").InnerText

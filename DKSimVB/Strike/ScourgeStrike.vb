@@ -25,9 +25,9 @@ Friend Class ScourgeStrike
 			MissCount = MissCount + 1
 			Exit function
 		End If
-		dim dégat as Integer
 		
-
+		Sim.RunicPower.add (15 + sim.TalentUnholy.Dirge * 2.5 + 5*sim.MainStat.T74PDPS)
+		dim dégat as Integer
 			tmpPhysical = 0
 			tmpMagical = 0
 			'Physical part
@@ -61,7 +61,7 @@ Friend Class ScourgeStrike
 			End If
 		End If
 		sim.runes.UseFU(T,False)
-		Sim.RunicPower.add (15 + sim.TalentUnholy.Dirge * 2.5 + 5*sim.MainStat.T74PDPS)
+		
 		sim.TryOnFU
 		sim.TryOnMHHitProc
 		return true

@@ -11,8 +11,8 @@ Public Class BoneShield
 	Friend Charge As Integer
 	Friend previousFade As Long
 	
-	Function BuffLength() as Integer
-		Return 300
+	Function BuffLength() As Integer
+		return sim.BoneShieldTTL
 	End Function
 	
 	
@@ -32,7 +32,7 @@ Public Class BoneShield
 	
 	Sub PreBuff
 		if sim.TalentUnholy.BoneShield = 1 then
-			CD = 60*100
+			CD =sim.TimeStamp + 60*100
 			ActiveUntil = sim.TimeStamp + BuffLength*100
 			AddUptime(sim.TimeStamp)
 			HitCount += 1
@@ -54,14 +54,17 @@ Public Class BoneShield
 			End If
 		End If
 		
-		If sim.KeepBloodSync Then
-			If sim.BloodToSync = True Then
-				sim.BloodToSync  = False
-			Else
-				sim.BloodToSync  = true
+		If sim.BoneShieldUsageStyle = 1 Or sim.BoneShieldUsageStyle = 2 Then
+			If sim.KeepBloodSync Then
+				If sim.BloodToSync = True Then
+					sim.BloodToSync  = False
+				Else
+					sim.BloodToSync  = true
+				End If
 			End If
+		Else
+			sim.BloodToSync = false
 		End If
-		
 		
 		me.CD = T + 60*100
 		Me.ActiveUntil = T + BuffLength*100

@@ -33,7 +33,7 @@ Public Class CombatLog
 	
 			If enable Then 
 				If txtFile is Nothing Then InitcombatLog
-				txtFile.WriteLine(tmp & vbtab & s)
+				txtFile.WriteLine(tmp & vbtab & s & vbtab  & "RP left = " & Sim.RunicPower.GetValue())
 			End If
 
 	End sub

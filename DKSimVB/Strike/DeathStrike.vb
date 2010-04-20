@@ -32,6 +32,12 @@ Friend Class DeathStrike
 		Else
 			If DoMyToTHit = False Then Exit Function
 		End If
+		
+		If offhand = False Then 
+			Sim.runicpower.add(15 +  2.5*sim.talentunholy.Dirge )
+			Sim.runicpower.add(5*sim.MainStat.T74PDPS)
+		End If
+		
 		dim dégat as Integer
 		RNG = RngCrit
 		If RNG <= CritChance Then
@@ -55,8 +61,7 @@ Friend Class DeathStrike
 			Else
 				sim.Runes.UseFU(T, False)
 			End If
-			Sim.runicpower.add(15 +  2.5*sim.talentunholy.Dirge )
-			Sim.runicpower.add(5*sim.MainStat.T74PDPS)
+			
 			sim.TryOnFU
 		Else
 			sim.TryOnOHHitProc

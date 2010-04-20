@@ -49,10 +49,10 @@ Friend class DeathCoil
 
 			If SDoom Then
 				If sim.CombatLog.LogDetails Then
-					sim.combatlog.write(T  & vbtab &  "DC SDoom crit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.GetValue())
+					sim.combatlog.write(T  & vbtab &  "DC SDoom crit for " & dégat )
 				End If
 			Else
-				sim.combatlog.write(T  & vbtab &  "DC crit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.GetValue())
+				sim.combatlog.write(T  & vbtab &  "DC crit for " & dégat )
 			End If
 		Else
 			dégat= AvrgNonCrit(T)
@@ -60,10 +60,10 @@ Friend class DeathCoil
 			HitCount = HitCount + 1
 			If SDoom Then
 				If sim.CombatLog.LogDetails Then
-					sim.combatlog.write(T  & vbtab &  "DC SDoom hit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.GetValue())
+					sim.combatlog.write(T  & vbtab &  "DC SDoom hit for " & dégat )
 				End If
 			Else
-				sim.combatlog.write(T  & vbtab &  "DC hit for " & dégat & vbtab & "RP left = " & Sim.RunicPower.GetValue())
+				sim.combatlog.write(T  & vbtab &  "DC hit for " & dégat & vbtab )
 			End If
 			
 		End If

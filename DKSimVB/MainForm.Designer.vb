@@ -270,6 +270,9 @@ Partial Class MainForm
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.cmdRngSeeder = New System.Windows.Forms.Button
 		Me.tmrProgress = New System.Windows.Forms.Timer(Me.components)
+		Me.txtBSTTL = New System.Windows.Forms.TextBox
+		Me.label9 = New System.Windows.Forms.Label
+		Me.label45 = New System.Windows.Forms.Label
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -598,12 +601,15 @@ Partial Class MainForm
 		'
 		Me.grpSimOption.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.grpSimOption.Controls.Add(Me.label45)
+		Me.grpSimOption.Controls.Add(Me.txtBSTTL)
 		Me.grpSimOption.Controls.Add(Me.groupBox7)
 		Me.grpSimOption.Controls.Add(Me.rCharwithGear)
 		Me.grpSimOption.Controls.Add(Me.rCharacter)
 		Me.grpSimOption.Controls.Add(Me.cmbICCBuff)
 		Me.grpSimOption.Controls.Add(Me.chkBloodSync)
 		Me.grpSimOption.Controls.Add(Me.label44)
+		Me.grpSimOption.Controls.Add(Me.label9)
 		Me.grpSimOption.Controls.Add(Me.label20)
 		Me.grpSimOption.Controls.Add(Me.cmbBShOption)
 		Me.grpSimOption.Controls.Add(Me.chkDisease)
@@ -745,18 +751,19 @@ Partial Class MainForm
 		'label20
 		'
 		Me.label20.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.label20.Location = New System.Drawing.Point(704, 473)
+		Me.label20.Location = New System.Drawing.Point(704, 469)
 		Me.label20.Name = "label20"
 		Me.label20.Size = New System.Drawing.Size(110, 21)
 		Me.label20.TabIndex = 86
-		Me.label20.Text = "Use Bone shield/UA"
+		Me.label20.Text = "Use Bone shield/UA:"
+		Me.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
 		'
 		'cmbBShOption
 		'
 		Me.cmbBShOption.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbBShOption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cmbBShOption.FormattingEnabled = true
-		Me.cmbBShOption.Location = New System.Drawing.Point(820, 470)
+		Me.cmbBShOption.Location = New System.Drawing.Point(820, 466)
 		Me.cmbBShOption.Name = "cmbBShOption"
 		Me.cmbBShOption.Size = New System.Drawing.Size(149, 21)
 		Me.cmbBShOption.TabIndex = 85
@@ -766,7 +773,7 @@ Partial Class MainForm
 		Me.chkDisease.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.chkDisease.Checked = true
 		Me.chkDisease.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkDisease.Location = New System.Drawing.Point(884, 434)
+		Me.chkDisease.Location = New System.Drawing.Point(884, 430)
 		Me.chkDisease.Name = "chkDisease"
 		Me.chkDisease.Size = New System.Drawing.Size(98, 41)
 		Me.chkDisease.TabIndex = 84
@@ -776,7 +783,7 @@ Partial Class MainForm
 		'txtNumberOfEnemies
 		'
 		Me.txtNumberOfEnemies.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.txtNumberOfEnemies.Location = New System.Drawing.Point(828, 444)
+		Me.txtNumberOfEnemies.Location = New System.Drawing.Point(828, 440)
 		Me.txtNumberOfEnemies.Name = "txtNumberOfEnemies"
 		Me.txtNumberOfEnemies.Size = New System.Drawing.Size(50, 20)
 		Me.txtNumberOfEnemies.TabIndex = 83
@@ -785,7 +792,7 @@ Partial Class MainForm
 		'label19
 		'
 		Me.label19.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.label19.Location = New System.Drawing.Point(720, 447)
+		Me.label19.Location = New System.Drawing.Point(720, 443)
 		Me.label19.Name = "label19"
 		Me.label19.Size = New System.Drawing.Size(102, 13)
 		Me.label19.TabIndex = 82
@@ -2772,6 +2779,34 @@ Partial Class MainForm
 		Me.tmrProgress.Interval = 1000
 		AddHandler Me.tmrProgress.Tick, AddressOf Me.TmrProgressTick
 		'
+		'txtBSTTL
+		'
+		Me.txtBSTTL.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.txtBSTTL.Location = New System.Drawing.Point(820, 490)
+		Me.txtBSTTL.Name = "txtBSTTL"
+		Me.txtBSTTL.Size = New System.Drawing.Size(149, 20)
+		Me.txtBSTTL.TabIndex = 92
+		Me.txtBSTTL.Text = "300"
+		Me.txtBSTTL.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+		'
+		'label9
+		'
+		Me.label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.label9.Location = New System.Drawing.Point(657, 493)
+		Me.label9.Name = "label9"
+		Me.label9.Size = New System.Drawing.Size(157, 21)
+		Me.label9.TabIndex = 86
+		Me.label9.Text = "BoneShield Time to live:"
+		Me.label9.TextAlign = System.Drawing.ContentAlignment.TopRight
+		'
+		'label45
+		'
+		Me.label45.Location = New System.Drawing.Point(969, 493)
+		Me.label45.Name = "label45"
+		Me.label45.Size = New System.Drawing.Size(40, 20)
+		Me.label45.TabIndex = 93
+		Me.label45.Text = "s"
+		'
 		'MainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
@@ -2828,6 +2863,9 @@ Partial Class MainForm
 		Me.gbScaling.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Private label9 As System.Windows.Forms.Label
+	Private txtBSTTL As System.Windows.Forms.TextBox
+	Private label45 As System.Windows.Forms.Label
 	Private groupBox7 As System.Windows.Forms.GroupBox
 	Private rCharwithGear As System.Windows.Forms.RadioButton
 	Private rCharacter As System.Windows.Forms.RadioButton

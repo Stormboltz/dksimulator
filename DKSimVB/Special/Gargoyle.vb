@@ -34,7 +34,7 @@ Friend Class Gargoyle
 			StrikeCastTime = (2.0 / sim.MainStat.Haste) * 100  'no haste cap for Garg.
 			AP = sim.MainStat.AP
 			sim.RunicPower.Use(60)
-			sim.CombatLog.write(T & vbTab & "Gargoyle use" & vbTab & "RP left = " & sim.RunicPower.GetValue())
+			sim.CombatLog.write(T & vbTab & "Gargoyle use")
 			cd = T + 3 * 60 * 100
 			ActiveUntil = T + 30 * 100
 			SpellHit = sim.MainStat.SpellHit

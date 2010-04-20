@@ -41,8 +41,14 @@ Friend Class priority
 						exit sub
 					End If
 				Case "BloodSync"
+					If sim.glyph.Disease Then
+						if sim.Pestilence.PerfectUsage(TimeStamp) then
+							sim.Pestilence.use(TimeStamp)
+							Exit Sub
+						End If
+					End If
 					If prio.Contains("BloodStrike") and sim.BloodToSync Then
-						If runes.anyBlood(TimeStamp) And sim.CanUseGCD(Timestamp) Then
+						If sim.runes.Blood(TimeStamp) And sim.CanUseGCD(Timestamp) Then
 							If sim.BoneShieldUsageStyle = 1 Then
 								If sim.BoneShield.IsAvailable(TimeStamp) Then
 									sim.BoneShield.Use(TimeStamp)

@@ -19,7 +19,9 @@ Friend Class PlagueStrike
 			If DoMyToTHit = False Then Exit Function
 
 		End If
-		
+		If OffHand = False Then
+			Sim.RunicPower.add (10 + sim.TalentUnholy.Dirge * 2.5)
+		End If
 		
 		Dim dégat As Integer
 		RNG = RngCrit
@@ -40,7 +42,7 @@ Friend Class PlagueStrike
 		If OffHand = False Then
 			sim.TryOnMHHitProc
 			sim.runes.UseUnholy(T,False)
-			Sim.RunicPower.add (10 + sim.TalentUnholy.Dirge * 2.5)
+			
 		Else
 			sim.TryOnOHHitProc
 		End If

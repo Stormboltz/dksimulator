@@ -16,6 +16,7 @@ Friend Class IcyTouch
 			MissCount = MissCount + 1
 			Exit function
 		End If
+		Sim.RunicPower.add (10 + (sim.TalentFrost.ChillOfTheGrave * 2.5))
 		RNG = RngCrit
 		Dim dégat As Integer
 		Dim ccT As Double
@@ -32,7 +33,7 @@ Friend Class IcyTouch
 			sim.combatlog.write(T  & vbtab &  "IT hit for " & dégat)
 		End If
 		total = total + dégat
-		Sim.RunicPower.add (10 + (sim.TalentFrost.ChillOfTheGrave * 2.5))
+		
 		If sim.DRW.IsActive(T) Then
 			sim.DRW.DRWIcyTouch
 		End If
