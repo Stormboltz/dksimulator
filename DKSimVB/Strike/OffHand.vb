@@ -6,7 +6,7 @@ Friend Class OffHand
 		HasteSensible = true
 	End Sub
 	Friend NextWhiteOffHit As Long
-	private dNextWhiteOffHit as Double
+
 	
 	Overrides Function ApplyDamage(T As long) As boolean
 		Dim Nec As Double
@@ -14,11 +14,10 @@ Friend Class OffHand
 		Dim WSpeed As Single
 		Dim RNG As double
 		WSpeed = sim.MainStat.OHWeaponSpeed
-		Dim prvWhiteOffHit As Long
-		prvWhiteOffHit = NextWhiteOffHit
 		
-        dNextWhiteOffHit = dNextWhiteOffHit + (WSpeed * 100) / sim.MainStat.Haste
-		NextWhiteOffHit = dNextWhiteOffHit
+		
+        NextWhiteOffHit = T + (WSpeed * 100) / sim.MainStat.Haste
+		
 		sim.FutureEventManager.Add(NextWhiteOffHit,"OffHand")
 		
 		

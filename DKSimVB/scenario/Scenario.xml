@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<Scenario>
+  <Element id="0">
+    <Name>Element</Name>
+    <CanTakePetDamage>True</CanTakePetDamage>
+    <CanTakeDiseaseDamage>False</CanTakeDiseaseDamage>
+    <CanTakePlayerStrike>True</CanTakePlayerStrike>
+    <Start>6000</Start>
+    <length>1000</length>
+  </Element>
+</Scenario>

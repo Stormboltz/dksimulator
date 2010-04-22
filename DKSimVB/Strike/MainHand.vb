@@ -9,7 +9,7 @@ Sub New(S As sim)
 	
 	
 	Friend NextWhiteMainHit As Long
-	Friend dNextWhiteMainHit As double
+
 	
 	Protected Overrides sub init()
 		MyBase.init()
@@ -28,8 +28,7 @@ Sub New(S As sim)
 		
 		WSpeed = sim.MainStat.MHWeaponSpeed
 		
-        dNextWhiteMainHit = dNextWhiteMainHit + (WSpeed * 100) / sim.MainStat.Haste
-		NextWhiteMainHit = dNextWhiteMainHit
+        NextWhiteMainHit = T + (WSpeed * 100) / sim.MainStat.Haste
 		sim.FutureEventManager.Add(NextWhiteMainHit,"MainHand")
 		
 		If sim.FrostPresence = 1 Then

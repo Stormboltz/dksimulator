@@ -62,6 +62,8 @@ Partial Class MainForm
 		Me.chkShowProc = New System.Windows.Forms.CheckBox
 		Me.chkCombatLog = New System.Windows.Forms.CheckBox
 		Me.grpSimOption = New System.Windows.Forms.GroupBox
+		Me.label45 = New System.Windows.Forms.Label
+		Me.txtBSTTL = New System.Windows.Forms.TextBox
 		Me.groupBox7 = New System.Windows.Forms.GroupBox
 		Me.rdRot = New System.Windows.Forms.RadioButton
 		Me.rdPrio = New System.Windows.Forms.RadioButton
@@ -70,6 +72,7 @@ Partial Class MainForm
 		Me.cmbICCBuff = New System.Windows.Forms.ComboBox
 		Me.chkBloodSync = New System.Windows.Forms.CheckBox
 		Me.label44 = New System.Windows.Forms.Label
+		Me.label9 = New System.Windows.Forms.Label
 		Me.label20 = New System.Windows.Forms.Label
 		Me.cmbBShOption = New System.Windows.Forms.ComboBox
 		Me.chkDisease = New System.Windows.Forms.CheckBox
@@ -270,9 +273,7 @@ Partial Class MainForm
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.cmdRngSeeder = New System.Windows.Forms.Button
 		Me.tmrProgress = New System.Windows.Forms.Timer(Me.components)
-		Me.txtBSTTL = New System.Windows.Forms.TextBox
-		Me.label9 = New System.Windows.Forms.Label
-		Me.label45 = New System.Windows.Forms.Label
+		Me.cmdEditScenario = New System.Windows.Forms.Button
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -601,6 +602,7 @@ Partial Class MainForm
 		'
 		Me.grpSimOption.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.grpSimOption.Controls.Add(Me.cmdEditScenario)
 		Me.grpSimOption.Controls.Add(Me.label45)
 		Me.grpSimOption.Controls.Add(Me.txtBSTTL)
 		Me.grpSimOption.Controls.Add(Me.groupBox7)
@@ -663,6 +665,24 @@ Partial Class MainForm
 		Me.grpSimOption.TabIndex = 49
 		Me.grpSimOption.TabStop = false
 		Me.grpSimOption.Text = "Simulator Options"
+		'
+		'label45
+		'
+		Me.label45.Location = New System.Drawing.Point(969, 493)
+		Me.label45.Name = "label45"
+		Me.label45.Size = New System.Drawing.Size(40, 20)
+		Me.label45.TabIndex = 93
+		Me.label45.Text = "s"
+		'
+		'txtBSTTL
+		'
+		Me.txtBSTTL.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.txtBSTTL.Location = New System.Drawing.Point(820, 490)
+		Me.txtBSTTL.Name = "txtBSTTL"
+		Me.txtBSTTL.Size = New System.Drawing.Size(149, 20)
+		Me.txtBSTTL.TabIndex = 92
+		Me.txtBSTTL.Text = "300"
+		Me.txtBSTTL.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
 		'
 		'groupBox7
 		'
@@ -747,6 +767,16 @@ Partial Class MainForm
 		Me.label44.TabIndex = 86
 		Me.label44.Text = "ICC Damage Buff"
 		Me.label44.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+		'
+		'label9
+		'
+		Me.label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.label9.Location = New System.Drawing.Point(657, 493)
+		Me.label9.Name = "label9"
+		Me.label9.Size = New System.Drawing.Size(157, 21)
+		Me.label9.TabIndex = 86
+		Me.label9.Text = "BoneShield Time to live:"
+		Me.label9.TextAlign = System.Drawing.ContentAlignment.TopRight
 		'
 		'label20
 		'
@@ -2779,33 +2809,15 @@ Partial Class MainForm
 		Me.tmrProgress.Interval = 1000
 		AddHandler Me.tmrProgress.Tick, AddressOf Me.TmrProgressTick
 		'
-		'txtBSTTL
+		'cmdEditScenario
 		'
-		Me.txtBSTTL.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.txtBSTTL.Location = New System.Drawing.Point(820, 490)
-		Me.txtBSTTL.Name = "txtBSTTL"
-		Me.txtBSTTL.Size = New System.Drawing.Size(149, 20)
-		Me.txtBSTTL.TabIndex = 92
-		Me.txtBSTTL.Text = "300"
-		Me.txtBSTTL.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-		'
-		'label9
-		'
-		Me.label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.label9.Location = New System.Drawing.Point(657, 493)
-		Me.label9.Name = "label9"
-		Me.label9.Size = New System.Drawing.Size(157, 21)
-		Me.label9.TabIndex = 86
-		Me.label9.Text = "BoneShield Time to live:"
-		Me.label9.TextAlign = System.Drawing.ContentAlignment.TopRight
-		'
-		'label45
-		'
-		Me.label45.Location = New System.Drawing.Point(969, 493)
-		Me.label45.Name = "label45"
-		Me.label45.Size = New System.Drawing.Size(40, 20)
-		Me.label45.TabIndex = 93
-		Me.label45.Text = "s"
+		Me.cmdEditScenario.Location = New System.Drawing.Point(204, 438)
+		Me.cmdEditScenario.Name = "cmdEditScenario"
+		Me.cmdEditScenario.Size = New System.Drawing.Size(145, 23)
+		Me.cmdEditScenario.TabIndex = 94
+		Me.cmdEditScenario.Text = "Edit Scenario"
+		Me.cmdEditScenario.UseVisualStyleBackColor = true
+		AddHandler Me.cmdEditScenario.Click, AddressOf Me.CmdEditScenarioClick
 		'
 		'MainForm
 		'
@@ -2863,6 +2875,7 @@ Partial Class MainForm
 		Me.gbScaling.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Private cmdEditScenario As System.Windows.Forms.Button
 	Private label9 As System.Windows.Forms.Label
 	Private txtBSTTL As System.Windows.Forms.TextBox
 	Private label45 As System.Windows.Forms.Label

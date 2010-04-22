@@ -399,4 +399,12 @@ Public Partial Class MainForm
 			cmdEditGearSelector.Enabled = true
 		End If
 	End Sub
+	
+	Sub CmdEditScenarioClick(sender As Object, e As EventArgs)
+		Dim m As New Scenarios.ScenarioEditor
+		Dim r As DialogResult
+		m.LoadAvailableScenario
+		r = m.ShowDialog
+		
+	End Sub
 End Class

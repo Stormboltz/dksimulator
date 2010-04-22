@@ -34,7 +34,7 @@ Public Class Sim
 	Private SimStart As Date
 	Friend ICCDamageBuff As Integer
 	Friend BoneShieldTTL as Integer
-	Friend FutureEventManager as New FutureEventManager
+	Friend FutureEventManager as New FutureEventManager(me)
 	Friend Threat as Long
 	Private AMSTimer As Long
 	Private AMSCd As Integer
@@ -170,6 +170,9 @@ Public Class Sim
 	Friend XmlConfig As New Xml.XmlDocument
 	
 	
+	Friend Scenario as Scenarios.Scenario
+	
+	
 	
 	
 	
@@ -279,11 +282,6 @@ Public Class Sim
 					rotation.DoIntro(TimeStamp)
 					if isInGCD(TimeStamp) then Return True
 				End If
-				
-				
-				
-				
-				
 				If BoneShieldUsageStyle = 2 Then 'after BS
 					If runes.BloodRune1.Available(TimeStamp) = False and runes.BloodRune1.death = true  Then
 						If runes.BloodRune2.Available(TimeStamp) = False and runes.BloodRune2.death = true Then
@@ -296,8 +294,6 @@ Public Class Sim
 						End If
 					End If
 				End If
-				
-				
 				If me.Rotation.IntroDone = true Then
 					if Rotate then
 						Rotation.DoRoration(TimeStamp)
@@ -306,7 +302,6 @@ Public Class Sim
 					End If
 				End If
 				If isInGCD(TimeStamp) Then Return True
-				
 				If BoneShieldUsageStyle = 4 Then 'after Death rune OB/SS with cancel aura
 					If runes.BloodRune1.Available(TimeStamp) = False and runes.BloodRune1.death = false Then
 						If runes.BloodRune2.Available(TimeStamp) = False and runes.BloodRune2.death = false Then
@@ -325,7 +320,6 @@ Public Class Sim
 						End If
 					End If
 				End If
-				
 				if PetFriendly then
 					If Ghoul.ActiveUntil < TimeStamp and Ghoul.cd < TimeStamp and CanUseGCD(TimeStamp) Then
 						Ghoul.Summon(TimeStamp)
@@ -336,7 +330,6 @@ Public Class Sim
 						If isInGCD(TimeStamp) Then Return True
 					end if
 				End If
-				
 				If me.Rotation.IntroDone Then
 					If horn.isAutoAvailable(TimeStamp) and CanUseGCD(TimeStamp) Then
 						horn.use(TimeStamp)
@@ -389,14 +382,35 @@ Public Class Sim
 			Case "D&D"
 				DeathandDecay.ApplyDamage(TimeStamp)
 			Case "AMS"
-					AMSTimer = TimeStamp + AMSCd
-					RunicPower.add(AMSAmount)
-					FutureEventManager.Add(AMSTimer + AMSCd,"AMS")
+				AMSTimer = TimeStamp + AMSCd
+				RunicPower.add(AMSAmount)
+				FutureEventManager.Add(AMSTimer + AMSCd,"AMS")
 			Case "RuneFill"
-				me.Runes.FillRunes
+				Me.Runes.FillRunes
+			Case "Scenario"
+				Dim e As Scenarios.Element
+				
+				For Each e In Me.Scenario.Elements
+					If e.Start <= TimeStamp And e.Ending >= TimeStamp Then
+						If e.CanTakeDiseaseDamage = False Then
+							FutureEventManager.reschedule("Disease",e.Ending)
+						End If
+						If e.CanTakePetDamage = False Then
+							FutureEventManager.reschedule("AotD",e.Ending)
+							FutureEventManager.reschedule("Ghoul",e.Ending)
+							FutureEventManager.reschedule("Gargoyle",e.Ending)
+							FutureEventManager.reschedule("DRW",e.Ending)
+						End If
+						If e.CanTakePlayerStrike = False Then
+							FutureEventManager.reschedule("GCD",e.Ending)
+							FutureEventManager.reschedule("Rune",e.Ending)
+							FutureEventManager.reschedule("MainHand",e.Ending)
+							FutureEventManager.reschedule("OffHand",e.Ending)
+						End If
+					End If
+				Next
 			Case Else
 				Debug.Print ("WTF is this event ?")
-				
 		End Select
 		return False
 	End Function
@@ -646,7 +660,8 @@ Public Class Sim
 		
 		
 		
-		Glyph = new glyph(file)
+		Glyph = New glyph(file)
+		
 	End Sub
 	
 	
@@ -700,6 +715,7 @@ Public Class Sim
 		Trinkets.SoftReset
 		BoneShield.CD = 0
 		BoneShield.PreBuff
+		Scenario.SoftReset
 		NextFreeGCD = 0
 		AMSCd = _MainFrm.txtAMScd.text * 100
 		AMSTimer = TimeStamp + AMSCd
@@ -811,6 +827,8 @@ Public Class Sim
 		BoneShield  = New BoneShield(Me)
 		ERW = New EmpowerRuneWeapon(Me)
 		
+		Scenario = New Scenarios.Scenario(Me)
+		
 		
 		AMSCd = _MainFrm.txtAMScd.text * 100
 		AMSTimer = _MainFrm.txtAMScd.text * 100
@@ -824,6 +842,10 @@ Public Class Sim
 		
 		GCDUsage = New Spells.Spell(Me)
 		GCDUsage._Name = "GCD Usage"
+		
+		
+		
+		
 		
 	End Sub
 	

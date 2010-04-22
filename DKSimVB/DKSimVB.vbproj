@@ -146,6 +146,7 @@
     <Compile Include="Properties\AssemblyInfo.vb" />
     <Folder Include="code" />
     <Folder Include="code\FutureEventManager" />
+    <Folder Include="scenario" />
     <Folder Include="CombatLog" />
     <Folder Include="Characters" />
     <Folder Include="Diseases" />
@@ -182,6 +183,14 @@
     </Compile>
     <Compile Include="Runes\rune.vb" />
     <Compile Include="Runes\runes.vb" />
+    <Compile Include="scenario\Element.vb" />
+    <Compile Include="scenario\ScenarioButton.vb">
+    </Compile>
+    <Compile Include="scenario\ScenarioEditor.Designer.vb">
+      <DependentUpon>ScenarioEditor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="scenario\ScenarioEditor.vb" />
+    <Compile Include="scenario\Scenario.vb" />
     <Compile Include="Special\AotD.vb" />
     <Compile Include="Special\Bloodlust.vb" />
     <Compile Include="Special\BloodPresence.vb" />
@@ -940,6 +949,9 @@
     <None Include="Rotation\unholy.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="scenario\Scenario.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="template.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -1029,6 +1041,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Progress.resx">
       <DependentUpon>Progress.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="scenario\ScenarioEditor.resx">
+      <DependentUpon>ScenarioEditor.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
 </Project>
