@@ -39,7 +39,8 @@ Public Class ScourgeStrikeMagical
 	End Function
 	
 	
-	public Overrides Function AvrgNonCrit(T As Long) As Double
+	Public Function AvrgNonCrit(T As Long,Optional target As Targets.Target = Nothing) As Double
+		if target is nothing then target = sim.MainTarget
 		Dim tmpMagical As Integer
 		Dim addtiveDamage As Double
 		
@@ -52,12 +53,12 @@ Public Class ScourgeStrikeMagical
 		addtiveDamage += sim.BloodPresence * 0.15
 		addtiveDamage += 0.02 * sim.BoneShield.Value(T)
 		If sim.proc.Desolation.IsActiveAt(T) Then addtiveDamage += sim.proc.Desolation.ProcValue / 100
-		addtiveDamage +=  sim.TalentFrost.BlackIce * 2 / 100
+		addtiveDamage +=  sim.Character.talentfrost.BlackIce * 2 / 100
 		tmp = tmp * addtiveDamage
-		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
-		tmp = tmp * (1 + 0.02 * sim.TalentBlood.BloodGorged)
+		tmp = tmp * (1 + 0.03 *  sim.Character.Buff.PcDamage)
+		tmp = tmp * (1 + 0.02 * sim.Character.talentblood.BloodGorged)
 		If sim.proc.T104PDPS.IsActiveAt(T) Then tmp = tmp * 1.03
-		tmp = tmp * (1 + 0.13 * sim.Buff.SpellDamageTaken)
+		tmp = tmp * (1 + 0.13 * target.Debuff.SpellDamageTaken)
 		tmp = tmp * (1-15/(510+15)) 'Partial Resistance. It's about 0,029% less damage on average.
 		tmpMagical = tmpMagical * tmp
 		if sim.RuneForge.CheckCinderglacier(True) > 0 then tmpMagical *= 1.2

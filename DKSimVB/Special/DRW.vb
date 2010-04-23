@@ -93,7 +93,7 @@ Friend Class DRW
 			cd = T + (1.5*6000)
 			Sim.RunicPower.Use(60)
 			ActiveUntil = T + 1200
-			If sim.glyph.DRW Then
+			If sim.character.glyph.DRW Then
 				ActiveUntil = ActiveUntil  + 500
 			End If
 			UseGCD(T)
@@ -162,18 +162,20 @@ Friend Class DRW
 	sub UseGCD(T as Long)
 		Sim.UseGCD(T, True)
 	End Sub
-	Function PhysicalDamageMultiplier(T as long) As Double
+	Function PhysicalDamageMultiplier(T As Long,Optional target As Targets.Target = Nothing) As Double
+		if target is nothing then target = sim.MainTarget
 		dim tmp as Double
 		tmp = 1
 		tmp = tmp * getMitigation
-		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
-		tmp = tmp * (1 + 0.02 *  sim.Buff.PhysicalVuln)
+		tmp = tmp * (1 + 0.03 *  sim.Character.Buff.PcDamage)
+		tmp = tmp * (1 + 0.02 *  target.Debuff.PhysicalVuln)
 		if Hyst then tmp = tmp * (1 + 0.2)
 		return tmp
 	End Function
 	
 	
-	Function getMitigation() As Double
+	Function getMitigation(Optional target As Targets.Target = Nothing) As Double
+		if target is nothing then target = sim.MainTarget
 		Dim AttackerLevel As Integer = 80
 		Dim tmpArmor As Integer
 		Dim ArPDebuffs As Double
@@ -182,8 +184,8 @@ Friend Class DRW
 		dim _Mitigation as Double
 		
 		
-		if sim.Buff.ArmorMajor > 0 then l_sunder = 1- 0.20
-		If sim.Buff.ArmorMinor > 0 Then l_ff = 1 - 0.05
+		if target.Debuff.ArmorMajor > 0 then l_sunder = 1- 0.20
+		If target.Debuff.ArmorMinor > 0 Then l_ff = 1 - 0.05
 		ArPDebuffs = (l_sunder * l_ff)
 		Dim ArmorConstant As Double = 400 + (85 * 80) + 4.5 * 85 * (80 - 59)
 		
@@ -194,11 +196,12 @@ Friend Class DRW
 		return _Mitigation
 	end function
 	
-	Function MagicalDamageMultiplier(T as long) As Double
+	Function MagicalDamageMultiplier(T As Long,Optional target As Targets.Target = Nothing) As Double
+		if target is nothing then target = sim.MainTarget
 		Dim tmp As Double
 		tmp = 1
-		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
-		tmp = tmp * (1 + 0.13 *  sim.Buff.SpellDamageTaken)
+		tmp = tmp * (1 + 0.03 *  sim.Character.Buff.PcDamage)
+		tmp = tmp * (1 + 0.13 *  target.Debuff.SpellDamageTaken)
 		return tmp
 	End Function
 	Function crit() As System.Double

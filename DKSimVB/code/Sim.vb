@@ -44,13 +44,8 @@ Public Class Sim
 	Private InterruptAmount As Integer
 	Private InterruptCd As Integer
 	Friend KeepRNGSeed As Boolean
+	
 	Friend KeepDiseaseOnOthersTarget As Boolean
-	
-	
-	Friend TalentBlood As TalentBlood
-	Friend TalentFrost As TalentFrost
-	Friend TalentUnholy as TalentUnholy
-	
 	
 	
 	Friend RandomNumberGenerator as RandomNumberGenerator
@@ -116,7 +111,6 @@ Public Class Sim
 	Friend Pestilence as Pestilence
 	Friend UnbreakableArmor as UnbreakableArmor
 	Friend UnholyBlight as UnholyBlight
-	'Friend Bloodlust as Bloodlust
 	Friend DRW As DRW
 	Friend WanderingPlague as WanderingPlague
 	Friend Gargoyle As Gargoyle
@@ -130,8 +124,11 @@ Public Class Sim
 	
 	
 	Friend proc As procs
-	Friend Buff As buff
-	Friend Glyph As Glyph
+	Friend MainTarget As Targets.Target
+	Friend TargetsManager as Targets.TargetsManager
+	
+	
+	
 	
 	Friend Priority As Priority
 	Friend Rotation as Rotation
@@ -183,16 +180,11 @@ Public Class Sim
 		NumDesease = 0
 		If BloodPlague.isActive(TimeStamp) Then NumDesease = NumDesease + 1
 		If FrostFever.isActive(TimeStamp) Then NumDesease = NumDesease + 1
-		If (TalentUnholy.EbonPlaguebringer + TalentUnholy.CryptFever >= 1) And NumDesease >= 1 Then NumDesease = NumDesease + 1
+		If (Character.TalentUnholy.EbonPlaguebringer + Character.TalentUnholy.CryptFever >= 1) And NumDesease >= 1 Then NumDesease = NumDesease + 1
 		
 	End Function
 	
-	Sub StartEP(pb As ProgressBar,EPCalc As Boolean,SimTime As double,MainFrm As MainForm)
-		
-	End Sub
-	Sub Create
-		Debug.Print ("Create Sim object")
-	End Sub
+	
 	
 	Function EPStat() as String
 		return _EPStat
@@ -210,7 +202,6 @@ Public Class Sim
 	
 	Private SimTime As Double
 	Sub Prepare (SimTime As Double, MainFrm As MainForm)
-		
 		me.SimTime = SimTime
 		_MainFrm=MainFrm
 	End Sub
@@ -441,7 +432,7 @@ Public Class Sim
 		'Init
 		Initialisation
 		TimeStamp = 1
-		If TalentUnholy.MasterOfGhouls=1 Then Ghoul.Summon(1)
+		If Character.TalentUnholy.MasterOfGhouls=1 Then Ghoul.Summon(1)
 		Rotation.LoadIntro
 		If Rotate Then Rotation.loadRotation
 		' Pre Pull Activities
@@ -562,7 +553,7 @@ Public Class Sim
 	
 	Function CanUseGCD(T As Long) As Boolean
 		CanUseGCD=true
-		If glyph.Disease Then
+		If character.glyph.Disease Then
 			dim tGDC as long
 			'return false
 			If UnholyPresence Then
@@ -578,91 +569,7 @@ Public Class Sim
 		End If
 	End Function
 	
-	Sub loadtemplate(file As String)
-		
-		talentblood = New TalentBlood
-		talentfrost = New TalentFrost
-		talentunholy = new TalentUnholy
-		
-		dim XmlDoc As New Xml.XmlDocument
-		XmlDoc.Load(file)
-		
-		if me._EPStat <> "Butchery" then talentblood.Butchery = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Butchery").InnerText)
-		if me._EPStat <> "Subversion" then talentblood.Subversion  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Subversion").InnerText)
-		if me._EPStat <> "BladedArmor" then talentblood.BladedArmor  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/BladedArmor").InnerText)
-		if me._EPStat <> "ScentOfBlood" then TalentBlood.ScentOfBlood = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/ScentOfBlood").InnerText)
-		if me._EPStat <> "Weapspec" then talentblood.Weapspec  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Weapspec").InnerText)
-		if me._EPStat <> "Darkconv" then talentblood.Darkconv  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Darkconv").InnerText)
-		if me._EPStat <> "BloodyStrikes" then talentblood.BloodyStrikes  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/BloodyStrikes").InnerText)
-		if me._EPStat <> "Vot3W" then talentblood.Vot3W  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Vot3W").InnerText)
-		if me._EPStat <> "BloodyVengeance" then talentblood.BloodyVengeance  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/BloodyVengeance").InnerText)
-		if me._EPStat <> "AbominationMight" then talentblood.AbominationMight  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/AbominationMight").InnerText)
-		If Me._EPStat <> "Hysteria" Then talentblood.Hysteria  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Hysteria").InnerText)
-		If Me._EPStat <> "BloodWorms" Then talentblood.BloodWorms  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/BloodWorms").InnerText)
-		
-		if me._EPStat <> "ImprovedDeathStrike" then talentblood.ImprovedDeathStrike  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/ImprovedDeathStrike").InnerText)
-		if me._EPStat <> "SuddenDoom" then talentblood.SuddenDoom  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/SuddenDoom").InnerText)
-		if me._EPStat <> "MightofMograine" then talentblood.MightofMograine  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/MightofMograine").InnerText)
-		if me._EPStat <> "BloodGorged" then talentblood.BloodGorged  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/BloodGorged").InnerText)
-		if me._EPStat <> "DRW" then talentblood.DRW  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/DRW").InnerText)
-		if me._EPStat <> "DRM" then talentblood.DRM  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/DRM").InnerText)
-		
-		if me._EPStat <> "RPM" then talentfrost.RPM  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/RPM").InnerText)
-		if me._EPStat <> "ImprovedIcyTouch" then talentfrost.ImprovedIcyTouch  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/ImprovedIcyTouch").InnerText)
-		if me._EPStat <> "Toughness" then talentfrost.Toughness  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Toughness").InnerText)
-		if me._EPStat <> "BlackIce" then talentfrost.BlackIce  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/BlackIce").InnerText)
-		if me._EPStat <> "NervesofColdSteel" then talentfrost.NervesofColdSteel  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/NervesofColdSteel").InnerText)
-		if me._EPStat <> "Annihilation" then talentfrost.Annihilation  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Annihilation").InnerText)
-		if me._EPStat <> "KillingMachine" then talentfrost.KillingMachine  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/KillingMachine").InnerText)
-		if me._EPStat <> "GlacierRot" then talentfrost.GlacierRot  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/GlacierRot").InnerText)
-		If Me._EPStat <> "Deathchill" Then talentfrost.Deathchill  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Deathchill").InnerText)
-		if me._EPStat <> "IcyTalons" then talentfrost.IcyTalons  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/IcyTalons").InnerText)
-		if me._EPStat <> "ImprovedIcyTalons" then talentfrost.ImprovedIcyTalons  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/ImprovedIcyTalons").InnerText)
-		if me._EPStat <> "MercilessCombat" then talentfrost.MercilessCombat  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/MercilessCombat").InnerText)
-		if me._EPStat <> "Rime" then talentfrost.Rime  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Rime").InnerText)
-		if me._EPStat <> "BloodoftheNorth" then talentfrost.BloodoftheNorth  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/BloodoftheNorth").InnerText)
-		if me._EPStat <> "UnbreakableArmor" then talentfrost.UnbreakableArmor  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/UnbreakableArmor").InnerText)
-		if me._EPStat <> "GuileOfGorefiend" then talentfrost.GuileOfGorefiend  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/GuileOfGorefiend").InnerText)
-		if me._EPStat <> "TundraStalker" then talentfrost.TundraStalker  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/TundraStalker").InnerText)
-		if me._EPStat <> "ChillOfTheGrave" then talentfrost.ChillOfTheGrave  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/ChillOfTheGrave").InnerText)
-		if me._EPStat <> "HowlingBlast" then TalentFrost.HowlingBlast = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/HowlingBlast").InnerText)
-		If Me._EPStat <> "ThreatOfThassarian" Then TalentFrost.ThreatOfThassarian= Integer.Parse(XmlDoc.SelectSingleNode("//Talents/ThreatOfThassarian").InnerText)
-		If Me._EPStat <> "EndlessWinter" Then TalentFrost.EndlessWinter= Integer.Parse(XmlDoc.SelectSingleNode("//Talents/EndlessWinter").InnerText)
-		if me._EPStat <> "IcyTalons" then talentfrost.IcyTalons  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/IcyTalons").InnerText)
-		
-		if me._EPStat <> "ViciousStrikes" then talentunholy.ViciousStrikes  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/ViciousStrikes").InnerText)
-		if me._EPStat <> "Virulence" then talentunholy.Virulence  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Virulence").InnerText)
-		if me._EPStat <> "Epidemic" then talentunholy.Epidemic  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Epidemic").InnerText)
-		if me._EPStat <> "Morbidity" then talentunholy.Morbidity  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Morbidity").InnerText)
-		if me._EPStat <> "RavenousDead" then talentunholy.RavenousDead  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/RavenousDead").InnerText)
-		if me._EPStat <> "MasterOfGhouls" then talentunholy.MasterOfGhouls  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/MasterOfGhouls").InnerText)
-		if me._EPStat <> "Outbreak" then talentunholy.Outbreak  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Outbreak").InnerText)
-		if me._EPStat <> "Necrosis" then talentunholy.Necrosis  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Necrosis").InnerText)
-		if me._EPStat <> "BloodCakedBlade" then talentunholy.BloodCakedBlade  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/BloodCakedBlade").InnerText)
-		if me._EPStat <> "UnholyBlight" then talentunholy.UnholyBlight  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/UnholyBlight").InnerText)
-		if me._EPStat <> "Impurity" then talentunholy.Impurity  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Impurity").InnerText)
-		if me._EPStat <> "CryptFever" then talentunholy.CryptFever  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/CryptFever").InnerText)
-		if me._EPStat <> "ImprovedUnholyPresence" then talentunholy.ImprovedUnholyPresence = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/ImprovedUnholyPresence").InnerText)
-		if me._EPStat <> "BoneShield" then talentunholy.BoneShield  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/BoneShield").InnerText)
-		if me._EPStat <> "NightoftheDead" then talentunholy.NightoftheDead  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/NightoftheDead").InnerText)
-		if me._EPStat <> "GhoulFrenzy" then TalentUnholy.GhoulFrenzy= Integer.Parse(XmlDoc.SelectSingleNode("//Talents/GhoulFrenzy").InnerText)
-		if me._EPStat <> "WanderingPlague" then talentunholy.WanderingPlague  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/WanderingPlague").InnerText)
-		if me._EPStat <> "EbonPlaguebringer" then talentunholy.EbonPlaguebringer  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/EbonPlaguebringer").InnerText)
-		if me._EPStat <> "RageofRivendare" then talentunholy.RageofRivendare  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/RageofRivendare").InnerText)
-		if me._EPStat <> "SummonGargoyle" then talentunholy.SummonGargoyle  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/SummonGargoyle").InnerText)
-		if me._EPStat <> "Dirge" then talentunholy.Dirge  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Dirge").InnerText)
-		if me._EPStat <> "Reaping" then talentunholy.Reaping  = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Reaping").InnerText)
-		
-		if me._EPStat <> "Desecration" then talentunholy.Desecration = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Desecration").InnerText)
-		if me._EPStat <> "Desolation" then  talentunholy.Desolation = Integer.Parse(XmlDoc.SelectSingleNode("//Talents/Desolation").InnerText)
-		
-		
-		
-		
-		
-		Glyph = New glyph(file)
-		
-	End Sub
+	
 	
 	
 	
@@ -726,7 +633,7 @@ Public Class Sim
 		
 		ERW.CD = 0
 		RuneForge.SoftReset
-		If TalentBlood.Butchery > 0 Then
+		If Character.TalentBlood.Butchery > 0 Then
 			Butchery.nextTick = TimeStamp + 500
 			FutureEventManager.Add(Butchery.nextTick,"Butchery")
 		End If
@@ -743,7 +650,10 @@ Public Class Sim
 		
 		'_EpStat = SimConstructor.EpStat
 		
-		Buff = New Buff(Me)
+		'Buff = New Buff(Me)
+		
+		MainTarget = New Targets.Target(Me)
+		TargetsManager = new Targets.TargetsManager
 		'Keep this order for RuneX -> Runse -> Rotation/Prio
 		Runes = New Runes.runes(Me)
 		Rotation = new Rotation(Me)
@@ -858,7 +768,7 @@ Public Class Sim
 			xmlcharacter.Load(Application.StartupPath & "\CharactersWithGear\" & XmlConfig.SelectSingleNode("//config/CharacterWithGear").InnerText)
 		End If
 		
-		loadtemplate (Application.StartupPath & "\Templates\" & XmlConfig.SelectSingleNode("//config/template").InnerText)
+		
 		IntroPath = Application.StartupPath & "\Intro\"  &  XmlConfig.SelectSingleNode("//config/intro").InnerText
 		
 		If system.IO.File.Exists(IntroPath)  = False Then
@@ -1031,7 +941,7 @@ Public Class Sim
 		If FrostPresence = 1 Then
 			Threat = Threat * 2.0735
 		Else
-			Threat = (Threat * 0.80) * (1- TalentBlood.Subversion * 8.333/100 )
+			Threat = (Threat * 0.80) * (1- Character.TalentBlood.Subversion * 8.333/100 )
 		End If
 		
 		Threat = Threat + ThreatBeforePresence
@@ -1250,17 +1160,17 @@ Public Class Sim
 			if Runes.UnholyRune2.AvailableTime > T  then  aT.Add (runes.UnholyRune2.AvailableTime)
 		End If
 		
-		If TalentBlood.Butchery > 0 Then aT.Add(Butchery.nextTick)
+		If Character.TalentBlood.Butchery > 0 Then aT.Add(Butchery.nextTick)
 		
 		if DeathandDecay.nextTick > TimeStamp then aT.Add( DeathandDecay.nextTick)
 		
-		if TalentBlood.DRW = 1 then
+		if Character.TalentBlood.DRW = 1 then
 			If DRW.IsActive(TimeStamp) Then
 				aT.Add(DRW.NextDRW)
 			End If
 		End If
 		If PetFriendly Then
-			If TalentUnholy.SummonGargoyle = 1 Then
+			If Character.TalentUnholy.SummonGargoyle = 1 Then
 				If Gargoyle.ActiveUntil >= TimeStamp Then
 					aT.Add(Gargoyle.NextGargoyleStrike)
 				end if

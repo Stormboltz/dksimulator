@@ -54,9 +54,19 @@
     <Import Include="System.Diagnostics" />
     <Import Include="System.Drawing" />
     <Import Include="System.Windows.Forms" />
+    <Compile Include="code\Character\Buff.vb" />
+    <Compile Include="code\Character\Character.vb" />
+    <Compile Include="code\Character\MainStat.vb" />
+    <Compile Include="code\Character\TalentBlood.vb" />
+    <Compile Include="code\Character\TalentFrost.vb" />
+    <Compile Include="code\Character\TalentUnholy.vb" />
     <Compile Include="code\FutureEventManager\FutureEvent.vb" />
     <Compile Include="code\FutureEventManager\FutureEventManager.vb" />
     <Compile Include="code\Supertype.vb" />
+    <Compile Include="code\Target\Debuff.vb" />
+    <Compile Include="code\Target\DebuffingProc.vb" />
+    <Compile Include="code\Target\Target.vb" />
+    <Compile Include="code\Target\TargetsManager.vb" />
     <Compile Include="GearSelector\ArmoryImport\frmArmoryImport.Designer.vb">
       <DependentUpon>frmArmoryImport.vb</DependentUpon>
     </Compile>
@@ -105,7 +115,6 @@
       <DependentUpon>MainForm.vb</DependentUpon>
     </Compile>
     <Compile Include="code\Boss.vb" />
-    <Compile Include="code\Buff.vb" />
     <Compile Include="code\CombatLog.vb" />
     <Compile Include="code\GhoulStat.vb" />
     <Compile Include="code\GlobalFunction.vb" />
@@ -146,6 +155,8 @@
     <Compile Include="Properties\AssemblyInfo.vb" />
     <Folder Include="code" />
     <Folder Include="code\FutureEventManager" />
+    <Folder Include="code\Character" />
+    <Folder Include="code\Target" />
     <Folder Include="scenario" />
     <Folder Include="CombatLog" />
     <Folder Include="Characters" />
@@ -171,12 +182,7 @@
     <Folder Include="Spell" />
     <Folder Include="Strike" />
     <Folder Include="Templates" />
-    <Compile Include="code\Character.vb" />
-    <Compile Include="code\MainStat.vb" />
     <Compile Include="code\RunicPower.vb" />
-    <Compile Include="code\TalentBlood.vb" />
-    <Compile Include="code\TalentFrost.vb" />
-    <Compile Include="code\TalentUnholy.vb" />
     <Compile Include="Runes\CataRune.vb" />
     <Compile Include="Runes\CataRunesManagement.vb">
       <DependentUpon>runes.vb</DependentUpon>

@@ -19,12 +19,12 @@ Public Class Frenzy
 	
 	
 	Function IsFrenzyAvailable(T As Long) As Boolean
-		if sim.TalentUnholy.GhoulFrenzy = 0 then return false
+		if sim.Character.talentunholy.GhoulFrenzy = 0 then return false
 		If CD < T  And sim.runes.Unholy(T) Then Return True
 	End Function
 	
 	Function IsAutoFrenzyAvailable(T As Long) As Boolean
-		If sim.TalentUnholy.GhoulFrenzy = 0 Then Return False
+		If sim.Character.talentunholy.GhoulFrenzy = 0 Then Return False
 		If sim.Rotate = True Then
 			If sim.Rotation.MyRotation.Contains("GhoulFrenzy") Then Return False
 		Else

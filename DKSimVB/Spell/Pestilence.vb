@@ -42,7 +42,7 @@ Friend Class Pestilence
 		
 		
 		
-		If sim.glyph.Disease Then
+		If sim.character.glyph.Disease Then
 			If sim.BloodPlague.FadeAt > T Then
 				sim.BloodPlague.Refresh(T)
 			End If
@@ -70,9 +70,9 @@ Friend Class Pestilence
 		
 		Dim blood As Boolean
 		
-		If sim.TalentUnholy.Gargoyle = 1 Then
+		If sim.Character.talentunholy.Gargoyle = 1 Then
 			blood = sim.runes.BloodOnly(T)
-		ElseIf sim.TalentFrost.GuileOfGorefiend > 1 Then
+		ElseIf sim.Character.talentfrost.GuileOfGorefiend > 1 Then
 			blood = sim.runes.BloodOnly(T)
 		Else 
 			blood = sim.runes.AnyBlood(T)

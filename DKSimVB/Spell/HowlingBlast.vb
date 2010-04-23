@@ -12,7 +12,7 @@ Friend Class HowlingBlast
 		MyBase.New(s)
 	End Sub
 	Function isAvailable(T As Long) As Boolean
-		if sim.TalentFrost.HowlingBlast <> 1 then return false
+		if sim.Character.talentfrost.HowlingBlast <> 1 then return false
 		if cd <= T then return true
 	End Function
 	
@@ -31,10 +31,10 @@ Friend Class HowlingBlast
 		
 		If sim.proc.rime.IsActive Then
 			sim.Proc.rime.Use
-			Sim.RunicPower.add (sim.TalentFrost.ChillOfTheGrave * 2.5)
+			Sim.RunicPower.add (sim.Character.talentfrost.ChillOfTheGrave * 2.5)
 		Else
 			sim.runes.UseFU(T,False)
-			Sim.RunicPower.add (15 + (sim.TalentFrost.ChillOfTheGrave * 2.5))
+			Sim.RunicPower.add (15 + (sim.Character.talentfrost.ChillOfTheGrave * 2.5))
 		End If
 		
 		Dim intCount As Integer
@@ -61,26 +61,27 @@ Friend Class HowlingBlast
 		
 		
 		sim.proc.KillingMachine.Use
-		if sim.glyph.HowlingBlast then
+		if sim.character.glyph.HowlingBlast then
 			sim.FrostFever.Apply(T)
 		End If
 		
 		return true
 	End Function
-	overrides Function AvrgNonCrit(T As long) As Double
+	Function AvrgNonCrit(T As Long,Optional target As Targets.Target = Nothing) As Double
+		if target is nothing then target = sim.MainTarget
 		Dim tmp As Double
 		tmp = 585
-		tmp = tmp + (0.2 * (1 + 0.04 * sim.TalentUnholy.Impurity) * sim.MainStat.AP)
-		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
-		if sim.NumDesease > 0 or (sim.Buff.BloodPlague+sim.Buff.FrostFever>0) then 	tmp = tmp * (1 + sim.TalentFrost.GlacierRot * 6.6666666 / 100)
+		tmp = tmp + (0.2 * (1 + 0.04 * sim.Character.talentunholy.Impurity) * sim.MainStat.AP)
+		tmp = tmp * (1 + sim.Character.talentfrost.BlackIce * 2 / 100)
+		if sim.NumDesease > 0 or (target.Debuff.BloodPlague+target.Debuff.FrostFever>0) then 	tmp = tmp * (1 + sim.Character.talentfrost.GlacierRot * 6.6666666 / 100)
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
-		If sim.ExecuteRange Then tmp = tmp *(1+ 0.06*sim.talentfrost.MercilessCombat)
+		If sim.ExecuteRange Then tmp = tmp *(1+ 0.06*sim.Character.talentfrost.MercilessCombat)
 		tmp *= sim.RuneForge.RazorIceMultiplier(T) 'TODO: only on main target
 		if sim.RuneForge.CheckCinderglacier(True) > 0 then tmp *= 1.2
 		AvrgNonCrit = tmp
 	End Function
 	overrides Function CritCoef() As Double
-		CritCoef = 1 * (1 + sim.TalentFrost.GuileOfGorefiend * 0.5 * 15 / 100) 'GoG works off the 1.5 spell crit modifier or something like that
+		CritCoef = 1 * (1 + sim.Character.talentfrost.GuileOfGorefiend * 0.5 * 15 / 100) 'GoG works off the 1.5 spell crit modifier or something like that
 		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
 	overrides Function CritChance() As Double

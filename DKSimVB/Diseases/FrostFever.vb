@@ -6,7 +6,7 @@ Friend Class FrostFever
 	End Sub
 	Overrides Function PerfectUsage(T As Long) As Boolean
 		
-		If sim.TalentFrost.TundraStalker > 0 Then
+		If sim.Character.talentfrost.TundraStalker > 0 Then
 			If FadeAt <= sim.Runes.GetNextFrost(T) Then
 				Sim.BloodPlague.ToReApply = true
 				Return True
@@ -17,10 +17,11 @@ Friend Class FrostFever
 		return false
 	End Function
 
-	Overrides Function CalculateMultiplier(T As Long) As Double
+	Overrides Function CalculateMultiplier(T As Long,Optional target As Targets.Target = Nothing) As Double
+		if target is nothing then target = sim.MainTarget
 		Dim tmp As Double
 		tmp = MyBase.CalculateMultiplier(T) * sim.RuneForge.RazorIceMultiplier(T) 'TODO: only on main target
-		If sim.glyph.IcyTouch Then tmp = tmp * 1.2
+		If sim.character.glyph.IcyTouch Then tmp = tmp * 1.2
 		return tmp
 	End Function
 	

@@ -58,7 +58,7 @@ Public Class Disease
 	
 	Function Lenght() as Integer
 		If _Lenght = 0 Then
-			_Lenght = 1500 + 300 * sim.TalentUnholy.Epidemic
+			_Lenght = 1500 + 300 * sim.Character.talentunholy.Epidemic
 		End If
 		return _Lenght
 	End Function
@@ -85,16 +85,17 @@ Public Class Disease
 		return 0.0
 	End Function
 	
-	Overridable Function CalculateMultiplier(T As Long) As Double
+	Overridable Function CalculateMultiplier(T As Long,Optional target As Targets.Target = Nothing) As Double
+		if target is nothing then target = sim.MainTarget
 		Dim tmp As Double
 		tmp = sim.MainStat.StandardMagicalDamageMultiplier(T)
 		if sim.RuneForge.CheckCinderglacier(False) > 0 then tmp  *= 1.2
-		If  sim.Buff.CrypticFever Then
+		If  target.Debuff.CrypticFever Then
 			tmp = tmp * 1.3
 		Else
-			tmp = tmp * (1 + sim.TalentUnholy.CryptFever * 10 / 100)
+			tmp = tmp * (1 + sim.Character.talentunholy.CryptFever * 10 / 100)
 		End If
-		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
+		tmp = tmp * (1 + sim.Character.talentfrost.BlackIce * 2 / 100)
 		return tmp
 	End Function
 	
@@ -121,7 +122,7 @@ Public Class Disease
 	End Function
 	
 	Overridable Function AvrgNonCrit(T As Long) As Double
-		Return Multiplier * 1.15 * (26 + 0.055 * (1 + 0.04 * sim.TalentUnholy.Impurity) * AP)
+		Return Multiplier * 1.15 * (26 + 0.055 * (1 + 0.04 * sim.Character.talentunholy.Impurity) * AP)
 	End Function
 	
 	Function ApplyDamage(T As long) As boolean
@@ -141,7 +142,7 @@ Public Class Disease
 				totalhit += tmp
 			End If
 			total = total + tmp
-			If sim.TalentUnholy.WanderingPlague > 0 Then
+			If sim.Character.talentunholy.WanderingPlague > 0 Then
 				If Sim.WanderingPlague.isAvailable(T) = True Then
 					Dim RNG As Double
 					RNG = Rng3

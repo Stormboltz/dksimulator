@@ -50,7 +50,7 @@ Public Class AotD
 			MeleeDodgeChance =  math.Max(0.065 - Expertise,0)
 			SpellMissChance = math.Max(0.17 - SpellHit,0)
 			ActiveUntil = T + 40 * 100
-			cd =  T + (10*60*100) - (120*100*sim.TalentUnholy.NightoftheDead)
+			cd =  T + (10*60*100) - (120*100*sim.Character.talentunholy.NightoftheDead)
 			if T <=1 Then
 			Else
 				sim.combatlog.write(T  & vbtab &  "Summon AoTD")
@@ -66,7 +66,7 @@ Public Class AotD
 		MeleeDodgeChance =  math.Max(0.065 - Expertise,0)
 		SpellMissChance = math.Max(0.17 - SpellHit,0)
 		ActiveUntil = T + 30 * 100
-		cd =  T + (10*60*100) - (120*100*sim.TalentUnholy.NightoftheDead)
+		cd =  T + (10*60*100) - (120*100*sim.Character.talentunholy.NightoftheDead)
 		sim.combatlog.write(T  & vbtab &  "Pre-Pull AoTD")
 		sim.FutureEventManager.Add(T,"AotD")
 	End Sub
@@ -82,9 +82,9 @@ Public Class AotD
 		Dim tmp As Double
 		tmp = sim.MainStat.Haste
 		If GhoulDoubleHaste Then
-			tmp = tmp * (1 + 0.2 * sim.Buff.MeleeHaste)
+			tmp = tmp * (1 + 0.2 * sim.Character.Buff.MeleeHaste)
 			If sim.proc.Bloodlust.IsActive Then tmp = tmp * 1.3
-			tmp = tmp * (1 + 0.03 * sim.Buff.Haste)
+			tmp = tmp * (1 + 0.03 * sim.Character.Buff.Haste)
 		End If
 		Return tmp
 	End Function
@@ -212,21 +212,23 @@ Public Class AotD
 		tmp = 331
 		str = sim.Character.Strength
 		tmp += str/2
-		tmp += str * (sim.talentunholy.ravenousdead*0.2)
+		tmp += str * (sim.Character.talentunholy.ravenousdead*0.2)
 		return tmp
 	end function
-	Function crit() As System.Double
+	Function crit(Optional target As Targets.Target = Nothing) As System.Double
+		if target is nothing then target = sim.MainTarget
 		Dim tmp As Double
 		tmp = 5  'BaseCrit
-		tmp = tmp + 5 *  sim.Buff.MeleeCrit
-		tmp = tmp + 3 *  sim.Buff.CritChanceTaken
+		tmp = tmp + 5 *  sim.Character.Buff.MeleeCrit
+		tmp = tmp + 3 *  target.Debuff.CritChanceTaken
 		crit = tmp / 100
 	End Function
-	Function SpellCrit() As Single
+	Function SpellCrit(Optional target As Targets.Target = Nothing) As Single
+		if target is nothing then target = sim.MainTarget
 		Dim tmp As Double
-		tmp = tmp + 3 *  sim.Buff.CritChanceTaken
-		tmp = tmp + 5 *  sim.Buff.SpellCrit
-		tmp = tmp + 5  *  sim.Buff.SpellCritTaken
+		tmp = tmp + 3 *  target.Debuff.CritChanceTaken
+		tmp = tmp + 5 *  sim.Character.Buff.SpellCrit
+		tmp = tmp + 5  *  target.Debuff.SpellCritTaken
 		SpellCrit = tmp / 100
 	End Function
 	
@@ -237,8 +239,8 @@ Public Class AotD
 			SpellHaste = 0.5
 		Else
 			tmp = sim.Character.SpellHasteRating / 25.22 / 100
-			tmp = tmp + 0.05 *  sim.Buff.SpellHaste
-			tmp = tmp + 0.03 *  sim.Buff.Haste
+			tmp = tmp + 0.05 *  sim.Character.Buff.SpellHaste
+			tmp = tmp + 0.03 *  sim.Character.Buff.Haste
 			SpellHaste = tmp
 		End If
 	End Function
@@ -276,32 +278,36 @@ Public Class AotD
 		return tmp
 	End Function
 	
-	Function ArmorMitigation() As Double
+	Function ArmorMitigation(Optional target As Targets.Target = Nothing) As Double
+		if target is nothing then target = sim.MainTarget
+		
 		Dim tmp As Double
 		tmp = sim.MainStat.BossArmor
-		tmp = tmp * (1- 20 *  sim.Buff.ArmorMajor / 100)
-		tmp = tmp * (1- 5 *  sim.Buff.ArmorMinor / 100)
+		tmp = tmp * (1- 20 *  target.Debuff.ArmorMajor / 100)
+		tmp = tmp * (1- 5 *  target.Debuff.ArmorMinor / 100)
 		tmp = tmp * (1 - ArmorPen / 100)
 		tmp = (tmp /((467.5*83)+tmp-22167.5))
 		
 		Return tmp
 	End Function
 	
-	Function PhysicalDamageMultiplier(T as long) As Double
+	Function PhysicalDamageMultiplier(T As Long,Optional target As Targets.Target = Nothing) As Double
+		if target is nothing then target = sim.MainTarget
 		dim tmp as Double
 		tmp = 1
 		tmp = tmp * (1 - ArmorMitigation)
-		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
-		tmp = tmp * (1 + 0.02 *  sim.Buff.PhysicalVuln)
+		tmp = tmp * (1 + 0.03 *  sim.Character.Buff.PcDamage)
+		tmp = tmp * (1 + 0.02 *  target.Debuff.PhysicalVuln)
 		if sim.Character.Orc then tmp = tmp * 1.05
 		return tmp
 	End Function
 	
-	Function MagicalDamageMultiplier(T as long) As Double
+	Function MagicalDamageMultiplier(T As Long,Optional target As Targets.Target = Nothing) As Double
+		if target is nothing then target = sim.MainTarget
 		Dim tmp As Double
 		tmp = 1
-		tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
-		tmp = tmp * (1 + 0.13 *  sim.Buff.SpellDamageTaken)
+		tmp = tmp * (1 + 0.03 *  sim.Character.Buff.PcDamage)
+		tmp = tmp * (1 + 0.13 *  target.Debuff.SpellDamageTaken)
 		
 		Return tmp
 	End Function

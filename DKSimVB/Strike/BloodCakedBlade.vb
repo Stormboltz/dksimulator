@@ -33,7 +33,7 @@ Sub New(S As sim)
 		Else
 			tmp = sim.MainStat.OHBaseDamage
 			tmp = tmp * 0.5
-				tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 8.3333 / 100)
+				tmp = tmp * (1 + sim.Character.talentfrost.NervesofColdSteel * 8.3333 / 100)
 		End If
 		tmp = tmp * (0.25 + 0.125 * Sim.NumDesease)
 		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)

@@ -34,7 +34,7 @@ Friend Class DeathStrike
 		End If
 		
 		If offhand = False Then 
-			Sim.runicpower.add(15 +  2.5*sim.talentunholy.Dirge )
+			Sim.runicpower.add(15 +  2.5*sim.Character.talentunholy.Dirge )
 			Sim.runicpower.add(5*sim.MainStat.T74PDPS)
 		End If
 		
@@ -82,8 +82,8 @@ Friend Class DeathStrike
 		End If
 		tmp = tmp + 222.75
 		if sim.sigils.Awareness then tmp = tmp + 315
-		tmp = tmp * (1 + sim.TalentBlood.ImprovedDeathStrike * 15/100)
-		If sim.glyph.DeathStrike Then
+		tmp = tmp * (1 + sim.Character.talentblood.ImprovedDeathStrike * 15/100)
+		If sim.character.glyph.DeathStrike Then
 			If Sim.RunicPower.Check(25) Then
 				tmp = tmp * (1 + 25/100)
 			Else
@@ -94,16 +94,16 @@ Friend Class DeathStrike
 		
 		If offhand Then
 			tmp = tmp * 0.5
-				tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 8.3333 / 100)
+				tmp = tmp * (1 + sim.Character.talentfrost.NervesofColdSteel * 8.3333 / 100)
 		End If
 		return tmp
 	End Function
 	public Overrides Function CritCoef() As Double
-		CritCoef = 1 * (1 + sim.TalentBlood.MightofMograine * 15 / 100)
+		CritCoef = 1 * (1 + sim.Character.talentblood.MightofMograine * 15 / 100)
 		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
 	public Overrides Function CritChance() As Double
-		CritChance = sim.MainStat.crit + sim.TalentBlood.ImprovedDeathStrike * 3/100 + sim.MainStat.T72PDPS * 5/100
+		CritChance = sim.MainStat.crit + sim.Character.talentblood.ImprovedDeathStrike * 3/100 + sim.MainStat.T72PDPS * 5/100
 	End Function
 	public Overrides Function AvrgCrit(T As Long) As Double
 		Return AvrgNonCrit(T) * (1 + CritCoef)

@@ -16,7 +16,7 @@ Friend Class IcyTouch
 			MissCount = MissCount + 1
 			Exit function
 		End If
-		Sim.RunicPower.add (10 + (sim.TalentFrost.ChillOfTheGrave * 2.5))
+		Sim.RunicPower.add (10 + (sim.Character.talentfrost.ChillOfTheGrave * 2.5))
 		RNG = RngCrit
 		Dim dégat As Integer
 		Dim ccT As Double
@@ -42,17 +42,18 @@ Friend Class IcyTouch
 		sim.TryOnSpellHit
 		return true
 	End Function
-	overrides Function AvrgNonCrit(T As long) As Double
+	Function AvrgNonCrit(T As Long,Optional target As Targets.Target = Nothing) As Double
+		if target is nothing then target = sim.MainTarget
 		
 		Dim tmp As Double
 		tmp = 236
 		
-		tmp = tmp + (0.1 * (1 + 0.04 * sim.TalentUnholy.Impurity) * sim.MainStat.AP)
-		tmp = tmp * (1 + sim.TalentFrost.ImprovedIcyTouch * 5 / 100)
-		if sim.NumDesease > 0 or (sim.Buff.BloodPlague+sim.Buff.FrostFever>0) Then 	tmp = tmp * (1 + sim.TalentFrost.GlacierRot * 6.6666666 / 100)
-		If sim.ExecuteRange Then tmp = tmp *(1+ 0.06*sim.talentfrost.MercilessCombat)
+		tmp = tmp + (0.1 * (1 + 0.04 * sim.Character.talentunholy.Impurity) * sim.MainStat.AP)
+		tmp = tmp * (1 + sim.Character.talentfrost.ImprovedIcyTouch * 5 / 100)
+		if sim.NumDesease > 0 or (target.Debuff.BloodPlague+target.Debuff.FrostFever>0) Then 	tmp = tmp * (1 + sim.Character.talentfrost.GlacierRot * 6.6666666 / 100)
+		If sim.ExecuteRange Then tmp = tmp *(1+ 0.06*sim.Character.talentfrost.MercilessCombat)
 		If sim.sigils.FrozenConscience Then tmp = tmp +111
-		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
+		tmp = tmp * (1 + sim.Character.talentfrost.BlackIce * 2 / 100)
 		
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		tmp *= sim.RuneForge.RazorIceMultiplier(T) 'TODO: only on main target
@@ -68,7 +69,7 @@ Friend Class IcyTouch
 		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
 	overrides Function CritChance() As Double
-		CritChance = sim.MainStat.SpellCrit + sim.TalentFrost.Rime * 5 / 100
+		CritChance = sim.MainStat.SpellCrit + sim.Character.talentfrost.Rime * 5 / 100
 		If sim.proc.KillingMachine.IsActive Then return 1
 		
 	End Function

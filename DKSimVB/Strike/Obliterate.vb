@@ -46,7 +46,7 @@ Friend Class Obliterate
 		End If
 		
 		If OffHand = False Then 
-			Sim.runicpower.add(15 + 2.5*sim.talentfrost.ChillOfTheGrave + 5*sim.MainStat.T74PDPS)
+			Sim.runicpower.add(15 + 2.5*sim.Character.talentfrost.ChillOfTheGrave + 5*sim.MainStat.T74PDPS)
 		End If
 		dim dégat as Integer
 		Dim ccT As Double
@@ -101,12 +101,12 @@ Friend Class Obliterate
 		
 		
 		
-		if sim.ExecuteRange then tmp = tmp *(1+ 0.06*sim.talentfrost.MercilessCombat)
+		if sim.ExecuteRange then tmp = tmp *(1+ 0.06*sim.Character.talentfrost.MercilessCombat)
 		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
-		If sim.glyph.Obliterate Then tmp = tmp *1.2
+		If sim.character.glyph.Obliterate Then tmp = tmp *1.2
 		If OffHand Then
 			tmp = tmp * 0.5
-				tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 8.3333 / 100)
+				tmp = tmp * (1 + sim.Character.talentfrost.NervesofColdSteel * 8.3333 / 100)
 		End If
 		If sim.MainStat.T102PDPS<>0 Then
 			tmp = tmp * 1.1
@@ -117,7 +117,7 @@ Friend Class Obliterate
 	
 	
 	public Overrides Function CritCoef() As Double
-		CritCoef = 1 * (1 + sim.TalentFrost.GuileOfGorefiend * 15 / 100)
+		CritCoef = 1 * (1 + sim.Character.talentfrost.GuileOfGorefiend * 15 / 100)
 		return  CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
 	
@@ -128,7 +128,7 @@ Friend Class Obliterate
 			sim.DeathChill.Active = false
 			Return 1
 		End If
-		return  sim.MainStat.crit +  sim.TalentFrost.rime*5/100 + sim.TalentBlood.Subversion*3/100 + sim.MainStat.T72PDPS * 5/100
+		return  sim.MainStat.crit +  sim.Character.talentfrost.rime*5/100 + sim.Character.talentblood.Subversion*3/100 + sim.MainStat.T72PDPS * 5/100
 		
 	End Function
 	

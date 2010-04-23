@@ -20,7 +20,7 @@ Friend CLass Desolation
 		FadeAt=0
 	End Sub
 	Function bonus As double
-		return (sim.TalentUnholy.Desolation/100)
+		return (sim.Character.talentunholy.Desolation/100)
 	End Function
 	Function isActive(T As long) As Boolean
 		If T >= FadeAt Then

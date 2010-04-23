@@ -87,7 +87,7 @@ Friend Class OffHand
 			Sim.RunicPower.add(10)
 		End If
 		total = total + dégat
-		If sim.TalentUnholy.Necrosis > 0 Then
+		If sim.Character.talentunholy.Necrosis > 0 Then
 			Nec = sim.OHNecrosis.Apply(dégat, T)
 		End If
 		If sim.proc.OHBloodCakedBlade.TryMe(T) Then sim.OHBloodCakedBlade.ApplyDamage(T)
@@ -99,7 +99,7 @@ Friend Class OffHand
 		tmp = sim.MainStat.OHBaseDamage
 		tmp = tmp * sim.MainStat.WhiteHitDamageMultiplier(T)
 		tmp = tmp * 0.5
-		tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 8.3333 / 100)
+		tmp = tmp * (1 + sim.Character.talentfrost.NervesofColdSteel * 8.3333 / 100)
 		If sim.EPStat = "EP HasteEstimated" Then
 			tmp = tmp*sim.MainStat.EstimatedHasteBonus
 		End If

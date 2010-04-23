@@ -104,18 +104,20 @@ Function AvrgCrit(T As long) As Double
 	AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 End Function
 
-Function MagicalDamageMultiplier(T as long) As Double
+Function MagicalDamageMultiplier(T As Long,Optional target As Targets.Target = Nothing) As Double
+	if target is nothing then target = sim.MainTarget
 	Dim tmp As Double
 	tmp = 1
-	tmp = tmp * (1 + 0.03 *  sim.Buff.PcDamage)
-	tmp = tmp * (1 + 0.13 *  sim.Buff.SpellDamageTaken)
+	tmp = tmp * (1 + 0.03 *  sim.Character.Buff.PcDamage)
+	tmp = tmp * (1 + 0.13 *  target.Debuff.SpellDamageTaken)
 	return tmp
 End Function
-Function SpellCrit() As Single
+Function SpellCrit(Optional target As Targets.Target = Nothing) As Single
+	if target is nothing then target = sim.MainTarget
 	Dim tmp As Double
-	tmp = tmp + 3 *  sim.Buff.CritChanceTaken
-	tmp = tmp + 5 *  sim.Buff.SpellCrit
-	tmp = tmp + 5 *  sim.Buff.SpellCritTaken
+	tmp = tmp + 3 *  target.Debuff.CritChanceTaken
+	tmp = tmp + 5 *  sim.Character.Buff.SpellCrit
+	tmp = tmp + 5 *  target.Debuff.SpellCritTaken
 	SpellCrit = tmp / 100
 End Function
 	Public Sub cleanup()

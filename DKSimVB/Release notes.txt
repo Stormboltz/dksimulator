@@ -1,4 +1,7 @@
-﻿1.2.1.6 Release notes
+﻿1.2.1.7 Release notes
+* UA GCD fix
+
+1.2.1.6 Release notes
 * Spell hit EP Value correction
 * Correction on the GoDisease that sometime let the disease fall on frost spec.
 * Added a new option for Boneshield/UA: "After Death rune OB/SS with cancel aura"

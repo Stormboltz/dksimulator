@@ -32,7 +32,7 @@ Friend Class DeathandDecay
 		sim.runes.UseBlood(T, False)
 		sim.runes.UseFU(T, False)
 		ActiveUntil = T+1000
-		cd = T + 3000 - sim.TalentUnholy.Morbidity*500
+		cd = T + 3000 - sim.Character.talentunholy.Morbidity*500
 		Sim.RunicPower.add(15)
 		sim.combatlog.write(T  & vbtab &  "D&D ")
 		sim.FutureEventManager.Add(nextTick,"D&D")
@@ -77,10 +77,10 @@ Friend Class DeathandDecay
 	overrides Function AvrgNonCrit(T As long) As Double
 		Dim tmp As Double
 		tmp = 62
-		tmp = tmp + (0.0475 * (1 + 0.04 * sim.TalentUnholy.Impurity) * sim.MainStat.AP)
+		tmp = tmp + (0.0475 * (1 + 0.04 * sim.Character.talentunholy.Impurity) * sim.MainStat.AP)
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
-		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
-		If sim.glyph.DeathandDecay Then tmp = tmp *1.2
+		tmp = tmp * (1 + sim.Character.talentfrost.BlackIce * 2 / 100)
+		If sim.character.glyph.DeathandDecay Then tmp = tmp *1.2
 		If sim.MainStat.T102PTNK =1 Then tmp = tmp *1.2
 		return tmp
 	End Function

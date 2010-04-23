@@ -20,7 +20,7 @@ Friend Class PlagueStrike
 
 		End If
 		If OffHand = False Then
-			Sim.RunicPower.add (10 + sim.TalentUnholy.Dirge * 2.5)
+			Sim.RunicPower.add (10 + sim.Character.talentunholy.Dirge * 2.5)
 		End If
 		
 		Dim dégat As Integer
@@ -64,22 +64,22 @@ Friend Class PlagueStrike
 		
 		tmp = tmp + 189
 		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
-		tmp = tmp * (1 + sim.TalentUnholy.Outbreak * 10 / 100)
-		If sim.glyph.PlagueStrike Then tmp = tmp * (1.2)
+		tmp = tmp * (1 + sim.Character.talentunholy.Outbreak * 10 / 100)
+		If sim.character.glyph.PlagueStrike Then tmp = tmp * (1.2)
 		If OffHand  Then
 			tmp = tmp * 0.5
-			tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 8.3333 / 100)
+			tmp = tmp * (1 + sim.Character.talentfrost.NervesofColdSteel * 8.3333 / 100)
 		End If
 		AvrgNonCrit = tmp
 	End Function
 	public Overrides Function CritCoef() As Double
-		CritCoef = (1 + sim.TalentUnholy.ViciousStrikes * 15 / 100)
+		CritCoef = (1 + sim.Character.talentunholy.ViciousStrikes * 15 / 100)
 		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
 	public Overrides Function CritChance() As Double
 		Dim tmp As Double
 		
-		tmp = sim.MainStat.crit + sim.TalentUnholy.ViciousStrikes * 3 / 100 + sim.MainStat.T72PTNK*0.1
+		tmp = sim.MainStat.crit + sim.Character.talentunholy.ViciousStrikes * 3 / 100 + sim.MainStat.T72PTNK*0.1
 		
 		return tmp
 	End Function

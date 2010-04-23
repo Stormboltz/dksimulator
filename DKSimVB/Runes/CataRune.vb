@@ -36,7 +36,7 @@ Public Class CataRune
 		Dim tmp As Double
 		tmp = (1/5)*sim.MainStat.Haste
 		If sim.UnholyPresence = 1 Then
-			tmp = tmp * (1+0.05*sim.TalentUnholy.ImprovedUnholyPresence/100)
+			tmp = tmp * (1+0.05*sim.Character.talentunholy.ImprovedUnholyPresence/100)
 		End If
 		return tmp
 	End Function

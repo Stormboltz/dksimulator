@@ -124,7 +124,7 @@ Friend Partial Class runes
 	
 	Function RuneRefreshtime As Integer
 		If sim.UnholyPresence Then
-			return 1000 - 50*sim.talentunholy.ImprovedUnholyPresence
+			return 1000 - 50*sim.Character.talentunholy.ImprovedUnholyPresence
 		Else
 			return 1000
 		End If

@@ -15,17 +15,8 @@ Friend Class Buff
 	Friend SpellPower As Integer
 	Friend StatAdd As Integer 
 	Friend StatMulti As Integer 
-	Friend ArmorMajor As Integer 
-	Friend ArmorMinor As Integer
-	Friend CritChanceTaken As Integer 
-	Friend PhysicalVuln As Integer 
-	Friend SpellCritTaken As Integer 
-	Friend SpellDamageTaken As Integer 
-	Friend SpellHitTaken As Integer 
 	Friend Draenei as Integer
-	Friend CrypticFever As Integer
-	Friend BloodPlague As Integer
-	Friend FrostFever as Integer
+
 	
 	
 	
@@ -40,34 +31,23 @@ Friend Class Buff
 		doc.Load("Buffconfig.xml")
 		tmp  = doc.OuterXml
 		
-		
 		tmp = tmp.Replace("True","1")
 		tmp = tmp.Replace("False","0")
 		liveXml.LoadXml(tmp)
 		
 		StrAgi = liveXml.SelectSingleNode("/config/chkBStrAgi").InnerText
-		ArmorMajor = liveXml.SelectSingleNode("/config/chkBArmorMaj").InnerText
 		AttackPower = liveXml.SelectSingleNode("/config/chkBAP").InnerText
-		ArmorMinor = liveXml.SelectSingleNode("/config/chkBArmorMinor").InnerText
 		AttackPowerPc = liveXml.SelectSingleNode("/config/chkBAPPc").InnerText
-		CritChanceTaken = liveXml.SelectSingleNode("/config/chkBCritchanceTaken").InnerText
 		PcDamage = liveXml.SelectSingleNode("/config/chkBPcDamage").InnerText
-		PhysicalVuln = liveXml.SelectSingleNode("/config/chkBPhyVuln").InnerText
 		Haste = liveXml.SelectSingleNode("/config/chkBHaste").InnerText
-		SpellCritTaken = liveXml.SelectSingleNode("/config/chkBSpCrTaken").InnerText
 		MeleeHaste = liveXml.SelectSingleNode("/config/chkBMeleeHaste").InnerText
-		SpellDamageTaken = liveXml.SelectSingleNode("/config/chkBSpDamTaken").InnerText
 		MeleeCrit = liveXml.SelectSingleNode("/config/chkBMeleeCrit").InnerText
-		SpellHitTaken = liveXml.SelectSingleNode("/config/chkBSpHitTaken").InnerText
 		SpellCrit = liveXml.SelectSingleNode("/config/chkBSpellCrit").InnerText
 		SpellHaste = liveXml.SelectSingleNode("/config/chkBSpellHaste").InnerText
 		StatAdd = liveXml.SelectSingleNode("/config/chkBStatAdd").InnerText
 		StatMulti = liveXml.SelectSingleNode("/config/chkBStatMulti").InnerText
 		Bloodlust = liveXml.SelectSingleNode("/config/chkBloodlust").InnerText
 		Draenei = liveXml.SelectSingleNode("/config/chkDraeni").InnerText
-		CrypticFever = liveXml.SelectSingleNode("/config/chkCrypticFever").InnerText
-		BloodPlague = liveXml.SelectSingleNode("/config/chkBloodPlague").InnerText
-		FrostFever = liveXml.SelectSingleNode("/config/chkFrostFever").InnerText
 	End Sub
 	
 	Sub UnBuff()
@@ -84,13 +64,5 @@ Friend Class Buff
 		SpellPower = 0
 		StatAdd = 0
 		StatMulti = 0
-		ArmorMajor = 0
-		ArmorMinor = 0
-		CritChanceTaken = 0
-		PhysicalVuln = 0
-		SpellCritTaken = 0
-		SpellDamageTaken = 0
-		SpellHitTaken = 0
-		CrypticFever = 0
 	End Sub
 End Class

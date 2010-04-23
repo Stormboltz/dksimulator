@@ -8,6 +8,7 @@
 '
 Public Class Proc
 	Inherits Supertype
+	
 	Friend CD as Integer
 	Friend Fade As Integer
 	Friend ProcChance As Double
@@ -15,12 +16,8 @@ Public Class Proc
 	Friend ProcLenght As Integer
 	Friend ProcValue As Integer
 	Friend InternalCD As Integer
-
 	Friend Stack As Integer
 	Friend MaxStack As Integer
-	
-	
-	
 	Friend ProcTypeStack as String
 	Friend ProcValueStack as Integer
 	
@@ -28,9 +25,10 @@ Public Class Proc
 	
 	Friend ProcType As String
 	Friend ProcOn As procs.ProcOnType
-
 	
 	Friend previousFade As Long
+	
+	Friend isDebuff as Boolean
 
 	
 	
@@ -50,6 +48,7 @@ Public Class Proc
 		CritCount = 0
 		TotalHit = 0
 		TotalCrit = 0
+		isDebuff = false
 	End Sub
 	Sub New(S As Sim)
 		Me.New

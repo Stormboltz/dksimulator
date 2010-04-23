@@ -60,7 +60,7 @@ Public Class RuneStrike
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Rune Strike hit for " & dégat )
 		End If
 		total = total + dégat
-		If sim.TalentUnholy.Necrosis > 0 Then sim.Necrosis.Apply(dégat, T)
+		If sim.Character.talentunholy.Necrosis > 0 Then sim.Necrosis.Apply(dégat, T)
 		
 		If offhand=False Then
 			If sim.proc.MHBloodCakedBlade.TryMe(T) Then
@@ -90,7 +90,7 @@ Public Class RuneStrike
 		tmp = tmp * (1+ sim.MainStat.T82PTNK*0.1)
 		If offhand Then
 			tmp = tmp * 0.5
-			tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 8.3333 / 100)
+			tmp = tmp * (1 + sim.Character.talentfrost.NervesofColdSteel * 8.3333 / 100)
 		End If
 		If sim.EPStat = "EP HasteEstimated" Then
 			tmp = tmp*sim.MainStat.EstimatedHasteBonus
@@ -107,7 +107,7 @@ Public Class RuneStrike
 		Dim tmp As double
 		tmp =  sim.MainStat.critAutoattack
 		
-		If sim.glyph.RuneStrike Then
+		If sim.character.glyph.RuneStrike Then
 			tmp =  tmp + 0.1
 		End If
 		return tmp

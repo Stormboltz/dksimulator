@@ -14,7 +14,7 @@ Friend Class BloodPlague
 	
 	
 	Overrides Function PerfectUsage(T As Long) As Boolean
-		If sim.TalentUnholy.RageofRivendare>0 Then
+		If sim.Character.talentunholy.RageofRivendare>0 Then
 			If FadeAt <= sim.Runes.GetNextUnholy(T) Then
 				Sim.FrostFever.ToReApply = true
 				Return True

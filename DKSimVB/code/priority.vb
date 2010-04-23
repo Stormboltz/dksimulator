@@ -41,7 +41,7 @@ Friend Class priority
 						exit sub
 					End If
 				Case "BloodSync"
-					If sim.glyph.Disease Then
+					If sim.character.glyph.Disease Then
 						if sim.Pestilence.PerfectUsage(TimeStamp) then
 							sim.Pestilence.use(TimeStamp)
 							Exit Sub
@@ -154,7 +154,7 @@ Friend Class priority
 						End If
 					End If
 				Case "BloodStrike"
-					If sim.TalentUnholy.Reaping = 3 or sim.TalentFrost.BloodoftheNorth = 3 Then
+					If sim.Character.talentunholy.Reaping = 3 or sim.Character.talentfrost.BloodoftheNorth = 3 Then
 						If runes.Blood(TimeStamp) And sim.CanUseGCD(Timestamp) Then
 							If sim.BoneShieldUsageStyle = 1 Then
 								If sim.BoneShield.IsAvailable(TimeStamp) Then
@@ -207,13 +207,13 @@ Friend Class priority
 							sim.Pestilence.use(TimeStamp)
 						End If
 					End If
-					If sim.glyph.Disease Then
+					If sim.character.glyph.Disease Then
 						if sim.Pestilence.PerfectUsage(TimeStamp) then
 							sim.Pestilence.use(TimeStamp)
 							Exit Sub
 						Else
 							If sim.FrostFever.ShouldReapply(TimeStamp) Then
-								If sim.TalentFrost.HowlingBlast = 1 And sim.glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp)  Then
+								If sim.Character.talentfrost.HowlingBlast = 1 And sim.character.glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp)  Then
 									If sim.proc.rime.IsActive Or runes.FU(TimeStamp) Then
 										sim.HowlingBlast.ApplyDamage(TimeStamp)
 										exit sub
@@ -227,7 +227,7 @@ Friend Class priority
 						End If
 					Else
 						If sim.FrostFever.PerfectUsage(TimeStamp) = true or sim.FrostFever.ToReApply Then
-							If sim.TalentFrost.HowlingBlast = 1 And sim.glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp)  Then
+							If sim.Character.talentfrost.HowlingBlast = 1 And sim.character.glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp)  Then
 								If sim.proc.rime.IsActive Or runes.FU(TimeStamp) Then
 									sim.HowlingBlast.ApplyDamage(TimeStamp)
 									exit sub
@@ -245,7 +245,7 @@ Friend Class priority
 						sim.ERW.Use(TimeStamp)
 					End If
 				Case "BloodPlague"
-					If sim.glyph.Disease Then
+					If sim.character.glyph.Disease Then
 						if sim.Pestilence.PerfectUsage(TimeStamp)  then
 							sim.Pestilence.use(TimeStamp)
 							Exit Sub

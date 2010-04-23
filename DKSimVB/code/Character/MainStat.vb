@@ -12,6 +12,9 @@ Friend Class MainStat
 	Friend OHWeaponDPS As double
 	Friend OHWeaponSpeed As double
 	Friend BossArmor As Integer
+	
+	
+	
 	Private character As Character
 	private XmlCharacter As Xml.XmlDocument
 	
@@ -374,7 +377,7 @@ Friend Class MainStat
 		tmp = tmp + Character.AttackPower
 		tmp = tmp + Character.Strength * 2
 		tmp = tmp + 550
-		tmp = tmp * (1 +  sim.Buff.AttackPowerPc / 10)
+		tmp = tmp * (1 +  sim.Character.Buff.AttackPowerPc / 10)
 		return tmp
 	End Function
 	
@@ -385,7 +388,7 @@ Friend Class MainStat
 		tmp += Character.AttackPower
 		tmp += Character.maxStrength * 2
 		tmp += 550
-		tmp = tmp * (1 +  sim.Buff.AttackPowerPc / 10)
+		tmp = tmp * (1 +  sim.Character.Buff.AttackPowerPc / 10)
 		_MaxAp = tmp
 		return tmp
 	End Function
@@ -396,39 +399,42 @@ Friend Class MainStat
 		return  BaseAP
 	End Function
 	
-	Function crit() As System.Double
+	Function crit(Optional target As Targets.Target = Nothing) As System.Double
+		if target is nothing then target = sim.MainTarget
 		Dim tmp As Double
 		tmp = tmp + Character.CritRating / 45.91
 		tmp = tmp + Character.Agility*0.016
-		tmp = tmp + 5 *  sim.Buff.MeleeCrit
-		tmp = tmp + 3 *  sim.Buff.CritChanceTaken
-		tmp = tmp + sim.TalentBlood.Darkconv
-		tmp = tmp + sim.TalentUnholy.EbonPlaguebringer
-		tmp = tmp + sim.TalentFrost.Annihilation
+		tmp = tmp + 5 *  sim.Character.Buff.MeleeCrit
+		tmp = tmp + 3 *  target.Debuff.CritChanceTaken
+		tmp = tmp + sim.Character.talentblood.Darkconv
+		tmp = tmp + sim.Character.talentunholy.EbonPlaguebringer
+		tmp = tmp + sim.Character.talentfrost.Annihilation
 		tmp = tmp - 4.8 'Crit malus vs bosses
 		
 		return tmp / 100
 	End Function
-	Function critAutoattack() As System.Double 'No Annihilation for autoattacks
+	Function critAutoattack(Optional target As Targets.Target = Nothing) As System.Double 'No Annihilation for autoattacks
+		if target is nothing then target = sim.MainTarget
 		Dim tmp As Double
 		tmp = tmp + Character.CritRating / 45.91
 		tmp = tmp + Character.Agility / 62.5
-		tmp = tmp + 5 *  sim.Buff.MeleeCrit
-		tmp = tmp + 3 *  sim.Buff.CritChanceTaken
-		tmp = tmp + sim.TalentBlood.Darkconv
-		tmp = tmp + sim.TalentUnholy.EbonPlaguebringer
+		tmp = tmp + 5 *  sim.Character.Buff.MeleeCrit
+		tmp = tmp + 3 *  target.Debuff.CritChanceTaken
+		tmp = tmp + sim.Character.talentblood.Darkconv
+		tmp = tmp + sim.Character.talentunholy.EbonPlaguebringer
 		tmp = tmp - 4.8 'Crit malus vs bosses
 		
 		return tmp / 100
 	End Function
-	Function SpellCrit() As Single
+	Function SpellCrit(Optional target As Targets.Target = Nothing) As Single
+		if target is nothing then target = sim.MainTarget
 		Dim tmp As Double
 		tmp = Character.SpellCritRating / 45.91
-		tmp = tmp + 3 *  sim.Buff.CritChanceTaken
-		tmp = tmp + 5 *  sim.Buff.SpellCrit
-		tmp = tmp + 5 *  sim.Buff.SpellCritTaken
-		tmp = tmp + sim.TalentBlood.Darkconv
-		tmp = tmp + sim.TalentUnholy.EbonPlaguebringer
+		tmp = tmp + 3 *  target.Debuff.CritChanceTaken
+		tmp = tmp + 5 *  sim.Character.Buff.SpellCrit
+		tmp = tmp + 5 *  target.Debuff.SpellCritTaken
+		tmp = tmp + sim.Character.talentblood.Darkconv
+		tmp = tmp + sim.Character.talentunholy.EbonPlaguebringer
 		tmp = tmp - 2.1 'Spell crit malus vs bosses
 		
 		return  tmp / 100
@@ -438,10 +444,10 @@ Friend Class MainStat
 		Dim tmp As Double
 		tmp = 1 + character.HasteRating / (25.22) / 100 '1.3 is the buff haste rating received
 		tmp = tmp * (1 + Sim.UnholyPresence * 0.15)
-		If Sim.TalentFrost.ImprovedIcyTalons Then tmp = tmp * 1.05
+		If sim.Character.talentfrost.ImprovedIcyTalons Then tmp = tmp * 1.05
 		If Sim.proc.IcyTalons.IsActive Then tmp = tmp * (1 + 0.04 * Sim.proc.IcyTalons.ProcValue)
-		If Sim.Buff.MeleeHaste Then tmp = tmp * 1.2
-		If Sim.Buff.Haste Then tmp = tmp * 1.03
+		If Sim.Character.Buff.MeleeHaste Then tmp = tmp * 1.2
+		If Sim.Character.Buff.Haste Then tmp = tmp * 1.03
 		If Sim.proc.Bloodlust.IsActive Then tmp = tmp * 1.3
 		If Sim.proc.TrollRacial.IsActive Then tmp = tmp * 1.2
 		Return tmp
@@ -449,8 +455,8 @@ Friend Class MainStat
 	Function SpellHaste() As Double
 		Dim tmp As Double
 		tmp = 1 + character.SpellHasteRating / 25.22 / 100
-		If Sim.Buff.SpellHaste Then tmp = tmp * 1.05
-		If Sim.Buff.Haste Then tmp = tmp * 1.03
+		If Sim.Character.Buff.SpellHaste Then tmp = tmp * 1.05
+		If Sim.Character.Buff.Haste Then tmp = tmp * 1.03
 		If Sim.proc.Bloodlust.IsActive Then tmp = tmp * 1.3
 		Return tmp
 	End Function
@@ -487,9 +493,9 @@ Friend Class MainStat
 		Dim tmp As Double
 		
 		tmp = Character.ExpertiseRating / 32.79
-		tmp += 0.25 * sim.TalentBlood.Vot3W*2
-		tmp += 0.25 * sim.TalentFrost.TundraStalker
-		tmp += 0.25 * sim.TalentUnholy.RageofRivendare
+		tmp += 0.25 * sim.Character.talentblood.Vot3W*2
+		tmp += 0.25 * sim.Character.talentfrost.TundraStalker
+		tmp += 0.25 * sim.Character.talentunholy.RageofRivendare
 		
 		Select Case Sim.EPStat
 			Case ""
@@ -518,43 +524,45 @@ Friend Class MainStat
 	Function Hit() As Double
 		Dim tmp As Double
 		tmp = (Character.HitRating / 32.79)
-		If DualW Then tmp += sim.TalentFrost.NervesofColdSteel
+		If DualW Then tmp += sim.Character.talentfrost.NervesofColdSteel
 		
 		If instr(sim.EPStat,"EP ")<>0 Then
 			If instr(sim.EPStat,"Hit")=0 Then
-				tmp += sim.Buff.Draenei
+				tmp += sim.Character.Buff.Draenei
 			Else
-				If sim.EPStat = "EP RelativeHitRating" Then tmp += sim.Buff.Draenei
+				If sim.EPStat = "EP RelativeHitRating" Then tmp += sim.Character.Buff.Draenei
 			End If
 		Else
-			tmp += sim.Buff.Draenei
+			tmp += sim.Character.Buff.Draenei
 		End If
 		Hit = tmp / 100
 	End Function
 	
-	Function SpellHitCapRating() as Integer
+	Function SpellHitCapRating(Optional target As Targets.Target = Nothing) As Integer
+		if target is nothing then target = sim.MainTarget
 		dim tmp as integer
 		tmp = 17
-		tmp = tmp - sim.TalentUnholy.Virulence
-		tmp = tmp - 3*sim.Buff.SpellHitTaken
+		tmp = tmp - sim.Character.talentunholy.Virulence
+		tmp = tmp - 3*target.Debuff.SpellHitTaken
 		tmp = tmp * 26.23
 		return tmp
 	End Function
 	
 	
 	
-	Function SpellHit() As Double
+	Function SpellHit(Optional target As Targets.Target = Nothing) As Double
+		if target is nothing then target = sim.MainTarget
 		Dim tmp As Double
 		tmp = Character.SpellHitRating / 26.23
 		If instr(sim.EPStat,"EP ")<>0 Then
 			If instr(sim.EPStat,"Hit")=0 Then
-				tmp += sim.Buff.Draenei
+				tmp += sim.Character.Buff.Draenei
 			End If
 		Else
-			tmp += sim.Buff.Draenei
+			tmp += sim.Character.Buff.Draenei
 		End If
-		tmp += 1 * sim.TalentUnholy.Virulence
-		tmp += sim.Buff.SpellHitTaken * 3
+		tmp += 1 * sim.Character.talentunholy.Virulence
+		tmp += target.Debuff.SpellHitTaken * 3
 		SpellHit = tmp / 100
 	End Function
 	
@@ -565,7 +573,7 @@ Friend Class MainStat
 			tmp =  tmp + 2.4*(AP / 14)
 		Else
 			tmp =  tmp + 3.3*(AP / 14)
-			tmp = tmp * (1 + sim.TalentBlood.Weapspec * 2 / 100)
+			tmp = tmp * (1 + sim.Character.talentblood.Weapspec * 2 / 100)
 		End If
 		return tmp
 	End Function
@@ -578,7 +586,7 @@ Friend Class MainStat
 	Function MHBaseDamage() As Double
 		Dim tmp As Double
 		tmp = (MHWeaponDPS + (AP / 14)) * MHWeaponSpeed
-		If DualW = false Then tmp = tmp * (1 + sim.TalentBlood.Weapspec * 2 / 100)
+		If DualW = false Then tmp = tmp * (1 + sim.Character.talentblood.Weapspec * 2 / 100)
 		return tmp
 	End Function
 	Function OHBaseDamage() As Double
@@ -588,18 +596,19 @@ Friend Class MainStat
 		Dim tmp As Double
 		tmp = character.ArmorPenetrationRating / 15.39
 		tmp = tmp *1.1 '1.1 with Patch 3.2.2, before 1.25
-		tmp = tmp + sim.TalentBlood.BloodGorged * 2
+		tmp = tmp + sim.Character.talentblood.BloodGorged * 2
 		return tmp / 100
 	End Function
 		
-	Function getMitigation() As Double
+	Function getMitigation(Optional target As Targets.Target = Nothing) As Double
+		if target is nothing then target = sim.MainTarget
 		Dim AttackerLevel As Integer = 80
 		Dim tmpArmor As Integer
 		Dim ArPDebuffs As Double
 		dim l_sunder as double = 1.0
 		dim l_ff  as double = 1.0
-		if sim.Buff.ArmorMajor > 0 then l_sunder = 1- 0.20
-		If sim.Buff.ArmorMinor > 0 Then l_ff = 1 - 0.05
+		if target.Debuff.ArmorMajor > 0 then l_sunder = 1- 0.20
+		If target.Debuff.ArmorMinor > 0 Then l_ff = 1 - 0.05
 		ArPDebuffs = (l_sunder * l_ff)
 		dim ArmorConstant as Double = 400 + (85 * 80) + 4.5 * 85 * (80 - 59)
 		tmpArmor = BossArmor  *  ArPDebuffs
@@ -614,35 +623,38 @@ Friend Class MainStat
 	Function _BaseDamageMultiplier(ByVal T As Long) As Double
 		Dim tmp As Double
 		tmp = 1 + Sim.BloodPresence * 0.15
-		tmp = tmp * (1 + 0.03 * Sim.Buff.PcDamage)
+		tmp = tmp * (1 + 0.03 * Sim.Character.Buff.PcDamage)
 		tmp = tmp * (1 + 0.02 * Sim.BoneShield.Value(T))
-		tmp = tmp * (1 + 0.02 * Sim.TalentBlood.BloodGorged)
+		tmp = tmp * (1 + 0.02 * sim.Character.talentblood.BloodGorged)
 		If Sim.proc.Desolation.IsActiveAt(T) Then tmp = tmp * (1 + Sim.proc.Desolation.ProcValue * 0.01)
 		If Sim.proc.T104PDPS.IsActiveAt(T) Then tmp = tmp * 1.03
 		Return tmp
 	End Function
 
-	Function WhiteHitDamageMultiplier(ByVal T As Long) As Double
+	Function WhiteHitDamageMultiplier(ByVal T As Long,Optional target As Targets.Target = Nothing) As Double
+		if target is nothing then target = sim.MainTarget
 		Dim tmp As Double
 		tmp = _BaseDamageMultiplier(T) * getMitigation()
-		tmp = tmp * (1 + 0.04 * Sim.Buff.PhysicalVuln)
-		tmp = tmp * (1 + 0.03 * Sim.TalentBlood.BloodyVengeance)
+		tmp = tmp * (1 + 0.04 * target.Debuff.PhysicalVuln)
+		tmp = tmp * (1 + 0.03 * sim.Character.talentblood.BloodyVengeance)
 		If Sim.Hysteria.IsActive(T) Then tmp = tmp * 1.2
 		Return tmp
 	End Function
-	Function StandardPhysicalDamageMultiplier(ByVal T As Long) As Double
+	Function StandardPhysicalDamageMultiplier(ByVal T As Long,Optional target As Targets.Target = Nothing) As Double
+		if target is nothing then target = sim.MainTarget
 		Dim tmp As Double
 		tmp = WhiteHitDamageMultiplier(T)
-		If Sim.FrostFever.isActive(T) Or Sim.Buff.FrostFever = 1 Then tmp = tmp * (1 + 0.03 * Sim.TalentFrost.TundraStalker)
-		If Sim.BloodPlague.isActive(T) Or Sim.Buff.BloodPlague = 1 Then tmp = tmp * (1 + 0.02 * Sim.TalentUnholy.RageofRivendare)
+		If Sim.FrostFever.isActive(T) Or target.Debuff.FrostFever = 1 Then tmp = tmp * (1 + 0.03 * sim.Character.talentfrost.TundraStalker)
+		If Sim.BloodPlague.isActive(T) Or target.Debuff.BloodPlague = 1 Then tmp = tmp * (1 + 0.02 * sim.Character.talentunholy.RageofRivendare)
 		Return tmp
 	End Function
-	Function StandardMagicalDamageMultiplier(ByVal T As Long) As Double
+	Function StandardMagicalDamageMultiplier(ByVal T As Long,Optional target As Targets.Target = Nothing) As Double
+		if target is nothing then target = sim.MainTarget
 		Dim tmp As Double
 		tmp = _BaseDamageMultiplier(T)
-		If Sim.FrostFever.isActive(T) Or Sim.Buff.FrostFever = 1 Then tmp = tmp * (1 + 0.03 * Sim.TalentFrost.TundraStalker)
-		If Sim.BloodPlague.isActive(T) Or Sim.Buff.BloodPlague = 1 Then tmp = tmp * (1 + 0.02 * Sim.TalentUnholy.RageofRivendare)
-		tmp = tmp * (1 + 0.13 * Sim.Buff.SpellDamageTaken)
+		If Sim.FrostFever.isActive(T) Or target.Debuff.FrostFever = 1 Then tmp = tmp * (1 + 0.03 * sim.Character.talentfrost.TundraStalker)
+		If Sim.BloodPlague.isActive(T) Or target.Debuff.BloodPlague = 1 Then tmp = tmp * (1 + 0.02 * sim.Character.talentunholy.RageofRivendare)
+		tmp = tmp * (1 + 0.13 * target.Debuff.SpellDamageTaken)
 		tmp = tmp * (1 - 15 / (510 + 15)) 'Partial Resistance. It's about 0,029% less damage on average.
 
 		Return tmp

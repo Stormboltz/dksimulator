@@ -53,16 +53,16 @@ Friend Class BloodBoil
 	overrides Function AvrgNonCrit(T As long) As Double
 		Dim tmp As Double
 		tmp = 200
-		tmp = tmp + (0.04 * (1 + 0.04 * sim.TalentUnholy.Impurity) * sim.MainStat.AP)
-		tmp = tmp * (1+ 0.1*sim.talentblood.BloodyStrikes)
+		tmp = tmp + (0.04 * (1 + 0.04 * sim.Character.talentunholy.Impurity) * sim.MainStat.AP)
+		tmp = tmp * (1+ 0.1*sim.Character.talentblood.BloodyStrikes)
 		if sim.NumDesease > 0 then tmp = tmp * 2
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
-		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
+		tmp = tmp * (1 + sim.Character.talentfrost.BlackIce * 2 / 100)
 		if sim.RuneForge.CheckCinderglacier(True) > 0 then tmp *= 1.2
 		return tmp
 	End Function
 	overrides Function CritCoef() As Double
-		CritCoef = 1 * (1 + sim.TalentBlood.MightofMograine * 15 / 100) 
+		CritCoef = 1 * (1 + sim.Character.talentblood.MightofMograine * 15 / 100) 
 		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
 	overrides Function CritChance() As Double

@@ -26,7 +26,7 @@ Friend Class ScourgeStrike
 			Exit function
 		End If
 		
-		Sim.RunicPower.add (15 + sim.TalentUnholy.Dirge * 2.5 + 5*sim.MainStat.T74PDPS)
+		Sim.RunicPower.add (15 + sim.Character.talentunholy.Dirge * 2.5 + 5*sim.MainStat.T74PDPS)
 		dim dégat as Integer
 			tmpPhysical = 0
 			tmpMagical = 0
@@ -50,7 +50,7 @@ Friend Class ScourgeStrike
 			total = total + dégat
 		
 		
-		If sim.glyph.ScourgeStrike Then
+		If sim.character.glyph.ScourgeStrike Then
 			If sim.BloodPlague.ScourgeStrikeGlyphCounter < 3 Then
 				sim.BloodPlague.FadeAt = sim.BloodPlague.FadeAt + 3 * 100
 				sim.BloodPlague.ScourgeStrikeGlyphCounter = sim.BloodPlague.ScourgeStrikeGlyphCounter + 1
@@ -74,13 +74,13 @@ Friend Class ScourgeStrike
 		If sim.sigils.Awareness Then tmpPhysical = tmpPhysical + 189
 		If sim.sigils.ArthriticBinding Then tmpPhysical = tmpPhysical + 91.35
 		tmpPhysical = tmpPhysical * sim.MainStat.StandardPhysicalDamageMultiplier(T)
-		tmpPhysical = tmpPhysical * (1 + 6.6666666 * sim.TalentUnholy.Outbreak / 100)
+		tmpPhysical = tmpPhysical * (1 + 6.6666666 * sim.Character.talentunholy.Outbreak / 100)
 		If sim.MainStat.T102PDPS<>0 Then tmpPhysical = tmpPhysical * 1.1
 		Return tmpPhysical
 	End Function
 	
 	public Overrides Function CritCoef() As Double
-		CritCoef = 1 + sim.TalentUnholy.ViciousStrikes * 15 / 100
+		CritCoef = 1 + sim.Character.talentunholy.ViciousStrikes * 15 / 100
 		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
 	
@@ -88,7 +88,7 @@ Friend Class ScourgeStrike
 	
 	public Overrides Function CritChance() As Double
 		dim tmp as Double
-		tmp = sim.MainStat.crit + sim.TalentUnholy.ViciousStrikes * 3 / 100 + sim.MainStat.T72PDPS * 5 / 100 + sim.TalentBlood.Subversion * 3 / 100
+		tmp = sim.MainStat.crit + sim.Character.talentunholy.ViciousStrikes * 3 / 100 + sim.MainStat.T72PDPS * 5 / 100 + sim.Character.talentblood.Subversion * 3 / 100
 		return  tmp
 	End Function
 	

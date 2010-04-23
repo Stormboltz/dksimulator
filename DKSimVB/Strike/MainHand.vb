@@ -86,7 +86,7 @@ Sub New(S As sim)
 		
 
 		total = total + dégat
-		If sim.TalentUnholy.Necrosis > 0 Then sim.Necrosis.Apply(dégat, T)
+		If sim.Character.talentunholy.Necrosis > 0 Then sim.Necrosis.Apply(dégat, T)
 		If sim.proc.MHBloodCakedBlade.TryMe(T) Then sim.BloodCakedBlade.ApplyDamage(T)
 		sim.tryOnMHWhitehitProc
 		If sim.proc.ScentOfBlood.IsActive  Then

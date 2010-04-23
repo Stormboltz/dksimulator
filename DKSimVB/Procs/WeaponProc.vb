@@ -135,11 +135,11 @@ Public Class WeaponProc
 				If RngCrit <= sim.MainStat.SpellCrit Then
 					CritCount = CritCount + 1
 					tmp = ProcValue * 1.5 * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
-					tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
+					tmp = tmp * (1 + sim.Character.talentfrost.BlackIce * 2 / 100)
 					totalcrit += tmp
 				Else
 					tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
-					tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
+					tmp = tmp * (1 + sim.Character.talentfrost.BlackIce * 2 / 100)
 					HitCount = HitCount + 1
 					totalhit += tmp
 				End If
@@ -151,7 +151,7 @@ Public Class WeaponProc
 				If RngCrit <= sim.MainStat.Crit Then
 					CritCount = CritCount + 1
 					tmp = ProcValue * 1.5 * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
-					tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
+					tmp = tmp * (1 + sim.Character.talentfrost.BlackIce * 2 / 100)
 					totalcrit += tmp
 				Else
 					tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)

@@ -40,7 +40,7 @@ Friend class Ghoul
 			MeleeMissChance = math.Max(0.08 - sim.GhoulStat.Hit,0)
 			MeleeDodgeChance =  math.Max(0.065 - sim.GhoulStat.Expertise,0)
 			SpellMissChance = math.Max(0.17 - sim.GhoulStat.SpellHit,0)
-			If sim.TalentUnholy.MasterOfGhouls Then
+			If sim.Character.talentunholy.MasterOfGhouls Then
 				ActiveUntil = sim.MaxTime
 				cd = sim.MaxTime
 				isGuardian = false
@@ -48,7 +48,7 @@ Friend class Ghoul
 				_Haste = sim.MainStat.haste
 				_AP = sim.GhoulStat.AP
 				ActiveUntil = T + 60 * 100
-				cd = ActiveUntil + (3*60*100) - (45*100*sim.TalentUnholy.NightoftheDead)
+				cd = ActiveUntil + (3*60*100) - (45*100*sim.Character.talentunholy.NightoftheDead)
 				isGuardian = true
 			End If
 			If T <=1 Then
@@ -81,8 +81,8 @@ Friend class Ghoul
 		End If
 'permaghoul double dips on haste buffs
 		tmp = sim.MainStat.Haste
-		tmp = tmp * (1 + 0.2 * sim.Buff.MeleeHaste)
-		tmp = tmp * (1 + 0.03 * sim.Buff.Haste)
+		tmp = tmp * (1 + 0.2 * sim.Character.Buff.MeleeHaste)
+		tmp = tmp * (1 + 0.03 * sim.Character.Buff.Haste)
 		If sim.proc.Bloodlust.isActive Then tmp = tmp * 1.3
 		If sim.Frenzy.ActiveUntil >= sim.TimeStamp Then tmp = tmp * 1.25
 		Return tmp
@@ -92,18 +92,18 @@ Friend class Ghoul
 	Function Agility() As Integer
 		Dim tmp As Integer
 		tmp = sim.GhoulStat.Agility
-		tmp = tmp + 155 * 1.15 *  sim.Buff.StrAgi
-		tmp = tmp + 37 * 1.4 *  sim.Buff.StatAdd
-		tmp = tmp * (1 +  sim.Buff.StatMulti / 10)
+		tmp = tmp + 155 * 1.15 *  sim.Character.Buff.StrAgi
+		tmp = tmp + 37 * 1.4 *  sim.Character.Buff.StatAdd
+		tmp = tmp * (1 +  sim.Character.Buff.StatMulti / 10)
 		return tmp
 	End Function
 	
 	Function Strength() As Integer
 		Dim tmp As Integer
 		tmp = sim.GhoulStat.Strength
-		tmp = tmp + 155 * 1.15 *  sim.Buff.StrAgi
-		tmp = tmp + 37 * 1.4 *  sim.Buff.StatAdd
-		tmp = tmp * (1 +  sim.Buff.StatMulti / 10)
+		tmp = tmp + 155 * 1.15 *  sim.Character.Buff.StrAgi
+		tmp = tmp + 37 * 1.4 *  sim.Character.Buff.StatAdd
+		tmp = tmp * (1 +  sim.Character.Buff.StatMulti / 10)
 		return tmp
 	End Function
 	
@@ -111,7 +111,7 @@ Friend class Ghoul
 		Dim tmp As Integer
 		If isGuardian Then Return _AP
 		tmp = sim.GhoulStat.BaseAP + Strength() + Agility()
-		return (tmp + 687 * sim.Buff.AttackPower) * (1 +  sim.Buff.AttackPowerPc / 10)
+		return (tmp + 687 * sim.Character.Buff.AttackPower) * (1 +  sim.Character.Buff.AttackPowerPc / 10)
 	End Function
 	
 	Function ApplyDamage(T As long) As boolean

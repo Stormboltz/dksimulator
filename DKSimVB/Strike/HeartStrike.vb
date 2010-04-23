@@ -81,8 +81,8 @@ Friend Class HeartStrike
 		else
 			tmp = tmp * (1 + 0.1 * Sim.NumDesease)
 		end if
-		tmp = tmp * (1 + sim.TalentBlood.BloodyStrikes * 15 / 100)
-		tmp = tmp * (1 + sim.TalentFrost.BloodoftheNorth * 5 / 100)
+		tmp = tmp * (1 + sim.Character.talentblood.BloodyStrikes * 15 / 100)
+		tmp = tmp * (1 + sim.Character.talentfrost.BloodoftheNorth * 5 / 100)
 		
 		if sim.sigils.DarkRider then tmp = tmp + 45 + 22.5 * Sim.NumDesease
 		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
@@ -108,8 +108,8 @@ Friend Class HeartStrike
 		else
 			tmp = tmp * (1 + 0.1 * NumDesease)
 		end if
-		tmp = tmp * (1 + sim.TalentBlood.BloodyStrikes * 15 / 100)
-		tmp = tmp * (1 + sim.TalentFrost.BloodoftheNorth * 5 / 100)
+		tmp = tmp * (1 + sim.Character.talentblood.BloodyStrikes * 15 / 100)
+		tmp = tmp * (1 + sim.Character.talentfrost.BloodoftheNorth * 5 / 100)
 		
 		if sim.sigils.DarkRider then tmp = tmp + 45 + 22.5 * Sim.NumDesease
 		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
@@ -122,11 +122,11 @@ Friend Class HeartStrike
 	End Function
 	
 	public Overrides Function CritCoef() As Double
-		CritCoef = 1* (1 + sim.TalentBlood.MightofMograine * 15 / 100)
+		CritCoef = 1* (1 + sim.Character.talentblood.MightofMograine * 15 / 100)
 		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
 	public Overrides Function CritChance() As Double
-		CritChance = sim.MainStat.crit + sim.TalentBlood.Subversion * 3 / 100
+		CritChance = sim.MainStat.crit + sim.Character.talentblood.Subversion * 3 / 100
 	End Function
 	public Overrides Function AvrgCrit(T As long) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)

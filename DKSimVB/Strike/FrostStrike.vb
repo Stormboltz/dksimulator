@@ -14,7 +14,7 @@ Friend Class FrostStrike
 	End Sub
 	
 	public Overrides Function isAvailable(T As long) As Boolean
-		If sim.glyph.FrostStrike Then
+		If sim.character.glyph.FrostStrike Then
 			isAvailable = Sim.RunicPower.CheckRS(32)
 		Else
 			isAvailable = Sim.RunicPower.CheckRS(40)
@@ -25,7 +25,7 @@ Friend Class FrostStrike
 		Dim RNG As Double
 		If OffHand = False Then
 			UseGCD(T)
-			If sim.glyph.FrostStrike Then
+			If sim.character.glyph.FrostStrike Then
 				Sim.RunicPower.Use(32)
 			Else
 				Sim.RunicPower.Use(40)
@@ -34,7 +34,7 @@ Friend Class FrostStrike
 			If DoMyStrikeHit = false Then
 				sim.combatlog.write(T  & vbtab & "FS fail")
 				sim.proc.KillingMachine.Use
-				If sim.glyph.FrostStrike Then
+				If sim.character.glyph.FrostStrike Then
 					Sim.RunicPower.add(29)
 				Else
 					Sim.RunicPower.add(36)
@@ -70,7 +70,8 @@ Friend Class FrostStrike
 		End If
 		Return True
 	End Function
-	public Overrides Function AvrgNonCrit(T As long) As Double
+	Public Function AvrgNonCrit(T As Long,Optional target As Targets.Target = Nothing) As Double
+		if target is nothing then target = sim.MainTarget
 		Dim tmp As Double
 		If offhand = false Then
 			tmp = sim.mainstaT.NormalisedMHDamage*0.55
@@ -79,21 +80,21 @@ Friend Class FrostStrike
 		End If
 		tmp = tmp + 150
 		if sim.sigils.VengefulHeart then tmp= tmp + 113
-		tmp = tmp * (1+ sim.TalentFrost.BloodoftheNorth * 5 /100)
-		if sim.NumDesease > 0 or (sim.Buff.BloodPlague+sim.Buff.FrostFever>0) Then 	tmp = tmp * (1 + sim.TalentFrost.GlacierRot * 6.6666666 / 100)
-		if sim.ExecuteRange then tmp = tmp *(1+ 0.06*sim.talentfrost.MercilessCombat)
+		tmp = tmp * (1+ sim.Character.talentfrost.BloodoftheNorth * 5 /100)
+		if sim.NumDesease > 0 or (target.Debuff.BloodPlague+target.Debuff.FrostFever>0) Then 	tmp = tmp * (1 + sim.Character.talentfrost.GlacierRot * 6.6666666 / 100)
+		if sim.ExecuteRange then tmp = tmp *(1+ 0.06*sim.Character.talentfrost.MercilessCombat)
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
-		tmp = tmp * (1 + sim.TalentFrost.BlackIce * 2 / 100)
+		tmp = tmp * (1 + sim.Character.talentfrost.BlackIce * 2 / 100)
 		tmp *= sim.RuneForge.RazorIceMultiplier(T)
 		If sim.RuneForge.CheckCinderglacier(offhand) > 0 then tmp *= 1.2
 		If offhand Then
 			tmp = tmp * 0.5
-				tmp = tmp * (1 + sim.TalentFrost.NervesofColdSteel * 8.3333 / 100)
+				tmp = tmp * (1 + sim.Character.talentfrost.NervesofColdSteel * 8.3333 / 100)
 		End If
 		AvrgNonCrit = tmp
 	End Function
 	public Overrides Function CritCoef() As Double
-		CritCoef =  1 * (1 + sim.TalentFrost.GuileOfGorefiend * 15 / 100)
+		CritCoef =  1 * (1 + sim.Character.talentfrost.GuileOfGorefiend * 15 / 100)
 		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
 	End Function
 	public Overrides Function CritChance() As Double
