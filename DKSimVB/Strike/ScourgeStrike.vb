@@ -51,13 +51,13 @@ Friend Class ScourgeStrike
 		
 		
 		If sim.character.glyph.ScourgeStrike Then
-			If sim.BloodPlague.ScourgeStrikeGlyphCounter < 3 Then
-				sim.BloodPlague.FadeAt = sim.BloodPlague.FadeAt + 3 * 100
-				sim.BloodPlague.ScourgeStrikeGlyphCounter = sim.BloodPlague.ScourgeStrikeGlyphCounter + 1
+			If sim.Targets.MainTarget.BloodPlague.ScourgeStrikeGlyphCounter < 3 Then
+				sim.Targets.MainTarget.BloodPlague.FadeAt = sim.Targets.MainTarget.BloodPlague.FadeAt + 3 * 100
+				sim.Targets.MainTarget.BloodPlague.ScourgeStrikeGlyphCounter = sim.Targets.MainTarget.BloodPlague.ScourgeStrikeGlyphCounter + 1
 			End If
-			If sim.FrostFever.ScourgeStrikeGlyphCounter < 3 Then
-				sim.FrostFever.FadeAt = sim.FrostFever.FadeAt + 3 * 100
-				sim.FrostFever.ScourgeStrikeGlyphCounter = sim.FrostFever.ScourgeStrikeGlyphCounter + 1
+			If sim.Targets.MainTarget.FrostFever.ScourgeStrikeGlyphCounter < 3 Then
+				sim.Targets.MainTarget.FrostFever.FadeAt = sim.Targets.MainTarget.FrostFever.FadeAt + 3 * 100
+				sim.Targets.MainTarget.FrostFever.ScourgeStrikeGlyphCounter = sim.Targets.MainTarget.FrostFever.ScourgeStrikeGlyphCounter + 1
 			End If
 		End If
 		sim.runes.UseFU(T,False)
@@ -67,7 +67,7 @@ Friend Class ScourgeStrike
 		return true
 	End Function
 	
-	Overrides Function AvrgNonCrit(T As Long) As Double
+	Overrides Function AvrgNonCrit(T As Long,target As Targets.Target) As Double
 		tmpPhysical = sim.MainStat.NormalisedMHDamage
 		tmpPhysical = tmpPhysical * 0.70
 		tmpPhysical = tmpPhysical + 560
@@ -92,7 +92,7 @@ Friend Class ScourgeStrike
 		return  tmp
 	End Function
 	
-	public Overrides Function AvrgCrit(T As long) As Double
+	public Overrides Function AvrgCrit(T As long,target As Targets.Target) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 	

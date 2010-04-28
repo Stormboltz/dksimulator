@@ -71,7 +71,7 @@ Friend class BloodStrike
 		Return True
 End Function
 
-public Overrides Function AvrgNonCrit(T as Long) As Double
+overrides Function AvrgNonCrit(T As Long, target As Targets.Target ) As Double
 	Dim tmp As Double
 	
 	If offhand = false Then
@@ -81,14 +81,14 @@ public Overrides Function AvrgNonCrit(T as Long) As Double
 	End If
 	tmp = tmp + 305.6
 	if sim.MainStat.T84PDPS = 1 then
-		tmp = tmp * (1 + 0.125 * Sim.NumDesease * 1.2)
+		tmp = tmp * (1 + 0.125 * target.NumDesease * 1.2)
 	else
-		tmp = tmp * (1 + 0.125 * Sim.NumDesease)
+		tmp = tmp * (1 + 0.125 * target.NumDesease)
 	End If
 	tmp = tmp * (1 + sim.Character.talentblood.BloodyStrikes * 5 / 100)
 	tmp = tmp * (1 + sim.Character.talentfrost.BloodoftheNorth * 5 / 100)
 	
-	if sim.sigils.DarkRider then tmp = tmp + 45 + 22.5 * Sim.NumDesease
+	if sim.sigils.DarkRider then tmp = tmp + 45 + 22.5 * target.NumDesease
 	if sim.character.glyph.BloodStrike then tmp = tmp * (1.2)
 	tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
 	If offhand Then
@@ -106,7 +106,7 @@ End Function
 public Overrides Function CritChance() As Double
 	CritChance = sim.MainStat.crit + sim.Character.talentblood.Subversion * 3 / 100
 End Function
-public Overrides Function AvrgCrit(T as long) As Double
+public Overrides Function AvrgCrit(T as long,target As Targets.Target) As Double
 	AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 End Function
 

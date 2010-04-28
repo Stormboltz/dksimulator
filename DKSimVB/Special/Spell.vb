@@ -64,9 +64,6 @@ Public Class Spell
 	End Function
 	Overridable Public Function ApplyDamage(T As Long, SDoom as Boolean) As Boolean
 	End Function
-		
-	Overridable Function AvrgNonCrit(T as long) As Double
-	End Function
 	
 	Overridable Function CritCoef() As Double
 	End Function
@@ -74,10 +71,18 @@ Public Class Spell
 	Overridable Function CritChance() As Double
 	End Function
 	
-	Overridable Function AvrgCrit(T As long) As Double
+	Overridable Function AvrgNonCrit(T As Long,target As Targets.Target) As Double
 	End Function
+	Overridable Function AvrgCrit(T As Long,target As Targets.Target) As Double
+	End Function	
 	
-
+	
+	Function AvrgNonCrit(T As Long) As Double
+		return AvrgNonCrit(T,sim.Targets.MainTarget)
+	End Function
+	Function AvrgCrit(T As Long) As Double
+		return AvrgCrit(T,sim.Targets.MainTarget)
+	End Function	
 	
 	Public Sub cleanup()
 		Total = 0

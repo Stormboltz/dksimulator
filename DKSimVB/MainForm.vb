@@ -403,8 +403,13 @@ Public Partial Class MainForm
 	Sub CmdEditScenarioClick(sender As Object, e As EventArgs)
 		Dim m As New Scenarios.ScenarioEditor
 		Dim r As DialogResult
-		m.LoadAvailableScenario
+		'm.LoadAvailableScenario
+		m.OpenForEdit(Application.StartupPath & "\scenario\scenario.xml")
 		r = m.ShowDialog
+		
+	End Sub
+	
+	Sub GrpSimOptionEnter(sender As Object, e As EventArgs)
 		
 	End Sub
 End Class

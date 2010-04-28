@@ -43,7 +43,9 @@ Friend Class DeathandDecay
 	overrides Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
 		Dim intCount As Integer
-		For intCount = 1 To Sim.NumberOfEnemies
+		Dim Tar As Targets.Target
+		
+		For Each Tar In sim.Targets.AllTargets
 			If DoMySpellHit = false Then
 				if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "D&D fail")
 				MissCount = MissCount + 1
@@ -52,12 +54,12 @@ Friend Class DeathandDecay
 			RNG = RngCrit
 			dim dégat as Integer
 			If RNG <= CritChance Then
-				dégat = AvrgCrit(T)
+				dégat = AvrgCrit(T,Tar)
 				if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "D&D crit for " & dégat)
 				CritCount = CritCount + 1
 				totalcrit += dégat
 			Else
-				dégat= AvrgNonCrit(T)
+				dégat= AvrgNonCrit(T,Tar)
 				HitCount = HitCount + 1
 				totalhit += dégat
 				if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "D&D hit for " & dégat)
@@ -65,7 +67,7 @@ Friend Class DeathandDecay
 			
 
 			total = total + dégat
-		Next intCount
+		Next
 		nextTick = T+100
 		If nextTick > ActiveUntil Then
 			nextTick = T-1
@@ -74,7 +76,7 @@ Friend Class DeathandDecay
 		End If
 		return true
 	End Function
-	overrides Function AvrgNonCrit(T As long) As Double
+	Overrides Function AvrgNonCrit(T As long,target as Targets.Target) As Double
 		Dim tmp As Double
 		tmp = 62
 		tmp = tmp + (0.0475 * (1 + 0.04 * sim.Character.talentunholy.Impurity) * sim.MainStat.AP)
@@ -91,8 +93,8 @@ Friend Class DeathandDecay
 	overrides Function CritChance() As Double
 		CritChance = sim.MainStat.SpellCrit
 	End Function
-	overrides Function AvrgCrit(T As long) As Double
-		AvrgCrit = AvrgNonCrit(T) * (0.5 + CritCoef)
+	Overrides Function AvrgCrit(T As long,target as Targets.Target) As Double
+		AvrgCrit = AvrgNonCrit(T,target) * (0.5 + CritCoef)
 	End Function
 	
 

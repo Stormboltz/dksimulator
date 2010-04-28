@@ -105,7 +105,7 @@ Function AvrgCrit(T As long) As Double
 End Function
 
 Function MagicalDamageMultiplier(T As Long,Optional target As Targets.Target = Nothing) As Double
-	if target is nothing then target = sim.MainTarget
+	if target is nothing then target = sim.Targets.MainTarget
 	Dim tmp As Double
 	tmp = 1
 	tmp = tmp * (1 + 0.03 *  sim.Character.Buff.PcDamage)
@@ -113,7 +113,7 @@ Function MagicalDamageMultiplier(T As Long,Optional target As Targets.Target = N
 	return tmp
 End Function
 Function SpellCrit(Optional target As Targets.Target = Nothing) As Single
-	if target is nothing then target = sim.MainTarget
+	if target is nothing then target = sim.Targets.MainTarget
 	Dim tmp As Double
 	tmp = tmp + 3 *  target.Debuff.CritChanceTaken
 	tmp = tmp + 5 *  sim.Character.Buff.SpellCrit

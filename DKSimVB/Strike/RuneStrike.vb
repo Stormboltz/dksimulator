@@ -79,7 +79,7 @@ Public Class RuneStrike
 		End If
 		return true
 	End Function
-	overrides Function AvrgNonCrit(T As long) As Double
+	overrides Function AvrgNonCrit(T As long,target As Targets.Target) As Double
 		Dim tmp As Double
 		If offhand Then
 			tmp = sim.MainStat.OHBaseDamage * 1.5
@@ -113,7 +113,7 @@ Public Class RuneStrike
 		return tmp
 	End Function
 	
-	overrides Function AvrgCrit(T As long) As Double
+	overrides Function AvrgCrit(T As long,target As Targets.Target) As Double
 		return AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 	

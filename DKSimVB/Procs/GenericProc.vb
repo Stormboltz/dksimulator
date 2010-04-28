@@ -61,7 +61,7 @@ Public Class Proc
 	Overridable Sub Equip()
 		If Equiped = 1 Then Exit Sub
 		Equiped = 1
-		sim.proc.EquipedProc.Add(me,Name)
+		sim.proc.EquipedProc.Add(me)
 		Select Case Me.ProcOn
 			Case Procs.ProcOnType.OnMisc
 				
@@ -86,12 +86,12 @@ Public Class Proc
 			Case Else
 				debug.Print ("No proc on value for " & me.Name)
 		End Select
-		sim.DamagingObject.Add(me,Name)
+		sim.DamagingObject.Add(me)
 	End Sub
 	
 	Overridable Sub UnEquip()
 		Me.Equiped = 0
-		sim.proc.EquipedProc.Remove(Name)
+		sim.proc.EquipedProc.Remove(me)
 		Select Case Me.ProcOn
 			Case Procs.ProcOnType.OnMisc
 				
@@ -116,7 +116,7 @@ Public Class Proc
 			Case Else
 				debug.Print ("No proc on value for " & me.Name)
 		End Select
-		sim.DamagingObject.remove(Name)
+		sim.DamagingObject.remove(Me)
 	End Sub
 	
 	
@@ -156,7 +156,7 @@ Public Class Proc
 	End Function
 
 	Sub ApplyFade(T As Long)
-		if ProcLenght Then 
+		If ProcLenght Then
 			Fade = T + ProcLenght * 100
 			AddUptime(T)
 		End IF
@@ -187,7 +187,8 @@ Public Class Proc
 	End Sub
 	
 	Sub AddUptime(T As Long)
-		dim tmp as Long
+		Dim tmp As Long
+		
 		If ProcLenght*100 + T > sim.NextReset Then
 			tmp = (sim.NextReset - T)/100
 		Else

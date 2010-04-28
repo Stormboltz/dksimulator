@@ -14,7 +14,7 @@ Public Class ScourgeStrikeMagical
 		MyBase.New(s)
 	End Sub
 	
-	public Overrides Function AvrgCrit(T As long) As Double
+	public Overrides Function AvrgCrit(T As long,target As Targets.Target) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 	
@@ -39,13 +39,14 @@ Public Class ScourgeStrikeMagical
 	End Function
 	
 	
-	Public Function AvrgNonCrit(T As Long,Optional target As Targets.Target = Nothing) As Double
-		if target is nothing then target = sim.MainTarget
+	Public Overrides Function AvrgNonCrit(T As Long,target As Targets.Target) As Double
+		
+		
 		Dim tmpMagical As Integer
 		Dim addtiveDamage As Double
 		
 		tmpMagical = tmpPhysical
-		tmpMagical = tmpMagical * (0.12 * Sim.NumDesease )
+		tmpMagical = tmpMagical * (0.12 * target.NumDesease )
 		If sim.MainStat.T84PDPS = 1 Then tmpMagical =tmpMagical  * 1.2
 		Dim tmp As Double
 		tmp = 1

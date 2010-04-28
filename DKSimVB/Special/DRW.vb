@@ -82,7 +82,7 @@ Friend Class DRW
 			SpellHaste = sim.MainStat.SpellHaste
 			Haste = sim.MainStat.Haste
 			AP = sim.MainStat.AP
-			_Crit = sim.MainStat.critAutoattack ' Crit seems based on charater crit 
+			_Crit = sim.MainStat.critAutoattack ' Crit seems based on charater crit
 			_SpellCrit = sim.MainStat.SpellCrit '
 			MeleeGlacingChance = 0.25
 			MeleeMissChance = 0.08 - sim.MainStat.Hit
@@ -163,7 +163,7 @@ Friend Class DRW
 		Sim.UseGCD(T, True)
 	End Sub
 	Function PhysicalDamageMultiplier(T As Long,Optional target As Targets.Target = Nothing) As Double
-		if target is nothing then target = sim.MainTarget
+		if target is nothing then target = sim.Targets.MainTarget
 		dim tmp as Double
 		tmp = 1
 		tmp = tmp * getMitigation
@@ -175,7 +175,7 @@ Friend Class DRW
 	
 	
 	Function getMitigation(Optional target As Targets.Target = Nothing) As Double
-		if target is nothing then target = sim.MainTarget
+		if target is nothing then target = sim.Targets.MainTarget
 		Dim AttackerLevel As Integer = 80
 		Dim tmpArmor As Integer
 		Dim ArPDebuffs As Double
@@ -197,7 +197,7 @@ Friend Class DRW
 	end function
 	
 	Function MagicalDamageMultiplier(T As Long,Optional target As Targets.Target = Nothing) As Double
-		if target is nothing then target = sim.MainTarget
+		if target is nothing then target = sim.Targets.MainTarget
 		Dim tmp As Double
 		tmp = 1
 		tmp = tmp * (1 + 0.03 *  sim.Character.Buff.PcDamage)
@@ -255,7 +255,7 @@ Friend Class DRW
 		End If
 		damage = NormalisedMHDamage * 0.8 + 467.2
 		damage = damage * PhysicalDamageMultiplier(sim.TimeStamp)
-		damage = damage * (1 + 0.125 * Sim.NumDesease)
+		damage = damage * (1 + 0.125 * Sim.Targets.MainTarget.NumDesease)
 		damage = damage /2
 		
 		RNG = Obliterate.RngCrit
@@ -309,13 +309,13 @@ Friend Class DRW
 		End If
 		
 		Dim intCount As Integer
-		For intCount = 1 To Sim.NumberOfEnemies
-			if intCount <= 2 then
+		Dim t As Targets.Target
+		intCount = 0
+		For Each T In sim.Targets.AllTargets
 				RNG = HeartStrike.RngCrit
 				damage = NormalisedMHDamage * 0.5 + 368
 				damage = damage * PhysicalDamageMultiplier(sim.TimeStamp)
-				damage = damage * (1 + 0.1 * Sim.NumDesease)
-				'damage = damage /2
+				damage = damage * (1 + 0.1 * T.NumDesease)
 				If RNG < crit Then
 					damage = damage* 2
 					HeartStrike.CritCount = HeartStrike.CritCount +1
@@ -326,10 +326,16 @@ Friend Class DRW
 					HeartStrike.Totalhit += damage
 					if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Heart Strike hit for " & damage)
 				End If
-				If intCount = 2 Then damage = damage * 0.5
-				HeartStrike.total= HeartStrike.total+damage
-			End If
-		Next intCount
+				
+				If T.Equals(sim.Targets.MainTarget) Then
+					HeartStrike.total= HeartStrike.total+damage
+				ElseIf intCount =0 Then
+					damage = damage * 0.5
+					HeartStrike.total= HeartStrike.total+damage
+					intCount += 1
+				End If
+		Next
+		
 	End Sub
 	Sub DRWDeathCoil
 		Dim RNG As Double
@@ -440,11 +446,11 @@ Friend Class DRW
 		
 		PlaqueStrike.cleanup
 		
-		Obliterate.cleanup 
-		HeartStrike.cleanup 
+		Obliterate.cleanup
+		HeartStrike.cleanup
 		DeathStrike.cleanup
-		DeathCoil.cleanup 
-		IcyTouch.cleanup 
+		DeathCoil.cleanup
+		IcyTouch.cleanup
 		
 
 		

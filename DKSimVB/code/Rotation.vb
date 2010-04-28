@@ -141,7 +141,7 @@ Friend Class Rotation
 				End If
 			Case "BloodPlague"
 				
-				If sim.BloodPlague.isActive(TimeStamp + 150) = False And runes.Unholy(TimeStamp) = True Then
+				If sim.Targets.MainTarget.BloodPlague.isActive(TimeStamp + 150) = False And runes.Unholy(TimeStamp) = True Then
 					Return sim.PlagueStrike.ApplyDamage(TimeStamp)
 					'debug.Print("PS")
 					Exit Function

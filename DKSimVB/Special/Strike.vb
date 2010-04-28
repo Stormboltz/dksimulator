@@ -10,23 +10,13 @@ Namespace Strikes
 
 Public Class Strike
 	Inherits Supertype
-	
-
-
 	Friend OffHand  As Boolean
-	
-	
 	Sub UseGCD(T As Long)
 		Sim.UseGCD(T, False)
 	End Sub
-	
-	
-	
-    
     Public Sub New()
 		init()
     End Sub
-    
 	Overridable Protected Sub init()
 		Total = 0
 		MissCount = 0
@@ -98,8 +88,20 @@ Public Class Strike
 	End Function
 	
 	
-	Overridable Function AvrgNonCrit(T as long) As Double
+	Overridable Function AvrgNonCrit(T As Long,target As Targets.Target) As Double
 	End Function
+	Overridable Function AvrgCrit(T As Long,target As Targets.Target) As Double
+	End Function	
+	
+	
+	Function AvrgNonCrit(T As Long) As Double
+		return AvrgNonCrit(T,sim.Targets.MainTarget)
+	End Function
+	Function AvrgCrit(T As Long) As Double
+		Return AvrgCrit(T,sim.Targets.MainTarget)
+	End Function	
+	
+	
 	
 	Overridable Function CritCoef() As Double
 	End Function
@@ -107,9 +109,7 @@ Public Class Strike
 	Overridable Function CritChance() As Double
 	End Function
 	
-	Overridable Function AvrgCrit(T As Long) As Double
-		Return AvrgNonCrit(T) * (1 + CritCoef)
-	End Function
+
 	
 	Overridable Public Sub cleanup()
 		Total = 0

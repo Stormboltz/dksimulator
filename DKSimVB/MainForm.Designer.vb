@@ -62,6 +62,7 @@ Partial Class MainForm
 		Me.chkShowProc = New System.Windows.Forms.CheckBox
 		Me.chkCombatLog = New System.Windows.Forms.CheckBox
 		Me.grpSimOption = New System.Windows.Forms.GroupBox
+		Me.cmdEditScenario = New System.Windows.Forms.Button
 		Me.label45 = New System.Windows.Forms.Label
 		Me.txtBSTTL = New System.Windows.Forms.TextBox
 		Me.groupBox7 = New System.Windows.Forms.GroupBox
@@ -75,9 +76,6 @@ Partial Class MainForm
 		Me.label9 = New System.Windows.Forms.Label
 		Me.label20 = New System.Windows.Forms.Label
 		Me.cmbBShOption = New System.Windows.Forms.ComboBox
-		Me.chkDisease = New System.Windows.Forms.CheckBox
-		Me.txtNumberOfEnemies = New System.Windows.Forms.TextBox
-		Me.label19 = New System.Windows.Forms.Label
 		Me.chkWaitFC = New System.Windows.Forms.CheckBox
 		Me.ckPet = New System.Windows.Forms.CheckBox
 		Me.label18 = New System.Windows.Forms.Label
@@ -273,7 +271,6 @@ Partial Class MainForm
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.cmdRngSeeder = New System.Windows.Forms.Button
 		Me.tmrProgress = New System.Windows.Forms.Timer(Me.components)
-		Me.cmdEditScenario = New System.Windows.Forms.Button
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -530,9 +527,9 @@ Partial Class MainForm
 		Me.groupBox6.Controls.Add(Me.ckLogRP)
 		Me.groupBox6.Controls.Add(Me.chkShowProc)
 		Me.groupBox6.Controls.Add(Me.chkCombatLog)
-		Me.groupBox6.Location = New System.Drawing.Point(4, 637)
+		Me.groupBox6.Location = New System.Drawing.Point(4, 600)
 		Me.groupBox6.Name = "groupBox6"
-		Me.groupBox6.Size = New System.Drawing.Size(1014, 103)
+		Me.groupBox6.Size = New System.Drawing.Size(1014, 140)
 		Me.groupBox6.TabIndex = 50
 		Me.groupBox6.TabStop = false
 		Me.groupBox6.Text = "Report Options"
@@ -614,9 +611,6 @@ Partial Class MainForm
 		Me.grpSimOption.Controls.Add(Me.label9)
 		Me.grpSimOption.Controls.Add(Me.label20)
 		Me.grpSimOption.Controls.Add(Me.cmbBShOption)
-		Me.grpSimOption.Controls.Add(Me.chkDisease)
-		Me.grpSimOption.Controls.Add(Me.txtNumberOfEnemies)
-		Me.grpSimOption.Controls.Add(Me.label19)
 		Me.grpSimOption.Controls.Add(Me.chkWaitFC)
 		Me.grpSimOption.Controls.Add(Me.ckPet)
 		Me.grpSimOption.Controls.Add(Me.label18)
@@ -661,14 +655,25 @@ Partial Class MainForm
 		Me.grpSimOption.Controls.Add(Me.cmbCharacter)
 		Me.grpSimOption.Location = New System.Drawing.Point(3, 4)
 		Me.grpSimOption.Name = "grpSimOption"
-		Me.grpSimOption.Size = New System.Drawing.Size(1020, 627)
+		Me.grpSimOption.Size = New System.Drawing.Size(1020, 590)
 		Me.grpSimOption.TabIndex = 49
 		Me.grpSimOption.TabStop = false
 		Me.grpSimOption.Text = "Simulator Options"
+		AddHandler Me.grpSimOption.Enter, AddressOf Me.GrpSimOptionEnter
+		'
+		'cmdEditScenario
+		'
+		Me.cmdEditScenario.Location = New System.Drawing.Point(204, 438)
+		Me.cmdEditScenario.Name = "cmdEditScenario"
+		Me.cmdEditScenario.Size = New System.Drawing.Size(145, 23)
+		Me.cmdEditScenario.TabIndex = 94
+		Me.cmdEditScenario.Text = "Edit Scenario"
+		Me.cmdEditScenario.UseVisualStyleBackColor = true
+		AddHandler Me.cmdEditScenario.Click, AddressOf Me.CmdEditScenarioClick
 		'
 		'label45
 		'
-		Me.label45.Location = New System.Drawing.Point(969, 493)
+		Me.label45.Location = New System.Drawing.Point(969, 456)
 		Me.label45.Name = "label45"
 		Me.label45.Size = New System.Drawing.Size(40, 20)
 		Me.label45.TabIndex = 93
@@ -677,7 +682,7 @@ Partial Class MainForm
 		'txtBSTTL
 		'
 		Me.txtBSTTL.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.txtBSTTL.Location = New System.Drawing.Point(820, 490)
+		Me.txtBSTTL.Location = New System.Drawing.Point(820, 453)
 		Me.txtBSTTL.Name = "txtBSTTL"
 		Me.txtBSTTL.Size = New System.Drawing.Size(149, 20)
 		Me.txtBSTTL.TabIndex = 92
@@ -741,7 +746,7 @@ Partial Class MainForm
 		'
 		Me.cmbICCBuff.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbICCBuff.FormattingEnabled = true
-		Me.cmbICCBuff.Location = New System.Drawing.Point(828, 595)
+		Me.cmbICCBuff.Location = New System.Drawing.Point(828, 558)
 		Me.cmbICCBuff.Name = "cmbICCBuff"
 		Me.cmbICCBuff.Size = New System.Drawing.Size(149, 21)
 		Me.cmbICCBuff.TabIndex = 89
@@ -751,7 +756,7 @@ Partial Class MainForm
 		Me.chkBloodSync.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.chkBloodSync.Checked = true
 		Me.chkBloodSync.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkBloodSync.Location = New System.Drawing.Point(794, 512)
+		Me.chkBloodSync.Location = New System.Drawing.Point(794, 475)
 		Me.chkBloodSync.Name = "chkBloodSync"
 		Me.chkBloodSync.Size = New System.Drawing.Size(179, 24)
 		Me.chkBloodSync.TabIndex = 87
@@ -761,7 +766,7 @@ Partial Class MainForm
 		'label44
 		'
 		Me.label44.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.label44.Location = New System.Drawing.Point(712, 595)
+		Me.label44.Location = New System.Drawing.Point(712, 558)
 		Me.label44.Name = "label44"
 		Me.label44.Size = New System.Drawing.Size(110, 21)
 		Me.label44.TabIndex = 86
@@ -771,7 +776,7 @@ Partial Class MainForm
 		'label9
 		'
 		Me.label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.label9.Location = New System.Drawing.Point(657, 493)
+		Me.label9.Location = New System.Drawing.Point(657, 456)
 		Me.label9.Name = "label9"
 		Me.label9.Size = New System.Drawing.Size(157, 21)
 		Me.label9.TabIndex = 86
@@ -781,7 +786,7 @@ Partial Class MainForm
 		'label20
 		'
 		Me.label20.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.label20.Location = New System.Drawing.Point(704, 469)
+		Me.label20.Location = New System.Drawing.Point(704, 432)
 		Me.label20.Name = "label20"
 		Me.label20.Size = New System.Drawing.Size(110, 21)
 		Me.label20.TabIndex = 86
@@ -793,47 +798,17 @@ Partial Class MainForm
 		Me.cmbBShOption.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.cmbBShOption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cmbBShOption.FormattingEnabled = true
-		Me.cmbBShOption.Location = New System.Drawing.Point(820, 466)
+		Me.cmbBShOption.Location = New System.Drawing.Point(820, 429)
 		Me.cmbBShOption.Name = "cmbBShOption"
 		Me.cmbBShOption.Size = New System.Drawing.Size(149, 21)
 		Me.cmbBShOption.TabIndex = 85
-		'
-		'chkDisease
-		'
-		Me.chkDisease.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.chkDisease.Checked = true
-		Me.chkDisease.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkDisease.Location = New System.Drawing.Point(884, 430)
-		Me.chkDisease.Name = "chkDisease"
-		Me.chkDisease.Size = New System.Drawing.Size(98, 41)
-		Me.chkDisease.TabIndex = 84
-		Me.chkDisease.Text = "Keep diseases on targets"
-		Me.chkDisease.UseVisualStyleBackColor = true
-		'
-		'txtNumberOfEnemies
-		'
-		Me.txtNumberOfEnemies.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.txtNumberOfEnemies.Location = New System.Drawing.Point(828, 440)
-		Me.txtNumberOfEnemies.Name = "txtNumberOfEnemies"
-		Me.txtNumberOfEnemies.Size = New System.Drawing.Size(50, 20)
-		Me.txtNumberOfEnemies.TabIndex = 83
-		Me.txtNumberOfEnemies.Text = "1"
-		'
-		'label19
-		'
-		Me.label19.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.label19.Location = New System.Drawing.Point(720, 443)
-		Me.label19.Name = "label19"
-		Me.label19.Size = New System.Drawing.Size(102, 13)
-		Me.label19.TabIndex = 82
-		Me.label19.Text = "Number of enemies"
 		'
 		'chkWaitFC
 		'
 		Me.chkWaitFC.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.chkWaitFC.Checked = true
 		Me.chkWaitFC.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkWaitFC.Location = New System.Drawing.Point(794, 564)
+		Me.chkWaitFC.Location = New System.Drawing.Point(794, 527)
 		Me.chkWaitFC.Name = "chkWaitFC"
 		Me.chkWaitFC.Size = New System.Drawing.Size(179, 24)
 		Me.chkWaitFC.TabIndex = 81
@@ -845,7 +820,7 @@ Partial Class MainForm
 		Me.ckPet.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
 		Me.ckPet.Checked = true
 		Me.ckPet.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.ckPet.Location = New System.Drawing.Point(794, 538)
+		Me.ckPet.Location = New System.Drawing.Point(794, 501)
 		Me.ckPet.Name = "ckPet"
 		Me.ckPet.Size = New System.Drawing.Size(179, 24)
 		Me.ckPet.TabIndex = 80
@@ -2809,16 +2784,6 @@ Partial Class MainForm
 		Me.tmrProgress.Interval = 1000
 		AddHandler Me.tmrProgress.Tick, AddressOf Me.TmrProgressTick
 		'
-		'cmdEditScenario
-		'
-		Me.cmdEditScenario.Location = New System.Drawing.Point(204, 438)
-		Me.cmdEditScenario.Name = "cmdEditScenario"
-		Me.cmdEditScenario.Size = New System.Drawing.Size(145, 23)
-		Me.cmdEditScenario.TabIndex = 94
-		Me.cmdEditScenario.Text = "Edit Scenario"
-		Me.cmdEditScenario.UseVisualStyleBackColor = true
-		AddHandler Me.cmdEditScenario.Click, AddressOf Me.CmdEditScenarioClick
-		'
 		'MainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
@@ -3001,9 +2966,6 @@ Partial Class MainForm
 	Friend lblBlood As System.Windows.Forms.Label
 	Friend lblFrost As System.Windows.Forms.Label
 	Friend lblUnholy As System.Windows.Forms.Label
-	Friend chkDisease As System.Windows.Forms.CheckBox
-	Private label19 As System.Windows.Forms.Label
-	Friend txtNumberOfEnemies As System.Windows.Forms.TextBox
 	Private cmbGlyph1 As System.Windows.Forms.ComboBox
 	Private cmbGlyph2 As System.Windows.Forms.ComboBox
 	Private cmbGlyph3 As System.Windows.Forms.ComboBox

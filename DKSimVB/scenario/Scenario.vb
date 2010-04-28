@@ -17,13 +17,11 @@ Namespace Scenarios
 		End Sub
 		
 		Sub SoftReset
+			on error resume next
 			Elements.Clear
 			Dim xmlScenario As new Xml.XmlDocument
-			
  			xmlScenario.Load(Application.StartupPath & "\scenario\Scenario.xml")
-			
 			Dim e As Element
-			
 			Dim xNode As Xml.XmlNode
 			dim id as Integer
 			For Each xNode In xmlScenario.SelectNodes("/Scenario/Element")
@@ -32,9 +30,19 @@ Namespace Scenarios
 				e.CanTakeDiseaseDamage = xNode.SelectSingleNode("/Scenario/Element[@id=" & id &"]/CanTakeDiseaseDamage").InnerText
 				e.CanTakePetDamage = xNode.SelectSingleNode("/Scenario/Element[@id=" & id &"]/CanTakePetDamage").InnerText
 				e.CanTakePlayerStrike = xNode.SelectSingleNode("/Scenario/Element[@id=" & id &"]/CanTakePlayerStrike").InnerText
-				e.Start = sim.TimeStamp + xNode.SelectSingleNode("/Scenario/Element[@id=" & id &"]/Start").InnerText
-				e.length = xNode.SelectSingleNode("/Scenario/Element[@id=" & id &"]/length").InnerText
+				e.AddPop = xNode.SelectSingleNode("/Scenario/Element[@id=" & id &"]/AddPop").InnerText
+				e.DamageBonus = xNode.SelectSingleNode("/Scenario/Element[@id=" & id &"]/DamageBonus").InnerText
+				e.Start = sim.TimeStamp + ( xNode.SelectSingleNode("/Scenario/Element[@id=" & id &"]/Start").InnerText * xNode.SelectSingleNode("/Scenario/Element[@id=" & id &"]/Start").Attributes.GetNamedItem("multi").InnerText)
+				e.length = xNode.SelectSingleNode("/Scenario/Element[@id=" & id &"]/length").InnerText * xNode.SelectSingleNode("/Scenario/Element[@id=" & id &"]/length").Attributes.GetNamedItem("multi").InnerText
+				e.SpreadDisease = xNode.SelectSingleNode("/Scenario/Element[@id=" & id &"]/SpreadDisease").InnerText 
 				sim.FutureEventManager.Add(e.Start,"Scenario")
+				If e.DamageBonus <> 0 Then
+					sim.FutureEventManager.Add(e.Start,"SuperBuff")
+				End If
+				If e.AddPop <> 0 Then
+					sim.FutureEventManager.Add(e.Start,"AddPop")
+					sim.FutureEventManager.Add(e.Ending,"AddDepop")
+				End If
 			Next
 		End Sub
 		

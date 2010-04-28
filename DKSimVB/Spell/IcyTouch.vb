@@ -42,15 +42,15 @@ Friend Class IcyTouch
 		sim.TryOnSpellHit
 		return true
 	End Function
-	Function AvrgNonCrit(T As Long,Optional target As Targets.Target = Nothing) As Double
-		if target is nothing then target = sim.MainTarget
+	overrides Function AvrgNonCrit(T As Long, target As Targets.Target ) As Double
+		if target is nothing then target = sim.Targets.MainTarget
 		
 		Dim tmp As Double
 		tmp = 236
 		
 		tmp = tmp + (0.1 * (1 + 0.04 * sim.Character.talentunholy.Impurity) * sim.MainStat.AP)
 		tmp = tmp * (1 + sim.Character.talentfrost.ImprovedIcyTouch * 5 / 100)
-		if sim.NumDesease > 0 or (target.Debuff.BloodPlague+target.Debuff.FrostFever>0) Then 	tmp = tmp * (1 + sim.Character.talentfrost.GlacierRot * 6.6666666 / 100)
+		if target.NumDesease > 0 or (target.Debuff.BloodPlague+target.Debuff.FrostFever>0) Then 	tmp = tmp * (1 + sim.Character.talentfrost.GlacierRot * 6.6666666 / 100)
 		If sim.ExecuteRange Then tmp = tmp *(1+ 0.06*sim.Character.talentfrost.MercilessCombat)
 		If sim.sigils.FrozenConscience Then tmp = tmp +111
 		tmp = tmp * (1 + sim.Character.talentfrost.BlackIce * 2 / 100)
@@ -58,7 +58,7 @@ Friend Class IcyTouch
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		tmp *= sim.RuneForge.RazorIceMultiplier(T) 'TODO: only on main target
 		
-		sim.FrostFever.Apply(T) 
+		sim.Targets.MainTarget.FrostFever.Apply(T) 
 		'Moved this here as an IcyTouch with 1 CG charge left will reapply a CG buffed FF
 		'I'm pretty sure GlacierRot will not apply to the first icy touch if there are no other diseases up
 		if sim.RuneForge.CheckCinderglacier(True) > 0 then tmp *= 1.2
@@ -73,7 +73,7 @@ Friend Class IcyTouch
 		If sim.proc.KillingMachine.IsActive Then return 1
 		
 	End Function
-	overrides Function AvrgCrit(T As long) As Double
+	overrides Function AvrgCrit(T As long,target As Targets.Target) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 	

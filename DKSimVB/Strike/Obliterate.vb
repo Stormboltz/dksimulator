@@ -37,8 +37,8 @@ Friend Class Obliterate
 				'I changed Annihilation to function as a reverse proc.
 				'All frost specs at least should max out the talent and so it
 				'won't be equiped and so won't proc.
-				sim.frostfever.FadeAt=T
-				sim.bloodplague.FadeAt=T
+				sim.Targets.MainTarget.FrostFever.FadeAt=T
+				sim.Targets.MainTarget.BloodPlague.FadeAt=T
 			End If
 			
 		Else
@@ -84,7 +84,7 @@ Friend Class Obliterate
 	End Function
 	
 	
-	public Overrides Function AvrgNonCrit(T as long) As Double
+	public Overrides Function AvrgNonCrit(T as long,target as Targets.Target) As Double
 		Dim tmp As Double
 		If OffHand Then
 			tmp = sim.MainStat.NormalisedOHDamage * 0.8 + 467.2
@@ -94,9 +94,9 @@ Friend Class Obliterate
 		
 		If sim.sigils.Awareness Then tmp = tmp + 336
 		if sim.MainStat.T84PDPS = 1 then
-			tmp = tmp * (1 + 0.125 * Sim.NumDesease * 1.2)
+			tmp = tmp * (1 + 0.125 * Target.NumDesease * 1.2)
 		else
-			tmp = tmp * (1 + 0.125 * Sim.NumDesease)
+			tmp = tmp * (1 + 0.125 * Target.NumDesease)
 		end if
 		
 		
@@ -132,7 +132,7 @@ Friend Class Obliterate
 		
 	End Function
 	
-	public Overrides Function AvrgCrit(T As long) As Double
+	public Overrides Function AvrgCrit(T As long,target As Targets.Target) As Double
 		return AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 	

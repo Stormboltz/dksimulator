@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Scenarios>
+	<Element caption="Boss out of reach">
+		<CanTakePetDamage type="checkbox" caption="Can Take Pet Damage">checkbox</CanTakePetDamage>
+		<CanTakeDiseaseDamage type="checkbox" caption="Can Take Disease Damage">checkbox</CanTakeDiseaseDamage>
+		<CanTakePlayerStrike type="checkbox" caption="Can Take Player Strike">checkbox</CanTakePlayerStrike>
+		<Start type="textbox" caption="Start time in second" multi="100">textbox</Start>
+		<length type="textbox" caption="Length in second" multi="100">textbox</length>
+	</Element>
+	<Element caption="Player Damage Bonus">
+		<DamageBonus type="textbox" caption="Damage Bonus in %" multi="1">textbox</DamageBonus>
+		<Start type="textbox" caption="Start time in second" multi="100">textbox</Start>
+		<length type="textbox" caption="Length in second" multi="100">textbox</length>
+	</Element>
+	<Element caption="Add arriving">
+		<AddPop type="textbox" caption="Add to pop" multi="1">textbox</AddPop>
+		<SpreadDisease type="checkbox" caption="Spread Diseases to other targets"/>
+		<Start type="textbox" caption="Start time in second" multi="100">textbox</Start>
+		<length type="textbox" caption="Time to live in second" multi="100">textbox</length>
+	</Element>
+</Scenarios>

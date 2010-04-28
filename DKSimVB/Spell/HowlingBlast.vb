@@ -36,44 +36,43 @@ Friend Class HowlingBlast
 			sim.runes.UseFU(T,False)
 			Sim.RunicPower.add (15 + (sim.Character.talentfrost.ChillOfTheGrave * 2.5))
 		End If
+		Dim Tar As Targets.Target
 		
-		Dim intCount As Integer
-		For intCount = 1 To Sim.NumberOfEnemies
+		For Each Tar In sim.Targets.AllTargets
 			RNG = RngCrit
 			Dim dégat As Integer
 			Dim ccT As Double
 			ccT = CritChance
 			If RNG <= ccT Then
 				CritCount = CritCount + 1
-				dégat = AvrgCrit(T)
+				dégat = AvrgCrit(T,Tar)
 				sim.combatlog.write(T  & vbtab &  "HB crit for " & dégat )
 				totalcrit += dégat
 			Else
 				HitCount = HitCount + 1
-				dégat = AvrgNonCrit(T)
+				dégat = AvrgNonCrit(T,Tar)
 				sim.combatlog.write(T  & vbtab &  "HB hit for " & dégat)
 				totalhit += dégat
 			End If
 			total = total + dégat
 			sim.TryOnSpellHit
-		Next intCount
-		
-		
+		Next
+	
 		
 		sim.proc.KillingMachine.Use
 		if sim.character.glyph.HowlingBlast then
-			sim.FrostFever.Apply(T)
+			sim.Targets.MainTarget.FrostFever.Apply(T)
 		End If
 		
 		return true
 	End Function
-	Function AvrgNonCrit(T As Long,Optional target As Targets.Target = Nothing) As Double
-		if target is nothing then target = sim.MainTarget
+	overrides Function AvrgNonCrit(T As Long, target As Targets.Target ) As Double
+		if target is nothing then target = sim.Targets.MainTarget
 		Dim tmp As Double
 		tmp = 585
 		tmp = tmp + (0.2 * (1 + 0.04 * sim.Character.talentunholy.Impurity) * sim.MainStat.AP)
 		tmp = tmp * (1 + sim.Character.talentfrost.BlackIce * 2 / 100)
-		if sim.NumDesease > 0 or (target.Debuff.BloodPlague+target.Debuff.FrostFever>0) then 	tmp = tmp * (1 + sim.Character.talentfrost.GlacierRot * 6.6666666 / 100)
+		if target.NumDesease > 0 or (target.Debuff.BloodPlague+target.Debuff.FrostFever>0) then 	tmp = tmp * (1 + sim.Character.talentfrost.GlacierRot * 6.6666666 / 100)
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		If sim.ExecuteRange Then tmp = tmp *(1+ 0.06*sim.Character.talentfrost.MercilessCombat)
 		tmp *= sim.RuneForge.RazorIceMultiplier(T) 'TODO: only on main target
@@ -96,7 +95,7 @@ Friend Class HowlingBlast
 			End If
 		End If
 	End Function
-	overrides Function AvrgCrit(T As long) As Double
+	overrides Function AvrgCrit(T As long,target As Targets.Target) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 	

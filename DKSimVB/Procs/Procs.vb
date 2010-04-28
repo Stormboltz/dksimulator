@@ -38,7 +38,7 @@ Friend Class Procs
 	
 	
 	Friend AllProcs As New Collection
-	Friend EquipedProc as New Collection
+	Friend EquipedProc as New Collections.ArrayList
 	Friend OnHitProcs As New Collection
 	
 	Friend OnMHWhitehitProcs As new Collection
@@ -707,6 +707,8 @@ Friend Class Procs
 		Next
 		return tmp
 	End Function
+	
+	
 	
 	Function GetMaxPossibleBonus(stat As String) As Integer
 		Dim prc As proc

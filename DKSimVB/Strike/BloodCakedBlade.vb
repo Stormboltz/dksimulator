@@ -26,7 +26,7 @@ Sub New(S As sim)
 		if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "BCB hit for " & dégat )
 		return true
 	End Function
-	public Overrides Function AvrgNonCrit(T as long) As Double
+	overrides Function AvrgNonCrit(T As Long, target As Targets.Target ) As Double
 		Dim tmp As Double
 		If offhand = false Then
 			tmp = sim.MainStat.MHBaseDamage
@@ -35,7 +35,7 @@ Sub New(S As sim)
 			tmp = tmp * 0.5
 				tmp = tmp * (1 + sim.Character.talentfrost.NervesofColdSteel * 8.3333 / 100)
 		End If
-		tmp = tmp * (0.25 + 0.125 * Sim.NumDesease)
+		tmp = tmp * (0.25 + 0.125 * target.NumDesease)
 		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
 		If sim.EPStat = "EP HasteEstimated" Then
 			tmp = tmp*sim.MainStat.EstimatedHasteBonus
@@ -48,7 +48,7 @@ Sub New(S As sim)
 	public Overrides Function CritChance() As Double
 		return sim.MainStat.crit
 	End Function
-	public Overrides Function AvrgCrit(T as long) As Double
+	public Overrides Function AvrgCrit(T as long,target As Targets.Target) As Double
 		return AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 	

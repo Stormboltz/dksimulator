@@ -94,7 +94,7 @@ Friend Class OffHand
 		sim.TryOnOHHitProc
 		return true
 	End Function
-	Overrides Function AvrgNonCrit(T as long) As Double
+	Overrides Function AvrgNonCrit(T as long,target As Targets.Target) As Double
 		Dim tmp As Double
 		tmp = sim.MainStat.OHBaseDamage
 		tmp = tmp * sim.MainStat.WhiteHitDamageMultiplier(T)
@@ -114,7 +114,7 @@ Friend Class OffHand
 		tmp = sim.MainStat.critAutoattack
 		CritChance = tmp
 	End Function
-	Overrides Function AvrgCrit(T As long) As Double
+	Overrides Function AvrgCrit(T As long,target As Targets.Target) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function	
 end Class

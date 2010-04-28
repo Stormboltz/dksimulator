@@ -72,7 +72,7 @@ Friend Class DeathStrike
 		End If
 		return true
 	End Function
-	public Overrides Function AvrgNonCrit(T as long) As Double
+	public Overrides Function AvrgNonCrit(T as long,target As Targets.Target) As Double
 		Dim tmp As Double
 		
 		If offhand = false Then
@@ -105,8 +105,8 @@ Friend Class DeathStrike
 	public Overrides Function CritChance() As Double
 		CritChance = sim.MainStat.crit + sim.Character.talentblood.ImprovedDeathStrike * 3/100 + sim.MainStat.T72PDPS * 5/100
 	End Function
-	public Overrides Function AvrgCrit(T As Long) As Double
-		Return AvrgNonCrit(T) * (1 + CritCoef)
+	public Overrides Function AvrgCrit(T As Long,target As Targets.Target) As Double
+		Return AvrgNonCrit(T,target) * (1 + CritCoef)
 	End Function
 	
 	Public Overrides Sub Merge()

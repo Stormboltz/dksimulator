@@ -8,9 +8,14 @@
 '
 Namespace Scenarios
 Public Class Element
-	Friend CanTakePetDamage As Boolean
-	Friend CanTakeDiseaseDamage As Boolean
-	Friend CanTakePlayerStrike As Boolean
+	Friend CanTakePetDamage As Boolean = true
+	Friend CanTakeDiseaseDamage As Boolean = true
+	Friend CanTakePlayerStrike As Boolean = true
+	Friend AddPop As Integer = 0
+	Friend DamageBonus as Integer = 0
+	Friend SpreadDisease As Boolean = true
+	
+	
 	Friend Start As Long
 	Friend length as long	
 	Protected sim As Sim

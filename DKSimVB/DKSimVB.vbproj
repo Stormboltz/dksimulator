@@ -67,6 +67,7 @@
     <Compile Include="code\Target\DebuffingProc.vb" />
     <Compile Include="code\Target\Target.vb" />
     <Compile Include="code\Target\TargetsManager.vb" />
+    <Compile Include="Diseases\Disease.vb" />
     <Compile Include="GearSelector\ArmoryImport\frmArmoryImport.Designer.vb">
       <DependentUpon>frmArmoryImport.vb</DependentUpon>
     </Compile>
@@ -200,7 +201,6 @@
     <Compile Include="Special\AotD.vb" />
     <Compile Include="Special\Bloodlust.vb" />
     <Compile Include="Special\BloodPresence.vb" />
-    <Compile Include="Special\Disease.vb" />
     <Compile Include="Special\DRW.vb" />
     <Compile Include="Special\FrostPresence.vb" />
     <Compile Include="Special\Gargoyle.vb" />
@@ -272,6 +272,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Config\RotationList.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\Scenarios.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Config\SetBonusList.xml">
@@ -953,6 +956,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Rotation\unholy.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="scenario\Blood-Queen Lana%27thel.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="scenario\Scenario.xml">

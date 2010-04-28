@@ -346,7 +346,7 @@ Public Class Trinkets
 		Dim tk As Trinket
 		For Each tk In sim.TrinketsCollection
 			If tk.DamageType <> "" Then
-				sim.DamagingObject.Add(tk,tk.Name)
+				sim.DamagingObject.Add(tk)
 			End If
 		Next
 	End Sub

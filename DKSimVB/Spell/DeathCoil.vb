@@ -80,7 +80,7 @@ Friend class DeathCoil
 		return true
 		
 	End Function
-	overrides Function AvrgNonCrit(T As long) As Double
+	overrides Function AvrgNonCrit(T As Long, target As Targets.Target ) As Double
 		Dim tmp As Double
 		tmp = 443
 		If sim.sigils.VengefulHeart Then tmp= tmp + 380
@@ -102,7 +102,7 @@ Friend class DeathCoil
 	overrides Function CritChance() As Double
 		CritChance = sim.MainStat.SpellCrit + 8/100 * sim.MainStat.T82PDPS
 	End Function
-	overrides Function AvrgCrit(T As long) As Double
+	overrides Function AvrgCrit(T As long,target As Targets.Target) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 	

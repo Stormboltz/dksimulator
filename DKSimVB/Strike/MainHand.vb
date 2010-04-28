@@ -95,7 +95,7 @@ Sub New(S As sim)
 		End If
 		return true
 	End Function
-	Overrides Function AvrgNonCrit(T As long) As Double
+	Overrides Function AvrgNonCrit(T As long,target As Targets.Target) As Double
 		Dim tmp As Double
 		tmp = sim.MainStat.MHBaseDamage
 		tmp = tmp * sim.MainStat.WhiteHitDamageMultiplier(T)
@@ -111,7 +111,7 @@ Sub New(S As sim)
 	Overrides Function CritChance() As Double
 		CritChance = sim.MainStat.critAutoattack
 	End Function
-	Overrides Function AvrgCrit(T As long) As Double
+	Overrides Function AvrgCrit(T As long,target As Targets.Target) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 	

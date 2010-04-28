@@ -18,10 +18,12 @@ Friend Class WanderingPlague
 	End Function
 	
 	Function ApplyDamage(Damage As Double, T As long) As Double
-		nextTick = T + 200
+		nextTick = T + 100
 		Dim tmp As Integer
-		Dim intCount As Integer
-		For intCount = 1 To Sim.NumberOfEnemies
+		
+		Dim Tar As Targets.Target
+		
+		For Each Tar In sim.Targets.AllTargets
 			If DoMySpellHit = false Then
 				MissCount = MissCount + 1
 			End If
@@ -29,7 +31,7 @@ Friend Class WanderingPlague
 			total = total + tmp
 			HitCount = HitCount + 1
 			If sim.combatlog.LogDetails Then sim.combatlog.write(T  & vbtab &  "Wandering Plague hit for " & tmp )
-		Next intCount
+		Next
 		return true
 	End Function
 	

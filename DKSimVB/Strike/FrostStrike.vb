@@ -71,7 +71,7 @@ Friend Class FrostStrike
 		Return True
 	End Function
 	Public Function AvrgNonCrit(T As Long,Optional target As Targets.Target = Nothing) As Double
-		if target is nothing then target = sim.MainTarget
+		if target is nothing then target = sim.Targets.MainTarget
 		Dim tmp As Double
 		If offhand = false Then
 			tmp = sim.mainstaT.NormalisedMHDamage*0.55
@@ -81,7 +81,7 @@ Friend Class FrostStrike
 		tmp = tmp + 150
 		if sim.sigils.VengefulHeart then tmp= tmp + 113
 		tmp = tmp * (1+ sim.Character.talentfrost.BloodoftheNorth * 5 /100)
-		if sim.NumDesease > 0 or (target.Debuff.BloodPlague+target.Debuff.FrostFever>0) Then 	tmp = tmp * (1 + sim.Character.talentfrost.GlacierRot * 6.6666666 / 100)
+		if target.NumDesease > 0 or (target.Debuff.BloodPlague+target.Debuff.FrostFever>0) Then 	tmp = tmp * (1 + sim.Character.talentfrost.GlacierRot * 6.6666666 / 100)
 		if sim.ExecuteRange then tmp = tmp *(1+ 0.06*sim.Character.talentfrost.MercilessCombat)
 		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 		tmp = tmp * (1 + sim.Character.talentfrost.BlackIce * 2 / 100)
@@ -101,7 +101,7 @@ Friend Class FrostStrike
 		CritChance = sim.MainStat.Crit + 8/100 * sim.MainStat.T82PDPS
 		if sim.proc.KillingMachine.IsActive()  = true then return 1
 	End Function
-	public Overrides Function AvrgCrit(T As long) As Double
+	public Overrides Function AvrgCrit(T As long,target As Targets.Target) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 	

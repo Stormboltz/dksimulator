@@ -30,24 +30,28 @@ Friend Class Pestilence
 			sim.Runes.UseBlood(T, False)
 		End If
 		
-		
-		If sim.BloodPlague.FadeAt > T Then
-			sim.BloodPlague.OtherTargetsFade  = T + sim.BloodPlague.Lenght
-			'BloodPlague.nextTick = T + 300
+		dim Tar as Targets.Target
+		If sim.Targets.MainTarget.BloodPlague.FadeAt > T Then
+			For Each Tar In sim.Targets.AllTargets
+				If Tar.Equals(sim.Targets.MainTarget) = False Then
+					Tar.BloodPlague.Apply(T,Tar)
+				End If
+			Next
 		End If
-		If sim.FrostFever.FadeAt > T Then
-			sim.FrostFever.OtherTargetsFade = T + sim.frostfever.Lenght
-			'FrostFever.nextTick = T + 300
+		If sim.Targets.MainTarget.FrostFever.FadeAt > T Then
+			For Each Tar In sim.Targets.AllTargets
+				If Tar.Equals(sim.Targets.MainTarget) = False Then
+					Tar.FrostFever.Apply(T,Tar)
+				End If
+			Next
 		End If
-		
-		
-		
+			
 		If sim.character.glyph.Disease Then
-			If sim.BloodPlague.FadeAt > T Then
-				sim.BloodPlague.Refresh(T)
+			If sim.Targets.MainTarget.BloodPlague.FadeAt > T Then
+				sim.Targets.MainTarget.BloodPlague.Refresh(T)
 			End If
-			If sim.FrostFever.FadeAt > T Then
-				sim.FrostFever.Refresh(T)
+			If sim.Targets.MainTarget.FrostFever.FadeAt > T Then
+				sim.Targets.MainTarget.FrostFever.Refresh(T)
 			End If
 		End If
 		
@@ -78,12 +82,12 @@ Friend Class Pestilence
 			blood = sim.runes.AnyBlood(T)
 		End If
 		If blood Then
-			tmp1 = math.Min(sim.BloodPlague.FadeAt,sim.FrostFever.FadeAt)
+			tmp1 = math.Min(sim.Targets.MainTarget.BloodPlague.FadeAt,sim.Targets.MainTarget.FrostFever.FadeAt)
 			If tmp1 < T Then
 				return false
 			End If
 			
-			If sim.BloodPlague.FadeAt <> sim.FrostFever.FadeAt Then
+			If sim.Targets.MainTarget.BloodPlague.FadeAt <> sim.Targets.MainTarget.FrostFever.FadeAt Then
 				return true
 			End If
 			If tmp1 - T > 800 Then Return False

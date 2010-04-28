@@ -1,0 +1,28 @@
+<Scenario>
+  <Element id="0" caption="Player Damage Bonus">
+    <DamageBonus type="textbox" caption="Damage Bonus in %" multi="1">100</DamageBonus>
+    <Start type="textbox" caption="Start time in second" multi="100">60</Start>
+    <length type="textbox" caption="Length in second" multi="100">900</length>
+  </Element>
+  <Element id="1" caption="Boss out of reach">
+    <CanTakePetDamage type="checkbox" caption="Can Take Pet Damage">False</CanTakePetDamage>
+    <CanTakeDiseaseDamage type="checkbox" caption="Can Take Disease Damage">True</CanTakeDiseaseDamage>
+    <CanTakePlayerStrike type="checkbox" caption="Can Take Player Strike">False</CanTakePlayerStrike>
+    <Start type="textbox" caption="Start time in second" multi="100">120</Start>
+    <length type="textbox" caption="Length in second" multi="100">20</length>
+  </Element>
+  <Element id="2" caption="Boss out of reach">
+    <CanTakePetDamage type="checkbox" caption="Can Take Pet Damage">False</CanTakePetDamage>
+    <CanTakeDiseaseDamage type="checkbox" caption="Can Take Disease Damage">True</CanTakeDiseaseDamage>
+    <CanTakePlayerStrike type="checkbox" caption="Can Take Player Strike">False</CanTakePlayerStrike>
+    <Start type="textbox" caption="Start time in second" multi="100">210</Start>
+    <length type="textbox" caption="Length in second" multi="100">20</length>
+  </Element>
+  <Element id="3" caption="Boss out of reach">
+    <CanTakePetDamage type="checkbox" caption="Can Take Pet Damage">True</CanTakePetDamage>
+    <CanTakeDiseaseDamage type="checkbox" caption="Can Take Disease Damage">True</CanTakeDiseaseDamage>
+    <CanTakePlayerStrike type="checkbox" caption="Can Take Player Strike">False</CanTakePlayerStrike>
+    <Start type="textbox" caption="Start time in second" multi="100">180</Start>
+    <length type="textbox" caption="Length in second" multi="100">10</length>
+  </Element>
+</Scenario>

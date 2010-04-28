@@ -25,46 +25,48 @@ Friend Class HeartStrike
 			Exit function
 		End If
 		Sim.RunicPower.add (10)
-		Dim intCount As Integer
-		For intCount = 1 To Sim.NumberOfEnemies
-			if intCount <= 2 then
-				RNG = RngCrit
-				Dim dégat As Integer
+		Dim intCount As Integer = 0
+		dim Tar as Targets.Target
+		For Each Tar In sim.Targets.AllTargets
+			RNG = RngCrit
+			Dim dégat As Integer
+			
+			If Tar.Equals(sim.Targets.MainTarget) Then
 				If RNG <= CritChance Then
 					CritCount = CritCount + 1
-					If intCount = 2 Then
-						dégat =  AvrgCritOnSecondtarget(T)
-						
-						totalcrit += dégat
-					Else
-						dégat = AvrgCrit(T)
-						
-						totalcrit += dégat
-					End If
+					dégat = AvrgCrit(T,tar)
+					totalcrit += dégat
 					sim.combatlog.write(T  & vbtab &  "HS crit for " & dégat)
 				Else
 					HitCount = HitCount + 1
-					If intCount = 2 Then
-						dégat =  AvrgNonCritOnSecondtarget(T)
-						totalhit += dégat
-					Else
-						dégat =  AvrgNonCrit(T)
-						totalhit += dégat
-					End If
+					dégat =  AvrgNonCrit(T)
+					totalhit += dégat
 					sim.combatlog.write(T  & vbtab &  "HS hit for " & dégat)
 				End If
-				total = total + dégat
-				sim.TryOnBloodStrike
-				sim.TryOnMHHitProc
+			ElseIf intCount = 0 Then
+				intCount = 1
+				If RNG <= CritChance Then
+					CritCount = CritCount + 1
+					dégat = AvrgCrit(T,tar)/2
+					totalcrit += dégat
+					sim.combatlog.write(T  & vbtab &  "HS crit for " & dégat)
+				Else
+					HitCount = HitCount + 1
+					dégat =  AvrgNonCrit(T)/2
+					totalhit += dégat
+					sim.combatlog.write(T  & vbtab &  "HS hit for " & dégat)
+				End If
 			End If
-		Next intCount
+			total = total + dégat
+			sim.TryOnBloodStrike
+			sim.TryOnMHHitProc
+		Next
 		
 		If sim.proc.ReapingBotN.TryMe(T) Then
 			sim.Runes.UseBlood(T, True)
 		Else
 			sim.Runes.UseBlood(T, False)
 		End If
-		
 		If sim.DRW.IsActive(T) Then
 			sim.DRW.DRWHeartStrike
 		End If
@@ -72,19 +74,19 @@ Friend Class HeartStrike
 		
 		return true
 	End Function
-	public Overrides Function AvrgNonCrit(T As long) As Double
+	public Overrides Function AvrgNonCrit(T as long,target as Targets.Target) As Double
 		Dim tmp As Double
 		tmp = sim.MainStat.NormalisedMHDamage * 0.5
 		tmp = tmp + 368
 		if sim.MainStat.T84PDPS = 1 then
-			tmp = tmp * (1 + 0.1 * Sim.NumDesease * 1.2)
+			tmp = tmp * (1 + 0.1 * target.NumDesease * 1.2)
 		else
-			tmp = tmp * (1 + 0.1 * Sim.NumDesease)
+			tmp = tmp * (1 + 0.1 * target.NumDesease)
 		end if
 		tmp = tmp * (1 + sim.Character.talentblood.BloodyStrikes * 15 / 100)
 		tmp = tmp * (1 + sim.Character.talentfrost.BloodoftheNorth * 5 / 100)
 		
-		if sim.sigils.DarkRider then tmp = tmp + 45 + 22.5 * Sim.NumDesease
+		if sim.sigils.DarkRider then tmp = tmp + 45 + 22.5 * target.NumDesease
 		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
 		
 		If sim.MainStat.T102PDPS<>0 Then
@@ -94,33 +96,6 @@ Friend Class HeartStrike
 		AvrgNonCrit = tmp
 	End Function
 	
-	Function AvrgNonCritOnSecondtarget(T As long) As Double
-		Dim tmp As Double
-		Dim NumDesease As Integer
-		NumDesease=0
-		if sim.BloodPlague.OtherTargetsFade > T then NumDesease = NumDesease + 1
-		if sim.FrostFever.OtherTargetsFade > T then NumDesease = NumDesease + 1
-		
-		tmp = sim.MainStat.NormalisedMHDamage * 0.5
-		tmp = tmp + 368
-		if sim.MainStat.T84PDPS = 1 then
-			tmp = tmp * (1 + 0.1 * NumDesease * 1.2)
-		else
-			tmp = tmp * (1 + 0.1 * NumDesease)
-		end if
-		tmp = tmp * (1 + sim.Character.talentblood.BloodyStrikes * 15 / 100)
-		tmp = tmp * (1 + sim.Character.talentfrost.BloodoftheNorth * 5 / 100)
-		
-		if sim.sigils.DarkRider then tmp = tmp + 45 + 22.5 * Sim.NumDesease
-		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
-		tmp = tmp / 2
-		return tmp
-	End Function
-	
-	Function AvrgCritOnSecondtarget(T As long) As Double
-		return AvrgNonCritOnSecondtarget(T) * (1 + CritCoef)
-	End Function
-	
 	public Overrides Function CritCoef() As Double
 		CritCoef = 1* (1 + sim.Character.talentblood.MightofMograine * 15 / 100)
 		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
@@ -128,7 +103,7 @@ Friend Class HeartStrike
 	public Overrides Function CritChance() As Double
 		CritChance = sim.MainStat.crit + sim.Character.talentblood.Subversion * 3 / 100
 	End Function
-	public Overrides Function AvrgCrit(T As long) As Double
+	public Overrides Function AvrgCrit(T As long,target as Targets.Target) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 End Class

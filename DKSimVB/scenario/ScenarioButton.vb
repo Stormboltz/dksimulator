@@ -3,7 +3,7 @@
 ' User: Fabien
 ' Date: 30/12/2009
 ' Time: 17:28
-' 
+'
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
 Namespace Scenarios
@@ -12,7 +12,7 @@ Friend Class ElementButton
 	
 '	friend button as System.Windows.Forms.Button
 '	Friend lbl As System.Windows.Forms.Label
-'	
+'
 	Friend buttonAdd As  new System.Windows.Forms.Button
 	Friend buttonRemove As new System.Windows.Forms.Button
 	Friend buttonUp As new  System.Windows.Forms.Button
@@ -22,7 +22,11 @@ Friend Class ElementButton
 	Friend chkCanTakePlayerStrike As New System.Windows.Forms.CheckBox
 	Friend chkCanTakeDiseaseDamage As New System.Windows.Forms.CheckBox
 	Friend txtStart As New System.Windows.Forms.TextBox
-	Friend txtLength as New System.Windows.Forms.TextBox
+	Friend txtLength As New System.Windows.Forms.TextBox
+	
+	Friend colControl As New Collection
+	
+	Friend XmlBuid as Xml.XmlNode
 	
 	
 	
@@ -40,82 +44,78 @@ Friend Class ElementButton
 		Me.Width = 200
 		
 	End Sub
-	
+	Sub build(xElement As Xml.XmlNode)
+		Dim N As Xml.XmlNode
+		Dim xDoc As new Xml.XmlDocument
+		Dim x As Integer = 10
+		Dim y As Integer = 15
+		
+		
+		Dim chk As CheckBox
+		Dim tBox As myTextButton
+		dim lbl as Label
+		
+		
+		xDoc.LoadXml(xElement.OuterXml)
+		XmlBuid = xElement
+		me.SetName(xDoc.ChildNodes.Item(0).Attributes.GetNamedItem("caption").InnerText)
+		For Each N In xDoc.ChildNodes.Item(0).ChildNodes
+			If N.Attributes.GetNamedItem("type").InnerText = "checkbox" Then
+				chk = New CheckBox
+				Me.Controls.Add(chk)
+				With chk
+					.CheckAlign = System.Drawing.ContentAlignment.MiddleLeft
+					.Location = New System.Drawing.Point(x, y)
+					.Size = New System.Drawing.Size(50, 20)
+					Try
+						.Checked = N.InnerText
+					Catch
+						.Checked =false
+					End Try
+					
+					.AutoSize = true
+					.Text = N.Attributes.GetNamedItem("caption").InnerText
+					.Name = N.Name
+				End With
+				colControl.Add(chk)
+			End If
+			
+			If N.Attributes.GetNamedItem("type").InnerText = "textbox" Then
+				tBox = New myTextButton
+				Me.Controls.Add(tBox)
+				With tBox
+					.Location = New System.Drawing.Point(x, y)
+					.Size = New System.Drawing.Size(50, 20)
+					Try
+						.Text = Int(N.InnerText)
+					Catch
+						.Text  = 0
+					End Try
+					
+					.multi = N.Attributes.GetNamedItem("multi").InnerText
+					.caption = N.Attributes.GetNamedItem("caption").InnerText
+					.Name = N.Name
+				End With
+				lbl = New Label
+				Me.Controls.Add(lbl)
+				With lbl
+					.Location = New System.Drawing.Point(tBox.Left + tBox.Width + x, y)
+					.Size = New System.Drawing.Size(50, 20)
+					.AutoSize = true
+					.Text = N.Attributes.GetNamedItem("caption").InnerText
+					.Name = "lbl" & N.Name
+				End With
+				colControl.Add(tBox)
+			End If
+			y += 25
+		Next
+	End Sub
 	
 	Sub init(m As ScenarioEditor)
+		
 		Mainfrm = m
 		number = 0
 		InitCommonControls
-				
-		Me.Controls.Add(chkCanTakePetDamage)
-		With chkCanTakePetDamage
-			.CheckAlign = System.Drawing.ContentAlignment.MiddleLeft
-			.Location = New System.Drawing.Point(10, 10)
-			.Size = New System.Drawing.Size(50, 20)
-			.Checked= False
-			.AutoSize = true
-			.Text  = "Can Take Pet Damage"
-		End With
-		
-		Me.Controls.Add(chkCanTakePlayerStrike)
-		With chkCanTakePlayerStrike
-			.CheckAlign = System.Drawing.ContentAlignment.MiddleLeft
-			.Location = New System.Drawing.Point(10, 35)
-			.Size = New System.Drawing.Size(50, 20)
-			.Checked= False
-			.AutoSize = true
-			.Text  = "Can Take Player Strike"
-		End With
-		
-		
-		Me.Controls.Add(chkCanTakeDiseaseDamage)
-		With chkCanTakeDiseaseDamage
-			.CheckAlign = System.Drawing.ContentAlignment.MiddleLeft
-			.Location = New System.Drawing.Point(10, 60)
-			.Size = New System.Drawing.Size(50, 20)
-			.Checked= False
-			.AutoSize = true
-			.Text  = "Can Take Disease Damage"
-		End With
-		
-		
-		
-		Me.Controls.Add(txtStart)
-		With txtStart
-			.Location = New System.Drawing.Point(10, 85)
-			.Size = New System.Drawing.Size(50, 20)
-			.Text = "60"
-		End With
-		
-		Dim lbl As Label
-		lbl = New Label
-		Me.Controls.Add(lbl)
-		With lbl
-			.Location = New System.Drawing.Point(txtStart.Left + txtStart.Width + 10, txtStart.Top)
-			.Size = New System.Drawing.Size(50, 20)
-			.Text = "60"
-			.Text = "Start time (in second)"
-			.AutoSize = True
-		End With
-		
-		Me.Controls.Add(txtLength)
-		With txtLength
-			.Location = New System.Drawing.Point(10, 110)
-			.Size = New System.Drawing.Size(50, 20)
-			.Text = "10"
-		End With
-		
-		lbl = New Label
-		Me.Controls.Add(lbl)
-		With lbl
-			.Location = New System.Drawing.Point(txtLength.Left + txtLength.Width + 10, txtLength.Top)
-			.Size = New System.Drawing.Size(50, 20)
-			.Text = "During (in second)"
-			.AutoSize = True
-		End With
-		
-		
-		
 	End Sub
 	
 	
@@ -129,19 +129,6 @@ Friend Class ElementButton
 		Me.Controls.Add(buttonRemove)
 		Me.Controls.Add(buttonUp)
 		Me.Controls.Add(buttonDown)
-'		
-'		button.Size = New System.Drawing.Size(40, 40)
-'		button.TextAlign= System.Drawing.ContentAlignment.BottomRight
-'		button.ForeColor=System.Drawing.Color.White
-'		button.Font= New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
-'		button.Location = New System.Drawing.Point(5, 5)
-'		
-'		lbl.Enabled = false
-'		lbl.Location = New System.Drawing.Point(45, 25)
-'		lbl.Size = New System.Drawing.Size(20, 20)
-'		lbl.AutoSize = true
-'		lbl.TabIndex = 30
-'		lbl.Text = "BloodStrike"
 		
 		With buttonAdd
 			.Size = New System.Drawing.Size(20, 20)
@@ -190,11 +177,10 @@ Friend Class ElementButton
 		End With
 	End Sub
 	
-	Sub SetName(name As String)
+	Sub SetName(n As String)
 		on error resume next
-		
-		Me.Text = Name
-		me.Name = name
+		Me.Text = n
+		me.Name = n
 	End Sub
 	
 	Sub buttonAddclick(sender As Object, e As EventArgs)
@@ -212,4 +198,13 @@ Friend Class ElementButton
 	
 	
 End Class
+
+Friend Class myTextButton
+	Inherits System.Windows.Forms.TextBox
+		Friend multi As Integer
+		Friend caption As String
+
+	End Class
+
+
 End Namespace

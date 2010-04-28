@@ -47,13 +47,13 @@ Friend Class PlagueStrike
 			sim.TryOnOHHitProc
 		End If
 		sim.proc.strife.tryme(t)
-		sim.BloodPlague.Apply(T)
+		sim.Targets.MainTarget.BloodPlague.Apply(T)
 		If sim.DRW.IsActive(T) Then
 			sim.drw.DRWPlagueStrike
 		End If
 		Return True
 	End Function
-	public Overrides Function AvrgNonCrit(T As long) As Double
+	public Overrides Function AvrgNonCrit(T As long,target As Targets.Target) As Double
 		Dim tmp As Double
 		
 		If OffHand = False Then
@@ -83,7 +83,7 @@ Friend Class PlagueStrike
 		
 		return tmp
 	End Function
-	public Overrides Function AvrgCrit(T As long) As Double
+	public Overrides Function AvrgCrit(T As long,target As Targets.Target) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function
 

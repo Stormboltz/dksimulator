@@ -436,11 +436,7 @@ Public Partial Class MainForm
 		newElem.InnerText = chkBloodSync.Checked
 		root = doc.DocumentElement
 		root.AppendChild(newElem)
-		
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Enemies", "")
-		newElem.InnerText = txtNumberOfEnemies.Text
-		root = doc.DocumentElement
-		root.AppendChild(newElem)
+
 		
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "BShOption", "")
 		newElem.InnerText = cmbBShOption.SelectedItem.ToString
@@ -534,7 +530,6 @@ Public Partial Class MainForm
 '		chkPatch.Checked = doc.SelectSingleNode("//config/Patch").InnerText
 		
 		ckPet.Checked = doc.SelectSingleNode("//config/pet").InnerText
-		txtNumberOfEnemies.Text  = doc.SelectSingleNode("//config/Enemies").InnerText
 		
 		txtManyFights.Text = doc.SelectSingleNode("//config/txtManyFights").InnerText
 		chkManyFights.Checked = doc.SelectSingleNode("//config/chkManyFights").InnerText

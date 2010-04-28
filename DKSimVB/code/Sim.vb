@@ -30,7 +30,7 @@ Public Class Sim
 	Friend MultipleDamage as new ArrayList
 	Friend NextReset As Integer
 	Friend LastReset as Integer
-	Friend NumberOfEnemies as Integer
+	
 	Private SimStart As Date
 	Friend ICCDamageBuff As Integer
 	Friend BoneShieldTTL as Integer
@@ -118,14 +118,11 @@ Public Class Sim
 	Friend Frenzy as Frenzy
 	Friend ERW as EmpowerRuneWeapon
 	
-	'Disease Creation
-	Friend BloodPlague as BloodPlague
-	Friend FrostFever as FrostFever
+	
 	
 	
 	Friend proc As procs
-	Friend MainTarget As Targets.Target
-	Friend TargetsManager as Targets.TargetsManager
+	Friend Targets as Targets.TargetsManager
 	
 	
 	
@@ -136,7 +133,7 @@ Public Class Sim
 	
 	Friend Trinkets As Trinkets
 	
-	Friend DamagingObject as new Collection
+	Friend DamagingObject as new Collections.ArrayList
 	Friend TrinketsCollection As New Collection
 	Friend ProcCollection As New Collection
 	
@@ -176,13 +173,7 @@ Public Class Sim
 	Sub Init()
 	End Sub
 	
-	Function NumDesease() As Integer
-		NumDesease = 0
-		If BloodPlague.isActive(TimeStamp) Then NumDesease = NumDesease + 1
-		If FrostFever.isActive(TimeStamp) Then NumDesease = NumDesease + 1
-		If (Character.TalentUnholy.EbonPlaguebringer + Character.TalentUnholy.CryptFever >= 1) And NumDesease >= 1 Then NumDesease = NumDesease + 1
-		
-	End Function
+	
 	
 	
 	
@@ -335,22 +326,23 @@ Public Class Sim
 				End If
 				
 			Case "Disease"
-				If BloodPlague.isActive(TimeStamp) Then
-					If BloodPlague.nextTick <= TimeStamp Then
-						BloodPlague.ApplyDamage(TimeStamp)
+				Dim t As Targets.Target
+				For Each t In Targets.AllTargets
+					If t.BloodPlague.isActive(TimeStamp) Then
+						If t.BloodPlague.nextTick = TimeStamp Then
+							t.BloodPlague.ApplyDamage(TimeStamp)
+						End If
 					End If
-				End If
-				If FrostFever.isActive(TimeStamp) Then
-					If FrostFever.nextTick <= TimeStamp Then
-						FrostFever.ApplyDamage(TimeStamp)
+					If t.FrostFever.isActive(TimeStamp) Then
+						If t.FrostFever.nextTick = TimeStamp Then
+							t.FrostFever.ApplyDamage(TimeStamp)
+						End If
 					End If
-				End If
-				
+				Next
 			Case "DRW"
 				If DRW.IsActive(TimeStamp) Then
 					if DRW.NextDRW <= TimeStamp then DRW.ApplyDamage(TimeStamp)
 				End If
-				
 			Case "Gargoyle"
 				If Gargoyle.ActiveUntil >= TimeStamp Then
 					If Gargoyle.NextGargoyleStrike <= TimeStamp Then Gargoyle.ApplyDamage(TimeStamp)
@@ -398,8 +390,53 @@ Public Class Sim
 							FutureEventManager.reschedule("MainHand",e.Ending)
 							FutureEventManager.reschedule("OffHand",e.Ending)
 						End If
+						
 					End If
 				Next
+			Case "AddPop"
+				Dim e As Scenarios.Element
+				For Each e In Me.Scenario.Elements
+					If e.Start = Timestamp And e.AddPop <> 0 Then
+						me.KeepDiseaseOnOthersTarget = e.SpreadDisease
+						Dim i as Integer = 0
+						Do Until i = e.AddPop
+							Dim Add As Targets.target
+							add = new Targets.target(me)
+							i+= 1
+						Loop
+					End If
+				Next
+				
+			Case "AddDepop"
+				Dim e As Scenarios.Element
+				For Each e In Me.Scenario.Elements
+					If e.Ending = Timestamp and e.AddPop <> 0 Then
+						Dim i as Integer = 0
+						targets.KillEveryoneExceptMainTarget
+					End If
+				Next
+			Case "SuperBuff"
+				Dim e As Scenarios.Element
+				Dim prc As New Proc(Me)
+				
+				For Each e In Me.Scenario.Elements
+					If e.start = Timestamp And e.DamageBonus <> 0 Then
+						With prc
+							.ProcChance = 1
+							.ProcLenght = e.length/100
+							.ProcValue = e.DamageBonus
+							.ProcType = "percent"
+							._Name = "SuperBuff"
+							.ProcOn = procs.ProcOnType.OnMisc
+							.Equip
+							.TryMe(Timestamp)
+							.ProcChance = 0
+						End With
+					End If
+				Next
+				
+				
+				
 			Case Else
 				Debug.Print ("WTF is this event ?")
 		End Select
@@ -457,7 +494,7 @@ Public Class Sim
 			ProcessEvent(FE)
 			application.DoEvents
 		Loop
-
+		
 		TotalDamageAlternative = TotalDamageAlternative + TotalDamage
 		TimeStampCounter = TimeStampCounter + TimeStamp
 		'TotalDamage = TotalDamageAlternative
@@ -562,7 +599,7 @@ Public Class Sim
 				tGDC =  150+ latency/10 + 50
 			End If
 			
-			If math.Min(BloodPlague.FadeAt,FrostFever.FadeAt) < (T +  tGDC) Then
+			If math.Min(targets.MainTarget.BloodPlague.FadeAt,targets.MainTarget.FrostFever.FadeAt) < (T +  tGDC) Then
 				'debug.Print (RuneState & "time left on disease= " & (math.Min(BloodPlague.FadeAt,FrostFever.FadeAt) -T)/100 & "s" & " - " & T/100)
 				return false
 			End If
@@ -589,10 +626,16 @@ Public Class Sim
 		
 		
 		RunicPower.Reset()
-		BloodPlague.nextTick = 0
-		BloodPlague.FadeAt = 0
-		FrostFever.nextTick = 0
-		FrostFever.FadeAt = 0
+		targets.KillEveryoneExceptMainTarget
+		dim T as Targets.target
+		For Each t In targets.AllTargets
+			t.BloodPlague.nextTick = 0
+			t.BloodPlague.FadeAt = 0
+			t.FrostFever.nextTick = 0
+			t.FrostFever.FadeAt = 0
+		Next
+		
+		
 		BloodTap.CD  = 0
 		HowlingBlast.CD = 0
 		Ghoul.cd = 0
@@ -607,7 +650,7 @@ Public Class Sim
 			OffHand.NextWhiteOffHit = TimeStamp
 			FutureEventManager.Add(TimeStamp,"OffHand")
 		End If
-			
+		
 		Gargoyle.NextGargoyleStrike = 0
 		
 		Ghoul.NextClaw = TimeStamp
@@ -652,14 +695,13 @@ Public Class Sim
 		
 		'Buff = New Buff(Me)
 		
-		MainTarget = New Targets.Target(Me)
-		TargetsManager = new Targets.TargetsManager
+		Dim targ As New Targets.Target(Me)
+		Targets.CurrentTarget = targ
+		Targets.MainTarget = targ
+		
 		'Keep this order for RuneX -> Runse -> Rotation/Prio
 		Runes = New Runes.runes(Me)
 		Rotation = new Rotation(Me)
-		
-		BloodPlague = new BloodPlague(Me)
-		FrostFever = New FrostFever(Me)
 		
 		UnholyBlight = New UnholyBlight(Me)
 		
@@ -680,9 +722,8 @@ Public Class Sim
 		RunicPower.Reset()
 		NextFreeGCD = 0
 		Threat = 0
-		NumberOfEnemies = _MainFrm.txtNumberOfEnemies.text
-		KeepDiseaseOnOthersTarget = _MainFrm.chkDisease.Checked
 		
+	
 		ScourgeStrike = New ScourgeStrike(Me)
 		ScourgeStrikeMagical = New ScourgeStrikeMagical(Me)
 		
@@ -919,6 +960,27 @@ Public Class Sim
 		
 		dim obj as supertype
 		
+		'MergeDisease
+		
+		For Each obj In DamagingObject
+			If TypeOf obj is Diseases.BloodPlague Then
+				If obj.total <> 0 Then
+					obj.merge
+				End If
+			End If
+		Next
+		
+		For Each obj In DamagingObject
+			If TypeOf obj is Diseases.FrostFever Then
+				If obj.total <> 0 Then
+					obj.merge
+				End If
+			End If
+		Next
+		
+		
+		
+		
 		If MergeReport Then
 			For Each obj In DamagingObject
 				If obj.total <> 0 Then
@@ -1031,25 +1093,25 @@ Public Class Sim
 				STmp = Runes.BloodRune2.report
 				STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-
+				
 				STmp = Runes.FrostRune1.report
 				STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-
+				
 				STmp = Runes.FrostRune2.report
 				STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-
+				
 				STmp = Runes.UnholyRune1.report
 				STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
 				STmp = Runes.UnholyRune2.report
 				STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
 				Tw.WriteLine("<tr><td>" & sTmp & "</tr>")
-
-
+				
+				
 			End If
-
+			
 			If Horn.HitCount <> 0 Then
 				STmp = Horn.report
 				STmp = replace(STmp,vbtab,"<FONT COLOR='white'>|</FONT></td><td>")
@@ -1142,80 +1204,6 @@ Public Class Sim
 		tw.Close
 		_MainFrm.webBrowser1.Navigate(ReportPath)
 	End Sub
-	Function FastFoward(T As Long) As Long
-		Dim tmp As Long
-		dim aT as new ArrayList
-		
-		
-		tmp = MaxTime+1
-		
-		If NextFreeGCD > T Then
-			aT.Add(NextFreeGCD)
-		Else
-			if Runes.BloodRune1.AvailableTime > T  then  aT.Add(runes.BloodRune1.AvailableTime)
-			if Runes.BloodRune2.AvailableTime > T then  aT.Add (runes.BloodRune2.AvailableTime)
-			If Runes.FrostRune1.AvailableTime > T  Then  aT.Add (runes.FrostRune1.AvailableTime)
-			If Runes.FrostRune2.AvailableTime > T Then  aT.Add (runes.FrostRune2.AvailableTime)
-			If Runes.UnholyRune1.AvailableTime > T  Then  aT.Add (runes.UnholyRune1.AvailableTime)
-			if Runes.UnholyRune2.AvailableTime > T  then  aT.Add (runes.UnholyRune2.AvailableTime)
-		End If
-		
-		If Character.TalentBlood.Butchery > 0 Then aT.Add(Butchery.nextTick)
-		
-		if DeathandDecay.nextTick > TimeStamp then aT.Add( DeathandDecay.nextTick)
-		
-		if Character.TalentBlood.DRW = 1 then
-			If DRW.IsActive(TimeStamp) Then
-				aT.Add(DRW.NextDRW)
-			End If
-		End If
-		If PetFriendly Then
-			If Character.TalentUnholy.SummonGargoyle = 1 Then
-				If Gargoyle.ActiveUntil >= TimeStamp Then
-					aT.Add(Gargoyle.NextGargoyleStrike)
-				end if
-			End If
-			If Ghoul.ActiveUntil >= TimeStamp Then
-				aT.Add(Ghoul.NextActionTime())
-			End If
-			If AoTD.ActiveUntil >= TimeStamp Then
-				aT.Add(AoTD.NextWhiteMainHit)
-				aT.Add(AoTD.NextClaw)
-			End If
-		End If
-		
-		aT.Add(MainHand.NextWhiteMainHit)
-		If MainStat.DualW Then
-			aT.Add(OffHand.NextWhiteOffHit)
-		End If
-		If BloodPlague.isActive(TimeStamp) Then
-			aT.Add(BloodPlague.nextTick)
-		End If
-		If FrostFever.isActive(TimeStamp) Then
-			aT.Add(FrostFever.nextTick)
-		End If
-		
-		If FrostPresence = 1 Then
-			aT.Add(Boss.NextHit)
-		End If
-		aT.Sort
-		Dim i As Integer
-		Try
-			Do Until aT.Item(i) > T
-				application.DoEvents
-				aT.Remove(aT.Item(0))
-			Loop
-			tmp = aT.Item(0)
-		Catch
-			tmp = 0
-		End Try
-		If tmp < T Then
-			Return T
-		Else
-			Return tmp
-		End If
-		return tmp
-	End Function
 	
 	
 	Sub tryOnDamageProc()

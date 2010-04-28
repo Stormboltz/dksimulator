@@ -30,13 +30,13 @@ Friend Class priority
 		For Each item as String In prio
 			Select Case item
 				Case "CinderDisease"
-					if sim.BloodPlague.Cinder = true and sim.FrostFever.Cinder = true then goto doNext
+					if sim.Targets.MainTarget.BloodPlague.Cinder = true and sim.Targets.MainTarget.FrostFever.Cinder = true then goto doNext
 					If sim.RuneForge.CheckCinderglacier(False) = 0 Then goto doNext
-					If runes.Unholy(TimeStamp) and sim.CanUseGCD(Timestamp) and sim.BloodPlague.Cinder = false  Then
+					If runes.Unholy(TimeStamp) and sim.CanUseGCD(Timestamp) and sim.Targets.MainTarget.BloodPlague.Cinder = false  Then
 						sim.PlagueStrike.ApplyDamage(TimeStamp)
 						exit sub
 					End If
-					If runes.Frost(TimeStamp) and sim.CanUseGCD(Timestamp) and sim.FrostFever.Cinder = false  Then
+					If runes.Frost(TimeStamp) and sim.CanUseGCD(Timestamp) and sim.Targets.MainTarget.FrostFever.Cinder = false  Then
 						sim.IcyTouch.ApplyDamage(TimeStamp)
 						exit sub
 					End If
@@ -202,9 +202,13 @@ Friend Class priority
 						exit sub
 					End If
 				Case "FrostFever"
-					If sim.NumberOfEnemies > 1 And sim.FrostFever.OtherTargetsFade < TimeStamp And sim.BloodPlague.OtherTargetsFade < TimeStamp and sim.KeepDiseaseOnOthersTarget Then
-						If runes.Blood(TimeStamp) Then
-							sim.Pestilence.use(TimeStamp)
+					If sim.Targets.Count > 1 And sim.KeepDiseaseOnOthersTarget Then
+						If sim.Targets.MainTarget.FrostFever.isActive(TimeStamp) And sim.Targets.MainTarget.BloodPlague.isActive(TimeStamp) Then
+							If sim.Targets.IsFrostFeverOnAll(TimeStamp) = False And sim.Targets.IsBloodPlagueOnAll(TimeStamp) = False Then
+								If runes.Blood(TimeStamp) Then
+									sim.Pestilence.use(TimeStamp)
+								End If
+							End If
 						End If
 					End If
 					If sim.character.glyph.Disease Then
@@ -212,7 +216,7 @@ Friend Class priority
 							sim.Pestilence.use(TimeStamp)
 							Exit Sub
 						Else
-							If sim.FrostFever.ShouldReapply(TimeStamp) Then
+							If sim.Targets.MainTarget.FrostFever.ShouldReapply(TimeStamp) Then
 								If sim.Character.talentfrost.HowlingBlast = 1 And sim.character.glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp)  Then
 									If sim.proc.rime.IsActive Or runes.FU(TimeStamp) Then
 										sim.HowlingBlast.ApplyDamage(TimeStamp)
@@ -226,7 +230,7 @@ Friend Class priority
 							End If
 						End If
 					Else
-						If sim.FrostFever.PerfectUsage(TimeStamp) = true or sim.FrostFever.ToReApply Then
+						If sim.Targets.MainTarget.FrostFever.PerfectUsage(TimeStamp) = true or sim.Targets.MainTarget.FrostFever.ToReApply Then
 							If sim.Character.talentfrost.HowlingBlast = 1 And sim.character.glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp)  Then
 								If sim.proc.rime.IsActive Or runes.FU(TimeStamp) Then
 									sim.HowlingBlast.ApplyDamage(TimeStamp)
@@ -245,12 +249,21 @@ Friend Class priority
 						sim.ERW.Use(TimeStamp)
 					End If
 				Case "BloodPlague"
+					If sim.Targets.Count > 1 And sim.KeepDiseaseOnOthersTarget Then
+						If sim.Targets.MainTarget.FrostFever.isActive(TimeStamp) And sim.Targets.MainTarget.BloodPlague.isActive(TimeStamp) Then
+							If sim.Targets.IsFrostFeverOnAll(TimeStamp) = False And sim.Targets.IsBloodPlagueOnAll(TimeStamp) = False Then
+								If runes.Blood(TimeStamp) Then
+									sim.Pestilence.use(TimeStamp)
+								End If
+							End If
+						End If
+					End If
 					If sim.character.glyph.Disease Then
 						if sim.Pestilence.PerfectUsage(TimeStamp)  then
 							sim.Pestilence.use(TimeStamp)
 							Exit Sub
 						Else
-							If sim.BloodPlague.ShouldReapply(TimeStamp) then
+							If sim.Targets.MainTarget.BloodPlague.ShouldReapply(TimeStamp) then
 								If runes.Unholy(TimeStamp) = True Then
 									sim.PlagueStrike.ApplyDamage(TimeStamp)
 									exit sub
@@ -260,7 +273,7 @@ Friend Class priority
 						
 					Else
 						
-						If sim.BloodPlague.PerfectUsage(TimeStamp) or sim.BloodPlague.ToReApply then
+						If sim.Targets.MainTarget.BloodPlague.PerfectUsage(TimeStamp) or sim.Targets.MainTarget.BloodPlague.ToReApply then
 							If runes.Unholy(TimeStamp) = True Then
 								sim.PlagueStrike.ApplyDamage(TimeStamp)
 								exit sub
