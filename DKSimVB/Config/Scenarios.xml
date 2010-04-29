@@ -18,4 +18,7 @@
 		<Start type="textbox" caption="Start time in second" multi="100">textbox</Start>
 		<length type="textbox" caption="Time to live in second" multi="100">textbox</length>
 	</Element>
+	<Element caption="Fight Ending">
+		<FightStop type="textbox" caption="Fight length in second" multi="100">textbox</FightStop>
+	</Element>
 </Scenarios>

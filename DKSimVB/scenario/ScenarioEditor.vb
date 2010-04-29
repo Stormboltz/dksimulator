@@ -210,34 +210,9 @@ Namespace Scenarios
 				exit sub
 			End If
 			truc.Dispose
-			RefreshScenarioList
 		End Sub
 		
-		Sub ScenarioEditorLoad(sender As Object, e As EventArgs)
-			RefreshScenarioList
-		End Sub
-		
-		Sub CmdLoadClick(sender As Object, e As EventArgs)
-			OpenForEdit(Application.StartupPath & "\scenario\" & cmbScenario.SelectedItem.ToString )
-		End Sub
-		
-		Sub RefreshScenarioList()
-			Dim sTemp As String
-			Dim item As String
-			
-			try
-				sTemp = cmbScenario.SelectedItem.ToString
-			Catch
-			End Try
-			
-			cmbScenario.Items.Clear
-			For Each item In system.IO.Directory.GetFiles(Application.StartupPath & "\scenario\")
-				cmbScenario.Items.Add(strings.Right(item,item.Length- InStrRev(item,"\") ) )
-			Next
-			cmbScenario.SelectedItem = sTemp
-			
-		End Sub
-		
-		
+
+				
 	End Class
 End Namespace

@@ -403,12 +403,26 @@ Public Partial Class MainForm
 	Sub CmdEditScenarioClick(sender As Object, e As EventArgs)
 		Dim m As New Scenarios.ScenarioEditor
 		Dim r As DialogResult
-		'm.LoadAvailableScenario
-		m.OpenForEdit(Application.StartupPath & "\scenario\scenario.xml")
-		r = m.ShowDialog
-		
+		If cmbScenario.SelectedItem.ToString <> "" Then
+			m.OpenForEdit(Application.StartupPath & "\scenario\" & cmbScenario.SelectedItem.ToString )
+			r = m.ShowDialog
+			RefreshScenarioList
+		End If
 	End Sub
-	
+	Sub RefreshScenarioList()
+		Dim sTemp As String = ""
+		Dim item As String
+		try
+			sTemp = cmbScenario.SelectedItem.ToString
+		Catch
+		End Try
+		cmbScenario.Items.Clear
+		For Each item In system.IO.Directory.GetFiles(Application.StartupPath & "\scenario\")
+			cmbScenario.Items.Add(strings.Right(item,item.Length- InStrRev(item,"\") ) )
+		Next
+		cmbScenario.SelectedItem = sTemp
+	End Sub
+		
 	Sub GrpSimOptionEnter(sender As Object, e As EventArgs)
 		
 	End Sub

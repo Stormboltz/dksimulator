@@ -20,7 +20,7 @@ Namespace Scenarios
 			on error resume next
 			Elements.Clear
 			Dim xmlScenario As new Xml.XmlDocument
- 			xmlScenario.Load(Application.StartupPath & "\scenario\Scenario.xml")
+ 			xmlScenario.Load(sim.ScenarioPath)
 			Dim e As Element
 			Dim xNode As Xml.XmlNode
 			dim id as Integer
@@ -35,7 +35,10 @@ Namespace Scenarios
 				e.Start = sim.TimeStamp + ( xNode.SelectSingleNode("/Scenario/Element[@id=" & id &"]/Start").InnerText * xNode.SelectSingleNode("/Scenario/Element[@id=" & id &"]/Start").Attributes.GetNamedItem("multi").InnerText)
 				e.length = xNode.SelectSingleNode("/Scenario/Element[@id=" & id &"]/length").InnerText * xNode.SelectSingleNode("/Scenario/Element[@id=" & id &"]/length").Attributes.GetNamedItem("multi").InnerText
 				e.SpreadDisease = xNode.SelectSingleNode("/Scenario/Element[@id=" & id &"]/SpreadDisease").InnerText 
-				sim.FutureEventManager.Add(e.Start,"Scenario")
+				e.FightStop = sim.TimeStamp + xNode.SelectSingleNode("/Scenario/Element[@id=" & id &"]/FightStop").InnerText * xNode.SelectSingleNode("/Scenario/Element[@id=" & id &"]/FightStop").Attributes.GetNamedItem("multi").InnerText
+				If e.CanTakeDiseaseDamage =False Or e.CanTakePetDamage = False Or e.CanTakePlayerStrike = false Then
+					sim.FutureEventManager.Add(e.Start,"Scenario")
+				End If
 				If e.DamageBonus <> 0 Then
 					sim.FutureEventManager.Add(e.Start,"SuperBuff")
 				End If
@@ -43,11 +46,17 @@ Namespace Scenarios
 					sim.FutureEventManager.Add(e.Start,"AddPop")
 					sim.FutureEventManager.Add(e.Ending,"AddDepop")
 				End If
+				If e.FightStop <> 0 Then
+					If sim.FightLength = 0 Then
+						sim.FightLength = e.FightStop / 100
+					End If
+					sim.FutureEventManager.Add(e.FightStop,"FightStop")
+					sim.NextReset = e.FightStop
+					If sim.NextReset > sim.MaxTime Then sim.NextReset = sim.MaxTime
+				End If
+				
 			Next
 		End Sub
-		
-		
-		
 		
 		
 	End Class

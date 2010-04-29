@@ -78,14 +78,6 @@ Partial Class MainForm
 		Me.cmbBShOption = New System.Windows.Forms.ComboBox
 		Me.chkWaitFC = New System.Windows.Forms.CheckBox
 		Me.ckPet = New System.Windows.Forms.CheckBox
-		Me.label18 = New System.Windows.Forms.Label
-		Me.txtManyFights = New System.Windows.Forms.TextBox
-		Me.chkManyFights = New System.Windows.Forms.CheckBox
-		Me.label17 = New System.Windows.Forms.Label
-		Me.label15 = New System.Windows.Forms.Label
-		Me.txtInterruptAmount = New System.Windows.Forms.TextBox
-		Me.txtInterruptCd = New System.Windows.Forms.TextBox
-		Me.label16 = New System.Windows.Forms.Label
 		Me.label14 = New System.Windows.Forms.Label
 		Me.txtAMScd = New System.Windows.Forms.TextBox
 		Me.txtAMSrp = New System.Windows.Forms.TextBox
@@ -271,6 +263,7 @@ Partial Class MainForm
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.cmdRngSeeder = New System.Windows.Forms.Button
 		Me.tmrProgress = New System.Windows.Forms.Timer(Me.components)
+		Me.cmbScenario = New System.Windows.Forms.ComboBox
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -599,6 +592,7 @@ Partial Class MainForm
 		'
 		Me.grpSimOption.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left)  _
 						Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
+		Me.grpSimOption.Controls.Add(Me.cmbScenario)
 		Me.grpSimOption.Controls.Add(Me.cmdEditScenario)
 		Me.grpSimOption.Controls.Add(Me.label45)
 		Me.grpSimOption.Controls.Add(Me.txtBSTTL)
@@ -613,14 +607,6 @@ Partial Class MainForm
 		Me.grpSimOption.Controls.Add(Me.cmbBShOption)
 		Me.grpSimOption.Controls.Add(Me.chkWaitFC)
 		Me.grpSimOption.Controls.Add(Me.ckPet)
-		Me.grpSimOption.Controls.Add(Me.label18)
-		Me.grpSimOption.Controls.Add(Me.txtManyFights)
-		Me.grpSimOption.Controls.Add(Me.chkManyFights)
-		Me.grpSimOption.Controls.Add(Me.label17)
-		Me.grpSimOption.Controls.Add(Me.label15)
-		Me.grpSimOption.Controls.Add(Me.txtInterruptAmount)
-		Me.grpSimOption.Controls.Add(Me.txtInterruptCd)
-		Me.grpSimOption.Controls.Add(Me.label16)
 		Me.grpSimOption.Controls.Add(Me.label14)
 		Me.grpSimOption.Controls.Add(Me.txtAMScd)
 		Me.grpSimOption.Controls.Add(Me.txtAMSrp)
@@ -663,9 +649,9 @@ Partial Class MainForm
 		'
 		'cmdEditScenario
 		'
-		Me.cmdEditScenario.Location = New System.Drawing.Point(204, 438)
+		Me.cmdEditScenario.Location = New System.Drawing.Point(275, 452)
 		Me.cmdEditScenario.Name = "cmdEditScenario"
-		Me.cmdEditScenario.Size = New System.Drawing.Size(145, 23)
+		Me.cmdEditScenario.Size = New System.Drawing.Size(78, 23)
 		Me.cmdEditScenario.TabIndex = 94
 		Me.cmdEditScenario.Text = "Edit Scenario"
 		Me.cmdEditScenario.UseVisualStyleBackColor = true
@@ -828,78 +814,9 @@ Partial Class MainForm
 		Me.ckPet.UseVisualStyleBackColor = true
 		AddHandler Me.ckPet.CheckedChanged, AddressOf Me.CkPetCheckedChanged
 		'
-		'label18
-		'
-		Me.label18.Location = New System.Drawing.Point(112, 551)
-		Me.label18.Name = "label18"
-		Me.label18.Size = New System.Drawing.Size(79, 13)
-		Me.label18.TabIndex = 79
-		Me.label18.Text = "s long fights"
-		'
-		'txtManyFights
-		'
-		Me.txtManyFights.Location = New System.Drawing.Point(56, 548)
-		Me.txtManyFights.Name = "txtManyFights"
-		Me.txtManyFights.Size = New System.Drawing.Size(50, 20)
-		Me.txtManyFights.TabIndex = 78
-		Me.txtManyFights.Text = "350"
-		'
-		'chkManyFights
-		'
-		Me.chkManyFights.Checked = true
-		Me.chkManyFights.CheckState = System.Windows.Forms.CheckState.Checked
-		Me.chkManyFights.Location = New System.Drawing.Point(5, 546)
-		Me.chkManyFights.Name = "chkManyFights"
-		Me.chkManyFights.Size = New System.Drawing.Size(60, 24)
-		Me.chkManyFights.TabIndex = 77
-		Me.chkManyFights.Text = "Many"
-		Me.chkManyFights.UseVisualStyleBackColor = true
-		'
-		'label17
-		'
-		Me.label17.Location = New System.Drawing.Point(5, 497)
-		Me.label17.Name = "label17"
-		Me.label17.Size = New System.Drawing.Size(116, 13)
-		Me.label17.TabIndex = 76
-		Me.label17.Text = "Interrupt fighting every"
-		'
-		'label15
-		'
-		Me.label15.Location = New System.Drawing.Point(273, 497)
-		Me.label15.Name = "label15"
-		Me.label15.Size = New System.Drawing.Size(16, 13)
-		Me.label15.TabIndex = 75
-		Me.label15.Text = "s"
-		'
-		'txtInterruptAmount
-		'
-		Me.txtInterruptAmount.Enabled = false
-		Me.txtInterruptAmount.Location = New System.Drawing.Point(217, 494)
-		Me.txtInterruptAmount.Name = "txtInterruptAmount"
-		Me.txtInterruptAmount.Size = New System.Drawing.Size(50, 20)
-		Me.txtInterruptAmount.TabIndex = 74
-		Me.txtInterruptAmount.Text = "0"
-		'
-		'txtInterruptCd
-		'
-		Me.txtInterruptCd.Enabled = false
-		Me.txtInterruptCd.Location = New System.Drawing.Point(123, 494)
-		Me.txtInterruptCd.Name = "txtInterruptCd"
-		Me.txtInterruptCd.Size = New System.Drawing.Size(50, 20)
-		Me.txtInterruptCd.TabIndex = 73
-		Me.txtInterruptCd.Text = "0"
-		'
-		'label16
-		'
-		Me.label16.Location = New System.Drawing.Point(179, 497)
-		Me.label16.Name = "label16"
-		Me.label16.Size = New System.Drawing.Size(32, 13)
-		Me.label16.TabIndex = 72
-		Me.label16.Text = "s for"
-		'
 		'label14
 		'
-		Me.label14.Location = New System.Drawing.Point(173, 523)
+		Me.label14.Location = New System.Drawing.Point(181, 553)
 		Me.label14.Name = "label14"
 		Me.label14.Size = New System.Drawing.Size(20, 13)
 		Me.label14.TabIndex = 71
@@ -907,7 +824,7 @@ Partial Class MainForm
 		'
 		'txtAMScd
 		'
-		Me.txtAMScd.Location = New System.Drawing.Point(117, 520)
+		Me.txtAMScd.Location = New System.Drawing.Point(125, 550)
 		Me.txtAMScd.Name = "txtAMScd"
 		Me.txtAMScd.Size = New System.Drawing.Size(50, 20)
 		Me.txtAMScd.TabIndex = 70
@@ -915,7 +832,7 @@ Partial Class MainForm
 		'
 		'txtAMSrp
 		'
-		Me.txtAMSrp.Location = New System.Drawing.Point(5, 520)
+		Me.txtAMSrp.Location = New System.Drawing.Point(13, 550)
 		Me.txtAMSrp.Name = "txtAMSrp"
 		Me.txtAMSrp.Size = New System.Drawing.Size(50, 20)
 		Me.txtAMSrp.TabIndex = 69
@@ -923,7 +840,7 @@ Partial Class MainForm
 		'
 		'label13
 		'
-		Me.label13.Location = New System.Drawing.Point(64, 523)
+		Me.label13.Location = New System.Drawing.Point(72, 553)
 		Me.label13.Name = "label13"
 		Me.label13.Size = New System.Drawing.Size(47, 13)
 		Me.label13.TabIndex = 68
@@ -931,7 +848,7 @@ Partial Class MainForm
 		'
 		'txtLatency
 		'
-		Me.txtLatency.Location = New System.Drawing.Point(86, 463)
+		Me.txtLatency.Location = New System.Drawing.Point(88, 524)
 		Me.txtLatency.Name = "txtLatency"
 		Me.txtLatency.Size = New System.Drawing.Size(50, 20)
 		Me.txtLatency.TabIndex = 67
@@ -939,7 +856,7 @@ Partial Class MainForm
 		'
 		'txtSimtime
 		'
-		Me.txtSimtime.Location = New System.Drawing.Point(110, 437)
+		Me.txtSimtime.Location = New System.Drawing.Point(112, 498)
 		Me.txtSimtime.Name = "txtSimtime"
 		Me.txtSimtime.Size = New System.Drawing.Size(50, 20)
 		Me.txtSimtime.TabIndex = 64
@@ -948,7 +865,7 @@ Partial Class MainForm
 		'
 		'label10
 		'
-		Me.label10.Location = New System.Drawing.Point(5, 466)
+		Me.label10.Location = New System.Drawing.Point(7, 527)
 		Me.label10.Name = "label10"
 		Me.label10.Size = New System.Drawing.Size(76, 13)
 		Me.label10.TabIndex = 65
@@ -956,7 +873,7 @@ Partial Class MainForm
 		'
 		'label4
 		'
-		Me.label4.Location = New System.Drawing.Point(5, 440)
+		Me.label4.Location = New System.Drawing.Point(7, 501)
 		Me.label4.Name = "label4"
 		Me.label4.Size = New System.Drawing.Size(100, 13)
 		Me.label4.TabIndex = 66
@@ -2784,6 +2701,14 @@ Partial Class MainForm
 		Me.tmrProgress.Interval = 1000
 		AddHandler Me.tmrProgress.Tick, AddressOf Me.TmrProgressTick
 		'
+		'cmbScenario
+		'
+		Me.cmbScenario.FormattingEnabled = true
+		Me.cmbScenario.Location = New System.Drawing.Point(5, 452)
+		Me.cmbScenario.Name = "cmbScenario"
+		Me.cmbScenario.Size = New System.Drawing.Size(250, 21)
+		Me.cmbScenario.TabIndex = 95
+		'
 		'MainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
@@ -2840,6 +2765,7 @@ Partial Class MainForm
 		Me.gbScaling.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Private cmbScenario As System.Windows.Forms.ComboBox
 	Private cmdEditScenario As System.Windows.Forms.Button
 	Private label9 As System.Windows.Forms.Label
 	Private txtBSTTL As System.Windows.Forms.TextBox
@@ -2976,17 +2902,9 @@ Partial Class MainForm
 	Private rdPrio As System.Windows.Forms.RadioButton
 	Private rdRot As System.Windows.Forms.RadioButton
 	Private chkCrypticFever As System.Windows.Forms.CheckBox
-	Friend txtManyFights As System.Windows.Forms.TextBox
-	Friend chkManyFights As System.Windows.Forms.CheckBox
-	Private label18 As System.Windows.Forms.Label
 	Friend chkEPAfterSpellHitRating As System.Windows.Forms.CheckBox
 	Friend chkEP4PT9 As System.Windows.Forms.CheckBox
 	Private groupBox3 As System.Windows.Forms.GroupBox
-	Friend txtInterruptAmount As System.Windows.Forms.TextBox
-	Friend txtInterruptCd As System.Windows.Forms.TextBox
-	Private label16 As System.Windows.Forms.Label
-	Private label15 As System.Windows.Forms.Label
-	Private label17 As System.Windows.Forms.Label
 	Private label13 As System.Windows.Forms.Label
 	Friend txtAMSrp As System.Windows.Forms.TextBox
 	Friend txtAMScd As System.Windows.Forms.TextBox

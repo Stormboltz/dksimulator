@@ -958,6 +958,7 @@
     <None Include="Rotation\unholy.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="scenario\Anub.xml" />
     <None Include="scenario\Blood-Queen Lana%27thel.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

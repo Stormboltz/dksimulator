@@ -42,7 +42,7 @@ Friend Class DeathandDecay
 	
 	overrides Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
-		Dim intCount As Integer
+
 		Dim Tar As Targets.Target
 		
 		For Each Tar In sim.Targets.AllTargets

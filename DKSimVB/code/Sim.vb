@@ -4,6 +4,9 @@ Public Class Sim
 	Friend UselessCheck As Long
 	Friend UselessCheckColl as New Collection
 	
+	Friend FightLength as Integer
+	Friend ScenarioPath as String
+	
 	
 	'Friend Patch as Boolean
 	Friend TotalDamageAlternative As Long
@@ -18,7 +21,7 @@ Public Class Sim
 	Friend DPS As Long
 	Friend TPS As Long
 	Friend MaxTime As Long
-	Friend NumberOfFights As Long
+	
 	Friend RotationStep as Integer
 	Friend Rotate as boolean
 	Friend rotationPath As String
@@ -40,9 +43,7 @@ Public Class Sim
 	Private AMSCd As Integer
 	Private AMSAmount As Integer
 	Private ShowDpsTimer As Long
-	Private InterruptTimer As Long
-	Private InterruptAmount As Integer
-	Private InterruptCd As Integer
+
 	Friend KeepRNGSeed As Boolean
 	
 	Friend KeepDiseaseOnOthersTarget As Boolean
@@ -417,8 +418,16 @@ Public Class Sim
 				Next
 			Case "SuperBuff"
 				Dim e As Scenarios.Element
-				Dim prc As New Proc(Me)
+				Dim prc As Proc
+				Try
+					prc = me.proc.Find("SuperBuff")
+				Catch
+					prc = nothing
+				End Try
 				
+				If prc Is Nothing Then
+					prc = new Proc(Me)
+				End If
 				For Each e In Me.Scenario.Elements
 					If e.start = Timestamp And e.DamageBonus <> 0 Then
 						With prc
@@ -434,9 +443,10 @@ Public Class Sim
 						End With
 					End If
 				Next
-				
-				
-				
+			Case "FightStop"
+				StoreMyDamage(TotalDamage)
+				LastReset = NextReset
+				SoftReset
 			Case Else
 				Debug.Print ("WTF is this event ?")
 		End Select
@@ -447,27 +457,19 @@ Public Class Sim
 		SimStart = now
 		LoadConfig
 		
-		
 		Rnd(-1) 'Tell VB to initialize using Randomize's parameter
 		RandomNumberGenerator = new RandomNumberGenerator 'init here, so that we don't get the same rng numbers for short fights.
 		
 		MaxTime = SimTime * 60 * 60 * 100
 		TotalDamageAlternative = 0
 		TimeStampCounter = 1
-		Dim resetTime As Integer
-		If _MainFrm.chkManyFights.Checked Then
-			NumberOfFights = Math.Round( ( SimTime * 60 * 60 ) / _MainFrm.txtManyFights.text )
-			resetTime = _MainFrm.txtManyFights.text * 100
-			NextReset = resetTime
-			if NextReset > MaxTime then NextReset = MaxTime
-		Else
-			NumberOfFights = 1
-			resetTime = MaxTime + 1
-			NextReset = MaxTime
-		End If
+		
 		Dim intCount As Integer
 		'Init
 		Initialisation
+		
+		Dim resetTime As Integer
+		
 		TimeStamp = 1
 		If Character.TalentUnholy.MasterOfGhouls=1 Then Ghoul.Summon(1)
 		Rotation.LoadIntro
@@ -476,28 +478,18 @@ Public Class Sim
 		
 		PrePull(TimeStamp)
 		SoftReset
+		
 		Dim FE As FutureEvent
 		Do Until False
-			'TimeStamp = FastFoward(TimeStamp)
-			
 			FE = Me.FutureEventManager.GetFirst
 			TimeStamp = FE.T
-			
-			If TimeStamp >= NextReset Then
-				If MaxTime = NextReset Then Exit Do
-				StoreMyDamage(TotalDamage)
-				LastReset = NextReset
-				NextReset += resetTime
-				If NextReset > MaxTime Then NextReset = MaxTime
-				SoftReset
-			End If
+			If TimeStamp >= MaxTime Then Exit Do
 			ProcessEvent(FE)
 			application.DoEvents
 		Loop
 		
 		TotalDamageAlternative = TotalDamageAlternative + TotalDamage
 		TimeStampCounter = TimeStampCounter + TimeStamp
-		'TotalDamage = TotalDamageAlternative
 		TimeStamp = TimeStampCounter
 		
 		
@@ -518,8 +510,7 @@ Public Class Sim
 		DPS = 100 * TotalDamage / TimeStamp
 		Report()
 		Debug.Print( "DPS=" & DPS & " " & "TPS=" & TPS & " " & EPStat & " hit=" & mainstat.Hit & " sphit=" & mainstat.SpellHit & " exp=" & mainstat.expertise )
-		'Debug.Print( "UselessCheck = " & UselessCheck)
-		Debug.Print("Max events in queue " & me.FutureEventManager.Max )
+		'Debug.Print("Max events in queue " & me.FutureEventManager.Max )
 		combatlog.finish
 		On Error Resume Next
 		If Me.FrostPresence = 1 Then
@@ -785,10 +776,7 @@ Public Class Sim
 		AMSTimer = _MainFrm.txtAMScd.text * 100
 		AMSAmount = _MainFrm.txtAMSrp.text
 		
-		InterruptCd = _MainFrm.txtInterruptCd.text * 100
-		InterruptTimer = _MainFrm.txtInterruptCd.text * 100
-		InterruptAmount = _MainFrm.txtInterruptAmount.text
-		
+	
 		ShowDpsTimer = 1
 		
 		GCDUsage = New Spells.Spell(Me)
@@ -811,6 +799,10 @@ Public Class Sim
 		
 		
 		IntroPath = Application.StartupPath & "\Intro\"  &  XmlConfig.SelectSingleNode("//config/intro").InnerText
+		
+		
+		ScenarioPath =  Application.StartupPath & "\scenario\" & XmlConfig.SelectSingleNode("//config/scenario").InnerText
+		
 		
 		If system.IO.File.Exists(IntroPath)  = False Then
 			IntroPath = Application.StartupPath & "\Intro\NoIntro.xml"
@@ -1166,8 +1158,8 @@ Public Class Sim
 		
 		If 	MultipleDamage.Count > 1 Then
 			MultipleDamage.Sort
-			minDPS = MultipleDamage.Item(1)/(_MainFrm.txtManyFights.text)
-			maxDPS = MultipleDamage.Item(MultipleDamage.Count-1)/(_MainFrm.txtManyFights.text)
+			minDPS = MultipleDamage.Item(1)/(FightLength)
+			maxDPS = MultipleDamage.Item(MultipleDamage.Count-1)/(FightLength)
 			MinMAx = math.Max(DPS-minDPS,maxDPS-DPS)
 			range = (maxDPS-minDPS)/(2*DPS)
 			STmp = sTmp &  "<tr><td COLSPAN=8>DPS<FONT COLOR='white'>|</FONT>" & VBtab & "<b>" &  DPS & "(+/- " & MinMAx & ")</b></td></tr>"

@@ -59,6 +59,9 @@ Public Partial Class MainForm
 		Next
 		cmbRotation.SelectedItem = sTemp
 		
+		RefreshScenarioList
+		
+		
 		
 		stemp = cmdPresence.SelectedItem
 		cmdPresence.Items.Clear
@@ -371,6 +374,14 @@ Public Partial Class MainForm
 		root = doc.DocumentElement
 		root.AppendChild(newElem)
 		
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "scenario", "")
+		newElem.InnerText = cmbScenario.SelectedItem.tostring
+		root = doc.DocumentElement
+		root.AppendChild(newElem)
+		
+		
+		
+		
 		'Latence
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "latency", "")
 		newElem.InnerText = txtLatency.Text
@@ -448,18 +459,6 @@ Public Partial Class MainForm
 		root = doc.DocumentElement
 		root.AppendChild(newElem)
 		
-	
-		
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "txtManyFights", "")
-		newElem.InnerText = txtManyFights.Text
-		root = doc.DocumentElement
-		root.AppendChild(newElem)
-		
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "chkManyFights", "")
-		newElem.InnerText = chkManyFights.Checked
-		root = doc.DocumentElement
-		root.AppendChild(newElem)
-		
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "txtAMSrp", "")
 		newElem.InnerText = txtAMSrp.Text
 		root = doc.DocumentElement
@@ -518,6 +517,9 @@ Public Partial Class MainForm
 		cmbSigils.SelectedItem = doc.SelectSingleNode("//config/sigil").InnerText
 		cmbRuneMH.SelectedItem = doc.SelectSingleNode("//config/mh").InnerText
 		cmbRuneOH.SelectedItem = doc.SelectSingleNode("//config/oh").InnerText
+		cmbScenario.SelectedItem = doc.SelectSingleNode("//config/scenario").InnerText
+		
+		
 		cmbBShOption.SelectedItem = doc.SelectSingleNode("//config/BShOption").InnerText
 		cmbICCBuff.SelectedItem = doc.SelectSingleNode("//config/ICCBuff").InnerText
 		txtLatency.Text = doc.SelectSingleNode("//config/latency").InnerText
@@ -531,8 +533,6 @@ Public Partial Class MainForm
 		
 		ckPet.Checked = doc.SelectSingleNode("//config/pet").InnerText
 		
-		txtManyFights.Text = doc.SelectSingleNode("//config/txtManyFights").InnerText
-		chkManyFights.Checked = doc.SelectSingleNode("//config/chkManyFights").InnerText
 		txtAMSrp.Text = doc.SelectSingleNode("//config/txtAMSrp").InnerText
 		txtAMScd.Text = doc.SelectSingleNode("//config/txtAMScd").InnerText
 		

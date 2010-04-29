@@ -38,8 +38,6 @@ Partial Class ScenarioEditor
 		Me.cmdSaveAsNew = New System.Windows.Forms.Button
 		Me.cmdSave = New System.Windows.Forms.Button
 		Me.grpCurrentScenario = New System.Windows.Forms.GroupBox
-		Me.cmbScenario = New System.Windows.Forms.ComboBox
-		Me.cmdLoad = New System.Windows.Forms.Button
 		Me.SuspendLayout
 		'
 		'grpAvailableScenario
@@ -85,47 +83,22 @@ Partial Class ScenarioEditor
 		Me.grpCurrentScenario.TabStop = false
 		Me.grpCurrentScenario.Text = "Current"
 		'
-		'cmbScenario
-		'
-		Me.cmbScenario.FormattingEnabled = true
-		Me.cmbScenario.Location = New System.Drawing.Point(13, 13)
-		Me.cmbScenario.Name = "cmbScenario"
-		Me.cmbScenario.Size = New System.Drawing.Size(379, 21)
-		Me.cmbScenario.TabIndex = 9
-		
-		'
-		'cmdLoad
-		'
-		Me.cmdLoad.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right),System.Windows.Forms.AnchorStyles)
-		Me.cmdLoad.Location = New System.Drawing.Point(403, 12)
-		Me.cmdLoad.Name = "cmdLoad"
-		Me.cmdLoad.Size = New System.Drawing.Size(75, 23)
-		Me.cmdLoad.TabIndex = 6
-		Me.cmdLoad.Text = "Load"
-		Me.cmdLoad.UseVisualStyleBackColor = true
-		AddHandler Me.cmdLoad.Click, AddressOf Me.CmdLoadClick
-		'
 		'ScenarioEditor
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 		Me.AutoScroll = true
 		Me.ClientSize = New System.Drawing.Size(652, 454)
-		Me.Controls.Add(Me.cmbScenario)
 		Me.Controls.Add(Me.grpCurrentScenario)
 		Me.Controls.Add(Me.grpAvailableScenario)
-		Me.Controls.Add(Me.cmdLoad)
 		Me.Controls.Add(Me.cmdSaveAsNew)
 		Me.Controls.Add(Me.cmdSave)
 		Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow
 		Me.Name = "ScenarioEditor"
 		Me.Text = "?"
-		AddHandler Load, AddressOf Me.ScenarioEditorLoad
 		Me.ResumeLayout(false)
 		Me.PerformLayout
 	End Sub
-	Private cmbScenario As System.Windows.Forms.ComboBox
-	Private cmdLoad As System.Windows.Forms.Button
 	Private grpCurrentScenario As System.Windows.Forms.GroupBox
 	Private cmdSaveAsNew As System.Windows.Forms.Button
 	Private cmdSave As System.Windows.Forms.Button

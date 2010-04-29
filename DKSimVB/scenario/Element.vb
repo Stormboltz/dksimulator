@@ -14,7 +14,7 @@ Public Class Element
 	Friend AddPop As Integer = 0
 	Friend DamageBonus as Integer = 0
 	Friend SpreadDisease As Boolean = true
-	
+	Friend FightStop as Integer
 	
 	Friend Start As Long
 	Friend length as long	

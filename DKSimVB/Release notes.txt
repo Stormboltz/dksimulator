@@ -1,5 +1,6 @@
 ﻿1.2.1.7 Release notes
 * UA GCD fix
+* New: Scenario editor. This is the place where you set up fight lenght, some events like adds that pop, boss unreacheable.
 
 1.2.1.6 Release notes
 * Spell hit EP Value correction
