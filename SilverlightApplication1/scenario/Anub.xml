@@ -1,0 +1,35 @@
+<Scenario>
+  <Element id="0" caption="Fight Ending">
+    <FightStop type="textbox" caption="Fight length in second" multi="100">360</FightStop>
+  </Element>
+  <Element id="1" caption="Add arriving">
+    <AddPop type="textbox" caption="Add to pop" multi="1">4</AddPop>
+    <SpreadDisease type="checkbox" caption="Spread Diseases to other targets">True</SpreadDisease>
+    <Start type="textbox" caption="Start time in second" multi="100">60</Start>
+    <length type="textbox" caption="Time to live in second" multi="100">25</length>
+  </Element>
+  <Element id="2" caption="Add arriving">
+    <AddPop type="textbox" caption="Add to pop" multi="1">4</AddPop>
+    <SpreadDisease type="checkbox" caption="Spread Diseases to other targets">True</SpreadDisease>
+    <Start type="textbox" caption="Start time in second" multi="100">120</Start>
+    <length type="textbox" caption="Time to live in second" multi="100">25</length>
+  </Element>
+  <Element id="3" caption="Add arriving">
+    <AddPop type="textbox" caption="Add to pop" multi="1">4</AddPop>
+    <SpreadDisease type="checkbox" caption="Spread Diseases to other targets">True</SpreadDisease>
+    <Start type="textbox" caption="Start time in second" multi="100">180</Start>
+    <length type="textbox" caption="Time to live in second" multi="100">25</length>
+  </Element>
+  <Element id="4" caption="Add arriving">
+    <AddPop type="textbox" caption="Add to pop" multi="1">4</AddPop>
+    <SpreadDisease type="checkbox" caption="Spread Diseases to other targets">True</SpreadDisease>
+    <Start type="textbox" caption="Start time in second" multi="100">240</Start>
+    <length type="textbox" caption="Time to live in second" multi="100">25</length>
+  </Element>
+  <Element id="5" caption="Add arriving">
+    <AddPop type="textbox" caption="Add to pop" multi="1">4</AddPop>
+    <SpreadDisease type="checkbox" caption="Spread Diseases to other targets">True</SpreadDisease>
+    <Start type="textbox" caption="Start time in second" multi="100">300</Start>
+    <length type="textbox" caption="Time to live in second" multi="100">25</length>
+  </Element>
+</Scenario>

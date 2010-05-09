@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<Rotations>
+	<BloodTap retry='0'/>
+	<BoneShield retry='0'/>
+	<GhoulFrenzy retry='0'/>
+	<ScourgeStrike retry='0'/>
+	<PlagueStrike retry='0'/>
+	<Obliterate retry='0'/>
+	<FrostStrike retry='0'/>
+	<DeathStrike retry='0'/>
+	<BloodStrike retry='0'/>
+	<HeartStrike retry='0'/>
+	<BloodPlague retry='0'/>
+	<IcyTouch retry='0'/>
+	<DeathCoil retry='0'/>
+	<BloodBoil retry='0'/>
+	<HowlingBlast retry='0'/>
+	<DeathandDecay retry='0'/>
+	<Pestilence retry='0'/>
+	<Horn retry='0'/>
+	<EmpowerRuneWeapon retry='0'/>
+	<BloodPresence retry='0'/>
+	<FrostPresence retry='0'/>
+	<UnholyPresence retry='0'/>
+	<_None/>
+</Rotations>

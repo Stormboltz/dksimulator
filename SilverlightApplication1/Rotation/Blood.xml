@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Rotation>
+	<Rotation>
+		<PlagueStrike retry='1'></PlagueStrike>
+		<IcyTouch retry='1'></IcyTouch>
+		<HeartStrike retry='1'></HeartStrike>
+		<HeartStrike retry='1'></HeartStrike>
+		<DeathStrike retry='1'></DeathStrike>
+		<DeathCoil retry='0'></DeathCoil>
+		<DeathCoil retry='0'></DeathCoil>
+		<DeathStrike retry='1'></DeathStrike>
+		<HeartStrike retry='1'></HeartStrike>
+		<HeartStrike retry='1'></HeartStrike>
+		<HeartStrike retry='1'></HeartStrike>
+		<HeartStrike retry='1'></HeartStrike>
+		<DeathCoil retry='0'></DeathCoil>
+		<DeathCoil retry='0'></DeathCoil>
+	</Rotation>
+</Rotation>

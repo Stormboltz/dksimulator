@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<Scenario>
+   <Element id="1" caption="Fight Ending">
+    <FightStop type="textbox" caption="Fight length in second" multi="100">300</FightStop>
+  </Element>
+</Scenario>

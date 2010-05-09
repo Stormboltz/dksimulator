@@ -1,0 +1,118 @@
+<food>
+	<item>
+		<id>8</id>
+		<name>AP Food</name>
+		<Strength>0</Strength>
+		<Agility>0</Agility>
+		<HasteRating>0</HasteRating>
+		<ExpertiseRating>0</ExpertiseRating>
+		<HitRating>0</HitRating>
+		<AttackPower>80</AttackPower>
+		<CritRating>0</CritRating>
+		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<Armor>0</Armor>
+		<Desc></Desc>
+	</item>
+	
+	<item>
+		<id>1</id>
+		<name>Hit Food</name>
+		<Strength>0</Strength>
+		<Agility>0</Agility>
+		<HasteRating>0</HasteRating>
+		<ExpertiseRating>0</ExpertiseRating>
+		<HitRating>40</HitRating>
+		<AttackPower>0</AttackPower>
+		<CritRating>0</CritRating>
+		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<Armor>0</Armor>
+		<Desc></Desc>
+	</item>
+<item>
+		<id>2</id>
+		<name>ArP Food</name>
+		<Strength>0</Strength>
+		<Agility>0</Agility>
+		<HasteRating>0</HasteRating>
+		<ExpertiseRating>0</ExpertiseRating>
+		<HitRating>0</HitRating>
+		<AttackPower>0</AttackPower>
+		<CritRating>0</CritRating>
+		<ArmorPenetrationRating>40</ArmorPenetrationRating>
+		<Armor>0</Armor>
+		<Desc></Desc>
+	</item>
+<item>
+		<id>3</id>
+		<name>Crit Food</name>
+		<Strength>0</Strength>
+		<Agility>0</Agility>
+		<HasteRating>0</HasteRating>
+		<ExpertiseRating>0</ExpertiseRating>
+		<HitRating>0</HitRating>
+		<AttackPower>0</AttackPower>
+		<CritRating>40</CritRating>
+		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<Armor>0</Armor>
+		<Desc></Desc>
+	</item>
+<item>
+		<id>4</id>
+		<name>Expertise food</name>
+		<Strength>0</Strength>
+		<Agility>0</Agility>
+		<HasteRating>0</HasteRating>
+		<ExpertiseRating>40</ExpertiseRating>
+		<HitRating>0</HitRating>
+		<AttackPower>0</AttackPower>
+		<CritRating>0</CritRating>
+		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<Armor>0</Armor>
+		<Desc></Desc>
+	</item>
+<item>
+		<id>5</id>
+		<name>Haste food</name>
+		<Strength>0</Strength>
+		<Agility>0</Agility>
+		<HasteRating>40</HasteRating>
+		<ExpertiseRating>0</ExpertiseRating>
+		<HitRating>0</HitRating>
+		<AttackPower>0</AttackPower>
+		<CritRating>0</CritRating>
+		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<Armor>0</Armor>
+		<Desc></Desc>
+	</item>
+<item>
+		<id>6</id>
+		<name>Agility Food</name>
+		<Strength>0</Strength>
+		<Agility>40</Agility>
+		<HasteRating>0</HasteRating>
+		<ExpertiseRating>0</ExpertiseRating>
+		<HitRating>0</HitRating>
+		<AttackPower>0</AttackPower>
+		<CritRating>0</CritRating>
+		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<Armor>0</Armor>
+		<Desc></Desc>
+	</item>
+<item>
+		<id>7</id>
+		<name>Strength Food</name>
+		<Strength>40</Strength>
+		<Agility>0</Agility>
+		<HasteRating>0</HasteRating>
+		<ExpertiseRating>0</ExpertiseRating>
+		<HitRating>0</HitRating>
+		<AttackPower>0</AttackPower>
+		<CritRating>0</CritRating>
+		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+		<Armor>0</Armor>
+		<Desc></Desc>
+	</item>
+
+
+	
+</food>

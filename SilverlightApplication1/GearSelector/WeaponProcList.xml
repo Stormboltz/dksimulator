@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<WeaponProcList>
+	<proc name='Shadowmourne' id='49623'></proc>
+	<proc name='Bryntroll' id='50415'></proc>
+	<proc name='BryntrollHeroic' id='50709'></proc>
+	<proc name='temperedViskag' id='49501'></proc>
+	<proc name='SingedViskag' id='49296'></proc>
+	<proc name='RagingDeathbringer' id='49500'></proc>
+	<proc name='EmpoweredDeathbringer' id='49297'></proc>
+</WeaponProcList>

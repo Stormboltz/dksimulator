@@ -1,0 +1,24 @@
+﻿<controls:ChildWindow x:Class="SilverlightApplication1.PriorityEditor"
+   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+           xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
+           Width="800" Height="688">
+
+    <Grid x:Name="LayoutRoot" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="600*" />
+            <RowDefinition Height="auto" />
+
+        </Grid.RowDefinitions>
+        <ScrollViewer Height="582" Margin="437,12,12,10" Name="ScrollViewer2">
+            <Canvas Height="596" Name="grpAvailablePrio" Width="312" />
+        </ScrollViewer>
+        <ScrollViewer Height="582" Margin="10,12,0,10" Name="ScrollViewer3" Width="374" HorizontalAlignment="Left">
+            <Canvas Height="577" Name="grpCurrentPrio" Width="349" />
+        </ScrollViewer>
+        <Button Content="Cancel" Height="23" HorizontalAlignment="Right" Margin="0,0,12,0" Name="CancelButton" VerticalAlignment="Bottom" Width="75" Grid.Row="1" />
+        <Button Content="Save" Height="23" HorizontalAlignment="Left" Margin="533,0,0,0" Name="OKButton" VerticalAlignment="Bottom" Width="75" Grid.Row="1"/>
+        <Button Content="Save As" Height="23" Margin="614,0,93,0" Name="cmdSaveAs" VerticalAlignment="Bottom" Width="75" Grid.Row="1"/>
+        <Button Content="View XML" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="452,10,0,0" Name="cmdPreview" VerticalAlignment="Top" Width="75" />
+    </Grid>
+</controls:ChildWindow>

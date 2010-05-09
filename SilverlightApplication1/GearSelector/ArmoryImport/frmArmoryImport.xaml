@@ -1,0 +1,22 @@
+﻿<controls:ChildWindow x:Class="SilverlightApplication1.frmArmoryImport"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+           xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
+           Width="400" Height="168"
+           Title="frmArmoryImport" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk">
+    <Grid x:Name="LayoutRoot" Margin="2">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Button x:Name="CancelButton" Content="Cancel" Width="75" Height="23" HorizontalAlignment="Right" Margin="0,12,0,0" Grid.Row="1" />
+        <Button x:Name="OKButton" Content="OK" Width="75" Height="23" HorizontalAlignment="Right"  Margin="0,12,79,0" Grid.Row="1" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="99,39,0,0" Name="txtServer" VerticalAlignment="Top" Width="120" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="224,39,0,0" Name="txtCharacter" VerticalAlignment="Top" Width="142" />
+        <ComboBox Height="23" HorizontalAlignment="Left" Margin="12,39,0,0" Name="cmbRegion" VerticalAlignment="Top" Width="81" ItemsSource="{Binding}" />
+        <sdk:Label Height="15" HorizontalAlignment="Left" Margin="12,18,0,0" Name="Label1" VerticalAlignment="Top" Width="81" Content="Region" />
+        <sdk:Label Content="Server" Height="15" HorizontalAlignment="Left" Margin="99,18,0,0" Name="Label2" VerticalAlignment="Top" Width="120" />
+        <sdk:Label Content="Character" Height="15" HorizontalAlignment="Left" Margin="224,18,0,0" Name="Label3" VerticalAlignment="Top" Width="142" />
+    </Grid>
+</controls:ChildWindow>

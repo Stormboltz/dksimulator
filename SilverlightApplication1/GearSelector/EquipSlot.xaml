@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="SilverlightApplication1.EquipSlot"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="80" d:DesignWidth="300" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk">
+
+    <Grid x:Name="LayoutRoot" Background="White" Height="80">
+        <sdk:Label Height="10" HorizontalAlignment="Left" Name="Equipment" VerticalAlignment="Top" Width="180" Margin="20,15,0,0" Content="Equipment" FontSize="8" />
+        <sdk:Label Height="10" HorizontalAlignment="Left" Margin="20,30,0,0" Name="lblGemColor1" VerticalAlignment="Top" Width="10" Content="1" FontSize="8" Background="Red" />
+        <sdk:Label Height="10" HorizontalAlignment="Left" Margin="20,45,0,0" Name="lblGemColor2" VerticalAlignment="Top" Width="10" Content="2" FontSize="8"/>
+        <sdk:Label Height="10" HorizontalAlignment="Left" Margin="20,60,0,0" Name="lblGemColor3" VerticalAlignment="Top" Width="10" Content="3" FontSize="8"/>
+        <sdk:Label Height="10" HorizontalAlignment="Left" Margin="40,30,0,0" Name="lblGem1" VerticalAlignment="Top" Width="180" Content="Gem 1" FontSize="8"/>
+        <sdk:Label Height="10" HorizontalAlignment="Left" Margin="40,45,0,0" Name="lblGem2" VerticalAlignment="Top" Width="180" Content="Gem 2" FontSize="8"/>
+        <sdk:Label Height="10" HorizontalAlignment="Left" Margin="40,60,0,0" Name="lblGem3" VerticalAlignment="Top" Width="180" Content="Gem 3" FontSize="8"/>
+        <sdk:Label Height="10" HorizontalAlignment="Left" Margin="200,30,0,0" Name="lblBonus" VerticalAlignment="Top" Width="120" Content="Gem bonus" FontSize="8"/>
+        <sdk:Label Content="Enchant" FontSize="8" Height="10" HorizontalAlignment="Left" Margin="200,45,0,0" Name="lblEnchant" VerticalAlignment="Top" Width="120" />
+    </Grid>
+</UserControl>

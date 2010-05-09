@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<SetBonus>
+	<set name='T7' type='DPS'><id>-23</id><id>792</id></set>
+	<set name='T7' type='TNK'><id>-24</id><id>793</id></set>
+	<set name='T8' type='DPS'><id>834</id><id>-83</id></set>
+	<set name='T8' type='TNK'><id>835</id><id>-84</id></set>
+	<set name='T9' type='DPS'><id>871</id><id>872</id><id>-164</id><id>-165</id><id>-202</id><id>-203</id></set>
+	<set name='T9' type='TNK'><id>873</id><id>874</id><id>-166</id><id>-167</id><id>-204</id><id>-205</id></set>
+	<set name='T10' type='DPS'><id>897</id><id>-242</id><id>-261</id></set>
+	<set name='T10' type='TNK'><id>898</id><id>-243</id><id>-262</id></set>
+</SetBonus>
