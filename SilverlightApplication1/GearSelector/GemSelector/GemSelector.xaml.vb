@@ -1,4 +1,5 @@
 ﻿Imports System.Xml.Linq
+Imports System.Linq
 
 Partial Public Class GemSelector
     Inherits ChildWindow
@@ -9,6 +10,12 @@ Partial Public Class GemSelector
     Friend MainFrame As GearSelectorMainForm
     Public Sub New()
         InitializeComponent()
+        Dim col As DataGridColumn
+        col.Header = "yio"
+
+
+
+
     End Sub
 
     Private Sub OKButton_Click(ByVal sender As Object, ByVal e As RoutedEventArgs) Handles OKButton.Click
@@ -24,11 +31,25 @@ Partial Public Class GemSelector
         Me.InitializeComponent()
 
         MainFrame = M
-        gemDB.Load("\GearSelector\" & "gems.xml")
+        gemDB = M.GemDB
 
         '
         ' TODO : Add constructor code after InitializeComponents
         '
+
+
+    End Sub
+
+    Sub InitCollum()
+
+        gGems.AutoGenerateColumns = False
+        Dim indexCol As DataGridColumn
+
+
+
+        gGems.Columns.Add(indexCol)
+ 
+
     End Sub
 
     Sub ListView1SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs)
@@ -38,16 +59,26 @@ Partial Public Class GemSelector
     
 
     Sub LoadItem(Optional ByVal slot As Integer = -1)
-        Dim statusReport As List(Of Gem)
-        Dim doc As XDocument = New XDocument("../gems.xml")
+        Dim statusReport As Object
+        Dim doc As XDocument = MainFrame.GemDB
         If slot = 1 Then
-            statusReport = (From el In doc.Elements() Select AddGem(el)).ToList()
+
+            statusReport = (From el In doc.Element("gems").Elements Where el.Element("subclass").Value = 6 Select aGem(el)).ToList()
             'xList = gemDB.Element("/gems/item[subclass='6']")
         Else
-            statusReport = (From el In doc.Elements() Select AddGem(el)).ToList()
+            statusReport = (From el In doc.Element("gems").Elements _
+                            Where el.Element("quality").Value = 4 And (el.Element("reqskill").Value = 0 Or el.Element("reqskill").Value = GetSkillID(Me.MainFrame.cmbSkill1.SelectedItem) Or el.Element("reqskill").Value = GetSkillID(Me.MainFrame.cmbSkill2.SelectedItem)) _
+                            Select aGem(el)).ToList()
             'xList = gemDB.Element("/gems/item[quality='4'][reqskill='0' or reqskill='" & GetSkillID(Me.MainFrame.cmbSkill1.SelectedItem) & "'    or reqskill='" & GetSkillID(Me.MainFrame.cmbSkill2.SelectedItem) & "']")
         End If
-        gGems.ItemsSource = statusReport
+        gGems.AutoGenerateColumns = True
+        Try
+            gGems.ItemsSource = statusReport
+        Catch ex As Exception
+            Diagnostics.Debug.WriteLine(ex.ToString)
+        End Try
+
+
         Me.Slot = slot
     End Sub
 
@@ -62,22 +93,27 @@ Partial Public Class GemSelector
     End Sub
 
     Sub FilterList(ByVal filter As String())
-        Dim statusReport As List(Of Gem)
-        Dim doc As XDocument = New XDocument("../gems.xml")
+        Dim statusReport As List(Of mGem)
+        Dim doc As XDocument = MainFrame.GemDB
         If Slot = 1 Then
-            statusReport = (From el In doc.Elements() Select AddGem(el)).ToList()
+            statusReport = (From el In doc.Element("gems").Elements Where el.Element("subclass").Value = 6 Select aGem(el)).ToList()
             'xList = gemDB.Element("/gems/item[subclass='6']")
         Else
-            statusReport = (From el In doc.Elements() Select AddGem(el)).ToList()
+            statusReport = (From el In doc.Element("gems").Elements _
+                           Where el.Element("quality").Value = 4 And (el.Element("reqskill").Value = 0 Or el.Element("reqskill").Value = GetSkillID(Me.MainFrame.cmbSkill1.SelectedItem) Or el.Element("reqskill").Value = GetSkillID(Me.MainFrame.cmbSkill2.SelectedItem)) _
+                           Select aGem(el)).ToList()
             'xList = gemDB.Element("/gems/item[quality='4'][reqskill='0' or reqskill='" & GetSkillID(Me.MainFrame.cmbSkill1.SelectedItem) & "'    or reqskill='" & GetSkillID(Me.MainFrame.cmbSkill2.SelectedItem) & "']")
         End If
+        gGems.AutoGenerateColumns = True
         gGems.ItemsSource = statusReport
         Me.Slot = Slot
     End Sub
-    Function AddGem(ByVal el As XElement) As Gem
-        AddGem.Id = el.Element("id")
-        With AddGem
+    Function aGem(ByVal el As XElement) As mGem
+        Diagnostics.Debug.WriteLine(el.Element("id").Value)
+        Dim myGem As New mGem
 
+        myGem.Id = Convert.ToInt32(el.Element("id").Value)
+        With myGem
             .name = el.Element("name").Value
             .Strength = el.Element("Strength").Value
             .Agility = el.Element("Agility").Value
@@ -88,7 +124,7 @@ Partial Public Class GemSelector
             .CritRating = el.Element("CritRating").Value
             .ArmorPenetrationRating = el.Element("ArmorPenetrationRating").Value
         End With
-        Return AddGem
+        Return myGem
 
 
         'myItem.SubItems.Add(getItemEPValue(txDoc))
@@ -122,4 +158,18 @@ Partial Public Class GemSelector
         SelectedItem = 0
         Me.Close()
     End Sub
+    Public Class mGem
+        Property Id As Integer
+        Property name As String
+        Property Strength As Integer
+        Property Agility As Integer
+        Property HasteRating As Integer
+        Property ExpertiseRating As Integer
+        Property HitRating As Integer
+        Property AttackPower As Integer
+        Property CritRating As Integer
+        Property ArmorPenetrationRating As Integer
+
+
+    End Class
 End Class

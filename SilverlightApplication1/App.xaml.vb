@@ -26,6 +26,8 @@
             ' report the error to the website and stop the application.
             e.Handled = True
             Deployment.Current.Dispatcher.BeginInvoke(New Action(Of ApplicationUnhandledExceptionEventArgs)(AddressOf ReportErrorToDOM), e)
+        Else
+            Diagnostics.Debug.WriteLine(e.ToString)
         End If
     End Sub
 

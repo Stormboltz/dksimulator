@@ -8,7 +8,7 @@ Partial Public Class GearSelector
 
 
     Friend ItemDB As XDocument
-    Public Sub New()
+    Private Sub New()
         InitializeComponent()
     End Sub
 
@@ -23,36 +23,35 @@ Partial Public Class GearSelector
         ' The Me.InitializeComponent call is required for Windows Forms designer support.
         Me.InitializeComponent()
         MainFrame = m
-        ItemDB = XDocument.Load("../itemDB.xml")
+        ItemDB = m.ItemDB
     End Sub
-    Function getItem(ByVal el As XElement) As Item
-        Dim itm As Item
+    Function getItem(ByVal el As XElement) As aItem
+        Dim itm As New aItem
 
         With itm
             .Id = el.Element("id").Value
             .name = el.Element("name").Value
             .ilvl = el.Element("ilvl").Value
             .slot = el.Element("slot").Value
-
             .classs = el.Element("classs").Value
             .subclass = el.Element("subclass").Value
             .heroic = el.Element("heroic").Value
-
             .Strength = el.Element("Strength").Value
             .Agility = el.Element("Agility").Value
-            .BonusArmor = el.Element("slot").Value
-            .Armor = el.Element("slot").Value
+            .BonusArmor = el.Element("BonusArmor").Value
+            .Armor = el.Element("Armor").Value
             .HasteRating = el.Element("HasteRating").Value
             .ExpertiseRating = el.Element("ExpertiseRating").Value
             .HitRating = el.Element("HitRating").Value
             .AttackPower = el.Element("AttackPower").Value
             .CritRating = el.Element("CritRating").Value
             .ArmorPenetrationRating = el.Element("ArmorPenetrationRating").Value
-            .Speed = el.Element("Speed").Value
-            .DPS = el.Element("DPS").Value
+            .Speed = el.Element("speed").Value
+            .DPS = el.Element("dps").Value
             .setid = el.Element("setid").Value
             .gembonus = el.Element("gembonus").Value
             .keywords = el.Element("keywords").Value
+            .EPVAlue = getItemEPValue(el)
         End With
 
         Return itm
@@ -62,13 +61,15 @@ Partial Public Class GearSelector
     Sub LoadItem(ByVal Slot As String)
 
         Me.Slot = Slot
-        Dim itemList As List(Of Item)
-
-        itemList = (From el In ItemDB.Elements _
-                    Where el.Attribute("slot") = Slot _
-                    Select getItem(el) _
-                    ).ToList
+        Dim itemList As List(Of aItem)
+        ItemDB = MainFrame.ItemDB
+        itemList = (From el In ItemDB.Element("items").Elements _
+                    Where el.Element("slot") = Slot _
+                    Order By getItemEPValue(el) Descending _
+                    Select getItem(el)).ToList
+        dGear.AutoGenerateColumns = True
         dGear.ItemsSource = itemList
+
     End Sub
 
 
@@ -76,33 +77,33 @@ Partial Public Class GearSelector
 
     End Sub
    
-    Function getItemEPValue(ByVal txDoc As XDocument) As Double
+    Function getItemEPValue(ByVal el As XElement) As Integer
         Dim tmp As Double = 0
 
-        tmp += txDoc.Element("item").Element("Strength").Value * MainFrame.EPvalues.Str
+        tmp += el.Element("Strength").Value * MainFrame.EPvalues.Str
 
-        tmp += txDoc.Element("item").Element("Agility").Value * MainFrame.EPvalues.Agility
-        tmp += txDoc.Element("item").Element("Armor").Value * MainFrame.EPvalues.Armor
-        tmp += txDoc.Element("item").Element("BonusArmor").Value * MainFrame.EPvalues.Armor
-        tmp += txDoc.Element("item").Element("ExpertiseRating").Value * MainFrame.EPvalues.Exp
-        tmp += txDoc.Element("item").Element("item/dps").Value.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator) * MainFrame.EPvalues.MHDPS
-        tmp += txDoc.Element("item").Element("item/speed").Value.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator) * MainFrame.EPvalues.MHSpeed
-        tmp += txDoc.Element("item").Element("HitRating").Value * MainFrame.EPvalues.Hit
-        tmp += txDoc.Element("item").Element("AttackPower").Value * 1
-        tmp += txDoc.Element("item").Element("CritRating").Value * MainFrame.EPvalues.Crit
-        tmp += txDoc.Element("item").Element("ArmorPenetrationRating").Value * MainFrame.EPvalues.ArP
-        tmp += txDoc.Element("item").Element("HasteRating").Value * MainFrame.EPvalues.Haste
+        tmp += el.Element("Agility").Value * MainFrame.EPvalues.Agility
+        tmp += el.Element("Armor").Value * MainFrame.EPvalues.Armor
+        tmp += el.Element("BonusArmor").Value * MainFrame.EPvalues.Armor
+        tmp += el.Element("ExpertiseRating").Value * MainFrame.EPvalues.Exp
+        tmp += el.Element("dps").Value.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator) * MainFrame.EPvalues.MHDPS
+        tmp += el.Element("speed").Value.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator) * MainFrame.EPvalues.MHSpeed
+        tmp += el.Element("HitRating").Value * MainFrame.EPvalues.Hit
+        tmp += el.Element("AttackPower").Value * 1
+        tmp += el.Element("CritRating").Value * MainFrame.EPvalues.Crit
+        tmp += el.Element("ArmorPenetrationRating").Value * MainFrame.EPvalues.ArP
+        tmp += el.Element("HasteRating").Value * MainFrame.EPvalues.Haste
 
-        If txDoc.Element("item").Element("gem1").Value <> 0 Then
+        If el.Element("gem1").Value <> 0 Then
             tmp += 20 * MainFrame.EPvalues.Str
         End If
-        If txDoc.Element("item").Element("gem2").Value <> 0 Then
+        If el.Element("gem2").Value <> 0 Then
             tmp += 20 * MainFrame.EPvalues.Str
         End If
-        If txDoc.Element("item").Element("gem3").Value <> 0 Then
+        If el.Element("gem3").Value <> 0 Then
             tmp += 20 * MainFrame.EPvalues.Str
         End If
-        Return tmp
+        Return Convert.ToInt32(tmp)
 
 
     End Function
@@ -119,4 +120,36 @@ Partial Public Class GearSelector
         SelectedItem = 0
         Me.Close()
     End Sub
+    Class aItem
+        Property Id As Integer
+        Property name As String
+        Property ilvl As Integer
+        Property slot As Integer
+        Property classs As Integer
+        Property subclass As Integer
+        Property heroic As Integer
+
+        Property Strength As Integer
+        Property Intel As Integer
+        Property Agility As Integer
+        Property BonusArmor As Integer
+        Property Armor As Integer
+        Property HasteRating As Integer
+        Property ExpertiseRating As Integer
+
+
+        Property HitRating As Integer
+        Property AttackPower As Integer
+        Property CritRating As Integer
+        Property ArmorPenetrationRating As Integer
+        Property Speed As String = "0"
+        Property DPS As String = "0"
+
+        Property setid As Integer
+        Property gembonus As Integer
+        Property keywords As String
+
+        Property EPVAlue As Integer
+
+    End Class
 End Class

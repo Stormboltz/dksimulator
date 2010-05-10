@@ -1,4 +1,5 @@
 ﻿Imports System.Xml.Linq
+Imports System.Linq
 
 '
 ' Crée par SharpDevelop.
@@ -76,35 +77,37 @@ Public Class Item
             Unload()
             Exit Sub
         End If
-        name = ItemDB.Element("/items/item[id=" & ItemId & "]/name").Value
-        ilvl = ItemDB.Element("/items/item[id=" & ItemId & "]/ilvl").Value
-        slot = ItemDB.Element("/items/item[id=" & ItemId & "]/slot").Value
-        classs = ItemDB.Element("/items/item[id=" & ItemId & "]/classs").Value
-        subclass = ItemDB.Element("/items/item[id=" & ItemId & "]/subclass").Value
-        heroic = ItemDB.Element("/items/item[id=" & ItemId & "]/heroic").Value
+        Dim myItem As XElement
+        myItem = (From el In ItemDB.Element("items").Elements Where el.Element("id").Value = ItemId).First
+        name = myItem.<name>.Value
+        ilvl = myItem.Element("ilvl").Value
+        slot = myItem.Element("slot").Value
+        classs = myItem.Element("classs").Value
+        subclass = myItem.Element("subclass").Value
+        heroic = myItem.Element("heroic").Value
 
 
 
-        Strength = ItemDB.Element("/items/item[id=" & ItemId & "]/Strength").Value
-        Agility = ItemDB.Element("/items/item[id=" & ItemId & "]/Agility").Value
-        BonusArmor = ItemDB.Element("/items/item[id=" & ItemId & "]/BonusArmor").Value
-        Armor = ItemDB.Element("/items/item[id=" & ItemId & "]/Armor").Value
-        HasteRating = ItemDB.Element("/items/item[id=" & ItemId & "]/HasteRating").Value
-        ExpertiseRating = ItemDB.Element("/items/item[id=" & ItemId & "]/ExpertiseRating").Value
-        HitRating = ItemDB.Element("/items/item[id=" & ItemId & "]/HitRating").Value
-        AttackPower = ItemDB.Element("/items/item[id=" & ItemId & "]/AttackPower").Value
-        CritRating = ItemDB.Element("/items/item[id=" & ItemId & "]/CritRating").Value
-        ArmorPenetrationRating = ItemDB.Element("/items/item[id=" & ItemId & "]/ArmorPenetrationRating").Value
+        Strength = myItem.Element("Strength").Value
+        Agility = myItem.Element("Agility").Value
+        BonusArmor = myItem.Element("BonusArmor").Value
+        Armor = myItem.Element("Armor").Value
+        HasteRating = myItem.Element("HasteRating").Value
+        ExpertiseRating = myItem.Element("ExpertiseRating").Value
+        HitRating = myItem.Element("HitRating").Value
+        AttackPower = myItem.Element("AttackPower").Value
+        CritRating = myItem.Element("CritRating").Value
+        ArmorPenetrationRating = myItem.Element("ArmorPenetrationRating").Value
 
 
-        Speed = ItemDB.Element("/items/item[id=" & ItemId & "]/speed").Value
-        DPS = ItemDB.Element("/items/item[id=" & ItemId & "]/dps").Value
+        Speed = myItem.Element("speed").Value
+        DPS = myItem.Element("dps").Value
 
-        setid = ItemDB.Element("/items/item[id=" & ItemId & "]/setid").Value
+        setid = myItem.Element("setid").Value
 
-        Dim gem1Col As Integer = ItemDB.Element("/items/item[id=" & ItemId & "]/gem1").Value
-        Dim gem2Col As Integer = ItemDB.Element("/items/item[id=" & ItemId & "]/gem2").Value
-        Dim gem3Col As Integer = ItemDB.Element("/items/item[id=" & ItemId & "]/gem3").Value
+        Dim gem1Col As Integer = myItem.Element("gem1").Value
+        Dim gem2Col As Integer = myItem.Element("gem2").Value
+        Dim gem3Col As Integer = myItem.Element("gem3").Value
         Dim i As Integer
         i = gem1.Id
         If gem1Col <> 0 Then
@@ -147,8 +150,8 @@ Public Class Item
                 gem3 = New Gem(Me.MainFrame, 0)
             End If
         End If
-        gembonus = ItemDB.Element("/items/item[id=" & ItemId & "]/gembonus").Value
-        keywords = ItemDB.Element("/items/item[id=" & ItemId & "]/keywords").Value
+        gembonus = myItem.Element("gembonus").Value
+        keywords = myItem.Element("keywords").Value
     End Sub
 
 
@@ -210,6 +213,35 @@ Public Class Item
         Return False
     End Function
 
+    Function getItem(ByVal el As XElement) As Item
+        Dim itm As Item
 
+        With itm
+            .Id = el.Element("id").Value
+            .name = el.Element("name").Value
+            .ilvl = el.Element("ilvl").Value
+            .slot = el.Element("slot").Value
+            .classs = el.Element("classs").Value
+            .subclass = el.Element("subclass").Value
+            .heroic = el.Element("heroic").Value
+            .Strength = el.Element("Strength").Value
+            .Agility = el.Element("Agility").Value
+            .BonusArmor = el.Element("slot").Value
+            .Armor = el.Element("slot").Value
+            .HasteRating = el.Element("HasteRating").Value
+            .ExpertiseRating = el.Element("ExpertiseRating").Value
+            .HitRating = el.Element("HitRating").Value
+            .AttackPower = el.Element("AttackPower").Value
+            .CritRating = el.Element("CritRating").Value
+            .ArmorPenetrationRating = el.Element("ArmorPenetrationRating").Value
+            .Speed = el.Element("speed").Value
+            .DPS = el.Element("dps").Value
+            .setid = el.Element("setid").Value
+            .gembonus = el.Element("gembonus").Value
+            .keywords = el.Element("keywords").Value
+        End With
+
+        Return itm
+    End Function
 
 End Class

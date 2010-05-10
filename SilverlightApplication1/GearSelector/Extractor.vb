@@ -587,7 +587,7 @@ Public Class Extractor
 
         xGemBonus.parse("<bonus></bonus>")
 
-        xdoc.Load( "\GearSelector\" & "itemDB.xml")
+        xdoc.Load("\GearSelector\" & "itemDB.xml")
         xList = xdoc.SelectNodes("/items/item[gembonus!=0]")
         For Each xnode In xList
             txDoc.parse(xNode.OuterXml)

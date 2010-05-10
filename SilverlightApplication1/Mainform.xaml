@@ -56,6 +56,7 @@
                     <Button Content="Edit" Height="23" Margin="623,115,19,0" Name="cmdEditIntro" VerticalAlignment="Top" />
                     <Button Content="Edit" Height="23" Margin="623,144,19,0" Name="cmdEditPrio" VerticalAlignment="Top" />
                     <Button Content="Edit" Height="23" Margin="623,177,19,0" Name="cmdEditRota" VerticalAlignment="Top" />
+                    <Button Content="Edit" Height="23" HorizontalAlignment="Left" Margin="623,28,0,0" Name="cmdEditCharacterWithGear" VerticalAlignment="Top" Width="47" />
                 </Grid>
                 
                 

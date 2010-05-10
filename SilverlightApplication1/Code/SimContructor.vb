@@ -614,7 +614,7 @@ skipSets:
 
         For Each tNode In trinketsList.Elements
             If tNode.Value = "True" Then
-                EpStat = tNode.Name.Replace("chkEP", "EP ")
+                EpStat = tNode.Name.ToString.Replace("chkEP", "EP ")
                 SimConstructor.Start(SimTime, MainFrm)
             End If
         Next
@@ -631,7 +631,7 @@ skipSets:
         For Each tNode In trinketsList.Elements
             If tNode.Value = "True" Then
                 Try
-                    EpStat = tNode.Name.Replace("chkEP", "EP ")
+                    EpStat = tNode.Name.ToString.Replace("chkEP", "EP ")
                     DPS = DPSs(EpStat)
                     tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
                     tmp2 = (DPS - BaseDPS) / (2 * EPBase)

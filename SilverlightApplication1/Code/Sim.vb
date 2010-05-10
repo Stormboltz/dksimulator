@@ -1184,7 +1184,7 @@ errH:
         Tw.WriteLine(STmp)
         Tw.Flush()
         Tw.Close()
-        _MainFrm.webBrowser1.Navigate(ReportPath)
+        _MainFrm.WebBrowser1.Navigate(New Uri(ReportPath))
     End Sub
 
 

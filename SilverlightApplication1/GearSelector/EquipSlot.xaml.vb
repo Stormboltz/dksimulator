@@ -1,5 +1,5 @@
 ﻿Imports System.Xml.Linq
-
+Imports System.Linq
 Partial Public Class EquipSlot
     Inherits UserControl
 
@@ -19,8 +19,10 @@ Partial Public Class EquipSlot
         Me.SlotId = slot
         'Mainframe..Controls.Add(Me)
         Mainframe.EquipmentList.Add(Me)
+        Dim query = From c As XElement In m.EnchantDB.Element("enchant").Elements Where c.Element("slot").Value = slot
 
-        If m.EnchantDB.Element("enchant").Elements("item[slot=" & slot & "]").Count Then
+
+        If query.Count > 0 Then
             lblEnchant.IsEnabled = False
             lblEnchant.Opacity = 0
         Else
@@ -180,7 +182,7 @@ Partial Public Class EquipSlot
         Mainframe.GetStats()
     End Sub
 
-    Private Sub lblGem_MouseEnter(ByVal sender As System.Object, ByVal e As System.Windows.Input.MouseEventArgs) Handles lblGem2.MouseEnter, lblGem3.MouseEnter, lblGem1.MouseEnter
+    Private Sub lblGem_MouseEnter(ByVal sender As System.Object, ByVal e As System.Windows.Input.MouseEventArgs) Handles lblGem2.MouseLeftButtonUp, lblGem3.MouseLeftButtonUp, lblGem1.MouseLeftButtonUp
         Dim GS As GemSelector
         GS = Mainframe.GemSelector
         Dim s As String
@@ -197,6 +199,7 @@ Partial Public Class EquipSlot
         GS.SelectedItem = "-1"
         GS.Show()
 
+
         If GS.DialogResult Then
             If GS.SelectedItem <> "-1" Then
                 Select Case Strings.Right(s, 1)
@@ -211,5 +214,13 @@ Partial Public Class EquipSlot
         End If
         Me.Focus()
         DisplayGem()
+    End Sub
+
+    Private Sub Equipment_MouseLeftButtonDown(ByVal sender As System.Object, ByVal e As System.Windows.Input.MouseButtonEventArgs) Handles Equipment.MouseLeftButtonDown
+        Dim GS As GearSelector
+        GS = Mainframe.GearSelector
+        GS.LoadItem(Me.SlotId)
+        GS.SelectedItem = "-1"
+        GS.Show()
     End Sub
 End Class

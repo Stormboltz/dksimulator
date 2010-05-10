@@ -10,27 +10,29 @@
 '
 Public Class Gem
     Friend ColorId As Integer
-    Friend Id As Integer
-    Friend name As String
-    Friend ilvl As Integer
-    Friend classs As Integer
-    Friend subclass As Integer = -1
+    Public Id As Integer
+    Public name As String
+    Public ilvl As Integer
+    Public classs As Integer
+    Public subclass As Integer = -1
 
-    Friend Strength As Integer
-    Friend Intel As Integer
-    Friend Agility As Integer
-    Friend HasteRating As Integer
-    Friend ExpertiseRating As Integer
-    Friend HitRating As Integer
-    Friend AttackPower As Integer
-    Friend CritRating As Integer
-    Friend ArmorPenetrationRating As Integer
-    Friend keywords As String
+    Public Strength As Integer
+    Public Intel As Integer
+    Public Agility As Integer
+    Public HasteRating As Integer
+    Public ExpertiseRating As Integer
+    Public HitRating As Integer
+    Public AttackPower As Integer
+    Public CritRating As Integer
+    Public ArmorPenetrationRating As Integer
+    Public keywords As String
 
 
     Protected GemDB As XDocument
     Protected MainFrame As GearSelectorMainForm
+    Sub New()
 
+    End Sub
     Sub New(ByVal MainFrm As GearSelectorMainForm, ByVal Color As Integer)
         MainFrame = MainFrm
         GemDB = MainFrame.GemDB
@@ -112,6 +114,7 @@ Public Class Gem
                 Return New SolidColorBrush(Colors.Gray)
 
             Case Else
+                Return New SolidColorBrush(Colors.White)
                 Diagnostics.Debug.WriteLine("GemSlotColorName: " & Id & " ??")
         End Select
     End Function

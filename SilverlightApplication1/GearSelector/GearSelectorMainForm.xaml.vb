@@ -1,10 +1,12 @@
 ﻿Imports System.Xml
 Imports System.Net
 Imports System.Xml.Linq
+Imports System.IO.IsolatedStorage
+Imports System.IO
 
 Partial Public Class GearSelectorMainForm
     Inherits ChildWindow
-    Dim ddConsumable As Object
+
 
     Public Sub New()
         InitializeComponent()
@@ -35,24 +37,7 @@ Partial Public Class GearSelectorMainForm
 
 
     Dim space As Integer = 10
-    Dim HeadSlot As New EquipSlot
-    Dim NeckSlot As New EquipSlot
-    Dim ShoulderSlot As New EquipSlot
-    Dim BackSlot As New EquipSlot
-    Dim ChestSlot As New EquipSlot
-    Dim WristSlot As New EquipSlot
-    Dim TwoHWeapSlot As New EquipSlot
-    Dim MHWeapSlot As New EquipSlot
-    Dim OHWeapSlot As New EquipSlot
-    Dim SigilSlot As New EquipSlot
-    Dim HandSlot As New EquipSlot
-    Dim BeltSlot As New EquipSlot
-    Dim LegSlot As New EquipSlot
-    Dim FeetSlot As New EquipSlot
-    Dim ring1Slot As New EquipSlot
-    Dim ring2Slot As New EquipSlot
-    Dim Trinket1Slot As New EquipSlot
-    Dim Trinket2Slot As New EquipSlot
+
     Dim Food As Food
     Dim Flask As Flask
 
@@ -71,8 +56,8 @@ Partial Public Class GearSelectorMainForm
         ' TODO : Add constructor code after InitializeComponents
         '
         ParentFrame = PFrame
-        EPvalues = PFrame.EPVal
-        InitDisplay()
+        EPvalues = New EPValues
+
     End Sub
 
     Sub CmdExtratorClick(ByVal sender As Object, ByVal e As EventArgs)
@@ -112,8 +97,8 @@ Partial Public Class GearSelectorMainForm
         chkBerzerking.IsChecked = False
         chkArcaneTorrent.IsChecked = False
 
-        cmbSetBonus1.text = ""
-        cmbSetBonus2.text = ""
+        cmbSetBonus1.Text = ""
+        cmbSetBonus2.Text = ""
 
         Dim cSetBonus As New Collection
 
@@ -392,19 +377,19 @@ NextItem:
                 sId = cSetBonus.Item(0)
                 i = CollectionDuplicateCount(cSetBonus, cSetBonus.Item(0))
                 If i >= 4 Then
-                    cmbSetBonus1.text = cSetBonus.Item(0)
-                    cmbSetBonus1.text = cmbSetBonus1.text.Replace("DPS", "4PDPS")
-                    cmbSetBonus1.text = cmbSetBonus1.text.Replace("TNK", "4PTNK")
+                    cmbSetBonus1.Text = cSetBonus.Item(0)
+                    cmbSetBonus1.Text = cmbSetBonus1.Text.Replace("DPS", "4PDPS")
+                    cmbSetBonus1.Text = cmbSetBonus1.Text.Replace("TNK", "4PTNK")
                 End If
                 If i >= 2 Then
-                    If cmbSetBonus1.text <> "" Then
-                        cmbSetBonus2.text = cSetBonus.Item(0)
-                        cmbSetBonus2.text = cmbSetBonus2.text.Replace("DPS", "2PDPS")
-                        cmbSetBonus2.text = cmbSetBonus2.text.Replace("TNK", "2PTNK")
+                    If cmbSetBonus1.Text <> "" Then
+                        cmbSetBonus2.Text = cSetBonus.Item(0)
+                        cmbSetBonus2.Text = cmbSetBonus2.Text.Replace("DPS", "2PDPS")
+                        cmbSetBonus2.Text = cmbSetBonus2.Text.Replace("TNK", "2PTNK")
                     Else
-                        cmbSetBonus1.text = cSetBonus.Item(0)
-                        cmbSetBonus1.text = cmbSetBonus1.text.Replace("DPS", "2PDPS")
-                        cmbSetBonus1.text = cmbSetBonus1.text.Replace("TNK", "2PTNK")
+                        cmbSetBonus1.Text = cSetBonus.Item(0)
+                        cmbSetBonus1.Text = cmbSetBonus1.Text.Replace("DPS", "2PDPS")
+                        cmbSetBonus1.Text = cmbSetBonus1.Text.Replace("TNK", "2PTNK")
                     End If
                 End If
                 Do Until cSetBonus.Contains(sId) = False
@@ -488,8 +473,8 @@ NextItem:
         xmlChar.Element("character").Add(New XElement("skill2", cmbSkill2.SelectedItem))
         xmlChar.Element("character").Add(New XElement("food", cmbFood.SelectedItem))
         xmlChar.Element("character").Add(New XElement("flask", cmbFlask.SelectedItem))
-        xmlChar.Element("character").Add(New XElement("DW", rDW.isChecked.tostring))
-        xmlChar.Element("character").Add(New XElement("TwoHand", r2Hand.isChecked.tostring))
+        xmlChar.Element("character").Add(New XElement("DW", rDW.IsChecked.ToString))
+        xmlChar.Element("character").Add(New XElement("TwoHand", r2Hand.IsChecked.ToString))
 
 
         Dim iSlot As EquipSlot
@@ -567,7 +552,7 @@ NextItem:
         xmlChar.Element("character").Element("weapon").Element("offhand").Add(New XElement("speed", CheckForDouble(txtMHWSpeed.Text)))
 
 
-        
+
         '<Set>
         '    <T104PDPS>1</T104PDPS>
         '    <T102PDPS>1</T102PDPS>
@@ -580,14 +565,14 @@ NextItem:
             xmlChar.Element("character").Element("Set").Add(New XElement(cmbSetBonus2.Text, 1))
         End If
 
-        
+
 
 
         '<trinket>
         '  <DeathbringersWill>1</DeathbringersWill>
         '  <DeathChoiceHeroic>1</DeathChoiceHeroic>
         '</trinket>
-        
+
 
 
 
@@ -611,7 +596,7 @@ NextItem:
             xmlChar.Element("character").Element("WeaponProc").Add(New XElement(cmbWeaponProc2.Text, 1))
         End If
 
-        
+
         '<misc>
         '  <HandMountedPyroRocket>False</HandMountedPyroRocket>
         '  <HyperspeedAccelerators>False</HyperspeedAccelerators>
@@ -619,7 +604,7 @@ NextItem:
         '  <TailorEnchant>False</TailorEnchant>
         '  <AshenBand>True</AshenBand>
         '</misc>
-        
+
         xmlChar.Element("character").Add(New XElement("misc", ""))
         xmlChar.Element("character").Element("misc").Add(New XElement("HandMountedPyroRocket", chkIngenieer.IsChecked))
         xmlChar.Element("character").Element("misc").Add(New XElement("HyperspeedAccelerators", chkAccelerators.IsChecked))
@@ -628,10 +613,10 @@ NextItem:
         xmlChar.Element("character").Element("misc").Add(New XElement("AshenBand", chkAshenBand.IsChecked))
 
 
-        Dim itm As Object
+        Dim itm As CheckBox
 
-        For Each itm In ddConsumable.DropDownItems
-            xmlChar.Element("character").Element("misc").Add(New XElement(itm.Name, itm.Ischecked.totext))
+        For Each itm In stackConsumable.Children
+            xmlChar.Element("character").Element("misc").Add(New XElement(itm.Name, itm.IsChecked))
         Next
 
 
@@ -819,7 +804,7 @@ NextItem:
             Case 14
                 Return "Back"
             Case 15
-                If rDW.Ischecked Then
+                If rDW.IsChecked Then
                     Return "MainHand"
                 Else
                     Return "TwoHand"
@@ -838,96 +823,102 @@ NextItem:
 
     Sub LoadMycharacter()
         InLoad = True
-        Dim xmlChar As New XDocument
-        xmlChar.Load("\CharactersWithGear\" & FilePath)
-        'Dim root As xml.XmlElement = xmlChar.DocumentElement
-        Dim iSlot As EquipSlot
-        Try
-            cmbRace.SelectedItem = xmlChar.Element("/character/race").Value
-        Catch
-        End Try
+
+        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/CharactersWithGear/" & FilePath, FileMode.Open, isoStore)
+                Dim xmlChar As XDocument = XDocument.Load(isoStream)
 
 
-        Try
-            cmbFood.SelectedItem = xmlChar.Element("/character/food").Value
-        Catch
-        End Try
-
-        Try
-            cmbFlask.SelectedItem = xmlChar.Element("/character/flask").Value
-        Catch
-        End Try
-
-
-        Try
-            cmbSkill1.SelectedItem = xmlChar.Element("/character/skill1").Value
-        Catch
-        End Try
-
-        Try
-            cmbSkill2.SelectedItem = xmlChar.Element("/character/skill2").Value
-        Catch
-        End Try
-
-
-
-        Try
-            rDW.Ischecked = xmlChar.Element("/character/DW").Value
-        Catch
-        End Try
-
-
-        Try
-            r2Hand.Ischecked = xmlChar.Element("/character/TwoHand").Value
-
-        Catch
-        End Try
-
-
-        Dim itm As Object
-
-        For Each itm In ddConsumable.DropDownItems
-            Try
-                itm.Ischecked = xmlChar.Element("/character/misc/" & itm.Name).Value
-            Catch
-                itm.Ischecked = False
-            End Try
-        Next
-
-
-
-
-
-        For Each iSlot In Me.EquipmentList
-            Try
-                iSlot.Item.LoadItem(xmlChar.Element("/character/" & iSlot.Text & "/id").Value)
-                iSlot.DisplayItem()
+                'Dim root As xml.XmlElement = xmlChar.DocumentElement
+                Dim iSlot As EquipSlot
                 Try
-                    iSlot.Item.gem1.Attach(xmlChar.Element("/character/" & iSlot.text & "/gem1").Value)
+                    cmbRace.SelectedItem = xmlChar.Element("character").Element("race").Value
                 Catch
                 End Try
-                Try
-                    iSlot.Item.gem2.Attach(xmlChar.Element("/character/" & iSlot.text & "/gem2").Value)
-                Catch
-                End Try
-                Try
-                    iSlot.Item.gem3.Attach(xmlChar.Element("/character/" & iSlot.text & "/gem3").Value)
-                Catch
-                End Try
-                iSlot.DisplayGem()
+
 
                 Try
-                    iSlot.Item.Enchant.Attach(xmlChar.Element("/character/" & iSlot.text & "/enchant").Value)
-                    iSlot.DisplayEnchant()
+                    cmbFood.SelectedItem = xmlChar.Element("character").Element("food").Value
+                Catch
+                End Try
+
+                Try
+                    cmbFlask.SelectedItem = xmlChar.Element("character").Element("flask").Value
+                Catch
+                End Try
+
+
+                Try
+                    cmbSkill1.SelectedItem = xmlChar.Element("character").Element("skill1").Value
+                Catch
+                End Try
+
+                Try
+                    cmbSkill2.SelectedItem = xmlChar.Element("character").Element("skill2").Value
                 Catch
                 End Try
 
 
 
-            Catch er As Exception
-                Diagnostics.Debug.WriteLine(er.ToString)
-            End Try
-        Next
+                Try
+                    rDW.IsChecked = xmlChar.Element("character").Element("DW").Value
+                Catch
+                End Try
+
+
+                Try
+                    r2Hand.IsChecked = xmlChar.Element("character").Element("TwoHand").Value
+
+                Catch
+                End Try
+
+
+                Dim itm As CheckBox
+
+                For Each itm In stackConsumable.Children
+                    Try
+                        itm.IsChecked = xmlChar.Element("character").Element("misc").Element(itm.Name).Value
+                    Catch
+                        itm.IsChecked = False
+                    End Try
+                Next
+
+
+
+
+
+                For Each iSlot In Me.EquipmentList
+                    Try
+                        iSlot.Item.LoadItem(xmlChar.Element("character").Element(iSlot.text).Element("id").Value)
+                        iSlot.DisplayItem()
+                        Try
+                            iSlot.Item.gem1.Attach(xmlChar.Element("character").Element(iSlot.text).Element("gem1").Value)
+                        Catch
+                        End Try
+                        Try
+                            iSlot.Item.gem2.Attach(xmlChar.Element("character").Element(iSlot.text).Element("gem2").Value)
+                        Catch
+                        End Try
+                        Try
+                            iSlot.Item.gem3.Attach(xmlChar.Element("character").Element(iSlot.text).Element("gem3").Value)
+                        Catch
+                        End Try
+                        iSlot.DisplayGem()
+
+                        Try
+                            iSlot.Item.Enchant.Attach(xmlChar.Element("character").Element(iSlot.text).Element("enchant").Value)
+                            iSlot.DisplayEnchant()
+                        Catch
+                        End Try
+
+
+
+                    Catch er As Exception
+                        Diagnostics.Debug.WriteLine(er.ToString)
+                    End Try
+                Next
+            End Using
+        End Using
         InLoad = False
         GetStats()
     End Sub
@@ -1012,20 +1003,24 @@ NextItem:
 
         'cmdExtrator.Hide()
         Dim x As XElement
+        cmbFlask.Items.Clear()
         cmbFlask.Items.Add("")
-        For Each x In FlaskDB.Elements("/flask/item/name")
-            cmbFlask.Items.Add(x.Value)
+        For Each x In FlaskDB.Element("flask").Elements("item")
+            cmbFlask.Items.Add(x.Element("name").Value)
         Next
+        cmbFood.Items.Clear()
         cmbFood.Items.Add("")
-        For Each x In FoodDB.Elements("/food/item/name")
-            cmbFood.Items.Add(x.Value)
+        For Each x In FoodDB.Element("food").Elements("item")
+            cmbFood.Items.Add(x.Element("name").Value)
         Next
-        Dim itm As Object
-        For Each x In ConsumableDB.Elements("/Consumables/item")
-            'itm = New ToolStripMenuItem(x.Value)
+        'TODO
+        Dim itm As CheckBox
+        stackConsumable.Children.Clear()
+        For Each x In ConsumableDB.Elements("Consumables").Elements
+            itm = New CheckBox
             itm.Name = x.Value.Replace(" ", "")
-            ddConsumable.DropDownItems.Add(itm)
-            itm.CheckOnClick = True
+            itm.Content = itm.Name
+            stackConsumable.Children.Add(itm)
         Next
 
         cmbRace.Items.Add("Blood Elf")
@@ -1071,28 +1066,28 @@ NextItem:
 
 
         With HeadSlot
-            .Text = "Head"
+            .text = "Head"
             .init(Me, 1)
             '.Location = New System.Drawing.Point(space * 2, toolStrip1.Top + toolStrip1.Height + space)
 
         End With
 
         With NeckSlot
-            .Text = "Neck"
+            .text = "Neck"
             .init(Me, 2)
             '.Location = New System.Drawing.Point(HeadSlot.Left, HeadSlot.Top + HeadSlot.Height + space)
 
         End With
 
         With ShoulderSlot
-            .Text = "Shoulder"
+            .text = "Shoulder"
             .init(Me, 3)
             '.Location = New System.Drawing.Point(NeckSlot.Left, NeckSlot.Top + NeckSlot.Height + space)
         End With
 
 
         With BackSlot
-            .Text = "Back"
+            .text = "Back"
             .init(Me, 16)
             '.Location = New System.Drawing.Point(ShoulderSlot.Left, ShoulderSlot.Top + ShoulderSlot.Height + space)
 
@@ -1100,14 +1095,14 @@ NextItem:
 
 
         With ChestSlot
-            .Text = "Chest"
+            .text = "Chest"
             .init(Me, 5)
             '.Location = New System.Drawing.Point(BackSlot.Left, BackSlot.Top + BackSlot.Height + space)
         End With
 
 
         With WristSlot
-            .Text = "Wrist"
+            .text = "Wrist"
             .init(Me, 9)
             '.Location = New System.Drawing.Point(ChestSlot.Left, ChestSlot.Top + ChestSlot.Height + space)
 
@@ -1116,14 +1111,14 @@ NextItem:
 
 
         With TwoHWeapSlot
-            .Text = "TwoHand"
+            .text = "TwoHand"
             .init(Me, 17)
             '.Location = New System.Drawing.Point(WristSlot.Left, WristSlot.Top + WristSlot.Height + space)
         End With
 
 
         With MHWeapSlot
-            .Text = "MainHand"
+            .text = "MainHand"
             .init(Me, 13)
             '.Location = New System.Drawing.Point(WristSlot.Left, WristSlot.Top + WristSlot.Height + space)
             '.isOpacity = False
@@ -1311,7 +1306,7 @@ NextItem:
         Else
             Exit Sub
         End If
-        
+
     End Sub
 
 
@@ -1349,5 +1344,9 @@ NextItem:
             ImportMyCharacter(f.cmbRegion.SelectedItem, f.txtServer.Text, f.txtCharacter.Text)
         End If
         f.Close()
+    End Sub
+
+    Private Sub ChildWindow_Loaded(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles MyBase.Loaded
+        InitDisplay()
     End Sub
 End Class

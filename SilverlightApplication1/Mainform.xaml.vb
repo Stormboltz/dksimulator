@@ -24,6 +24,7 @@ Partial Public Class MainForm
 
     Private WithEvents TEdit As New TemplateEditor
     Private WithEvents PrioEditor As New PriorityEditor
+    Private WithEvents GearSelector As New GearSelectorMainForm(Me)
 
 
     Public Sub New()
@@ -388,16 +389,16 @@ OUT:
 
     Sub LoadDB()
 
-        ItemDB = XDocument.Load("/GearSelector/" & "ItemDB.xml")
-        GemDB = XDocument.Load("\GearSelector\" & "gems.xml")
-        GemBonusDB = XDocument.Load("\GearSelector\" & "GemBonus.xml")
-        EnchantDB = XDocument.Load("\GearSelector\" & "Enchant.xml")
-        trinketDB = XDocument.Load("\GearSelector\" & "TrinketList.xml")
-        SetBonusDB = XDocument.Load("\GearSelector\" & "SetBonus.xml")
-        WeapProcDB = XDocument.Load("\GearSelector\" & "WeaponProcList.xml")
-        FoodDB = XDocument.Load("\GearSelector\" & "Food.xml")
-        FlaskDB = XDocument.Load("\GearSelector\" & "Flask.xml")
-        ConsumableDB = XDocument.Load("\GearSelector\" & "Consumables.xml")
+        ItemDB = XDocument.Load("GearSelector/ItemDB.xml")
+        GemDB = XDocument.Load("GearSelector/gems.xml")
+        GemBonusDB = XDocument.Load("GearSelector/GemBonus.xml")
+        EnchantDB = XDocument.Load("GearSelector/Enchant.xml")
+        trinketDB = XDocument.Load("GearSelector/TrinketList.xml")
+        SetBonusDB = XDocument.Load("GearSelector/SetBonus.xml")
+        WeapProcDB = XDocument.Load("GearSelector/WeaponProcList.xml")
+        FoodDB = XDocument.Load("GearSelector/Food.xml")
+        FlaskDB = XDocument.Load("GearSelector/Flask.xml")
+        ConsumableDB = XDocument.Load("GearSelector/Consumables.xml")
     End Sub
     Sub CopyFileFromXAPtoISF(ByVal XAPPAth As String)
 
@@ -564,4 +565,21 @@ OUT:
 
     End Sub
 
+    Private Sub cmdEditCharacterWithGear_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdEditCharacterWithGear.Click
+    
+
+        Try
+            GearSelector.FilePath = cmbGearSelector.SelectedItem.ToString
+            GearSelector.Show
+            GearSelector.LoadMycharacter()
+        Catch Err As Exception
+
+        
+        End Try
+    End Sub
+
+    Sub GearSelector_close() Handles GearSelector.Closing
+        loadWindow()
+        cmbGearSelector.SelectedItem = GearSelector.FilePath
+    End Sub
 End Class
