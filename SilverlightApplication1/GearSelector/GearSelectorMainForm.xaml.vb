@@ -832,29 +832,30 @@ NextItem:
                 'Dim root As xml.XmlElement = xmlChar.DocumentElement
                 Dim iSlot As EquipSlot
                 Try
-                    cmbRace.SelectedItem = xmlChar.Element("character").Element("race").Value
+                    Diagnostics.Debug.WriteLine(xmlChar.Element("character").Element("race").Value)
+                    cmbRace.SelectedValue = xmlChar.Element("character").Element("race").Value
                 Catch
                 End Try
 
 
                 Try
-                    cmbFood.SelectedItem = xmlChar.Element("character").Element("food").Value
+                    cmbFood.SelectedValue = xmlChar.Element("character").Element("food").Value
                 Catch
                 End Try
 
                 Try
-                    cmbFlask.SelectedItem = xmlChar.Element("character").Element("flask").Value
+                    cmbFlask.SelectedValue = xmlChar.Element("character").Element("flask").Value
                 Catch
                 End Try
 
 
                 Try
-                    cmbSkill1.SelectedItem = xmlChar.Element("character").Element("skill1").Value
+                    cmbSkill1.SelectedValue = xmlChar.Element("character").Element("skill1").Value
                 Catch
                 End Try
 
                 Try
-                    cmbSkill2.SelectedItem = xmlChar.Element("character").Element("skill2").Value
+                    cmbSkill2.SelectedValue = xmlChar.Element("character").Element("skill2").Value
                 Catch
                 End Try
 
@@ -1022,7 +1023,7 @@ NextItem:
             itm.Content = itm.Name
             stackConsumable.Children.Add(itm)
         Next
-
+        cmbRace.Items.Clear()
         cmbRace.Items.Add("Blood Elf")
         cmbRace.Items.Add("Draenei")
         cmbRace.Items.Add("Dwarf")
@@ -1037,7 +1038,7 @@ NextItem:
         cmbRace.Items.Add("Worgen")
         cmbRace.SelectedIndex = 0
 
-
+        cmbSkill1.Items.Clear()
         cmbSkill1.Items.Add("Alchemy")
         cmbSkill1.Items.Add("Blacksmithing")
         cmbSkill1.Items.Add("Enchanting")
@@ -1051,6 +1052,7 @@ NextItem:
         cmbSkill1.Items.Add("Tailoring")
         cmbSkill1.SelectedIndex = 0
 
+        cmbSkill2.Items.Clear()
         cmbSkill2.Items.Add("Alchemy")
         cmbSkill2.Items.Add("Blacksmithing")
         cmbSkill2.Items.Add("Enchanting")
