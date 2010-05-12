@@ -1,6 +1,7 @@
 ﻿Imports System.Xml
 Imports System.Net
 Imports System.Xml.Linq
+Imports System.Linq
 Imports System.IO.IsolatedStorage
 Imports System.IO
 
@@ -57,7 +58,7 @@ Partial Public Class GearSelectorMainForm
         '
         ParentFrame = PFrame
         EPvalues = New EPValues
-
+        'InitDisplay()
     End Sub
 
     Sub CmdExtratorClick(ByVal sender As Object, ByVal e As EventArgs)
@@ -100,7 +101,7 @@ Partial Public Class GearSelectorMainForm
         cmbSetBonus1.Text = ""
         cmbSetBonus2.Text = ""
 
-        Dim cSetBonus As New Collection
+        Dim cSetBonus As New Collections.Generic.List(Of String)
 
 
 
@@ -185,13 +186,19 @@ Partial Public Class GearSelectorMainForm
             If iSlot.SlotId = 17 And rDW.IsChecked Then GoTo NextItem
             If iSlot.SlotId = 13 And r2Hand.IsChecked Then GoTo NextItem
 
-            Dim subc As Integer = ItemDB.Element("items").Element("item[id=" & iSlot.Item.Id & "]").Element("subclass").Value
+            Dim subc As Integer = (From el In ItemDB.Element("items").Elements
+                                   Where el.Element("id").Value = iSlot.Item.Id
+                                   Select GearSelector.getItem(el)).First.subclass
+            'Dim subc As Integer = ItemDB.Element("items").Element("item[id=" & iSlot.Item.Id & "]").Element("subclass").Value
 
             If iSlot.Content.ToString = "TwoHand" Or iSlot.Content.ToString = "MainHand" Then
                 DPS1 = iSlot.Item.DPS
                 Speed1 = iSlot.Item.Speed
                 Try
-                    cmbWeaponProc1.Text = "MH" & WeapProcDB.Element("/WeaponProcList/proc[@id=" & iSlot.Item.Id & "]").Attribute("name").Value
+                    cmbWeaponProc1.Text = "MH" & (
+                        From el In WeapProcDB.Element("WeaponProcList").Elements("proc")
+                        Where (el.Element("id").Value = iSlot.Item.Id)
+                        Select el).First.Attribute("name").Value
                 Catch
                     cmbWeaponProc1.Text = ""
                 End Try
@@ -219,7 +226,10 @@ Partial Public Class GearSelectorMainForm
                 Speed2 = iSlot.Item.Speed
 
                 Try
-                    cmbWeaponProc2.Text = "MH" & WeapProcDB.Element("/WeaponProcList/proc[@id=" & iSlot.Item.Id & "]").Attribute("name").Value
+                    cmbWeaponProc2.Text = "OH" & (
+                        From el In WeapProcDB.Element("WeaponProcList").Elements("proc")
+                        Where (el.Element("id").Value = iSlot.Item.Id)
+                        Select el).First.Attribute("name").Value
                 Catch
                     cmbWeaponProc1.Text = ""
                 End Try
@@ -245,14 +255,19 @@ Partial Public Class GearSelectorMainForm
 
             If iSlot.Content.ToString = "Trinket1" Then
                 Try
-                    cmbTrinket1.Text = trinketDB.Element("/TrinketList/trinket[@id=" & iSlot.Item.Id & "]").Attribute("name").Value
+                    cmbTrinket1.Text = (
+                        From el In trinketDB.Element("TrinketList").Elements("trinket")
+                        Where (el.Attribute("id").Value = iSlot.Item.Id)
+                        Select el).First.Attribute("name").Value
                 Catch
                     cmbTrinket1.Text = ""
                 End Try
             End If
             If iSlot.Content.ToString = "Trinket2" Then
                 Try
-                    cmbTrinket2.Text = trinketDB.Element("/TrinketList/trinket[@id=" & iSlot.Item.Id & "]").Attribute("name").Value
+                    cmbTrinket2.Text = (From el In trinketDB.Element("TrinketList").Elements("trinket")
+                        Where (el.Attribute("id").Value = iSlot.Item.Id)
+                        Select el).First.Attribute("name").Value
                 Catch
                     cmbTrinket2.Text = ""
                 End Try
@@ -422,19 +437,32 @@ NextItem:
         txtOHDPS.Text = DPS2
         txtOHWSpeed.Text = Speed2
     End Sub
-    Function TransformToSet(ByVal col As Collection) As Collection
+    Function GetIDs(ByVal El As XElement) As String
+        GetIDs = ""
+        For Each SubElements In El.Elements("id")
+            GetIDs += SubElements.Value
+        Next
+        Return GetIDs
+    End Function
+    Function TransformToSet(ByVal col As Collections.Generic.List(Of String)) As Collections.Generic.List(Of String)
+
         Dim s As String
         Dim i As Integer
-        Dim cl As New Collection
+        Dim cl As New Collections.Generic.List(Of String)
         For i = 0 To col.Count - 1
-            s = SetBonusDB.Element("/SetBonus/set[id=" & col.Item(i) & "]").Attribute("name").Value
-            s += SetBonusDB.Element("/SetBonus/set[id=" & col.Item(i) & "]").Attribute("type").Value
+            Dim xElem As XElement
+            xElem = (From el In SetBonusDB.Element("SetBonus").Elements
+                      Where GetIDs(el).Contains(col(i))
+                      Select el).First
+
+            s = xElem.Attribute("name").Value
+            s += xElem.Attribute("type").Value
             cl.Add(s)
         Next
         Return cl
     End Function
 
-    Function CollectionDuplicateCount(ByVal col As Collection, ByVal Value As String) As Integer
+    Function CollectionDuplicateCount(ByVal col As Collections.Generic.List(Of String), ByVal Value As String) As Integer
         Dim i As Integer = 0
         Dim v As String
         For Each v In col
@@ -453,8 +481,7 @@ NextItem:
     End Sub
 
     Sub SaveMycharacter()
-        Dim xmlChar As New XDocument
-        xmlChar.Parse("<character/>")
+        Dim xmlChar As XDocument = XDocument.Parse("<character/>")
 
         'Sample
         'xmlChar.Element("character").Add( _
@@ -822,6 +849,7 @@ NextItem:
     End Function
 
     Sub LoadMycharacter()
+        InitDisplay()
         InLoad = True
 
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
@@ -863,15 +891,19 @@ NextItem:
 
                 Try
                     rDW.IsChecked = xmlChar.Element("character").Element("DW").Value
+                    r2Hand.IsChecked = (rDW.IsChecked = False)
                 Catch
                 End Try
 
-
-                Try
-                    r2Hand.IsChecked = xmlChar.Element("character").Element("TwoHand").Value
-
-                Catch
-                End Try
+                If r2Hand.IsChecked Then
+                    Me.TwoHWeapSlot.Opacity = 1
+                    Me.MHWeapSlot.Opacity = 0
+                    Me.OHWeapSlot.Opacity = 0
+                Else
+                    Me.TwoHWeapSlot.Opacity = 0
+                    Me.MHWeapSlot.Opacity = 1
+                    Me.OHWeapSlot.Opacity = 1
+                End If
 
 
                 Dim itm As CheckBox
@@ -1349,6 +1381,18 @@ NextItem:
     End Sub
 
     Private Sub ChildWindow_Loaded(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles MyBase.Loaded
-        InitDisplay()
+
+    End Sub
+
+    Private Sub r2Hand_Checked(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles r2Hand.Checked
+        Me.TwoHWeapSlot.Opacity = 1
+        Me.MHWeapSlot.Opacity = 0
+        Me.OHWeapSlot.Opacity = 0
+    End Sub
+
+    Private Sub rDW_Checked(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles rDW.Checked
+        Me.TwoHWeapSlot.Opacity = 0
+        Me.MHWeapSlot.Opacity = 1
+        Me.OHWeapSlot.Opacity = 1
     End Sub
 End Class

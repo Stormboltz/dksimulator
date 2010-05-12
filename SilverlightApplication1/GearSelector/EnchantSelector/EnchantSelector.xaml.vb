@@ -6,6 +6,11 @@ Imports System.Linq
 Partial Public Class EnchantSelector
     Inherits ChildWindow
     Friend GS As GearSelectorMainForm
+    Dim sortColumn As Integer = -1
+    Friend gemDB As New XDocument
+    Friend Slot As String
+    Friend SelectedItem As String
+
     Public Sub New()
         InitializeComponent()
     End Sub
@@ -18,9 +23,10 @@ Partial Public Class EnchantSelector
     
 
     
-    Function getEnchant(ByVal el As XElement) As Enchant
-        getEnchant.Id = el.Element("id").Value
-        With getEnchant
+    Function getEnchant(ByVal el As XElement) As aEnchant
+        Dim myEnch As New aEnchant
+        myEnch.Id = el.Element("id").Value
+        With myEnch
             .Id = el.Element("id").Value
             .name = el.Element("name").Value
             .Strength = el.Element("Strength").Value
@@ -31,10 +37,9 @@ Partial Public Class EnchantSelector
             .AttackPower = el.Element("AttackPower").Value
             .CritRating = el.Element("CritRating").Value
             .ArmorPenetrationRating = el.Element("ArmorPenetrationRating").Value
-            '.reqskill = el.Element("reqskill").Value
             .Desc = el.Element("Desc").Value
         End With
-        Return getEnchant
+        Return myEnch
     End Function
 
     Private Sub OKButton_Click(ByVal sender As Object, ByVal e As RoutedEventArgs) Handles OKButton.Click
@@ -45,24 +50,20 @@ Partial Public Class EnchantSelector
         Me.DialogResult = False
     End Sub
 
-    Dim sortColumn As Integer = -1
-    Friend gemDB As New XDocument
-    Friend Slot As String
-    Friend SelectedItem As String
-    Friend MainFrame As GearSelectorMainForm
+    
 
 
 
     Sub LoadItem(ByVal slot As Integer)
 
-        Dim statusReport As List(Of Enchant)
+        Dim statusReport As List(Of aEnchant)
 
-        Dim doc As XDocument = New XDocument("../Enchant.xml")
-        statusReport = (From el In doc.Elements() Select getEnchant(el)).ToList()
+        Dim doc As XDocument = GS.EnchantDB
+        statusReport = (From el In doc.Elements("enchant").Elements
+                        Where el.Element("slot").Value = slot And (el.Element("reqskill").Value = "" Or el.Element("reqskill").Value = 0 Or el.Element("reqskill").Value = GetSkillID(Me.GS.cmbSkill1.SelectedItem) Or el.Element("reqskill").Value = GetSkillID(Me.GS.cmbSkill2.SelectedItem))
+                        Select getEnchant(el)).ToList()
         gEnchant.ItemsSource = statusReport
-        'xList = gemDB.SelectNodes("/enchant/item[slot=" & slot & "][reqskill='0' or reqskill='" & GetSkillID(Me.MainFrame.cmbSkill1.SelectedItem) & "'    or reqskill='" & GetSkillID(Me.MainFrame.cmbSkill2.SelectedItem) & "']")
         Me.Slot = slot
-
     End Sub
 
 
@@ -77,10 +78,12 @@ Partial Public Class EnchantSelector
 
     Sub FilterList(ByVal filter As String())
 
-        Dim statusReport As List(Of Enchant)
+        Dim statusReport As List(Of aEnchant)
 
         Dim doc As XDocument = New XDocument("../Enchant.xml")
-        statusReport = (From el In doc.Elements() Select getEnchant(el)).ToList()
+        statusReport = (From el In doc.Elements("enchant")
+                        Where el.Element("slot").Value = Slot And (el.Element("reqskill").Value = "" Or el.Element("reqskill").Value = 0 Or el.Element("reqskill").Value = GetSkillID(Me.GS.cmbSkill1.SelectedItem) Or el.Element("reqskill").Value = GetSkillID(Me.GS.cmbSkill2.SelectedItem))
+                        Select getEnchant(el)).ToList()
         gEnchant.ItemsSource = statusReport
         'xList = gemDB.SelectNodes("/enchant/item[slot=" & Slot & "][reqskill='0' or reqskill='" & GetSkillID(Me.MainFrame.cmbSkill1.SelectedItem) & "'    or reqskill='" & GetSkillID(Me.MainFrame.cmbSkill2.SelectedItem) & "']")
     End Sub
@@ -91,5 +94,31 @@ Partial Public Class EnchantSelector
     Sub CmdClearClick(ByVal sender As Object, ByVal e As EventArgs)
         SelectedItem = 0
         Me.Close()
+    End Sub
+    Class aEnchant
+        Property Id As Integer
+        Property name As String
+        Property slot As Integer
+        Property Strength As Integer
+        Property Intel As Integer
+        Property Agility As Integer
+        Property HasteRating As Integer
+        Property ExpertiseRating As Integer
+        Property HitRating As Integer
+        Property AttackPower As Integer
+        Property CritRating As Integer
+        Property ArmorPenetrationRating As Integer
+        Property Desc As String
+    End Class
+
+    Private Sub gEnchant_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs) Handles gEnchant.SelectionChanged
+        Dim a As aEnchant
+        a = sender.selecteditem
+        Try
+            SelectedItem = a.Id
+            Me.DialogResult = True
+        Catch ex As Exception
+
+        End Try
     End Sub
 End Class

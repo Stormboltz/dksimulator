@@ -152,4 +152,16 @@ Partial Public Class GearSelector
         Property EPVAlue As Integer
 
     End Class
+
+    Private Sub dGear_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs) Handles dGear.SelectionChanged
+
+        Dim a As aItem
+        a = sender.selecteditem
+        Try
+            SelectedItem = a.Id
+            Me.DialogResult = True
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

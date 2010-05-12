@@ -1,4 +1,5 @@
 ﻿Imports System.Xml.Linq
+Imports System.Linq
 
 '
 ' Crée par SharpDevelop.
@@ -43,20 +44,35 @@ Public Class Gem
             Detach()
             Exit Sub
         End If
-        Id = GemId
-        name = GemDB.Element("/gems/item[id=" & GemId & "]/name").Value
-        ilvl = GemDB.Element("/gems/item[id=" & GemId & "]/ilvl").Value
-        classs = GemDB.Element("/gems/item[id=" & GemId & "]/class").Value
-        subclass = GemDB.Element("/gems/item[id=" & GemId & "]/subclass").Value
-        Strength = GemDB.Element("/gems/item[id=" & GemId & "]/Strength").Value
-        Agility = GemDB.Element("/gems/item[id=" & GemId & "]/Agility").Value
-        HasteRating = GemDB.Element("/gems/item[id=" & GemId & "]/HasteRating").Value
-        ExpertiseRating = GemDB.Element("/gems/item[id=" & GemId & "]/ExpertiseRating").Value
-        HitRating = GemDB.Element("/gems/item[id=" & GemId & "]/HitRating").Value
-        AttackPower = GemDB.Element("/gems/item[id=" & GemId & "]/AttackPower").Value
-        CritRating = GemDB.Element("/gems/item[id=" & GemId & "]/CritRating").Value
-        ArmorPenetrationRating = GemDB.Element("/gems/item[id=" & GemId & "]/ArmorPenetrationRating").Value
-        keywords = GemDB.Element("/gems/item[id=" & GemId & "]/keywords").Value
+        Try
+
+        
+        Dim el As XElement = (From x In GemDB.Element("gems").Elements
+                              Where x.Element("id").Value = GemId
+                              ).First
+        Me.Id = GemId
+        With Me
+            .name = el.Element("name").Value
+            .Strength = el.Element("Strength").Value
+            .Agility = el.Element("Agility").Value
+            .HasteRating = el.Element("HasteRating").Value
+            .ExpertiseRating = el.Element("ExpertiseRating").Value
+            .HitRating = el.Element("HitRating").Value
+            .AttackPower = el.Element("AttackPower").Value
+            .CritRating = el.Element("CritRating").Value
+            .ArmorPenetrationRating = el.Element("ArmorPenetrationRating").Value
+            .ilvl = el.Element("ilvl").Value
+            .classs = el.Element("class").Value
+            subclass = el.Element("subclass").Value
+            .keywords = el.Element("keywords").Value
+        End With
+
+
+        Catch ex As Exception
+
+        End Try
+
+
     End Sub
 
     Sub Detach()

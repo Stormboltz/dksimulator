@@ -71,7 +71,9 @@ Public Class Item
 
 
     Sub LoadItem(ByVal ItemId As Integer)
-        AdditionalGemNotSet = True
+        Try
+
+            AdditionalGemNotSet = True
         Id = ItemId
         If Id = 0 Then
             Unload()
@@ -151,7 +153,10 @@ Public Class Item
             End If
         End If
         gembonus = myItem.Element("gembonus").Value
-        keywords = myItem.Element("keywords").Value
+            keywords = myItem.Element("keywords").Value
+        Catch ex As Exception
+
+        End Try
     End Sub
 
 

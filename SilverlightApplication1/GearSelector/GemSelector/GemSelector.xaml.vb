@@ -10,12 +10,6 @@ Partial Public Class GemSelector
     Friend MainFrame As GearSelectorMainForm
     Public Sub New()
         InitializeComponent()
-        Dim col As DataGridColumn
-        col.Header = "yio"
-
-
-
-
     End Sub
 
     Private Sub OKButton_Click(ByVal sender As Object, ByVal e As RoutedEventArgs) Handles OKButton.Click
@@ -172,4 +166,16 @@ Partial Public Class GemSelector
 
 
     End Class
+
+    Private Sub gGems_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs) Handles gGems.SelectionChanged
+        Dim a As mGem
+        a = sender.selecteditem
+        Try
+            SelectedItem = a.Id
+            Me.DialogResult = True
+        Catch ex As Exception
+
+        End Try
+        
+    End Sub
 End Class

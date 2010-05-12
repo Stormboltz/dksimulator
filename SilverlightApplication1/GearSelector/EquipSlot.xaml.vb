@@ -3,6 +3,9 @@ Imports System.Linq
 Partial Public Class EquipSlot
     Inherits UserControl
 
+
+
+
     Public Sub New()
         InitializeComponent()
     End Sub
@@ -11,23 +14,22 @@ Partial Public Class EquipSlot
     Friend SlotId As Integer
     Friend Item As Item
     Friend text As String
+    Friend WithEvents GS As EnchantSelector
+
 
     Protected Mainframe As GearSelectorMainForm
 
     Sub init(ByVal m As GearSelectorMainForm, ByVal slot As Integer)
         Mainframe = m
         Me.SlotId = slot
-        'Mainframe..Controls.Add(Me)
         Mainframe.EquipmentList.Add(Me)
         Dim query = From c As XElement In m.EnchantDB.Element("enchant").Elements Where c.Element("slot").Value = slot
-
-
         If query.Count > 0 Then
-            lblEnchant.IsEnabled = False
-            lblEnchant.Opacity = 0
-        Else
             lblEnchant.IsEnabled = True
             lblEnchant.Opacity = 1
+        Else
+            lblEnchant.IsEnabled = False
+            lblEnchant.Opacity = 0
         End If
 
         Item = New Item(Me.Mainframe, 0)
@@ -35,25 +37,6 @@ Partial Public Class EquipSlot
     End Sub
 
    
-
-    Sub EnchantClick(ByVal sender As Object, ByVal e As EventArgs)
-        Dim GS As EnchantSelector
-        GS = Mainframe.EnchantSelector
-        Dim s As String
-        s = sender.name
-        GS.LoadItem(SlotId)
-        GS.SelectedItem = "-1"
-        GS.Show() ' (Me)
-        If GS.SelectedItem <> "-1" Then
-            Item.Enchant.Attach(GS.SelectedItem)
-        End If
-
-        DisplayEnchant()
-        Me.Focus()
-    End Sub
-
-
-
     Sub DisplayEnchant()
         Dim xmlDB As XDocument = Mainframe.EnchantDB
         Dim xmlItem As New XDocument
@@ -222,5 +205,22 @@ Partial Public Class EquipSlot
         GS.LoadItem(Me.SlotId)
         GS.SelectedItem = "-1"
         GS.Show()
+    End Sub
+
+    Private Sub lblEnchant_MouseLeftButtonUp(ByVal sender As System.Object, ByVal e As System.Windows.Input.MouseButtonEventArgs) Handles lblEnchant.MouseLeftButtonUp
+        GS = Mainframe.EnchantSelector
+        Dim s As String
+        s = sender.name
+        GS.LoadItem(SlotId)
+        GS.SelectedItem = "-1"
+        GS.Show() ' (Me)
+     
+    End Sub
+
+    Private Sub GS_close() Handles GS.Closing
+        If GS.SelectedItem <> "-1" Then
+            Item.Enchant.Attach(GS.SelectedItem)
+            DisplayEnchant()
+        End If
     End Sub
 End Class
