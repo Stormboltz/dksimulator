@@ -14,12 +14,22 @@ Friend Class Hysteria
 	Function IsAvailable(T As Long) As Boolean
 		If sim.Character.talentblood.Hysteria =  0 Then Return False 
 		If sim.Character.talentblood.DRW = 1 and sim.DRW.cd > T then return false
-		If CD <= T Then Return True
+        If CD <= T Then
+            Return True
+        Else
+            Return False
+        End If
 	End Function
 
 	Function IsActive(T as Long) as Boolean
-		if T <= ActiveUntil then return true
-	End Function
+        If T <= ActiveUntil Then
+            Return True
+        Else
+            Return False
+        End If
+        
+
+    End Function
 	
 	Sub use(T As Long)
 		CD = T + 3*60*100

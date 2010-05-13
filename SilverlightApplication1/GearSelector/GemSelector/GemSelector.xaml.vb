@@ -34,17 +34,6 @@ Partial Public Class GemSelector
 
     End Sub
 
-    Sub InitCollum()
-
-        gGems.AutoGenerateColumns = False
-        Dim indexCol As DataGridColumn
-
-
-
-        gGems.Columns.Add(indexCol)
- 
-
-    End Sub
 
     Sub ListView1SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs)
         SelectedItem = sender.SelectedItems.Item(0).subitems.item(1).text

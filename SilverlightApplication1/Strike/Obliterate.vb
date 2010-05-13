@@ -24,7 +24,7 @@ Friend Class Obliterate
 			If DoMyStrikeHit = false Then
 				sim.combatlog.write(T  & vbtab &  "OB fail" & vbtab & RNG)
 				MissCount = MissCount + 1
-				exit function
+                Return False
 			End If
 		
 			If sim.proc.DRM.TryMe(T) Then
@@ -42,7 +42,7 @@ Friend Class Obliterate
 			End If
 			
 		Else
-			If DoMyToTHit = False Then Exit Function
+            If DoMyToTHit() = False Then Return False
 		End If
 		
 		If OffHand = False Then 

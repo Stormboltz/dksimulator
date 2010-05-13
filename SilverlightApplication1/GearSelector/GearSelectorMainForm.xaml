@@ -16,7 +16,8 @@
         </Grid.RowDefinitions>
 
         <Button x:Name="CancelButton" Content="Cancel" Width="75" Height="23" HorizontalAlignment="Right" Margin="0,12,0,0" Grid.Row="2" Grid.Column="1" />
-        <Button x:Name="OKButton" Content="OK" Width="75" Height="23" HorizontalAlignment="Right"  Margin="0,12,79,0" Grid.Row="2" Grid.Column="1" />
+        <Button x:Name="cmdSave" Content="Save" Width="75" Height="23" HorizontalAlignment="Right"  Margin="0,12,79,0" Grid.Row="2" Grid.Column="1" />
+        <Button x:Name="cmdSaveNew" Content="Save as new" Width="75" Height="23" HorizontalAlignment="Right"  Margin="0,12,160,0" Grid.Row="2" Grid.Column="1" />
 
         <ComboBox Height="23" HorizontalAlignment="Left" Margin="112,12,0,0" Name="cmbRace" VerticalAlignment="Top" Width="120" />
         <ComboBox Height="23" HorizontalAlignment="Left" Margin="238,12,0,0" Name="cmbSkill1" VerticalAlignment="Top" Width="120" />

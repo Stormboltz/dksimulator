@@ -50,8 +50,8 @@ Friend Class Character
             End If
             loadtemplate("\Templates\" & XmlConfig.Element("//config/template").Value)
         Catch
-            Dim msb As MessageBox
-            msb.Show(("Error finding Character config file"))
+
+            msgBox("Error finding Character config file")
         End Try
         Try
             _Strength = Int32.Parse(XmlDoc.Element("//character/stat/Strength").Value)

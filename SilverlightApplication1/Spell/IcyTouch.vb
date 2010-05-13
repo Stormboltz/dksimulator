@@ -14,7 +14,7 @@ Friend Class IcyTouch
 			sim.combatlog.write(T  & vbtab &  "IT fail")
 			sim.proc.KillingMachine.Use
 			MissCount = MissCount + 1
-			Exit function
+            Return False
 		End If
 		Sim.RunicPower.add (10 + (sim.Character.talentfrost.ChillOfTheGrave * 2.5))
 		RNG = RngCrit

@@ -35,7 +35,11 @@ Public Class Horn
 			'return false
 			'if math.Min(BloodPlague.FadeAt,FrostFever.FadeAt) < T + 500 then return false
 		End If
-		If cd <= T Then Return True
+        If CD <= T Then
+            Return True
+        Else
+            Return False
+        End If
 	End Function
 	
 	Function use(T As Long) as Boolean

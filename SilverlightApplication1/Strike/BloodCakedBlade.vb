@@ -17,7 +17,7 @@ Sub New(S As sim)
 		If DoMyStrikeHit = false Then
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "BCB fail")
 			MissCount = MissCount + 1
-			Exit function
+            Return False
 		End If
 		dégat = AvrgNonCrit(T)
 		totalhit += dégat
@@ -42,8 +42,9 @@ Sub New(S As sim)
 		End If
 		return tmp
 	End Function
-	public Overrides Function CritCoef() As Double
-	End Function
+    Public Overrides Function CritCoef() As Double
+        Return 0
+    End Function
 	
 	public Overrides Function CritChance() As Double
 		return sim.MainStat.crit

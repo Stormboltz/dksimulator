@@ -35,7 +35,7 @@ Public Class RuneStrike
 		If MeleeMissChance + RNG < 0.08 Then
 			MissCount = MissCount + 1
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Rune Strike fail")
-			exit function
+            Return False
 		End If
 		
 		

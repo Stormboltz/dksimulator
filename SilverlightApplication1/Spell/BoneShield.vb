@@ -75,7 +75,8 @@ Public Class BoneShield
 		Charge = 3
 		If sim.character.glyph.BoneShield Then Charge += 1
 		HitCount += 1
-		AddUptime(T)
+        AddUptime(T)
+        Return True
 	End Function
 	
 	Function IsAvailable(T As Long) As Boolean

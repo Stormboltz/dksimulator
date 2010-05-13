@@ -128,7 +128,7 @@ Friend class Ghoul
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			MissCount = MissCount + 1
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Ghoul fail")
-			exit function
+            Return False
 		End If
 		If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then
 			dégat = AvrgNonCrit(T)*0.7
@@ -179,7 +179,7 @@ Friend class Ghoul
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Ghoul's Claw fail")
 			Claw.MissCount += 1
-			Exit function
+            Return False
 		End If
 		RNG = me.Claw.RngCrit
 		If RNG <= CritChance Then

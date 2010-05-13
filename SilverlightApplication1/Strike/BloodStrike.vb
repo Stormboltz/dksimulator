@@ -28,7 +28,7 @@ Friend class BloodStrike
 				Return False
 			End If
 		Else
-			If DoMyToTHit = False Then Exit Function
+            If DoMyToTHit() = False Then Return False
 		End If
 		If sim.KeepBloodSync Then
 			If sim.BloodToSync = True Then

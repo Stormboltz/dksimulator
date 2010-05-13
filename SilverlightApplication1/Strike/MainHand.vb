@@ -58,7 +58,7 @@ Sub New(S As sim)
 		If RNG < ChanceNotToTouch Then
 			MissCount = MissCount + 1
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "MH fail")
-			exit function
+            Return False
 		End If
 		
 		If RNG < (ChanceNotToTouch + MeleeGlacingChance) Then

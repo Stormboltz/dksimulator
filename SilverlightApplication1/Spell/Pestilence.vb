@@ -17,9 +17,9 @@ Friend Class Pestilence
 		UseGCD(T)
 		If DoMySpellHit = false Then
 			sim.combatlog.write(T  & vbtab &  "Pestilence fail")
-			MissCount = MissCount +1
-			Exit function
-		End If
+            MissCount = MissCount + 1
+            Return False
+        End If
 		Sim.RunicPower.add (10)
 		sim.combatlog.write(T  & vbtab &  "Pestilence")
 		HitCount = HitCount +1
@@ -97,7 +97,8 @@ Friend Class Pestilence
 			End If
 		Else
 			t=t
-		End If
+        End If
+        Return False
 	End Function
 	
 End Class

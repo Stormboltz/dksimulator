@@ -32,7 +32,7 @@ Public Class Sim
     Friend BloodToSync As Boolean
     Friend KeepBloodSync As Boolean
     Friend ShowProc As Boolean
-    Friend MultipleDamage As New Collection
+    Friend MultipleDamage As New Collections.Generic.List(Of Long)
     Friend NextReset As Integer
     Friend LastReset As Integer
 
@@ -595,6 +595,7 @@ Public Class Sim
 
     Function DoMyWhiteHit() As Boolean
         'unused
+        Return False
     End Function
 
     Sub SoftReset()
@@ -938,7 +939,7 @@ errH:
 
         ' Sort report
 
-        Dim myArray As New Collection
+        Dim myArray As New Collections.Generic.List(Of Long)
 
         Dim obj As Supertype
 
@@ -976,7 +977,7 @@ errH:
                 myArray.Add(obj.total)
             End If
         Next
-        ' myArray.Sort()
+        myArray.Sort()
 
         Dim ThreatBeforePresence As Long = Threat
         For Each obj In Me.DamagingObject
@@ -1147,7 +1148,7 @@ errH:
         Dim range As Double
 
         If MultipleDamage.Count > 1 Then
-            'MultipleDamage.Sort()
+            MultipleDamage.Sort()
             minDPS = MultipleDamage.Item(1) / (FightLength)
             maxDPS = MultipleDamage.Item(MultipleDamage.Count - 1) / (FightLength)
             MinMAx = Math.Max(DPS - minDPS, maxDPS - DPS)

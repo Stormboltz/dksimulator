@@ -156,7 +156,14 @@ Partial Public Class EquipSlot
             lblGemcolor3.IsEnabled = False
         End If
         Try
-            lblBonus.Content = xGemBonus.Element("bonus").Element("item[id=" & Item.gembonus & "]/Desc").Value
+            If Item.gembonus <> 0 Then
+                lblBonus.Content = (From el In xGemBonus.Element("bonus").Elements
+                                Where el.Element("id").Value = Item.gembonus
+                                Select el).First.Element("Desc").Value
+            End If
+            
+
+
         Catch
             lblBonus.Content = ""
         End Try
@@ -217,10 +224,12 @@ Partial Public Class EquipSlot
      
     End Sub
 
-    Private Sub GS_close() Handles GS.Closing
+    Private Sub GS_close(ByVal sender As System.Object, ByVal e As EventArgs) Handles GS.Closing
+        If GS.Slot <> Me.SlotId Then Exit Sub
         If GS.SelectedItem <> "-1" Then
             Item.Enchant.Attach(GS.SelectedItem)
             DisplayEnchant()
+
         End If
     End Sub
 End Class

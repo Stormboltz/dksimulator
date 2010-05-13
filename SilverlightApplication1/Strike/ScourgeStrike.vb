@@ -23,7 +23,7 @@ Friend Class ScourgeStrike
 		If DoMyStrikeHit = false Then
 			sim.combatlog.write(T  & vbtab &  "SS fail")
 			MissCount = MissCount + 1
-			Exit function
+            Return False
 		End If
 		
 		Sim.RunicPower.add (15 + sim.Character.talentunholy.Dirge * 2.5 + 5*sim.MainStat.T74PDPS)

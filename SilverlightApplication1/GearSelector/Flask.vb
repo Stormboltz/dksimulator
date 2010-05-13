@@ -49,7 +49,7 @@ Public Class Flask
     End Sub
 
     Sub Attach(ByVal FlaskName As String)
-        If FlaskName = "" Then
+        If FlaskName = "" Or IsNothing(FlaskName) Then
             Detach()
             Exit Sub
         End If

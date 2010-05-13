@@ -6,6 +6,10 @@
 '
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
+Imports System
+Imports System.Collections
+Imports Microsoft.VisualBasic
+
 Public Class FutureEventManager
     Protected List As New Collections.Generic.List(Of FutureEvent)
 	Friend Max As Integer
@@ -65,16 +69,21 @@ Public Class FutureEventManager
 	End Sub
 	
 	Public Class myEventComparer
+        Implements IComparer
 
-        Public Function Compare(ByVal x As Object, ByVal y As Object) As Integer
+        Public Function Compare(ByVal x As Object, ByVal y As Object) As Integer Implements System.Collections.IComparer.Compare
             Dim FEx As FutureEvent
             Dim FEy As FutureEvent
             FEx = x
             FEy = y
-
-            'Return New CaseInsensitiveComparer().Compare(FEx.T, FEy.T)
+            Dim i As Integer = 0
+            If FEx.T > FEy.T Then
+                Return 1
+            Else
+                Return 0
+            End If
         End Function 'IComparer.Compare
-   End Class
+    End Class
 
 	
 	

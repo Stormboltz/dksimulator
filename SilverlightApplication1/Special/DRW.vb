@@ -65,7 +65,12 @@ Friend Class DRW
 	End Sub
 	
 	Function IsActive(T as Long) As Boolean
-		if ActiveUntil >= T then return true
+        If ActiveUntil >= T Then
+            Return True
+        Else
+            Return False
+        End If
+
 	End Function
 	function Summon(T As Long) as boolean
 		If sim.runeforge.AreStarsAligned(T) = False Then
@@ -101,7 +106,8 @@ Friend Class DRW
 			sim.FutureEventManager.Add(NextDRW,"DRW")
 			sim.combatlog.write(T  & vbtab &  "Summon DRW")
 			return true
-		End If
+        End If
+        Return False
 	End Function
 	Function ApplyDamage(T As long) As boolean
 		NextDRW = T + (100 * 3.5 / Haste)
@@ -114,7 +120,7 @@ Friend Class DRW
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "DRW fail")
 			MissCount = MissCount + 1
-			exit function
+            Return False
 		End If
 		
 		If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then

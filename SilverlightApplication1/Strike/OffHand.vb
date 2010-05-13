@@ -46,7 +46,7 @@ Friend Class OffHand
 			'If sim.combatlog.LogDetails Then 
 				if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH fail")
 			'End If
-			exit function
+            Return False
 		End If
 
 		dim dégat as Integer

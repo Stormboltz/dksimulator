@@ -8,18 +8,7 @@ Imports System.IO
 Partial Public Class GearSelectorMainForm
     Inherits ChildWindow
 
-
-    Public Sub New()
-        InitializeComponent()
-    End Sub
-
-    Private Sub OKButton_Click(ByVal sender As Object, ByVal e As RoutedEventArgs) Handles OKButton.Click
-        Me.DialogResult = True
-    End Sub
-
-    Private Sub CancelButton_Click(ByVal sender As Object, ByVal e As RoutedEventArgs) Handles CancelButton.Click
-        Me.DialogResult = False
-    End Sub
+    Dim WithEvents UI As New UserInput
     Friend EquipmentList As New Collection
     Friend InLoad As Boolean
     Friend EnchantSelector As New EnchantSelector(Me)
@@ -48,6 +37,38 @@ Partial Public Class GearSelectorMainForm
 
     Friend ParentFrame As MainForm
     Friend EPvalues As EPValues
+
+    Private Sub UI_closeEvent() Handles UI.Closing
+
+        If UI.DialogResult Then
+            If UI.txtInput.Text <> "" Then
+                FilePath = UI.txtInput.Text & ".xml"
+                SaveMycharacter()
+                Me.DialogResult = True
+                'Me.Close()
+            End If
+        End If
+    End Sub
+
+    Private Sub New()
+        InitializeComponent()
+    End Sub
+
+    Private Sub cmdSaveAsNew() Handles cmdSaveNew.Click
+
+        UI.Show()
+
+    End Sub
+
+    Private Sub OKButton_Click(ByVal sender As Object, ByVal e As RoutedEventArgs) Handles cmdSave.Click
+        SaveMycharacter()
+        Me.DialogResult = True
+    End Sub
+
+    Private Sub CancelButton_Click(ByVal sender As Object, ByVal e As RoutedEventArgs) Handles CancelButton.Click
+        Me.DialogResult = False
+    End Sub
+    
 
     Public Sub New(ByVal PFrame As MainForm)
         ' The Me.InitializeComponent call is required for Windows Forms designer support.
@@ -382,7 +403,7 @@ NextItem:
         End If
         ' Set bonus1
         If cSetBonus.Count > 0 Then
-            'cSetBonus.Sort()
+            cSetBonus.Sort()
             cSetBonus = TransformToSet(cSetBonus)
             Dim i As Integer
             Dim sId As String
@@ -471,12 +492,8 @@ NextItem:
         Return i
     End Function
 
-
-
-
-
     Sub CmdSaveClick(ByVal sender As Object, ByVal e As EventArgs)
-        SaveMycharacter()
+
         Me.Close()
     End Sub
 
@@ -662,10 +679,14 @@ NextItem:
         xmlChar.Element("character").Element("racials").Add(New XElement("Orc", chkBloodFury.IsChecked))
         xmlChar.Element("character").Element("racials").Add(New XElement("Troll", chkBerzerking.IsChecked))
         xmlChar.Element("character").Element("racials").Add(New XElement("BloodElf", chkArcaneTorrent.IsChecked))
+        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/CharactersWithGear/" & FilePath, FileMode.Create, isoStore)
+                xmlChar.Save(isoStream)
+            End Using
+        End Using
 
 
 
-        'xmlChar.Save()
     End Sub
 
 
@@ -1251,38 +1272,8 @@ NextItem:
     End Sub
 
 
-    Sub CmbRaceSelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs)
+    Sub CmbRaceSelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles cmbRace.SelectionChanged
         GetStats()
-    End Sub
-
-    Sub RDWCheckedChanged(ByVal sender As Object, ByVal e As EventArgs)
-        If rDW.IsChecked Then
-            r2Hand.IsChecked = False
-            txtOHDPS.IsEnabled = True
-            txtOHWSpeed.IsEnabled = True
-            Dim eq As EquipSlot
-            For Each eq In EquipmentList
-                If eq.text = "TwoHand" Then eq.Opacity = False
-                If eq.text = "MainHand" Then eq.Opacity = True
-                If eq.text = "OffHand" Then eq.Opacity = True
-            Next
-            GetStats()
-        End If
-    End Sub
-
-    Sub R2HandCheckedChanged(ByVal sender As Object, ByVal e As EventArgs)
-        If r2Hand.IsChecked Then
-            rDW.IsChecked = False
-            txtOHDPS.IsEnabled = False
-            txtOHWSpeed.IsEnabled = False
-            Dim eq As EquipSlot
-            For Each eq In EquipmentList
-                If eq.text = "TwoHand" Then eq.Opacity = True
-                If eq.text = "MainHand" Then eq.Opacity = False
-                If eq.text = "OffHand" Then eq.Opacity = False
-            Next
-            GetStats()
-        End If
     End Sub
 
 
@@ -1344,7 +1335,7 @@ NextItem:
     End Sub
 
 
-    Sub CmbSkillClick(ByVal sender As Object, ByVal e As EventArgs)
+    Sub CmbSkillClick(ByVal sender As Object, ByVal e As EventArgs) Handles cmbSkill1.SelectionChanged, cmbSkill2.SelectionChanged
         Dim eq As EquipSlot
         If InLoad Then Exit Sub
         InLoad = True
@@ -1356,14 +1347,25 @@ NextItem:
         GetStats()
     End Sub
 
-    Sub CmbFlaskSelectionChange(ByVal sender As Object, ByVal e As EventArgs)
-        Flask.Attach(cmbFlask.SelectedItem.ToString)
+    Sub CmbFlaskSelectionChange(ByVal sender As Object, ByVal e As EventArgs) Handles cmbFlask.SelectionChanged
+        If IsNothing(sender.SelectedItem) Then Exit Sub
+        Try
+            Flask.Attach(cmbFlask.SelectedItem.ToString)
+        Catch ex As Exception
+
+        End Try
         GetStats()
     End Sub
 
-    Sub cmbFoodSelectionChange(ByVal sender As Object, ByVal e As EventArgs)
-        Food.Attach(cmbFood.SelectedItem.ToString)
-        GetStats()
+    Sub cmbFoodSelectionChange(ByVal sender As Object, ByVal e As EventArgs) Handles cmbFood.SelectionChanged
+        If IsNothing(sender.SelectedItem) Then Exit Sub
+        Try
+            Food.Attach(cmbFood.SelectedItem.ToString)
+            GetStats()
+        Catch ex As Exception
+
+        End Try
+
     End Sub
 
 
@@ -1388,11 +1390,13 @@ NextItem:
         Me.TwoHWeapSlot.Opacity = 1
         Me.MHWeapSlot.Opacity = 0
         Me.OHWeapSlot.Opacity = 0
+        GetStats()
     End Sub
 
     Private Sub rDW_Checked(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles rDW.Checked
         Me.TwoHWeapSlot.Opacity = 0
         Me.MHWeapSlot.Opacity = 1
         Me.OHWeapSlot.Opacity = 1
+        GetStats()
     End Sub
 End Class

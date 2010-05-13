@@ -220,9 +220,9 @@ Public Class Item
 
     Function getItem(ByVal el As XElement) As Item
         Dim itm As Item
-
+        itm.Id = el.Element("id").Value
         With itm
-            .Id = el.Element("id").Value
+
             .name = el.Element("name").Value
             .ilvl = el.Element("ilvl").Value
             .slot = el.Element("slot").Value

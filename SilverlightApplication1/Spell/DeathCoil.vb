@@ -36,7 +36,7 @@ Friend class DeathCoil
 		If DoMySpellHit = false Then
 			sim.combatlog.write(T  & vbtab &  "DC fail")
 			MissCount = MissCount + 1
-			Exit function
+            Return False
 		End If
 		
 		RNG = RngCrit

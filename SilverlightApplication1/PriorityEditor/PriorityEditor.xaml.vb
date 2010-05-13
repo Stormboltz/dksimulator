@@ -166,8 +166,6 @@ Partial Public Class PriorityEditor
         AutoExtend()
     End Sub
     Sub AutoExtend()
-        Dim i As Integer
-        
         grpAvailablePrio.Height = grpAvailablePrio.Children.Count * 50
     End Sub
 

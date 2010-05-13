@@ -30,7 +30,7 @@ Friend Class DeathStrike
 				return false
 			End If
 		Else
-			If DoMyToTHit = False Then Exit Function
+            If DoMyToTHit() = False Then Return False
 		End If
 		
 		If offhand = False Then 

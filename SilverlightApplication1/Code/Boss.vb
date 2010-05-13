@@ -44,6 +44,7 @@ Public Class Boss
             Sim.RuneStrike.trigger = True
         End If
         Sim.proc.ScentOfBlood.TryMe(T)
+        Return True
     End Function
 
     Sub LoadTankOptions()

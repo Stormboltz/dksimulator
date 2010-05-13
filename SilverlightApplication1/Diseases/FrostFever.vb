@@ -28,7 +28,8 @@ NameSpace Diseases
 		
 		Overrides Function Refresh(T As Long) As Boolean
 			sim.proc.IcyTalons.TryMe(T)
-			Mybase.Refresh(T)
+            MyBase.Refresh(T)
+            Return True
 		End Function
 		Public Overloads Overrides Sub Merge()
 			If Me.Equals(sim.Targets.MainTarget.FrostFever) = False Then

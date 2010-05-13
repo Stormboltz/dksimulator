@@ -233,6 +233,7 @@ Friend Class Rotation
                     If retry = 0 Then Return True
                 End If
         End Select
+        Return False
     End Function
     Sub DoIntro(ByVal TimeStamp As Long)
         Dim ret As Boolean

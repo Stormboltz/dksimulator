@@ -15,7 +15,11 @@ Public Class FrostPresence
 	End Sub
 	
 	Function IsAvailable(T As Long) As Boolean
-		if sim.Runes.Frost(T) then return true
+        If sim.Runes.Frost(T) Then
+            Return True
+        Else
+            Return False
+        End If
 	End Function
 	
 	

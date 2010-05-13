@@ -7,8 +7,8 @@ Module GlobalFunction
     Public ReportPath As String
 
     Sub msgBox(ByVal s As String)
-        Dim msg As MessageBox
-        msg.Show(s)
+
+        MessageBox.Show(s)
     End Sub
 
     Function toDecimal(ByVal d As Double) As Decimal

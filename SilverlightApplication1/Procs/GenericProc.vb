@@ -121,13 +121,21 @@ Public Class Proc
 
 
     Overridable Function IsActiveAt(ByVal T As Long) As Boolean
-        If Fade >= T Then Return True
+        If Fade >= T Then
+            Return True
+        Else
+            Return False
+        End If
     End Function
 
 
 
     Overridable Function IsActive() As Boolean
-        If Fade >= sim.TimeStamp Then Return True
+        If Fade >= sim.TimeStamp Then
+            Return True
+        Else
+            Return False
+        End If
     End Function
 
     Sub Use()

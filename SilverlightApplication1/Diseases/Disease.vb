@@ -100,7 +100,8 @@ NameSpace Diseases
 		End Function
 		
 		Function Apply(T As Long) As Boolean
-			Apply(T,sim.Targets.MainTarget)
+            Apply(T, sim.Targets.MainTarget)
+            Return True
 		End Function
 		
 		Overridable Function Apply(T As Long,target as Targets.Target) As Boolean
@@ -115,14 +116,16 @@ NameSpace Diseases
 				cinder = False
 			End If
 			Multiplier = CalculateMultiplier(T,target)
-			Refresh(T)
+            Refresh(T)
+            Return True
 		End Function
 		
 		Overridable Function Refresh(T As Long) As Boolean
 			FadeAt = T + Lenght
 			AP = sim.MainStat.AP
 			DamageTick = AvrgNonCrit(T)
-			AddUptime(T)
+            AddUptime(T)
+            Return True
 		End Function
 		
 		Overridable Function AvrgNonCrit(T As Long) As Double

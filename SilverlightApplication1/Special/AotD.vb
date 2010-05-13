@@ -103,7 +103,7 @@ Public Class AotD
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			MissCount = MissCount + 8
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "AotD fail")
-			exit function
+            Return False
 		End If
 		If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then
 			dégat = AvrgNonCrit(T)*0.7
@@ -155,7 +155,7 @@ Public Class AotD
 		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "AotD Ghoul's Claw fail")
 			MissCount = MissCount + 1
-			Exit function
+            Return False
 		End If
 		RNG = RngCrit
 		If RNG <= CritChance Then
@@ -204,8 +204,9 @@ Public Class AotD
 	Function AP() As Integer
 		AP = (Strength - 331 + BaseAP)
 	End Function
-	function Base_Str as integer
-	end function
+    Function Base_Str() As Integer
+        Return 0
+    End Function
 	Function Strength As Integer
 		Dim tmp As Integer
 		dim str as Integer

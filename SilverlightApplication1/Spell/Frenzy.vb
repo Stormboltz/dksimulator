@@ -20,7 +20,8 @@ Public Class Frenzy
 	
 	Function IsFrenzyAvailable(T As Long) As Boolean
 		if sim.Character.talentunholy.GhoulFrenzy = 0 then return false
-		If CD < T  And sim.runes.Unholy(T) Then Return True
+        If CD < T And sim.Runes.Unholy(T) Then Return True
+        Return False
 	End Function
 	
 	Function IsAutoFrenzyAvailable(T As Long) As Boolean
@@ -38,7 +39,8 @@ Public Class Frenzy
 					if sim.BloodTap.IsAvailable(T) Then Return True
 				End If
 			End If
-		 End If
+        End If
+        Return False
 	End Function
 	
 	Function Frenzy(T As Long) As Boolean

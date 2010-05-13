@@ -15,7 +15,10 @@ Friend Class BloodTap
 	Function IsAvailable(T As Long) As Boolean
 		if sim.Cataclysm then return false
 		If T >= cd Then
-			return true
+            Return True
+
+        Else
+            Return False
 		End If
 	End Function
 	

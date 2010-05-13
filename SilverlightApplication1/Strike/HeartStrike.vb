@@ -22,7 +22,7 @@ Friend Class HeartStrike
 		If DoMyStrikeHit = false Then
 			sim.combatlog.write(T  & vbtab &  "HS fail")
 			MissCount = MissCount + 1
-			Exit function
+            Return False
 		End If
 		Sim.RunicPower.add (10)
 		Dim intCount As Integer = 0

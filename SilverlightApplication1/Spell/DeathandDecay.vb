@@ -23,7 +23,8 @@ Friend Class DeathandDecay
 	
 	Function isAvailable(T As Long) As Boolean
 		if CD > T then return false
-		if sim.runes.BFU(T) then return true
+        If sim.Runes.BFU(T) Then Return True
+        Return False
 	End Function
 	
 	Function Apply(T As Long) As Boolean
@@ -49,7 +50,7 @@ Friend Class DeathandDecay
 			If DoMySpellHit = false Then
 				if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "D&D fail")
 				MissCount = MissCount + 1
-				Exit function
+                Return False
 			End If
 			RNG = RngCrit
 			dim dégat as Integer

@@ -13,10 +13,10 @@ Friend Class PlagueStrike
 			If DoMyStrikeHit = false Then
 				MissCount = MissCount + 1
 				sim.combatlog.write(T  & vbtab &  "PS fail")
-				Exit function
+                Return False
 			End If
 		Else
-			If DoMyToTHit = False Then Exit Function
+            If DoMyToTHit() = False Then Return False
 
 		End If
 		If OffHand = False Then

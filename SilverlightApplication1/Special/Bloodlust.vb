@@ -19,11 +19,20 @@ Public Class Bloodlust
 	
 	Function IsAvailable(T As Long) As Boolean
 		if  sim.Character.Buff.Bloodlust = 0 then return false
-		if CD <= T then return true
+        If Cd <= T Then
+            Return True
+        Else
+            Return False
+        End If
 	End Function
 
 	Function IsActive(T as Long) as Boolean
-		if ActiveUntil > T then return true
+        If ActiveUntil > T Then
+            Return True
+        Else
+            Return False
+        End If
+
 	End Function
 	
 	Sub use(T As Long)

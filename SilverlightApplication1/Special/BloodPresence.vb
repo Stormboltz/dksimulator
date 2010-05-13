@@ -14,7 +14,12 @@ Public Class BloodPresence
 	End Sub
 	
 	Function IsAvailable(T As Long) As Boolean
-		if sim.Runes.AnyBlood(T) then return true
+        If sim.Runes.AnyBlood(T) Then
+            Return True
+        Else
+            Return False
+        End If
+
 	End Function
 	
 	

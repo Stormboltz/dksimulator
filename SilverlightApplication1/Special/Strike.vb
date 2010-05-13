@@ -81,17 +81,22 @@ Public Class Strike
 	
 	
 	
-	Overridable Public Function isAvailable(T As Long) As Boolean
-	End Function
+        Public Overridable Function isAvailable(ByVal T As Long) As Boolean
+            Return False
+        End Function
 	
-	Overridable Public Function ApplyDamage(T As Long) As Boolean
-	End Function
+        Public Overridable Function ApplyDamage(ByVal T As Long) As Boolean
+            Return False
+
+        End Function
 	
 	
-	Overridable Function AvrgNonCrit(T As Long,target As Targets.Target) As Double
-	End Function
-	Overridable Function AvrgCrit(T As Long,target As Targets.Target) As Double
-	End Function	
+        Overridable Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
+            Return 0
+        End Function
+        Overridable Function AvrgCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
+            Return 0
+        End Function
 	
 	
 	Function AvrgNonCrit(T As Long) As Double
@@ -103,11 +108,13 @@ Public Class Strike
 	
 	
 	
-	Overridable Function CritCoef() As Double
-	End Function
+        Overridable Function CritCoef() As Double
+            Return 0
+        End Function
 	
-	Overridable Function CritChance() As Double
-	End Function
+        Overridable Function CritChance() As Double
+            Return 0
+        End Function
 	
 
 	

@@ -13,7 +13,11 @@ Friend Class HowlingBlast
 	End Sub
 	Function isAvailable(T As Long) As Boolean
 		if sim.Character.talentfrost.HowlingBlast <> 1 then return false
-		if cd <= T then return true
+        If CD <= T Then
+            Return True
+        Else
+            Return False
+        End If
 	End Function
 	
 	overrides Function ApplyDamage(T As long) As boolean
@@ -26,7 +30,7 @@ Friend Class HowlingBlast
 			sim.proc.KillingMachine.Use
 			sim.Proc.rime.Use
 			MissCount = MissCount + 1
-			Exit function
+            Return False
 		End If
 		
 		If sim.proc.rime.IsActive Then

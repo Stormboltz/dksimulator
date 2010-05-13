@@ -20,7 +20,12 @@ Sub New(S As sim)
 	Function IsAvailable(T As Long) As Boolean
 		If sim.Character.talentfrost.UnbreakableArmor = 0 Then return false 
 		If CD >= T Then Return False
-		If sim.BloodTap.IsAvailable(T) and sim.Runes.Frost(T)=false Then return true
+        If sim.BloodTap.IsAvailable(T) And sim.Runes.Frost(T) = False Then
+            Return True
+        Else
+            Return False
+        End If
+
 	End Function
 	Function Use(T As Long) As Boolean
 		If sim.Character.talentfrost.UnbreakableArmor = 0 Then Return False
@@ -54,7 +59,11 @@ Sub New(S As sim)
 		return true
 	End Function
 	Function isActive() As Boolean
-		if ActiveUntil >= sim.TimeStamp then return true
+        If ActiveUntil >= sim.TimeStamp Then
+            Return True
+        Else
+            Return False
+        End If
 	End Function
 
 

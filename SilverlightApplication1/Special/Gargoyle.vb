@@ -42,8 +42,10 @@ Friend Class Gargoyle
 			NextGargoyleStrike = T + 1000
 			sim.FutureEventManager.Add(NextGargoyleStrike,"Gargoyle")
 			sim.CombatLog.write(T & vbTab & "Summon Gargoyle")
-			Return True
-		End If
+            Return True
+        Else
+            Return False
+        End If
 	End Function
 	Sub UseGCD(ByVal T As Long)
 		sim.UseGCD(T, True)
@@ -62,7 +64,7 @@ Friend Class Gargoyle
 		If RNG < 0.17 Then
 			If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "Gargoyle Strike fail")
 			MissCount = MissCount + 1
-			Exit Function
+            Return False
 		End If
 
 		RNG = RngCrit

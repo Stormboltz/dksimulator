@@ -40,22 +40,24 @@ Public Class Enchant
         End If
         Id = EnchantId
 
-        Try
-            name = EnchantDB.Element("/enchant/item[id=" & EnchantId & "]/name").Value
-            slot = EnchantDB.Element("/enchant/item[id=" & EnchantId & "]/slot").Value
-            Strength = EnchantDB.Element("/enchant/item[id=" & EnchantId & "]/Strength").Value
-            Agility = EnchantDB.Element("/enchant/item[id=" & EnchantId & "]/Agility").Value
-            HasteRating = EnchantDB.Element("/enchant/item[id=" & EnchantId & "]/HasteRating").Value
-            ExpertiseRating = EnchantDB.Element("/enchant/item[id=" & EnchantId & "]/ExpertiseRating").Value
-            HitRating = EnchantDB.Element("/enchant/item[id=" & EnchantId & "]/HitRating").Value
-            AttackPower = EnchantDB.Element("/enchant/item[id=" & EnchantId & "]/AttackPower").Value
-            CritRating = EnchantDB.Element("/enchant/item[id=" & EnchantId & "]/CritRating").Value
-            ArmorPenetrationRating = EnchantDB.Element("/enchant/item[id=" & EnchantId & "]/ArmorPenetrationRating").Value
-            Desc = EnchantDB.Element("/enchant/item[id=" & EnchantId & "]/Desc").Value
-        Catch ex As System.Exception
-            Diagnostics.Debug.WriteLine("error with enchant " & EnchantId)
-            Detach()
-        End Try
+        Dim el As XElement = (From x In MainFrame.EnchantDB.Element("enchant").Elements
+                              Where x.Element("id").Value = EnchantId
+                              ).First
+
+
+        With Me
+            .Id = el.Element("id").Value
+            .name = el.Element("name").Value
+            .Strength = el.Element("Strength").Value
+            .Agility = el.Element("Agility").Value
+            .HasteRating = el.Element("HasteRating").Value
+            .ExpertiseRating = el.Element("ExpertiseRating").Value
+            .HitRating = el.Element("HitRating").Value
+            .AttackPower = el.Element("AttackPower").Value
+            .CritRating = el.Element("CritRating").Value
+            .ArmorPenetrationRating = el.Element("ArmorPenetrationRating").Value
+            .Desc = el.Element("Desc").Value
+        End With
     End Sub
 
     Sub Detach()

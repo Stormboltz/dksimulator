@@ -43,7 +43,7 @@ Friend Class FrostStrike
 				Return False
 			End If
 		Else
-			If DoMyToTHit = False Then Exit Function
+            If DoMyToTHit() = False Then Return False
 		End If
 		Dim ccT As Double
 		Dim dégat As Integer
@@ -91,7 +91,7 @@ Friend Class FrostStrike
 			tmp = tmp * 0.5
 				tmp = tmp * (1 + sim.Character.talentfrost.NervesofColdSteel * 8.3333 / 100)
 		End If
-		AvrgNonCrit = tmp
+        Return tmp
 	End Function
 	public Overrides Function CritCoef() As Double
 		CritCoef =  1 * (1 + sim.Character.talentfrost.GuileOfGorefiend * 15 / 100)
