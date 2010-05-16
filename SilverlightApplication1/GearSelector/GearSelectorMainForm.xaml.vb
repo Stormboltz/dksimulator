@@ -9,7 +9,7 @@ Partial Public Class GearSelectorMainForm
     Inherits ChildWindow
 
     Dim WithEvents UI As New UserInput
-    Friend EquipmentList As New Collection
+    Friend EquipmentList As New Collections.Generic.List(Of EquipSlot)
     Friend InLoad As Boolean
     Friend EnchantSelector As New EnchantSelector(Me)
     Friend GemSelector As New GemSelector(Me)
@@ -79,7 +79,7 @@ Partial Public Class GearSelectorMainForm
         '
         ParentFrame = PFrame
         EPvalues = New EPValues
-        'InitDisplay()
+        InitDisplay()
     End Sub
 
     Sub CmdExtratorClick(ByVal sender As Object, ByVal e As EventArgs)
@@ -126,7 +126,7 @@ Partial Public Class GearSelectorMainForm
 
 
 
-        Select Case cmbRace.SelectedItem.ToString
+        Select Case cmbRace.SelectedValue
             Case "Blood Elf"
                 Strength = 172
                 Agility = 114
@@ -212,18 +212,18 @@ Partial Public Class GearSelectorMainForm
                                    Select GearSelector.getItem(el)).First.subclass
             'Dim subc As Integer = ItemDB.Element("items").Element("item[id=" & iSlot.Item.Id & "]").Element("subclass").Value
 
-            If iSlot.Content.ToString = "TwoHand" Or iSlot.Content.ToString = "MainHand" Then
+            If iSlot.text.ToString = "TwoHand" Or iSlot.text.ToString = "MainHand" Then
                 DPS1 = iSlot.Item.DPS
                 Speed1 = iSlot.Item.Speed
                 Try
                     cmbWeaponProc1.Text = "MH" & (
                         From el In WeapProcDB.Element("WeaponProcList").Elements("proc")
-                        Where (el.Element("id").Value = iSlot.Item.Id)
+                        Where (el.Attribute("id").Value = iSlot.Item.Id)
                         Select el).First.Attribute("name").Value
                 Catch
                     cmbWeaponProc1.Text = ""
                 End Try
-                Select Case cmbRace.SelectedItem.ToString
+                Select Case cmbRace.SelectedValue
                     Case "Dwarf"
                         If subc = 4 Or subc = 5 Then
                             txtMHExpBonus.Text = 5
@@ -242,20 +242,20 @@ Partial Public Class GearSelectorMainForm
 
             End If
 
-            If iSlot.Content.ToString = "OffHand" Then
+            If iSlot.text.ToString = "OffHand" Then
                 DPS2 = iSlot.Item.DPS
                 Speed2 = iSlot.Item.Speed
 
                 Try
                     cmbWeaponProc2.Text = "OH" & (
                         From el In WeapProcDB.Element("WeaponProcList").Elements("proc")
-                        Where (el.Element("id").Value = iSlot.Item.Id)
+                        Where (el.Attribute("id").Value = iSlot.Item.Id)
                         Select el).First.Attribute("name").Value
                 Catch
                     cmbWeaponProc1.Text = ""
                 End Try
 
-                Select Case cmbRace.SelectedItem.ToString
+                Select Case cmbRace.SelectedValue
                     Case "Dwarf"
                         If subc = 4 Or subc = 5 Then
                             txtOHExpBonus.Text = 5
@@ -274,7 +274,7 @@ Partial Public Class GearSelectorMainForm
                 cSetBonus.Add(iSlot.Item.setid)
             End If
 
-            If iSlot.Content.ToString = "Trinket1" Then
+            If iSlot.text.ToString = "Trinket1" Then
                 Try
                     cmbTrinket1.Text = (
                         From el In trinketDB.Element("TrinketList").Elements("trinket")
@@ -284,7 +284,7 @@ Partial Public Class GearSelectorMainForm
                     cmbTrinket1.Text = ""
                 End Try
             End If
-            If iSlot.Content.ToString = "Trinket2" Then
+            If iSlot.text.ToString = "Trinket2" Then
                 Try
                     cmbTrinket2.Text = (From el In trinketDB.Element("TrinketList").Elements("trinket")
                         Where (el.Attribute("id").Value = iSlot.Item.Id)
@@ -342,15 +342,19 @@ Partial Public Class GearSelectorMainForm
 
                 If iSlot.Item.IsGembonusActif And iSlot.Item.gembonus <> 0 Then
                     Try
-                        Strength += GemBonusDB.Element("/bonus/item[id=" & iSlot.Item.gembonus & "]/Strength").Value
-                        Agility += GemBonusDB.Element("/bonus/item[id=" & iSlot.Item.gembonus & "]/Agility").Value
-                        HasteRating += GemBonusDB.Element("/bonus/item[id=" & iSlot.Item.gembonus & "]/HasteRating").Value
-                        ExpertiseRating += GemBonusDB.Element("/bonus/item[id=" & iSlot.Item.gembonus & "]/ExpertiseRating").Value
-                        HitRating += GemBonusDB.Element("/bonus/item[id=" & iSlot.Item.gembonus & "]/HitRating").Value
-                        AttackPower += GemBonusDB.Element("/bonus/item[id=" & iSlot.Item.gembonus & "]/AttackPower").Value
-                        CritRating += GemBonusDB.Element("/bonus/item[id=" & iSlot.Item.gembonus & "]/CritRating").Value
-                        ArmorPenetrationRating += GemBonusDB.Element("/bonus/item[id=" & iSlot.Item.gembonus & "]/ArmorPenetrationRating").Value
+                        Dim el As XElement = (From ele In GemBonusDB.Element("bonus").Elements
+                                              Where ele.Element("id").Value = iSlot.Item.gembonus
+                                              Select ele).FirstOrDefault
+                        Strength += el.Element("Strength").Value
+                        Agility += el.Element("Agility").Value
+                        HasteRating += el.Element("HasteRating").Value
+                        ExpertiseRating += el.Element("ExpertiseRating").Value
+                        HitRating += el.Element("HitRating").Value
+                        AttackPower += el.Element("AttackPower").Value
+                        CritRating += el.Element("CritRating").Value
+                        ArmorPenetrationRating += el.Element("ArmorPenetrationRating").Value
                     Catch
+
                     End Try
                 End If
 
@@ -500,17 +504,7 @@ NextItem:
     Sub SaveMycharacter()
         Dim xmlChar As XDocument = XDocument.Parse("<character/>")
 
-        'Sample
-        'xmlChar.Element("character").Add( _
-        '    New XElement("person", _
-        '        New XElement("firstName", p2.FirstName), _
-        '        New XElement("lastName", p2.LastName), _
-        '        New XElement("address", _
-        '            New XAttribute("city", p2.Address.City), _
-        '            New XAttribute("country", p2.Address.Country) _
-        '            ) _ 
-        '        )_
-        '    )
+
 
         xmlChar.Element("character").Add(New XElement("race", cmbRace.SelectedItem))
         xmlChar.Element("character").Add(New XElement("skill1", cmbSkill1.SelectedItem))
@@ -523,30 +517,16 @@ NextItem:
 
         Dim iSlot As EquipSlot
         For Each iSlot In Me.EquipmentList
-            xmlChar.Element("character").Add(New XElement(iSlot.Content.ToString))
-            'TODO Add id + gems + enchant
-            '<Head>
-            '  <id>51312</id>
-            '  <gem1>41398</gem1>
-            '  <gem2>42142</gem2>
-            '  <gem3>0</gem3>
-            '  <enchant>1</enchant>
-            '</Head>
+            xmlChar.Element("character").Add(New XElement(iSlot.text.ToString))
+            xmlChar.Element("character").Element(iSlot.text.ToString).Add(New XElement("id", iSlot.Item.Id))
+            xmlChar.Element("character").Element(iSlot.text.ToString).Add(New XElement("gem1", iSlot.Item.gem1.Id))
+            xmlChar.Element("character").Element(iSlot.text.ToString).Add(New XElement("gem2", iSlot.Item.gem2.Id))
+            xmlChar.Element("character").Element(iSlot.text.ToString).Add(New XElement("gem3", iSlot.Item.gem3.Id))
+            xmlChar.Element("character").Element(iSlot.text.ToString).Add(New XElement("enchant", iSlot.Item.Enchant.Id))
         Next
 
 
-        '<stat>
-        '  <Strength>2577</Strength>
-        '  <Agility>158</Agility>
-        '  <Intel>35</Intel>
-        '  <Armor>16349</Armor>
-        '  <AttackPower>727</AttackPower>
-        '  <HitRating>223</HitRating>
-        '  <CritRating>1219</CritRating>
-        '  <HasteRating>83</HasteRating>
-        '  <ArmorPenetrationRating>848</ArmorPenetrationRating>
-        '  <ExpertiseRating>158</ExpertiseRating>
-        '</stat>
+       
         xmlChar.Element("character").Add(New XElement("stat", ""))
         xmlChar.Element("character").Element("stat").Add(New XElement("Strength", CheckForInt(txtStr.Text)))
         xmlChar.Element("character").Element("stat").Add(New XElement("Agility", CheckForInt(txtAgi.Text)))
@@ -558,23 +538,8 @@ NextItem:
         xmlChar.Element("character").Element("stat").Add(New XElement("HasteRating", CheckForInt(txtHaste.Text)))
         xmlChar.Element("character").Element("stat").Add(New XElement("ArmorPenetrationRating", CheckForInt(txtArP.Text)))
         xmlChar.Element("character").Element("stat").Add(New XElement("ExpertiseRating", CheckForInt(txtStr.Text)))
-        xmlChar.Element("character").Element("stat").Add(New XElement("Strength", CheckForInt(txtExp.Text)))
-        xmlChar.Element("character").Element("stat").Add(New XElement("Strength", CheckForInt(txtStr.Text)))
-        xmlChar.Element("character").Element("stat").Add(New XElement("Strength", CheckForInt(txtStr.Text)))
-        xmlChar.Element("character").Element("stat").Add(New XElement("Strength", CheckForInt(txtStr.Text)))
-        xmlChar.Element("character").Element("stat").Add(New XElement("Strength", CheckForInt(txtStr.Text)))
 
-        '<weapon>
-        '   <count>1</count>
-        '   <mainhand>
-        '     <dps>344.1</dps>
-        '     <speed>3.70</speed>
-        '   </mainhand>
-        '   <offhand>
-        '     <dps>0</dps>
-        '     <speed>0</speed>
-        '   </offhand>
-        ' </weapon>
+      
         xmlChar.Element("character").Add(New XElement("weapon", ""))
         Dim i As Integer
         If r2Hand.IsChecked = True Then
@@ -597,10 +562,7 @@ NextItem:
 
 
 
-        '<Set>
-        '    <T104PDPS>1</T104PDPS>
-        '    <T102PDPS>1</T102PDPS>
-        '</Set>
+        
         xmlChar.Element("character").Add(New XElement("Set", ""))
         If cmbSetBonus1.Text <> "" Then
             xmlChar.Element("character").Element("Set").Add(New XElement(cmbSetBonus1.Text, 1))
@@ -610,12 +572,6 @@ NextItem:
         End If
 
 
-
-
-        '<trinket>
-        '  <DeathbringersWill>1</DeathbringersWill>
-        '  <DeathChoiceHeroic>1</DeathChoiceHeroic>
-        '</trinket>
 
 
 
@@ -629,9 +585,6 @@ NextItem:
             xmlChar.Element("character").Element("trinket").Add(New XElement(cmbTrinket2.Text, 1))
         End If
 
-        '<WeaponProc>
-        '  <MHShadowmourne>1</MHShadowmourne>
-        '</WeaponProc>
         xmlChar.Element("character").Add(New XElement("WeaponProc", ""))
         If cmbWeaponProc1.Text <> "" Then
             xmlChar.Element("character").Element("WeaponProc").Add(New XElement(cmbWeaponProc1.Text, 1))
@@ -641,14 +594,7 @@ NextItem:
         End If
 
 
-        '<misc>
-        '  <HandMountedPyroRocket>False</HandMountedPyroRocket>
-        '  <HyperspeedAccelerators>False</HyperspeedAccelerators>
-        '  <ChaoticSkyflareDiamond>True</ChaoticSkyflareDiamond>
-        '  <TailorEnchant>False</TailorEnchant>
-        '  <AshenBand>True</AshenBand>
-        '</misc>
-
+     
         xmlChar.Element("character").Add(New XElement("misc", ""))
         xmlChar.Element("character").Element("misc").Add(New XElement("HandMountedPyroRocket", chkIngenieer.IsChecked))
         xmlChar.Element("character").Element("misc").Add(New XElement("HyperspeedAccelerators", chkAccelerators.IsChecked))
@@ -665,14 +611,6 @@ NextItem:
 
 
 
-        'Racials
-        '<racials>
-        '  <MHExpertiseBonus>0</MHExpertiseBonus>
-        '  <OHExpertiseBonus>0</OHExpertiseBonus>
-        '  <Orc>False</Orc>
-        '  <Troll>False</Troll>
-        '  <BloodElf>False</BloodElf>
-        '</racials>
         xmlChar.Element("character").Add(New XElement("racials", ""))
         xmlChar.Element("character").Element("racials").Add(New XElement("MHExpertiseBonus", CheckForInt(txtMHExpBonus.Text)))
         xmlChar.Element("character").Element("racials").Add(New XElement("OHExpertiseBonus", CheckForInt(txtOHExpBonus.Text)))
@@ -870,7 +808,7 @@ NextItem:
     End Function
 
     Sub LoadMycharacter()
-        InitDisplay()
+
         InLoad = True
 
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
@@ -947,22 +885,26 @@ NextItem:
                         iSlot.DisplayItem()
                         Try
                             iSlot.Item.gem1.Attach(xmlChar.Element("character").Element(iSlot.text).Element("gem1").Value)
-                        Catch
+                        Catch er As Exception
+                            Diagnostics.Debug.WriteLine(er.ToString)
                         End Try
                         Try
                             iSlot.Item.gem2.Attach(xmlChar.Element("character").Element(iSlot.text).Element("gem2").Value)
-                        Catch
+                        Catch er As Exception
+                            Diagnostics.Debug.WriteLine(er.ToString)
                         End Try
                         Try
                             iSlot.Item.gem3.Attach(xmlChar.Element("character").Element(iSlot.text).Element("gem3").Value)
-                        Catch
+                        Catch er As Exception
+                            Diagnostics.Debug.WriteLine(er.ToString)
                         End Try
                         iSlot.DisplayGem()
 
                         Try
                             iSlot.Item.Enchant.Attach(xmlChar.Element("character").Element(iSlot.text).Element("enchant").Value)
                             iSlot.DisplayEnchant()
-                        Catch
+                        Catch er As Exception
+                            Diagnostics.Debug.WriteLine(er.ToString)
                         End Try
 
 
@@ -1119,6 +1061,7 @@ NextItem:
         cmbSkill2.Items.Add("Tailoring")
         cmbSkill2.SelectedIndex = 0
 
+        EquipmentList.Clear()
 
         With HeadSlot
             .text = "Head"
@@ -1350,7 +1293,7 @@ NextItem:
     Sub CmbFlaskSelectionChange(ByVal sender As Object, ByVal e As EventArgs) Handles cmbFlask.SelectionChanged
         If IsNothing(sender.SelectedItem) Then Exit Sub
         Try
-            Flask.Attach(cmbFlask.SelectedItem.ToString)
+            Flask.Attach(cmbFlask.SelectedValue)
         Catch ex As Exception
 
         End Try
@@ -1360,7 +1303,7 @@ NextItem:
     Sub cmbFoodSelectionChange(ByVal sender As Object, ByVal e As EventArgs) Handles cmbFood.SelectionChanged
         If IsNothing(sender.SelectedItem) Then Exit Sub
         Try
-            Food.Attach(cmbFood.SelectedItem.ToString)
+            Food.Attach(cmbFood.SelectedValue)
             GetStats()
         Catch ex As Exception
 
@@ -1398,5 +1341,22 @@ NextItem:
         Me.MHWeapSlot.Opacity = 1
         Me.OHWeapSlot.Opacity = 1
         GetStats()
+    End Sub
+
+    Private Sub cmdViewXml_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdViewXml.Click
+        Dim oldPath As String = FilePath
+
+
+        Dim tmpPath As String
+        tmpPath = "tempo.xml"
+        FilePath = tmpPath
+        SaveMycharacter()
+        Dim txtEditor As New TextEditor
+        txtEditor.OpenFileFromISO("KahoDKSim/CharactersWithGear/" & tmpPath)
+        txtEditor.Show()
+        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+            isoStore.DeleteFile("KahoDKSim/CharactersWithGear/" & tmpPath)
+        End Using
+        FilePath = oldPath
     End Sub
 End Class

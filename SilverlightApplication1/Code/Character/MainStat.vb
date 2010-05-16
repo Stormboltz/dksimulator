@@ -73,7 +73,7 @@ Friend Class MainStat
 
 
         Try
-            MHWeaponDPS = (XmlCharacter.Element("//character/weapon/mainhand/dps").Value).Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
+            MHWeaponDPS = (XmlCharacter.Element("character").Element("weapon").Element("mainhand").Element("dps").Value).Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
             If Sim.EPStat = "EP WeaponDPS" Then
                 MHWeaponDPS = MHWeaponDPS + 10
             End If
@@ -83,7 +83,7 @@ Friend Class MainStat
             End If
 
 
-            MHWeaponSpeed = (XmlCharacter.Element("//character/weapon/mainhand/speed").Value).Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
+            MHWeaponSpeed = (XmlCharacter.Element("character").Element("weapon").Element("mainhand").Element("speed").Value).Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
             If Sim.EPStat = "EP WeaponSpeed" Then
                 MHWeaponSpeed = MHWeaponSpeed + 0.1
             End If
@@ -92,14 +92,14 @@ Friend Class MainStat
         End Try
 
         Try
-            OHWeaponDPS = (XmlCharacter.Element("//character/weapon/offhand/dps").Value).Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
-            OHWeaponSpeed = (XmlCharacter.Element("//character/weapon/offhand/speed").Value).Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
+            OHWeaponDPS = (XmlCharacter.Element("character").Element("weapon").Element("offhand").Element("dps").Value).Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
+            OHWeaponSpeed = (XmlCharacter.Element("character").Element("weapon").Element("offhand").Element("speed").Value).Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
         Catch
             Diagnostics.Debug.WriteLine("Error reading OH Weapon characteristics")
         End Try
         BossArmor = 10643
 
-        If XmlCharacter.Element("//character/misc/ChaoticSkyflareDiamond").Value = True Then
+        If XmlCharacter.Element("character").Element("misc").Element("ChaoticSkyflareDiamond").Value = True Then
             CSD = 1
         Else
             CSD = 0
@@ -169,105 +169,105 @@ Friend Class MainStat
 
                 Case Else
                     Try
-                        If XmlCharacter.Element("//character/trinket/MjolnirRunestone").Value = 1 Then Sim.Trinkets.MjolRune.Equip()
+                        If XmlCharacter.Element("character").Element("trinket").Element("MjolnirRunestone").Value = 1 Then Sim.Trinkets.MjolRune.Equip()
                     Catch
                     End Try
                     Try
-                        If XmlCharacter.Element("//character/trinket/GrimToll").Value = 1 Then Sim.Trinkets.GrimToll.Equip()
+                        If XmlCharacter.Element("character").Element("trinket").Element("GrimToll").Value = 1 Then Sim.Trinkets.GrimToll.Equip()
                     Catch
                     End Try
                     Try
-                        If XmlCharacter.Element("//character/trinket/BitterAnguish").Value = 1 Then Sim.Trinkets.BitterAnguish.Equip()
+                        If XmlCharacter.Element("character").Element("trinket").Element("BitterAnguish").Value = 1 Then Sim.Trinkets.BitterAnguish.Equip()
                     Catch
                     End Try
                     Try
-                        If XmlCharacter.Element("//character/trinket/Mirror").Value = 1 Then Sim.Trinkets.Mirror.Equip()
+                        If XmlCharacter.Element("character").Element("trinket").Element("Mirror").Value = 1 Then Sim.Trinkets.Mirror.Equip()
                     Catch
                     End Try
                     Try
-                        If XmlCharacter.Element("//character/trinket/Greatness").Value = 1 Then Sim.Trinkets.Greatness.Equip()
+                        If XmlCharacter.Element("character").Element("trinket").Element("Greatness").Value = 1 Then Sim.Trinkets.Greatness.Equip()
                     Catch
                     End Try
                     Try
-                        If XmlCharacter.Element("//character/trinket/DCDeath").Value = 1 Then Sim.Trinkets.DCDeath.Equip()
+                        If XmlCharacter.Element("character").Element("trinket").Element("DCDeath").Value = 1 Then Sim.Trinkets.DCDeath.Equip()
                     Catch
                     End Try
                     Try
-                        If XmlCharacter.Element("//character/trinket/Victory").Value = 1 Then Sim.Trinkets.Victory.Equip()
+                        If XmlCharacter.Element("character").Element("trinket").Element("Victory").Value = 1 Then Sim.Trinkets.Victory.Equip()
                     Catch
                     End Try
                     Try
-                        If XmlCharacter.Element("//character/trinket/Necromantic").Value = 1 Then Sim.Trinkets.Necromantic.Equip()
+                        If XmlCharacter.Element("character").Element("trinket").Element("Necromantic").Value = 1 Then Sim.Trinkets.Necromantic.Equip()
                     Catch
                     End Try
                     Try
-                        If XmlCharacter.Element("//character/trinket/Bandit").Value = 1 Then Sim.Trinkets.Bandit.Equip()
+                        If XmlCharacter.Element("character").Element("trinket").Element("Bandit").Value = 1 Then Sim.Trinkets.Bandit.Equip()
                     Catch
                     End Try
                     Try
-                        If XmlCharacter.Element("//character/trinket/Pyrite").Value = 1 Then Sim.Trinkets.Pyrite.Equip()
+                        If XmlCharacter.Element("character").Element("trinket").Element("Pyrite").Value = 1 Then Sim.Trinkets.Pyrite.Equip()
                     Catch
                     End Try
                     Try
-                        If XmlCharacter.Element("//character/trinket/DarkMatter").Value = 1 Then Sim.Trinkets.DarkMatter.Equip()
+                        If XmlCharacter.Element("character").Element("trinket").Element("DarkMatter").Value = 1 Then Sim.Trinkets.DarkMatter.Equip()
                     Catch
                     End Try
                     Try
-                        If XmlCharacter.Element("//character/trinket/OldGod").Value = 1 Then Sim.Trinkets.OldGod.Equip()
+                        If XmlCharacter.Element("character").Element("trinket").Element("OldGod").Value = 1 Then Sim.Trinkets.OldGod.Equip()
                     Catch
                     End Try
                     Try
-                        If XmlCharacter.Element("//character/trinket/Comet").Value = 1 Then Sim.Trinkets.Comet.Equip()
+                        If XmlCharacter.Element("character").Element("trinket").Element("Comet").Value = 1 Then Sim.Trinkets.Comet.Equip()
                     Catch
                     End Try
                     Try
-                        If XmlCharacter.Element("//character/trinket/DeathChoice").Value = 1 Then Sim.Trinkets.DeathChoice.Equip()
+                        If XmlCharacter.Element("character").Element("trinket").Element("DeathChoice").Value = 1 Then Sim.Trinkets.DeathChoice.Equip()
                     Catch
                     End Try
                     Try
-                        If XmlCharacter.Element("//character/trinket/DeathChoiceHeroic").Value = 1 Then Sim.Trinkets.DeathChoiceHeroic.Equip()
+                        If XmlCharacter.Element("character").Element("trinket").Element("DeathChoiceHeroic").Value = 1 Then Sim.Trinkets.DeathChoiceHeroic.Equip()
                     Catch
                     End Try
                     Try
-                        If XmlCharacter.Element("//character/trinket/DeathbringersWill").Value = 1 Then Sim.Trinkets.DeathbringersWill.Equip()
+                        If XmlCharacter.Element("character").Element("trinket").Element("DeathbringersWill").Value = 1 Then Sim.Trinkets.DeathbringersWill.Equip()
                     Catch
                     End Try
                     Try
-                        If XmlCharacter.Element("//character/trinket/DeathbringersWillHeroic").Value = 1 Then Sim.Trinkets.DeathbringersWillHeroic.Equip()
+                        If XmlCharacter.Element("character").Element("trinket").Element("DeathbringersWillHeroic").Value = 1 Then Sim.Trinkets.DeathbringersWillHeroic.Equip()
                     Catch
                     End Try
                     Try
-                        If XmlCharacter.Element("//character/trinket/WhisperingFangedSkull").Value = 1 Then Sim.Trinkets.WhisperingFangedSkull.Equip()
+                        If XmlCharacter.Element("character").Element("trinket").Element("WhisperingFangedSkull").Value = 1 Then Sim.Trinkets.WhisperingFangedSkull.Equip()
                     Catch
                     End Try
                     Try
-                        If XmlCharacter.Element("//character/trinket/WhisperingFangedSkullHeroic").Value = 1 Then Sim.Trinkets.WhisperingFangedSkullHeroic.Equip()
+                        If XmlCharacter.Element("character").Element("trinket").Element("WhisperingFangedSkullHeroic").Value = 1 Then Sim.Trinkets.WhisperingFangedSkullHeroic.Equip()
                     Catch
                     End Try
                     Try
-                        If XmlCharacter.Element("//character/trinket/NeedleEncrustedScorpion").Value = 1 Then Sim.Trinkets.NeedleEncrustedScorpion.Equip()
+                        If XmlCharacter.Element("character").Element("trinket").Element("NeedleEncrustedScorpion").Value = 1 Then Sim.Trinkets.NeedleEncrustedScorpion.Equip()
                     Catch
                     End Try
                     Try
-                        If XmlCharacter.Element("//character/trinket/TinyAbomination").Value = 1 Then Sim.Trinkets.TinyAbomination.Equip()
+                        If XmlCharacter.Element("character").Element("trinket").Element("TinyAbomination").Value = 1 Then Sim.Trinkets.TinyAbomination.Equip()
                     Catch
                     End Try
                     Try
-                        If XmlCharacter.Element("//character/trinket/HerkumlWarToken").Value = 1 Then Sim.Trinkets.HerkumlWarToken.Equip()
+                        If XmlCharacter.Element("character").Element("trinket").Element("HerkumlWarToken").Value = 1 Then Sim.Trinkets.HerkumlWarToken.Equip()
                     Catch
                     End Try
                     Try
-                        If XmlCharacter.Element("//character/trinket/MarkofSupremacy").Value = 1 Then Sim.Trinkets.MarkofSupremacy.Equip()
-                    Catch
-                    End Try
-
-                    Try
-                        If XmlCharacter.Element("//character/trinket/VengeanceoftheForsaken").Value = 1 Then Sim.Trinkets.VengeanceoftheForsaken.Equip()
+                        If XmlCharacter.Element("character").Element("trinket").Element("MarkofSupremacy").Value = 1 Then Sim.Trinkets.MarkofSupremacy.Equip()
                     Catch
                     End Try
 
                     Try
-                        If XmlCharacter.Element("//character/trinket/VengeanceoftheForsakenHeroic").Value = 1 Then Sim.Trinkets.VengeanceoftheForsakenHeroic.Equip()
+                        If XmlCharacter.Element("character").Element("trinket").Element("VengeanceoftheForsaken").Value = 1 Then Sim.Trinkets.VengeanceoftheForsaken.Equip()
+                    Catch
+                    End Try
+
+                    Try
+                        If XmlCharacter.Element("character").Element("trinket").Element("VengeanceoftheForsakenHeroic").Value = 1 Then Sim.Trinkets.VengeanceoftheForsakenHeroic.Equip()
                     Catch
                     End Try
 
@@ -309,62 +309,62 @@ Friend Class MainStat
                 T104PDPS = 1
             Case Else
                 Try
-                    T72PDPS = XmlCharacter.Element("//character/Set/T72PDPS").Value
+                    T72PDPS = XmlCharacter.Element("character").Element("Set").Element("T72PDPS").Value
                 Catch
                 End Try
                 Try
-                    T74PDPS = XmlCharacter.Element("//character/Set/T74PDPS").Value
+                    T74PDPS = XmlCharacter.Element("character").Element("Set").Element("T74PDPS").Value
                 Catch
                 End Try
                 Try
-                    T82PDPS = XmlCharacter.Element("//character/Set/T82PDPS").Value
+                    T82PDPS = XmlCharacter.Element("character").Element("Set").Element("T82PDPS").Value
                 Catch
                 End Try
                 Try
-                    T84PDPS = XmlCharacter.Element("//character/Set/T84PDPS").Value
-                Catch
-                End Try
-                Try
-
-                    T92PDPS = XmlCharacter.Element("//character/Set/T92PDPS").Value
-                Catch
-                End Try
-                Try
-                    T94PDPS = XmlCharacter.Element("//character/Set/T94PDPS").Value
+                    T84PDPS = XmlCharacter.Element("character").Element("Set").Element("T84PDPS").Value
                 Catch
                 End Try
                 Try
 
-                    T72PTNK = XmlCharacter.Element("//character/Set/T72PTNK").Value
+                    T92PDPS = XmlCharacter.Element("character").Element("Set").Element("T92PDPS").Value
                 Catch
                 End Try
                 Try
-                    T74PTNK = XmlCharacter.Element("//character/Set/T74PTNK").Value
-                Catch
-                End Try
-                Try
-                    T82PTNK = XmlCharacter.Element("//character/Set/T82PTNK").Value
-                Catch
-                End Try
-                Try
-                    T84PTNK = XmlCharacter.Element("//character/Set/T84PTNK").Value
-                Catch
-                End Try
-                Try
-                    T102PDPS = XmlCharacter.Element("//character/Set/T102PDPS").Value
-                Catch
-                End Try
-                Try
-                    T104PDPS = XmlCharacter.Element("//character/Set/T104PDPS").Value
+                    T94PDPS = XmlCharacter.Element("character").Element("Set").Element("T94PDPS").Value
                 Catch
                 End Try
                 Try
 
-                    T92PTNK = XmlCharacter.Element("//character/Set/T92PTNK").Value
+                    T72PTNK = XmlCharacter.Element("character").Element("Set").Element("T72PTNK").Value
                 Catch
                 End Try
                 Try
-                    T102PTNK = XmlCharacter.Element("//character/Set/T102PTNK").Value
+                    T74PTNK = XmlCharacter.Element("character").Element("Set").Element("T74PTNK").Value
+                Catch
+                End Try
+                Try
+                    T82PTNK = XmlCharacter.Element("character").Element("Set").Element("T82PTNK").Value
+                Catch
+                End Try
+                Try
+                    T84PTNK = XmlCharacter.Element("character").Element("Set").Element("T84PTNK").Value
+                Catch
+                End Try
+                Try
+                    T102PDPS = XmlCharacter.Element("character").Element("Set").Element("T102PDPS").Value
+                Catch
+                End Try
+                Try
+                    T104PDPS = XmlCharacter.Element("character").Element("Set").Element("T104PDPS").Value
+                Catch
+                End Try
+                Try
+
+                    T92PTNK = XmlCharacter.Element("character").Element("Set").Element("T92PTNK").Value
+                Catch
+                End Try
+                Try
+                    T102PTNK = XmlCharacter.Element("character").Element("Set").Element("T102PTNK").Value
                 Catch
                 End Try
 

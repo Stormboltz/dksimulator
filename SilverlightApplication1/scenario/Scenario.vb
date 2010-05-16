@@ -1,4 +1,6 @@
 ﻿Imports System.Xml.Linq
+Imports System.IO.IsolatedStorage
+Imports System.IO
 
 '
 ' Crée par SharpDevelop.
@@ -22,22 +24,29 @@ Namespace Scenarios
             On Error Resume Next
             Elements.Clear()
             Dim xmlScenario As New XDocument
-            xmlScenario.Load(sim.ScenarioPath)
+            Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+                Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/" & sim.ScenarioPath, FileMode.Open, isoStore)
+                    xmlScenario = XDocument.Load(isoStream)
+                End Using
+            End Using
+
+
             Dim e As Element
             Dim xNode As XElement
             Dim id As Integer
-            For Each xNode In xmlScenario.Element("/Scenario/Element").Elements
+            For Each xNode In xmlScenario.Element("Scenario").Elements
                 id = xNode.Attribute("id").Value
                 e = New Element(Me)
-                e.CanTakeDiseaseDamage = xNode.Element("/Scenario/Element[@id=" & id & "]/CanTakeDiseaseDamage").Value
-                e.CanTakePetDamage = xNode.Element("/Scenario/Element[@id=" & id & "]/CanTakePetDamage").Value
-                e.CanTakePlayerStrike = xNode.Element("/Scenario/Element[@id=" & id & "]/CanTakePlayerStrike").Value
-                e.AddPop = xNode.Element("/Scenario/Element[@id=" & id & "]/AddPop").Value
-                e.DamageBonus = xNode.Element("/Scenario/Element[@id=" & id & "]/DamageBonus").Value
-                e.Start = sim.TimeStamp + (xNode.Element("/Scenario/Element[@id=" & id & "]/Start").Value * xNode.Element("/Scenario/Element[@id=" & id & "]/Start").Attribute("multi").Value)
-                e.length = xNode.Element("/Scenario/Element[@id=" & id & "]/length").Value * xNode.Element("/Scenario/Element[@id=" & id & "]/length").Attribute("multi").Value
-                e.SpreadDisease = xNode.Element("/Scenario/Element[@id=" & id & "]/SpreadDisease").Value
-                e.FightStop = sim.TimeStamp + xNode.Element("/Scenario/Element[@id=" & id & "]/FightStop").Value * xNode.Element("/Scenario/Element[@id=" & id & "]/FightStop").Attribute("multi").Value
+                e.CanTakeDiseaseDamage = xNode.Element("CanTakeDiseaseDamage").Value
+                e.CanTakePetDamage = xNode.Element("CanTakePetDamage").Value
+                e.CanTakePlayerStrike = xNode.Element("CanTakePlayerStrike").Value
+                e.AddPop = xNode.Element("AddPop").Value
+                e.DamageBonus = xNode.Element("DamageBonus").Value
+                e.Start = sim.TimeStamp + (xNode.Element("Start").Value * xNode.Element("Start").Attribute("multi").Value)
+                e.length = xNode.Element("length").Value * xNode.Element("length").Attribute("multi").Value
+                e.SpreadDisease = xNode.Element("SpreadDisease").Value
+                e.FightStop = sim.TimeStamp + xNode.Element("FightStop").Value * xNode.Element("FightStop").Attribute("multi").Value
+
                 If e.CanTakeDiseaseDamage = False Or e.CanTakePetDamage = False Or e.CanTakePlayerStrike = False Then
                     sim.FutureEventManager.Add(e.Start, "Scenario")
                 End If

@@ -31,46 +31,44 @@ Public Class Supertype
 	Friend RngCrit As Double
 	Friend  Rng3 As Double
 	Friend  Rng4 As Double
-	
-	Overridable Function report As String
-		Dim tmp As String
-		If HitCount+CritCount = 0 Then Return ""
-		
-		tmp = ShortenName(me.Name)  & VBtab
 
-		tmp = tmp & total & VBtab
-		tmp = tmp & toDecimal(100*total/sim.TotalDamage) & VBtab
-		tmp = tmp & toDecimal(HitCount+CritCount+GlancingCount) & VBtab
-		tmp = tmp & toDecimal(total/(HitCount+CritCount)) & VBtab
-		
-		tmp = tmp & toDecimal(HitCount) & VBtab
-		tmp = tmp & toDecimal(100*HitCount/(HitCount+MissCount+CritCount+GlancingCount)) & VBtab
-		tmp = tmp & toDecimal(totalhit/(HitCount)) & VBtab
-		
-		tmp = tmp & toDecimal(CritCount) & VBtab
-		tmp = tmp & toDecimal(100*CritCount/(HitCount+MissCount+CritCount+GlancingCount)) & VBtab
-		tmp = tmp & toDecimal(totalcrit/(CritCount)) & VBtab
-				
-		tmp = tmp & toDecimal(MissCount) & VBtab
-		tmp = tmp & toDecimal(100*MissCount/(HitCount+MissCount+CritCount+GlancingCount)) & VBtab
-		
-		tmp = tmp & toDecimal(GlancingCount) & VBtab
-		tmp = tmp & toDecimal(100*GlancingCount/(HitCount+MissCount+CritCount+GlancingCount)) & VBtab
-		tmp = tmp & toDecimal(TotalGlance/(GlancingCount)) & VBtab
+    Overridable Function Report() As ReportLine
+        If HitCount + CritCount = 0 Then Return Nothing
+        Dim R As New ReportLine
+        R.Ability = ShortenName(Me.Name)
 
-		If sim.FrostPresence Then
-			tmp = tmp & toDecimal((100 * total * ThreadMultiplicator * 2.0735 ) / sim.TimeStamp) & VBtab
-		End If
-		
-		tmp = tmp & ""& toDecimal(100*uptime/sim.MaxTime)  & "" & VBtab
-		tmp = tmp & vbCrLf
-		
-		
-		
-		tmp = replace(tmp, VBtab & 0, vbtab)
-		
-		return tmp
-	End Function
+        R.Damage_done_Total = total
+        R.Damage_done_Pc = toDecimal(100 * total / sim.TotalDamage)
+        R.Damage_done_Count = toDecimal(HitCount + CritCount + GlancingCount)
+        R.Damage_done_Avg = toDecimal(total / (HitCount + CritCount))
+
+        R.hit_count = toDecimal(HitCount)
+        R.hit_count_Avg = toDecimal(TotalHit / (HitCount))
+        R.hit_count_Pc = toDecimal(100 * HitCount / (HitCount + MissCount + CritCount + GlancingCount))
+
+
+        R.Crit_count = toDecimal(CritCount)
+        R.Crit_count_Avg = toDecimal(TotalCrit / (CritCount))
+        R.Crit_count_Pc = toDecimal(100 * CritCount / (HitCount + MissCount + CritCount + GlancingCount))
+
+
+        R.Miss_Count = toDecimal(MissCount)
+        R.Miss_Count_Pc = toDecimal(100 * MissCount / (HitCount + MissCount + CritCount + GlancingCount))
+
+        R.Glance_Count = toDecimal(GlancingCount)
+        R.Glance_Count_Avg = toDecimal(TotalGlance / (GlancingCount))
+        R.Glance_Count_Pc = toDecimal(100 * GlancingCount / (HitCount + MissCount + CritCount + GlancingCount))
+
+        If sim.FrostPresence Then
+            R.TPS = toDecimal((100 * total * ThreadMultiplicator * 2.0735) / sim.TimeStamp)
+        End If
+
+        R.Uptime = toDecimal(100 * uptime / sim.MaxTime)
+        'tmp = Replace(tmp, vbTab & 0, vbTab)
+        Return R
+    End Function
+
+
 	
 	Overridable Sub Merge()
 		

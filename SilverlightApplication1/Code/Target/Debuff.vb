@@ -1,4 +1,6 @@
 ﻿Imports System.Xml.Linq
+Imports System.IO.IsolatedStorage
+Imports System.IO
 
 '
 ' Crée par SharpDevelop.
@@ -25,28 +27,32 @@ Namespace Targets
         Protected sim As Sim
         Sub New(ByVal S As Sim)
             sim = S
-
-            Dim doc As XDocument = New XDocument
+            Dim doc As XDocument
             Dim liveXml As New XDocument
-            Dim tmp As String
-            doc.Load("Buffconfig.xml")
-            'tmp = doc.OuterXml
-
-            'tmp = tmp.Replace("True", "1")
-            'tmp = tmp.Replace("False", "0")
-            'liveXml.Parse(tmp)
-
-            ArmorMajor = liveXml.Element("config").Element("chkBArmorMaj").Value
-            ArmorMinor = liveXml.Element("config").Element("chkBArmorMinor").Value
-            CritChanceTaken = liveXml.Element("config").Element("chkBCritchanceTaken").Value
-            PhysicalVuln = liveXml.Element("config").Element("chkBPhyVuln").Value
-            SpellCritTaken = liveXml.Element("config").Element("chkBSpCrTaken").Value
-            SpellDamageTaken = liveXml.Element("config").Element("chkBSpDamTaken").Value
-            SpellHitTaken = liveXml.Element("config").Element("chkBSpHitTaken").Value
-            CrypticFever = liveXml.Element("config").Element("chkCrypticFever").Value
-            BloodPlague = liveXml.Element("config").Element("chkBloodPlague").Value
-            FrostFever = liveXml.Element("config").Element("chkFrostFever").Value
+            Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+                Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/Buffconfig.xml", FileMode.Open, isoStore)
+                    doc = XDocument.Load(isoStream)
+                End Using
+            End Using
+            ArmorMajor = Bool2Int(doc.Element("config").Element("chkBArmorMaj").Value)
+            ArmorMinor = Bool2Int(doc.Element("config").Element("chkBArmorMinor").Value)
+            CritChanceTaken = Bool2Int(doc.Element("config").Element("chkBCritchanceTaken").Value)
+            PhysicalVuln = Bool2Int(doc.Element("config").Element("chkBPhyVuln").Value)
+            SpellCritTaken = Bool2Int(doc.Element("config").Element("chkBSpCrTaken").Value)
+            SpellDamageTaken = Bool2Int(doc.Element("config").Element("chkBSpDamTaken").Value)
+            SpellHitTaken = Bool2Int(doc.Element("config").Element("chkBSpHitTaken").Value)
+            CrypticFever = Bool2Int(doc.Element("config").Element("chkCrypticFever").Value)
+            BloodPlague = Bool2Int(doc.Element("config").Element("chkBloodPlague").Value)
+            FrostFever = Bool2Int(doc.Element("config").Element("chkFrostFever").Value)
         End Sub
+        Function Bool2Int(ByVal b As Boolean) As Integer
+            If b = True Then
+                Return 1
+            Else
+                Return 0
+            End If
+        End Function
+
         Sub Unbuff()
             ArmorMajor = 0
             ArmorMinor = 0

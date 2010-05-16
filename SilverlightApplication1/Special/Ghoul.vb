@@ -214,10 +214,10 @@ Friend class Ghoul
 		TotalCrit = 0
 	End Sub
 
-	Public Overrides Function report As String
-		If isGuardian And Claw.total > 0 Then Merge() 'if we don't have a permaghoul merge in claw
-		Return MyBase.report()
-	End Function
+    Public Overrides Function report() As ReportLine
+        If isGuardian And Claw.total > 0 Then Merge() 'if we don't have a permaghoul merge in claw
+        Return MyBase.Report()
+    End Function
 
 	Public Overrides Sub Merge()
 		

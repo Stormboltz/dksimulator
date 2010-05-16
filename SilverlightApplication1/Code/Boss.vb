@@ -1,4 +1,6 @@
 ﻿Imports System.Xml.Linq
+Imports System.IO.IsolatedStorage
+Imports System.IO
 
 '
 ' Crée par SharpDevelop.
@@ -48,12 +50,15 @@ Public Class Boss
     End Function
 
     Sub LoadTankOptions()
-        Dim doc As XDocument = New XDocument
         Try
-            doc.Load("TankConfig.xml")
-            Avoidance = doc.Element("//config/Stats/txtFBAvoidance").Value / 100
-            Speed = doc.Element("//config/Stats/txtFPBossSwing").Value * 100
-            SpecialArmor = doc.Element("//config/Stats/txtFPArmor").Value
+            Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+                Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/TankConfig.xml", FileMode.Open, isoStore)
+                    Dim doc As XDocument = XDocument.Load(isoStream)
+                    Avoidance = doc.Element("config").Element("Stats").Element("txtFBAvoidance").Value / 100
+                    Speed = doc.Element("config").Element("Stats").Element("txtFPBossSwing").Value * 100
+                    SpecialArmor = doc.Element("config").Element("Stats").Element("txtFPArmor").Value
+                End Using
+            End Using
         Catch
             msgBox("Error retriving Tank parameters")
         End Try

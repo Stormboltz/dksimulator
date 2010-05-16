@@ -80,7 +80,7 @@ Friend Class RuneForge
 	Sub Init()
 		dim s as Sim
 		s = Sim
-        MHRuneForge = s.XmlConfig.Element("//config/mh").Value
+        MHRuneForge = s.XmlConfig.Element("config").Element("mh").Value
         MHProc = New WeaponProc(s)
         With MHProc
             If s.MainStat.DualW Then ._Name = "MH "
@@ -93,7 +93,7 @@ Friend Class RuneForge
 
         If s.MainStat.DualW Then
             OHProc = New WeaponProc(s)
-            OHRuneForge = s.XmlConfig.Element("//config/oh").Value
+            OHRuneForge = s.XmlConfig.Element("config").Element("oh").Value
             With OHProc
                 ._Name = "OH "
                 .InternalCD = 0

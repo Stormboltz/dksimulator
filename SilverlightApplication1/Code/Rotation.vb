@@ -1,4 +1,6 @@
 Imports System.Xml.Linq
+Imports System.IO.IsolatedStorage
+Imports System.IO
 
 '
 ' Created by SharpDevelop.
@@ -25,26 +27,28 @@ Friend Class Rotation
         MyRotation.Clear()
 
         sim.RotationStep = 0
-        XMLRo.Load(sim.rotationPath)
-        Dim Nod As XElement
-        For Each Nod In XMLRo.Element("//Rotation/Rotation").Elements
-            Try
-                MyRotation.Add(Nod.Name, Nod.Name.ToString)
-            Catch
-                MyRotation.Add(Nod.Name)
-            End Try
-        Next
-        Dim i As Integer
-        i = 0
+
+        Dim XMLRo As XDocument
+        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/" & sim.rotationPath, FileMode.Open, isoStore)
+                XMLRo = XDocument.Load(isoStream)
+                For Each Nod In XMLRo.Element("Rotation/Rotation").Elements
+                    Try
+                        MyRotation.Add(Nod.Name, Nod.Name.ToString)
+                    Catch
+                        MyRotation.Add(Nod.Name)
+                    End Try
+                Next
+                Dim i As Integer
+                i = 0
+            End Using
+        End Using
     End Sub
 
     Sub DoRoration(ByVal TimeStamp As Long)
         Dim ret As Boolean
-
         If MyIntro.Count > 0 And IntroStep < MyIntro.Count Then Exit Sub
-
-
-        ret = DoRoration(TimeStamp, MyRotation.Item(sim.RotationStep + 1), XMLRo.Element("//Rotation/Rotation/" & MyRotation.Item(sim.RotationStep + 1)).Attribute("retry").Value)
+        ret = DoRoration(TimeStamp, MyRotation.Item(sim.RotationStep + 1), XMLRo.Element("Rotation/Rotation/" & MyRotation.Item(sim.RotationStep + 1)).Attribute("retry").Value)
         If ret = True Then sim.RotationStep = sim.RotationStep + 1
         If MyRotation.Count <= sim.RotationStep Then sim.RotationStep = 0
     End Sub
@@ -248,14 +252,18 @@ Friend Class Rotation
     End Sub
     Sub LoadIntro()
         Dim nod As XElement
-        XMLIntro.Load(sim.IntroPath)
-        For Each nod In XMLIntro.Element("//Intro").Elements
-            Try
-                MyIntro.Add(nod.Name, nod.Name.ToString)
-            Catch
-                MyIntro.Add(nod.Name)
-            End Try
-        Next
-        If MyIntro.Count = 0 Then IntroDone = True
+        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/" & sim.IntroPath, FileMode.Open, isoStore)
+                Dim XMLIntro As XDocument = XDocument.Load(isoStream)
+                For Each nod In XMLIntro.Element("Intro").Elements
+                    Try
+                        MyIntro.Add(nod.Name, nod.Name.ToString)
+                    Catch
+                        MyIntro.Add(nod.Name)
+                    End Try
+                Next
+                If MyIntro.Count = 0 Then IntroDone = True
+            End Using
+        End Using
     End Sub
 End Class

@@ -3,6 +3,8 @@ Imports System.Linq
 Partial Public Class EquipSlot
     Inherits UserControl
 
+    Dim _Text As String
+
 
 
 
@@ -13,16 +15,22 @@ Partial Public Class EquipSlot
     Friend xGemBonus As XDocument
     Friend SlotId As Integer
     Friend Item As Item
-    Friend text As String
+    Property text As String
+        Get
+            Return _Text
+        End Get
+        Set(ByVal value As String)
+            _Text = value
+        End Set
+    End Property
     Friend WithEvents GS As EnchantSelector
-
+    Protected initiated As Boolean = False
 
     Protected Mainframe As GearSelectorMainForm
 
     Sub init(ByVal m As GearSelectorMainForm, ByVal slot As Integer)
         Mainframe = m
         Me.SlotId = slot
-        Mainframe.EquipmentList.Add(Me)
         Dim query = From c As XElement In m.EnchantDB.Element("enchant").Elements Where c.Element("slot").Value = slot
         If query.Count > 0 Then
             lblEnchant.IsEnabled = True
@@ -31,9 +39,12 @@ Partial Public Class EquipSlot
             lblEnchant.IsEnabled = False
             lblEnchant.Opacity = 0
         End If
-
-        Item = New Item(Me.Mainframe, 0)
         xGemBonus = m.GemBonusDB
+
+
+        Mainframe.EquipmentList.Add(Me)
+        Item = New Item(Me.Mainframe, 0)
+        initiated = True
     End Sub
 
    

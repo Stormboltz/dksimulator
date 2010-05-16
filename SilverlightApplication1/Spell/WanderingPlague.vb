@@ -32,7 +32,7 @@ Friend Class WanderingPlague
 			HitCount = HitCount + 1
 			If sim.combatlog.LogDetails Then sim.combatlog.write(T  & vbtab &  "Wandering Plague hit for " & tmp )
 		Next
-		return true
+        Return tmp
 	End Function
 	
 End Class

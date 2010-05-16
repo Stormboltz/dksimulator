@@ -1,5 +1,7 @@
 Imports Microsoft.VisualBasic
 Imports System.Xml.Linq
+Imports System.IO.IsolatedStorage
+Imports System.IO
 
 Public Class Sim
     Friend Cataclysm As Boolean = False
@@ -205,7 +207,7 @@ Public Class Sim
         _EPStat = EPS
         EPBase = EPBse
     End Sub
-   
+
     Sub PrePull(ByVal T As Long)
         AotD.PrePull(T)
         'Pot Usage
@@ -419,7 +421,7 @@ Public Class Sim
                     prc = New Proc(Me)
                 End If
                 For Each e In Me.Scenario.Elements
-                    If e.start = TimeStamp And e.DamageBonus <> 0 Then
+                    If e.Start = TimeStamp And e.DamageBonus <> 0 Then
                         With prc
                             .ProcChance = 1
                             .ProcLenght = e.length / 100
@@ -649,9 +651,7 @@ Public Class Sim
         BoneShield.PreBuff()
         Scenario.SoftReset()
         NextFreeGCD = 0
-        AMSCd = _MainFrm.txtAMScd.Text * 100
         AMSTimer = TimeStamp + AMSCd
-        AMSAmount = _MainFrm.txtAMSrp.Text
         If AMSAmount <> 0 And AMSCd <> 0 Then
             FutureEventManager.Add(AMSTimer + AMSCd, "AMS")
         End If
@@ -763,9 +763,9 @@ Public Class Sim
         Scenario = New Scenarios.Scenario(Me)
 
 
-        AMSCd = _MainFrm.txtAMScd.Text * 100
-        AMSTimer = _MainFrm.txtAMScd.Text * 100
-        AMSAmount = _MainFrm.txtAMSrp.Text
+        AMSCd = XmlConfig.Element("config").Element("txtAMScd").Value * 100
+        AMSTimer = XmlConfig.Element("config").Element("txtAMScd").Value * 100
+        AMSAmount = XmlConfig.Element("config").Element("txtAMSrp").Value * 100
 
 
         ShowDpsTimer = 1
@@ -780,127 +780,123 @@ Public Class Sim
     End Sub
 
     Sub LoadConfig()
-        XmlConfig.Load("config.xml")
 
-        If XmlConfig.Element("//config/UseCharacter").Value = True Then
-            XmlCharacter.Load("\characters\" & XmlConfig.Element("//config/Character").Value)
-        Else
-            XmlCharacter.Load("\CharactersWithGear\" & XmlConfig.Element("//config/CharacterWithGear").Value)
-        End If
+        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/config.xml", FileMode.Open, isoStore)
+                XmlConfig = XDocument.Load(isoStream)
+                Dim strCharacter As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/CharactersWithGear/" & XmlConfig.Element("config").Element("CharacterWithGear").Value, FileMode.Open, isoStore)
+                XmlCharacter = XDocument.Load(strCharacter)
 
+                IntroPath = "\Intro\" & XmlConfig.Element("config").Element("intro").Value
 
-        IntroPath = "\Intro\" & XmlConfig.Element("//config/intro").Value
+                ScenarioPath = "\scenario\" & XmlConfig.Element("config").Element("scenario").Value
 
+                If System.IO.File.Exists(IntroPath) = False Then
+                    IntroPath = "\Intro\NoIntro.xml"
+                End If
+                KeepBloodSync = XmlConfig.Element("config").Element("BloodSync").Value
 
-        ScenarioPath = "\scenario\" & XmlConfig.Element("//config/scenario").Value
+                If XmlConfig.Element("config").Element("mode").Value <> "priority" Then
+                    Rotate = True
+                    rotationPath = "\Rotation\" & XmlConfig.Element("config").Element("rotation").Value
+                Else
+                    Rotate = False
+                    loadPriority("\Priority\" & XmlConfig.Element("config").Element("priority").Value)
+                End If
 
+                latency = XmlConfig.Element("config").Element("latency").Value
+                ShowProc = XmlConfig.Element("config").Element("ShowProc").Value
 
-        If System.IO.File.Exists(IntroPath) = False Then
-            IntroPath = "\Intro\NoIntro.xml"
-        End If
+                Sigils = New Sigils(Me)
+                Sigils.WildBuck = False
+                Sigils.FrozenConscience = False
+                Sigils.DarkRider = False
+                Sigils.ArthriticBinding = False
+                Sigils.Awareness = False
+                Sigils.Strife = False
+                Sigils.HauntedDreams = False
+                Sigils.VengefulHeart = False
+                Sigils.Virulence = False
+                Sigils.HangedMan = False
+                Select Case XmlConfig.Element("config").Element("sigil").Value
+                    Case "WildBuck"
+                        Sigils.WildBuck = True
+                    Case "FrozenConscience"
+                        Sigils.FrozenConscience = True
+                    Case "DarkRider"
+                        Sigils.DarkRider = True
+                    Case "ArthriticBinding"
+                        Sigils.ArthriticBinding = True
+                    Case "Awareness"
+                        Sigils.Awareness = True
+                    Case "Strife"
+                        Sigils.Strife = True
+                    Case "HauntedDreams"
+                        Sigils.HauntedDreams = True
+                    Case "VengefulHeart"
+                        Sigils.VengefulHeart = True
+                    Case "Virulence"
+                        Sigils.Virulence = True
+                    Case "HangedMan"
+                        Sigils.HangedMan = True
+                End Select
 
-        KeepBloodSync = XmlConfig.Element("//config/BloodSync").Value
-        If XmlConfig.Element("//config/mode").Value <> "priority" Then
-            Rotate = True
-            rotationPath = "\Rotation\" & XmlConfig.Element("//config/rotation").Value
-        Else
-            Rotate = False
-            loadPriority("\Priority\" & XmlConfig.Element("//config/priority").Value)
-        End If
-        latency = XmlConfig.Element("//config/latency").Value
-        ShowProc = XmlConfig.Element("//config/ShowProc").Value
-
-        Dim Sigil As String
-        Sigils = New Sigils(Me)
-
-        Sigil = XmlConfig.Element("//config/sigil").Value
-        Sigils.WildBuck = False
-        Sigils.FrozenConscience = False
-        Sigils.DarkRider = False
-        Sigils.ArthriticBinding = False
-        Sigils.Awareness = False
-        Sigils.Strife = False
-        Sigils.HauntedDreams = False
-        Sigils.VengefulHeart = False
-        Sigils.Virulence = False
-        Sigils.HangedMan = False
-        Select Case Sigil
-            Case "WildBuck"
-                Sigils.WildBuck = True
-            Case "FrozenConscience"
-                Sigils.FrozenConscience = True
-            Case "DarkRider"
-                Sigils.DarkRider = True
-            Case "ArthriticBinding"
-                Sigils.ArthriticBinding = True
-            Case "Awareness"
-                Sigils.Awareness = True
-            Case "Strife"
-                Sigils.Strife = True
-            Case "HauntedDreams"
-                Sigils.HauntedDreams = True
-            Case "VengefulHeart"
-                Sigils.VengefulHeart = True
-            Case "Virulence"
-                Sigils.Virulence = True
-            Case "HangedMan"
-                Sigils.HangedMan = True
-        End Select
-
-        Dim Presence As String
-        Presence = XmlConfig.Element("//config/presence").Value
-        BloodPresence = 0
-        UnholyPresence = 0
-        FrostPresence = 0
-        Select Case Presence
-            Case "Blood"
-                BloodPresence = 1
-            Case "Unholy"
-                UnholyPresence = 1
-            Case "Frost"
-                FrostPresence = 1
-        End Select
-        RuneForge = New RuneForge(Me)
-        RunicPower = New RunicPower(Me)
-        proc = New Procs(Me)
-        Character = New Character(Me)
-        MainStat = New MainStat(Me)
-
-        Me.CombatLog.enable = XmlConfig.Element("//config/log").Value
-        Me.CombatLog.LogDetails = XmlConfig.Element("//config/logdetail").Value
-
-        MergeReport = XmlConfig.Element("//config/chkMergeReport").Value
-        ReportName = XmlConfig.Element("//config/txtReportName").Value
-        WaitForFallenCrusader = XmlConfig.Element("//config/WaitFC").Value
-        'Patch = doc.Element("//config/Patch").Value
-        Dim tmp As String
-        tmp = XmlConfig.Element("//config/BShOption").Value
-        Select Case tmp
-            Case "Instead of Blood Strike"
-                Me.BoneShieldUsageStyle = 1
-            Case "After BS/BB"
-                Me.BoneShieldUsageStyle = 2
-            Case "Instead of Blood Boil"
-                Me.BoneShieldUsageStyle = 3
-            Case "After Death rune OB/SS with cancel aura"
-                Me.BoneShieldUsageStyle = 4
-            Case Else
-                Me.BoneShieldUsageStyle = 2
-        End Select
+                BloodPresence = 0
+                UnholyPresence = 0
+                FrostPresence = 0
+                Select Case XmlConfig.Element("config").Element("presence").Value
+                    Case "Blood"
+                        BloodPresence = 1
+                    Case "Unholy"
+                        UnholyPresence = 1
+                    Case "Frost"
+                        FrostPresence = 1
+                End Select
 
 
-        Try
-            ICCDamageBuff = XmlConfig.Element("//config/ICCBuff").Value
-        Catch
+                RuneForge = New RuneForge(Me)
+                RunicPower = New RunicPower(Me)
+                proc = New Procs(Me)
+                Character = New Character(Me)
+                MainStat = New MainStat(Me)
 
-            ICCDamageBuff = 0
-        End Try
+                Me.CombatLog.enable = XmlConfig.Element("config").Element("log").Value
+                Me.CombatLog.LogDetails = XmlConfig.Element("config").Element("logdetail").Value
+                MergeReport = XmlConfig.Element("config").Element("chkMergeReport").Value
+                ReportName = XmlConfig.Element("config").Element("txtReportName").Value
+                WaitForFallenCrusader = XmlConfig.Element("config").Element("WaitFC").Value
 
-        Try
-            BoneShieldTTL = XmlConfig.Element("//config/BSTTL").Value
-        Catch
-            BoneShieldTTL = 300
-        End Try
+
+                Select Case XmlConfig.Element("config").Element("BShOption").Value
+                    Case "Instead of Blood Strike"
+                        Me.BoneShieldUsageStyle = 1
+                    Case "After BS/BB"
+                        Me.BoneShieldUsageStyle = 2
+                    Case "Instead of Blood Boil"
+                        Me.BoneShieldUsageStyle = 3
+                    Case "After Death rune OB/SS with cancel aura"
+                        Me.BoneShieldUsageStyle = 4
+                    Case Else
+                        Me.BoneShieldUsageStyle = 2
+                End Select
+                Try
+                    ICCDamageBuff = XmlConfig.Element("config").Element("ICCBuff").Value
+                Catch
+
+                    ICCDamageBuff = 0
+                End Try
+
+                Try
+                    BoneShieldTTL = XmlConfig.Element("config").Element("BSTTL").Value
+                Catch
+                    BoneShieldTTL = 300
+                End Try
+            End Using
+        End Using
+
+        
+
+    
 
 
         Exit Sub
@@ -912,29 +908,32 @@ errH:
         Priority = New priority(Me)
         Priority.prio.Clear()
         Dim XmlDoc As New XDocument
-        XmlDoc.Load(file)
-        Dim Nod As XElement
+        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/" & file, FileMode.Open, isoStore)
+                XmlDoc = XDocument.Load(isoStream)
+                If KeepBloodSync Then
+                    Priority.prio.Add("BloodSync", "BloodSync")
+                End If
 
-        If KeepBloodSync Then
-            Priority.prio.Add("BloodSync", "BloodSync")
-        End If
-
-
-
-        For Each Nod In XmlDoc.Element("//Priority").Elements
-            If Nod.Name = "SaveRPForRuneStrike" Then
-                SaveRPForRS = True
-            Else
-                Priority.prio.Add(Nod.Name, Nod.Name.ToString)
-            End If
-
-        Next
-
+                For Each Nod In XmlDoc.Element("Priority").Elements
+                    If Nod.Name = "SaveRPForRuneStrike" Then
+                        SaveRPForRS = True
+                    Else
+                        Priority.prio.Add(Nod.Name.ToString, Nod.Name.ToString)
+                    End If
+                Next
+            End Using
+        End Using
     End Sub
 
     Sub Report()
         'on error resume next
-        Dim Tw As System.IO.TextWriter
+        Dim Tw As System.IO.StreamWriter
+
+        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("report.html", FileMode.OpenOrCreate, isoStore)
+                Tw = New StreamWriter(isoStream)
+          
 
 
         ' Sort report
@@ -992,200 +991,129 @@ errH:
         Threat = Threat + ThreatBeforePresence
         TPS = 100 * Threat / TimeStamp
 
+                If EPStat() <> "" Then Exit Sub
 
-
-
-
-        If EPStat() <> "" Then Exit Sub
-
-
-        Tw = System.IO.File.AppendText(ReportPath)
-        'Tw  = system.IO.File.Open(reportpath, system.IO.FileMode.Append)     '.OpenWrite(ReportPath)
-        Tw.Write(ReportName & "<FONT COLOR='white'>[TABLE]</FONT>")
-        Tw.Write("<table border='0' cellspacing='2' style='font-family:Verdana; font-size:10px;'>")
-        Tw.Write("<tr>")
-        Tw.Write("	<th rowspan='2' ><b>Ability</b><FONT COLOR='white'>|</FONT></th>")
-        Tw.Write("	<th colspan='4'><b>Damage done</b><FONT COLOR='white'>||||</FONT></th>")
-        Tw.Write("	<th colspan='3'><b>hits</b><FONT COLOR='white'>|||</FONT></th>")
-        Tw.Write("	<th colspan='3'><b>Crits</b><FONT COLOR='white'>|||</FONT></th>")
-        Tw.Write("	<th colspan='2'><b>Misses</b><FONT COLOR='white'>||</FONT></th>")
-        Tw.Write("	<th colspan='3'><b>Glances</b><FONT COLOR='white'>|||</FONT></th>")
-        Tw.Write("	<th><b>Uptime</b><FONT COLOR='white'>|</FONT></th>")
-
-        If FrostPresence Then
-            Tw.Write("<th rowspan='2'><b>TPS</b><FONT COLOR='white'>|</FONT></th>")
-        End If
-        Tw.Write("</tr>")
-        Tw.Write("<tr>")
-        Tw.Write("	<th><FONT COLOR='white'>|</FONT><b>Total</b><FONT COLOR='white'>|</FONT></th>")
-        'Total
-        Tw.Write("	<th><b>%</b><FONT COLOR='white'>|</FONT></th>")
-        Tw.Write("	<th><b>#</b><FONT COLOR='white'>|</FONT></th>")
-        Tw.Write("	<th><b>Avg</b><FONT COLOR='white'>|</FONT></th>")
-
-        'Hit
-        Tw.Write("	<th><b>#</b><FONT COLOR='white'>|</FONT></th>")
-        Tw.Write("	<th><b>%</b><FONT COLOR='white'>|</FONT></th>")
-        Tw.Write("	<th><b>Avg</b><FONT COLOR='white'>|</FONT></th>")
-        'Crit
-        Tw.Write("	<th><b>#</b><FONT COLOR='white'>|</FONT></th>")
-        Tw.Write("	<th><b>%</b><FONT COLOR='white'>|</FONT></th>")
-        Tw.Write("	<td><b>Avg</b><FONT COLOR='white'>|</FONT></th>")
-
-        'Misses
-        Tw.Write("	<th><b>#</b><FONT COLOR='white'>|</FONT></th>")
-        Tw.Write("	<th><b>Avg</b><FONT COLOR='white'>|</FONT></th>")
-
-        'Glance
-        Tw.Write("	<th><b>#</b><FONT COLOR='white'>|</FONT></th>")
-        Tw.Write("	<th><b>%</b><FONT COLOR='white'>|</FONT></th>")
-        Tw.Write("	<td><b>Avg</b><FONT COLOR='white'>|</FONT></th>")
-
-        'Uptime
-        Tw.Write("	<th><b>%</b><FONT COLOR='white'>|</FONT></th>")
-        Tw.Write("</tr>")
-        Tw.Write("</tr>")
-
-
-
-
-        Dim i As Integer
+                Dim myReport As New SimReport
+                '_MainFrm.ReportStack.Children.Add(myReport)
+                Dim i As Integer
         Dim tot As Long
         Dim STmp As String
         For i = 0 To myArray.Count - 1
             tot = (myArray.Item(myArray.Count - 1 - i))
 
             For Each obj In DamagingObject
-                If obj.total = tot Then
-                    STmp = obj.report
-                    STmp = Replace(STmp, vbTab, "<FONT COLOR='white'>|</FONT></td><td>")
-                    Tw.WriteLine("<tr><td>" & STmp & "</tr>")
-                    'obj.cleanup
-                End If
-            Next
-        Next
+                        If obj.total = tot Then
+                            myReport.Addline(obj.Report)
+                        End If
+
+                    Next
+                Next
+
         If ShowProc Then
-            If True Then
-                STmp = GCDUsage.report
-                STmp = Replace(STmp, vbTab, "<FONT COLOR='white'>|</FONT></td><td>")
-                Tw.WriteLine("<tr><td>" & STmp & "</tr>")
-
-                STmp = Runes.BloodRune1.report
-                STmp = Replace(STmp, vbTab, "<FONT COLOR='white'>|</FONT></td><td>")
-                Tw.WriteLine("<tr><td>" & STmp & "</tr>")
-                STmp = Runes.BloodRune2.report
-                STmp = Replace(STmp, vbTab, "<FONT COLOR='white'>|</FONT></td><td>")
-                Tw.WriteLine("<tr><td>" & STmp & "</tr>")
-
-                STmp = Runes.FrostRune1.report
-                STmp = Replace(STmp, vbTab, "<FONT COLOR='white'>|</FONT></td><td>")
-                Tw.WriteLine("<tr><td>" & STmp & "</tr>")
-
-                STmp = Runes.FrostRune2.report
-                STmp = Replace(STmp, vbTab, "<FONT COLOR='white'>|</FONT></td><td>")
-                Tw.WriteLine("<tr><td>" & STmp & "</tr>")
-
-                STmp = Runes.UnholyRune1.report
-                STmp = Replace(STmp, vbTab, "<FONT COLOR='white'>|</FONT></td><td>")
-                Tw.WriteLine("<tr><td>" & STmp & "</tr>")
-                STmp = Runes.UnholyRune2.report
-                STmp = Replace(STmp, vbTab, "<FONT COLOR='white'>|</FONT></td><td>")
-                Tw.WriteLine("<tr><td>" & STmp & "</tr>")
-
-
-            End If
+                    If True Then
+                        myReport.Addline(GCDUsage.Report)
+                        myReport.Addline(Runes.BloodRune1.Report)
+                        myReport.Addline(Runes.BloodRune2.Report)
+                        myReport.Addline(Runes.FrostRune1.Report)
+                        
+                        myReport.Addline(Runes.FrostRune2.Report)
+                        myReport.Addline(Runes.UnholyRune1.Report)
+                        myReport.Addline(Runes.UnholyRune2.Report)
+                    End If
 
             If Horn.HitCount <> 0 Then
-                STmp = Horn.report
-                STmp = Replace(STmp, vbTab, "<FONT COLOR='white'>|</FONT></td><td>")
-                Tw.WriteLine("<tr><td>" & STmp & "</tr>")
+                        myReport.Addline(Horn.Report)
+                
             End If
             If Pestilence.HitCount <> 0 Then
-                STmp = Pestilence.report
-                STmp = Replace(STmp, vbTab, "<FONT COLOR='white'>|</FONT></td><td>")
-                Tw.WriteLine("<tr><td>" & STmp & "</tr>")
+                        myReport.Addline(Pestilence.Report)
+                
             End If
             If BoneShield.HitCount <> 0 Then
-                STmp = BoneShield.report
-                STmp = Replace(STmp, vbTab, "<FONT COLOR='white'>|</FONT></td><td>")
-                Tw.WriteLine("<tr><td>" & STmp & "</tr>")
+                        myReport.Addline(BoneShield.Report)
+                
             End If
             If BloodTap.HitCount <> 0 Then
-                STmp = BloodTap.report
-                STmp = Replace(STmp, vbTab, "<FONT COLOR='white'>|</FONT></td><td>")
-                Tw.WriteLine("<tr><td>" & STmp & "</tr>")
+                        myReport.Addline(BloodTap.Report)
+                
             End If
 
             If Frenzy.HitCount <> 0 Then
-                STmp = Frenzy.report
-                STmp = Replace(STmp, vbTab, "<FONT COLOR='white'>|</FONT></td><td>")
-                Tw.WriteLine("<tr><td>" & STmp & "</tr>")
-            End If
+                        myReport.Addline(Frenzy.Report)
+                    End If
 
             If UnbreakableArmor.HitCount <> 0 Then
-                STmp = UnbreakableArmor.report
-                STmp = Replace(STmp, vbTab, "<FONT COLOR='white'>|</FONT></td><td>")
-                Tw.WriteLine("<tr><td>" & STmp & "</tr>")
+                        myReport.Addline(UnbreakableArmor.Report)
+                
             End If
             'On Error Resume Next
             Dim pr As Proc
             For Each pr In proc.EquipedProc
                 If pr.total = 0 Then
-                    STmp = pr.report
-                    STmp = Replace(STmp, vbTab, "<FONT COLOR='white'>|</FONT></td><td>")
-                    Tw.WriteLine("<tr><td>" & STmp & "</tr>")
-                End If
+                            myReport.Addline(pr.Report)
+                        End If
             Next
         End If
 
-        STmp = ""
-        If EPStat() <> "" Then STmp = "<tr><td COLSPAN=8>EP Stat <b>" & EPStat() & "</b></td></tr>"
-        'STmp = sTmp &  "<tr><td COLSPAN=8>DPS<FONT COLOR='white'>|</FONT>" & VBtab & "<b>" &  DPS & "</b></td></tr>"
+                myReport.Compile()
+                Exit Sub
+                'Dim minDPS As Integer
+                'Dim maxDPS As Integer
+                'Dim MinMAx As Integer
+                'Dim range As Double
 
-        Dim minDPS As Integer
-        Dim maxDPS As Integer
-        Dim MinMAx As Integer
-        Dim range As Double
-
-        If MultipleDamage.Count > 1 Then
-            MultipleDamage.Sort()
-            minDPS = MultipleDamage.Item(1) / (FightLength)
-            maxDPS = MultipleDamage.Item(MultipleDamage.Count - 1) / (FightLength)
-            MinMAx = Math.Max(DPS - minDPS, maxDPS - DPS)
-            range = (maxDPS - minDPS) / (2 * DPS)
-            STmp = STmp & "<tr><td COLSPAN=8>DPS<FONT COLOR='white'>|</FONT>" & vbTab & "<b>" & DPS & "(+/- " & MinMAx & ")</b></td></tr>"
-        Else
-            STmp = STmp & "<tr><td COLSPAN=8>DPS<FONT COLOR='white'>|</FONT>" & vbTab & "<b>" & DPS & "</b></td></tr>"
-        End If
-        STmp = STmp & "<tr><td COLSPAN=8>Total Damage<FONT COLOR='white'>|</FONT>" & vbTab & Math.Round(TotalDamage() / 1000000, 2) & "m" & vbTab & "<FONT COLOR='white'>|</FONT> in " & MaxTime / 100 / 60 / 60 & "h</td></tr>"
-        STmp = STmp & "<tr><td COLSPAN=8>" & RunicPower.Report() & "</td></tr>"
+                'If MultipleDamage.Count > 1 Then
+                '    MultipleDamage.Sort()
+                '    minDPS = MultipleDamage.Item(1) / (FightLength)
+                '    maxDPS = MultipleDamage.Item(MultipleDamage.Count - 1) / (FightLength)
+                '    MinMAx = Math.Max(DPS - minDPS, maxDPS - DPS)
+                '    range = (maxDPS - minDPS) / (2 * DPS)
+                '    STmp = STmp & "<tr><td COLSPAN=8>DPS<FONT COLOR='white'>|</FONT>" & vbTab & "<b>" & DPS & "(+/- " & MinMAx & ")</b></td></tr>"
+                'Else
+                '    STmp = STmp & "<tr><td COLSPAN=8>DPS<FONT COLOR='white'>|</FONT>" & vbTab & "<b>" & DPS & "</b></td></tr>"
+                'End If
+                'STmp = STmp & "<tr><td COLSPAN=8>Total Damage<FONT COLOR='white'>|</FONT>" & vbTab & Math.Round(TotalDamage() / 1000000, 2) & "m" & vbTab & "<FONT COLOR='white'>|</FONT> in " & MaxTime / 100 / 60 / 60 & "h</td></tr>"
+                'STmp = STmp & "<tr><td COLSPAN=8>" & RunicPower.Report() & "</td></tr>"
 
 
-        STmp = STmp & "<tr><td COLSPAN=8>Threat Per Second<FONT COLOR='white'>|</FONT>" & vbTab & "<b>" & TPS & "</b></td></tr>"
-        STmp = STmp & "<tr><td COLSPAN=8>Generated in <FONT COLOR='white'>|</FONT>" & DateDiff(DateInterval.Second, SimStart, Now()) & "s</td></tr>"
+                'STmp = STmp & "<tr><td COLSPAN=8>Threat Per Second<FONT COLOR='white'>|</FONT>" & vbTab & "<b>" & TPS & "</b></td></tr>"
+                'STmp = STmp & "<tr><td COLSPAN=8>Generated in <FONT COLOR='white'>|</FONT>" & DateDiff(DateInterval.Second, SimStart, Now()) & "s</td></tr>"
 
-        STmp = STmp & "<tr><td COLSPAN=8>Template:<FONT COLOR='white'>|</FONT> " & Split(Character.GetTemplateFileName, ".")(0) & "</td></tr>"
-        If Rotate Then
-            STmp = STmp & "<tr><td COLSPAN=8>Rotation: <FONT COLOR='white'>|</FONT>" & Split(Character.GetRotationFileName, ".")(0) & "</td></tr>"
-        Else
-            STmp = STmp & "<tr><td COLSPAN=8>Priority: <FONT COLOR='white'>|</FONT>" & Split(Character.GetPriorityFileName, ".")(0) & "</td></tr>"
-        End If
-        STmp = STmp & "<tr><td COLSPAN=8>Presence: <FONT COLOR='white'>|</FONT>" & Character.GetPresence & vbCrLf & "</td></tr>"
-        STmp = STmp & "<tr><td COLSPAN=8>Sigil: <FONT COLOR='white'>|</FONT>" & Character.GetSigil & vbCrLf & "</td></tr>"
+                'STmp = STmp & "<tr><td COLSPAN=8>Template:<FONT COLOR='white'>|</FONT> " & Split(Character.GetTemplateFileName, ".")(0) & "</td></tr>"
+                'If Rotate Then
+                '    STmp = STmp & "<tr><td COLSPAN=8>Rotation: <FONT COLOR='white'>|</FONT>" & Split(Character.GetRotationFileName, ".")(0) & "</td></tr>"
+                'Else
+                '    STmp = STmp & "<tr><td COLSPAN=8>Priority: <FONT COLOR='white'>|</FONT>" & Split(Character.GetPriorityFileName, ".")(0) & "</td></tr>"
+                'End If
+                'STmp = STmp & "<tr><td COLSPAN=8>Presence: <FONT COLOR='white'>|</FONT>" & Character.GetPresence & vbCrLf & "</td></tr>"
+                'STmp = STmp & "<tr><td COLSPAN=8>Sigil: <FONT COLOR='white'>|</FONT>" & Character.GetSigil & vbCrLf & "</td></tr>"
 
-        If MainStat.DualW Then
-            STmp = STmp & "<tr><td COLSPAN=8>RuneEnchant: <FONT COLOR='white'>|</FONT> " & Character.GetMHEnchant & " / <FONT COLOR='white'>|</FONT>" & Character.GetOHEnchant & "</td></tr>"
-        Else
-            STmp = STmp & "<tr><td COLSPAN=8>RuneEnchant: <FONT COLOR='white'>|</FONT>" & Character.GetMHEnchant & "</td></tr>"
-        End If
+                'If MainStat.DualW Then
+                '    STmp = STmp & "<tr><td COLSPAN=8>RuneEnchant: <FONT COLOR='white'>|</FONT> " & Character.GetMHEnchant & " / <FONT COLOR='white'>|</FONT>" & Character.GetOHEnchant & "</td></tr>"
+                'Else
+                '    STmp = STmp & "<tr><td COLSPAN=8>RuneEnchant: <FONT COLOR='white'>|</FONT>" & Character.GetMHEnchant & "</td></tr>"
+                'End If
 
-        STmp = STmp & "<tr><td COLSPAN=8>Pet Calculation: <FONT COLOR='white'>|</FONT>" & Character.GetPetCalculation & "</td></tr>"
+                'STmp = STmp & "<tr><td COLSPAN=8>Pet Calculation: <FONT COLOR='white'>|</FONT>" & Character.GetPetCalculation & "</td></tr>"
 
-        STmp = STmp & "</table><FONT COLOR='white'>[/TABLE]</FONT><hr width='80%' align='center' noshade ></hr>"
-        Tw.WriteLine(STmp)
-        Tw.Flush()
-        Tw.Close()
-        _MainFrm.WebBrowser1.Navigate(New Uri(ReportPath))
+                'STmp = STmp & "</table><FONT COLOR='white'>[/TABLE]</FONT><hr width='80%' align='center' noshade ></hr>"
+                '        Tw.Write(STmp)
+                '        Tw.Flush()
+
+                '        Tw.Close()
+            
+            End Using
+
+
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("report.html", FileMode.Open, isoStore)
+                Dim TR = New StreamReader(isoStream)
+                '_MainFrm.TextBlock1.Text = TR.ReadToEnd
+                Diagnostics.Debug.WriteLine(TR.ReadToEnd)
+            End Using
+        End Using
+
+
+
     End Sub
 
 

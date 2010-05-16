@@ -7,8 +7,13 @@ Module GlobalFunction
     Public ReportPath As String
 
     Sub msgBox(ByVal s As String)
+        Try
+            MessageBox.Show("s")
+        Catch ex As Exception
+            Diagnostics.Debug.WriteLine(s)
+        End Try
 
-        MessageBox.Show(s)
+
     End Sub
 
     Function toDecimal(ByVal d As Double) As Decimal
@@ -38,7 +43,13 @@ Module GlobalFunction
     End Sub
 
     Function ShortenName(ByVal s As String) As String
-        Return s.Replace("DKSIMVB.", "")
+        Try
+            Dim i As Integer = InStrRev(s, ".")
+            Return Strings.Mid(s, i)
+        Catch ex As Exception
+            Return s
+        End Try
+        
     End Function
 
     Function GetIdFromGlyphName(ByVal s As String) As String
@@ -55,12 +66,16 @@ Module GlobalFunction
     End Function
 
     Sub initReport()
-        Dim Tw As System.IO.TextWriter
-        ReportPath = System.IO.Path.GetTempFileName
-        Tw = System.IO.File.AppendText(ReportPath)
-        Tw.WriteLine("<hmtl style='font-family:Verdana; font-size:10px;'><body>")
-        Tw.Flush()
-        Tw.Close()
+        ReportPath = "report.html"
+        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("report.html", FileMode.Create, isoStore)
+                Dim Tw As StreamWriter = New StreamWriter(isoStream)
+                Tw.WriteLine("<hmtl style='font-family:Verdana; font-size:10px;'><body>")
+                Tw.Flush()
+                Tw.Close()
+            End Using
+        End Using
+        
     End Sub
 
     Function GetHigherValueofThisCollection(ByVal collec As Collection) As Integer

@@ -117,9 +117,8 @@ Partial Public Class PriorityEditor
         Dim i As Integer
         grpAvailablePrio.Children.Clear()
 
-        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/config/RotationList.xml", FileMode.Open, isoStore)
-                Dim doc As XDocument = XDocument.Load(isoStream)
+        
+                Dim doc As XDocument = XDocument.Load("config/RotationList.xml")
 
                 For Each node In doc.Element("Rotations").Elements
                     btn = New PrioButton(Me)
@@ -133,15 +132,12 @@ Partial Public Class PriorityEditor
                     btn.chkRetry.Opacity = 1
                     btn.buttonAdd.Opacity = 1
                 Next
-            End Using
-        End Using
         AutoExtend()
     End Sub
 
     Sub LoadAvailablePrio()
-        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/config/PrioritiesList.xml", FileMode.Open, isoStore)
-                Dim doc As XDocument = XDocument.Load(isoStream)
+        
+                Dim doc As XDocument = XDocument.Load("config/PrioritiesList.xml")
                 grpAvailablePrio.Children.Clear()
                 Dim btn As PrioButton
                 Dim i As Integer
@@ -161,8 +157,6 @@ Partial Public Class PriorityEditor
                     btn.chkRetry.Opacity = 0
                     i += 1
                 Next
-            End Using
-        End Using
         AutoExtend()
     End Sub
     Sub AutoExtend()
@@ -216,9 +210,9 @@ Partial Public Class PriorityEditor
                         Dim newElem As XElement
                         If EditType <> PossibleEditType.Priority Then
                             If P.chkRetry.IsChecked Then
-                                newElem = XElement.Parse("<" & P.ElementName & "retry='1'></" & P.ElementName & ">")
+                                newElem = XElement.Parse("<" & P.ElementName & " retry='1'></" & P.ElementName & ">")
                             Else
-                                newElem = XElement.Parse("<" & P.ElementName & "retry='0'></" & P.ElementName & ">")
+                                newElem = XElement.Parse("<" & P.ElementName & " retry='0'></" & P.ElementName & ">")
                             End If
                         Else
                             newElem = XElement.Parse("<" & P.ElementName & "></" & P.ElementName & ">")

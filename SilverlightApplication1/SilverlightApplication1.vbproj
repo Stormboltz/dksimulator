@@ -10,8 +10,8 @@
     <ProjectGuid>{76CA84F2-FED2-4503-89AE-4FDA4B1046CA}</ProjectGuid>
     <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>SilverlightApplication1</RootNamespace>
-    <AssemblyName>SilverlightApplication1</AssemblyName>
+    <RootNamespace>DKSIMVB</RootNamespace>
+    <AssemblyName>DKSIMVB</AssemblyName>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
@@ -20,13 +20,13 @@
     </SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
-    <XapFilename>SilverlightApplication1.xap</XapFilename>
+    <XapFilename>DKSIMVB.xap</XapFilename>
     <SilverlightManifestTemplate>My Project\AppManifest.xml</SilverlightManifestTemplate>
-    <SilverlightAppEntry>SilverlightApplication1.App</SilverlightAppEntry>
+    <SilverlightAppEntry>DKSIMVB.App</SilverlightAppEntry>
     <TestPageFileName>SilverlightApplication1TestPage.html</TestPageFileName>
     <CreateTestPage>true</CreateTestPage>
     <ValidateXaml>true</ValidateXaml>
-    <EnableOutOfBrowser>false</EnableOutOfBrowser>
+    <EnableOutOfBrowser>true</EnableOutOfBrowser>
     <OutOfBrowserSettingsFile>My Project\OutOfBrowserSettings.xml</OutOfBrowserSettingsFile>
     <UsePlatformExtensions>false</UsePlatformExtensions>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
@@ -48,7 +48,7 @@
     <NoConfig>true</NoConfig>
     <MyType>Empty</MyType>
     <OutputPath>Bin\Debug</OutputPath>
-    <DocumentationFile>SilverlightApplication1.xml</DocumentationFile>
+    <DocumentationFile>DKSIMVB.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <DefineConstants>SILVERLIGHT=1</DefineConstants>
   </PropertyGroup>
@@ -60,7 +60,7 @@
     <NoConfig>true</NoConfig>
     <Optimize>true</Optimize>
     <OutputPath>Bin\Release</OutputPath>
-    <DocumentationFile>SilverlightApplication1.xml</DocumentationFile>
+    <DocumentationFile>DKSIMVB.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <DefineConstants>SILVERLIGHT=1</DefineConstants>
   </PropertyGroup>
@@ -189,12 +189,23 @@
     <Compile Include="Procs\Rime.vb" />
     <Compile Include="Procs\ScentOfBlood.vb" />
     <Compile Include="Procs\WeaponProc.vb" />
+    <Compile Include="Report\Report.xaml.vb">
+      <DependentUpon>Report.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Report\ReportLine.vb" />
+    <Compile Include="Report\SimReport.vb" />
     <Compile Include="Runes\CataRune.vb" />
     <Compile Include="Runes\CataRunesManagement.vb" />
     <Compile Include="Runes\rune.vb" />
     <Compile Include="Runes\runes.vb" />
     <Compile Include="scenario\Element.vb" />
     <Compile Include="scenario\Scenario.vb" />
+    <Compile Include="scenario\ScenarioButton.xaml.vb">
+      <DependentUpon>ScenarioButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="scenario\ScenarioEditor.xaml.vb">
+      <DependentUpon>ScenarioEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Special\AotD.vb" />
     <Compile Include="Special\Bloodlust.vb" />
     <Compile Include="Special\BloodPresence.vb" />
@@ -410,6 +421,10 @@
     <Content Include="Priority\Unholy.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Page Include="Report\Report.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Content Include="Rotation\Blood.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -436,6 +451,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TemplateEditor\TemplateEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="scenario\ScenarioEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="scenario\ScenarioButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1111,7 +1134,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

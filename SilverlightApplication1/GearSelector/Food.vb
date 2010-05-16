@@ -25,17 +25,21 @@ Public Class Food
             Detach()
             Exit Sub
         End If
-        Id = FoodId
-        name = foodDB.Element("/food/item[id=" & FoodId & "]/name").Value
-        Strength = foodDB.Element("/food/item[id=" & FoodId & "]/Strength").Value
-        Agility = foodDB.Element("/food/item[id=" & FoodId & "]/Agility").Value
-        HasteRating = foodDB.Element("/food/item[id=" & FoodId & "]/HasteRating").Value
-        ExpertiseRating = foodDB.Element("/food/item[id=" & FoodId & "]/ExpertiseRating").Value
-        HitRating = foodDB.Element("/food/item[id=" & FoodId & "]/HitRating").Value
-        AttackPower = foodDB.Element("/food/item[id=" & FoodId & "]/AttackPower").Value
-        CritRating = foodDB.Element("/food/item[id=" & FoodId & "]/CritRating").Value
-        ArmorPenetrationRating = foodDB.Element("/food/item[id=" & FoodId & "]/ArmorPenetrationRating").Value
-        Desc = foodDB.Element("/food/item[id=" & FoodId & "]/Desc").Value
+        Dim el As XElement = (From x In MainFrame.FoodDB.Element("food").Elements
+                              Where x.Element("id").Value = FoodId
+                              ).First
+        Id = el.Element("id").Value
+        name = el.Element("name").Value
+        Strength = el.Element("Strength").Value
+        Agility = el.Element("Agility").Value
+        HasteRating = el.Element("HasteRating").Value
+        ExpertiseRating = el.Element("ExpertiseRating").Value
+        HitRating = el.Element("HitRating").Value
+        AttackPower = el.Element("AttackPower").Value
+        CritRating = el.Element("CritRating").Value
+        ArmorPenetrationRating = el.Element("ArmorPenetrationRating").Value
+        Desc = el.Element("Desc").Value
+
     End Sub
 
     Sub Attach(ByVal FoodName As String)
@@ -43,20 +47,20 @@ Public Class Food
             Detach()
             Exit Sub
         End If
-        Dim XPathQ As String
-        XPathQ = "/food/item[name=" & Convert.ToChar(34) & FoodName & Convert.ToChar(34) & "]"
-
-        Id = foodDB.Element(XPathQ & "/id").Value
-        name = foodDB.Element(XPathQ & "/name").Value
-        Strength = foodDB.Element(XPathQ & "/Strength").Value
-        Agility = foodDB.Element(XPathQ & "/Agility").Value
-        HasteRating = foodDB.Element(XPathQ & "/HasteRating").Value
-        ExpertiseRating = foodDB.Element(XPathQ & "/ExpertiseRating").Value
-        HitRating = foodDB.Element(XPathQ & "/HitRating").Value
-        AttackPower = foodDB.Element(XPathQ & "/AttackPower").Value
-        CritRating = foodDB.Element(XPathQ & "/CritRating").Value
-        ArmorPenetrationRating = foodDB.Element(XPathQ & "/ArmorPenetrationRating").Value
-        Desc = foodDB.Element(XPathQ & "/Desc").Value
+        Dim el As XElement = (From x In MainFrame.FoodDB.Element("food").Elements
+                              Where x.Element("name").Value = FoodName
+                              ).First
+        Id = el.Element("id").Value
+        name = el.Element("name").Value
+        Strength = el.Element("Strength").Value
+        Agility = el.Element("Agility").Value
+        HasteRating = el.Element("HasteRating").Value
+        ExpertiseRating = el.Element("ExpertiseRating").Value
+        HitRating = el.Element("HitRating").Value
+        AttackPower = el.Element("AttackPower").Value
+        CritRating = el.Element("CritRating").Value
+        ArmorPenetrationRating = el.Element("ArmorPenetrationRating").Value
+        Desc = el.Element("Desc").Value
     End Sub
 
 

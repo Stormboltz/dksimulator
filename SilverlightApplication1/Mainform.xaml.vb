@@ -24,7 +24,8 @@ Partial Public Class MainForm
 
     Private WithEvents TEdit As New TemplateEditor
     Private WithEvents PrioEditor As New PriorityEditor
-    Private WithEvents GearSelector As New GearSelectorMainForm(Me)
+    Private WithEvents GearSelector As GearSelectorMainForm
+    Private WithEvents ScenarioEditor As ScenarioEditor
 
 
     Public Sub New()
@@ -35,8 +36,147 @@ Partial Public Class MainForm
 
     End Sub
     Function LoadBeforeSim()
+        saveConfig()
+        SaveEPOptions()
+        SaveBuffOption()
+        saveScaling()
+        saveTankOptions()
+
         Return True
     End Function
+
+    Sub saveScaling()
+        Dim doc As XDocument = XDocument.Parse("<config></config>")
+        doc.Element("config").Add(New XElement("Stats", ""))
+        Dim chkBox As CheckBox
+        For Each ctrl As Control In gbScaling.Children
+            If ctrl.Name.StartsWith("chk") Then
+                chkBox = ctrl
+                doc.Element("config").Element("Stats").Add(New XElement(chkBox.Name, chkBox.ischecked))
+            End If
+        Next
+        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/Scalingconfig.xml", FileMode.Create, isoStore)
+                doc.Save(isoStream)
+            End Using
+        End Using
+    End Sub
+    Sub saveTankOptions()
+
+        Dim doc As XDocument = XDocument.Parse("<config></config>")
+        doc.Element("config").Add(New XElement("Stats", ""))
+        Dim txtBox As TextBox
+        For Each ctrl As Control In gbTank.Children
+            If ctrl.Name.StartsWith("txt") Then
+                txtBox = ctrl
+                doc.Element("config").Element("Stats").Add(New XElement(txtBox.Name, txtBox.Text))
+            End If
+        Next
+        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/TankConfig.xml", FileMode.Create, isoStore)
+                doc.Save(isoStream)
+            End Using
+        End Using
+    End Sub
+    Sub SaveBuffOption()
+
+
+        Dim doc As XDocument = XDocument.Parse("<config></config>")
+        Dim chkBox As CheckBox
+        For Each ctrl As Control In grpBuff.Children
+            If ctrl.Name.StartsWith("chk") Then
+                chkBox = ctrl
+                doc.Element("config").Add(New XElement(chkBox.Name, chkBox.IsChecked))
+            End If
+        Next
+        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/Buffconfig.xml", FileMode.Create, isoStore)
+                doc.Save(isoStream)
+            End Using
+        End Using
+    End Sub
+    Sub SaveEPOptions()
+        Dim doc As XDocument = XDocument.Parse("<config></config>")
+        doc.Element("config").Add(New XElement("Stats", ""))
+        doc.Element("config").Add(New XElement("Sets", ""))
+        doc.Element("config").Add(New XElement("Trinket", ""))
+
+        Dim chkBox As CheckBox
+        For Each ctrl As Control In grpEPMain.Children
+            If ctrl.Name.StartsWith("chk") Then
+                chkBox = ctrl
+                doc.Element("config").Element("Stats").Add(New XElement(chkBox.Name, chkBox.IsChecked))
+            End If
+        Next
+        For Each ctrl As Control In grpEPSet.Children
+            If ctrl.Name.StartsWith("chk") Then
+                chkBox = ctrl
+                doc.Element("config").Element("Sets").Add(New XElement(chkBox.Name, chkBox.IsChecked))
+            End If
+        Next
+        For Each ctrl As Control In grpEPSet.Children
+            If ctrl.Name.StartsWith("chk") Then
+                chkBox = ctrl
+                doc.Element("config").Element("Trinket").Add(New XElement(chkBox.Name, chkBox.IsChecked))
+            End If
+        Next
+        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/EPconfig.xml", FileMode.Create, isoStore)
+                doc.Save(isoStream)
+            End Using
+        End Using
+    End Sub
+    Sub saveConfig()
+        Dim doc As XDocument = XDocument.Parse("<config></config>")
+
+
+        doc.Element("config").Add(New XElement("CharacterWithGear", cmbGearSelector.SelectedValue))
+        doc.Element("config").Add(New XElement("template", cmbTemplate.SelectedValue))
+
+
+        If rdPrio.IsChecked Then
+            doc.Element("config").Add(New XElement("mode", "priority"))
+        Else
+            doc.Element("config").Add(New XElement("mode", "rotation"))
+
+        End If
+
+        doc.Element("config").Add(New XElement("intro", cmbIntro.SelectedValue))
+        doc.Element("config").Add(New XElement("priority", cmbPrio.SelectedValue))
+        doc.Element("config").Add(New XElement("rotation", cmbRotation.SelectedValue))
+        doc.Element("config").Add(New XElement("presence", cmdPresence.SelectedValue))
+        doc.Element("config").Add(New XElement("sigil", cmbSigils.SelectedValue))
+        doc.Element("config").Add(New XElement("mh", cmbRuneMH.SelectedValue))
+        doc.Element("config").Add(New XElement("oh", cmbRuneOH.SelectedValue))
+        doc.Element("config").Add(New XElement("scenario", cmbScenario.SelectedValue))
+        doc.Element("config").Add(New XElement("latency", txtLatency.Text))
+        doc.Element("config").Add(New XElement("simtime", txtSimtime.Text))
+
+        doc.Element("config").Add(New XElement("BSTTL", txtBSTTL.Text))
+        doc.Element("config").Add(New XElement("log", chkCombatLog.IsChecked))
+        doc.Element("config").Add(New XElement("logdetail", ckLogRP.IsChecked))
+        doc.Element("config").Add(New XElement("ShowProc", chkShowProc.IsChecked))
+        doc.Element("config").Add(New XElement("WaitFC", chkWaitFC.IsChecked))
+        doc.Element("config").Add(New XElement("pet", ckPet.IsChecked))
+        'Patch
+        'doc.Element("config").Add(New XElement("Patch", chkPatch.isChecked))
+
+        doc.Element("config").Add(New XElement("BloodSync", chkBloodSync.IsChecked))
+        doc.Element("config").Add(New XElement("chkMergeReport", chkMergeReport.IsChecked))
+        doc.Element("config").Add(New XElement("BShOption", cmbBShOption.SelectedValue))
+        doc.Element("config").Add(New XElement("ICCBuff", cmbICCBuff.SelectedValue))
+
+        doc.Element("config").Add(New XElement("txtAMSrp", txtAMSrp.Text))
+        doc.Element("config").Add(New XElement("txtAMScd", txtAMScd.Text))
+        doc.Element("config").Add(New XElement("txtReportName", txtReportName.Text))
+        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/config.xml", FileMode.Create, isoStore)
+                doc.Save(isoStream)
+            End Using
+        End Using
+
+
+    End Sub
     Private Sub Page_Loaded(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles MyBase.Loaded
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
             Dim f As String
@@ -59,7 +199,7 @@ Partial Public Class MainForm
         LoadTankOptions()
         LoadDB()
 
-        'initReport()
+        initReport()
         'Randomize()
 
         'InitCharacterPanel()
@@ -134,13 +274,13 @@ Partial Public Class MainForm
 
                 Dim ctrl As Control
                 Dim chkBox As CheckBox
-                For Each ctrl In groupEPMain.Children
+                For Each ctrl In grpEPMain.Children
                     If ctrl.Name.StartsWith("chkEP") Then
                         chkBox = ctrl
                         chkBox.IsChecked = doc.Element("config").Element("Stats").Element(chkBox.Name).Value
                     End If
                 Next
-                For Each ctrl In groupEPSet.Children
+                For Each ctrl In grpEPSet.Children
                     If ctrl.Name.StartsWith("chkEP") Then
                         chkBox = ctrl
                         chkBox.IsChecked = doc.Element("config").Element("Sets").Element(chkBox.Name).Value
@@ -163,8 +303,8 @@ sortie:
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
             Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/config.xml", FileMode.Open, isoStore)
                 Dim doc As XDocument = XDocument.Load(isoStream)
-                cmbGearSelector.SelectedItem = doc.Element("config").Element("CharacterWithGear").Value
-                cmbTemplate.SelectedItem = doc.Element("config").Element("template").Value
+                cmbGearSelector.SelectedValue = doc.Element("config").Element("CharacterWithGear").Value
+                cmbTemplate.SelectedValue = doc.Element("config").Element("template").Value
                 If doc.Element("config").Element("mode").Value <> "rotation" Then
                     rdPrio.IsChecked = True
                     cmbPrio.IsEnabled = True
@@ -174,14 +314,14 @@ sortie:
                     cmbPrio.IsEnabled = False
                     cmbRotation.IsEnabled = True
                 End If
-                cmbIntro.SelectedItem = doc.Element("config").Element("intro").Value
-                cmbPrio.SelectedItem = doc.Element("config").Element("priority").Value
-                cmbRotation.SelectedItem = doc.Element("config").Element("rotation").Value
-                cmdPresence.SelectedItem = doc.Element("config").Element("presence").Value
-                cmbSigils.SelectedItem = doc.Element("config").Element("sigil").Value
-                cmbRuneMH.SelectedItem = doc.Element("config").Element("mh").Value
-                cmbRuneOH.SelectedItem = doc.Element("config").Element("oh").Value
-                cmbScenario.SelectedItem = doc.Element("config").Element("scenario").Value
+                cmbIntro.SelectedValue = doc.Element("config").Element("intro").Value
+                cmbPrio.SelectedValue = doc.Element("config").Element("priority").Value
+                cmbRotation.SelectedValue = doc.Element("config").Element("rotation").Value
+                cmdPresence.SelectedValue = doc.Element("config").Element("presence").Value
+                cmbSigils.SelectedValue = doc.Element("config").Element("sigil").Value
+                cmbRuneMH.SelectedValue = doc.Element("config").Element("mh").Value
+                cmbRuneOH.SelectedValue = doc.Element("config").Element("oh").Value
+                cmbScenario.SelectedValue = doc.Element("config").Element("scenario").Value
 
 
                 cmbBShOption.SelectedItem = doc.Element("config").Element("BShOption").Value
@@ -193,7 +333,7 @@ sortie:
                 ckLogRP.IsChecked = doc.Element("config").Element("logdetail").Value
                 chkShowProc.isChecked = doc.Element("config").Element("ShowProc").Value
                 chkWaitFC.isChecked = doc.Element("config").Element("WaitFC").Value
-                '		chkPatch.Ischecked = doc.Element("//config/Patch").Value
+                '		chkPatch.Ischecked = doc.Element("config").Element("Patch").Value
 
                 ckPet.IsChecked = doc.Element("config").Element("pet").Value
 
@@ -205,8 +345,6 @@ sortie:
                 chkBloodSync.IsChecked = doc.Element("config").Element("BloodSync").Value
             End Using
         End Using
-
-errH:
     End Sub
     Sub LoadBuffOption()
         On Error GoTo sortie
@@ -489,7 +627,7 @@ OUT:
         Dim item As String
         Dim sTemp As String = ""
         Try
-            sTemp = cmbScenario.SelectedItem.ToString
+            sTemp = cmbScenario.SelectedValue
         Catch
         End Try
         cmbScenario.Items.Clear()
@@ -566,10 +704,12 @@ OUT:
     End Sub
 
     Private Sub cmdEditCharacterWithGear_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdEditCharacterWithGear.Click
-    
+        If GearSelector Is Nothing Then
+            GearSelector = New GearSelectorMainForm(Me)
+        End If
 
         Try
-            GearSelector.FilePath = cmbGearSelector.SelectedItem.ToString
+            GearSelector.FilePath = cmbGearSelector.SelectedValue
             GearSelector.Show
             GearSelector.LoadMycharacter()
         Catch Err As Exception
@@ -582,4 +722,30 @@ OUT:
         loadWindow()
         cmbGearSelector.SelectedItem = GearSelector.FilePath
     End Sub
+
+    Private Sub cmdStartSim_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdStartSim.Click
+        If LoadBeforeSim() = False Then Exit Sub
+        Me.TabControl1.SelectedIndex = 1
+        SimConstructor.Start(txtSimtime.Text, Me, True)
+    End Sub
+
+    Private Sub cmdEditScenario_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdEditScenario.Click
+        If ScenarioEditor Is Nothing Then
+            ScenarioEditor = New ScenarioEditor(Me)
+        End If
+        Try
+            ScenarioEditor.OpenForEdit(cmbScenario.SelectedValue)
+            ScenarioEditor.Show()
+
+        Catch Err As Exception
+
+
+        End Try
+    End Sub
+    Sub ScenarioEditor_Close() Handles ScenarioEditor.Closing
+        RefreshScenarioList()
+        cmbScenario.SelectedValue = ScenarioEditor.EditorFilepath
+    End Sub
+
+
 End Class

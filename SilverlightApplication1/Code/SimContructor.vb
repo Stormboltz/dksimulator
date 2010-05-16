@@ -1,5 +1,7 @@
 ﻿Imports System.Xml.Linq
 Imports System.Threading
+Imports System.IO.IsolatedStorage
+Imports System.IO
 
 '
 ' Crée par SharpDevelop.
@@ -23,7 +25,7 @@ Public Module SimConstructor
     'Friend ThreadCollection As New Collection
     Friend ThreadCollection As New Collections.Generic.List(Of Thread)
 
-    Friend simCollection As New collection
+    Friend simCollection As New Collection
     Public _MainFrm As MainForm
     Sub New()
 
@@ -182,8 +184,15 @@ skipStats:
         _MainFrm = MainFrm
         Dim sReport As String
 
-        Dim doc As XDocument = New XDocument
-        doc.Load("EPconfig.xml")
+
+        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/EPconfig.xml", FileMode.Open, isoStore)
+                Dim doc As XDocument = XDocument.Load(isoStream)
+
+
+
+            
+
 
 
 
@@ -221,7 +230,7 @@ skipStats:
         'Create EP table
         sReport = "<table border='0' cellspacing='0' style='font-family:Verdana; font-size:10px;'>"
 
-        If doc.Element("//config/Stats").Value.Contains("True") = False Then
+        If doc.Element("config/Stats").Value.Contains("True") = False Then
             GoTo skipStats
         End If
 
@@ -233,31 +242,31 @@ skipStats:
         EpStat = "EP AttackPower"
         SimConstructor.Start(SimTime, MainFrm)
 
-        If doc.Element("//config/Stats/chkEPStr").Value = "True" Then
+        If doc.Element("config/Stats/chkEPStr").Value = "True" Then
             EpStat = "EP Strength"
             SimConstructor.Start(SimTime, MainFrm)
         End If
-        If doc.Element("//config/Stats/chkEPAgility").Value = "True" Then
+        If doc.Element("config/Stats/chkEPAgility").Value = "True" Then
             EpStat = "EP Agility"
             SimConstructor.Start(SimTime, MainFrm)
         End If
-        If doc.Element("//config/Stats/chkEPCrit").Value = "True" Then
+        If doc.Element("config/Stats/chkEPCrit").Value = "True" Then
             EpStat = "EP CritRating"
             SimConstructor.Start(SimTime, MainFrm)
         End If
-        If doc.Element("//config/Stats/chkEPHaste").Value = "True" Then
+        If doc.Element("config/Stats/chkEPHaste").Value = "True" Then
             EpStat = "EP HasteRating1"
             SimConstructor.Start(SimTime, MainFrm)
             EpStat = "EP HasteEstimated"
             SimConstructor.Start(SimTime, MainFrm)
         End If
-        If doc.Element("//config/Stats/chkEPArP").Value = "True" Then
+        If doc.Element("config/Stats/chkEPArP").Value = "True" Then
             EpStat = "EP ArmorPenetrationRating"
             SimConstructor.Start(SimTime, MainFrm)
         End If
 
 
-        If doc.Element("//config/Stats/chkEPExp").Value = "True" Then
+        If doc.Element("config/Stats/chkEPExp").Value = "True" Then
             EpStat = "EP ExpertiseRating"
             SimConstructor.Start(SimTime, MainFrm)
             EpStat = "EP ExpertiseRatingCap"
@@ -275,7 +284,7 @@ skipStats:
             End If
         End If
 
-        If doc.Element("//config/Stats/chkEPHit").Value = "True" Then
+        If doc.Element("config/Stats/chkEPHit").Value = "True" Then
             EpStat = "EP HitRating"
             SimConstructor.Start(SimTime, MainFrm)
             EpStat = "EP HitRatingCap"
@@ -283,22 +292,22 @@ skipStats:
             EpStat = "EP HitRatingCapAP"
             SimConstructor.Start(SimTime, MainFrm)
         End If
-        If doc.Element("//config/Stats/chkEPSpHit").Value = "True" Then
+        If doc.Element("config/Stats/chkEPSpHit").Value = "True" Then
             EpStat = "EP SpellHitRating"
             SimConstructor.Start(SimTime, MainFrm)
         End If
-        If doc.Element("//config/Stats/chkEPSMHDPS").Value = "True" Then
+        If doc.Element("config/Stats/chkEPSMHDPS").Value = "True" Then
             EpStat = "EP WeaponDPS"
             SimConstructor.Start(SimTime, MainFrm)
         End If
-        If doc.Element("//config/Stats/chkEPSMHSpeed").Value = "True" Then
+        If doc.Element("config/Stats/chkEPSMHSpeed").Value = "True" Then
             EpStat = "EP WeaponSpeed"
             SimConstructor.Start(SimTime, MainFrm)
         End If
         Dim tmpInt As Integer
         tmpInt = EPBase
         EPBase = 20
-        If doc.Element("//config/Stats/chkEPAfterSpellHitRating").Value = "True" Then
+        If doc.Element("config/Stats/chkEPAfterSpellHitRating").Value = "True" Then
             EpStat = "EP AfterSpellHitBase"
             SimConstructor.Start(SimTime, MainFrm)
             EpStat = "EP AfterSpellHitBaseAP"
@@ -471,7 +480,7 @@ skipStats:
         DPSs.Clear()
         ThreadCollection.Clear()
         simCollection.Clear()
-        If doc.Element("//config/Sets").Value.Contains("True") = False Then
+        If doc.Element("config/Sets").Value.Contains("True") = False Then
             GoTo skipSets
         End If
 
@@ -481,35 +490,35 @@ skipStats:
         EpStat = "EP AttackPower0T7"
         SimConstructor.Start(SimTime, MainFrm)
 
-        If doc.Element("//config/Sets/chkEP2T7").Value = "True" Then
+        If doc.Element("config/Sets/chkEP2T7").Value = "True" Then
             EpStat = "EP 2T7"
             SimConstructor.Start(SimTime, MainFrm)
         End If
-        If doc.Element("//config/Sets/chkEP4PT7").Value = "True" Then
+        If doc.Element("config/Sets/chkEP4PT7").Value = "True" Then
             EpStat = "EP 4T7"
             SimConstructor.Start(SimTime, MainFrm)
         End If
-        If doc.Element("//config/Sets/chkEP2PT8").Value = "True" Then
+        If doc.Element("config/Sets/chkEP2PT8").Value = "True" Then
             EpStat = "EP 2T8"
             SimConstructor.Start(SimTime, MainFrm)
         End If
-        If doc.Element("//config/Sets/chkEP4PT8").Value = "True" Then
+        If doc.Element("config/Sets/chkEP4PT8").Value = "True" Then
             EpStat = "EP 4T8"
             SimConstructor.Start(SimTime, MainFrm)
         End If
-        If doc.Element("//config/Sets/chkEP2PT9").Value = "True" Then
+        If doc.Element("config/Sets/chkEP2PT9").Value = "True" Then
             EpStat = "EP 2T9"
             SimConstructor.Start(SimTime, MainFrm)
         End If
-        If doc.Element("//config/Sets/chkEP4PT9").Value = "True" Then
+        If doc.Element("config/Sets/chkEP4PT9").Value = "True" Then
             EpStat = "EP 4T9"
             SimConstructor.Start(SimTime, MainFrm)
         End If
-        If doc.Element("//config/Sets/chkEP2PT10").Value = "True" Then
+        If doc.Element("config/Sets/chkEP2PT10").Value = "True" Then
             EpStat = "EP 2T10"
             SimConstructor.Start(SimTime, MainFrm)
         End If
-        If doc.Element("//config/Sets/chkEP4PT10").Value = "True" Then
+        If doc.Element("config/Sets/chkEP4PT10").Value = "True" Then
             EpStat = "EP 4T10"
             SimConstructor.Start(SimTime, MainFrm)
         End If
@@ -597,7 +606,7 @@ skipStats:
 skipSets:
 
 
-        If doc.Element("//config/Trinket").Value.Contains("True") = False Then
+        If doc.Element("config/Trinket").Value.Contains("True") = False Then
             GoTo skipTrinket
         End If
 
@@ -610,7 +619,7 @@ skipSets:
 
         Dim trinketsList As XElement
         Dim tNode As XElement
-        trinketsList = doc.Element("//config/Trinket")
+        trinketsList = doc.Element("config/Trinket")
 
         For Each tNode In trinketsList.Elements
             If tNode.Value = "True" Then
@@ -686,6 +695,9 @@ skipTrinket:
 
         WriteReport(sReport)
         EpStat = ""
+            End Using
+
+        End Using
 
     End Sub
 
@@ -700,10 +712,14 @@ skipTrinket:
         Dim sReport As String
         Dim doc As XDocument = New XDocument
 
+        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/ScalingConfig.xml", FileMode.Open, isoStore)
+                doc = XDocument.Load(isoStream)
+            End Using
+        End Using
 
-        doc.Load("ScalingConfig.xml")
         Dim xNodelist As XElement
-        xNodelist = doc.Element("//config/Stats")
+        xNodelist = doc.Element("config").Element("Stats")
         Dim xNode As XElement
         Dim i As Integer
         sReport = "<table border='0' cellspacing='0' style='font-family:Verdana; font-size:10px;'>"
@@ -775,7 +791,7 @@ skipTrinket:
 
         doc.Load("\Templates\" & MainFrm.cmbTemplate.SelectedValue)
         Dim xNodelist As XElement
-        xNodelist = doc.Element("//Talents")
+        xNodelist = doc.Element("Talents")
         Dim xNode As XElement
 
         EpStat = "OriginalSpec"

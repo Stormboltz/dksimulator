@@ -34,18 +34,26 @@ Public Class Flask
             Detach()
             Exit Sub
         End If
-        Id = FlaskId
-        name = FlaskDB.Element("/flask/item[id=" & FlaskId & "]/name").Value
-        Strength = FlaskDB.Element("/flask/item[id=" & FlaskId & "]/Strength").Value
-        Agility = FlaskDB.Element("/flask/item[id=" & FlaskId & "]/Agility").Value
-        HasteRating = FlaskDB.Element("/flask/item[id=" & FlaskId & "]/HasteRating").Value
-        ExpertiseRating = FlaskDB.Element("/flask/item[id=" & FlaskId & "]/ExpertiseRating").Value
-        HitRating = FlaskDB.Element("/flask/item[id=" & FlaskId & "]/HitRating").Value
-        AttackPower = FlaskDB.Element("/flask/item[id=" & FlaskId & "]/AttackPower").Value
-        CritRating = FlaskDB.Element("/flask/item[id=" & FlaskId & "]/CritRating").Value
-        ArmorPenetrationRating = FlaskDB.Element("/flask/item[id=" & FlaskId & "]/ArmorPenetrationRating").Value
-        Armor = FlaskDB.Element("/flask/item[id=" & FlaskId & "]/Armor").Value
-        Desc = FlaskDB.Element("/flask/item[id=" & FlaskId & "]/Desc").Value
+
+
+        Dim el As XElement = (From x In MainFrame.FlaskDB.Element("flask").Elements
+                              Where x.Element("id").Value = FlaskId
+                              ).First
+
+
+        With Me
+            .Id = el.Element("id").Value
+            .name = el.Element("name").Value
+            .Strength = el.Element("Strength").Value
+            .Agility = el.Element("Agility").Value
+            .HasteRating = el.Element("HasteRating").Value
+            .ExpertiseRating = el.Element("ExpertiseRating").Value
+            .HitRating = el.Element("HitRating").Value
+            .AttackPower = el.Element("AttackPower").Value
+            .CritRating = el.Element("CritRating").Value
+            .ArmorPenetrationRating = el.Element("ArmorPenetrationRating").Value
+            .Desc = el.Element("Desc").Value
+        End With
     End Sub
 
     Sub Attach(ByVal FlaskName As String)
@@ -54,22 +62,24 @@ Public Class Flask
             Exit Sub
         End If
         Try
-            Dim XPathQ As String
+            Dim el As XElement = (From x In MainFrame.FlaskDB.Element("flask").Elements
+                               Where x.Element("name").Value = FlaskName
+                               ).First
 
-            XPathQ = "/flask/item[name=" & Convert.ToChar(34) & FlaskName & Convert.ToChar(34) & "]"
 
-            Id = FlaskDB.Element(XPathQ & "/id").Value
-            name = FlaskDB.Element(XPathQ & "/name").Value
-            Strength = FlaskDB.Element(XPathQ & "/Strength").Value
-            Agility = FlaskDB.Element(XPathQ & "/Agility").Value
-            HasteRating = FlaskDB.Element(XPathQ & "/HasteRating").Value
-            ExpertiseRating = FlaskDB.Element(XPathQ & "/ExpertiseRating").Value
-            HitRating = FlaskDB.Element(XPathQ & "/HitRating").Value
-            AttackPower = FlaskDB.Element(XPathQ & "/AttackPower").Value
-            CritRating = FlaskDB.Element(XPathQ & "/CritRating").Value
-            ArmorPenetrationRating = FlaskDB.Element(XPathQ & "/ArmorPenetrationRating").Value
-            Armor = FlaskDB.Element(XPathQ & "/Armor").Value
-            Desc = FlaskDB.Element(XPathQ & "/Desc").Value
+            With Me
+                .Id = el.Element("id").Value
+                .name = el.Element("name").Value
+                .Strength = el.Element("Strength").Value
+                .Agility = el.Element("Agility").Value
+                .HasteRating = el.Element("HasteRating").Value
+                .ExpertiseRating = el.Element("ExpertiseRating").Value
+                .HitRating = el.Element("HitRating").Value
+                .AttackPower = el.Element("AttackPower").Value
+                .CritRating = el.Element("CritRating").Value
+                .ArmorPenetrationRating = el.Element("ArmorPenetrationRating").Value
+                .Desc = el.Element("Desc").Value
+            End With
         Catch Err As Exception
             Diagnostics.Debug.WriteLine(Err.ToString)
 

@@ -180,10 +180,7 @@ Public Class Proc
 		ApplyFade(T)
 	End Sub
 	
-	Overrides Function report as String
-		If HitCount + CritCount = 0 Then Return ""
-		return MyBase.report
-	End Function
+	
 	
 	Public Sub cleanup()
 		Total = 0

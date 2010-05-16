@@ -27,7 +27,7 @@
             e.Handled = True
             Deployment.Current.Dispatcher.BeginInvoke(New Action(Of ApplicationUnhandledExceptionEventArgs)(AddressOf ReportErrorToDOM), e)
         Else
-            Diagnostics.Debug.WriteLine(e.ToString)
+            Diagnostics.Debug.WriteLine(e.ExceptionObject.ToString)
         End If
     End Sub
 
