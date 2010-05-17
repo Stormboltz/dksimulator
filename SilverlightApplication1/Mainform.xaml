@@ -164,7 +164,7 @@
                 <ColumnDefinition Width="90*" />
                 <ColumnDefinition Width="638*" />
             </Grid.ColumnDefinitions>
-            <ProgressBar Height="26" Name="ProgressBar1" VerticalAlignment="Bottom" Grid.ColumnSpan="2" />
+            <ProgressBar Height="26" Name="ProgressBar1" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Maximum="1" SmallChange="0.01" LargeChange="0.1" />
             <Button Content="Start Simulator" Height="23" HorizontalAlignment="Left" Margin="0,15,0,0" Name="cmdStartSim" VerticalAlignment="Top" Width="246" Grid.ColumnSpan="2" />
             <Button Content="Start EP" Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="440,11,0,0" Name="btEP" VerticalAlignment="Top" Width="179" />
             <Button Content="Change RNG Seed." Grid.Column="1" Height="28" HorizontalAlignment="Left" Margin="233,6,0,0" Name="cmdRngSeeder" VerticalAlignment="Top" Width="177" />

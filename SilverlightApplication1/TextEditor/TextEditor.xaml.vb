@@ -16,7 +16,7 @@ Partial Public Class TextEditor
         Me.DialogResult = False
     End Sub
 
-    Sub OpenFileFromISO(ByVal path)
+    Sub OpenFileFromISO(ByVal path As String)
 
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
             Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream(path, FileMode.OpenOrCreate, FileAccess.Read, isoStore)

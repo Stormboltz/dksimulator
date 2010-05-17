@@ -35,6 +35,7 @@ Public Class Supertype
     Overridable Function Report() As ReportLine
         If HitCount + CritCount = 0 Then Return Nothing
         Dim R As New ReportLine
+
         R.Ability = ShortenName(Me.Name)
 
         R.Damage_done_Total = total

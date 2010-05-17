@@ -189,23 +189,17 @@
     <Compile Include="Procs\Rime.vb" />
     <Compile Include="Procs\ScentOfBlood.vb" />
     <Compile Include="Procs\WeaponProc.vb" />
-    <Compile Include="Report\Report.xaml.vb">
-      <DependentUpon>Report.xaml</DependentUpon>
+    <Compile Include="Report\Report.vb" />
+    <Compile Include="Report\ReportDisplay.xaml.vb">
+      <DependentUpon>ReportDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Report\ReportLine.vb" />
-    <Compile Include="Report\SimReport.vb" />
     <Compile Include="Runes\CataRune.vb" />
     <Compile Include="Runes\CataRunesManagement.vb" />
     <Compile Include="Runes\rune.vb" />
     <Compile Include="Runes\runes.vb" />
     <Compile Include="scenario\Element.vb" />
     <Compile Include="scenario\Scenario.vb" />
-    <Compile Include="scenario\ScenarioButton.xaml.vb">
-      <DependentUpon>ScenarioButton.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="scenario\ScenarioEditor.xaml.vb">
-      <DependentUpon>ScenarioEditor.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Special\AotD.vb" />
     <Compile Include="Special\Bloodlust.vb" />
     <Compile Include="Special\BloodPresence.vb" />
@@ -421,7 +415,7 @@
     <Content Include="Priority\Unholy.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Page Include="Report\Report.xaml">
+    <Page Include="Report\ReportDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -451,14 +445,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TemplateEditor\TemplateEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="scenario\ScenarioEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="scenario\ScenarioButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

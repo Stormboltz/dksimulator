@@ -2,10 +2,16 @@
 Imports System.IO.IsolatedStorage
 Imports System.IO
 Imports System.Windows.Resources
+Imports System.ComponentModel
+Imports System.Threading
 
 
 Partial Public Class MainForm
     Inherits Page
+
+    Friend Shared RefreshRequest As Integer = 0
+
+
     Private isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
     Friend EditType As String
     Friend EPVal As EPValues
@@ -25,16 +31,45 @@ Partial Public Class MainForm
     Private WithEvents TEdit As New TemplateEditor
     Private WithEvents PrioEditor As New PriorityEditor
     Private WithEvents GearSelector As GearSelectorMainForm
-    Private WithEvents ScenarioEditor As ScenarioEditor
+    'Private WithEvents ScenarioEditor As ScenarioEditor
 
 
+
+    Dim WithEvents _worker As BackgroundWorker = New BackgroundWorker()
     Public Sub New()
         InitializeComponent()
-    End Sub
-    'Executes when the user navigates to this page.
-    Protected Overrides Sub OnNavigatedTo(ByVal e As System.Windows.Navigation.NavigationEventArgs)
 
+        'For some bizarre reason we need to tell the BackgoundWorker that we will be
+        'reporting progress!
+        _worker.WorkerReportsProgress = True
+        ProgressBar1.Maximum = 100
+
+        ' Wire up an event handler to respond to progress changes during the operation.
+        'Let the BackgoundWorker know what operation to call when it's kicked off.
     End Sub
+    Sub _worker_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles _worker.DoWork
+        DoSomethingHard()
+    End Sub
+    Private Sub DoSomethingHard()
+        For i = 0 To 100
+            '// Report some progress - this will result in the ProgressChanged event being
+            '// raised
+            _worker.ReportProgress(i, i.ToString & "% complete")
+
+            Thread.Sleep(1000)
+        Next
+    End Sub
+    Private Sub Button_Click(ByVal sender As Object, ByVal e As RoutedEventArgs) Handles btEP.Click
+        '// Start the BackgoundWorker thread to do the Hard Work
+        _worker.RunWorkerAsync()
+    End Sub
+    Sub worker_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles _worker.ProgressChanged
+        'This is the opportunity to update the controls on the main thread
+        ProgressBar1.Value = e.ProgressPercentage
+        'Executes when the user navigates to this page.
+    End Sub
+
+
     Function LoadBeforeSim()
         saveConfig()
         SaveEPOptions()
@@ -52,7 +87,7 @@ Partial Public Class MainForm
         For Each ctrl As Control In gbScaling.Children
             If ctrl.Name.StartsWith("chk") Then
                 chkBox = ctrl
-                doc.Element("config").Element("Stats").Add(New XElement(chkBox.Name, chkBox.ischecked))
+                doc.Element("config").Element("Stats").Add(New XElement(chkBox.Name, chkBox.IsChecked))
             End If
         Next
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
@@ -259,7 +294,7 @@ Partial Public Class MainForm
             CopyFileFromXAPtoISF("Templates/Unholy 17-00-54.xml")
             CopyFileFromXAPtoISF("Templates/Unholy DW 0-17-54.xml")
 
-
+            isoStore.CreateDirectory("KahoDKSim/Report")
             'For Each f In isoStore.GetFileNames
             '    System.Diagnostics.Debug.WriteLine(f)
             'Next
@@ -331,8 +366,8 @@ sortie:
                 txtSimtime.Text = doc.Element("config").Element("simtime").Value
                 chkCombatLog.IsChecked = doc.Element("config").Element("log").Value
                 ckLogRP.IsChecked = doc.Element("config").Element("logdetail").Value
-                chkShowProc.isChecked = doc.Element("config").Element("ShowProc").Value
-                chkWaitFC.isChecked = doc.Element("config").Element("WaitFC").Value
+                chkShowProc.IsChecked = doc.Element("config").Element("ShowProc").Value
+                chkWaitFC.IsChecked = doc.Element("config").Element("WaitFC").Value
                 '		chkPatch.Ischecked = doc.Element("config").Element("Patch").Value
 
                 ckPet.IsChecked = doc.Element("config").Element("pet").Value
@@ -340,7 +375,7 @@ sortie:
                 txtAMSrp.Text = doc.Element("config").Element("txtAMSrp").Value
                 txtAMScd.Text = doc.Element("config").Element("txtAMScd").Value
 
-                chkMergeReport.isChecked = doc.Element("config").Element("chkMergeReport").Value
+                chkMergeReport.IsChecked = doc.Element("config").Element("chkMergeReport").Value
                 txtReportName.Text = doc.Element("config").Element("txtReportName").Value
                 chkBloodSync.IsChecked = doc.Element("config").Element("BloodSync").Value
             End Using
@@ -577,8 +612,58 @@ OUT:
         cmbRotation.IsEnabled = False
         cmbPrio.IsEnabled = True
     End Sub
-    Sub UpdateProgressBar()
 
+    Friend Shared ProgressBarHelper As New Action(AddressOf UpdateProgressBar)
+
+    'Delegate Sub UpdateProgressBar_Delegate(ByVal pb As ProgressBar)
+    'Friend Sub TryToUpdateProgressBar(ByVal pb As ProgressBar)
+    '    Dim MyDelegate As New UpdateProgressBar_Delegate(AddressOf UpdateProgressBar)
+    '    pb.Dispatcher.BeginInvoke(MyDelegate, New Object() {pb})
+    'End Sub
+
+
+    'Shared ProgressBar1 As ProgressBar
+
+    Friend Shared Sub UpdateProgressBar()
+        Dim s As Sim
+        Dim i As Double
+        'RefreshRequest += 1
+        'On Error Resume Next
+        If SimConstructor.simCollection.Count = 0 Then
+            ProgressBar1.Value = 0
+            Exit Sub
+        End If
+        i = 0
+        For Each s In SimConstructor.simCollection
+            If s.MaxTime <> 0 Then
+                i += (s.TimeStamp / s.MaxTime) / SimConstructor.simCollection.Count
+            Else
+                i += 0
+            End If
+        Next
+        i = i * 100
+        ProgressBar1.Value = i
+        'Diagnostics.Debug.WriteLine(RefreshRequest)
+    End Sub
+
+    Sub UpdateProgressBars()
+        Dim s As Sim
+        Dim i As Double
+        'On Error Resume Next
+        If SimConstructor.simCollection.Count = 0 Then
+            Me.ProgressBar1.Value = 0
+            Exit Sub
+        End If
+        i = 0
+        For Each s In SimConstructor.simCollection
+            If s.MaxTime <> 0 Then
+                i += (s.TimeStamp / s.MaxTime) / SimConstructor.simCollection.Count
+            Else
+                i += 0
+            End If
+        Next
+        i = i * 100
+        Me.ProgressBar1.Value = i
     End Sub
     Sub RefreshPrioList()
 
@@ -670,7 +755,7 @@ OUT:
         PrioEditor.FilePath = cmbRotation.SelectedValue
         PrioEditor.LoadAvailableElemnt()
         PrioEditor.OpenRotaForEdit(PrioEditor.FilePath)
-        PrioEditor.show()
+        PrioEditor.Show()
 
     End Sub
 
@@ -710,11 +795,11 @@ OUT:
 
         Try
             GearSelector.FilePath = cmbGearSelector.SelectedValue
-            GearSelector.Show
+            GearSelector.Show()
             GearSelector.LoadMycharacter()
         Catch Err As Exception
 
-        
+
         End Try
     End Sub
 
@@ -725,27 +810,38 @@ OUT:
 
     Private Sub cmdStartSim_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdStartSim.Click
         If LoadBeforeSim() = False Then Exit Sub
-        Me.TabControl1.SelectedIndex = 1
+
         SimConstructor.Start(txtSimtime.Text, Me, True)
+        Thread.Sleep(100)
+        SimConstructor.Start(txtSimtime.Text, Me, True)
+        Thread.Sleep(100)
+        SimConstructor.Start(txtSimtime.Text, Me, True)
+        Thread.Sleep(100)
+
+        Me.TabControl1.SelectedIndex = 1
+        'SimConstructor.Jointhread()
+        'Dim txEdit As New ReportDisplay
+        'txEdit.OpenReport("KahoDKSim/Report/Report.xml")
+        'txEdit.Show()
     End Sub
 
     Private Sub cmdEditScenario_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdEditScenario.Click
-        If ScenarioEditor Is Nothing Then
-            ScenarioEditor = New ScenarioEditor(Me)
-        End If
-        Try
-            ScenarioEditor.OpenForEdit(cmbScenario.SelectedValue)
-            ScenarioEditor.Show()
+        'If ScenarioEditor Is Nothing Then
+        '    ScenarioEditor = New ScenarioEditor(Me)
+        'End If
+        'Try
+        '    ScenarioEditor.OpenForEdit(cmbScenario.SelectedValue)
+        '    ScenarioEditor.Show()
 
-        Catch Err As Exception
+        'Catch Err As Exception
 
 
-        End Try
+        'End Try
     End Sub
-    Sub ScenarioEditor_Close() Handles ScenarioEditor.Closing
-        RefreshScenarioList()
-        cmbScenario.SelectedValue = ScenarioEditor.EditorFilepath
-    End Sub
+    'Sub ScenarioEditor_Close() Handles ScenarioEditor.Closing
+    '    RefreshScenarioList()
+    '    cmbScenario.SelectedValue = ScenarioEditor.EditorFilepath
+    'End Sub
 
 
 End Class

@@ -26,7 +26,7 @@ Public Module SimConstructor
     Friend ThreadCollection As New Collections.Generic.List(Of Thread)
 
     Friend simCollection As New Collection
-    Public _MainFrm As MainForm
+    Public WithEvents _MainFrm As MainForm
     Sub New()
 
     End Sub
@@ -43,11 +43,15 @@ Public Module SimConstructor
         Else
             sim.Prepare(SimTime, MainFrm)
         End If
-        newthread = New System.Threading.Thread(AddressOf sim.Start)
-        'newthread.Priority= Threading.ThreadPriority.BelowNormal
+      
+        newthread = New Thread(AddressOf sim.Start)
+        newthread.IsBackground = True
+
+        ''newthread.Priority= Threading.ThreadPriority.BelowNormal
         If StartNow Then
-            simCollection.Clear()
             newthread.Start()
+            simCollection.Clear()
+
         End If
         ThreadCollection.Add(newthread)
         simCollection.Add(sim)
@@ -60,13 +64,8 @@ Public Module SimConstructor
         simCollection.Clear()
         Start(10, MainFrm, True)
         Jointhread()
-
         Try
-
             i = DPSs.Item(1)
-
-
-
         Catch e As Exception
             Diagnostics.Debug.WriteLine(e.ToString)
         End Try
@@ -856,15 +855,16 @@ skipTrinket:
                     If t.ThreadState = ThreadState.Unstarted Then t.Start()
                 End If
                 If i = 0 Then
+                    Thread.Sleep(1)
+                    MainForm.ProgressBarHelper()
                     t.Join(100)
-                    _MainFrm.UpdateProgressBar()
                 End If
                 i += 1
             Next
         Loop
     End Sub
 
-
+   
 
 
 

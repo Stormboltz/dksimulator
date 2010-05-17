@@ -4,6 +4,9 @@ Imports System.IO.IsolatedStorage
 Imports System.IO
 
 Public Class Sim
+
+
+
     Friend Cataclysm As Boolean = False
     Friend UselessCheck As Long
     Friend UselessCheckColl As New Collection
@@ -473,6 +476,7 @@ Public Class Sim
 
         Dim FE As FutureEvent
         Do Until False
+            MainForm.ProgressBar1.Dispatcher.BeginInvoke(MainForm.ProgressBarHelper)
             FE = Me.FutureEventManager.GetFirst
             TimeStamp = FE.T
             If TimeStamp >= MaxTime Then Exit Do
@@ -783,10 +787,12 @@ Public Class Sim
 
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
             Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/config.xml", FileMode.Open, isoStore)
+
                 XmlConfig = XDocument.Load(isoStream)
+                isoStream.Close()
                 Dim strCharacter As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/CharactersWithGear/" & XmlConfig.Element("config").Element("CharacterWithGear").Value, FileMode.Open, isoStore)
                 XmlCharacter = XDocument.Load(strCharacter)
-
+                strCharacter.Close()
                 IntroPath = "\Intro\" & XmlConfig.Element("config").Element("intro").Value
 
                 ScenarioPath = "\scenario\" & XmlConfig.Element("config").Element("scenario").Value
@@ -894,9 +900,9 @@ Public Class Sim
             End Using
         End Using
 
-        
 
-    
+
+
 
 
         Exit Sub
@@ -928,134 +934,132 @@ errH:
 
     Sub Report()
         'on error resume next
-        Dim Tw As System.IO.StreamWriter
-
-        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("report.html", FileMode.OpenOrCreate, isoStore)
-                Tw = New StreamWriter(isoStream)
-          
 
 
-        ' Sort report
+        
 
-        Dim myArray As New Collections.Generic.List(Of Long)
 
-        Dim obj As Supertype
 
-        'MergeDisease
+                ' Sort report
 
-        For Each obj In DamagingObject
-            If TypeOf obj Is Diseases.BloodPlague Then
-                If obj.total <> 0 Then
-                    obj.Merge()
+                Dim myArray As New Collections.Generic.List(Of Long)
+
+                Dim obj As Supertype
+
+                'MergeDisease
+
+                For Each obj In DamagingObject
+                    If TypeOf obj Is Diseases.BloodPlague Then
+                        If obj.total <> 0 Then
+                            obj.Merge()
+                        End If
+                    End If
+                Next
+
+                For Each obj In DamagingObject
+                    If TypeOf obj Is Diseases.FrostFever Then
+                        If obj.total <> 0 Then
+                            obj.Merge()
+                        End If
+                    End If
+                Next
+
+
+
+
+                If MergeReport Then
+                    For Each obj In DamagingObject
+                        If obj.total <> 0 Then
+                            obj.Merge()
+                        End If
+                    Next
                 End If
-            End If
-        Next
 
-        For Each obj In DamagingObject
-            If TypeOf obj Is Diseases.FrostFever Then
-                If obj.total <> 0 Then
-                    obj.Merge()
+                For Each obj In DamagingObject
+                    If obj.total <> 0 Then
+                        myArray.Add(obj.total)
+                    End If
+                Next
+                myArray.Sort()
+
+                Dim ThreatBeforePresence As Long = Threat
+                For Each obj In Me.DamagingObject
+                    Threat += obj.total * obj.ThreadMultiplicator
+                Next
+                If FrostPresence = 1 Then
+                    Threat = Threat * 2.0735
+                Else
+                    Threat = (Threat * 0.8) * (1 - Character.TalentBlood.Subversion * 8.333 / 100)
                 End If
-            End If
-        Next
 
-
-
-
-        If MergeReport Then
-            For Each obj In DamagingObject
-                If obj.total <> 0 Then
-                    obj.Merge()
-                End If
-            Next
-        End If
-
-        For Each obj In DamagingObject
-            If obj.total <> 0 Then
-                myArray.Add(obj.total)
-            End If
-        Next
-        myArray.Sort()
-
-        Dim ThreatBeforePresence As Long = Threat
-        For Each obj In Me.DamagingObject
-            Threat += obj.total * obj.ThreadMultiplicator
-        Next
-        If FrostPresence = 1 Then
-            Threat = Threat * 2.0735
-        Else
-            Threat = (Threat * 0.8) * (1 - Character.TalentBlood.Subversion * 8.333 / 100)
-        End If
-
-        Threat = Threat + ThreatBeforePresence
-        TPS = 100 * Threat / TimeStamp
+                Threat = Threat + ThreatBeforePresence
+                TPS = 100 * Threat / TimeStamp
 
                 If EPStat() <> "" Then Exit Sub
 
-                Dim myReport As New SimReport
+                Dim myReport As New Report
                 '_MainFrm.ReportStack.Children.Add(myReport)
                 Dim i As Integer
-        Dim tot As Long
-        Dim STmp As String
-        For i = 0 To myArray.Count - 1
-            tot = (myArray.Item(myArray.Count - 1 - i))
+                Dim tot As Long
+                Dim STmp As String
+                For i = 0 To myArray.Count - 1
+                    tot = (myArray.Item(myArray.Count - 1 - i))
 
-            For Each obj In DamagingObject
+                    For Each obj In DamagingObject
                         If obj.total = tot Then
-                            myReport.Addline(obj.Report)
+                            myReport.AddLine(obj.Report)
                         End If
 
                     Next
                 Next
 
-        If ShowProc Then
+                If ShowProc Then
                     If True Then
-                        myReport.Addline(GCDUsage.Report)
-                        myReport.Addline(Runes.BloodRune1.Report)
-                        myReport.Addline(Runes.BloodRune2.Report)
-                        myReport.Addline(Runes.FrostRune1.Report)
-                        
-                        myReport.Addline(Runes.FrostRune2.Report)
-                        myReport.Addline(Runes.UnholyRune1.Report)
-                        myReport.Addline(Runes.UnholyRune2.Report)
+                        myReport.AddLine(GCDUsage.Report)
+                        myReport.AddLine(Runes.BloodRune1.Report)
+                        myReport.AddLine(Runes.BloodRune2.Report)
+                        myReport.AddLine(Runes.FrostRune1.Report)
+
+                        myReport.AddLine(Runes.FrostRune2.Report)
+                        myReport.AddLine(Runes.UnholyRune1.Report)
+                        myReport.AddLine(Runes.UnholyRune2.Report)
                     End If
 
-            If Horn.HitCount <> 0 Then
-                        myReport.Addline(Horn.Report)
-                
-            End If
-            If Pestilence.HitCount <> 0 Then
-                        myReport.Addline(Pestilence.Report)
-                
-            End If
-            If BoneShield.HitCount <> 0 Then
-                        myReport.Addline(BoneShield.Report)
-                
-            End If
-            If BloodTap.HitCount <> 0 Then
-                        myReport.Addline(BloodTap.Report)
-                
-            End If
+                    If Horn.HitCount <> 0 Then
+                        myReport.AddLine(Horn.Report)
 
-            If Frenzy.HitCount <> 0 Then
-                        myReport.Addline(Frenzy.Report)
+                    End If
+                    If Pestilence.HitCount <> 0 Then
+                        myReport.AddLine(Pestilence.Report)
+
+                    End If
+                    If BoneShield.HitCount <> 0 Then
+                        myReport.AddLine(BoneShield.Report)
+
+                    End If
+                    If BloodTap.HitCount <> 0 Then
+                        myReport.AddLine(BloodTap.Report)
+
                     End If
 
-            If UnbreakableArmor.HitCount <> 0 Then
-                        myReport.Addline(UnbreakableArmor.Report)
-                
-            End If
-            'On Error Resume Next
-            Dim pr As Proc
-            For Each pr In proc.EquipedProc
-                If pr.total = 0 Then
-                            myReport.Addline(pr.Report)
+                    If Frenzy.HitCount <> 0 Then
+                        myReport.AddLine(Frenzy.Report)
+                    End If
+
+                    If UnbreakableArmor.HitCount <> 0 Then
+                        myReport.AddLine(UnbreakableArmor.Report)
+
+                    End If
+                    'On Error Resume Next
+                    Dim pr As Proc
+                    For Each pr In proc.EquipedProc
+                        If pr.total = 0 Then
+                            myReport.AddLine(pr.Report)
                         End If
-            Next
-        End If
+                    Next
+                End If
 
-                myReport.Compile()
+                myReport.Save("")
                 Exit Sub
                 'Dim minDPS As Integer
                 'Dim maxDPS As Integer
@@ -1101,17 +1105,11 @@ errH:
                 '        Tw.Flush()
 
                 '        Tw.Close()
-            
-            End Using
 
 
-            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("report.html", FileMode.Open, isoStore)
-                Dim TR = New StreamReader(isoStream)
-                '_MainFrm.TextBlock1.Text = TR.ReadToEnd
-                Diagnostics.Debug.WriteLine(TR.ReadToEnd)
-            End Using
-        End Using
 
+
+        
 
 
     End Sub

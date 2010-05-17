@@ -45,7 +45,7 @@ Module GlobalFunction
     Function ShortenName(ByVal s As String) As String
         Try
             Dim i As Integer = InStrRev(s, ".")
-            Return Strings.Mid(s, i)
+            Return Strings.Mid(s, i + 1)
         Catch ex As Exception
             Return s
         End Try
