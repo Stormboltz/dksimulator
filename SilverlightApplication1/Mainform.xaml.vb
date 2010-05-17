@@ -613,20 +613,26 @@ OUT:
         cmbPrio.IsEnabled = True
     End Sub
 
-    Friend Shared ProgressBarHelper As New Action(AddressOf UpdateProgressBar)
-
-    'Delegate Sub UpdateProgressBar_Delegate(ByVal pb As ProgressBar)
-    'Friend Sub TryToUpdateProgressBar(ByVal pb As ProgressBar)
-    '    Dim MyDelegate As New UpdateProgressBar_Delegate(AddressOf UpdateProgressBar)
-    '    pb.Dispatcher.BeginInvoke(MyDelegate, New Object() {pb})
-    'End Sub
+    Delegate Sub UpdateProgressBar_Delegate()
+    Friend Sub TryToUpdateProgressBar()
+        Try
+            Dim MyDelegate As New UpdateProgressBar_Delegate(AddressOf UpdateProgressBar)
+            ProgressBar1.Dispatcher.BeginInvoke(MyDelegate)
+        Catch ex As Exception
+            Diagnostics.Debug.WriteLine(ex.StackTrace)
+        End Try
+        
+    End Sub
 
 
     'Shared ProgressBar1 As ProgressBar
 
-    Friend Shared Sub UpdateProgressBar()
+    Friend Sub UpdateProgressBar()
         Dim s As Sim
         Dim i As Double
+        Try
+
+        
         'RefreshRequest += 1
         'On Error Resume Next
         If SimConstructor.simCollection.Count = 0 Then
@@ -642,7 +648,10 @@ OUT:
             End If
         Next
         i = i * 100
-        ProgressBar1.Value = i
+            ProgressBar1.Value = i
+        Catch ex As Exception
+            Diagnostics.Debug.WriteLine(ex.StackTrace)
+        End Try
         'Diagnostics.Debug.WriteLine(RefreshRequest)
     End Sub
 
@@ -812,13 +821,9 @@ OUT:
         If LoadBeforeSim() = False Then Exit Sub
 
         SimConstructor.Start(txtSimtime.Text, Me, True)
-        Thread.Sleep(100)
-        SimConstructor.Start(txtSimtime.Text, Me, True)
-        Thread.Sleep(100)
-        SimConstructor.Start(txtSimtime.Text, Me, True)
-        Thread.Sleep(100)
 
-        Me.TabControl1.SelectedIndex = 1
+        
+        'Me.TabControl1.SelectedIndex = 1
         'SimConstructor.Jointhread()
         'Dim txEdit As New ReportDisplay
         'txEdit.OpenReport("KahoDKSim/Report/Report.xml")

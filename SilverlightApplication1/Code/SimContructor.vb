@@ -30,7 +30,7 @@ Public Module SimConstructor
     Sub New()
 
     End Sub
-
+    Dim WithEvents th As Thread
     Sub Start(ByVal SimTime As Double, ByVal MainFrm As MainForm, Optional ByVal StartNow As Boolean = False)
         Dim sim As Sim
         Dim newthread As System.Threading.Thread
@@ -46,12 +46,10 @@ Public Module SimConstructor
       
         newthread = New Thread(AddressOf sim.Start)
         newthread.IsBackground = True
-
         ''newthread.Priority= Threading.ThreadPriority.BelowNormal
         If StartNow Then
             newthread.Start()
             simCollection.Clear()
-
         End If
         ThreadCollection.Add(newthread)
         simCollection.Add(sim)
@@ -855,8 +853,8 @@ skipTrinket:
                     If t.ThreadState = ThreadState.Unstarted Then t.Start()
                 End If
                 If i = 0 Then
-                    Thread.Sleep(1)
-                    MainForm.ProgressBarHelper()
+                    'Thread.Sleep(1)
+                    'MainForm.ProgressBarHelper()
                     t.Join(100)
                 End If
                 i += 1

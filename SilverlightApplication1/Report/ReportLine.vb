@@ -1,24 +1,39 @@
 ﻿Public Class ReportLine
-
     Property Ability As String
-    Property Damage_done_Total As String
-    Property Damage_done_Pc As String
-    Property Damage_done_Count As String
-    Property Damage_done_Avg As String
-    Property hit_count As String
-    Property hit_count_Avg As String
-    Property hit_count_Pc As String
-    Property Crit_count As String
-    Property Crit_count_Avg As String
-    Property Crit_count_Pc As String
-    Property Miss_Count As String
-    Property Miss_Count_Pc As String
-    Property Glance_Count As String
-    Property Glance_Count_Avg As String
-    Property Glance_Count_Pc As String
-    Property TPS As String
-    Property Uptime As String
+    Property Damage_done_Total As Long
+    Property Damage_done_Pc As Long
+    Property Damage_done_Count As Long
+    Property Damage_done_Avg As Long
 
+
+    Property hit_count As Long
+    Property hit_count_Pc As Long
+    Property hit_count_Avg As Long
+
+    Property Crit_count As Long
+    Property Crit_count_Pc As Long
+    Property Crit_count_Avg As Long
+
+    Property Miss_Count As Long
+    Property Miss_Count_Pc As Long
+
+
+
+
+    Property Glance_Count As Long
+    Property Glance_Count_Pc As Long
+    Property Glance_Count_Avg As Long
+
+    Property Uptime As Long
+
+    Property TPS As Long
+
+    Property TotalHit As Long
+    Property TotalCrit As Long
+    Property TotalGlance As Long
+    Sub New()
+
+    End Sub
     Function InnerText() As String
         Dim tmp As String = "<row>"
 
@@ -43,5 +58,4 @@
         tmp += "</row>"
         Return tmp
     End Function
-
 End Class

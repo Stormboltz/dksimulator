@@ -1,0 +1,24 @@
+﻿<controls:ChildWindow x:Class="DKSIMVB.ScenarioEditor"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+           xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
+           Width="768" Height="399"
+           Title="ScenarioEditor" xmlns:my="clr-namespace:DKSIMVB">
+    <Grid x:Name="LayoutRoot" Margin="2">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Button x:Name="CancelButton" Content="Annuler" Width="75" Height="23" HorizontalAlignment="Right" Margin="0,12,0,0" Grid.Row="1" />
+        <ScrollViewer Height="313" HorizontalAlignment="Left" Margin="12,12,0,0" Name="ScrollViewer1" VerticalAlignment="Top" Width="308" Grid.Row="0">
+            <Canvas Height="513"  Width="308" Name="grpCurrentScenario"></Canvas>
+        </ScrollViewer>
+        <ScrollViewer Height="313" HorizontalAlignment="Right" Margin="0,12,12,0" Name="ScrollViewer2" VerticalAlignment="Top" Width="287" Grid.Row="0">
+            <Canvas Height="513"  Width="287"  Name="grpAvailableScenario" />
+        </ScrollViewer>
+        <Button Content="Save" Height="23" HorizontalAlignment="Left" Margin="509,0,0,0" Name="cmdSave" VerticalAlignment="Bottom" Width="75" Grid.Row="1" />
+        <Button Content="Save As" Height="23" Margin="590,0,81,0" Name="cmdSaveAs" VerticalAlignment="Bottom" Width="75" Grid.Row="1" />
+        <Button Content="View XML" Height="23" HorizontalAlignment="Left" Margin="428,12,0,0" Name="cmdPreview" VerticalAlignment="Top" Width="75" Grid.Row="1" />
+    </Grid>
+</controls:ChildWindow>

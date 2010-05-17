@@ -476,7 +476,8 @@ Public Class Sim
 
         Dim FE As FutureEvent
         Do Until False
-            MainForm.ProgressBar1.Dispatcher.BeginInvoke(MainForm.ProgressBarHelper)
+            _MainFrm.TryToUpdateProgressBar()
+            'System.Threading.Thread.Sleep(1)
             FE = Me.FutureEventManager.GetFirst
             TimeStamp = FE.T
             If TimeStamp >= MaxTime Then Exit Do
