@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="DKSIMVB.myTextButton"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="20" d:DesignWidth="250" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk">
+
+    <Grid x:Name="LayoutRoot" Background="White">
+        <TextBox Height="20" HorizontalAlignment="Left" Name="Text" VerticalAlignment="Top" Width="87" />
+        <sdk:Label Height="20" HorizontalAlignment="Left" Name="label" VerticalAlignment="Center" Width="159" Margin="91,0,0,0" />
+    </Grid>
+</UserControl>

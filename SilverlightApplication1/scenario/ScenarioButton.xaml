@@ -4,21 +4,34 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="145" d:DesignWidth="200" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk">
+    d:DesignHeight="50" d:DesignWidth="200" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" MinHeight="50">
 
     <Grid x:Name="LayoutRoot" Background="White">
-        <Button  Height="20" HorizontalAlignment="Left" Margin="140,5,0,0" Name="buttonAdd" VerticalAlignment="Top" Width="20" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="115*" />
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Button  Height="20" HorizontalAlignment="Left" Name="buttonAdd" VerticalAlignment="Top" Width="20" Grid.Column="1" Grid.Row="0">
             <Image Name="ImgbuttonAdd" Width="20" Height="20" Source="/DKSIMVB;component/images/icons/add.jpg" Margin="-3"></Image>
         </Button>
-        <Button  Height="20" HorizontalAlignment="Left" Margin="140,25,0,0" Name="buttonRemove" VerticalAlignment="Top" Width="20" >
+        <Button  Height="20" HorizontalAlignment="Left" Name="buttonRemove" VerticalAlignment="Top" Width="20" Grid.Column="1" Grid.Row="1">
             <Image Name="ImgbuttonRemove" Width="20" Height="20" Source="/DKSIMVB;component/images/icons/remove.jpg" Margin="-3"></Image>
         </Button>
-        <Button  Height="20" HorizontalAlignment="Left" Margin="170,5,0,0" Name="buttonUp" VerticalAlignment="Top" Width="20" >
+        <Button  Height="20" HorizontalAlignment="Left"  Name="buttonUp" VerticalAlignment="Top" Width="20" Grid.Column="2" Grid.Row="0">
             <Image Name="ImgbuttonUp" Width="20" Height="20" Source="/DKSIMVB;component/images/icons/up.jpg" Margin="-3"></Image>
         </Button>
-        <Button  Height="20" HorizontalAlignment="Left" Margin="170,25,0,0" Name="buttonDown" VerticalAlignment="Top" Width="20" >
+        <Button  Height="20" HorizontalAlignment="Left"  Name="buttonDown" VerticalAlignment="Top" Width="20" Grid.Column="2" Grid.Row="1">
             <Image Name="ImgbuttonDown" Width="20" Height="20" Source="/DKSIMVB;component/images/icons/down.jpg" Margin="-3"></Image>
         </Button>
-        <sdk:Label Height="28" HorizontalAlignment="Left" Name="Text" VerticalAlignment="Top" Width="120" Content="Text" />
+        <sdk:Label Height="20" HorizontalAlignment="Left" Name="Text" VerticalAlignment="Top" Width="160" Content="Text" />
+        <StackPanel Grid.Row="1"  HorizontalAlignment="Left" Name="controlStack" VerticalAlignment="Top" Width="230" Grid.RowSpan="2" MinHeight="50" />
+        <Rectangle Grid.ColumnSpan="3" Grid.RowSpan="3" Height="40" HorizontalAlignment="Left"  Name="Border" Stroke="Black" StrokeThickness="1" VerticalAlignment="Top" Width="270" />
+        
     </Grid>
 </UserControl>

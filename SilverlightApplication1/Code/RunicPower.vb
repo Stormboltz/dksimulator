@@ -26,7 +26,7 @@ Friend Class RunicPower
 	End Function
 	
 	Function Report() As String
-		return "Total runic power used: <b>" & Total & "</b> (" & Wasted & " wasted)" 
+        Return "Total runic power used: " & Total & " (" & Wasted & " wasted)"
 	End Function
 	
 	Function CheckRS(Cost As Integer) As Boolean

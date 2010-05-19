@@ -14,6 +14,7 @@ Partial Public Class GearSelectorMainForm
     Friend EnchantSelector As New EnchantSelector(Me)
     Friend GemSelector As New GemSelector(Me)
     Friend GearSelector As New GearSelector(Me)
+    Friend WithEvents ArmoryImport As New frmArmoryImport
     Friend ItemDB As XDocument
     Friend GemDB As XDocument
     Friend GemBonusDB As XDocument
@@ -557,8 +558,8 @@ NextItem:
         xmlChar.Element("character").Element("weapon").Element("mainhand").Add(New XElement("dps", CheckForDouble(txtMHDPS.Text)))
         xmlChar.Element("character").Element("weapon").Element("mainhand").Add(New XElement("speed", CheckForDouble(txtMHWSpeed.Text)))
 
-        xmlChar.Element("character").Element("weapon").Element("offhand").Add(New XElement("dps", CheckForDouble(txtMHDPS.Text)))
-        xmlChar.Element("character").Element("weapon").Element("offhand").Add(New XElement("speed", CheckForDouble(txtMHWSpeed.Text)))
+        xmlChar.Element("character").Element("weapon").Element("offhand").Add(New XElement("dps", CheckForDouble(txtOHDPS.Text)))
+        xmlChar.Element("character").Element("weapon").Element("offhand").Add(New XElement("speed", CheckForDouble(txtOHWSpeed.Text)))
 
 
 
@@ -627,131 +628,151 @@ NextItem:
 
     End Sub
 
+    Private Sub wc_OpenReadCompleted(ByVal sender As Object, ByVal e As OpenReadCompletedEventArgs)
+        If e.Error IsNot Nothing Then
+            Diagnostics.Debug.WriteLine(e.Error.Message)
+            Return
+        End If
+        Using s As Stream = e.Result
+            Dim doc As XDocument = XDocument.Load(s)
+            Diagnostics.Debug.WriteLine(doc.ToString(SaveOptions.OmitDuplicateNamespaces))
+        End Using
+    End Sub
+
+    Sub ArmoryImport_Closing() Handles ArmoryImport.Closing
+        If ArmoryImport.DialogResult = True Then
+            ImportMyCharacter(ArmoryImport.cmbRegion.SelectedValue, ArmoryImport.txtServer.Text, ArmoryImport.txtCharacter.Text)
+        End If
+    End Sub
+
 
     Sub ImportMyCharacter(ByVal region As String, ByVal realmName As String, ByVal characterName As String)
+        Dim uriString As String
+        Dim param As String
+        param = "?r=" & realmName & "&n=" & characterName
+        Dim webClient As WebClient = New WebClient()
+        AddHandler webClient.OpenReadCompleted, AddressOf wc_OpenReadCompleted
 
-        '    Dim webClient As WebClient = New WebClient()
+        Select Case region
+            Case "US"
+                uriString = "http://www.wowarmory.com/character-sheet.xml" & param
+            Case "EU"
+                uriString = "http://eu.wowarmory.com/character-sheet.xml" & param
+            Case "TW"
+                uriString = "http://tw.wowarmory.com/character-sheet.xml" & param
+            Case "CN"
+                uriString = "http://cn.wowarmory.com/character-sheet.xml" & param
+            Case "KR"
+                uriString = "http://kr.wowarmory.com/character-sheet.xml" & param
+            Case Else
+                uriString = ""
+                Diagnostics.Debug.WriteLine("region unknown: " & region)
+                Exit Sub
+        End Select
+        webClient.OpenReadAsync(New Uri(uriString))
 
-        '    webClient.QueryString.Add("r", realmName)
-        '    webClient.QueryString.Add("n", characterName)
-        '    webClient.Headers.Add("user-agent", "MSIE 7.0")
-        '    webClient.Proxy = WebRequest.GetSystemWebProxy
-        '    webClient.Proxy.Credentials = CredentialCache.DefaultNetworkCredentials
-        '    Dim xmlReaderSettings As XmlReaderSettings = New XmlReaderSettings()
-        '    xmlReaderSettings.IgnoreComments = True
-        '    xmlReaderSettings.IgnoreWhitespace = True
-        '    Dim iSlot As EquipSlot
-        '    Me.InLoad = True
-        '    Dim charfound As Boolean = False
-        '    Dim tmp As String = ""
+
+        Exit Sub
+        'Try
+        '    Dim xmlReader As XmlReader
+
+        'Dim xmlReaderSettings As XmlReaderSettings = New XmlReaderSettings()
+        'xmlReaderSettings.IgnoreComments = True
+        'xmlReaderSettings.IgnoreWhitespace = True
+        'Dim iSlot As EquipSlot
+        'Me.InLoad = True
+        'Dim charfound As Boolean = False
+        'Dim tmp As String = ""
+
+
+
+
+        '    Dim xmlChar As New XDocument
+
+
+        '    Do While xmlReader.Read()
+        '        tmp += xmlReader.ReadInnerXml
+        '    Loop
+        '    xmlChar.Parse("<page globalSearch='1' lang='en_us' requestUrl='/character-sheet.xml'> " & tmp & "</page>")
+        '    InLoad = True
+
         '    Try
-        '        Dim xmlReader As XmlReader
-
-        '        Select Case region
-        '            Case "US"
-        '                xmlReader = xmlReader.Create(webClient.OpenRead("http://www.wowarmory.com/character-sheet.xml"), xmlReaderSettings)
-        '            Case "EU"
-        '                xmlReader = xmlReader.Create(webClient.OpenRead("http://eu.wowarmory.com/character-sheet.xml"), xmlReaderSettings)
-        '            Case "TW"
-        '                xmlReader = xmlReader.Create(webClient.OpenRead("http://tw.wowarmory.com/character-sheet.xml"), xmlReaderSettings)
-        '            Case "CN"
-        '                xmlReader = xmlReader.Create(webClient.OpenRead("http://cn.wowarmory.com/character-sheet.xml"), xmlReaderSettings)
-        '            Case "KR"
-        '                xmlReader = xmlReader.Create(webClient.OpenRead("http://kr.wowarmory.com/character-sheet.xml"), xmlReaderSettings)
-        '            Case Else
-        '                xmlReader = Nothing
-        '                Diagnostics.Diagnostics.Debug.WriteLine("region unknown: " & region)
-        '        End Select
-
-
-
-
-        '        Dim xmlChar As New xdocument
-
-
-        '        Do While xmlReader.Read()
-        '            tmp += xmlReader.ReadInnerXml
-        '        Loop
-        '        xmlChar.parse("<page globalSearch='1' lang='en_us' requestUrl='/character-sheet.xml'> " & tmp & "</page>")
-        '        InLoad = True
-
-        '        Try
-        '            cmbRace.SelectedItem = xmlChar.Element("/page/characterInfo/character").Attribute("race").Value
-        '        Catch
-        '        End Try
-
-
-        '        Try
-        '            cmbFood.SelectedItem = Nothing
-        '        Catch
-        '        End Try
-
-        '        Try
-        '            cmbFlask.SelectedItem = Nothing
-        '        Catch
-        '        End Try
-
-        '        Dim xItem As XmlNode
-        '        cmbSkill1.SelectedItem = Nothing
-        '        cmbSkill2.SelectedItem = Nothing
-        '        For Each xItem In xmlChar.SelectNodes("/page/characterInfo/characterTab/professions/skill")
-        '            If cmbSkill1.SelectedItem <> "" Then
-        '                cmbSkill2.SelectedItem = xItem.Attribute("name").Value
-        '            Else
-        '                cmbSkill1.SelectedItem = xItem.Attribute("name").Value
-        '            End If
-        '        Next
-
-        '        Try
-        '            If xmlChar.Element("/page/characterInfo/characterTab/items/item[@slot=16]").OuterXml <> "" Then
-        '                rDW.Ischecked = True
-        '                r2Hand.Ischecked = False
-        '            End If
-
-        '        Catch
-        '            rDW.Ischecked = False
-        '            r2Hand.Ischecked = True
-        '        End Try
-
-        '        Dim itm As System.Windows.Forms.ToolStripMenuItem
-
-        '        For Each itm In ddConsumable.DropDownItems
-        '            itm.Ischecked = False
-        '        Next
-
-
-        '        For Each xItem In xmlChar.SelectNodes("/page/characterInfo/characterTab/items/item")
-        '            charfound = True
-        '            For Each iSlot In Me.EquipmentList
-        '                If iSlot.Text = ArmorySlot2MySlot(xItem.Attribute("slot").Value) Then
-        '                    Try
-        '                        iSlot.Item.LoadItem(xItem.Attribute("id").Value)
-        '                        iSlot.DisplayItem()
-        '                        iSlot.Item.gem1.Attach(xItem.Attribute("gem0Id").Value)
-        '                        iSlot.Item.gem2.Attach(xItem.Attribute("gem1Id").Value)
-        '                        iSlot.Item.gem3.Attach(xItem.Attribute("gem2Id").Value)
-        '                        iSlot.DisplayGem()
-        '                        iSlot.Item.Enchant.Attach(xItem.Attribute("permanentenchant").Value)
-        '                        iSlot.DisplayEnchant()
-        '                    Catch ex As System.Exception
-        '                        'Diagnostics.Debug.WriteLine (ex.ToString)
-        '                    End Try
-
-        '                End If
-        '            Next
-
-        '        Next
-        '        InLoad = False
-        '        GetStats()
-        '    Catch ex As Exception
-
-        '    Finally
-
-        '        If charfound = False Then
-        '            msgbox("Unable to retrieve the character")
-        '        End If
-        '        Me.InLoad = False
+        '        cmbRace.SelectedItem = xmlChar.Element("/page/characterInfo/character").Attribute("race").Value
+        '    Catch
         '    End Try
+
+
+        '    Try
+        '        cmbFood.SelectedItem = Nothing
+        '    Catch
+        '    End Try
+
+        '    Try
+        '        cmbFlask.SelectedItem = Nothing
+        '    Catch
+        '    End Try
+
+        '    Dim xItem As XmlNode
+        '    cmbSkill1.SelectedItem = Nothing
+        '    cmbSkill2.SelectedItem = Nothing
+        '    For Each xItem In xmlChar.SelectNodes("/page/characterInfo/characterTab/professions/skill")
+        '        If cmbSkill1.SelectedItem <> "" Then
+        '            cmbSkill2.SelectedItem = xItem.Attribute("name").Value
+        '        Else
+        '            cmbSkill1.SelectedItem = xItem.Attribute("name").Value
+        '        End If
+        '    Next
+
+        '    Try
+        '        If xmlChar.Element("/page/characterInfo/characterTab/items/item[@slot=16]").OuterXml <> "" Then
+        '            rDW.IsChecked = True
+        '            r2Hand.IsChecked = False
+        '        End If
+
+        '    Catch
+        '        rDW.IsChecked = False
+        '        r2Hand.IsChecked = True
+        '    End Try
+
+        '    Dim itm As System.Windows.Forms.ToolStripMenuItem
+
+        '    For Each itm In ddConsumable.DropDownItems
+        '        itm.Ischecked = False
+        '    Next
+
+
+        '    For Each xItem In xmlChar.SelectNodes("/page/characterInfo/characterTab/items/item")
+        '        charfound = True
+        '        For Each iSlot In Me.EquipmentList
+        '            If iSlot.text = ArmorySlot2MySlot(xItem.Attribute("slot").Value) Then
+        '                Try
+        '                    iSlot.Item.LoadItem(xItem.Attribute("id").Value)
+        '                    iSlot.DisplayItem()
+        '                    iSlot.Item.gem1.Attach(xItem.Attribute("gem0Id").Value)
+        '                    iSlot.Item.gem2.Attach(xItem.Attribute("gem1Id").Value)
+        '                    iSlot.Item.gem3.Attach(xItem.Attribute("gem2Id").Value)
+        '                    iSlot.DisplayGem()
+        '                    iSlot.Item.Enchant.Attach(xItem.Attribute("permanentenchant").Value)
+        '                    iSlot.DisplayEnchant()
+        '                Catch ex As System.Exception
+        '                    'Diagnostics.Debug.WriteLine (ex.ToString)
+        '                End Try
+
+        '            End If
+        '        Next
+
+        '    Next
+        '    InLoad = False
+        '    GetStats()
+        'Catch ex As Exception
+
+        'Finally
+
+        '    If charfound = False Then
+        '        msgBox("Unable to retrieve the character")
+        '    End If
+        '    Me.InLoad = False
+        'End Try
 
 
 
@@ -856,12 +877,20 @@ NextItem:
 
                 If r2Hand.IsChecked Then
                     Me.TwoHWeapSlot.Opacity = 1
+                    Me.TwoHWeapSlot.IsHitTestVisible = True
                     Me.MHWeapSlot.Opacity = 0
                     Me.OHWeapSlot.Opacity = 0
+                    Me.MHWeapSlot.IsHitTestVisible = False
+                    Me.OHWeapSlot.IsHitTestVisible = False
+
+                    
                 Else
                     Me.TwoHWeapSlot.Opacity = 0
+                    Me.TwoHWeapSlot.IsHitTestVisible = False
                     Me.MHWeapSlot.Opacity = 1
                     Me.OHWeapSlot.Opacity = 1
+                    Me.MHWeapSlot.IsHitTestVisible = True
+                    Me.OHWeapSlot.IsHitTestVisible = True
                 End If
 
 
@@ -1222,23 +1251,7 @@ NextItem:
 
 
     Sub CmdGetDpsClick(ByVal sender As Object, ByVal e As EventArgs)
-        Dim tmp As String
-        Dim i As Integer
-        tmp = Me.FilePath
-        Me.FilePath = "tmp.xml"
-        SaveMycharacter()
-        Me.ParentFrame.cmbGearSelector.Items.Add("tmp.xml")
-        Me.ParentFrame.cmbGearSelector.SelectedItem = "tmp.xml"
-        If Me.ParentFrame.LoadBeforeSim = True Then
-            i = SimConstructor.GetFastDPS(Me.ParentFrame)
-            lblDPS.Content = i & " dps (" & i - LastDPSResult & ")"
-            LastDPSResult = i
-        End If
-
-        Me.ParentFrame.cmbGearSelector.SelectedItem = tmp
-        Me.FilePath = tmp
-        Me.ParentFrame.cmbGearSelector.Items.Remove("tmp.xml")
-        'My.Computer.FileSystem.DeleteFile( "\CharactersWithGear\" & "tmp.xml")
+        
     End Sub
 
     Sub TsGetQuickEPClick(ByVal sender As Object, ByVal e As EventArgs)
@@ -1313,33 +1326,30 @@ NextItem:
 
 
 
-    Sub GreedyToolStripMenuItemClick(ByVal sender As Object, ByVal e As EventArgs)
-        Diagnostics.Debug.WriteLine(e.ToString)
+
+    Sub CmdArmoryImportClick(ByVal sender As Object, ByVal e As EventArgs) Handles cmdArmoryImport.Click
+        ArmoryImport.Show()
     End Sub
 
-    Sub CmdArmoryImportClick(ByVal sender As Object, ByVal e As EventArgs)
-        Dim f As New frmArmoryImport
-        If f.DialogResult = True Then
-            ImportMyCharacter(f.cmbRegion.SelectedItem, f.txtServer.Text, f.txtCharacter.Text)
-        End If
-        f.Close()
-    End Sub
 
-    Private Sub ChildWindow_Loaded(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles MyBase.Loaded
-
-    End Sub
 
     Private Sub r2Hand_Checked(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles r2Hand.Checked
         Me.TwoHWeapSlot.Opacity = 1
+        Me.TwoHWeapSlot.IsHitTestVisible = True
         Me.MHWeapSlot.Opacity = 0
         Me.OHWeapSlot.Opacity = 0
+        Me.MHWeapSlot.IsHitTestVisible = False
+        Me.OHWeapSlot.IsHitTestVisible = False
         GetStats()
     End Sub
 
     Private Sub rDW_Checked(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles rDW.Checked
         Me.TwoHWeapSlot.Opacity = 0
+        Me.TwoHWeapSlot.IsHitTestVisible = False
         Me.MHWeapSlot.Opacity = 1
         Me.OHWeapSlot.Opacity = 1
+        Me.MHWeapSlot.IsHitTestVisible = True
+        Me.OHWeapSlot.IsHitTestVisible = True
         GetStats()
     End Sub
 
@@ -1358,5 +1368,25 @@ NextItem:
             isoStore.DeleteFile("KahoDKSim/CharactersWithGear/" & tmpPath)
         End Using
         FilePath = oldPath
+    End Sub
+
+    Private Sub cmdQuickDPS_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdQuickDPS.Click
+        Dim tmp As String
+        Dim i As Integer
+        tmp = Me.FilePath
+        Me.FilePath = "tmp.xml"
+        SaveMycharacter()
+        Me.ParentFrame.cmbGearSelector.Items.Add("tmp.xml")
+        Me.ParentFrame.cmbGearSelector.SelectedItem = "tmp.xml"
+        If Me.ParentFrame.LoadBeforeSim = True Then
+            i = SimConstructor.GetFastDPS(Me.ParentFrame)
+            lblDPS.Content = i & " dps (" & i - LastDPSResult & ")"
+            LastDPSResult = i
+        End If
+
+        Me.ParentFrame.cmbGearSelector.SelectedItem = tmp
+        Me.FilePath = tmp
+        Me.ParentFrame.cmbGearSelector.Items.Remove("tmp.xml")
+        IsolatedStorageFile.GetUserStoreForApplication.DeleteFile("KahoDKSim/CharactersWithGear/tmp.xml")
     End Sub
 End Class

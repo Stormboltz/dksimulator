@@ -154,7 +154,6 @@
       <DependentUpon>EPDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="GearSelector\EPValues.vb" />
-    <None Include="GearSelector\EquipSlot.vb" />
     <Compile Include="GearSelector\EquipSlot.xaml.vb">
       <DependentUpon>EquipSlot.xaml</DependentUpon>
     </Compile>
@@ -199,7 +198,16 @@
     <Compile Include="Runes\rune.vb" />
     <Compile Include="Runes\runes.vb" />
     <Compile Include="scenario\Element.vb" />
+    <Compile Include="scenario\myTextButton.xaml.vb">
+      <DependentUpon>myTextButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="scenario\Scenario.vb" />
+    <Compile Include="scenario\ScenarioButton.xaml.vb">
+      <DependentUpon>ScenarioButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="scenario\ScenarioEditor.xaml.vb">
+      <DependentUpon>ScenarioEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Special\AotD.vb" />
     <Compile Include="Special\Bloodlust.vb" />
     <Compile Include="Special\BloodPresence.vb" />
@@ -437,6 +445,10 @@
     <Content Include="scenario\Blood-Queen Lana%27thel.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Page Include="scenario\myTextButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Content Include="scenario\Scenario.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -447,6 +459,14 @@
     <Page Include="TemplateEditor\TemplateEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="scenario\ScenarioButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="scenario\ScenarioEditor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Content Include="Templates\Blood 51-00-20-GoD.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

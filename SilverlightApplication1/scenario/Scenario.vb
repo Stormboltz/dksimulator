@@ -37,15 +37,28 @@ Namespace Scenarios
             For Each xNode In xmlScenario.Element("Scenario").Elements
                 id = xNode.Attribute("id").Value
                 e = New Element(Me)
-                e.CanTakeDiseaseDamage = xNode.Element("CanTakeDiseaseDamage").Value
-                e.CanTakePetDamage = xNode.Element("CanTakePetDamage").Value
-                e.CanTakePlayerStrike = xNode.Element("CanTakePlayerStrike").Value
-                e.AddPop = xNode.Element("AddPop").Value
-                e.DamageBonus = xNode.Element("DamageBonus").Value
-                e.Start = sim.TimeStamp + (xNode.Element("Start").Value * xNode.Element("Start").Attribute("multi").Value)
-                e.length = xNode.Element("length").Value * xNode.Element("length").Attribute("multi").Value
-                e.SpreadDisease = xNode.Element("SpreadDisease").Value
-                e.FightStop = sim.TimeStamp + xNode.Element("FightStop").Value * xNode.Element("FightStop").Attribute("multi").Value
+                For Each el In xNode.Elements
+                    Select Case el.Name
+                        Case "CanTakeDiseaseDamage"
+                            e.CanTakeDiseaseDamage = xNode.Element("CanTakeDiseaseDamage").Value
+                        Case "CanTakePetDamage"
+                            e.CanTakePetDamage = xNode.Element("CanTakePetDamage").Value
+                        Case "CanTakePlayerStrike"
+                            e.CanTakePlayerStrike = xNode.Element("CanTakePlayerStrike").Value
+                        Case "AddPop"
+                            e.AddPop = xNode.Element("AddPop").Value
+                        Case "DamageBonus"
+                            e.DamageBonus = xNode.Element("DamageBonus").Value
+                        Case "Start"
+                            e.Start = sim.TimeStamp + (xNode.Element("Start").Value * xNode.Element("Start").Attribute("multi").Value)
+                        Case "length"
+                            e.length = xNode.Element("length").Value * xNode.Element("length").Attribute("multi").Value
+                        Case "SpreadDisease"
+                            e.SpreadDisease = xNode.Element("SpreadDisease").Value
+                        Case "FightStop"
+                            e.FightStop = sim.TimeStamp + xNode.Element("FightStop").Value * xNode.Element("FightStop").Attribute("multi").Value
+                    End Select
+                Next
 
                 If e.CanTakeDiseaseDamage = False Or e.CanTakePetDamage = False Or e.CanTakePlayerStrike = False Then
                     sim.FutureEventManager.Add(e.Start, "Scenario")

@@ -39,25 +39,28 @@ Public Class Enchant
             Exit Sub
         End If
         Id = EnchantId
+        Try
+            Dim el As XElement = (From x In MainFrame.EnchantDB.Element("enchant").Elements
+                                          Where x.Element("id").Value = EnchantId
+                                          ).First
 
-        Dim el As XElement = (From x In MainFrame.EnchantDB.Element("enchant").Elements
-                              Where x.Element("id").Value = EnchantId
-                              ).First
+            With Me
+                .Id = el.Element("id").Value
+                .name = el.Element("name").Value
+                .Strength = el.Element("Strength").Value
+                .Agility = el.Element("Agility").Value
+                .HasteRating = el.Element("HasteRating").Value
+                .ExpertiseRating = el.Element("ExpertiseRating").Value
+                .HitRating = el.Element("HitRating").Value
+                .AttackPower = el.Element("AttackPower").Value
+                .CritRating = el.Element("CritRating").Value
+                .ArmorPenetrationRating = el.Element("ArmorPenetrationRating").Value
+                .Desc = el.Element("Desc").Value
+            End With
+        Catch ex As Exception
+            Detach()
+        End Try
 
-
-        With Me
-            .Id = el.Element("id").Value
-            .name = el.Element("name").Value
-            .Strength = el.Element("Strength").Value
-            .Agility = el.Element("Agility").Value
-            .HasteRating = el.Element("HasteRating").Value
-            .ExpertiseRating = el.Element("ExpertiseRating").Value
-            .HitRating = el.Element("HitRating").Value
-            .AttackPower = el.Element("AttackPower").Value
-            .CritRating = el.Element("CritRating").Value
-            .ArmorPenetrationRating = el.Element("ArmorPenetrationRating").Value
-            .Desc = el.Element("Desc").Value
-        End With
     End Sub
 
     Sub Detach()

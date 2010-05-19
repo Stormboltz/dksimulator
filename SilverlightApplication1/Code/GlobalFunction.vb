@@ -17,16 +17,20 @@ Module GlobalFunction
     End Sub
 
     Function toDecimal(ByVal d As Double) As Decimal
+        Dim dec As Decimal
         Try
-            Return d.ToString(".#")
+            dec = Convert.ToDecimal(d)
+            Return Decimal.Round(dec, 1)
         Catch
             Return 0
         End Try
     End Function
 
     Function toDDecimal(ByVal d As Double) As Decimal
+        Dim dec As Decimal
         Try
-            Return d.ToString(".##")
+            dec = Convert.ToDecimal(d)
+            Return Decimal.Round(dec, 2)
         Catch
             Return 0
         End Try

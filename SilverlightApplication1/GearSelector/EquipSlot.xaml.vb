@@ -23,7 +23,9 @@ Partial Public Class EquipSlot
             _Text = value
         End Set
     End Property
-    Friend WithEvents GS As EnchantSelector
+    Friend WithEvents EnchantS As EnchantSelector
+    Friend WithEvents GemS As GemSelector
+    Friend WithEvents GearS As GearSelector
     Protected initiated As Boolean = False
 
     Protected Mainframe As GearSelectorMainForm
@@ -114,13 +116,7 @@ Partial Public Class EquipSlot
         GS.LoadItem(Me.SlotId)
         GS.SelectedItem = "-1"
         GS.Show() 'Dialog(Me)
-        If GS.DialogResult = True Then
-            If GS.SelectedItem <> "-1" Then
-                Item.LoadItem(GS.SelectedItem)
-                DisplayItem()
-            End If
-        End If
-        Me.Focus()
+       
     End Sub
 
 
@@ -183,64 +179,77 @@ Partial Public Class EquipSlot
         Mainframe.GetStats()
     End Sub
 
-    Private Sub lblGem_MouseEnter(ByVal sender As System.Object, ByVal e As System.Windows.Input.MouseEventArgs) Handles lblGem2.MouseLeftButtonUp, lblGem3.MouseLeftButtonUp, lblGem1.MouseLeftButtonUp
-        Dim GS As GemSelector
-        GS = Mainframe.GemSelector
+    Private Sub lblGem_MouseEnter(ByVal sender As System.Object, ByVal e As System.Windows.Input.MouseEventArgs) Handles lblGem2.MouseLeftButtonUp, lblGem3.MouseLeftButtonUp, lblGem1.MouseLeftButtonUp, lblGemColor1.MouseLeftButtonDown, lblGemColor2.MouseLeftButtonDown, lblGemColor3.MouseLeftButtonDown
+        GemS = Mainframe.GemSelector
         Dim s As String
         s = sender.name
-
         Select Case Strings.Right(s, 1)
             Case 1
-                GS.LoadItem(Item.gem1.ColorId)
+                GemS.LoadItem(1, SlotId, Item.gem1.ColorId)
             Case 2
-                GS.LoadItem(Item.gem2.ColorId)
+                GemS.LoadItem(2, SlotId, Item.gem2.ColorId)
             Case 3
-                GS.LoadItem(Item.gem3.ColorId)
+                GemS.LoadItem(3, SlotId, Item.gem3.ColorId)
         End Select
-        GS.SelectedItem = "-1"
-        GS.Show()
+        GemS.SelectedItem = "-1"
+        GemS.Show()
 
 
-        If GS.DialogResult Then
-            If GS.SelectedItem <> "-1" Then
-                Select Case Strings.Right(s, 1)
-                    Case 1
-                        Item.gem1.Attach(GS.SelectedItem)
-                    Case 2
-                        Item.gem2.Attach(GS.SelectedItem)
-                    Case 3
-                        Item.gem3.Attach(GS.SelectedItem)
-                End Select
-            End If
-        End If
-        Me.Focus()
-        DisplayGem()
+
     End Sub
 
     Private Sub Equipment_MouseLeftButtonDown(ByVal sender As System.Object, ByVal e As System.Windows.Input.MouseButtonEventArgs) Handles Equipment.MouseLeftButtonDown
-        Dim GS As GearSelector
-        GS = Mainframe.GearSelector
-        GS.LoadItem(Me.SlotId)
-        GS.SelectedItem = "-1"
-        GS.Show()
+
+        GearS = Mainframe.GearSelector
+        GearS.LoadItem(Me.SlotId)
+        GearS.SelectedItem = "-1"
+        GearS.Show()
     End Sub
 
     Private Sub lblEnchant_MouseLeftButtonUp(ByVal sender As System.Object, ByVal e As System.Windows.Input.MouseButtonEventArgs) Handles lblEnchant.MouseLeftButtonUp
-        GS = Mainframe.EnchantSelector
+        EnchantS = Mainframe.EnchantSelector
         Dim s As String
         s = sender.name
-        GS.LoadItem(SlotId)
-        GS.SelectedItem = "-1"
-        GS.Show() ' (Me)
+        EnchantS.LoadItem(SlotId)
+        EnchantS.SelectedItem = "-1"
+        EnchantS.Show() ' (Me)
      
     End Sub
 
-    Private Sub GS_close(ByVal sender As System.Object, ByVal e As EventArgs) Handles GS.Closing
-        If GS.Slot <> Me.SlotId Then Exit Sub
-        If GS.SelectedItem <> "-1" Then
-            Item.Enchant.Attach(GS.SelectedItem)
+    Private Sub EnchantS_close(ByVal sender As System.Object, ByVal e As EventArgs) Handles EnchantS.Closing
+        If EnchantS.Slot <> Me.SlotId Then Exit Sub
+        If EnchantS.SelectedItem <> "-1" Then
+            Item.Enchant.Attach(EnchantS.SelectedItem)
             DisplayEnchant()
-
         End If
+    End Sub
+    Private Sub GemS_close(ByVal sender As System.Object, ByVal e As EventArgs) Handles GemS.Closing
+        If GemS.Slot <> Me.SlotId Then Exit Sub
+
+        If GemS.DialogResult Then
+            If GemS.SelectedItem <> "-1" Then
+                Select Case GemS.GemNum
+                    Case 1
+                        Item.gem1.Attach(GemS.SelectedItem)
+                    Case 2
+                        Item.gem2.Attach(GemS.SelectedItem)
+                    Case 3
+                        Item.gem3.Attach(GemS.SelectedItem)
+                End Select
+            End If
+        End If
+        DisplayGem()
+    End Sub
+    Private Sub GearS_close(ByVal sender As System.Object, ByVal e As EventArgs) Handles GearS.Closing
+        If GearS.Slot <> Me.SlotId Then Exit Sub
+
+        If GearS.DialogResult = True Then
+            If GearS.SelectedItem <> "-1" Then
+                Item.LoadItem(GearS.SelectedItem)
+                DisplayItem()
+            End If
+        End If
+
+       
     End Sub
 End Class

@@ -42,24 +42,28 @@ Public Class Supertype
         R.Damage_done_Pc = toDecimal(100 * total / sim.TotalDamage)
         R.Damage_done_Count = toDecimal(HitCount + CritCount + GlancingCount)
         R.Damage_done_Avg = toDecimal(total / (HitCount + CritCount))
-
-        R.hit_count = toDecimal(HitCount)
-        R.hit_count_Avg = toDecimal(TotalHit / (HitCount))
-        R.hit_count_Pc = toDecimal(100 * HitCount / (HitCount + MissCount + CritCount + GlancingCount))
-
-
-        R.Crit_count = toDecimal(CritCount)
-        R.Crit_count_Avg = toDecimal(TotalCrit / (CritCount))
-        R.Crit_count_Pc = toDecimal(100 * CritCount / (HitCount + MissCount + CritCount + GlancingCount))
+        If HitCount <> 0 Then
+            R.hit_count = toDecimal(HitCount)
+            R.hit_count_Avg = toDecimal(TotalHit / (HitCount))
+            R.hit_count_Pc = toDecimal(100 * HitCount / (HitCount + MissCount + CritCount + GlancingCount))
+        End If
+        
+        If CritCount <> 0 Then
+            R.Crit_count = toDecimal(CritCount)
+            R.Crit_count_Avg = toDecimal(TotalCrit / (CritCount))
+            R.Crit_count_Pc = toDecimal(100 * CritCount / (HitCount + MissCount + CritCount + GlancingCount))
+        End If
 
 
         R.Miss_Count = toDecimal(MissCount)
         R.Miss_Count_Pc = toDecimal(100 * MissCount / (HitCount + MissCount + CritCount + GlancingCount))
+        If GlancingCount <> 0 Then
 
-        R.Glance_Count = toDecimal(GlancingCount)
-        R.Glance_Count_Avg = toDecimal(TotalGlance / (GlancingCount))
-        R.Glance_Count_Pc = toDecimal(100 * GlancingCount / (HitCount + MissCount + CritCount + GlancingCount))
 
+            R.Glance_Count = toDecimal(GlancingCount)
+            R.Glance_Count_Avg = toDecimal(TotalGlance / (GlancingCount))
+            R.Glance_Count_Pc = toDecimal(100 * GlancingCount / (HitCount + MissCount + CritCount + GlancingCount))
+        End If
         If sim.FrostPresence Then
             R.TPS = toDecimal((100 * total * ThreadMultiplicator * 2.0735) / sim.TimeStamp)
         End If

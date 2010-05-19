@@ -39,22 +39,22 @@ Friend Class glyph
         End Using
 
 
-        BloodStrike = (xmlGlyph.Element("Talents/Glyphs/BloodStrike").Value = 1)
-        DRW = (xmlGlyph.Element("Talents/Glyphs/DRW").Value = 1)
-        DarkDeath = (xmlGlyph.Element("Talents/Glyphs/DarkDeath").Value = 1)
-        DeathandDecay = (xmlGlyph.Element("Talents/Glyphs/DeathandDecay").Value = 1)
-        DeathStrike = (xmlGlyph.Element("Talents/Glyphs/DeathStrike").Value = 1)
-        Disease = (xmlGlyph.Element("Talents/Glyphs/Disease").Value = 1) 'NYI
-        FrostStrike = (xmlGlyph.Element("Talents/Glyphs/FrostStrike").Value = 1)
-        HowlingBlast = (xmlGlyph.Element("Talents/Glyphs/HowlingBlast").Value = 1)
-        IcyTouch = (xmlGlyph.Element("Talents/Glyphs/IcyTouch").Value = 1)
-        Obliterate = (xmlGlyph.Element("Talents/Glyphs/Obliterate").Value = 1)
-        PlagueStrike = (xmlGlyph.Element("Talents/Glyphs/PlagueStrike").Value = 1)
-        RuneStrike = (xmlGlyph.Element("Talents/Glyphs/RuneStrike").Value = 1) 'NYI
-        ScourgeStrike = (xmlGlyph.Element("Talents/Glyphs/ScourgeStrike").Value = 1)
-        Ghoul = (xmlGlyph.Element("Talents/Glyphs/Ghoul").Value = 1)
-        UnholyBlight = (xmlGlyph.Element("Talents/Glyphs/UnholyBlight").Value = 1)
-        BoneShield = (xmlGlyph.Element("Talents/Glyphs/BoneShield").Value = 1)
+        BloodStrike = (xmlGlyph.Element("Talents").Element("Glyphs").Element("BloodStrike").Value = 1)
+        DRW = (xmlGlyph.Element("Talents").Element("Glyphs").Element("DRW").Value = 1)
+        DarkDeath = (xmlGlyph.Element("Talents").Element("Glyphs").Element("DarkDeath").Value = 1)
+        DeathandDecay = (xmlGlyph.Element("Talents").Element("Glyphs").Element("DeathandDecay").Value = 1)
+        DeathStrike = (xmlGlyph.Element("Talents").Element("Glyphs").Element("DeathStrike").Value = 1)
+        Disease = (xmlGlyph.Element("Talents").Element("Glyphs").Element("Disease").Value = 1) 'NYI
+        FrostStrike = (xmlGlyph.Element("Talents").Element("Glyphs").Element("FrostStrike").Value = 1)
+        HowlingBlast = (xmlGlyph.Element("Talents").Element("Glyphs").Element("HowlingBlast").Value = 1)
+        IcyTouch = (xmlGlyph.Element("Talents").Element("Glyphs").Element("IcyTouch").Value = 1)
+        Obliterate = (xmlGlyph.Element("Talents").Element("Glyphs").Element("Obliterate").Value = 1)
+        PlagueStrike = (xmlGlyph.Element("Talents").Element("Glyphs").Element("PlagueStrike").Value = 1)
+        RuneStrike = (xmlGlyph.Element("Talents").Element("Glyphs").Element("RuneStrike").Value = 1) 'NYI
+        ScourgeStrike = (xmlGlyph.Element("Talents").Element("Glyphs").Element("ScourgeStrike").Value = 1)
+        Ghoul = (xmlGlyph.Element("Talents").Element("Glyphs").Element("Ghoul").Value = 1)
+        UnholyBlight = (xmlGlyph.Element("Talents").Element("Glyphs").Element("UnholyBlight").Value = 1)
+        BoneShield = (xmlGlyph.Element("Talents").Element("Glyphs").Element("BoneShield").Value = 1)
 
     End Sub
 End Class

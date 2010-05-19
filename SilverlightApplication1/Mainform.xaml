@@ -4,64 +4,65 @@
            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
            mc:Ignorable="d"
-           xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation" Title="Kahorie's DK simulator" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" d:DesignHeight="800" d:DesignWidth="754">
-    <Grid x:Name="LayoutRoot" Height="800" Width="754" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <sdk:TabControl Margin="12,8,12,77" Name="TabControl1">
+           xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation" Title="Kahorie's DK simulator" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" d:DesignHeight="698" d:DesignWidth="1000">
+    <Grid x:Name="LayoutRoot" Height="674" Width="1000" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <sdk:TabControl Margin="12,8,12,0" Name="TabControl1" Height="589" VerticalAlignment="Top">
             <sdk:TabItem Header="Configuration" Name="tabConfig">
-                <Grid Height="644" Width="689" HorizontalAlignment="Center" VerticalAlignment="Top" Name="MainGrid">
+                <Grid Height="560" Width="982" HorizontalAlignment="Center" VerticalAlignment="Top" Name="MainGrid">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="479*" />
-                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="135,28,0,0" Name="cmbGearSelector" VerticalAlignment="Top" Width="482" />
-                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="94,57,0,0" Name="cmbTemplate" VerticalAlignment="Top" Width="523" />
-                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="94,115,0,0" Name="cmbIntro" VerticalAlignment="Top" Width="520" />
-                    <ComboBox Height="23" HorizontalAlignment="Right" Margin="0,144,75,0" Name="cmbPrio" VerticalAlignment="Top" Width="520" />
-                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="414,289,0,0" Name="cmbBShOption" VerticalAlignment="Top" Width="200"  />
-                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="94,173,0,0" Name="cmbRotation" VerticalAlignment="Top" Width="520" />
-                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="94,202,0,0" Name="cmdPresence" VerticalAlignment="Top" Width="520" />
-                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="94,231,0,0" Name="cmbSigils" VerticalAlignment="Top" Width="520" />
-                    <ComboBox Height="23" HorizontalAlignment="Right" Margin="0,260,395,0" Name="cmbRuneMH" VerticalAlignment="Top" Width="200" />
-                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="414,260,0,0" Name="cmbRuneOH" VerticalAlignment="Top" Width="200" />
+                    <ComboBox Height="23" Margin="135,28,72,0" Name="cmbGearSelector" VerticalAlignment="Top" />
+                    <ComboBox Height="23" Margin="94,57,72,0" Name="cmbTemplate" VerticalAlignment="Top" />
+                    <ComboBox Height="23" Margin="94,115,75,0" Name="cmbIntro" VerticalAlignment="Top" />
+                    <ComboBox Height="23" Margin="94,144,75,0" Name="cmbPrio" VerticalAlignment="Top" />
+                    <ComboBox Height="23" HorizontalAlignment="Right" Margin="0,289,75,0" Name="cmbBShOption" VerticalAlignment="Top" Width="200"  />
+                    <ComboBox Height="23" Margin="94,173,75,0" Name="cmbRotation" VerticalAlignment="Top" />
+                    <ComboBox Height="23" Margin="94,202,75,0" Name="cmdPresence" VerticalAlignment="Top" />
+                    <ComboBox Height="23" Margin="94,231,75,0" Name="cmbSigils" VerticalAlignment="Top" />
+                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="94,260,0,0" Name="cmbRuneMH" VerticalAlignment="Top" Width="200" />
+                    <ComboBox Height="23" HorizontalAlignment="Right" Margin="0,260,75,0" Name="cmbRuneOH" VerticalAlignment="Top" Width="200" />
                     <ComboBox Height="23" HorizontalAlignment="Left" Margin="94,289,0,0" Name="cmbScenario" VerticalAlignment="Top" Width="147" />
-                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="414,318,0,0" Name="cmbICCBuff" VerticalAlignment="Top" Width="200" />
+                    <ComboBox Height="23" HorizontalAlignment="Right" Margin="0,318,75,0" Name="cmbICCBuff" VerticalAlignment="Top" Width="200" />
                     <sdk:Label Content="Character with gear:" FlowDirection="LeftToRight" Height="23" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Margin="9,28,0,0" Name="Label2" VerticalAlignment="Top" Width="120" />
                     <sdk:Label Content="Template:" FlowDirection="LeftToRight" Height="23" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Margin="9,57,0,0" Name="Label3" VerticalAlignment="Top" Width="79" />
                     <RadioButton Content="Priority" GroupName="grpRDPrio" Height="16" HorizontalAlignment="Left" Margin="94,93,0,0" Name="rdPrio" VerticalAlignment="Top" />
-                    <RadioButton Content="Rotation" GroupName="grpRDPrio" Height="16" HorizontalAlignment="Right" Margin="0,93,365,0" Name="rdRot" VerticalAlignment="Top" />
+                    <RadioButton Content="Rotation" GroupName="grpRDPrio" Height="16" HorizontalAlignment="Left" Margin="257,93,0,0" Name="rdRot" VerticalAlignment="Top" />
                     <sdk:Label Content="Intro:" FlowDirection="LeftToRight" Height="23" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Margin="6,115,0,0" Name="Label4" VerticalAlignment="Top" Width="79" />
                     <sdk:Label Content="Priority:" FlowDirection="LeftToRight" Height="23" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Margin="6,144,0,0" Name="Label5" VerticalAlignment="Top" Width="79" />
                     <sdk:Label Content="Rotation:" FlowDirection="LeftToRight" Height="23" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Margin="4,177,0,0" Name="Label6" VerticalAlignment="Top" Width="79" />
                     <sdk:Label Content="Presence:" FlowDirection="LeftToRight" Height="23" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Margin="4,202,0,0" Name="Label7" VerticalAlignment="Top" Width="79" />
                     <sdk:Label Content="Sigil:" FlowDirection="LeftToRight" Height="23" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Margin="6,231,0,0" Name="Label8" VerticalAlignment="Top" Width="79" />
                     <sdk:Label Content="Runeforge:" FlowDirection="LeftToRight" Height="23" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Margin="6,260,0,0" Name="Label9" VerticalAlignment="Top" Width="79" />
-                    <sdk:Label Content="Runeforge:" FlowDirection="LeftToRight" Height="23" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Margin="329,260,0,0" Name="Label10" VerticalAlignment="Top" Width="79" />
+                    <sdk:Label Content="Runeforge:" FlowDirection="LeftToRight" Height="23" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="0,260,281,0" Name="Label10" VerticalAlignment="Top" Width="79" />
                     <sdk:Label Content="Scenario:" FlowDirection="LeftToRight" Height="23" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Margin="6,289,0,0" Name="Label11" VerticalAlignment="Top" Width="79" />
-                    <sdk:Label Content="UA/BS usage:" FlowDirection="LeftToRight" Height="23" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Margin="329,289,0,0" Name="Label12" VerticalAlignment="Top" Width="79" />
-                    <sdk:Label Content="ICC Buff:" FlowDirection="LeftToRight" Height="23" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Margin="329,318,0,0" Name="Label13" VerticalAlignment="Top" Width="79" />
-                    <TextBox Height="23" HorizontalAlignment="Left" Margin="414,347,0,0" Name="txtLatency" VerticalAlignment="Top" Width="200" Text="150" />
-                    <TextBox Height="23" HorizontalAlignment="Left" Margin="414,376,0,0" Name="txtBSTTL" VerticalAlignment="Top" Width="200" Text="300" />
+                    <sdk:Label Content="UA/BS usage:" FlowDirection="LeftToRight" Height="23" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="0,289,281,0" Name="Label12" VerticalAlignment="Top" Width="79" />
+                    <sdk:Label Content="ICC Buff:" FlowDirection="LeftToRight" Height="23" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="0,318,281,0" Name="Label13" VerticalAlignment="Top" Width="79" />
+                    <TextBox Height="23" HorizontalAlignment="Right" Margin="0,347,75,0" Name="txtLatency" VerticalAlignment="Top" Width="200" Text="150" />
+                    <TextBox Height="23" HorizontalAlignment="Right" Margin="0,376,75,0" Name="txtBSTTL" VerticalAlignment="Top" Width="200" Text="300" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="94,330,0,0" Name="txtSimtime" VerticalAlignment="Top" Width="120" Text="350" />
-                    <CheckBox Content="Combat log" Height="16" HorizontalAlignment="Right" Margin="0,19,7,0" Name="chkCombatLog" VerticalAlignment="Top" Width="160" Grid.Row="1" />
-                    <CheckBox Content="Detailled combat log" Height="16" HorizontalAlignment="Right" Margin="0,41,51,0" Name="ckLogRP" VerticalAlignment="Top" Width="116" Grid.Row="1" />
-                    <CheckBox Content="Show proc" Height="16" HorizontalAlignment="Left" Margin="522,85,0,0" Name="chkShowProc" VerticalAlignment="Top" Width="129" Grid.Row="1" />
-                    <CheckBox Content="Wait for proc" Height="16" HorizontalAlignment="Left" Margin="503,427,0,0" Name="chkWaitFC" VerticalAlignment="Top" Width="111" />
+                    <CheckBox Content="Combat log" Height="16" HorizontalAlignment="Left" Margin="9,19,0,0" Name="chkCombatLog" VerticalAlignment="Top" Width="160" Grid.Row="1" />
+                    <CheckBox Content="Detailled combat log" Height="16" HorizontalAlignment="Left" Margin="9,41,0,0" Name="ckLogRP" VerticalAlignment="Top" Width="116" Grid.Row="1" />
+                    <CheckBox Content="Show proc" Height="16" HorizontalAlignment="Left" Margin="136,41,0,0" Name="chkShowProc" VerticalAlignment="Top" Width="129" Grid.Row="1" />
+                    <CheckBox Content="Wait for proc" Height="16" HorizontalAlignment="Right" Margin="0,427,75,0" Name="chkWaitFC" VerticalAlignment="Top" Width="111" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="9,405,0,0" Name="txtAMSrp" VerticalAlignment="Top" Width="120" Text="10" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="148,405,0,0" Name="txtAMScd" Text="60" VerticalAlignment="Top" Width="120" />
-                    <CheckBox Content="Sync Blood rune" Height="16" HorizontalAlignment="Left" Margin="503,405,0,0" Name="chkBloodSync" VerticalAlignment="Top" />
-                    <CheckBox Content="Use Pet" Height="16" HorizontalAlignment="Left" Margin="503,449,0,0" Name="ckPet" VerticalAlignment="Top" Width="111" />
-                    <TextBox Height="23" HorizontalAlignment="Left" Margin="522,107,0,0" Name="txtReportName" VerticalAlignment="Top" Width="120" Text="Report Name" Grid.Row="1" />
-                    <CheckBox Content="Merge stike in the report" Height="16" HorizontalAlignment="Right" Margin="0,63,9,0" Name="chkMergeReport" VerticalAlignment="Top" Grid.Row="1" />
-                    <Button Content="Edit" Height="23" Margin="623,57,19,0" Name="cmdEditTemplate" VerticalAlignment="Top" />
-                    <Button Content="Edit" Height="23" Margin="623,115,19,0" Name="cmdEditIntro" VerticalAlignment="Top" />
-                    <Button Content="Edit" Height="23" Margin="623,144,19,0" Name="cmdEditPrio" VerticalAlignment="Top" />
-                    <Button Content="Edit" Height="23" Margin="623,177,19,0" Name="cmdEditRota" VerticalAlignment="Top" />
-                    <Button Content="Edit" Height="23" HorizontalAlignment="Left" Margin="623,28,0,0" Name="cmdEditCharacterWithGear" VerticalAlignment="Top" Width="47" />
-                    <sdk:Label Height="28" HorizontalAlignment="Left" Margin="329,351,0,0" Name="Label1" VerticalAlignment="Top" Width="79" Content="Latency:" />
-                    <sdk:Label Content="BoneShield Time to live:" Height="28" HorizontalAlignment="Left" Margin="257,380,0,0" Name="Label17" VerticalAlignment="Top" Width="151" />
+                    <CheckBox Content="Sync Blood rune" Height="16" HorizontalAlignment="Right" Margin="0,405,75,0" Name="chkBloodSync" VerticalAlignment="Top" />
+                    <CheckBox Content="Use Pet" Height="16" HorizontalAlignment="Right" Margin="0,449,75,0" Name="ckPet" VerticalAlignment="Top" Width="111" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="300,19,0,0" Name="txtReportName" VerticalAlignment="Top" Width="120" Text="Report Name" Grid.Row="1" />
+                    <CheckBox Content="Merge stike in the report" Height="16" HorizontalAlignment="Left" Margin="136,19,0,0" Name="chkMergeReport" VerticalAlignment="Top" Grid.Row="1" />
+                    <Button Content="Edit" Height="23" Margin="0,57,19,0" Name="cmdEditTemplate" VerticalAlignment="Top" HorizontalAlignment="Right" Width="47" />
+                    <Button Content="Edit" Height="23" Margin="0,115,19,0" Name="cmdEditIntro" VerticalAlignment="Top" HorizontalAlignment="Right" Width="47" />
+                    <Button Content="Edit" Height="23" Margin="0,144,19,0" Name="cmdEditPrio" VerticalAlignment="Top" HorizontalAlignment="Right" Width="47" />
+                    <Button Content="Edit" Height="23" Margin="0,177,19,0" Name="cmdEditRota" VerticalAlignment="Top" HorizontalAlignment="Right" Width="47" />
+                    <Button Content="Edit" Height="23" HorizontalAlignment="Right" Margin="0,28,19,0" Name="cmdEditCharacterWithGear" VerticalAlignment="Top" Width="47" />
+                    <sdk:Label Height="28" HorizontalAlignment="Right" Margin="0,351,281,0" Name="Label1" VerticalAlignment="Top" Width="79" Content="Latency:" />
+                    <sdk:Label Content="BoneShield Time to live:" Height="28" Margin="0,380,281,0" Name="Label17" VerticalAlignment="Top" HorizontalAlignment="Right" Width="151" />
                     <sdk:Label Height="28" HorizontalAlignment="Left" Margin="9,330,0,0" Name="Label18" VerticalAlignment="Top" Width="120" Content="Filght Length:" />
                     <sdk:Label Height="28" HorizontalAlignment="Left" Margin="69,380,0,0" Name="Label19" VerticalAlignment="Top" Width="120" Content="x RP per x Second" />
-                    <Button Content="Edit" Height="23" Margin="247,289,395,0" Name="cmdEditScenario" VerticalAlignment="Top" />
+                    <Button Content="Edit" Height="23" Margin="247,289,0,0" Name="cmdEditScenario" VerticalAlignment="Top" HorizontalAlignment="Left" Width="47" />
+                    <Button Content="Display last report" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="462,19,0,0" Name="cmdReport" VerticalAlignment="Top" Width="155" />
                 </Grid>
                 
                 
@@ -71,33 +72,33 @@
             </sdk:TabItem>
             <sdk:TabItem Header="Buffs" Name="TabBuff">
                 <Canvas Height="533" Name="grpBuff" Width="555">
-                    <CheckBox Canvas.Left="10" Canvas.Top="14" Content="Str/Agi" Height="16" Name="chkBStrAgi" />
-                    <CheckBox Canvas.Left="10" Canvas.Top="36" Content="Attack power" Height="16" Name="chkBAP" />
-                    <CheckBox Canvas.Left="10" Canvas.Top="58" Content="Attack power %" Height="16" Name="chkBAPPc" />
-                    <CheckBox Canvas.Left="10" Canvas.Top="80" Content="% Damage" Height="16" Name="chkBPcDamage" />
-                    <CheckBox Canvas.Left="10" Canvas.Top="102" Content="Haste" Height="16" Name="chkBHaste" />
-                    <CheckBox Canvas.Left="10" Canvas.Top="124" Content="Melee Haste" Height="16" Name="chkBMeleeHaste" />
-                    <CheckBox Canvas.Left="10" Canvas.Top="146" Content="Melee Crit" Height="16" Name="chkBMeleeCrit" />
-                    <CheckBox Canvas.Left="10" Canvas.Top="168" Content="Spell Crit" Height="16" Name="chkBSpellCrit" />
-                    <CheckBox Canvas.Left="10" Canvas.Top="190" Content="Spell Haste" Height="16" Name="chkBSpellHaste" />
-                    <CheckBox Canvas.Left="10" Canvas.Top="212" Content="Stat Add" Height="16" Name="chkBStatAdd" />
-                    <CheckBox Canvas.Left="10" Canvas.Top="234" Content="10% Stat" Height="16" Name="chkBStatMulti" />
-                    <CheckBox Canvas.Left="10" Canvas.Top="256" Content="Draeni" Height="16" Name="chkDraeni" />
-                    <CheckBox Canvas.Left="10" Canvas.Top="278" Content="Bloodlust" Height="16" Name="chkBloodlust" />
-                    <CheckBox Canvas.Left="163" Canvas.Top="14" Content="Major Armor debuff" Height="16" Name="chkBArmorMaj" />
-                    <CheckBox Canvas.Left="163" Canvas.Top="36" Content="Minor Armor debuff" Height="16" Name="chkBArmorMinor" />
-                    <CheckBox Canvas.Left="163" Canvas.Top="58" Content="Critical chance taken" Height="16" Name="chkBCritchanceTaken" />
-                    <CheckBox Canvas.Left="163" Canvas.Top="80" Content="Physical Vulnerability" Height="16" Name="chkBPhyVuln" />
-                    <CheckBox Canvas.Left="163" Canvas.Top="102" Content="Spell crit chance taken" Height="16" Name="chkBSpCrTaken" />
-                    <CheckBox Canvas.Left="163" Canvas.Top="124" Content="Spell Damage taken" Height="16" Name="chkBSpDamTaken" />
-                    <CheckBox Canvas.Left="163" Canvas.Top="146" Content="Spell hit taken" Height="16" Name="chkBSpHitTaken" />
-                    <CheckBox Canvas.Left="163" Canvas.Top="190" Content="Cryptic Fever from another DK" Height="16" Name="chkCrypticFever" />
-                    <CheckBox Canvas.Left="163" Canvas.Top="212" Content="Frost Fever from another DK" Height="16" Name="chkFrostFever" />
-                    <CheckBox Canvas.Left="163" Canvas.Top="234" Content="Blood Plague from another DK" Height="16" Name="chkBloodPlague" />
+                    <CheckBox Canvas.Left="10" Canvas.Top="14" Content="Str/Agi" Height="16" Name="chkBStrAgi" IsChecked="True" />
+                    <CheckBox Canvas.Left="10" Canvas.Top="36" Content="Attack power" Height="16" Name="chkBAP" IsChecked="True" />
+                    <CheckBox Canvas.Left="10" Canvas.Top="58" Content="Attack power %" Height="16" Name="chkBAPPc" IsChecked="True" />
+                    <CheckBox Canvas.Left="10" Canvas.Top="80" Content="% Damage" Height="16" Name="chkBPcDamage" IsChecked="True" />
+                    <CheckBox Canvas.Left="10" Canvas.Top="102" Content="Haste" Height="16" Name="chkBHaste" IsChecked="True" />
+                    <CheckBox Canvas.Left="10" Canvas.Top="124" Content="Melee Haste" Height="16" Name="chkBMeleeHaste" IsChecked="True" />
+                    <CheckBox Canvas.Left="10" Canvas.Top="146" Content="Melee Crit" Height="16" Name="chkBMeleeCrit" IsChecked="True" />
+                    <CheckBox Canvas.Left="10" Canvas.Top="168" Content="Spell Crit" Height="16" Name="chkBSpellCrit" IsChecked="True" />
+                    <CheckBox Canvas.Left="10" Canvas.Top="190" Content="Spell Haste" Height="16" Name="chkBSpellHaste" IsChecked="True" />
+                    <CheckBox Canvas.Left="10" Canvas.Top="212" Content="Stat Add" Height="16" Name="chkBStatAdd" IsChecked="True" />
+                    <CheckBox Canvas.Left="10" Canvas.Top="234" Content="10% Stat" Height="16" Name="chkBStatMulti" IsChecked="True" />
+                    <CheckBox Canvas.Left="10" Canvas.Top="256" Content="Draeni" Height="16" Name="chkDraeni" IsChecked="True" />
+                    <CheckBox Canvas.Left="10" Canvas.Top="278" Content="Bloodlust" Height="16" Name="chkBloodlust" IsChecked="True" />
+                    <CheckBox Canvas.Left="163" Canvas.Top="14" Content="Major Armor debuff" Height="16" Name="chkBArmorMaj" IsChecked="True" />
+                    <CheckBox Canvas.Left="163" Canvas.Top="36" Content="Minor Armor debuff" Height="16" Name="chkBArmorMinor" IsChecked="True" />
+                    <CheckBox Canvas.Left="163" Canvas.Top="58" Content="Critical chance taken" Height="16" Name="chkBCritchanceTaken" IsChecked="True" />
+                    <CheckBox Canvas.Left="163" Canvas.Top="80" Content="Physical Vulnerability" Height="16" Name="chkBPhyVuln" IsChecked="True" />
+                    <CheckBox Canvas.Left="163" Canvas.Top="102" Content="Spell crit chance taken" Height="16" Name="chkBSpCrTaken" IsChecked="True" />
+                    <CheckBox Canvas.Left="163" Canvas.Top="124" Content="Spell Damage taken" Height="16" Name="chkBSpDamTaken" IsChecked="True" />
+                    <CheckBox Canvas.Left="163" Canvas.Top="146" Content="Spell hit taken" Height="16" Name="chkBSpHitTaken" IsChecked="True" />
+                    <CheckBox Canvas.Left="163" Canvas.Top="190" Content="Cryptic Fever from another DK" Height="16" Name="chkCrypticFever" IsChecked="True" />
+                    <CheckBox Canvas.Left="163" Canvas.Top="212" Content="Frost Fever from another DK" Height="16" Name="chkFrostFever" IsChecked="True" />
+                    <CheckBox Canvas.Left="163" Canvas.Top="234" Content="Blood Plague from another DK" Height="16" Name="chkBloodPlague" IsChecked="True" />
                 </Canvas>
             </sdk:TabItem>
             <sdk:TabItem Header="Tank Options" Name="TabTank">
-                <Canvas Height="622" Name="gbTank" Width="691">
+                <Canvas Height="542" Name="gbTank" Width="688">
                     <TextBox Canvas.Left="6" Canvas.Top="28" Height="23" Name="txtFPBossSwing" Width="120" Text="2" />
                     <sdk:Label Canvas.Left="132" Canvas.Top="28" Height="23" Name="Label14" Width="212" Content="Boss swing speed in second" />
                     <TextBox Canvas.Left="6" Canvas.Top="57" Height="23" Name="txtFBAvoidance" Text="50" Width="120" />
@@ -107,22 +108,22 @@
                 </Canvas>
             </sdk:TabItem>
             <sdk:TabItem Header="EP Options" Name="TabEPOptions">
-                <Canvas Canvas.Left="-342" Canvas.Top="63" Height="654" Name="Canvas1" Width="712">
+                <Canvas Canvas.Left="-342" Canvas.Top="63" Height="658" Name="Canvas1" Width="970">
                     <ScrollViewer Height="424" Name="ScrollViewer1" Width="262" HorizontalAlignment="Right" VerticalAlignment="Top" MaxHeight="424" Canvas.Left="439" Canvas.Top="6">
                         <Canvas Height="424" Name="grpEPTrinkets" Width="240" HorizontalAlignment="Left" VerticalAlignment="Top" MinHeight="424"></Canvas>
                     </ScrollViewer>
                     <Canvas Canvas.Left="0" Canvas.Top="6" Height="424" Name="grpEPMain" Width="200">
-                        <CheckBox Canvas.Left="10" Canvas.Top="14" Content="Strength" Height="16" Name="chkEPStr" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="36" Content="Agility" Height="16" Name="chkEPAgility" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="58" Content="Crit rating" Height="16" Name="chkEPCrit" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="80" Content="Haste rating" Height="16" Name="chkEPHaste" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="102" Content="Armor Penetration rating" Height="16" Name="chkEPArP" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="124" Content="Hit rating" Height="16" Name="chkEPHit" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="146" Content="Hit rating after melee cap" Height="16" Name="chkEPSpHit" />
+                        <CheckBox Canvas.Left="10" Canvas.Top="14" Content="Strength" Height="16" Name="chkEPStr" IsChecked="True" />
+                        <CheckBox Canvas.Left="10" Canvas.Top="36" Content="Agility" Height="16" Name="chkEPAgility" IsChecked="True" />
+                        <CheckBox Canvas.Left="10" Canvas.Top="58" Content="Crit rating" Height="16" Name="chkEPCrit" IsChecked="True" />
+                        <CheckBox Canvas.Left="10" Canvas.Top="80" Content="Haste rating" Height="16" Name="chkEPHaste" IsChecked="True" />
+                        <CheckBox Canvas.Left="10" Canvas.Top="102" Content="Armor Penetration rating" Height="16" Name="chkEPArP" IsChecked="True" />
+                        <CheckBox Canvas.Left="10" Canvas.Top="124" Content="Hit rating" Height="16" Name="chkEPHit" IsChecked="True" />
+                        <CheckBox Canvas.Left="10" Canvas.Top="146" Content="Hit rating after melee cap" Height="16" Name="chkEPSpHit" IsChecked="True" />
                         <CheckBox Canvas.Left="10" Canvas.Top="168" Content="Hit rating after spell cap" Height="16" Name="chkEPAfterSpellHitRating" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="190" Content="Expertise rating" Height="16" Name="chkEPExp" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="212" Content="Main Hand DPS" Height="16" Name="chkEPSMHDPS" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="234" Content="Main Hand speed" Height="16" Name="chkEPSMHSpeed" />
+                        <CheckBox Canvas.Left="10" Canvas.Top="190" Content="Expertise rating" Height="16" Name="chkEPExp" IsChecked="True" />
+                        <CheckBox Canvas.Left="10" Canvas.Top="212" Content="Main Hand DPS" Height="16" Name="chkEPSMHDPS" IsChecked="True" />
+                        <CheckBox Canvas.Left="10" Canvas.Top="234" Content="Main Hand speed" Height="16" Name="chkEPSMHSpeed" IsChecked="True" />
                     </Canvas>
                     <Canvas Canvas.Left="233" Canvas.Top="6" Height="424" Name="grpEPSet" Width="200">
                         <CheckBox Canvas.Left="10" Canvas.Top="10" Content="2P T7" Height="16" Name="chkEP2T7" />
@@ -131,27 +132,27 @@
                         <CheckBox Canvas.Left="10" Canvas.Top="76" Content="4P T8" Height="16" Name="chkEP4PT8" />
                         <CheckBox Canvas.Left="10" Canvas.Top="98" Content="2P T9" Height="16" Name="chkEP2PT9" />
                         <CheckBox Canvas.Left="10" Canvas.Top="120" Content="4P T9" Height="16" Name="chkEP4PT9" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="142" Content="2P T10" Height="16" Name="chkEP2PT10" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="164" Content="4P T10" Height="16" Name="chkEP4PT10" />
+                        <CheckBox Canvas.Left="10" Canvas.Top="142" Content="2P T10" Height="16" Name="chkEP2PT10" IsChecked="True" />
+                        <CheckBox Canvas.Left="10" Canvas.Top="164" Content="4P T10" Height="16" Name="chkEP4PT10" IsChecked="True" />
                     </Canvas>
                     <TextBox Canvas.Left="52" Canvas.Top="480" Height="23" Name="txtEPBase" Width="120" />
                 </Canvas>
             </sdk:TabItem>
             <sdk:TabItem Header="StatScaling" Name="TabStatScaling">
-                <Canvas Height="326" HorizontalAlignment="Left" Margin="22,68,0,0" Name="gbScaling" VerticalAlignment="Top" Width="688">
+                <Canvas Height="612" HorizontalAlignment="Left" Margin="22,68,0,0" Name="gbScaling" VerticalAlignment="Top" Width="942">
             <CheckBox Canvas.Left="126" Canvas.Top="102" Content="Replace Critical rating" Height="16" Name="chkScaCrit" />
             <CheckBox Canvas.Left="126" Canvas.Top="124" Content="Replace Haste Rating" Height="16" Name="chkScaHaste" />
-            <CheckBox Canvas.Left="313" Canvas.Top="212" Content="Add Weapon DPS" Height="16" Name="chkScaDPSA" />
+            <CheckBox Canvas.Left="313" Canvas.Top="212" Content="Add Weapon DPS" Height="16" Name="chkScaDPSA" IsChecked="True" />
             <CheckBox Canvas.Left="126" Canvas.Top="190" Content="Replace Expertise rating" Height="16" Name="chkScaExp" />
-            <CheckBox Canvas.Left="313" Canvas.Top="80" Content="Add Agility" Height="16" Name="chkScaAgility" />
+            <CheckBox Canvas.Left="313" Canvas.Top="80" Content="Add Agility" Height="16" Name="chkScaAgility" IsChecked="True" />
             <CheckBox Canvas.Left="126" Canvas.Top="168" Content="Replace Hit rating" Height="16" Name="chkScaHit" />
-            <CheckBox Canvas.Left="313" Canvas.Top="58" Content="Add Strength" Height="16" Name="chkScaStr" />
+            <CheckBox Canvas.Left="313" Canvas.Top="58" Content="Add Strength" Height="16" Name="chkScaStr" IsChecked="True" />
             <CheckBox Canvas.Left="126" Canvas.Top="146" Content="Replace Armor Penetration" Height="16" Name="chkScaArP" />
-            <CheckBox Canvas.Left="313" Canvas.Top="102" Content="Add Critical rating" Height="16" Name="chkScaCritA" />
-            <CheckBox Canvas.Left="313" Canvas.Top="124" Content="Add Haste Rating" Height="16" Name="chkScaHasteA" />
-            <CheckBox Canvas.Left="313" Canvas.Top="190" Content="Add Expertise rating" Height="16" Name="chkScaExpA" />
-            <CheckBox Canvas.Left="313" Canvas.Top="168" Content="Add Hit rating" Height="16" Name="chkScaHitA" />
-            <CheckBox Canvas.Left="313" Canvas.Top="146" Content="Add Armor Penetration" Height="16" Name="chkScaArPA" />
+            <CheckBox Canvas.Left="313" Canvas.Top="102" Content="Add Critical rating" Height="16" Name="chkScaCritA" IsChecked="True" />
+            <CheckBox Canvas.Left="313" Canvas.Top="124" Content="Add Haste Rating" Height="16" Name="chkScaHasteA" IsChecked="True" />
+            <CheckBox Canvas.Left="313" Canvas.Top="190" Content="Add Expertise rating" Height="16" Name="chkScaExpA" IsChecked="True" />
+            <CheckBox Canvas.Left="313" Canvas.Top="168" Content="Add Hit rating" Height="16" Name="chkScaHitA" IsChecked="True" />
+            <CheckBox Canvas.Left="313" Canvas.Top="146" Content="Add Armor Penetration" Height="16" Name="chkScaArPA" IsChecked="True" />
                     <Button Content="Sim scaling" Height="23" Name="cmdScaling" Width="75" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="50" />
         </Canvas>
                 
@@ -165,9 +166,9 @@
                 <ColumnDefinition Width="638*" />
             </Grid.ColumnDefinitions>
             <Button Content="Start Simulator" Height="23" HorizontalAlignment="Left" Margin="0,15,0,0" Name="cmdStartSim" VerticalAlignment="Top" Width="246" Grid.ColumnSpan="2" />
-            <Button Content="Start EP" Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="440,11,0,0" Name="btEP" VerticalAlignment="Top" Width="179" />
-            <Button Content="Change RNG Seed." Grid.Column="1" Height="28" HorizontalAlignment="Left" Margin="233,6,0,0" Name="cmdRngSeeder" VerticalAlignment="Top" Width="177" />
-            <ProgressBar Height="27" HorizontalAlignment="Left" Margin="0,40,0,0" Name="ProgressBar1" VerticalAlignment="Top" Width="730" Grid.ColumnSpan="2" />
+            <Button Content="Start EP" Grid.Column="1" Height="23" Margin="0,11,7,0" Name="btEP" VerticalAlignment="Top" HorizontalAlignment="Right" Width="179" />
+            <Button Content="Change RNG Seed." Grid.Column="1" Height="28" Margin="287,9,391,0" Name="cmdRngSeeder" VerticalAlignment="Top" />
+            <ProgressBar Height="27" Margin="0,40,0,0" Name="ProgressBar1" VerticalAlignment="Top" Grid.ColumnSpan="2" />
         </Grid>
         
     </Grid>

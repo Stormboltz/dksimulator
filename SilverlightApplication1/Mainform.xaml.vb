@@ -31,7 +31,7 @@ Partial Public Class MainForm
     Private WithEvents TEdit As New TemplateEditor
     Private WithEvents PrioEditor As New PriorityEditor
     Private WithEvents GearSelector As GearSelectorMainForm
-    'Private WithEvents ScenarioEditor As ScenarioEditor
+    Private WithEvents ScenarioEditor As ScenarioEditor
 
 
 
@@ -825,28 +825,31 @@ OUT:
         
         'Me.TabControl1.SelectedIndex = 1
         'SimConstructor.Jointhread()
-        'Dim txEdit As New ReportDisplay
-        'txEdit.OpenReport("KahoDKSim/Report/Report.xml")
-        'txEdit.Show()
+        
     End Sub
 
     Private Sub cmdEditScenario_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdEditScenario.Click
-        'If ScenarioEditor Is Nothing Then
-        '    ScenarioEditor = New ScenarioEditor(Me)
-        'End If
-        'Try
-        '    ScenarioEditor.OpenForEdit(cmbScenario.SelectedValue)
-        '    ScenarioEditor.Show()
+        If ScenarioEditor Is Nothing Then
+            ScenarioEditor = New ScenarioEditor(Me)
+        End If
+        Try
+            ScenarioEditor.OpenForEdit(cmbScenario.SelectedValue)
+            ScenarioEditor.Show()
 
-        'Catch Err As Exception
+        Catch Err As Exception
 
 
-        'End Try
+        End Try
     End Sub
-    'Sub ScenarioEditor_Close() Handles ScenarioEditor.Closing
-    '    RefreshScenarioList()
-    '    cmbScenario.SelectedValue = ScenarioEditor.EditorFilepath
-    'End Sub
+    Sub ScenarioEditor_Close() Handles ScenarioEditor.Closing
+        RefreshScenarioList()
+        cmbScenario.SelectedValue = ScenarioEditor.EditorFilepath
+    End Sub
 
 
+    Private Sub cmdReport_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdReport.Click
+        Dim txEdit As New ReportDisplay
+        txEdit.OpenReport("KahoDKSim/Report/Report.xml")
+        txEdit.Show()
+    End Sub
 End Class

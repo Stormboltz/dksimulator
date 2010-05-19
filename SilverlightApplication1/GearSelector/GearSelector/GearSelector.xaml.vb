@@ -11,11 +11,6 @@ Partial Public Class GearSelector
     Private Sub New()
         InitializeComponent()
     End Sub
-
-    Private Sub OKButton_Click(ByVal sender As Object, ByVal e As RoutedEventArgs) Handles OKButton.Click
-        Me.DialogResult = True
-    End Sub
-
     Private Sub CancelButton_Click(ByVal sender As Object, ByVal e As RoutedEventArgs) Handles CancelButton.Click
         Me.DialogResult = False
     End Sub
@@ -36,16 +31,16 @@ Partial Public Class GearSelector
             .classs = el.Element("classs").Value
             .subclass = el.Element("subclass").Value
             .heroic = el.Element("heroic").Value
-            .Strength = el.Element("Strength").Value
-            .Agility = el.Element("Agility").Value
+            .Str = el.Element("Strength").Value
+            .Agi = el.Element("Agility").Value
             .BonusArmor = el.Element("BonusArmor").Value
             .Armor = el.Element("Armor").Value
-            .HasteRating = el.Element("HasteRating").Value
-            .ExpertiseRating = el.Element("ExpertiseRating").Value
-            .HitRating = el.Element("HitRating").Value
-            .AttackPower = el.Element("AttackPower").Value
-            .CritRating = el.Element("CritRating").Value
-            .ArmorPenetrationRating = el.Element("ArmorPenetrationRating").Value
+            .Haste = el.Element("HasteRating").Value
+            .Exp = el.Element("ExpertiseRating").Value
+            .Hit = el.Element("HitRating").Value
+            .AP = el.Element("AttackPower").Value
+            .Crit = el.Element("CritRating").Value
+            .ArP = el.Element("ArmorPenetrationRating").Value
             .Speed = el.Element("speed").Value
             .DPS = el.Element("dps").Value
             .setid = el.Element("setid").Value
@@ -61,6 +56,11 @@ Partial Public Class GearSelector
     Sub LoadItem(ByVal Slot As String)
 
         Me.Slot = Slot
+        If txtFilter.Text.Trim <> "" Then
+            FilterList(txtFilter.Text)
+            Return
+        End If
+
         Dim itemList As List(Of aItem)
         ItemDB = MainFrame.ItemDB
         itemList = (From el In ItemDB.Element("items").Elements _
@@ -73,8 +73,16 @@ Partial Public Class GearSelector
     End Sub
 
 
-    Sub FilterList(ByVal filter As String())
-
+    Sub FilterList(ByVal filter As String)
+        Me.Slot = Slot
+        Dim itemList As List(Of aItem)
+        ItemDB = MainFrame.ItemDB
+        itemList = (From el In ItemDB.Element("items").Elements
+                    Where el.Element("slot") = Slot And Contains(el, filter)
+                    Order By getItemEPValue(el) Descending
+                    Select getItem(el)).ToList
+        dGear.AutoGenerateColumns = True
+        dGear.ItemsSource = itemList
     End Sub
    
     Function getItemEPValue(ByVal el As XElement) As Integer
@@ -107,7 +115,29 @@ Partial Public Class GearSelector
 
 
     End Function
-
+    Private Function Contains(ByVal el As XElement, ByVal filter As String) As Boolean
+        Dim tmp As String
+        Dim tBool As Boolean = True
+        tmp = el.Element("name").Value & " " & _
+            el.Element("Strength").Value & " " & _
+            el.Element("Agility").Value & " " & _
+            el.Element("HasteRating").Value & " " & _
+            el.Element("ExpertiseRating").Value & " " & _
+            el.Element("HitRating").Value & " " & _
+            el.Element("AttackPower").Value & " " & _
+            el.Element("CritRating").Value & " " & _
+            el.Element("ArmorPenetrationRating").Value & " " & _
+            el.Element("ilvl").Value & " " & _
+            el.Element("keywords").Value & " " & _
+            el.Element("speed").Value & " " & _
+            el.Element("dps").Value
+        For Each s In filter.Split(" ")
+            If tmp.ToUpper.Contains(s.ToUpper) = False Then
+                tBool = False
+            End If
+        Next
+        Return tBool
+    End Function
 
     Sub GearSelectorLoad(ByVal sender As Object, ByVal e As EventArgs)
 
@@ -121,40 +151,40 @@ Partial Public Class GearSelector
         Me.Close()
     End Sub
     Class aItem
-        Property Id As Integer
+        Friend Id As Integer
         Property name As String
         Property ilvl As Integer
-        Property slot As Integer
-        Property classs As Integer
-        Property subclass As Integer
+        Friend slot As Integer
+        Friend classs As Integer
+        Friend subclass As Integer
         Property heroic As Integer
 
-        Property Strength As Integer
-        Property Intel As Integer
-        Property Agility As Integer
-        Property BonusArmor As Integer
+        Property Str As Integer
+        Friend Intel As Integer
+        Property Agi As Integer
+        Friend BonusArmor As Integer
         Property Armor As Integer
-        Property HasteRating As Integer
-        Property ExpertiseRating As Integer
+        Property Haste As Integer
+        Property Exp As Integer
 
 
-        Property HitRating As Integer
-        Property AttackPower As Integer
-        Property CritRating As Integer
-        Property ArmorPenetrationRating As Integer
+        Property Hit As Integer
+        Property AP As Integer
+        Property Crit As Integer
+        Property ArP As Integer
         Property Speed As String = "0"
         Property DPS As String = "0"
 
-        Property setid As Integer
-        Property gembonus As Integer
-        Property keywords As String
+        Friend setid As Integer
+        Friend gembonus As Integer
+        Friend keywords As String
 
         Property EPVAlue As Integer
 
     End Class
 
-    Private Sub dGear_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs) Handles dGear.SelectionChanged
-
+    Private Sub dGear_BeginningEdit(ByVal sender As Object, ByVal e As System.Windows.Controls.DataGridBeginningEditEventArgs) Handles dGear.BeginningEdit
+        If IsNothing(sender.selecteditem) Then Exit Sub
         Dim a As aItem
         a = sender.selecteditem
         Try
@@ -163,5 +193,24 @@ Partial Public Class GearSelector
         Catch ex As Exception
 
         End Try
+    End Sub
+    
+    Private Sub dGear_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs) 'Handles dGear.SelectionChanged
+        If IsNothing(sender.selecteditem) Then Exit Sub
+        Dim a As aItem
+        a = sender.selecteditem
+        Try
+            SelectedItem = a.Id
+            Me.DialogResult = True
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    Private Sub txtFilter_TextChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.TextChangedEventArgs) Handles txtFilter.TextChanged
+        If sender.Text.Trim <> "" Then
+            FilterList(sender.Text)
+        Else
+            LoadItem(Me.Slot)
+        End If
     End Sub
 End Class

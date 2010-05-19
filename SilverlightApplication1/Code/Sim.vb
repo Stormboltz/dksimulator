@@ -215,7 +215,7 @@ Public Class Sim
         AotD.PrePull(T)
         'Pot Usage
         Try
-            If Me.Character.XmlDoc.Element("/character/misc/PrePullIndestructiblePotion").Value Then
+            If Me.Character.XmlDoc.Element("character").Element("misc").Element("PrePullIndestructiblePotion").Value Then
                 Dim p As Proc
                 p = proc.Find("Indestructible Potion")
                 If p.Equiped = 0 Then
@@ -229,7 +229,7 @@ Public Class Sim
 
         End Try
         Try
-            If Me.Character.XmlDoc.Element("/character/misc/PrePullPotionofSpeed").Value Then
+            If Me.Character.XmlDoc.Element("character").Element("misc").Element("PrePullPotionofSpeed").Value Then
                 Dim p As Proc
                 p = proc.Find("Potion of Speed")
                 If p.Equiped = 0 Then
@@ -934,185 +934,122 @@ errH:
     End Sub
 
     Sub Report()
-        'on error resume next
 
+        Dim myArray As New Collections.Generic.List(Of Long)
+        Dim obj As Supertype
 
-        
-
-
-
-                ' Sort report
-
-                Dim myArray As New Collections.Generic.List(Of Long)
-
-                Dim obj As Supertype
-
-                'MergeDisease
-
-                For Each obj In DamagingObject
-                    If TypeOf obj Is Diseases.BloodPlague Then
-                        If obj.total <> 0 Then
-                            obj.Merge()
-                        End If
-                    End If
-                Next
-
-                For Each obj In DamagingObject
-                    If TypeOf obj Is Diseases.FrostFever Then
-                        If obj.total <> 0 Then
-                            obj.Merge()
-                        End If
-                    End If
-                Next
-
-
-
-
-                If MergeReport Then
-                    For Each obj In DamagingObject
-                        If obj.total <> 0 Then
-                            obj.Merge()
-                        End If
-                    Next
+        'MergeDisease
+        For Each obj In DamagingObject
+            If TypeOf obj Is Diseases.BloodPlague Then
+                If obj.total <> 0 Then
+                    obj.Merge()
                 End If
-
-                For Each obj In DamagingObject
-                    If obj.total <> 0 Then
-                        myArray.Add(obj.total)
-                    End If
-                Next
-                myArray.Sort()
-
-                Dim ThreatBeforePresence As Long = Threat
-                For Each obj In Me.DamagingObject
-                    Threat += obj.total * obj.ThreadMultiplicator
-                Next
-                If FrostPresence = 1 Then
-                    Threat = Threat * 2.0735
-                Else
-                    Threat = (Threat * 0.8) * (1 - Character.TalentBlood.Subversion * 8.333 / 100)
+            End If
+        Next
+        For Each obj In DamagingObject
+            If TypeOf obj Is Diseases.FrostFever Then
+                If obj.total <> 0 Then
+                    obj.Merge()
                 End If
-
-                Threat = Threat + ThreatBeforePresence
-                TPS = 100 * Threat / TimeStamp
-
-                If EPStat() <> "" Then Exit Sub
-
-                Dim myReport As New Report
-                '_MainFrm.ReportStack.Children.Add(myReport)
-                Dim i As Integer
-                Dim tot As Long
-                Dim STmp As String
-                For i = 0 To myArray.Count - 1
-                    tot = (myArray.Item(myArray.Count - 1 - i))
-
-                    For Each obj In DamagingObject
-                        If obj.total = tot Then
-                            myReport.AddLine(obj.Report)
-                        End If
-
-                    Next
-                Next
-
-                If ShowProc Then
-                    If True Then
-                        myReport.AddLine(GCDUsage.Report)
-                        myReport.AddLine(Runes.BloodRune1.Report)
-                        myReport.AddLine(Runes.BloodRune2.Report)
-                        myReport.AddLine(Runes.FrostRune1.Report)
-
-                        myReport.AddLine(Runes.FrostRune2.Report)
-                        myReport.AddLine(Runes.UnholyRune1.Report)
-                        myReport.AddLine(Runes.UnholyRune2.Report)
-                    End If
-
-                    If Horn.HitCount <> 0 Then
-                        myReport.AddLine(Horn.Report)
-
-                    End If
-                    If Pestilence.HitCount <> 0 Then
-                        myReport.AddLine(Pestilence.Report)
-
-                    End If
-                    If BoneShield.HitCount <> 0 Then
-                        myReport.AddLine(BoneShield.Report)
-
-                    End If
-                    If BloodTap.HitCount <> 0 Then
-                        myReport.AddLine(BloodTap.Report)
-
-                    End If
-
-                    If Frenzy.HitCount <> 0 Then
-                        myReport.AddLine(Frenzy.Report)
-                    End If
-
-                    If UnbreakableArmor.HitCount <> 0 Then
-                        myReport.AddLine(UnbreakableArmor.Report)
-
-                    End If
-                    'On Error Resume Next
-                    Dim pr As Proc
-                    For Each pr In proc.EquipedProc
-                        If pr.total = 0 Then
-                            myReport.AddLine(pr.Report)
-                        End If
-                    Next
+            End If
+        Next
+        If MergeReport Then
+            For Each obj In DamagingObject
+                If obj.total <> 0 Then
+                    obj.Merge()
                 End If
+            Next
+        End If
+        For Each obj In DamagingObject
+            If obj.total <> 0 Then
+                myArray.Add(obj.total)
+            End If
+        Next
+        myArray.Sort()
+        Dim ThreatBeforePresence As Long = Threat
+        For Each obj In Me.DamagingObject
+            Threat += obj.total * obj.ThreadMultiplicator
+        Next
+        If FrostPresence = 1 Then
+            Threat = Threat * 2.0735
+        Else
+            Threat = (Threat * 0.8) * (1 - Character.TalentBlood.Subversion * 8.333 / 100)
+        End If
+        Threat = Threat + ThreatBeforePresence
+        TPS = 100 * Threat / TimeStamp
+        If EPStat() <> "" Then Exit Sub
+        Dim myReport As New Report
+        '_MainFrm.ReportStack.Children.Add(myReport)
+        Dim i As Integer
+        Dim tot As Long
+        Dim STmp As String
+        Dim DamagingObjectList As List(Of Supertype)
+        DamagingObjectList = (From oj In DamagingObject
+             Where oj.total <> 0
+             Order By oj.total Descending
+             Select oj).ToList
+        For Each obj In DamagingObjectList
+            myReport.AddLine(obj.Report)
+        Next
+        If ShowProc Then
+            If True Then
+                myReport.AddLine(GCDUsage.Report)
+                myReport.AddLine(Runes.BloodRune1.Report)
+                myReport.AddLine(Runes.BloodRune2.Report)
+                myReport.AddLine(Runes.FrostRune1.Report)
+                myReport.AddLine(Runes.FrostRune2.Report)
+                myReport.AddLine(Runes.UnholyRune1.Report)
+                myReport.AddLine(Runes.UnholyRune2.Report)
+            End If
+            If Horn.HitCount <> 0 Then myReport.AddLine(Horn.Report)
+            If Pestilence.HitCount <> 0 Then myReport.AddLine(Pestilence.Report)
+            If BoneShield.HitCount <> 0 Then myReport.AddLine(BoneShield.Report)
+            If BloodTap.HitCount <> 0 Then myReport.AddLine(BloodTap.Report)
+            If Frenzy.HitCount <> 0 Then myReport.AddLine(Frenzy.Report)
+            If UnbreakableArmor.HitCount <> 0 Then myReport.AddLine(UnbreakableArmor.Report)
+            'On Error Resume Next
+            Dim pr As Proc
+            For Each pr In proc.EquipedProc
+                If pr.total = 0 Then
+                    myReport.AddLine(pr.Report)
+                End If
+            Next
+        End If
 
-                myReport.Save("")
-                Exit Sub
-                'Dim minDPS As Integer
-                'Dim maxDPS As Integer
-                'Dim MinMAx As Integer
-                'Dim range As Double
+        Dim minDPS As Integer
+        Dim maxDPS As Integer
+        Dim MinMAx As Integer
+        Dim range As Double
 
-                'If MultipleDamage.Count > 1 Then
-                '    MultipleDamage.Sort()
-                '    minDPS = MultipleDamage.Item(1) / (FightLength)
-                '    maxDPS = MultipleDamage.Item(MultipleDamage.Count - 1) / (FightLength)
-                '    MinMAx = Math.Max(DPS - minDPS, maxDPS - DPS)
-                '    range = (maxDPS - minDPS) / (2 * DPS)
-                '    STmp = STmp & "<tr><td COLSPAN=8>DPS<FONT COLOR='white'>|</FONT>" & vbTab & "<b>" & DPS & "(+/- " & MinMAx & ")</b></td></tr>"
-                'Else
-                '    STmp = STmp & "<tr><td COLSPAN=8>DPS<FONT COLOR='white'>|</FONT>" & vbTab & "<b>" & DPS & "</b></td></tr>"
-                'End If
-                'STmp = STmp & "<tr><td COLSPAN=8>Total Damage<FONT COLOR='white'>|</FONT>" & vbTab & Math.Round(TotalDamage() / 1000000, 2) & "m" & vbTab & "<FONT COLOR='white'>|</FONT> in " & MaxTime / 100 / 60 / 60 & "h</td></tr>"
-                'STmp = STmp & "<tr><td COLSPAN=8>" & RunicPower.Report() & "</td></tr>"
-
-
-                'STmp = STmp & "<tr><td COLSPAN=8>Threat Per Second<FONT COLOR='white'>|</FONT>" & vbTab & "<b>" & TPS & "</b></td></tr>"
-                'STmp = STmp & "<tr><td COLSPAN=8>Generated in <FONT COLOR='white'>|</FONT>" & DateDiff(DateInterval.Second, SimStart, Now()) & "s</td></tr>"
-
-                'STmp = STmp & "<tr><td COLSPAN=8>Template:<FONT COLOR='white'>|</FONT> " & Split(Character.GetTemplateFileName, ".")(0) & "</td></tr>"
-                'If Rotate Then
-                '    STmp = STmp & "<tr><td COLSPAN=8>Rotation: <FONT COLOR='white'>|</FONT>" & Split(Character.GetRotationFileName, ".")(0) & "</td></tr>"
-                'Else
-                '    STmp = STmp & "<tr><td COLSPAN=8>Priority: <FONT COLOR='white'>|</FONT>" & Split(Character.GetPriorityFileName, ".")(0) & "</td></tr>"
-                'End If
-                'STmp = STmp & "<tr><td COLSPAN=8>Presence: <FONT COLOR='white'>|</FONT>" & Character.GetPresence & vbCrLf & "</td></tr>"
-                'STmp = STmp & "<tr><td COLSPAN=8>Sigil: <FONT COLOR='white'>|</FONT>" & Character.GetSigil & vbCrLf & "</td></tr>"
-
-                'If MainStat.DualW Then
-                '    STmp = STmp & "<tr><td COLSPAN=8>RuneEnchant: <FONT COLOR='white'>|</FONT> " & Character.GetMHEnchant & " / <FONT COLOR='white'>|</FONT>" & Character.GetOHEnchant & "</td></tr>"
-                'Else
-                '    STmp = STmp & "<tr><td COLSPAN=8>RuneEnchant: <FONT COLOR='white'>|</FONT>" & Character.GetMHEnchant & "</td></tr>"
-                'End If
-
-                'STmp = STmp & "<tr><td COLSPAN=8>Pet Calculation: <FONT COLOR='white'>|</FONT>" & Character.GetPetCalculation & "</td></tr>"
-
-                'STmp = STmp & "</table><FONT COLOR='white'>[/TABLE]</FONT><hr width='80%' align='center' noshade ></hr>"
-                '        Tw.Write(STmp)
-                '        Tw.Flush()
-
-                '        Tw.Close()
-
-
-
-
-        
-
-
+        If MultipleDamage.Count > 1 Then
+            MultipleDamage.Sort()
+            minDPS = MultipleDamage.Item(1) / (FightLength)
+            maxDPS = MultipleDamage.Item(MultipleDamage.Count - 1) / (FightLength)
+            MinMAx = Math.Max(DPS - minDPS, maxDPS - DPS)
+            range = (maxDPS - minDPS) / (2 * DPS)
+            myReport.AddAdditionalInfo("DPS", DPS & "(+/- " & MinMAx & ")")
+        Else
+            myReport.AddAdditionalInfo("DPS", DPS)
+        End If
+        myReport.AddAdditionalInfo("Total Damage", Math.Round(TotalDamage() / 1000000, 2) & "m")
+        myReport.AddAdditionalInfo("RunicPower", RunicPower.Report)
+        myReport.AddAdditionalInfo("Threat Per Second", TPS)
+        myReport.AddAdditionalInfo("Generated in", DateDiff(DateInterval.Second, SimStart, Now()) & "s")
+        myReport.AddAdditionalInfo("Template", Split(Character.GetTemplateFileName, ".")(0))
+        If Rotate Then
+            myReport.AddAdditionalInfo("Rotation", Split(Character.GetRotationFileName, ".")(0))
+        Else
+            myReport.AddAdditionalInfo("Priority", Split(Character.GetPriorityFileName, ".")(0))
+        End If
+        myReport.AddAdditionalInfo("Presence", Character.GetPresence)
+        myReport.AddAdditionalInfo("Sigil", Character.GetSigil)
+        If MainStat.DualW Then
+            myReport.AddAdditionalInfo("RuneEnchant", Character.GetMHEnchant)
+        Else
+            myReport.AddAdditionalInfo("RuneEnchant", Character.GetMHEnchant)
+        End If
+        myReport.AddAdditionalInfo("Pet Calculation", Character.GetPetCalculation)
+        myReport.Save("")
     End Sub
 
 

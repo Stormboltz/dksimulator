@@ -29,22 +29,35 @@ Partial Public Class EnchantSelector
         With myEnch
             .Id = el.Element("id").Value
             .name = el.Element("name").Value
-            .Strength = el.Element("Strength").Value
-            .Agility = el.Element("Agility").Value
-            .HasteRating = el.Element("HasteRating").Value
-            .ExpertiseRating = el.Element("ExpertiseRating").Value
-            .HitRating = el.Element("HitRating").Value
-            .AttackPower = el.Element("AttackPower").Value
-            .CritRating = el.Element("CritRating").Value
-            .ArmorPenetrationRating = el.Element("ArmorPenetrationRating").Value
+            .Str = el.Element("Strength").Value
+            .Agi = el.Element("Agility").Value
+            .Haste = el.Element("HasteRating").Value
+            .Exp = el.Element("ExpertiseRating").Value
+            .Hit = el.Element("HitRating").Value
+            .AP = el.Element("AttackPower").Value
+            .Crit = el.Element("CritRating").Value
+            .ArP = el.Element("ArmorPenetrationRating").Value
             .Desc = el.Element("Desc").Value
+            .EPVAlue = getItemEPValue(el)
         End With
         Return myEnch
     End Function
+    Function getItemEPValue(ByVal el As XElement) As Integer
+        Dim tmp As Double = 0
 
-    Private Sub OKButton_Click(ByVal sender As Object, ByVal e As RoutedEventArgs) Handles OKButton.Click
-        Me.DialogResult = True
-    End Sub
+        tmp += el.Element("Strength").Value * GS.EPvalues.Str
+        tmp += el.Element("Agility").Value * GS.EPvalues.Agility
+        tmp += el.Element("ExpertiseRating").Value * GS.EPvalues.Exp
+        tmp += el.Element("HitRating").Value * GS.EPvalues.Hit
+        tmp += el.Element("AttackPower").Value * 1
+        tmp += el.Element("CritRating").Value * GS.EPvalues.Crit
+        tmp += el.Element("ArmorPenetrationRating").Value * GS.EPvalues.ArP
+        tmp += el.Element("HasteRating").Value * GS.EPvalues.Haste
+        Return Convert.ToInt32(tmp)
+
+
+    End Function
+    
 
     Private Sub CancelButton_Click(ByVal sender As Object, ByVal e As RoutedEventArgs) Handles CancelButton.Click
         Me.DialogResult = False
@@ -61,6 +74,7 @@ Partial Public Class EnchantSelector
         Dim doc As XDocument = GS.EnchantDB
         statusReport = (From el In doc.Elements("enchant").Elements
                         Where el.Element("slot").Value = slot And (el.Element("reqskill").Value = "" Or el.Element("reqskill").Value = 0 Or el.Element("reqskill").Value = GetSkillID(Me.GS.cmbSkill1.SelectedItem) Or el.Element("reqskill").Value = GetSkillID(Me.GS.cmbSkill2.SelectedItem))
+                        Order By getItemEPValue(el) Descending
                         Select getEnchant(el)).ToList()
         gEnchant.ItemsSource = statusReport
         Me.Slot = slot
@@ -96,22 +110,24 @@ Partial Public Class EnchantSelector
         Me.Close()
     End Sub
     Class aEnchant
-        Property Id As Integer
+        Friend Id As Integer
         Property name As String
-        Property slot As Integer
-        Property Strength As Integer
-        Property Intel As Integer
-        Property Agility As Integer
-        Property HasteRating As Integer
-        Property ExpertiseRating As Integer
-        Property HitRating As Integer
-        Property AttackPower As Integer
-        Property CritRating As Integer
-        Property ArmorPenetrationRating As Integer
-        Property Desc As String
+        Friend slot As Integer
+        Property Str As Integer
+        Friend Intel As Integer
+        Property Agi As Integer
+        Property Haste As Integer
+        Property Exp As Integer
+        Property Hit As Integer
+        Property AP As Integer
+        Property Crit As Integer
+        Property ArP As Integer
+        Property EPVAlue As Integer
+        Friend Property Desc As String
     End Class
 
-    Private Sub gEnchant_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs) Handles gEnchant.SelectionChanged
+    Private Sub gEnchant_BeginningEdit(ByVal sender As Object, ByVal e As System.Windows.Controls.DataGridBeginningEditEventArgs) Handles gEnchant.BeginningEdit
+        If IsNothing(sender.selecteditem) Then Exit Sub
         Dim a As aEnchant
         a = sender.selecteditem
         Try
@@ -120,5 +136,9 @@ Partial Public Class EnchantSelector
         Catch ex As Exception
 
         End Try
+    End Sub
+
+    Private Sub gEnchant_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs) Handles gEnchant.SelectionChanged
+
     End Sub
 End Class

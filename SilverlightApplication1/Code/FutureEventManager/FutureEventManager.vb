@@ -66,27 +66,16 @@ Public Class FutureEventManager
 		Next
 		Dim myComparer as myEventComparer = New myEventComparer()
         List.Sort(myComparer)
-	End Sub
-	
-	Public Class myEventComparer
-        Implements IComparer
+    End Sub
 
-        Public Function Compare(ByVal x As Object, ByVal y As Object) As Integer Implements System.Collections.IComparer.Compare
-            Dim FEx As FutureEvent
-            Dim FEy As FutureEvent
-            FEx = x
-            FEy = y
+    Public Class myEventComparer
+        Implements System.Collections.Generic.IComparer(Of FutureEvent)
+
+        Function Compare(ByVal x As FutureEvent, ByVal y As FutureEvent) As Integer Implements System.Collections.Generic.IComparer(Of DKSIMVB.FutureEvent).Compare
             Dim i As Integer = 0
-            If FEx.T > FEy.T Then
-                Return 1
-            Else
-                Return 0
-            End If
-        End Function 'IComparer.Compare
+            i = System.Collections.Generic.Comparer(Of Long).Default.Compare(x.T, y.T)
+            Return i
+        End Function
     End Class
 
-	
-	
-	
-	
 End Class

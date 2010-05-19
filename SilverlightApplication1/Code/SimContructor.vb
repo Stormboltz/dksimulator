@@ -853,8 +853,6 @@ skipTrinket:
                     If t.ThreadState = ThreadState.Unstarted Then t.Start()
                 End If
                 If i = 0 Then
-                    'Thread.Sleep(1)
-                    'MainForm.ProgressBarHelper()
                     t.Join(100)
                 End If
                 i += 1

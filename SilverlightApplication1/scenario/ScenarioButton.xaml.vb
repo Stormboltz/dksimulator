@@ -34,60 +34,42 @@ Partial Public Class ScenarioButton
         For Each N In xElem.Elements
             If N.Attribute("type").Value = "checkbox" Then
                 chk = New CheckBox
-                Me.LayoutRoot.Children.Add(chk)
-
-                '.CheckAlign = System.Drawing.ContentAlignment.MiddleLeft
-                Canvas.SetLeft(chk, x)
-                Canvas.SetTop(chk, y)
-                chk.Width = 50
+                controlStack.Children.Add(chk)
+                'Canvas.SetLeft(chk, x)
+                'Canvas.SetTop(chk, y)
+                chk.Width = 250
                 chk.Height = 20
                 Try
                     chk.IsChecked = N.Value
                 Catch
                     chk.IsChecked = False
                 End Try
-
-                '.AutoSize = True
                 chk.Content = N.Attribute("caption").Value
                 chk.Name = N.Name.ToString
-
                 colControl.Add(chk)
             End If
 
             If N.Attribute("type").Value = "textbox" Then
                 tBox = New myTextButton
-                Me.LayoutRoot.Children.Add(tBox)
-
-                Canvas.SetLeft(tBox, x)
-                Canvas.SetTop(tBox, y)
-                tBox.Width = 50
-                tBox.Height = 20
+                controlStack.Children.Add(tBox)
+                'Canvas.SetLeft(tBox, x)
+                'Canvas.SetTop(tBox, y)
                 Try
-                    tBox.Text = Int(N.Value)
+                    tBox.Text.Text = Int(N.Value)
                 Catch
-                    tBox.Text = 0
+                    tBox.Text.Text = 0
                 End Try
 
                 tBox.multi = N.Attribute("multi").Value
                 tBox.caption = N.Attribute("caption").Value
                 tBox.Name = N.Name.ToString
-
-
-                lbl = New Label
-                Me.LayoutRoot.Children.Add(lbl)
-
-                Canvas.SetLeft(lbl, Canvas.GetLeft(tBox) + tBox.Width + x)
-                Canvas.SetTop(lbl, y)
-                lbl.Width = 50
-                lbl.Height = 20
-                '.AutoSize = True
+                lbl = tBox.label
                 lbl.Content = N.Attribute("caption").Value
-                lbl.Name = "lbl" & N.Name.ToString
                 colControl.Add(tBox)
             End If
             y += 25
         Next
-        Me.Height = y
+        Me.Height = 20 + controlStack.Children.Count * 20
     End Sub
 
 
@@ -109,9 +91,10 @@ Partial Public Class ScenarioButton
         Me.myName = n
     End Sub
 
-    Friend Class myTextButton
-        Inherits TextBox
-        Friend multi As Integer
-        Friend caption As String
-    End Class
+    
+    Private Sub ScenarioButton_SizeChanged(ByVal sender As Object, ByVal e As System.Windows.SizeChangedEventArgs) Handles Me.SizeChanged
+        Me.Border.Height = e.NewSize.Height
+        Me.Border.Width = e.NewSize.Width
+        Me.controlStack.Width = e.NewSize.Width - 40
+    End Sub
 End Class

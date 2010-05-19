@@ -168,108 +168,63 @@ Friend Class MainStat
 
 
                 Case Else
-                    Try
-                        If XmlCharacter.Element("character").Element("trinket").Element("MjolnirRunestone").Value = 1 Then Sim.Trinkets.MjolRune.Equip()
-                    Catch
-                    End Try
-                    Try
-                        If XmlCharacter.Element("character").Element("trinket").Element("GrimToll").Value = 1 Then Sim.Trinkets.GrimToll.Equip()
-                    Catch
-                    End Try
-                    Try
-                        If XmlCharacter.Element("character").Element("trinket").Element("BitterAnguish").Value = 1 Then Sim.Trinkets.BitterAnguish.Equip()
-                    Catch
-                    End Try
-                    Try
-                        If XmlCharacter.Element("character").Element("trinket").Element("Mirror").Value = 1 Then Sim.Trinkets.Mirror.Equip()
-                    Catch
-                    End Try
-                    Try
-                        If XmlCharacter.Element("character").Element("trinket").Element("Greatness").Value = 1 Then Sim.Trinkets.Greatness.Equip()
-                    Catch
-                    End Try
-                    Try
-                        If XmlCharacter.Element("character").Element("trinket").Element("DCDeath").Value = 1 Then Sim.Trinkets.DCDeath.Equip()
-                    Catch
-                    End Try
-                    Try
-                        If XmlCharacter.Element("character").Element("trinket").Element("Victory").Value = 1 Then Sim.Trinkets.Victory.Equip()
-                    Catch
-                    End Try
-                    Try
-                        If XmlCharacter.Element("character").Element("trinket").Element("Necromantic").Value = 1 Then Sim.Trinkets.Necromantic.Equip()
-                    Catch
-                    End Try
-                    Try
-                        If XmlCharacter.Element("character").Element("trinket").Element("Bandit").Value = 1 Then Sim.Trinkets.Bandit.Equip()
-                    Catch
-                    End Try
-                    Try
-                        If XmlCharacter.Element("character").Element("trinket").Element("Pyrite").Value = 1 Then Sim.Trinkets.Pyrite.Equip()
-                    Catch
-                    End Try
-                    Try
-                        If XmlCharacter.Element("character").Element("trinket").Element("DarkMatter").Value = 1 Then Sim.Trinkets.DarkMatter.Equip()
-                    Catch
-                    End Try
-                    Try
-                        If XmlCharacter.Element("character").Element("trinket").Element("OldGod").Value = 1 Then Sim.Trinkets.OldGod.Equip()
-                    Catch
-                    End Try
-                    Try
-                        If XmlCharacter.Element("character").Element("trinket").Element("Comet").Value = 1 Then Sim.Trinkets.Comet.Equip()
-                    Catch
-                    End Try
-                    Try
-                        If XmlCharacter.Element("character").Element("trinket").Element("DeathChoice").Value = 1 Then Sim.Trinkets.DeathChoice.Equip()
-                    Catch
-                    End Try
-                    Try
-                        If XmlCharacter.Element("character").Element("trinket").Element("DeathChoiceHeroic").Value = 1 Then Sim.Trinkets.DeathChoiceHeroic.Equip()
-                    Catch
-                    End Try
-                    Try
-                        If XmlCharacter.Element("character").Element("trinket").Element("DeathbringersWill").Value = 1 Then Sim.Trinkets.DeathbringersWill.Equip()
-                    Catch
-                    End Try
-                    Try
-                        If XmlCharacter.Element("character").Element("trinket").Element("DeathbringersWillHeroic").Value = 1 Then Sim.Trinkets.DeathbringersWillHeroic.Equip()
-                    Catch
-                    End Try
-                    Try
-                        If XmlCharacter.Element("character").Element("trinket").Element("WhisperingFangedSkull").Value = 1 Then Sim.Trinkets.WhisperingFangedSkull.Equip()
-                    Catch
-                    End Try
-                    Try
-                        If XmlCharacter.Element("character").Element("trinket").Element("WhisperingFangedSkullHeroic").Value = 1 Then Sim.Trinkets.WhisperingFangedSkullHeroic.Equip()
-                    Catch
-                    End Try
-                    Try
-                        If XmlCharacter.Element("character").Element("trinket").Element("NeedleEncrustedScorpion").Value = 1 Then Sim.Trinkets.NeedleEncrustedScorpion.Equip()
-                    Catch
-                    End Try
-                    Try
-                        If XmlCharacter.Element("character").Element("trinket").Element("TinyAbomination").Value = 1 Then Sim.Trinkets.TinyAbomination.Equip()
-                    Catch
-                    End Try
-                    Try
-                        If XmlCharacter.Element("character").Element("trinket").Element("HerkumlWarToken").Value = 1 Then Sim.Trinkets.HerkumlWarToken.Equip()
-                    Catch
-                    End Try
-                    Try
-                        If XmlCharacter.Element("character").Element("trinket").Element("MarkofSupremacy").Value = 1 Then Sim.Trinkets.MarkofSupremacy.Equip()
-                    Catch
-                    End Try
+                    For Each el In XmlCharacter.Element("character").Element("trinket").Elements
+                        Select Case el.Name
+                            Case "MjolnirRunestone"
+                                Sim.Trinkets.MjolRune.Equip()
+                            Case "GrimToll"
+                                Sim.Trinkets.GrimToll.Equip()
+                            Case "BitterAnguish"
+                                Sim.Trinkets.BitterAnguish.Equip()
+                            Case "Mirror"
+                                Sim.Trinkets.Mirror.Equip()
+                            Case "Greatness"
+                                Sim.Trinkets.Greatness.Equip()
+                            Case "DCDeath"
+                                Sim.Trinkets.DCDeath.Equip()
+                            Case "Victory"
+                                Sim.Trinkets.Victory.Equip()
+                            Case "Necromantic"
+                                Sim.Trinkets.Necromantic.Equip()
+                            Case "Bandit"
+                                Sim.Trinkets.Bandit.Equip()
+                            Case "Pyrite"
+                                Sim.Trinkets.Pyrite.Equip()
+                            Case "DarkMatter"
+                                Sim.Trinkets.DarkMatter.Equip()
+                            Case "OldGod"
+                                Sim.Trinkets.OldGod.Equip()
+                            Case "Comet"
+                                Sim.Trinkets.Comet.Equip()
+                            Case "DeathChoice"
+                                Sim.Trinkets.DeathChoice.Equip()
+                            Case "DeathChoiceHeroic"
+                                Sim.Trinkets.DeathChoiceHeroic.Equip()
+                            Case "DeathbringersWill"
+                                Sim.Trinkets.DeathbringersWill.Equip()
+                            Case "DeathbringersWillHeroic"
+                                Sim.Trinkets.DeathbringersWillHeroic.Equip()
+                            Case "WhisperingFangedSkull"
+                                Sim.Trinkets.WhisperingFangedSkull.Equip()
+                            Case "WhisperingFangedSkullHeroic"
+                                Sim.Trinkets.WhisperingFangedSkullHeroic.Equip()
+                            Case "NeedleEncrustedScorpion"
+                                Sim.Trinkets.NeedleEncrustedScorpion.Equip()
+                            Case "TinyAbomination"
+                                Sim.Trinkets.TinyAbomination.Equip()
+                            Case "HerkumlWarToken"
+                                Sim.Trinkets.HerkumlWarToken.Equip()
+                            Case "MarkofSupremacy"
+                                Sim.Trinkets.MarkofSupremacy.Equip()
+                            Case "VengeanceoftheForsaken"
+                                Sim.Trinkets.VengeanceoftheForsaken.Equip()
+                            Case "VengeanceoftheForsakenHeroic"
+                                Sim.Trinkets.VengeanceoftheForsakenHeroic.Equip()
 
-                    Try
-                        If XmlCharacter.Element("character").Element("trinket").Element("VengeanceoftheForsaken").Value = 1 Then Sim.Trinkets.VengeanceoftheForsaken.Equip()
-                    Catch
-                    End Try
+                        End Select
+                    Next
 
-                    Try
-                        If XmlCharacter.Element("character").Element("trinket").Element("VengeanceoftheForsakenHeroic").Value = 1 Then Sim.Trinkets.VengeanceoftheForsakenHeroic.Equip()
-                    Catch
-                    End Try
+                   
 
 
 
@@ -308,69 +263,39 @@ Friend Class MainStat
             Case "EP 4T10"
                 T104PDPS = 1
             Case Else
-                Try
-                    T72PDPS = XmlCharacter.Element("character").Element("Set").Element("T72PDPS").Value
-                Catch
-                End Try
-                Try
-                    T74PDPS = XmlCharacter.Element("character").Element("Set").Element("T74PDPS").Value
-                Catch
-                End Try
-                Try
-                    T82PDPS = XmlCharacter.Element("character").Element("Set").Element("T82PDPS").Value
-                Catch
-                End Try
-                Try
-                    T84PDPS = XmlCharacter.Element("character").Element("Set").Element("T84PDPS").Value
-                Catch
-                End Try
-                Try
-
-                    T92PDPS = XmlCharacter.Element("character").Element("Set").Element("T92PDPS").Value
-                Catch
-                End Try
-                Try
-                    T94PDPS = XmlCharacter.Element("character").Element("Set").Element("T94PDPS").Value
-                Catch
-                End Try
-                Try
-
-                    T72PTNK = XmlCharacter.Element("character").Element("Set").Element("T72PTNK").Value
-                Catch
-                End Try
-                Try
-                    T74PTNK = XmlCharacter.Element("character").Element("Set").Element("T74PTNK").Value
-                Catch
-                End Try
-                Try
-                    T82PTNK = XmlCharacter.Element("character").Element("Set").Element("T82PTNK").Value
-                Catch
-                End Try
-                Try
-                    T84PTNK = XmlCharacter.Element("character").Element("Set").Element("T84PTNK").Value
-                Catch
-                End Try
-                Try
-                    T102PDPS = XmlCharacter.Element("character").Element("Set").Element("T102PDPS").Value
-                Catch
-                End Try
-                Try
-                    T104PDPS = XmlCharacter.Element("character").Element("Set").Element("T104PDPS").Value
-                Catch
-                End Try
-                Try
-
-                    T92PTNK = XmlCharacter.Element("character").Element("Set").Element("T92PTNK").Value
-                Catch
-                End Try
-                Try
-                    T102PTNK = XmlCharacter.Element("character").Element("Set").Element("T102PTNK").Value
-                Catch
-                End Try
-
+                For Each el In XmlCharacter.Element("character").Element("Set").Elements
+                    Select Case el.Name
+                        Case "T72PDPS"
+                            T72PDPS = 1
+                        Case "T74PDPS"
+                            T74PDPS = 1
+                        Case "T82PDPS"
+                            T82PDPS = 1
+                        Case "T84PDPS"
+                            T84PDPS = 1
+                        Case "T92PDPS"
+                            T92PDPS = 1
+                        Case "T94PDPS"
+                            T94PDPS = 1
+                        Case "T72PTNK"
+                            T72PTNK = 1
+                        Case "T74PTNK"
+                            T74PTNK = 1
+                        Case "T82PTNK"
+                            T82PTNK = 1
+                        Case "T84PTNK"
+                            T84PTNK = 1
+                        Case "T102PDPS"
+                            T102PDPS = 1
+                        Case "T104PDPS"
+                            T104PDPS = 1
+                        Case "T92PTNK"
+                            T92PTNK = 1
+                        Case "T102PTNK"
+                            T102PTNK = 1
+                    End Select
+                Next
         End Select
-
-
     End Sub
 
     Function BaseAP() As Integer
