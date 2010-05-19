@@ -135,7 +135,7 @@
                         <CheckBox Canvas.Left="10" Canvas.Top="142" Content="2P T10" Height="16" Name="chkEP2PT10" IsChecked="True" />
                         <CheckBox Canvas.Left="10" Canvas.Top="164" Content="4P T10" Height="16" Name="chkEP4PT10" IsChecked="True" />
                     </Canvas>
-                    <TextBox Canvas.Left="52" Canvas.Top="480" Height="23" Name="txtEPBase" Width="120" />
+                    <TextBox Canvas.Left="52" Canvas.Top="480" Height="23" Name="txtEPBase" Width="120" Text="50" />
                 </Canvas>
             </sdk:TabItem>
             <sdk:TabItem Header="StatScaling" Name="TabStatScaling">

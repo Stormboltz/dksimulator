@@ -26,8 +26,15 @@ Public Class Report
                 Next
 
                 For Each AdditionalInfo In AdditionalInfos
-                    Dim xEl As XElement = XElement.Parse(AdditionalInfo.InnerText)
-                    doc.Element("Table").Add(xEl)
+                    Try
+                        Dim xEl As XElement = XElement.Parse(AdditionalInfo.InnerText)
+                        doc.Element("Table").Add(xEl)
+                    Catch ex As Exception
+                        Diagnostics.Debug.WriteLine(AdditionalInfo.InnerText)
+                    End Try
+
+                    
+
                 Next
 
                 doc.Save(isoStream)

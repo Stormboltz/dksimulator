@@ -60,8 +60,14 @@ Partial Public Class MainForm
         Next
     End Sub
     Private Sub Button_Click(ByVal sender As Object, ByVal e As RoutedEventArgs) Handles btEP.Click
-        '// Start the BackgoundWorker thread to do the Hard Work
-        _worker.RunWorkerAsync()
+        'If txtSimtime.Text < 100 Then
+        '    ret = msgBox("Short simulation time can give weird results. Try setting it to at least 100 hours.", MsgBoxStyle.OkCancel)
+        '    If ret = MsgBoxResult.Cancel Then Exit Sub
+        'End If
+        'chkLissage.Checked	= true
+        If LoadBeforeSim() = False Then Exit Sub
+        'Me.TabControl1.SelectedIndex = 1
+        SimConstructor.StartEP(txtSimtime.Text, Me)
     End Sub
     Sub worker_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles _worker.ProgressChanged
         'This is the opportunity to update the controls on the main thread
