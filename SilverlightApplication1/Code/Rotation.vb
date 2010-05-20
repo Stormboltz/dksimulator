@@ -29,20 +29,20 @@ Friend Class Rotation
         sim.RotationStep = 0
 
         Dim XMLRo As XDocument
-        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/" & sim.rotationPath, FileMode.Open, isoStore)
-                XMLRo = XDocument.Load(isoStream)
-                For Each Nod In XMLRo.Element("Rotation/Rotation").Elements
-                    Try
-                        MyRotation.Add(Nod.Name, Nod.Name.ToString)
-                    Catch
-                        MyRotation.Add(Nod.Name)
-                    End Try
-                Next
-                Dim i As Integer
-                i = 0
-            End Using
+
+        Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/" & sim.rotationPath, FileMode.Open, FileAccess.Read, sim.isoStore)
+            XMLRo = XDocument.Load(isoStream)
+            For Each Nod In XMLRo.Element("Rotation/Rotation").Elements
+                Try
+                    MyRotation.Add(Nod.Name, Nod.Name.ToString)
+                Catch
+                    MyRotation.Add(Nod.Name)
+                End Try
+            Next
+            Dim i As Integer
+            i = 0
         End Using
+
     End Sub
 
     Sub DoRoration(ByVal TimeStamp As Long)
@@ -252,18 +252,18 @@ Friend Class Rotation
     End Sub
     Sub LoadIntro()
         Dim nod As XElement
-        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/" & sim.IntroPath, FileMode.Open, isoStore)
-                Dim XMLIntro As XDocument = XDocument.Load(isoStream)
-                For Each nod In XMLIntro.Element("Intro").Elements
-                    Try
-                        MyIntro.Add(nod.Name, nod.Name.ToString)
-                    Catch
-                        MyIntro.Add(nod.Name)
-                    End Try
-                Next
-                If MyIntro.Count = 0 Then IntroDone = True
-            End Using
+
+        Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/" & sim.IntroPath, FileMode.Open, FileAccess.Read, sim.isoStore)
+            Dim XMLIntro As XDocument = XDocument.Load(isoStream)
+            For Each nod In XMLIntro.Element("Intro").Elements
+                Try
+                    MyIntro.Add(nod.Name, nod.Name.ToString)
+                Catch
+                    MyIntro.Add(nod.Name)
+                End Try
+            Next
+            If MyIntro.Count = 0 Then IntroDone = True
         End Using
+
     End Sub
 End Class

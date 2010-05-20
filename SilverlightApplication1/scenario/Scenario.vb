@@ -24,11 +24,11 @@ Namespace Scenarios
             On Error Resume Next
             Elements.Clear()
             Dim xmlScenario As New XDocument
-            Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-                Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/" & sim.ScenarioPath, FileMode.Open, isoStore)
-                    xmlScenario = XDocument.Load(isoStream)
-                End Using
+
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/" & sim.ScenarioPath, FileMode.Open, FileAccess.Read, sim.isoStore)
+                xmlScenario = XDocument.Load(isoStream)
             End Using
+
 
 
             Dim e As Element

@@ -344,6 +344,7 @@ sortie:
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
             Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/config.xml", FileMode.Open, isoStore)
                 Dim doc As XDocument = XDocument.Load(isoStream)
+                isoStream.Close()
                 cmbGearSelector.SelectedValue = doc.Element("config").Element("CharacterWithGear").Value
                 cmbTemplate.SelectedValue = doc.Element("config").Element("template").Value
                 If doc.Element("config").Element("mode").Value <> "rotation" Then
@@ -851,11 +852,24 @@ OUT:
         RefreshScenarioList()
         cmbScenario.SelectedValue = ScenarioEditor.EditorFilepath
     End Sub
+    Delegate Sub OpenReport_Delegate()
+    Friend Sub TryToOpenReport()
+        Try
+            Dim MyDelegate As New OpenReport_Delegate(AddressOf OpenReport)
+            Me.Dispatcher.BeginInvoke(MyDelegate)
+        Catch ex As Exception
+            Diagnostics.Debug.WriteLine(ex.StackTrace)
+        End Try
 
+    End Sub
 
-    Private Sub cmdReport_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdReport.Click
+    Sub OpenReport()
         Dim txEdit As New ReportDisplay
         txEdit.OpenReport("KahoDKSim/Report/Report.xml")
         txEdit.Show()
+    End Sub
+
+    Private Sub cmdReport_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdReport.Click
+        OpenReport()
     End Sub
 End Class

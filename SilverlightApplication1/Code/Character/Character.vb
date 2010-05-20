@@ -377,11 +377,11 @@ Friend Class Character
         TalentUnholy = New TalentUnholy
 
         Dim XmlDoc As XDocument
-        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/" & file, FileMode.Open, isoStore)
-                XmlDoc = XDocument.Load(isoStream)
-            End Using
+
+        Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/" & file, FileMode.Open, FileAccess.Read, sim.isoStore)
+            XmlDoc = XDocument.Load(isoStream)
         End Using
+
 
 
         If sim._EPStat <> "Butchery" Then TalentBlood.Butchery = Integer.Parse(XmlDoc.Element("Talents").Element("Butchery").Value)

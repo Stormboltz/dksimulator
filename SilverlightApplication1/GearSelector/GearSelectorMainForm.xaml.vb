@@ -833,7 +833,7 @@ NextItem:
         InLoad = True
 
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/CharactersWithGear/" & FilePath, FileMode.Open, isoStore)
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/CharactersWithGear/" & FilePath, FileMode.Open, FileAccess.Read, isoStore)
                 Dim xmlChar As XDocument = XDocument.Load(isoStream)
 
 
@@ -883,7 +883,7 @@ NextItem:
                     Me.MHWeapSlot.IsHitTestVisible = False
                     Me.OHWeapSlot.IsHitTestVisible = False
 
-                    
+
                 Else
                     Me.TwoHWeapSlot.Opacity = 0
                     Me.TwoHWeapSlot.IsHitTestVisible = False

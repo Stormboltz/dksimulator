@@ -51,14 +51,14 @@ Public Class Boss
 
     Sub LoadTankOptions()
         Try
-            Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-                Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/TankConfig.xml", FileMode.Open, isoStore)
-                    Dim doc As XDocument = XDocument.Load(isoStream)
-                    Avoidance = doc.Element("config").Element("Stats").Element("txtFBAvoidance").Value / 100
-                    Speed = doc.Element("config").Element("Stats").Element("txtFPBossSwing").Value * 100
-                    SpecialArmor = doc.Element("config").Element("Stats").Element("txtFPArmor").Value
-                End Using
+
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/TankConfig.xml", FileMode.Open, FileAccess.Read, Sim.isoStore)
+                Dim doc As XDocument = XDocument.Load(isoStream)
+                Avoidance = doc.Element("config").Element("Stats").Element("txtFBAvoidance").Value / 100
+                Speed = doc.Element("config").Element("Stats").Element("txtFPBossSwing").Value * 100
+                SpecialArmor = doc.Element("config").Element("Stats").Element("txtFPArmor").Value
             End Using
+
         Catch
             msgBox("Error retriving Tank parameters")
         End Try

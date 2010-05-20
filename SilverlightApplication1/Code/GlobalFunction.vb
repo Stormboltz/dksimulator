@@ -36,7 +36,7 @@ Module GlobalFunction
         End Try
     End Function
 
-    Sub WriteReport(ByVal txt As String)
+    Sub WriteReporte(ByVal txt As String)
         Dim Tw As System.IO.TextWriter
         'On Error Resume Next
         Tw = System.IO.File.AppendText(ReportPath)
@@ -58,7 +58,7 @@ Module GlobalFunction
 
     Function GetIdFromGlyphName(ByVal s As String) As String
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/config/template.xml", FileMode.Open, isoStore)
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/config/template.xml", FileMode.Open, FileAccess.Read, isoStore)
                 Dim doc As XDocument = XDocument.Load(isoStream)
                 Try
                     Return doc.Element("Talents").Element("Glyphs").Element(s).Value

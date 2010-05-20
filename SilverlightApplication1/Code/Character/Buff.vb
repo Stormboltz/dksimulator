@@ -27,24 +27,24 @@ Friend Class Buff
     Protected sim As Sim
     Sub New(ByVal S As Sim)
         sim = S
-        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/Buffconfig.xml", FileMode.Open, isoStore)
-                Dim doc As XDocument = XDocument.Load(isoStream)
-                StrAgi = Bool2Int(doc.Element("config").Element("chkBStrAgi").Value)
-                AttackPower = Bool2Int(doc.Element("config").Element("chkBAP").Value)
-                AttackPowerPc = Bool2Int(doc.Element("config").Element("chkBAPPc").Value)
-                PcDamage = Bool2Int(doc.Element("config").Element("chkBPcDamage").Value)
-                Haste = Bool2Int(doc.Element("config").Element("chkBHaste").Value)
-                MeleeHaste = Bool2Int(doc.Element("config").Element("chkBMeleeHaste").Value)
-                MeleeCrit = Bool2Int(doc.Element("config").Element("chkBMeleeCrit").Value)
-                SpellCrit = Bool2Int(doc.Element("config").Element("chkBSpellCrit").Value)
-                SpellHaste = Bool2Int(doc.Element("config").Element("chkBSpellHaste").Value)
-                StatAdd = Bool2Int(doc.Element("config").Element("chkBStatAdd").Value)
-                StatMulti = Bool2Int(doc.Element("config").Element("chkBStatMulti").Value)
-                Bloodlust = Bool2Int(doc.Element("config").Element("chkBloodlust").Value)
-                Draenei = Bool2Int(doc.Element("config").Element("chkDraeni").Value)
-            End Using
+
+        Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/Buffconfig.xml", FileMode.Open, FileAccess.Read, sim.isoStore)
+            Dim doc As XDocument = XDocument.Load(isoStream)
+            StrAgi = Bool2Int(doc.Element("config").Element("chkBStrAgi").Value)
+            AttackPower = Bool2Int(doc.Element("config").Element("chkBAP").Value)
+            AttackPowerPc = Bool2Int(doc.Element("config").Element("chkBAPPc").Value)
+            PcDamage = Bool2Int(doc.Element("config").Element("chkBPcDamage").Value)
+            Haste = Bool2Int(doc.Element("config").Element("chkBHaste").Value)
+            MeleeHaste = Bool2Int(doc.Element("config").Element("chkBMeleeHaste").Value)
+            MeleeCrit = Bool2Int(doc.Element("config").Element("chkBMeleeCrit").Value)
+            SpellCrit = Bool2Int(doc.Element("config").Element("chkBSpellCrit").Value)
+            SpellHaste = Bool2Int(doc.Element("config").Element("chkBSpellHaste").Value)
+            StatAdd = Bool2Int(doc.Element("config").Element("chkBStatAdd").Value)
+            StatMulti = Bool2Int(doc.Element("config").Element("chkBStatMulti").Value)
+            Bloodlust = Bool2Int(doc.Element("config").Element("chkBloodlust").Value)
+            Draenei = Bool2Int(doc.Element("config").Element("chkDraeni").Value)
         End Using
+
     End Sub
     Function Bool2Int(ByVal b As Boolean) As Integer
         If b = True Then

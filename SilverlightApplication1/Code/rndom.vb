@@ -21,20 +21,20 @@ Public Module rndom
     Sub InitRNG()
 
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/EPconfig.xml", FileMode.Open, isoStore)
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/EPconfig.xml", FileMode.Open, FileAccess.Read, isoStore)
                 Dim doc As XDocument = XDocument.Load(isoStream)
-            
 
 
-        If doc.Element("config/Misc/chkEPSeed").Value = "True" Then
-            If RNGSeed = 0 Then
-                RandomNumberGenerator = New Random
-                RNGSeed = RandomNumberGenerator.Next()
-                WriteReport("RNG seed= " & RNGSeed)
-            End If
-            RandomNumberGenerator = New Random(RNGSeed)
-        Else
-            RandomNumberGenerator = New Random
+
+                If doc.Element("config/Misc/chkEPSeed").Value = "True" Then
+                    If RNGSeed = 0 Then
+                        RandomNumberGenerator = New Random
+                        RNGSeed = RandomNumberGenerator.Next()
+                        'WriteReport("RNG seed= " & RNGSeed)
+                    End If
+                    RandomNumberGenerator = New Random(RNGSeed)
+                Else
+                    RandomNumberGenerator = New Random
                 End If
             End Using
         End Using

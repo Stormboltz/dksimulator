@@ -29,11 +29,11 @@ Namespace Targets
             sim = S
             Dim doc As XDocument
             Dim liveXml As New XDocument
-            Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-                Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/Buffconfig.xml", FileMode.Open, isoStore)
-                    doc = XDocument.Load(isoStream)
-                End Using
+
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/Buffconfig.xml", FileMode.Open, FileAccess.Read, sim.isoStore)
+                doc = XDocument.Load(isoStream)
             End Using
+
             ArmorMajor = Bool2Int(doc.Element("config").Element("chkBArmorMaj").Value)
             ArmorMinor = Bool2Int(doc.Element("config").Element("chkBArmorMinor").Value)
             CritChanceTaken = Bool2Int(doc.Element("config").Element("chkBCritchanceTaken").Value)

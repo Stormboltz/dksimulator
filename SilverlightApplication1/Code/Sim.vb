@@ -3,9 +3,13 @@ Imports System.Xml.Linq
 Imports System.IO.IsolatedStorage
 Imports System.IO
 
+
+
+
 Public Class Sim
 
-
+    Public Event Sim_Closing(ByVal sender As Object, ByVal e As EventArgs)
+    Friend isoStore As IsolatedStorage.IsolatedStorageFile
 
     Friend Cataclysm As Boolean = False
     Friend UselessCheck As Long
@@ -442,6 +446,7 @@ Public Class Sim
                 StoreMyDamage(TotalDamage)
                 LastReset = NextReset
                 SoftReset()
+                _MainFrm.TryToUpdateProgressBar()
             Case Else
                 Diagnostics.Debug.WriteLine("WTF is this event ?")
         End Select
@@ -450,6 +455,7 @@ Public Class Sim
 
     Sub Start()
         SimStart = Now
+        isoStore = IsolatedStorageFile.GetUserStoreForApplication()
         LoadConfig()
 
         Rnd(-1) 'Tell VB to initialize using Randomize's parameter
@@ -476,7 +482,7 @@ Public Class Sim
 
         Dim FE As FutureEvent
         Do Until False
-            _MainFrm.TryToUpdateProgressBar()
+
             'System.Threading.Thread.Sleep(1)
             FE = Me.FutureEventManager.GetFirst
             TimeStamp = FE.T
@@ -516,6 +522,7 @@ Public Class Sim
             SimConstructor.DPSs.Add(DPS, Me.EPStat)
         End If
         'SimConstructor.simCollection.Remove(me)
+        RaiseEvent Sim_Closing(Me, EventArgs.Empty)
     End Sub
 
 
@@ -786,120 +793,120 @@ Public Class Sim
 
     Sub LoadConfig()
 
-        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/config.xml", FileMode.Open, isoStore)
 
-                XmlConfig = XDocument.Load(isoStream)
-                isoStream.Close()
-                Dim strCharacter As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/CharactersWithGear/" & XmlConfig.Element("config").Element("CharacterWithGear").Value, FileMode.Open, isoStore)
-                XmlCharacter = XDocument.Load(strCharacter)
-                strCharacter.Close()
-                IntroPath = "\Intro\" & XmlConfig.Element("config").Element("intro").Value
+        Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/config.xml", FileMode.Open, FileAccess.Read, isoStore)
 
-                ScenarioPath = "\scenario\" & XmlConfig.Element("config").Element("scenario").Value
+            XmlConfig = XDocument.Load(isoStream)
+            isoStream.Close()
+            Dim strCharacter As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/CharactersWithGear/" & XmlConfig.Element("config").Element("CharacterWithGear").Value, FileMode.Open, FileAccess.Read, isoStore)
+            XmlCharacter = XDocument.Load(strCharacter)
+            strCharacter.Close()
+            IntroPath = "\Intro\" & XmlConfig.Element("config").Element("intro").Value
 
-                If System.IO.File.Exists(IntroPath) = False Then
-                    IntroPath = "\Intro\NoIntro.xml"
-                End If
-                KeepBloodSync = XmlConfig.Element("config").Element("BloodSync").Value
+            ScenarioPath = "\scenario\" & XmlConfig.Element("config").Element("scenario").Value
 
-                If XmlConfig.Element("config").Element("mode").Value <> "priority" Then
-                    Rotate = True
-                    rotationPath = "\Rotation\" & XmlConfig.Element("config").Element("rotation").Value
-                Else
-                    Rotate = False
-                    loadPriority("\Priority\" & XmlConfig.Element("config").Element("priority").Value)
-                End If
+            If System.IO.File.Exists(IntroPath) = False Then
+                IntroPath = "\Intro\NoIntro.xml"
+            End If
+            KeepBloodSync = XmlConfig.Element("config").Element("BloodSync").Value
 
-                latency = XmlConfig.Element("config").Element("latency").Value
-                ShowProc = XmlConfig.Element("config").Element("ShowProc").Value
+            If XmlConfig.Element("config").Element("mode").Value <> "priority" Then
+                Rotate = True
+                rotationPath = "\Rotation\" & XmlConfig.Element("config").Element("rotation").Value
+            Else
+                Rotate = False
+                loadPriority("\Priority\" & XmlConfig.Element("config").Element("priority").Value)
+            End If
 
-                Sigils = New Sigils(Me)
-                Sigils.WildBuck = False
-                Sigils.FrozenConscience = False
-                Sigils.DarkRider = False
-                Sigils.ArthriticBinding = False
-                Sigils.Awareness = False
-                Sigils.Strife = False
-                Sigils.HauntedDreams = False
-                Sigils.VengefulHeart = False
-                Sigils.Virulence = False
-                Sigils.HangedMan = False
-                Select Case XmlConfig.Element("config").Element("sigil").Value
-                    Case "WildBuck"
-                        Sigils.WildBuck = True
-                    Case "FrozenConscience"
-                        Sigils.FrozenConscience = True
-                    Case "DarkRider"
-                        Sigils.DarkRider = True
-                    Case "ArthriticBinding"
-                        Sigils.ArthriticBinding = True
-                    Case "Awareness"
-                        Sigils.Awareness = True
-                    Case "Strife"
-                        Sigils.Strife = True
-                    Case "HauntedDreams"
-                        Sigils.HauntedDreams = True
-                    Case "VengefulHeart"
-                        Sigils.VengefulHeart = True
-                    Case "Virulence"
-                        Sigils.Virulence = True
-                    Case "HangedMan"
-                        Sigils.HangedMan = True
-                End Select
+            latency = XmlConfig.Element("config").Element("latency").Value
+            ShowProc = XmlConfig.Element("config").Element("ShowProc").Value
 
-                BloodPresence = 0
-                UnholyPresence = 0
-                FrostPresence = 0
-                Select Case XmlConfig.Element("config").Element("presence").Value
-                    Case "Blood"
-                        BloodPresence = 1
-                    Case "Unholy"
-                        UnholyPresence = 1
-                    Case "Frost"
-                        FrostPresence = 1
-                End Select
+            Sigils = New Sigils(Me)
+            Sigils.WildBuck = False
+            Sigils.FrozenConscience = False
+            Sigils.DarkRider = False
+            Sigils.ArthriticBinding = False
+            Sigils.Awareness = False
+            Sigils.Strife = False
+            Sigils.HauntedDreams = False
+            Sigils.VengefulHeart = False
+            Sigils.Virulence = False
+            Sigils.HangedMan = False
+            Select Case XmlConfig.Element("config").Element("sigil").Value
+                Case "WildBuck"
+                    Sigils.WildBuck = True
+                Case "FrozenConscience"
+                    Sigils.FrozenConscience = True
+                Case "DarkRider"
+                    Sigils.DarkRider = True
+                Case "ArthriticBinding"
+                    Sigils.ArthriticBinding = True
+                Case "Awareness"
+                    Sigils.Awareness = True
+                Case "Strife"
+                    Sigils.Strife = True
+                Case "HauntedDreams"
+                    Sigils.HauntedDreams = True
+                Case "VengefulHeart"
+                    Sigils.VengefulHeart = True
+                Case "Virulence"
+                    Sigils.Virulence = True
+                Case "HangedMan"
+                    Sigils.HangedMan = True
+            End Select
 
-
-                RuneForge = New RuneForge(Me)
-                RunicPower = New RunicPower(Me)
-                proc = New Procs(Me)
-                Character = New Character(Me)
-                MainStat = New MainStat(Me)
-
-                Me.CombatLog.enable = XmlConfig.Element("config").Element("log").Value
-                Me.CombatLog.LogDetails = XmlConfig.Element("config").Element("logdetail").Value
-                MergeReport = XmlConfig.Element("config").Element("chkMergeReport").Value
-                ReportName = XmlConfig.Element("config").Element("txtReportName").Value
-                WaitForFallenCrusader = XmlConfig.Element("config").Element("WaitFC").Value
+            BloodPresence = 0
+            UnholyPresence = 0
+            FrostPresence = 0
+            Select Case XmlConfig.Element("config").Element("presence").Value
+                Case "Blood"
+                    BloodPresence = 1
+                Case "Unholy"
+                    UnholyPresence = 1
+                Case "Frost"
+                    FrostPresence = 1
+            End Select
 
 
-                Select Case XmlConfig.Element("config").Element("BShOption").Value
-                    Case "Instead of Blood Strike"
-                        Me.BoneShieldUsageStyle = 1
-                    Case "After BS/BB"
-                        Me.BoneShieldUsageStyle = 2
-                    Case "Instead of Blood Boil"
-                        Me.BoneShieldUsageStyle = 3
-                    Case "After Death rune OB/SS with cancel aura"
-                        Me.BoneShieldUsageStyle = 4
-                    Case Else
-                        Me.BoneShieldUsageStyle = 2
-                End Select
-                Try
-                    ICCDamageBuff = XmlConfig.Element("config").Element("ICCBuff").Value
-                Catch
+            RuneForge = New RuneForge(Me)
+            RunicPower = New RunicPower(Me)
+            proc = New Procs(Me)
+            Character = New Character(Me)
+            MainStat = New MainStat(Me)
 
-                    ICCDamageBuff = 0
-                End Try
+            Me.CombatLog.enable = XmlConfig.Element("config").Element("log").Value
+            Me.CombatLog.LogDetails = XmlConfig.Element("config").Element("logdetail").Value
+            MergeReport = XmlConfig.Element("config").Element("chkMergeReport").Value
+            ReportName = XmlConfig.Element("config").Element("txtReportName").Value
+            WaitForFallenCrusader = XmlConfig.Element("config").Element("WaitFC").Value
 
-                Try
-                    BoneShieldTTL = XmlConfig.Element("config").Element("BSTTL").Value
-                Catch
-                    BoneShieldTTL = 300
-                End Try
-            End Using
+
+            Select Case XmlConfig.Element("config").Element("BShOption").Value
+                Case "Instead of Blood Strike"
+                    Me.BoneShieldUsageStyle = 1
+                Case "After BS/BB"
+                    Me.BoneShieldUsageStyle = 2
+                Case "Instead of Blood Boil"
+                    Me.BoneShieldUsageStyle = 3
+                Case "After Death rune OB/SS with cancel aura"
+                    Me.BoneShieldUsageStyle = 4
+                Case Else
+                    Me.BoneShieldUsageStyle = 2
+            End Select
+            Try
+                ICCDamageBuff = XmlConfig.Element("config").Element("ICCBuff").Value
+            Catch
+
+                ICCDamageBuff = 0
+            End Try
+
+            Try
+                BoneShieldTTL = XmlConfig.Element("config").Element("BSTTL").Value
+            Catch
+                BoneShieldTTL = 300
+            End Try
         End Using
+
 
 
 
@@ -915,22 +922,22 @@ errH:
         Priority = New priority(Me)
         Priority.prio.Clear()
         Dim XmlDoc As New XDocument
-        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/" & file, FileMode.Open, isoStore)
-                XmlDoc = XDocument.Load(isoStream)
-                If KeepBloodSync Then
-                    Priority.prio.Add("BloodSync", "BloodSync")
-                End If
 
-                For Each Nod In XmlDoc.Element("Priority").Elements
-                    If Nod.Name = "SaveRPForRuneStrike" Then
-                        SaveRPForRS = True
-                    Else
-                        Priority.prio.Add(Nod.Name.ToString, Nod.Name.ToString)
-                    End If
-                Next
-            End Using
+        Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/" & file, FileMode.Open, FileAccess.Read, isoStore)
+            XmlDoc = XDocument.Load(isoStream)
+            If KeepBloodSync Then
+                Priority.prio.Add("BloodSync", "BloodSync")
+            End If
+
+            For Each Nod In XmlDoc.Element("Priority").Elements
+                If Nod.Name = "SaveRPForRuneStrike" Then
+                    SaveRPForRS = True
+                Else
+                    Priority.prio.Add(Nod.Name.ToString, Nod.Name.ToString)
+                End If
+            Next
         End Using
+
     End Sub
 
     Sub Report()

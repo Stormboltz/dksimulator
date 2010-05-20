@@ -33,7 +33,7 @@ Friend Class glyph
     Sub New(ByVal path As String)
         On Error Resume Next
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/" & path, FileMode.Open, isoStore)
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/" & path, FileMode.Open, FileAccess.Read, isoStore)
                 xmlGlyph = XDocument.Load(isoStream)
             End Using
         End Using
