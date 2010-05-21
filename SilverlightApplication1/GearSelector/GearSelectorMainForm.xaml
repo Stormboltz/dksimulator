@@ -2,16 +2,16 @@
            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
            xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
-           Width="1000" Height="600"
+           Width="1000" Height="800"
            Title="GearSelectorMainForm" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" xmlns:my="clr-namespace:DKSIMVB">
     <Grid x:Name="LayoutRoot" Margin="2">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="503*" />
-            <ColumnDefinition Width="241" />
+            <ColumnDefinition Width="656*" />
+            <ColumnDefinition Width="322" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="107*" />
-            <RowDefinition Height="411*" />
+            <RowDefinition Height="99*" />
+            <RowDefinition Height="619*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
@@ -26,82 +26,136 @@
         <ComboBox Height="23" HorizontalAlignment="Left" Margin="367,41,0,0" Name="cmbFlask" VerticalAlignment="Top" Width="120" />
         <sdk:Label Height="23" HorizontalAlignment="Left" Margin="112,41,0,0" Name="lblDPS" VerticalAlignment="Top" Width="120" Content="(0) DPS" />
         <ScrollViewer Grid.Column="1" Name="ScrollViewer1" Grid.Row="1">
-        
-        <Canvas Name="Canvas1" Width="221" Grid.Column="1" Margin="5,0,15,111" Grid.RowSpan="2" Height="990">
-            <sdk:Label Height="28" HorizontalAlignment="Left" Margin="91,83,0,0" Name="Label2" VerticalAlignment="Top" Width="88" Canvas.Left="-91" Canvas.Top="-70" Content="Strength" />
-            <TextBox Height="23" HorizontalAlignment="Right" Margin="0,83,198,0" Name="txtStr" VerticalAlignment="Top" Width="120" Canvas.Left="94" Canvas.Top="-74" />
-            <sdk:Label Height="28" HorizontalAlignment="Left" Margin="91,112,0,0" Name="Label3" VerticalAlignment="Top" Width="88" Canvas.Left="-91" Canvas.Top="-70" Content="Agility" />
-            <TextBox Height="23" HorizontalAlignment="Right" Margin="0,112,198,0" Name="txtAgi" VerticalAlignment="Top" Width="120" Canvas.Left="94" Canvas.Top="-74" />
-            <sdk:Label Height="28" HorizontalAlignment="Left" Margin="91,141,0,0" Name="Label4" VerticalAlignment="Top" Width="88" Canvas.Left="-91" Canvas.Top="-70" Content="intelligence" />
-            <TextBox Height="23" HorizontalAlignment="Right" Margin="0,141,198,0" Name="txtIntel" VerticalAlignment="Top" Width="120" Canvas.Left="94" Canvas.Top="-74" />
-            <sdk:Label Height="28" HorizontalAlignment="Left" Margin="91,170,0,0" Name="Label5" VerticalAlignment="Top" Width="88" Canvas.Left="-91" Canvas.Top="-70" Content="Armor" />
-            <TextBox Height="23" HorizontalAlignment="Right" Margin="0,170,198,0" Name="txtArmor" VerticalAlignment="Top" Width="120" Canvas.Left="94" Canvas.Top="-74" />
-            <sdk:Label Height="28" HorizontalAlignment="Left" Margin="91,199,0,0" Name="Label6" VerticalAlignment="Top" Width="88" Canvas.Left="-91" Canvas.Top="-70" Content="Attack Power(Green number)" />
-            <TextBox Height="23" HorizontalAlignment="Right" Margin="0,199,198,0" Name="txtAP" VerticalAlignment="Top" Width="120" Canvas.Left="94" Canvas.Top="-74" />
-            <sdk:Label Height="28" HorizontalAlignment="Left" Margin="91,228,0,0" Name="lblHit" VerticalAlignment="Top" Width="88" Canvas.Left="-91" Canvas.Top="-70" Content="Hit Rating" />
-            <TextBox Height="23" HorizontalAlignment="Right" Margin="0,228,198,0" Name="txtHit" VerticalAlignment="Top" Width="120" Canvas.Left="94" Canvas.Top="-74" />
-            <sdk:Label Canvas.Left="0" Canvas.Top="190" Height="28" Name="lblCrit" Width="88" Content="Crit Rating" />
-            <TextBox Canvas.Left="94" Canvas.Top="186" Height="23" Name="txtCrit" Width="120" />
-            <sdk:Label Canvas.Left="0" Canvas.Top="219" Height="28" Name="lblHAste" Width="88" Content="Haste Rating" />
-            <TextBox Canvas.Left="94" Canvas.Top="215" Height="23" Name="txtHaste" Width="120" />
-            <sdk:Label Canvas.Left="0" Canvas.Top="248" Height="28" Name="lblArP" Width="88" Content="Armor Penetration Rating" />
-            <TextBox Canvas.Left="94" Canvas.Top="244" Height="23" Name="txtArP" Width="120" />
-            <sdk:Label Canvas.Left="0" Canvas.Top="277" Height="28" Name="lblExp" Width="88" Content="Expertise Rating" />
-            <TextBox Canvas.Left="94" Canvas.Top="273" Height="23" Name="txtExp" Width="120" />
-            <sdk:Label Canvas.Left="0" Canvas.Top="337" Height="28" Name="Label11" Width="88" Content="MH DPS" />
-            <TextBox Canvas.Left="94" Canvas.Top="333" Height="23" Name="txtMHDPS" Width="120" />
-            <sdk:Label Canvas.Left="0" Canvas.Top="366" Height="28" Name="Label12" Width="88" Content="MH Speed" />
-            <TextBox Canvas.Left="94" Canvas.Top="362" Height="23" Name="txtMHWSpeed" Width="120" />
-            <RadioButton Content="2 Hand" Height="16" Name="r2Hand" GroupName="WeaponGroup" Canvas.Left="43" Canvas.Top="311" IsChecked="True" />
-            <RadioButton Content="DW" Height="16" Name="rDW" GroupName="WeaponGroup" Canvas.Left="161" Canvas.Top="311" />
-            <sdk:Label Canvas.Left="0" Canvas.Top="396" Height="28" Name="Label13" Width="88" Content="OH DPS" />
-            <TextBox Canvas.Left="94" Canvas.Top="392" Height="23" Name="txtOHDPS" Width="120" IsEnabled="False" />
-            <sdk:Label Canvas.Left="0" Canvas.Top="425" Height="28" Name="Label14" Width="88" Content="OH Speed" />
-            <TextBox Canvas.Left="94" Canvas.Top="421" Height="23" Name="txtOHWSpeed" Width="120" IsEnabled="False" />
-            <CheckBox Content="3% Crit damage" Height="16" Name="chkMeta" Canvas.Left="6" Canvas.Top="478" />
-            <CheckBox Content="Tailor enchant" Height="16" Name="chkTailorEnchant" Canvas.Left="6" Canvas.Top="502" />
-            <CheckBox Content="Hand--Mounted Pyro Rocket" Height="16" Name="chkIngenieer" Canvas.Left="6" Canvas.Top="532" />
-            <CheckBox Content="Hyperspeed Accelerators" Height="16" Name="chkAccelerators" Canvas.Left="6" Canvas.Top="555" />
-            <CheckBox Content="Ashen Band of Endless Vengeance" Height="16" Name="chkAshenBand" Canvas.Left="6" Canvas.Top="578" />
-            <CheckBox Content="Blood Fury + Pet Damage" Height="19" Name="chkBloodFury" Canvas.Left="6" Canvas.Top="616" />
-            <CheckBox Content="Berzerking" Height="19" Name="chkBerzerking" Canvas.Left="6" Canvas.Top="641" />
-            <CheckBox Content="Arcane Torrent" Height="19" Name="chkArcaneTorrent" Canvas.Left="6" Canvas.Top="665" />
-            <sdk:Label Content="Main Hand Expertise" Height="28" Name="Label15" Width="88" Canvas.Left="2" Canvas.Top="710" />
-            <TextBox Height="23" Name="txtMHExpBonus" Width="120" Canvas.Left="96" Canvas.Top="706" />
-            <sdk:Label Content="Off Hand Expertise" Height="28" Name="Label16" Width="88" Canvas.Left="2" Canvas.Top="740" />
-            <TextBox Height="23" Name="txtOHExpBonus" Width="120" Canvas.Left="96" Canvas.Top="736" />
-            <TextBox Height="23" Name="cmbSetBonus1" Width="120" Canvas.Left="94" Canvas.Top="790" />
-            <TextBox Height="23" Name="cmbSetBonus2" Width="120" Canvas.Left="94" Canvas.Top="815" />
-            <TextBox Height="23" Name="cmbWeaponProc1" Width="120" Canvas.Left="94" Canvas.Top="855" />
-            <TextBox Height="23" Name="cmbWeaponProc2" Width="120" Canvas.Left="94" Canvas.Top="880" />
-            <TextBox Height="23" Name="cmbTrinket1" Width="120" Canvas.Left="94" Canvas.Top="908" />
-            <TextBox Height="23" Name="cmbTrinket2" Width="120" Canvas.Left="94" Canvas.Top="935" />
-        </Canvas>
+             <Grid Name="Canvas1" Width="280" Height="790">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100*" />
+                    <ColumnDefinition Width="120" />
+                </Grid.ColumnDefinitions>
+                <sdk:Label Height="28" Name="Label2" Content="Strength"  Grid.Column="0" Grid.Row="0"/>
+                <sdk:Label Height="28" Name="Label3" Content="Agility"  Grid.Column="0" Grid.Row="1"/>
+                <sdk:Label Height="28" Name="Label4" Content="intelligence"   Grid.Column="0" Grid.Row="2"/>
+                <sdk:Label Height="28" Name="Label5" Content="Armor"    Grid.Column="0" Grid.Row="3"/>
+                <sdk:Label Height="28" Name="Label6" Content="Attack Power(Green number)"  Grid.Column="0" Grid.Row="4" />
+                <sdk:Label Height="28" Name="lblHit" Content="Hit Rating"  Grid.Column="0" Grid.Row="5" />
+                <sdk:Label Height="28" Name="lblCrit" Content="Crit Rating"   Grid.Column="0" Grid.Row="6"/>
+                <sdk:Label Height="28" Name="lblHAste" Content="Haste Rating"   Grid.Column="0" Grid.Row="7"/>
+                <sdk:Label Height="28" Name="lblArP" Content="Armor Penetration Rating"    Grid.Column="0" Grid.Row="8"/>
+                <sdk:Label Height="28" Name="lblExp" Content="Expertise Rating"   Grid.Column="0" Grid.Row="9"/>
+                <sdk:Label Height="28" Name="Label11" Content="MH DPS"   Grid.Column="0" Grid.Row="10"/>
+                <sdk:Label Height="28" Name="Label12" Content="MH Speed"   Grid.Column="0" Grid.Row="11"/>
+                <sdk:Label Height="28" Name="Label13" Content="OH DPS"   Grid.Column="0" Grid.Row="13"/>
+                <sdk:Label Height="28" Name="Label14" Content="OH Speed"   Grid.Column="0" Grid.Row="14"/>
+                <sdk:Label Content="Off Hand Expertise" Height="28" Name="Label16"  Grid.Column="0" Grid.Row="24"/>
+                <sdk:Label Content="Main Hand Expertise" Height="28" Name="Label15" Grid.Row="23" Grid.Column="0" />
+                <TextBox Height="23"  Name="txtStr" Grid.Column="1" Grid.Row="0"/> 
+                <TextBox Height="23"  Name="txtAgi" Grid.Column="1" Grid.Row="1"/>
+                <TextBox Height="23"  Name="txtIntel" Grid.Column="1" Grid.Row="2"/>
+                <TextBox Height="23"  Name="txtArmor" Grid.Column="1" Grid.Row="3"/>
+                <TextBox Height="23"  Name="txtAP" Grid.Column="1" Grid.Row="4"/>
+                <TextBox Height="23"  Name="txtHit" Grid.Column="1" Grid.Row="5"/>
+                <TextBox   Height="23" Name="txtCrit" Grid.Column="1" Grid.Row="6"/>
+                <TextBox   Height="23" Name="txtHaste" Grid.Column="1" Grid.Row="7"/>
+                <TextBox  Height="23" Name="txtArP" Grid.Column="1" Grid.Row="8" />
+                <TextBox   Height="23" Name="txtExp" Grid.Column="1" Grid.Row="9" />
+                <TextBox   Height="23" Name="txtMHDPS" Grid.Column="1" Grid.Row="10" />
+                <TextBox   Height="23" Name="txtMHWSpeed" Grid.Column="1" Grid.Row="11" />
+                <RadioButton Content="2 Hand" Height="16" Name="r2Hand" GroupName="WeaponGroup" IsChecked="True"  Grid.Column="0" Grid.Row="12" />
+                <RadioButton Content="DW" Height="16" Name="rDW" GroupName="WeaponGroup" Grid.Column="1" Grid.Row="12" />
+                <TextBox  Height="23" Name="txtOHDPS" IsEnabled="False"  Grid.Column="1" Grid.Row="13" />
+                <CheckBox Content="3% Crit damage" Height="16" Name="chkMeta"   Grid.Row="15" Grid.ColumnSpan="2"/>
+                <CheckBox Content="Tailor enchant" Height="16" Name="chkTailorEnchant"  Grid.ColumnSpan="2" Grid.Row="16" />
+                <CheckBox Content="Hand--Mounted Pyro Rocket" Height="16" Name="chkIngenieer"  Grid.ColumnSpan="2" Grid.Row="17" />
+                <CheckBox Content="Hyperspeed Accelerators" Height="16" Name="chkAccelerators"   Grid.ColumnSpan="2" Grid.Row="18"/>
+                <CheckBox Content="Ashen Band of Endless Vengeance" Height="16" Name="chkAshenBand" Grid.ColumnSpan="2" Grid.Row="19"  />
+                <CheckBox Content="Blood Fury + Pet Damage" Height="19" Name="chkBloodFury"  Grid.ColumnSpan="2" Grid.Row="20" />
+                <CheckBox Content="Berzerking" Height="19" Name="chkBerzerking"   Grid.ColumnSpan="2" Grid.Row="21" />
+                <CheckBox Content="Arcane Torrent" Height="19" Name="chkArcaneTorrent"  Grid.ColumnSpan="2" Grid.Row="22"  />
+                <TextBox Height="23" Name="txtMHExpBonus"  Grid.Column="1" Grid.Row="23" />
+                <TextBox Height="23" Name="txtOHExpBonus"  Grid.Column="1" Grid.Row="24" />
+                <TextBox Height="23" Name="cmbSetBonus1"   Grid.ColumnSpan="2" Grid.Row="25" />
+                <TextBox Height="23" Name="cmbSetBonus2"   Grid.ColumnSpan="2" Grid.Row="26" />
+                <TextBox Height="23" Name="cmbWeaponProc1"  Grid.ColumnSpan="2" Grid.Row="27" />
+                <TextBox Height="23" Name="cmbWeaponProc2"  Grid.ColumnSpan="2" Grid.Row="28" />
+                <TextBox Height="23" Name="cmbTrinket1" Grid.ColumnSpan="2" Grid.Row="29"  />
+                <TextBox Height="23" Name="cmbTrinket2"  Grid.ColumnSpan="2" Grid.Row="30" />
+                <TextBox Height="23" Name="txtOHWSpeed" IsEnabled="False" Grid.Column="1" Grid.Row="14" />
+            </Grid>
         </ScrollViewer>
         <ScrollViewer Grid.Column="0" Name="ScrollViewer2" Grid.Row="1">
-            <Canvas Height="909">
-                <my:EquipSlot Canvas.Left="12" Canvas.Top="00" x:Name="HeadSlot" />
-                <my:EquipSlot Canvas.Left="12" Canvas.Top="100" x:Name="NeckSlot" />
-                <my:EquipSlot Canvas.Left="12" Canvas.Top="200" x:Name="ShoulderSlot" />
-                <my:EquipSlot Canvas.Left="12" Canvas.Top="300" x:Name="BackSlot" />
-                <my:EquipSlot Canvas.Left="12" Canvas.Top="400" x:Name="ChestSlot" />
-                <my:EquipSlot Canvas.Left="12" Canvas.Top="500" x:Name="WristSlot" />
-                <my:EquipSlot Canvas.Left="12" Canvas.Top="600" x:Name="TwoHWeapSlot" />
-                <my:EquipSlot Canvas.Left="12" Canvas.Top="600" x:Name="MHWeapSlot" />
-                <my:EquipSlot Canvas.Left="12" Canvas.Top="700" x:Name="OHWeapSlot" />
-                <my:EquipSlot Canvas.Left="12" Canvas.Top="800" x:Name="SigilSlot" />
-                <my:EquipSlot Canvas.Left="380" Canvas.Top="00" x:Name="HandSlot" />
-                <my:EquipSlot Canvas.Left="380" Canvas.Top="100" x:Name="BeltSlot" />
-                <my:EquipSlot Canvas.Left="380" Canvas.Top="200" x:Name="LegSlot" />
-                <my:EquipSlot Canvas.Left="380" Canvas.Top="300" x:Name="FeetSlot" />
-                <my:EquipSlot Canvas.Left="380" Canvas.Top="400" x:Name="ring1Slot" />
-                <my:EquipSlot Canvas.Left="380" Canvas.Top="500" x:Name="ring2Slot" />
-                <my:EquipSlot Canvas.Left="380" Canvas.Top="600" x:Name="Trinket1Slot" />
-                <my:EquipSlot Canvas.Left="380" Canvas.Top="700" x:Name="Trinket2Slot" />
-
-            </Canvas>
+            <Grid Height="820">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="90" />
+                    <RowDefinition Height="90" />
+                    <RowDefinition Height="90" />
+                    <RowDefinition Height="90" />
+                    <RowDefinition Height="90" />
+                    <RowDefinition Height="90" />
+                    <RowDefinition Height="90" />
+                    <RowDefinition Height="90" />
+                    <RowDefinition Height="90" />
+                    <RowDefinition Height="90" />
+                    <RowDefinition Height="815*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="310" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="310" />
+                </Grid.ColumnDefinitions>
+                <my:EquipSlot x:Name="HeadSlot" Width="300"  Height="80"  Grid.Column="0" Grid.Row="0" />
+                <my:EquipSlot  x:Name="NeckSlot" Width="300"  Height="80" Grid.Column="0" Grid.Row="1"  />
+                <my:EquipSlot  x:Name="ShoulderSlot"  Width="300"  Height="80" Grid.Column="0" Grid.Row="2" />
+                <my:EquipSlot   x:Name="BackSlot" Width="300"  Height="80" Grid.Column="0" Grid.Row="3" />
+                <my:EquipSlot   x:Name="ChestSlot" Width="300"  Height="80" Grid.Column="0" Grid.Row="4" />
+                <my:EquipSlot   x:Name="WristSlot" Width="300"  Height="80" Grid.Column="0" Grid.Row="5" />
+                <my:EquipSlot   x:Name="TwoHWeapSlot" Width="300"  Height="80" Grid.Column="0" Grid.Row="6" />
+                <my:EquipSlot   x:Name="MHWeapSlot" Width="300"  Height="80" Grid.Column="0" Grid.Row="6" />
+                <my:EquipSlot   x:Name="OHWeapSlot" Width="300"  Height="80" Grid.Column="0" Grid.Row="7" />
+                <my:EquipSlot   x:Name="SigilSlot" Width="300"  Height="80" Grid.Column="0" Grid.Row="8" />
+                <my:EquipSlot   x:Name="HandSlot"  Width="300"  Height="80" Grid.Column="2" Grid.Row="0" />
+                <my:EquipSlot   x:Name="BeltSlot" Width="300"  Height="80" Grid.Column="2" Grid.Row="1" />
+                <my:EquipSlot   x:Name="LegSlot" Width="300"  Height="80" Grid.Column="2" Grid.Row="2" />
+                <my:EquipSlot   x:Name="FeetSlot"  Width="300"  Height="80" Grid.Column="2" Grid.Row="3" />
+                <my:EquipSlot   x:Name="ring1Slot" Width="300"  Height="80" Grid.Column="2" Grid.Row="4" />
+                <my:EquipSlot   x:Name="ring2Slot" Width="300"  Height="80" Grid.Column="2" Grid.Row="5" />
+                <my:EquipSlot   x:Name="Trinket1Slot" Width="300"  Height="80" Grid.Column="2" Grid.Row="6" />
+                <my:EquipSlot   x:Name="Trinket2Slot"  Width="300"  Height="80" Grid.Column="2" Grid.Row="7"/>
+            </Grid>
         </ScrollViewer>
-        <Button Content="View XML" Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="620,20,0,0" Name="cmdViewXml" VerticalAlignment="Top" Width="75" />
+        <Button Content="View XML" Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="0,16,0,0" Name="cmdViewXml" VerticalAlignment="Top" Width="75" Grid.Column="1" />
         <Button Content="Armory" Height="23" Grid.Row="2"  HorizontalAlignment="Right" Margin="0,20,123,0" Name="cmdArmoryImport" Width="75" />
         <ScrollViewer Height="72" Margin="505,12,0,0" Name="ScrollViewer3" VerticalAlignment="Top">
             <StackPanel Height="170" Name="stackConsumable"  />

@@ -193,6 +193,9 @@
       <DependentUpon>ReportDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Report\ReportLine.vb" />
+    <Compile Include="Report\TextReportDisplay.xaml.vb">
+      <DependentUpon>TextReportDisplay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Runes\CataRune.vb" />
     <Compile Include="Runes\CataRunesManagement.vb" />
     <Compile Include="Runes\rune.vb" />
@@ -424,6 +427,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Page Include="Report\ReportDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Report\TextReportDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

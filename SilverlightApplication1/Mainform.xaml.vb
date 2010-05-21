@@ -630,8 +630,7 @@ OUT:
         End Try
         
     End Sub
-
-
+    
     'Shared ProgressBar1 As ProgressBar
 
     Friend Sub UpdateProgressBar()
@@ -872,4 +871,25 @@ OUT:
     Private Sub cmdReport_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdReport.Click
         OpenReport()
     End Sub
+
+
+
+    Delegate Sub OpenTextReport_Delegate()
+    Friend Sub TryToOpenTextReport()
+        Try
+            Dim MyDelegate As New OpenTextReport_Delegate(AddressOf OpenTextReport)
+            Me.Dispatcher.BeginInvoke(MyDelegate)
+        Catch ex As Exception
+            Diagnostics.Debug.WriteLine(ex.StackTrace)
+        End Try
+
+    End Sub
+
+    Sub OpenTextReport()
+        Dim EPDIsplay As New TextReportDisplay
+        EPDIsplay.OpenReport("KahoDKSim/Report/Report.xml")
+        EPDIsplay.Show()
+    End Sub
+   
+
 End Class

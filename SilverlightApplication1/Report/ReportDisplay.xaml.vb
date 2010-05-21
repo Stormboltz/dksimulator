@@ -14,9 +14,7 @@ Partial Public Class ReportDisplay
         Me.DialogResult = True
     End Sub
 
-    Private Sub CancelButton_Click(ByVal sender As Object, ByVal e As RoutedEventArgs) Handles CancelButton.Click
-        Me.DialogResult = False
-    End Sub
+   
 
     Sub OpenReport(ByVal path As String)
 

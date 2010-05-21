@@ -1389,4 +1389,6 @@ NextItem:
         Me.ParentFrame.cmbGearSelector.Items.Remove("tmp.xml")
         IsolatedStorageFile.GetUserStoreForApplication.DeleteFile("KahoDKSim/CharactersWithGear/tmp.xml")
     End Sub
+
+   
 End Class

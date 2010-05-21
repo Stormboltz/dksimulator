@@ -1,0 +1,15 @@
+﻿<controls:ChildWindow x:Class="DKSIMVB.TextReportDisplay"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+           xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
+           Width="800" Height="708"
+           Title="TextReportDisplay">
+    <Grid x:Name="LayoutRoot" Margin="2">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Button x:Name="OKButton" Content="OK" Width="75" Height="23" HorizontalAlignment="Right"  Margin="0,12,12,0" Grid.Row="1" />
+        <TextBox HorizontalAlignment="Center" Name="txtAdditionalInfo" VerticalAlignment="Center" Width="778" Height="634" IsReadOnly="True" />
+    </Grid>
+</controls:ChildWindow>

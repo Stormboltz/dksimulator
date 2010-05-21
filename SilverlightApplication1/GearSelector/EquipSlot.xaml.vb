@@ -115,6 +115,7 @@ Partial Public Class EquipSlot
 
         GS.LoadItem(Me.SlotId)
         GS.SelectedItem = "-1"
+        AddHandler GS.Closing, AddressOf GearS_close
         GS.Show() 'Dialog(Me)
        
     End Sub
@@ -203,6 +204,7 @@ Partial Public Class EquipSlot
         GearS = Mainframe.GearSelector
         GearS.LoadItem(Me.SlotId)
         GearS.SelectedItem = "-1"
+        AddHandler GearS.Closing, AddressOf GearS_close
         GearS.Show()
     End Sub
 
@@ -240,9 +242,10 @@ Partial Public Class EquipSlot
         End If
         DisplayGem()
     End Sub
-    Private Sub GearS_close(ByVal sender As System.Object, ByVal e As EventArgs) Handles GearS.Closing
+    Private Sub GearS_close(ByVal sender As System.Object, ByVal e As EventArgs)
         If GearS.Slot <> Me.SlotId Then Exit Sub
 
+        RemoveHandler GearS.Closing, AddressOf GearS_close
         If GearS.DialogResult = True Then
             If GearS.SelectedItem <> "-1" Then
                 Item.LoadItem(GearS.SelectedItem)
@@ -250,6 +253,6 @@ Partial Public Class EquipSlot
             End If
         End If
 
-       
+
     End Sub
 End Class

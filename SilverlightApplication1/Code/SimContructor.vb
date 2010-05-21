@@ -44,6 +44,8 @@ Public Module SimConstructor
                 Else
                     _MainFrm.TryToOpenReport()
                 End If
+            Else
+                Diagnostics.Debug.WriteLine("SIM remaining: " & simCollection.Count)
             End If
             RemoveHandler s.Sim_Closing, AddressOf OnSim_Closing
             s = Nothing
@@ -61,7 +63,6 @@ Public Module SimConstructor
             End If
             i += 1
         Next
-        Loop
     End Sub
 
 
@@ -130,7 +131,7 @@ Public Module SimConstructor
         Dim ArP As String
         Dim Haste As String
         Dim Crit As String
-        Dim sReport As String
+
         Str = 0
         Agility = 0
         MHSpeed = 0
@@ -141,14 +142,15 @@ Public Module SimConstructor
         ArP = 0
         Haste = 0
         Crit = 0
-        sReport = "<table border='0' cellspacing='0' style='font-family:Verdana; font-size:10px;'>"
 
+        Dim rp As New Report
         EpStat = "EP DryRun"
         BaseDPS = DPSs(EpStat)
 
         EpStat = "EP AttackPower"
         APDPS = DPSs(EpStat)
-        sReport = sReport + ("<tr><td>" & EpStat & " | 1 (" & toDDecimal((APDPS - BaseDPS) / (2 * EPBase)) & " DPS/per AP) </td></tr>")
+
+        rp.AddAdditionalInfo(EpStat, "1 (" & toDDecimal((APDPS - BaseDPS) / (2 * EPBase)) & " DPS/per AP)")
 
         Try
             EpStat = "EP Strength"
@@ -156,7 +158,7 @@ Public Module SimConstructor
             tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
             tmp2 = (DPS - BaseDPS) / EPBase
             Str = toDDecimal(tmp2 / tmp1)
-            sReport = sReport + ("<tr><td>" & EpStat & " | " & toDDecimal(tmp2 / tmp1)) & "</td></tr>"
+            rp.AddAdditionalInfo(EpStat, Str)
         Catch
         End Try
         Try
@@ -165,7 +167,7 @@ Public Module SimConstructor
             tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
             tmp2 = (DPS - BaseDPS) / EPBase
             Agility = toDDecimal(tmp2 / tmp1)
-            sReport = sReport + ("<tr><td>" & EpStat & " | " & toDDecimal(tmp2 / tmp1)) & "</td></tr>"
+            rp.AddAdditionalInfo(EpStat, Agility)
         Catch
         End Try
         Try
@@ -174,8 +176,7 @@ Public Module SimConstructor
             tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
             tmp2 = (DPS - BaseDPS) / EPBase
             Crit = toDDecimal(tmp2 / tmp1)
-            sReport = sReport + ("<tr><td>" & EpStat & " | " & toDDecimal(tmp2 / tmp1)) & "</td></tr>"
-            '	WriteReport ("Average for " & EPStat & " | " & DPS)
+            rp.AddAdditionalInfo(EpStat, Crit)
         Catch
         End Try
 
@@ -186,7 +187,8 @@ Public Module SimConstructor
             tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
             tmp2 = (DPS - BaseDPS) / EPBase
             Haste = toDDecimal(tmp2 / tmp1)
-            sReport = sReport + ("<tr><td>" & EpStat & " | " & toDDecimal(tmp2 / tmp1)) & "</td></tr>"
+            rp.AddAdditionalInfo(EpStat, Haste)
+
         Catch
 
         End Try
@@ -196,7 +198,8 @@ Public Module SimConstructor
             DPS = DPSs(EpStat)
             tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
             tmp2 = (DPS - BaseDPS) / EPBase
-            sReport = sReport + ("<tr><td>" & EpStat & " | " & toDDecimal(tmp2 / tmp1)) & "</td></tr>"
+            rp.AddAdditionalInfo(EpStat, toDDecimal(tmp2 / tmp1))
+
         Catch
 
         End Try
@@ -206,8 +209,8 @@ Public Module SimConstructor
             tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
             tmp2 = (DPS - BaseDPS) / EPBase
             ArP = toDDecimal(tmp2 / tmp1)
-            sReport = sReport + ("<tr><td>" & EpStat & " | " & toDDecimal(tmp2 / tmp1)) & "</td></tr>"
-            '	WriteReport ("Average for " & EPStat & " | " & DPS)
+            rp.AddAdditionalInfo(EpStat, ArP)
+
         Catch
         End Try
         Try
@@ -218,17 +221,13 @@ Public Module SimConstructor
             tmp1 = (DPSs("EP ExpertiseRatingCapAP") - DPSs("EP ExpertiseRatingCap")) / (2 * EPBase)
             tmp2 = (DPS - DPSs("EP ExpertiseRatingCap")) / EPBase
             Exp = toDDecimal(-tmp2 / tmp1)
-            sReport = sReport + ("<tr><td>" & EpStat & " | " & toDDecimal(-tmp2 / tmp1)) & "</td></tr>"
+            rp.AddAdditionalInfo(EpStat, Exp)
 
             EpStat = "EP RelativeExpertiseRating"
             DPS = DPSs(EpStat)
             tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
             tmp2 = (DPS - BaseDPS) / EPBase
-            sReport = sReport + ("<tr><td>Personal Expertise value | " & toDDecimal(tmp2 / tmp1)) & "</td></tr>"
-
-
-
-            '	WriteReport ("Average for " & EPStat & " | " & DPS)
+            rp.AddAdditionalInfo("Personal Expertise value", toDDecimal(tmp2 / tmp1))
         Catch
         End Try
 
@@ -238,8 +237,7 @@ Public Module SimConstructor
             DPS = DPSs(EpStat)
             tmp1 = (DPSs("EP ExpertiseRatingCapAP") - DPSs("EP ExpertiseRatingCap")) / (2 * EPBase)
             tmp2 = (DPS - DPSs("EP ExpertiseRatingCap")) / EPBase
-            sReport = sReport + ("<tr><td>ExpertiseRating After Dodge Cap | " & toDDecimal(tmp2 / tmp1)) & "</td></tr>"
-            '	WriteReport ("Average for " & EPStat & " | " & DPS)
+            rp.AddAdditionalInfo("ExpertiseRating After Dodge Cap", toDDecimal(tmp2 / tmp1))
         Catch
         End Try
 
@@ -250,7 +248,7 @@ Public Module SimConstructor
             tmp1 = (DPSs("EP HitRatingCapAP") - DPSs("EP HitRatingCap")) / (2 * EPBase)
             tmp2 = (DPS - DPSs("EP HitRatingCap")) / EPBase
             Hit = toDDecimal(-tmp2 / tmp1)
-            sReport = sReport + ("<tr><td>BeforeMeleeHitCap<8% | " & toDDecimal(-tmp2 / tmp1)) & "</td></tr>"
+            rp.AddAdditionalInfo("Before Melee Hit Cap", Hit)
             '	WriteReport ("Average for " & EPStat & " | " & DPS)
         Catch
         End Try
@@ -261,7 +259,7 @@ Public Module SimConstructor
             tmp1 = (DPSs("EP HitRatingCapAP") - DPSs("EP HitRatingCap")) / (2 * EPBase)
             tmp2 = (DPS - DPSs("EP HitRatingCap")) / 20
             SpHit = toDDecimal(tmp2 / tmp1)
-            sReport = sReport + ("<tr><td>" & EpStat & " | " & toDDecimal(tmp2 / tmp1)) & "</td></tr>"
+            rp.AddAdditionalInfo(EpStat, SpHit)
         Catch
         End Try
         Try
@@ -270,8 +268,7 @@ Public Module SimConstructor
             tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
             tmp2 = (DPS - BaseDPS) / 10
             MHDPS = toDDecimal(tmp2 / tmp1)
-            sReport = sReport + ("<tr><td>" & EpStat & " | " & toDDecimal(tmp2 / tmp1)) & "</td></tr>"
-            '	WriteReport ("Average for " & EPStat & " | " & DPS)
+            rp.AddAdditionalInfo(EpStat, MHDPS)
         Catch
         End Try
         Try
@@ -280,8 +277,7 @@ Public Module SimConstructor
             tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
             tmp2 = (DPS - BaseDPS) / 0.1
             MHSpeed = toDDecimal(tmp2 / tmp1)
-            sReport = sReport + ("<tr><td>" & EpStat & " | " & toDDecimal(tmp2 / tmp1)) & "</td></tr>"
-            '	WriteReport ("Average for " & EPStat & " | " & DPS)
+            rp.AddAdditionalInfo(EpStat, MHSpeed)
         Catch
         End Try
 
@@ -294,8 +290,7 @@ Public Module SimConstructor
             DPS = DPSs(EpStat)
             tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
             tmp2 = (DPS - BaseDPS) / EPBase
-            sReport = sReport + ("<tr><td>After spell hit cap | " & toDDecimal(tmp2 / tmp1) & "</td></tr>")
-            '	WriteReport ("Average for " & EPStat & " | " & DPS)
+            rp.AddAdditionalInfo(EpStat, toDDecimal(tmp2 / tmp1))
         Catch
         End Try
 
@@ -311,8 +306,7 @@ Public Module SimConstructor
             DPS = DPSs(EpStat)
             tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
             tmp2 = (DPS - BaseDPS) / (2 * EPBase)
-            sReport = sReport + ("<tr><td>" & EpStat & " | " & toDDecimal(100 * tmp2 / tmp1)) & "</td></tr>"
-
+            rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
         Catch
         End Try
         Try
@@ -320,7 +314,7 @@ Public Module SimConstructor
             DPS = DPSs(EpStat)
             tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
             tmp2 = (DPS - BaseDPS) / (2 * EPBase)
-            sReport = sReport + ("<tr><td>" & EpStat & " | " & toDDecimal(100 * tmp2 / tmp1)) & "</td></tr>"
+            rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
 
         Catch
         End Try
@@ -329,7 +323,7 @@ Public Module SimConstructor
             DPS = DPSs(EpStat)
             tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
             tmp2 = (DPS - BaseDPS) / (2 * EPBase)
-            sReport = sReport + ("<tr><td>" & EpStat & " | " & toDDecimal(100 * tmp2 / tmp1)) & "</td></tr>"
+            rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
 
         Catch
         End Try
@@ -338,7 +332,7 @@ Public Module SimConstructor
             DPS = DPSs(EpStat)
             tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
             tmp2 = (DPS - BaseDPS) / (2 * EPBase)
-            sReport = sReport + ("<tr><td>" & EpStat & " | " & toDDecimal(100 * tmp2 / tmp1)) & "</td></tr>"
+            rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
 
         Catch
         End Try
@@ -347,7 +341,7 @@ Public Module SimConstructor
             DPS = DPSs(EpStat)
             tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
             tmp2 = (DPS - BaseDPS) / (2 * EPBase)
-            sReport = sReport + ("<tr><td>" & EpStat & " | " & toDDecimal(100 * tmp2 / tmp1)) & "</td></tr>"
+            rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
 
         Catch
         End Try
@@ -356,7 +350,7 @@ Public Module SimConstructor
             DPS = DPSs(EpStat)
             tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
             tmp2 = (DPS - BaseDPS) / (2 * EPBase)
-            sReport = sReport + ("<tr><td>" & EpStat & " | " & toDDecimal(100 * tmp2 / tmp1)) & "</td></tr>"
+            rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
         Catch
         End Try
         Try
@@ -364,7 +358,7 @@ Public Module SimConstructor
             DPS = DPSs(EpStat)
             tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
             tmp2 = (DPS - BaseDPS) / (2 * EPBase)
-            sReport = sReport + ("<tr><td>" & EpStat & " | " & toDDecimal(100 * tmp2 / tmp1)) & "</td></tr>"
+            rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
         Catch
         End Try
         Try
@@ -372,51 +366,52 @@ Public Module SimConstructor
             DPS = DPSs(EpStat)
             tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
             tmp2 = (DPS - BaseDPS) / (2 * EPBase)
-            sReport = sReport + ("<tr><td>" & EpStat & " | " & toDDecimal(100 * tmp2 / tmp1)) & "</td></tr>"
+            rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
         Catch
         End Try
 
-
-        '    sReport = sReport & "<tr><td COLSPAN=8> | Template | " & Split(_MainFrm.cmbTemplate.SelectedValue, ".")(0) & "</td></tr>"
-        '    If Rotate Then
-        '        sReport = sReport & "<tr><td COLSPAN=8> | Rotation | " & Split(_MainFrm.cmbRotation.SelectedValue, ".")(0) & "</td></tr>"
-        '    Else
-        '        sReport = sReport & "<tr><td COLSPAN=8> | Priority | " & Split(_MainFrm.cmbPrio.SelectedValue, ".")(0) & "</td></tr>"
-        '    End If
-        '    sReport = sReport & "<tr><td COLSPAN=8> | Presence | " & _MainFrm.cmdPresence.SelectedValue & vbCrLf & "</td></tr>"
-        '    sReport = sReport & "<tr><td COLSPAN=8> | Sigil | " & _MainFrm.cmbSigils.SelectedValue & vbCrLf & "</td></tr>"
-        '    sReport = sReport & "<tr><td COLSPAN=8> | RuneEnchant | " & _MainFrm.cmbRuneMH.SelectedValue & " / " & _MainFrm.cmbRuneOH.SelectedValue & "</td></tr>"
-        '    sReport = sReport & "<tr><td COLSPAN=8> | Pet Calculation | " & _MainFrm.ckPet.IsChecked & "</td></tr>"
-        '    Str = Str.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
-        '    Agility = Agility.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
-        '    MHSpeed = MHSpeed.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
-        '    Exp = Exp.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
-        '    MHDPS = MHDPS.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
-        '    SpHit = SpHit.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
-        '    Hit = Hit.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
-        '    ArP = ArP.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
-        '    Haste = Haste.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
-        '    Crit = Crit.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
+        'rp.AddAdditionalInfo("Template", _MainFrm.cmbTemplate.SelectedValue)
 
 
+        'If Rotate Then
+        '    rp.AddAdditionalInfo("Rotation", _MainFrm.cmbRotation.SelectedValue)
+        'Else
+        '    rp.AddAdditionalInfo("Priority", _MainFrm.cmbPrio.SelectedValue)
+        'End If
+        'rp.AddAdditionalInfo("Presence", _MainFrm.cmdPresence.SelectedValue)
+        'rp.AddAdditionalInfo("Sigil", _MainFrm.cmbSigils.SelectedValue)
+        'Try
+        '    rp.AddAdditionalInfo("RuneEnchant", _MainFrm.cmbRuneMH.SelectedValue & " / " & _MainFrm.cmbRuneOH.SelectedValue)
+        'Catch ex As Exception
+        'End Try
+        'rp.AddAdditionalInfo("Pet Calculation", _MainFrm.ckPet.IsChecked)
 
+        Str = Str.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
+        Agility = Agility.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
+        MHSpeed = MHSpeed.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
+        Exp = Exp.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
+        MHDPS = MHDPS.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
+        SpHit = SpHit.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
+        Hit = Hit.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
+        ArP = ArP.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
+        Haste = Haste.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
+        Crit = Crit.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
 
-        '    Dim lootlink As String
-        '    lootlink = "<tr><td COLSPAN=8><a href=http://www.guildox.com/wr.asp?Cla=2048&s7=3.2&str=" & Str & "&Arm=" & 0.028 & "&mh=" & Haste & "&dps=" & MHDPS & "&mcr=" & Crit & _
-        '     "&odps=" & 0 & "&Agi=" & Agility & "&mhit=" & Hit & "&map=1" & "&msp=" & MHSpeed & "&arp=" & ArP & "&osp=0" & "&Exp=" & Exp & " target='_blank'>lootlink non hit caped</a></td></tr>"
-        '    sReport = sReport & lootlink
+        Dim lootlink As String
+        lootlink = "http://www.guildox.com/wr.asp?Cla=2048&s7=3.2&str=" & Str & "&Arm=" & 0.028 & "&mh=" & Haste & "&dps=" & MHDPS & "&mcr=" & Crit & _
+         "&odps=" & 0 & "&Agi=" & Agility & "&mhit=" & Hit & "&map=1" & "&msp=" & MHSpeed & "&arp=" & ArP & "&osp=0" & "&Exp=" & Exp
+        rp.AddAdditionalInfo("lootlink non hit caped", lootlink)
 
-        '    lootlink = "<tr><td COLSPAN=8><a href=http://www.guildox.com/wr.asp?Cla=2048&s7=3.2&str=" & Str & "&Arm=" & 0.028 & "&mh=" & Haste & "&dps=" & MHDPS & "&mcr=" & Crit & _
-        '"&odps=" & 0 & "&Agi=" & Agility & "&mhit=" & SpHit & "&map=1" & "&msp=" & MHSpeed & "&arp=" & ArP & "&osp=0" & "&Exp=" & Exp & " target='_blank'>lootlink hit caped</a></td></tr>"
-        '    sReport = sReport & lootlink
-        '    Dim pwan As String
-        '    pwan = "<tr><td COLSPAN=8>Non hit caped ( Pawn: v1: " + Convert.ToChar(34) + "DK Sim" + Convert.ToChar(34) + ": ArmorPenetration=" + ArP + ", HitRating=" + Hit + ", CritRating=" + Crit + ", Dps=" + MHDPS + ", Strength=" + Str + ", Armor=0.028, Agility=" + Agility + ", HasteRating=" + Haste + ", Speed=" + MHSpeed + ", ExpertiseRating=" + Exp + ", Ap=1, GemQualityLevel=82 )</td></tr>"
-        '    sReport = sReport + pwan
-        '    pwan = "<tr><td COLSPAN=8>hit caped ( Pawn: v1: " + Convert.ToChar(34) + "DK Sim" + Convert.ToChar(34) + ": ArmorPenetration=" + ArP + ", HitRating=" + SpHit + ", CritRating=" + Crit + ", Dps=" + MHDPS + ", Strength=" + Str + ", Armor=0.028, Agility=" + Agility + ", HasteRating=" + Haste + ", Speed=" + MHSpeed + ", ExpertiseRating=" + Exp + ", Ap=1, GemQualityLevel=82 )</td></tr>"
-        '    sReport = sReport + pwan
-        '    sReport = sReport + ("<hr width='80%' align='center' noshade ></hr>")
-        '    sReport = sReport + ("</table>")
-        Diagnostics.Debug.WriteLine(sReport)
+        lootlink = "http://www.guildox.com/wr.asp?Cla=2048&s7=3.2&str=" & Str & "&Arm=" & 0.028 & "&mh=" & Haste & "&dps=" & MHDPS & "&mcr=" & Crit & _
+    "&odps=" & 0 & "&Agi=" & Agility & "&mhit=" & SpHit & "&map=1" & "&msp=" & MHSpeed & "&arp=" & ArP & "&osp=0" & "&Exp=" & Exp
+        rp.AddAdditionalInfo("lootlink hit caped", lootlink)
+        Dim pwan As String
+        pwan = "Pawn: v1: " + Convert.ToChar(34) + "Non hit caped" + Convert.ToChar(34) + ": ArmorPenetration=" + ArP + ", HitRating=" + Hit + ", CritRating=" + Crit + ", Dps=" + MHDPS + ", Strength=" + Str + ", Armor=0.028, Agility=" + Agility + ", HasteRating=" + Haste + ", Speed=" + MHSpeed + ", ExpertiseRating=" + Exp + ", Ap=1, GemQualityLevel=82 )"
+        rp.AddAdditionalInfo("pwan Non hit caped", pwan)
+        pwan = "Pawn: v1: " + Convert.ToChar(34) + "Hit caped" + Convert.ToChar(34) + ": ArmorPenetration=" + ArP + ", HitRating=" + SpHit + ", CritRating=" + Crit + ", Dps=" + MHDPS + ", Strength=" + Str + ", Armor=0.028, Agility=" + Agility + ", HasteRating=" + Haste + ", Speed=" + MHSpeed + ", ExpertiseRating=" + Exp + ", Ap=1, GemQualityLevel=82 )"
+        rp.AddAdditionalInfo("pwan hit caped", pwan)
+        rp.Save("")
+        _MainFrm.TryToOpenTextReport()
     End Sub
     Sub GetFastEPValue(ByVal MainFrm As MainForm)
         DPSs.Clear()

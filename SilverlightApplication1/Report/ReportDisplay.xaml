@@ -10,10 +10,8 @@
             <RowDefinition Height="115" />
             <RowDefinition Height="28" />
         </Grid.RowDefinitions>
-
-        <Button x:Name="CancelButton" Content="Cancel" Width="75" Height="23" HorizontalAlignment="Right" Margin="0,5,0,0" Grid.Row="2" />
-        <Button x:Name="OKButton" Content="OK" Width="75" Height="23" HorizontalAlignment="Right"  Margin="0,5,79,0" Grid.Row="2" />
+        <Button x:Name="OKButton" Content="OK" Width="75" Height="23" HorizontalAlignment="Right"  Margin="0,5,12,0" Grid.Row="2" />
         <sdk:DataGrid AutoGenerateColumns="True"  HorizontalAlignment="Left" Name="dgReport" Width="780" FontSize="9" />
-        <TextBlock Grid.Row="1" Margin="12,6,0,0" Name="txtAdditionalInfo" Text="TextBlock" />
+        <TextBox Grid.Row="1" Margin="0,6,0,0" Name="txtAdditionalInfo" Text="TextBlock" IsReadOnly="True" />
     </Grid>
 </controls:ChildWindow>
