@@ -630,7 +630,7 @@ NextItem:
 
     Private Sub wc_OpenReadCompleted(ByVal sender As Object, ByVal e As OpenReadCompletedEventArgs)
         If e.Error IsNot Nothing Then
-            Diagnostics.Debug.WriteLine(e.Error.Message)
+            Diagnostics.Debug.WriteLine(e.Error.StackTrace)
             Return
         End If
         Using s As Stream = e.Result

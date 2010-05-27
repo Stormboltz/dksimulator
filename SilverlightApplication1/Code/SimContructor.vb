@@ -12,6 +12,7 @@ Imports System.IO
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
 Public Module SimConstructor
+    Private StartTime As Date
 
 
     Friend PetFriendly As Boolean
@@ -104,6 +105,7 @@ Public Module SimConstructor
         DPSs.Clear()
         ThreadCollection.Clear()
         simCollection.Clear()
+        EpStat = "GetFastDPS"
         Start(10, MainFrm, True)
         Jointhread()
         Try
@@ -410,7 +412,10 @@ Public Module SimConstructor
         rp.AddAdditionalInfo("pwan Non hit caped", pwan)
         pwan = "Pawn: v1: " + Convert.ToChar(34) + "Hit caped" + Convert.ToChar(34) + ": ArmorPenetration=" + ArP + ", HitRating=" + SpHit + ", CritRating=" + Crit + ", Dps=" + MHDPS + ", Strength=" + Str + ", Armor=0.028, Agility=" + Agility + ", HasteRating=" + Haste + ", Speed=" + MHSpeed + ", ExpertiseRating=" + Exp + ", Ap=1, GemQualityLevel=82 )"
         rp.AddAdditionalInfo("pwan hit caped", pwan)
+        Dim dif As Decimal = ((Now.Ticks - StartTime.Ticks) / 10000000)
+        rp.AddAdditionalInfo("Generated in ", Decimal.Round(dif, 2).ToString & " s")
         rp.Save("")
+        EpStat = ""
         _MainFrm.TryToOpenTextReport()
     End Sub
     Sub GetFastEPValue(ByVal MainFrm As MainForm)
@@ -518,6 +523,8 @@ skipStats:
     
 
     Sub StartEP(ByVal SimTime As Double, ByVal MainFrm As MainForm)
+        StartTime = Now
+
         DPSs.Clear()
         ThreadCollection.Clear()
         simCollection.Clear()

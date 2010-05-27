@@ -1038,10 +1038,12 @@ errH:
         Else
             myReport.AddAdditionalInfo("DPS", DPS)
         End If
+
         myReport.AddAdditionalInfo("Total Damage", Math.Round(TotalDamage() / 1000000, 2) & "m")
         myReport.AddAdditionalInfo("RunicPower", RunicPower.Report)
         myReport.AddAdditionalInfo("Threat Per Second", TPS)
-        myReport.AddAdditionalInfo("Generated in", DateDiff(DateInterval.Second, SimStart, Now()) & "s")
+        Dim dif As Decimal = ((Now.Ticks - SimStart.Ticks) / 10000000)
+        myReport.AddAdditionalInfo("Generated in ", Decimal.Round(dif, 2).ToString & " s")
         myReport.AddAdditionalInfo("Template", Split(Character.GetTemplateFileName, ".")(0))
         If Rotate Then
             myReport.AddAdditionalInfo("Rotation", Split(Character.GetRotationFileName, ".")(0))

@@ -7,28 +7,28 @@
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
 Public Module Module1
-	Function GemColor(id As String) As Color
-		Select Case id
-			Case 0
+    Function GemColor(ByVal id As String) As Color
+        Select Case id
+            Case 0
                 Return Colors.Red
-			Case 1
+            Case 1
                 Return Colors.Blue
-			Case 2
+            Case 2
                 Return Colors.Yellow
-			Case 3
+            Case 3
                 Return Colors.Magenta
-			Case 4
+            Case 4
                 Return Colors.Green
-			Case 5
+            Case 5
                 Return Colors.Orange
-			Case 6
+            Case 6
                 Return Colors.Cyan
-			Case 7,8
+            Case 7, 8
                 Return Colors.Gray
-			Case Else
+            Case Else
                 Return Colors.Black
-		End Select
-	End Function
+        End Select
+    End Function
 	
 	
 	

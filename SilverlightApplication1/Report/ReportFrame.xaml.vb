@@ -1,21 +1,13 @@
-﻿Imports System.IO.IsolatedStorage
+﻿Imports System.Xml.Linq
+Imports System.IO.IsolatedStorage
 Imports System.IO
-Imports System.Linq
-Imports System.Xml.Linq
 
-Partial Public Class ReportDisplay
-    Inherits ChildWindow
+Partial Public Class ReportFrame
+    Inherits UserControl
 
     Public Sub New()
         InitializeComponent()
     End Sub
-
-    Private Sub OKButton_Click(ByVal sender As Object, ByVal e As RoutedEventArgs) Handles OKButton.Click
-        Me.DialogResult = True
-    End Sub
-
-   
-
     Sub OpenReport(ByVal path As String)
 
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
@@ -23,7 +15,15 @@ Partial Public Class ReportDisplay
                 Dim myReader As XDocument = XDocument.Load(isoStream)
                 Dim Source As List(Of ReportDisplayLine) = (From el In myReader.Element("Table").Elements("row")
                               Select GetItem(el)).ToList
-                dgReport.ItemsSource = Source
+                If Source.Count = 0 Then
+                    dgReport.Visibility = Windows.Visibility.Collapsed
+                    LayoutRoot.RowDefinitions.Item(0).Height = New System.Windows.GridLength(0)
+                Else
+                    dgReport.ItemsSource = Source
+                    LayoutRoot.RowDefinitions.Item(0).Height = New System.Windows.GridLength((Source.Count + 1) * 23)
+                    dgReport.Visibility = Windows.Visibility.Visible
+                End If
+
                 isoStream.Close()
                 Dim tmp As String = ""
                 For Each el In myReader.Element("Table").Elements("AdditionalInfo")
@@ -36,6 +36,7 @@ Partial Public Class ReportDisplay
     End Sub
     Function GetItem(ByVal el As XElement) As ReportDisplayLine
         Dim r As New ReportDisplayLine
+
         r.Ability = el.Element("Ability").Value
         r.Damage_done_Total = el.Element("Damage_done_Total").Value
         r.Damage_done_Pc = el.Element("Damage_done_Pc").Value
@@ -54,8 +55,6 @@ Partial Public Class ReportDisplay
         r.Glance_Count_Pc = el.Element("Glance_Count_Pc").Value
         r.TPS = el.Element("TPS").Value
         r.Uptime = el.Element("Uptime").Value
-
-
         'If r.Damage_done_Total = "0" Then r.Damage_done_Total = ""
         'If r.Damage_done_Total = "0" Then r.Damage_done_Total = ""
         'If r.Damage_done_Count = "0" Then r.Damage_done_Count = ""
@@ -68,7 +67,6 @@ Partial Public Class ReportDisplay
         'If r.Crit_count_Pc = "0" Then r.Crit_count_Pc = ""
         'If r.Miss_Count = "0" Then r.Miss_Count = ""
         'If r.Miss_Count_Pc = "0" Then r.Miss_Count_Pc = ""
-
         'If r.Glance_Count = "0" Then r.Glance_Count = ""
         'If r.Glance_Count_Avg = "0" Then r.Glance_Count_Avg = ""
         'If r.Glance_Count_Pc = "0" Then r.Glance_Count_Pc = ""
@@ -97,4 +95,9 @@ Partial Public Class ReportDisplay
         Property TPS As Double
         Property Uptime As Double
     End Class
+
+    Private Sub dgReport_AutoGeneratingColumn(ByVal sender As Object, ByVal e As System.Windows.Controls.DataGridAutoGeneratingColumnEventArgs) Handles dgReport.AutoGeneratingColumn
+        e.Column.Header = e.Column.Header.ToString.Replace("_", vbCrLf)
+        e.Column.Header = e.Column.Header.ToString.Replace("Damage", "Dmg")
+    End Sub
 End Class

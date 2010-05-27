@@ -68,7 +68,11 @@
                 
             </sdk:TabItem>
             <sdk:TabItem Header="Report" Name="TabReport">
-                <StackPanel  Name="ReportStack" />
+                <ScrollViewer Name="ScrollViewer2" >
+                <StackPanel  Name="ReportStack">
+                    
+                </StackPanel>
+                </ScrollViewer>
             </sdk:TabItem>
             <sdk:TabItem Header="Buffs" Name="TabBuff">
                 <Canvas Height="533" Name="grpBuff" Width="555">

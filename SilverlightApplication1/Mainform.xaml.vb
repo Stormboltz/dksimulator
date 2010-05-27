@@ -60,13 +60,8 @@ Partial Public Class MainForm
         Next
     End Sub
     Private Sub Button_Click(ByVal sender As Object, ByVal e As RoutedEventArgs) Handles btEP.Click
-        'If txtSimtime.Text < 100 Then
-        '    ret = msgBox("Short simulation time can give weird results. Try setting it to at least 100 hours.", MsgBoxStyle.OkCancel)
-        '    If ret = MsgBoxResult.Cancel Then Exit Sub
-        'End If
-        'chkLissage.Checked	= true
+        If SimConstructor.simCollection.Count > 0 Then Return
         If LoadBeforeSim() = False Then Exit Sub
-        'Me.TabControl1.SelectedIndex = 1
         SimConstructor.StartEP(txtSimtime.Text, Me)
     End Sub
     Sub worker_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles _worker.ProgressChanged
@@ -825,7 +820,7 @@ OUT:
 
     Private Sub cmdStartSim_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdStartSim.Click
         If LoadBeforeSim() = False Then Exit Sub
-
+        If SimConstructor.simCollection.Count > 0 Then Return
         SimConstructor.Start(txtSimtime.Text, Me, True)
 
         
@@ -863,9 +858,10 @@ OUT:
     End Sub
 
     Sub OpenReport()
-        Dim txEdit As New ReportDisplay
+        Dim txEdit As New ReportFrame
         txEdit.OpenReport("KahoDKSim/Report/Report.xml")
-        txEdit.Show()
+        ReportStack.Children.Add(txEdit)
+        Me.TabReport.IsSelected = True
     End Sub
 
     Private Sub cmdReport_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdReport.Click
@@ -877,7 +873,7 @@ OUT:
     Delegate Sub OpenTextReport_Delegate()
     Friend Sub TryToOpenTextReport()
         Try
-            Dim MyDelegate As New OpenTextReport_Delegate(AddressOf OpenTextReport)
+            Dim MyDelegate As New OpenTextReport_Delegate(AddressOf OpenReport)
             Me.Dispatcher.BeginInvoke(MyDelegate)
         Catch ex As Exception
             Diagnostics.Debug.WriteLine(ex.StackTrace)
@@ -885,11 +881,7 @@ OUT:
 
     End Sub
 
-    Sub OpenTextReport()
-        Dim EPDIsplay As New TextReportDisplay
-        EPDIsplay.OpenReport("KahoDKSim/Report/Report.xml")
-        EPDIsplay.Show()
-    End Sub
+ 
    
 
 End Class

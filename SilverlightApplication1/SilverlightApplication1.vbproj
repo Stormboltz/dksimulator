@@ -189,13 +189,10 @@
     <Compile Include="Procs\ScentOfBlood.vb" />
     <Compile Include="Procs\WeaponProc.vb" />
     <Compile Include="Report\Report.vb" />
-    <Compile Include="Report\ReportDisplay.xaml.vb">
-      <DependentUpon>ReportDisplay.xaml</DependentUpon>
+    <Compile Include="Report\ReportFrame.xaml.vb">
+      <DependentUpon>ReportFrame.xaml</DependentUpon>
     </Compile>
     <Compile Include="Report\ReportLine.vb" />
-    <Compile Include="Report\TextReportDisplay.xaml.vb">
-      <DependentUpon>TextReportDisplay.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Runes\CataRune.vb" />
     <Compile Include="Runes\CataRunesManagement.vb" />
     <Compile Include="Runes\rune.vb" />
@@ -426,11 +423,7 @@
     <Content Include="Priority\Unholy.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Page Include="Report\ReportDisplay.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Report\TextReportDisplay.xaml">
+    <Page Include="Report\ReportFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

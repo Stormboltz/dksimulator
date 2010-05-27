@@ -40,6 +40,17 @@ Partial Public Class GemSelector
 
     Sub LoadItem(ByVal GemNum As Integer, ByVal slot As Integer, ByVal type As Integer)
         Me.GemNum = GemNum
+        Me.type = type
+        Me.Slot = slot
+
+
+        If txtFilter.Text.Trim <> "" Then
+            FilterList(txtFilter.Text)
+            Return
+        End If
+
+
+
         Dim statusReport As List(Of mGem)
         Dim doc As XDocument = MainFrame.GemDB
         If type = 1 Then
@@ -56,8 +67,7 @@ Partial Public Class GemSelector
         Catch ex As Exception
             Diagnostics.Debug.WriteLine(ex.ToString)
         End Try
-        Me.type = type
-        Me.Slot = slot
+
     End Sub
 
     Sub TextBox1TextChanged(ByVal sender As TextBox, ByVal e As EventArgs)
@@ -82,7 +92,9 @@ Partial Public Class GemSelector
         gGems.ItemsSource = statusReport
         Me.type = type
     End Sub
-
+    Sub ColorGrid()
+        
+    End Sub
     Private Function Contains(ByVal el As XElement, ByVal filter As String) As Boolean
         Dim tmp As String
         Dim tBool As Boolean = True
@@ -116,6 +128,7 @@ Partial Public Class GemSelector
             .AP = el.Element("AttackPower").Value
             .Crit = el.Element("CritRating").Value
             .ArP = el.Element("ArmorPenetrationRating").Value
+            .ColorId = el.Element("subclass").Value
             .EPVAlue = getItemEPValue(el)
         End With
         Return myGem
@@ -175,7 +188,12 @@ Partial Public Class GemSelector
         Property Crit As Integer
         Property ArP As Integer
         Property EPVAlue As Integer
+        Friend ColorId As Integer
     End Class
+
+    Private Sub gGems_AutoGeneratingColumn(ByVal sender As Object, ByVal e As System.Windows.Controls.DataGridAutoGeneratingColumnEventArgs) Handles gGems.AutoGeneratingColumn
+
+    End Sub
 
     Private Sub gGems_BeginningEdit(ByVal sender As Object, ByVal e As System.Windows.Controls.DataGridBeginningEditEventArgs) Handles gGems.BeginningEdit
         Dim a As mGem
@@ -198,5 +216,11 @@ Partial Public Class GemSelector
         Else
             LoadItem(GemNum, Me.Slot, Me.type)
         End If
+    End Sub
+
+    Private Sub gGems_LoadingRow(ByVal sender As Object, ByVal e As System.Windows.Controls.DataGridRowEventArgs) Handles gGems.LoadingRow
+        Dim r As DataGridRow = e.Row
+        Dim g As mGem = r.DataContext
+        r.Background = New SolidColorBrush(GemColor(g.ColorId))
     End Sub
 End Class
