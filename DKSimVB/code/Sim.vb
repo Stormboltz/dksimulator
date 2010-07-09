@@ -614,7 +614,7 @@ Public Class Sim
 		Runes.SoftReset()
 		FutureEventManager.Add(TimeStamp,"Rune")
 		
-		
+		FutureEventManager.Add(TimeStamp,"Boss")
 		
 		RunicPower.Reset()
 		targets.KillEveryoneExceptMainTarget
@@ -1219,7 +1219,7 @@ Public Class Sim
 		on error resume next
 		tmp = damage
 		For i=0 To MultipleDamage.Count
-			tmp = tmp - integer.Parse(MultipleDamage.Item(i).ToString)
+			tmp = tmp - MultipleDamage.Item(i)
 		Next
 		MultipleDamage.Add(tmp)
 	End Sub

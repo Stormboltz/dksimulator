@@ -37,7 +37,8 @@ Public Class Trinkets
 	Friend NeedleEncrustedScorpion as Trinket
 	Friend TinyAbomination as Trinket
 	
-	
+	Friend SharpenedTwilightScale as Trinket
+	Friend	SharpenedTwilightScaleHeroic as Trinket
 	
 	
 	
@@ -47,7 +48,28 @@ Public Class Trinkets
 		Sim = S
 		XmlCharacter = S.XmlCharacter
 		
-
+		SharpenedTwilightScale = New Trinket(s)
+		With SharpenedTwilightScale
+			._Name = "SharpenedTwilightScale"
+			.ProcChance = 0.35
+			.ProcLenght = 15
+			.ProcValue = 1304
+			.InternalCD = 45
+			.DamageType = ""
+			.ProcType = "ap"
+			.ProcOn = procs.ProcOnType.OnDamage
+		End With
+		SharpenedTwilightScaleHeroic = New Trinket(s)
+	With SharpenedTwilightScaleHeroic
+		._Name = "SharpenedTwilightScaleHeroic"
+			.ProcChance = 0.35
+			.ProcLenght = 15
+			.ProcValue = 1472
+			.InternalCD = 45
+			.DamageType = ""
+			.ProcType = "ap"
+			.ProcOn = procs.ProcOnType.OnDamage
+	End With
 		
 		HerkumlWarToken = New Trinket(s)
 		With HerkumlWarToken

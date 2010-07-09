@@ -19,9 +19,10 @@ Public Class Extractor
 	Sub Start
 		dim i as Integer
 		init
-		GenerateWowheadFilter
+		'GenerateWowheadFilter
 		'GenerateWowheadFilterMAil
 		'GetListofGems
+		Get_RB_ID
 		Dim str As String
 		col.Sort
 		
@@ -31,6 +32,40 @@ Public Class Extractor
 			i +=1
 		Next
 	End Sub
+	Sub Get_RB_ID
+		
+		dim url as String
+		url  = "http://www.wowhead.com/items?filter=minle=250;ub=6;cr=82:123;crs=0:3;crv=3.3.5:0"
+		Dim data As Stream = client.OpenRead(URL)
+		Dim reader As StreamReader = New StreamReader(data)
+		Dim str As String = ""
+		Dim tmp As String = ""
+		dim num as Integer
+		dim iList as String()
+		Do Until reader.EndOfStream
+			tmp = reader.ReadLine
+			If instr(tmp,"_[") Then	str += tmp
+		Loop
+		'debug.Print(str)
+		Dim i As Integer
+		If instr(str,"_[") Then
+			i= instr(str,"_[")
+			str = right(str,str.Length-i)
+		End If
+		iList = str.Split("[")
+		num = 0
+		For Each tmp In iList
+			If instr(tmp,"]") Then
+				i= instr(tmp,"]")
+				tmp = left(tmp,i-1)
+				col.Add (tmp)
+				'debug.Print(tmp)
+				num  += 1
+				if num > 180 then debug.Print("trop de résultat")
+			End If
+		Next
+	End Sub
+	
 	Sub GemExtrator
 		Dim i As Integer
 		Dim str As String
@@ -65,13 +100,13 @@ Public Class Extractor
 	End Sub
 	
 	Sub GenerateWowheadFilter()
-		GetListofID(200,212)
-		GetListofID(213,218)
-		GetListofID(219,225)
-		GetListofID(226,231)
-		GetListofID(232,244)
-		GetListofID(245,250)
-		GetListofID(251,257)
+'		GetListofID(200,212)
+'		GetListofID(213,218)
+'		GetListofID(219,225)
+'		GetListofID(226,231)
+'		GetListofID(232,244)
+'		GetListofID(245,250)
+'		GetListofID(251,257)
 		GetListofID(258,263)
 		GetListofID(264,270)
 		GetListofID(271,300)
@@ -158,7 +193,7 @@ Public Class Extractor
 		dim iList as String()
 		Do Until reader.EndOfStream
 			tmp = reader.ReadLine
-			'debug.Print(tmp)
+			debug.Print(tmp)
 			If instr(tmp,"/item=") Then	str += tmp
 		Loop
 		'debug.Print(str)

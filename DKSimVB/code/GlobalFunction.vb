@@ -18,16 +18,16 @@ Public Module GlobalFunction
 '		return s
 '	End Function
 '	
-	Function toDecimal(d As Double) As Decimal
-		try
-			Return d.ToString (".#")
+	Function toDecimal(d As Double) As double
+		Try
+			Return decimal.Round(convert.ToDecimal(d),1)
 		Catch
 		End Try
 	End Function
 	
-	Function toDDecimal(d As Double) As Decimal
+	Function toDDecimal(d As Double) As double
 		try
-			Return d.ToString (".##")
+			Return decimal.Round(convert.ToDecimal(d),2)
 		Catch
 		End Try
 	End Function

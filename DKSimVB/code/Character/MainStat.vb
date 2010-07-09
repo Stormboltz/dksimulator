@@ -162,10 +162,22 @@ Friend Class MainStat
 					Sim.Trinkets.VengeanceoftheForsaken.Equip
 				Case "EP VengeanceoftheForsakenHeroic"
 					Sim.Trinkets.VengeanceoftheForsakenHeroic.Equip
-					
+				Case "EP SharpenedTwilightScale"
+					sim.Trinkets.SharpenedTwilightScale.Equip
+				Case "EP SharpenedTwilightScaleHeroic"
+					sim.Trinkets.SharpenedTwilightScaleHeroic.Equip
 					
 					
 				Case Else
+					Try
+						If XmlCharacter.SelectSingleNode("//character/trinket/SharpenedTwilightScale").InnerText = 1 Then Sim.Trinkets.SharpenedTwilightScale.Equip
+					Catch
+					End Try
+					Try
+						If XmlCharacter.SelectSingleNode("//character/trinket/SharpenedTwilightScaleHeroic").InnerText = 1 Then Sim.Trinkets.SharpenedTwilightScaleHeroic.Equip
+					Catch
+					End Try
+					
 					Try
 						If XmlCharacter.SelectSingleNode("//character/trinket/MjolnirRunestone").InnerText = 1 Then Sim.Trinkets.MjolRune.Equip
 					Catch

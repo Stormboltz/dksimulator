@@ -1308,9 +1308,9 @@ Public Partial Class GearSelectorMainForm
 	
 	Sub MainFormLoad(sender As Object, e As EventArgs)
 		
-		'Dim xtr As New Extractor
-		'xtr.Start
-		'exit sub
+'		Dim xtr As New Extractor
+'		xtr.Start
+'		exit sub
 		'Me.Size = New Size(980, 800)
 		LoadMycharacter
 		'ImportMyCharacter
