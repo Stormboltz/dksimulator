@@ -673,7 +673,7 @@ Public Class Sim
 		End If
 		me.Rotation.IntroDone = false
 		PrePull(TimeStamp)
-		
+		FutureEventManager.Add(TimeStamp,"Boss")
 	End Sub
 	
 	

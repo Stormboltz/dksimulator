@@ -1,5 +1,7 @@
 ﻿1.2.1.7 Release notes
 * UA GCD fix
+* Rune Strike is back on forst presence.
+* New Ruby Sanctumm gear.
 * New: Scenario editor. This is the place where you set up fight lenght, some events like adds that pop, boss unreacheable.
 
 1.2.1.6 Release notes

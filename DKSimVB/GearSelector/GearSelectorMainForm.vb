@@ -262,7 +262,7 @@ Public Partial Class GearSelectorMainForm
 			If iSlot.text = "Trinket2" Then
 				Try
 					cmbTrinket2.Text = trinketDB.SelectSingleNode("/TrinketList/trinket[@id=" & iSlot.Item.Id & "]").Attributes.GetNamedItem("name").InnerText
-				Catch
+				Catch e as Exception
 					cmbTrinket2.Text = ""
 				End Try
 			End If
