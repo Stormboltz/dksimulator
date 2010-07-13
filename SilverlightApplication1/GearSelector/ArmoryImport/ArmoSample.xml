@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/_layout/character/sheet.xsl"?>
+<page globalSearch="1" lang="en_us" requestUrl="/character-sheet.xml">
+  <tabInfo subTab="profile" tab="character" tabGroup="character" tabUrl="r=Chants+%C3%A9ternels&amp;cn=Kahorie&amp;gn=M%C3%A9liades"/>
+  <characterInfo>
+    <character battleGroup="Sturmangriff / Charge" charUrl="r=Chants+%C3%A9ternels&amp;cn=Kahorie" class="Death Knight" classId="6" classUrl="c=Death+Knight" faction="Alliance" factionId="0" gender="Female" genderId="1" guildName="Méliades" guildUrl="r=Chants+%C3%A9ternels&amp;gn=M%C3%A9liades" lastModified="July 12, 2010" level="80" name="Kahorie" points="5085" prefix="" race="Night Elf" raceId="4" realm="Chants éternels" suffix=" the Kingslayer" titleId="140">
+      <arenaTeams>
+        <arenaTeam battleGroup="Sturmangriff / Charge" created="1229904000000" faction="Alliance" factionId="0" gamesPlayed="0" gamesWon="0" lastSeasonRanking="0" name="Insert coin" ranking="0" rating="0" realm="Chants éternels" realmUrl="b=Sturmangriff+%2F+Charge&amp;r=Chants+%C3%A9ternels&amp;ts=2&amp;t=Insert+coin&amp;ff=realm&amp;fv=Chants+%C3%A9ternels&amp;select=Insert+coin" season="0" seasonGamesPlayed="0" seasonGamesWon="0" size="2" teamSize="2" teamUrl="r=Chants+%C3%A9ternels&amp;ts=2&amp;t=Insert+coin&amp;select=Insert+coin" url="r=Chants+%C3%A9ternels&amp;ts=2&amp;t=Insert+coin&amp;select=Insert+coin">
+          <emblem background="fff0e9ff" borderColor="ffcf274a" borderStyle="1" iconColor="ff000000" iconStyle="55"/>
+          <members>
+            <character battleGroup="" charUrl="r=Chants+%C3%A9ternels&amp;cn=Kahorie" class="Death Knight" classId="6" contribution="0" gamesPlayed="0" gamesWon="0" gender="Female" genderId="1" guild="Méliades" guildId="19549" guildUrl="r=Chants+%C3%A9ternels&amp;gn=M%C3%A9liades" name="Kahorie" race="Night Elf" raceId="4" seasonGamesPlayed="0" seasonGamesWon="0" teamRank="0"/>
+
+            <character battleGroup="" charUrl="r=Chants+%C3%A9ternels&amp;cn=Chrislink" class="Druid" classId="11" contribution="0" gamesPlayed="0" gamesWon="0" gender="Male" genderId="0" guild="Méliades" guildId="19549" guildUrl="r=Chants+%C3%A9ternels&amp;gn=M%C3%A9liades" name="Chrislink" race="Night Elf" raceId="4" seasonGamesPlayed="0" seasonGamesWon="0" teamRank="1"/>
+            <character battleGroup="" charUrl="r=Chants+%C3%A9ternels&amp;cn=Kaesys" class="Shaman" classId="7" contribution="0" gamesPlayed="0" gamesWon="0" gender="Female" genderId="1" guildId="0" name="Kaesys" race="Draenei" raceId="11" seasonGamesPlayed="0" seasonGamesWon="0" teamRank="1"/>
+          </members>
+        </arenaTeam>
+        <arenaTeam battleGroup="Sturmangriff / Charge" created="1252368000000" faction="Alliance" factionId="0" gamesPlayed="0" gamesWon="0" lastSeasonRanking="0" name="Insert more coins" ranking="0" rating="0" realm="Chants éternels" realmUrl="b=Sturmangriff+%2F+Charge&amp;r=Chants+%C3%A9ternels&amp;ts=3&amp;t=Insert+more+coins&amp;ff=realm&amp;fv=Chants+%C3%A9ternels&amp;select=Insert+more+coins" season="0" seasonGamesPlayed="0" seasonGamesWon="0" size="3" teamSize="3" teamUrl="r=Chants+%C3%A9ternels&amp;ts=3&amp;t=Insert+more+coins&amp;select=Insert+more+coins" url="r=Chants+%C3%A9ternels&amp;ts=3&amp;t=Insert+more+coins&amp;select=Insert+more+coins">
+          <emblem background="ff000000" borderColor="ff337d67" borderStyle="2" iconColor="fffcc42e" iconStyle="55"/>
+          <members>
+            <character battleGroup="" charUrl="r=Chants+%C3%A9ternels&amp;cn=Kahorie" class="Death Knight" classId="6" contribution="0" gamesPlayed="0" gamesWon="0" gender="Female" genderId="1" guild="Méliades" guildId="19549" guildUrl="r=Chants+%C3%A9ternels&amp;gn=M%C3%A9liades" name="Kahorie" race="Night Elf" raceId="4" seasonGamesPlayed="0" seasonGamesWon="0" teamRank="0"/>
+            <character battleGroup="" charUrl="r=Chants+%C3%A9ternels&amp;cn=Chrislink" class="Druid" classId="11" contribution="0" gamesPlayed="0" gamesWon="0" gender="Male" genderId="0" guild="Méliades" guildId="19549" guildUrl="r=Chants+%C3%A9ternels&amp;gn=M%C3%A9liades" name="Chrislink" race="Night Elf" raceId="4" seasonGamesPlayed="0" seasonGamesWon="0" teamRank="1"/>
+
+          </members>
+        </arenaTeam>
+      </arenaTeams>
+      <modelBasePath value="http://eu.media.battle.net.edgesuite.net/"/>
+    </character>
+    <characterTab>
+      <talentSpecs>
+        <talentSpec active="1" group="2" icon="spell_deathknight_unholypresence" prim="Unholy" treeOne="0" treeThree="54" treeTwo="17"/>
+        <talentSpec group="1" icon="spell_deathknight_bloodpresence" prim="Blood" treeOne="50" treeThree="13" treeTwo="8"/>
+
+      </talentSpecs>
+      <buffs/>
+      <debuffs/>
+      <pvp>
+        <lifetimehonorablekills value="16751"/>
+        <arenacurrency value="375"/>
+      </pvp>
+      <professions>
+        <skill id="333" key="enchanting" max="450" name="Enchanting" value="450"/>
+        <skill id="755" key="jewelcrafting" max="450" name="Jewelcrafting" value="450"/>
+      </professions>
+      <characterBars>
+        <health effective="29041"/>
+        <secondBar casting="-1" effective="100" notCasting="-1" perFive="-1" type="p"/>
+      </characterBars>
+      <baseStats>
+        <strength attack="5194" base="183" block="-1" effective="2607"/>
+        <agility armor="314" attack="-1" base="116" critHitPercent="5.70" effective="157"/>
+        <stamina base="160" effective="2110" health="20920" petBonus="-1"/>
+        <intellect base="35" critHitPercent="-1.00" effective="55" mana="-1" petBonus="-1"/>
+        <spirit base="59" effective="79" healthRegen="45" manaRegen="-1"/>
+        <armor base="16034" effective="16034" percent="51.28" petBonus="-1"/>
+      </baseStats>
+      <resistances>
+        <arcane petBonus="-1" value="0"/>
+        <fire petBonus="-1" value="0"/>
+        <frost petBonus="-1" value="0"/>
+
+        <holy petBonus="-1" value="0"/>
+        <nature petBonus="-1" value="0"/>
+        <shadow petBonus="-1" value="0"/>
+      </resistances>
+      <melee>
+        <mainHandDamage dps="844.1" max="3203" min="2564" percent="0" speed="3.42"/>
+        <offHandDamage dps="236.0" max="436" min="435" percent="0" speed="1.85"/>
+        <mainHandSpeed hastePercent="8.33" hasteRating="210" value="3.42"/>
+        <offHandSpeed hastePercent="8.33" hasteRating="210" value="1.85"/>
+
+        <power base="5434" effective="6093" increasedDps="435.0"/>
+        <hitRating increasedHitPercent="7.41" penetration="751" reducedArmorPercent="53.66" value="243"/>
+        <critChance percent="34.47" plusPercent="25.77" rating="1183"/>
+        <expertise additional="0" percent="1.25" rating="0" value="5"/>
+      </melee>
+      <ranged>
+        <weaponSkill rating="0" value="0"/>
+        <damage dps="0.0" max="0" min="0" percent="0" speed="0.00"/>
+        <speed hastePercent="8.33" hasteRating="210" value="0.00"/>
+
+        <power base="147" effective="806" increasedDps="57.0" petAttack="-1.00" petSpell="-1.00"/>
+        <hitRating increasedHitPercent="7.41" penetration="751" reducedArmorPercent="53.66" value="243"/>
+        <critChance percent="33.75" plusPercent="25.77" rating="1183"/>
+      </ranged>
+      <spell>
+        <bonusDamage>
+          <arcane value="0"/>
+          <fire value="0"/>
+          <frost value="0"/>
+
+          <holy value="0"/>
+          <nature value="0"/>
+          <shadow value="0"/>
+          <petBonus attack="-1" damage="-1" fromType=""/>
+        </bonusDamage>
+        <bonusHealing value="0"/>
+        <hitRating increasedHitPercent="9.26" penetration="0" reducedResist="0" value="243"/>
+        <critChance rating="1183">
+          <arcane percent="28.77"/>
+
+          <fire percent="28.77"/>
+          <frost percent="28.77"/>
+          <holy percent="28.77"/>
+          <nature percent="28.77"/>
+          <shadow percent="28.77"/>
+        </critChance>
+        <penetration value="0"/>
+        <manaRegen casting="0.00" notCasting="0.00"/>
+        <hasteRating hastePercent="8.33" hasteRating="210"/>
+
+      </spell>
+      <defenses>
+        <armor base="16034" effective="16034" percent="51.28" petBonus="-1"/>
+        <defense decreasePercent="0.00" increasePercent="0.00" plusDefense="0" rating="0" value="400.00"/>
+        <dodge increasePercent="0.00" percent="5.54" rating="0"/>
+        <parry increasePercent="14.39" percent="16.40" rating="651"/>
+        <block increasePercent="0.00" percent="0.00" rating="0"/>
+        <resilience damagePercent="0.00" hitPercent="0.00" value="0.00"/>
+      </defenses>
+
+      <items>
+        <item displayInfoId="64601" durability="89" gem0Id="41398" gem1Id="42142" gem2Id="0" gemIcon0="inv_jewelcrafting_shadowspirit_02" gemIcon1="inv_jewelcrafting_dragonseye05" icon="inv_helmet_151" id="51127" level="264" maxDurability="100" name="Sanctified Scourgelord Helmet" permanentEnchantIcon="ability_warrior_rampage" permanentEnchantItemId="44879" permanentenchant="3817" pickUp="PickUpLargeChain" putDown="PutDownLArgeChain" randomPropertiesId="0" rarity="4" seed="0" slot="0"/>
+        <item displayInfoId="64190" durability="0" gem0Id="40111" gem1Id="0" gem2Id="0" gemIcon0="inv_jewelcrafting_gem_37" icon="inv_jewelry_necklace_48" id="50647" level="277" maxDurability="0" name="Ahn'kahar Onyx Neckguard" permanentenchant="0" pickUp="PickUpRing" putDown="PutDownRing" randomPropertiesId="0" rarity="4" seed="0" slot="1"/>
+        <item displayInfoId="64706" durability="89" gem0Id="42142" gem1Id="0" gem2Id="0" gemIcon0="inv_jewelcrafting_dragonseye05" icon="inv_shoulder_130" id="51125" level="264" maxDurability="100" name="Sanctified Scourgelord Shoulderplates" permanentEnchantIcon="inv_axe_85" permanentEnchantItemId="44871" permanentenchant="3808" pickUp="PickUpLargeChain" putDown="PutDownLArgeChain" randomPropertiesId="0" rarity="4" seed="0" slot="2"/>
+        <item displayInfoId="64872" durability="0" gem0Id="0" gem1Id="0" gem2Id="0" icon="inv_misc_ribbon_01" id="52019" level="1" maxDurability="0" name="Precious's Ribbon" permanentenchant="0" pickUp="PickUpCloth_Leather01" putDown="PutDownCloth_Leather01" randomPropertiesId="0" rarity="2" seed="1574911360" slot="3"/>
+        <item displayInfoId="64584" durability="147" gem0Id="42142" gem1Id="49110" gem2Id="0" gemIcon0="inv_jewelcrafting_dragonseye05" gemIcon1="inv_misc_gem_pearl_12" icon="inv_chest_plate_26" id="51310" level="277" maxDurability="165" name="Sanctified Scourgelord Battleplate" permanentEnchantIcon="inv_scroll_03" permanentEnchantItemId="44465" permanentenchant="3832" pickUp="PickUpLargeChain" putDown="PutDownLArgeChain" randomPropertiesId="0" rarity="4" seed="0" slot="4"/>
+        <item displayInfoId="64798" durability="49" gem0Id="40142" gem1Id="40111" gem2Id="40111" gemIcon0="inv_jewelcrafting_gem_39" gemIcon1="inv_jewelcrafting_gem_37" gemIcon2="inv_jewelcrafting_gem_37" icon="inv_belt_63" id="50620" level="277" maxDurability="55" name="Coldwraith Links" permanentenchant="0" pickUp="PickUpLargeChain" putDown="PutDownLArgeChain" randomPropertiesId="0" rarity="4" seed="1751366272" slot="5"/>
+        <item displayInfoId="64588" durability="107" gem0Id="40111" gem1Id="40111" gem2Id="40111" gemIcon0="inv_jewelcrafting_gem_37" gemIcon1="inv_jewelcrafting_gem_37" gemIcon2="inv_jewelcrafting_gem_37" icon="inv_pants_plate_31" id="50624" level="277" maxDurability="120" name="Scourge Reaver's Legplates" permanentEnchantIcon="inv_misc_armorkit_33" permanentEnchantItemId="38374" permanentenchant="3823" pickUp="PickUpLargeChain" putDown="PutDownLArgeChain" randomPropertiesId="0" rarity="4" seed="2019801728" slot="6"/>
+        <item displayInfoId="64797" durability="66" gem0Id="40142" gem1Id="40111" gem2Id="0" gemIcon0="inv_jewelcrafting_gem_39" gemIcon1="inv_jewelcrafting_gem_37" icon="inv_boots_plate_13" id="50639" level="277" maxDurability="75" name="Blood-Soaked Saronite Stompers" permanentEnchantIcon="inv_scroll_03" permanentEnchantItemId="44469" permanentenchant="1597" pickUp="PickUpLargeChain" putDown="PutDownLArgeChain" randomPropertiesId="0" rarity="4" seed="1450711168" slot="7"/>
+        <item displayInfoId="64795" durability="48" gem0Id="40146" gem1Id="0" gem2Id="0" gemIcon0="inv_jewelcrafting_gem_39" icon="inv_bracer_42" id="50002" level="264" maxDurability="55" name="Polar Bear Claw Bracers" permanentEnchantIcon="inv_scroll_03" permanentEnchantItemId="44815" permanentenchant="3845" pickUp="PickUpLargeChain" putDown="PutDownLArgeChain" randomPropertiesId="0" rarity="4" seed="2013895040" slot="8"/>
+        <item displayInfoId="64602" durability="50" gem0Id="40142" gem1Id="0" gem2Id="0" gemIcon0="inv_jewelcrafting_gem_39" icon="inv_gauntlets_87" id="51128" level="264" maxDurability="55" name="Sanctified Scourgelord Gauntlets" permanentEnchantIcon="inv_scroll_03" permanentEnchantItemId="44458" permanentenchant="1603" pickUp="PickUpLargeChain" putDown="PutDownLArgeChain" randomPropertiesId="0" rarity="4" seed="0" slot="9"/>
+        <item displayInfoId="64173" durability="0" gem0Id="40142" gem1Id="0" gem2Id="0" gemIcon0="inv_jewelcrafting_gem_39" icon="inv_jewelry_ring_84" id="50693" level="277" maxDurability="0" name="Might of Blight" permanentEnchantIcon="trade_engraving" permanentEnchantSpellDesc="Permanently enchant a ring to increase attack power by 40.  Only the Enchanter's rings can be enchanted, and enchanting a ring will cause it to become soulbound." permanentEnchantSpellName="Enchant Ring - Assault" permanentenchant="3839" pickUp="PickUpRing" putDown="PutDownRing" randomPropertiesId="0" rarity="4" seed="1484567552" slot="10"/>
+        <item displayInfoId="63958" durability="0" gem0Id="40146" gem1Id="0" gem2Id="0" gemIcon0="inv_jewelcrafting_gem_39" icon="inv_jewelry_ring_81" id="52572" level="277" maxDurability="0" name="Ashen Band of Endless Might" permanentEnchantIcon="trade_engraving" permanentEnchantSpellDesc="Permanently enchant a ring to increase attack power by 40.  Only the Enchanter's rings can be enchanted, and enchanting a ring will cause it to become soulbound." permanentEnchantSpellName="Enchant Ring - Assault" permanentenchant="3839" pickUp="PickUpMetalSmall" putDown="PutDownSmallMEtal" randomPropertiesId="0" rarity="4" seed="143490800" slot="11"/>
+        <item displayInfoId="64244" durability="0" gem0Id="0" gem1Id="0" gem2Id="0" icon="inv_jewelry_trinket_04" id="50362" level="264" maxDurability="0" name="Deathbringer's Will" permanentenchant="0" pickUp="PickUpWand" putDown="PutDownWand" randomPropertiesId="0" rarity="4" seed="1308424448" slot="12"/>
+        <item displayInfoId="61413" durability="0" gem0Id="0" gem1Id="0" gem2Id="0" icon="inv_misc_bone_skull_02" id="47131" level="258" maxDurability="0" name="Death's Verdict" permanentenchant="0" pickUp="PickUpWand" putDown="PutDownWand" randomPropertiesId="0" rarity="4" seed="639574704" slot="13"/>
+        <item displayInfoId="64325" durability="0" gem0Id="40111" gem1Id="0" gem2Id="0" gemIcon0="inv_jewelcrafting_gem_37" icon="inv_misc_cape_26" id="51912" level="264" maxDurability="0" name="Saronite Gargoyle Cloak" permanentEnchantIcon="inv_scroll_03" permanentEnchantItemId="39003" permanentenchant="3831" pickUp="PickUpCloth_Leather01" putDown="PutDownCloth_Leather01" randomPropertiesId="0" rarity="4" seed="0" slot="14"/>
+        <item displayInfoId="65153" durability="131" gem0Id="40111" gem1Id="40111" gem2Id="40111" gemIcon0="inv_jewelcrafting_gem_37" gemIcon1="inv_jewelcrafting_gem_37" gemIcon2="inv_jewelcrafting_gem_37" icon="inv_axe_113" id="49623" level="284" maxDurability="145" name="Shadowmourne" permanentEnchantIcon="spell_holy_retributionaura" permanentEnchantSpellDesc="Affixes your rune weapon with a rune that has a chance to heal you for 3% and increase total Strength by 15% for 15 sec.  Modifying your rune weapon requires a Rune Forge in Ebon Hold." permanentEnchantSpellName="Rune of the Fallen Crusader" permanentenchant="3368" pickUp="PickUpMetalLArge" putDown="PutDownLArgeMEtal" randomPropertiesId="0" rarity="5" seed="28667896" slot="15"/>
+        <item displayInfoId="64573" durability="0" gem0Id="0" gem1Id="0" gem2Id="0" icon="inv_misc_noose_01" id="50459" level="264" maxDurability="0" name="Sigil of the Hanged Man" permanentenchant="0" pickUp="PickUpWoodSmall" putDown="PutDownWoodSmall" randomPropertiesId="0" rarity="4" seed="0" slot="17"/>
+
+      </items>
+      <glyphs>
+        <glyph effect="Your Ghoul receives an additional 40% of your Strength and 40% of your Stamina." icon="ui-glyph-rune-3" id="527" name="Glyph of the Ghoul" type="major"/>
+        <glyph effect="Your Raise Dead spell no longer requires a reagent." icon="ui-glyph-rune-7" id="555" name="Glyph of Raise Dead" type="minor"/>
+        <glyph effect="Increases the radius of your Pestilence effect by 5 yards." icon="ui-glyph-rune-12" id="553" name="Glyph of Pestilence" type="minor"/>
+        <glyph effect="Increases the damage or healing done by Death Coil by 15%." icon="ui-glyph-rune-8" id="771" name="Glyph of Dark Death" type="major"/>
+        <glyph effect="Increases the duration of your Horn of Winter ability by 1 min." icon="ui-glyph-rune-15" id="522" name="Glyph of Horn of Winter" type="minor"/>
+        <glyph effect="Your Frost Fever disease deals 20% additional damage." icon="ui-glyph-rune-14" id="524" name="Glyph of Icy Touch" type="major"/>
+      </glyphs>
+
+    </characterTab>
+    <summary>
+      <c earned="477" points="5085" total="1058" totalPoints="11675"/>
+      <category id="92" name="General">
+        <c earned="31" earnedPoints="340" total="54" totalPoints="570"/>
+      </category>
+      <category id="96" name="Quests">
+        <c earned="21" earnedPoints="210" total="49" totalPoints="530"/>
+      </category>
+
+      <category id="97" name="Exploration">
+        <c earned="18" earnedPoints="195" total="70" totalPoints="830"/>
+      </category>
+      <category id="95" name="Player vs. Player">
+        <c earned="100" earnedPoints="1060" total="166" totalPoints="1930"/>
+      </category>
+      <category id="168" name="Dungeons &amp; Raids">
+        <c earned="267" earnedPoints="2865" total="458" totalPoints="4955"/>
+      </category>
+
+      <category id="169" name="Professions">
+        <c earned="12" earnedPoints="120" total="75" totalPoints="760"/>
+      </category>
+      <category id="201" name="Reputation">
+        <c earned="7" earnedPoints="85" total="45" totalPoints="560"/>
+      </category>
+      <category id="155" name="World Events">
+        <c earned="21" earnedPoints="210" total="141" totalPoints="1540"/>
+      </category>
+
+      <category id="81" name="Feats of Strength">
+        <c earned="9"/>
+      </category>
+    </summary>
+  </characterInfo>
+</page>

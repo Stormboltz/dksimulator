@@ -340,6 +340,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Content Include="GearSelector\ArmoryImport\ArmoSample.xml" />
     <Content Include="GearSelector\Consumables.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

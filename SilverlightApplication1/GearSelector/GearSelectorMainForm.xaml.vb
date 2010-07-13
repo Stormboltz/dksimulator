@@ -641,8 +641,109 @@ NextItem:
 
     Sub ArmoryImport_Closing() Handles ArmoryImport.Closing
         If ArmoryImport.DialogResult = True Then
-            ImportMyCharacter(ArmoryImport.cmbRegion.SelectedValue, ArmoryImport.txtServer.Text, ArmoryImport.txtCharacter.Text)
+
+            ImportMyXMLCharacter(ArmoryImport.TextBox1.Text)
         End If
+    End Sub
+
+
+
+
+    Function ReadCallback(ByVal asynchronousResult As IAsyncResult)
+
+        Dim request As WebRequest = CType(asynchronousResult.AsyncState, WebRequest)
+
+
+        Dim postStream As Stream = request.EndGetRequestStream(asynchronousResult)
+        Using streamReader1 As StreamReader = New StreamReader(postStream)
+            Dim resultString As String = streamReader1.ReadToEnd()
+            Diagnostics.Debug.WriteLine("Using HttpWebRequest: " + resultString)
+            Return resultString
+        End Using
+    End Function
+
+
+    Sub ImportMyXMLCharacter(ByVal xmltext As String)
+        Try
+            Dim xmlChar As XDocument = XDocument.Parse(xmltext)
+            Dim iSlot As EquipSlot
+            Me.InLoad = True
+            Dim charfound As Boolean = False
+            Dim tmp As String = ""
+
+            InLoad = True
+
+            Try
+                cmbRace.SelectedItem = xmlChar.Element("page").Element("characterInfo").Element("character").Attribute("race").Value
+            Catch
+            End Try
+            Try
+                cmbFood.SelectedItem = Nothing
+            Catch
+            End Try
+
+            Try
+                cmbFlask.SelectedItem = Nothing
+            Catch
+            End Try
+
+            Dim xItem As XElement
+            cmbSkill1.SelectedItem = Nothing
+            cmbSkill2.SelectedItem = Nothing
+            For Each xItem In xmlChar.Element("page").Element("characterInfo").Element("characterTab").Element("professions").Elements("skill")
+                If cmbSkill1.SelectedItem <> "" Then
+                    cmbSkill2.SelectedItem = xItem.Attribute("name").Value
+                Else
+                    cmbSkill1.SelectedItem = xItem.Attribute("name").Value
+                End If
+            Next
+
+            Try
+                Dim d As Boolean
+                d = ((From el As XElement In xmlChar.Element("page").Element("characterInfo").Element("characterTab").Element("items").Elements
+                        Where el.Attribute("slot") = "16"
+                        ).Count > 0)
+                If d Then
+                    rDW.IsChecked = True
+                    r2Hand.IsChecked = False
+                Else
+                    rDW.IsChecked = False
+                    r2Hand.IsChecked = True
+                End If
+
+            Catch
+                rDW.IsChecked = False
+                r2Hand.IsChecked = True
+            End Try
+
+            For Each xItem In xmlChar.Element("page").Element("characterInfo").Element("characterTab").Element("items").Elements("item")
+                charfound = True
+                For Each iSlot In Me.EquipmentList
+                    If iSlot.text = ArmorySlot2MySlot(xItem.Attribute("slot").Value) Then
+                        Try
+                            iSlot.Item.LoadItem(xItem.Attribute("id").Value)
+                            iSlot.DisplayItem()
+                            iSlot.Item.gem1.Attach(xItem.Attribute("gem0Id").Value)
+                            iSlot.Item.gem2.Attach(xItem.Attribute("gem1Id").Value)
+                            iSlot.Item.gem3.Attach(xItem.Attribute("gem2Id").Value)
+                            iSlot.DisplayGem()
+                            iSlot.Item.Enchant.Attach(xItem.Attribute("permanentenchant").Value)
+                            iSlot.DisplayEnchant()
+                        Catch ex As System.Exception
+                            'Diagnostics.Debug.WriteLine (ex.ToString)
+                        End Try
+
+                    End If
+                Next
+
+            Next
+            InLoad = False
+            GetStats()
+        Catch ex As Exception
+
+        Finally
+            Me.InLoad = False
+        End Try
     End Sub
 
 
@@ -650,6 +751,7 @@ NextItem:
         Dim uriString As String
         Dim param As String
         param = "?r=" & realmName & "&n=" & characterName
+
         Dim webClient As WebClient = New WebClient()
         AddHandler webClient.OpenReadCompleted, AddressOf wc_OpenReadCompleted
 
@@ -669,110 +771,23 @@ NextItem:
                 Diagnostics.Debug.WriteLine("region unknown: " & region)
                 Exit Sub
         End Select
-        webClient.OpenReadAsync(New Uri(uriString))
+
+        Dim request As WebRequest = WebRequest.Create(uriString)
 
 
+        request.Method = "POST"
+
+
+
+
+
+
+        request.BeginGetRequestStream(New AsyncCallback(AddressOf ReadCallback), request)
+
+
+        'webClient.OpenReadAsync(New Uri(uriString))
         Exit Sub
-        'Try
-        '    Dim xmlReader As XmlReader
-
-        'Dim xmlReaderSettings As XmlReaderSettings = New XmlReaderSettings()
-        'xmlReaderSettings.IgnoreComments = True
-        'xmlReaderSettings.IgnoreWhitespace = True
-        'Dim iSlot As EquipSlot
-        'Me.InLoad = True
-        'Dim charfound As Boolean = False
-        'Dim tmp As String = ""
-
-
-
-
-        '    Dim xmlChar As New XDocument
-
-
-        '    Do While xmlReader.Read()
-        '        tmp += xmlReader.ReadInnerXml
-        '    Loop
-        '    xmlChar.Parse("<page globalSearch='1' lang='en_us' requestUrl='/character-sheet.xml'> " & tmp & "</page>")
-        '    InLoad = True
-
-        '    Try
-        '        cmbRace.SelectedItem = xmlChar.Element("/page/characterInfo/character").Attribute("race").Value
-        '    Catch
-        '    End Try
-
-
-        '    Try
-        '        cmbFood.SelectedItem = Nothing
-        '    Catch
-        '    End Try
-
-        '    Try
-        '        cmbFlask.SelectedItem = Nothing
-        '    Catch
-        '    End Try
-
-        '    Dim xItem As XmlNode
-        '    cmbSkill1.SelectedItem = Nothing
-        '    cmbSkill2.SelectedItem = Nothing
-        '    For Each xItem In xmlChar.SelectNodes("/page/characterInfo/characterTab/professions/skill")
-        '        If cmbSkill1.SelectedItem <> "" Then
-        '            cmbSkill2.SelectedItem = xItem.Attribute("name").Value
-        '        Else
-        '            cmbSkill1.SelectedItem = xItem.Attribute("name").Value
-        '        End If
-        '    Next
-
-        '    Try
-        '        If xmlChar.Element("/page/characterInfo/characterTab/items/item[@slot=16]").OuterXml <> "" Then
-        '            rDW.IsChecked = True
-        '            r2Hand.IsChecked = False
-        '        End If
-
-        '    Catch
-        '        rDW.IsChecked = False
-        '        r2Hand.IsChecked = True
-        '    End Try
-
-        '    Dim itm As System.Windows.Forms.ToolStripMenuItem
-
-        '    For Each itm In ddConsumable.DropDownItems
-        '        itm.Ischecked = False
-        '    Next
-
-
-        '    For Each xItem In xmlChar.SelectNodes("/page/characterInfo/characterTab/items/item")
-        '        charfound = True
-        '        For Each iSlot In Me.EquipmentList
-        '            If iSlot.text = ArmorySlot2MySlot(xItem.Attribute("slot").Value) Then
-        '                Try
-        '                    iSlot.Item.LoadItem(xItem.Attribute("id").Value)
-        '                    iSlot.DisplayItem()
-        '                    iSlot.Item.gem1.Attach(xItem.Attribute("gem0Id").Value)
-        '                    iSlot.Item.gem2.Attach(xItem.Attribute("gem1Id").Value)
-        '                    iSlot.Item.gem3.Attach(xItem.Attribute("gem2Id").Value)
-        '                    iSlot.DisplayGem()
-        '                    iSlot.Item.Enchant.Attach(xItem.Attribute("permanentenchant").Value)
-        '                    iSlot.DisplayEnchant()
-        '                Catch ex As System.Exception
-        '                    'Diagnostics.Debug.WriteLine (ex.ToString)
-        '                End Try
-
-        '            End If
-        '        Next
-
-        '    Next
-        '    InLoad = False
-        '    GetStats()
-        'Catch ex As Exception
-
-        'Finally
-
-        '    If charfound = False Then
-        '        msgBox("Unable to retrieve the character")
-        '    End If
-        '    Me.InLoad = False
-        'End Try
+        
 
 
 
@@ -1328,6 +1343,7 @@ NextItem:
 
 
     Sub CmdArmoryImportClick(ByVal sender As Object, ByVal e As EventArgs) Handles cmdArmoryImport.Click
+        'ImportMyCharacter("EU", "Sargeras", "Raynea")
         ArmoryImport.Show()
     End Sub
 
