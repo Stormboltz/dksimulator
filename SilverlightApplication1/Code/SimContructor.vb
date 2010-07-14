@@ -28,6 +28,10 @@ Public Module SimConstructor
     Dim th As Thread
     Friend simCollection As New List(Of Sim)
     Public WithEvents _MainFrm As MainForm
+    Public Event AllSimdone()
+
+
+
     Sub New()
 
     End Sub
@@ -40,11 +44,9 @@ Public Module SimConstructor
             RemoveStoppedthread()
             PauseResumeThread()
             If simCollection.Count = 0 Then
-                If s.EPStat <> "" Then
-                    CalculateEP()
-                Else
-                    _MainFrm.TryToOpenReport()
-                End If
+                RaiseEvent AllSimdone()
+
+
             Else
                 Diagnostics.Debug.WriteLine("SIM remaining: " & simCollection.Count)
             End If
@@ -52,6 +54,13 @@ Public Module SimConstructor
             s = Nothing
         End If
     End Sub
+
+
+    Sub SingleSim_Done()
+        RemoveHandler AllSimdone, AddressOf SingleSim_Done
+        _MainFrm.TryToOpenReport()
+    End Sub
+
 
     Sub PauseResumeThread()
         Dim t As Thread
@@ -77,6 +86,7 @@ Public Module SimConstructor
         If EpStat <> "" Then
             sim.Prepare(SimTime, MainFrm, EpStat, EPBase)
         Else
+            AddHandler AllSimdone, AddressOf SingleSim_Done
             sim.Prepare(SimTime, MainFrm)
         End If
       
@@ -117,6 +127,12 @@ Public Module SimConstructor
         Return i
     End Function
     Sub CalculateEP()
+        Try
+            RemoveHandler AllSimdone, AddressOf CalculateEP
+        Catch ex As Exception
+
+        End Try
+
         Dim BaseDPS As Long
         Dim APDPS As Long
         Dim DPS As Long
@@ -523,6 +539,7 @@ skipStats:
     
 
     Sub StartEP(ByVal SimTime As Double, ByVal MainFrm As MainForm)
+        AddHandler AllSimdone, AddressOf CalculateEP
         StartTime = Now
 
         DPSs.Clear()

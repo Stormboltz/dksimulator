@@ -302,7 +302,7 @@ Partial Public Class MainForm
         End Using
     End Sub
     Sub LoadEPOptions()
-        On Error GoTo sortie
+
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
             Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/EPconfig.xml", FileMode.Open, isoStore)
                 Dim doc As XDocument = XDocument.Load(isoStream)
@@ -310,29 +310,46 @@ Partial Public Class MainForm
 
                 Dim ctrl As Control
                 Dim chkBox As CheckBox
+
                 For Each ctrl In grpEPMain.Children
-                    If ctrl.Name.StartsWith("chkEP") Then
-                        chkBox = ctrl
-                        chkBox.IsChecked = doc.Element("config").Element("Stats").Element(chkBox.Name).Value
-                    End If
+                    Try
+                        If ctrl.Name.StartsWith("chkEP") Then
+                            chkBox = ctrl
+                            chkBox.IsChecked = doc.Element("config").Element("Stats").Element(chkBox.Name).Value
+                        End If
+                    Catch ex As Exception
+
+                    End Try
+                    
                 Next
                 For Each ctrl In grpEPSet.Children
+                    Try
+
+                    
                     If ctrl.Name.StartsWith("chkEP") Then
                         chkBox = ctrl
                         chkBox.IsChecked = doc.Element("config").Element("Sets").Element(chkBox.Name).Value
-                    End If
+                        End If
+                    Catch ex As Exception
+
+                    End Try
                 Next
 
-                For Each ctrl In grpEPTrinkets.Children
-                    If ctrl.Name.StartsWith("chkEP") Then
-                        chkBox = ctrl
-                        chkBox.IsChecked = doc.Element("config").Element("Trinket").Element(chkBox.Name).Value
-                    End If
-                Next
+                'For Each ctrl In grpEPTrinkets.Children
+                '    Try
+                '        If ctrl.Name.StartsWith("chkEP") Then
+                '            chkBox = ctrl
+                '            chkBox.IsChecked = doc.Element("config").Element("Trinket").Element(chkBox.Name).Value
+                '        End If
+                '    Catch ex As Exception
+
+                '    End Try
+
+                'Next
             End Using
         End Using
 
-sortie:
+
     End Sub
     Sub loadConfig()
         On Error Resume Next
@@ -821,12 +838,8 @@ OUT:
     Private Sub cmdStartSim_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdStartSim.Click
         If LoadBeforeSim() = False Then Exit Sub
         If SimConstructor.simCollection.Count > 0 Then Return
+        EpStat = ""
         SimConstructor.Start(txtSimtime.Text, Me, True)
-
-        
-        'Me.TabControl1.SelectedIndex = 1
-        'SimConstructor.Jointhread()
-        
     End Sub
 
     Private Sub cmdEditScenario_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdEditScenario.Click

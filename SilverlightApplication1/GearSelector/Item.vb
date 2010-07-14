@@ -44,6 +44,7 @@ Public Class Item
     Friend gem3 As Gem
     Friend Enchant As Enchant
 
+    Friend icon As String
 
 
 
@@ -74,85 +75,86 @@ Public Class Item
         Try
 
             AdditionalGemNotSet = True
-        Id = ItemId
-        If Id = 0 Then
-            Unload()
-            Exit Sub
-        End If
-        Dim myItem As XElement
-        myItem = (From el In ItemDB.Element("items").Elements Where el.Element("id").Value = ItemId).First
-        name = myItem.<name>.Value
-        ilvl = myItem.Element("ilvl").Value
-        slot = myItem.Element("slot").Value
-        classs = myItem.Element("classs").Value
-        subclass = myItem.Element("subclass").Value
-        heroic = myItem.Element("heroic").Value
+            Id = ItemId
+            If Id = 0 Then
+                Unload()
+                Exit Sub
+            End If
+            Dim myItem As XElement
+            myItem = (From el In ItemDB.Element("items").Elements Where el.Element("id").Value = ItemId).First
+            name = myItem.<name>.Value
+            ilvl = myItem.Element("ilvl").Value
+            slot = myItem.Element("slot").Value
+            classs = myItem.Element("classs").Value
+            subclass = myItem.Element("subclass").Value
+            heroic = myItem.Element("heroic").Value
+            icon = myItem.Element("icon").Value
 
 
 
-        Strength = myItem.Element("Strength").Value
-        Agility = myItem.Element("Agility").Value
-        BonusArmor = myItem.Element("BonusArmor").Value
-        Armor = myItem.Element("Armor").Value
-        HasteRating = myItem.Element("HasteRating").Value
-        ExpertiseRating = myItem.Element("ExpertiseRating").Value
-        HitRating = myItem.Element("HitRating").Value
-        AttackPower = myItem.Element("AttackPower").Value
-        CritRating = myItem.Element("CritRating").Value
-        ArmorPenetrationRating = myItem.Element("ArmorPenetrationRating").Value
+            Strength = myItem.Element("Strength").Value
+            Agility = myItem.Element("Agility").Value
+            BonusArmor = myItem.Element("BonusArmor").Value
+            Armor = myItem.Element("Armor").Value
+            HasteRating = myItem.Element("HasteRating").Value
+            ExpertiseRating = myItem.Element("ExpertiseRating").Value
+            HitRating = myItem.Element("HitRating").Value
+            AttackPower = myItem.Element("AttackPower").Value
+            CritRating = myItem.Element("CritRating").Value
+            ArmorPenetrationRating = myItem.Element("ArmorPenetrationRating").Value
 
 
-        Speed = myItem.Element("speed").Value
-        DPS = myItem.Element("dps").Value
+            Speed = myItem.Element("speed").Value
+            DPS = myItem.Element("dps").Value
 
-        setid = myItem.Element("setid").Value
+            setid = myItem.Element("setid").Value
 
-        Dim gem1Col As Integer = myItem.Element("gem1").Value
-        Dim gem2Col As Integer = myItem.Element("gem2").Value
-        Dim gem3Col As Integer = myItem.Element("gem3").Value
-        Dim i As Integer
-        i = gem1.Id
-        If gem1Col <> 0 Then
+            Dim gem1Col As Integer = myItem.Element("gem1").Value
+            Dim gem2Col As Integer = myItem.Element("gem2").Value
+            Dim gem3Col As Integer = myItem.Element("gem3").Value
+            Dim i As Integer
             i = gem1.Id
-            gem1 = New Gem(Me.MainFrame, gem1Col)
-            gem1.Attach(i)
-        Else
-            If AdditionalGem() And AdditionalGemNotSet Then
-                gem1 = New Gem(Me.MainFrame, 16)
+            If gem1Col <> 0 Then
+                i = gem1.Id
+                gem1 = New Gem(Me.MainFrame, gem1Col)
                 gem1.Attach(i)
-                AdditionalGemNotSet = False
             Else
-                gem1 = New Gem(Me.MainFrame, 0)
+                If AdditionalGem() And AdditionalGemNotSet Then
+                    gem1 = New Gem(Me.MainFrame, 16)
+                    gem1.Attach(i)
+                    AdditionalGemNotSet = False
+                Else
+                    gem1 = New Gem(Me.MainFrame, 0)
+                End If
             End If
-        End If
-        i = gem2.Id
-        If gem2Col <> 0 Then
-            gem2 = New Gem(Me.MainFrame, gem2Col)
-            gem2.Attach(i)
-        Else
-            If AdditionalGem() And AdditionalGemNotSet Then
-                gem2 = New Gem(Me.MainFrame, 16)
+            i = gem2.Id
+            If gem2Col <> 0 Then
+                gem2 = New Gem(Me.MainFrame, gem2Col)
                 gem2.Attach(i)
-                AdditionalGemNotSet = False
             Else
-                gem2 = New Gem(Me.MainFrame, 0)
-            End If
+                If AdditionalGem() And AdditionalGemNotSet Then
+                    gem2 = New Gem(Me.MainFrame, 16)
+                    gem2.Attach(i)
+                    AdditionalGemNotSet = False
+                Else
+                    gem2 = New Gem(Me.MainFrame, 0)
+                End If
 
-        End If
-        i = gem3.Id
-        If gem3Col <> 0 Then
-            gem3 = New Gem(Me.MainFrame, gem3Col)
-            gem3.Attach(i)
-        Else
-            If AdditionalGem() And AdditionalGemNotSet Then
-                gem3 = New Gem(Me.MainFrame, 16)
-                gem3.Attach(i)
-                AdditionalGemNotSet = False
-            Else
-                gem3 = New Gem(Me.MainFrame, 0)
             End If
-        End If
-        gembonus = myItem.Element("gembonus").Value
+            i = gem3.Id
+            If gem3Col <> 0 Then
+                gem3 = New Gem(Me.MainFrame, gem3Col)
+                gem3.Attach(i)
+            Else
+                If AdditionalGem() And AdditionalGemNotSet Then
+                    gem3 = New Gem(Me.MainFrame, 16)
+                    gem3.Attach(i)
+                    AdditionalGemNotSet = False
+                Else
+                    gem3 = New Gem(Me.MainFrame, 0)
+                End If
+            End If
+            gembonus = myItem.Element("gembonus").Value
             keywords = myItem.Element("keywords").Value
         Catch ex As Exception
 

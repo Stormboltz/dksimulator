@@ -3,15 +3,11 @@ Imports System.Linq
 Partial Public Class EquipSlot
     Inherits UserControl
 
-    Dim _Text As String
-
-
-
 
     Public Sub New()
         InitializeComponent()
     End Sub
-
+    Dim _Text As String
     Friend xGemBonus As XDocument
     Friend SlotId As Integer
     Friend Item As Item
@@ -126,7 +122,6 @@ Partial Public Class EquipSlot
 
 
     Sub DisplayItem()
-
         Me.Equipment.Content = Item.name & "(" & Item.ilvl & ")"
         If Item.gem1.GemSlotColorName <> "" Then
             lblGemcolor1.Content = " "
@@ -227,7 +222,6 @@ Partial Public Class EquipSlot
     End Sub
     Private Sub GemS_close(ByVal sender As System.Object, ByVal e As EventArgs) Handles GemS.Closing
         If GemS.Slot <> Me.SlotId Then Exit Sub
-
         If GemS.DialogResult Then
             If GemS.SelectedItem <> "-1" Then
                 Select Case GemS.GemNum
@@ -244,7 +238,6 @@ Partial Public Class EquipSlot
     End Sub
     Private Sub GearS_close(ByVal sender As System.Object, ByVal e As EventArgs)
         If GearS.Slot <> Me.SlotId Then Exit Sub
-
         RemoveHandler GearS.Closing, AddressOf GearS_close
         If GearS.DialogResult = True Then
             If GearS.SelectedItem <> "-1" Then
@@ -252,7 +245,5 @@ Partial Public Class EquipSlot
                 DisplayItem()
             End If
         End If
-
-
     End Sub
 End Class

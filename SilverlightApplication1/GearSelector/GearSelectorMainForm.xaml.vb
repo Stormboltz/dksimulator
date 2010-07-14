@@ -9,7 +9,7 @@ Partial Public Class GearSelectorMainForm
     Inherits ChildWindow
 
     Dim WithEvents UI As New UserInput
-    Friend EquipmentList As New Collections.Generic.List(Of EquipSlot)
+    Friend EquipmentList As New Collections.Generic.List(Of VisualEquipSlot)
     Friend InLoad As Boolean
     Friend EnchantSelector As New EnchantSelector(Me)
     Friend GemSelector As New GemSelector(Me)
@@ -93,7 +93,7 @@ Partial Public Class GearSelectorMainForm
 
     Sub GetStats()
         If InLoad Then Exit Sub
-        Dim iSlot As EquipSlot
+        Dim iSlot As VisualEquipSlot
         Dim Strength As Integer
         Dim Intel As Integer
         Dim Agility As Integer
@@ -211,8 +211,6 @@ Partial Public Class GearSelectorMainForm
             Dim subc As Integer = (From el In ItemDB.Element("items").Elements
                                    Where el.Element("id").Value = iSlot.Item.Id
                                    Select GearSelector.getItem(el)).First.subclass
-            'Dim subc As Integer = ItemDB.Element("items").Element("item[id=" & iSlot.Item.Id & "]").Element("subclass").Value
-
             If iSlot.text.ToString = "TwoHand" Or iSlot.text.ToString = "MainHand" Then
                 DPS1 = iSlot.Item.DPS
                 Speed1 = iSlot.Item.Speed
@@ -516,7 +514,7 @@ NextItem:
         xmlChar.Element("character").Add(New XElement("TwoHand", r2Hand.IsChecked.ToString))
 
 
-        Dim iSlot As EquipSlot
+        Dim iSlot As VisualEquipSlot
         For Each iSlot In Me.EquipmentList
             xmlChar.Element("character").Add(New XElement(iSlot.text.ToString))
             xmlChar.Element("character").Element(iSlot.text.ToString).Add(New XElement("id", iSlot.Item.Id))
@@ -666,7 +664,7 @@ NextItem:
     Sub ImportMyXMLCharacter(ByVal xmltext As String)
         Try
             Dim xmlChar As XDocument = XDocument.Parse(xmltext)
-            Dim iSlot As EquipSlot
+            Dim iSlot As VisualEquipSlot
             Me.InLoad = True
             Dim charfound As Boolean = False
             Dim tmp As String = ""
@@ -726,9 +724,9 @@ NextItem:
                             iSlot.Item.gem1.Attach(xItem.Attribute("gem0Id").Value)
                             iSlot.Item.gem2.Attach(xItem.Attribute("gem1Id").Value)
                             iSlot.Item.gem3.Attach(xItem.Attribute("gem2Id").Value)
-                            iSlot.DisplayGem()
+
                             iSlot.Item.Enchant.Attach(xItem.Attribute("permanentenchant").Value)
-                            iSlot.DisplayEnchant()
+
                         Catch ex As System.Exception
                             'Diagnostics.Debug.WriteLine (ex.ToString)
                         End Try
@@ -853,7 +851,7 @@ NextItem:
 
 
                 'Dim root As xml.XmlElement = xmlChar.DocumentElement
-                Dim iSlot As EquipSlot
+                Dim iSlot As VisualEquipSlot
                 Try
                     Diagnostics.Debug.WriteLine(xmlChar.Element("character").Element("race").Value)
                     cmbRace.SelectedValue = xmlChar.Element("character").Element("race").Value
@@ -942,11 +940,8 @@ NextItem:
                         Catch er As Exception
                             Diagnostics.Debug.WriteLine(er.ToString)
                         End Try
-                        iSlot.DisplayGem()
-
                         Try
-                            iSlot.Item.Enchant.Attach(xmlChar.Element("character").Element(iSlot.text).Element("enchant").Value)
-                            iSlot.DisplayEnchant()
+                            iSlot.Item.Enchant.Attach(xmlChar.Element("character").Element(iSlot.Text).Element("enchant").Value)
                         Catch er As Exception
                             Diagnostics.Debug.WriteLine(er.ToString)
                         End Try
@@ -1307,7 +1302,7 @@ NextItem:
 
 
     Sub CmbSkillClick(ByVal sender As Object, ByVal e As EventArgs) Handles cmbSkill1.SelectionChanged, cmbSkill2.SelectionChanged
-        Dim eq As EquipSlot
+        Dim eq As VisualEquipSlot
         If InLoad Then Exit Sub
         InLoad = True
         For Each eq In EquipmentList
