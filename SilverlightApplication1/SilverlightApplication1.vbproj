@@ -155,6 +155,9 @@
       <DependentUpon>EPDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="GearSelector\EPValues.vb" />
+    <Compile Include="WaitFrame.xaml.vb">
+      <DependentUpon>WaitFrame.xaml</DependentUpon>
+    </Compile>
     <None Include="GearSelector\EquipSlot.xaml.vb">
       <DependentUpon>EquipSlot.xaml</DependentUpon>
     </None>
@@ -4341,6 +4344,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TextEditor\TextEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WaitFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

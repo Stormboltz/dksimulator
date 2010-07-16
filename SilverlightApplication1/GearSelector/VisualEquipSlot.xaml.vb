@@ -7,7 +7,7 @@ Partial Public Class VisualEquipSlot
     Public Sub New()
         InitializeComponent()
     End Sub
-    Protected Mainframe As GearSelectorMainForm
+    Friend Mainframe As GearSelectorMainForm
     Friend Text As String
     Friend xGemBonus As XDocument
     Friend SlotId As Integer
@@ -30,7 +30,7 @@ Partial Public Class VisualEquipSlot
     Sub DisplayItem()
         Dim bmi As BitmapImage = New BitmapImage(New Uri("../images/icons/large/" & Me.Item.icon & ".jpg", UriKind.Relative))
         Me.ImSlot.Source = bmi
-
+        Mainframe.ItemEditor1.Load(Me)
     End Sub
 
     Private Sub cmdEquipSlot_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdEquipSlot.Click
@@ -53,6 +53,14 @@ Partial Public Class VisualEquipSlot
 
 
     Private Sub cmdEquipSlot_MouseMove(ByVal sender As System.Object, ByVal e As System.Windows.Input.MouseEventArgs) Handles cmdEquipSlot.MouseMove
-        Mainframe.ItemEditor1.Load(Me.Item, Mainframe, Me.SlotId)
+        Try
+            If Mainframe.ItemEditor1.Origin <> Me.Name Then
+                Me.Cursor = Cursors.Wait
+                Mainframe.ItemEditor1.Load(Me)
+                Me.Cursor = Cursors.Arrow
+            End If
+        Catch ex As Exception
+
+        End Try
     End Sub
 End Class

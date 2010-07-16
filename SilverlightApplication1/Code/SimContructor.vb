@@ -311,83 +311,87 @@ Public Module SimConstructor
             rp.AddAdditionalInfo(EpStat, toDDecimal(tmp2 / tmp1))
         Catch
         End Try
-
-        EpStat = ""
-        EpStat = "EP 0T7"
-        BaseDPS = DPSs(EpStat)
-
-        EpStat = "EP AttackPower0T7"
-        APDPS = DPSs(EpStat)
-
         Try
-            EpStat = "EP 2T7"
-            DPS = DPSs(EpStat)
-            tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
-            tmp2 = (DPS - BaseDPS) / (2 * EPBase)
-            rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
-        Catch
-        End Try
-        Try
-            EpStat = "EP 4T7"
-            DPS = DPSs(EpStat)
-            tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
-            tmp2 = (DPS - BaseDPS) / (2 * EPBase)
-            rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
 
-        Catch
-        End Try
-        Try
-            EpStat = "EP 2T8"
-            DPS = DPSs(EpStat)
-            tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
-            tmp2 = (DPS - BaseDPS) / (2 * EPBase)
-            rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
+        
+            EpStat = ""
+            EpStat = "EP 0T7"
+            BaseDPS = DPSs(EpStat)
 
-        Catch
-        End Try
-        Try
-            EpStat = "EP 4T8"
-            DPS = DPSs(EpStat)
-            tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
-            tmp2 = (DPS - BaseDPS) / (2 * EPBase)
-            rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
+            EpStat = "EP AttackPower0T7"
+            APDPS = DPSs(EpStat)
 
-        Catch
-        End Try
-        Try
-            EpStat = "EP 2T9"
-            DPS = DPSs(EpStat)
-            tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
-            tmp2 = (DPS - BaseDPS) / (2 * EPBase)
-            rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
+            Try
+                EpStat = "EP 2T7"
+                DPS = DPSs(EpStat)
+                tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
+                tmp2 = (DPS - BaseDPS) / (2 * EPBase)
+                rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
+            Catch
+            End Try
+            Try
+                EpStat = "EP 4T7"
+                DPS = DPSs(EpStat)
+                tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
+                tmp2 = (DPS - BaseDPS) / (2 * EPBase)
+                rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
 
-        Catch
-        End Try
-        Try
-            EpStat = "EP 4T9"
-            DPS = DPSs(EpStat)
-            tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
-            tmp2 = (DPS - BaseDPS) / (2 * EPBase)
-            rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
-        Catch
-        End Try
-        Try
-            EpStat = "EP 2T10"
-            DPS = DPSs(EpStat)
-            tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
-            tmp2 = (DPS - BaseDPS) / (2 * EPBase)
-            rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
-        Catch
-        End Try
-        Try
-            EpStat = "EP 4T10"
-            DPS = DPSs(EpStat)
-            tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
-            tmp2 = (DPS - BaseDPS) / (2 * EPBase)
-            rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
-        Catch
-        End Try
+            Catch
+            End Try
+            Try
+                EpStat = "EP 2T8"
+                DPS = DPSs(EpStat)
+                tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
+                tmp2 = (DPS - BaseDPS) / (2 * EPBase)
+                rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
 
+            Catch
+            End Try
+            Try
+                EpStat = "EP 4T8"
+                DPS = DPSs(EpStat)
+                tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
+                tmp2 = (DPS - BaseDPS) / (2 * EPBase)
+                rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
+
+            Catch
+            End Try
+            Try
+                EpStat = "EP 2T9"
+                DPS = DPSs(EpStat)
+                tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
+                tmp2 = (DPS - BaseDPS) / (2 * EPBase)
+                rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
+
+            Catch
+            End Try
+            Try
+                EpStat = "EP 4T9"
+                DPS = DPSs(EpStat)
+                tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
+                tmp2 = (DPS - BaseDPS) / (2 * EPBase)
+                rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
+            Catch
+            End Try
+            Try
+                EpStat = "EP 2T10"
+                DPS = DPSs(EpStat)
+                tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
+                tmp2 = (DPS - BaseDPS) / (2 * EPBase)
+                rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
+            Catch
+            End Try
+            Try
+                EpStat = "EP 4T10"
+                DPS = DPSs(EpStat)
+                tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
+                tmp2 = (DPS - BaseDPS) / (2 * EPBase)
+                rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
+            Catch
+            End Try
+        Catch ex As Exception
+
+        End Try
         'rp.AddAdditionalInfo("Template", _MainFrm.cmbTemplate.SelectedValue)
 
 
@@ -904,16 +908,19 @@ skipTrinket:
         Do Until ThreadCollection.Count = 0
             RemoveStoppedthread()
             i = 0
-            For Each t In ThreadCollection
+            Try
+                For Each t In ThreadCollection
 
-                If i < core Then
-                    If t.ThreadState = ThreadState.Unstarted Then t.Start()
-                End If
-                If i = 0 Then
-                    t.Join(100)
-                End If
-                i += 1
-            Next
+                    If i < core Then
+                        If t.ThreadState = ThreadState.Unstarted Then t.Start()
+                    End If
+                    If i = 0 Then
+                        t.Join(100)
+                    End If
+                    i += 1
+                Next
+            Catch ex As Exception
+            End Try
         Loop
     End Sub
 

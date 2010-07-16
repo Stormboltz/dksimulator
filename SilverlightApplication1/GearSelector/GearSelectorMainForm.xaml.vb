@@ -1260,28 +1260,7 @@ NextItem:
 
 
 
-    Sub CmdGetDpsClick(ByVal sender As Object, ByVal e As EventArgs)
-        
-    End Sub
-
-    Sub TsGetQuickEPClick(ByVal sender As Object, ByVal e As EventArgs)
-        Dim tmp As String
-        tmp = Me.FilePath
-        Me.FilePath = "tmp.xml"
-        SaveMycharacter()
-        Me.ParentFrame.cmbGearSelector.Items.Add("tmp.xml")
-        Me.ParentFrame.cmbGearSelector.SelectedItem = "tmp.xml"
-        If Me.ParentFrame.LoadBeforeSim = True Then
-            SimConstructor.GetFastEPValue(Me.ParentFrame)
-        End If
-        Me.ParentFrame.cmbGearSelector.SelectedItem = tmp
-        Me.FilePath = tmp
-        Me.ParentFrame.cmbGearSelector.Items.Remove("tmp.xml")
-        'FileSystem.DeleteFile( & "\CharactersWithGear\" & "tmp.xml")
-        Dim dis As New EPDisplay(Me)
-        dis.Show()
-    End Sub
-
+   
 
 
     Sub CmdSaveAsNewClick(ByVal sender As Object, ByVal e As EventArgs)
@@ -1382,6 +1361,7 @@ NextItem:
     End Sub
 
     Private Sub cmdQuickDPS_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdQuickDPS.Click
+        Me.Cursor = Cursors.Wait
         Dim tmp As String
         Dim i As Integer
         tmp = Me.FilePath
@@ -1399,7 +1379,29 @@ NextItem:
         Me.FilePath = tmp
         Me.ParentFrame.cmbGearSelector.Items.Remove("tmp.xml")
         IsolatedStorageFile.GetUserStoreForApplication.DeleteFile("KahoDKSim/CharactersWithGear/tmp.xml")
+        Me.Cursor = Cursors.Arrow
     End Sub
 
    
+    Private Sub cmdQuickEP_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdQuickEP.Click
+        Me.Cursor = Cursors.Wait
+
+        Dim tmp As String
+        tmp = Me.FilePath
+        Me.FilePath = "tmp.xml"
+        SaveMycharacter()
+        Me.ParentFrame.cmbGearSelector.Items.Add("tmp.xml")
+        Me.ParentFrame.cmbGearSelector.SelectedItem = "tmp.xml"
+        If Me.ParentFrame.LoadBeforeSim = True Then
+            SimConstructor.GetFastEPValue(Me.ParentFrame)
+        End If
+        Me.ParentFrame.cmbGearSelector.SelectedItem = tmp
+        Me.FilePath = tmp
+        Me.ParentFrame.cmbGearSelector.Items.Remove("tmp.xml")
+        IsolatedStorageFile.GetUserStoreForApplication.DeleteFile("KahoDKSim/CharactersWithGear/tmp.xml")
+        Dim dis As New EPDisplay(Me)
+        Me.Cursor = Cursors.Arrow
+        dis.Show()
+
+    End Sub
 End Class

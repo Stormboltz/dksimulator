@@ -14,7 +14,7 @@ Partial Public Class MainForm
 
     Private isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
     Friend EditType As String
-    Friend EPVal As EPValues
+    Friend EPVal As New EPValues
 
     Friend ItemDB As XDocument
     Friend GemDB As XDocument
@@ -302,7 +302,9 @@ Partial Public Class MainForm
         End Using
     End Sub
     Sub LoadEPOptions()
+        Try
 
+        
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
             Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/EPconfig.xml", FileMode.Open, isoStore)
                 Dim doc As XDocument = XDocument.Load(isoStream)
@@ -348,7 +350,9 @@ Partial Public Class MainForm
                 'Next
             End Using
         End Using
+        Catch ex As Exception
 
+        End Try
 
     End Sub
     Sub loadConfig()

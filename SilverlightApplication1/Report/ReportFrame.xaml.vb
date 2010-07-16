@@ -15,6 +15,7 @@ Partial Public Class ReportFrame
                 Dim myReader As XDocument = XDocument.Load(isoStream)
                 Dim Source As List(Of ReportDisplayLine) = (From el In myReader.Element("Table").Elements("row")
                               Select GetItem(el)).ToList
+
                 If Source.Count = 0 Then
                     dgReport.Visibility = Windows.Visibility.Collapsed
                     LayoutRoot.RowDefinitions.Item(0).Height = New System.Windows.GridLength(0)
@@ -22,6 +23,33 @@ Partial Public Class ReportFrame
                     dgReport.ItemsSource = Source
                     LayoutRoot.RowDefinitions.Item(0).Height = New System.Windows.GridLength((Source.Count + 1) * 23)
                     dgReport.Visibility = Windows.Visibility.Visible
+                    Dim t As String = "[TABLE]"
+                    t &= "Ability| Damage done|||| hits||| Crits||| Misses|| Glances|||TPS| Uptime" & vbCrLf
+                    t &= "|Total| %| #| Avg| #| %| Avg| #| %| Avg|  #| Avg| #| Avg| %|  %| " & vbCrLf
+
+                    For Each r As ReportDisplayLine In Source
+                        t = t & r.Ability & "|"
+                        t = t & r.Damage_done_Total & "|"
+                        t = t & r.Damage_done_Pc & "|"
+                        t = t & r.Damage_done_Count & "|"
+                        t = t & r.Damage_done_Avg & "|"
+                        t = t & r.hit_count & "|"
+                        t = t & r.hit_count_Avg & "|"
+                        t = t & r.hit_count_Pc & "|"
+                        t = t & r.Crit_count & "|"
+                        t = t & r.Crit_count_Avg & "|"
+                        t = t & r.Crit_count_Pc & "|"
+                        t = t & r.Miss_Count & "|"
+                        t = t & r.Miss_Count_Pc & "|"
+                        t = t & r.Glance_Count & "|"
+                        t = t & r.Glance_Count_Avg & "|"
+                        t = t & r.Glance_Count_Pc & "|"
+                        t = t & r.TPS & "|"
+                        t = t & r.Uptime & "|" & vbCrLf
+                    Next
+
+                    t &= "[/TABLE]" & vbCrLf
+                    Me.txtBBCode.Text = t
                 End If
 
                 isoStream.Close()
@@ -34,6 +62,10 @@ Partial Public Class ReportFrame
             End Using
         End Using
     End Sub
+
+
+
+
     Function GetItem(ByVal el As XElement) As ReportDisplayLine
         Dim r As New ReportDisplayLine
 

@@ -23,22 +23,36 @@
 
     End Sub
 
-    Sub EPDisplayLoad(ByVal sender As Object, ByVal e As EventArgs)
+    Sub EPDisplayLoad(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Loaded
         Dim GS As GearSelectorMainForm
         GS = ParentFrame
         Dim EPVal As EPValues
-        'EPVal = GS.ParentFrame.EPVal
-        'TODO REWTRIE THIS
-        'gdEPValues.Items.Add("Agility").SubItems.Add(EPVal.Agility)
-        'gdEPValues.Items.Add("Armor").SubItems.Add(EPVal.Armor)
-        'gdEPValues.Items.Add("ArP").SubItems.Add(EPVal.ArP)
-        'gdEPValues.Items.Add("Crit").SubItems.Add(EPVal.Crit)
-        'gdEPValues.Items.Add("Exp").SubItems.Add(EPVal.Exp)
-        'gdEPValues.Items.Add("Haste").SubItems.Add(EPVal.Haste)
-        'gdEPValues.Items.Add("Hit").SubItems.Add(EPVal.Hit)
-        'gdEPValues.Items.Add("Weapon DPS").SubItems.Add(EPVal.MHDPS)
-        'gdEPValues.Items.Add("Weapon speed").SubItems.Add(EPVal.MHSpeed)
-        'gdEPValues.Items.Add("Str").SubItems.Add(EPVal.Str)
+        EPVal = GS.ParentFrame.EPVal
+        Dim tbl As New List(Of EPValue)
+        tbl.Add(New EPValue("Agility", EPVal.Agility))
+        tbl.Add(New EPValue("Armor", EPVal.Armor))
+        tbl.Add(New EPValue("ArP", EPVal.ArP))
+
+        tbl.Add(New EPValue("Crit", EPVal.Exp))
+        tbl.Add(New EPValue("Exp", EPVal.Exp))
+        tbl.Add(New EPValue("Haste", EPVal.Haste))
+        tbl.Add(New EPValue("Hit", EPVal.Hit))
+        tbl.Add(New EPValue("Weapon DPS", EPVal.MHDPS))
+        tbl.Add(New EPValue("Weapon speed", EPVal.MHSpeed))
+        tbl.Add(New EPValue("Str", EPVal.Str))
+        gdEPValues.ItemsSource = tbl
 
     End Sub
+
+    Class EPValue
+        Property Name As String
+        Property Value As String
+
+        Sub New(ByVal sName As String, ByVal sValue As String)
+            Name = sName
+            Value = sValue
+        End Sub
+
+    End Class
+
 End Class

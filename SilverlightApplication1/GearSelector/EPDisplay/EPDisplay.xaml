@@ -12,6 +12,6 @@
 
         <Button x:Name="CancelButton" Content="Cancel" Width="75" Height="23" HorizontalAlignment="Right" Margin="0,12,0,0" Grid.Row="1" />
         <Button x:Name="OKButton" Content="OK" Width="75" Height="23" HorizontalAlignment="Right"  Margin="0,12,79,0" Grid.Row="1" />
-        <sdk:DataGrid AutoGenerateColumns="False" Height="226" HorizontalAlignment="Left" Name="gdEPValues" VerticalAlignment="Top" Width="378" />
+        <sdk:DataGrid AutoGenerateColumns="True" Height="226" HorizontalAlignment="Left" Name="gdEPValues" VerticalAlignment="Top" Width="378" />
     </Grid>
 </controls:ChildWindow>

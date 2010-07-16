@@ -10,6 +10,7 @@ Imports System.Linq
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
 Public Class Gem
+    Friend Color As Color
     Friend ColorId As Integer
     Public Id As Integer
     Public name As String
@@ -46,26 +47,27 @@ Public Class Gem
         End If
         Try
 
-        
-        Dim el As XElement = (From x In GemDB.Element("gems").Elements
-                              Where x.Element("id").Value = GemId
-                              ).First
-        Me.Id = GemId
-        With Me
-            .name = el.Element("name").Value
-            .Strength = el.Element("Strength").Value
-            .Agility = el.Element("Agility").Value
-            .HasteRating = el.Element("HasteRating").Value
-            .ExpertiseRating = el.Element("ExpertiseRating").Value
-            .HitRating = el.Element("HitRating").Value
-            .AttackPower = el.Element("AttackPower").Value
-            .CritRating = el.Element("CritRating").Value
-            .ArmorPenetrationRating = el.Element("ArmorPenetrationRating").Value
-            .ilvl = el.Element("ilvl").Value
-            .classs = el.Element("class").Value
-            subclass = el.Element("subclass").Value
-            .keywords = el.Element("keywords").Value
-        End With
+
+            Dim el As XElement = (From x In GemDB.Element("gems").Elements
+                                  Where x.Element("id").Value = GemId
+                                  ).First
+            Me.Id = GemId
+            With Me
+                .name = el.Element("name").Value
+                .Strength = el.Element("Strength").Value
+                .Agility = el.Element("Agility").Value
+                .HasteRating = el.Element("HasteRating").Value
+                .ExpertiseRating = el.Element("ExpertiseRating").Value
+                .HitRating = el.Element("HitRating").Value
+                .AttackPower = el.Element("AttackPower").Value
+                .CritRating = el.Element("CritRating").Value
+                .ArmorPenetrationRating = el.Element("ArmorPenetrationRating").Value
+                .ilvl = el.Element("ilvl").Value
+                .classs = el.Element("class").Value
+                subclass = el.Element("subclass").Value
+                .keywords = el.Element("keywords").Value
+                .Color = GemColor(subclass)
+            End With
 
 
         Catch ex As Exception
@@ -91,6 +93,7 @@ Public Class Gem
         CritRating = 0
         ArmorPenetrationRating = 0
         keywords = ""
+        Color = Nothing
     End Sub
 
     Function GemSlotColorName() As String

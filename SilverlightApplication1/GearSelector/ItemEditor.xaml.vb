@@ -11,6 +11,7 @@ Partial Public Class ItemEditor
     Friend xGemBonus As XDocument
     Friend SlotId As Integer
     Friend Item As Item
+    Friend Origin As String
     Property text As String
         Get
             Return _Text
@@ -25,14 +26,14 @@ Partial Public Class ItemEditor
     Protected initiated As Boolean = False
 
     Protected Mainframe As GearSelectorMainForm
-    Sub Load(ByVal Itm As Item, ByVal m As GearSelectorMainForm, ByVal slot As Integer)
-        Mainframe = m
-        Me.SlotId = slot
-        Item = Itm
+    Sub Load(ByVal VSlot As VisualEquipSlot)
+        Mainframe = VSlot.Mainframe
+        Me.SlotId = VSlot.SlotId
+        Item = VSlot.Item
+        Origin = VSlot.Name
         DisplayItem()
         DisplayEnchant()
         DisplayGem()
-
     End Sub
     Sub init(ByVal m As GearSelectorMainForm, ByVal slot As Integer)
         Mainframe = m
@@ -54,13 +55,26 @@ Partial Public Class ItemEditor
     End Sub
 
 
+
     Sub DisplayEnchant()
         Dim xmlDB As XDocument = Mainframe.EnchantDB
         Dim xmlItem As New XDocument
         If Item.Enchant.Id <> 0 Then
             lblEnchant.Content = Item.Enchant.name
+            lblEnchant.Foreground = New SolidColorBrush(Colors.Green)
         Else
-            lblEnchant.Content = "Enchant"
+
+            If (From el In xmlDB.Elements("enchant").Elements
+                        Where el.Element("slot").Value = SlotId And (el.Element("reqskill").Value = "" Or el.Element("reqskill").Value = 0 Or el.Element("reqskill").Value = GetSkillID(Mainframe.cmbSkill1.SelectedItem) Or el.Element("reqskill").Value = GetSkillID(Mainframe.cmbSkill2.SelectedItem))
+                        ).Count > 0 Then
+                lblEnchant.Content = "No Enchant"
+                lblEnchant.Foreground = New SolidColorBrush(Colors.Black)
+            Else
+                lblEnchant.Content = ""
+            End If
+
+
+            
         End If
         Mainframe.GetStats()
     End Sub
@@ -70,9 +84,15 @@ Partial Public Class ItemEditor
         lblGem1.Content = Item.gem1.name
         lblGem2.Content = Item.gem2.name
         lblGem3.Content = Item.gem3.name
+
+        lblGem1.Background = Nothing
+        lblGem2.Background = Nothing
+        lblGem3.Background = Nothing
+
         If Item.gem1.ColorId <> 0 Then
             lblGemColor1.Width = 10
             lblGemColor1.Background = Item.gem1.GemSlotColor
+            lblGem1.Background = New SolidColorBrush(Item.gem1.Color)
             If Item.gem1.IsGemrightColor Then
                 lblGemColor1.Content = "X"
             Else
@@ -86,6 +106,7 @@ Partial Public Class ItemEditor
         If Item.gem2.ColorId <> 0 Then
             lblGemColor2.Width = 10
             lblGemColor2.Background = Item.gem2.GemSlotColor
+            lblGem2.Background = New SolidColorBrush(Item.gem2.Color)
             If Item.gem2.IsGemrightColor Then
                 lblGemColor2.Content = "X"
             Else
@@ -99,6 +120,7 @@ Partial Public Class ItemEditor
         If Item.gem3.ColorId <> 0 Then
             lblGemColor3.Width = 10
             lblGemColor3.Background = Item.gem3.GemSlotColor
+            lblGem3.Background = New SolidColorBrush(Item.gem3.Color)
             If Item.gem3.IsGemrightColor Then
                 lblGemColor3.Content = "X"
             Else
@@ -108,7 +130,13 @@ Partial Public Class ItemEditor
             lblGemColor3.Content = ""
             lblGemColor3.Background = Nothing
         End If
-        lblBonus.IsEnabled = Item.IsGembonusActif
+
+        If Item.IsGembonusActif Then
+            lblBonus.Opacity = 1
+        Else
+            lblBonus.Opacity = 0.5
+        End If
+
         Mainframe.GetStats()
     End Sub
 
@@ -210,6 +238,7 @@ Partial Public Class ItemEditor
             lblGemColor3.IsEnabled = False
         End If
         Try
+            If xGemBonus Is Nothing Then xGemBonus = Mainframe.GemBonusDB
             If Item.gembonus <> 0 Then
                 lblBonus.Content = (From el In xGemBonus.Element("bonus").Elements
                                 Where el.Element("id").Value = Item.gembonus
@@ -219,7 +248,7 @@ Partial Public Class ItemEditor
 
 
         Catch
-            lblBonus.Content = ""
+            lblBonus.Content = "<bonus>"
         End Try
         DisplayGem()
         DisplayEnchant()
