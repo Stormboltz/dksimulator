@@ -8,7 +8,7 @@ Module GlobalFunction
 
     Sub msgBox(ByVal s As String)
         Try
-            MessageBox.Show("s")
+            MessageBox.Show(s)
         Catch ex As Exception
             Diagnostics.Debug.WriteLine(s)
         End Try

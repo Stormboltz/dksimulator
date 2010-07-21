@@ -144,6 +144,9 @@
     <Compile Include="Diseases\BloodPlague.vb" />
     <Compile Include="Diseases\Disease.vb" />
     <Compile Include="Diseases\FrostFever.vb" />
+    <Compile Include="GearSelector\ArmoryImport\frmArmory.xaml.vb">
+      <DependentUpon>frmArmory.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GearSelector\ArmoryImport\frmArmoryImport.xaml.vb">
       <DependentUpon>frmArmoryImport.xaml</DependentUpon>
     </Compile>
@@ -351,6 +354,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Content Include="GearSelector\ArmoryImport\ArmoSample.xml" />
+    <Page Include="GearSelector\ArmoryImport\frmArmory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Content Include="GearSelector\Consumables.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

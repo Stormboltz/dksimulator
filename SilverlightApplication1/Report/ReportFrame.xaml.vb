@@ -21,7 +21,7 @@ Partial Public Class ReportFrame
                     LayoutRoot.RowDefinitions.Item(0).Height = New System.Windows.GridLength(0)
                 Else
                     dgReport.ItemsSource = Source
-                    LayoutRoot.RowDefinitions.Item(0).Height = New System.Windows.GridLength((Source.Count + 1) * 23)
+                    LayoutRoot.RowDefinitions.Item(0).Height = New System.Windows.GridLength((Source.Count + 1) * 28)
                     dgReport.Visibility = Windows.Visibility.Visible
                     Dim t As String = "[TABLE]"
                     t &= "Ability| Damage done|||| hits||| Crits||| Misses|| Glances|||TPS| Uptime" & vbCrLf

@@ -8,7 +8,8 @@
 '
 Public Class EPValues
 	friend Str As double
-	friend Agility As double
+    Friend Agility As Double
+    Friend Mastery As Double
 	friend MHSpeed As double
 	friend Exp As double
 	friend MHDPS As double

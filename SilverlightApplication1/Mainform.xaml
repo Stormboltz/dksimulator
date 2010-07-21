@@ -12,6 +12,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="38*" />
                     </Grid.RowDefinitions>
                     <ComboBox Height="23" Margin="135,28,72,0" Name="cmbGearSelector" VerticalAlignment="Top" />
                     <ComboBox Height="23" Margin="94,57,72,0" Name="cmbTemplate" VerticalAlignment="Top" />
@@ -46,11 +47,11 @@
                     <CheckBox Content="Detailled combat log" Height="16" HorizontalAlignment="Left" Margin="9,41,0,0" Name="ckLogRP" VerticalAlignment="Top" Width="116" Grid.Row="1" />
                     <CheckBox Content="Show proc" Height="16" HorizontalAlignment="Left" Margin="136,41,0,0" Name="chkShowProc" VerticalAlignment="Top" Width="129" Grid.Row="1" />
                     <CheckBox Content="Wait for proc" Height="16" HorizontalAlignment="Right" Margin="0,427,75,0" Name="chkWaitFC" VerticalAlignment="Top" Width="111" />
-                    <TextBox Height="23" HorizontalAlignment="Left" Margin="9,405,0,0" Name="txtAMSrp" VerticalAlignment="Top" Width="120" Text="10" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="9,405,0,0" Name="txtAMSrp" VerticalAlignment="Top" Width="120" Text="0" />
                     <TextBox Height="23" HorizontalAlignment="Left" Margin="148,405,0,0" Name="txtAMScd" Text="60" VerticalAlignment="Top" Width="120" />
                     <CheckBox Content="Sync Blood rune" Height="16" HorizontalAlignment="Right" Margin="0,405,75,0" Name="chkBloodSync" VerticalAlignment="Top" />
-                    <CheckBox Content="Use Pet" Height="16" HorizontalAlignment="Right" Margin="0,449,75,0" Name="ckPet" VerticalAlignment="Top" Width="111" />
-                    <TextBox Height="23" HorizontalAlignment="Left" Margin="300,19,0,0" Name="txtReportName" VerticalAlignment="Top" Width="120" Text="Report Name" Grid.Row="1" />
+                    <CheckBox Content="Use Pet" Height="16" HorizontalAlignment="Right" Margin="0,449,75,0" Name="ckPet" VerticalAlignment="Top" Width="111" IsChecked="True" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="437,19,0,0" Name="txtReportName" VerticalAlignment="Top" Width="120" Text="Report Name" Grid.Row="1" Visibility="Collapsed" />
                     <CheckBox Content="Merge stike in the report" Height="16" HorizontalAlignment="Left" Margin="136,19,0,0" Name="chkMergeReport" VerticalAlignment="Top" Grid.Row="1" />
                     <Button Content="Edit" Height="23" Margin="0,57,19,0" Name="cmdEditTemplate" VerticalAlignment="Top" HorizontalAlignment="Right" Width="47" />
                     <Button Content="Edit" Height="23" Margin="0,115,19,0" Name="cmdEditIntro" VerticalAlignment="Top" HorizontalAlignment="Right" Width="47" />
@@ -59,10 +60,10 @@
                     <Button Content="Edit" Height="23" HorizontalAlignment="Right" Margin="0,28,19,0" Name="cmdEditCharacterWithGear" VerticalAlignment="Top" Width="47" />
                     <sdk:Label Height="28" HorizontalAlignment="Right" Margin="0,351,281,0" Name="Label1" VerticalAlignment="Top" Width="79" Content="Latency:" />
                     <sdk:Label Content="BoneShield Time to live:" Height="28" Margin="0,380,281,0" Name="Label17" VerticalAlignment="Top" HorizontalAlignment="Right" Width="151" />
-                    <sdk:Label Height="28" HorizontalAlignment="Left" Margin="9,330,0,0" Name="Label18" VerticalAlignment="Top" Width="120" Content="Filght Length:" />
+                    <sdk:Label Height="28" HorizontalAlignment="Left" Margin="9,330,0,0" Name="Label18" VerticalAlignment="Top" Width="120" Content="Fight Length:" />
                     <sdk:Label Height="28" HorizontalAlignment="Left" Margin="69,380,0,0" Name="Label19" VerticalAlignment="Top" Width="120" Content="x RP per x Second" />
                     <Button Content="Edit" Height="23" Margin="247,289,0,0" Name="cmdEditScenario" VerticalAlignment="Top" HorizontalAlignment="Left" Width="47" />
-                    <Button Content="Display last report" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="462,19,0,0" Name="cmdReport" VerticalAlignment="Top" Width="155" />
+                    <Button Content="Display last report" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="793,19,0,0" Name="cmdReport" VerticalAlignment="Top" Width="155" />
                 </Grid>
                 
                 
@@ -165,14 +166,19 @@
             </sdk:TabItem>
         </sdk:TabControl>
         <Grid Margin="12,0,12,1" Name="Grid1" Height="70" VerticalAlignment="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35*" />
+                <RowDefinition Height="35" />
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="90*" />
-                <ColumnDefinition Width="638*" />
+                <ColumnDefinition Width="265" />
+                <ColumnDefinition Width="200*" />
+                <ColumnDefinition Width="265" />
             </Grid.ColumnDefinitions>
-            <Button Content="Start Simulator" Height="23" HorizontalAlignment="Left" Margin="0,15,0,0" Name="cmdStartSim" VerticalAlignment="Top" Width="246" Grid.ColumnSpan="2" />
-            <Button Content="Start EP" Grid.Column="1" Height="23" Margin="0,11,7,0" Name="btEP" VerticalAlignment="Top" HorizontalAlignment="Right" Width="179" />
-            <Button Content="Change RNG Seed." Grid.Column="1" Height="28" Margin="287,9,391,0" Name="cmdRngSeeder" VerticalAlignment="Top" />
-            <ProgressBar Height="27" Margin="0,40,0,0" Name="ProgressBar1" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+            <Button Content="Start Simulator" Height="24" HorizontalAlignment="Center" Name="cmdStartSim" VerticalAlignment="Center" Width="200" Grid.Row="0" />
+            <Button Content="Start EP" Height="24" Name="btEP" VerticalAlignment="Center" HorizontalAlignment="Center"  Width="200" Grid.Column="2"  Grid.Row="0" />
+            <Button Content="Change RNG Seed." Height="24" Name="cmdRngSeeder" Grid.Column="1" VerticalAlignment="Center" Grid.Row="0" Width="200" />
+            <ProgressBar Height="24" Margin="32,5,31,5" Name="ProgressBar1" VerticalAlignment="Center" Grid.ColumnSpan="3" Grid.Row="1" />
         </Grid>
         
     </Grid>

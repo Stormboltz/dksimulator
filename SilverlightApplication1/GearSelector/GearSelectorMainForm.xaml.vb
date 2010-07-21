@@ -14,7 +14,7 @@ Partial Public Class GearSelectorMainForm
     Friend EnchantSelector As New EnchantSelector(Me)
     Friend GemSelector As New GemSelector(Me)
     Friend GearSelector As New GearSelector(Me)
-    Friend WithEvents ArmoryImport As New frmArmoryImport
+    Friend WithEvents ArmoryImport As New frmArmory
     Friend ItemDB As XDocument
     Friend GemDB As XDocument
     Friend GemBonusDB As XDocument
@@ -82,13 +82,6 @@ Partial Public Class GearSelectorMainForm
         EPvalues = New EPValues
         InitDisplay()
     End Sub
-
-    Sub CmdExtratorClick(ByVal sender As Object, ByVal e As EventArgs)
-        'exit sub
-        'Dim MyExtractor As New Extractor
-        'MyExtractor.Start()
-    End Sub
-
 
 
     Sub GetStats()
@@ -628,19 +621,34 @@ NextItem:
 
     Private Sub wc_OpenReadCompleted(ByVal sender As Object, ByVal e As OpenReadCompletedEventArgs)
         If e.Error IsNot Nothing Then
+            msgBox(e.Error.InnerException.Message & " " & e.Error.InnerException.StackTrace)
             Diagnostics.Debug.WriteLine(e.Error.StackTrace)
             Return
         End If
         Using s As Stream = e.Result
-            Dim doc As XDocument = XDocument.Load(s)
-            Diagnostics.Debug.WriteLine(doc.ToString(SaveOptions.OmitDuplicateNamespaces))
+            Dim reader As New StreamReader(s)
+            Dim tmp As String
+            tmp = reader.ReadToEnd()
+            msgBox(tmp)
+            ImportMyXMLCharacter(tmp)
         End Using
+    End Sub
+    Private Sub wc_OpenDonwloadCompleted(ByVal sender As Object, ByVal e As DownloadStringCompletedEventArgs)
+        If e.Error IsNot Nothing Then
+            msgBox(e.Error.InnerException.Message & " " & e.Error.InnerException.StackTrace)
+            Diagnostics.Debug.WriteLine(e.Error.StackTrace)
+            Return
+        End If
+        Dim s As String = e.Result
+        
+        'msgBox(s)
+        ImportMyXMLCharacter(s)
+
     End Sub
 
     Sub ArmoryImport_Closing() Handles ArmoryImport.Closing
         If ArmoryImport.DialogResult = True Then
-
-            ImportMyXMLCharacter(ArmoryImport.TextBox1.Text)
+            ImportMyCharacter(ArmoryImport.cmbRegion.SelectedValue.ToString, ArmoryImport.txtServer.Text, ArmoryImport.txtCharacter.Text)
         End If
     End Sub
 
@@ -746,44 +754,12 @@ NextItem:
 
 
     Sub ImportMyCharacter(ByVal region As String, ByVal realmName As String, ByVal characterName As String)
-        Dim uriString As String
-        Dim param As String
-        param = "?r=" & realmName & "&n=" & characterName
 
+        Dim url As String = "./armory.php?region=" & region.ToUpper & "&r=" & realmName & "&n=" & characterName
         Dim webClient As WebClient = New WebClient()
-        AddHandler webClient.OpenReadCompleted, AddressOf wc_OpenReadCompleted
-
-        Select Case region
-            Case "US"
-                uriString = "http://www.wowarmory.com/character-sheet.xml" & param
-            Case "EU"
-                uriString = "http://eu.wowarmory.com/character-sheet.xml" & param
-            Case "TW"
-                uriString = "http://tw.wowarmory.com/character-sheet.xml" & param
-            Case "CN"
-                uriString = "http://cn.wowarmory.com/character-sheet.xml" & param
-            Case "KR"
-                uriString = "http://kr.wowarmory.com/character-sheet.xml" & param
-            Case Else
-                uriString = ""
-                Diagnostics.Debug.WriteLine("region unknown: " & region)
-                Exit Sub
-        End Select
-
-        Dim request As WebRequest = WebRequest.Create(uriString)
-
-
-        request.Method = "POST"
-
-
-
-
-
-
-        request.BeginGetRequestStream(New AsyncCallback(AddressOf ReadCallback), request)
-
-
-        'webClient.OpenReadAsync(New Uri(uriString))
+        AddHandler webClient.DownloadStringCompleted, AddressOf wc_OpenDonwloadCompleted
+        Dim ur As New Uri(url, UriKind.Relative)
+        webClient.DownloadStringAsync(ur)
         Exit Sub
         
 
@@ -1317,7 +1293,7 @@ NextItem:
 
 
     Sub CmdArmoryImportClick(ByVal sender As Object, ByVal e As EventArgs) Handles cmdArmoryImport.Click
-        'ImportMyCharacter("EU", "Sargeras", "Raynea")
+        'ImportMyCharacter("EU", "Chants Eternels", "Kahorie")
         ArmoryImport.Show()
     End Sub
 

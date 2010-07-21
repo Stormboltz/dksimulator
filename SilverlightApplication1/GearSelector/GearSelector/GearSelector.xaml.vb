@@ -99,7 +99,14 @@ Partial Public Class GearSelector
         tmp += el.Element("HitRating").Value * MainFrame.EPvalues.Hit
         tmp += el.Element("AttackPower").Value * 1
         tmp += el.Element("CritRating").Value * MainFrame.EPvalues.Crit
-        tmp += el.Element("ArmorPenetrationRating").Value * MainFrame.EPvalues.ArP
+        Try
+            tmp += el.Element("ArmorPenetrationRating").Value * MainFrame.EPvalues.ArP
+        Catch
+        End Try
+        Try
+            tmp += el.Element("Mastery").Value * MainFrame.EPvalues.Mastery
+        Catch
+        End Try
         tmp += el.Element("HasteRating").Value * MainFrame.EPvalues.Haste
 
         If el.Element("gem1").Value <> 0 Then
@@ -126,7 +133,7 @@ Partial Public Class GearSelector
             el.Element("HitRating").Value & " " & _
             el.Element("AttackPower").Value & " " & _
             el.Element("CritRating").Value & " " & _
-            el.Element("ArmorPenetrationRating").Value & " " & _
+            el.Element("Mastery").Value & " " & _
             el.Element("ilvl").Value & " " & _
             el.Element("keywords").Value & " " & _
             el.Element("speed").Value & " " & _
