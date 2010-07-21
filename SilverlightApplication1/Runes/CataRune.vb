@@ -8,9 +8,30 @@
 '
 Public Class CataRune
 	Friend Value As Integer
-	Friend reserved As Boolean
-	Friend death As Boolean
-	
+    Friend reserved As Boolean
+    Private death1 As Boolean
+    Private death2 As Boolean
+    Property death As Boolean
+        Set(ByVal value As Boolean)
+            If value = True Then
+                If death1 = True Then
+                    death2 = True
+                Else
+                    death1 = True
+                End If
+            Else
+                If death2 = True Then
+                    death2 = False
+                ElseIf death1 = True Then
+                    death1 = False
+                End If
+            End If
+
+        End Set
+        Get
+            Return (death1 Or death2)
+        End Get
+    End Property
 	
 	Friend BTuntil as Long
 	Protected Sim As Sim
@@ -21,7 +42,10 @@ Public Class CataRune
 		Me.death=False
 		Me.value=200
 		Sim = S
-	End Sub
+    End Sub
+
+
+
 	
 	Sub Use(T As Long, D As Boolean)
 		death = D
@@ -35,10 +59,10 @@ Public Class CataRune
 		'withoutHaste 5s per rune 
 		Dim tmp As Double
 		tmp = (1/5)*sim.MainStat.Haste
-		If sim.UnholyPresence = 1 Then
-			tmp = tmp * (1+0.05*sim.Character.talentunholy.ImprovedUnholyPresence/100)
-		End If
-		return tmp
+        If Sim.UnholyPresence = 1 Then
+            tmp = tmp * (1.1 + Sim.Character.TalentUnholy.ImprovedUnholyPresence * 2.5 / 100)
+        End If
+        Return tmp
 	End Function
 	
 	Sub Refill(second As Double)

@@ -19,7 +19,7 @@ Public Partial Class MainForm
 	Sub Button1Click(sender As Object, e As EventArgs)
 		Dim x As New Extractor
 		
-		x.CataUpdate
+		x.CataUpdateDatabase
 		
 	End Sub
 End Class

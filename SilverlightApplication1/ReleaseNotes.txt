@@ -1,0 +1,18 @@
+﻿Cata Update
+* Physical, magical and "normal" haste
+* Haste buff do not exist anymore.
+* Ghoul Frenzy = 50% haste.
+* GCD not affected by Unholy Presence
+* Combat Log Reader
+#TODO
+* Strike
+* Cata Rune
+* Template
+	- New tree
+	- "Free" talents
+	-
+* ItemDB
+* Mastery
+* Disease Haste scaling?
+* Pet do not double dip with buff
+* Cryptic fever removal.

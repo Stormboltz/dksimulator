@@ -85,7 +85,7 @@ Friend Class DRW
 				Hyst = false
 			End If
 			SpellHaste = sim.MainStat.SpellHaste
-			Haste = sim.MainStat.Haste
+            Haste = sim.MainStat.PhysicalHaste
 			AP = sim.MainStat.AP
 			_Crit = sim.MainStat.critAutoattack ' Crit seems based on charater crit
 			_SpellCrit = sim.MainStat.SpellCrit '

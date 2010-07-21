@@ -11,7 +11,7 @@ Public Class Sim
     Public Event Sim_Closing(ByVal sender As Object, ByVal e As EventArgs)
     Friend isoStore As IsolatedStorage.IsolatedStorageFile
 
-    Friend Cataclysm As Boolean = False
+    Friend Cataclysm As Boolean = True
     Friend UselessCheck As Long
     Friend UselessCheckColl As New Collection
 
@@ -543,8 +543,6 @@ Public Class Sim
     Sub _UseGCD(ByVal T As Long, ByVal Length As Long)
         Dim tmp As Long
         GCDUsage.HitCount += 1
-
-
         If Length + T > NextReset Then
             tmp = (NextReset - T)
         Else
@@ -564,9 +562,7 @@ Public Class Sim
 
     Sub UseGCD(ByVal T As Long, ByVal Spell As Boolean)
         Dim tmp As Long
-        If UnholyPresence Then
-            tmp = 100
-        ElseIf Spell Then
+        If Spell Then
             tmp = Math.Max(150.0 / MainStat.SpellHaste, 100)
         Else
             tmp = 150

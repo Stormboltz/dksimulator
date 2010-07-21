@@ -898,7 +898,8 @@ OUT:
 
     End Sub
 
- 
-   
-
+    Private Sub cmdShowLog_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdShowLog.Click
+        Dim Repfrm As New CombatLogViewer
+        Repfrm.Show()
+    End Sub
 End Class

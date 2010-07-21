@@ -8,9 +8,9 @@
 '
 Namespace Runes
 Friend Partial Class runes
-	Friend BloodRunes As CataRune
-	Friend FrostRunes As CataRune
-	Friend UnholyRunes As CataRune
+        Friend BloodRunes As CataRune
+        Friend FrostRunes As CataRune
+        Friend UnholyRunes As CataRune
 	
 	
 	Sub FillRunes
@@ -76,7 +76,7 @@ Friend Partial Class runes
 
             If BloodRunes.AvailableTime > T Then bArray.Add(BloodRunes.AvailableTime)
             If FrostRunes.AvailableTime > T And FrostRunes.death = True Then bArray.Add(FrostRunes.AvailableTime)
-            If UnholyRunes.AvailableTime > T And UnholyRune1.death = True Then bArray.Add(UnholyRunes.AvailableTime)
+            If UnholyRunes.AvailableTime > T And UnholyRunes.death = True Then bArray.Add(UnholyRunes.AvailableTime)
             If bArray.Count > 0 Then
                 bArray.Sort()
                 Return bArray.Item(0)
@@ -253,9 +253,9 @@ Friend Partial Class runes
 		Dim tmp As Long
 		
 		tmp = sim.NextFreeGCD
-		If bloodrunes.Available = False And BloodRune1.AvailableTime < tmp Then Return False
-		If frostrunes.Available = False And frostrunes.AvailableTime < tmp Then Return False
-		If unholyrunes.Available = False And unholyrunes.AvailableTime < tmp Then Return False
+            If BloodRunes.Available = False And BloodRunes.AvailableTime < tmp Then Return False
+            If FrostRunes.Available = False And FrostRunes.AvailableTime < tmp Then Return False
+            If UnholyRunes.Available = False And UnholyRunes.AvailableTime < tmp Then Return False
 		return true
 	End Function
 End Class

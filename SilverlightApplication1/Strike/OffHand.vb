@@ -16,7 +16,7 @@ Friend Class OffHand
 		WSpeed = sim.MainStat.OHWeaponSpeed
 		
 		
-        NextWhiteOffHit = T + (WSpeed * 100) / sim.MainStat.Haste
+        NextWhiteOffHit = T + (WSpeed * 100) / sim.MainStat.PhysicalHaste
 		
 		sim.FutureEventManager.Add(NextWhiteOffHit,"OffHand")
 		

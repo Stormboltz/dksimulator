@@ -45,7 +45,7 @@ Friend class Ghoul
 				cd = sim.MaxTime
 				isGuardian = false
 			Else
-				_Haste = sim.MainStat.haste
+                _Haste = sim.MainStat.PhysicalHaste
 				_AP = sim.GhoulStat.AP
 				ActiveUntil = T + 60 * 100
 				cd = ActiveUntil + (3*60*100) - (45*100*sim.Character.talentunholy.NightoftheDead)
@@ -79,12 +79,8 @@ Friend class Ghoul
 		If isGuardian Then
 			return _Haste
 		End If
-'permaghoul double dips on haste buffs
-		tmp = sim.MainStat.Haste
-		tmp = tmp * (1 + 0.2 * sim.Character.Buff.MeleeHaste)
-		tmp = tmp * (1 + 0.03 * sim.Character.Buff.Haste)
-		If sim.proc.Bloodlust.isActive Then tmp = tmp * 1.3
-		If sim.Frenzy.ActiveUntil >= sim.TimeStamp Then tmp = tmp * 1.25
+        tmp = sim.MainStat.PhysicalHaste
+        If sim.Frenzy.ActiveUntil >= sim.TimeStamp Then tmp = tmp * 1.5
 		Return tmp
 
 	End Function

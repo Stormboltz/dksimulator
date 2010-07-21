@@ -120,7 +120,7 @@
     <Compile Include="Code\Character\TalentBlood.vb" />
     <Compile Include="Code\Character\TalentFrost.vb" />
     <Compile Include="Code\Character\TalentUnholy.vb" />
-    <Compile Include="Code\CombatLog.vb" />
+    <Compile Include="CombatLog\CombatLog.vb" />
     <Compile Include="Code\FutureEventManager\FutureEvent.vb" />
     <Compile Include="Code\FutureEventManager\FutureEventManager.vb" />
     <Compile Include="Code\GhoulStat.vb" />
@@ -141,6 +141,12 @@
     <Compile Include="Code\Target\DebuffingProc.vb" />
     <Compile Include="Code\Target\Target.vb" />
     <Compile Include="Code\Target\TargetsManager.vb" />
+    <Compile Include="CombatLog\CombatLogLine.xaml.vb">
+      <DependentUpon>CombatLogLine.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CombatLog\CombatLogViewer.xaml.vb">
+      <DependentUpon>CombatLogViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Diseases\BloodPlague.vb" />
     <Compile Include="Diseases\Disease.vb" />
     <Compile Include="Diseases\FrostFever.vb" />
@@ -325,6 +331,14 @@
     <Content Include="Characters\DW Ulduar.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Page Include="CombatLog\CombatLogViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CombatLog\CombatLogLine.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Content Include="CombatLog\DoNotDelete.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -4269,6 +4283,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Content Include="ReleaseNotes.txt" />
     <Content Include="Rotation\Blood.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

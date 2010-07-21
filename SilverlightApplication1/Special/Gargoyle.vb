@@ -31,7 +31,7 @@ Friend Class Gargoyle
 		End If
 
 		If cd <= T Then
-			StrikeCastTime = (2.0 / sim.MainStat.Haste) * 100  'no haste cap for Garg.
+            StrikeCastTime = (2.0 / sim.MainStat.PhysicalHaste) * 100  'no haste cap for Garg.
 			AP = sim.MainStat.AP
 			sim.RunicPower.Use(60)
 			sim.CombatLog.write(T & vbTab & "Gargoyle use")

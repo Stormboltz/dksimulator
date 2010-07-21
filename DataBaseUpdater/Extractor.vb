@@ -43,6 +43,7 @@ Public Class Extractor
 		return x.SelectSingleNode("/wowhead/item/icon").Innertext.ToLower
 	End function
 	Sub DownloadThisIcon(name As String)
+		exit sub
 		If file.Exists(Application.StartupPath & "\large\" & name & ".jpg") = False Then client.DownloadFile("http://static.wowhead.com/images/wow/icons/large/" & name & ".jpg",Application.StartupPath & "\large\" & name & ".jpg")
 		If file.Exists(Application.StartupPath & "\medium\" & name & ".jpg") = False Then client.DownloadFile("http://static.wowhead.com/images/wow/icons/medium/" & name & ".jpg",Application.StartupPath & "\medium\" & name & ".jpg")
 		If file.Exists(Application.StartupPath & "\small\" & name & ".jpg") = False Then client.DownloadFile("http://static.wowhead.com/images/wow/icons/small/" & name & ".jpg",Application.StartupPath & "\small\" & name & ".jpg")
@@ -608,6 +609,10 @@ Public Class Extractor
 		newElem.InnerText = ExpertiseRating
 		newItem.AppendChild(newElem)
 		
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ArmorPenetrationRating", "")
+		newElem.InnerText = "0"
+		newItem.AppendChild(newElem)
+		
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "dps", "")
 		newElem.InnerText = dps
 		newItem.AppendChild(newElem)
@@ -827,7 +832,7 @@ Public Class Extractor
 		return str.Substring(i,j-i-1)
 	End Function
 	
-	sub CataUpdate()
+	sub CataCreateDB()
 		
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
 		doc.Load(Application.StartupPath & "\" & "itemDB.xml")
@@ -867,7 +872,7 @@ Public Class Extractor
 		col.Sort
 		
 		For Each str as String In col
-			ExtractThis(GetXmlFromID(str))
+			ExtractThis(GetCataXmlFromID(str))
 			debug.Print (i & "/"  & col.Count)
 			i +=1
 		Next
@@ -893,5 +898,38 @@ Public Class Extractor
 		return str
 		'
 	End Function
+	Sub AddArPtoEveryItem()
+		Dim doc As xml.XmlDocument = New xml.XmlDocument
+		dim newElem as Xml.XmlElement
+		doc.Load(Application.StartupPath & "\itemDB.xml")
+		Dim total As Integer = doc.SelectNodes("/items/item").Count
+		dim i as Integer = 0
+		For Each xNode As Xml.XmlNode In doc.SelectNodes("/items/item")
+			i +=1
+			debug.Print (i & "/" & total)
+			newElem = doc.CreateNode(xml.XmlNodeType.Element, "ArmorPenetrationRating", "")
+			newElem.InnerText = "0"
+			xNode.AppendChild(newElem)
+		Next
+		doc.Save(Application.StartupPath & "\itemDB.xml")
+	End Sub
+	
+	Sub CataUpdateDatabase
+		Dim doc As xml.XmlDocument = New xml.XmlDocument
+		dim newElem as Xml.XmlElement
+		doc.Load(Application.StartupPath & "\itemDB.xml")
+		Dim total As Integer = doc.SelectNodes("/items/item").Count
+		Dim i As Integer = 0
+		dim id as Integer
+		For Each xNode As Xml.XmlNode In doc.SelectNodes("/items/item")
+			i +=1
+			debug.Print (i & "/" & total)
+			Dim tx As String
+			id = xNode.Attributes.GetNamedItem("id").Value
+			tx = GetCataXmlFromID(id)
+			ExtractThis(tx,True)
+		Next
+		
+	End Sub
 	
 End Class

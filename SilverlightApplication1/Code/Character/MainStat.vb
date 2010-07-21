@@ -370,12 +370,11 @@ Friend Class MainStat
 
     Function PhysicalHaste() As Double
         Dim tmp As Double
-        tmp = 1 + character.HasteRating / (25.22) / 100 '1.3 is the buff haste rating received
-        tmp = tmp * (1 + Sim.UnholyPresence * 0.15)
+        tmp = Haste()
+        tmp = tmp * (1 + Sim.UnholyPresence * 0.1 + Sim.Character.TalentUnholy.ImprovedUnholyPresence * 2.5 / 100)
         If Sim.Character.TalentFrost.ImprovedIcyTalons Then tmp = tmp * 1.05
         If Sim.proc.IcyTalons.IsActive Then tmp = tmp * (1 + 0.04 * Sim.proc.IcyTalons.ProcValue)
         If Sim.Character.Buff.MeleeHaste Then tmp = tmp * 1.2
-        If Sim.Character.Buff.Haste Then tmp = tmp * 1.03
         If Sim.proc.Bloodlust.IsActive Then tmp = tmp * 1.3
         If Sim.proc.TrollRacial.IsActive Then tmp = tmp * 1.2
         Return tmp
@@ -384,20 +383,13 @@ Friend Class MainStat
     Function Haste() As Double
         Dim tmp As Double
         tmp = 1 + character.HasteRating / (25.22) / 100 '1.3 is the buff haste rating received
-        tmp = tmp * (1 + Sim.UnholyPresence * 0.15)
-        If Sim.Character.TalentFrost.ImprovedIcyTalons Then tmp = tmp * 1.05
-        If Sim.proc.IcyTalons.IsActive Then tmp = tmp * (1 + 0.04 * Sim.proc.IcyTalons.ProcValue)
-        If Sim.Character.Buff.MeleeHaste Then tmp = tmp * 1.2
-        If Sim.Character.Buff.Haste Then tmp = tmp * 1.03
-        If Sim.proc.Bloodlust.IsActive Then tmp = tmp * 1.3
-        If Sim.proc.TrollRacial.IsActive Then tmp = tmp * 1.2
         Return tmp
     End Function
     Function SpellHaste() As Double
         Dim tmp As Double
-        tmp = 1 + character.SpellHasteRating / 25.22 / 100
+        tmp = Haste()
+        If Sim.proc.TrollRacial.IsActive Then tmp = tmp * 1.2
         If Sim.Character.Buff.SpellHaste Then tmp = tmp * 1.05
-        If Sim.Character.Buff.Haste Then tmp = tmp * 1.03
         If Sim.proc.Bloodlust.IsActive Then tmp = tmp * 1.3
         Return tmp
     End Function

@@ -64,6 +64,7 @@
                     <sdk:Label Height="28" HorizontalAlignment="Left" Margin="69,380,0,0" Name="Label19" VerticalAlignment="Top" Width="120" Content="x RP per x Second" />
                     <Button Content="Edit" Height="23" Margin="247,289,0,0" Name="cmdEditScenario" VerticalAlignment="Top" HorizontalAlignment="Left" Width="47" />
                     <Button Content="Display last report" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="793,19,0,0" Name="cmdReport" VerticalAlignment="Top" Width="155" />
+                    <Button Content="Display last log" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="632,19,0,0" Name="cmdShowLog" VerticalAlignment="Top" Width="155" />
                 </Grid>
                 
                 

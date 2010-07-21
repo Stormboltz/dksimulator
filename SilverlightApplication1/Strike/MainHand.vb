@@ -28,7 +28,7 @@ Sub New(S As sim)
 		
 		WSpeed = sim.MainStat.MHWeaponSpeed
 		
-        NextWhiteMainHit = T + (WSpeed * 100) / sim.MainStat.Haste
+        NextWhiteMainHit = T + (WSpeed * 100) / sim.MainStat.PhysicalHaste
 		sim.FutureEventManager.Add(NextWhiteMainHit,"MainHand")
 		
 		If sim.FrostPresence = 1 Then

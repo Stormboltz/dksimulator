@@ -78,16 +78,11 @@ Public Class AotD
 		Sim._UseGCD(T, sim.latency/10 + 400)
 	End Sub
 	
-	Function Haste() As Double
-		Dim tmp As Double
-		tmp = sim.MainStat.Haste
-		If GhoulDoubleHaste Then
-			tmp = tmp * (1 + 0.2 * sim.Character.Buff.MeleeHaste)
-			If sim.proc.Bloodlust.IsActive Then tmp = tmp * 1.3
-			tmp = tmp * (1 + 0.03 * sim.Character.Buff.Haste)
-		End If
-		Return tmp
-	End Function
+    Function PhysicalHaste() As Double
+        Dim tmp As Double
+        tmp = sim.MainStat.PhysicalHaste
+        Return tmp
+    End Function
 	
 
 	
@@ -95,7 +90,7 @@ Public Class AotD
 		Dim dégat As integer
 		Dim WSpeed As Single
 		WSpeed = MHWeaponSpeed
-		NextWhiteMainHit = T + (WSpeed * 100) / Haste
+        NextWhiteMainHit = T + (WSpeed * 100) / PhysicalHaste()
 		sim.FutureEventManager.Add(NextWhiteMainHit,"AotD")
 		Dim RNG As Double
 		RNG = RngHit
@@ -235,22 +230,13 @@ Public Class AotD
 	
 	
 	Function SpellHaste() As Double
-		Dim tmp As Double
-		If sim.UnholyPresence = 1 Then
-			SpellHaste = 0.5
-		Else
-			tmp = sim.Character.SpellHasteRating / 25.22 / 100
-			tmp = tmp + 0.05 *  sim.Character.Buff.SpellHaste
-			tmp = tmp + 0.03 *  sim.Character.Buff.Haste
-			SpellHaste = tmp
-		End If
-	End Function
+        Return sim.Character.SpellHasteRating()
+    End Function
 	Function Expertise() As Double
 		Dim tmp As Double
 		tmp =  sim.mainstat.Hit
 		tmp = tmp * 214 / 32.79
-		
-		return tmp 
+        Return tmp
 	End Function
 	
 	Function Hit() As Double
