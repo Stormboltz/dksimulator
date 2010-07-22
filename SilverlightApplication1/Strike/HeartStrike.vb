@@ -76,8 +76,9 @@ Friend Class HeartStrike
 	End Function
 	public Overrides Function AvrgNonCrit(T as long,target as Targets.Target) As Double
 		Dim tmp As Double
-		tmp = sim.MainStat.NormalisedMHDamage * 0.5
-		tmp = tmp + 368
+        tmp = sim.MainStat.NormalisedMHDamage * 1
+        tmp = tmp + 368
+
 		if sim.MainStat.T84PDPS = 1 then
 			tmp = tmp * (1 + 0.1 * target.NumDesease * 1.2)
 		else

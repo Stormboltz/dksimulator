@@ -82,11 +82,13 @@ Public Class RuneStrike
 	overrides Function AvrgNonCrit(T As long,target As Targets.Target) As Double
 		Dim tmp As Double
 		If offhand Then
-			tmp = sim.MainStat.OHBaseDamage * 1.5
+            tmp = sim.MainStat.OHBaseDamage * 2
 		Else
-			tmp = sim.MainStat.MHBaseDamage * 1.5
-		End If
-		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
+            tmp = sim.MainStat.MHBaseDamage * 2
+        End If
+        tmp = tmp + 2 * sim.MainStat.AP * 10 / 100
+
+        tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
 		tmp = tmp * (1+ sim.MainStat.T82PTNK*0.1)
 		If offhand Then
 			tmp = tmp * 0.5

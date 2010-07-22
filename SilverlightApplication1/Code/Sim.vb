@@ -11,7 +11,7 @@ Public Class Sim
     Public Event Sim_Closing(ByVal sender As Object, ByVal e As EventArgs)
     Friend isoStore As IsolatedStorage.IsolatedStorageFile
 
-    Friend Cataclysm As Boolean = True
+    'Friend Cataclysm As Boolean = True
     Friend UselessCheck As Long
     Friend UselessCheckColl As New Collection
 

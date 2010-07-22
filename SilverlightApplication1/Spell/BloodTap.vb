@@ -13,7 +13,7 @@ Friend Class BloodTap
 		MyBase.New(s)
 	End Sub
 	Function IsAvailable(T As Long) As Boolean
-		if sim.Cataclysm then return false
+
 		If T >= cd Then
             Return True
 
@@ -39,19 +39,19 @@ Friend Class BloodTap
 		'Two Blood Runes available or Two Blood runes unavailable, it will convert one of them to a Death Rune and make it available.
 		If sim.runes.BloodRune1.death =False And sim.runes.BloodRune2.death =False  Then
 			If sim.Runes.BloodRune1.Available(T) = sim.Runes.BloodRune2.Available(T) Then
-				sim.Runes.BloodRune1.SetAvailableTime(T)
+                sim.Runes.BloodRune1.Activate()
 				sim.Runes.BloodRune1.death = True
 				sim.Runes.BloodRune1.BTuntil = T + 2000
 				GoTo Out
 			Else
 				'One Blood Rune available and One Blood Rune unavailable, it will convert the available rune to a Death Rune and leave the other unavailable.
 				If sim.Runes.BloodRune1.Available(T) Then
-					sim.Runes.BloodRune1.SetAvailableTime(T)
+                    sim.Runes.BloodRune1.Activate()
 					sim.Runes.BloodRune1.death = True
 					sim.Runes.BloodRune1.BTuntil = T + 2000
 					GoTo Out
 				Else
-					sim.Runes.BloodRune2.SetAvailableTime(T)
+                    sim.Runes.BloodRune2.Activate()
 					sim.Runes.BloodRune2.death = True
 					sim.Runes.BloodRune2.BTuntil = T + 2000
 					GoTo Out
@@ -63,12 +63,12 @@ Friend Class BloodTap
 	
 		If sim.runes.BloodRune1.death and sim.runes.BloodRune2.death  Then
 			If sim.Runes.BloodRune1.Available(T) Then
-				sim.Runes.BloodRune2.SetAvailableTime(T)
+                sim.Runes.BloodRune2.Activate()
 				sim.Runes.BloodRune2.death = True
 				sim.Runes.BloodRune2.BTuntil = T + 2000
 				goto Out
 			Else
-				sim.Runes.BloodRune1.SetAvailableTime(T)
+                sim.Runes.BloodRune1.Activate()
 				sim.Runes.BloodRune1.death = True
 				sim.Runes.BloodRune1.BTuntil = T + 2000
 				goto Out
@@ -87,10 +87,10 @@ Friend Class BloodTap
 				sim.Runes.BloodRune1.BTuntil = T + 2000
 			End If
 			If sim.Runes.BloodRune1.Available(T) Then
-				sim.Runes.BloodRune2.SetAvailableTime(T)
+                sim.Runes.BloodRune2.Activate()
 				goto Out
 			Else
-				sim.Runes.BloodRune1.SetAvailableTime(T)
+                sim.Runes.BloodRune1.Activate()
 				goto Out
 			End If
 		End If
@@ -111,11 +111,11 @@ Friend Class BloodTap
 	Function UseWithCancelBT(T As long) As Boolean
 		cd = t + 6000
 		If sim.Runes.BloodRune1.AvailableTime > T And sim.runes.BloodRune1.death = False Then
-			sim.Runes.BloodRune1.SetAvailableTime(T)
+            sim.Runes.BloodRune1.Activate()
 			sim.Runes.BloodRune1.death = True
 			'sim.Runes.BloodRune1.BTuntil = T + 2000
 		Else
-			sim.Runes.BloodRune2.SetAvailableTime(T)
+            sim.Runes.BloodRune2.Activate()
 			sim.Runes.BloodRune2.death = True
 			'sim.Runes.BloodRune2.BTuntil = T + 2000
 		End If

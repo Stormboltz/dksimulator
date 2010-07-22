@@ -901,5 +901,8 @@ OUT:
     Private Sub cmdShowLog_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdShowLog.Click
         Dim Repfrm As New CombatLogViewer
         Repfrm.Show()
+        'Dim txtEdi As New TextEditor
+        'txtEdi.OpenFileFromISO("/KahoDKSim/CombatLog/Combatlog.txt")
+        'txtEdi.Show()
     End Sub
 End Class

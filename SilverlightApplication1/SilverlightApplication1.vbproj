@@ -76,6 +76,9 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
     <Reference Include="System.ComponentModel.DataAnnotations, Version=2.0.5.0, Culture=neutral, PublicKeyToken=ddd0da4d3e678217" />
@@ -164,6 +167,7 @@
       <DependentUpon>EPDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="GearSelector\EPValues.vb" />
+    <Compile Include="Runes\RunePair.vb" />
     <Compile Include="WaitFrame.xaml.vb">
       <DependentUpon>WaitFrame.xaml</DependentUpon>
     </Compile>
@@ -213,8 +217,8 @@
     </Compile>
     <Compile Include="Report\ReportLine.vb" />
     <Compile Include="Runes\CataRune.vb" />
-    <Compile Include="Runes\CataRunesManagement.vb" />
-    <Compile Include="Runes\rune.vb" />
+    <None Include="Runes\CataRunesManagement.vb" />
+    <None Include="Runes\rune.vb" />
     <Compile Include="Runes\runes.vb" />
     <Compile Include="scenario\Element.vb" />
     <Compile Include="scenario\myTextButton.xaml.vb">

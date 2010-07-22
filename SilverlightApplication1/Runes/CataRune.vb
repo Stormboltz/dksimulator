@@ -7,101 +7,96 @@
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
 Public Class CataRune
-	Friend Value As Integer
-    Friend reserved As Boolean
-    Private death1 As Boolean
-    Private death2 As Boolean
-    Property death As Boolean
-        Set(ByVal value As Boolean)
-            If value = True Then
-                If death1 = True Then
-                    death2 = True
-                Else
-                    death1 = True
-                End If
-            Else
-                If death2 = True Then
-                    death2 = False
-                ElseIf death1 = True Then
-                    death1 = False
-                End If
-            End If
+    Inherits Supertype
 
-        End Set
-        Get
-            Return (death1 Or death2)
-        End Get
-    End Property
-	
-	Friend BTuntil as Long
-	Protected Sim As Sim
-	
-	
-	Sub New(S As Sim)
-		Me.reserved=False
-		Me.death=False
-		Me.value=200
-		Sim = S
+    Friend Value As Integer
+    Friend reserved As Boolean
+    Friend death As Boolean
+
+    Friend Parent As RunePair
+    Friend BTuntil As Long
+
+
+
+    Sub New(ByVal S As Sim)
+        Me.reserved = False
+        Me.death = False
+        Me.Value = 100
+        Sim = S
     End Sub
 
 
+    Sub Use(ByVal T As Long, ByVal D As Boolean)
+        Parent.Use(T, D)
+        death = D
+        If BTuntil > T Then death = True
+        sim.proc.tryT104PDPS(T)
 
-	
-	Sub Use(T As Long, D As Boolean)
-		death = D
-		If BTuntil > T Then death = True
-		Value = Value - 100
-        If Value < 0 Then Diagnostics.Debug.WriteLine("Negative Rune")
-		sim.proc.tryT104PDPS(T)
-		sim.FutureEventManager.Add(AvailableTime,"Rune")
-	End Sub
-	Function RefillRate As Double 'Rune fraction per second
-		'withoutHaste 5s per rune 
-		Dim tmp As Double
-		tmp = (1/5)*sim.MainStat.Haste
+    End Sub
+
+
+    Function Available() As Boolean
+        If Value = 100 Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
+    Function Available(ByVal T As Long) As Boolean
+        If T >= AvailableTime() Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
+    'Function NextAvailableTime() As Long
+    '    'Dim tmp As Long
+    '    If Value = 100 Then Return Sim.TimeStamp
+    '    Return ((100 - Value) * Parent.RunePerSecond + Sim.TimeStamp)
+    'End Function
+
+    Function AvailableTime() As Long
+        'Dim tmp As Long
+        If Value >= 100 Then Return sim.TimeStamp
+        Dim d As Double
+        d = ((100 - Value) * RunePerSecond() * 100 + sim.TimeStamp)
+
+        Return Convert.ToInt64(d + 1)
+    End Function
+
+    Sub Activate()
+        Value = 100
+    End Sub
+
+    Sub Reset()
+        death = False
+        reserved = False
+        Value = 100
+    End Sub
+    Sub AddEventInManager()
+        sim.FutureEventManager.Add(sim.TimeStamp, "Rune")
+    End Sub
+
+
+    Function Death_Report() As String
+        If death Then
+            Return "D"
+        Else
+            Return ""
+        End If
+    End Function
+    Function RunePerSecond() As Double 'Rune fraction per second
+        'withoutHaste 10s per rune 
+        Dim tmp As Double
+        'tmp = (1 / 10)
+        tmp = (1 / 10) * sim.MainStat.Haste
         If Sim.UnholyPresence = 1 Then
             tmp = tmp * (1.1 + Sim.Character.TalentUnholy.ImprovedUnholyPresence * 2.5 / 100)
         End If
+
         Return tmp
-	End Function
-	
-	Sub Refill(second As Double)
-		dim tmp as Double
-		tmp = RefillRate * second*100
-		value = math.min(200,value+tmp)
-	End Sub
-	
-	
-	
-	Function Available() As Boolean
-		If value >= 100 Then
-			Return True
-		Else
-			return false
-		End If
-	End Function
-	
-	Function AvailableTwice() As Boolean
-		If value >= 100 Then
-			Return True
-		Else
-			return false
-		End If
-	End Function
-	
-	
-	Function NextAvailableTime() As Long
-		'Dim tmp As Long
-		if value >= 200 then return sim.TimeStamp
+    End Function
 
-		return ((200-value)*RefillRate + sim.TimeStamp)
-	End Function
-	
-	Function AvailableTime() As Long
-		'Dim tmp As Long
-		if value >= 100 then return sim.TimeStamp
-
-		return ((100-value)*RefillRate + sim.TimeStamp)
-	End Function
-	
 End Class

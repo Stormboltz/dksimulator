@@ -75,11 +75,11 @@ overrides Function AvrgNonCrit(T As Long, target As Targets.Target ) As Double
 	Dim tmp As Double
 	
 	If offhand = false Then
-		tmp = sim.MainStat.NormalisedMHDamage * 0.4
+            tmp = sim.MainStat.NormalisedMHDamage * 0.8
 	Else
-		tmp = sim.MainStat.NormalisedOHDamage * 0.4
+            tmp = sim.MainStat.NormalisedOHDamage * 0.8
 	End If
-	tmp = tmp + 305.6
+	tmp = tmp + 611,2
 	if sim.MainStat.T84PDPS = 1 then
 		tmp = tmp * (1 + 0.125 * target.NumDesease * 1.2)
 	else

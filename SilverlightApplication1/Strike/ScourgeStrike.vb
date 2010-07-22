@@ -60,17 +60,16 @@ Friend Class ScourgeStrike
 				sim.Targets.MainTarget.FrostFever.ScourgeStrikeGlyphCounter = sim.Targets.MainTarget.FrostFever.ScourgeStrikeGlyphCounter + 1
 			End If
 		End If
-		sim.runes.UseFU(T,False)
-		
-		sim.TryOnFU
+        sim.Runes.UseUnholy(T, False)
+        sim.TryOnFU()
 		sim.TryOnMHHitProc
 		return true
 	End Function
 	
 	Overrides Function AvrgNonCrit(T As Long,target As Targets.Target) As Double
 		tmpPhysical = sim.MainStat.NormalisedMHDamage
-		tmpPhysical = tmpPhysical * 0.70
-		tmpPhysical = tmpPhysical + 560
+        tmpPhysical = tmpPhysical * 1
+        tmpPhysical = tmpPhysical + 561
 		If sim.sigils.Awareness Then tmpPhysical = tmpPhysical + 189
 		If sim.sigils.ArthriticBinding Then tmpPhysical = tmpPhysical + 91.35
 		tmpPhysical = tmpPhysical * sim.MainStat.StandardPhysicalDamageMultiplier(T)

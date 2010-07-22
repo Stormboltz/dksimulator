@@ -73,7 +73,7 @@ Friend Class Rotation
                     If retry = 0 Then Return True
                 End If
             Case "ScourgeStrike"
-                If Runes.FU(TimeStamp) = True Then
+                If Runes.Unholy(TimeStamp) = True Then
                     Return sim.ScourgeStrike.ApplyDamage(TimeStamp)
                     'Diagnostics.Debug.WriteLine("SS")
                     Exit Function
@@ -193,11 +193,10 @@ Friend Class Rotation
             Case "HowlingBlast"
                 If sim.HowlingBlast.isAvailable(TimeStamp) Then
                     If sim.proc.Rime.IsActive Or Runes.FU(TimeStamp) Then
-                        Runes.UnReserveFU(TimeStamp)
                         Return sim.HowlingBlast.ApplyDamage(TimeStamp)
                         Exit Function
                     Else
-                        Runes.ReserveFU(TimeStamp)
+
                     End If
                 Else
                     If retry = 0 Then Return True

@@ -57,12 +57,12 @@ Friend Class PlagueStrike
 		Dim tmp As Double
 		
 		If OffHand = False Then
-			tmp = sim.MainStat.NormalisedMHDamage * 0.5
+            tmp = sim.MainStat.NormalisedMHDamage * 1
 		Else
-			tmp = sim.MainStat.NormalisedOHDamage * 0.5
+            tmp = sim.MainStat.NormalisedOHDamage * 1
 		End If
 		
-		tmp = tmp + 189
+        tmp = tmp + 378
 		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
 		tmp = tmp * (1 + sim.Character.talentunholy.Outbreak * 10 / 100)
 		If sim.character.glyph.PlagueStrike Then tmp = tmp * (1.2)

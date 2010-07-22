@@ -87,9 +87,9 @@ Friend Class Obliterate
 	public Overrides Function AvrgNonCrit(T as long,target as Targets.Target) As Double
 		Dim tmp As Double
 		If OffHand Then
-			tmp = sim.MainStat.NormalisedOHDamage * 0.8 + 467.2
+            tmp = sim.MainStat.NormalisedOHDamage * 1.6 + 934.4
 		Else
-			tmp = sim.MainStat.NormalisedMHDamage * 0.8 + 467.2
+            tmp = sim.MainStat.NormalisedMHDamage * 1.6 + 934.4
 		End If
 		
 		If sim.sigils.Awareness Then tmp = tmp + 336

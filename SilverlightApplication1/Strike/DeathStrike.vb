@@ -76,13 +76,13 @@ Friend Class DeathStrike
 		Dim tmp As Double
 		
 		If offhand = false Then
-			tmp = sim.MainStat.NormalisedMHDamage*0.75
+            tmp = sim.MainStat.NormalisedMHDamage * 1.5
 		Else
-			tmp = sim.MainStat.NormalisedOHDamage*0.75
+            tmp = sim.MainStat.NormalisedOHDamage * 1.5
 		End If
 		tmp = tmp + 222.75
-		if sim.sigils.Awareness then tmp = tmp + 315
-		tmp = tmp * (1 + sim.Character.talentblood.ImprovedDeathStrike * 15/100)
+        If sim.Sigils.Awareness Then tmp = tmp + 445.5
+        tmp = tmp * (1 + sim.Character.TalentBlood.ImprovedDeathStrike * 15 / 100)
 		If sim.character.glyph.DeathStrike Then
 			If Sim.RunicPower.Check(25) Then
 				tmp = tmp * (1 + 25/100)

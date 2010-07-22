@@ -728,19 +728,9 @@ Friend Class Procs
 
     Sub tryT104PDPS(ByVal T As Long)
         If Sim.MainStat.T104PDPS = 0 Then Exit Sub
-
-        If Sim.Cataclysm Then
-            If Sim.Runes.BloodRunes.Available Then Exit Sub
-            If Sim.Runes.FrostRunes.Available Then Exit Sub
-            If Sim.Runes.UnholyRunes.Available Then Exit Sub
-        Else
-            If Sim.Runes.BloodRune1.AvailableTime < T Then Exit Sub
-            If Sim.Runes.BloodRune2.AvailableTime < T Then Exit Sub
-            If Sim.Runes.FrostRune1.AvailableTime < T Then Exit Sub
-            If Sim.Runes.FrostRune2.AvailableTime < T Then Exit Sub
-            If Sim.Runes.UnholyRune1.AvailableTime < T Then Exit Sub
-            If Sim.Runes.UnholyRune2.AvailableTime < T Then Exit Sub
-        End If
+        If Sim.Runes.BloodRunes.Available Then Exit Sub
+        If Sim.Runes.FrostRunes.Available Then Exit Sub
+        If Sim.Runes.UnholyRunes.Available Then Exit Sub
         T104PDPS.ApplyMe(T)
     End Sub
 End Class

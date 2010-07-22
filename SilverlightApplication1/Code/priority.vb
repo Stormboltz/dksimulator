@@ -81,7 +81,7 @@ Friend Class priority
                     End If
 
                 Case "ScourgeStrike"
-                    If runes.FU(TimeStamp) = True And sim.CanUseGCD(TimeStamp) Then
+                    If runes.Unholy(TimeStamp) = True And sim.CanUseGCD(TimeStamp) Then
                         sim.ScourgeStrike.ApplyDamage(TimeStamp)
                         'Diagnostics.Debug.WriteLine("SS")
                         Exit Sub
@@ -319,10 +319,9 @@ Friend Class priority
 					If sim.HowlingBlast.isAvailable(TimeStamp) Then
 						If sim.proc.rime.IsActive Or runes.FU(TimeStamp) and sim.CanUseGCD(Timestamp)  Then
 							sim.HowlingBlast.ApplyDamage(TimeStamp)
-							runes.UnReserveFU(TimeStamp)
-							Exit Sub
+                            Exit Sub
 						Else
-							runes.ReserveFU(TimeStamp)
+                            'runes.ReserveFU(TimeStamp)
 						End If
 					Else
 					End If
@@ -330,10 +329,9 @@ Friend Class priority
 					If sim.HowlingBlast.isAvailable(TimeStamp) and sim.proc.KillingMachine.IsActive() Then
 						If sim.proc.rime.IsActive Or runes.FU(TimeStamp) and sim.CanUseGCD(Timestamp) Then
 							sim.HowlingBlast.ApplyDamage(TimeStamp)
-							runes.UnReserveFU(TimeStamp)
-							Exit Sub
+                            Exit Sub
 						Else
-							runes.ReserveFU(TimeStamp)
+                            'runes.ReserveFU(TimeStamp)
 						End If
 					Else
 					End If

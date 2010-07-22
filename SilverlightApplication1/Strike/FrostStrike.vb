@@ -74,11 +74,12 @@ Friend Class FrostStrike
 		if target is nothing then target = sim.Targets.MainTarget
 		Dim tmp As Double
 		If offhand = false Then
-			tmp = sim.mainstaT.NormalisedMHDamage*0.55
+            tmp = sim.MainStat.NormalisedMHDamage * 1.1
 		Else
-			tmp = sim.mainstaT.NormalisedOHDamage*0.55
+            tmp = sim.MainStat.NormalisedOHDamage * 1.1
+
 		End If
-		tmp = tmp + 150
+        tmp = tmp + 275
 		if sim.sigils.VengefulHeart then tmp= tmp + 113
 		tmp = tmp * (1+ sim.Character.talentfrost.BloodoftheNorth * 5 /100)
 		if target.NumDesease > 0 or (target.Debuff.BloodPlague+target.Debuff.FrostFever>0) Then 	tmp = tmp * (1 + sim.Character.talentfrost.GlacierRot * 6.6666666 / 100)

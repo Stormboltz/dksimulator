@@ -8,33 +8,16 @@
 '
 Namespace Runes
 Friend Partial Class runes
-        Friend BloodRunes As CataRune
-        Friend FrostRunes As CataRune
-        Friend UnholyRunes As CataRune
+        
+
+
 	
 	
-	Sub FillRunes
-		BloodRunes.Refill(0.1)
-		FrostRunes.Refill(0.1)
-		UnholyRunes.Refill(0.1)
-		sim.FutureEventManager.Add(sim.TimeStamp+10,"RuneFill")
-	End sub
+        
 	
 	
 	
-	
-	Function CataRuneState As String
-		Dim T As Long
-		T = sim.TimeStamp
-		Dim tmp As String
-		tmp = "["
-		tmp = tmp & BloodRunes.Value
-		tmp = tmp & ":" & FrostRunes.Value
-		tmp = tmp & ":" & UnholyRunes.Value
-		tmp = tmp & "]"
-		return tmp
-	End Function
-	
+
 	Function cataBFU (T As Long) As Boolean
 		If BloodRunes.Value >= 100 And FrostRunes.Value >= 100 And UnholyRunes.Value >= 100 Then
 			Return True
@@ -250,9 +233,8 @@ Friend Partial Class runes
 	End Function
 	
 	Function CataRuneRefreshTheNextGCD(T as long) As Boolean
-		Dim tmp As Long
-		
-		tmp = sim.NextFreeGCD
+            Dim tmp As Long
+            tmp = sim.NextFreeGCD
             If BloodRunes.Available = False And BloodRunes.AvailableTime < tmp Then Return False
             If FrostRunes.Available = False And FrostRunes.AvailableTime < tmp Then Return False
             If UnholyRunes.Available = False And UnholyRunes.AvailableTime < tmp Then Return False

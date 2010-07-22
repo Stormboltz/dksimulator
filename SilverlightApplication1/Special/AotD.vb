@@ -67,7 +67,7 @@ Public Class AotD
 		SpellMissChance = math.Max(0.17 - SpellHit,0)
 		ActiveUntil = T + 30 * 100
 		cd =  T + (10*60*100) - (120*100*sim.Character.talentunholy.NightoftheDead)
-		sim.combatlog.write(T  & vbtab &  "Pre-Pull AoTD")
+        If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "Pre-Pull AoTD")
 		sim.FutureEventManager.Add(T,"AotD")
 	End Sub
 	
