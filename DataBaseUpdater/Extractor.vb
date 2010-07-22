@@ -93,7 +93,9 @@ Public Class Extractor
 				col.Add (tmp)
 				'debug.Print(tmp)
 				num  += 1
-				if num > 180 then debug.Print("trop de résultat")
+				If num > 180 Then
+					debug.Print("trop de résultat")
+				End If
 			End If
 		Next
 	End Sub
@@ -122,7 +124,7 @@ Public Class Extractor
 				col.Add (tmp)
 				'debug.Print(tmp)
 				num  += 1
-				If num > 180 Then 
+				If num > 180 Then
 					debug.Print("trop de résultat")
 				End If
 			End If
@@ -468,7 +470,7 @@ Public Class Extractor
 	
 	
 	
-	Sub ExtractThis(myXMLstr As String, optional SkipIfEmpty as Boolean = true)
+	Sub ExtractThis(myXMLstr As String, optional SkipIfEmpty as Boolean = true, optional Update as Boolean = true)
 		Dim myXML As New Xml.XmlDocument
 		dim itemDB as New Xml.XmlDocument
 
@@ -500,7 +502,8 @@ Public Class Extractor
 		Dim AttackPower As String= GetValue(aStr,"atkpwr")
 		
 		Dim CritRating as String= GetValue(aStr,"critstrkrtng")
-		Dim Mastery as String= GetValue(aStr,"mastrtng")
+		Dim Mastery As String= GetValue(aStr,"mastrtng")
+		Dim ArmorPenetrationRating as String= GetValue(aStr,"armorpenrtng")
 		Dim setid as String= GetValue(aStr,"itemset")
 		Dim gem1 as String= GetValue(aStr,"socket1")
 		Dim gem2 as String= GetValue(aStr,"socket2")
@@ -520,7 +523,13 @@ Public Class Extractor
 		
 		Try
 			xNode = doc.SelectSingleNode("/items/item[id="& id &"]")
-			xNode.ParentNode.RemoveChild (xNode)
+			
+			If xNode.InnerText <> "" and Update = True Then
+				xNode.ParentNode.RemoveChild (xNode)
+			Else
+				exit sub
+			End If
+			
 		Catch
 			
 		End Try
@@ -610,7 +619,7 @@ Public Class Extractor
 		newItem.AppendChild(newElem)
 		
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ArmorPenetrationRating", "")
-		newElem.InnerText = "0"
+		newElem.InnerText = ArmorPenetrationRating
 		newItem.AppendChild(newElem)
 		
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "dps", "")
@@ -660,6 +669,7 @@ Public Class Extractor
 		newElem.InnerText = gembonus
 		newItem.AppendChild(newElem)
 		
+		If ArmorPenetrationRating <> "0" Then keywords += "ArmorPenetrationRatingArp"
 		If Mastery <> "0" Then keywords += "Mastery"
 		If CritRating <> "0" Then keywords += "CritRating"
 		If AttackPower <> "0" Then keywords += "AttackPower"
@@ -872,7 +882,7 @@ Public Class Extractor
 		col.Sort
 		
 		For Each str as String In col
-			ExtractThis(GetCataXmlFromID(str))
+			ExtractThis(GetCataXmlFromID(str),true,false)
 			debug.Print (i & "/"  & col.Count)
 			i +=1
 		Next
