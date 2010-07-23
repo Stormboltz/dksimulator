@@ -17,7 +17,7 @@ Friend Class Butchery
 	Function apply(T As long) as Boolean
 		nextTick = T + 500
 		sim.FutureEventManager.Add(nextTick,"Butchery")
-        Sim.RunicPower.add(1 * Sim.Character.TalentBlood.Butchery)
+        Sim.RunicPower.add(1 * Sim.Character.Talents.Talent("Butchery").Value)
         Return True
 	End Function
 		

@@ -1,97 +1,113 @@
 <Talents>
 	<blood>
-		<Butchery row="1" col="1" >2</Butchery>
-		<Subversion row="1" col="2">3</Subversion>
-		<BladeBarrier row="1" col="3">5</BladeBarrier>
-		<BladedArmor row="2" col="1">5</BladedArmor>
-		<ScentOfBlood row="2" col="2">3</ScentOfBlood>
-		<Weapspec row="2" col="3">2</Weapspec>
-		<RuneTap row="3" col="1">1</RuneTap>
-		<Darkconv row="3" col="2">5</Darkconv>
-		<DRM row="3" col="3">3</DRM>
-		<IRuneTap row="4" col="1">3</IRuneTap>
-		<SpellDeflection row="4" col="3">3</SpellDeflection>
-		<Vendetta row="4" col="4">3</Vendetta>
-		<BloodyStrikes row="5" col="1">3</BloodyStrikes>
-		<Vot3W row="5" col="3">3</Vot3W>
-		<MarkBlood row="5" col="4">1</MarkBlood>
-		<BloodyVengeance row="6" col="1">3</BloodyVengeance>
-		<AbominationMight row="6" col="2">2</AbominationMight>
-		<BloodWorms row="7" col="1">3</BloodWorms>
-		<Hysteria row="7" col="2">1</Hysteria>
-		<IBloodPresence row="7" col="3">2</IBloodPresence>
-		<ImprovedDeathStrike row="8" col="1">2</ImprovedDeathStrike>
-		<SuddenDoom row="8" col="2">3</SuddenDoom>
-		<Vampiric row="8" col="3">1</Vampiric>
-		<WillNecropolis row="9" col="1">3</WillNecropolis>
-		<HeartStrike row="9" col="2">1</HeartStrike>
-		<MightofMograine row="9" col="3">3</MightofMograine>
-		<BloodGorged row="10" col="2">5</BloodGorged>
-		<DRW row="11" col="2">1</DRW>
+    <include>
+      <HeartStrike row="9" col="2">1</HeartStrike>
+      <Vengeance></Vengeance>
+      <Vot3W row="5" col="3">3</Vot3W>
+      <DRM row="3" col="3">3</DRM>
+    </include>
+    <Butchery row="1" col="1" >2</Butchery>
+    <BladeBarrier row="1" col="2">3</BladeBarrier>
+    <BladedArmor row="1" col="3">3</BladedArmor>
+    
+    <BloodCakedBlade row="2" col="1">3</BloodCakedBlade>
+    <ScentOfBlood row="2" col="2">3</ScentOfBlood>
+    <ScarletFever row="2" col="3">2</ScarletFever>
+        
+    <AbominationMight row="3" col="1">2</AbominationMight>
+    <BoneShield row="3" col="2">1</BoneShield>
+    <Toughness row="3" col="3">3</Toughness>
+    <HandOfDoom row="3" col="4">2</HandOfDoom>
+    
+    <SanguineFortitude row="4" col="1">3</SanguineFortitude>
+    <BloodParasite row="4" col="2">3</BloodParasite>
+    <IBloodPresence row="4" col="3">2</IBloodPresence>
+
+    <WillNecropolis row="5" col="1">3</WillNecropolis>
+    <RuneTap row="5" col="2">1</RuneTap>
+    <Vampiric row="5" col="3">1</Vampiric>
+    
+    <ImprovedDeathStrike row="6" col="2">2</ImprovedDeathStrike>
+    <CrimsonScourge row="6" col="3">3</CrimsonScourge>
+    
+    <DRW row="7" col="2">1</DRW>
+   		
 	</blood>
 	<frost>
+    <include>
+      <FrostStrike row="9" col="2">1</FrostStrike>
+      <IcyTalons row="3" col="1">5</IcyTalons>
+      <BloodoftheNorth row="8" col="2">3</BloodoftheNorth>
+    </include>
+    
 		<ImprovedIcyTouch row="1" col="1">3</ImprovedIcyTouch>
-		<RPM row="1" col="2">2</RPM>
-		<Toughness row="1" col="3">5</Toughness>
-		<IcyReach row="2" col="2">2</IcyReach>
-		<BlackIce row="2" col="3">5</BlackIce>
-		<NervesofColdSteel row="2" col="4">3</NervesofColdSteel>
-		<IcyTalons row="3" col="1">5</IcyTalons>
-		<LichBorne row="3" col="2">1</LichBorne>
-		<Annihilation row="3" col="3">3</Annihilation>
-		<KillingMachine row="4" col="2">5</KillingMachine>
-		<ChillOfTheGrave row="4" col="3">2</ChillOfTheGrave>
-		<EndlessWinter row="4" col="4">2</EndlessWinter>
-		<Frigid row="5" col="2">3</Frigid>
-		<GlacierRot row="5" col="3">3</GlacierRot>
-		<Deathchill row="5" col="4">1</Deathchill>
-		<ImprovedIcyTalons row="6" col="1">1</ImprovedIcyTalons>
-		<MercilessCombat row="6" col="2">2</MercilessCombat>
-		<Rime row="6" col="3">3</Rime>
-		<ChillBlains row="7" col="1">3</ChillBlains>
-		<HungeringCold row="7" col="2">1</HungeringCold>
-		<IFrostPresence row="7" col="3">2</IFrostPresence>
-		<ThreatOfThassarian row="8" col="1">3</ThreatOfThassarian>
-		<BloodoftheNorth row="8" col="2">3</BloodoftheNorth>
-		<UnbreakableArmor row="8" col="3">1</UnbreakableArmor>
-		<Acclimatation row="9" col="1">3</Acclimatation>
-		<FrostStrike row="9" col="2">1</FrostStrike>
-		<GuileOfGorefiend row="9" col="3">3</GuileOfGorefiend>
-		<TundraStalker row="10" col="2">5</TundraStalker>
-		<HowlingBlast row="11" col="2">1</HowlingBlast>
+    <IcyReach row="1" col="2">2</IcyReach>
+    <NervesofColdSteel row="1" col="4">3</NervesofColdSteel>
+    
+    <Annihilation row="2" col="1">3</Annihilation>
+    <LichBorne row="2" col="2">1</LichBorne>
+    <PaleHorse row="2" col="3">2</PaleHorse>
+    <EndlessWinter row="2" col="4">2</EndlessWinter>
+    
+    <MercilessCombat row="3" col="1">2</MercilessCombat>
+		<ChillOfTheGrave row="3" col="2">2</ChillOfTheGrave>
+    <KillingMachine row="3" col="3">5</KillingMachine>
+    
+    <Rime row="4" col="1">3</Rime>
+    <PillarOfFrost row="4" col="2">1</PillarOfFrost>
+    <ImprovedIcyTalons row="4" col="3">1</ImprovedIcyTalons>
+    <BrittleBones row="4" col="4">2</BrittleBones>
+    
+    <ChillBlains row="5" col="1">2</ChillBlains>
+    <HungeringCold row="5" col="2">1</HungeringCold>
+    <IFrostPresence row="5" col="3">2</IFrostPresence>
+    
+    <ThreatOfThassarian row="6" col="1">3</ThreatOfThassarian>
+    <MightOfFrozenWastes row="6" col="3">3</MightOfFrozenWastes>
+    
+    <HowlingBlast row="7" col="2">1</HowlingBlast>
+      
+		
 	</frost>
 	<unholy>
+    <include>
+      <ScourgeStrike row="9" col="3">1</ScourgeStrike>
+      <MasterOfGhouls row="6" col="4">1</MasterOfGhouls>
+      <Reaping row="6" col="3">3</Reaping>
+      <Impurity row="5" col="2">5</Impurity>
+    </include>
+    
 		<ViciousStrikes row="1" col="1">2</ViciousStrikes>
 		<Virulence row="1" col="2">3</Virulence>
-		<Anticipation row="1" col="3">5</Anticipation>
-		<Epidemic row="2" col="1">2</Epidemic>
-		<Morbidity row="2" col="2">3</Morbidity>
-		<UnholyCommand row="2" col="3">2</UnholyCommand>
-		<RavenousDead row="2" col="4">3</RavenousDead>
-		<Outbreak row="3" col="1">3</Outbreak>
-		<Necrosis row="3" col="2">5</Necrosis>
-		<CorpseExplosion row="3" col="3">1</CorpseExplosion>
-		<PaleHorse row="4" col="2">2</PaleHorse>
-		<BloodCakedBlade row="4" col="3">3</BloodCakedBlade>
-		<NightoftheDead row="4" col="4">2</NightoftheDead>
-		<UnholyBlight row="5" col="1">1</UnholyBlight>
-		<Impurity row="5" col="2">5</Impurity>
-		<Dirge row="5" col="3">2</Dirge>
-		<Desecration row="6" col="1">2</Desecration>
-		<MagicSuppression row="6" col="2">3</MagicSuppression>
-		<Reaping row="6" col="3">3</Reaping>
-		<MasterOfGhouls row="6" col="4">1</MasterOfGhouls>
-		<Desolation row="7" col="1">5</Desolation>
-		<AMZ row="7" col="2">1</AMZ>
-		<ImprovedUnholyPresence row="7" col="3">2</ImprovedUnholyPresence>
-		<GhoulFrenzy row="7" col="4">1</GhoulFrenzy>
-		<CryptFever row="8" col="2">3</CryptFever>
-		<BoneShield row="8" col="3">1</BoneShield>
-		<WanderingPlague row="9" col="1">3</WanderingPlague>
-		<EbonPlaguebringer row="9" col="2">3</EbonPlaguebringer>
-		<ScourgeStrike row="9" col="3">1</ScourgeStrike>
-		<RageofRivendare row="10" col="2">5</RageofRivendare>
-		<SummonGargoyle row="11" col="2">1</SummonGargoyle>
+    <Epidemic row="1" col="3">3</Epidemic>
+
+    <ResilientInfection row="2" col="2">2</ResilientInfection>
+    <UnholyCommand row="2" col="3">2</UnholyCommand>
+    <Morbidity row="2" col="4">3</Morbidity>
+    
+    <CorruptingStrikes row="3" col="1">3</CorruptingStrikes>
+    <UnholyFrenzy row="3" col="2">1</UnholyFrenzy>
+    <Necrosis row="3" col="3">3</Necrosis>
+		<RavenousDead row="3" col="4">3</RavenousDead>
+		
+		<UnholyBlight row="4" col="1">1</UnholyBlight>
+		<MagicSuppression row="4" col="2">3</MagicSuppression>
+    <Dirge row="4" col="3">2</Dirge>
+    
+    <Desecration row="5" col="1">2</Desecration>
+    <AMZ row="5" col="2">1</AMZ>
+    <ImprovedUnholyPresence row="5" col="3">2</ImprovedUnholyPresence>
+    <GhoulFrenzy row="5" col="4">1</GhoulFrenzy>
+    
+    
+		<Outbreak row="6" col="1">3</Outbreak>
+		<CorpseExplosion row="6" col="3">1</CorpseExplosion>
+		<NightoftheDead row="6" col="4">2</NightoftheDead>
+		
+		<EbonPlaguebringer row="7" col="2">2</EbonPlaguebringer>
+    <SuddenDoom row="7" col="3">3</SuddenDoom>
+		
+		<SummonGargoyle row="8" col="2">1</SummonGargoyle>
 	</unholy>
 	<Glyphs>
 		<none>00</none>

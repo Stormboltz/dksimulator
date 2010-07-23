@@ -16,63 +16,63 @@ Friend Class IcyTouch
 			MissCount = MissCount + 1
             Return False
 		End If
-		Sim.RunicPower.add (10 + (sim.Character.talentfrost.ChillOfTheGrave * 2.5))
-		RNG = RngCrit
-		Dim dégat As Integer
-		Dim ccT As Double
-		ccT = CritChance
-		If RNG <= ccT Then
-			CritCount = CritCount + 1
-			dégat = AvrgCrit(T)
-			totalcrit += dégat
-			sim.combatlog.write(T  & vbtab &  "IT crit for " & dégat )
-		Else
-			HitCount = HitCount + 1
-			dégat =  AvrgNonCrit(T)
-			totalhit += dégat
-			sim.combatlog.write(T  & vbtab &  "IT hit for " & dégat)
-		End If
-		total = total + dégat
-		
-		If sim.DRW.IsActive(T) Then
-			sim.DRW.DRWIcyTouch
-		End If
-		sim.runes.UseFrost(T,false)
-		sim.proc.KillingMachine.Use
-		sim.TryOnSpellHit
-		return true
-	End Function
-	overrides Function AvrgNonCrit(T As Long, target As Targets.Target ) As Double
-		if target is nothing then target = sim.Targets.MainTarget
-		
-		Dim tmp As Double
-		tmp = 236
-		
-		tmp = tmp + (0.1 * (1 + 0.04 * sim.Character.talentunholy.Impurity) * sim.MainStat.AP)
-		tmp = tmp * (1 + sim.Character.talentfrost.ImprovedIcyTouch * 5 / 100)
-		if target.NumDesease > 0 or (target.Debuff.BloodPlague+target.Debuff.FrostFever>0) Then 	tmp = tmp * (1 + sim.Character.talentfrost.GlacierRot * 6.6666666 / 100)
-		If sim.ExecuteRange Then tmp = tmp *(1+ 0.06*sim.Character.talentfrost.MercilessCombat)
-		If sim.sigils.FrozenConscience Then tmp = tmp +111
-		tmp = tmp * (1 + sim.Character.talentfrost.BlackIce * 2 / 100)
-		
-		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
-		tmp *= sim.RuneForge.RazorIceMultiplier(T) 'TODO: only on main target
-		
-		sim.Targets.MainTarget.FrostFever.Apply(T) 
-		'Moved this here as an IcyTouch with 1 CG charge left will reapply a CG buffed FF
-		'I'm pretty sure GlacierRot will not apply to the first icy touch if there are no other diseases up
-		if sim.RuneForge.CheckCinderglacier(True) > 0 then tmp *= 1.2
-		AvrgNonCrit = tmp
-	End Function
-	overrides Function CritCoef() As Double
-		CritCoef = 1
-		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
-	End Function
-	overrides Function CritChance() As Double
-		CritChance = sim.MainStat.SpellCrit + sim.Character.talentfrost.Rime * 5 / 100
-		If sim.proc.KillingMachine.IsActive Then return 1
-		
-	End Function
+        sim.RunicPower.add(10 + (sim.Character.Talents.Talent("ChillOfTheGrave").Value * 2.5))
+        RNG = RngCrit
+        Dim dégat As Integer
+        Dim ccT As Double
+        ccT = CritChance
+        If RNG <= ccT Then
+            CritCount = CritCount + 1
+            dégat = AvrgCrit(T)
+            totalcrit += dégat
+            sim.combatlog.write(T & vbtab & "IT crit for " & dégat)
+        Else
+            HitCount = HitCount + 1
+            dégat = AvrgNonCrit(T)
+            totalhit += dégat
+            sim.combatlog.write(T & vbtab & "IT hit for " & dégat)
+        End If
+        total = total + dégat
+
+        If sim.DRW.IsActive(T) Then
+            sim.DRW.DRWIcyTouch()
+        End If
+        sim.runes.UseFrost(T, False)
+        sim.proc.KillingMachine.Use()
+        sim.proc.TryOnSpellHit()
+        Return True
+    End Function
+    Overrides Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
+        If target Is Nothing Then target = sim.Targets.MainTarget
+
+        Dim tmp As Double
+        tmp = 473
+
+        tmp = tmp + (0.1 * (1 + 0.04 * sim.Character.Talents.Talent("Impurity").Value) * sim.MainStat.AP)
+        tmp = tmp * (1 + sim.Character.Talents.Talent("ImprovedIcyTouch").Value * 5 / 100)
+
+        If sim.ExecuteRange Then tmp = tmp * (1 + 0.06 * sim.Character.Talents.Talent("MercilessCombat").Value)
+        If sim.sigils.FrozenConscience Then tmp = tmp + 111
+
+
+        tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
+        tmp *= sim.RuneForge.RazorIceMultiplier(T) 'TODO: only on main target
+
+        sim.Targets.MainTarget.FrostFever.Apply(T)
+        'Moved this here as an IcyTouch with 1 CG charge left will reapply a CG buffed FF
+        'I'm pretty sure GlacierRot will not apply to the first icy touch if there are no other diseases up
+        If sim.RuneForge.CheckCinderglacier(True) > 0 Then tmp *= 1.2
+        AvrgNonCrit = tmp
+    End Function
+    Overrides Function CritCoef() As Double
+        CritCoef = 1
+        CritCoef = CritCoef * (1 + 0.06 * sim.mainstat.CSD)
+    End Function
+    Overrides Function CritChance() As Double
+        CritChance = sim.MainStat.SpellCrit + sim.Character.Talents.Talent("Rime").Value * 5 / 100
+        If sim.proc.KillingMachine.IsActive Then Return 1
+
+    End Function
 	overrides Function AvrgCrit(T As long,target As Targets.Target) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function

@@ -73,7 +73,7 @@ Friend Class Rotation
                     If retry = 0 Then Return True
                 End If
             Case "ScourgeStrike"
-                If Runes.Unholy(TimeStamp) = True Then
+                If Runes.Unholy() = True Then
                     Return sim.ScourgeStrike.ApplyDamage(TimeStamp)
                     'Diagnostics.Debug.WriteLine("SS")
                     Exit Function
@@ -81,7 +81,7 @@ Friend Class Rotation
                     If retry = 0 Then Return True
                 End If
             Case "PlagueStrike"
-                If Runes.Unholy(TimeStamp) Then
+                If Runes.Unholy() Then
                     Return sim.PlagueStrike.ApplyDamage(TimeStamp)
                     'Diagnostics.Debug.WriteLine("PS")
                     Exit Function
@@ -147,7 +147,7 @@ Friend Class Rotation
                 End If
             Case "BloodPlague"
 
-                If sim.Targets.MainTarget.BloodPlague.isActive(TimeStamp + 150) = False And Runes.Unholy(TimeStamp) = True Then
+                If sim.Targets.MainTarget.BloodPlague.isActive(TimeStamp + 150) = False And Runes.Unholy() = True Then
                     Return sim.PlagueStrike.ApplyDamage(TimeStamp)
                     'Diagnostics.Debug.WriteLine("PS")
                     Exit Function

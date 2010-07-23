@@ -58,7 +58,7 @@ NameSpace Diseases
 		
 		Function Lenght() as Integer
 			If _Lenght = 0 Then
-				_Lenght = 1500 + 300 * sim.Character.talentunholy.Epidemic
+                _Lenght = 3000 + 600 * sim.Character.Talents.Talent("Epidemic").Value
 			End If
 			return _Lenght
 		End Function
@@ -90,80 +90,71 @@ NameSpace Diseases
 			Dim tmp As Double
 			tmp = sim.MainStat.StandardMagicalDamageMultiplier(T)
 			if sim.RuneForge.CheckCinderglacier(False) > 0 then tmp  *= 1.2
-			If  target.Debuff.CrypticFever Then
-				tmp = tmp * 1.3
-			Else
-				tmp = tmp * (1 + sim.Character.talentunholy.CryptFever * 10 / 100)
-			End If
-			tmp = tmp * (1 + sim.Character.talentfrost.BlackIce * 2 / 100)
-			return tmp
-		End Function
-		
-		Function Apply(T As Long) As Boolean
+            tmp = tmp * (1 + sim.Character.Talents.Talent("EbonPlaguebringer").Value * 10 / 100)
+
+            Return tmp
+        End Function
+
+        Function Apply(ByVal T As Long) As Boolean
             Apply(T, sim.Targets.MainTarget)
             Return True
-		End Function
-		
-		Overridable Function Apply(T As Long,target as Targets.Target) As Boolean
-			ToReApply = false
-			nextTick = T + 3 * 100
-			sim.FutureEventManager.Add(nextTick,"Disease")
-			ScourgeStrikeGlyphCounter = 0
-			CritChance = CalculateCritChance(T)
-			If sim.RuneForge.CheckCinderglacier(False) > 0 Then
-				cinder = True
-			Else
-				cinder = False
-			End If
-			Multiplier = CalculateMultiplier(T,target)
+        End Function
+
+        Overridable Function Apply(ByVal T As Long, ByVal target As Targets.Target) As Boolean
+            ToReApply = False
+            If nextTick <= T Then
+                nextTick = T + 3 * 100
+            End If
+
+            sim.FutureEventManager.Add(nextTick, "Disease")
+            ScourgeStrikeGlyphCounter = 0
+            CritChance = CalculateCritChance(T)
+            If sim.RuneForge.CheckCinderglacier(False) > 0 Then
+                Cinder = True
+            Else
+                Cinder = False
+            End If
+            Multiplier = CalculateMultiplier(T, target)
             Refresh(T)
             Return True
-		End Function
-		
-		Overridable Function Refresh(T As Long) As Boolean
-			FadeAt = T + Lenght
-			AP = sim.MainStat.AP
-			DamageTick = AvrgNonCrit(T)
+        End Function
+
+        Overridable Function Refresh(ByVal T As Long) As Boolean
+            FadeAt = T + Lenght
+            AP = sim.MainStat.AP
+            DamageTick = AvrgNonCrit(T)
             AddUptime(T)
             Return True
-		End Function
-		
-		Overridable Function AvrgNonCrit(T As Long) As Double
-			Return Multiplier * 1.15 * (26 + 0.055 * (1 + 0.04 * sim.Character.talentunholy.Impurity) * AP)
-		End Function
-		
-		Function ApplyDamage(T As long) As boolean
-			Dim tmp As Double
-			Dim intCount As Integer
-			RngHit
-			
-			if intCount > 1 and OtherTargetsFade < T then return true
-			If RngCrit < CritChance Then
-				tmp = AvrgCrit(T)
-				CritCount = CritCount + 1
-				totalcrit += tmp
-			Else
-				tmp = DamageTick
-				HitCount = HitCount + 1
-				totalhit += tmp
-			End If
-			total = total + tmp
-			If sim.Character.talentunholy.WanderingPlague > 0 Then
-				If Sim.WanderingPlague.isAvailable(T) = True Then
-					Dim RNG As Double
-					RNG = Rng3
-					If RNG <= sim.MainStat.crit Then
-						Sim.WanderingPlague.ApplyDamage(tmp, T)
-					End If
-				End If
-			End If
-			sim.tryOnDoT
-			nextTick = T + 300
-			sim.FutureEventManager.Add(nextTick,"Disease")
-			If sim.combatlog.LogDetails Then sim.combatlog.write(T  & vbtab & Me.ToString & " hit for " & tmp )
-		
-			return true
-		End Function
+        End Function
+
+        Overridable Function AvrgNonCrit(ByVal T As Long) As Double
+            Return Multiplier * 1.15 * (26 + 0.055 * (1 + 0.04 * sim.Character.Talents.Talent("Impurity").Value) * AP)
+        End Function
+
+        Function ApplyDamage(ByVal T As Long) As Boolean
+            Dim tmp As Double
+            Dim intCount As Integer
+            RngHit()
+
+            If intCount > 1 And OtherTargetsFade < T Then Return True
+            If RngCrit < CritChance Then
+                tmp = AvrgCrit(T)
+                CritCount = CritCount + 1
+                totalcrit += tmp
+            Else
+                tmp = DamageTick
+                HitCount = HitCount + 1
+                totalhit += tmp
+            End If
+            total = total + tmp
+            
+            sim.proc.tryOnDoT()
+            nextTick = T + 300
+            sim.FutureEventManager.Add(nextTick, "Disease")
+            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & Me.ToString & " hit for " & tmp)
+
+            Return True
+        End Function
 		
 		Overridable Function CritCoef() As Double
 			return (1+0.06*sim.mainstat.CSD)

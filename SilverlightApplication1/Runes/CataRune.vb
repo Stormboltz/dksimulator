@@ -93,7 +93,7 @@ Public Class CataRune
         'tmp = (1 / 10)
         tmp = (1 / 10) * sim.MainStat.Haste
         If Sim.UnholyPresence = 1 Then
-            tmp = tmp * (1.1 + Sim.Character.TalentUnholy.ImprovedUnholyPresence * 2.5 / 100)
+            tmp = tmp * (1.1 + sim.Character.Talents.Talent("ImprovedUnholyPresence").Value * 2.5 / 100)
         End If
 
         Return tmp

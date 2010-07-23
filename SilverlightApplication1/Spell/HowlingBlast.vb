@@ -12,81 +12,79 @@ Friend Class HowlingBlast
 		MyBase.New(s)
 	End Sub
 	Function isAvailable(T As Long) As Boolean
-		if sim.Character.talentfrost.HowlingBlast <> 1 then return false
+        If sim.Character.Talents.Talent("HowlingBlast").Value <> 1 Then Return False
         If CD <= T Then
             Return True
         Else
             Return False
         End If
-	End Function
-	
-	overrides Function ApplyDamage(T As long) As boolean
-		Dim RNG As Double
-		UseGCD(T)
-		cd = T + 800
-		
-		If DoMySpellHit = false Then
-			sim.combatlog.write(T  & vbtab &  "HB fail")
-			sim.proc.KillingMachine.Use
-			sim.Proc.rime.Use
-			MissCount = MissCount + 1
+    End Function
+
+    Overrides Function ApplyDamage(ByVal T As Long) As Boolean
+        Dim RNG As Double
+        UseGCD(T)
+        cd = T + 800
+
+        If DoMySpellHit = False Then
+            sim.combatlog.write(T & vbtab & "HB fail")
+            sim.proc.KillingMachine.Use()
+            sim.Proc.rime.Use()
+            MissCount = MissCount + 1
             Return False
-		End If
-		
-		If sim.proc.rime.IsActive Then
-			sim.Proc.rime.Use
-			Sim.RunicPower.add (sim.Character.talentfrost.ChillOfTheGrave * 2.5)
-		Else
-			sim.runes.UseFU(T,False)
-			Sim.RunicPower.add (15 + (sim.Character.talentfrost.ChillOfTheGrave * 2.5))
-		End If
-		Dim Tar As Targets.Target
-		
-		For Each Tar In sim.Targets.AllTargets
-			RNG = RngCrit
-			Dim dégat As Integer
-			Dim ccT As Double
-			ccT = CritChance
-			If RNG <= ccT Then
-				CritCount = CritCount + 1
-				dégat = AvrgCrit(T,Tar)
-				sim.combatlog.write(T  & vbtab &  "HB crit for " & dégat )
-				totalcrit += dégat
-			Else
-				HitCount = HitCount + 1
-				dégat = AvrgNonCrit(T,Tar)
-				sim.combatlog.write(T  & vbtab &  "HB hit for " & dégat)
-				totalhit += dégat
-			End If
-			total = total + dégat
-			sim.TryOnSpellHit
-		Next
-	
-		
-		sim.proc.KillingMachine.Use
-		if sim.character.glyph.HowlingBlast then
-			sim.Targets.MainTarget.FrostFever.Apply(T)
-		End If
-		
-		return true
-	End Function
-	overrides Function AvrgNonCrit(T As Long, target As Targets.Target ) As Double
-		if target is nothing then target = sim.Targets.MainTarget
-		Dim tmp As Double
-		tmp = 585
-		tmp = tmp + (0.2 * (1 + 0.04 * sim.Character.talentunholy.Impurity) * sim.MainStat.AP)
-		tmp = tmp * (1 + sim.Character.talentfrost.BlackIce * 2 / 100)
-		if target.NumDesease > 0 or (target.Debuff.BloodPlague+target.Debuff.FrostFever>0) then 	tmp = tmp * (1 + sim.Character.talentfrost.GlacierRot * 6.6666666 / 100)
-		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
-		If sim.ExecuteRange Then tmp = tmp *(1+ 0.06*sim.Character.talentfrost.MercilessCombat)
-		tmp *= sim.RuneForge.RazorIceMultiplier(T) 'TODO: only on main target
-		if sim.RuneForge.CheckCinderglacier(True) > 0 then tmp *= 1.2
-		AvrgNonCrit = tmp
-	End Function
-	overrides Function CritCoef() As Double
-		CritCoef = 1 * (1 + sim.Character.talentfrost.GuileOfGorefiend * 0.5 * 15 / 100) 'GoG works off the 1.5 spell crit modifier or something like that
-		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
-	End Function
+        End If
+
+        If sim.proc.rime.IsActive Then
+            sim.Proc.rime.Use()
+            sim.RunicPower.add(sim.Character.Talents.Talent("ChillOfTheGrave").Value * 2.5)
+        Else
+            sim.Runes.UseFrost(T, False)
+            sim.RunicPower.add(15 + (sim.Character.Talents.Talent("ChillOfTheGrave").Value * 2.5))
+        End If
+        Dim Tar As Targets.Target
+
+        For Each Tar In sim.Targets.AllTargets
+            RNG = RngCrit
+            Dim dégat As Integer
+            Dim ccT As Double
+            ccT = CritChance
+            If RNG <= ccT Then
+                CritCount = CritCount + 1
+                dégat = AvrgCrit(T, Tar)
+                sim.combatlog.write(T & vbtab & "HB crit for " & dégat)
+                totalcrit += dégat
+            Else
+                HitCount = HitCount + 1
+                dégat = AvrgNonCrit(T, Tar)
+                sim.combatlog.write(T & vbtab & "HB hit for " & dégat)
+                totalhit += dégat
+            End If
+            total = total + dégat
+            sim.proc.TryOnSpellHit()
+        Next
+
+
+        sim.proc.KillingMachine.Use()
+        If sim.character.glyph.HowlingBlast Then
+            sim.Targets.MainTarget.FrostFever.Apply(T)
+        End If
+
+        Return True
+    End Function
+    Overrides Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
+        If target Is Nothing Then target = sim.Targets.MainTarget
+        Dim tmp As Double
+        tmp = 1079
+        tmp = tmp + (0.2 * (1 + 0.04 * sim.Character.Talents.Talent("Impurity").Value) * sim.MainStat.AP)
+        tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
+        If sim.ExecuteRange Then tmp = tmp * (1 + 0.06 * sim.Character.Talents.Talent("MercilessCombat").Value)
+        tmp *= sim.RuneForge.RazorIceMultiplier(T) 'TODO: only on main target
+        If sim.RuneForge.CheckCinderglacier(True) > 0 Then tmp *= 1.2
+        AvrgNonCrit = tmp
+    End Function
+    Overrides Function CritCoef() As Double
+        CritCoef = 1
+        CritCoef = CritCoef * (1 + 0.06 * sim.mainstat.CSD)
+    End Function
 	overrides Function CritChance() As Double
 		CritChance = sim.MainStat.SpellCrit
 		If sim.proc.KillingMachine.IsActive Then

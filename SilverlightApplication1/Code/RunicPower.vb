@@ -12,7 +12,7 @@ Friend Class RunicPower
 	End Sub
 	
 	Sub Reset()
-		MaxValue = 100 + ( 15*sim.Character.talentfrost.RPM)
+        MaxValue = 100 + (15 * sim.Character.Talents.Talent("RPM").Value)
 		Value = 10 'Start fight with some RP
 	End Sub
 	

@@ -26,7 +26,7 @@ Friend Class GhoulStat
 		BaseStrength = 331
 		APtoDPS = 0.89 / 14  'from observation
 		
-		StrengthMultiplier = 0.7 * (1 + sim.Character.talentunholy.ravenousdead*0.2)
+        StrengthMultiplier = 0.7 * (1 + Sim.Character.Talents.Talent("ravenousdead").Value * 0.2)
 		if sim.character.glyph.Ghoul then StrengthMultiplier = StrengthMultiplier + 0.4
 	End Sub
 	

@@ -14,7 +14,7 @@ Public Class UnholyPresence
 	End Sub
 	
 	Function IsAvailable(T As Long) As Boolean
-        If sim.Runes.Unholy(T) Then
+        If sim.Runes.Unholy() Then
             Return True
         Else
             Return False

@@ -12,14 +12,14 @@ Friend Class Hysteria
 		MyBase.New(s)
 	End Sub
 	Function IsAvailable(T As Long) As Boolean
-		If sim.Character.talentblood.Hysteria =  0 Then Return False 
-		If sim.Character.talentblood.DRW = 1 and sim.DRW.cd > T then return false
+        If sim.Character.Talents.Talent("Hysteria").Value = 0 Then Return False
+        If sim.Character.Talents.Talent("DRW").Value = 1 And sim.DRW.cd > T Then Return False
         If CD <= T Then
             Return True
         Else
             Return False
         End If
-	End Function
+    End Function
 
 	Function IsActive(T as Long) as Boolean
         If T <= ActiveUntil Then

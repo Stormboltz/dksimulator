@@ -64,13 +64,13 @@ Public Class WeaponProc
 						If Rng4 > 0.5 Then
 							tmp = sim.MainHand.AvrgNonCrit(T)/2
 							me.CD = T+1
-							sim.TryOnMHHitProc
+                            sim.proc.TryOnMHHitProc()
 							me.CD = 0
 						Else
 							
 							tmp = sim.offhand.AvrgNonCrit(T)/2
 							Me.CD = T+1
-							sim.TryOnOHHitProc
+                            sim.proc.TryOnOHHitProc()
 							me.CD = 0
 						End If
 					Else
@@ -135,29 +135,29 @@ Public Class WeaponProc
 				If RngCrit <= sim.MainStat.SpellCrit Then
 					CritCount = CritCount + 1
 					tmp = ProcValue * 1.5 * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
-					tmp = tmp * (1 + sim.Character.talentfrost.BlackIce * 2 / 100)
-					totalcrit += tmp
-				Else
-					tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
-					tmp = tmp * (1 + sim.Character.talentfrost.BlackIce * 2 / 100)
-					HitCount = HitCount + 1
-					totalhit += tmp
-				End If
-			Case "SaroniteBomb"
-				tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
-				HitCount = HitCount + 1
-				totalhit += tmp
-			Case "SapperCharge"
-				If RngCrit <= sim.MainStat.Crit Then
-					CritCount = CritCount + 1
-					tmp = ProcValue * 1.5 * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
-					tmp = tmp * (1 + sim.Character.talentfrost.BlackIce * 2 / 100)
-					totalcrit += tmp
-				Else
-					tmp= ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
-					HitCount = HitCount + 1
-					totalhit += tmp
-				End If
+
+                    totalcrit += tmp
+                Else
+                    tmp = ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
+
+                    HitCount = HitCount + 1
+                    totalhit += tmp
+                End If
+            Case "SaroniteBomb"
+                tmp = ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
+                HitCount = HitCount + 1
+                totalhit += tmp
+            Case "SapperCharge"
+                If RngCrit <= sim.MainStat.Crit Then
+                    CritCount = CritCount + 1
+                    tmp = ProcValue * 1.5 * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
+
+                    totalcrit += tmp
+                Else
+                    tmp = ProcValue * sim.MainStat.StandardMagicalDamageMultiplier(sim.TimeStamp)
+                    HitCount = HitCount + 1
+                    totalhit += tmp
+                End If
 				
 			Case "physical"
 				If RngCrit <= sim.MainStat.Crit Then

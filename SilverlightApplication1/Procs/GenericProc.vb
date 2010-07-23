@@ -66,24 +66,26 @@ Public Class Proc
 			Case Procs.ProcOnType.OnMisc
 				
 			Case procs.ProcOnType.OnCrit
-				sim.proc.OnCritProcs.add(me,Name)
+                sim.proc.OnCritProcs.Add(Me)
 			Case procs.ProcOnType.OnDamage
-				sim.proc.OnDamageProcs.add(me,Name)
+                sim.proc.OnDamageProcs.Add(Me)
 			Case procs.ProcOnType.OnDoT
-				sim.proc.OnDoTProcs.add(me,Name)
+                sim.proc.OnDoTProcs.Add(Me)
 			Case procs.ProcOnType.OnHit
-				sim.proc.OnHitProcs.add(me,Name)
+                sim.proc.OnHitProcs.Add(Me)
 			Case procs.ProcOnType.OnMHhit
-				sim.proc.OnMHhitProcs.add(me,Name)
+                sim.proc.OnMHhitProcs.Add(Me)
 			Case procs.ProcOnType.OnOHhit
-				sim.proc.OnOHhitProcs.add(me,Name)
+                sim.proc.OnOHhitProcs.Add(Me)
 			Case procs.ProcOnType.OnMHWhiteHit
-				sim.proc.OnMHWhitehitProcs.add(me,Name)
+                sim.proc.OnMHWhitehitProcs.Add(Me)
 			Case procs.ProcOnType.OnFU
-				sim.proc.OnFUProcs.add(Me,Name)
+                sim.proc.OnFUProcs.Add(Me)
 			Case procs.ProcOnType.OnBloodStrike
-				sim.proc.OnBloodStrikeProcs.add(Me,Name)
-			Case Else
+                sim.proc.OnBloodStrikeProcs.Add(Me)
+            Case Procs.ProcOnType.onRPDump
+                sim.proc.onRPDumpProcs.Add(Me)
+            Case Else
                 Diagnostics.Debug.WriteLine("No proc on value for " & Me.Name)
         End Select
         sim.DamagingObject.Add(Me)
@@ -96,23 +98,25 @@ Public Class Proc
             Case Procs.ProcOnType.OnMisc
 
             Case procs.ProcOnType.OnCrit
-                sim.proc.OnCritProcs.Remove(Name)
+                sim.proc.OnCritProcs.Remove(Me)
             Case procs.ProcOnType.OnDamage
-                sim.proc.OnDamageProcs.Remove(Name)
+                sim.proc.OnDamageProcs.Remove(Me)
             Case procs.ProcOnType.OnDoT
-                sim.proc.OnDoTProcs.Remove(Name)
+                sim.proc.OnDoTProcs.Remove(Me)
             Case procs.ProcOnType.OnHit
-                sim.proc.OnHitProcs.Remove(Name)
+                sim.proc.OnHitProcs.Remove(Me)
             Case procs.ProcOnType.OnMHhit
-                sim.proc.OnMHhitProcs.Remove(Name)
+                sim.proc.OnMHhitProcs.Remove(Me)
             Case procs.ProcOnType.OnOHhit
-                sim.proc.OnOHhitProcs.Remove(Name)
+                sim.proc.OnOHhitProcs.Remove(Me)
             Case procs.ProcOnType.OnMHWhiteHit
-                sim.proc.OnMHWhitehitProcs.Remove(Name)
+                sim.proc.OnMHWhitehitProcs.Remove(Me)
             Case procs.ProcOnType.OnFU
-                sim.proc.OnFUProcs.Remove(Name)
+                sim.proc.OnFUProcs.Remove(Me)
             Case procs.ProcOnType.OnBloodStrike
-                sim.proc.OnBloodStrikeProcs.Remove(Name)
+                sim.proc.OnBloodStrikeProcs.Remove(Me)
+            Case Procs.ProcOnType.onRPDump
+                sim.proc.onRPDumpProcs.Remove(Me)
             Case Else
                 Diagnostics.Debug.WriteLine("No proc on value for " & Me.Name)
         End Select
@@ -153,7 +157,7 @@ Public Class Proc
 
     Overridable Function TryMe(ByVal T As Long) As Boolean
         If Equiped = 0 Then
-            sim.UselessCheck += 1
+            'sim.UselessCheck += 1
             'Diagnostics.Debug.WriteLine (me.Name)
             Return False
         End If
@@ -163,13 +167,14 @@ Public Class Proc
         Return True
     End Function
 
-	Sub ApplyFade(T As Long)
-		If ProcLenght Then
-			Fade = T + ProcLenght * 100
-			AddUptime(T)
-		End IF
-		HitCount += 1
-	End Sub
+    Sub ApplyFade(ByVal T As Long)
+        If sim.EPStat <> "" Then Exit Sub 'useless as no report generated.
+        If ProcLenght Then
+            Fade = T + ProcLenght * 100
+            AddUptime(T)
+        End If
+        HitCount += 1
+    End Sub
 
 	Overridable Sub ApplyMe(ByVal T As Long)
 		CD = T + InternalCD * 100
@@ -214,6 +219,41 @@ Public Class Proc
 		End If
 		previousFade = T
 	End Sub
-	
-	
+End Class
+Class RunicEmpowerment
+    Inherits Proc
+
+    Sub New(ByVal S As Sim)
+        MyBase.New(S)
+    End Sub
+
+    Public Overrides Sub ApplyMe(ByVal T As Long)
+        Dim d As Double '= RngCrit
+        Dim DepletedRunes As New List(Of CataRune)
+        If sim.Runes.BloodRune1.Value = 0 Then DepletedRunes.Add(sim.Runes.BloodRune1)
+        If sim.Runes.BloodRune2.Value = 0 Then DepletedRunes.Add(sim.Runes.BloodRune2)
+
+        If sim.Runes.UnholyRune1.Value = 0 Then DepletedRunes.Add(sim.Runes.UnholyRune1)
+        If sim.Runes.UnholyRune2.Value = 0 Then DepletedRunes.Add(sim.Runes.UnholyRune2)
+
+        If sim.Runes.FrostRune1.Value = 0 Then DepletedRunes.Add(sim.Runes.FrostRune1)
+        If sim.Runes.FrostRune2.Value = 0 Then DepletedRunes.Add(sim.Runes.FrostRune2)
+
+        If DepletedRunes.Count = 0 Then Return
+        d = (DepletedRunes.Count - 1) * RngCrit
+        Dim dec As Decimal = Convert.ToDecimal(d)
+        Dim i As Integer
+        i = Decimal.Round(dec, 0)
+
+        Try
+            DepletedRunes.Item(i).Value = 100
+            sim.CombatLog.write(sim.TimeStamp & vbTab & Me.Name & "on " & DepletedRunes.Item(i).Name)
+        Catch ex As Exception
+            msgBox(ex.StackTrace)
+        End Try
+
+        sim.CombatLog.write(sim.TimeStamp & vbTab & Me.Name & " proc")
+        MyBase.ApplyMe(T)
+    End Sub
+
 End Class

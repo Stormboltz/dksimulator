@@ -6,16 +6,11 @@ NameSpace Diseases
 			MyBase.New(S)
 		End Sub
 		Overrides Function PerfectUsage(T As Long) As Boolean
-			
-			If sim.Character.talentfrost.TundraStalker > 0 Then
-				If FadeAt <= sim.Runes.GetNextFrost(T) Then
-					sim.Targets.MainTarget.BloodPlague.ToReApply = true
-					Return True
-				End If
-			Else
-				if isActive(T) = false then return true
-			End If
-			return false
+            If FadeAt <= sim.Runes.GetNextFrost(T) Then
+                sim.Targets.MainTarget.BloodPlague.ToReApply = True
+                Return True
+            End If
+            Return False
 		End Function
 		
 		Overrides Function CalculateMultiplier(T As Long,target As Targets.Target) As Double

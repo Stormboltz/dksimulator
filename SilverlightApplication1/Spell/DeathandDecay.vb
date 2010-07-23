@@ -23,70 +23,69 @@ Friend Class DeathandDecay
 	
 	Function isAvailable(T As Long) As Boolean
 		if CD > T then return false
-        If sim.Runes.BFU(T) Then Return True
+        If sim.Runes.Unholy() Then Return True
         Return False
 	End Function
 	
 	Function Apply(T As Long) As Boolean
 		UseGCD(T)
-		nextTick = T+100
-		sim.runes.UseBlood(T, False)
-		sim.runes.UseFU(T, False)
-		ActiveUntil = T+1000
-		cd = T + 3000 - sim.Character.talentunholy.Morbidity*500
-		Sim.RunicPower.add(15)
-		sim.combatlog.write(T  & vbtab &  "D&D ")
-		sim.FutureEventManager.Add(nextTick,"D&D")
-		
-		return true
-	End Function
-	
-	overrides Function ApplyDamage(T As long) As boolean
-		Dim RNG As Double
+        nextTick = T + 100
+        sim.Runes.UseUnholy(T, False)
+        ActiveUntil = T + 1000
+        CD = T + 3000 - sim.Character.Talents.Talent("Morbidity").Value * 500
+        sim.RunicPower.add(10)
+        sim.combatlog.write(T & vbtab & "D&D ")
+        sim.FutureEventManager.Add(nextTick, "D&D")
 
-		Dim Tar As Targets.Target
-		
-		For Each Tar In sim.Targets.AllTargets
-			If DoMySpellHit = false Then
-				if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "D&D fail")
-				MissCount = MissCount + 1
+        Return True
+    End Function
+
+    Overrides Function ApplyDamage(ByVal T As Long) As Boolean
+        Dim RNG As Double
+
+        Dim Tar As Targets.Target
+
+        For Each Tar In sim.Targets.AllTargets
+            If DoMySpellHit = False Then
+                If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "D&D fail")
+                MissCount = MissCount + 1
                 Return False
-			End If
-			RNG = RngCrit
-			dim dégat as Integer
-			If RNG <= CritChance Then
-				dégat = AvrgCrit(T,Tar)
-				if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "D&D crit for " & dégat)
-				CritCount = CritCount + 1
-				totalcrit += dégat
-			Else
-				dégat= AvrgNonCrit(T,Tar)
-				HitCount = HitCount + 1
-				totalhit += dégat
-				if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "D&D hit for " & dégat)
-			End If
-			
+            End If
+            RNG = RngCrit
+            Dim dégat As Integer
+            If RNG <= CritChance Then
+                dégat = AvrgCrit(T, Tar)
+                If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "D&D crit for " & dégat)
+                CritCount = CritCount + 1
+                totalcrit += dégat
+            Else
+                dégat = AvrgNonCrit(T, Tar)
+                HitCount = HitCount + 1
+                totalhit += dégat
+                If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "D&D hit for " & dégat)
+            End If
 
-			total = total + dégat
-		Next
-		nextTick = T+100
-		If nextTick > ActiveUntil Then
-			nextTick = T-1
-		Else
-			sim.FutureEventManager.Add(nextTick,"D&D")
-		End If
-		return true
-	End Function
-	Overrides Function AvrgNonCrit(T As long,target as Targets.Target) As Double
-		Dim tmp As Double
-		tmp = 62
-		tmp = tmp + (0.0475 * (1 + 0.04 * sim.Character.talentunholy.Impurity) * sim.MainStat.AP)
-		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
-		tmp = tmp * (1 + sim.Character.talentfrost.BlackIce * 2 / 100)
-		If sim.character.glyph.DeathandDecay Then tmp = tmp *1.2
-		If sim.MainStat.T102PTNK =1 Then tmp = tmp *1.2
-		return tmp
-	End Function
+
+            total = total + dégat
+        Next
+        nextTick = T + 100
+        If nextTick > ActiveUntil Then
+            nextTick = T - 1
+        Else
+            sim.FutureEventManager.Add(nextTick, "D&D")
+        End If
+        Return True
+    End Function
+    Overrides Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
+        Dim tmp As Double
+        tmp = 31
+        tmp = tmp + (0.0475 * (1 + 0.04 * sim.Character.Talents.Talent("Impurity").Value) * sim.MainStat.AP)
+        tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
+
+        If sim.character.glyph.DeathandDecay Then tmp = tmp * 1.2
+        If sim.MainStat.T102PTNK = 1 Then tmp = tmp * 1.2
+        Return tmp
+    End Function
 	overrides Function CritCoef() As Double
 		CritCoef = 1
 		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)

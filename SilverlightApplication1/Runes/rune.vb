@@ -65,7 +65,7 @@ Namespace Runes
 
         Function RuneRefreshtime() As Integer
             If sim.UnholyPresence Then
-                Return 1000 - 50 * sim.Character.TalentUnholy.ImprovedUnholyPresence
+                Return 1000 - 50 * sim.Character.Talents.Talent("ImprovedUnholyPresence").Value
             Else
                 Return 1000
             End If

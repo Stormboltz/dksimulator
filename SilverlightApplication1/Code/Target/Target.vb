@@ -40,7 +40,7 @@ Namespace Targets
 		NumDesease = 0
 			If BloodPlague.isActive(sim.TimeStamp) Then NumDesease = NumDesease + 1
 			If FrostFever.isActive(sim.TimeStamp) Then NumDesease = NumDesease + 1
-			If (sim.Character.TalentUnholy.EbonPlaguebringer + sim.Character.TalentUnholy.CryptFever >= 1) And NumDesease >= 1 Then NumDesease = NumDesease + 1
+            If (sim.Character.Talents.Talent("EbonPlaguebringer").Value >= 1) And NumDesease >= 1 Then NumDesease = NumDesease + 1
 		End Function
 		
 		

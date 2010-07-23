@@ -73,7 +73,7 @@ Sub New(S As sim)
 			dégat = AvrgCrit(T)
 			CritCount = CritCount + 1
 			If sim.combatlog.LogDetails Then sim.combatlog.write(T  & vbtab &  "MH crit for " & dégat )
-			sim.tryOnCrit
+            sim.proc.tryOnCrit()
 			totalcrit += dégat
 		End If
 		If RNG >= (ChanceNotToTouch + MeleeGlacingChance + CritChance) Then
@@ -86,15 +86,15 @@ Sub New(S As sim)
 		
 
 		total = total + dégat
-		If sim.Character.talentunholy.Necrosis > 0 Then sim.Necrosis.Apply(dégat, T)
-		If sim.proc.MHBloodCakedBlade.TryMe(T) Then sim.BloodCakedBlade.ApplyDamage(T)
-		sim.tryOnMHWhitehitProc
-		If sim.proc.ScentOfBlood.IsActive  Then
-			sim.proc.ScentOfBlood.Use
-			Sim.RunicPower.add(10)
-		End If
-		return true
-	End Function
+        If sim.Character.Talents.Talent("Necrosis").Value > 0 Then sim.Necrosis.Apply(dégat, T)
+        If sim.proc.MHBloodCakedBlade.TryMe(T) Then sim.BloodCakedBlade.ApplyDamage(T)
+        sim.proc.tryOnMHWhitehitProc()
+        If sim.proc.ScentOfBlood.IsActive Then
+            sim.proc.ScentOfBlood.Use()
+            sim.RunicPower.add(10)
+        End If
+        Return True
+    End Function
 	Overrides Function AvrgNonCrit(T As long,target As Targets.Target) As Double
 		Dim tmp As Double
 		tmp = sim.MainStat.MHBaseDamage

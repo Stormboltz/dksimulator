@@ -41,17 +41,18 @@ Friend Class Procs
 
     Friend AllProcs As New Collections.Generic.List(Of Proc)
     Friend EquipedProc As New Collections.Generic.List(Of Proc)
-    Friend OnHitProcs As New Collection
+    Friend OnHitProcs As New List(Of Proc)
 
-    Friend OnMHWhitehitProcs As New Collection
-    Friend OnMHhitProcs As New Collection
-    Friend OnOHhitProcs As New Collection
-    Friend OnFUProcs As New Collection
-    Friend OnCritProcs As New Collection
-    Friend OnDamageProcs As New Collection
-    Friend OnDoTProcs As New Collection
-    Friend OnBloodStrikeProcs As New Collection
-    Friend OnPlagueStrikeProcs As New Collection
+    Friend OnMHWhitehitProcs As New List(Of Proc)
+    Friend OnMHhitProcs As New List(Of Proc)
+    Friend OnOHhitProcs As New List(Of Proc)
+    Friend OnFUProcs As New List(Of Proc)
+    Friend OnCritProcs As New List(Of Proc)
+    Friend OnDamageProcs As New List(Of Proc)
+    Friend OnDoTProcs As New List(Of Proc)
+    Friend OnBloodStrikeProcs As New List(Of Proc)
+    Friend OnPlagueStrikeProcs As New List(Of Proc)
+    Friend onRPDumpProcs As New List(Of Proc)
     Private XmlCharacter As XDocument
 
 
@@ -67,13 +68,9 @@ Friend Class Procs
         OnFU = 8
         OnBloodStrike = 9
         OnPlagueStrike = 10
+        onRPDump = 11 'For Runic Empowerment.
         'OnUse=9
     End Enum
-
-
-
-
-
 
     Sub New(ByVal S As Sim)
         Sim = S
@@ -92,8 +89,6 @@ Friend Class Procs
         Return Nothing
     End Function
 
-
-
     Sub SoftReset()
         Dim prc As Proc
         For Each prc In AllProcs
@@ -110,10 +105,21 @@ Friend Class Procs
 
         s.RuneForge.Init()
 
+
+        Dim RunicEmpowerment = New RunicEmpowerment(s)
+        With RunicEmpowerment
+            ._Name = "Runic Empowerment"
+            .ProcChance = 0.45
+            .ProcOn = ProcOnType.onRPDump
+            .Equip()
+        End With
+
+
+
         MHBloodCakedBlade = New Proc(s)
         With MHBloodCakedBlade
             ._Name = "MH Blood-Caked Blade"
-            .ProcChance = Sim.Character.TalentUnholy.BloodCakedBlade * 0.1
+            .ProcChance = Sim.Character.Talents.Talent("BloodCakedBlade").Value * 0.1
             If .ProcChance > 0 Then
                 .Equip()
             End If
@@ -122,7 +128,7 @@ Friend Class Procs
         OHBloodCakedBlade = New Proc(s)
         With OHBloodCakedBlade
             ._Name = "OH Blood-Caked Blade"
-            .ProcChance = Sim.Character.TalentUnholy.BloodCakedBlade * 0.1
+            .ProcChance = Sim.Character.Talents.Talent("BloodCakedBlade").Value * 0.1
             If .ProcChance > 0 Then
                 .Equip()
             End If
@@ -142,7 +148,7 @@ Friend Class Procs
         DRM = New Proc(s)
         With DRM
             ._Name = "DeathRuneMastery"
-            .ProcChance = Sim.Character.TalentBlood.DRM * 0.33
+            .ProcChance = Sim.Character.Talents.Talent("DRM").Value * 0.33
             If .ProcChance > 0 Then
                 If .ProcChance > 0.85 Then .ProcChance = 1.0
                 .Equip()
@@ -152,7 +158,7 @@ Friend Class Procs
         SuddenDoom = New Proc(s)
         With SuddenDoom
             ._Name = "SuddenDoom"
-            .ProcChance = Sim.Character.TalentBlood.SuddenDoom * 0.05
+            .ProcChance = Sim.Character.Talents.Talent("SuddenDoom").Value * 0.05
             .ProcOn = Procs.ProcOnType.OnBloodStrike
             If .ProcChance > 0 Then
                 .Equip()
@@ -163,7 +169,7 @@ Friend Class Procs
         ThreatOfThassarian = New Proc(s)
         With ThreatOfThassarian
             ._Name = "ThreatOfThassarian"
-            .ProcChance = 0.3 * Sim.Character.TalentFrost.ThreatOfThassarian
+            .ProcChance = 0.3 * Sim.Character.Talents.Talent("ThreatOfThassarian").Value
             If .ProcChance > 0 Then
                 If .ProcChance > 0.85 Then .ProcChance = 1.0
                 If Sim.MainStat.DualW Then .Equip()
@@ -173,7 +179,7 @@ Friend Class Procs
         AnnihilateDiseases = New Proc(s)
         With AnnihilateDiseases
             ._Name = "AnnihilateDiseases"
-            .ProcChance = 1 - 0.33 * Sim.Character.TalentFrost.Annihilation
+            .ProcChance = 1 - 0.33 * Sim.Character.Talents.Talent("Annihilation").Value
             If .ProcChance > 0.1 Then
                 .Equip()
             End If
@@ -182,12 +188,12 @@ Friend Class Procs
 
         ReapingBotN = New Proc(s)
         With ReapingBotN
-            If Sim.Character.TalentUnholy.Reaping Then
+            If Sim.Character.Talents.Talent("Reaping").Value Then
                 ._Name = "Reaping"
-                .ProcChance = Sim.Character.TalentUnholy.Reaping * 0.33
-            ElseIf Sim.Character.TalentFrost.BloodoftheNorth Then
+                .ProcChance = Sim.Character.Talents.Talent("Reaping").Value * 0.33
+            ElseIf Sim.Character.Talents.Talent("BloodoftheNorth").Value Then
                 ._Name = "BloodoftheNorth"
-                .ProcChance = Sim.Character.TalentFrost.BloodoftheNorth * 0.3
+                .ProcChance = Sim.Character.Talents.Talent("BloodoftheNorth").Value * 0.3
             End If
 
             If .ProcChance > 0 Then
@@ -210,8 +216,8 @@ Friend Class Procs
         IcyTalons = New Proc(s)
         With IcyTalons
             ._Name = "IcyTalons"
-            If Sim.Character.TalentFrost.IcyTalons > 0 Then .Equip()
-            .ProcValue = Sim.Character.TalentFrost.IcyTalons
+            If Sim.Character.Talents.Talent("IcyTalons").Value > 0 Then .Equip()
+            .ProcValue = Sim.Character.Talents.Talent("IcyTalons").Value
             .ProcLenght = 20
             .ProcChance = 1
         End With
@@ -220,10 +226,10 @@ Friend Class Procs
         With Desolation
             ._Name = "Desolation"
             .ProcOn = Procs.ProcOnType.OnBloodStrike
-            .ProcValue = Sim.Character.TalentUnholy.Desolation
+            .ProcValue = Sim.Character.Talents.Talent("Desolation").Value
             .ProcLenght = 20
             .ProcChance = 1
-            If Sim.Character.TalentUnholy.Desolation > 0 Then .Equip()
+            If Sim.Character.Talents.Talent("Desolation").Value > 0 Then .Equip()
         End With
 
 
@@ -231,19 +237,19 @@ Friend Class Procs
         With KillingMachine
             ._Name = "KillingMachine"
             .ProcOn = Procs.ProcOnType.OnMHWhiteHit
-            If Sim.Character.TalentFrost.KillingMachine > 0 Then .Equip()
-            .Equiped = Sim.Character.TalentFrost.KillingMachine
+            If Sim.Character.Talents.Talent("KillingMachine").Value > 0 Then .Equip()
+            .Equiped = Sim.Character.Talents.Talent("KillingMachine").Value
             .ProcLenght = 30
-            .ProcChance = (Sim.Character.TalentFrost.KillingMachine) * s.MainStat.MHWeaponSpeed / 60
+            .ProcChance = (Sim.Character.Talents.Talent("KillingMachine").Value) * s.MainStat.MHWeaponSpeed / 60
         End With
 
         Rime = New Proc(s)
         With Rime
             ._Name = "Rime"
-            If Sim.Character.TalentFrost.Rime > 0 Then .Equip()
-            .Equiped = Sim.Character.TalentFrost.Rime
+            If Sim.Character.Talents.Talent("Rime").Value > 0 Then .Equip()
+            .Equiped = Sim.Character.Talents.Talent("Rime").Value
             .ProcLenght = 15
-            .ProcChance = 5 * Sim.Character.TalentFrost.Rime / 100
+            .ProcChance = 5 * Sim.Character.Talents.Talent("Rime").Value / 100
         End With
 
         ScentOfBlood = New ScentOfBlood(s)
@@ -251,7 +257,7 @@ Friend Class Procs
             ._Name = "ScentOfBlood"
             If s.FrostPresence = 1 Then
                 .Equip()
-                .Equiped = Sim.Character.TalentBlood.ScentOfBlood
+                .Equiped = Sim.Character.Talents.Talent("ScentOfBlood").Value
             Else
                 .Equiped = 0
             End If
@@ -350,10 +356,10 @@ Friend Class Procs
         With New WeaponProc(s)
             ._Name = "BloodWorms"
             .InternalCD = 20
-            .ProcChance = 3 * s.Character.TalentBlood.BloodWorms / 100
+            .ProcChance = 3 * s.Character.Talents.Talent("BloodWorms").Value / 100
             .DamageType = "BloodWorms"
             .ProcOn = Procs.ProcOnType.OnHit
-            If s.Character.TalentBlood.BloodWorms > 0 Then
+            If s.Character.Talents.Talent("BloodWorms").Value > 0 Then
                 .Equip()
             End If
             .isGuardian = True
@@ -710,8 +716,6 @@ Friend Class Procs
         Return tmp
     End Function
 
-
-
     Function GetMaxPossibleBonus(ByVal stat As String) As Integer
         Dim prc As Proc
         Dim tmp As Integer
@@ -723,14 +727,90 @@ Friend Class Procs
         Return tmp
     End Function
 
-
-
-
     Sub tryT104PDPS(ByVal T As Long)
         If Sim.MainStat.T104PDPS = 0 Then Exit Sub
         If Sim.Runes.BloodRunes.Available Then Exit Sub
         If Sim.Runes.FrostRunes.Available Then Exit Sub
         If Sim.Runes.UnholyRunes.Available Then Exit Sub
         T104PDPS.ApplyMe(T)
+    End Sub
+    Sub TryOnMHHitProc()
+        Dim obj As Proc
+        For Each obj In OnMHhitProcs
+            obj.TryMe(Sim.TimeStamp)
+        Next
+
+        For Each obj In OnHitProcs
+            obj.TryMe(Sim.TimeStamp)
+        Next
+        tryOnDamageProc()
+    End Sub
+
+    Sub TryOnOHHitProc()
+        Dim obj As Proc
+        For Each obj In OnOHhitProcs
+            obj.TryMe(Sim.TimeStamp)
+        Next
+        For Each obj In OnHitProcs
+            obj.TryMe(Sim.TimeStamp)
+        Next
+        tryOnDamageProc()
+    End Sub
+
+    Sub TryOnFU()
+        Dim obj As Proc
+        For Each obj In OnFUProcs
+            obj.TryMe(Sim.TimeStamp)
+        Next
+    End Sub
+
+    Sub tryOnCrit()
+        Dim obj As Proc
+        For Each obj In OnCritProcs
+            obj.TryMe(Sim.TimeStamp)
+        Next
+    End Sub
+
+    Sub tryOnDoT()
+        Dim obj As Proc
+        For Each obj In OnDoTProcs
+            obj.TryMe(Sim.TimeStamp)
+        Next
+        tryOnDamageProc()
+    End Sub
+
+    Sub TryOnSpellHit()
+        Dim obj As Proc
+        For Each obj In OnDamageProcs
+            obj.TryMe(Sim.TimeStamp)
+        Next
+        tryOnDamageProc()
+    End Sub
+
+    Sub TryOnBloodStrike()
+        Dim obj As Proc
+        For Each obj In OnBloodStrikeProcs
+            obj.TryMe(Sim.TimeStamp)
+        Next
+    End Sub
+    Sub tryOnDamageProc()
+        Dim obj As Proc
+        For Each obj In OnDamageProcs
+            obj.TryMe(Sim.TimeStamp)
+        Next
+    End Sub
+
+    Sub tryOnMHWhitehitProc()
+        Dim obj As Proc
+        For Each obj In OnMHWhitehitProcs
+            obj.TryMe(Sim.TimeStamp)
+        Next
+        TryOnMHHitProc()
+    End Sub
+    Sub TryOnonRPDumpProcs()
+        Dim obj As Proc
+        For Each obj In onRPDumpProcs
+            obj.TryMe(Sim.TimeStamp)
+        Next
     End Sub
 End Class

@@ -53,7 +53,7 @@ Friend Class FrostStrike
 			dégat = AvrgCrit(T)
 			sim.combatlog.write(T  & vbtab &  "FS crit for " & dégat)
 			CritCount = CritCount + 1
-			sim.tryOnCrit
+            sim.proc.tryOnCrit()
 			totalcrit += dégat
 		Else
 			dégat = AvrgNonCrit(T)
@@ -63,10 +63,11 @@ Friend Class FrostStrike
 		End If
 		total = total + dégat
 		If offhand Then
-			sim.TryOnOHHitProc
+            sim.proc.TryOnOHHitProc()
 		Else
-			sim.TryOnMHHitProc
-			sim.proc.KillingMachine.Use
+            sim.proc.TryOnMHHitProc()
+            sim.proc.KillingMachine.Use()
+            sim.proc.TryOnonRPDumpProcs()
 		End If
 		Return True
 	End Function
@@ -81,23 +82,23 @@ Friend Class FrostStrike
 		End If
         tmp = tmp + 275
 		if sim.sigils.VengefulHeart then tmp= tmp + 113
-		tmp = tmp * (1+ sim.Character.talentfrost.BloodoftheNorth * 5 /100)
-		if target.NumDesease > 0 or (target.Debuff.BloodPlague+target.Debuff.FrostFever>0) Then 	tmp = tmp * (1 + sim.Character.talentfrost.GlacierRot * 6.6666666 / 100)
-		if sim.ExecuteRange then tmp = tmp *(1+ 0.06*sim.Character.talentfrost.MercilessCombat)
-		tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
-		tmp = tmp * (1 + sim.Character.talentfrost.BlackIce * 2 / 100)
-		tmp *= sim.RuneForge.RazorIceMultiplier(T)
-		If sim.RuneForge.CheckCinderglacier(offhand) > 0 then tmp *= 1.2
-		If offhand Then
-			tmp = tmp * 0.5
-				tmp = tmp * (1 + sim.Character.talentfrost.NervesofColdSteel * 8.3333 / 100)
-		End If
+        tmp = tmp * (1 + sim.Character.Talents.Talent("BloodoftheNorth").Value * 5 / 100)
+
+        If sim.ExecuteRange Then tmp = tmp * (1 + 0.06 * sim.Character.Talents.Talent("MercilessCombat").Value)
+        tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
+
+        tmp *= sim.RuneForge.RazorIceMultiplier(T)
+        If sim.RuneForge.CheckCinderglacier(offhand) > 0 Then tmp *= 1.2
+        If offhand Then
+            tmp = tmp * 0.5
+            tmp = tmp * (1 + sim.Character.Talents.Talent("NervesofColdSteel").Value * 8.3333 / 100)
+        End If
         Return tmp
-	End Function
-	public Overrides Function CritCoef() As Double
-		CritCoef =  1 * (1 + sim.Character.talentfrost.GuileOfGorefiend * 15 / 100)
-		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
-	End Function
+    End Function
+    Public Overrides Function CritCoef() As Double
+        CritCoef = 1
+        CritCoef = CritCoef * (1 + 0.06 * sim.mainstat.CSD)
+    End Function
 	public Overrides Function CritChance() As Double
 		CritChance = sim.MainStat.Crit + 8/100 * sim.MainStat.T82PDPS
 		if sim.proc.KillingMachine.IsActive()  = true then return 1

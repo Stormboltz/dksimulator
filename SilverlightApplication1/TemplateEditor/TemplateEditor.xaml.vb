@@ -43,17 +43,11 @@ Partial Public Class TemplateEditor
     Sub CreateTreeTemplate()
 
         Dim XmlDoc As XDocument = XDocument.Load("config/template.xml")
-
         Dim xNode As XElement
-
         Dim myBT As TemplateButton
-
-
         btList.Clear()
-
-
         For Each xNode In XmlDoc.Element("Talents").Element("blood").Elements
-
+            If xNode.Name.ToString = "include" Then GoTo NextBlood
             myBT = New TemplateButton(Me, xNode.Name.ToString)
             myBT.School = "blood"
             Me.tbTpl.Children.Add(myBT)
@@ -62,11 +56,14 @@ Partial Public Class TemplateEditor
             myBT.MaxValue = xNode.Value
             btList.Add(myBT, myBT.Name)
             ToolTipService.SetToolTip(myBT, myBT.Name)
+NextBlood:
+
         Next
 
 
 
         For Each xNode In XmlDoc.Element("Talents").Element("frost").Elements
+            If xNode.Name.ToString = "include" Then GoTo NextFrost
             myBT = New TemplateButton(Me, xNode.Name.ToString)
             myBT.School = "frost"
             Me.tbTpl.Children.Add(myBT)
@@ -75,9 +72,11 @@ Partial Public Class TemplateEditor
             myBT.MaxValue = xNode.Value
             btList.Add(myBT, myBT.Name)
             ToolTipService.SetToolTip(myBT, myBT.Name)
+NextFrost:
         Next
 
         For Each xNode In XmlDoc.Element("Talents").Element("unholy").Elements
+            If xNode.Name.ToString = "include" Then GoTo NextUnholy
             myBT = New TemplateButton(Me, xNode.Name.ToString)
             myBT.School = "unholy"
             Me.tbTpl.Children.Add(myBT)
@@ -86,6 +85,7 @@ Partial Public Class TemplateEditor
             myBT.MaxValue = xNode.Value
             btList.Add(myBT, myBT.Name)
             ToolTipService.SetToolTip(myBT, myBT.Name)
+NextUnholy:
         Next
 
 
@@ -125,8 +125,13 @@ Partial Public Class TemplateEditor
             FilePath = path
             Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/templates/" & path, FileMode.Open, isoStore)
                 Dim xmlDoc As XDocument = XDocument.Load(isoStream)
+
                 For Each BT As TemplateButton In btList
-                    BT.SetVal(xmlDoc.Element("Talents").Element(BT.Name).Value)
+                    Try
+                        BT.SetVal(xmlDoc.Element("Talents").Element(BT.Name).Value)
+                    Catch
+                    End Try
+
                 Next
                 For Each XNode As XElement In xmlDoc.Element("Talents").Element("Glyphs").Elements
                     If XNode.Value = 1 Then

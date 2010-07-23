@@ -40,17 +40,17 @@ Friend class Ghoul
 			MeleeMissChance = math.Max(0.08 - sim.GhoulStat.Hit,0)
 			MeleeDodgeChance =  math.Max(0.065 - sim.GhoulStat.Expertise,0)
 			SpellMissChance = math.Max(0.17 - sim.GhoulStat.SpellHit,0)
-			If sim.Character.talentunholy.MasterOfGhouls Then
-				ActiveUntil = sim.MaxTime
-				cd = sim.MaxTime
-				isGuardian = false
-			Else
+            If sim.Character.Talents.Talent("MasterOfGhouls").Value Then
+                ActiveUntil = sim.MaxTime
+                cd = sim.MaxTime
+                isGuardian = False
+            Else
                 _Haste = sim.MainStat.PhysicalHaste
-				_AP = sim.GhoulStat.AP
-				ActiveUntil = T + 60 * 100
-				cd = ActiveUntil + (3*60*100) - (45*100*sim.Character.talentunholy.NightoftheDead)
-				isGuardian = true
-			End If
+                _AP = sim.GhoulStat.AP
+                ActiveUntil = T + 60 * 100
+                cd = ActiveUntil + (3 * 60 * 100) - (45 * 100 * sim.Character.Talents.Talent("NightoftheDead").Value)
+                isGuardian = True
+            End If
 			If T <=1 Then
 			Else
 				sim.combatlog.write(T  & vbtab &  "Summon Ghoul")

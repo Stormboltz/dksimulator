@@ -67,7 +67,7 @@ Friend Class OffHand
 			'If sim.combatlog.LogDetails Then 
 				if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH crit for " & dégat )
 			'End If
-			sim.tryOnCrit
+            sim.proc.tryOnCrit()
 			totalcrit += dégat
 		End If
 		
@@ -87,11 +87,11 @@ Friend Class OffHand
 			Sim.RunicPower.add(10)
 		End If
 		total = total + dégat
-		If sim.Character.talentunholy.Necrosis > 0 Then
-			Nec = sim.OHNecrosis.Apply(dégat, T)
-		End If
+        If sim.Character.Talents.Talent("Necrosis").Value > 0 Then
+            Nec = sim.OHNecrosis.Apply(dégat, T)
+        End If
 		If sim.proc.OHBloodCakedBlade.TryMe(T) Then sim.OHBloodCakedBlade.ApplyDamage(T)
-		sim.TryOnOHHitProc
+        sim.proc.TryOnOHHitProc()
 		return true
 	End Function
 	Overrides Function AvrgNonCrit(T as long,target As Targets.Target) As Double
@@ -99,7 +99,7 @@ Friend Class OffHand
 		tmp = sim.MainStat.OHBaseDamage
 		tmp = tmp * sim.MainStat.WhiteHitDamageMultiplier(T)
 		tmp = tmp * 0.5
-		tmp = tmp * (1 + sim.Character.talentfrost.NervesofColdSteel * 8.3333 / 100)
+        tmp = tmp * (1 + sim.Character.Talents.Talent("NervesofColdSteel").Value * 8.3333 / 100)
 		If sim.EPStat = "EP HasteEstimated" Then
 			tmp = tmp*sim.MainStat.EstimatedHasteBonus
 		End If

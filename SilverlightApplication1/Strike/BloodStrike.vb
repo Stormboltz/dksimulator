@@ -48,7 +48,7 @@ Friend class BloodStrike
 			CritCount = CritCount + 1
 			sim.CombatLog.write(T & vbTab & "BS crit for " & dégat)
 			TotalCrit += dégat
-			sim.tryOnCrit()
+            sim.proc.tryOnCrit()
 		Else
 			dégat = AvrgNonCrit(T)
 			HitCount = HitCount + 1
@@ -58,16 +58,16 @@ Friend class BloodStrike
 		total = total + dégat
 
 		If OffHand = False Then
-			sim.TryOnMHHitProc()
+            sim.proc.TryOnMHHitProc()
 			If sim.proc.ReapingBotN.TryMe(T) Then
 				sim.Runes.UseBlood(T, True)
 			Else
 				sim.Runes.UseBlood(T, False)
 			End If
 		Else
-			sim.TryOnOHHitProc()
+            sim.proc.TryOnOHHitProc()
 		End If
-		sim.TryOnBloodStrike
+        sim.proc.TryOnBloodStrike()
 		Return True
 End Function
 
@@ -79,33 +79,33 @@ overrides Function AvrgNonCrit(T As Long, target As Targets.Target ) As Double
 	Else
             tmp = sim.MainStat.NormalisedOHDamage * 0.8
 	End If
-	tmp = tmp + 611,2
+        tmp = tmp + 611.2
 	if sim.MainStat.T84PDPS = 1 then
 		tmp = tmp * (1 + 0.125 * target.NumDesease * 1.2)
 	else
 		tmp = tmp * (1 + 0.125 * target.NumDesease)
 	End If
-	tmp = tmp * (1 + sim.Character.talentblood.BloodyStrikes * 5 / 100)
-	tmp = tmp * (1 + sim.Character.talentfrost.BloodoftheNorth * 5 / 100)
-	
-	if sim.sigils.DarkRider then tmp = tmp + 45 + 22.5 * target.NumDesease
-	if sim.character.glyph.BloodStrike then tmp = tmp * (1.2)
-	tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
-	If offhand Then
-		tmp = tmp * 0.5
-				tmp = tmp * (1 + sim.Character.talentfrost.NervesofColdSteel * 8.3333 / 100)
-	End If
-	if sim.MainStat.T92PTNK =1 then tmp = tmp *1.05
-	AvrgNonCrit = tmp
-End Function
 
-public Overrides Function CritCoef() As Double
-	CritCoef = 1 * (1 + sim.Character.talentblood.MightofMograine * 15 / 100) * (1 + sim.Character.talentfrost.GuileOfGorefiend * 15 / 100)
-	CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
-End Function
-public Overrides Function CritChance() As Double
-	CritChance = sim.MainStat.crit + sim.Character.talentblood.Subversion * 3 / 100
-End Function
+        tmp = tmp * (1 + sim.Character.Talents.Talent("BloodoftheNorth").Value * 5 / 100)
+
+        If sim.sigils.DarkRider Then tmp = tmp + 45 + 22.5 * target.NumDesease
+        If sim.character.glyph.BloodStrike Then tmp = tmp * (1.2)
+        tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
+        If offhand Then
+            tmp = tmp * 0.5
+            tmp = tmp * (1 + sim.Character.Talents.Talent("NervesofColdSteel").Value * 8.3333 / 100)
+        End If
+        If sim.MainStat.T92PTNK = 1 Then tmp = tmp * 1.05
+        AvrgNonCrit = tmp
+    End Function
+
+    Public Overrides Function CritCoef() As Double
+        CritCoef = 1
+        CritCoef = CritCoef * (1 + 0.06 * sim.mainstat.CSD)
+    End Function
+    Public Overrides Function CritChance() As Double
+        CritChance = sim.MainStat.crit
+    End Function
 public Overrides Function AvrgCrit(T as long,target As Targets.Target) As Double
 	AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 End Function

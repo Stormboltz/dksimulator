@@ -88,7 +88,6 @@
     <Reference Include="System.Net" />
     <Reference Include="System.Windows.Controls, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System.Windows.Controls.Data, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
-    <Reference Include="System.Windows.Controls.Data.DataForm.Toolkit, Version=4.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Controls.Data.Input, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System.Windows.Controls.Navigation, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Data, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
@@ -120,9 +119,9 @@
     <Compile Include="Code\Character\Buff.vb" />
     <Compile Include="Code\Character\Character.vb" />
     <Compile Include="Code\Character\MainStat.vb" />
-    <Compile Include="Code\Character\TalentBlood.vb" />
-    <Compile Include="Code\Character\TalentFrost.vb" />
-    <Compile Include="Code\Character\TalentUnholy.vb" />
+    <None Include="Code\Character\TalentBlood.vb" />
+    <None Include="Code\Character\TalentFrost.vb" />
+    <None Include="Code\Character\TalentUnholy.vb" />
     <Compile Include="CombatLog\CombatLog.vb" />
     <Compile Include="Code\FutureEventManager\FutureEvent.vb" />
     <Compile Include="Code\FutureEventManager\FutureEventManager.vb" />
@@ -168,6 +167,9 @@
     </Compile>
     <Compile Include="GearSelector\EPValues.vb" />
     <Compile Include="Runes\RunePair.vb" />
+    <Compile Include="Strike\FesteringStrike.vb" />
+    <Compile Include="Talents\Talent.vb" />
+    <Compile Include="Talents\Talents.vb" />
     <Compile Include="WaitFrame.xaml.vb">
       <DependentUpon>WaitFrame.xaml</DependentUpon>
     </Compile>
@@ -259,7 +261,7 @@
     <Compile Include="Spell\Pestilence.vb" />
     <Compile Include="Spell\UA.vb" />
     <Compile Include="Spell\UnholyBlight.vb" />
-    <Compile Include="Spell\WanderingPlague.vb" />
+    <None Include="Spell\WanderingPlague.vb" />
     <Compile Include="Strike\BloodCakedBlade.vb" />
     <Compile Include="Strike\BloodStrike.vb" />
     <Compile Include="Strike\DeathStrike.vb" />
@@ -4333,9 +4335,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Templates\Blood 51-00-20.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates\Copy of Unholy DW 0-17-54.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Templates\Frost 00-54-17.xml">

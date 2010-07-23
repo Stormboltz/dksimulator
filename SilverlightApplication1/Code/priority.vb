@@ -32,10 +32,10 @@ Friend Class priority
 				Case "CinderDisease"
 					if sim.Targets.MainTarget.BloodPlague.Cinder = true and sim.Targets.MainTarget.FrostFever.Cinder = true then goto doNext
 					If sim.RuneForge.CheckCinderglacier(False) = 0 Then goto doNext
-					If runes.Unholy(TimeStamp) and sim.CanUseGCD(Timestamp) and sim.Targets.MainTarget.BloodPlague.Cinder = false  Then
-						sim.PlagueStrike.ApplyDamage(TimeStamp)
-						exit sub
-					End If
+                    If runes.Unholy() And sim.CanUseGCD(TimeStamp) And sim.Targets.MainTarget.BloodPlague.Cinder = False Then
+                        sim.PlagueStrike.ApplyDamage(TimeStamp)
+                        Exit Sub
+                    End If
 					If runes.Frost(TimeStamp) and sim.CanUseGCD(Timestamp) and sim.Targets.MainTarget.FrostFever.Cinder = false  Then
 						sim.IcyTouch.ApplyDamage(TimeStamp)
 						exit sub
@@ -79,15 +79,21 @@ Friend Class priority
                         sim.Frenzy.Frenzy(TimeStamp)
                         Exit Sub
                     End If
+                Case "FesteringStrike"
+                    If runes.BF = True And sim.CanUseGCD(TimeStamp) Then
+                        sim.FesteringStrike.ApplyDamage(TimeStamp)
+                        'Diagnostics.Debug.WriteLine("SS")
+                        Exit Sub
+                    End If
 
                 Case "ScourgeStrike"
-                    If runes.Unholy(TimeStamp) = True And sim.CanUseGCD(TimeStamp) Then
+                    If runes.Unholy() = True And sim.CanUseGCD(TimeStamp) Then
                         sim.ScourgeStrike.ApplyDamage(TimeStamp)
                         'Diagnostics.Debug.WriteLine("SS")
                         Exit Sub
                     End If
                 Case "PlagueStrike"
-                    If runes.Unholy(TimeStamp) And sim.CanUseGCD(TimeStamp) Then
+                    If runes.Unholy() And sim.CanUseGCD(TimeStamp) Then
                         sim.PlagueStrike.ApplyDamage(TimeStamp)
                         'Diagnostics.Debug.WriteLine("PS")
                         Exit Sub
@@ -154,7 +160,7 @@ Friend Class priority
                         End If
                     End If
                 Case "BloodStrike"
-                    If sim.Character.TalentUnholy.Reaping = 3 Or sim.Character.TalentFrost.BloodoftheNorth = 3 Then
+                    If sim.Character.Talents.Talent("Reaping").Value = 3 Or sim.Character.Talents.Talent("BloodoftheNorth").Value = 3 Then
                         If runes.Blood(TimeStamp) And sim.CanUseGCD(TimeStamp) Then
                             If sim.BoneShieldUsageStyle = 1 Then
                                 If sim.BoneShield.IsAvailable(TimeStamp) Then
@@ -217,7 +223,7 @@ Friend Class priority
                             Exit Sub
                         Else
                             If sim.Targets.MainTarget.FrostFever.ShouldReapply(TimeStamp) Then
-                                If sim.Character.TalentFrost.HowlingBlast = 1 And sim.Character.Glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp) Then
+                                If sim.Character.Talents.Talent("HowlingBlast").Value = 1 And sim.Character.Glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp) Then
                                     If sim.proc.Rime.IsActive Or runes.FU(TimeStamp) Then
                                         sim.HowlingBlast.ApplyDamage(TimeStamp)
                                         Exit Sub
@@ -231,7 +237,7 @@ Friend Class priority
                         End If
                     Else
                         If sim.Targets.MainTarget.FrostFever.PerfectUsage(TimeStamp) = True Or sim.Targets.MainTarget.FrostFever.ToReApply Then
-                            If sim.Character.TalentFrost.HowlingBlast = 1 And sim.Character.Glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp) Then
+                            If sim.Character.Talents.Talent("HowlingBlast").Value = 1 And sim.Character.Glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp) Then
                                 If sim.proc.Rime.IsActive Or runes.FU(TimeStamp) Then
                                     sim.HowlingBlast.ApplyDamage(TimeStamp)
                                     Exit Sub
@@ -264,7 +270,7 @@ Friend Class priority
                             Exit Sub
                         Else
                             If sim.Targets.MainTarget.BloodPlague.ShouldReapply(TimeStamp) Then
-                                If runes.Unholy(TimeStamp) = True Then
+                                If runes.Unholy() = True Then
                                     sim.PlagueStrike.ApplyDamage(TimeStamp)
                                     Exit Sub
                                 End If
@@ -274,7 +280,7 @@ Friend Class priority
                     Else
 
                         If sim.Targets.MainTarget.BloodPlague.PerfectUsage(TimeStamp) Or sim.Targets.MainTarget.BloodPlague.ToReApply Then
-                            If runes.Unholy(TimeStamp) = True Then
+                            If runes.Unholy() = True Then
                                 sim.PlagueStrike.ApplyDamage(TimeStamp)
                                 Exit Sub
                             End If

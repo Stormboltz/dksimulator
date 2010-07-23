@@ -19,7 +19,7 @@ Friend Class DeathChill
 		Sim = Mysim	
 	End Sub
 	Function IsAvailable(T As Long) As Boolean
-        If Sim.Character.TalentFrost.Deathchill = 1 And Cd <= T Then
+        If Sim.Character.Talents.Talent("Deathchill").Value = 1 And Cd <= T Then
             Return True
         Else
             Return False

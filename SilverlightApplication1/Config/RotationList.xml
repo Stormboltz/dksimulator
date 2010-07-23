@@ -4,6 +4,7 @@
 	<BoneShield retry='0'/>
 	<GhoulFrenzy retry='0'/>
 	<ScourgeStrike retry='0'/>
+  <FesteringStrike retry='0'/>
 	<PlagueStrike retry='0'/>
 	<Obliterate retry='0'/>
 	<FrostStrike retry='0'/>

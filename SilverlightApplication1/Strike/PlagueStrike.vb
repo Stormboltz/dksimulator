@@ -20,69 +20,69 @@ Friend Class PlagueStrike
 
 		End If
 		If OffHand = False Then
-			Sim.RunicPower.add (10 + sim.Character.talentunholy.Dirge * 2.5)
-		End If
-		
-		Dim dégat As Integer
-		RNG = RngCrit
-		If RNG <= CritChance Then
-			CritCount = CritCount + 1
-			dégat = AvrgCrit(T)
-			sim.combatlog.write(T  & vbtab &  "PS crit for " & dégat  )
-			sim.tryOnCrit
-			
-			totalcrit += dégat
-		Else
-			HitCount = HitCount + 1
-			dégat = AvrgNonCrit(T)
-			totalhit += dégat
-			sim.combatlog.write(T  & vbtab &  "PS hit for " & dégat )
-		End If
-		total = total + dégat
-		If OffHand = False Then
-			sim.TryOnMHHitProc
-			sim.runes.UseUnholy(T,False)
-			
-		Else
-			sim.TryOnOHHitProc
-		End If
-		sim.proc.strife.tryme(t)
-		sim.Targets.MainTarget.BloodPlague.Apply(T)
-		If sim.DRW.IsActive(T) Then
-			sim.drw.DRWPlagueStrike
-		End If
-		Return True
-	End Function
-	public Overrides Function AvrgNonCrit(T As long,target As Targets.Target) As Double
-		Dim tmp As Double
-		
-		If OffHand = False Then
+            sim.RunicPower.add(10 + sim.Character.Talents.Talent("Dirge").Value * 2.5)
+        End If
+
+        Dim dégat As Integer
+        RNG = RngCrit
+        If RNG <= CritChance Then
+            CritCount = CritCount + 1
+            dégat = AvrgCrit(T)
+            sim.combatlog.write(T & vbtab & "PS crit for " & dégat)
+            sim.proc.tryOnCrit()
+
+            totalcrit += dégat
+        Else
+            HitCount = HitCount + 1
+            dégat = AvrgNonCrit(T)
+            totalhit += dégat
+            sim.combatlog.write(T & vbtab & "PS hit for " & dégat)
+        End If
+        total = total + dégat
+        If OffHand = False Then
+            sim.proc.TryOnMHHitProc()
+            sim.runes.UseUnholy(T, False)
+
+        Else
+            sim.proc.TryOnOHHitProc()
+        End If
+        sim.proc.strife.tryme(t)
+        sim.Targets.MainTarget.BloodPlague.Apply(T)
+        If sim.DRW.IsActive(T) Then
+            sim.drw.DRWPlagueStrike()
+        End If
+        Return True
+    End Function
+    Public Overrides Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
+        Dim tmp As Double
+
+        If OffHand = False Then
             tmp = sim.MainStat.NormalisedMHDamage * 1
-		Else
+        Else
             tmp = sim.MainStat.NormalisedOHDamage * 1
-		End If
-		
+        End If
+
         tmp = tmp + 378
-		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
-		tmp = tmp * (1 + sim.Character.talentunholy.Outbreak * 10 / 100)
-		If sim.character.glyph.PlagueStrike Then tmp = tmp * (1.2)
-		If OffHand  Then
-			tmp = tmp * 0.5
-			tmp = tmp * (1 + sim.Character.talentfrost.NervesofColdSteel * 8.3333 / 100)
-		End If
-		AvrgNonCrit = tmp
-	End Function
-	public Overrides Function CritCoef() As Double
-		CritCoef = (1 + sim.Character.talentunholy.ViciousStrikes * 15 / 100)
-		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
-	End Function
-	public Overrides Function CritChance() As Double
-		Dim tmp As Double
-		
-		tmp = sim.MainStat.crit + sim.Character.talentunholy.ViciousStrikes * 3 / 100 + sim.MainStat.T72PTNK*0.1
-		
-		return tmp
-	End Function
+        tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
+        tmp = tmp * (1 + sim.Character.Talents.Talent("Outbreak").Value * 10 / 100)
+        If sim.character.glyph.PlagueStrike Then tmp = tmp * (1.2)
+        If OffHand Then
+            tmp = tmp * 0.5
+            tmp = tmp * (1 + sim.Character.Talents.Talent("NervesofColdSteel").Value * 8.3333 / 100)
+        End If
+        AvrgNonCrit = tmp
+    End Function
+    Public Overrides Function CritCoef() As Double
+        CritCoef = (1 + sim.Character.Talents.Talent("ViciousStrikes").Value * 15 / 100)
+        CritCoef = CritCoef * (1 + 0.06 * sim.mainstat.CSD)
+    End Function
+    Public Overrides Function CritChance() As Double
+        Dim tmp As Double
+
+        tmp = sim.MainStat.crit + sim.Character.Talents.Talent("ViciousStrikes").Value * 3 / 100 + sim.MainStat.T72PTNK * 0.1
+
+        Return tmp
+    End Function
 	public Overrides Function AvrgCrit(T As long,target As Targets.Target) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function

@@ -15,16 +15,12 @@ NameSpace Diseases
 		
 		
 		Overrides Function PerfectUsage(T As Long) As Boolean
-			If sim.Character.talentunholy.RageofRivendare>0 Then
-				If FadeAt <= sim.Runes.GetNextUnholy(T) Then
-					sim.Targets.MainTarget.FrostFever.ToReApply = true
-					Return True
-				End If
-			Else
-				'if sim.Runes.UnholyOnly(T)=false then return false
-				if isActive(T) = false then return true
-			End If
-			return false
+
+            If FadeAt <= sim.Runes.GetNextUnholy(T) Then
+                sim.Targets.MainTarget.FrostFever.ToReApply = True
+                Return True
+            End If
+            Return False
 		End Function
 		Public Overloads Overrides Sub Merge()
 			If Me.Equals(sim.Targets.MainTarget.BloodPlague) = False Then

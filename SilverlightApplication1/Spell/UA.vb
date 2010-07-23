@@ -17,79 +17,81 @@ Sub New(S As sim)
 	
 	
 	
-	Function IsAvailable(T As Long) As Boolean
-		If sim.Character.talentfrost.UnbreakableArmor = 0 Then return false 
-		If CD >= T Then Return False
+    Function IsAvailable(ByVal T As Long) As Boolean
+
+        Return False
+        If CD >= T Then Return False
         If sim.BloodTap.IsAvailable(T) And sim.Runes.Frost(T) = False Then
             Return True
         Else
             Return False
         End If
 
-	End Function
-	Function Use(T As Long) As Boolean
-		If sim.Character.talentfrost.UnbreakableArmor = 0 Then Return False
-		If sim.runes.Frost(T) = False Then
-			If sim.BloodTap.IsAvailable(T) Then
-				sim.BloodTap.Use(T)
-			Else
-				return false
-			End If
-		End If
-		If sim.BoneShieldUsageStyle = 1 Or sim.BoneShieldUsageStyle = 2 Then
-			If sim.KeepBloodSync Then
-				If sim.BloodToSync = True Then
-					sim.BloodToSync  = False
-				Else
-					sim.BloodToSync  = true
-				End If
-			End If
-		Else
-			sim.BloodToSync = false
-		End If
-		cd = t + 60 * 100
-		sim.Runes.UseDeathBlood(T,true)
-		ActiveUntil= T + 20 * 100
-		
-		sim._UseGCD(T, 1)
-		sim.RunicPower.add(10)
-		sim.combatlog.write(T  & vbtab &  "Unbreakable Armor")
-		Me.HitCount = Me.HitCount +1
-		AddUptime(T)
-		return true
-	End Function
-	Function isActive() As Boolean
+    End Function
+    Function Use(ByVal T As Long) As Boolean
+        
+        Return False
+        If sim.Runes.Frost(T) = False Then
+            If sim.BloodTap.IsAvailable(T) Then
+                sim.BloodTap.Use(T)
+            Else
+                Return False
+            End If
+        End If
+        If sim.BoneShieldUsageStyle = 1 Or sim.BoneShieldUsageStyle = 2 Then
+            If sim.KeepBloodSync Then
+                If sim.BloodToSync = True Then
+                    sim.BloodToSync = False
+                Else
+                    sim.BloodToSync = True
+                End If
+            End If
+        Else
+            sim.BloodToSync = False
+        End If
+        CD = T + 60 * 100
+        sim.Runes.UseDeathBlood(T, True)
+        ActiveUntil = T + 20 * 100
+
+        sim._UseGCD(T, 1)
+        sim.RunicPower.add(10)
+        sim.CombatLog.write(T & vbTab & "Unbreakable Armor")
+        Me.HitCount = Me.HitCount + 1
+        AddUptime(T)
+        Return True
+    End Function
+    Function isActive() As Boolean
         If ActiveUntil >= sim.TimeStamp Then
             Return True
         Else
             Return False
         End If
-	End Function
+    End Function
 
 
-	Sub AddUptime(T As Long)
-		dim tmp as Long
-		If ActiveUntil > sim.NextReset Then
-			tmp = (sim.NextReset - T)
-		Else
-			tmp = ActiveUntil - T
-		End If
-		
-		If previousfade < T  Then
-		 	uptime += tmp
-		Else
-			uptime += tmp - (previousFade-T)
-		End If
-		previousFade = T + tmp
-	End Sub
-	
-	Sub RemoveUptime(T As Long)
-		If previousfade < T  Then
-		Else
-			uptime -= (previousFade-T)
-		End If
-		previousFade = T
-	End Sub
+    Sub AddUptime(ByVal T As Long)
+        Dim tmp As Long
+        If ActiveUntil > sim.NextReset Then
+            tmp = (sim.NextReset - T)
+        Else
+            tmp = ActiveUntil - T
+        End If
 
-		
+        If previousfade < T Then
+            uptime += tmp
+        Else
+            uptime += tmp - (previousFade - T)
+        End If
+        previousFade = T + tmp
+    End Sub
+
+    Sub RemoveUptime(ByVal T As Long)
+        If previousfade < T Then
+        Else
+            uptime -= (previousFade - T)
+        End If
+        previousFade = T
+    End Sub
+
+
 End Class

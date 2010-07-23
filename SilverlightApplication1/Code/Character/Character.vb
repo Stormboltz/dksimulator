@@ -31,17 +31,16 @@ Friend Class Character
     Friend Troll As Boolean
     Friend BloodElf As Boolean
 
-
+    Friend Talents As Talents
 
     Friend Buff As Buff
-    Friend TalentBlood As TalentBlood
-    Friend TalentFrost As TalentFrost
-    Friend TalentUnholy As TalentUnholy
+
     Friend Glyph As glyph
 
 
     Sub New(ByVal S As Sim)
         sim = S
+        Talents = New Talents(sim)
         Buff = New Buff(S)
         XmlConfig = sim.XmlConfig
         Try
@@ -140,10 +139,10 @@ Friend Class Character
         tmp = tmp + 155 * 1.15 * Buff.StrAgi
         tmp = tmp + 37 * 1.4 * Buff.StatAdd
         tmp = tmp * (1 + Buff.StatMulti / 10)
-        tmp = tmp * (1 + TalentBlood.Vot3W * 2 / 100)
-        tmp = tmp * (1 + TalentBlood.AbominationMight / 100)
-        tmp = tmp * (1 + TalentUnholy.RavenousDead / 100)
-        tmp = tmp * (1 + TalentFrost.EndlessWinter * 2 / 100)
+        tmp = tmp * (1 + Talents.Talent("Vot3W").Value * 2 / 100)
+        tmp = tmp * (1 + Talents.Talent("AbominationMight").Value / 100)
+        tmp = tmp * (1 + Talents.Talent("RavenousDead").Value / 100)
+        tmp = tmp * (1 + Talents.Talent("EndlessWinter").Value * 2 / 100)
         If sim.RuneForge.CheckFallenCrusader Then
             tmp = tmp * 1.15
         End If
@@ -162,10 +161,10 @@ Friend Class Character
         tmp = tmp + 155 * 1.15 * Buff.StrAgi
         tmp = tmp + 37 * 1.4 * Buff.StatAdd
         tmp = tmp * (1 + Buff.StatMulti / 10)
-        tmp = tmp * (1 + TalentBlood.Vot3W * 2 / 100)
-        tmp = tmp * (1 + TalentBlood.AbominationMight / 100)
-        tmp = tmp * (1 + TalentUnholy.RavenousDead / 100)
-        tmp = tmp * (1 + TalentFrost.EndlessWinter * 2 / 100)
+        tmp = tmp * (1 + Talents.Talent("Vot3W").Value * 2 / 100)
+        tmp = tmp * (1 + Talents.Talent("AbominationMight").Value / 100)
+        tmp = tmp * (1 + Talents.Talent("RavenousDead").Value / 100)
+        tmp = tmp * (1 + Talents.Talent("EndlessWinter").Value * 2 / 100)
         If sim.RuneForge.HasFallenCrusader Then
             tmp = tmp * 1.15
         End If
@@ -200,7 +199,7 @@ Friend Class Character
         tmp2 = sim.boss.SpecialArmor
         tmp = tmp - tmp2
         tmp = tmp + (750 * 1.4 * Buff.StatAdd)
-        tmp = tmp * (1 + TalentFrost.Toughness * 0.02)
+        tmp = tmp * (1 + Talents.Talent("Toughness").Value * 0.02)
         If sim.FrostPresence = 1 Then
             tmp = tmp * 1.6
         End If
@@ -229,7 +228,7 @@ Friend Class Character
                 tmp = tmp + 2 * sim.EPBase
             Case Else
         End Select
-        tmp = tmp + Int(Armor() / 180) * TalentBlood.BladedArmor
+        tmp = tmp + Int(Armor() / 180) * Talents.Talent("BladedArmor").Value
         tmp = tmp + 687 * Buff.AttackPower
         Return tmp
     End Function
@@ -239,13 +238,13 @@ Friend Class Character
         tmp = _HitRating
         Select Case sim.EPStat
             Case "EP HitRating"
-                tmp = 263 - TalentFrost.NervesofColdSteel * 32.79 - sim.EPBase
+                tmp = 263 - Talents.Talent("NervesofColdSteel").Value * 32.79 - sim.EPBase
             Case "EP HitRatingCap"
-                tmp = 263 - TalentFrost.NervesofColdSteel * 32.79
+                tmp = 263 - Talents.Talent("NervesofColdSteel").Value * 32.79
             Case "EP HitRatingCapAP"
-                tmp = 263 - TalentFrost.NervesofColdSteel * 32.79
+                tmp = 263 - Talents.Talent("NervesofColdSteel").Value * 32.79
             Case "EP SpellHitRating"
-                tmp = 263 - TalentFrost.NervesofColdSteel * 32.79 + 20
+                tmp = 263 - Talents.Talent("NervesofColdSteel").Value * 32.79 + 20
             Case "EP AfterSpellHitBase"
                 tmp = sim.MainStat.SpellHitCapRating
             Case "EP AfterSpellHitBaseAP"
@@ -371,94 +370,8 @@ Friend Class Character
     End Function
 
     Sub loadtemplate(ByVal file As String)
-
-        TalentBlood = New TalentBlood
-        TalentFrost = New TalentFrost
-        TalentUnholy = New TalentUnholy
-
-        Dim XmlDoc As XDocument
-
-        Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/" & file, FileMode.Open, FileAccess.Read, sim.isoStore)
-            XmlDoc = XDocument.Load(isoStream)
-        End Using
-
-
-
-        If sim._EPStat <> "Butchery" Then TalentBlood.Butchery = Integer.Parse(XmlDoc.Element("Talents").Element("Butchery").Value)
-        If sim._EPStat <> "Subversion" Then TalentBlood.Subversion = Integer.Parse(XmlDoc.Element("Talents").Element("Subversion").Value)
-        If sim._EPStat <> "BladedArmor" Then TalentBlood.BladedArmor = Integer.Parse(XmlDoc.Element("Talents").Element("BladedArmor").Value)
-        If sim._EPStat <> "ScentOfBlood" Then TalentBlood.ScentOfBlood = Integer.Parse(XmlDoc.Element("Talents").Element("ScentOfBlood").Value)
-        If sim._EPStat <> "Weapspec" Then TalentBlood.Weapspec = Integer.Parse(XmlDoc.Element("Talents").Element("Weapspec").Value)
-        If sim._EPStat <> "Darkconv" Then TalentBlood.Darkconv = Integer.Parse(XmlDoc.Element("Talents").Element("Darkconv").Value)
-        If sim._EPStat <> "BloodyStrikes" Then TalentBlood.BloodyStrikes = Integer.Parse(XmlDoc.Element("Talents").Element("BloodyStrikes").Value)
-        If sim._EPStat <> "Vot3W" Then TalentBlood.Vot3W = Integer.Parse(XmlDoc.Element("Talents").Element("Vot3W").Value)
-        If sim._EPStat <> "BloodyVengeance" Then TalentBlood.BloodyVengeance = Integer.Parse(XmlDoc.Element("Talents").Element("BloodyVengeance").Value)
-        If sim._EPStat <> "AbominationMight" Then TalentBlood.AbominationMight = Integer.Parse(XmlDoc.Element("Talents").Element("AbominationMight").Value)
-        If sim._EPStat <> "Hysteria" Then TalentBlood.Hysteria = Integer.Parse(XmlDoc.Element("Talents").Element("Hysteria").Value)
-        If sim._EPStat <> "BloodWorms" Then TalentBlood.BloodWorms = Integer.Parse(XmlDoc.Element("Talents").Element("BloodWorms").Value)
-
-        If sim._EPStat <> "ImprovedDeathStrike" Then TalentBlood.ImprovedDeathStrike = Integer.Parse(XmlDoc.Element("Talents").Element("ImprovedDeathStrike").Value)
-        If sim._EPStat <> "SuddenDoom" Then TalentBlood.SuddenDoom = Integer.Parse(XmlDoc.Element("Talents").Element("SuddenDoom").Value)
-        If sim._EPStat <> "MightofMograine" Then TalentBlood.MightofMograine = Integer.Parse(XmlDoc.Element("Talents").Element("MightofMograine").Value)
-        If sim._EPStat <> "BloodGorged" Then TalentBlood.BloodGorged = Integer.Parse(XmlDoc.Element("Talents").Element("BloodGorged").Value)
-        If sim._EPStat <> "DRW" Then TalentBlood.DRW = Integer.Parse(XmlDoc.Element("Talents").Element("DRW").Value)
-        If sim._EPStat <> "DRM" Then TalentBlood.DRM = Integer.Parse(XmlDoc.Element("Talents").Element("DRM").Value)
-
-        If sim._EPStat <> "RPM" Then TalentFrost.RPM = Integer.Parse(XmlDoc.Element("Talents").Element("RPM").Value)
-        If sim._EPStat <> "ImprovedIcyTouch" Then TalentFrost.ImprovedIcyTouch = Integer.Parse(XmlDoc.Element("Talents").Element("ImprovedIcyTouch").Value)
-        If sim._EPStat <> "Toughness" Then TalentFrost.Toughness = Integer.Parse(XmlDoc.Element("Talents").Element("Toughness").Value)
-        If sim._EPStat <> "BlackIce" Then TalentFrost.BlackIce = Integer.Parse(XmlDoc.Element("Talents").Element("BlackIce").Value)
-        If sim._EPStat <> "NervesofColdSteel" Then TalentFrost.NervesofColdSteel = Integer.Parse(XmlDoc.Element("Talents").Element("NervesofColdSteel").Value)
-        If sim._EPStat <> "Annihilation" Then TalentFrost.Annihilation = Integer.Parse(XmlDoc.Element("Talents").Element("Annihilation").Value)
-        If sim._EPStat <> "KillingMachine" Then TalentFrost.KillingMachine = Integer.Parse(XmlDoc.Element("Talents").Element("KillingMachine").Value)
-        If sim._EPStat <> "GlacierRot" Then TalentFrost.GlacierRot = Integer.Parse(XmlDoc.Element("Talents").Element("GlacierRot").Value)
-        If sim._EPStat <> "Deathchill" Then TalentFrost.Deathchill = Integer.Parse(XmlDoc.Element("Talents").Element("Deathchill").Value)
-        If sim._EPStat <> "IcyTalons" Then TalentFrost.IcyTalons = Integer.Parse(XmlDoc.Element("Talents").Element("IcyTalons").Value)
-        If sim._EPStat <> "ImprovedIcyTalons" Then TalentFrost.ImprovedIcyTalons = Integer.Parse(XmlDoc.Element("Talents").Element("ImprovedIcyTalons").Value)
-        If sim._EPStat <> "MercilessCombat" Then TalentFrost.MercilessCombat = Integer.Parse(XmlDoc.Element("Talents").Element("MercilessCombat").Value)
-        If sim._EPStat <> "Rime" Then TalentFrost.Rime = Integer.Parse(XmlDoc.Element("Talents").Element("Rime").Value)
-        If sim._EPStat <> "BloodoftheNorth" Then TalentFrost.BloodoftheNorth = Integer.Parse(XmlDoc.Element("Talents").Element("BloodoftheNorth").Value)
-        If sim._EPStat <> "UnbreakableArmor" Then TalentFrost.UnbreakableArmor = Integer.Parse(XmlDoc.Element("Talents").Element("UnbreakableArmor").Value)
-        If sim._EPStat <> "GuileOfGorefiend" Then TalentFrost.GuileOfGorefiend = Integer.Parse(XmlDoc.Element("Talents").Element("GuileOfGorefiend").Value)
-        If sim._EPStat <> "TundraStalker" Then TalentFrost.TundraStalker = Integer.Parse(XmlDoc.Element("Talents").Element("TundraStalker").Value)
-        If sim._EPStat <> "ChillOfTheGrave" Then TalentFrost.ChillOfTheGrave = Integer.Parse(XmlDoc.Element("Talents").Element("ChillOfTheGrave").Value)
-        If sim._EPStat <> "HowlingBlast" Then TalentFrost.HowlingBlast = Integer.Parse(XmlDoc.Element("Talents").Element("HowlingBlast").Value)
-        If sim._EPStat <> "ThreatOfThassarian" Then TalentFrost.ThreatOfThassarian = Integer.Parse(XmlDoc.Element("Talents").Element("ThreatOfThassarian").Value)
-        If sim._EPStat <> "EndlessWinter" Then TalentFrost.EndlessWinter = Integer.Parse(XmlDoc.Element("Talents").Element("EndlessWinter").Value)
-        If sim._EPStat <> "IcyTalons" Then TalentFrost.IcyTalons = Integer.Parse(XmlDoc.Element("Talents").Element("IcyTalons").Value)
-
-        If sim._EPStat <> "ViciousStrikes" Then TalentUnholy.ViciousStrikes = Integer.Parse(XmlDoc.Element("Talents").Element("ViciousStrikes").Value)
-        If sim._EPStat <> "Virulence" Then TalentUnholy.Virulence = Integer.Parse(XmlDoc.Element("Talents").Element("Virulence").Value)
-        If sim._EPStat <> "Epidemic" Then TalentUnholy.Epidemic = Integer.Parse(XmlDoc.Element("Talents").Element("Epidemic").Value)
-        If sim._EPStat <> "Morbidity" Then TalentUnholy.Morbidity = Integer.Parse(XmlDoc.Element("Talents").Element("Morbidity").Value)
-        If sim._EPStat <> "RavenousDead" Then TalentUnholy.RavenousDead = Integer.Parse(XmlDoc.Element("Talents").Element("RavenousDead").Value)
-        If sim._EPStat <> "MasterOfGhouls" Then TalentUnholy.MasterOfGhouls = Integer.Parse(XmlDoc.Element("Talents").Element("MasterOfGhouls").Value)
-        If sim._EPStat <> "Outbreak" Then TalentUnholy.Outbreak = Integer.Parse(XmlDoc.Element("Talents").Element("Outbreak").Value)
-        If sim._EPStat <> "Necrosis" Then TalentUnholy.Necrosis = Integer.Parse(XmlDoc.Element("Talents").Element("Necrosis").Value)
-        If sim._EPStat <> "BloodCakedBlade" Then TalentUnholy.BloodCakedBlade = Integer.Parse(XmlDoc.Element("Talents").Element("BloodCakedBlade").Value)
-        If sim._EPStat <> "UnholyBlight" Then TalentUnholy.UnholyBlight = Integer.Parse(XmlDoc.Element("Talents").Element("UnholyBlight").Value)
-        If sim._EPStat <> "Impurity" Then TalentUnholy.Impurity = Integer.Parse(XmlDoc.Element("Talents").Element("Impurity").Value)
-        If sim._EPStat <> "CryptFever" Then TalentUnholy.CryptFever = Integer.Parse(XmlDoc.Element("Talents").Element("CryptFever").Value)
-        If sim._EPStat <> "ImprovedUnholyPresence" Then TalentUnholy.ImprovedUnholyPresence = Integer.Parse(XmlDoc.Element("Talents").Element("ImprovedUnholyPresence").Value)
-        If sim._EPStat <> "BoneShield" Then TalentUnholy.BoneShield = Integer.Parse(XmlDoc.Element("Talents").Element("BoneShield").Value)
-        If sim._EPStat <> "NightoftheDead" Then TalentUnholy.NightoftheDead = Integer.Parse(XmlDoc.Element("Talents").Element("NightoftheDead").Value)
-        If sim._EPStat <> "GhoulFrenzy" Then TalentUnholy.GhoulFrenzy = Integer.Parse(XmlDoc.Element("Talents").Element("GhoulFrenzy").Value)
-        If sim._EPStat <> "WanderingPlague" Then TalentUnholy.WanderingPlague = Integer.Parse(XmlDoc.Element("Talents").Element("WanderingPlague").Value)
-        If sim._EPStat <> "EbonPlaguebringer" Then TalentUnholy.EbonPlaguebringer = Integer.Parse(XmlDoc.Element("Talents").Element("EbonPlaguebringer").Value)
-        If sim._EPStat <> "RageofRivendare" Then TalentUnholy.RageofRivendare = Integer.Parse(XmlDoc.Element("Talents").Element("RageofRivendare").Value)
-        If sim._EPStat <> "SummonGargoyle" Then TalentUnholy.SummonGargoyle = Integer.Parse(XmlDoc.Element("Talents").Element("SummonGargoyle").Value)
-        If sim._EPStat <> "Dirge" Then TalentUnholy.Dirge = Integer.Parse(XmlDoc.Element("Talents").Element("Dirge").Value)
-        If sim._EPStat <> "Reaping" Then TalentUnholy.Reaping = Integer.Parse(XmlDoc.Element("Talents").Element("Reaping").Value)
-
-        If sim._EPStat <> "Desecration" Then TalentUnholy.Desecration = Integer.Parse(XmlDoc.Element("Talents").Element("Desecration").Value)
-        If sim._EPStat <> "Desolation" Then TalentUnholy.Desolation = Integer.Parse(XmlDoc.Element("Talents").Element("Desolation").Value)
-
-
-
-
-
+        Talents.ReadTemplate(file)
         Glyph = New glyph(file)
-
     End Sub
 
 End Class

@@ -27,7 +27,7 @@ Friend Class WanderingPlague
 			If DoMySpellHit = false Then
 				MissCount = MissCount + 1
 			End If
-			tmp =  Damage * sim.Character.talentunholy.WanderingPlague / 3
+            tmp = Damage * sim.Character.Talents.Talent("WanderingPlague").Value / 3
 			total = total + tmp
 			HitCount = HitCount + 1
 			If sim.combatlog.LogDetails Then sim.combatlog.write(T  & vbtab &  "Wandering Plague hit for " & tmp )

@@ -97,6 +97,7 @@ Public Class Sim
 
 
     Friend ScourgeStrike As ScourgeStrike
+    Friend FesteringStrike As FesteringStrike
     Friend ScourgeStrikeMagical As ScourgeStrikeMagical
     Friend MainHand As MainHand
     Friend OffHand As OffHand
@@ -124,7 +125,7 @@ Public Class Sim
     Friend UnbreakableArmor As UnbreakableArmor
     Friend UnholyBlight As UnholyBlight
     Friend DRW As DRW
-    Friend WanderingPlague As WanderingPlague
+
     Friend Gargoyle As Gargoyle
     Friend BoneShield As BoneShield
     Friend Frenzy As Frenzy
@@ -472,7 +473,7 @@ Public Class Sim
         Dim resetTime As Integer
 
         TimeStamp = 1
-        If Character.TalentUnholy.MasterOfGhouls = 1 Then Ghoul.Summon(1)
+        If Character.Talents.Talent("MasterOfGhouls").Value = 1 Then Ghoul.Summon(1)
         Rotation.LoadIntro()
         If Rotate Then Rotation.loadRotation()
         ' Pre Pull Activities
@@ -666,7 +667,7 @@ Public Class Sim
 
         ERW.CD = 0
         RuneForge.SoftReset()
-        If Character.TalentBlood.Butchery > 0 Then
+        If Character.Talents.Talent("Butchery").Value > 0 Then
             Butchery.nextTick = TimeStamp + 500
             FutureEventManager.Add(Butchery.nextTick, "Butchery")
         End If
@@ -697,6 +698,7 @@ Public Class Sim
 
         BloodTap = New BloodTap(Me)
         HowlingBlast = New HowlingBlast(Me)
+        FesteringStrike = New FesteringStrike(Me)
 
         Ghoul = New Ghoul(Me)
         AotD = New AotD(Me)
@@ -745,7 +747,7 @@ Public Class Sim
         Necrosis = New Necrosis(Me)
         OHNecrosis = New Necrosis(Me)
         OHNecrosis.OffHand = True
-        WanderingPlague = New WanderingPlague(Me)
+
 
         Frenzy = New Frenzy(Me)
         BloodCakedBlade = New BloodCakedBlade(Me)
@@ -976,7 +978,7 @@ errH:
         If FrostPresence = 1 Then
             Threat = Threat * 2.0735
         Else
-            Threat = (Threat * 0.8) * (1 - Character.TalentBlood.Subversion * 8.333 / 100)
+            Threat = (Threat * 0.8)
         End If
         Threat = Threat + ThreatBeforePresence
         TPS = 100 * Threat / TimeStamp
@@ -1058,20 +1060,7 @@ errH:
     End Sub
 
 
-    Sub tryOnDamageProc()
-        Dim obj As Proc
-        For Each obj In Me.proc.OnDamageProcs
-            obj.TryMe(TimeStamp)
-        Next
-    End Sub
-
-    Sub tryOnMHWhitehitProc()
-        Dim obj As Proc
-        For Each obj In Me.proc.OnMHWhitehitProcs
-            obj.TryMe(TimeStamp)
-        Next
-        TryOnMHHitProc()
-    End Sub
+ 
 
     Sub StoreMyDamage(ByVal damage As Long)
         Dim tmp As Long
@@ -1085,65 +1074,7 @@ errH:
     End Sub
 
 
-    Sub TryOnMHHitProc()
-        Dim obj As Proc
-        For Each obj In Me.proc.OnMHhitProcs
-            obj.TryMe(TimeStamp)
-        Next
 
-        For Each obj In Me.proc.OnHitProcs
-            obj.TryMe(TimeStamp)
-        Next
-        tryOnDamageProc()
-    End Sub
-
-    Sub TryOnOHHitProc()
-        Dim obj As Proc
-        For Each obj In Me.proc.OnOHhitProcs
-            obj.TryMe(TimeStamp)
-        Next
-        For Each obj In Me.proc.OnHitProcs
-            obj.TryMe(TimeStamp)
-        Next
-        tryOnDamageProc()
-    End Sub
-
-    Sub TryOnFU()
-        Dim obj As Proc
-        For Each obj In Me.proc.OnFUProcs
-            obj.TryMe(TimeStamp)
-        Next
-    End Sub
-
-    Sub tryOnCrit()
-        Dim obj As Proc
-        For Each obj In Me.proc.OnCritProcs
-            obj.TryMe(TimeStamp)
-        Next
-    End Sub
-
-    Sub tryOnDoT()
-        Dim obj As Proc
-        For Each obj In Me.proc.OnDoTProcs
-            obj.TryMe(TimeStamp)
-        Next
-        tryOnDamageProc()
-    End Sub
-
-    Sub TryOnSpellHit()
-        Dim obj As Proc
-        For Each obj In Me.proc.OnDamageProcs
-            obj.TryMe(TimeStamp)
-        Next
-        tryOnDamageProc()
-    End Sub
-
-    Sub TryOnBloodStrike()
-        Dim obj As Proc
-        For Each obj In Me.proc.OnBloodStrikeProcs
-            obj.TryMe(TimeStamp)
-        Next
-    End Sub
 
 
 

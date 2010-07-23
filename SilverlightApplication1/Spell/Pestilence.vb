@@ -74,13 +74,11 @@ Friend Class Pestilence
 		
 		Dim blood As Boolean
 		
-		If sim.Character.talentunholy.Gargoyle = 1 Then
-			blood = sim.runes.BloodOnly(T)
-		ElseIf sim.Character.talentfrost.GuileOfGorefiend > 1 Then
-			blood = sim.runes.BloodOnly(T)
-		Else 
-			blood = sim.runes.AnyBlood(T)
-		End If
+        If sim.Character.Talents.Talent("Gargoyle").Value = 1 Then
+            blood = sim.Runes.BloodOnly(T)
+        Else
+            blood = sim.Runes.AnyBlood(T)
+        End If
 		If blood Then
 			tmp1 = math.Min(sim.Targets.MainTarget.BloodPlague.FadeAt,sim.Targets.MainTarget.FrostFever.FadeAt)
 			If tmp1 < T Then

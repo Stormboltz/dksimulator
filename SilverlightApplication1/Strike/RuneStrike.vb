@@ -48,7 +48,7 @@ Public Class RuneStrike
 		If RNG < CritChance Then
 			'CRIT !
 			dégat = AvrgCrit(T)
-			sim.tryOnCrit
+            sim.proc.tryOnCrit()
 			
 			critcount += 1
 			totalcrit += dégat
@@ -60,25 +60,26 @@ Public Class RuneStrike
 			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Rune Strike hit for " & dégat )
 		End If
 		total = total + dégat
-		If sim.Character.talentunholy.Necrosis > 0 Then sim.Necrosis.Apply(dégat, T)
-		
-		If offhand=False Then
-			If sim.proc.MHBloodCakedBlade.TryMe(T) Then
-				sim.BloodCakedBlade.ApplyDamage(T)
-			End If
-		Else
-			If sim.proc.OHBloodCakedBlade.TryMe(T) Then
-				sim.OHBloodCakedBlade.ApplyDamage(T)
-			End If
-		End If
-		
-		If offhand=False Then
-			sim.TryOnMHHitProc
-		Else
-			sim.TryOnOHHitProc
-		End If
-		return true
-	End Function
+        If sim.Character.Talents.Talent("Necrosis").Value > 0 Then sim.Necrosis.Apply(dégat, T)
+
+        If OffHand = False Then
+            If sim.proc.MHBloodCakedBlade.TryMe(T) Then
+                sim.BloodCakedBlade.ApplyDamage(T)
+            End If
+        Else
+            If sim.proc.OHBloodCakedBlade.TryMe(T) Then
+                sim.OHBloodCakedBlade.ApplyDamage(T)
+            End If
+        End If
+
+        If OffHand = False Then
+            sim.proc.TryOnMHHitProc()
+            sim.proc.TryOnonRPDumpProcs()
+        Else
+            sim.proc.TryOnOHHitProc()
+        End If
+        Return True
+    End Function
 	overrides Function AvrgNonCrit(T As long,target As Targets.Target) As Double
 		Dim tmp As Double
 		If offhand Then
@@ -92,7 +93,7 @@ Public Class RuneStrike
 		tmp = tmp * (1+ sim.MainStat.T82PTNK*0.1)
 		If offhand Then
 			tmp = tmp * 0.5
-			tmp = tmp * (1 + sim.Character.talentfrost.NervesofColdSteel * 8.3333 / 100)
+            tmp = tmp * (1 + sim.Character.Talents.Talent("NervesofColdSteel").Value * 8.3333 / 100)
 		End If
 		If sim.EPStat = "EP HasteEstimated" Then
 			tmp = tmp*sim.MainStat.EstimatedHasteBonus
