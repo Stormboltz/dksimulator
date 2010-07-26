@@ -78,12 +78,12 @@ Friend Class DRW
 			return false
 		End If
 		If cd <= T Then
-			If sim.Hysteria.IsAvailable(T) then sim.Hysteria.use(T)
-			If sim.Hysteria.IsActive(T) Then
-				Hyst = True
-			Else
-				Hyst = false
-			End If
+            'If sim.Hysteria.IsAvailable(T) then sim.Hysteria.use(T)
+            'If sim.Hysteria.IsActive(T) Then
+            '	Hyst = True
+            'Else
+            '	Hyst = false
+            'End If
 			SpellHaste = sim.MainStat.SpellHaste
             Haste = sim.MainStat.PhysicalHaste
 			AP = sim.MainStat.AP

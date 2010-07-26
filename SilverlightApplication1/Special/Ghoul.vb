@@ -48,7 +48,7 @@ Friend class Ghoul
                 _Haste = sim.MainStat.PhysicalHaste
                 _AP = sim.GhoulStat.AP
                 ActiveUntil = T + 60 * 100
-                cd = ActiveUntil + (3 * 60 * 100) - (45 * 100 * sim.Character.Talents.Talent("NightoftheDead").Value)
+                cd = ActiveUntil + (3 * 60 * 100)
                 isGuardian = True
             End If
 			If T <=1 Then

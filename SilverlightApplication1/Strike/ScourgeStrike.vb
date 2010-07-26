@@ -26,7 +26,7 @@ Friend Class ScourgeStrike
             Return False
 		End If
 		
-        sim.RunicPower.add(15 + sim.Character.Talents.Talent("Dirge").Value * 2.5 + 5 * sim.MainStat.T74PDPS)
+        sim.RunicPower.add(10 + sim.Character.Talents.Talent("Dirge").Value * 5 + 5 * sim.MainStat.T74PDPS)
         Dim dégat As Integer
         tmpPhysical = 0
         tmpMagical = 0
@@ -73,14 +73,16 @@ Friend Class ScourgeStrike
         If sim.sigils.Awareness Then tmpPhysical = tmpPhysical + 189
         If sim.sigils.ArthriticBinding Then tmpPhysical = tmpPhysical + 91.35
         tmpPhysical = tmpPhysical * sim.MainStat.StandardPhysicalDamageMultiplier(T)
-        tmpPhysical = tmpPhysical * (1 + 6.6666666 * sim.Character.Talents.Talent("Outbreak").Value / 100)
+        tmpPhysical = tmpPhysical * (1 + 6.6666666000000001 * sim.Character.Talents.Talent("CorruptingStrikes").Value / 100)
         If sim.MainStat.T102PDPS <> 0 Then tmpPhysical = tmpPhysical * 1.1
         Return tmpPhysical
     End Function
 
     Public Overrides Function CritCoef() As Double
-        CritCoef = 1 + sim.Character.Talents.Talent("ViciousStrikes").Value * 15 / 100
-        CritCoef = CritCoef * (1 + 0.06 * sim.mainstat.CSD)
+        If _CritCoef <> -1 Then Return _CritCoef
+        _CritCoef = 1 + sim.Character.Talents.Talent("ViciousStrikes").Value * 15 / 100
+        _CritCoef = _CritCoef * (1 + 0.06 * sim.MainStat.CSD)
+        Return _CritCoef
     End Function
 
 
@@ -91,12 +93,7 @@ Friend Class ScourgeStrike
         Return tmp
     End Function
 	
-	public Overrides Function AvrgCrit(T As long,target As Targets.Target) As Double
-		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
-	End Function
-	
 
-	
 	Public Overrides sub Merge()
 		Total += sim.ScourgeStrikeMagical.Total
 		TotalHit += sim.ScourgeStrikeMagical.TotalHit

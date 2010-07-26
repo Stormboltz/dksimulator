@@ -35,10 +35,10 @@ Friend Class HowlingBlast
 
         If sim.proc.rime.IsActive Then
             sim.Proc.rime.Use()
-            sim.RunicPower.add(sim.Character.Talents.Talent("ChillOfTheGrave").Value * 2.5)
+            sim.RunicPower.add(sim.Character.Talents.Talent("ChillOfTheGrave").Value * 5)
         Else
             sim.Runes.UseFrost(T, False)
-            sim.RunicPower.add(15 + (sim.Character.Talents.Talent("ChillOfTheGrave").Value * 2.5))
+            sim.RunicPower.add(10 + (sim.Character.Talents.Talent("ChillOfTheGrave").Value * 5))
         End If
         Dim Tar As Targets.Target
 
@@ -74,17 +74,14 @@ Friend Class HowlingBlast
         If target Is Nothing Then target = sim.Targets.MainTarget
         Dim tmp As Double
         tmp = 1079
-        tmp = tmp + (0.2 * (1 + 0.04 * sim.Character.Talents.Talent("Impurity").Value) * sim.MainStat.AP)
+        tmp = tmp + (0.2 * (1 + 0.2 * sim.Character.Talents.Talent("Impurity").Value) * sim.MainStat.AP)
         tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
         If sim.ExecuteRange Then tmp = tmp * (1 + 0.06 * sim.Character.Talents.Talent("MercilessCombat").Value)
         tmp *= sim.RuneForge.RazorIceMultiplier(T) 'TODO: only on main target
         If sim.RuneForge.CheckCinderglacier(True) > 0 Then tmp *= 1.2
         AvrgNonCrit = tmp
     End Function
-    Overrides Function CritCoef() As Double
-        CritCoef = 1
-        CritCoef = CritCoef * (1 + 0.06 * sim.mainstat.CSD)
-    End Function
+   
 	overrides Function CritChance() As Double
 		CritChance = sim.MainStat.SpellCrit
 		If sim.proc.KillingMachine.IsActive Then

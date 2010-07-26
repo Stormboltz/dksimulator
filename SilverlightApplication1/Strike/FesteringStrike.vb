@@ -19,13 +19,12 @@
         End If
         Sim.RunicPower.add(10)
         Dim intCount As Integer = 0
-        Dim Tar As Targets.Target
 
         RNG = RngCrit
         Dim dégat As Integer
         If RNG <= CritChance() Then
             CritCount = CritCount + 1
-            dégat = AvrgCrit(T, Tar)
+            dégat = AvrgCrit(T)
             TotalCrit += dégat
             sim.CombatLog.write(T & vbTab & "FeS crit for " & dégat)
         Else
@@ -52,14 +51,9 @@
         AvrgNonCrit = tmp
     End Function
 
-    Public Overrides Function CritCoef() As Double
-        CritCoef = 1
-        CritCoef = CritCoef * (1 + 0.06 * sim.mainstat.CSD)
-    End Function
+   
     Public Overrides Function CritChance() As Double
         CritChance = sim.MainStat.crit
     End Function
-    Public Overrides Function AvrgCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
-        AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
-    End Function
+    
 End Class

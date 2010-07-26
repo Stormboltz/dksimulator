@@ -31,22 +31,22 @@ Sub New(S As sim)
         NextWhiteMainHit = T + (WSpeed * 100) / sim.MainStat.PhysicalHaste
 		sim.FutureEventManager.Add(NextWhiteMainHit,"MainHand")
 		
-		If sim.FrostPresence = 1 Then
-			if sim.RuneStrike.trigger = true and Sim.RunicPower.Check(20) then
-				sim.RuneStrike.ApplyDamage(T)
-				return true
-			End If
-		End If
+        If sim.BloodPresence = 1 Then
+            If sim.RuneStrike.trigger = True And sim.RunicPower.Check(20) Then
+                sim.RuneStrike.ApplyDamage(T)
+                Return True
+            End If
+        End If
 		
 		Dim RNG As Double
 		RNG = RngHit
 		MeleeGlacingChance = 0.25
 		MeleeDodgeChance = 0.065
-		If sim.FrostPresence =1 Then
-			MeleeParryChance = 0.14
-		Else
-			MeleeParryChance = 0
-		End If
+        If sim.BloodPresence = 1 Then
+            MeleeParryChance = 0.14
+        Else
+            MeleeParryChance = 0
+        End If
 		If sim.mainstat.DualW Then
 			MeleeMissChance = 0.27
 		Else
@@ -104,16 +104,11 @@ Sub New(S As sim)
 		End If
 		AvrgNonCrit = tmp
 	End Function
-	Overrides Function CritCoef() As Double
-		CritCoef = 1* (1+0.06*sim.mainstat.CSD)
-		
-	End Function
+	
 	Overrides Function CritChance() As Double
 		CritChance = sim.MainStat.critAutoattack
 	End Function
-	Overrides Function AvrgCrit(T As long,target As Targets.Target) As Double
-		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
-	End Function
+	
 	
 	Public Overrides Sub Merge()
 		_Name = "Melee"

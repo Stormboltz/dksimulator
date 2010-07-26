@@ -32,21 +32,13 @@ Friend Class Obliterate
 			Else
 				sim.Runes.UseFU(T, False)
 			End If
-			
-			If sim.Proc.AnnihilateDiseases.TryMe(T) Then
-				'I changed Annihilation to function as a reverse proc.
-				'All frost specs at least should max out the talent and so it
-				'won't be equiped and so won't proc.
-				sim.Targets.MainTarget.FrostFever.FadeAt=T
-				sim.Targets.MainTarget.BloodPlague.FadeAt=T
-			End If
-			
+
 		Else
             If DoMyToTHit() = False Then Return False
 		End If
 		
 		If OffHand = False Then 
-            sim.RunicPower.add(15 + 2.5 * sim.Character.Talents.Talent("ChillOfTheGrave").Value + 5 * sim.MainStat.T74PDPS)
+            sim.RunicPower.add(15 + 5 * sim.Character.Talents.Talent("ChillOfTheGrave").Value + 5 * sim.MainStat.T74PDPS)
         End If
         Dim dégat As Integer
         Dim ccT As Double
@@ -100,8 +92,8 @@ Friend Class Obliterate
         End If
 
 
-
-        If sim.ExecuteRange Then tmp = tmp * (1 + 0.06 * sim.Character.Talents.Talent("MercilessCombat").Value)
+        tmp = tmp * (1 + sim.Character.Talents.Talent("Annihilation").Value * 10 / 100)
+        If sim.ExecuteRange Then tmp = tmp * (1 + 0.059999999999999998 * sim.Character.Talents.Talent("MercilessCombat").Value)
         tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
         If sim.character.glyph.Obliterate Then tmp = tmp * 1.2
         If OffHand Then
@@ -115,26 +107,17 @@ Friend Class Obliterate
 
     End Function
 
-
-    Public Overrides Function CritCoef() As Double
-        CritCoef = 1
-        Return CritCoef * (1 + 0.06 * sim.mainstat.CSD)
-    End Function
-
-
     Public Overrides Function CritChance() As Double
         If sim.DeathChill.IsAvailable(sim.TimeStamp) Then
             sim.Deathchill.use(sim.TimeStamp)
             sim.DeathChill.Active = False
             Return 1
         End If
-        Return sim.MainStat.crit + sim.Character.Talents.Talent("rime").Value * 5 / 100 + +sim.MainStat.T72PDPS * 5 / 100
+        Return sim.MainStat.crit + sim.MainStat.T72PDPS * 5 / 100
 
     End Function
 	
-	public Overrides Function AvrgCrit(T As long,target As Targets.Target) As Double
-		return AvrgNonCrit(T) * (1 + CritCoef)
-	End Function
+	
 	
 	
 	

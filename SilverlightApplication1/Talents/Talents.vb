@@ -3,7 +3,8 @@ Imports System.IO.IsolatedStorage
 Imports System.IO
 
 Public Class Talents
-    Private Talents As New List(Of Talent)
+    Private Talents As New Collections.Generic.Dictionary(Of String, Talent)
+    'Private Talents As New List(Of Talent)
     Private IncludedTalents As New List(Of Talent)
     Protected Sim As Sim
     Enum Schools As Integer
@@ -19,7 +20,8 @@ Public Class Talents
 
     Function Talent(ByVal Name As String) As Talent
         Try
-            Return (From Ta As Talent In Talents Where Ta.Name.ToUpper = Name.ToUpper).First
+            Name = Name.ToLower
+            Return Talents(Name)
         Catch ex As Exception
             Diagnostics.Debug.WriteLine("WTF IS THIS TALENT " & Name)
             Return New Talent(Name, Schools.Blood)
@@ -53,27 +55,27 @@ Public Class Talents
         For Each xNode In XmlDoc.Element("Talents").Elements("blood").Elements
             If xNode.Name.ToString <> "include" Then
                 T = New Talent(xNode.Name.ToString, Schools.Blood)
-                Talents.Add(T)
+                Talents.Add(T.Name.ToLower, T)
 
             Else
                 For Each xN As XElement In xNode.Elements
                     T = New Talent(xN.Name.ToString, Schools.Blood)
                     IncludedTalents.Add(T)
-                    Talents.Add(T)
+                    Talents.Add(T.Name.ToLower, T)
                 Next
-                
+
             End If
         Next
 
         For Each xNode In XmlDoc.Element("Talents").Elements("frost").Elements
             If xNode.Name.ToString <> "include" Then
                 T = New Talent(xNode.Name.ToString, Schools.Frost)
-                Talents.Add(T)
+                Talents.Add(T.Name.ToLower, T)
             Else
                 For Each xN As XElement In xNode.Elements
                     T = New Talent(xN.Name.ToString, Schools.Frost)
                     IncludedTalents.Add(T)
-                    Talents.Add(T)
+                    Talents.Add(T.Name.ToLower, T)
                 Next
             End If
         Next
@@ -81,12 +83,12 @@ Public Class Talents
         For Each xNode In XmlDoc.Element("Talents").Element("unholy").Elements
             If xNode.Name.ToString <> "include" Then
                 T = New Talent(xNode.Name.ToString, Schools.Unholy)
-                Talents.Add(T)
+                Talents.Add(T.Name.ToLower, T)
             Else
                 For Each xN As XElement In xNode.Elements
                     T = New Talent(xN.Name.ToString, Schools.Unholy)
                     IncludedTalents.Add(T)
-                    Talents.Add(T)
+                    Talents.Add(T.Name.ToLower, T)
                 Next
 
             End If
@@ -96,21 +98,21 @@ Public Class Talents
         If GetNumOfThisSchool(Schools.Blood) > 10 Then
             For Each T As Talent In IncludedTalents
                 If T.School = Schools.Blood Then
-                    T.Value = 1
+                    Talent(T.Name).Value = 1
                 End If
             Next
         End If
         If GetNumOfThisSchool(Schools.Frost) > 10 Then
             For Each T As Talent In IncludedTalents
                 If T.School = Schools.Frost Then
-                    T.Value = 1
+                    Talent(T.Name).Value = 1
                 End If
             Next
         End If
         If GetNumOfThisSchool(Schools.Unholy) > 10 Then
             For Each T As Talent In IncludedTalents
                 If T.School = Schools.Unholy Then
-                    T.Value = 1
+                    Talent(T.Name).Value = 1
                 End If
             Next
         End If
@@ -119,8 +121,9 @@ Public Class Talents
 
     Function GetNumOfThisSchool(ByVal School As Schools) As Integer
         Dim i As Integer
-
-        i = (From Ta As Talent In Talents Where Ta.School = School).Count
+        For Each T As Talent In Talents.Values
+            If T.School = School Then i = i + 1
+        Next
         Return i
     End Function
 

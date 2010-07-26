@@ -85,12 +85,18 @@ Partial Public Class MainForm
         Dim doc As XDocument = XDocument.Parse("<config></config>")
         doc.Element("config").Add(New XElement("Stats", ""))
         Dim chkBox As CheckBox
-        For Each ctrl As Control In gbScaling.Children
-            If ctrl.Name.StartsWith("chk") Then
-                chkBox = ctrl
-                doc.Element("config").Element("Stats").Add(New XElement(chkBox.Name, chkBox.IsChecked))
+        For Each stk In gbScaling.Children
+            If TypeOf (stk) Is StackPanel Then
+                For Each ctrl As Control In CType(stk, StackPanel).Children
+                    If ctrl.Name.StartsWith("chk") Then
+                        chkBox = ctrl
+                        doc.Element("config").Element("Stats").Add(New XElement(chkBox.Name, chkBox.IsChecked))
+                    End If
+                Next
             End If
+
         Next
+
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
             Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/Scalingconfig.xml", FileMode.Create, isoStore)
                 doc.Save(isoStream)

@@ -90,7 +90,7 @@ NameSpace Diseases
 			Dim tmp As Double
 			tmp = sim.MainStat.StandardMagicalDamageMultiplier(T)
 			if sim.RuneForge.CheckCinderglacier(False) > 0 then tmp  *= 1.2
-            tmp = tmp * (1 + sim.Character.Talents.Talent("EbonPlaguebringer").Value * 10 / 100)
+            tmp = tmp * (1 + sim.Character.Talents.Talent("EbonPlaguebringer").Value * 15 / 100)
 
             Return tmp
         End Function
@@ -128,7 +128,7 @@ NameSpace Diseases
         End Function
 
         Overridable Function AvrgNonCrit(ByVal T As Long) As Double
-            Return Multiplier * 1.15 * (26 + 0.055 * (1 + 0.04 * sim.Character.Talents.Talent("Impurity").Value) * AP)
+            Return Multiplier * 1.15 * (26 + 0.055 * (1 + 0.2 * sim.Character.Talents.Talent("Impurity").Value) * AP)
         End Function
 
         Function ApplyDamage(ByVal T As Long) As Boolean
@@ -156,9 +156,12 @@ NameSpace Diseases
             Return True
         End Function
 		
-		Overridable Function CritCoef() As Double
-			return (1+0.06*sim.mainstat.CSD)
-		End Function
+        Protected _CritCoef As Double = -1
+        Overridable Function CritCoef() As Double
+            If _CritCoef <> -1 Then Return _CritCoef
+            _CritCoef = 1 + 0.06 * sim.MainStat.CSD
+            Return _CritCoef
+        End Function
 		
 		Overridable Function AvrgCrit(T As long) As Double
 			return DamageTick * (1 + CritCoef)

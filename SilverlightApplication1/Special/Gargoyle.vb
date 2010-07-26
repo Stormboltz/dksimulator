@@ -97,7 +97,7 @@ Function AvrgNonCrit(T As long) As Double
 	return tmp
 End Function
 Function CritCoef() As Double
-	CritCoef = 1
+        Return 1
 End Function
 Function CritChance() As Double
 	CritChance = SpellCrit

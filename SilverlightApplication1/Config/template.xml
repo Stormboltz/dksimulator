@@ -99,15 +99,12 @@
     <ImprovedUnholyPresence row="5" col="3">2</ImprovedUnholyPresence>
     <GhoulFrenzy row="5" col="4">1</GhoulFrenzy>
     
-    
-		<Outbreak row="6" col="1">3</Outbreak>
-		<CorpseExplosion row="6" col="3">1</CorpseExplosion>
-		<NightoftheDead row="6" col="4">2</NightoftheDead>
+  	
 		
-		<EbonPlaguebringer row="7" col="2">2</EbonPlaguebringer>
-    <SuddenDoom row="7" col="3">3</SuddenDoom>
+		<EbonPlaguebringer row="6" col="2">2</EbonPlaguebringer>
+    <SuddenDoom row="6" col="3">3</SuddenDoom>
 		
-		<SummonGargoyle row="8" col="2">1</SummonGargoyle>
+		<SummonGargoyle row="7" col="2">1</SummonGargoyle>
 	</unholy>
 	<Glyphs>
 		<none>00</none>

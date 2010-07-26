@@ -79,17 +79,14 @@ Friend Class DeathandDecay
     Overrides Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
         Dim tmp As Double
         tmp = 31
-        tmp = tmp + (0.0475 * (1 + 0.04 * sim.Character.Talents.Talent("Impurity").Value) * sim.MainStat.AP)
+        tmp = tmp + (0.0475 * (1 + 0.2 * sim.Character.Talents.Talent("Impurity").Value) * sim.MainStat.AP)
         tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 
         If sim.character.glyph.DeathandDecay Then tmp = tmp * 1.2
         If sim.MainStat.T102PTNK = 1 Then tmp = tmp * 1.2
         Return tmp
     End Function
-	overrides Function CritCoef() As Double
-		CritCoef = 1
-		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
-	End Function
+	
 	overrides Function CritChance() As Double
 		CritChance = sim.MainStat.SpellCrit
 	End Function

@@ -26,7 +26,7 @@ Public Class FrostPresence
 	Function Use(T As Long) As Boolean
 		sim.BloodPresence = 0
 		sim.UnholyPresence = 0
-		sim.FrostPresence = 1
+        sim.FrostPresence = 10 + (2.5 * sim.Character.Talents.Talent("IFrostPresence").Value)
 		sim.Runes.UseFrost(T,false)
 		sim.combatlog.write(T  & vbtab &  "Switch to Frost Presence")
 		Me.HitCount = Me.HitCount +1
@@ -34,6 +34,12 @@ Public Class FrostPresence
 
 		return true
 	End Function
-	
+
+    Sub SetForFree()
+        sim.BloodPresence = 0
+        sim.UnholyPresence = 0
+        sim.FrostPresence = 10 + (2.5 * sim.Character.Talents.Talent("IFrostPresence").Value)
+    End Sub
+
 
 End Class

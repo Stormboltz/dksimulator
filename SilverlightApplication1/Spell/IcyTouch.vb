@@ -2,9 +2,9 @@ Friend Class IcyTouch
 	inherits Spells.Spell
 	Sub New(S As sim)
 		MyBase.New(s)
-		If s.FrostPresence = 1 Then
-			ThreadMultiplicator = 7
-		End If
+        If S.BloodPresence = 1 Then
+            ThreadMultiplicator = 7
+        End If
 	End Sub
 	
 	overrides Function ApplyDamage(T As long) As boolean
@@ -16,7 +16,7 @@ Friend Class IcyTouch
 			MissCount = MissCount + 1
             Return False
 		End If
-        sim.RunicPower.add(10 + (sim.Character.Talents.Talent("ChillOfTheGrave").Value * 2.5))
+        sim.RunicPower.add(10 + (sim.Character.Talents.Talent("ChillOfTheGrave").Value * 5))
         RNG = RngCrit
         Dim dégat As Integer
         Dim ccT As Double
@@ -48,8 +48,8 @@ Friend Class IcyTouch
         Dim tmp As Double
         tmp = 473
 
-        tmp = tmp + (0.1 * (1 + 0.04 * sim.Character.Talents.Talent("Impurity").Value) * sim.MainStat.AP)
-        tmp = tmp * (1 + sim.Character.Talents.Talent("ImprovedIcyTouch").Value * 5 / 100)
+        tmp = tmp + (0.1 * (1 + 0.2 * sim.Character.Talents.Talent("Impurity").Value) * sim.MainStat.AP)
+        tmp = tmp * (1 + sim.Character.Talents.Talent("ImprovedIcyTouch").Value * 10 / 100)
 
         If sim.ExecuteRange Then tmp = tmp * (1 + 0.06 * sim.Character.Talents.Talent("MercilessCombat").Value)
         If sim.sigils.FrozenConscience Then tmp = tmp + 111
@@ -64,12 +64,9 @@ Friend Class IcyTouch
         If sim.RuneForge.CheckCinderglacier(True) > 0 Then tmp *= 1.2
         AvrgNonCrit = tmp
     End Function
-    Overrides Function CritCoef() As Double
-        CritCoef = 1
-        CritCoef = CritCoef * (1 + 0.06 * sim.mainstat.CSD)
-    End Function
+   
     Overrides Function CritChance() As Double
-        CritChance = sim.MainStat.SpellCrit + sim.Character.Talents.Talent("Rime").Value * 5 / 100
+        CritChance = sim.MainStat.SpellCrit
         If sim.proc.KillingMachine.IsActive Then Return 1
 
     End Function

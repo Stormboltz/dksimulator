@@ -14,15 +14,9 @@ Public Class ScourgeStrikeMagical
 		MyBase.New(s)
 	End Sub
 	
-	public Overrides Function AvrgCrit(T As long,target As Targets.Target) As Double
-		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
-	End Function
-	
-	
-	
-	Function ApplyDamage(PhysicalDamage As Integer,T As Long, IsCrit as Boolean) As Boolean
-		dim tmp as Integer
-		tmpPhysical = PhysicalDamage
+    Shadows Function ApplyDamage(ByVal PhysicalDamage As Integer, ByVal T As Long, ByVal IsCrit As Boolean) As Boolean
+        Dim tmp As Integer
+        tmpPhysical = PhysicalDamage
         If IsCrit Then 'RNG <= CritChance Then
             CritCount += 1
             tmp = AvrgNonCrit(T)
@@ -32,10 +26,10 @@ Public Class ScourgeStrikeMagical
             tmp = AvrgNonCrit(T)
             TotalHit += tmp
         End If
-		'sim.tryOnDamageProc()
+        'sim.tryOnDamageProc()
         total += tmp
         Return False
-	End Function
+    End Function
 	
 	
 	Public Overrides Function AvrgNonCrit(T As Long,target As Targets.Target) As Double
@@ -52,7 +46,7 @@ Public Class ScourgeStrikeMagical
 		addtiveDamage = 1
 		addtiveDamage += sim.BloodPresence * 0.15
 		addtiveDamage += 0.02 * sim.BoneShield.Value(T)
-		If sim.proc.Desolation.IsActiveAt(T) Then addtiveDamage += sim.proc.Desolation.ProcValue / 100
+        'If sim.proc.Desolation.IsActiveAt(T) Then addtiveDamage += sim.proc.Desolation.ProcValue / 100
 
 		tmp = tmp * addtiveDamage
 		tmp = tmp * (1 + 0.03 *  sim.Character.Buff.PcDamage)

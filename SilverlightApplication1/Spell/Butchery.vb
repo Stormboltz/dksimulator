@@ -23,7 +23,6 @@ Friend Class Butchery
 		
 	private Sub init()
 		nextTick = 0
-		
-	End Sub
+    End Sub
 		
 End Class

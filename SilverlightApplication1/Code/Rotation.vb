@@ -125,8 +125,8 @@ Friend Class Rotation
                             sim.BoneShield.Use(TimeStamp)
                             Return True
                         End If
-                        If sim.UnbreakableArmor.IsAvailable(TimeStamp) Then
-                            sim.UnbreakableArmor.Use(TimeStamp)
+                        If sim.PillarOfFrost.IsAvailable(TimeStamp) Then
+                            sim.PillarOfFrost.Use(TimeStamp)
                             Return True
                         End If
                     End If
@@ -179,8 +179,8 @@ Friend Class Rotation
                             sim.BoneShield.Use(TimeStamp)
                             Return True
                         End If
-                        If sim.UnbreakableArmor.IsAvailable(TimeStamp) Then
-                            sim.UnbreakableArmor.Use(TimeStamp)
+                        If sim.PillarOfFrost.IsAvailable(TimeStamp) Then
+                            sim.PillarOfFrost.Use(TimeStamp)
                             Return True
                         End If
                     End If
@@ -192,7 +192,7 @@ Friend Class Rotation
                 End If
             Case "HowlingBlast"
                 If sim.HowlingBlast.isAvailable(TimeStamp) Then
-                    If sim.proc.Rime.IsActive Or Runes.FU(TimeStamp) Then
+                    If sim.proc.Rime.IsActive Or Runes.Frost(TimeStamp) Then
                         Return sim.HowlingBlast.ApplyDamage(TimeStamp)
                         Exit Function
                     Else

@@ -50,7 +50,7 @@ Public Class AotD
 			MeleeDodgeChance =  math.Max(0.065 - Expertise,0)
 			SpellMissChance = math.Max(0.17 - SpellHit,0)
 			ActiveUntil = T + 40 * 100
-            cd = T + (10 * 60 * 100) - (120 * 100 * sim.Character.Talents.Talent("NightoftheDead").Value)
+            cd = T + (10 * 60 * 100)
             If T <= 1 Then
             Else
                 sim.combatlog.write(T & vbtab & "Summon AoTD")
@@ -66,7 +66,7 @@ Public Class AotD
         MeleeDodgeChance = math.Max(0.065 - Expertise, 0)
         SpellMissChance = math.Max(0.17 - SpellHit, 0)
         ActiveUntil = T + 30 * 100
-        cd = T + (10 * 60 * 100) - (120 * 100 * sim.Character.Talents.Talent("NightoftheDead").Value)
+        cd = T + (10 * 60 * 100)
         If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "Pre-Pull AoTD")
         sim.FutureEventManager.Add(T, "AotD")
     End Sub
@@ -134,7 +134,7 @@ Public Class AotD
         AvrgNonCrit = tmp
     End Function
     Function CritCoef() As Double
-        CritCoef = 1
+        Return 1
     End Function
     Function CritChance() As Double
         CritChance = crit

@@ -22,7 +22,6 @@ NameSpace Diseases
 		End Function
 		
 		Overrides Function Refresh(T As Long) As Boolean
-			sim.proc.IcyTalons.TryMe(T)
             MyBase.Refresh(T)
             Return True
 		End Function

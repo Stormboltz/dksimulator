@@ -20,7 +20,7 @@ Friend Class PlagueStrike
 
 		End If
 		If OffHand = False Then
-            sim.RunicPower.add(10 + sim.Character.Talents.Talent("Dirge").Value * 2.5)
+            sim.RunicPower.add(10 + sim.Character.Talents.Talent("Dirge").Value * 5)
         End If
 
         Dim dégat As Integer
@@ -64,7 +64,7 @@ Friend Class PlagueStrike
 
         tmp = tmp + 378
         tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
-        tmp = tmp * (1 + sim.Character.Talents.Talent("Outbreak").Value * 10 / 100)
+        tmp = tmp * (1 + sim.Character.Talents.Talent("CorruptingStrikes").Value * 10 / 100)
         If sim.character.glyph.PlagueStrike Then tmp = tmp * (1.2)
         If OffHand Then
             tmp = tmp * 0.5
@@ -73,8 +73,10 @@ Friend Class PlagueStrike
         AvrgNonCrit = tmp
     End Function
     Public Overrides Function CritCoef() As Double
-        CritCoef = (1 + sim.Character.Talents.Talent("ViciousStrikes").Value * 15 / 100)
-        CritCoef = CritCoef * (1 + 0.06 * sim.mainstat.CSD)
+        If _CritCoef <> -1 Then Return _CritCoef
+        _CritCoef = (1 + sim.Character.Talents.Talent("ViciousStrikes").Value * 15 / 100)
+        _CritCoef = _CritCoef * (1 + 0.06 * sim.MainStat.CSD)
+        Return _CritCoef
     End Function
     Public Overrides Function CritChance() As Double
         Dim tmp As Double
@@ -83,9 +85,7 @@ Friend Class PlagueStrike
 
         Return tmp
     End Function
-	public Overrides Function AvrgCrit(T As long,target As Targets.Target) As Double
-		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
-	End Function
+	
 
 	Public Overrides Sub Merge()
 		If sim.MainStat.DualW = false Then exit sub

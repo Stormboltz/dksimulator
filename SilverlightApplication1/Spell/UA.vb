@@ -6,17 +6,17 @@
 ' 
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Friend Class UnbreakableArmor
-	Inherits Spells.Spell
-	Friend previousFade as Long
-	
-	
-Sub New(S As sim)
-		MyBase.New(s)
-	End Sub
-	
-	
-	
+Friend Class PillarOfFrost
+    Inherits Spells.Spell
+    Friend previousFade As Long
+
+
+    Sub New(ByVal S As sim)
+        MyBase.New(s)
+    End Sub
+
+
+
     Function IsAvailable(ByVal T As Long) As Boolean
 
         Return False
@@ -29,7 +29,7 @@ Sub New(S As sim)
 
     End Function
     Function Use(ByVal T As Long) As Boolean
-        
+
         Return False
         If sim.Runes.Frost(T) = False Then
             If sim.BloodTap.IsAvailable(T) Then
@@ -55,7 +55,7 @@ Sub New(S As sim)
 
         sim._UseGCD(T, 1)
         sim.RunicPower.add(10)
-        sim.CombatLog.write(T & vbTab & "Unbreakable Armor")
+        sim.CombatLog.write(T & vbTab & "Pillar of Frost")
         Me.HitCount = Me.HitCount + 1
         AddUptime(T)
         Return True

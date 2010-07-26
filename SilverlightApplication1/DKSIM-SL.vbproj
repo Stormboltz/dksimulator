@@ -119,9 +119,6 @@
     <Compile Include="Code\Character\Buff.vb" />
     <Compile Include="Code\Character\Character.vb" />
     <Compile Include="Code\Character\MainStat.vb" />
-    <None Include="Code\Character\TalentBlood.vb" />
-    <None Include="Code\Character\TalentFrost.vb" />
-    <None Include="Code\Character\TalentUnholy.vb" />
     <Compile Include="CombatLog\CombatLog.vb" />
     <Compile Include="Code\FutureEventManager\FutureEvent.vb" />
     <Compile Include="Code\FutureEventManager\FutureEventManager.vb" />
@@ -250,12 +247,12 @@
     <Compile Include="Spell\DeathandDecay.vb" />
     <Compile Include="Spell\DeathChill.vb" />
     <Compile Include="Spell\DeathCoil.vb" />
-    <Compile Include="Spell\Desecration.vb" />
+    <None Include="Spell\Desecration.vb" />
     <Compile Include="Spell\EmpowerRuneWeapon.vb" />
     <Compile Include="Spell\Frenzy.vb" />
     <Compile Include="Spell\Horn.vb" />
     <Compile Include="Spell\HowlingBlast.vb" />
-    <Compile Include="Spell\Hysteria.vb" />
+    <None Include="Spell\Hysteria.vb" />
     <Compile Include="Spell\IcyTouch.vb" />
     <Compile Include="Spell\Necrosis.vb" />
     <Compile Include="Spell\Pestilence.vb" />

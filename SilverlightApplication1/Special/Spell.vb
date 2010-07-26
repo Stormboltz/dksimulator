@@ -67,8 +67,11 @@ Public Class Spell
             Return False
         End Function
 	
+        Protected _CritCoef As Double = -1
         Overridable Function CritCoef() As Double
-            Return 0
+            If _CritCoef <> -1 Then Return _CritCoef
+            _CritCoef = 1 + 0.06 * sim.MainStat.CSD
+            Return _CritCoef
         End Function
 	
         Overridable Function CritChance() As Double

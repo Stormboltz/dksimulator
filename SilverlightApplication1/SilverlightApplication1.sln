@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Web Developer Express 2010
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SilverlightApplication1", "SilverlightApplication1.vbproj", "{76CA84F2-FED2-4503-89AE-4FDA4B1046CA}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "DKSIM-SL", "DKSIM-SL.vbproj", "{76CA84F2-FED2-4503-89AE-4FDA4B1046CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

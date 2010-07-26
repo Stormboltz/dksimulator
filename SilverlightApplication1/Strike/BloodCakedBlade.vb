@@ -42,16 +42,11 @@ Sub New(S As sim)
 		End If
 		return tmp
 	End Function
-    Public Overrides Function CritCoef() As Double
-        Return 0
-    End Function
-	
+
 	public Overrides Function CritChance() As Double
 		return sim.MainStat.crit
 	End Function
-	public Overrides Function AvrgCrit(T as long,target As Targets.Target) As Double
-		return AvrgNonCrit(T) * (1 + CritCoef)
-	End Function
+	
 	
 	Public Overrides Sub Merge()
 		If sim.MainStat.DualW = false Then exit sub

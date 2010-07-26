@@ -24,8 +24,8 @@ Public Class BloodPresence
 	
 	
 	Function Use(T As Long) As Boolean
-		sim.BloodPresence = 1
-		sim.UnholyPresence = 0
+        sim.BloodPresence = 1
+        sim.UnholyPresence = 0
 		sim.FrostPresence = 0
 		
 		sim.Runes.UseBlood(T,false)

@@ -9,9 +9,15 @@
 * 30s Diseases.
 * No more Clipping on diseases
 * Runic Empowerement
+* Gargoyle
+
+* New talent + Free Talents
+
+
 Strike/Spell Verification: 
 * BCB, BS, DS, FS, HS, OB, PS, RS, SS
 * BB, D&D, DC, Ghoul Frenzy, HB, IT
+
 
 #TODO
 * Template

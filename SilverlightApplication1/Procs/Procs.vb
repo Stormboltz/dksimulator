@@ -14,13 +14,13 @@ Friend Class Procs
     Friend DRM As Proc
     Friend SuddenDoom As Proc
 
-    Friend AnnihilateDiseases As Proc
+    Friend UnholyFrenzy As Proc
     Friend ThreatOfThassarian As Proc
     Friend ReapingBotN As Proc
 
     Friend T104PDPS As Proc
-    Friend IcyTalons As Proc
-    Friend Desolation As Proc
+
+    'Friend Desolation As Proc
 
     Friend KillingMachine As Proc
     Friend Rime As Proc
@@ -113,8 +113,15 @@ Friend Class Procs
             .ProcOn = ProcOnType.onRPDump
             .Equip()
         End With
-
-
+        Dim UnholyFrenzy = New Proc(s)
+        With UnholyFrenzy
+            ._Name = "Unholy Frenzy"
+            .ProcChance = 1
+            .ProcLenght = 30
+            .InternalCD = 180
+            .ProcOn = ProcOnType.OnFU
+            If Sim.Character.Talents.Talent("UnholyFrenzy").Value = 1 Then .Equip()
+        End With
 
         MHBloodCakedBlade = New Proc(s)
         With MHBloodCakedBlade
@@ -159,7 +166,8 @@ Friend Class Procs
         With SuddenDoom
             ._Name = "SuddenDoom"
             .ProcChance = Sim.Character.Talents.Talent("SuddenDoom").Value * 0.05
-            .ProcOn = Procs.ProcOnType.OnBloodStrike
+            .ProcOn = Procs.ProcOnType.OnMHWhiteHit
+            .ProcLenght = 20
             If .ProcChance > 0 Then
                 .Equip()
             End If
@@ -176,14 +184,7 @@ Friend Class Procs
             End If
         End With
 
-        AnnihilateDiseases = New Proc(s)
-        With AnnihilateDiseases
-            ._Name = "AnnihilateDiseases"
-            .ProcChance = 1 - 0.33 * Sim.Character.Talents.Talent("Annihilation").Value
-            If .ProcChance > 0.1 Then
-                .Equip()
-            End If
-        End With
+        
 
 
         ReapingBotN = New Proc(s)
@@ -213,26 +214,6 @@ Friend Class Procs
 
         End With
 
-        IcyTalons = New Proc(s)
-        With IcyTalons
-            ._Name = "IcyTalons"
-            If Sim.Character.Talents.Talent("IcyTalons").Value > 0 Then .Equip()
-            .ProcValue = Sim.Character.Talents.Talent("IcyTalons").Value
-            .ProcLenght = 20
-            .ProcChance = 1
-        End With
-
-        Desolation = New Proc(s)
-        With Desolation
-            ._Name = "Desolation"
-            .ProcOn = Procs.ProcOnType.OnBloodStrike
-            .ProcValue = Sim.Character.Talents.Talent("Desolation").Value
-            .ProcLenght = 20
-            .ProcChance = 1
-            If Sim.Character.Talents.Talent("Desolation").Value > 0 Then .Equip()
-        End With
-
-
         KillingMachine = New Proc(s)
         With KillingMachine
             ._Name = "KillingMachine"
@@ -249,13 +230,13 @@ Friend Class Procs
             If Sim.Character.Talents.Talent("Rime").Value > 0 Then .Equip()
             .Equiped = Sim.Character.Talents.Talent("Rime").Value
             .ProcLenght = 15
-            .ProcChance = 5 * Sim.Character.Talents.Talent("Rime").Value / 100
+            .ProcChance = 15 * Sim.Character.Talents.Talent("Rime").Value / 100
         End With
 
         ScentOfBlood = New ScentOfBlood(s)
         With ScentOfBlood
             ._Name = "ScentOfBlood"
-            If s.FrostPresence = 1 Then
+            If s.BloodPresence = 1 Then
                 .Equip()
                 .Equiped = Sim.Character.Talents.Talent("ScentOfBlood").Value
             Else
@@ -354,12 +335,12 @@ Friend Class Procs
         End With
 
         With New WeaponProc(s)
-            ._Name = "BloodWorms"
+            ._Name = "BloodParasite"
             .InternalCD = 20
-            .ProcChance = 3 * s.Character.Talents.Talent("BloodWorms").Value / 100
+            .ProcChance = 3 * s.Character.Talents.Talent("BloodParasite").Value / 100
             .DamageType = "BloodWorms"
             .ProcOn = Procs.ProcOnType.OnHit
-            If s.Character.Talents.Talent("BloodWorms").Value > 0 Then
+            If s.Character.Talents.Talent("BloodParasite").Value > 0 Then
                 .Equip()
             End If
             .isGuardian = True

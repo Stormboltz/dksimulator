@@ -101,11 +101,6 @@ Public Class RuneStrike
 		return tmp
 	End Function
 
-	overrides Function CritCoef() As Double
-		CritCoef = 1
-		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
-	End Function
-	
 	overrides Function CritChance() As Double
 		Dim tmp As double
 		tmp =  sim.MainStat.critAutoattack
@@ -116,9 +111,7 @@ Public Class RuneStrike
 		return tmp
 	End Function
 	
-	overrides Function AvrgCrit(T As long,target As Targets.Target) As Double
-		return AvrgNonCrit(T) * (1 + CritCoef)
-	End Function
+	
 	
 
 	Public Overrides Sub Merge()

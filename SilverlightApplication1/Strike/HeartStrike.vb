@@ -15,7 +15,7 @@ Friend Class HeartStrike
 	public Overrides Function ApplyDamage(T As long) As boolean
 		Dim RNG As Double
 		
-		If sim.Hysteria.IsAvailable(T)  Then sim.Hysteria.use(T)
+        'If sim.Hysteria.IsAvailable(T)  Then sim.Hysteria.use(T)
 		
 		UseGCD(T)
 		
@@ -97,14 +97,9 @@ Friend Class HeartStrike
         AvrgNonCrit = tmp
     End Function
 
-    Public Overrides Function CritCoef() As Double
-        CritCoef = 1
-        CritCoef = CritCoef * (1 + 0.06 * sim.mainstat.CSD)
-    End Function
+   
     Public Overrides Function CritChance() As Double
         CritChance = sim.MainStat.crit
     End Function
-	public Overrides Function AvrgCrit(T As long,target as Targets.Target) As Double
-		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
-	End Function
+	
 End Class

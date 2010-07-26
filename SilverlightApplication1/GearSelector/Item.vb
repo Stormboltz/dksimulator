@@ -221,7 +221,7 @@ Public Class Item
     End Function
 
     Function getItem(ByVal el As XElement) As Item
-        Dim itm As Item
+        Dim itm As Item = Nothing
         itm.Id = el.Element("id").Value
         With itm
 

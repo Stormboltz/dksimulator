@@ -8,7 +8,7 @@ Friend Class Necrosis
 	
 	Function Apply(Damage As Double, T As long) As Double
 		Dim tmp As Double
-        tmp = Damage * 0.04 * sim.Character.Talents.Talent("Necrosis").Value
+        tmp = Damage * 0.10000000000000001 * sim.Character.Talents.Talent("Necrosis").Value
 		tmp = tmp * (1-15/(510+15)) 'Partial Resistance. It's about 0,029% less damage on average.
 		total = total + tmp
 		HitCount = HitCount + 1

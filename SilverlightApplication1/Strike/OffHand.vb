@@ -33,11 +33,11 @@ Friend Class OffHand
 		MeleeGlacingChance = 0.25
 		MeleeDodgeChance = 0.065
 		MeleeMissChance = 0.27
-		If sim.FrostPresence =1 Then
-			MeleeParryChance = 0.14
-		Else
-			MeleeParryChance = 0
-		End If
+        If sim.BloodPresence = 1 Then
+            MeleeParryChance = 0.14
+        Else
+            MeleeParryChance = 0
+        End If
 		
 		ChanceNotToTouch = math.Max(0, MeleeMissChance - sim.mainstat.Hit) + math.Max(0, MeleeDodgeChance  - sim.mainstat.OHExpertise) + math.Max(0, MeleeParryChance - sim.mainstat.OHExpertise)
 		
@@ -105,16 +105,11 @@ Friend Class OffHand
 		End If
 		AvrgNonCrit = tmp
 	End Function
-	Overrides Function CritCoef() As Double
-		CritCoef = 1
-		CritCoef = CritCoef * (1+0.06*sim.mainstat.CSD)
-	End Function
+	
 	Overrides Function CritChance() As Double
 		Dim tmp As Double
 		tmp = sim.MainStat.critAutoattack
 		CritChance = tmp
 	End Function
-	Overrides Function AvrgCrit(T As long,target As Targets.Target) As Double
-		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
-	End Function	
+	
 end Class

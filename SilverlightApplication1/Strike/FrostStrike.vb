@@ -71,17 +71,17 @@ Friend Class FrostStrike
 		End If
 		Return True
 	End Function
-	Public Function AvrgNonCrit(T As Long,Optional target As Targets.Target = Nothing) As Double
-		if target is nothing then target = sim.Targets.MainTarget
-		Dim tmp As Double
-		If offhand = false Then
+    Public Shadows Function AvrgNonCrit(ByVal T As Long, Optional ByVal target As Targets.Target = Nothing) As Double
+        If target Is Nothing Then target = sim.Targets.MainTarget
+        Dim tmp As Double
+        If offhand = False Then
             tmp = sim.MainStat.NormalisedMHDamage * 1.1
-		Else
+        Else
             tmp = sim.MainStat.NormalisedOHDamage * 1.1
 
-		End If
+        End If
         tmp = tmp + 275
-		if sim.sigils.VengefulHeart then tmp= tmp + 113
+        If sim.sigils.VengefulHeart Then tmp = tmp + 113
         tmp = tmp * (1 + sim.Character.Talents.Talent("BloodoftheNorth").Value * 5 / 100)
 
         If sim.ExecuteRange Then tmp = tmp * (1 + 0.06 * sim.Character.Talents.Talent("MercilessCombat").Value)
@@ -95,17 +95,12 @@ Friend Class FrostStrike
         End If
         Return tmp
     End Function
-    Public Overrides Function CritCoef() As Double
-        CritCoef = 1
-        CritCoef = CritCoef * (1 + 0.06 * sim.mainstat.CSD)
-    End Function
+    
 	public Overrides Function CritChance() As Double
 		CritChance = sim.MainStat.Crit + 8/100 * sim.MainStat.T82PDPS
 		if sim.proc.KillingMachine.IsActive()  = true then return 1
 	End Function
-	public Overrides Function AvrgCrit(T As long,target As Targets.Target) As Double
-		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
-	End Function
+	
 	
 	Public Overrides Sub Merge()
 		If sim.MainStat.DualW = false Then exit sub

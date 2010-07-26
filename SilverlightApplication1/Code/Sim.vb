@@ -116,13 +116,13 @@ Public Class Sim
     'Friend Desolation As Desolation
     Friend Horn As Horn
     Friend HowlingBlast As HowlingBlast
-    Friend Hysteria As Hysteria
+    'Friend Hysteria As Hysteria
     Friend IcyTouch As IcyTouch
     Friend Necrosis As Necrosis
     Friend OHNecrosis As Necrosis
     Friend DeathCoil As DeathCoil
     Friend Pestilence As Pestilence
-    Friend UnbreakableArmor As UnbreakableArmor
+    Friend PillarOfFrost As PillarOfFrost
     Friend UnholyBlight As UnholyBlight
     Friend DRW As DRW
 
@@ -159,9 +159,9 @@ Public Class Sim
 
     Friend CombatLog As New CombatLog(Me)
     Friend BoneShieldUsageStyle As Integer
-    Friend BloodPresence As Integer
-    Friend UnholyPresence As Integer
-    Friend FrostPresence As Integer
+    Friend BloodPresence As Double
+    Friend UnholyPresence As Double
+    Friend FrostPresence As Double
 
     Friend BloodPresenceSwitch As BloodPresence
     Friend UnholyPresenceSwitch As UnholyPresence
@@ -271,8 +271,8 @@ Public Class Sim
                             If BoneShield.IsAvailable(TimeStamp) Then
                                 If BoneShield.Use(TimeStamp) Then Return True
                             End If
-                            If UnbreakableArmor.IsAvailable(TimeStamp) Then
-                                If UnbreakableArmor.Use(TimeStamp) Then Return True
+                            If PillarOfFrost.IsAvailable(TimeStamp) Then
+                                If PillarOfFrost.Use(TimeStamp) Then Return True
                             End If
                         End If
                     End If
@@ -294,8 +294,8 @@ Public Class Sim
                                     Return True
                                 End If
                             End If
-                            If UnbreakableArmor.IsAvailable(TimeStamp) Then
-                                If UnbreakableArmor.Use(TimeStamp) Then
+                            If PillarOfFrost.IsAvailable(TimeStamp) Then
+                                If PillarOfFrost.Use(TimeStamp) Then
                                     BloodTap.CancelAura()
                                     Return True
                                 End If
@@ -473,6 +473,7 @@ Public Class Sim
         Dim resetTime As Integer
 
         TimeStamp = 1
+        InitPresence()
         If Character.Talents.Talent("MasterOfGhouls").Value = 1 Then Ghoul.Summon(1)
         Rotation.LoadIntro()
         If Rotate Then Rotation.loadRotation()
@@ -633,7 +634,7 @@ Public Class Sim
         HowlingBlast.CD = 0
         Ghoul.cd = 0
         AotD.cd = 0
-        Hysteria.CD = TimeStamp
+        'Hysteria.CD = TimeStamp
         DeathChill.Cd = 0
         'Desolation = New Desolation(me)
         MainHand.NextWhiteMainHit = TimeStamp
@@ -680,7 +681,7 @@ Public Class Sim
     Sub Initialisation()
         'RandomNumberGenerator.Init 'done in Start
         'DamagingObject.Clear
-        PetFriendly = SimConstructor.PetFriendly
+        PetFriendly = XmlConfig.Element("config").Element("pet").Value
 
         '_EpStat = SimConstructor.EpStat
 
@@ -703,9 +704,9 @@ Public Class Sim
         Ghoul = New Ghoul(Me)
         AotD = New AotD(Me)
         GhoulStat = New GhoulStat(Me)
-        Hysteria = New Hysteria(Me)
+        'Hysteria = New Hysteria(Me)
         DeathChill = New DeathChill(Me)
-        UnbreakableArmor = New UnbreakableArmor(Me)
+        PillarOfFrost = New PillarOfFrost(Me)
         Butchery = New Butchery(Me)
         DRW = New DRW(Me)
         RuneStrike = New RuneStrike(Me)
@@ -853,17 +854,7 @@ Public Class Sim
                     Sigils.HangedMan = True
             End Select
 
-            BloodPresence = 0
-            UnholyPresence = 0
-            FrostPresence = 0
-            Select Case XmlConfig.Element("config").Element("presence").Value
-                Case "Blood"
-                    BloodPresence = 1
-                Case "Unholy"
-                    UnholyPresence = 1
-                Case "Frost"
-                    FrostPresence = 1
-            End Select
+
 
 
             RuneForge = New RuneForge(Me)
@@ -915,7 +906,20 @@ Public Class Sim
 errH:
         msgBox("Error reading config file")
     End Sub
-
+    Sub InitPresence()
+        BloodPresence = 0
+        UnholyPresence = 0
+        FrostPresence = 0
+        Select Case XmlConfig.Element("config").Element("presence").Value
+            Case "Blood"
+                BloodPresence = 1
+            Case "Unholy"
+                UnholyPresence = 1
+            Case "Frost"
+                Me.FrostPresenceSwitch.SetForFree()
+                'FrostPresence = 1
+        End Select
+    End Sub
     Sub loadPriority(ByVal file As String)
         Priority = New priority(Me)
         Priority.prio.Clear()
@@ -985,9 +989,7 @@ errH:
         If EPStat() <> "" Then Exit Sub
         Dim myReport As New Report
         '_MainFrm.ReportStack.Children.Add(myReport)
-        Dim i As Integer
-        Dim tot As Long
-        Dim STmp As String
+
         Dim DamagingObjectList As List(Of Supertype)
         DamagingObjectList = (From oj In DamagingObject
              Where oj.total <> 0
@@ -1011,7 +1013,7 @@ errH:
             If BoneShield.HitCount <> 0 Then myReport.AddLine(BoneShield.Report)
             If BloodTap.HitCount <> 0 Then myReport.AddLine(BloodTap.Report)
             If Frenzy.HitCount <> 0 Then myReport.AddLine(Frenzy.Report)
-            If UnbreakableArmor.HitCount <> 0 Then myReport.AddLine(UnbreakableArmor.Report)
+            If PillarOfFrost.HitCount <> 0 Then myReport.AddLine(PillarOfFrost.Report)
             'On Error Resume Next
             Dim pr As Proc
             For Each pr In proc.EquipedProc

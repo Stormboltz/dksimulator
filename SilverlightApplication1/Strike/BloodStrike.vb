@@ -6,14 +6,7 @@ Friend class BloodStrike
 		MyBase.New(s)
 	End Sub
 	
-	Function CheckDesolation(T As Long) As Boolean
-		dim OtherT as Long
-		If sim.proc.Desolation.IsActiveAt(T + 1000) Then Return False
-		OtherT = sim.Runes.GetNextBloodCD(T)
-		If OtherT = 0 Then Return Not sim.proc.Desolation.IsActiveAt(T)
-		Return Not sim.proc.Desolation.IsActiveAt(OtherT+150)
-		
-	End Function
+	
 	
 	public Overrides Function ApplyDamage(T As Long) As Boolean
 		Dim RNG As Double
@@ -99,16 +92,11 @@ overrides Function AvrgNonCrit(T As Long, target As Targets.Target ) As Double
         AvrgNonCrit = tmp
     End Function
 
-    Public Overrides Function CritCoef() As Double
-        CritCoef = 1
-        CritCoef = CritCoef * (1 + 0.06 * sim.mainstat.CSD)
-    End Function
+   
     Public Overrides Function CritChance() As Double
         CritChance = sim.MainStat.crit
     End Function
-public Overrides Function AvrgCrit(T as long,target As Targets.Target) As Double
-	AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
-End Function
+
 
 
 Public Overrides Sub Merge()

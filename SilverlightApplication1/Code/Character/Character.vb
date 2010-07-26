@@ -139,14 +139,14 @@ Friend Class Character
         tmp = tmp + 155 * 1.15 * Buff.StrAgi
         tmp = tmp + 37 * 1.4 * Buff.StatAdd
         tmp = tmp * (1 + Buff.StatMulti / 10)
-        tmp = tmp * (1 + Talents.Talent("Vot3W").Value * 2 / 100)
+        tmp = tmp * (1 + Talents.Talent("BrittleBones").Value * 2 / 100)
         tmp = tmp * (1 + Talents.Talent("AbominationMight").Value / 100)
         tmp = tmp * (1 + Talents.Talent("RavenousDead").Value / 100)
-        tmp = tmp * (1 + Talents.Talent("EndlessWinter").Value * 2 / 100)
+
         If sim.RuneForge.CheckFallenCrusader Then
             tmp = tmp * 1.15
         End If
-        If sim.UnbreakableArmor.isActive Then tmp = tmp * 1.2
+        If sim.PillarOfFrost.isActive Then tmp = tmp * 1.2
         Return tmp
     End Function
 
@@ -161,14 +161,14 @@ Friend Class Character
         tmp = tmp + 155 * 1.15 * Buff.StrAgi
         tmp = tmp + 37 * 1.4 * Buff.StatAdd
         tmp = tmp * (1 + Buff.StatMulti / 10)
-        tmp = tmp * (1 + Talents.Talent("Vot3W").Value * 2 / 100)
+        tmp = tmp * (1 + Talents.Talent("BrittleBones").Value * 2 / 100)
         tmp = tmp * (1 + Talents.Talent("AbominationMight").Value / 100)
         tmp = tmp * (1 + Talents.Talent("RavenousDead").Value / 100)
-        tmp = tmp * (1 + Talents.Talent("EndlessWinter").Value * 2 / 100)
+
         If sim.RuneForge.HasFallenCrusader Then
             tmp = tmp * 1.15
         End If
-        If sim.UnbreakableArmor.isActive Then tmp = tmp * 1.1
+        If sim.PillarOfFrost.isActive Then tmp = tmp * 1.2
         Return tmp
     End Function
 
@@ -199,11 +199,11 @@ Friend Class Character
         tmp2 = sim.boss.SpecialArmor
         tmp = tmp - tmp2
         tmp = tmp + (750 * 1.4 * Buff.StatAdd)
-        tmp = tmp * (1 + Talents.Talent("Toughness").Value * 0.02)
+        tmp = tmp * (1 + Talents.Talent("Toughness").Value * 0.0333)
         If sim.FrostPresence = 1 Then
             tmp = tmp * 1.6
         End If
-        If sim.UnbreakableArmor.isActive Then tmp = tmp * 1.25
+
 
         tmp2 += sim.proc.GetActiveBonus("armor")
         tmp = tmp + tmp2

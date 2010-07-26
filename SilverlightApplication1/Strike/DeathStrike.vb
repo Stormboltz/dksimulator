@@ -18,9 +18,7 @@ Friend Class DeathStrike
 
 	public Overrides Function ApplyDamage(T As Long) As Boolean
 		Dim RNG As Double
-		
-		
-		
+
 		If OffHand = False Then
 			UseGCD(T)
 			If sim.proc.ThreatOfThassarian.TryMe(T) Then sim.OHDeathStrike.ApplyDamage(T)
@@ -34,7 +32,7 @@ Friend Class DeathStrike
 		End If
 		
 		If offhand = False Then 
-            sim.RunicPower.add(15 + 2.5 * sim.Character.Talents.Talent("Dirge").Value)
+            sim.RunicPower.add(15 + 5 * sim.Character.Talents.Talent("Dirge").Value)
 			Sim.runicpower.add(5*sim.MainStat.T74PDPS)
 		End If
 		
@@ -98,16 +96,11 @@ Friend Class DeathStrike
         End If
         Return tmp
     End Function
-    Public Overrides Function CritCoef() As Double
-        CritCoef = 1
-        CritCoef = CritCoef * (1 + 0.06 * sim.mainstat.CSD)
-    End Function
+    
     Public Overrides Function CritChance() As Double
         CritChance = sim.MainStat.crit + sim.Character.Talents.Talent("ImprovedDeathStrike").Value * 3 / 100 + sim.MainStat.T72PDPS * 5 / 100
     End Function
-	public Overrides Function AvrgCrit(T As Long,target As Targets.Target) As Double
-		Return AvrgNonCrit(T,target) * (1 + CritCoef)
-	End Function
+	
 	
 	Public Overrides Sub Merge()
 		If sim.MainStat.DualW = false Then exit sub

@@ -12,7 +12,7 @@ Friend Class RunicPower
 	End Sub
 	
 	Sub Reset()
-        MaxValue = 100 + (15 * sim.Character.Talents.Talent("RPM").Value)
+        MaxValue = 100
 		Value = 10 'Start fight with some RP
 	End Sub
 	
@@ -46,16 +46,17 @@ Friend Class RunicPower
 	End Function
 	
 	
-	Sub add(i As double)
-		sim.Threat = sim.Threat  + i*5
-		Value = i + Value
+    Sub add(ByVal i As Double)
+        i = i * (1 + sim.FrostPresence / 100)
+        sim.Threat = sim.Threat + i * 5
+        Value = i + Value
         'Diagnostics.Debug.WriteLine ("RP= " & Value)
-		If Value > MAxValue Then
-			Wasted += Value - MaxValue
-			Value =  MaxValue
-		End If
-		if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp & vbtab & "Runic Power = " & Value)
-	End Sub
+        If Value > MaxValue Then
+            Wasted += Value - MaxValue
+            Value = MaxValue
+        End If
+        If sim.CombatLog.LogDetails Then sim.CombatLog.write(sim.TimeStamp & vbTab & "Runic Power = " & Value)
+    End Sub
 	
 	
 end Class
