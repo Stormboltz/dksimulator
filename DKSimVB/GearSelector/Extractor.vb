@@ -14,8 +14,43 @@ Public Class Extractor
 	friend client As WebClient
 	Friend col As New ArrayList
 	Friend BonusScanned as New ArrayList
-	
-	
+	Sub New
+		init
+	End Sub
+	Sub GetAllIconForMyDB
+		Dim doc As xml.XmlDocument = New xml.XmlDocument
+		dim newElem as Xml.XmlElement
+		dim icon as String
+		doc.Load(Application.StartupPath & "\GearSelector\" & "itemDB.xml")
+		Dim total As Integer = doc.SelectNodes("/items/item").Count
+		dim i as Integer = 0 
+		For Each xNode As Xml.XmlNode In doc.SelectNodes("/items/item")
+			i +=1
+			debug.Print (i & "/" & total)
+			icon = GetIconForthisID(xNode.Attributes.GetNamedItem("id").Value)
+			DownloadThisIcon(icon)
+			newElem = doc.CreateNode(xml.XmlNodeType.Element, "icon", "")
+			newElem.InnerText = icon
+			xNode.AppendChild(newElem)
+		Next
+		doc.Save(Application.StartupPath & "\GearSelector\" & "itemDB.xml")
+	End Sub
+	function  GetIconForthisID(id as String) as String
+		dim s as String = GetXmlFromID(Id)
+		Dim x As new Xml.XmlDocument
+		x.LoadXml(s)
+		
+		return x.SelectSingleNode("/wowhead/item/icon").Innertext.ToLower
+	End function
+	Sub DownloadThisIcon(name As String)
+		
+		
+		If file.Exists(Application.StartupPath & "\Gearselector\icons\large\" & name & ".jpg") = False Then
+			client.DownloadFile("http://static.wowhead.com/images/wow/icons/large/" & name & ".jpg",Application.StartupPath & "\Gearselector\icons\large\" & name & ".jpg")
+			client.DownloadFile("http://static.wowhead.com/images/wow/icons/medium/" & name & ".jpg",Application.StartupPath & "\Gearselector\icons\medium\" & name & ".jpg")
+			client.DownloadFile("http://static.wowhead.com/images/wow/icons/small/" & name & ".jpg",Application.StartupPath & "\Gearselector\icons\small\" & name & ".jpg")
+		End If
+	End Sub
 	Sub Start
 		dim i as Integer
 		init
@@ -33,7 +68,7 @@ Public Class Extractor
 		Next
 	End Sub
 	Sub Get_RB_ID
-		
+
 		dim url as String
 		url  = "http://www.wowhead.com/items?filter=minle=250;ub=6;cr=82:123;crs=0:3;crv=3.3.5:0"
 		Dim data As Stream = client.OpenRead(URL)
@@ -65,7 +100,7 @@ Public Class Extractor
 			End If
 		Next
 	End Sub
-	
+
 	Sub GemExtrator
 		Dim i As Integer
 		Dim str As String
@@ -78,14 +113,11 @@ Public Class Extractor
 		Next
 		col.Clear
 	End Sub
-	
 	Sub init()
 		client = New WebClient()
 		client.Proxy = WebRequest.GetSystemWebProxy
 		client.Proxy.Credentials = CredentialCache.DefaultNetworkCredentials
 	End Sub
-	
-	
 	Sub GetSigils
 		GetListofSigils
 		Dim i As Integer
@@ -98,7 +130,6 @@ Public Class Extractor
 		Next
 		
 	End Sub
-	
 	Sub GenerateWowheadFilter()
 '		GetListofID(200,212)
 '		GetListofID(213,218)
@@ -111,11 +142,9 @@ Public Class Extractor
 		GetListofID(264,270)
 		GetListofID(271,300)
 	End Sub
-	
 	Sub GenerateWowheadFilterMAil()
 		GetListofMail
 	End Sub
-	
 	Sub GetListofSigils
 		dim url as String
 		url  = "http://www.wowhead.com/?items=4.10&filter=qu=4"
@@ -449,7 +478,7 @@ Public Class Extractor
 		Dim AttackPower As String= GetValue(aStr,"atkpwr")
 		
 		Dim CritRating as String= GetValue(aStr,"critstrkrtng")
-		Dim ArmorPenetrationRating as String= GetValue(aStr,"armorpenrtng")
+		Dim Mastery as String= GetValue(aStr,"mastrtng")
 		Dim setid as String= GetValue(aStr,"itemset")
 		Dim gem1 as String= GetValue(aStr,"socket1")
 		Dim gem2 as String= GetValue(aStr,"socket2")
@@ -458,6 +487,8 @@ Public Class Extractor
 		Dim classs As String = myXML.SelectSingleNode("/wowhead/item/class").Attributes.GetNamedItem("id").Value
 		Dim subclass as String = myXML.SelectSingleNode("/wowhead/item/subclass ").Attributes.GetNamedItem("id").Value
 		Dim keywords As String = ""
+		Dim Stamina As String= GetValue(aStr,"sta")
+		
 		
 		Dim doc As xml.XmlDocument = New xml.XmlDocument
 
@@ -517,6 +548,9 @@ Public Class Extractor
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "heroic", "")
 		newElem.InnerText = heroic
 		newItem.AppendChild(newElem)
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Stamina", "")
+		newElem.InnerText = Stamina
+		newItem.AppendChild(newElem)
 		
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Strength", "")
 		newElem.InnerText = Strength
@@ -562,13 +596,21 @@ Public Class Extractor
 		newElem.InnerText = CritRating
 		newItem.AppendChild(newElem)
 		
-		newElem = doc.CreateNode(xml.XmlNodeType.Element, "ArmorPenetrationRating", "")
-		newElem.InnerText = ArmorPenetrationRating
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "Mastery", "")
+		newElem.InnerText = Mastery
 		newItem.AppendChild(newElem)
 		
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "setid", "")
 		newElem.InnerText = setid
 		newItem.AppendChild(newElem)
+		
+		Dim icon As String
+		
+		
+		newElem = doc.CreateNode(xml.XmlNodeType.Element, "icon", "")
+		newElem.InnerText = icon
+		xNode.AppendChild(newElem)
+		DownloadThisIcon(icon)
 		
 		newElem = doc.CreateNode(xml.XmlNodeType.Element, "gem1", "")
 		newElem.InnerText = gem1
@@ -583,7 +625,7 @@ Public Class Extractor
 		newElem.InnerText = gembonus
 		newItem.AppendChild(newElem)
 		
-		If ArmorPenetrationRating <> "0" Then keywords += "ArmorPenetrationRatingArP"
+		If Mastery <> "0" Then keywords += "Mastery"
 		If CritRating <> "0" Then keywords += "CritRating"
 		If AttackPower <> "0" Then keywords += "AttackPower"
 		If HitRating <> "0" Then keywords += "HitRating"
@@ -755,6 +797,36 @@ Public Class Extractor
 		return str.Substring(i,j-i-1)
 	End Function
 	
+	sub CataUpdate()
+		'1 Update all existing item
+		Dim doc As xml.XmlDocument = New xml.XmlDocument
+
+		doc.Load(Application.StartupPath & "\GearSelector\" & "itemDB.xml")
+		Dim total As Integer = doc.SelectNodes("/items/item").Count
+		Dim i As Integer = 0 
+		dim Tx as String
+		For Each xNode As Xml.XmlNode In doc.SelectNodes("/items/item")
+			i +=1
+			debug.Print (i & "/" & total)
+			tx = GetCataXmlFromID(xNode.Attributes.GetNamedItem("id").Value)
+			ExtractThis(tx)
+			
+		Next
+		'2 Get new item
+	End sub
 	
+	Function GetCataXmlFromID(Id As String) As String
+		
+		Dim URL As String = "http://cata.wowhead.com/?item=" & Id & "&xml"
+		Dim data As Stream = client.OpenRead(URL)
+		Dim reader As StreamReader = New StreamReader(data)
+		Dim str As String = ""
+		Do Until reader.EndOfStream
+			str += reader.ReadLine
+			'debug.Print(str)
+		Loop
+		return str
+		'
+	End Function
 	
 End Class

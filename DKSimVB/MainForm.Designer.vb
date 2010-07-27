@@ -62,6 +62,7 @@ Partial Class MainForm
 		Me.chkShowProc = New System.Windows.Forms.CheckBox
 		Me.chkCombatLog = New System.Windows.Forms.CheckBox
 		Me.grpSimOption = New System.Windows.Forms.GroupBox
+		Me.cmbScenario = New System.Windows.Forms.ComboBox
 		Me.cmdEditScenario = New System.Windows.Forms.Button
 		Me.label45 = New System.Windows.Forms.Label
 		Me.txtBSTTL = New System.Windows.Forms.TextBox
@@ -263,7 +264,7 @@ Partial Class MainForm
 		Me.toolTip = New System.Windows.Forms.ToolTip(Me.components)
 		Me.cmdRngSeeder = New System.Windows.Forms.Button
 		Me.tmrProgress = New System.Windows.Forms.Timer(Me.components)
-		Me.cmbScenario = New System.Windows.Forms.ComboBox
+		Me.cmdUpdateDB = New System.Windows.Forms.Button
 		Me.tbTools.SuspendLayout
 		Me.tabPage1.SuspendLayout
 		Me.HtmlReport.SuspendLayout
@@ -292,6 +293,7 @@ Partial Class MainForm
 		Me.tbPrioEditor.SuspendLayout
 		Me.tbCaling.SuspendLayout
 		Me.gbScaling.SuspendLayout
+		Me.TabPrio2.SuspendLayout
 		Me.SuspendLayout
 		'
 		'btStart
@@ -646,6 +648,14 @@ Partial Class MainForm
 		Me.grpSimOption.TabStop = false
 		Me.grpSimOption.Text = "Simulator Options"
 		AddHandler Me.grpSimOption.Enter, AddressOf Me.GrpSimOptionEnter
+		'
+		'cmbScenario
+		'
+		Me.cmbScenario.FormattingEnabled = true
+		Me.cmbScenario.Location = New System.Drawing.Point(5, 452)
+		Me.cmbScenario.Name = "cmbScenario"
+		Me.cmbScenario.Size = New System.Drawing.Size(250, 21)
+		Me.cmbScenario.TabIndex = 95
 		'
 		'cmdEditScenario
 		'
@@ -2677,6 +2687,7 @@ Partial Class MainForm
 		'TabPrio2
 		'
 		Me.TabPrio2.AutoScroll = true
+		Me.TabPrio2.Controls.Add(Me.cmdUpdateDB)
 		Me.TabPrio2.Location = New System.Drawing.Point(4, 22)
 		Me.TabPrio2.Name = "TabPrio2"
 		Me.TabPrio2.Size = New System.Drawing.Size(1026, 746)
@@ -2701,13 +2712,15 @@ Partial Class MainForm
 		Me.tmrProgress.Interval = 1000
 		AddHandler Me.tmrProgress.Tick, AddressOf Me.TmrProgressTick
 		'
-		'cmbScenario
+		'cmdUpdateDB
 		'
-		Me.cmbScenario.FormattingEnabled = true
-		Me.cmbScenario.Location = New System.Drawing.Point(5, 452)
-		Me.cmbScenario.Name = "cmbScenario"
-		Me.cmbScenario.Size = New System.Drawing.Size(250, 21)
-		Me.cmbScenario.TabIndex = 95
+		Me.cmdUpdateDB.Location = New System.Drawing.Point(46, 45)
+		Me.cmdUpdateDB.Name = "cmdUpdateDB"
+		Me.cmdUpdateDB.Size = New System.Drawing.Size(191, 23)
+		Me.cmdUpdateDB.TabIndex = 0
+		Me.cmdUpdateDB.Text = "UpdateDB"
+		Me.cmdUpdateDB.UseVisualStyleBackColor = true
+		AddHandler Me.cmdUpdateDB.Click, AddressOf Me.CmdUpdateDBClick
 		'
 		'MainForm
 		'
@@ -2763,8 +2776,10 @@ Partial Class MainForm
 		Me.tbPrioEditor.PerformLayout
 		Me.tbCaling.ResumeLayout(false)
 		Me.gbScaling.ResumeLayout(false)
+		Me.TabPrio2.ResumeLayout(false)
 		Me.ResumeLayout(false)
 	End Sub
+	Private cmdUpdateDB As System.Windows.Forms.Button
 	Private cmbScenario As System.Windows.Forms.ComboBox
 	Private cmdEditScenario As System.Windows.Forms.Button
 	Private label9 As System.Windows.Forms.Label

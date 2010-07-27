@@ -310,31 +310,10 @@
     <None Include="My Project\OutOfBrowserSettings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CharactersWithGear\2H ICC.xml">
+    <Content Include="CharactersWithGear\Empty.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="CharactersWithGear\DW ICC.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Characters\2h ICC.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Characters\2h ToC Blood.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Characters\2h ToC Unholy.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Characters\2h Ulduar.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Characters\DW ICC.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Characters\DW ToC .xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Characters\DW Ulduar.xml">
+    <Content Include="Characters\Empty.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Page Include="CombatLog\CombatLogViewer.xaml">
@@ -4335,37 +4314,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Content Include="Templates\Blood 51-00-20-GoD.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates\Blood 51-00-20.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates\Frost 00-54-17.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates\Frost 03-53-15.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates\Frost 15-54-02.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates\Unholy 00-17-54.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates\Unholy 12-00-59.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates\Unholy 14-00-57.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates\Unholy 17-00-54-3.3.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates\Unholy 17-00-54.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates\Unholy DW 0-17-54.xml">
+    <Content Include="Templates\Empty.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Page Include="UserInput.xaml">

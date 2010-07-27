@@ -98,12 +98,16 @@ Friend Class MainStat
             Diagnostics.Debug.WriteLine("Error reading OH Weapon characteristics")
         End Try
         BossArmor = 10643
+        Try
+            If XmlCharacter.Element("character").Element("misc").Element("ChaoticSkyflareDiamond").Value = True Then
+                CSD = 1
+            Else
+                CSD = 0
+            End If
+        Catch ex As Exception
 
-        If XmlCharacter.Element("character").Element("misc").Element("ChaoticSkyflareDiamond").Value = True Then
-            CSD = 1
-        Else
-            CSD = 0
-        End If
+        End Try
+        
 
         'Trinkets
         Sim.Trinkets = New Trinkets(Sim)

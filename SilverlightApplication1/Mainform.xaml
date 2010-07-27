@@ -40,8 +40,8 @@
                                 <ComboBox Name="cmbTemplate" Grid.Row="2" Grid.Column="1" />
                                 <Button Content="Edit" Name="cmdEditTemplate" Grid.Row="2" Grid.Column="2" />
 
-                                <RadioButton Content="Priority" GroupName="grpRDPrio"  HorizontalAlignment="Left"  Name="rdPrio"  Grid.Row="3" Grid.Column="1" />
-                                <RadioButton Content="Rotation" GroupName="grpRDPrio"  HorizontalAlignment="Right"  Name="rdRot"  Grid.Row="3" Grid.Column="1" />
+                                <RadioButton Content="Priority" GroupName="grpRDPrio"  HorizontalAlignment="Left"  Name="rdPrio"  Grid.Row="3" Grid.Column="1" IsChecked="True" />
+                                <RadioButton Content="Rotation" GroupName="grpRDPrio"  HorizontalAlignment="Right"  Name="rdRot"  Grid.Row="3" Grid.Column="1" IsEnabled="False" />
 
                                 <sdk:Label Content="Intro:" Name="lblIntro" Grid.Row="4" />
                                 <ComboBox Name="cmbIntro" Grid.Row="4" Grid.Column="1"  />

@@ -937,7 +937,7 @@ Public Class Extractor
 			Dim tx As String
 			id = xNode.Attributes.GetNamedItem("id").Value
 			tx = GetCataXmlFromID(id)
-			ExtractThis(tx,True)
+			ExtractThis(tx,false,true)
 		Next
 		
 	End Sub

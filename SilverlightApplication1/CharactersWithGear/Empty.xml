@@ -1,0 +1,36 @@
+﻿<character>
+  <stat>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <Intel>0</Intel>
+    <Armor>0</Armor>
+    <AttackPower>0</AttackPower>
+    <HitRating>0</HitRating>
+    <CritRating>0</CritRating>
+    <HasteRating>0</HasteRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <ExpertiseRating>0</ExpertiseRating>
+  </stat>
+  <weapon>
+    <count>1</count>
+    <mainhand>
+      <dps>1</dps>
+      <speed>3.7</speed>
+    </mainhand>
+    <offhand>
+      <dps>0</dps>
+      <speed>0</speed>
+    </offhand>
+  </weapon>
+  <Set>
+ 
+  </Set>
+  <trinket>
+  </trinket>
+  <WeaponProc>
+  </WeaponProc>
+  <misc>
+  </misc>
+  <racials>
+  </racials>
+</character>

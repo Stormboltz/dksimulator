@@ -259,13 +259,13 @@ Partial Public Class MainForm
             'CopyFileFromXAPtoISF("config/TrinketList.xml")
             'CopyFileFromXAPtoISF("config/WeaponProcList.xml")
 
-            isoStore.CreateDirectory("KahoDKSim/Characters")
-            CopyFileFromXAPtoISF("Characters/2h ICC.xml")
-            CopyFileFromXAPtoISF("Characters/DW ICC.xml")
+            'isoStore.CreateDirectory("KahoDKSim/Characters")
+            'CopyFileFromXAPtoISF("Characters/2h ICC.xml")
+            'CopyFileFromXAPtoISF("Characters/DW ICC.xml")
 
             isoStore.CreateDirectory("KahoDKSim/CharactersWithGear")
-            CopyFileFromXAPtoISF("CharactersWithGear/2H ICC.xml")
-            CopyFileFromXAPtoISF("CharactersWithGear/DW ICC.xml")
+            CopyFileFromXAPtoISF("CharactersWithGear/Empty.xml")
+
 
             isoStore.CreateDirectory("KahoDKSim/CombatLog")
             CopyFileFromXAPtoISF("CombatLog/DoNotDelete.txt")
@@ -290,17 +290,7 @@ Partial Public Class MainForm
             CopyFileFromXAPtoISF("scenario/Scenario.xml")
 
             isoStore.CreateDirectory("KahoDKSim/Templates")
-            CopyFileFromXAPtoISF("Templates/Blood 51-00-20-GoD.xml")
-            CopyFileFromXAPtoISF("Templates/Blood 51-00-20.xml")
-            CopyFileFromXAPtoISF("Templates/Frost 00-54-17.xml")
-            CopyFileFromXAPtoISF("Templates/Frost 03-53-15.xml")
-            CopyFileFromXAPtoISF("Templates/Frost 15-54-02.xml")
-            CopyFileFromXAPtoISF("Templates/Unholy 00-17-54.xml")
-            CopyFileFromXAPtoISF("Templates/Unholy 12-00-59.xml")
-            CopyFileFromXAPtoISF("Templates/Unholy 14-00-57.xml")
-            CopyFileFromXAPtoISF("Templates/Unholy 17-00-54-3.3.xml")
-            CopyFileFromXAPtoISF("Templates/Unholy 17-00-54.xml")
-            CopyFileFromXAPtoISF("Templates/Unholy DW 0-17-54.xml")
+            CopyFileFromXAPtoISF("Templates/Empty.xml")
 
             isoStore.CreateDirectory("KahoDKSim/Report")
             'For Each f In isoStore.GetFileNames
@@ -604,7 +594,9 @@ OUT:
         ConsumableDB = XDocument.Load("GearSelector/Consumables.xml")
     End Sub
     Sub CopyFileFromXAPtoISF(ByVal XAPPAth As String)
+        Try
 
+        
         Dim sr As StreamResourceInfo = Application.GetResourceStream(New Uri(XAPPAth, UriKind.Relative))
         Using fileStream As IO.Stream = sr.Stream
             Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
@@ -621,7 +613,9 @@ OUT:
                 End Using
             End Using
         End Using
+        Catch ex As Exception
 
+        End Try
 
 
     End Sub

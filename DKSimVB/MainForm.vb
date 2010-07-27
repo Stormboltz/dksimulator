@@ -426,4 +426,9 @@ Public Partial Class MainForm
 	Sub GrpSimOptionEnter(sender As Object, e As EventArgs)
 		
 	End Sub
+	
+	Sub CmdUpdateDBClick(sender As Object, e As EventArgs)
+		Dim ex As New Extractor
+		ex.CataUpdate
+	End Sub
 End Class

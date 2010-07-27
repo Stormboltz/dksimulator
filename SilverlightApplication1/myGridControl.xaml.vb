@@ -18,6 +18,7 @@
     Sub Reduce()
         If reduced = False Then
             Dim Grd As Grid = CType(Me.Parent, Grid)
+            If Grd.ActualHeight = 0 Then Return
             previousSize = Grd.ActualHeight
             Grd.Height = 20
             reduced = True

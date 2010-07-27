@@ -10,6 +10,8 @@ Module GlobalFunction
         Try
             MessageBox.Show(s)
         Catch ex As Exception
+
+
             Diagnostics.Debug.WriteLine(s)
         End Try
 

@@ -15,6 +15,7 @@ Friend Class Procs
     Friend SuddenDoom As Proc
 
     Friend UnholyFrenzy As Proc
+    Friend RunicEmpowerment As Proc
     Friend ThreatOfThassarian As Proc
     Friend ReapingBotN As Proc
 
@@ -106,14 +107,14 @@ Friend Class Procs
         s.RuneForge.Init()
 
 
-        Dim RunicEmpowerment = New RunicEmpowerment(s)
+        RunicEmpowerment = New RunicEmpowerment(s)
         With RunicEmpowerment
             ._Name = "Runic Empowerment"
             .ProcChance = 0.45
             .ProcOn = ProcOnType.onRPDump
             .Equip()
         End With
-        Dim UnholyFrenzy = New Proc(s)
+        UnholyFrenzy = New Proc(s)
         With UnholyFrenzy
             ._Name = "Unholy Frenzy"
             .ProcChance = 1
