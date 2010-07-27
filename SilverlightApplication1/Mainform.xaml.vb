@@ -203,14 +203,14 @@ Partial Public Class MainForm
         'Patch
         'doc.Element("config").Add(New XElement("Patch", chkPatch.isChecked))
 
-        doc.Element("config").Add(New XElement("BloodSync", chkBloodSync.IsChecked))
+        doc.Element("config").Add(New XElement("BloodSync", False))
         doc.Element("config").Add(New XElement("chkMergeReport", chkMergeReport.IsChecked))
         doc.Element("config").Add(New XElement("BShOption", cmbBShOption.SelectedValue))
         doc.Element("config").Add(New XElement("ICCBuff", cmbICCBuff.SelectedValue))
 
         doc.Element("config").Add(New XElement("txtAMSrp", txtAMSrp.Text))
         doc.Element("config").Add(New XElement("txtAMScd", txtAMScd.Text))
-        doc.Element("config").Add(New XElement("txtReportName", txtReportName.Text))
+        doc.Element("config").Add(New XElement("txtReportName", ""))
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
             Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/config.xml", FileMode.Create, isoStore)
                 doc.Save(isoStream)
@@ -226,7 +226,8 @@ Partial Public Class MainForm
                 System.Diagnostics.Debug.WriteLine(f)
             Next
         End Using
-
+        SimOptReducer.Reduce()
+        ReportOptReducer.Reduce()
 
         ConstrucFileDir()
 
@@ -405,8 +406,8 @@ Partial Public Class MainForm
                 txtAMScd.Text = doc.Element("config").Element("txtAMScd").Value
 
                 chkMergeReport.IsChecked = doc.Element("config").Element("chkMergeReport").Value
-                txtReportName.Text = doc.Element("config").Element("txtReportName").Value
-                chkBloodSync.IsChecked = doc.Element("config").Element("BloodSync").Value
+                'txtReportName.Text = doc.Element("config").Element("txtReportName").Value
+                'chkBloodSync.IsChecked = doc.Element("config").Element("BloodSync").Value
             End Using
         End Using
     End Sub

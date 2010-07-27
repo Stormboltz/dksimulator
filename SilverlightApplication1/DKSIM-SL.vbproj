@@ -163,6 +163,9 @@
       <DependentUpon>EPDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="GearSelector\EPValues.vb" />
+    <Compile Include="myGridControl.xaml.vb">
+      <DependentUpon>myGridControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Runes\RunePair.vb" />
     <Compile Include="Strike\FesteringStrike.vb" />
     <Compile Include="Talents\Talent.vb" />
@@ -4264,6 +4267,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PriorityEditor\PriorityEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="myGridControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

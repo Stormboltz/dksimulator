@@ -28,11 +28,11 @@ Friend Class Rotation
 
         sim.RotationStep = 0
 
-        Dim XMLRo As XDocument
+
 
         Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/" & sim.rotationPath, FileMode.Open, FileAccess.Read, sim.isoStore)
             XMLRo = XDocument.Load(isoStream)
-            For Each Nod In XMLRo.Element("Rotation/Rotation").Elements
+            For Each Nod In XMLRo.Element("Rotation").Elements("Rotation").Elements
                 Try
                     MyRotation.Add(Nod.Name, Nod.Name.ToString)
                 Catch
@@ -48,7 +48,7 @@ Friend Class Rotation
     Sub DoRoration(ByVal TimeStamp As Long)
         Dim ret As Boolean
         If MyIntro.Count > 0 And IntroStep < MyIntro.Count Then Exit Sub
-        ret = DoRoration(TimeStamp, MyRotation.Item(sim.RotationStep + 1), XMLRo.Element("Rotation/Rotation/" & MyRotation.Item(sim.RotationStep + 1)).Attribute("retry").Value)
+        ret = DoRoration(TimeStamp, MyRotation.Item(sim.RotationStep + 1), XMLRo.Element("Rotation").Element("Rotation").Element(MyRotation.Item(sim.RotationStep + 1)).Attribute("retry").Value)
         If ret = True Then sim.RotationStep = sim.RotationStep + 1
         If MyRotation.Count <= sim.RotationStep Then sim.RotationStep = 0
     End Sub

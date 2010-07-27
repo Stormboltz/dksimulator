@@ -4,145 +4,154 @@
            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
            mc:Ignorable="d"
-           xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation" Title="Kahorie's DK simulator" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" d:DesignHeight="600" d:DesignWidth="800">
+           xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation" Title="Kahorie's DK simulator" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" d:DesignHeight="600" d:DesignWidth="800" xmlns:my="clr-namespace:DKSIMVB">
     <StackPanel Width="800" Height="600">
         <Grid x:Name="LayoutRoot" Width="800" Height="530" HorizontalAlignment="Center" VerticalAlignment="Center">
             <sdk:TabControl Margin="12,8,12,0" Name="TabControl1" Width="780" Height="520" VerticalAlignment="Top">
             <sdk:TabItem Header="Configuration" Name="tabConfig">
-                <StackPanel>
-                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top" Name="MainGrid">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100" />
-                        <ColumnDefinition Width="500*" />
-                        <ColumnDefinition Width="100" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="24" />
-                            <RowDefinition Height="24" />
-                            <RowDefinition Height="24" />
-                            <RowDefinition Height="24" />
-                            <RowDefinition Height="24" />
-                            <RowDefinition Height="24" />
-                            <RowDefinition Height="24" />
-                            <RowDefinition Height="24" />
-                            <RowDefinition Height="24" />
-                            <RowDefinition Height="24" />
-                            <RowDefinition Height="24" />
-                            <RowDefinition Height="24" />
-                            
-                    </Grid.RowDefinitions>
-                    <sdk:Label Content="Character:"  Name="lblCharacter" Grid.Row="1" Grid.Column="0"  />
-                    <ComboBox Name="cmbGearSelector" Grid.Row="1" Grid.Column="1"  />
-                    <Button Content="Edit" Name="cmdEditCharacterWithGear" Grid.Row="1" Grid.Column="2" />
-                                            
-                    <sdk:Label Content="Template:"  Name="lblTemplate" Grid.Row="2"  />
-                    <ComboBox Name="cmbTemplate" Grid.Row="2" Grid.Column="1" />
-                    <Button Content="Edit" Name="cmdEditTemplate" Grid.Row="2" Grid.Column="2" />
-                        
-                    <RadioButton Content="Priority" GroupName="grpRDPrio"  HorizontalAlignment="Left"  Name="rdPrio"  Grid.Row="3" Grid.Column="1" />
-                    <RadioButton Content="Rotation" GroupName="grpRDPrio"  HorizontalAlignment="Right"  Name="rdRot"  Grid.Row="3" Grid.Column="1" />
+                    <ScrollViewer>
+                        <StackPanel>
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top" Name="MainGrid">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="500*" />
+                                    <ColumnDefinition Width="100" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="24" />
+                                    <RowDefinition Height="24" />
+                                    <RowDefinition Height="24" />
+                                    <RowDefinition Height="24" />
+                                    <RowDefinition Height="24" />
+                                    <RowDefinition Height="24" />
+                                    <RowDefinition Height="24" />
+                                    <RowDefinition Height="24" />
+                                    <RowDefinition Height="24" />
+                                    <RowDefinition Height="24" />
+                                    <RowDefinition Height="24" />
+                                    <RowDefinition Height="24" />
 
-                    <sdk:Label Content="Intro:" Name="lblIntro" Grid.Row="4" />
-                    <ComboBox Name="cmbIntro" Grid.Row="4" Grid.Column="1"  />
-                    <Button Content="Edit" Name="cmdEditIntro" Grid.Row="4" Grid.Column="2" />
-                        
-                    <sdk:Label Content="Priority:" Name="lblPrio" Grid.Row="5" />
-                    <ComboBox  Name="cmbPrio"  Grid.Row="5" Grid.Column="1" />
-                    <Button Content="Edit" Name="cmdEditPrio" Grid.Row="5" Grid.Column="2" />
-                        
-                    <sdk:Label Content="Rotation:" Name="lblRota" Grid.Row="6" />
-                    <ComboBox Name="cmbRotation" Grid.Row="6" Grid.Column="1"  />
-                    <Button Content="Edit" Name="cmdEditRota" Grid.Row="6" Grid.Column="2" />
+                                </Grid.RowDefinitions>
+                                <sdk:Label Content="Character:"  Name="lblCharacter" Grid.Row="1" Grid.Column="0"  />
+                                <ComboBox Name="cmbGearSelector" Grid.Row="1" Grid.Column="1"  />
+                                <Button Content="Edit" Name="cmdEditCharacterWithGear" Grid.Row="1" Grid.Column="2" />
 
-                    <sdk:Label Content="Presence:" Name="lblPresence" Grid.Row="8" />
-                    <ComboBox  Name="cmdPresence" Grid.Row="8" Grid.Column="1" />
+                                <sdk:Label Content="Template:"  Name="lblTemplate" Grid.Row="2"  />
+                                <ComboBox Name="cmbTemplate" Grid.Row="2" Grid.Column="1" />
+                                <Button Content="Edit" Name="cmdEditTemplate" Grid.Row="2" Grid.Column="2" />
 
-                    <sdk:Label Content="Sigil:" Name="lblSigil" Grid.Row="9" />
-                    <ComboBox Name="cmbSigils"  Grid.Row="9" Grid.Column="1" />
+                                <RadioButton Content="Priority" GroupName="grpRDPrio"  HorizontalAlignment="Left"  Name="rdPrio"  Grid.Row="3" Grid.Column="1" />
+                                <RadioButton Content="Rotation" GroupName="grpRDPrio"  HorizontalAlignment="Right"  Name="rdRot"  Grid.Row="3" Grid.Column="1" />
 
-                    <sdk:Label Content="Runeforge:" FlowDirection="LeftToRight" Height="23" HorizontalAlignment="Left" HorizontalContentAlignment="Right"  Name="lblRuneforgeMH" VerticalAlignment="Top" Width="79" Grid.Row="10" />
-                    <ComboBox HorizontalAlignment="Left"  Name="cmbRuneMH" Width="200" Grid.Row="10" Grid.Column="1" />
+                                <sdk:Label Content="Intro:" Name="lblIntro" Grid.Row="4" />
+                                <ComboBox Name="cmbIntro" Grid.Row="4" Grid.Column="1"  />
+                                <Button Content="Edit" Name="cmdEditIntro" Grid.Row="4" Grid.Column="2" />
 
-                            <sdk:Label Content=": Runeforge" FlowDirection="LeftToRight" Height="23" HorizontalAlignment="Right" HorizontalContentAlignment="Right"  Name="lblRuneforgeOH" VerticalAlignment="Top" Width="79" Grid.Row="10" Grid.Column="3" />
-                    <ComboBox  HorizontalAlignment="Right"  Name="cmbRuneOH"  Width="200" Grid.Row="10" Grid.Column="1"  />
+                                <sdk:Label Content="Priority:" Name="lblPrio" Grid.Row="5" />
+                                <ComboBox  Name="cmbPrio"  Grid.Row="5" Grid.Column="1" />
+                                <Button Content="Edit" Name="cmdEditPrio" Grid.Row="5" Grid.Column="2" />
 
-                    <sdk:Label Content="Scenario:"   Name="lblScenario" Grid.Row="11" />
-                    <ComboBox Name="cmbScenario"  Grid.Row="11" Grid.Column="1" />
-                    <Button Content="Edit"  Name="cmdEditScenario" Grid.Row="11" Grid.Column="2" />
-                  
-                        
-                        
-                    
-                    
-                        
-                </Grid >
-                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="ReportGrid" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="15" Grid.RowSpan="2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="20" />
-                            <RowDefinition Height="24" />
-                            <RowDefinition Height="24" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="150" />
-                            <ColumnDefinition Width="150" />
-                            <ColumnDefinition Width="150" />
-                                <ColumnDefinition Width="150" />
-                                <ColumnDefinition Width="1*" />
-                        </Grid.ColumnDefinitions>
-                            <TextBox Name="txtReportName" Text="Report Name" Grid.Row="1" Grid.Column="0" />
-                            <Button Content="Display last report"   Name="cmdReport" Grid.Row="1" Grid.Column="1"  />
-                            <Button Content="Display last log" Name="cmdShowLog" Grid.Row="1" Grid.Column="2" />
-                        
-                            <CheckBox Content="Merge stike in the report" Name="chkMergeReport" Grid.Column="4" Grid.Row="1" />
-                            <CheckBox Content="Combat log" Name="chkCombatLog" Grid.Column="3" Grid.Row="1" />
-                            <CheckBox Content="Detailled combat log" Name="ckLogRP" Grid.Column="3" Grid.Row="2" />
-                            <CheckBox Content="Show proc" Name="chkShowProc" Grid.Column="4" Grid.Row="2"  />
-                    </Grid>
-                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="MiscOptionGrid" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="17" Grid.RowSpan="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="140" />
-                            <ColumnDefinition Width="140" />
-                            <ColumnDefinition Width="140" />
-                            <ColumnDefinition Width="140" />
-                            <ColumnDefinition Width="140*" />
-                         
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="10" />
-                            <RowDefinition Height="24" />
-                            <RowDefinition Height="24" />
-                            <RowDefinition Height="24" />
-                            <RowDefinition Height="24" />
-                            <RowDefinition Height="24" />
-                          
-                        </Grid.RowDefinitions>
-                        <sdk:Label Name="lblFightLength" Content="Fight Length:" Grid.Row="1" Grid.Column="0" />
-                        <TextBox Name="txtSimtime" Grid.Row="1" Grid.Column="1" />
-                        
-                        <sdk:Label Content="BoneShield Time to live:" Name="lblBoneShieldTTL" Grid.Row="1" Grid.Column="2" />
-                        <TextBox Name="txtBSTTL" Text="300" Grid.Row="1" Grid.Column="3" />
-                                              
-                        <sdk:Label Name="lblLatency" Content="Latency:" Grid.Row="1" Grid.Column="4" />
-                        <TextBox Name="txtLatency" Text="150" Grid.Row="1" Grid.Column="5" />
-                        
-                        <sdk:Label Name="lblRPx" Content="x RP per x Second" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" />
-                        <TextBox Name="txtAMSrp" Text="0" Grid.Row="5" Grid.Column="1" />
-                        <TextBox Name="txtAMScd" Text="60" Grid.Row="5" Grid.Column="2" />
-                        
-                        <CheckBox Content="Wait for proc" Name="chkWaitFC" Grid.Row="2" Grid.Column="2" />
-                        <CheckBox Content="Sync Blood rune" Name="chkBloodSync" Grid.Row="2" Grid.Column="3" />
-                        <CheckBox Content="Use Pet" Name="ckPet" IsChecked="True" Grid.Row="2" Grid.Column="1" />
-                        
-                        <sdk:Label Content="UA/BS usage:" Name="lblBSUSage" Grid.Row="3" Grid.Column="0" />
-                        <ComboBox Name="cmbBShOption" Grid.Row="3" Grid.Column="1" />
-                                               
-                        <sdk:Label Content="ICC Buff:" Name="lblICCBuff" Grid.Row="3" Grid.Column="4" />
-                        <ComboBox Name="cmbICCBuff" Grid.Row="3" Grid.Column="5"  />
-                    </Grid>
-                </StackPanel>
-            </sdk:TabItem>
+                                <sdk:Label Content="Rotation:" Name="lblRota" Grid.Row="6" />
+                                <ComboBox Name="cmbRotation" Grid.Row="6" Grid.Column="1"  />
+                                <Button Content="Edit" Name="cmdEditRota" Grid.Row="6" Grid.Column="2" />
+
+                                <sdk:Label Content="Presence:" Name="lblPresence" Grid.Row="8" />
+                                <ComboBox  Name="cmdPresence" Grid.Row="8" Grid.Column="1" />
+
+                                <sdk:Label Content="Sigil:" Name="lblSigil" Grid.Row="9" />
+                                <ComboBox Name="cmbSigils"  Grid.Row="9" Grid.Column="1" />
+
+                                <sdk:Label Content="Runeforge:" FlowDirection="LeftToRight" Height="23" HorizontalAlignment="Left" HorizontalContentAlignment="Right"  Name="lblRuneforgeMH" VerticalAlignment="Top" Width="79" Grid.Row="10" />
+                                <ComboBox HorizontalAlignment="Left"  Name="cmbRuneMH" Width="200" Grid.Row="10" Grid.Column="1" />
+
+                                <sdk:Label Content=": Runeforge" FlowDirection="LeftToRight" Height="23" HorizontalAlignment="Right" HorizontalContentAlignment="Right"  Name="lblRuneforgeOH" VerticalAlignment="Top" Width="79" Grid.Row="10" Grid.Column="3" />
+                                <ComboBox  HorizontalAlignment="Right"  Name="cmbRuneOH"  Width="200" Grid.Row="10" Grid.Column="1"  />
+
+                                <sdk:Label Content="Scenario:"   Name="lblScenario" Grid.Row="11" />
+                                <ComboBox Name="cmbScenario"  Grid.Row="11" Grid.Column="1" />
+                                <Button Content="Edit"  Name="cmdEditScenario" Grid.Row="11" Grid.Column="2" />
+
+
+
+
+
+
+                            </Grid >
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="ReportGrid" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="15" Grid.RowSpan="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="24" />
+                                    <RowDefinition Height="24" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="150" />
+                                    <ColumnDefinition Width="150" />
+                                    <ColumnDefinition Width="150" />
+                                    <ColumnDefinition Width="150" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                <sdk:Label Content="Report Options"></sdk:Label>
+
+                                
+                                <Button Content="Display last report" Name="cmdReport" Grid.Column="4" Grid.Row="1" />
+                                <Button Content="Display last log" Name="cmdShowLog" Grid.Row="2" Grid.Column="4" />
+
+                                <CheckBox Content="Merge stike in the report" Name="chkMergeReport" Grid.Column="2" Grid.Row="2" />
+                                <CheckBox Content="Generate Combat log" Name="chkCombatLog" Grid.Column="1" Grid.Row="1" />
+                                <CheckBox Content="Detailled combat log" Name="ckLogRP" Grid.Column="2" Grid.Row="1" />
+                                <CheckBox Content="Show proc" Name="chkShowProc" Grid.Column="1" Grid.Row="2"  />
+                                <my:myGridControl Grid.Column="5" Grid.Row="0" HorizontalAlignment="Right" x:Name="ReportOptReducer" />
+                            </Grid>
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="MiscOptionGrid" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="17" Grid.RowSpan="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="140" />
+                                    <ColumnDefinition Width="140" />
+                                    <ColumnDefinition Width="140" />
+                                    <ColumnDefinition Width="140" />
+                                    <ColumnDefinition Width="140*" />
+
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="24" />
+                                    <RowDefinition Height="24" />
+                                    <RowDefinition Height="24" />
+                                    <RowDefinition Height="24" />
+                                    
+                                    
+                                    
+                               
+                                </Grid.RowDefinitions>
+                                <sdk:Label Content="Sim Options"></sdk:Label>
+                                <my:myGridControl Grid.Column="5" Grid.Row="0" HorizontalAlignment="Right" x:Name="SimOptReducer" />
+                                
+                                <sdk:Label Name="lblFightLength" Content="Sim Time:" Grid.Row="1" Grid.Column="1" />
+                                <TextBox Name="txtSimtime" Text="100"  Grid.Row="1" Grid.Column="2" />
+                                
+                                <sdk:Label Content="BoneShield Time to live:" Name="lblBoneShieldTTL" Grid.Row="2" Grid.Column="1" />
+                                <TextBox Name="txtBSTTL" Text="300" Grid.Row="2" Grid.Column="2" />
+
+                                <sdk:Label Name="lblLatency" Content="Latency:" Grid.Row="3" Grid.Column="1" />
+                                <TextBox Name="txtLatency" Text="150" Grid.Row="3" Grid.Column="2" />
+
+                                <sdk:Label Name="lblRPx" Content="x RP per x Second" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" />
+                                <TextBox Name="txtAMSrp" Text="0" Grid.Row="4" Grid.Column="0" />
+                                <TextBox Name="txtAMScd" Text="60" Grid.Row="4" Grid.Column="2" />
+
+                                <CheckBox Content="Wait for proc" Name="chkWaitFC" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" Margin="6,0,75,0" />
+                                <CheckBox Content="Use Pet" Name="ckPet" IsChecked="True" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Margin="6,0,75,0" />
+
+                                <sdk:Label Content="UA/BS usage:" Name="lblBSUSage" Grid.Row="3" Grid.Column="3" />
+                                <ComboBox Name="cmbBShOption" Grid.Row="3" Grid.Column="4" />
+
+                                <sdk:Label Content="ICC Buff:" Name="lblICCBuff" Grid.Row="4" Grid.Column="3" />
+                                <ComboBox Name="cmbICCBuff" Grid.Row="4" Grid.Column="4"  />
+                            </Grid>
+                        </StackPanel>
+                    </ScrollViewer>
+                </sdk:TabItem>
             <sdk:TabItem Header="Report" Name="TabReport">
                 <ScrollViewer Name="ScrollViewer2" >
                 <StackPanel  Name="ReportStack">

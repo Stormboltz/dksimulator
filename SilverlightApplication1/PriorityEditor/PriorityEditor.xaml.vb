@@ -287,6 +287,7 @@ Partial Public Class PriorityEditor
     End Sub
 
     Sub OpenRotaForEdit(ByVal path As String)
+        If path = Nothing Then Exit Sub
         Me.grpCurrentPrio.Children.Clear()
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
             Dim i As Integer
