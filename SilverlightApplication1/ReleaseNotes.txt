@@ -22,4 +22,4 @@ Strike/Spell Verification:
 * Pet do not double dip with buff
 * Buff removal.
 * Migth of frozen waste
-* Plaque passive bonus
+* Plate Armor passive bonus

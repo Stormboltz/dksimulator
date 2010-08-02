@@ -69,9 +69,9 @@ Friend Partial Class runes
         End Function
         Sub UseBF(ByVal T As Long, ByVal Death As Boolean)
             'use Blood
-            If BloodRune1.Available And BloodRune1.death = True Then
+            If BloodRune1.Available And BloodRune1.death = False Then
                 BloodRune1.Use(T, Death)
-            ElseIf BloodRune2.Available And BloodRune2.death = True Then
+            ElseIf BloodRune2.Available And BloodRune2.death = False Then
                 BloodRune2.Use(T, Death)
             ElseIf BloodRune1.Available Then
                 BloodRune1.Use(T, Death)
@@ -83,9 +83,9 @@ Friend Partial Class runes
 
 Frost:
             'Use Frost
-            If FrostRune1.Available And FrostRune1.death = True Then
+            If FrostRune1.Available And FrostRune1.death = False Then
                 FrostRune1.Use(T, Death)
-            ElseIf FrostRune2.Available And FrostRune2.death = True Then
+            ElseIf FrostRune2.Available And FrostRune2.death = False Then
                 FrostRune2.Use(T, Death)
             ElseIf FrostRune1.Available Then
                 FrostRune1.Use(T, Death)

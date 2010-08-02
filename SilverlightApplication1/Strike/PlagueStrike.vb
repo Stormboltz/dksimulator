@@ -48,6 +48,7 @@ Friend Class PlagueStrike
         End If
         sim.proc.strife.tryme(t)
         sim.Targets.MainTarget.BloodPlague.Apply(T)
+
         If sim.DRW.IsActive(T) Then
             sim.drw.DRWPlagueStrike()
         End If

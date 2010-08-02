@@ -40,7 +40,14 @@ Partial Public Class GearSelector
             .Hit = el.Element("HitRating").Value
             .AP = el.Element("AttackPower").Value
             .Crit = el.Element("CritRating").Value
-            .ArP = el.Element("ArmorPenetrationRating").Value
+            .ArP = 0
+            Try
+                .ArP = el.Element("ArmorPenetrationRating").Value
+            Catch ex As Exception
+
+                Log.Log("No ArP on " & .name, logging.Level.INFO)
+                .ArP = 0
+            End Try
             .Speed = el.Element("speed").Value
             .DPS = el.Element("dps").Value
             .setid = el.Element("setid").Value
@@ -63,9 +70,9 @@ Partial Public Class GearSelector
 
         Dim itemList As List(Of aItem)
         ItemDB = MainFrame.ItemDB
-        itemList = (From el In ItemDB.Element("items").Elements _
-                    Where el.Element("slot") = Slot _
-                    Order By getItemEPValue(el) Descending _
+        itemList = (From el As XElement In ItemDB.Element("items").Elements
+                    Where el.Element("slot").Value = Slot
+                    Order By getItemEPValue(el) Descending
                     Select getItem(el)).ToList
         dGear.AutoGenerateColumns = True
         dGear.ItemsSource = itemList
@@ -101,11 +108,13 @@ Partial Public Class GearSelector
         tmp += el.Element("CritRating").Value * MainFrame.EPvalues.Crit
         Try
             tmp += el.Element("ArmorPenetrationRating").Value * MainFrame.EPvalues.ArP
-        Catch
+        Catch ex As Exception
+            Log.Log("No ArP Error", logging.Level.INFO)
         End Try
         Try
             tmp += el.Element("Mastery").Value * MainFrame.EPvalues.Mastery
-        Catch
+        Catch ex As Exception
+            Log.Log("No Mastery Error", logging.Level.INFO)
         End Try
         tmp += el.Element("HasteRating").Value * MainFrame.EPvalues.Haste
 
@@ -198,7 +207,7 @@ Partial Public Class GearSelector
             SelectedItem = a.Id
             Me.DialogResult = True
         Catch ex As Exception
-
+            Log.Log(ex.StackTrace, logging.Level.ERR)
         End Try
     End Sub
     
@@ -210,6 +219,7 @@ Partial Public Class GearSelector
             SelectedItem = a.Id
             Me.DialogResult = True
         Catch ex As Exception
+            Log.Log(ex.StackTrace, logging.Level.ERR)
 
         End Try
     End Sub

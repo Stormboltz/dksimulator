@@ -39,48 +39,38 @@ Partial Public Class PriorityEditor
         End Select
     End Sub
 
+
     Sub MoveUp(ByVal s As PrioButton)
-        Dim x As Integer
-        Dim y As Integer
         Dim p As PrioButton
-        For Each p In Me.grpCurrentPrio.Children
-            If (p.number = s.number - 1) And s.Equals(p) = False Then
-                s.number -= 1
-                x = Canvas.GetLeft(s)
-                y = Canvas.GetTop(s)
+        Try
+            p = grpCurrentPrio.Children.Item(s.number - 1)
+            grpCurrentPrio.Children.Remove(s)
+            grpCurrentPrio.Children.Insert(s.number - 1, s)
+            RenumBer()
+        Catch ex As Exception
 
-                Canvas.SetTop(s, Canvas.GetTop(p))
-                Canvas.SetLeft(s, Canvas.GetLeft(p))
-
-
-                Canvas.SetTop(p, y)
-                Canvas.SetLeft(p, x)
-
-                p.number += 1
-                Exit Sub
-            End If
+        End Try
+    End Sub
+    Sub Renumber()
+        For i As Integer = 0 To grpCurrentPrio.Children.Count - 1
+            Dim p As PrioButton = grpCurrentPrio.Children.Item(i)
+            p.number = i
         Next
     End Sub
+
+
+
     Sub MoveDown(ByVal s As PrioButton)
-        Dim x As Integer
-        Dim y As Integer
         Dim p As PrioButton
-        For Each p In Me.grpCurrentPrio.Children
-            If (p.number = s.number + 1) And s.Equals(p) = False Then
-                s.number += 1
+        Try
+            p = grpCurrentPrio.Children.Item(s.number + 1)
+            grpCurrentPrio.Children.Remove(s)
+            grpCurrentPrio.Children.Insert(s.number + 1, s)
+            Renumber()
+        Catch ex As Exception
 
-                x = Canvas.GetLeft(s)
-                y = Canvas.GetTop(s)
-                Canvas.SetTop(s, Canvas.GetTop(p))
-                Canvas.SetLeft(s, Canvas.GetLeft(p))
+        End Try
 
-                Canvas.SetTop(p, y)
-                Canvas.SetLeft(p, x)
-
-                p.number -= 1
-                Exit Sub
-            End If
-        Next
     End Sub
     Sub RemovePrio(ByVal s As PrioButton)
         Dim p As PrioButton
@@ -96,7 +86,7 @@ Partial Public Class PriorityEditor
         i = Me.grpCurrentPrio.Children.Count
 
         Dim btn As New PrioButton(Me)
-        Canvas.SetTop(btn, 10 + 45 * i)
+
         btn.SetName(s.ElementName)
         btn.buttonRemove.Opacity = 1
         btn.buttonUp.Opacity = 1
@@ -117,46 +107,46 @@ Partial Public Class PriorityEditor
         Dim i As Integer
         grpAvailablePrio.Children.Clear()
 
-        
-                Dim doc As XDocument = XDocument.Load("config/RotationList.xml")
 
-                For Each node In doc.Element("Rotations").Elements
-                    btn = New PrioButton(Me)
-                    Me.grpAvailablePrio.Children.Add(btn)
-                    Canvas.SetTop(btn, 10 + 45 * i)
-                    i += 1
-                    btn.SetName(node.Name.ToString)
-                    btn.buttonRemove.Opacity = 0
-                    btn.buttonUp.Opacity = 0
-                    btn.buttonDown.Opacity = 0
-                    btn.chkRetry.Opacity = 1
-                    btn.buttonAdd.Opacity = 1
-                Next
+
+        Dim doc As XDocument = XDocument.Load("config/RotationList.xml")
+
+
+        For Each node In doc.Element("Rotations").Elements
+            btn = New PrioButton(Me)
+            Me.grpAvailablePrio.Children.Add(btn)
+            i += 1
+            btn.SetName(node.Name.ToString)
+            btn.buttonRemove.Opacity = 0
+            btn.buttonUp.Opacity = 0
+            btn.buttonDown.Opacity = 0
+            btn.chkRetry.Opacity = 1
+            btn.buttonAdd.Opacity = 1
+        Next
         AutoExtend()
     End Sub
 
     Sub LoadAvailablePrio()
-        
-                Dim doc As XDocument = XDocument.Load("config/PrioritiesList.xml")
-                grpAvailablePrio.Children.Clear()
-                Dim btn As PrioButton
-                Dim i As Integer
-                Dim node As XElement
 
-                For Each node In doc.Element("Priorities").Elements
+        Dim doc As XDocument = XDocument.Load("config/PrioritiesList.xml")
+        grpAvailablePrio.Children.Clear()
+        Dim btn As PrioButton
+        Dim i As Integer
+        Dim node As XElement
 
-                    btn = New PrioButton(Me)
-                    Me.grpAvailablePrio.Children.Add(btn)
-                    Canvas.SetTop(btn, 10 + 45 * i)
+        For Each node In doc.Element("Priorities").Elements
 
-                    btn.SetName(node.Name.ToString)
-                    btn.buttonRemove.Opacity = 0
-                    btn.buttonUp.Opacity = 0
-                    btn.buttonDown.Opacity = 0
-                    btn.buttonAdd.Opacity = 1
-                    btn.chkRetry.Opacity = 0
-                    i += 1
-                Next
+            btn = New PrioButton(Me)
+            Me.grpAvailablePrio.Children.Add(btn)
+
+            btn.SetName(node.Name.ToString)
+            btn.buttonRemove.Opacity = 0
+            btn.buttonUp.Opacity = 0
+            btn.buttonDown.Opacity = 0
+            btn.buttonAdd.Opacity = 1
+            btn.chkRetry.Opacity = 0
+            i += 1
+        Next
         AutoExtend()
     End Sub
     Sub AutoExtend()
@@ -204,23 +194,21 @@ Partial Public Class PriorityEditor
             End Select
 
 
-            For i As Integer = 0 To grpCurrentPrio.Children.Count - 1
-                For Each P As PrioButton In grpCurrentPrio.Children
-                    If P.number = i Then
-                        Dim newElem As XElement
-                        If EditType <> PossibleEditType.Priority Then
-                            If P.chkRetry.IsChecked Then
-                                newElem = XElement.Parse("<" & P.ElementName & " retry='1'></" & P.ElementName & ">")
-                            Else
-                                newElem = XElement.Parse("<" & P.ElementName & " retry='0'></" & P.ElementName & ">")
-                            End If
-                        Else
-                            newElem = XElement.Parse("<" & P.ElementName & "></" & P.ElementName & ">")
-                        End If
-                        root.Add(newElem)
+
+            For Each P As PrioButton In grpCurrentPrio.Children
+                Dim newElem As XElement
+                If EditType <> PossibleEditType.Priority Then
+                    If P.chkRetry.IsChecked Then
+                        newElem = XElement.Parse("<" & P.ElementName & " retry='1'></" & P.ElementName & ">")
+                    Else
+                        newElem = XElement.Parse("<" & P.ElementName & " retry='0'></" & P.ElementName & ">")
                     End If
-                Next
+                Else
+                    newElem = XElement.Parse("<" & P.ElementName & "></" & P.ElementName & ">")
+                End If
+                root.Add(newElem)
             Next
+
             doc.Save(isoStream)
             isoStream.Close()
         End Using
@@ -244,7 +232,7 @@ Partial Public Class PriorityEditor
                     btn.buttonAdd.Opacity = 0
                     btn.chkRetry.Opacity = 1
                     Me.grpCurrentPrio.Children.Add(btn)
-                    Canvas.SetTop(btn, 10 + 45 * i)
+
                     btn.number = i
                     i += 1
                     If node.Attribute("retry").Value = 0 Then
@@ -277,7 +265,7 @@ Partial Public Class PriorityEditor
                     btn.buttonAdd.Opacity = 0
                     btn.chkRetry.Opacity = 0
                     Me.grpCurrentPrio.Children.Add(btn)
-                    Canvas.SetTop(btn, 10 + 45 * i)
+
                     btn.number = i
                     i += 1
                 Next
@@ -306,7 +294,7 @@ Partial Public Class PriorityEditor
                     btn.buttonAdd.Opacity = 0
                     btn.chkRetry.Opacity = 1
                     Me.grpCurrentPrio.Children.Add(btn)
-                    Canvas.SetTop(btn, 10 + 45 * i)
+
                     btn.number = i
                     i += 1
                     If node.Attribute("retry").Value = 0 Then
@@ -326,7 +314,7 @@ Partial Public Class PriorityEditor
         SavePriority()
         Dim tmpPath As String
 
-         Select EditType
+        Select Case EditType
             Case PossibleEditType.Intro
                 tmpPath = "KahoDKSim/Intro/tempo.xml"
             Case PossibleEditType.Priority

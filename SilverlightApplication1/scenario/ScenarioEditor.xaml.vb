@@ -106,11 +106,14 @@ Partial Public Class ScenarioEditor
     End Sub
 
     Sub ReNumberCurrentScenario()
-        Dim p As ScenarioButton
-        Dim i As Integer = 0
-        For Each p In Me.grpCurrentScenario.Children
-            p.number = i
+
+        For i As Integer = 0 To grpCurrentScenario.Children.Count - 1
+            CType(grpCurrentScenario.Children.Item(i), ScenarioButton).number = i
         Next
+
+
+
+      
     End Sub
 
 

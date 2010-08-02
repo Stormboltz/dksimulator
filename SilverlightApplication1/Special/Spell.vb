@@ -63,9 +63,7 @@ Public Class Spell
         Public Overridable Function ApplyDamage(ByVal T As Long) As Boolean
             Return False
         End Function
-        Public Overridable Function ApplyDamage(ByVal T As Long, ByVal SDoom As Boolean) As Boolean
-            Return False
-        End Function
+
 	
         Protected _CritCoef As Double = -1
         Overridable Function CritCoef() As Double

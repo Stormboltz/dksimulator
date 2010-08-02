@@ -7,7 +7,7 @@ NameSpace Diseases
 		End Sub
 		Overrides Function PerfectUsage(T As Long) As Boolean
             If FadeAt <= sim.Runes.GetNextFrost(T) Then
-                sim.Targets.MainTarget.BloodPlague.ToReApply = True
+                ToReApply = True
                 Return True
             End If
             Return False

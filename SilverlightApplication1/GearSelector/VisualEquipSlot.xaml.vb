@@ -60,7 +60,7 @@ Partial Public Class VisualEquipSlot
                 Me.Cursor = Cursors.Arrow
             End If
         Catch ex As Exception
-
+            Log.Log(ex.StackTrace, logging.Level.ERR)
         End Try
     End Sub
 End Class

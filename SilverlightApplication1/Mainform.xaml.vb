@@ -125,7 +125,7 @@ Partial Public Class MainForm
 
         Dim doc As XDocument = XDocument.Parse("<config></config>")
         Dim chkBox As CheckBox
-        For Each ctrl As Control In grpBuff.Children
+        For Each ctrl As Control In GrpBuff.Children
             If ctrl.Name.StartsWith("chk") Then
                 chkBox = ctrl
                 doc.Element("config").Add(New XElement(chkBox.Name, chkBox.IsChecked))
@@ -175,17 +175,11 @@ Partial Public Class MainForm
         doc.Element("config").Add(New XElement("CharacterWithGear", cmbGearSelector.SelectedValue))
         doc.Element("config").Add(New XElement("template", cmbTemplate.SelectedValue))
 
-
-        If rdPrio.IsChecked Then
-            doc.Element("config").Add(New XElement("mode", "priority"))
-        Else
-            doc.Element("config").Add(New XElement("mode", "rotation"))
-
-        End If
+        doc.Element("config").Add(New XElement("mode", "priority"))
 
         doc.Element("config").Add(New XElement("intro", cmbIntro.SelectedValue))
         doc.Element("config").Add(New XElement("priority", cmbPrio.SelectedValue))
-        doc.Element("config").Add(New XElement("rotation", cmbRotation.SelectedValue))
+        doc.Element("config").Add(New XElement("rotation", ""))
         doc.Element("config").Add(New XElement("presence", cmdPresence.SelectedValue))
         doc.Element("config").Add(New XElement("sigil", cmbSigils.SelectedValue))
         doc.Element("config").Add(New XElement("mh", cmbRuneMH.SelectedValue))
@@ -301,106 +295,118 @@ Partial Public Class MainForm
     Sub LoadEPOptions()
         Try
 
-        
-        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/EPconfig.xml", FileMode.Open, isoStore)
-                Dim doc As XDocument = XDocument.Load(isoStream)
+
+            Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+                Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/EPconfig.xml", FileMode.Open, isoStore)
+                    Dim doc As XDocument = XDocument.Load(isoStream)
 
 
-                Dim ctrl As Control
-                Dim chkBox As CheckBox
+                    Dim ctrl As Control
+                    Dim chkBox As CheckBox
 
-                For Each ctrl In grpEPMain.Children
-                    Try
-                        If ctrl.Name.StartsWith("chkEP") Then
-                            chkBox = ctrl
-                            chkBox.IsChecked = doc.Element("config").Element("Stats").Element(chkBox.Name).Value
-                        End If
-                    Catch ex As Exception
+                    For Each ctrl In grpEPMain.Children
+                        Try
+                            If ctrl.Name.StartsWith("chkEP") Then
+                                chkBox = ctrl
+                                chkBox.IsChecked = doc.Element("config").Element("Stats").Element(chkBox.Name).Value
+                            End If
+                        Catch ex As Exception
+                            Log.Log(ex.StackTrace, logging.Level.ERR)
+                        End Try
 
-                    End Try
-                    
-                Next
-                For Each ctrl In grpEPSet.Children
-                    Try
+                    Next
+                    For Each ctrl In grpEPSet.Children
+                        Try
 
-                    
-                    If ctrl.Name.StartsWith("chkEP") Then
-                        chkBox = ctrl
-                        chkBox.IsChecked = doc.Element("config").Element("Sets").Element(chkBox.Name).Value
-                        End If
-                    Catch ex As Exception
 
-                    End Try
-                Next
+                            If ctrl.Name.StartsWith("chkEP") Then
+                                chkBox = ctrl
+                                chkBox.IsChecked = doc.Element("config").Element("Sets").Element(chkBox.Name).Value
+                            End If
+                        Catch ex As Exception
+                            Log.Log(ex.StackTrace, logging.Level.ERR)
 
-                'For Each ctrl In grpEPTrinkets.Children
-                '    Try
-                '        If ctrl.Name.StartsWith("chkEP") Then
-                '            chkBox = ctrl
-                '            chkBox.IsChecked = doc.Element("config").Element("Trinket").Element(chkBox.Name).Value
-                '        End If
-                '    Catch ex As Exception
+                        End Try
+                    Next
 
-                '    End Try
+                    'For Each ctrl In grpEPTrinkets.Children
+                    '    Try
+                    '        If ctrl.Name.StartsWith("chkEP") Then
+                    '            chkBox = ctrl
+                    '            chkBox.IsChecked = doc.Element("config").Element("Trinket").Element(chkBox.Name).Value
+                    '        End If
+                    '    Catch ex As Exception
 
-                'Next
+                    '    End Try
+
+                    'Next
+                End Using
             End Using
-        End Using
         Catch ex As Exception
 
         End Try
 
     End Sub
     Sub loadConfig()
-        On Error Resume Next
-        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/config.xml", FileMode.Open, isoStore)
-                Dim doc As XDocument = XDocument.Load(isoStream)
-                isoStream.Close()
-                cmbGearSelector.SelectedValue = doc.Element("config").Element("CharacterWithGear").Value
-                cmbTemplate.SelectedValue = doc.Element("config").Element("template").Value
-                If doc.Element("config").Element("mode").Value <> "rotation" Then
-                    rdPrio.IsChecked = True
+        'On Error Resume Next
+        Try
+
+
+            Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+                Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/config.xml", FileMode.Open, isoStore)
+                    Dim doc As XDocument = XDocument.Load(isoStream)
+                    isoStream.Close()
+                    cmbGearSelector.SelectedValue = doc.Element("config").Element("CharacterWithGear").Value
+                    cmbTemplate.SelectedValue = doc.Element("config").Element("template").Value
+
                     cmbPrio.IsEnabled = True
-                    cmbRotation.IsEnabled = False
-                Else
-                    rdRot.IsChecked = True
-                    cmbPrio.IsEnabled = False
-                    cmbRotation.IsEnabled = True
-                End If
-                cmbIntro.SelectedValue = doc.Element("config").Element("intro").Value
-                cmbPrio.SelectedValue = doc.Element("config").Element("priority").Value
-                cmbRotation.SelectedValue = doc.Element("config").Element("rotation").Value
-                cmdPresence.SelectedValue = doc.Element("config").Element("presence").Value
-                cmbSigils.SelectedValue = doc.Element("config").Element("sigil").Value
-                cmbRuneMH.SelectedValue = doc.Element("config").Element("mh").Value
-                cmbRuneOH.SelectedValue = doc.Element("config").Element("oh").Value
-                cmbScenario.SelectedValue = doc.Element("config").Element("scenario").Value
+                    cmbIntro.SelectedValue = doc.Element("config").Element("intro").Value
+                    cmbPrio.SelectedValue = doc.Element("config").Element("priority").Value
 
+                    cmdPresence.SelectedValue = doc.Element("config").Element("presence").Value
+                    cmbSigils.SelectedValue = doc.Element("config").Element("sigil").Value
+                    cmbRuneMH.SelectedValue = doc.Element("config").Element("mh").Value
+                    cmbRuneOH.SelectedValue = doc.Element("config").Element("oh").Value
+                    cmbScenario.SelectedValue = doc.Element("config").Element("scenario").Value
 
-                cmbBShOption.SelectedItem = doc.Element("config").Element("BShOption").Value
-                cmbICCBuff.SelectedItem = doc.Element("config").Element("ICCBuff").Value
-                txtLatency.Text = doc.Element("config").Element("latency").Value
-                txtBSTTL.Text = doc.Element("config").Element("BSTTL").Value
-                txtSimtime.Text = doc.Element("config").Element("simtime").Value
-                chkCombatLog.IsChecked = doc.Element("config").Element("log").Value
-                ckLogRP.IsChecked = doc.Element("config").Element("logdetail").Value
-                chkShowProc.IsChecked = doc.Element("config").Element("ShowProc").Value
-                chkWaitFC.IsChecked = doc.Element("config").Element("WaitFC").Value
-                '		chkPatch.Ischecked = doc.Element("config").Element("Patch").Value
+                    cmbBShOption.SelectedItem = doc.Element("config").Element("BShOption").Value
+                    cmbICCBuff.SelectedItem = doc.Element("config").Element("ICCBuff").Value
+                    txtLatency.Text = doc.Element("config").Element("latency").Value
+                    txtBSTTL.Text = doc.Element("config").Element("BSTTL").Value
+                    txtSimtime.Text = doc.Element("config").Element("simtime").Value
+                    chkCombatLog.IsChecked = doc.Element("config").Element("log").Value
+                    ckLogRP.IsChecked = doc.Element("config").Element("logdetail").Value
+                    chkShowProc.IsChecked = doc.Element("config").Element("ShowProc").Value
+                    chkWaitFC.IsChecked = doc.Element("config").Element("WaitFC").Value
+                    'chkPatch.Ischecked = doc.Element("config").Element("Patch").Value
+                    ckPet.IsChecked = doc.Element("config").Element("pet").Value
+                    txtAMSrp.Text = doc.Element("config").Element("txtAMSrp").Value
+                    txtAMScd.Text = doc.Element("config").Element("txtAMScd").Value
+                    chkMergeReport.IsChecked = doc.Element("config").Element("chkMergeReport").Value
+                    'txtReportName.Text = doc.Element("config").Element("txtReportName").Value
+                    'chkBloodSync.IsChecked = doc.Element("config").Element("BloodSync").Value
+                End Using
 
-                ckPet.IsChecked = doc.Element("config").Element("pet").Value
-
-                txtAMSrp.Text = doc.Element("config").Element("txtAMSrp").Value
-                txtAMScd.Text = doc.Element("config").Element("txtAMScd").Value
-
-                chkMergeReport.IsChecked = doc.Element("config").Element("chkMergeReport").Value
-                'txtReportName.Text = doc.Element("config").Element("txtReportName").Value
-                'chkBloodSync.IsChecked = doc.Element("config").Element("BloodSync").Value
             End Using
-        End Using
+        Catch ex As Exception
+            Log.Log(ex.StackTrace, logging.Level.ERR)
+            LoadDefaultConfig()
+        End Try
     End Sub
+    Sub LoadDefaultConfig()
+        cmbGearSelector.SelectedValue = "Empty.xml"
+        cmbTemplate.SelectedValue = "Empty.xml"
+        cmbIntro.SelectedValue = "NoIntro.xml"
+        cmbPrio.SelectedValue = "Unholy.xml"
+        cmdPresence.SelectedValue = "Frost"
+        cmbSigils.SelectedValue = "Virulence"
+        cmbRuneMH.SelectedValue = "FallenCrusader"
+        cmbRuneOH.SelectedValue = "Razorice"
+        cmbScenario.SelectedValue = "Scenario.xml"
+
+    End Sub
+
+
     Sub LoadBuffOption()
         On Error GoTo sortie
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
@@ -408,7 +414,7 @@ Partial Public Class MainForm
                 Dim doc As XDocument = XDocument.Load(isoStream)
                 Dim ctrl As Control
                 Dim chkBox As CheckBox
-                For Each ctrl In grpBuff.Children
+                For Each ctrl In GrpBuff.Children
                     If ctrl.Name.StartsWith("chk") Then
                         chkBox = ctrl
                         chkBox.IsChecked = doc.Element("config").Element(chkBox.Name).Value
@@ -443,6 +449,7 @@ sortie:
                 Canvas.SetTop(ckTrinket, -10 + grpEPTrinkets.Children.Count * 20)
                 grpEPTrinkets.Height = (1 + grpEPTrinkets.Children.Count) * 20
             Catch ex As Exception
+                Log.Log(ex.StackTrace, logging.Level.ERR)
                 System.Diagnostics.Debug.WriteLine("Err:" & xNode.Name.ToString)
             End Try
         Next
@@ -596,24 +603,25 @@ OUT:
     Sub CopyFileFromXAPtoISF(ByVal XAPPAth As String)
         Try
 
-        
-        Dim sr As StreamResourceInfo = Application.GetResourceStream(New Uri(XAPPAth, UriKind.Relative))
-        Using fileStream As IO.Stream = sr.Stream
-            Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-                Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/" & XAPPAth, FileMode.Create, FileAccess.Write, isoStore)
-                    Do
-                        Dim buffer(100000) As Byte
-                        Dim count As Integer = fileStream.Read(buffer, 0, buffer.Length)
-                        If count > 0 Then
-                            isoStream.Write(buffer, 0, count)
-                        Else
-                            Exit Do
-                        End If
-                    Loop
+
+            Dim sr As StreamResourceInfo = Application.GetResourceStream(New Uri(XAPPAth, UriKind.Relative))
+            Using fileStream As IO.Stream = sr.Stream
+                Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+                    Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/" & XAPPAth, FileMode.Create, FileAccess.Write, isoStore)
+                        Do
+                            Dim buffer(100000) As Byte
+                            Dim count As Integer = fileStream.Read(buffer, 0, buffer.Length)
+                            If count > 0 Then
+                                isoStream.Write(buffer, 0, count)
+                            Else
+                                Exit Do
+                            End If
+                        Loop
+                    End Using
                 End Using
             End Using
-        End Using
         Catch ex As Exception
+            Log.Log(ex.StackTrace, logging.Level.ERR)
 
         End Try
 
@@ -626,17 +634,6 @@ OUT:
     End Sub
 
 
-
-    Private Sub rdRot_Checked(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles rdRot.Checked
-        cmbRotation.IsEnabled = True
-        cmbPrio.IsEnabled = False
-
-    End Sub
-    Private Sub rdPrio_Checked(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles rdPrio.Checked
-        cmbRotation.IsEnabled = False
-        cmbPrio.IsEnabled = True
-    End Sub
-
     Delegate Sub UpdateProgressBar_Delegate()
     Friend Sub TryToUpdateProgressBar()
         Try
@@ -645,9 +642,9 @@ OUT:
         Catch ex As Exception
             Diagnostics.Debug.WriteLine(ex.StackTrace)
         End Try
-        
+
     End Sub
-    
+
     'Shared ProgressBar1 As ProgressBar
 
     Friend Sub UpdateProgressBar()
@@ -655,22 +652,22 @@ OUT:
         Dim i As Double
         Try
 
-        
-        'RefreshRequest += 1
-        'On Error Resume Next
-        If SimConstructor.simCollection.Count = 0 Then
-            ProgressBar1.Value = 0
-            Exit Sub
-        End If
-        i = 0
-        For Each s In SimConstructor.simCollection
-            If s.MaxTime <> 0 Then
-                i += (s.TimeStamp / s.MaxTime) / SimConstructor.simCollection.Count
-            Else
-                i += 0
+
+            'RefreshRequest += 1
+            'On Error Resume Next
+            If SimConstructor.simCollection.Count = 0 Then
+                ProgressBar1.Value = 0
+                Exit Sub
             End If
-        Next
-        i = i * 100
+            i = 0
+            For Each s In SimConstructor.simCollection
+                If s.MaxTime <> 0 Then
+                    i += (s.TimeStamp / s.MaxTime) / SimConstructor.simCollection.Count
+                Else
+                    i += 0
+                End If
+            Next
+            i = i * 100
             ProgressBar1.Value = i
         Catch ex As Exception
             Diagnostics.Debug.WriteLine(ex.StackTrace)
@@ -727,13 +724,8 @@ OUT:
 
 
 
-        sTemp = cmbRotation.SelectedItem
-        cmbRotation.Items.Clear()
+
         If (isoStore.DirectoryExists("KahoDKSim/Rotation")) Then
-            For Each item In isoStore.GetFileNames("KahoDKSim/Rotation/*")
-                cmbRotation.Items.Add(Strings.Right(item, item.Length - InStrRev(item, "\")))
-            Next
-            cmbRotation.SelectedItem = sTemp
         Else
             isoStore.CreateDirectory("KahoDKSim/Rotation")
         End If
@@ -782,9 +774,9 @@ OUT:
         cmbTemplate.SelectedValue = TEdit.FilePath
     End Sub
 
-    Private Sub cmdEditRota_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdEditRota.Click
+    Private Sub cmdEditRota_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
         PrioEditor.EditType = PriorityEditor.PossibleEditType.Rotation
-        PrioEditor.FilePath = cmbRotation.SelectedValue
+        PrioEditor.FilePath = ""
         PrioEditor.LoadAvailableElemnt()
         PrioEditor.OpenRotaForEdit(PrioEditor.FilePath)
         PrioEditor.Show()
@@ -814,7 +806,7 @@ OUT:
             Case PriorityEditor.PossibleEditType.Priority
                 cmbPrio.SelectedValue = PrioEditor.FilePath
             Case PriorityEditor.PossibleEditType.Rotation
-                cmbRotation.SelectedValue = PrioEditor.FilePath
+
         End Select
 
 
@@ -862,7 +854,7 @@ OUT:
     End Sub
     Sub ScenarioEditor_Close() Handles ScenarioEditor.Closing
         RefreshScenarioList()
-        cmbScenario.SelectedValue = ScenarioEditor.EditorFilepath
+        cmbScenario.SelectedValue = ScenarioEditor.EditorFilePAth
     End Sub
     Delegate Sub OpenReport_Delegate()
     Friend Sub TryToOpenReport()

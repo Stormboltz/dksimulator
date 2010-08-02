@@ -71,7 +71,7 @@ Public Class Gem
 
 
         Catch ex As Exception
-
+            Log.Log(ex.StackTrace, logging.Level.ERR)
         End Try
 
 

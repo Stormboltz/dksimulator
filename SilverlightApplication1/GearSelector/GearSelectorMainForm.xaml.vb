@@ -212,7 +212,8 @@ Partial Public Class GearSelectorMainForm
                         From el In WeapProcDB.Element("WeaponProcList").Elements("proc")
                         Where (el.Attribute("id").Value = iSlot.Item.Id)
                         Select el).First.Attribute("name").Value
-                Catch
+                Catch ex As Exception
+                    Log.Log(ex.StackTrace, logging.Level.ERR)
                     cmbWeaponProc1.Text = ""
                 End Try
                 Select Case cmbRace.SelectedValue
@@ -243,7 +244,8 @@ Partial Public Class GearSelectorMainForm
                         From el In WeapProcDB.Element("WeaponProcList").Elements("proc")
                         Where (el.Attribute("id").Value = iSlot.Item.Id)
                         Select el).First.Attribute("name").Value
-                Catch
+                Catch ex As Exception
+                    Log.Log(ex.StackTrace, logging.Level.ERR)
                     cmbWeaponProc1.Text = ""
                 End Try
 
@@ -271,8 +273,9 @@ Partial Public Class GearSelectorMainForm
                     cmbTrinket1.Text = (
                         From el In trinketDB.Element("TrinketList").Elements("trinket")
                         Where (el.Attribute("id").Value = iSlot.Item.Id)
-                        Select el).First.Attribute("name").Value
-                Catch
+                        Select el).FirstOrDefault.Attribute("name").Value
+                Catch ex As Exception
+                    Log.Log("No Effect on Trinket1", logging.Level.INFO)
                     cmbTrinket1.Text = ""
                 End Try
             End If
@@ -280,8 +283,9 @@ Partial Public Class GearSelectorMainForm
                 Try
                     cmbTrinket2.Text = (From el In trinketDB.Element("TrinketList").Elements("trinket")
                         Where (el.Attribute("id").Value = iSlot.Item.Id)
-                        Select el).First.Attribute("name").Value
-                Catch
+                        Select el).FirstOrDefault.Attribute("name").Value
+                Catch ex As Exception
+                    Log.Log("No Effect on Trinket1", logging.Level.INFO)
                     cmbTrinket2.Text = ""
                 End Try
             End If
@@ -345,7 +349,8 @@ Partial Public Class GearSelectorMainForm
                         AttackPower += el.Element("AttackPower").Value
                         CritRating += el.Element("CritRating").Value
                         ArmorPenetrationRating += el.Element("ArmorPenetrationRating").Value
-                    Catch
+                    Catch ex As Exception
+                        Log.Log(ex.StackTrace, logging.Level.ERR)
 
                     End Try
                 End If
@@ -681,16 +686,19 @@ NextItem:
 
             Try
                 cmbRace.SelectedItem = xmlChar.Element("page").Element("characterInfo").Element("character").Attribute("race").Value
-            Catch
+            Catch ex As Exception
+                Log.Log(ex.StackTrace, logging.Level.ERR)
             End Try
             Try
                 cmbFood.SelectedItem = Nothing
-            Catch
+            Catch ex As Exception
+                Log.Log(ex.StackTrace, logging.Level.ERR)
             End Try
 
             Try
                 cmbFlask.SelectedItem = Nothing
-            Catch
+            Catch ex As Exception
+                Log.Log(ex.StackTrace, logging.Level.ERR)
             End Try
 
             Dim xItem As XElement
@@ -717,7 +725,8 @@ NextItem:
                     r2Hand.IsChecked = True
                 End If
 
-            Catch
+            Catch ex As Exception
+                Log.Log(ex.StackTrace, logging.Level.ERR)
                 rDW.IsChecked = False
                 r2Hand.IsChecked = True
             End Try
@@ -746,6 +755,7 @@ NextItem:
             InLoad = False
             GetStats()
         Catch ex As Exception
+            Log.Log(ex.StackTrace, logging.Level.ERR)
 
         Finally
             Me.InLoad = False
@@ -831,29 +841,34 @@ NextItem:
                 Try
                     Diagnostics.Debug.WriteLine(xmlChar.Element("character").Element("race").Value)
                     cmbRace.SelectedValue = xmlChar.Element("character").Element("race").Value
-                Catch
+                Catch ex As Exception
+                    Log.Log("LoadMycharacter: Cannot get Race", logging.Level.WARNING)
                 End Try
 
 
                 Try
                     cmbFood.SelectedValue = xmlChar.Element("character").Element("food").Value
-                Catch
+                Catch ex As Exception
+                    Log.Log("LoadMycharacter: Cannot get food", logging.Level.WARNING)
                 End Try
 
                 Try
                     cmbFlask.SelectedValue = xmlChar.Element("character").Element("flask").Value
-                Catch
+                Catch ex As Exception
+                    Log.Log("LoadMycharacter: Cannot get Flask", logging.Level.WARNING)
                 End Try
 
 
                 Try
                     cmbSkill1.SelectedValue = xmlChar.Element("character").Element("skill1").Value
-                Catch
+                Catch ex As Exception
+                    Log.Log("LoadMycharacter: Cannot get skill1", logging.Level.WARNING)
                 End Try
 
                 Try
                     cmbSkill2.SelectedValue = xmlChar.Element("character").Element("skill2").Value
-                Catch
+                Catch ex As Exception
+                    Log.Log("LoadMycharacter: Cannot get skill2", logging.Level.WARNING)
                 End Try
 
 
@@ -861,7 +876,8 @@ NextItem:
                 Try
                     rDW.IsChecked = xmlChar.Element("character").Element("DW").Value
                     r2Hand.IsChecked = (rDW.IsChecked = False)
-                Catch
+                Catch ex As Exception
+                    Log.Log("LoadMycharacter: Cannot get DW", logging.Level.WARNING)
                 End Try
 
                 If r2Hand.IsChecked Then
@@ -888,7 +904,8 @@ NextItem:
                 For Each itm In stackConsumable.Children
                     Try
                         itm.IsChecked = xmlChar.Element("character").Element("misc").Element(itm.Name).Value
-                    Catch
+                    Catch ex As Exception
+                        Log.Log("LoadMycharacter: Cannot get Consumable", logging.Level.WARNING)
                         itm.IsChecked = False
                     End Try
                 Next
@@ -903,29 +920,31 @@ NextItem:
                         iSlot.DisplayItem()
                         Try
                             iSlot.Item.gem1.Attach(xmlChar.Element("character").Element(iSlot.text).Element("gem1").Value)
-                        Catch er As Exception
-                            Diagnostics.Debug.WriteLine(er.ToString)
+                        Catch ex As Exception
+                            Log.Log("LoadMycharacter: Cannot get Gem1 for " & iSlot.Name, logging.Level.WARNING)
+
                         End Try
                         Try
                             iSlot.Item.gem2.Attach(xmlChar.Element("character").Element(iSlot.text).Element("gem2").Value)
-                        Catch er As Exception
-                            Diagnostics.Debug.WriteLine(er.ToString)
+                        Catch ex As Exception
+                            Log.Log("LoadMycharacter: Cannot get Gem2 for " & iSlot.Name, logging.Level.WARNING)
+
                         End Try
                         Try
                             iSlot.Item.gem3.Attach(xmlChar.Element("character").Element(iSlot.text).Element("gem3").Value)
-                        Catch er As Exception
-                            Diagnostics.Debug.WriteLine(er.ToString)
+                        Catch ex As Exception
+                            Log.Log("LoadMycharacter: Cannot get Gem3 for " & iSlot.Name, logging.Level.WARNING)
                         End Try
                         Try
                             iSlot.Item.Enchant.Attach(xmlChar.Element("character").Element(iSlot.Text).Element("enchant").Value)
-                        Catch er As Exception
-                            Diagnostics.Debug.WriteLine(er.ToString)
+                        Catch ex As Exception
+                            Log.Log("LoadMycharacter: Cannot get enchant for " & iSlot.Name, logging.Level.WARNING)
                         End Try
 
 
 
-                    Catch er As Exception
-                        Diagnostics.Debug.WriteLine(er.ToString)
+                    Catch ex As Exception
+                        Log.Log("LoadMycharacter: Cannot get " & iSlot.Name, logging.Level.WARNING)
                     End Try
                 Next
             End Using
@@ -1273,7 +1292,7 @@ NextItem:
         Try
             Flask.Attach(cmbFlask.SelectedValue)
         Catch ex As Exception
-
+            Log.Log(ex.StackTrace, logging.Level.ERR)
         End Try
         GetStats()
     End Sub
@@ -1284,7 +1303,7 @@ NextItem:
             Food.Attach(cmbFood.SelectedValue)
             GetStats()
         Catch ex As Exception
-
+            Log.Log(ex.StackTrace, logging.Level.ERR)
         End Try
 
     End Sub

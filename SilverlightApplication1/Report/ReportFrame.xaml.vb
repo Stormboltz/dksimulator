@@ -9,7 +9,9 @@ Partial Public Class ReportFrame
         InitializeComponent()
     End Sub
     Sub OpenReport(ByVal path As String)
+        Try
 
+        
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
             Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream(path, FileMode.OpenOrCreate, FileAccess.Read, isoStore)
                 Dim myReader As XDocument = XDocument.Load(isoStream)
@@ -60,7 +62,10 @@ Partial Public Class ReportFrame
                 txtAdditionalInfo.Text = tmp
 
             End Using
-        End Using
+            End Using
+        Catch ex As Exception
+            'msgBox("No report to open")
+        End Try
     End Sub
 
 

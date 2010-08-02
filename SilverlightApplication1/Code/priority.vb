@@ -278,13 +278,13 @@ Friend Class priority
 
                 Case "DeathCoilMaxRp"
                     If sim.RunicPower.CheckMax(0) And sim.CanUseGCD(TimeStamp) Then
-                        sim.DeathCoil.ApplyDamage(TimeStamp, False)
+                        sim.DeathCoil.ApplyDamage(TimeStamp)
                         'Diagnostics.Debug.WriteLine("DC")
                         Exit Sub
                     End If
                 Case "DeathCoil"
                     If sim.DeathCoil.isAvailable(TimeStamp) = True And sim.CanUseGCD(TimeStamp) Then
-                        sim.DeathCoil.ApplyDamage(TimeStamp, False)
+                        sim.DeathCoil.ApplyDamage(TimeStamp)
                         'Diagnostics.Debug.WriteLine("DC")
                         Exit Sub
                     End If

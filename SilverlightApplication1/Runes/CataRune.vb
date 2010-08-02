@@ -15,19 +15,27 @@ Public Class CataRune
 
     Friend Parent As RunePair
     Friend BTuntil As Long
+    Friend MaxValue As Integer
 
 
 
     Sub New(ByVal S As Sim)
         Me.reserved = False
         Me.death = False
-        Me.Value = 100
-        Sim = S
+
+        MaxValue = 100 + S.Character.Talents.Talent("IcyTalons").Value * 30
+        Me.Value = MaxValue
+        sim = S
+
     End Sub
 
 
     Sub Use(ByVal T As Long, ByVal D As Boolean)
-        Parent.Use(T, D)
+        Me.Value -= 100
+        If Me.Value < 0 Then
+            Diagnostics.Debug.WriteLine("RUNE USE ERROR")
+        End If
+        '        Parent.Use(T, D)
         death = D
         If BTuntil > T Then death = True
         sim.proc.tryT104PDPS(T)
@@ -36,7 +44,7 @@ Public Class CataRune
 
 
     Function Available() As Boolean
-        If Value = 100 Then
+        If Value >= 100 Then
             Return True
         Else
             Return False

@@ -192,16 +192,32 @@ Partial Public Class ItemEditor
         lblStat3.Content = ""
         lblStat4.Content = ""
         lblStat5.Content = ""
-        Try
-            lblStat1.Content = col(0)
-            lblStat2.Content = col(1)
-            lblStat3.Content = col(2)
-            lblStat4.Content = col(3)
-            lblStat5.Content = col(4)
-        Catch ex As Exception
 
-        End Try
-
+        Dim ii As Integer
+        ii = col.Count
+        Select Case ii
+            Case 1
+                lblStat1.Content = col(0)
+            Case 2
+                lblStat1.Content = col(0)
+                lblStat2.Content = col(1)
+            Case 3
+                lblStat1.Content = col(0)
+                lblStat2.Content = col(1)
+                lblStat3.Content = col(2)
+            Case 4
+                lblStat1.Content = col(0)
+                lblStat2.Content = col(1)
+                lblStat3.Content = col(2)
+                lblStat4.Content = col(3)
+            Case 5
+                lblStat1.Content = col(0)
+                lblStat2.Content = col(1)
+                lblStat3.Content = col(2)
+                lblStat4.Content = col(3)
+                lblStat5.Content = col(4)
+        End Select
+       
         If Item.gem1.GemSlotColorName <> "" Then
             lblGemColor1.Content = " "
             lblGemColor1.Background = Item.gem1.GemSlotColor
@@ -247,7 +263,8 @@ Partial Public Class ItemEditor
 
 
 
-        Catch
+        Catch ex As Exception
+            Log.Log(ex.StackTrace, logging.Level.ERR)
             lblBonus.Content = "<bonus>"
         End Try
         DisplayGem()

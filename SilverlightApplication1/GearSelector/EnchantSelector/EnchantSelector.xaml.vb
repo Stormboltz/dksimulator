@@ -134,7 +134,7 @@ Partial Public Class EnchantSelector
             SelectedItem = a.Id
             Me.DialogResult = True
         Catch ex As Exception
-
+            Log.Log(ex.StackTrace, logging.Level.ERR)
         End Try
     End Sub
 

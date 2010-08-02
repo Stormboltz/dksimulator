@@ -21,53 +21,44 @@
                                     <RowDefinition Height="24" />
                                     <RowDefinition Height="24" />
                                     <RowDefinition Height="24" />
+                                    <RowDefinition Height="Auto" />
                                     <RowDefinition Height="24" />
                                     <RowDefinition Height="24" />
-                                    <RowDefinition Height="24" />
-                                    <RowDefinition Height="24" />
-                                    <RowDefinition Height="24" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                                     <RowDefinition Height="24" />
                                     <RowDefinition Height="24" />
                                     <RowDefinition Height="24" />
                                     <RowDefinition Height="24" />
 
                                 </Grid.RowDefinitions>
-                                <sdk:Label Content="Character:"  Name="lblCharacter" Grid.Row="1" Grid.Column="0"  />
+                                <sdk:Label Content="Character:"  Name="lblCharacter" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" />
                                 <ComboBox Name="cmbGearSelector" Grid.Row="1" Grid.Column="1"  />
                                 <Button Content="Edit" Name="cmdEditCharacterWithGear" Grid.Row="1" Grid.Column="2" />
 
-                                <sdk:Label Content="Template:"  Name="lblTemplate" Grid.Row="2"  />
+                                <sdk:Label Content="Template:"  Name="lblTemplate" Grid.Row="2" HorizontalAlignment="Right" />
                                 <ComboBox Name="cmbTemplate" Grid.Row="2" Grid.Column="1" />
                                 <Button Content="Edit" Name="cmdEditTemplate" Grid.Row="2" Grid.Column="2" />
-
-                                <RadioButton Content="Priority" GroupName="grpRDPrio"  HorizontalAlignment="Left"  Name="rdPrio"  Grid.Row="3" Grid.Column="1" IsChecked="True" />
-                                <RadioButton Content="Rotation" GroupName="grpRDPrio"  HorizontalAlignment="Right"  Name="rdRot"  Grid.Row="3" Grid.Column="1" IsEnabled="False" />
-
-                                <sdk:Label Content="Intro:" Name="lblIntro" Grid.Row="4" />
+                                <sdk:Label Content="Intro:" Name="lblIntro" Grid.Row="4" HorizontalAlignment="Right" />
                                 <ComboBox Name="cmbIntro" Grid.Row="4" Grid.Column="1"  />
                                 <Button Content="Edit" Name="cmdEditIntro" Grid.Row="4" Grid.Column="2" />
 
-                                <sdk:Label Content="Priority:" Name="lblPrio" Grid.Row="5" />
+                                <sdk:Label Content="Priority:" Name="lblPrio" Grid.Row="5" HorizontalAlignment="Right" />
                                 <ComboBox  Name="cmbPrio"  Grid.Row="5" Grid.Column="1" />
                                 <Button Content="Edit" Name="cmdEditPrio" Grid.Row="5" Grid.Column="2" />
-
-                                <sdk:Label Content="Rotation:" Name="lblRota" Grid.Row="6" />
-                                <ComboBox Name="cmbRotation" Grid.Row="6" Grid.Column="1"  />
-                                <Button Content="Edit" Name="cmdEditRota" Grid.Row="6" Grid.Column="2" />
-
-                                <sdk:Label Content="Presence:" Name="lblPresence" Grid.Row="8" />
+                                <sdk:Label Content="Presence:" Name="lblPresence" Grid.Row="8" HorizontalAlignment="Right" />
                                 <ComboBox  Name="cmdPresence" Grid.Row="8" Grid.Column="1" />
 
-                                <sdk:Label Content="Sigil:" Name="lblSigil" Grid.Row="9" />
+                                <sdk:Label Content="Sigil:" Name="lblSigil" Grid.Row="9" HorizontalAlignment="Right" />
                                 <ComboBox Name="cmbSigils"  Grid.Row="9" Grid.Column="1" />
 
-                                <sdk:Label Content="Runeforge:" FlowDirection="LeftToRight" Height="23" HorizontalAlignment="Left" HorizontalContentAlignment="Right"  Name="lblRuneforgeMH" VerticalAlignment="Top" Width="79" Grid.Row="10" />
+                                <sdk:Label Content="MH Runeforge:" FlowDirection="LeftToRight" Height="23" HorizontalAlignment="Right" HorizontalContentAlignment="Right"  Name="lblRuneforgeMH" VerticalAlignment="Top" Width="79" Grid.Row="10" />
                                 <ComboBox HorizontalAlignment="Left"  Name="cmbRuneMH" Width="200" Grid.Row="10" Grid.Column="1" />
 
-                                <sdk:Label Content=": Runeforge" FlowDirection="LeftToRight" Height="23" HorizontalAlignment="Right" HorizontalContentAlignment="Right"  Name="lblRuneforgeOH" VerticalAlignment="Top" Width="79" Grid.Row="10" Grid.Column="3" />
+                                <sdk:Label Content=": OH Runeforge"  FlowDirection="LeftToRight" Height="23" HorizontalAlignment="Left" HorizontalContentAlignment="Right"  Name="lblRuneforgeOH" VerticalAlignment="Top" Width="79" Grid.Row="10" Grid.Column="3" />
                                 <ComboBox  HorizontalAlignment="Right"  Name="cmbRuneOH"  Width="200" Grid.Row="10" Grid.Column="1"  />
 
-                                <sdk:Label Content="Scenario:"   Name="lblScenario" Grid.Row="11" />
+                                <sdk:Label Content="Scenario:"   Name="lblScenario" Grid.Row="11" HorizontalAlignment="Right" />
                                 <ComboBox Name="cmbScenario"  Grid.Row="11" Grid.Column="1" />
                                 <Button Content="Edit"  Name="cmdEditScenario" Grid.Row="11" Grid.Column="2" />
 
@@ -76,34 +67,7 @@
 
 
 
-                            </Grid >
-                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="ReportGrid" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="15" Grid.RowSpan="2">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="20" />
-                                    <RowDefinition Height="24" />
-                                    <RowDefinition Height="24" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="150" />
-                                    <ColumnDefinition Width="150" />
-                                    <ColumnDefinition Width="150" />
-                                    <ColumnDefinition Width="150" />
-                                    <ColumnDefinition Width="1*" />
-                                </Grid.ColumnDefinitions>
-                                <sdk:Label Content="Report Options"></sdk:Label>
-
-                                
-                                <Button Content="Display last report" Name="cmdReport" Grid.Column="4" Grid.Row="1" />
-                                <Button Content="Display last log" Name="cmdShowLog" Grid.Row="2" Grid.Column="4" />
-
-                                <CheckBox Content="Merge stike in the report" Name="chkMergeReport" Grid.Column="2" Grid.Row="2" />
-                                <CheckBox Content="Generate Combat log" Name="chkCombatLog" Grid.Column="1" Grid.Row="1" />
-                                <CheckBox Content="Detailled combat log" Name="ckLogRP" Grid.Column="2" Grid.Row="1" />
-                                <CheckBox Content="Show proc" Name="chkShowProc" Grid.Column="1" Grid.Row="2"  />
-                                <my:myGridControl Grid.Column="5" Grid.Row="0" HorizontalAlignment="Right" x:Name="ReportOptReducer" />
-                            </Grid>
-                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="MiscOptionGrid" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="17" Grid.RowSpan="2">
+                            </Grid ><Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="MiscOptionGrid" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="17" Grid.RowSpan="2">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="100" />
                                     <ColumnDefinition Width="140" />
@@ -124,7 +88,7 @@
                                     
                                
                                 </Grid.RowDefinitions>
-                                <sdk:Label Content="Sim Options"></sdk:Label>
+                                <sdk:Label Content="Sim Options" FontWeight="Bold"></sdk:Label>
                                 <my:myGridControl Grid.Column="5" Grid.Row="0" HorizontalAlignment="Right" x:Name="SimOptReducer" />
                                 
                                 <sdk:Label Name="lblFightLength" Content="Sim Time:" Grid.Row="1" Grid.Column="1" />
@@ -149,6 +113,33 @@
                                 <sdk:Label Content="ICC Buff:" Name="lblICCBuff" Grid.Row="4" Grid.Column="3" />
                                 <ComboBox Name="cmbICCBuff" Grid.Row="4" Grid.Column="4"  />
                             </Grid>
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="ReportGrid" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="15" Grid.RowSpan="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="24" />
+                                    <RowDefinition Height="24" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="150" />
+                                    <ColumnDefinition Width="208" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="150" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                <sdk:Label Content="Report Options" FontWeight="Bold"></sdk:Label>
+
+                                
+                                <Button Content="Display last report" Name="cmdReport" Grid.Column="4" Grid.Row="1" />
+                                <Button Content="Display last log" Name="cmdShowLog" Grid.Row="2" Grid.Column="4" />
+
+                                <CheckBox Content="Merge stike in the report" Name="chkMergeReport" Grid.Column="2" Grid.Row="2" />
+                                <CheckBox Content="Generate Combat log" Name="chkCombatLog" Grid.Column="1" Grid.Row="1" />
+                                <CheckBox Content="Detailled combat log" Name="ckLogRP" Grid.Column="2" Grid.Row="1" />
+                                <CheckBox Content="Show proc" Name="chkShowProc" Grid.Column="1" Grid.Row="2"  />
+                                <my:myGridControl Grid.Column="5" Grid.Row="0" HorizontalAlignment="Right" x:Name="ReportOptReducer" />
+                            </Grid>
+                            
                         </StackPanel>
                     </ScrollViewer>
                 </sdk:TabItem>

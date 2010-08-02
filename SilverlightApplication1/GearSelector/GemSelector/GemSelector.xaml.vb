@@ -65,7 +65,7 @@ Partial Public Class GemSelector
         Try
             gGems.ItemsSource = statusReport
         Catch ex As Exception
-            Diagnostics.Debug.WriteLine(ex.ToString)
+            Log.Log(ex.StackTrace, logging.Level.ERR)
         End Try
 
     End Sub
@@ -205,7 +205,7 @@ Partial Public Class GemSelector
             SelectedItem = a.Id
             Me.DialogResult = True
         Catch ex As Exception
-
+            Log.Log(ex.StackTrace, logging.Level.ERR)
         End Try
 
     End Sub

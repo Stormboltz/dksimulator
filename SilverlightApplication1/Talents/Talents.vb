@@ -95,21 +95,21 @@ Public Class Talents
         Next
     End Sub
     Sub AddIncluded()
-        If GetNumOfThisSchool(Schools.Blood) > 10 Then
+        If GetNumOfThisSchool(Schools.Blood) > 30 Then
             For Each T As Talent In IncludedTalents
                 If T.School = Schools.Blood Then
                     Talent(T.Name).Value = 1
                 End If
             Next
         End If
-        If GetNumOfThisSchool(Schools.Frost) > 10 Then
+        If GetNumOfThisSchool(Schools.Frost) > 30 Then
             For Each T As Talent In IncludedTalents
                 If T.School = Schools.Frost Then
                     Talent(T.Name).Value = 1
                 End If
             Next
         End If
-        If GetNumOfThisSchool(Schools.Unholy) > 10 Then
+        If GetNumOfThisSchool(Schools.Unholy) > 30 Then
             For Each T As Talent In IncludedTalents
                 If T.School = Schools.Unholy Then
                     Talent(T.Name).Value = 1

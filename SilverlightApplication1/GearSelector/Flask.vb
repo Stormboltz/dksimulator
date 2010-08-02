@@ -81,6 +81,8 @@ Public Class Flask
                 .Desc = el.Element("Desc").Value
             End With
         Catch Err As Exception
+
+            Log.Log(Err.StackTrace, logging.Level.ERR)
             Diagnostics.Debug.WriteLine(Err.ToString)
 
         End Try

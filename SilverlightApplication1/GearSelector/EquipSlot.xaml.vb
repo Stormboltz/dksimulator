@@ -167,7 +167,8 @@ Partial Public Class EquipSlot
             
 
 
-        Catch
+        Catch ex As execption
+            Log.Log(ex.StackTrace, logging.Level.ERR)
             lblBonus.Content = ""
         End Try
         DisplayGem()

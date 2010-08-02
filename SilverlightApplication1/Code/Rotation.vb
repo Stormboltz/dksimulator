@@ -166,7 +166,7 @@ Friend Class Rotation
             Case "DeathCoil"
                 If sim.DeathCoil.isAvailable(TimeStamp) = True Then
 
-                    Return sim.DeathCoil.ApplyDamage(TimeStamp, False)
+                    Return sim.DeathCoil.ApplyDamage(TimeStamp)
                     'Diagnostics.Debug.WriteLine("DC")
                     Exit Function
                 Else

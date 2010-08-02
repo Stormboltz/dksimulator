@@ -58,6 +58,7 @@ Public Class Enchant
                 .Desc = el.Element("Desc").Value
             End With
         Catch ex As Exception
+            Log.Log(ex.StackTrace, logging.Level.ERR)
             Detach()
         End Try
 

@@ -9,12 +9,12 @@
         <sdk:TabItem Header="Visual" Name="TabItem1">
             <Grid x:Name="LayoutRoot" Background="White">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="500" />
+                    <RowDefinition Height="20" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="10" />
                 </Grid.RowDefinitions>
                     <sdk:DataGrid AutoGenerateColumns="True" FontSize="9"   Name="dgReport" MinColumnWidth="5" />
-                    <TextBox Grid.Row="1" Name="txtAdditionalInfo" Text="TextBlock" IsReadOnly="True" />
+                    <TextBox Grid.Row="1" Name="txtAdditionalInfo" Text="" IsReadOnly="True" />
                 <Grid />
             </Grid>
         </sdk:TabItem>

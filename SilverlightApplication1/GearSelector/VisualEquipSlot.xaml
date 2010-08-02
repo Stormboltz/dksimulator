@@ -4,12 +4,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="60" d:DesignWidth="60">
+    d:DesignHeight="50" d:DesignWidth="50" >
 
-    <Grid x:Name="LayoutRoot" Background="White">
-        <Border BorderBrush="Silver" BorderThickness="1" HorizontalAlignment="Left" Name="Border1" VerticalAlignment="Top" Height="60" Width="60">
+    <Grid x:Name="LayoutRoot" >
+        <Border BorderBrush="Silver" BorderThickness="1" HorizontalAlignment="Left" Name="Border1" VerticalAlignment="Top" >
             <Button Name="cmdEquipSlot">
-                <Image  HorizontalAlignment="Left" Name="ImSlot" Stretch="UniformToFill" VerticalAlignment="Top" Height="56" Width="56" />
+                <Image  HorizontalAlignment="Left" Name="ImSlot" Stretch="UniformToFill" VerticalAlignment="Top" MinWidth="45" MinHeight="45"  Source="/DKSIMVB;component/images/Icons/large/spell_nature_wispsplodegreen.jpg" />
             </Button>
         </Border>
     </Grid>

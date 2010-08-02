@@ -5,13 +5,15 @@ Imports System.IO
 Module GlobalFunction
     Public RNGSeeder As Integer
     Public ReportPath As String
+    Public Log As New logging
+
+
 
     Sub msgBox(ByVal s As String)
         Try
             MessageBox.Show(s)
         Catch ex As Exception
-
-
+            Log.Log(s, logging.Level.ERR)
             Diagnostics.Debug.WriteLine(s)
         End Try
 
@@ -23,8 +25,10 @@ Module GlobalFunction
         Try
             dec = Convert.ToDecimal(d)
             Return Decimal.Round(dec, 1)
-        Catch
+        Catch ex As Exception
+            Log.Log(ex.StackTrace, logging.Level.ERR)
             Return 0
+
         End Try
     End Function
 
@@ -33,7 +37,8 @@ Module GlobalFunction
         Try
             dec = Convert.ToDecimal(d)
             Return Decimal.Round(dec, 2)
-        Catch
+        Catch ex As Exception
+            Log.Log(ex.StackTrace, logging.Level.ERR)
             Return 0
         End Try
     End Function
