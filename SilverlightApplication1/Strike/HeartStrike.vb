@@ -29,35 +29,35 @@ Friend Class HeartStrike
 		dim Tar as Targets.Target
 		For Each Tar In sim.Targets.AllTargets
 			RNG = RngCrit
-			Dim dégat As Integer
-			
-			If Tar.Equals(sim.Targets.MainTarget) Then
-				If RNG <= CritChance Then
-					CritCount = CritCount + 1
-					dégat = AvrgCrit(T,tar)
-					totalcrit += dégat
-					sim.combatlog.write(T  & vbtab &  "HS crit for " & dégat)
-				Else
-					HitCount = HitCount + 1
-					dégat =  AvrgNonCrit(T)
-					totalhit += dégat
-					sim.combatlog.write(T  & vbtab &  "HS hit for " & dégat)
-				End If
-			ElseIf intCount = 0 Then
-				intCount = 1
-				If RNG <= CritChance Then
-					CritCount = CritCount + 1
-					dégat = AvrgCrit(T,tar)/2
-					totalcrit += dégat
-					sim.combatlog.write(T  & vbtab &  "HS crit for " & dégat)
-				Else
-					HitCount = HitCount + 1
-					dégat =  AvrgNonCrit(T)/2
-					totalhit += dégat
-					sim.combatlog.write(T  & vbtab &  "HS hit for " & dégat)
-				End If
-			End If
-			total = total + dégat
+
+
+            If Tar.Equals(sim.Targets.MainTarget) Then
+                If RNG <= CritChance Then
+                    CritCount = CritCount + 1
+                    LastDamage = AvrgCrit(T, tar)
+                    totalcrit += LastDamage
+                    sim.combatlog.write(T & vbtab & "HS crit for " & LastDamage)
+                Else
+                    HitCount = HitCount + 1
+                    LastDamage = AvrgNonCrit(T)
+                    totalhit += LastDamage
+                    sim.combatlog.write(T & vbtab & "HS hit for " & LastDamage)
+                End If
+            ElseIf intCount = 0 Then
+                intCount = 1
+                If RNG <= CritChance Then
+                    CritCount = CritCount + 1
+                    LastDamage = AvrgCrit(T, tar) / 2
+                    totalcrit += LastDamage
+                    sim.combatlog.write(T & vbtab & "HS crit for " & LastDamage)
+                Else
+                    HitCount = HitCount + 1
+                    LastDamage = AvrgNonCrit(T) / 2
+                    totalhit += LastDamage
+                    sim.combatlog.write(T & vbtab & "HS hit for " & LastDamage)
+                End If
+            End If
+            total = total + LastDamage
             sim.proc.TryOnBloodStrike()
             sim.proc.TryOnMHHitProc()
 		Next

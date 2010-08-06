@@ -61,7 +61,31 @@ Public Class Spell
 	
 	
         Public Overridable Function ApplyDamage(ByVal T As Long) As Boolean
-            Return False
+            Dim RNG As Double
+            UseGCD(T)
+            LastDamage = 0
+            If DoMySpellHit() = False Then
+                sim.CombatLog.write(T & vbTab & Me.Name & " fail")
+                MissCount = MissCount + 1
+                Return False
+            End If
+            RNG = RngCrit
+
+            If RNG <= CritChance() Then
+                CritCount = CritCount + 1
+                LastDamage = AvrgCrit(T)
+                TotalCrit += LastDamage
+                sim.CombatLog.write(T & vbTab & Me.Name & " crit for " & LastDamage)
+
+            Else
+                LastDamage = AvrgNonCrit(T)
+                TotalHit += LastDamage
+                HitCount = HitCount + 1
+                sim.CombatLog.write(T & vbTab & Me.Name & " hit for " & LastDamage & vbTab)
+            End If
+            total = total + LastDamage
+            sim.proc.TryOnSpellHit()
+            Return True
         End Function
 
 	
@@ -73,14 +97,18 @@ Public Class Spell
         End Function
 	
         Overridable Function CritChance() As Double
-            Return 0
+            Return sim.MainStat.SpellCrit
         End Function
 	
         Overridable Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
-            Return 0
+            Dim tmp As Double
+            tmp = BaseDamage + sim.MainStat.AP * Coeficient
+            tmp = tmp * Multiplicator
+            tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
+            Return tmp
         End Function
         Overridable Function AvrgCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
-            Return 0
+            Return (AvrgNonCrit(T, target) * (1 + CritCoef()))
         End Function
 	
 	

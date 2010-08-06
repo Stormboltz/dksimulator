@@ -86,12 +86,62 @@ Namespace Strikes
         End Function
 
         Public Overridable Function ApplyDamage(ByVal T As Long) As Boolean
-            Return False
+            Dim RNG As Double
+            LastDamage = 0
+
+            If OffHand = False Then
+                UseGCD(T)
+                If DoMyStrikeHit() = False Then
+                    sim.CombatLog.write(T & vbTab & Me.Name & " fail")
+                    MissCount += 1
+                    Return False
+                End If
+            Else
+                If DoMyToTHit() = False Then Return False
+            End If
+
+            RNG = RngCrit
+
+            If RNG <= CritChance() Then
+                LastDamage = AvrgCrit(T)
+                CritCount = CritCount + 1
+                sim.CombatLog.write(T & vbTab & Me.Name & " crit for " & LastDamage)
+                TotalCrit += LastDamage
+                sim.proc.tryOnCrit()
+            Else
+                LastDamage = AvrgNonCrit(T)
+                HitCount = HitCount + 1
+                TotalHit += LastDamage
+                sim.CombatLog.write(T & vbTab & Me.Name & " hit for " & LastDamage)
+            End If
+            total = total + LastDamage
+
+            If OffHand = False Then
+                sim.proc.TryOnMHHitProc()
+            Else
+                sim.proc.TryOnOHHitProc()
+            End If
+            Return True
         End Function
 
 
         Overridable Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
-            Return 0
+            Dim tmp As Double
+
+            If OffHand = False Then
+                tmp = sim.MainStat.NormalisedMHDamage * Coeficient
+            Else
+                tmp = sim.MainStat.NormalisedOHDamage * Coeficient
+            End If
+            tmp = tmp + BaseDamage
+            tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
+            tmp = tmp * Multiplicator
+            If OffHand Then
+                tmp = tmp * 0.5
+                tmp = tmp * (1 + sim.Character.Talents.Talent("NervesofColdSteel").Value * 8.3333 / 100)
+            End If
+
+            Return tmp
         End Function
 
         Function AvrgNonCrit(ByVal T As Long) As Double
@@ -112,7 +162,7 @@ Namespace Strikes
         End Function
 
         Overridable Function CritChance() As Double
-            Return 0
+            Return sim.MainStat.crit
         End Function
 
 

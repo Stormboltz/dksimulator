@@ -122,7 +122,7 @@ Public Class Talents
     Function GetNumOfThisSchool(ByVal School As Schools) As Integer
         Dim i As Integer
         For Each T As Talent In Talents.Values
-            If T.School = School Then i = i + 1
+            If T.School = School Then i = i + T.Value
         Next
         Return i
     End Function

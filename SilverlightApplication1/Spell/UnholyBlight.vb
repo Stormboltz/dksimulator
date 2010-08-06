@@ -7,13 +7,11 @@ Friend Class UnholyBlight
 	
 	
 	Function Apply(T As Long,damage As Integer) As Double
-		Dim dégat As Integer
-		dégat = damage * 0.1
-
-		If sim.character.glyph.UnholyBlight Then dégat = dégat * 1.4
-		HitCount = HitCount + 1
-		total = total + dégat
-        If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "UnholyBlight hit for " & dégat)
+        LastDamage = damage * 0.1
+        If sim.Character.Glyph.UnholyBlight Then LastDamage = LastDamage * 1.4
+        HitCount = HitCount + 1
+        total = total + LastDamage
+        If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "UnholyBlight hit for " & LastDamage)
         Return True
 	End Function
 End Class

@@ -18,75 +18,75 @@ Sub New(S As sim)
 	End Sub
 
 	Overrides Function ApplyDamage(T As long) As boolean
-		Dim dégat As long
-		Dim WSpeed As Single
-		Dim MeleeMissChance As Single
-		Dim MeleeDodgeChance As Single
-		Dim MeleeGlacingChance As Single
-		Dim MeleeParryChance As Single
-		Dim ChanceNotToTouch As Single
-		
-		WSpeed = sim.MainStat.MHWeaponSpeed
-		
+
+        Dim WSpeed As Single
+        Dim MeleeMissChance As Single
+        Dim MeleeDodgeChance As Single
+        Dim MeleeGlacingChance As Single
+        Dim MeleeParryChance As Single
+        Dim ChanceNotToTouch As Single
+
+        WSpeed = sim.MainStat.MHWeaponSpeed
+
         NextWhiteMainHit = T + (WSpeed * 100) / sim.MainStat.PhysicalHaste
-		sim.FutureEventManager.Add(NextWhiteMainHit,"MainHand")
-		
+        sim.FutureEventManager.Add(NextWhiteMainHit, "MainHand")
+
         If sim.BloodPresence = 1 Then
             If sim.RuneStrike.trigger = True And sim.RunicPower.Check(20) Then
                 sim.RuneStrike.ApplyDamage(T)
                 Return True
             End If
         End If
-		
-		Dim RNG As Double
-		RNG = RngHit
-		MeleeGlacingChance = 0.25
-		MeleeDodgeChance = 0.065
+
+        Dim RNG As Double
+        RNG = RngHit
+        MeleeGlacingChance = 0.25
+        MeleeDodgeChance = 0.065
         If sim.BloodPresence = 1 Then
             MeleeParryChance = 0.14
         Else
             MeleeParryChance = 0
         End If
-		If sim.mainstat.DualW Then
-			MeleeMissChance = 0.27
-		Else
-			MeleeMissChance = 0.08
-		End If
-		
-		ChanceNotToTouch = math.Max(0, MeleeMissChance - sim.mainstat.Hit) + math.Max(0, MeleeDodgeChance  - sim.mainstat.MHExpertise) + math.Max(0, MeleeParryChance - sim.mainstat.MHExpertise)
-		
-		If RNG < ChanceNotToTouch Then
-			MissCount = MissCount + 1
-			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "MH fail")
-            Return False
-		End If
-		
-		If RNG < (ChanceNotToTouch + MeleeGlacingChance) Then
-			dégat = AvrgNonCrit(T)*0.7
-			GlancingCount = GlancingCount + 1
-			totalGlance += dégat
-			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "MH glancing for " & dégat)
-		End If
-		
-		If RNG >= (ChanceNotToTouch + MeleeGlacingChance) and RNG < (ChanceNotToTouch + MeleeGlacingChance + CritChance) Then
-			'CRIT !
-			dégat = AvrgCrit(T)
-			CritCount = CritCount + 1
-			If sim.combatlog.LogDetails Then sim.combatlog.write(T  & vbtab &  "MH crit for " & dégat )
-            sim.proc.tryOnCrit()
-			totalcrit += dégat
-		End If
-		If RNG >= (ChanceNotToTouch + MeleeGlacingChance + CritChance) Then
-			'normal hit3
-			dégat = AvrgNonCrit(T)
-			HitCount = HitCount + 1
-			totalhit += dégat
-			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "MH hit for " & dégat )
-		End If
-		
+        If sim.mainstat.DualW Then
+            MeleeMissChance = 0.27
+        Else
+            MeleeMissChance = 0.08
+        End If
 
-		total = total + dégat
-        If sim.Character.Talents.Talent("Necrosis").Value > 0 Then sim.Necrosis.Apply(dégat, T)
+        ChanceNotToTouch = math.Max(0, MeleeMissChance - sim.mainstat.Hit) + math.Max(0, MeleeDodgeChance - sim.mainstat.MHExpertise) + math.Max(0, MeleeParryChance - sim.mainstat.MHExpertise)
+
+        If RNG < ChanceNotToTouch Then
+            MissCount = MissCount + 1
+            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "MH fail")
+            Return False
+        End If
+
+        If RNG < (ChanceNotToTouch + MeleeGlacingChance) Then
+            LastDamage = AvrgNonCrit(T) * 0.7
+            GlancingCount = GlancingCount + 1
+            totalGlance += LastDamage
+            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "MH glancing for " & LastDamage)
+        End If
+
+        If RNG >= (ChanceNotToTouch + MeleeGlacingChance) And RNG < (ChanceNotToTouch + MeleeGlacingChance + CritChance) Then
+            'CRIT !
+            LastDamage = AvrgCrit(T)
+            CritCount = CritCount + 1
+            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "MH crit for " & LastDamage)
+            sim.proc.tryOnCrit()
+            totalcrit += LastDamage
+        End If
+        If RNG >= (ChanceNotToTouch + MeleeGlacingChance + CritChance) Then
+            'normal hit3
+            LastDamage = AvrgNonCrit(T)
+            HitCount = HitCount + 1
+            totalhit += LastDamage
+            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "MH hit for " & LastDamage)
+        End If
+
+
+        total = total + LastDamage
+        If sim.Character.Talents.Talent("Necrosis").Value > 0 Then sim.Necrosis.Apply(LastDamage, T)
         If sim.proc.MHBloodCakedBlade.TryMe(T) Then sim.BloodCakedBlade.ApplyDamage(T)
         sim.proc.tryOnMHWhitehitProc()
         If sim.proc.ScentOfBlood.IsActive Then

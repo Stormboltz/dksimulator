@@ -52,21 +52,21 @@ Friend Class DeathandDecay
                 Return False
             End If
             RNG = RngCrit
-            Dim dégat As Integer
+
             If RNG <= CritChance Then
-                dégat = AvrgCrit(T, Tar)
-                If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "D&D crit for " & dégat)
+                LastDamage = AvrgCrit(T, Tar)
+                If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "D&D crit for " & LastDamage)
                 CritCount = CritCount + 1
-                totalcrit += dégat
+                totalcrit += LastDamage
             Else
-                dégat = AvrgNonCrit(T, Tar)
+                LastDamage = AvrgNonCrit(T, Tar)
                 HitCount = HitCount + 1
-                totalhit += dégat
-                If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "D&D hit for " & dégat)
+                totalhit += LastDamage
+                If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "D&D hit for " & LastDamage)
             End If
 
 
-            total = total + dégat
+            total = total + LastDamage
         Next
         nextTick = T + 100
         If nextTick > ActiveUntil Then

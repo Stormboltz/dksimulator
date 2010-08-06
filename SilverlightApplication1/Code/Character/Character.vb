@@ -200,7 +200,7 @@ Friend Class Character
         tmp = tmp - tmp2
         tmp = tmp + (750 * 1.4 * Buff.StatAdd)
         tmp = tmp * (1 + Talents.Talent("Toughness").Value * 0.0333)
-        If sim.FrostPresence = 1 Then
+        If sim.BloodPresence = 1 Then
             tmp = tmp * 1.6
         End If
 

@@ -49,46 +49,46 @@ Friend Class OffHand
             Return False
 		End If
 
-		dim dégat as Integer
-		If RNG < (ChanceNotToTouch + MeleeGlacingChance) Then
-			'Glancing
-			dégat = AvrgNonCrit(T)*0.7
-			GlancingCount = GlancingCount + 1
-			totalGlance += dégat
-			'If sim.combatlog.LogDetails Then 
-				if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH glancing for " & dégat)
-			'End If
-		End If
-		
-		If RNG >= (ChanceNotToTouch + MeleeGlacingChance) and RNG < (ChanceNotToTouch + MeleeGlacingChance + CritChance) Then
-			'CRIT !
-			CritCount = CritCount + 1
-			dégat = AvrgCrit(T)
-			'If sim.combatlog.LogDetails Then 
-				if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH crit for " & dégat )
-			'End If
+
+        If RNG < (ChanceNotToTouch + MeleeGlacingChance) Then
+            'Glancing
+            LastDamage = AvrgNonCrit(T) * 0.7
+            GlancingCount = GlancingCount + 1
+            totalGlance += LastDamage
+            'If sim.combatlog.LogDetails Then 
+            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "OH glancing for " & LastDamage)
+            'End If
+        End If
+
+        If RNG >= (ChanceNotToTouch + MeleeGlacingChance) And RNG < (ChanceNotToTouch + MeleeGlacingChance + CritChance) Then
+            'CRIT !
+            CritCount = CritCount + 1
+            LastDamage = AvrgCrit(T)
+            'If sim.combatlog.LogDetails Then 
+            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "OH crit for " & LastDamage)
+            'End If
             sim.proc.tryOnCrit()
-			totalcrit += dégat
-		End If
-		
-		If RNG >= (ChanceNotToTouch + MeleeGlacingChance + CritChance) Then
-			'normal hit3
-			dégat = AvrgNonCrit(T)
-			HitCount = HitCount + 1
-			'If sim.combatlog.LogDetails Then 
-				if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "OH hit for " & dégat)
-			'End If
-			totalhit += dégat
-			
-		End If
-		
-		If sim.proc.ScentOfBlood.IsActive  Then
-			sim.proc.ScentOfBlood.Use
-			Sim.RunicPower.add(10)
-		End If
-		total = total + dégat
+            totalcrit += LastDamage
+        End If
+
+        If RNG >= (ChanceNotToTouch + MeleeGlacingChance + CritChance) Then
+            'normal hit3
+            LastDamage = AvrgNonCrit(T)
+            HitCount = HitCount + 1
+            'If sim.combatlog.LogDetails Then 
+            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "OH hit for " & LastDamage)
+            'End If
+            totalhit += LastDamage
+
+        End If
+
+        If sim.proc.ScentOfBlood.IsActive Then
+            sim.proc.ScentOfBlood.Use()
+            Sim.RunicPower.add(10)
+        End If
+        total = total + LastDamage
         If sim.Character.Talents.Talent("Necrosis").Value > 0 Then
-            Nec = sim.OHNecrosis.Apply(dégat, T)
+            Nec = sim.OHNecrosis.Apply(LastDamage, T)
         End If
 		If sim.proc.OHBloodCakedBlade.TryMe(T) Then sim.OHBloodCakedBlade.ApplyDamage(T)
         sim.proc.TryOnOHHitProc()

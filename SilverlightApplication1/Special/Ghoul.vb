@@ -40,7 +40,7 @@ Friend class Ghoul
 			MeleeMissChance = math.Max(0.08 - sim.GhoulStat.Hit,0)
 			MeleeDodgeChance =  math.Max(0.065 - sim.GhoulStat.Expertise,0)
 			SpellMissChance = math.Max(0.17 - sim.GhoulStat.SpellHit,0)
-            If sim.Character.Talents.Talent("MasterOfGhouls").Value Then
+            If sim.Character.Talents.GetNumOfThisSchool(Talents.Schools.Unholy) > 30 Then
                 ActiveUntil = sim.MaxTime
                 cd = sim.MaxTime
                 isGuardian = False
@@ -111,43 +111,41 @@ Friend class Ghoul
 	End Function
 	
 	Function ApplyDamage(T As long) As boolean
-		Dim dégat As integer
-		
-		
-		Dim WSpeed As Single
-		WSpeed = sim.GhoulStat.MHWeaponSpeed
-		NextWhiteMainHit = T + sim.GhoulStat.SwingTime(Haste()) * 100
-		sim.FutureEventManager.Add(NextWhiteMainHit,"Ghoul")
-		Dim RNG As Double
-		RNG = RngHit
+        Dim LastDamage As Integer
+        Dim WSpeed As Single
+        WSpeed = sim.GhoulStat.MHWeaponSpeed
+        NextWhiteMainHit = T + sim.GhoulStat.SwingTime(Haste()) * 100
+        sim.FutureEventManager.Add(NextWhiteMainHit, "Ghoul")
+        Dim RNG As Double
+        RNG = RngHit
 
-		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
-			MissCount = MissCount + 1
-			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Ghoul fail")
+        If RNG < (MeleeMissChance + MeleeDodgeChance) Then
+            MissCount = MissCount + 1
+            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "Ghoul fail")
             Return False
-		End If
-		If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then
-			dégat = AvrgNonCrit(T)*0.7
-			total = total + dégat
-			TotalGlance += dégat
-			GlancingCount += 1
-		End If
-		If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) and RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance) Then
-			'CRIT !
-			dégat = AvrgCrit(T)
-			CritCount = CritCount + 1
-			totalcrit += dégat
-			total = total + dégat
-			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Ghoul crit for " & dégat)
-		End If
-		If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance) Then
-			'normal hit
-			HitCount = HitCount + 1
-			dégat = AvrgNonCrit(T)
-			total = total + dégat
-			totalhit += dégat
-			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Ghoul hit for " & dégat)
-		End If
+        End If
+        If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then
+            LastDamage = AvrgNonCrit(T) * 0.7
+            total = total + LastDamage
+            TotalGlance += LastDamage
+            GlancingCount += 1
+        End If
+        If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) And RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance) Then
+            'CRIT !
+            LastDamage = AvrgCrit(T)
+            CritCount = CritCount + 1
+            totalcrit += LastDamage
+            total = total + LastDamage
+            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "Ghoul crit for " & LastDamage)
+        End If
+        If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance) Then
+            'normal hit
+            HitCount = HitCount + 1
+            LastDamage = AvrgNonCrit(T)
+            total = total + LastDamage
+            totalhit += LastDamage
+            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "Ghoul hit for " & LastDamage)
+        End If
 		return true
 	End Function
 	Function AvrgNonCrit(T As long) As Double
@@ -169,28 +167,28 @@ Friend class Ghoul
 	End Function
 	Function TryClaw(T As Long) As Boolean
 		Dim RNG As Double
-		Dim dégat As Integer
-		If NextClaw > T Then Return False
-		RNG = me.Claw.RngHit
-		If RNG < (MeleeMissChance + MeleeDodgeChance) Then
-			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Ghoul's Claw fail")
-			Claw.MissCount += 1
+        Dim LastDamage As Integer
+        If NextClaw > T Then Return False
+        RNG = Me.Claw.RngHit
+        If RNG < (MeleeMissChance + MeleeDodgeChance) Then
+            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "Ghoul's Claw fail")
+            Claw.MissCount += 1
             Return False
-		End If
-		RNG = me.Claw.RngCrit
-		If RNG <= CritChance Then
-			dégat = ClawAvrgCrit(T)
-			Claw.CritCount += 1
-			Claw.total += dégat
-			Claw.totalcrit += dégat
-			if sim.combatlog.LogDetails then 	sim.combatlog.write(T  & vbtab &  "Ghoul's Claw for " & dégat)
-		Else
-			dégat = ClawAvrgNonCrit(T)
-			Claw.HitCount += 1
-			Claw.total += dégat
-			Claw.totalhit += dégat
-			if sim.combatlog.LogDetails then 	sim.combatlog.write(T  & vbtab &  "Ghoul's Claw hit for " & dégat)
-		End If
+        End If
+        RNG = Me.Claw.RngCrit
+        If RNG <= CritChance Then
+            LastDamage = ClawAvrgCrit(T)
+            Claw.CritCount += 1
+            Claw.total += LastDamage
+            Claw.totalcrit += LastDamage
+            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "Ghoul's Claw for " & LastDamage)
+        Else
+            LastDamage = ClawAvrgNonCrit(T)
+            Claw.HitCount += 1
+            Claw.total += LastDamage
+            Claw.totalhit += LastDamage
+            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "Ghoul's Claw hit for " & LastDamage)
+        End If
 		NextClaw = T+sim.GhoulStat.ClawTime(haste()) * 100
 		sim.FutureEventManager.Add(NextClaw,"Ghoul")
 		return true

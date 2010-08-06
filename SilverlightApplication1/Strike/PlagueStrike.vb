@@ -23,22 +23,22 @@ Friend Class PlagueStrike
             sim.RunicPower.add(10 + sim.Character.Talents.Talent("Dirge").Value * 5)
         End If
 
-        Dim dégat As Integer
+
         RNG = RngCrit
         If RNG <= CritChance Then
             CritCount = CritCount + 1
-            dégat = AvrgCrit(T)
-            sim.combatlog.write(T & vbtab & "PS crit for " & dégat)
+            LastDamage = AvrgCrit(T)
+            sim.combatlog.write(T & vbtab & "PS crit for " & LastDamage)
             sim.proc.tryOnCrit()
 
-            totalcrit += dégat
+            totalcrit += LastDamage
         Else
             HitCount = HitCount + 1
-            dégat = AvrgNonCrit(T)
-            totalhit += dégat
-            sim.combatlog.write(T & vbtab & "PS hit for " & dégat)
+            LastDamage = AvrgNonCrit(T)
+            totalhit += LastDamage
+            sim.combatlog.write(T & vbtab & "PS hit for " & LastDamage)
         End If
-        total = total + dégat
+        total = total + LastDamage
         If OffHand = False Then
             sim.proc.TryOnMHHitProc()
             sim.runes.UseUnholy(T, False)

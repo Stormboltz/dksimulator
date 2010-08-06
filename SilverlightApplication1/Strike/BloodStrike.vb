@@ -10,45 +10,45 @@ Friend class BloodStrike
 	
 	public Overrides Function ApplyDamage(T As Long) As Boolean
 		Dim RNG As Double
-		dim dégat as Integer
 
-		If OffHand = False Then
-			UseGCD(T)
-			If sim.proc.ThreatOfThassarian.TryMe(T) Then sim.OHBloodStrike.ApplyDamage(T)
-			If DoMyStrikeHit() = False Then
-				sim.CombatLog.write(T & vbTab & "BS fail")
-				MissCount += 1
-				Return False
-			End If
-		Else
+
+        If OffHand = False Then
+            UseGCD(T)
+            If sim.proc.ThreatOfThassarian.TryMe(T) Then sim.OHBloodStrike.ApplyDamage(T)
+            If DoMyStrikeHit() = False Then
+                sim.CombatLog.write(T & vbTab & "BS fail")
+                MissCount += 1
+                Return False
+            End If
+        Else
             If DoMyToTHit() = False Then Return False
-		End If
-		If sim.KeepBloodSync Then
-			If sim.BloodToSync = True Then
-				sim.BloodToSync = False
-			Else
-				sim.BloodToSync = True
-			End If
-		End If
-		If OffHand = False Then 
-			sim.RunicPower.add(10)
-		End If
-		
-		RNG = RngCrit
+        End If
+        If sim.KeepBloodSync Then
+            If sim.BloodToSync = True Then
+                sim.BloodToSync = False
+            Else
+                sim.BloodToSync = True
+            End If
+        End If
+        If OffHand = False Then
+            sim.RunicPower.add(10)
+        End If
 
-		If RNG <= CritChance() Then
-			dégat = AvrgCrit(T)
-			CritCount = CritCount + 1
-			sim.CombatLog.write(T & vbTab & "BS crit for " & dégat)
-			TotalCrit += dégat
+        RNG = RngCrit
+
+        If RNG <= CritChance() Then
+            LastDamage = AvrgCrit(T)
+            CritCount = CritCount + 1
+            sim.CombatLog.write(T & vbTab & "BS crit for " & LastDamage)
+            TotalCrit += LastDamage
             sim.proc.tryOnCrit()
-		Else
-			dégat = AvrgNonCrit(T)
-			HitCount = HitCount + 1
-			TotalHit += dégat
-			sim.CombatLog.write(T & vbTab & "BS hit for " & dégat)
-		End If
-		total = total + dégat
+        Else
+            LastDamage = AvrgNonCrit(T)
+            HitCount = HitCount + 1
+            TotalHit += LastDamage
+            sim.CombatLog.write(T & vbTab & "BS hit for " & LastDamage)
+        End If
+        total = total + LastDamage
 
 		If OffHand = False Then
             sim.proc.TryOnMHHitProc()

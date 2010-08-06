@@ -13,17 +13,17 @@ Sub New(S As sim)
 		HasteSensible = true
 	End Sub
 	Public Overrides Function ApplyDamage(T As Long) As Boolean
-		dim dégat as Integer
-		If DoMyStrikeHit = false Then
-			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "BCB fail")
-			MissCount = MissCount + 1
+
+        If DoMyStrikeHit = False Then
+            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "BCB fail")
+            MissCount = MissCount + 1
             Return False
-		End If
-		dégat = AvrgNonCrit(T)
-		totalhit += dégat
-		total = total + dégat
-		HitCount = HitCount + 1
-		if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "BCB hit for " & dégat )
+        End If
+        LastDamage = AvrgNonCrit(T)
+        totalhit += LastDamage
+        total = total + LastDamage
+        HitCount = HitCount + 1
+        If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "BCB hit for " & LastDamage)
 		return true
 	End Function
 	overrides Function AvrgNonCrit(T As Long, target As Targets.Target ) As Double

@@ -68,21 +68,21 @@ Friend Class Gargoyle
 		End If
 
 		RNG = RngCrit
-		Dim dégat As Integer
-		If RNG <= CritChance() Then
-			dégat = AvrgCrit(T)
-			CritCount = CritCount + 1
-			TotalCrit += dégat
-			If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "Gargoyle Strike crit for " & dégat)
-		Else
-			dégat = AvrgNonCrit(T)
-			HitCount = HitCount + 1
-			TotalHit += dégat
-			If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "Gargoyle Strike hit for " & dégat)
-		End If
+        Dim LastDamage As Integer
+        If RNG <= CritChance() Then
+            LastDamage = AvrgCrit(T)
+            CritCount = CritCount + 1
+            TotalCrit += LastDamage
+            If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "Gargoyle Strike crit for " & LastDamage)
+        Else
+            LastDamage = AvrgNonCrit(T)
+            HitCount = HitCount + 1
+            TotalHit += LastDamage
+            If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "Gargoyle Strike hit for " & LastDamage)
+        End If
 
 
-		total = total + dégat
+        total = total + LastDamage
 
 		Return True
 	End Function

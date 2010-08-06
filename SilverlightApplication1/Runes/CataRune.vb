@@ -23,7 +23,7 @@ Public Class CataRune
         Me.reserved = False
         Me.death = False
 
-        MaxValue = 100 + S.Character.Talents.Talent("IcyTalons").Value * 30
+        MaxValue = 100
         Me.Value = MaxValue
         sim = S
 

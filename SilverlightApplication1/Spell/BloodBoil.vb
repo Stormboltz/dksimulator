@@ -27,19 +27,19 @@ Friend Class BloodBoil
 			End If
 			Sim.RunicPower.add (10)
 			RNG = RngCrit
-			dim dégat as Integer
-			If RNG <= CritChance Then
-				dégat = AvrgCrit(T,Tar)
-				sim.combatlog.write(T  & vbtab &  "BB crit for " & dégat  )
-				CritCount = CritCount + 1
-				totalcrit += dégat
-			Else
-				dégat = AvrgNonCrit(T,Tar)
-				HitCount = HitCount + 1
-				totalhit += dégat
-				sim.combatlog.write(T  & vbtab &  "BB hit for " & dégat )
-			End If
-			total = total + dégat
+
+            If RNG <= CritChance Then
+                LastDamage = AvrgCrit(T, Tar)
+                sim.combatlog.write(T & vbtab & "BB crit for " & LastDamage)
+                CritCount = CritCount + 1
+                totalcrit += LastDamage
+            Else
+                LastDamage = AvrgNonCrit(T, Tar)
+                HitCount = HitCount + 1
+                totalhit += LastDamage
+                sim.combatlog.write(T & vbtab & "BB hit for " & LastDamage)
+            End If
+            total = total + LastDamage
 			
             sim.proc.TryOnSpellHit()
 		Next

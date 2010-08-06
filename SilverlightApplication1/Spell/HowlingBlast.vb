@@ -44,21 +44,21 @@ Friend Class HowlingBlast
 
         For Each Tar In sim.Targets.AllTargets
             RNG = RngCrit
-            Dim dégat As Integer
+
             Dim ccT As Double
             ccT = CritChance
             If RNG <= ccT Then
                 CritCount = CritCount + 1
-                dégat = AvrgCrit(T, Tar)
-                sim.combatlog.write(T & vbtab & "HB crit for " & dégat)
-                totalcrit += dégat
+                LastDamage = AvrgCrit(T, Tar)
+                sim.combatlog.write(T & vbtab & "HB crit for " & LastDamage)
+                totalcrit += LastDamage
             Else
                 HitCount = HitCount + 1
-                dégat = AvrgNonCrit(T, Tar)
-                sim.combatlog.write(T & vbtab & "HB hit for " & dégat)
-                totalhit += dégat
+                LastDamage = AvrgNonCrit(T, Tar)
+                sim.combatlog.write(T & vbtab & "HB hit for " & LastDamage)
+                totalhit += LastDamage
             End If
-            total = total + dégat
+            total = total + LastDamage
             sim.proc.TryOnSpellHit()
         Next
 

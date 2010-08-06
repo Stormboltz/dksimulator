@@ -36,22 +36,22 @@ Friend Class DeathStrike
 			Sim.runicpower.add(5*sim.MainStat.T74PDPS)
 		End If
 		
-		dim dégat as Integer
-		RNG = RngCrit
-		If RNG <= CritChance Then
-			CritCount = CritCount + 1
-			dégat = AvrgCrit(T)
-			sim.combatlog.write(T  & vbtab &  "DS crit for " & dégat  )
+
+        RNG = RngCrit
+        If RNG <= CritChance Then
+            CritCount = CritCount + 1
+            LastDamage = AvrgCrit(T)
+            sim.combatlog.write(T & vbtab & "DS crit for " & LastDamage)
             sim.proc.tryOnCrit()
-			
-			totalcrit += dégat
-		Else
-			HitCount = HitCount + 1
-			dégat = AvrgNonCrit(T)
-			totalhit += dégat
-			sim.combatlog.write(T  & vbtab &  "DS hit for " & dégat )
-		End If
-		total = total + dégat
+
+            totalcrit += LastDamage
+        Else
+            HitCount = HitCount + 1
+            LastDamage = AvrgNonCrit(T)
+            totalhit += LastDamage
+            sim.combatlog.write(T & vbtab & "DS hit for " & LastDamage)
+        End If
+        total = total + LastDamage
 		If OffHand = False Then
             sim.proc.TryOnMHHitProc()
 			If sim.proc.DRM.TryMe(T) Then

@@ -254,7 +254,7 @@ Public Class Sim
         proc.Bloodlust.TryMe(TimeStamp)
         Select Case FE.Ev
             Case "Boss"
-                If FrostPresence = 1 Then
+                If BloodPresence = 1 Then
                     If boss.NextHit <= TimeStamp Then
                         boss.ApplyDamage(TimeStamp)
                     End If
@@ -518,7 +518,7 @@ Public Class Sim
         'Diagnostics.Debug.WriteLine("Max events in queue " & me.FutureEventManager.Max )
         CombatLog.finish()
         On Error Resume Next
-        If Me.FrostPresence = 1 Then
+        If Me.BloodPresence = 1 Then
             SimConstructor.DPSs.Add(TPS, Me.EPStat)
         Else
             SimConstructor.DPSs.Add(DPS, Me.EPStat)
@@ -979,7 +979,7 @@ errH:
         For Each obj In Me.DamagingObject
             Threat += obj.total * obj.ThreadMultiplicator
         Next
-        If FrostPresence = 1 Then
+        If BloodPresence = 1 Then
             Threat = Threat * 2.0735
         Else
             Threat = (Threat * 0.8)

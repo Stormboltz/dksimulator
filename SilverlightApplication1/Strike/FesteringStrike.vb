@@ -21,20 +21,20 @@
         Dim intCount As Integer = 0
 
         RNG = RngCrit
-        Dim dégat As Integer
+
         If RNG <= CritChance() Then
             CritCount = CritCount + 1
-            dégat = AvrgCrit(T)
-            TotalCrit += dégat
-            sim.CombatLog.write(T & vbTab & "FeS crit for " & dégat)
+            LastDamage = AvrgCrit(T)
+            TotalCrit += LastDamage
+            sim.CombatLog.write(T & vbTab & "FeS crit for " & LastDamage)
         Else
             HitCount = HitCount + 1
-            dégat = AvrgNonCrit(T)
-            TotalHit += dégat
-            sim.CombatLog.write(T & vbTab & "FeS hit for " & dégat)
+            LastDamage = AvrgNonCrit(T)
+            TotalHit += LastDamage
+            sim.CombatLog.write(T & vbTab & "FeS hit for " & LastDamage)
         End If
 
-        total = total + dégat
+        total = total + LastDamage
         sim.proc.TryOnMHHitProc()
         sim.Targets.MainTarget.BloodPlague.FadeAt = sim.Targets.MainTarget.BloodPlague.FadeAt + 6 * 100
         sim.Targets.MainTarget.FrostFever.FadeAt = sim.Targets.MainTarget.FrostFever.FadeAt + 6 * 100

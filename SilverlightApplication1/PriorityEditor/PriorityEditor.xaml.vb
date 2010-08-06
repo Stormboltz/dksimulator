@@ -73,13 +73,8 @@ Partial Public Class PriorityEditor
 
     End Sub
     Sub RemovePrio(ByVal s As PrioButton)
-        Dim p As PrioButton
-        For Each p In Me.grpCurrentPrio.Children
-            If (p.number > s.number) Then
-                MoveUp(p)
-            End If
-        Next
         grpCurrentPrio.Children.Remove(s)
+        Renumber()
     End Sub
     Sub AddPrio(ByVal s As PrioButton)
         Dim i As Integer

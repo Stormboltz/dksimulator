@@ -27,27 +27,27 @@ Friend Class ScourgeStrike
 		End If
 		
         sim.RunicPower.add(10 + sim.Character.Talents.Talent("Dirge").Value * 5 + 5 * sim.MainStat.T74PDPS)
-        Dim dégat As Integer
+
         tmpPhysical = 0
         tmpMagical = 0
         'Physical part
         RNG = RngCrit
         If RNG <= CritChance Then
             CritCount = CritCount + 1
-            dégat = AvrgNonCrit(T) * (1 + CritCoef)
-            sim.combatlog.write(T & vbtab & "SS Physical crit for " & dégat)
-            totalcrit += dégat
+            LastDamage = AvrgNonCrit(T) * (1 + CritCoef)
+            sim.combatlog.write(T & vbtab & "SS Physical crit for " & LastDamage)
+            totalcrit += LastDamage
             sim.proc.tryOnCrit()
-            sim.ScourgeStrikeMagical.ApplyDamage(dégat, T, True)
+            sim.ScourgeStrikeMagical.ApplyDamage(LastDamage, T, True)
         Else
             HitCount = HitCount + 1
-            dégat = AvrgNonCrit(T)
-            totalhit += dégat
-            sim.combatlog.write(T & vbtab & "SS Physical hit for " & dégat)
-            sim.ScourgeStrikeMagical.ApplyDamage(dégat, T, False)
+            LastDamage = AvrgNonCrit(T)
+            totalhit += LastDamage
+            sim.combatlog.write(T & vbtab & "SS Physical hit for " & LastDamage)
+            sim.ScourgeStrikeMagical.ApplyDamage(LastDamage, T, False)
         End If
 
-        total = total + dégat
+        total = total + LastDamage
 
 
         If sim.character.glyph.ScourgeStrike Then

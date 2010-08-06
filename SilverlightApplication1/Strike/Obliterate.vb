@@ -40,24 +40,24 @@ Friend Class Obliterate
 		If OffHand = False Then 
             sim.RunicPower.add(15 + 5 * sim.Character.Talents.Talent("ChillOfTheGrave").Value + 5 * sim.MainStat.T74PDPS)
         End If
-        Dim dégat As Integer
+
         Dim ccT As Double
         ccT = CritChance
 
         RNG = RngCrit
         If RNG <= ccT Then
             CritCount = CritCount + 1
-            dégat = AvrgCrit(T)
-            sim.combatlog.write(T & vbtab & "OB crit for " & dégat)
+            LastDamage = AvrgCrit(T)
+            sim.combatlog.write(T & vbtab & "OB crit for " & LastDamage)
             sim.proc.tryOnCrit()
-            totalcrit += dégat
+            totalcrit += LastDamage
         Else
             HitCount = HitCount + 1
-            dégat = AvrgNonCrit(T)
-            sim.combatlog.write(T & vbtab & "OB hit for " & dégat)
-            totalhit += dégat
+            LastDamage = AvrgNonCrit(T)
+            sim.combatlog.write(T & vbtab & "OB hit for " & LastDamage)
+            totalhit += LastDamage
         End If
-        total = total + dégat
+        total = total + LastDamage
         If OffHand Then
             sim.proc.TryOnOHHitProc()
         Else

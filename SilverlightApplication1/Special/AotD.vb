@@ -87,7 +87,7 @@ Public Class AotD
 
 
     Function ApplyDamage(ByVal T As Long) As Boolean
-        Dim dégat As Integer
+        Dim LastDamage As Integer
         Dim WSpeed As Single
         WSpeed = MHWeaponSpeed
         NextWhiteMainHit = T + (WSpeed * 100) / PhysicalHaste()
@@ -101,26 +101,26 @@ Public Class AotD
             Return False
         End If
         If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then
-            dégat = AvrgNonCrit(T) * 0.7
-            total = total + dégat
-            totalhit += dégat
+            LastDamage = AvrgNonCrit(T) * 0.7
+            total = total + LastDamage
+            totalhit += LastDamage
             HitCount = HitCount + 8
         End If
         If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) And RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance) Then
             'CRIT !
-            dégat = AvrgCrit(T)
+            LastDamage = AvrgCrit(T)
             CritCount = CritCount + 8
-            totalcrit += dégat
-            total = total + dégat
-            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "AotD crit for " & dégat)
+            totalcrit += LastDamage
+            total = total + LastDamage
+            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "AotD crit for " & LastDamage)
         End If
         If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance) Then
             'normal hit
             HitCount = HitCount + 8
-            dégat = AvrgNonCrit(T)
-            total = total + dégat
-            totalhit += dégat
-            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "AotD hit for " & dégat)
+            LastDamage = AvrgNonCrit(T)
+            total = total + LastDamage
+            totalhit += LastDamage
+            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "AotD hit for " & LastDamage)
         End If
         Return True
     End Function
@@ -144,7 +144,7 @@ Public Class AotD
     End Function
     Function Claw(ByVal T As Long) As Boolean
         Dim RNG As Double
-        Dim dégat As Integer
+        Dim LastDamage As Integer
 
         RNG = RngHit
         If RNG < (MeleeMissChance + MeleeDodgeChance) Then
@@ -154,17 +154,17 @@ Public Class AotD
         End If
         RNG = RngCrit
         If RNG <= CritChance Then
-            dégat = ClawAvrgCrit(T)
+            LastDamage = ClawAvrgCrit(T)
             CritCount = CritCount + 1
-            total = total + dégat
-            totalcrit += dégat
-            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "AotD Ghoul's Claw for " & dégat)
+            total = total + LastDamage
+            totalcrit += LastDamage
+            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "AotD Ghoul's Claw for " & LastDamage)
         Else
-            dégat = ClawAvrgNonCrit(T)
+            LastDamage = ClawAvrgNonCrit(T)
             HitCount = HitCount + 1
-            total = total + dégat
-            totalhit += dégat
-            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "AotD Ghoul's Claw hit for " & dégat)
+            total = total + LastDamage
+            totalhit += LastDamage
+            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "AotD Ghoul's Claw hit for " & LastDamage)
         End If
         NextClaw = T + 450
         sim.FutureEventManager.Add(NextClaw, "AotD")

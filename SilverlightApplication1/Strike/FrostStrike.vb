@@ -46,22 +46,22 @@ Friend Class FrostStrike
             If DoMyToTHit() = False Then Return False
 		End If
 		Dim ccT As Double
-		Dim dégat As Integer
-		ccT = CritChance
-		RNG = RngCrit
-		If RNG < ccT Then
-			dégat = AvrgCrit(T)
-			sim.combatlog.write(T  & vbtab &  "FS crit for " & dégat)
-			CritCount = CritCount + 1
+
+        ccT = CritChance
+        RNG = RngCrit
+        If RNG < ccT Then
+            LastDamage = AvrgCrit(T)
+            sim.combatlog.write(T & vbtab & "FS crit for " & LastDamage)
+            CritCount = CritCount + 1
             sim.proc.tryOnCrit()
-			totalcrit += dégat
-		Else
-			dégat = AvrgNonCrit(T)
-			HitCount = HitCount + 1
-			totalhit += dégat
-			sim.combatlog.write(T  & vbtab &  "FS hit for " & dégat)
-		End If
-		total = total + dégat
+            totalcrit += LastDamage
+        Else
+            LastDamage = AvrgNonCrit(T)
+            HitCount = HitCount + 1
+            totalhit += LastDamage
+            sim.combatlog.write(T & vbtab & "FS hit for " & LastDamage)
+        End If
+        total = total + LastDamage
 		If offhand Then
             sim.proc.TryOnOHHitProc()
 		Else

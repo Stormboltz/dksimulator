@@ -30,7 +30,14 @@ Public Class Supertype
 	Protected _RNG5 As Random
 	Friend RngCrit As Double
 	Friend  Rng3 As Double
-	Friend  Rng4 As Double
+    Friend Rng4 As Double
+
+    Friend BaseDamage As Double
+    Friend Coeficient As Double
+    Friend Multiplicator As Double
+
+    Friend LastDamage As Integer
+
 
     Overridable Function Report() As ReportLine
         If HitCount + CritCount = 0 Then Return Nothing

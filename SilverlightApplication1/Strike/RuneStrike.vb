@@ -23,44 +23,44 @@ Public Class RuneStrike
 	End Sub
 	
 	overrides Function ApplyDamage(T As long) As boolean
-		Dim dégat As Integer
-		Dim MeleeMissChance As Single
-		Dim RNG As Double
-		
-		trigger = false
-		Sim.RunicPower.Use(20)
-		
-		RNG = RngHit
-		MeleeMissChance = math.Min(sim.mainstat.Hit, 0.08)
-		If MeleeMissChance + RNG < 0.08 Then
-			MissCount = MissCount + 1
-			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Rune Strike fail")
+
+        Dim MeleeMissChance As Single
+        Dim RNG As Double
+
+        trigger = False
+        Sim.RunicPower.Use(20)
+
+        RNG = RngHit
+        MeleeMissChance = math.Min(sim.mainstat.Hit, 0.08)
+        If MeleeMissChance + RNG < 0.08 Then
+            MissCount = MissCount + 1
+            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "Rune Strike fail")
             Return False
-		End If
-		
-		
-		If OffHand = False Then
-			If sim.proc.ThreatOfThassarian.TryMe(T) Then sim.OHRuneStrike.ApplyDamage(T)
-		End If
-		
-		RNG = RngCrit
-		
-		If RNG < CritChance Then
-			'CRIT !
-			dégat = AvrgCrit(T)
+        End If
+
+
+        If OffHand = False Then
+            If sim.proc.ThreatOfThassarian.TryMe(T) Then sim.OHRuneStrike.ApplyDamage(T)
+        End If
+
+        RNG = RngCrit
+
+        If RNG < CritChance Then
+            'CRIT !
+            LastDamage = AvrgCrit(T)
             sim.proc.tryOnCrit()
-			
-			critcount += 1
-			totalcrit += dégat
-			If sim.combatlog.LogDetails Then sim.combatlog.write(T  & vbtab &  "Rune Strike crit for " & dégat )
-		Else
-			dégat = AvrgNonCrit(T)
-			hitcount += 1
-			totalhit += dégat
-			if sim.combatlog.LogDetails then sim.combatlog.write(T  & vbtab &  "Rune Strike hit for " & dégat )
-		End If
-		total = total + dégat
-        If sim.Character.Talents.Talent("Necrosis").Value > 0 Then sim.Necrosis.Apply(dégat, T)
+
+            critcount += 1
+            totalcrit += LastDamage
+            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "Rune Strike crit for " & LastDamage)
+        Else
+            LastDamage = AvrgNonCrit(T)
+            hitcount += 1
+            totalhit += LastDamage
+            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "Rune Strike hit for " & LastDamage)
+        End If
+        total = total + LastDamage
+        If sim.Character.Talents.Talent("Necrosis").Value > 0 Then sim.Necrosis.Apply(LastDamage, T)
 
         If OffHand = False Then
             If sim.proc.MHBloodCakedBlade.TryMe(T) Then
