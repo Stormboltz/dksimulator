@@ -30,15 +30,10 @@ Friend Class IcyTouch
     End Function
     Overrides Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
         If target Is Nothing Then target = sim.Targets.MainTarget
-        Dim lastMult As Double = Multiplicator
-        If sim.RuneForge.CheckCinderglacier(True) > 0 Then
-            Multiplicator *= 1.2
-        End If
-        If sim.ExecuteRange Then Multiplicator = Multiplicator * (1 + 0.06 * sim.Character.Talents.Talent("MercilessCombat").Value)
-        Multiplicator *= sim.RuneForge.RazorIceMultiplier(T)
         Dim tmp As Double = MyBase.AvrgNonCrit(T, target)
-        Multiplicator = lastMult
-
+        If sim.ExecuteRange Then tmp *= (1 + 0.06 * sim.Character.Talents.Talent("MercilessCombat").Value)
+        If sim.RuneForge.CheckCinderglacier(True) > 0 Then tmp *= 1.2
+        tmp *= sim.RuneForge.RazorIceMultiplier(T)
         'TODO: only on main target
         sim.Targets.MainTarget.FrostFever.Apply(T)
         'Moved this here as an IcyTouch with 1 CG charge left will reapply a CG buffed FF

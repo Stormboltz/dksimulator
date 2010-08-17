@@ -34,6 +34,22 @@ Partial Public Class ItemEditor
         DisplayItem()
         DisplayEnchant()
         DisplayGem()
+        displayReforgingFrom()
+        displayReforgingTo()
+    End Sub
+
+    Sub displayReforgingFrom()
+        cmbReforgeFrom.Items.Clear()
+    End Sub
+    Sub displayReforgingTo()
+        cmbReforgeTo.Items.Clear()
+        cmbReforgeTo.Items.Add("Haste")
+        cmbReforgeTo.Items.Add("Crit")
+        cmbReforgeTo.Items.Add("Hit")
+        cmbReforgeTo.Items.Add("Exp")
+        cmbReforgeTo.Items.Add("Mast")
+        cmbReforgeTo.Items.Add("Dodge")
+        cmbReforgeTo.Items.Add("Parry")
     End Sub
     Sub init(ByVal m As GearSelectorMainForm, ByVal slot As Integer)
         Mainframe = m
@@ -53,9 +69,6 @@ Partial Public Class ItemEditor
         Item = New Item(Me.Mainframe, 0)
         initiated = True
     End Sub
-
-
-
     Sub DisplayEnchant()
         Dim xmlDB As XDocument = Mainframe.EnchantDB
         Dim xmlItem As New XDocument
@@ -74,12 +87,10 @@ Partial Public Class ItemEditor
             End If
 
 
-            
+
         End If
         Mainframe.GetStats()
     End Sub
-
-
     Sub DisplayGem()
         lblGem1.Content = Item.gem1.name
         lblGem2.Content = Item.gem2.name
@@ -139,7 +150,6 @@ Partial Public Class ItemEditor
 
         Mainframe.GetStats()
     End Sub
-
     Sub EquipmentClick(ByVal sender As Object, ByVal e As EventArgs)
         'Try
         Dim GS As GearSelector
@@ -151,34 +161,17 @@ Partial Public Class ItemEditor
         GS.Show() 'Dialog(Me)
 
     End Sub
-
-
-
-
-
-
     Sub DisplayItem()
-
         Me.Equipment.Content = Item.name & "(" & Item.ilvl & ")"
-
-
         If Item.heroic = 1 Then
             lblHeroic.Content = "Heroic"
             lblHeroic.Foreground = New SolidColorBrush(Colors.Green)
-
         Else
             lblHeroic.Content = "Normal"
             lblHeroic.Foreground = New SolidColorBrush(Colors.Black)
         End If
-
-
-
-
         Dim i As Integer = 0
         Dim col As New Collections.Generic.List(Of String)
-
-
-
         If Item.Strength <> 0 Then col.Add("Strength = " & Item.Strength)
         If Item.Agility <> 0 Then col.Add("Agility = " & Item.Agility)
         If Item.HasteRating <> 0 Then col.Add("Haste Rating = " & Item.HasteRating)
@@ -217,7 +210,7 @@ Partial Public Class ItemEditor
                 lblStat4.Content = col(3)
                 lblStat5.Content = col(4)
         End Select
-       
+
         If Item.gem1.GemSlotColorName <> "" Then
             lblGemColor1.Content = " "
             lblGemColor1.Background = Item.gem1.GemSlotColor

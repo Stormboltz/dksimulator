@@ -55,12 +55,8 @@ Friend class DeathCoil
     End Function
     Overrides Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
         Dim tmp As Double
-        Dim lastMult As Double = Multiplicator
-        If sim.RuneForge.CheckCinderglacier(True) > 0 Then
-            Multiplicator *= 1.2
-        End If
         tmp = MyBase.AvrgNonCrit(T, target)
-        Multiplicator = lastMult
+        If sim.RuneForge.CheckCinderglacier(True) > 0 Then tmp *= 1.2
         Return tmp
     End Function
 	

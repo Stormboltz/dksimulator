@@ -10,41 +10,23 @@ Friend class BloodCakedBlade
 	Inherits Strikes.Strike
 Sub New(S As sim)
 		MyBase.New(s)
-		HasteSensible = true
-	End Sub
-	Public Overrides Function ApplyDamage(T As Long) As Boolean
-
-        If DoMyStrikeHit = False Then
-            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "BCB fail")
-            MissCount = MissCount + 1
-            Return False
-        End If
-        LastDamage = AvrgNonCrit(T)
-        totalhit += LastDamage
-        total = total + LastDamage
-        HitCount = HitCount + 1
-        If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "BCB hit for " & LastDamage)
-		return true
-	End Function
+        HasteSensible = True
+        BaseDamage = 0
+        Coeficient = 0.25
+        Multiplicator = 1
+    End Sub
+	
 	overrides Function AvrgNonCrit(T As Long, target As Targets.Target ) As Double
-		Dim tmp As Double
-		If offhand = false Then
-			tmp = sim.MainStat.MHBaseDamage
-		Else
-			tmp = sim.MainStat.OHBaseDamage
-			tmp = tmp * 0.5
-            tmp = tmp * (1 + sim.Character.Talents.Talent("NervesofColdSteel").Value * 8.3333 / 100)
+        Dim tmp As Double = MyBase.AvrgNonCrit(T, target)
+        tmp *= (1 + 4 * 0.125 * target.NumDesease)
+        If sim.EPStat = "EP HasteEstimated" Then
+            tmp *= sim.MainStat.EstimatedHasteBonus
         End If
-        tmp = tmp * (0.25 + 0.125 * target.NumDesease)
-		tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
-		If sim.EPStat = "EP HasteEstimated" Then
-			tmp = tmp*sim.MainStat.EstimatedHasteBonus
-		End If
 		return tmp
 	End Function
 
 	public Overrides Function CritChance() As Double
-		return sim.MainStat.crit
+        Return 0
 	End Function
 	
 	

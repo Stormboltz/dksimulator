@@ -14,23 +14,18 @@ Public Class BoneShield
 	Function BuffLength() As Integer
 		return sim.BoneShieldTTL
 	End Function
-	
-	
-	
-	Sub New(MySim as Sim)
-		sim = MySim
-	End Sub
-	
-	Sub UseCharge(T as Long)
-		Charge = Charge -1
-		If Charge = 0 Then
-			Me.ActiveUntil = T
-			RemoveUptime(T)
-			Charge = 0
-		End If
-	End Sub
-	
-	Sub PreBuff
+    Sub New(ByVal MySim As Sim)
+        sim = MySim
+    End Sub
+    Sub UseCharge(ByVal T As Long)
+        Charge = Charge - 1
+        If Charge = 0 Then
+            Me.ActiveUntil = T
+            RemoveUptime(T)
+            Charge = 0
+        End If
+    End Sub
+    Sub PreBuff()
         If sim.Character.Talents.Talent("BoneShield").Value = 1 Then
             CD = sim.TimeStamp + 60 * 100
             ActiveUntil = sim.TimeStamp + BuffLength() * 100
@@ -52,18 +47,6 @@ Public Class BoneShield
             Else
                 Return False
             End If
-        End If
-
-        If sim.BoneShieldUsageStyle = 1 Or sim.BoneShieldUsageStyle = 2 Then
-            If sim.KeepBloodSync Then
-                If sim.BloodToSync = True Then
-                    sim.BloodToSync = False
-                Else
-                    sim.BloodToSync = True
-                End If
-            End If
-        Else
-            sim.BloodToSync = False
         End If
 
         Me.CD = T + 60 * 100

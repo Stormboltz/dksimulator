@@ -55,17 +55,6 @@ Friend Class Pestilence
 			End If
 		End If
 		
-		If sim.KeepBloodSync Then
-			If sim.BloodToSync = True Then
-				sim.BloodToSync = False
-			Else
-				sim.BloodToSync = True
-			End If
-		End If
-		
-		
-		
-		
 		return true
 	End Function
 	Function PerfectUsage(T As Double) As Boolean

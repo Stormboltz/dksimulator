@@ -10,12 +10,10 @@ Namespace Strikes
 
     Public Class Strike
         Inherits Supertype
-
-
-
-
-
         Friend OffHand As Boolean
+
+
+
         Sub UseGCD(ByVal T As Long)
             sim.UseGCD(T, False)
         End Sub
@@ -90,7 +88,6 @@ Namespace Strikes
             LastDamage = 0
 
             If OffHand = False Then
-                UseGCD(T)
                 If DoMyStrikeHit() = False Then
                     sim.CombatLog.write(T & vbTab & Me.Name & " fail")
                     MissCount += 1
@@ -127,18 +124,16 @@ Namespace Strikes
 
         Overridable Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
             Dim tmp As Double
-
             If OffHand = False Then
                 tmp = sim.MainStat.NormalisedMHDamage * Coeficient
             Else
                 tmp = sim.MainStat.NormalisedOHDamage * Coeficient
             End If
-            tmp = tmp + BaseDamage
-            tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
-            tmp = tmp * Multiplicator
+            tmp += BaseDamage
+            tmp *= sim.MainStat.StandardPhysicalDamageMultiplier(T)
+            tmp *= Multiplicator
             If OffHand Then
-                tmp = tmp * 0.5
-                tmp = tmp * (1 + sim.Character.Talents.Talent("NervesofColdSteel").Value * 8.3333 / 100)
+                tmp = tmp * OffDamageBonus()
             End If
 
             Return tmp
@@ -165,7 +160,13 @@ Namespace Strikes
             Return sim.MainStat.crit
         End Function
 
-
+        Private _OffDamageBonus As Double = -1
+        Function OffDamageBonus() As Double
+            If _OffDamageBonus <> -1 Then
+                _OffDamageBonus = 0.5 * (1 + sim.Character.Talents.Talent("NervesofColdSteel").Value * 8.3333 / 100)
+            End If
+            Return _OffDamageBonus
+        End Function
 
         Public Overridable Sub cleanup()
             total = 0

@@ -15,13 +15,14 @@ Public Class EmpowerRuneWeapon
 	
 	Function Use(T As Long) As Boolean
 		if CD > T then return false
-		CD = T + (5*60 * 100)
-        If sim.Runes.BloodRune1.AvailableTime > T Then sim.Runes.BloodRune1.Activate()
-        If sim.Runes.BloodRune2.AvailableTime > T Then sim.Runes.BloodRune2.Activate()
-        If sim.Runes.FrostRune1.AvailableTime > T Then sim.Runes.FrostRune1.Activate()
-        If sim.Runes.FrostRune2.AvailableTime > T Then sim.Runes.FrostRune2.Activate()
-        If sim.Runes.UnholyRune1.AvailableTime > T Then sim.Runes.UnholyRune1.Activate()
-        If sim.Runes.UnholyRune2.AvailableTime > T Then sim.Runes.UnholyRune2.Activate()
+        CD = T + (5 * 60 * 100)
+
+        sim.Runes.BloodRune1.Activate()
+        sim.Runes.BloodRune2.Activate()
+        sim.Runes.FrostRune1.Activate()
+        sim.Runes.FrostRune2.Activate()
+        sim.Runes.UnholyRune1.Activate()
+        sim.Runes.UnholyRune2.Activate()
 		sim.RunicPower.add(25)
 		sim.combatlog.write(T  & vbtab &  "EmpowerRuneWeapon"  )
 		sim._UseGCD(T, 1)

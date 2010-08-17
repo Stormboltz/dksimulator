@@ -38,8 +38,8 @@ Public Class Sim
     Friend rotationPath As String
     Friend IntroPath As String
     Friend PetFriendly As Boolean
-    Friend BloodToSync As Boolean
-    Friend KeepBloodSync As Boolean
+
+
     Friend ShowProc As Boolean
     Friend MultipleDamage As New Collections.Generic.List(Of Long)
     Friend NextReset As Integer
@@ -807,7 +807,7 @@ Public Class Sim
             If System.IO.File.Exists(IntroPath) = False Then
                 IntroPath = "\Intro\NoIntro.xml"
             End If
-            KeepBloodSync = XmlConfig.Element("config").Element("BloodSync").Value
+
 
             If XmlConfig.Element("config").Element("mode").Value <> "priority" Then
                 Rotate = True
@@ -927,10 +927,6 @@ errH:
 
         Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/" & file, FileMode.Open, FileAccess.Read, isoStore)
             XmlDoc = XDocument.Load(isoStream)
-            If KeepBloodSync Then
-                Priority.prio.Add("BloodSync", "BloodSync")
-            End If
-
             For Each Nod In XmlDoc.Element("Priority").Elements
                 If Nod.Name = "SaveRPForRuneStrike" Then
                     SaveRPForRS = True

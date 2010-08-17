@@ -38,11 +38,11 @@ Public Class CombatLog
 
     Sub write(ByVal s As String)
         If Sim.TimeStamp > (10 * 60 * 100) Then Exit Sub 'To not explode Storage
-
-        Dim tmp As String
-        tmp = ""
-        tmp = Sim.Runes.RuneState()
         If enable Then
+            Dim tmp As String
+            tmp = ""
+            tmp = Sim.Runes.RuneState()
+
             If txtFile Is Nothing Then InitcombatLog()
             txtFile.WriteLine(tmp & vbTab & s & vbTab & "RP left = " & Sim.RunicPower.GetValue())
         End If

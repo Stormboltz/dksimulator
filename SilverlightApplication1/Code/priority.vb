@@ -40,29 +40,7 @@ Friend Class priority
 						sim.IcyTouch.ApplyDamage(TimeStamp)
 						exit sub
 					End If
-				Case "BloodSync"
-					If sim.character.glyph.Disease Then
-						if sim.Pestilence.PerfectUsage(TimeStamp) then
-							sim.Pestilence.use(TimeStamp)
-							Exit Sub
-						End If
-					End If
-					If prio.Contains("BloodStrike") and sim.BloodToSync Then
-						If sim.runes.Blood(TimeStamp) And sim.CanUseGCD(Timestamp) Then
-							If sim.BoneShieldUsageStyle = 1 Then
-								If sim.BoneShield.IsAvailable(TimeStamp) Then
-									sim.BoneShield.Use(TimeStamp)
-									exit sub
-								End If
-                                If sim.PillarOfFrost.IsAvailable(TimeStamp) Then
-                                    sim.PillarOfFrost.Use(TimeStamp)
-                                    Exit Sub
-                                End If
-                            End If
-                            sim.BloodStrike.ApplyDamage(TimeStamp)
-                            Exit Sub
-                        End If
-                    End If
+				
                 Case "BloodTap"
                     If sim.BloodTap.IsAvailable(Timestamp) And sim.Runes.BloodRune1.death = False And sim.Runes.BloodRune2.death = False Then
                         sim.BloodTap.Use(Timestamp)

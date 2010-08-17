@@ -9,7 +9,11 @@
 Friend Class HowlingBlast
 	Inherits Spells.Spell
 	Sub New(S As sim)
-		MyBase.New(s)
+        MyBase.New(S)
+        BaseDamage = 1079
+        Coeficient = 0.2
+        Multiplicator = 1
+
 	End Sub
 	Function isAvailable(T As Long) As Boolean
         If sim.Character.Talents.Talent("HowlingBlast").Value <> 1 Then Return False
@@ -24,42 +28,44 @@ Friend Class HowlingBlast
         Dim RNG As Double
         UseGCD(T)
         cd = T + 800
+        If sim.proc.Rime.IsActive Then
+            sim.proc.Rime.Use()
 
-        If DoMySpellHit = False Then
-            sim.combatlog.write(T & vbtab & "HB fail")
-            sim.proc.KillingMachine.Use()
-            sim.Proc.rime.Use()
-            MissCount = MissCount + 1
-            Return False
-        End If
-
-        If sim.proc.rime.IsActive Then
-            sim.Proc.rime.Use()
-            sim.RunicPower.add(sim.Character.Talents.Talent("ChillOfTheGrave").Value * 5)
         Else
             sim.Runes.UseFrost(T, False)
-            sim.RunicPower.add(10 + (sim.Character.Talents.Talent("ChillOfTheGrave").Value * 5))
+            sim.RunicPower.add(10)
         End If
         Dim Tar As Targets.Target
 
         For Each Tar In sim.Targets.AllTargets
-            RNG = RngCrit
 
-            Dim ccT As Double
-            ccT = CritChance
-            If RNG <= ccT Then
-                CritCount = CritCount + 1
-                LastDamage = AvrgCrit(T, Tar)
-                sim.combatlog.write(T & vbtab & "HB crit for " & LastDamage)
-                totalcrit += LastDamage
+            If DoMySpellHit() = False Then
+                sim.CombatLog.write(T & vbTab & Me.Name & " fail")
+                sim.proc.KillingMachine.Use()
+                sim.proc.Rime.Use()
+                MissCount = MissCount + 1
             Else
-                HitCount = HitCount + 1
-                LastDamage = AvrgNonCrit(T, Tar)
-                sim.combatlog.write(T & vbtab & "HB hit for " & LastDamage)
-                totalhit += LastDamage
+
+
+                RNG = RngCrit
+
+                Dim ccT As Double
+                ccT = CritChance()
+                If RNG <= ccT Then
+                    CritCount = CritCount + 1
+                    LastDamage = AvrgCrit(T, Tar)
+                    sim.CombatLog.write(T & vbTab & Me.Name & " crit for " & LastDamage)
+                    TotalCrit += LastDamage
+                Else
+                    HitCount = HitCount + 1
+                    LastDamage = AvrgNonCrit(T, Tar)
+                    sim.CombatLog.write(T & vbTab & Me.Name & " hit for " & LastDamage)
+                    TotalHit += LastDamage
+                End If
+                total = total + LastDamage
+                sim.RunicPower.add(sim.Character.Talents.Talent("ChillOfTheGrave").Value * 5)
+                sim.proc.TryOnSpellHit()
             End If
-            total = total + LastDamage
-            sim.proc.TryOnSpellHit()
         Next
 
 
@@ -72,14 +78,12 @@ Friend Class HowlingBlast
     End Function
     Overrides Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
         If target Is Nothing Then target = sim.Targets.MainTarget
-        Dim tmp As Double
-        tmp = 1079
-        tmp = tmp + (0.2 * (1 + 0.2 * sim.Character.Talents.Talent("Impurity").Value) * sim.MainStat.AP)
-        tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
+        Dim tmp As Double = MyBase.AvrgNonCrit(T, target)
+
         If sim.ExecuteRange Then tmp = tmp * (1 + 0.06 * sim.Character.Talents.Talent("MercilessCombat").Value)
         tmp *= sim.RuneForge.RazorIceMultiplier(T) 'TODO: only on main target
         If sim.RuneForge.CheckCinderglacier(True) > 0 Then tmp *= 1.2
-        AvrgNonCrit = tmp
+        Return tmp
     End Function
    
 	overrides Function CritChance() As Double

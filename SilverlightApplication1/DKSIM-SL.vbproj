@@ -163,6 +163,9 @@
       <DependentUpon>EPDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="GearSelector\EPValues.vb" />
+    <Compile Include="GearSelector\RuneForgeTextBox.xaml.vb">
+      <DependentUpon>RuneForgeTextBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="logging\logging.vb" />
     <Compile Include="myGridControl.xaml.vb">
       <DependentUpon>myGridControl.xaml</DependentUpon>
@@ -405,6 +408,10 @@
       <SubType>Designer</SubType>
     </Content>
     <Page Include="GearSelector\ItemEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GearSelector\RuneForgeTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

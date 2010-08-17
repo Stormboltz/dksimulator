@@ -7,13 +7,18 @@
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
 Friend Class DeathandDecay
-	inherits Spells.Spell
+    Inherits Spells.Spell
 
-	Friend nextTick As Long
+    Friend nextTick As Long
 	
 	Sub New(MySim As Sim)
-		MyBase.New(MySim)
-	End Sub
+        MyBase.New(MySim)
+        BaseDamage = 31
+        Coeficient = (0.0475 * (1 + 0.2 * sim.Character.Talents.Talent("Impurity").Value))
+        Multiplicator = 1
+        If sim.Character.Glyph.DeathandDecay Then Multiplicator *= 1.2
+        If sim.MainStat.T102PTNK = 1 Then Multiplicator *= 1.2
+    End Sub
 	
 	Public Overloads Overrides Sub Init()
 		MyBase.init()
@@ -47,26 +52,23 @@ Friend Class DeathandDecay
 
         For Each Tar In sim.Targets.AllTargets
             If DoMySpellHit = False Then
-                If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "D&D fail")
+                If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & Me.Name & " fail")
                 MissCount = MissCount + 1
-                Return False
-            End If
-            RNG = RngCrit
-
-            If RNG <= CritChance Then
-                LastDamage = AvrgCrit(T, Tar)
-                If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "D&D crit for " & LastDamage)
-                CritCount = CritCount + 1
-                totalcrit += LastDamage
             Else
-                LastDamage = AvrgNonCrit(T, Tar)
-                HitCount = HitCount + 1
-                totalhit += LastDamage
-                If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "D&D hit for " & LastDamage)
+                RNG = RngCrit
+                If RNG <= CritChance() Then
+                    LastDamage = AvrgCrit(T, Tar)
+                    If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & Me.Name & " crit for " & LastDamage)
+                    CritCount = CritCount + 1
+                    TotalCrit += LastDamage
+                Else
+                    LastDamage = AvrgNonCrit(T, Tar)
+                    HitCount = HitCount + 1
+                    TotalHit += LastDamage
+                    If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & Me.Name & " hit for " & LastDamage)
+                End If
+                total = total + LastDamage
             End If
-
-
-            total = total + LastDamage
         Next
         nextTick = T + 100
         If nextTick > ActiveUntil Then
@@ -76,20 +78,7 @@ Friend Class DeathandDecay
         End If
         Return True
     End Function
-    Overrides Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
-        Dim tmp As Double
-        tmp = 31
-        tmp = tmp + (0.0475 * (1 + 0.2 * sim.Character.Talents.Talent("Impurity").Value) * sim.MainStat.AP)
-        tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
 
-        If sim.character.glyph.DeathandDecay Then tmp = tmp * 1.2
-        If sim.MainStat.T102PTNK = 1 Then tmp = tmp * 1.2
-        Return tmp
-    End Function
-	
-	overrides Function CritChance() As Double
-		CritChance = sim.MainStat.SpellCrit
-	End Function
 	Overrides Function AvrgCrit(T As long,target as Targets.Target) As Double
 		AvrgCrit = AvrgNonCrit(T,target) * (0.5 + CritCoef)
 	End Function

@@ -7,17 +7,21 @@
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
 Friend Class Butchery
-	Friend nextTick As long
-	Protected Sim as Sim
+    Friend nextTick As Long
+    Friend value As Integer
+    Protected Sim As Sim
+
+
 	Sub New(MySim as Sim)
 		init
-		Sim = Mysim
+        Sim = MySim
+        value = 1 * Sim.Character.Talents.Talent("Butchery").Value
 	End Sub
 	
 	Function apply(T As long) as Boolean
 		nextTick = T + 500
 		sim.FutureEventManager.Add(nextTick,"Butchery")
-        Sim.RunicPower.add(1 * Sim.Character.Talents.Talent("Butchery").Value)
+        Sim.RunicPower.add(value)
         Return True
 	End Function
 		

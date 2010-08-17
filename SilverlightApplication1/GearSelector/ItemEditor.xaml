@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" d:DesignHeight="333" d:DesignWidth="300">
+    mc:Ignorable="d" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" d:DesignHeight="378" d:DesignWidth="300" xmlns:my="clr-namespace:DKSIMVB">
 
     <Grid x:Name="LayoutRoot" >
         <Grid.ColumnDefinitions>
@@ -23,8 +23,8 @@
             <RowDefinition Height="24" />
             <RowDefinition Height="24" />
             <RowDefinition Height="24" />
-            <RowDefinition Height="193*" />
-
+            <RowDefinition Height="24" />
+            <RowDefinition Height="41*" />
         </Grid.RowDefinitions>
 
         <sdk:Label HorizontalAlignment="Left" Name="Equipment" VerticalAlignment="Top"  Margin="5,5,0,0" Content="Name" Foreground="Purple" Cursor="Hand" />
@@ -42,6 +42,21 @@
         <sdk:Label HorizontalAlignment="Left" Margin="25,5,0,3" Name="lblGem3" Content="Gem 3"  Grid.Row="9" Cursor="Hand" />
         <sdk:Label Content="Bonus"    HorizontalAlignment="Left" Margin="5,5,0,0" Name="lblBonus" VerticalAlignment="Top"   Grid.Row="10" Grid.Column="1" />
         <sdk:Label Content="Enchant"  HorizontalAlignment="Left" Margin="5,5,0,0" Name="lblEnchant" VerticalAlignment="Top"  Grid.Row="11" Grid.Column="1" Cursor="Hand" />
+        <sdk:Label Grid.Row="12" Name="Label1" Content="Reforging:" />
+        <Grid Grid.Row="13" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="14*" />
+                <ColumnDefinition Width="100*" />
+            </Grid.ColumnDefinitions>
+            <my:RuneForgeTextBox Width="60" x:Name="txtReforge" Grid.Column="0"  />
+            <ComboBox Name="cmbReforgeTo" Grid.Column="1" />
+            <sdk:Label Content="To" HorizontalAlignment="Center" Grid.Column="2" ></sdk:Label>
+            <ComboBox Name="cmbReforgeFrom" Grid.Column="3" />
+            
+            
+        </Grid>
         
     </Grid>
 </UserControl>

@@ -38,17 +38,7 @@ Friend Class PillarOfFrost
                 Return False
             End If
         End If
-        If sim.BoneShieldUsageStyle = 1 Or sim.BoneShieldUsageStyle = 2 Then
-            If sim.KeepBloodSync Then
-                If sim.BloodToSync = True Then
-                    sim.BloodToSync = False
-                Else
-                    sim.BloodToSync = True
-                End If
-            End If
-        Else
-            sim.BloodToSync = False
-        End If
+       
         CD = T + 60 * 100
         sim.Runes.UseDeathBlood(T, True)
         ActiveUntil = T + 20 * 100

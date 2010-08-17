@@ -3,12 +3,13 @@ Friend Class Necrosis
 	
 	Sub New(S As sim)
 		MyBase.New(s)
-		HasteSensible = true
-	End Sub
+        HasteSensible = True
+        Coeficient = 0.1 * sim.Character.Talents.Talent("Necrosis").Value
+    End Sub
 	
 	Function Apply(Damage As Double, T As long) As Double
 		Dim tmp As Double
-        tmp = Damage * 0.10000000000000001 * sim.Character.Talents.Talent("Necrosis").Value
+        tmp = Damage * Coeficient
 		tmp = tmp * (1-15/(510+15)) 'Partial Resistance. It's about 0,029% less damage on average.
 		total = total + tmp
 		HitCount = HitCount + 1
@@ -20,11 +21,9 @@ Friend Class Necrosis
 		If sim.MainStat.DualW = false Then exit sub
 		Total += sim.OHNecrosis.Total
 		TotalHit += sim.OHNecrosis.TotalHit
-		
-		HitCount = (HitCount + sim.OHNecrosis.HitCount)/2
-		
-		sim.OHNecrosis.Total = 0
+        HitCount = (HitCount + sim.OHNecrosis.HitCount) / 2
+        sim.OHNecrosis.total = 0
 		sim.OHNecrosis.TotalHit = 0
-		
+
 	End Sub
 End Class
