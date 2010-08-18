@@ -78,7 +78,7 @@ Partial Public Class ItemEditor
         Else
 
             If (From el In xmlDB.Elements("enchant").Elements
-                        Where el.Element("slot").Value = SlotId And (el.Element("reqskill").Value = "" Or el.Element("reqskill").Value = 0 Or el.Element("reqskill").Value = GetSkillID(Mainframe.cmbSkill1.SelectedItem) Or el.Element("reqskill").Value = GetSkillID(Mainframe.cmbSkill2.SelectedItem))
+                        Where el.Element("slot").Value = SlotId And (el.Element("reqskill").Value = "" Or el.Element("reqskill").Value = 0 Or el.Element("reqskill").Value = GetSkillID(Mainframe.ParentFrame.cmbSkill1.SelectedItem) Or el.Element("reqskill").Value = GetSkillID(Mainframe.ParentFrame.cmbSkill2.SelectedItem))
                         ).Count > 0 Then
                 lblEnchant.Content = "No Enchant"
                 lblEnchant.Foreground = New SolidColorBrush(Colors.Black)
@@ -89,7 +89,7 @@ Partial Public Class ItemEditor
 
 
         End If
-        Mainframe.GetStats()
+        Mainframe.ParentFrame.GetStats()
     End Sub
     Sub DisplayGem()
         lblGem1.Content = Item.gem1.name
@@ -148,7 +148,7 @@ Partial Public Class ItemEditor
             lblBonus.Opacity = 0.5
         End If
 
-        Mainframe.GetStats()
+        Mainframe.ParentFrame.GetStats()
     End Sub
     Sub EquipmentClick(ByVal sender As Object, ByVal e As EventArgs)
         'Try
@@ -262,7 +262,7 @@ Partial Public Class ItemEditor
         End Try
         DisplayGem()
         DisplayEnchant()
-        Mainframe.GetStats()
+        Mainframe.ParentFrame.GetStats()
     End Sub
 
     Private Sub lblGem_MouseEnter(ByVal sender As System.Object, ByVal e As System.Windows.Input.MouseEventArgs) Handles lblGem2.MouseLeftButtonUp, lblGem3.MouseLeftButtonUp, lblGem1.MouseLeftButtonUp, lblGemColor1.MouseLeftButtonDown, lblGemColor2.MouseLeftButtonDown, lblGemColor3.MouseLeftButtonDown

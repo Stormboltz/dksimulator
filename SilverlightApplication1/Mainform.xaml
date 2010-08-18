@@ -7,157 +7,72 @@
            xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation" Title="Kahorie's DK simulator" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" d:DesignHeight="600" d:DesignWidth="800" xmlns:my="clr-namespace:DKSIMVB">
     <StackPanel Width="800" Height="600">
         <Grid x:Name="LayoutRoot" Width="800" Height="530" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <sdk:TabControl Margin="12,8,12,0" Name="TabControl1" Width="780" Height="520" VerticalAlignment="Top">
-            <sdk:TabItem Header="Configuration" Name="tabConfig">
-                    <ScrollViewer>
-                        <StackPanel>
-                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top" Name="MainGrid">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="500*" />
-                                    <ColumnDefinition Width="100" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="24" />
-                                    <RowDefinition Height="24" />
-                                    <RowDefinition Height="24" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="24" />
-                                    <RowDefinition Height="24" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="24" />
-                                    <RowDefinition Height="24" />
-                                    <RowDefinition Height="24" />
-                                    <RowDefinition Height="24" />
+            <Grid Name="CharacterGrid" Width="410" HorizontalAlignment="Left" Margin="2,10,10,2">
 
-                                </Grid.RowDefinitions>
-                                <sdk:Label Content="Character:"  Name="lblCharacter" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" />
-                                <ComboBox Name="cmbGearSelector" Grid.Row="1" Grid.Column="1"  />
-                                <Button Content="Edit" Name="cmdEditCharacterWithGear" Grid.Row="1" Grid.Column="2" />
-
-                                <sdk:Label Content="Template:"  Name="lblTemplate" Grid.Row="2" HorizontalAlignment="Right" />
-                                <ComboBox Name="cmbTemplate" Grid.Row="2" Grid.Column="1" />
-                                <Button Content="Edit" Name="cmdEditTemplate" Grid.Row="2" Grid.Column="2" />
-                                <sdk:Label Content="Intro:" Name="lblIntro" Grid.Row="4" HorizontalAlignment="Right" />
-                                <ComboBox Name="cmbIntro" Grid.Row="4" Grid.Column="1"  />
-                                <Button Content="Edit" Name="cmdEditIntro" Grid.Row="4" Grid.Column="2" />
-
-                                <sdk:Label Content="Priority:" Name="lblPrio" Grid.Row="5" HorizontalAlignment="Right" />
-                                <ComboBox  Name="cmbPrio"  Grid.Row="5" Grid.Column="1" />
-                                <Button Content="Edit" Name="cmdEditPrio" Grid.Row="5" Grid.Column="2" />
-                                <sdk:Label Content="Presence:" Name="lblPresence" Grid.Row="8" HorizontalAlignment="Right" />
-                                <ComboBox  Name="cmdPresence" Grid.Row="8" Grid.Column="1" />
-
-                                <sdk:Label Content="Sigil:" Name="lblSigil" Grid.Row="9" HorizontalAlignment="Right" />
-                                <ComboBox Name="cmbSigils"  Grid.Row="9" Grid.Column="1" />
-
-                                <sdk:Label Content="MH Runeforge:" FlowDirection="LeftToRight" Height="23" HorizontalAlignment="Right" HorizontalContentAlignment="Right"  Name="lblRuneforgeMH" VerticalAlignment="Top" Width="79" Grid.Row="10" />
-                                <ComboBox HorizontalAlignment="Left"  Name="cmbRuneMH" Width="200" Grid.Row="10" Grid.Column="1" />
-
-                                <sdk:Label Content=": OH Runeforge"  FlowDirection="LeftToRight" Height="23" HorizontalAlignment="Left" HorizontalContentAlignment="Right"  Name="lblRuneforgeOH" VerticalAlignment="Top" Width="79" Grid.Row="10" Grid.Column="3" />
-                                <ComboBox  HorizontalAlignment="Right"  Name="cmbRuneOH"  Width="200" Grid.Row="10" Grid.Column="1"  />
-
-                                <sdk:Label Content="Scenario:"   Name="lblScenario" Grid.Row="11" HorizontalAlignment="Right" />
-                                <ComboBox Name="cmbScenario"  Grid.Row="11" Grid.Column="1" />
-                                <Button Content="Edit"  Name="cmdEditScenario" Grid.Row="11" Grid.Column="2" />
-
-
-
-
-
-
-                            </Grid ><Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="MiscOptionGrid" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="17" Grid.RowSpan="2">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="140" />
-                                    <ColumnDefinition Width="140" />
-                                    <ColumnDefinition Width="140" />
-                                    <ColumnDefinition Width="140" />
-                                    <ColumnDefinition Width="140*" />
-
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="20" />
-                                    <RowDefinition Height="24" />
-                                    <RowDefinition Height="24" />
-                                    <RowDefinition Height="24" />
-                                    <RowDefinition Height="24" />
-                                    
-                                    
-                                    
-                               
-                                </Grid.RowDefinitions>
-                                <sdk:Label Content="Sim Options" FontWeight="Bold"></sdk:Label>
-                                <my:myGridControl Grid.Column="5" Grid.Row="0" HorizontalAlignment="Right" x:Name="SimOptReducer" />
-                                
-                                <sdk:Label Name="lblFightLength" Content="Sim Time:" Grid.Row="1" Grid.Column="1" />
-                                <TextBox Name="txtSimtime" Text="100"  Grid.Row="1" Grid.Column="2" />
-                                
-                                <sdk:Label Content="BoneShield Time to live:" Name="lblBoneShieldTTL" Grid.Row="2" Grid.Column="1" />
-                                <TextBox Name="txtBSTTL" Text="300" Grid.Row="2" Grid.Column="2" />
-
-                                <sdk:Label Name="lblLatency" Content="Latency:" Grid.Row="3" Grid.Column="1" />
-                                <TextBox Name="txtLatency" Text="150" Grid.Row="3" Grid.Column="2" />
-
-                                <sdk:Label Name="lblRPx" Content="x RP per x Second" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" />
-                                <TextBox Name="txtAMSrp" Text="0" Grid.Row="4" Grid.Column="0" />
-                                <TextBox Name="txtAMScd" Text="60" Grid.Row="4" Grid.Column="2" />
-
-                                <CheckBox Content="Wait for proc" Name="chkWaitFC" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" Margin="6,0,75,0" />
-                                <CheckBox Content="Use Pet" Name="ckPet" IsChecked="True" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Margin="6,0,75,0" />
-
-                                <sdk:Label Content="UA/BS usage:" Name="lblBSUSage" Grid.Row="3" Grid.Column="3" />
-                                <ComboBox Name="cmbBShOption" Grid.Row="3" Grid.Column="4" />
-
-                                <sdk:Label Content="ICC Buff:" Name="lblICCBuff" Grid.Row="4" Grid.Column="3" />
-                                <ComboBox Name="cmbICCBuff" Grid.Row="4" Grid.Column="4"  />
-                            </Grid>
-                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="ReportGrid" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="15" Grid.RowSpan="2">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="20" />
-                                    <RowDefinition Height="24" />
-                                    <RowDefinition Height="24" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="150" />
-                                    <ColumnDefinition Width="208" />
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="150" />
-                                    <ColumnDefinition Width="1*" />
-                                </Grid.ColumnDefinitions>
-                                <sdk:Label Content="Report Options" FontWeight="Bold"></sdk:Label>
-
-                                
-                                <Button Content="Display last report" Name="cmdReport" Grid.Column="4" Grid.Row="1" />
-                                <Button Content="Display last log" Name="cmdShowLog" Grid.Row="2" Grid.Column="4" />
-
-                                <CheckBox Content="Merge stike in the report" Name="chkMergeReport" Grid.Column="2" Grid.Row="2" />
-                                <CheckBox Content="Generate Combat log" Name="chkCombatLog" Grid.Column="1" Grid.Row="1" />
-                                <CheckBox Content="Detailled combat log" Name="ckLogRP" Grid.Column="2" Grid.Row="1" />
-                                <CheckBox Content="Show proc" Name="chkShowProc" Grid.Column="1" Grid.Row="2"  />
-                                <my:myGridControl Grid.Column="5" Grid.Row="0" HorizontalAlignment="Right" x:Name="ReportOptReducer" />
-                            </Grid>
-                            
-                        </StackPanel>
-                    </ScrollViewer>
-                </sdk:TabItem>
-            <sdk:TabItem Header="Report" Name="TabReport">
-                <ScrollViewer Name="ScrollViewer2" >
-                <StackPanel  Name="ReportStack">
-                    
-                </StackPanel>
-                </ScrollViewer>
-            </sdk:TabItem>
-            <sdk:TabItem Header="Buffs" Name="TabBuff">
-                    <Grid Name="GrpBuff">
+            </Grid>
+            <sdk:TabControl Name="TabControl1"  Height="520" Margin="2,10,10,2" Width="380" HorizontalAlignment="Right" VerticalAlignment="Top" TabStripPlacement="Left">
+                <sdk:TabItem Header="Configuration" Name="tabConfig">
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top" Name="MainGrid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="100*" />
+                            <ColumnDefinition Width="50" />
+                        </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="24" />
                             <RowDefinition Height="24" />
                             <RowDefinition Height="24" />
+                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="24" />
                             <RowDefinition Height="24" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="24" />
+                            <RowDefinition Height="24" />
+
+
+                        </Grid.RowDefinitions>
+                        <sdk:Label Content="Character:"  Name="lblCharacter" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" />
+                        <ComboBox Name="cmbGearSelector" Grid.Row="1" Grid.Column="1"  />
+                        <Button Content="Edit" Name="cmdEditCharacterWithGear" Grid.Row="1" Grid.Column="2" />
+
+                        <sdk:Label Content="Template:"  Name="lblTemplate" Grid.Row="2" HorizontalAlignment="Right" />
+                        <ComboBox Name="cmbTemplate" Grid.Row="2" Grid.Column="1" />
+                        <Button Content="Edit" Name="cmdEditTemplate" Grid.Row="2" Grid.Column="2" />
+                        <sdk:Label Content="Intro:" Name="lblIntro" Grid.Row="4" HorizontalAlignment="Right" />
+                        <ComboBox Name="cmbIntro" Grid.Row="4" Grid.Column="1"  />
+                        <Button Content="Edit" Name="cmdEditIntro" Grid.Row="4" Grid.Column="2" />
+
+                        <sdk:Label Content="Priority:" Name="lblPrio" Grid.Row="5" HorizontalAlignment="Right" />
+                        <ComboBox  Name="cmbPrio"  Grid.Row="5" Grid.Column="1" />
+                        <Button Content="Edit" Name="cmdEditPrio" Grid.Row="5" Grid.Column="2" />
+                        <sdk:Label Content="Presence:" Name="lblPresence" Grid.Row="8" HorizontalAlignment="Right" />
+                        <ComboBox  Name="cmdPresence" Grid.Row="8" Grid.Column="1" />
+                        <sdk:Label Content="Scenario:"   Name="lblScenario" Grid.Row="12" HorizontalAlignment="Right" />
+                        <ComboBox Name="cmbScenario"  Grid.Row="12" Grid.Column="1" />
+                        <Button Content="Edit"  Name="cmdEditScenario" Grid.Row="12" Grid.Column="2" />
+                    </Grid >
+                </sdk:TabItem>
+                <sdk:TabItem Header="Report Option" Name="TabReportOption">
+                    <StackPanel>
+                        <CheckBox Content="Merge stike in the report" Name="chkMergeReport" Grid.Column="2" Grid.Row="2" />
+                        <CheckBox Content="Show proc" Name="chkShowProc" Grid.Column="1" Grid.Row="2"  />
+                        <CheckBox Content="Generate Combat log" Name="chkCombatLog" Grid.Column="1" Grid.Row="1" />
+                        <CheckBox Content="Detailled combat log" Name="ckLogRP" Grid.Column="2" Grid.Row="1" />
+                        <Button Content="Display last report" Name="cmdReport" Grid.Column="4" Grid.Row="1" />
+                        <Button Content="Display last log" Name="cmdShowLog" Grid.Row="2" Grid.Column="4" />
+                    </StackPanel>
+                </sdk:TabItem>
+                <sdk:TabItem Header="Sim Option" Name="TabSimOption">
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="MiscOptionGrid" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="17" Grid.RowSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="140" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20" />
                             <RowDefinition Height="24" />
                             <RowDefinition Height="24" />
                             <RowDefinition Height="24" />
@@ -167,14 +82,40 @@
                             <RowDefinition Height="24" />
                             <RowDefinition Height="24" />
                         </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="200" />
-                            <ColumnDefinition Width="200" />
-                            <ColumnDefinition Width="268*" />
-                        </Grid.ColumnDefinitions>
-                        
-                            <CheckBox Content="Str/Agi" Height="16" Name="chkBStrAgi" IsChecked="True" Grid.Column="1" Grid.Row="0"/>
+                        <sdk:Label Name="lblFightLength" Content="Sim Time:" Grid.Row="1" Grid.Column="1" />
+                        <TextBox Name="txtSimtime" Text="100"  Grid.Row="1" Grid.Column="2" />
+
+                        <sdk:Label Content="BoneShield Time to live:" Name="lblBoneShieldTTL" Grid.Row="2" Grid.Column="1" />
+                        <TextBox Name="txtBSTTL" Text="300" Grid.Row="2" Grid.Column="2" />
+
+                        <sdk:Label Name="lblLatency" Content="Latency:" Grid.Row="3" Grid.Column="1" />
+                        <TextBox Name="txtLatency" Text="150" Grid.Row="3" Grid.Column="2" />
+
+                        <sdk:Label Name="lblRPx" Content="x RP per x Second" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" />
+                        <TextBox Name="txtAMSrp" Text="0" Grid.Row="4" Grid.Column="0" />
+                        <TextBox Name="txtAMScd" Text="60" Grid.Row="4" Grid.Column="2" />
+
+                        <CheckBox Content="Wait for proc" Name="chkWaitFC" Grid.Row="6" Grid.Column="2"   />
+                        <CheckBox Content="Use Pet" Name="ckPet" IsChecked="True" Grid.Row="5" Grid.Column="2"  />
+
+                        <sdk:Label Content="UA/BS usage:" Name="lblBSUSage" Grid.Row="7" Grid.Column="1" />
+                        <ComboBox Name="cmbBShOption" Grid.Row="7" Grid.Column="2" />
+
+                        <sdk:Label Content="ICC Buff:" Name="lblICCBuff" Grid.Row="8" Grid.Column="1" />
+                        <ComboBox Name="cmbICCBuff" Grid.Row="8" Grid.Column="2"  />
+                    </Grid>
+                </sdk:TabItem>
+                <sdk:TabItem Header="Report" Name="TabReport">
+                    <ScrollViewer Name="ScrollViewer2" >
+                        <StackPanel  Name="ReportStack">
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </sdk:TabItem>
+                <sdk:TabItem Header="Buffs" Name="TabBuff">
+                    <StackPanel Name="GrpBuff">
+
+                        <CheckBox Content="Str/Agi" Height="16" Name="chkBStrAgi" IsChecked="True" Grid.Column="1" Grid.Row="0"/>
                         <CheckBox Content="Attack power" Height="16" Name="chkBAP" IsChecked="True" Grid.Column="1" Grid.Row="1"/>
                         <CheckBox Content="Attack power %" Height="16" Name="chkBAPPc" IsChecked="True" Grid.Column="1" Grid.Row="2"/>
                         <CheckBox Content="% Damage" Height="16" Name="chkBPcDamage" IsChecked="True" Grid.Column="1" Grid.Row="3"/>
@@ -187,8 +128,7 @@
                         <CheckBox Content="10% Stat" Height="16" Name="chkBStatMulti" IsChecked="True" Grid.Column="1" Grid.Row="10"/>
                         <CheckBox Content="Draeni" Height="16" Name="chkDraeni" IsChecked="True" Grid.Column="1" Grid.Row="11"/>
                         <CheckBox Content="Bloodlust" Height="16" Name="chkBloodlust" IsChecked="True" Grid.Column="1" Grid.Row="12"/>
-
-
+                        <sdk:Label Content=" "></sdk:Label>
                         <CheckBox Content="Major Armor debuff" Height="16" Name="chkBArmorMaj" IsChecked="True" Grid.Column="2" Grid.Row="0"/>
                         <CheckBox Content="Minor Armor debuff" Height="16" Name="chkBArmorMinor" IsChecked="True" Grid.Column="2" Grid.Row="1"/>
                         <CheckBox Content="Critical chance taken" Height="16" Name="chkBCritchanceTaken" IsChecked="True" Grid.Column="2" Grid.Row="2"/>
@@ -196,18 +136,20 @@
                         <CheckBox Content="Spell crit chance taken" Height="16" Name="chkBSpCrTaken" IsChecked="True" Grid.Column="2" Grid.Row="4"/>
                         <CheckBox Content="Spell Damage taken" Height="16" Name="chkBSpDamTaken" IsChecked="True" Grid.Column="2" Grid.Row="5"/>
                         <CheckBox Content="Spell hit taken" Height="16" Name="chkBSpHitTaken" IsChecked="True" Grid.Column="2" Grid.Row="6"/>
+                        <sdk:Label Content=" "></sdk:Label>
                         <CheckBox Content="Cryptic Fever from another DK" Height="16" Name="chkCrypticFever" IsChecked="True" Grid.Column="2" Grid.Row="8"/>
                         <CheckBox Content="Frost Fever from another DK" Height="16" Name="chkFrostFever" IsChecked="True" Grid.Column="2" Grid.Row="9"/>
                         <CheckBox Content="Blood Plague from another DK" Height="16" Name="chkBloodPlague" IsChecked="True" Grid.Column="2" Grid.Row="10"/>
-                        
-                    </Grid>
+
+                    </StackPanel>
+
                 </sdk:TabItem>
-            <sdk:TabItem Header="Tank Options" Name="TabTank">
+                <sdk:TabItem Header="Tank Options" Name="TabTank">
                     <Grid Name="gbTank">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="150" />
-                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="100*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="24" />
@@ -217,76 +159,74 @@
                         </Grid.RowDefinitions>
                         <TextBox Name="txtFPBossSwing" Text="2" Grid.Row="1" Grid.Column="1" />
                         <sdk:Label Name="Label14" Content="Boss swing speed in second" Grid.Row="1" Grid.Column="2" />
-                        
+
                         <TextBox Name="txtFBAvoidance" Text="50" Grid.Row="2" Grid.Column="1" />
                         <sdk:Label Content="Character Avoidance chance in %" Grid.Row="2" Grid.Column="2" />
-                        
+
                         <TextBox Name="txtFPArmor" Text="0" Grid.Row="3" Grid.Column="1" />
                         <sdk:Label Content="Armor part in the char file that is not changed by Frost Presence."  Grid.Row="3" Grid.Column="2"  />
                     </Grid>
                 </sdk:TabItem>
-            <sdk:TabItem Header="EP Options" Name="TabEPOptions">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="310*" />
-                            <RowDefinition Height="173*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="250" />
-                            <ColumnDefinition Width="250" />
-                            <ColumnDefinition Width="250*" />
-                        </Grid.ColumnDefinitions>
-                        <ScrollViewer Name="ScrollViewer1" Width="262" HorizontalAlignment="Right" VerticalAlignment="Top" MaxHeight="424" Grid.Column="2" Grid.RowSpan="2">
-                            <Canvas Name="grpEPTrinkets" Width="240" HorizontalAlignment="Left" VerticalAlignment="Top" MinHeight="424"></Canvas>
-                        </ScrollViewer>
-                    <Canvas Name="grpEPMain" Grid.RowSpan="2">
-                        <CheckBox Canvas.Left="10" Canvas.Top="14" Content="Strength" Height="16" Name="chkEPStr" IsChecked="True" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="36" Content="Agility" Height="16" Name="chkEPAgility" IsChecked="True" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="58" Content="Crit rating" Height="16" Name="chkEPCrit" IsChecked="True" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="80" Content="Haste rating" Height="16" Name="chkEPHaste" IsChecked="True" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="102" Content="Armor Penetration rating" Height="16" Name="chkEPArP" IsChecked="True" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="124" Content="Hit rating" Height="16" Name="chkEPHit" IsChecked="True" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="146" Content="Hit rating after melee cap" Height="16" Name="chkEPSpHit" IsChecked="True" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="168" Content="Hit rating after spell cap" Height="16" Name="chkEPAfterSpellHitRating" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="190" Content="Expertise rating" Height="16" Name="chkEPExp" IsChecked="True" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="212" Content="Main Hand DPS" Height="16" Name="chkEPSMHDPS" IsChecked="True" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="234" Content="Main Hand speed" Height="16" Name="chkEPSMHSpeed" IsChecked="True" />
-                    </Canvas>
-                    <Canvas Name="grpEPSet" Grid.Column="1" Grid.RowSpan="2">
-                        <CheckBox Canvas.Left="10" Canvas.Top="10" Content="2P T7" Height="16" Name="chkEP2T7" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="32" Content="4P T7" Height="16" Name="chkEP4PT7" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="54" Content="2P T8" Height="16" Name="chkEP2PT8" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="76" Content="4P T8" Height="16" Name="chkEP4PT8" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="98" Content="2P T9" Height="16" Name="chkEP2PT9" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="120" Content="4P T9" Height="16" Name="chkEP4PT9" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="142" Content="2P T10" Height="16" Name="chkEP2PT10" IsChecked="True" />
-                        <CheckBox Canvas.Left="10" Canvas.Top="164" Content="4P T10" Height="16" Name="chkEP4PT10" IsChecked="True" />
-                    </Canvas>
-                    <TextBox Height="23" Name="txtEPBase" HorizontalAlignment="Center" Width="120" Text="50" Grid.Column="1" Grid.Row="1"/>
-                        <sdk:Label Height="23" HorizontalAlignment="Left" Content="EP Base:" Grid.Column="1" Grid.Row="1"></sdk:Label>
-                    </Grid>
+                <sdk:TabItem Header="EP Options" Name="TabEPOptions">
+                    <ScrollViewer Name="ScrollViewer" HorizontalAlignment="Left" VerticalAlignment="Top">
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="24" />
+                                <RowDefinition Height="270" />
+                                <RowDefinition Height="270" />
+                                <RowDefinition Height="24*" />
+                            </Grid.RowDefinitions>
+
+                            <ScrollViewer Name="ScrollViewer1" Width="262" HorizontalAlignment="Right" VerticalAlignment="Top" MaxHeight="424" Grid.Column="0" Grid.Row="5">
+                                <Canvas Name="grpEPTrinkets" Width="240" HorizontalAlignment="Left" VerticalAlignment="Top" MinHeight="424"></Canvas>
+                            </ScrollViewer>
+                            <Canvas Name="grpEPMain" Grid.Row="1" >
+                                <CheckBox Canvas.Left="10" Canvas.Top="14" Content="Strength" Height="16" Name="chkEPStr" IsChecked="True" />
+                                <CheckBox Canvas.Left="10" Canvas.Top="36" Content="Agility" Height="16" Name="chkEPAgility" IsChecked="True" />
+                                <CheckBox Canvas.Left="10" Canvas.Top="58" Content="Crit rating" Height="16" Name="chkEPCrit" IsChecked="True" />
+                                <CheckBox Canvas.Left="10" Canvas.Top="80" Content="Haste rating" Height="16" Name="chkEPHaste" IsChecked="True" />
+                                <CheckBox Canvas.Left="10" Canvas.Top="102" Content="Armor Penetration rating" Height="16" Name="chkEPArP" IsChecked="True" />
+                                <CheckBox Canvas.Left="10" Canvas.Top="124" Content="Hit rating" Height="16" Name="chkEPHit" IsChecked="True" />
+                                <CheckBox Canvas.Left="10" Canvas.Top="146" Content="Hit rating after melee cap" Height="16" Name="chkEPSpHit" IsChecked="True" />
+                                <CheckBox Canvas.Left="10" Canvas.Top="168" Content="Hit rating after spell cap" Height="16" Name="chkEPAfterSpellHitRating" />
+                                <CheckBox Canvas.Left="10" Canvas.Top="190" Content="Expertise rating" Height="16" Name="chkEPExp" IsChecked="True" />
+                                <CheckBox Canvas.Left="10" Canvas.Top="212" Content="Main Hand DPS" Height="16" Name="chkEPSMHDPS" IsChecked="True" />
+                                <CheckBox Canvas.Left="10" Canvas.Top="234" Content="Main Hand speed" Height="16" Name="chkEPSMHSpeed" IsChecked="True" />
+                            </Canvas>
+                            <Canvas Name="grpEPSet" Grid.Column="0" Grid.Row="2">
+                                <CheckBox Canvas.Left="10" Canvas.Top="10" Content="2P T7" Height="16" Name="chkEP2T7" />
+                                <CheckBox Canvas.Left="10" Canvas.Top="32" Content="4P T7" Height="16" Name="chkEP4PT7" />
+                                <CheckBox Canvas.Left="10" Canvas.Top="54" Content="2P T8" Height="16" Name="chkEP2PT8" />
+                                <CheckBox Canvas.Left="10" Canvas.Top="76" Content="4P T8" Height="16" Name="chkEP4PT8" />
+                                <CheckBox Canvas.Left="10" Canvas.Top="98" Content="2P T9" Height="16" Name="chkEP2PT9" />
+                                <CheckBox Canvas.Left="10" Canvas.Top="120" Content="4P T9" Height="16" Name="chkEP4PT9" />
+                                <CheckBox Canvas.Left="10" Canvas.Top="142" Content="2P T10" Height="16" Name="chkEP2PT10" IsChecked="True" />
+                                <CheckBox Canvas.Left="10" Canvas.Top="164" Content="4P T10" Height="16" Name="chkEP4PT10" IsChecked="True" />
+                            </Canvas>
+                            <TextBox Height="23" Name="txtEPBase" HorizontalAlignment="Center" Width="120" Text="50" Grid.Column="0" Grid.Row="0"/>
+                            <sdk:Label Height="23" HorizontalAlignment="Left" Content="EP Base:" Grid.Column="0" Grid.Row="0"></sdk:Label>
+                        </Grid>
+                    </ScrollViewer>
                 </sdk:TabItem>
-            <sdk:TabItem Header="StatScaling" Name="TabStatScaling">
+                <sdk:TabItem Header="StatScaling" Name="TabStatScaling">
                     <Grid Name="gbScaling" >
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="177" />
+                            <RowDefinition Height="100" />
+                            <RowDefinition Height="150" />
                             <RowDefinition Height="24" />
                             <RowDefinition Height="1*" />
                         </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="343*" />
-                            <ColumnDefinition Width="425*" />
-                        </Grid.ColumnDefinitions>
-                        <Button Content="Sim scaling[NYI]" Name="cmdScaling" Grid.Row="1" />
+                        <Button Content="Sim scaling[NYI]" Name="cmdScaling" Grid.Row="2" />
                         <StackPanel Grid.Row="0">
                             <CheckBox Content="Replace Critical rating" Name="chkScaCrit" />
                             <CheckBox Content="Replace Haste Rating" Name="chkScaHaste" />
                             <CheckBox Content="Replace Expertise rating" Name="chkScaExp" />
                             <CheckBox Content="Replace Hit rating" Name="chkScaHit" />
                             <CheckBox Content="Replace Armor Penetration" Name="chkScaArP" />
-                            
+
                         </StackPanel>
-                        <StackPanel Grid.Column="1" Grid.Row="0">
+                        <StackPanel Grid.Column="0" Grid.Row="1">
                             <CheckBox  Content="Add Weapon DPS" Name="chkScaDPSA" IsChecked="True" />
                             <CheckBox Content="Add Agility" Name="chkScaAgility" IsChecked="True" />
                             <CheckBox Content="Add Strength" Name="chkScaStr" IsChecked="True" />
@@ -298,26 +238,131 @@
                         </StackPanel>
                     </Grid>
                 </sdk:TabItem>
-            
-        </sdk:TabControl>
-        
-        
-    </Grid>
+                <sdk:TabItem Header="Stat Summary" Name="tabStatSummary" >
+                    <ScrollViewer Grid.Column="1" Grid.Row="1">
+                        <Grid Name="Canvas1"  Height="790">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200*" />
+                                <ColumnDefinition Width="60" />
+                            </Grid.ColumnDefinitions>
+                            <sdk:Label Height="28" Name="Label2" Content="Strength"  Grid.Column="0" Grid.Row="0"/>
+                            <sdk:Label Height="28" Name="Label3" Content="Agility"  Grid.Column="0" Grid.Row="1"/>
+                            <sdk:Label Height="28" Name="Label4" Content="intelligence"   Grid.Column="0" Grid.Row="2"/>
+                            <sdk:Label Height="28" Name="Label5" Content="Armor"    Grid.Column="0" Grid.Row="3"/>
+                            <sdk:Label Height="28" Name="Label6" Content="Attack Power"  Grid.Column="0" Grid.Row="4" />
+                            <sdk:Label Height="28" Name="lblHit" Content="Hit Rating"  Grid.Column="0" Grid.Row="5" />
+                            <sdk:Label Height="28" Name="lblCrit" Content="Crit Rating"   Grid.Column="0" Grid.Row="6"/>
+                            <sdk:Label Height="28" Name="lblHAste" Content="Haste Rating"   Grid.Column="0" Grid.Row="7"/>
+                            <sdk:Label Height="28" Name="lblArP" Content="ArP"    Grid.Column="0" Grid.Row="8"/>
+                            <sdk:Label Height="28" Name="lblExp" Content="Expertise Rating"   Grid.Column="0" Grid.Row="9"/>
+                            <sdk:Label Height="28" Name="Label11" Content="MH DPS"   Grid.Column="0" Grid.Row="10"/>
+                            <sdk:Label Height="28" Name="Label12" Content="MH Speed"   Grid.Column="0" Grid.Row="11"/>
+                            <sdk:Label Height="28" Name="Label13" Content="OH DPS"   Grid.Column="0" Grid.Row="13"/>
+                            <sdk:Label Height="28" Name="Label222" Content="OH Speed"   Grid.Column="0" Grid.Row="14"/>
+                            <sdk:Label Content="Off Hand Expertise" Height="28" Name="Label16"  Grid.Column="0" Grid.Row="24"/>
+                            <sdk:Label Content="Main Hand Expertise" Height="28" Name="Label15" Grid.Row="23" Grid.Column="0" />
+                            <TextBox Height="23"  Name="txtStr" Grid.Column="1" Grid.Row="0"/>
+                            <TextBox Height="23"  Name="txtAgi" Grid.Column="1" Grid.Row="1"/>
+                            <TextBox Height="23"  Name="txtIntel" Grid.Column="1" Grid.Row="2"/>
+                            <TextBox Height="23"  Name="txtArmor" Grid.Column="1" Grid.Row="3"/>
+                            <TextBox Height="23"  Name="txtAP" Grid.Column="1" Grid.Row="4"/>
+                            <TextBox Height="23"  Name="txtHit" Grid.Column="1" Grid.Row="5"/>
+                            <TextBox   Height="23" Name="txtCrit" Grid.Column="1" Grid.Row="6"/>
+                            <TextBox   Height="23" Name="txtHaste" Grid.Column="1" Grid.Row="7"/>
+                            <TextBox  Height="23" Name="txtArP" Grid.Column="1" Grid.Row="8" />
+                            <TextBox   Height="23" Name="txtExp" Grid.Column="1" Grid.Row="9" />
+                            <TextBox   Height="23" Name="txtMHDPS" Grid.Column="1" Grid.Row="10" />
+                            <TextBox   Height="23" Name="txtMHWSpeed" Grid.Column="1" Grid.Row="11" />
+                            <RadioButton Content="2 Hand" Height="16" Name="r2Hand" GroupName="WeaponGroup" IsChecked="True"  Grid.Column="0" Grid.Row="12" />
+                            <RadioButton Content="DW" Height="16" Name="rDW" GroupName="WeaponGroup" Grid.Column="1" Grid.Row="12" />
+                            <TextBox  Height="23" Name="txtOHDPS" IsEnabled="False"  Grid.Column="1" Grid.Row="13" />
+                            <CheckBox Content="3% Crit damage" Height="16" Name="chkMeta"   Grid.Row="15" Grid.ColumnSpan="2"/>
+                            <CheckBox Content="Tailor enchant" Height="16" Name="chkTailorEnchant"  Grid.ColumnSpan="2" Grid.Row="16" />
+                            <CheckBox Content="Hand--Mounted Pyro Rocket" Height="16" Name="chkIngenieer"  Grid.ColumnSpan="2" Grid.Row="17" />
+                            <CheckBox Content="Hyperspeed Accelerators" Height="16" Name="chkAccelerators"   Grid.ColumnSpan="2" Grid.Row="18"/>
+                            <CheckBox Content="Ashen Band of Endless Vengeance" Height="16" Name="chkAshenBand" Grid.ColumnSpan="2" Grid.Row="19"  />
+                            <CheckBox Content="Blood Fury + Pet Damage" Height="19" Name="chkBloodFury"  Grid.ColumnSpan="2" Grid.Row="20" />
+                            <CheckBox Content="Berzerking" Height="19" Name="chkBerzerking"   Grid.ColumnSpan="2" Grid.Row="21" />
+                            <CheckBox Content="Arcane Torrent" Height="19" Name="chkArcaneTorrent"  Grid.ColumnSpan="2" Grid.Row="22"  />
+                            <TextBox Height="23" Name="txtMHExpBonus"  Grid.Column="1" Grid.Row="23" />
+                            <TextBox Height="23" Name="txtOHExpBonus"  Grid.Column="1" Grid.Row="24" />
+                            <TextBox Height="23" Name="cmbSetBonus1"   Grid.ColumnSpan="2" Grid.Row="25" />
+                            <TextBox Height="23" Name="cmbSetBonus2"   Grid.ColumnSpan="2" Grid.Row="26" />
+                            <TextBox Height="23" Name="cmbWeaponProc1"  Grid.ColumnSpan="2" Grid.Row="27" />
+                            <TextBox Height="23" Name="cmbWeaponProc2"  Grid.ColumnSpan="2" Grid.Row="28" />
+                            <TextBox Height="23" Name="cmbTrinket1" Grid.ColumnSpan="2" Grid.Row="29"  />
+                            <TextBox Height="23" Name="cmbTrinket2"  Grid.ColumnSpan="2" Grid.Row="30" />
+                            <TextBox Height="23" Name="txtOHWSpeed" IsEnabled="False" Grid.Column="1" Grid.Row="14" />
+                        </Grid>
+                    </ScrollViewer>
+                </sdk:TabItem>
+                <sdk:TabItem Header="Misc Character Option" Name="tabCharSummary" IsEnabled="True" Visibility="Visible">
+                    <StackPanel>
+                        <ComboBox Height="23" HorizontalAlignment="Left"  Name="cmbRace" VerticalAlignment="Top" Width="120" />
+                        <ComboBox Height="23" HorizontalAlignment="Left"  Name="cmbSkill1" VerticalAlignment="Top" Width="120" />
+                        <ComboBox Height="23" HorizontalAlignment="Left"  Name="cmbSkill2" VerticalAlignment="Top" Width="120"  />
+                        <ComboBox Height="23" HorizontalAlignment="Left"  Name="cmbFood" VerticalAlignment="Top" Width="120" />
+                        <ComboBox Height="23" HorizontalAlignment="Left"  Name="cmbFlask" VerticalAlignment="Top" Width="120"  />
+                        <sdk:Label Height="23" HorizontalAlignment="Left" Name="lblDPS" VerticalAlignment="Top" Width="120" Content="(0) DPS" />
+                        <StackPanel Height="170" Name="stackConsumable"  />
+                        <Button Content="Quick DPS" Height="23" HorizontalAlignment="Left"  Name="cmdQuickDPS" VerticalAlignment="Top" Width="75" />
+                        <Button Content="Quick EP" Height="23" HorizontalAlignment="Left"  Name="cmdQuickEP" VerticalAlignment="Top" Width="75" />
+                    </StackPanel>
+                    
+                </sdk:TabItem>
+            </sdk:TabControl>
+        </Grid>
         <Grid Name="Grid1"  VerticalAlignment="Bottom">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="35" />
-            <RowDefinition Height="35" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="265" />
-            <ColumnDefinition Width="200*" />
-            <ColumnDefinition Width="265" />
-        </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35" />
+                <RowDefinition Height="35" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="200" />
+            </Grid.ColumnDefinitions>
             <Button Margin="32,5,31,5" Content="Start Simulator" Name="cmdStartSim"  Grid.Row="0" />
-            <Button Margin="32,5,31,5" Content="Start EP"  Name="btEP"    Grid.Column="2"  Grid.Row="0" />
-            <Button Margin="32,5,31,5" Content="Change RNG Seed."  Name="cmdRngSeeder" Grid.Column="1" Grid.Row="0"/>
-        <ProgressBar  Margin="32,5,31,5" Name="ProgressBar1" Grid.ColumnSpan="3" Grid.Row="1"/>
-    </Grid>
+            <Button Margin="32,5,31,5" Content="Start EP"  Name="btEP"    Grid.Column="3" />
+            <Button Margin="32,5,31,5" Content="Change RNG Seed."  Name="cmdRngSeeder" Grid.Column="1" />
+            <Button Margin="32,5,31,5" Content="Advanced Mode"  Name="cmdAdvancedMode" Grid.Column="2" />
+            <ProgressBar  Margin="32,5,31,5" Name="ProgressBar1" Grid.ColumnSpan="4" Grid.Row="1"/>
+        </Grid>
     </StackPanel>
 </navigation:Page>
 

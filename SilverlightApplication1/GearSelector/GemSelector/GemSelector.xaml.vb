@@ -57,7 +57,7 @@ Partial Public Class GemSelector
             statusReport = (From el In doc.Element("gems").Elements Where el.Element("subclass").Value = 6 Select aGem(el)).ToList()
         Else
             statusReport = (From el In doc.Element("gems").Elements
-                            Where (el.Element("quality").Value = 4 And (el.Element("reqskill").Value = 0 Or el.Element("reqskill").Value = GetSkillID(Me.MainFrame.cmbSkill1.SelectedItem) Or el.Element("reqskill").Value = GetSkillID(Me.MainFrame.cmbSkill2.SelectedItem)))
+                            Where (el.Element("quality").Value = 4 And (el.Element("reqskill").Value = 0 Or el.Element("reqskill").Value = GetSkillID(Me.MainFrame.ParentFrame.cmbSkill1.SelectedItem) Or el.Element("reqskill").Value = GetSkillID(Me.MainFrame.ParentFrame.cmbSkill2.SelectedItem)))
                             Order By getItemEPValue(el) Descending
                             Select aGem(el)).ToList()
         End If
@@ -84,7 +84,7 @@ Partial Public Class GemSelector
                             Select aGem(el)).ToList()
         Else
             statusReport = (From el In doc.Element("gems").Elements
-                            Where (el.Element("quality").Value = 4 And Contains(el, filter) And (el.Element("reqskill").Value = 0 Or el.Element("reqskill").Value = GetSkillID(Me.MainFrame.cmbSkill1.SelectedItem) Or el.Element("reqskill").Value = GetSkillID(Me.MainFrame.cmbSkill2.SelectedItem)))
+                            Where (el.Element("quality").Value = 4 And Contains(el, filter) And (el.Element("reqskill").Value = 0 Or el.Element("reqskill").Value = GetSkillID(Me.MainFrame.ParentFrame.cmbSkill1.SelectedItem) Or el.Element("reqskill").Value = GetSkillID(Me.MainFrame.ParentFrame.cmbSkill2.SelectedItem)))
                             Order By getItemEPValue(el) Descending
                             Select aGem(el)).ToList()
         End If

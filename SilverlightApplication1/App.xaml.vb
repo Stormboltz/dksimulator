@@ -7,6 +7,7 @@
     
     Private Sub Application_Startup(ByVal o As Object, ByVal e As StartupEventArgs) Handles Me.Startup
         Me.RootVisual = New MainForm()
+        'Me.RootVisual = New GearSelectorMainForm(Nothing)
     End Sub
     
     Private Sub Application_Exit(ByVal o As Object, ByVal e As EventArgs) Handles Me.Exit

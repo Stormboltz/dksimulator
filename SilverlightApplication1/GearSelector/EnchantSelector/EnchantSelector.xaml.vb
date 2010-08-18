@@ -73,7 +73,7 @@ Partial Public Class EnchantSelector
 
         Dim doc As XDocument = GS.EnchantDB
         statusReport = (From el In doc.Elements("enchant").Elements
-                        Where el.Element("slot").Value = slot And (el.Element("reqskill").Value = "" Or el.Element("reqskill").Value = 0 Or el.Element("reqskill").Value = GetSkillID(Me.GS.cmbSkill1.SelectedItem) Or el.Element("reqskill").Value = GetSkillID(Me.GS.cmbSkill2.SelectedItem))
+                        Where el.Element("slot").Value = slot And (el.Element("reqskill").Value = "" Or el.Element("reqskill").Value = 0 Or el.Element("reqskill").Value = GetSkillID(Me.GS.ParentFrame.cmbSkill1.SelectedItem) Or el.Element("reqskill").Value = GetSkillID(Me.GS.ParentFrame.cmbSkill2.SelectedItem))
                         Order By getItemEPValue(el) Descending
                         Select getEnchant(el)).ToList()
         gEnchant.ItemsSource = statusReport
@@ -96,7 +96,7 @@ Partial Public Class EnchantSelector
 
         Dim doc As XDocument = New XDocument("../Enchant.xml")
         statusReport = (From el In doc.Elements("enchant")
-                        Where el.Element("slot").Value = Slot And (el.Element("reqskill").Value = "" Or el.Element("reqskill").Value = 0 Or el.Element("reqskill").Value = GetSkillID(Me.GS.cmbSkill1.SelectedItem) Or el.Element("reqskill").Value = GetSkillID(Me.GS.cmbSkill2.SelectedItem))
+                        Where el.Element("slot").Value = Slot And (el.Element("reqskill").Value = "" Or el.Element("reqskill").Value = 0 Or el.Element("reqskill").Value = GetSkillID(Me.GS.ParentFrame.cmbSkill1.SelectedItem) Or el.Element("reqskill").Value = GetSkillID(Me.GS.ParentFrame.cmbSkill2.SelectedItem))
                         Select getEnchant(el)).ToList()
         gEnchant.ItemsSource = statusReport
         'xList = gemDB.SelectNodes("/enchant/item[slot=" & Slot & "][reqskill='0' or reqskill='" & GetSkillID(Me.MainFrame.cmbSkill1.SelectedItem) & "'    or reqskill='" & GetSkillID(Me.MainFrame.cmbSkill2.SelectedItem) & "']")

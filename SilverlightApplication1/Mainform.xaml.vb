@@ -181,9 +181,9 @@ Partial Public Class MainForm
         doc.Element("config").Add(New XElement("priority", cmbPrio.SelectedValue))
         doc.Element("config").Add(New XElement("rotation", ""))
         doc.Element("config").Add(New XElement("presence", cmdPresence.SelectedValue))
-        doc.Element("config").Add(New XElement("sigil", cmbSigils.SelectedValue))
-        doc.Element("config").Add(New XElement("mh", cmbRuneMH.SelectedValue))
-        doc.Element("config").Add(New XElement("oh", cmbRuneOH.SelectedValue))
+        doc.Element("config").Add(New XElement("sigil", ""))
+        doc.Element("config").Add(New XElement("mh", ""))
+        doc.Element("config").Add(New XElement("oh", ""))
         doc.Element("config").Add(New XElement("scenario", cmbScenario.SelectedValue))
         doc.Element("config").Add(New XElement("latency", txtLatency.Text))
         doc.Element("config").Add(New XElement("simtime", txtSimtime.Text))
@@ -220,8 +220,6 @@ Partial Public Class MainForm
                 System.Diagnostics.Debug.WriteLine(f)
             Next
         End Using
-        SimOptReducer.Reduce()
-        ReportOptReducer.Reduce()
 
         ConstrucFileDir()
 
@@ -364,9 +362,7 @@ Partial Public Class MainForm
                     cmbPrio.SelectedValue = doc.Element("config").Element("priority").Value
 
                     cmdPresence.SelectedValue = doc.Element("config").Element("presence").Value
-                    cmbSigils.SelectedValue = doc.Element("config").Element("sigil").Value
-                    cmbRuneMH.SelectedValue = doc.Element("config").Element("mh").Value
-                    cmbRuneOH.SelectedValue = doc.Element("config").Element("oh").Value
+
                     cmbScenario.SelectedValue = doc.Element("config").Element("scenario").Value
 
                     cmbBShOption.SelectedItem = doc.Element("config").Element("BShOption").Value
@@ -399,9 +395,7 @@ Partial Public Class MainForm
         cmbIntro.SelectedValue = "NoIntro.xml"
         cmbPrio.SelectedValue = "Unholy.xml"
         cmdPresence.SelectedValue = "Frost"
-        cmbSigils.SelectedValue = "Virulence"
-        cmbRuneMH.SelectedValue = "FallenCrusader"
-        cmbRuneOH.SelectedValue = "Razorice"
+       
         cmbScenario.SelectedValue = "Scenario.xml"
 
     End Sub
@@ -456,10 +450,13 @@ sortie:
     End Sub
     Sub loadWindow()
         Dim item As String
-        Dim sTemp As String
-
-
-        sTemp = cmbGearSelector.SelectedItem
+        Dim sTemp As String = ""
+        CharacterGrid.Children.Clear()
+        If GearSelector Is Nothing Then
+            GearSelector = New GearSelectorMainForm(Me)
+        End If
+        CharacterGrid.Children.Add(GearSelector)
+        If IsNothing(cmbGearSelector.SelectedItem) Then sTemp = cmbGearSelector.SelectedItem
         cmbGearSelector.Items.Clear()
         If (isoStore.DirectoryExists("KahoDKSim/CharactersWithGear")) Then
             For Each item In isoStore.GetFileNames("KahoDKSim/CharactersWithGear/*.xml")
@@ -471,53 +468,26 @@ sortie:
         End If
 
 
+        sTemp = ""
+
+
+        If IsNothing(cmdPresence.SelectedItem) Then sTemp = cmdPresence.SelectedItem
 
 
 
 
-
-
-        sTemp = cmdPresence.SelectedItem
         cmdPresence.Items.Clear()
         cmdPresence.Items.Add("Blood")
         cmdPresence.Items.Add("Unholy")
         cmdPresence.Items.Add("Frost")
         cmdPresence.SelectedItem = sTemp
 
-        sTemp = cmbSigils.SelectedItem
-        cmbSigils.Items.Clear()
-        cmbSigils.Items.Add("None")
-        cmbSigils.Items.Add("WildBuck")
-        cmbSigils.Items.Add("FrozenConscience")
-        cmbSigils.Items.Add("DarkRider")
-        cmbSigils.Items.Add("ArthriticBinding")
-        cmbSigils.Items.Add("Awareness")
-        cmbSigils.Items.Add("Strife")
-        cmbSigils.Items.Add("HauntedDreams")
-        cmbSigils.Items.Add("VengefulHeart")
-        cmbSigils.Items.Add("Virulence")
-        cmbSigils.Items.Add("HangedMan")
-        cmbSigils.SelectedItem = sTemp
-        'cmbSigils.Sorted=true
 
-        sTemp = cmbRuneMH.SelectedItem
-        cmbRuneMH.Items.Clear()
-        cmbRuneMH.Items.Add("None")
-        cmbRuneMH.Items.Add("Cinderglacier")
-        cmbRuneMH.Items.Add("Razorice")
-        cmbRuneMH.Items.Add("FallenCrusader")
-        cmbRuneMH.SelectedItem = sTemp
 
-        sTemp = cmbRuneOH.SelectedItem
-        cmbRuneOH.Items.Clear()
-        cmbRuneOH.Items.Add("None")
-        cmbRuneOH.Items.Add("Cinderglacier")
-        cmbRuneOH.Items.Add("Razorice")
-        cmbRuneOH.Items.Add("FallenCrusader")
-        cmbRuneOH.Items.Add("Berserking")
-        cmbRuneOH.SelectedItem = sTemp
 
-        sTemp = cmbBShOption.SelectedItem
+        sTemp = ""
+        If IsNothing(cmbBShOption.SelectedItem) Then sTemp = cmbBShOption.SelectedItem
+
         cmbBShOption.Items.Clear()
         cmbBShOption.Items.Add("Instead of Blood Strike")
         cmbBShOption.Items.Add("Instead of Blood Boil")
@@ -525,7 +495,9 @@ sortie:
         cmbBShOption.Items.Add("After Death rune OB/SS with cancel aura")
         cmbBShOption.SelectedItem = sTemp
 
-        sTemp = cmbICCBuff.SelectedItem
+        sTemp = ""
+        If IsNothing(cmbICCBuff.SelectedItem) Then sTemp = cmbICCBuff.SelectedItem
+
         cmbICCBuff.Items.Clear()
         cmbICCBuff.Items.Add("0")
         cmbICCBuff.Items.Add("5")
@@ -542,7 +514,7 @@ sortie:
         RefreshScenarioList()
         'SimConstructor.PetFriendly = Me.ckPet.Ischecked
         'LockSaveButtons()
-
+        SwitchMode()
     End Sub
     Sub LoadScaling()
         On Error GoTo OUT
@@ -819,7 +791,7 @@ OUT:
 
         Try
             GearSelector.FilePath = cmbGearSelector.SelectedValue
-            GearSelector.Show()
+            'GearSelector.Show()
             GearSelector.LoadMycharacter()
         Catch Err As Exception
 
@@ -897,5 +869,592 @@ OUT:
         'Dim txtEdi As New TextEditor
         'txtEdi.OpenFileFromISO("/KahoDKSim/CombatLog/Combatlog.txt")
         'txtEdi.Show()
+    End Sub
+    Sub CmbRaceSelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles cmbRace.SelectionChanged
+        GetStats()
+    End Sub
+    Sub CmbSkillClick(ByVal sender As Object, ByVal e As EventArgs) Handles cmbSkill1.SelectionChanged, cmbSkill2.SelectionChanged
+        Dim eq As VisualEquipSlot
+        If IsNothing(GearSelector) Then Exit Sub
+        If GearSelector.InLoad Then Exit Sub
+        GearSelector.InLoad = True
+        For Each eq In GearSelector.EquipmentList
+            eq.Item.LoadItem(eq.Item.Id)
+            eq.DisplayItem()
+        Next
+        GearSelector.InLoad = False
+        GetStats()
+    End Sub
+
+    Sub CmbFlaskSelectionChange(ByVal sender As Object, ByVal e As EventArgs) Handles cmbFlask.SelectionChanged
+        If IsNothing(sender.SelectedItem) Then Exit Sub
+        Try
+            GearSelector.Flask.Attach(cmbFlask.SelectedValue)
+        Catch ex As Exception
+            Log.Log(ex.StackTrace, logging.Level.ERR)
+        End Try
+        GetStats()
+    End Sub
+
+    Sub cmbFoodSelectionChange(ByVal sender As Object, ByVal e As EventArgs) Handles cmbFood.SelectionChanged
+        If IsNothing(sender.SelectedItem) Then Exit Sub
+        Try
+            Food.Attach(cmbFood.SelectedValue)
+            GetStats()
+        Catch ex As Exception
+            Log.Log(ex.StackTrace, logging.Level.ERR)
+        End Try
+
+    End Sub
+    Sub GetStats()
+        If IsNothing(GearSelector) Then Exit Sub
+        If GearSelector.InLoad Then Exit Sub
+        Dim iSlot As VisualEquipSlot
+        Dim Strength As Integer
+        Dim Intel As Integer
+        Dim Agility As Integer
+        Dim BonusArmor As Integer
+        Dim Armor As Integer
+        Dim HasteRating As Integer
+        Dim ExpertiseRating As Integer
+        Dim HitRating As Integer
+        Dim AttackPower As Integer
+        Dim CritRating As Integer
+        Dim ArmorPenetrationRating As Integer
+        Dim Speed1 As String = "0"
+        Dim Speed2 As String = "0"
+        Dim DPS1 As String = "0"
+        Dim DPS2 As String = "0"
+
+
+        chkMeta.IsChecked = False
+        chkTailorEnchant.IsChecked = False
+        chkIngenieer.IsChecked = False
+        chkAccelerators.IsChecked = False
+        chkAshenBand.IsChecked = False
+        chkBloodFury.IsChecked = False
+        chkBerzerking.IsChecked = False
+        chkArcaneTorrent.IsChecked = False
+
+        cmbSetBonus1.Text = ""
+        cmbSetBonus2.Text = ""
+
+        Dim cSetBonus As New Collections.Generic.List(Of String)
+        Select Case GearSelector.ParentFrame.cmbRace.SelectedValue
+            Case "Blood Elf"
+                Strength = 172
+                Agility = 114
+                Intel = 39
+            Case "Draenei"
+                Strength = 176
+                Agility = 109
+                Intel = 36
+            Case "Dwarf"
+                Strength = 177
+                Agility = 108
+                Intel = 34
+            Case "Gnome"
+                Strength = 170
+                Agility = 115
+                Intel = 42
+            Case "Human"
+                Strength = 175
+                Agility = 112
+                Intel = 35
+            Case "Night Elf"
+                Strength = 172
+                Agility = 117
+                Intel = 35
+            Case "Orc"
+                Strength = 178
+                Agility = 109
+                Intel = 32
+            Case "Tauren"
+                Strength = 180
+                Agility = 107
+                Intel = 30
+            Case "Troll"
+                Strength = 176
+                Agility = 114
+                Intel = 31
+            Case "Undead"
+                Strength = 174
+                Agility = 110
+                Intel = 33
+            Case "Goblin"
+                Strength = 174
+                Agility = 110
+                Intel = 33
+            Case "Worgen"
+                Strength = 174
+                Agility = 110
+                Intel = 33
+        End Select
+        'Food
+        Strength += GearSelector.Food.Strength
+        Agility += GearSelector.Food.Agility
+        HasteRating += GearSelector.Food.HasteRating
+        ExpertiseRating += GearSelector.Food.ExpertiseRating
+        HitRating += GearSelector.Food.HitRating
+        AttackPower += GearSelector.Food.AttackPower
+        CritRating += GearSelector.Food.CritRating
+        ArmorPenetrationRating += GearSelector.Food.ArmorPenetrationRating
+
+        'Flask
+        Strength += GearSelector.Flask.Strength
+        Agility += GearSelector.Flask.Agility
+        HasteRating += GearSelector.Flask.HasteRating
+        ExpertiseRating += GearSelector.Flask.ExpertiseRating
+        HitRating += GearSelector.Flask.HitRating
+        AttackPower += GearSelector.Flask.AttackPower
+        CritRating += GearSelector.Flask.CritRating
+        ArmorPenetrationRating += GearSelector.Flask.ArmorPenetrationRating
+        Armor += GearSelector.Flask.Armor
+
+
+        txtMHExpBonus.Text = 0
+        txtOHExpBonus.Text = 0
+
+        For Each iSlot In GearSelector.EquipmentList
+
+            If iSlot.Item.Id = 0 Then GoTo NextItem
+            If iSlot.SlotId = 17 And rDW.IsChecked Then GoTo NextItem
+            If iSlot.SlotId = 13 And r2Hand.IsChecked Then GoTo NextItem
+
+            Dim subc As Integer = (From el In ItemDB.Element("items").Elements
+                                   Where el.Element("id").Value = iSlot.Item.Id
+                                   Select GearSelector.GearSelector.getItem(el)).First.subclass
+            If iSlot.Text.ToString = "TwoHand" Or iSlot.Text.ToString = "MainHand" Then
+                DPS1 = iSlot.Item.DPS
+                Speed1 = iSlot.Item.Speed
+                Try
+                    cmbWeaponProc1.Text = "MH" & (
+                        From el In WeapProcDB.Element("WeaponProcList").Elements("proc")
+                        Where (el.Attribute("id").Value = iSlot.Item.Id)
+                        Select el).First.Attribute("name").Value
+                Catch ex As Exception
+                    Log.Log(ex.StackTrace, logging.Level.ERR)
+                    cmbWeaponProc1.Text = ""
+                End Try
+                Select Case GearSelector.ParentFrame.cmbRace.SelectedValue
+                    Case "Dwarf"
+                        If subc = 4 Or subc = 5 Then
+                            txtMHExpBonus.Text = 5
+                        End If
+                    Case "Human"
+                        If subc = 4 Or subc = 5 Or subc = 7 Or subc = 8 Then
+                            txtMHExpBonus.Text = 3
+                        End If
+                    Case "Orc"
+                        If subc = 0 Or subc = 1 Then
+                            txtMHExpBonus.Text = 5
+                        End If
+                End Select
+
+
+
+            End If
+
+            If iSlot.Text.ToString = "OffHand" Then
+                DPS2 = iSlot.Item.DPS
+                Speed2 = iSlot.Item.Speed
+
+                Try
+                    cmbWeaponProc2.Text = "OH" & (
+                        From el In WeapProcDB.Element("WeaponProcList").Elements("proc")
+                        Where (el.Attribute("id").Value = iSlot.Item.Id)
+                        Select el).First.Attribute("name").Value
+                Catch ex As Exception
+                    Log.Log(ex.StackTrace, logging.Level.ERR)
+                    cmbWeaponProc1.Text = ""
+                End Try
+
+                Select Case GearSelector.ParentFrame.cmbRace.SelectedValue
+                    Case "Dwarf"
+                        If subc = 4 Or subc = 5 Then
+                            txtOHExpBonus.Text = 5
+                        End If
+                    Case "Human"
+                        If subc = 4 Or subc = 5 Or subc = 7 Or subc = 8 Then
+                            txtOHExpBonus.Text = 3
+                        End If
+                    Case "Orc"
+                        If subc = 0 Or subc = 1 Then
+                            txtOHExpBonus.Text = 5
+                        End If
+                End Select
+            End If
+            If iSlot.Item.setid <> 0 Then
+                cSetBonus.Add(iSlot.Item.setid)
+            End If
+
+            If iSlot.Text.ToString = "Trinket1" Then
+                Try
+                    cmbTrinket1.Text = (
+                        From el In trinketDB.Element("TrinketList").Elements("trinket")
+                        Where (el.Attribute("id").Value = iSlot.Item.Id)
+                        Select el).FirstOrDefault.Attribute("name").Value
+                Catch ex As Exception
+                    Log.Log("No Effect on Trinket1", logging.Level.INFO)
+                    cmbTrinket1.Text = ""
+                End Try
+            End If
+            If iSlot.Text.ToString = "Trinket2" Then
+                Try
+                    cmbTrinket2.Text = (From el In trinketDB.Element("TrinketList").Elements("trinket")
+                        Where (el.Attribute("id").Value = iSlot.Item.Id)
+                        Select el).FirstOrDefault.Attribute("name").Value
+                Catch ex As Exception
+                    Log.Log("No Effect on Trinket1", logging.Level.INFO)
+                    cmbTrinket2.Text = ""
+                End Try
+            End If
+
+
+
+            If iSlot.Item.Id <> 0 Then
+                Strength += iSlot.Item.Strength
+                Agility += iSlot.Item.Agility
+                BonusArmor += iSlot.Item.BonusArmor
+                Armor += iSlot.Item.Armor
+                HasteRating += iSlot.Item.HasteRating
+                ExpertiseRating += iSlot.Item.ExpertiseRating
+                HitRating += iSlot.Item.HitRating
+                AttackPower += iSlot.Item.AttackPower
+                CritRating += iSlot.Item.CritRating
+                ArmorPenetrationRating += iSlot.Item.ArmorPenetrationRating
+
+
+                If iSlot.Item.gem1.Id <> 0 Then
+                    Strength += iSlot.Item.gem1.Strength
+                    Agility += iSlot.Item.gem1.Agility
+                    HasteRating += iSlot.Item.gem1.HasteRating
+                    ExpertiseRating += iSlot.Item.gem1.ExpertiseRating
+                    HitRating += iSlot.Item.gem1.HitRating
+                    AttackPower += iSlot.Item.gem1.AttackPower
+                    CritRating += iSlot.Item.gem1.CritRating
+                    ArmorPenetrationRating += iSlot.Item.gem1.ArmorPenetrationRating
+                End If
+                If iSlot.Item.gem2.Id <> 0 Then
+                    Strength += iSlot.Item.gem2.Strength
+                    Agility += iSlot.Item.gem2.Agility
+                    HasteRating += iSlot.Item.gem2.HasteRating
+                    ExpertiseRating += iSlot.Item.gem2.ExpertiseRating
+                    HitRating += iSlot.Item.gem2.HitRating
+                    AttackPower += iSlot.Item.gem2.AttackPower
+                    CritRating += iSlot.Item.gem2.CritRating
+                    ArmorPenetrationRating += iSlot.Item.gem2.ArmorPenetrationRating
+                End If
+                If iSlot.Item.gem3.Id <> 0 Then
+                    Strength += iSlot.Item.gem3.Strength
+                    Agility += iSlot.Item.gem3.Agility
+                    HasteRating += iSlot.Item.gem3.HasteRating
+                    ExpertiseRating += iSlot.Item.gem3.ExpertiseRating
+                    HitRating += iSlot.Item.gem3.HitRating
+                    AttackPower += iSlot.Item.gem3.AttackPower
+                    CritRating += iSlot.Item.gem3.CritRating
+                    ArmorPenetrationRating += iSlot.Item.gem3.ArmorPenetrationRating
+                End If
+
+                If iSlot.Item.IsGembonusActif And iSlot.Item.gembonus <> 0 Then
+                    Try
+                        Dim el As XElement = (From ele In GemBonusDB.Element("bonus").Elements
+                                              Where ele.Element("id").Value = iSlot.Item.gembonus
+                                              Select ele).FirstOrDefault
+                        Strength += el.Element("Strength").Value
+                        Agility += el.Element("Agility").Value
+                        HasteRating += el.Element("HasteRating").Value
+                        ExpertiseRating += el.Element("ExpertiseRating").Value
+                        HitRating += el.Element("HitRating").Value
+                        AttackPower += el.Element("AttackPower").Value
+                        CritRating += el.Element("CritRating").Value
+                        ArmorPenetrationRating += el.Element("ArmorPenetrationRating").Value
+                    Catch ex As Exception
+                        Log.Log(ex.StackTrace, logging.Level.ERR)
+
+                    End Try
+                End If
+
+                If iSlot.Item.Enchant.Id <> 0 Then
+                    Strength += iSlot.Item.Enchant.Strength
+                    Agility += iSlot.Item.Enchant.Agility
+                    HasteRating += iSlot.Item.Enchant.HasteRating
+                    ExpertiseRating += iSlot.Item.Enchant.ExpertiseRating
+                    HitRating += iSlot.Item.Enchant.HitRating
+                    AttackPower += iSlot.Item.Enchant.AttackPower
+                    CritRating += iSlot.Item.Enchant.CritRating
+                    ArmorPenetrationRating += iSlot.Item.Enchant.ArmorPenetrationRating
+                End If
+            End If
+
+            ' Meta Gem
+            If iSlot.Item.gem1.Id = 41398 Or iSlot.Item.gem1.Id = 41285 Then
+                chkMeta.IsChecked = True
+            End If
+            ' Tailor enchant
+            If iSlot.Item.Enchant.Id = 7 Then
+                chkTailorEnchant.IsChecked = True
+            End If
+            ' PyroRocket
+            If iSlot.Item.Enchant.Id = 3603 Then
+                chkIngenieer.IsChecked = True
+            End If
+            ' Hyperspeed accelerator
+            If iSlot.Item.Enchant.Id = 3604 Then
+                chkAccelerators.IsChecked = True
+            End If
+
+            ' Ashen band
+            If iSlot.Item.Id = 50401 Or iSlot.Item.Id = 50402 Or iSlot.Item.Id = 52572 Or iSlot.Item.Id = 52571 Then
+                chkAshenBand.IsChecked = True
+            End If
+NextItem:
+        Next
+        ' Bloodfury
+        If GearSelector.ParentFrame.cmbRace.SelectedItem = "Orc" Then
+            chkBloodFury.IsChecked = True
+        End If
+        ' Berzerking
+        If GearSelector.ParentFrame.cmbRace.SelectedItem = "Troll" Then
+            chkBerzerking.IsChecked = True
+        End If
+        ' Arcane torrent
+        If cmbRace.SelectedItem = "Blood Elf" Then
+            chkArcaneTorrent.IsChecked = True
+        End If
+        ' Set bonus1
+        If cSetBonus.Count > 0 Then
+            cSetBonus.Sort()
+            cSetBonus = GearSelector.TransformToSet(cSetBonus)
+            Dim i As Integer
+            Dim sId As String
+
+            Do Until cSetBonus.Count = 0
+
+                sId = cSetBonus.Item(0)
+                i = GearSelector.CollectionDuplicateCount(cSetBonus, cSetBonus.Item(0))
+                If i >= 4 Then
+                    cmbSetBonus1.Text = cSetBonus.Item(0)
+                    cmbSetBonus1.Text = cmbSetBonus1.Text.Replace("DPS", "4PDPS")
+                    cmbSetBonus1.Text = cmbSetBonus1.Text.Replace("TNK", "4PTNK")
+                End If
+                If i >= 2 Then
+                    If cmbSetBonus1.Text <> "" Then
+                        cmbSetBonus2.Text = cSetBonus.Item(0)
+                        cmbSetBonus2.Text = cmbSetBonus2.Text.Replace("DPS", "2PDPS")
+                        cmbSetBonus2.Text = cmbSetBonus2.Text.Replace("TNK", "2PTNK")
+                    Else
+                        cmbSetBonus1.Text = cSetBonus.Item(0)
+                        cmbSetBonus1.Text = cmbSetBonus1.Text.Replace("DPS", "2PDPS")
+                        cmbSetBonus1.Text = cmbSetBonus1.Text.Replace("TNK", "2PTNK")
+                    End If
+                End If
+                Do Until cSetBonus.Contains(sId) = False
+                    cSetBonus.Remove(sId)
+                Loop
+            Loop
+        End If
+
+        Armor += Agility * 2
+        txtStr.Text = Strength
+        txtAgi.Text = Agility
+        '		BonusArmor
+        txtArmor.Text = Armor
+        txtHaste.Text = HasteRating
+        lblHAste.Content = "Haste Rating (" & toDDecimal(HasteRating / 25.22) & "%)"
+
+        txtExp.Text = ExpertiseRating
+        lblExp.Content = "Expertise Rating(" & (toDDecimal(ExpertiseRating / 32.79)) * 4 & ")"
+        txtHit.Text = HitRating
+        lblHit.Content = "Hit Rating(" & toDDecimal(HitRating / 32.79) & "%)"
+        txtAP.Text = AttackPower
+        txtArP.Text = ArmorPenetrationRating
+        lblArP.Content = "ArP(" & toDDecimal(ArmorPenetrationRating / 13.99) & ")"
+
+        txtCrit.Text = CritRating
+        lblCrit.Content = "CritRating(" & toDDecimal(CritRating / 45.91) & "%)"
+        txtIntel.Text = Intel
+        txtMHDPS.Text = DPS1
+        txtMHWSpeed.Text = Speed1
+        txtOHDPS.Text = DPS2
+        txtOHWSpeed.Text = Speed2
+    End Sub
+    Sub SaveMycharacter()
+        Dim xmlChar As XDocument = XDocument.Parse("<character/>")
+
+
+
+        xmlChar.Element("character").Add(New XElement("race", cmbRace.SelectedItem))
+        xmlChar.Element("character").Add(New XElement("skill1", cmbSkill1.SelectedItem))
+        xmlChar.Element("character").Add(New XElement("skill2", cmbSkill2.SelectedItem))
+        xmlChar.Element("character").Add(New XElement("food", cmbFood.SelectedItem))
+        xmlChar.Element("character").Add(New XElement("flask", cmbFlask.SelectedItem))
+        xmlChar.Element("character").Add(New XElement("DW", rDW.IsChecked.ToString))
+        xmlChar.Element("character").Add(New XElement("TwoHand", r2Hand.IsChecked.ToString))
+
+
+        Dim iSlot As VisualEquipSlot
+        For Each iSlot In GearSelector.EquipmentList
+            xmlChar.Element("character").Add(New XElement(iSlot.Text.ToString))
+            xmlChar.Element("character").Element(iSlot.Text.ToString).Add(New XElement("id", iSlot.Item.Id))
+            xmlChar.Element("character").Element(iSlot.Text.ToString).Add(New XElement("gem1", iSlot.Item.gem1.Id))
+            xmlChar.Element("character").Element(iSlot.Text.ToString).Add(New XElement("gem2", iSlot.Item.gem2.Id))
+            xmlChar.Element("character").Element(iSlot.Text.ToString).Add(New XElement("gem3", iSlot.Item.gem3.Id))
+            xmlChar.Element("character").Element(iSlot.Text.ToString).Add(New XElement("enchant", iSlot.Item.Enchant.Id))
+        Next
+
+
+
+        xmlChar.Element("character").Add(New XElement("stat", ""))
+        xmlChar.Element("character").Element("stat").Add(New XElement("Strength", CheckForInt(txtStr.Text)))
+        xmlChar.Element("character").Element("stat").Add(New XElement("Agility", CheckForInt(txtAgi.Text)))
+        xmlChar.Element("character").Element("stat").Add(New XElement("Intel", CheckForInt(txtIntel.Text)))
+        xmlChar.Element("character").Element("stat").Add(New XElement("Armor", CheckForInt(txtArmor.Text)))
+        xmlChar.Element("character").Element("stat").Add(New XElement("AttackPower", CheckForInt(txtAP.Text)))
+        xmlChar.Element("character").Element("stat").Add(New XElement("HitRating", CheckForInt(txtHit.Text)))
+        xmlChar.Element("character").Element("stat").Add(New XElement("CritRating", CheckForInt(txtCrit.Text)))
+        xmlChar.Element("character").Element("stat").Add(New XElement("HasteRating", CheckForInt(txtHaste.Text)))
+        xmlChar.Element("character").Element("stat").Add(New XElement("ArmorPenetrationRating", CheckForInt(txtArP.Text)))
+        xmlChar.Element("character").Element("stat").Add(New XElement("ExpertiseRating", CheckForInt(txtStr.Text)))
+
+
+        xmlChar.Element("character").Add(New XElement("weapon", ""))
+        Dim i As Integer
+        If r2Hand.IsChecked = True Then
+            i = 1
+        Else
+            i = 2
+        End If
+
+        xmlChar.Element("character").Element("weapon").Add(New XElement("count", i))
+
+        xmlChar.Element("character").Element("weapon").Add(New XElement("mainhand", ""))
+        xmlChar.Element("character").Element("weapon").Add(New XElement("offhand", ""))
+
+
+        xmlChar.Element("character").Element("weapon").Element("mainhand").Add(New XElement("dps", CheckForDouble(txtMHDPS.Text)))
+        xmlChar.Element("character").Element("weapon").Element("mainhand").Add(New XElement("speed", CheckForDouble(txtMHWSpeed.Text)))
+
+        xmlChar.Element("character").Element("weapon").Element("offhand").Add(New XElement("dps", CheckForDouble(txtOHDPS.Text)))
+        xmlChar.Element("character").Element("weapon").Element("offhand").Add(New XElement("speed", CheckForDouble(txtOHWSpeed.Text)))
+
+
+
+
+        xmlChar.Element("character").Add(New XElement("Set", ""))
+        If cmbSetBonus1.Text <> "" Then
+            xmlChar.Element("character").Element("Set").Add(New XElement(cmbSetBonus1.Text, 1))
+        End If
+        If cmbSetBonus2.Text <> "" Then
+            xmlChar.Element("character").Element("Set").Add(New XElement(cmbSetBonus2.Text, 1))
+        End If
+
+
+
+
+
+
+        xmlChar.Element("character").Add(New XElement("trinket", ""))
+
+        If cmbTrinket1.Text <> "" Then
+            xmlChar.Element("character").Element("trinket").Add(New XElement(cmbTrinket1.Text, 1))
+        End If
+        If cmbTrinket2.Text <> "" Then
+            xmlChar.Element("character").Element("trinket").Add(New XElement(cmbTrinket2.Text, 1))
+        End If
+
+        xmlChar.Element("character").Add(New XElement("WeaponProc", ""))
+        If cmbWeaponProc1.Text <> "" Then
+            xmlChar.Element("character").Element("WeaponProc").Add(New XElement(cmbWeaponProc1.Text, 1))
+        End If
+        If cmbWeaponProc2.Text <> "" Then
+            xmlChar.Element("character").Element("WeaponProc").Add(New XElement(cmbWeaponProc2.Text, 1))
+        End If
+
+
+
+        xmlChar.Element("character").Add(New XElement("misc", ""))
+        xmlChar.Element("character").Element("misc").Add(New XElement("HandMountedPyroRocket", chkIngenieer.IsChecked))
+        xmlChar.Element("character").Element("misc").Add(New XElement("HyperspeedAccelerators", chkAccelerators.IsChecked))
+        xmlChar.Element("character").Element("misc").Add(New XElement("ChaoticSkyflareDiamond", chkMeta.IsChecked))
+        xmlChar.Element("character").Element("misc").Add(New XElement("TailorEnchant", chkTailorEnchant.IsChecked))
+        xmlChar.Element("character").Element("misc").Add(New XElement("AshenBand", chkAshenBand.IsChecked))
+
+
+        Dim itm As CheckBox
+
+        For Each itm In stackConsumable.Children
+            xmlChar.Element("character").Element("misc").Add(New XElement(itm.Name, itm.IsChecked))
+        Next
+
+
+
+        xmlChar.Element("character").Add(New XElement("racials", ""))
+        xmlChar.Element("character").Element("racials").Add(New XElement("MHExpertiseBonus", CheckForInt(txtMHExpBonus.Text)))
+        xmlChar.Element("character").Element("racials").Add(New XElement("OHExpertiseBonus", CheckForInt(txtOHExpBonus.Text)))
+        xmlChar.Element("character").Element("racials").Add(New XElement("Orc", chkBloodFury.IsChecked))
+        xmlChar.Element("character").Element("racials").Add(New XElement("Troll", chkBerzerking.IsChecked))
+        xmlChar.Element("character").Element("racials").Add(New XElement("BloodElf", chkArcaneTorrent.IsChecked))
+        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/CharactersWithGear/" & GearSelector.FilePath, FileMode.Create, isoStore)
+                xmlChar.Save(isoStream)
+            End Using
+        End Using
+
+
+
+    End Sub
+    Private Sub r2Hand_Checked(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles r2Hand.Checked
+        GearSelector.TwoHWeapSlot.Opacity = 1
+        GearSelector.TwoHWeapSlot.IsHitTestVisible = True
+        GearSelector.MHWeapSlot.Opacity = 0
+        GearSelector.OHWeapSlot.Opacity = 0
+        GearSelector.MHWeapSlot.IsHitTestVisible = False
+        GearSelector.OHWeapSlot.IsHitTestVisible = False
+        GetStats()
+    End Sub
+
+    Private Sub rDW_Checked(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles rDW.Checked
+        GearSelector.TwoHWeapSlot.Opacity = 0
+        GearSelector.TwoHWeapSlot.IsHitTestVisible = False
+        GearSelector.MHWeapSlot.Opacity = 1
+        GearSelector.OHWeapSlot.Opacity = 1
+        GearSelector.MHWeapSlot.IsHitTestVisible = True
+        GearSelector.OHWeapSlot.IsHitTestVisible = True
+        GetStats()
+    End Sub
+    Friend AdvancedMode As Boolean = False
+    Private Sub cmdAdvancedMode_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdAdvancedMode.Click
+        If AdvancedMode = False Then
+            AdvancedMode = True
+            SwitchMode()
+            Return
+        End If
+
+        If AdvancedMode = True Then
+            AdvancedMode = False
+            SwitchMode()
+            Return
+        End If
+
+
+    End Sub
+    Sub SwitchMode()
+        Dim Visib As Integer
+        If AdvancedMode Then
+            Visib = Visibility.Visible
+        Else
+            Visib = Visibility.Collapsed
+        End If
+        TabBuff.Visibility = Visib
+        tabCharSummary.Visibility = Visib
+        'tabConfig.Visibility = Visib
+        TabEPOptions.Visibility = Visib
+        'TabReport.Visibility = Visib
+        TabReportOption.Visibility = Visib
+        TabSimOption.Visibility = Visib
+        TabStatScaling.Visibility = Visib
+        tabStatSummary.Visibility = Visib
+        TabTank.Visibility = Visib
     End Sub
 End Class
