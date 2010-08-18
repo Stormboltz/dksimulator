@@ -23,9 +23,9 @@ Public Class Flask
     Friend Desc As String
     Friend Armor As Integer
     Protected FlaskDB As XDocument
-    Protected MainFrame As GearSelectorMainForm
+    Protected MainFrame As FrmGearSelector
 
-    Sub New(ByVal MainFrm As GearSelectorMainForm)
+    Sub New(ByVal MainFrm As FrmGearSelector)
         MainFrame = MainFrm
         FlaskDB = MainFrame.FlaskDB
     End Sub

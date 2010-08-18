@@ -4,7 +4,7 @@ Partial Public Class GearSelector
     Inherits ChildWindow
     Friend Slot As String
     Friend SelectedItem As String = -1
-    Friend MainFrame As GearSelectorMainForm
+    Friend MainFrame As FrmGearSelector
 
 
     Friend ItemDB As XDocument
@@ -14,7 +14,7 @@ Partial Public Class GearSelector
     Private Sub CancelButton_Click(ByVal sender As Object, ByVal e As RoutedEventArgs) Handles CancelButton.Click
         Me.DialogResult = False
     End Sub
-    Public Sub New(ByVal m As GearSelectorMainForm)
+    Public Sub New(ByVal m As FrmGearSelector)
         ' The Me.InitializeComponent call is required for Windows Forms designer support.
         Me.InitializeComponent()
         MainFrame = m

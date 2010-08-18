@@ -5,7 +5,7 @@ Imports System.Linq
 
 Partial Public Class EnchantSelector
     Inherits ChildWindow
-    Friend GS As GearSelectorMainForm
+    Friend GS As FrmGearSelector
     Dim sortColumn As Integer = -1
     Friend gemDB As New XDocument
     Friend Slot As String
@@ -15,7 +15,7 @@ Partial Public Class EnchantSelector
         InitializeComponent()
     End Sub
 
-    Public Sub New(ByVal GS As GearSelectorMainForm)
+    Public Sub New(ByVal GS As FrmGearSelector)
         Me.GS = GS
         InitializeComponent()
     End Sub

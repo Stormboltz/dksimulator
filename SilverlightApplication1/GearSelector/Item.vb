@@ -48,7 +48,7 @@ Public Class Item
 
 
 
-    Protected MainFrame As GearSelectorMainForm
+    Protected MainFrame As FrmGearSelector
 
     Protected ItemDB As XDocument
 
@@ -58,7 +58,7 @@ Public Class Item
 
 
 
-    Sub New(ByVal MainFrm As GearSelectorMainForm, Optional ByVal ItemId As Integer = 0)
+    Sub New(ByVal MainFrm As FrmGearSelector, Optional ByVal ItemId As Integer = 0)
         MainFrame = MainFrm
         ItemDB = MainFrame.ItemDB
 

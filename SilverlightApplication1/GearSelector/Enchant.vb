@@ -27,9 +27,9 @@ Public Class Enchant
 
 
     Protected EnchantDB As XDocument
-    Protected MainFrame As GearSelectorMainForm
+    Protected MainFrame As FrmGearSelector
 
-    Sub New(ByVal MainFrm As GearSelectorMainForm)
+    Sub New(ByVal MainFrm As FrmGearSelector)
         MainFrame = MainFrm
         EnchantDB = MainFrame.EnchantDB
     End Sub

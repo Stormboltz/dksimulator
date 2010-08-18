@@ -1,7 +1,7 @@
 ﻿Partial Public Class EPDisplay
     Inherits ChildWindow
 
-    Private ParentFrame As GearSelectorMainForm
+    Private ParentFrame As FrmGearSelector
 
     Public Sub New()
         InitializeComponent()
@@ -15,7 +15,7 @@
         Me.DialogResult = False
     End Sub
 
-    Friend Sub New(ByVal ParentF As GearSelectorMainForm)
+    Friend Sub New(ByVal ParentF As FrmGearSelector)
         ' The Me.InitializeComponent call is required for Windows Forms designer support.
         ParentFrame = ParentF
         Me.InitializeComponent()
@@ -24,7 +24,7 @@
     End Sub
 
     Sub EPDisplayLoad(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Loaded
-        Dim GS As GearSelectorMainForm
+        Dim GS As FrmGearSelector
         GS = ParentFrame
         Dim EPVal As EPValues
         EPVal = GS.ParentFrame.EPVal

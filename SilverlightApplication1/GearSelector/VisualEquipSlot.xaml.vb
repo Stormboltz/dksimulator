@@ -7,7 +7,7 @@ Partial Public Class VisualEquipSlot
     Public Sub New()
         InitializeComponent()
     End Sub
-    Friend Mainframe As GearSelectorMainForm
+    Friend Mainframe As FrmGearSelector
     Friend Text As String
     Friend xGemBonus As XDocument
     Friend SlotId As Integer
@@ -18,7 +18,7 @@ Partial Public Class VisualEquipSlot
 
 
 
-    Sub init(ByVal m As GearSelectorMainForm, ByVal slot As Integer)
+    Sub init(ByVal m As FrmGearSelector, ByVal slot As Integer)
         Mainframe = m
         Me.SlotId = slot
         xGemBonus = m.GemBonusDB
@@ -54,6 +54,7 @@ Partial Public Class VisualEquipSlot
 
     Private Sub cmdEquipSlot_MouseMove(ByVal sender As System.Object, ByVal e As System.Windows.Input.MouseEventArgs) Handles cmdEquipSlot.MouseMove
         Try
+            If IsNothing(Mainframe) Then Exit Sub
             If Mainframe.ItemEditor1.Origin <> Me.Name Then
                 Me.Cursor = Cursors.Wait
                 Mainframe.ItemEditor1.Load(Me)

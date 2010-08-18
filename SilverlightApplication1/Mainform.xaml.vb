@@ -30,7 +30,7 @@ Partial Public Class MainForm
 
     Private WithEvents TEdit As New TemplateEditor
     Private WithEvents PrioEditor As New PriorityEditor
-    Private WithEvents GearSelector As GearSelectorMainForm
+
     Private WithEvents ScenarioEditor As ScenarioEditor
 
 
@@ -395,7 +395,7 @@ Partial Public Class MainForm
         cmbIntro.SelectedValue = "NoIntro.xml"
         cmbPrio.SelectedValue = "Unholy.xml"
         cmdPresence.SelectedValue = "Frost"
-       
+
         cmbScenario.SelectedValue = "Scenario.xml"
 
     End Sub
@@ -453,7 +453,7 @@ sortie:
         Dim sTemp As String = ""
         CharacterGrid.Children.Clear()
         If GearSelector Is Nothing Then
-            GearSelector = New GearSelectorMainForm(Me)
+            GearSelector = New FrmGearSelector(Me)
         End If
         CharacterGrid.Children.Add(GearSelector)
         If IsNothing(cmbGearSelector.SelectedItem) Then sTemp = cmbGearSelector.SelectedItem
@@ -786,9 +786,9 @@ OUT:
 
     Private Sub cmdEditCharacterWithGear_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdEditCharacterWithGear.Click
         If GearSelector Is Nothing Then
-            GearSelector = New GearSelectorMainForm(Me)
+            GearSelector = New FrmGearSelector(Me)
         End If
-
+        If GearSelector.ParentFrame Is Nothing Then GearSelector.Init(Me)
         Try
             GearSelector.FilePath = cmbGearSelector.SelectedValue
             'GearSelector.Show()
@@ -799,7 +799,7 @@ OUT:
         End Try
     End Sub
 
-    Sub GearSelector_close() Handles GearSelector.Closing
+    Sub GearSelector_close()
         loadWindow()
         cmbGearSelector.SelectedItem = GearSelector.FilePath
     End Sub

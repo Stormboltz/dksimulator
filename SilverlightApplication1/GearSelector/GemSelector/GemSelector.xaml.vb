@@ -9,14 +9,14 @@ Partial Public Class GemSelector
     Friend type As Integer
     Friend SelectedItem As String
     Friend GemNum As String
-    Friend MainFrame As GearSelectorMainForm
+    Friend MainFrame As FrmGearSelector
     Public Sub New()
         InitializeComponent()
     End Sub
     Private Sub CancelButton_Click(ByVal sender As Object, ByVal e As RoutedEventArgs) Handles CancelButton.Click
         Me.DialogResult = False
     End Sub
-    Public Sub New(ByVal M As GearSelectorMainForm)
+    Public Sub New(ByVal M As FrmGearSelector)
 
         ' The Me.InitializeComponent call is required for Windows Forms designer support.
         Me.InitializeComponent()

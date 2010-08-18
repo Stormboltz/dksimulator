@@ -25,7 +25,7 @@ Partial Public Class ItemEditor
     Friend WithEvents GearS As GearSelector
     Protected initiated As Boolean = False
 
-    Protected Mainframe As GearSelectorMainForm
+    Protected Mainframe As FrmGearSelector
     Sub Load(ByVal VSlot As VisualEquipSlot)
         Mainframe = VSlot.Mainframe
         Me.SlotId = VSlot.SlotId
@@ -51,7 +51,7 @@ Partial Public Class ItemEditor
         cmbReforgeTo.Items.Add("Dodge")
         cmbReforgeTo.Items.Add("Parry")
     End Sub
-    Sub init(ByVal m As GearSelectorMainForm, ByVal slot As Integer)
+    Sub init(ByVal m As FrmGearSelector, ByVal slot As Integer)
         Mainframe = m
         Me.SlotId = slot
         Dim query = From c As XElement In m.EnchantDB.Element("enchant").Elements Where c.Element("slot").Value = slot

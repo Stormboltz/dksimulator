@@ -14,9 +14,9 @@ Public Class Food
     Friend ArmorPenetrationRating As Integer
     Friend Desc As String
     Protected foodDB As XDocument
-    Protected MainFrame As GearSelectorMainForm
+    Protected MainFrame As FrmGearSelector
 
-    Sub New(ByVal MainFrm As GearSelectorMainForm)
+    Sub New(ByVal MainFrm As FrmGearSelector)
         MainFrame = MainFrm
         foodDB = MainFrame.FoodDB
     End Sub

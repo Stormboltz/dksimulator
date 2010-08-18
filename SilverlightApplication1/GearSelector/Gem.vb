@@ -31,11 +31,11 @@ Public Class Gem
 
 
     Protected GemDB As XDocument
-    Protected MainFrame As GearSelectorMainForm
+    Protected MainFrame As FrmGearSelector
     Sub New()
 
     End Sub
-    Sub New(ByVal MainFrm As GearSelectorMainForm, ByVal Color As Integer)
+    Sub New(ByVal MainFrm As FrmGearSelector, ByVal Color As Integer)
         MainFrame = MainFrm
         GemDB = MainFrame.GemDB
         ColorId = Color

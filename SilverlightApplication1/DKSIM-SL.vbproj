@@ -163,6 +163,9 @@
       <DependentUpon>EPDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="GearSelector\EPValues.vb" />
+    <Compile Include="GearSelector\FrmGearSelector.xaml.vb">
+      <DependentUpon>FrmGearSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GearSelector\RuneForgeTextBox.xaml.vb">
       <DependentUpon>RuneForgeTextBox.xaml</DependentUpon>
     </Compile>
@@ -183,9 +186,6 @@
     <None Include="GearSelector\Extractor.vb" />
     <Compile Include="GearSelector\Flask.vb" />
     <Compile Include="GearSelector\Food.vb" />
-    <Compile Include="GearSelector\GearSelectorMainForm.xaml.vb">
-      <DependentUpon>GearSelectorMainForm.xaml</DependentUpon>
-    </Compile>
     <Compile Include="GearSelector\GearSelector\GearSelector.xaml.vb">
       <DependentUpon>GearSelector.xaml</DependentUpon>
     </Compile>
@@ -389,7 +389,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GearSelector\GearSelectorMainForm.xaml">
+    <Page Include="GearSelector\FrmGearSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

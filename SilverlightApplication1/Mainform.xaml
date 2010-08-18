@@ -5,10 +5,12 @@
            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
            mc:Ignorable="d"
            xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation" Title="Kahorie's DK simulator" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" d:DesignHeight="600" d:DesignWidth="800" xmlns:my="clr-namespace:DKSIMVB">
-    <StackPanel Width="800" Height="600">
+    
+    <StackPanel Width="800" Height="600" Background="#FFB14444">
+        <Border BorderBrush="Silver" BorderThickness="1" Name="Border1" Height="10" ></Border>
         <Grid x:Name="LayoutRoot" Width="800" Height="530" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid Name="CharacterGrid" Width="410" HorizontalAlignment="Left" Margin="2,10,10,2">
-
+                <my:FrmGearSelector x:Name="GearSelector"></my:FrmGearSelector>
             </Grid>
             <sdk:TabControl Name="TabControl1"  Height="520" Margin="2,10,10,2" Width="380" HorizontalAlignment="Right" VerticalAlignment="Top" TabStripPlacement="Left">
                 <sdk:TabItem Header="Configuration" Name="tabConfig">
@@ -363,6 +365,7 @@
             <Button Margin="32,5,31,5" Content="Advanced Mode"  Name="cmdAdvancedMode" Grid.Column="2" />
             <ProgressBar  Margin="32,5,31,5" Name="ProgressBar1" Grid.ColumnSpan="4" Grid.Row="1"/>
         </Grid>
+        
     </StackPanel>
 </navigation:Page>
 
