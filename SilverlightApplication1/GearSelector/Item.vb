@@ -32,6 +32,10 @@ Public Class Item
     Friend AttackPower As Integer
     Friend CritRating As Integer
     Friend ArmorPenetrationRating As Integer
+    Friend Mastery As Integer
+    Friend DodgeRating As Integer
+    Friend ParryRating As Integer
+
     Friend Speed As String = "0"
     Friend DPS As String = "0"
 
@@ -43,6 +47,10 @@ Public Class Item
     Friend gem2 As Gem
     Friend gem3 As Gem
     Friend Enchant As Enchant
+
+    Friend ReForgingFrom As String
+    Friend ReForgingTo As String
+    Friend ReForgingvalue As Integer
 
     Friend icon As String
 

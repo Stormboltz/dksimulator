@@ -444,7 +444,15 @@ Partial Public Class FrmGearSelector
                             Log.Log("LoadMycharacter: Cannot get enchant for " & iSlot.Name, logging.Level.WARNING)
                         End Try
 
+                        Try
+                            iSlot.Item.ReForgingFrom = xmlChar.Element("character").Element(iSlot.Text).Element("reforge").Element("from").Value
+                            iSlot.Item.ReForgingTo = xmlChar.Element("character").Element(iSlot.Text).Element("reforge").Element("to").Value
+                            iSlot.Item.ReForgingvalue = xmlChar.Element("character").Element(iSlot.Text).Element("reforge").Element("value").Value
+                        Catch ex As Exception
+                            Log.Log("LoadMycharacter: Cannot get reforging for " & iSlot.Name, logging.Level.WARNING)
+                        End Try
 
+                        
 
                     Catch ex As Exception
                         Log.Log("LoadMycharacter: Cannot get " & iSlot.Name, logging.Level.WARNING)
@@ -853,4 +861,6 @@ Partial Public Class FrmGearSelector
         dis.Show()
 
     End Sub
+
+    
 End Class

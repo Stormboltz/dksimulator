@@ -920,6 +920,11 @@ OUT:
         Dim HitRating As Integer
         Dim AttackPower As Integer
         Dim CritRating As Integer
+
+        Dim MasteryRating As Integer
+        Dim DodgeRating As Integer
+        Dim ParryRating As Integer
+
         Dim ArmorPenetrationRating As Integer
         Dim Speed1 As String = "0"
         Dim Speed2 As String = "0"
@@ -1185,6 +1190,47 @@ OUT:
                     CritRating += iSlot.Item.Enchant.CritRating
                     ArmorPenetrationRating += iSlot.Item.Enchant.ArmorPenetrationRating
                 End If
+
+                'Reforge
+                If iSlot.Item.ReForgingvalue <> 0 Then
+                    Select Case iSlot.Item.ReForgingFrom
+                        Case "Crit"
+                            CritRating -= iSlot.Item.ReForgingvalue
+                        Case "Exp"
+                            ExpertiseRating -= iSlot.Item.ReForgingvalue
+                        Case "Haste"
+                            HasteRating -= iSlot.Item.ReForgingvalue
+                        Case "Hit"
+                            HitRating -= iSlot.Item.ReForgingvalue
+                        Case "Mast"
+                            MasteryRating -= iSlot.Item.ReForgingvalue
+                        Case "Dodge"
+                            DodgeRating -= iSlot.Item.ReForgingvalue
+                        Case "Parry"
+                            ParryRating -= iSlot.Item.ReForgingvalue
+                    End Select
+
+                    Select Case iSlot.Item.ReForgingTo
+                        Case "Crit"
+                            CritRating += iSlot.Item.ReForgingvalue
+                        Case "Exp"
+                            ExpertiseRating += iSlot.Item.ReForgingvalue
+                        Case "Haste"
+                            HasteRating += iSlot.Item.ReForgingvalue
+                        Case "Hit"
+                            HitRating += iSlot.Item.ReForgingvalue
+                        Case "Mast"
+                            MasteryRating += iSlot.Item.ReForgingvalue
+                        Case "Dodge"
+                            DodgeRating += iSlot.Item.ReForgingvalue
+                        Case "Parry"
+                            ParryRating += iSlot.Item.ReForgingvalue
+                    End Select
+
+                End If
+
+
+
             End If
 
             ' Meta Gem
@@ -1301,6 +1347,10 @@ NextItem:
             xmlChar.Element("character").Element(iSlot.Text.ToString).Add(New XElement("gem2", iSlot.Item.gem2.Id))
             xmlChar.Element("character").Element(iSlot.Text.ToString).Add(New XElement("gem3", iSlot.Item.gem3.Id))
             xmlChar.Element("character").Element(iSlot.Text.ToString).Add(New XElement("enchant", iSlot.Item.Enchant.Id))
+            xmlChar.Element("character").Element(iSlot.Text.ToString).Add(New XElement("reforge"))
+            xmlChar.Element("character").Element(iSlot.Text.ToString).Element("reforge").Add(New XElement("from", iSlot.Item.ReForgingFrom))
+            xmlChar.Element("character").Element(iSlot.Text.ToString).Element("reforge").Add(New XElement("to", iSlot.Item.ReForgingTo))
+            xmlChar.Element("character").Element(iSlot.Text.ToString).Element("reforge").Add(New XElement("value", iSlot.Item.ReForgingvalue))
         Next
 
 

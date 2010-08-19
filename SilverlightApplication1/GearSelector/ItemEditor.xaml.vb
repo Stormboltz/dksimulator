@@ -34,19 +34,21 @@ Partial Public Class ItemEditor
         DisplayItem()
         DisplayEnchant()
         DisplayGem()
-        displayReforgingFrom()
         displayReforgingTo()
+        displayReforge()
     End Sub
 
-    Sub displayReforgingFrom()
-        cmbReforgeFrom.Items.Clear()
+    Sub displayReforge()
+        cmbReforgeFrom.SelectedValue = Item.ReForgingFrom
+        cmbReforgeTo.SelectedValue = Item.ReForgingTo
+        txtReforge.txtValue.Text = Item.ReForgingvalue
     End Sub
     Sub displayReforgingTo()
         cmbReforgeTo.Items.Clear()
-        cmbReforgeTo.Items.Add("Haste")
         cmbReforgeTo.Items.Add("Crit")
-        cmbReforgeTo.Items.Add("Hit")
         cmbReforgeTo.Items.Add("Exp")
+        cmbReforgeTo.Items.Add("Haste")
+        cmbReforgeTo.Items.Add("Hit")
         cmbReforgeTo.Items.Add("Mast")
         cmbReforgeTo.Items.Add("Dodge")
         cmbReforgeTo.Items.Add("Parry")
@@ -162,6 +164,8 @@ Partial Public Class ItemEditor
 
     End Sub
     Sub DisplayItem()
+        cmbReforgeFrom.Items.Clear()
+
         Me.Equipment.Content = Item.name & "(" & Item.ilvl & ")"
         If Item.heroic = 1 Then
             lblHeroic.Content = "Heroic"
@@ -174,12 +178,32 @@ Partial Public Class ItemEditor
         Dim col As New Collections.Generic.List(Of String)
         If Item.Strength <> 0 Then col.Add("Strength = " & Item.Strength)
         If Item.Agility <> 0 Then col.Add("Agility = " & Item.Agility)
-        If Item.HasteRating <> 0 Then col.Add("Haste Rating = " & Item.HasteRating)
+        If Item.HasteRating <> 0 Then
+            col.Add("Haste Rating = " & Item.HasteRating)
+            cmbReforgeFrom.Items.Add("Haste")
+        End If
+
         If Item.AttackPower <> 0 Then col.Add("Attack Power = " & Item.AttackPower)
-        If Item.CritRating <> 0 Then col.Add("Crit Rating = " & Item.CritRating)
-        If Item.HitRating <> 0 Then col.Add("Hit Rating = " & Item.HitRating)
-        If Item.ArmorPenetrationRating <> 0 Then col.Add("Armor Penetration Rating = " & Item.ArmorPenetrationRating)
-        If Item.ExpertiseRating <> 0 Then col.Add("Expertise Rating = " & Item.ExpertiseRating)
+        If Item.CritRating <> 0 Then
+            col.Add("Crit Rating = " & Item.CritRating)
+            cmbReforgeFrom.Items.Add("Crit")
+            cmbReforgeFrom.Items.Add("Haste")
+        End If
+        If Item.HitRating <> 0 Then
+            col.Add("Hit Rating = " & Item.HitRating)
+            cmbReforgeFrom.Items.Add("Hit")
+        End If
+        If Item.ArmorPenetrationRating <> 0 Then
+            col.Add("Armor Penetration Rating = " & Item.ArmorPenetrationRating)
+        End If
+        If Item.ExpertiseRating <> 0 Then
+            col.Add("Expertise Rating = " & Item.ExpertiseRating)
+            cmbReforgeFrom.Items.Add("Exp")
+        End If
+        If Item.Mastery <> 0 Then
+            col.Add("Mastery Rating = " & Item.Mastery)
+            cmbReforgeFrom.Items.Add("Mast")
+        End If
         lblStat1.Content = ""
         lblStat2.Content = ""
         lblStat3.Content = ""
@@ -340,4 +364,37 @@ Partial Public Class ItemEditor
 
 
     End Sub
+
+    Private Sub cmbReforgeFrom_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs) Handles cmbReforgeFrom.SelectionChanged
+        Select Case cmbReforgeFrom.SelectedValue
+            Case "Crit"
+                txtReforge.MaxValue = Item.CritRating / 2
+            Case "Exp"
+                txtReforge.MaxValue = Item.ExpertiseRating / 2
+            Case "Haste"
+                txtReforge.MaxValue = Item.HasteRating / 2
+            Case "Hit"
+                txtReforge.MaxValue = Item.HitRating / 2
+            Case "Mast"
+                txtReforge.MaxValue = Item.Mastery / 2
+            Case "Dodge"
+                txtReforge.MaxValue = Item.DodgeRating / 2
+            Case "Parry"
+                txtReforge.MaxValue = Item.ParryRating / 2
+        End Select
+        If IsNothing(cmbReforgeFrom.SelectedValue) = False Then Item.ReForgingFrom = cmbReforgeFrom.SelectedValue
+        Mainframe.ParentFrame.GetStats()
+    End Sub
+
+    
+    Private Sub txtReforge_ValueUpdated(ByVal NewValue As Integer) Handles txtReforge.ValueUpdated
+        Item.ReForgingvalue = NewValue
+        Mainframe.ParentFrame.GetStats()
+    End Sub
+
+    Private Sub cmbReforgeTo_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs) Handles cmbReforgeTo.SelectionChanged
+        If IsNothing(cmbReforgeTo.SelectedValue) = False Then Item.ReForgingTo = cmbReforgeTo.SelectedValue
+        Mainframe.ParentFrame.GetStats()
+    End Sub
+
 End Class

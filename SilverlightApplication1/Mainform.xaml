@@ -6,7 +6,7 @@
            mc:Ignorable="d"
            xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation" Title="Kahorie's DK simulator" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" d:DesignHeight="600" d:DesignWidth="800" xmlns:my="clr-namespace:DKSIMVB">
     
-    <StackPanel Width="800" Height="600" Background="#FFB14444">
+    <StackPanel Width="800" Height="600" Background="white">
         <Border BorderBrush="Silver" BorderThickness="1" Name="Border1" Height="10" ></Border>
         <Grid x:Name="LayoutRoot" Width="800" Height="530" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid Name="CharacterGrid" Width="410" HorizontalAlignment="Left" Margin="2,10,10,2">

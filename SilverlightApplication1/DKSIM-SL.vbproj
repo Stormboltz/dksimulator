@@ -166,8 +166,8 @@
     <Compile Include="GearSelector\FrmGearSelector.xaml.vb">
       <DependentUpon>FrmGearSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GearSelector\RuneForgeTextBox.xaml.vb">
-      <DependentUpon>RuneForgeTextBox.xaml</DependentUpon>
+    <Compile Include="GearSelector\ForgeTextBox.xaml.vb">
+      <DependentUpon>ForgeTextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="logging\logging.vb" />
     <Compile Include="myGridControl.xaml.vb">
@@ -411,7 +411,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GearSelector\RuneForgeTextBox.xaml">
+    <Page Include="GearSelector\ForgeTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

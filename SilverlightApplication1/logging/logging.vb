@@ -9,6 +9,7 @@ Public Class logging
         FATAL = 3
     End Enum
     Public Sub Log(ByVal message As String, ByVal LogLEvel As Level)
+        Exit Sub
         Try
             Using store As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
                 Using stream As Stream = New IsolatedStorageFileStream("Solution.Silverlight.log", FileMode.Append, FileAccess.Write, store)

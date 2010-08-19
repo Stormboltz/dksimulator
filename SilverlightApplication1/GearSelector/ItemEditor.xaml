@@ -45,15 +45,15 @@
         <sdk:Label Grid.Row="12" Name="Label1" Content="Reforging:" />
         <Grid Grid.Row="13" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50*" />
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="14*" />
+                <ColumnDefinition Width="60" />
+                <ColumnDefinition Width="100*" />
+                <ColumnDefinition Width="14" />
                 <ColumnDefinition Width="100*" />
             </Grid.ColumnDefinitions>
-            <my:RuneForgeTextBox Width="60" x:Name="txtReforge" Grid.Column="0"  />
-            <ComboBox Name="cmbReforgeTo" Grid.Column="1" />
+            <my:ForgeTextBox Width="60" x:Name="txtReforge" Grid.Column="0"  />
+            <ComboBox Name="cmbReforgeFrom" Grid.Column="1" />
             <sdk:Label Content="To" HorizontalAlignment="Center" Grid.Column="2" ></sdk:Label>
-            <ComboBox Name="cmbReforgeFrom" Grid.Column="3" />
+            <ComboBox Name="cmbReforgeTo" Grid.Column="3" />
             
             
         </Grid>
