@@ -28,8 +28,14 @@ Partial Public Class VisualEquipSlot
     End Sub
 
     Sub DisplayItem()
-        Dim bmi As BitmapImage = New BitmapImage(New Uri("../images/icons/large/" & Me.Item.icon & ".jpg", UriKind.Relative))
-        Me.ImSlot.Source = bmi
+        If Me.Item.icon <> "" Then
+            Dim bmi As BitmapImage = New BitmapImage(New Uri("../images/icons/large/" & Me.Item.icon & ".jpg", UriKind.Relative))
+            Me.ImSlot.Source = bmi
+
+        Else
+            Dim bmi As BitmapImage = New BitmapImage(New Uri("../images/icons/large/inv_misc_rune_14.jpg", UriKind.Relative))
+            Me.ImSlot.Source = bmi
+        End If
         Mainframe.ItemEditor1.Load(Me)
     End Sub
 

@@ -831,26 +831,33 @@ Public Class Sim
             Sigils.VengefulHeart = False
             Sigils.Virulence = False
             Sigils.HangedMan = False
-            Select Case XmlConfig.Element("config").Element("sigil").Value
-                Case "WildBuck"
+            Dim sigilId As Integer
+            Try
+                sigilId = XmlCharacter.Element("character").Element("Sigil").Element("id").Value
+            Catch ex As Exception
+                sigilId = 0
+            End Try
+
+            Select Case sigilId
+                Case 3
                     Sigils.WildBuck = True
-                Case "FrozenConscience"
+                Case 4
                     Sigils.FrozenConscience = True
-                Case "DarkRider"
+                Case 1
                     Sigils.DarkRider = True
-                Case "ArthriticBinding"
+                Case 2
                     Sigils.ArthriticBinding = True
-                Case "Awareness"
+                Case 40207
                     Sigils.Awareness = True
-                Case "Strife"
+                Case 51417, 42619, 42620, 42621, 42622
                     Sigils.Strife = True
-                Case "HauntedDreams"
+                Case 40715
                     Sigils.HauntedDreams = True
-                Case "VengefulHeart"
+                Case 45254
                     Sigils.VengefulHeart = True
-                Case "Virulence"
+                Case 47673
                     Sigils.Virulence = True
-                Case "HangedMan"
+                Case 50459
                     Sigils.HangedMan = True
             End Select
 

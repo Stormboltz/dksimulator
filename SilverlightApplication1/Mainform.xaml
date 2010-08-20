@@ -7,12 +7,12 @@
            xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation" Title="Kahorie's DK simulator" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" d:DesignHeight="600" d:DesignWidth="800" xmlns:my="clr-namespace:DKSIMVB">
     
     <StackPanel Width="800" Height="600" Background="white">
-        <Border BorderBrush="Silver" BorderThickness="1" Name="Border1" Height="10" ></Border>
-        <Grid x:Name="LayoutRoot" Width="800" Height="530" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Grid Name="CharacterGrid" Width="410" HorizontalAlignment="Left" Margin="2,10,10,2">
+       
+        <Grid x:Name="LayoutRoot" Width="800" Height="480" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid Name="CharacterGrid" Width="410" HorizontalAlignment="Left" Margin="2,10,0,0">
                 <my:FrmGearSelector x:Name="GearSelector"></my:FrmGearSelector>
             </Grid>
-            <sdk:TabControl Name="TabControl1"  Height="520" Margin="2,10,10,2" Width="380" HorizontalAlignment="Right" VerticalAlignment="Top" TabStripPlacement="Left">
+            <sdk:TabControl Name="TabControl1"   Margin="2,10,10,2" Width="380" HorizontalAlignment="Right" VerticalAlignment="Top" TabStripPlacement="Right">
                 <sdk:TabItem Header="Configuration" Name="tabConfig">
                     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top" Name="MainGrid">
                         <Grid.ColumnDefinitions>
@@ -36,7 +36,7 @@
                         </Grid.RowDefinitions>
                         <sdk:Label Content="Character:"  Name="lblCharacter" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" />
                         <ComboBox Name="cmbGearSelector" Grid.Row="1" Grid.Column="1"  />
-                        <Button Content="Edit" Name="cmdEditCharacterWithGear" Grid.Row="1" Grid.Column="2" />
+                        <Button Content="Load" Name="cmdEditCharacterWithGear" Grid.Row="1" Grid.Column="2" />
 
                         <sdk:Label Content="Template:"  Name="lblTemplate" Grid.Row="2" HorizontalAlignment="Right" />
                         <ComboBox Name="cmbTemplate" Grid.Row="2" Grid.Column="1" />
@@ -55,23 +55,30 @@
                         <Button Content="Edit"  Name="cmdEditScenario" Grid.Row="12" Grid.Column="2" />
                     </Grid >
                 </sdk:TabItem>
-                <sdk:TabItem Header="Report Option" Name="TabReportOption">
+                <sdk:TabItem Header="Consumable" Name="tabConsumable" IsEnabled="True" Visibility="Visible">
                     <StackPanel>
-                        <CheckBox Content="Merge stike in the report" Name="chkMergeReport" Grid.Column="2" Grid.Row="2" />
-                        <CheckBox Content="Show proc" Name="chkShowProc" Grid.Column="1" Grid.Row="2"  />
-                        <CheckBox Content="Generate Combat log" Name="chkCombatLog" Grid.Column="1" Grid.Row="1" />
-                        <CheckBox Content="Detailled combat log" Name="ckLogRP" Grid.Column="2" Grid.Row="1" />
-                        <Button Content="Display last report" Name="cmdReport" Grid.Column="4" Grid.Row="1" />
-                        <Button Content="Display last log" Name="cmdShowLog" Grid.Row="2" Grid.Column="4" />
+                        <ComboBox Height="23" HorizontalAlignment="Left" Name="cmbRace" VerticalAlignment="Top" Width="120" />
+                        <ComboBox Height="23" HorizontalAlignment="Left" Name="cmbSkill1" VerticalAlignment="Top" Width="120" />
+                        <ComboBox Height="23" HorizontalAlignment="Left" Name="cmbSkill2" VerticalAlignment="Top" Width="120" />
+                        <ComboBox Height="23" HorizontalAlignment="Left" Name="cmbFood" VerticalAlignment="Top" Width="120" />
+                        <ComboBox Height="23" HorizontalAlignment="Left" Name="cmbFlask" VerticalAlignment="Top" Width="120" />
+                        <sdk:Label Height="23" HorizontalAlignment="Left" Name="lblDPS" VerticalAlignment="Top" Width="120" Content="(0) DPS" />
+                        <StackPanel Height="170" Name="stackConsumable" />
+                        <Button Content="Quick DPS" Height="23" HorizontalAlignment="Left" Name="cmdQuickDPS" VerticalAlignment="Top" Width="75" />
+                        <Button Content="Quick EP" Height="23" HorizontalAlignment="Left" Name="cmdQuickEP" VerticalAlignment="Top" Width="75" />
                     </StackPanel>
+                </sdk:TabItem>
+                <sdk:TabItem Header="Report" Name="TabReport">
+                    <ScrollViewer Name="ScrollViewer2">
+                        <StackPanel Name="ReportStack"></StackPanel>
+                    </ScrollViewer>
                 </sdk:TabItem>
                 <sdk:TabItem Header="Sim Option" Name="TabSimOption">
                     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="MiscOptionGrid" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="17" Grid.RowSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50" />
                             <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="140" />
-                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="50*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="20" />
@@ -83,36 +90,35 @@
                             <RowDefinition Height="24" />
                             <RowDefinition Height="24" />
                             <RowDefinition Height="24" />
+                            <RowDefinition Height="24" />
                         </Grid.RowDefinitions>
                         <sdk:Label Name="lblFightLength" Content="Sim Time:" Grid.Row="1" Grid.Column="1" />
-                        <TextBox Name="txtSimtime" Text="100"  Grid.Row="1" Grid.Column="2" />
-
+                        <TextBox Name="txtSimtime" Text="100" Grid.Row="1" Grid.Column="2" />
                         <sdk:Label Content="BoneShield Time to live:" Name="lblBoneShieldTTL" Grid.Row="2" Grid.Column="1" />
                         <TextBox Name="txtBSTTL" Text="300" Grid.Row="2" Grid.Column="2" />
-
                         <sdk:Label Name="lblLatency" Content="Latency:" Grid.Row="3" Grid.Column="1" />
                         <TextBox Name="txtLatency" Text="150" Grid.Row="3" Grid.Column="2" />
-
                         <sdk:Label Name="lblRPx" Content="x RP per x Second" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" />
                         <TextBox Name="txtAMSrp" Text="0" Grid.Row="4" Grid.Column="0" />
                         <TextBox Name="txtAMScd" Text="60" Grid.Row="4" Grid.Column="2" />
-
-                        <CheckBox Content="Wait for proc" Name="chkWaitFC" Grid.Row="6" Grid.Column="2"   />
-                        <CheckBox Content="Use Pet" Name="ckPet" IsChecked="True" Grid.Row="5" Grid.Column="2"  />
-
+                        <CheckBox Content="Wait for proc" Name="chkWaitFC" Grid.Row="6" Grid.Column="2" />
+                        <CheckBox Content="Use Pet" Name="ckPet" IsChecked="True" Grid.Row="5" Grid.Column="2" />
                         <sdk:Label Content="UA/BS usage:" Name="lblBSUSage" Grid.Row="7" Grid.Column="1" />
                         <ComboBox Name="cmbBShOption" Grid.Row="7" Grid.Column="2" />
-
                         <sdk:Label Content="ICC Buff:" Name="lblICCBuff" Grid.Row="8" Grid.Column="1" />
-                        <ComboBox Name="cmbICCBuff" Grid.Row="8" Grid.Column="2"  />
+                        <ComboBox Name="cmbICCBuff" Grid.Row="8" Grid.Column="2" />
+                        <Button Content="Change RNG Seed"  Name="cmdRngSeeder" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" />
                     </Grid>
                 </sdk:TabItem>
-                <sdk:TabItem Header="Report" Name="TabReport">
-                    <ScrollViewer Name="ScrollViewer2" >
-                        <StackPanel  Name="ReportStack">
-
-                        </StackPanel>
-                    </ScrollViewer>
+                <sdk:TabItem Header="Report Option" Name="TabReportOption">
+                    <StackPanel>
+                        <CheckBox Content="Merge stike in the report" Name="chkMergeReport" Grid.Column="2" Grid.Row="2" />
+                        <CheckBox Content="Show proc" Name="chkShowProc" Grid.Column="1" Grid.Row="2"  />
+                        <CheckBox Content="Generate Combat log" Name="chkCombatLog" Grid.Column="1" Grid.Row="1" />
+                        <CheckBox Content="Detailled combat log" Name="ckLogRP" Grid.Column="2" Grid.Row="1" />
+                        <Button Content="Display last report" Name="cmdReport" Grid.Column="4" Grid.Row="1" />
+                        <Button Content="Display last log" Name="cmdShowLog" Grid.Row="2" Grid.Column="4" />
+                    </StackPanel>
                 </sdk:TabItem>
                 <sdk:TabItem Header="Buffs" Name="TabBuff">
                     <StackPanel Name="GrpBuff">
@@ -175,39 +181,39 @@
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="24" />
-                                <RowDefinition Height="270" />
-                                <RowDefinition Height="270" />
+                                <RowDefinition Height="200" />
+                                <RowDefinition Height="160" />
                                 <RowDefinition Height="24*" />
                             </Grid.RowDefinitions>
-
-                            <ScrollViewer Name="ScrollViewer1" Width="262" HorizontalAlignment="Right" VerticalAlignment="Top" MaxHeight="424" Grid.Column="0" Grid.Row="5">
-                                <Canvas Name="grpEPTrinkets" Width="240" HorizontalAlignment="Left" VerticalAlignment="Top" MinHeight="424"></Canvas>
-                            </ScrollViewer>
-                            <Canvas Name="grpEPMain" Grid.Row="1" >
-                                <CheckBox Canvas.Left="10" Canvas.Top="14" Content="Strength" Height="16" Name="chkEPStr" IsChecked="True" />
-                                <CheckBox Canvas.Left="10" Canvas.Top="36" Content="Agility" Height="16" Name="chkEPAgility" IsChecked="True" />
-                                <CheckBox Canvas.Left="10" Canvas.Top="58" Content="Crit rating" Height="16" Name="chkEPCrit" IsChecked="True" />
-                                <CheckBox Canvas.Left="10" Canvas.Top="80" Content="Haste rating" Height="16" Name="chkEPHaste" IsChecked="True" />
-                                <CheckBox Canvas.Left="10" Canvas.Top="102" Content="Armor Penetration rating" Height="16" Name="chkEPArP" IsChecked="True" />
-                                <CheckBox Canvas.Left="10" Canvas.Top="124" Content="Hit rating" Height="16" Name="chkEPHit" IsChecked="True" />
-                                <CheckBox Canvas.Left="10" Canvas.Top="146" Content="Hit rating after melee cap" Height="16" Name="chkEPSpHit" IsChecked="True" />
-                                <CheckBox Canvas.Left="10" Canvas.Top="168" Content="Hit rating after spell cap" Height="16" Name="chkEPAfterSpellHitRating" />
-                                <CheckBox Canvas.Left="10" Canvas.Top="190" Content="Expertise rating" Height="16" Name="chkEPExp" IsChecked="True" />
-                                <CheckBox Canvas.Left="10" Canvas.Top="212" Content="Main Hand DPS" Height="16" Name="chkEPSMHDPS" IsChecked="True" />
-                                <CheckBox Canvas.Left="10" Canvas.Top="234" Content="Main Hand speed" Height="16" Name="chkEPSMHSpeed" IsChecked="True" />
-                            </Canvas>
-                            <Canvas Name="grpEPSet" Grid.Column="0" Grid.Row="2">
-                                <CheckBox Canvas.Left="10" Canvas.Top="10" Content="2P T7" Height="16" Name="chkEP2T7" />
-                                <CheckBox Canvas.Left="10" Canvas.Top="32" Content="4P T7" Height="16" Name="chkEP4PT7" />
-                                <CheckBox Canvas.Left="10" Canvas.Top="54" Content="2P T8" Height="16" Name="chkEP2PT8" />
-                                <CheckBox Canvas.Left="10" Canvas.Top="76" Content="4P T8" Height="16" Name="chkEP4PT8" />
-                                <CheckBox Canvas.Left="10" Canvas.Top="98" Content="2P T9" Height="16" Name="chkEP2PT9" />
-                                <CheckBox Canvas.Left="10" Canvas.Top="120" Content="4P T9" Height="16" Name="chkEP4PT9" />
-                                <CheckBox Canvas.Left="10" Canvas.Top="142" Content="2P T10" Height="16" Name="chkEP2PT10" IsChecked="True" />
-                                <CheckBox Canvas.Left="10" Canvas.Top="164" Content="4P T10" Height="16" Name="chkEP4PT10" IsChecked="True" />
-                            </Canvas>
                             <TextBox Height="23" Name="txtEPBase" HorizontalAlignment="Center" Width="120" Text="50" Grid.Column="0" Grid.Row="0"/>
                             <sdk:Label Height="23" HorizontalAlignment="Left" Content="EP Base:" Grid.Column="0" Grid.Row="0"></sdk:Label>
+
+                            <StackPanel Name="grpEPMain" Grid.Row="1" >
+                                <CheckBox Content="Strength" Height="16" Name="chkEPStr" IsChecked="True" />
+                                <CheckBox Content="Agility" Height="16" Name="chkEPAgility" IsChecked="True" />
+                                <CheckBox Content="Crit rating" Height="16" Name="chkEPCrit" IsChecked="True" />
+                                <CheckBox Content="Haste rating" Height="16" Name="chkEPHaste" IsChecked="True" />
+                                <CheckBox Content="Armor Penetration rating" Height="16" Name="chkEPArP" IsChecked="True" />
+                                <CheckBox Content="Hit rating" Height="16" Name="chkEPHit" IsChecked="True" />
+                                <CheckBox Content="Hit rating after melee cap" Height="16" Name="chkEPSpHit" IsChecked="True" />
+                                <CheckBox Content="Hit rating after spell cap" Height="16" Name="chkEPAfterSpellHitRating" />
+                                <CheckBox Content="Expertise rating" Height="16" Name="chkEPExp" IsChecked="True" />
+                                <CheckBox Content="Main Hand DPS" Height="16" Name="chkEPSMHDPS" IsChecked="True" />
+                                <CheckBox Content="Main Hand speed" Height="16" Name="chkEPSMHSpeed" IsChecked="True" />
+                            </StackPanel>
+                            <StackPanel Name="grpEPSet" Grid.Column="0" Grid.Row="2">
+                                <CheckBox Content="2P T7" Height="16" Name="chkEP2T7" />
+                                <CheckBox Content="4P T7" Height="16" Name="chkEP4PT7" />
+                                <CheckBox Content="2P T8" Height="16" Name="chkEP2PT8" />
+                                <CheckBox Content="4P T8" Height="16" Name="chkEP4PT8" />
+                                <CheckBox Content="2P T9" Height="16" Name="chkEP2PT9" />
+                                <CheckBox Content="4P T9" Height="16" Name="chkEP4PT9" />
+                                <CheckBox Content="2P T10" Height="16" Name="chkEP2PT10" IsChecked="True" />
+                                <CheckBox Content="4P T10" Height="16" Name="chkEP4PT10" IsChecked="True" />
+                            </StackPanel>
+                            <StackPanel Name="grpEPTrinkets" Width="240" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="3">
+                                
+                            </StackPanel>
                         </Grid>
                     </ScrollViewer>
                 </sdk:TabItem>
@@ -332,20 +338,6 @@
                         </Grid>
                     </ScrollViewer>
                 </sdk:TabItem>
-                <sdk:TabItem Header="Misc Character Option" Name="tabCharSummary" IsEnabled="True" Visibility="Visible">
-                    <StackPanel>
-                        <ComboBox Height="23" HorizontalAlignment="Left"  Name="cmbRace" VerticalAlignment="Top" Width="120" />
-                        <ComboBox Height="23" HorizontalAlignment="Left"  Name="cmbSkill1" VerticalAlignment="Top" Width="120" />
-                        <ComboBox Height="23" HorizontalAlignment="Left"  Name="cmbSkill2" VerticalAlignment="Top" Width="120"  />
-                        <ComboBox Height="23" HorizontalAlignment="Left"  Name="cmbFood" VerticalAlignment="Top" Width="120" />
-                        <ComboBox Height="23" HorizontalAlignment="Left"  Name="cmbFlask" VerticalAlignment="Top" Width="120"  />
-                        <sdk:Label Height="23" HorizontalAlignment="Left" Name="lblDPS" VerticalAlignment="Top" Width="120" Content="(0) DPS" />
-                        <StackPanel Height="170" Name="stackConsumable"  />
-                        <Button Content="Quick DPS" Height="23" HorizontalAlignment="Left"  Name="cmdQuickDPS" VerticalAlignment="Top" Width="75" />
-                        <Button Content="Quick EP" Height="23" HorizontalAlignment="Left"  Name="cmdQuickEP" VerticalAlignment="Top" Width="75" />
-                    </StackPanel>
-                    
-                </sdk:TabItem>
             </sdk:TabControl>
         </Grid>
         <Grid Name="Grid1"  VerticalAlignment="Bottom">
@@ -359,10 +351,10 @@
                 <ColumnDefinition Width="200" />
                 <ColumnDefinition Width="200" />
             </Grid.ColumnDefinitions>
-            <Button Margin="32,5,31,5" Content="Start Simulator" Name="cmdStartSim"  Grid.Row="0" />
+            <Button Margin="32,5,31,5" Content="Start Simulation" Name="cmdStartSim"  Grid.Row="0" />
             <Button Margin="32,5,31,5" Content="Start EP"  Name="btEP"    Grid.Column="3" />
-            <Button Margin="32,5,31,5" Content="Change RNG Seed."  Name="cmdRngSeeder" Grid.Column="1" />
-            <Button Margin="32,5,31,5" Content="Advanced Mode"  Name="cmdAdvancedMode" Grid.Column="2" />
+            
+            <Button Margin="32,5,31,5" Content="Beginner Mode"  Name="cmdAdvancedMode" Grid.Column="2" />
             <ProgressBar  Margin="32,5,31,5" Name="ProgressBar1" Grid.ColumnSpan="4" Grid.Row="1"/>
         </Grid>
         

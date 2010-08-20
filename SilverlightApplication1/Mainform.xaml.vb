@@ -35,41 +35,24 @@ Partial Public Class MainForm
 
 
 
-    Dim WithEvents _worker As BackgroundWorker = New BackgroundWorker()
+
     Public Sub New()
         InitializeComponent()
 
         'For some bizarre reason we need to tell the BackgoundWorker that we will be
         'reporting progress!
-        _worker.WorkerReportsProgress = True
+
         ProgressBar1.Maximum = 100
 
         ' Wire up an event handler to respond to progress changes during the operation.
         'Let the BackgoundWorker know what operation to call when it's kicked off.
     End Sub
-    Sub _worker_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles _worker.DoWork
-        DoSomethingHard()
-    End Sub
-    Private Sub DoSomethingHard()
-        For i = 0 To 100
-            '// Report some progress - this will result in the ProgressChanged event being
-            '// raised
-            _worker.ReportProgress(i, i.ToString & "% complete")
 
-            Thread.Sleep(1000)
-        Next
-    End Sub
     Private Sub Button_Click(ByVal sender As Object, ByVal e As RoutedEventArgs) Handles btEP.Click
         If SimConstructor.simCollection.Count > 0 Then Return
         If LoadBeforeSim() = False Then Exit Sub
         SimConstructor.StartEP(txtSimtime.Text, Me)
     End Sub
-    Sub worker_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles _worker.ProgressChanged
-        'This is the opportunity to update the controls on the main thread
-        ProgressBar1.Value = e.ProgressPercentage
-        'Executes when the user navigates to this page.
-    End Sub
-
 
     Function LoadBeforeSim()
         saveConfig()
@@ -77,7 +60,7 @@ Partial Public Class MainForm
         SaveBuffOption()
         saveScaling()
         saveTankOptions()
-
+        SaveMycharacter()
         Return True
     End Function
 
@@ -388,6 +371,12 @@ Partial Public Class MainForm
             Log.Log(ex.StackTrace, logging.Level.ERR)
             LoadDefaultConfig()
         End Try
+        Try
+            cmdEditCharacterWithGear_Click(Nothing, Nothing)
+        Catch ex As Exception
+
+        End Try
+
     End Sub
     Sub LoadDefaultConfig()
         cmbGearSelector.SelectedValue = "Empty.xml"
@@ -436,18 +425,44 @@ sortie:
             Try
                 ckTrinket.Name = "chkEP" & xNode.Name.ToString
                 ckTrinket.Content = xNode.Name
-                ckTrinket.Height = 20
-                ckTrinket.Width = 180
+                'ckTrinket.Height = 20
+                'ckTrinket.Width = 180
                 grpEPTrinkets.Children.Add(ckTrinket)
-                Canvas.SetLeft(ckTrinket, 10)
-                Canvas.SetTop(ckTrinket, -10 + grpEPTrinkets.Children.Count * 20)
-                grpEPTrinkets.Height = (1 + grpEPTrinkets.Children.Count) * 20
+
+
             Catch ex As Exception
                 Log.Log(ex.StackTrace, logging.Level.ERR)
                 System.Diagnostics.Debug.WriteLine("Err:" & xNode.Name.ToString)
             End Try
         Next
     End Sub
+
+    Sub RefreshCharacterList(Optional ByVal NewValue As String = "")
+
+        RemoveHandler cmbGearSelector.SelectionChanged, AddressOf cmbGearSelector_SelectionChanged
+
+
+        Dim sTemp As String = ""
+        cmbGearSelector.Items.Clear()
+        If (isoStore.DirectoryExists("KahoDKSim/CharactersWithGear")) Then
+            For Each item In isoStore.GetFileNames("KahoDKSim/CharactersWithGear/*.xml")
+                cmbGearSelector.Items.Add(Strings.Right(item, item.Length - InStrRev(item, "\")))
+            Next
+            If NewValue <> "" Then
+                Try
+                    cmbGearSelector.SelectedItem = NewValue
+                Catch ex As Exception
+                    cmbGearSelector.SelectedItem = sTemp
+                End Try
+            Else
+                cmbGearSelector.SelectedItem = sTemp
+            End If
+        Else
+            isoStore.CreateDirectory("KahoDKSim/CharactersWithGear")
+        End If
+        AddHandler cmbGearSelector.SelectionChanged, AddressOf cmbGearSelector_SelectionChanged
+    End Sub
+
     Sub loadWindow()
         Dim item As String
         Dim sTemp As String = ""
@@ -514,7 +529,8 @@ sortie:
         RefreshScenarioList()
         'SimConstructor.PetFriendly = Me.ckPet.Ischecked
         'LockSaveButtons()
-        SwitchMode()
+        'SwitchMode()
+        Me.TabControl1.SelectedIndex = 0
     End Sub
     Sub LoadScaling()
         On Error GoTo OUT
@@ -785,13 +801,10 @@ OUT:
     End Sub
 
     Private Sub cmdEditCharacterWithGear_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdEditCharacterWithGear.Click
-        If GearSelector Is Nothing Then
-            GearSelector = New FrmGearSelector(Me)
-        End If
+
         If GearSelector.ParentFrame Is Nothing Then GearSelector.Init(Me)
         Try
             GearSelector.FilePath = cmbGearSelector.SelectedValue
-            'GearSelector.Show()
             GearSelector.LoadMycharacter()
         Catch Err As Exception
 
@@ -1454,38 +1467,57 @@ NextItem:
 
 
     End Sub
-    Private Sub r2Hand_Checked(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles r2Hand.Checked
+    Private Sub r2Hand_Checked(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles r2Hand.Checked, GearSelector.rd2H_Check
         GearSelector.TwoHWeapSlot.Opacity = 1
         GearSelector.TwoHWeapSlot.IsHitTestVisible = True
         GearSelector.MHWeapSlot.Opacity = 0
         GearSelector.OHWeapSlot.Opacity = 0
         GearSelector.MHWeapSlot.IsHitTestVisible = False
         GearSelector.OHWeapSlot.IsHitTestVisible = False
+
+        rDW.IsChecked = False
+        r2Hand.IsChecked = True
+        GearSelector.rd2H.IsChecked = r2Hand.IsChecked
+        GearSelector.rdDW.IsChecked = rDW.IsChecked
         GetStats()
+
+
     End Sub
 
-    Private Sub rDW_Checked(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles rDW.Checked
+    Private Sub rDW_Checked(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles rDW.Checked, GearSelector.rdDW_Check
         GearSelector.TwoHWeapSlot.Opacity = 0
         GearSelector.TwoHWeapSlot.IsHitTestVisible = False
         GearSelector.MHWeapSlot.Opacity = 1
         GearSelector.OHWeapSlot.Opacity = 1
         GearSelector.MHWeapSlot.IsHitTestVisible = True
         GearSelector.OHWeapSlot.IsHitTestVisible = True
+
+        rDW.IsChecked = True
+        r2Hand.IsChecked = False
+        GearSelector.rd2H.IsChecked = r2Hand.IsChecked
+        GearSelector.rdDW.IsChecked = rDW.IsChecked
         GetStats()
+
     End Sub
-    Friend AdvancedMode As Boolean = False
+    Friend AdvancedMode As Boolean = True
     Private Sub cmdAdvancedMode_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdAdvancedMode.Click
+
         If AdvancedMode = False Then
             AdvancedMode = True
             SwitchMode()
+
             Return
         End If
 
         If AdvancedMode = True Then
             AdvancedMode = False
             SwitchMode()
+            Me.TabControl1.SelectedIndex = 0
             Return
         End If
+
+
+
 
 
     End Sub
@@ -1493,11 +1525,13 @@ NextItem:
         Dim Visib As Integer
         If AdvancedMode Then
             Visib = Visibility.Visible
+            cmdAdvancedMode.Content = "Beginner Mode"
         Else
             Visib = Visibility.Collapsed
+            cmdAdvancedMode.Content = "Advanced Mode"
         End If
         TabBuff.Visibility = Visib
-        tabCharSummary.Visibility = Visib
+        'tabConsumable.Visibility = Visib
         'tabConfig.Visibility = Visib
         TabEPOptions.Visibility = Visib
         'TabReport.Visibility = Visib
@@ -1506,5 +1540,26 @@ NextItem:
         TabStatScaling.Visibility = Visib
         tabStatSummary.Visibility = Visib
         TabTank.Visibility = Visib
+        For Each tab As TabItem In TabControl1.Items
+            tab.UpdateLayout()
+        Next
+
+        'If Me.TabControl1.SelectedIndex = 0 Then
+        '    Me.TabControl1.SelectedIndex = 1
+        '    'Me.TabControl1.SelectedIndex = 0
+        'Else
+        '    '  Dim i As Integer
+        '    '  i = Me.TabControl1.SelectedIndex
+        '    Me.TabControl1.SelectedIndex = 0
+        '    ' Me.TabControl1.SelectedIndex = i
+        'End If
+    End Sub
+
+    Private Sub cmbGearSelector_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs) Handles cmbGearSelector.SelectionChanged
+        If GearSelector.FilePath <> "" Then
+            SaveMycharacter()
+            cmdEditCharacterWithGear_Click(Nothing, Nothing)
+
+        End If
     End Sub
 End Class

@@ -9,7 +9,7 @@
     <Grid x:Name="LayoutRoot" >
         <Border BorderBrush="Silver" BorderThickness="1" HorizontalAlignment="Left" Name="Border1" VerticalAlignment="Top" >
             <Button Name="cmdEquipSlot">
-                <Image  HorizontalAlignment="Left" Name="ImSlot" Stretch="UniformToFill" VerticalAlignment="Top" MinWidth="45" MinHeight="45"  Source="/DKSIMVB;component/images/Icons/large/spell_nature_wispsplodegreen.jpg" />
+                <Image  HorizontalAlignment="Left" Name="ImSlot" Stretch="UniformToFill" VerticalAlignment="Top" MinWidth="45" MinHeight="45"  Source="/DKSIMVB;component/images/Icons/large/inv_misc_rune_14.jpg" />
             </Button>
         </Border>
     </Grid>

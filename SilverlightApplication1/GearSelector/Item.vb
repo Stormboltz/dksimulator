@@ -193,7 +193,7 @@ Public Class Item
         gem2.Detach()
         gem3.Detach()
         Enchant.Detach()
-
+        icon = ""
         gembonus = 0
         keywords = ""
     End Sub

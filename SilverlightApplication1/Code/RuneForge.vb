@@ -44,27 +44,27 @@ Friend Class RuneForge
 			.DamageType = RuneForge
 			Select Case RuneForge
 
-				Case "FallenCrusader"
-					.ProcChance *= 2
-					.ProcLenght = 15
-					.ProcValue = 1
-					FCProc = Proc
+                Case "3368"
+                    .ProcChance *= 2
+                    .ProcLenght = 15
+                    .ProcValue = 1
+                    FCProc = Proc
 					
-				Case "Razorice"
-					.ProcChance = 1
-					RIProc = Proc
+                Case "3370"
+                    .ProcChance = 1
+                    RIProc = Proc
 					
 
-				Case "Cinderglacier"
-					.ProcChance *= 1.5
-					CGProc = Proc
+                Case "3369"
+                    .ProcChance *= 1.5
+                    CGProc = Proc
 
-				Case "Berzerking"
-					.DamageType = ""
-					.ProcChance *= 1.2
-					.ProcLenght = 15
-					.ProcValue = 400
-					.ProcType = "ap"
+                Case "3789"
+                    .DamageType = ""
+                    .ProcChance *= 1.2
+                    .ProcLenght = 15
+                    .ProcValue = 400
+                    .ProcType = "ap"
 				
 				Case Else
                     Diagnostics.Debug.WriteLine("Runeforge: " & RuneForge & " not implemented")
@@ -79,8 +79,19 @@ Friend Class RuneForge
 
 	Sub Init()
 		dim s as Sim
-		s = Sim
-        MHRuneForge = s.XmlConfig.Element("config").Element("mh").Value
+        s = Sim
+        Try
+            If s.Character.Dual Then
+                MHRuneForge = s.XmlCharacter.Element("character").Element("MainHand").Element("enchant").Value
+            Else
+
+                MHRuneForge = s.XmlCharacter.Element("character").Element("TwoHand").Element("enchant").Value
+            End If
+
+        Catch ex As Exception
+            MHRuneForge = ""
+        End Try
+
         MHProc = New WeaponProc(s)
         With MHProc
             If s.MainStat.DualW Then ._Name = "MH "
@@ -93,7 +104,12 @@ Friend Class RuneForge
 
         If s.MainStat.DualW Then
             OHProc = New WeaponProc(s)
-            OHRuneForge = s.XmlConfig.Element("config").Element("oh").Value
+            Try
+                OHRuneForge = s.XmlCharacter.Element("character").Element("OffHand").Element("enchant").Value
+            Catch ex As Exception
+                OHRuneForge = ""
+            End Try
+
             With OHProc
                 ._Name = "OH "
                 .InternalCD = 0

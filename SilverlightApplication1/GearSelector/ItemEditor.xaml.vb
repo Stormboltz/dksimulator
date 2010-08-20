@@ -187,7 +187,6 @@ Partial Public Class ItemEditor
         If Item.CritRating <> 0 Then
             col.Add("Crit Rating = " & Item.CritRating)
             cmbReforgeFrom.Items.Add("Crit")
-            cmbReforgeFrom.Items.Add("Haste")
         End If
         If Item.HitRating <> 0 Then
             col.Add("Hit Rating = " & Item.HitRating)
@@ -368,19 +367,19 @@ Partial Public Class ItemEditor
     Private Sub cmbReforgeFrom_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs) Handles cmbReforgeFrom.SelectionChanged
         Select Case cmbReforgeFrom.SelectedValue
             Case "Crit"
-                txtReforge.MaxValue = Item.CritRating / 2
+                txtReforge.MaxValue = Item.CritRating / 2.5
             Case "Exp"
-                txtReforge.MaxValue = Item.ExpertiseRating / 2
+                txtReforge.MaxValue = Item.ExpertiseRating / 2.5
             Case "Haste"
-                txtReforge.MaxValue = Item.HasteRating / 2
+                txtReforge.MaxValue = Item.HasteRating / 2.5
             Case "Hit"
-                txtReforge.MaxValue = Item.HitRating / 2
+                txtReforge.MaxValue = Item.HitRating / 2.5
             Case "Mast"
-                txtReforge.MaxValue = Item.Mastery / 2
+                txtReforge.MaxValue = Item.Mastery / 2.5
             Case "Dodge"
-                txtReforge.MaxValue = Item.DodgeRating / 2
+                txtReforge.MaxValue = Item.DodgeRating / 2.5
             Case "Parry"
-                txtReforge.MaxValue = Item.ParryRating / 2
+                txtReforge.MaxValue = Item.ParryRating / 2.5
         End Select
         If IsNothing(cmbReforgeFrom.SelectedValue) = False Then Item.ReForgingFrom = cmbReforgeFrom.SelectedValue
         Mainframe.ParentFrame.GetStats()

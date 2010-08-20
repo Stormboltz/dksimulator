@@ -44,6 +44,9 @@ Partial Public Class FrmGearSelector
                 FilePath = UI.txtInput.Text & ".xml"
                 ParentFrame.SaveMycharacter()
 
+
+                ParentFrame.RefreshCharacterList(FilePath)
+
                 'Me.Close()
             End If
         End If
@@ -59,11 +62,11 @@ Partial Public Class FrmGearSelector
 
     End Sub
 
-    Private Sub OKButton_Click(ByVal sender As Object, ByVal e As RoutedEventArgs) Handles cmdSave.Click
+    Private Sub OKButton_Click(ByVal sender As Object, ByVal e As RoutedEventArgs)
         ParentFrame.SaveMycharacter()
     End Sub
 
-    Private Sub CancelButton_Click(ByVal sender As Object, ByVal e As RoutedEventArgs) Handles CancelButton.Click
+    Private Sub CancelButton_Click(ByVal sender As Object, ByVal e As RoutedEventArgs)
 
     End Sub
 
@@ -223,15 +226,21 @@ Partial Public Class FrmGearSelector
                 If d Then
                     ParentFrame.rDW.IsChecked = True
                     ParentFrame.r2Hand.IsChecked = False
+
+                    Me.rd2H.IsChecked = False
+                    Me.rdDW.IsChecked = True
                 Else
                     ParentFrame.rDW.IsChecked = False
                     ParentFrame.r2Hand.IsChecked = True
+                    Me.rd2H.IsChecked = True
+                    Me.rdDW.IsChecked = False
                 End If
-
             Catch ex As Exception
                 Log.Log(ex.StackTrace, logging.Level.ERR)
                 ParentFrame.rDW.IsChecked = False
                 ParentFrame.r2Hand.IsChecked = True
+                Me.rd2H.IsChecked = True
+                Me.rdDW.IsChecked = False
             End Try
 
             For Each xItem In xmlChar.Element("page").Element("characterInfo").Element("characterTab").Element("items").Elements("item")
@@ -346,6 +355,7 @@ Partial Public Class FrmGearSelector
                     ParentFrame.cmbRace.SelectedValue = xmlChar.Element("character").Element("race").Value
                 Catch ex As Exception
                     Log.Log("LoadMycharacter: Cannot get Race", logging.Level.WARNING)
+                    ParentFrame.cmbRace.SelectedValue = "Orc"
                 End Try
 
 
@@ -353,12 +363,14 @@ Partial Public Class FrmGearSelector
                     ParentFrame.cmbFood.SelectedValue = xmlChar.Element("character").Element("food").Value
                 Catch ex As Exception
                     Log.Log("LoadMycharacter: Cannot get food", logging.Level.WARNING)
+                    ParentFrame.cmbFood.SelectedValue = "AP Food"
                 End Try
 
                 Try
                     ParentFrame.cmbFlask.SelectedValue = xmlChar.Element("character").Element("flask").Value
                 Catch ex As Exception
                     Log.Log("LoadMycharacter: Cannot get Flask", logging.Level.WARNING)
+                    ParentFrame.cmbFlask.SelectedValue = "Flask of Endless Rage"
                 End Try
 
 
@@ -366,12 +378,14 @@ Partial Public Class FrmGearSelector
                     ParentFrame.cmbSkill1.SelectedValue = xmlChar.Element("character").Element("skill1").Value
                 Catch ex As Exception
                     Log.Log("LoadMycharacter: Cannot get skill1", logging.Level.WARNING)
+                    ParentFrame.cmbSkill1.SelectedValue = "Jewelcrafting"
                 End Try
 
                 Try
                     ParentFrame.cmbSkill2.SelectedValue = xmlChar.Element("character").Element("skill2").Value
                 Catch ex As Exception
                     Log.Log("LoadMycharacter: Cannot get skill2", logging.Level.WARNING)
+                    ParentFrame.cmbSkill2.SelectedValue = "Blacksmithing"
                 End Try
 
 
@@ -379,8 +393,14 @@ Partial Public Class FrmGearSelector
                 Try
                     ParentFrame.rDW.IsChecked = xmlChar.Element("character").Element("DW").Value
                     ParentFrame.r2Hand.IsChecked = (ParentFrame.rDW.IsChecked = False)
+                    rdDW.IsChecked = xmlChar.Element("character").Element("DW").Value
+                    rd2H.IsChecked = (xmlChar.Element("character").Element("DW").Value = False)
                 Catch ex As Exception
                     Log.Log("LoadMycharacter: Cannot get DW", logging.Level.WARNING)
+                    ParentFrame.rDW.IsChecked = False
+                    ParentFrame.r2Hand.IsChecked = True
+                    rdDW.IsChecked = False
+                    rd2H.IsChecked = True
                 End Try
 
                 If ParentFrame.r2Hand.IsChecked Then
@@ -390,8 +410,8 @@ Partial Public Class FrmGearSelector
                     Me.OHWeapSlot.Opacity = 0
                     Me.MHWeapSlot.IsHitTestVisible = False
                     Me.OHWeapSlot.IsHitTestVisible = False
-
-
+                    rd2H.IsChecked = True
+                    rdDW.IsChecked = False
                 Else
                     Me.TwoHWeapSlot.Opacity = 0
                     Me.TwoHWeapSlot.IsHitTestVisible = False
@@ -399,6 +419,8 @@ Partial Public Class FrmGearSelector
                     Me.OHWeapSlot.Opacity = 1
                     Me.MHWeapSlot.IsHitTestVisible = True
                     Me.OHWeapSlot.IsHitTestVisible = True
+                    rd2H.IsChecked = False
+                    rdDW.IsChecked = True
                 End If
 
 
@@ -413,28 +435,24 @@ Partial Public Class FrmGearSelector
                     End Try
                 Next
 
-
-
-
-
                 For Each iSlot In Me.EquipmentList
                     Try
-                        iSlot.Item.LoadItem(xmlChar.Element("character").Element(iSlot.text).Element("id").Value)
+                        iSlot.Item.LoadItem(xmlChar.Element("character").Element(iSlot.Text).Element("id").Value)
                         iSlot.DisplayItem()
                         Try
-                            iSlot.Item.gem1.Attach(xmlChar.Element("character").Element(iSlot.text).Element("gem1").Value)
+                            iSlot.Item.gem1.Attach(xmlChar.Element("character").Element(iSlot.Text).Element("gem1").Value)
                         Catch ex As Exception
                             Log.Log("LoadMycharacter: Cannot get Gem1 for " & iSlot.Name, logging.Level.WARNING)
 
                         End Try
                         Try
-                            iSlot.Item.gem2.Attach(xmlChar.Element("character").Element(iSlot.text).Element("gem2").Value)
+                            iSlot.Item.gem2.Attach(xmlChar.Element("character").Element(iSlot.Text).Element("gem2").Value)
                         Catch ex As Exception
                             Log.Log("LoadMycharacter: Cannot get Gem2 for " & iSlot.Name, logging.Level.WARNING)
 
                         End Try
                         Try
-                            iSlot.Item.gem3.Attach(xmlChar.Element("character").Element(iSlot.text).Element("gem3").Value)
+                            iSlot.Item.gem3.Attach(xmlChar.Element("character").Element(iSlot.Text).Element("gem3").Value)
                         Catch ex As Exception
                             Log.Log("LoadMycharacter: Cannot get Gem3 for " & iSlot.Name, logging.Level.WARNING)
                         End Try
@@ -452,10 +470,12 @@ Partial Public Class FrmGearSelector
                             Log.Log("LoadMycharacter: Cannot get reforging for " & iSlot.Name, logging.Level.WARNING)
                         End Try
 
-                        
+
 
                     Catch ex As Exception
                         Log.Log("LoadMycharacter: Cannot get " & iSlot.Name, logging.Level.WARNING)
+                        iSlot.Item.Unload()
+                        iSlot.DisplayItem()
                     End Try
                 Next
             End Using
@@ -777,8 +797,8 @@ Partial Public Class FrmGearSelector
         If truc.txtInput.Text <> "" And truc.DialogResult = True Then
             FilePath = truc.txtInput.Text & ".xml"
             ParentFrame.SaveMycharacter()
-            truc.Close()
-
+            ParentFrame.RefreshCharacterList()
+            ParentFrame.cmbGearSelector.SelectedValue = FilePath
         Else
             Exit Sub
         End If
@@ -863,4 +883,13 @@ Partial Public Class FrmGearSelector
     End Sub
 
     
+    Event rd2H_Check(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs)
+    Event rdDW_Check(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs)
+    Private Sub rd2H_Checked(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles rd2H.Checked
+        RaiseEvent rd2H_Check(sender, e)
+    End Sub
+
+    Private Sub rdDW_Checked(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles rdDW.Checked
+        RaiseEvent rdDW_Check(sender, e)
+    End Sub
 End Class

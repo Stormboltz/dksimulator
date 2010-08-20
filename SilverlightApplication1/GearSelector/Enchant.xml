@@ -361,7 +361,54 @@
 		<reqskill>0</reqskill>
 		<Desc></Desc>
 	</item>
-	<item>
+  <item>
+    <id>3370</id>
+    <slot>17</slot>
+    <name>Razorice</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+  </item>
+  <item>
+    <id>3369</id>
+    <slot>17</slot>
+    <name>Cinderglacier</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+  </item>
+  <item>
+    <id>3789</id>
+    <slot>17</slot>
+    <name>Berserking</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+  </item>
+  
+
+  <item>
 		<id>3368</id>
 		<slot>13</slot>
 		<name>Fallen Crusader</name>
@@ -406,4 +453,22 @@
 		<reqskill>0</reqskill>
 		<Desc></Desc>
 	</item>
+  <item>
+    <id>3789</id>
+    <slot>13</slot>
+    <name>Berserking</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+  </item>
+
+
+  
 </enchant>
