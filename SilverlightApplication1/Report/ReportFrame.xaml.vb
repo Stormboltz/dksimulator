@@ -5,6 +5,8 @@ Imports System.IO
 Partial Public Class ReportFrame
     Inherits UserControl
 
+    Dim PopUpFrame As frmPopReport
+
     Public Sub New()
         InitializeComponent()
     End Sub
@@ -72,7 +74,6 @@ Partial Public Class ReportFrame
 
     Function GetItem(ByVal el As XElement) As ReportDisplayLine
         Dim r As New ReportDisplayLine
-
         r.Ability = el.Element("Ability").Value
         r.Damage_done_Total = el.Element("Damage_done_Total").Value
         r.Damage_done_Pc = el.Element("Damage_done_Pc").Value
@@ -135,5 +136,13 @@ Partial Public Class ReportFrame
     Private Sub dgReport_AutoGeneratingColumn(ByVal sender As Object, ByVal e As System.Windows.Controls.DataGridAutoGeneratingColumnEventArgs) Handles dgReport.AutoGeneratingColumn
         e.Column.Header = e.Column.Header.ToString.Replace("_", vbCrLf)
         e.Column.Header = e.Column.Header.ToString.Replace("Damage", "Dmg")
+    End Sub
+
+    
+    Private Sub cmdShowDetails_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdShowDetails.Click
+        If IsNothing(PopUpFrame) Then
+            PopUpFrame = New frmPopReport(Me)
+        End If
+        PopUpFrame.Show()
     End Sub
 End Class

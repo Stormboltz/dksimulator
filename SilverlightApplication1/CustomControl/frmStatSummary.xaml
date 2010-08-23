@@ -1,0 +1,195 @@
+﻿<UserControl x:Class="DKSIMVB.frmStatSummary"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="1500" d:DesignWidth="300" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" xmlns:my="clr-namespace:DKSIMVB">
+
+    <Grid x:Name="LayoutRoot" Background="White">
+        <ScrollViewer Grid.Column="1" Grid.Row="1">
+            <StackPanel>
+                <Grid Name="Mainstats">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200*" />
+                        <ColumnDefinition Width="60" />
+                    </Grid.ColumnDefinitions>
+                    <sdk:Label Content="Main stats:"/>
+                    <my:myGridControl Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" />
+                    <sdk:Label Height="28" Name="Label2" Content="Strength"  Grid.Column="0" Grid.Row="1"/>
+                    <TextBox Height="23"  Name="txtStr" Grid.Column="1" Grid.Row="1"/>
+                    <sdk:Label Height="28" Name="Label3" Content="Agility"  Grid.Column="0" Grid.Row="2"/>
+                    <TextBox Height="23"  Name="txtAgi" Grid.Column="1" Grid.Row="2"/>
+                    <sdk:Label Height="28" Name="Label4" Content="intelligence"   Grid.Column="0" Grid.Row="3"/>
+                    <TextBox Height="23"  Name="txtIntel" Grid.Column="1" Grid.Row="3"/>
+                    <sdk:Label Height="28" Name="lblStam" Content="Stamina"  Grid.Column="0" Grid.Row="4"/>
+                </Grid>
+                <Grid Name="DPSstats">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200*" />
+                        <ColumnDefinition Width="60" />
+                    </Grid.ColumnDefinitions>
+                    <sdk:Label Content="DPS stats:"/>
+                    <my:myGridControl Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" />
+                    <sdk:Label Height="28" Name="Label6" Content="Attack Power"  Grid.Column="0" Grid.Row="1" />
+                    <sdk:Label Height="28" Name="lblHit" Content="Hit Rating"  Grid.Column="0" Grid.Row="2" />
+                    <sdk:Label Height="28" Name="lblCrit" Content="Crit Rating"   Grid.Column="0" Grid.Row="3"/>
+                    <sdk:Label Height="28" Name="lblHAste" Content="Haste Rating"   Grid.Column="0" Grid.Row="4"/>
+                    <sdk:Label Height="28" Name="lblArP" Content="ArP"    Grid.Column="0" Grid.Row="5"/>
+                    <sdk:Label Height="28" Name="lblExp" Content="Expertise Rating"   Grid.Column="0" Grid.Row="6"/>
+                    <TextBox Height="23"  Name="txtAP" Grid.Column="1" Grid.Row="1"/>
+                    <TextBox Height="23"  Name="txtHit" Grid.Column="1" Grid.Row="2"/>
+                    <TextBox   Height="23" Name="txtCrit" Grid.Column="1" Grid.Row="3"/>
+                    <TextBox   Height="23" Name="txtHaste" Grid.Column="1" Grid.Row="4"/>
+                    <TextBox  Height="23" Name="txtArP" Grid.Column="1" Grid.Row="5" />
+                    <TextBox   Height="23" Name="txtExp" Grid.Column="1" Grid.Row="6" />
+                    <sdk:Label Height="28" Name="lblMast" Content="Mastery Rating NYI"   Grid.Column="0" Grid.Row="7"/>
+                    <TextBox   Height="23" Name="txtMast" Grid.Column="1" Grid.Row="7" />
+                </Grid>
+                <Grid Name="WeaponStats">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200*" />
+                        <ColumnDefinition Width="60" />
+                    </Grid.ColumnDefinitions>
+                    <sdk:Label Content="Weapons stats:"/>
+                    <my:myGridControl Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" />
+                    <RadioButton Content="2 Hand" Height="16" Name="r2Hand" GroupName="WeaponGroup" IsChecked="True"  Grid.Column="0" Grid.Row="1" />
+                    <RadioButton Content="DW" Height="16" Name="rDW" GroupName="WeaponGroup" Grid.Column="1" Grid.Row="1" />
+
+                    <sdk:Label Height="28" Name="Label11" Content="MH DPS"   Grid.Column="0" Grid.Row="2"/>
+                    <TextBox   Height="23" Name="txtMHDPS" Grid.Column="1" Grid.Row="2" />
+
+                    <sdk:Label Height="28" Name="Label12" Content="MH Speed"   Grid.Column="0" Grid.Row="3"/>
+                    <TextBox   Height="23" Name="txtMHWSpeed" Grid.Column="1" Grid.Row="3" />
+                    <sdk:Label Height="28" Name="Label13" Content="OH DPS"   Grid.Column="0" Grid.Row="4"/>
+                    <TextBox  Height="23" Name="txtOHDPS" IsEnabled="False"  Grid.Column="1" Grid.Row="4" />
+                    <sdk:Label Height="28" Name="Label222" Content="OH Speed"   Grid.Column="0" Grid.Row="5"/>
+                    <TextBox Height="23" Name="txtOHWSpeed" IsEnabled="False" Grid.Column="1" Grid.Row="5" />
+
+
+
+                </Grid>
+                <Grid Name="Tankstats">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200*" />
+                        <ColumnDefinition Width="60" />
+                    </Grid.ColumnDefinitions>
+                    <sdk:Label Content="Tank stats:"/>
+                    <my:myGridControl Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" />
+                    <sdk:Label Height="28" Name="Label5" Content="Armor"    Grid.Column="0" Grid.Row="3"/>
+                    <TextBox Height="23"  Name="txtArmor" Grid.Column="1" Grid.Row="3"/>
+
+                    <sdk:Label Content="Armor" Grid.Row="1"></sdk:Label>
+                    <sdk:Label Content="Additional Armor" Grid.Row="2"></sdk:Label>
+                    <sdk:Label Content="Dodge" Grid.Row="3"></sdk:Label>
+                    <sdk:Label Content="Parry" Grid.Row="4"></sdk:Label>
+
+                </Grid>
+
+
+                <Grid Name="Racial">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200*" />
+                        <ColumnDefinition Width="60" />
+                    </Grid.ColumnDefinitions>
+                    <sdk:Label Content="Racial:"/>
+                    <my:myGridControl Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" />
+
+                    <sdk:Label Content="Main Hand Expertise" Height="28" Name="Label15" Grid.Row="1" Grid.Column="0" />
+                    <TextBox Height="23" Name="txtMHExpBonus"  Grid.Column="1" Grid.Row="1" />
+                    <sdk:Label Content="Off Hand Expertise" Height="28" Name="Label16"  Grid.Column="0" Grid.Row="2"/>
+                    <TextBox Height="23" Name="txtOHExpBonus"  Grid.Column="1" Grid.Row="2" />
+
+                    <CheckBox Content="Blood Fury + Pet Damage" Height="19" Name="chkBloodFury"  Grid.ColumnSpan="2" Grid.Row="3" />
+                    <CheckBox Content="Berzerking" Height="19" Name="chkBerzerking"   Grid.ColumnSpan="2" Grid.Row="4" />
+                    <CheckBox Content="Arcane Torrent" Height="19" Name="chkArcaneTorrent"  Grid.ColumnSpan="2" Grid.Row="5"  />
+
+                </Grid>
+                <Grid Name="Misc">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="25" />
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200*" />
+                        <ColumnDefinition Width="60" />
+                    </Grid.ColumnDefinitions>
+                    <sdk:Label Content="Misc:"/>
+                    <my:myGridControl Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" />
+                    <CheckBox Content="3% Crit damage" Height="16" Name="chkMeta"   Grid.Row="1" Grid.ColumnSpan="2"/>
+                    <CheckBox Content="Tailor enchant" Height="16" Name="chkTailorEnchant"  Grid.ColumnSpan="2" Grid.Row="2" />
+                    <CheckBox Content="Hand--Mounted Pyro Rocket" Height="16" Name="chkIngenieer"  Grid.ColumnSpan="2" Grid.Row="3" />
+                    <CheckBox Content="Hyperspeed Accelerators" Height="16" Name="chkAccelerators"   Grid.ColumnSpan="2" Grid.Row="4"/>
+                    <CheckBox Content="Ashen Band of Endless Vengeance" Height="16" Name="chkAshenBand" Grid.ColumnSpan="2" Grid.Row="5"  />
+                    <TextBox Height="23" Name="cmbSetBonus1"   Grid.ColumnSpan="2" Grid.Row="6" />
+                    <TextBox Height="23" Name="cmbSetBonus2"   Grid.ColumnSpan="2" Grid.Row="7" />
+                    <TextBox Height="23" Name="cmbWeaponProc1"  Grid.ColumnSpan="2" Grid.Row="7" />
+                    <TextBox Height="23" Name="cmbWeaponProc2"  Grid.ColumnSpan="2" Grid.Row="9" />
+                    <TextBox Height="23" Name="cmbTrinket1" Grid.ColumnSpan="2" Grid.Row="10"  />
+                    <TextBox Height="23" Name="cmbTrinket2"  Grid.ColumnSpan="2" Grid.Row="11" />
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

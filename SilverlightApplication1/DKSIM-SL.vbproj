@@ -146,6 +146,9 @@
     <Compile Include="CombatLog\CombatLogViewer.xaml.vb">
       <DependentUpon>CombatLogViewer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomControl\frmStatSummary.xaml.vb">
+      <DependentUpon>frmStatSummary.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Diseases\BloodPlague.vb" />
     <Compile Include="Diseases\Disease.vb" />
     <Compile Include="Diseases\FrostFever.vb" />
@@ -170,14 +173,17 @@
       <DependentUpon>ForgeTextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="logging\logging.vb" />
-    <Compile Include="myGridControl.xaml.vb">
+    <Compile Include="CustomControl\myGridControl.xaml.vb">
       <DependentUpon>myGridControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Report\frmPopReport.xaml.vb">
+      <DependentUpon>frmPopReport.xaml</DependentUpon>
     </Compile>
     <Compile Include="Runes\RunePair.vb" />
     <Compile Include="Strike\FesteringStrike.vb" />
     <Compile Include="Talents\Talent.vb" />
     <Compile Include="Talents\Talents.vb" />
-    <Compile Include="WaitFrame.xaml.vb">
+    <Compile Include="CustomControl\WaitFrame.xaml.vb">
       <DependentUpon>WaitFrame.xaml</DependentUpon>
     </Compile>
     <None Include="GearSelector\EquipSlot.xaml.vb">
@@ -289,7 +295,7 @@
     </Compile>
     <Compile Include="Trinkets\Trinket.vb" />
     <Compile Include="Trinkets\Trinkets.vb" />
-    <Compile Include="UserInput.xaml.vb">
+    <Compile Include="CustomControl\UserInput.xaml.vb">
       <DependentUpon>UserInput.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -353,6 +359,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Page Include="GearSelector\ArmoryImport\frmArmoryImport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomControl\frmStatSummary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -4258,7 +4268,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="myGridControl.xaml">
+    <Page Include="CustomControl\myGridControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -4282,6 +4292,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Content Include="ReleaseNotes.txt" />
+    <Page Include="Report\frmPopReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Content Include="Rotation\Blood.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -4326,7 +4340,7 @@
     <Content Include="Templates\Empty.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Page Include="UserInput.xaml">
+    <Page Include="CustomControl\UserInput.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -4334,7 +4348,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="WaitFrame.xaml">
+    <Page Include="CustomControl\WaitFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

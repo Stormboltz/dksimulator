@@ -1378,7 +1378,7 @@ NextItem:
         xmlChar.Element("character").Element("stat").Add(New XElement("CritRating", CheckForInt(txtCrit.Text)))
         xmlChar.Element("character").Element("stat").Add(New XElement("HasteRating", CheckForInt(txtHaste.Text)))
         xmlChar.Element("character").Element("stat").Add(New XElement("ArmorPenetrationRating", CheckForInt(txtArP.Text)))
-        xmlChar.Element("character").Element("stat").Add(New XElement("ExpertiseRating", CheckForInt(txtStr.Text)))
+        xmlChar.Element("character").Element("stat").Add(New XElement("ExpertiseRating", CheckForInt(txtExp.Text)))
 
 
         xmlChar.Element("character").Add(New XElement("weapon", ""))
