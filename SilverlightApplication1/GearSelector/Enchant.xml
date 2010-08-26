@@ -11,8 +11,14 @@
 		<AttackPower>50</AttackPower>
 		<CritRating>20</CritRating>
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
+ 
 		<reqskill>0</reqskill>
 		<Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 	<item>
 		<id>3835</id>
@@ -28,6 +34,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<reqskill>773</reqskill>
 		<Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 	<item>
 		<id>3808</id>
@@ -43,6 +54,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<reqskill>0</reqskill>
 		<Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 	<item>
 		<id>3875</id>
@@ -58,6 +74,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<reqskill>0</reqskill>
 		<Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 	<item>
 		<id>3831</id>
@@ -73,6 +94,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<reqskill>0</reqskill>
 		<Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 	<item>
 		<id>1099</id>
@@ -88,6 +114,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<reqskill>0</reqskill>
 		<Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 	<item>
 		<id>3730</id>
@@ -103,6 +134,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<reqskill>197</reqskill>
 		<Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 	<item>
 		<id>3605</id>
@@ -118,6 +154,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<reqskill>202</reqskill>
 		<Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 	<item>
 		<id>3832</id>
@@ -133,6 +174,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<reqskill>0</reqskill>
 		<Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 	<item>
 		<id>3756</id>
@@ -148,6 +194,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<reqskill>165</reqskill>
 		<Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 	<item>
 		<id>3845</id>
@@ -163,6 +214,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<reqskill>0</reqskill>
 		<Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 	<item>
 		<id>3231</id>
@@ -178,6 +234,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<reqskill>0</reqskill>
 		<Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 	<item>
 		<id>3231</id>
@@ -193,6 +254,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<reqskill>0</reqskill>
 		<Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 	<item>
 		<id>3234</id>
@@ -208,6 +274,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<reqskill>0</reqskill>
 		<Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 	<item>
 		<id>1603</id>
@@ -223,6 +294,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<reqskill>0</reqskill>
 		<Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 	<item>
 		<id>684</id>
@@ -238,6 +314,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<reqskill>0</reqskill>
 		<Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 	<item>
 		<id>3603</id>
@@ -253,6 +334,11 @@
 		<ArmorPenetrationRating>202</ArmorPenetrationRating>
 		<reqskill>202</reqskill>
 		<Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 	<item>
 		<id>3604</id>
@@ -268,6 +354,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<reqskill>202</reqskill>
 		<Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 	<item>
 		<id>3823</id>
@@ -283,6 +374,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<reqskill>0</reqskill>
 		<Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 	<item>
 		<id>3826</id>
@@ -298,6 +394,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<reqskill>0</reqskill>
 		<Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 	<item>
 		<id>1597</id>
@@ -313,6 +414,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<reqskill>0</reqskill>
 		<Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 	
 	<item>
@@ -329,6 +435,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<reqskill>202</reqskill>
 		<Desc>Critical Strike Rating</Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 	
 	<item>
@@ -345,6 +456,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<reqskill>333</reqskill>
 		<Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 	<item>
 		<id>3368</id>
@@ -360,6 +476,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<reqskill>0</reqskill>
 		<Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
   <item>
     <id>3370</id>
@@ -375,6 +496,11 @@
     <ArmorPenetrationRating>0</ArmorPenetrationRating>
     <reqskill>0</reqskill>
     <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
   </item>
   <item>
     <id>3369</id>
@@ -390,6 +516,11 @@
     <ArmorPenetrationRating>0</ArmorPenetrationRating>
     <reqskill>0</reqskill>
     <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
   </item>
   <item>
     <id>3789</id>
@@ -405,6 +536,11 @@
     <ArmorPenetrationRating>0</ArmorPenetrationRating>
     <reqskill>0</reqskill>
     <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
   </item>
   
 
@@ -422,6 +558,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<reqskill>0</reqskill>
 		<Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 	<item>
 		<id>3370</id>
@@ -437,6 +578,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<reqskill>0</reqskill>
 		<Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 	<item>
 		<id>3369</id>
@@ -452,6 +598,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<reqskill>0</reqskill>
 		<Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
   <item>
     <id>3789</id>
@@ -467,8 +618,132 @@
     <ArmorPenetrationRating>0</ArmorPenetrationRating>
     <reqskill>0</reqskill>
     <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
   </item>
 
-
+  <item>
+    <id>3368</id>
+    <slot>17</slot>
+    <name>Stoneskin Gargoyle</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>500</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>3883</id>
+    <slot>13</slot>
+    <name>Nerubian Carapace</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>250</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>3365</id>
+    <slot>17</slot>
+    <name>Swordshattering</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>4</ParryRating>
+  </item>
   
+    <item>
+    <id>3594</id>
+    <slot>13</slot>
+    <name>Swordbreaking</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>2</ParryRating>
+  </item>
+    <item>
+    <id>3367</id>
+    <slot>17</slot>
+    <name>Spellshattering</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>3595</id>
+    <slot>17</slot>
+    <name>Spellbreaking</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
 </enchant>

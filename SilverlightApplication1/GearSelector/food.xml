@@ -12,6 +12,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<Armor>0</Armor>
 		<Desc></Desc>
+    <Stamina>40</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 	
 	<item>
@@ -27,6 +32,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<Armor>0</Armor>
 		<Desc></Desc>
+    <Stamina>40</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
 	</item>
 <item>
 		<id>2</id>
@@ -41,6 +51,11 @@
 		<ArmorPenetrationRating>40</ArmorPenetrationRating>
 		<Armor>0</Armor>
 		<Desc></Desc>
+  <Stamina>40</Stamina>
+  <BonusArmor>0</BonusArmor>
+  <MasteryRating>0</MasteryRating>
+  <DodgeRating>0</DodgeRating>
+  <ParryRating>0</ParryRating>
 	</item>
 <item>
 		<id>3</id>
@@ -55,6 +70,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<Armor>0</Armor>
 		<Desc></Desc>
+  <Stamina>40</Stamina>
+  <BonusArmor>0</BonusArmor>
+  <MasteryRating>0</MasteryRating>
+  <DodgeRating>0</DodgeRating>
+  <ParryRating>0</ParryRating>
 	</item>
 <item>
 		<id>4</id>
@@ -69,6 +89,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<Armor>0</Armor>
 		<Desc></Desc>
+  <Stamina>40</Stamina>
+  <BonusArmor>0</BonusArmor>
+  <MasteryRating>0</MasteryRating>
+  <DodgeRating>0</DodgeRating>
+  <ParryRating>0</ParryRating>
 	</item>
 <item>
 		<id>5</id>
@@ -83,6 +108,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<Armor>0</Armor>
 		<Desc></Desc>
+  <Stamina>40</Stamina>
+  <BonusArmor>0</BonusArmor>
+  <MasteryRating>0</MasteryRating>
+  <DodgeRating>0</DodgeRating>
+  <ParryRating>0</ParryRating>
 	</item>
 <item>
 		<id>6</id>
@@ -97,6 +127,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<Armor>0</Armor>
 		<Desc></Desc>
+  <Stamina>40</Stamina>
+  <BonusArmor>0</BonusArmor>
+  <MasteryRating>0</MasteryRating>
+  <DodgeRating>0</DodgeRating>
+  <ParryRating>0</ParryRating>
 	</item>
 <item>
 		<id>7</id>
@@ -111,6 +146,11 @@
 		<ArmorPenetrationRating>0</ArmorPenetrationRating>
 		<Armor>0</Armor>
 		<Desc></Desc>
+  <Stamina>40</Stamina>
+  <BonusArmor>0</BonusArmor>
+  <MasteryRating>0</MasteryRating>
+  <DodgeRating>0</DodgeRating>
+  <ParryRating>0</ParryRating>
 	</item>
 
 

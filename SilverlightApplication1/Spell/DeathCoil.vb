@@ -12,6 +12,7 @@ Friend class DeathCoil
         If sim.Character.Glyph.DarkDeath Then
             Multiplicator = Multiplicator * (1.15)
         End If
+        SpecialCritChance = 8 * sim.MainStat.T82PDPS / 100
     End Sub
 
 	
@@ -59,9 +60,5 @@ Friend class DeathCoil
         If sim.RuneForge.CheckCinderglacier(True) > 0 Then tmp *= 1.2
         Return tmp
     End Function
-	
-	overrides Function CritChance() As Double
-        CritChance = MyBase.CritChance + 8 / 100 * sim.MainStat.T82PDPS
-	End Function
-	
+
 end class

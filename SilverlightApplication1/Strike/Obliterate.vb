@@ -11,8 +11,15 @@ Friend Class Obliterate
 	
 	
 	Sub New(S As sim)
-		MyBase.New(s)
-	End Sub
+        MyBase.New(S)
+        BaseDamage = 934.4
+        If sim.Sigils.Awareness Then BaseDamage = BaseDamage + 336
+        Coeficient = 1.6
+        Multiplicator = (1 + sim.Character.Talents.Talent("Annihilation").Value * 10 / 100)
+        If sim.Character.Glyph.Obliterate Then Multiplicator = Multiplicator * 1.2
+        If sim.MainStat.T102PDPS <> 0 Then Multiplicator = Multiplicator * 1.1
+
+    End Sub
 	
 	public Overrides Function ApplyDamage(T As Long) As Boolean
 		Dim RNG As Double
@@ -75,34 +82,15 @@ Friend Class Obliterate
         Return True
     End Function
 
-
     Public Overrides Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
         Dim tmp As Double
-        If OffHand Then
-            tmp = sim.MainStat.NormalisedOHDamage * 1.6 + 934.4
-        Else
-            tmp = sim.MainStat.NormalisedMHDamage * 1.6 + 934.4
-        End If
-
-        If sim.sigils.Awareness Then tmp = tmp + 336
+        tmp = MyBase.AvrgNonCrit(T, target)
         If sim.MainStat.T84PDPS = 1 Then
-            tmp = tmp * (1 + 0.125 * Target.NumDesease * 1.2)
+            tmp = tmp * (1 + 0.125 * target.NumDesease * 1.2)
         Else
-            tmp = tmp * (1 + 0.125 * Target.NumDesease)
+            tmp = tmp * (1 + 0.125 * target.NumDesease)
         End If
-
-
-        tmp = tmp * (1 + sim.Character.Talents.Talent("Annihilation").Value * 10 / 100)
-        If sim.ExecuteRange Then tmp = tmp * (1 + 0.059999999999999998 * sim.Character.Talents.Talent("MercilessCombat").Value)
-        tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
-        If sim.character.glyph.Obliterate Then tmp = tmp * 1.2
-        If OffHand Then
-            tmp = tmp * 0.5
-            tmp = tmp * (1 + sim.Character.Talents.Talent("NervesofColdSteel").Value * 8.3333 / 100)
-        End If
-        If sim.MainStat.T102PDPS <> 0 Then
-            tmp = tmp * 1.1
-        End If
+        If sim.ExecuteRange Then tmp = tmp * (1 + 0.06 * sim.Character.Talents.Talent("MercilessCombat").Value)
         Return tmp
 
     End Function

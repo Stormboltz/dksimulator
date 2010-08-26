@@ -97,7 +97,7 @@ Public Class Spell
         End Function
 	
         Overridable Function CritChance() As Double
-            Return sim.MainStat.SpellCrit
+            Return sim.MainStat.SpellCrit + SpecialCritChance
         End Function
 	
         Overridable Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double

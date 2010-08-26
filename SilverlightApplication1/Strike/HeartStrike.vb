@@ -9,97 +9,66 @@
 Friend Class HeartStrike
 	Inherits Strikes.Strike
 	Sub New(S As sim)
-		MyBase.New(s)
+        MyBase.New(S)
+        BaseDamage = 368
+        If sim.Sigils.DarkRider Then BaseDamage = BaseDamage + 90
+        Coeficient = 1
+        Multiplicator = (1 + sim.Character.Talents.Talent("BloodoftheNorth").Value * 5 / 100)
+        If sim.MainStat.T102PDPS <> 0 Then Multiplicator = Multiplicator * 1.07
+
+        If sim.MainStat.T92PTNK = 1 Then Multiplicator = Multiplicator * 1.05
+
 	End Sub
-	
-	public Overrides Function ApplyDamage(T As long) As boolean
-		Dim RNG As Double
-		
-        'If sim.Hysteria.IsAvailable(T)  Then sim.Hysteria.use(T)
-		
-		UseGCD(T)
-		
-		If DoMyStrikeHit = false Then
-			sim.combatlog.write(T  & vbtab &  "HS fail")
-			MissCount = MissCount + 1
+    Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
+        Dim RNG As Double
+        UseGCD(T)
+        If DoMyStrikeHit() = False Then
+            sim.CombatLog.write(T & vbTab & "HS fail")
+            MissCount = MissCount + 1
             Return False
-		End If
-		Sim.RunicPower.add (10)
-		Dim intCount As Integer = 0
-		dim Tar as Targets.Target
-		For Each Tar In sim.Targets.AllTargets
-			RNG = RngCrit
-
-
+        End If
+        sim.RunicPower.add(10)
+        Dim intCount As Integer = 0
+        Dim Tar As Targets.Target
+        For Each Tar In sim.Targets.AllTargets
+            RNG = RngCrit
             If Tar.Equals(sim.Targets.MainTarget) Then
-                If RNG <= CritChance Then
+                If RNG <= CritChance() Then
                     CritCount = CritCount + 1
-                    LastDamage = AvrgCrit(T, tar)
-                    totalcrit += LastDamage
-                    sim.combatlog.write(T & vbtab & "HS crit for " & LastDamage)
+                    LastDamage = AvrgCrit(T, Tar)
+                    TotalCrit += LastDamage
+                    sim.CombatLog.write(T & vbTab & "HS crit for " & LastDamage)
                 Else
                     HitCount = HitCount + 1
                     LastDamage = AvrgNonCrit(T)
-                    totalhit += LastDamage
-                    sim.combatlog.write(T & vbtab & "HS hit for " & LastDamage)
+                    TotalHit += LastDamage
+                    sim.CombatLog.write(T & vbTab & "HS hit for " & LastDamage)
                 End If
             ElseIf intCount = 0 Then
                 intCount = 1
-                If RNG <= CritChance Then
+                If RNG <= CritChance() Then
                     CritCount = CritCount + 1
-                    LastDamage = AvrgCrit(T, tar) / 2
-                    totalcrit += LastDamage
-                    sim.combatlog.write(T & vbtab & "HS crit for " & LastDamage)
+                    LastDamage = AvrgCrit(T, Tar) / 2
+                    TotalCrit += LastDamage
+                    sim.CombatLog.write(T & vbTab & "HS crit for " & LastDamage)
                 Else
                     HitCount = HitCount + 1
                     LastDamage = AvrgNonCrit(T) / 2
-                    totalhit += LastDamage
-                    sim.combatlog.write(T & vbtab & "HS hit for " & LastDamage)
+                    TotalHit += LastDamage
+                    sim.CombatLog.write(T & vbTab & "HS hit for " & LastDamage)
                 End If
             End If
             total = total + LastDamage
             sim.proc.TryOnBloodStrike()
             sim.proc.TryOnMHHitProc()
-		Next
-		
-		If sim.proc.ReapingBotN.TryMe(T) Then
-			sim.Runes.UseBlood(T, True)
-		Else
-			sim.Runes.UseBlood(T, False)
-		End If
-		If sim.DRW.IsActive(T) Then
-			sim.DRW.DRWHeartStrike
-		End If
-		
-		
-		return true
-	End Function
-	public Overrides Function AvrgNonCrit(T as long,target as Targets.Target) As Double
-		Dim tmp As Double
-        tmp = sim.MainStat.NormalisedMHDamage * 1
-        tmp = tmp + 368
+        Next
+        sim.Runes.UseBlood(T, False)
 
-		if sim.MainStat.T84PDPS = 1 then
-			tmp = tmp * (1 + 0.1 * target.NumDesease * 1.2)
-		else
-			tmp = tmp * (1 + 0.1 * target.NumDesease)
-		end if
-
-        tmp = tmp * (1 + sim.Character.Talents.Talent("BloodoftheNorth").Value * 5 / 100)
-
-        If sim.sigils.DarkRider Then tmp = tmp + 45 + 22.5 * target.NumDesease
-        tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
-
-        If sim.MainStat.T102PDPS <> 0 Then
-            tmp = tmp * 1.07
+        If sim.DRW.IsActive(T) Then
+            sim.DRW.DRWHeartStrike()
         End If
-        If sim.MainStat.T92PTNK = 1 Then tmp = tmp * 1.05
-        AvrgNonCrit = tmp
-    End Function
 
-   
-    Public Overrides Function CritChance() As Double
-        CritChance = sim.MainStat.crit
+
+        Return True
     End Function
-	
 End Class

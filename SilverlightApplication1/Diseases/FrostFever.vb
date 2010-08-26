@@ -3,7 +3,8 @@ NameSpace Diseases
 		inherits Diseases.Disease
 		
 		Sub New(S As sim)
-			MyBase.New(S)
+            MyBase.New(S)
+
 		End Sub
 		Overrides Function PerfectUsage(T As Long) As Boolean
             If FadeAt <= sim.Runes.GetNextFrost(T) Then
@@ -17,7 +18,11 @@ NameSpace Diseases
 			if target is nothing then target = sim.Targets.MainTarget
 			Dim tmp As Double
 			tmp = MyBase.CalculateMultiplier(T,target) * sim.RuneForge.RazorIceMultiplier(T) 'TODO: only on main target
-			If sim.character.glyph.IcyTouch Then tmp = tmp * 1.2
+            If sim.Character.Glyph.IcyTouch Then tmp = tmp * 1.2
+            If sim.Character.Talents.GetNumOfThisSchool(Talents.Schools.Frost) > 20 Then
+                tmp = tmp * 1.2 'Frozen Heart
+            End If
+           
 			return tmp
 		End Function
 		

@@ -149,6 +149,9 @@
     <Compile Include="CustomControl\frmStatSummary.xaml.vb">
       <DependentUpon>frmStatSummary.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomControl\GemDisplay.xaml.vb">
+      <DependentUpon>GemDisplay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Diseases\BloodPlague.vb" />
     <Compile Include="Diseases\Disease.vb" />
     <Compile Include="Diseases\FrostFever.vb" />
@@ -172,6 +175,7 @@
     <Compile Include="GearSelector\ForgeTextBox.xaml.vb">
       <DependentUpon>ForgeTextBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GearSelector\WowItem.vb" />
     <Compile Include="logging\logging.vb" />
     <Compile Include="CustomControl\myGridControl.xaml.vb">
       <DependentUpon>myGridControl.xaml</DependentUpon>
@@ -186,9 +190,6 @@
     <Compile Include="CustomControl\WaitFrame.xaml.vb">
       <DependentUpon>WaitFrame.xaml</DependentUpon>
     </Compile>
-    <None Include="GearSelector\EquipSlot.xaml.vb">
-      <DependentUpon>EquipSlot.xaml</DependentUpon>
-    </None>
     <None Include="GearSelector\Extractor.vb" />
     <Compile Include="GearSelector\Flask.vb" />
     <Compile Include="GearSelector\Food.vb" />
@@ -366,6 +367,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="CustomControl\GemDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Content Include="GearSelector\ArmoryImport\ArmoSample.xml" />
     <Page Include="GearSelector\ArmoryImport\frmArmory.xaml">
       <SubType>Designer</SubType>
@@ -385,10 +390,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <None Include="GearSelector\EquipSlot.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </None>
     <Content Include="GearSelector\Flask.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -4253,6 +4254,15 @@
     </Resource>
     <Resource Include="images\Icons\small\spell_shadow_seedofdestruction.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\deathknightblood.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\deathknightfrost.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\deathknightunholy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Content Include="Intro\Intro.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

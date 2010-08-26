@@ -10,25 +10,11 @@ Imports System.Linq
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
 Public Class Gem
+    Inherits WowItem
+
     Friend Color As Color
     Friend ColorId As Integer
-    Public Id As Integer
-    Public name As String
-    Public ilvl As Integer
-    Public classs As Integer
-    Public subclass As Integer = -1
-
-    Public Strength As Integer
-    Public Intel As Integer
-    Public Agility As Integer
-    Public HasteRating As Integer
-    Public ExpertiseRating As Integer
-    Public HitRating As Integer
-    Public AttackPower As Integer
-    Public CritRating As Integer
-    Public ArmorPenetrationRating As Integer
-    Public keywords As String
-
+    Friend keywords As String
 
     Protected GemDB As XDocument
     Protected MainFrame As FrmGearSelector
@@ -42,59 +28,29 @@ Public Class Gem
     End Sub
     Sub Attach(ByVal GemId As Integer)
         If GemId = 0 Or ColorId = 0 Then
-            Detach()
+            Unload()
             Exit Sub
         End If
         Try
 
 
-            Dim el As XElement = (From x In GemDB.Element("gems").Elements
-                                  Where x.Element("id").Value = GemId
+            Dim el As XElement = (From x In GemDB.<gems>.Elements
+                                  Where x.<id>.Value = GemId
                                   ).First
-            Me.Id = GemId
-            With Me
-                .name = el.Element("name").Value
-                .Strength = el.Element("Strength").Value
-                .Agility = el.Element("Agility").Value
-                .HasteRating = el.Element("HasteRating").Value
-                .ExpertiseRating = el.Element("ExpertiseRating").Value
-                .HitRating = el.Element("HitRating").Value
-                .AttackPower = el.Element("AttackPower").Value
-                .CritRating = el.Element("CritRating").Value
-                .ArmorPenetrationRating = el.Element("ArmorPenetrationRating").Value
-                .ilvl = el.Element("ilvl").Value
-                .classs = el.Element("class").Value
-                subclass = el.Element("subclass").Value
-                .keywords = el.Element("keywords").Value
-                .Color = GemColor(subclass)
-            End With
-
-
+            Load(el)
         Catch ex As Exception
+            Unload()
             Log.Log(ex.StackTrace, logging.Level.ERR)
         End Try
 
 
     End Sub
-
-    Sub Detach()
-        Id = 0
-        'ColorId = 0
-        name = ""
-        ilvl = 0
-        classs = 0
-        subclass = -1
-        Strength = 0
-        Agility = 0
-        HasteRating = 0
-        ExpertiseRating = 0
-        HitRating = 0
-        AttackPower = 0
-        CritRating = 0
-        ArmorPenetrationRating = 0
-        keywords = ""
+    Public Overrides Sub Unload()
+        MyBase.Unload()
         Color = Nothing
+        keywords = ""
     End Sub
+    
 
     Function GemSlotColorName() As String
         Select Case ColorId

@@ -10,6 +10,9 @@ Friend Class IcyTouch
         Coeficient = (0.1 * (1 + 0.2 * sim.Character.Talents.Talent("Impurity").Value)) * (1 + sim.Character.Talents.Talent("ImprovedIcyTouch").Value * 10 / 100)
         Multiplicator = (1 + sim.Character.Talents.Talent("ImprovedIcyTouch").Value * 10 / 100)
 
+        If S.Character.Talents.GetNumOfThisSchool(Talents.Schools.Frost) > 20 Then
+            Multiplicator = Multiplicator * 1.2 'Frozen Heart
+        End If
 
 
 	End Sub

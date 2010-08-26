@@ -91,7 +91,9 @@ NameSpace Diseases
 			tmp = sim.MainStat.StandardMagicalDamageMultiplier(T)
 			if sim.RuneForge.CheckCinderglacier(False) > 0 then tmp  *= 1.2
             tmp = tmp * (1 + sim.Character.Talents.Talent("EbonPlaguebringer").Value * 15 / 100)
-
+            If sim.Character.Talents.GetNumOfThisSchool(Talents.Schools.Unholy) > 20 Then
+                tmp = tmp * 1.2 'Blightcaller
+            End If
             Return tmp
         End Function
 

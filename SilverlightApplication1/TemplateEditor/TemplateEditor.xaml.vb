@@ -51,13 +51,12 @@ Partial Public Class TemplateEditor
             myBT = New TemplateButton(Me, xNode.Name.ToString)
             myBT.School = "blood"
             Me.tbTpl.Children.Add(myBT)
-            Canvas.SetLeft(myBT, -10 + (xNode.Attribute("col")).Value * 35)
-            Canvas.SetTop(myBT, -35 + xNode.Attribute("row").Value * 50)
+            Grid.SetColumn(myBT, xNode.Attribute("col").Value * 2)
+            Grid.SetRow(myBT, xNode.Attribute("row").Value * 2)
             myBT.MaxValue = xNode.Value
             btList.Add(myBT, myBT.Name)
             ToolTipService.SetToolTip(myBT, myBT.Name)
 NextBlood:
-
         Next
 
 
@@ -67,8 +66,8 @@ NextBlood:
             myBT = New TemplateButton(Me, xNode.Name.ToString)
             myBT.School = "frost"
             Me.tbTpl.Children.Add(myBT)
-            Canvas.SetLeft(myBT, 140 + (xNode.Attribute("col")).Value * 35)
-            Canvas.SetTop(myBT, -35 + xNode.Attribute("row").Value * 50)
+            Grid.SetColumn(myBT, 8 + xNode.Attribute("col").Value * 2)
+            Grid.SetRow(myBT, xNode.Attribute("row").Value * 2)
             myBT.MaxValue = xNode.Value
             btList.Add(myBT, myBT.Name)
             ToolTipService.SetToolTip(myBT, myBT.Name)
@@ -80,8 +79,8 @@ NextFrost:
             myBT = New TemplateButton(Me, xNode.Name.ToString)
             myBT.School = "unholy"
             Me.tbTpl.Children.Add(myBT)
-            Canvas.SetLeft(myBT, 300 + (xNode.Attribute("col")).Value * 35)
-            Canvas.SetTop(myBT, -35 + xNode.Attribute("row").Value * 50)
+            Grid.SetColumn(myBT, 16 + xNode.Attribute("col").Value * 2)
+            Grid.SetRow(myBT, xNode.Attribute("row").Value * 2)
             myBT.MaxValue = xNode.Value
             btList.Add(myBT, myBT.Name)
             ToolTipService.SetToolTip(myBT, myBT.Name)

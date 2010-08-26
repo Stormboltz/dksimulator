@@ -165,7 +165,8 @@ Partial Public Class ItemEditor
     End Sub
     Sub DisplayItem()
         cmbReforgeFrom.Items.Clear()
-
+        stkStats.Children.Clear()
+        Dim lbl As Label
         Me.Equipment.Content = Item.name & "(" & Item.ilvl & ")"
         If Item.heroic = 1 Then
             lblHeroic.Content = "Heroic"
@@ -175,64 +176,101 @@ Partial Public Class ItemEditor
             lblHeroic.Foreground = New SolidColorBrush(Colors.Black)
         End If
         Dim i As Integer = 0
-        Dim col As New Collections.Generic.List(Of String)
-        If Item.Strength <> 0 Then col.Add("Strength = " & Item.Strength)
-        If Item.Agility <> 0 Then col.Add("Agility = " & Item.Agility)
+        If Item.BonusArmor <> 0 Then
+            lblArmor.Content = "Armor = " & Item.Armor & "(+" & Item.BonusArmor & ")"
+        Else
+            lblArmor.Content = "Armor = " & Item.Armor
+        End If
+        
+
+        If Item.Stamina <> 0 Then
+            lbl = New Label
+            lbl.Content = "Stamina = " & Item.Stamina
+            stkStats.Children.Add(lbl)
+        End If
+
+        If Item.Strength <> 0 Then
+            lbl = New Label
+            lbl.Content = "Strength = " & Item.Strength
+            stkStats.Children.Add(lbl)
+        End If
+
+
+        If Item.Agility <> 0 Then
+            lbl = New Label
+            lbl.Content = "Agility = " & Item.Agility
+            stkStats.Children.Add(lbl)
+        End If
+
+        If Item.AttackPower <> 0 Then
+            lbl = New Label
+            lbl.Content = "Attack Power = " & Item.AttackPower
+            stkStats.Children.Add(lbl)
+        End If
+
+
         If Item.HasteRating <> 0 Then
-            col.Add("Haste Rating = " & Item.HasteRating)
+            lbl = New Label
+            lbl.Content = "Haste Rating = " & Item.HasteRating
+            stkStats.Children.Add(lbl)
             cmbReforgeFrom.Items.Add("Haste")
         End If
 
-        If Item.AttackPower <> 0 Then col.Add("Attack Power = " & Item.AttackPower)
         If Item.CritRating <> 0 Then
-            col.Add("Crit Rating = " & Item.CritRating)
+            lbl = New Label
+            lbl.Content = "Crit Rating = " & Item.CritRating
+            stkStats.Children.Add(lbl)
             cmbReforgeFrom.Items.Add("Crit")
         End If
+        If Item.ArmorPenetrationRating <> 0 Then
+            lbl = New Label
+            lbl.Content = "Armor Penetration Rating = " & Item.ArmorPenetrationRating
+            stkStats.Children.Add(lbl)
+
+
+        End If
         If Item.HitRating <> 0 Then
-            col.Add("Hit Rating = " & Item.HitRating)
+            lbl = New Label
+            lbl.Content = "Hit Rating = " & Item.HitRating
+            stkStats.Children.Add(lbl)
+
+
             cmbReforgeFrom.Items.Add("Hit")
         End If
-        If Item.ArmorPenetrationRating <> 0 Then
-            col.Add("Armor Penetration Rating = " & Item.ArmorPenetrationRating)
-        End If
+
         If Item.ExpertiseRating <> 0 Then
-            col.Add("Expertise Rating = " & Item.ExpertiseRating)
+            lbl = New Label
+            lbl.Content = "Expertise Rating = " & Item.ExpertiseRating
+            stkStats.Children.Add(lbl)
+
+
             cmbReforgeFrom.Items.Add("Exp")
         End If
-        If Item.Mastery <> 0 Then
-            col.Add("Mastery Rating = " & Item.Mastery)
+
+        If Item.MasteryRating <> 0 Then
+            lbl = New Label
+            lbl.Content = "Mastery Rating = " & Item.MasteryRating
+            stkStats.Children.Add(lbl)
+
+
             cmbReforgeFrom.Items.Add("Mast")
         End If
-        lblStat1.Content = ""
-        lblStat2.Content = ""
-        lblStat3.Content = ""
-        lblStat4.Content = ""
-        lblStat5.Content = ""
 
-        Dim ii As Integer
-        ii = col.Count
-        Select Case ii
-            Case 1
-                lblStat1.Content = col(0)
-            Case 2
-                lblStat1.Content = col(0)
-                lblStat2.Content = col(1)
-            Case 3
-                lblStat1.Content = col(0)
-                lblStat2.Content = col(1)
-                lblStat3.Content = col(2)
-            Case 4
-                lblStat1.Content = col(0)
-                lblStat2.Content = col(1)
-                lblStat3.Content = col(2)
-                lblStat4.Content = col(3)
-            Case 5
-                lblStat1.Content = col(0)
-                lblStat2.Content = col(1)
-                lblStat3.Content = col(2)
-                lblStat4.Content = col(3)
-                lblStat5.Content = col(4)
-        End Select
+        If Item.DodgeRating <> 0 Then
+            lbl = New Label
+            lbl.Content = "Dodge Rating = " & Item.DodgeRating
+            stkStats.Children.Add(lbl)
+
+
+            cmbReforgeFrom.Items.Add("Dodge")
+        End If
+
+        If Item.ParryRating <> 0 Then
+            lbl = New Label
+            lbl.Content = "Parry Rating = " & Item.ParryRating
+            stkStats.Children.Add(lbl)
+            cmbReforgeFrom.Items.Add("Parry")
+        End If
 
         If Item.gem1.GemSlotColorName <> "" Then
             lblGemColor1.Content = " "
@@ -271,11 +309,11 @@ Partial Public Class ItemEditor
         End If
         Try
             If xGemBonus Is Nothing Then xGemBonus = Mainframe.GemBonusDB
-            If Item.gembonus <> 0 Then
-                lblBonus.Content = (From el In xGemBonus.Element("bonus").Elements
-                                Where el.Element("id").Value = Item.gembonus
-                                Select el).First.Element("Desc").Value
-            End If
+            'If Item.gembonus <> 0 Then
+            '    lblBonus.Content = (From el In xGemBonus.Element("bonus").Elements
+            '                    Where el.Element("id").Value = Item.gembonus
+            '                    Select el).First.Element("Desc").Value
+            'End If
 
 
 
@@ -283,9 +321,9 @@ Partial Public Class ItemEditor
             Log.Log(ex.StackTrace, logging.Level.ERR)
             lblBonus.Content = "<bonus>"
         End Try
-        DisplayGem()
-        DisplayEnchant()
-        Mainframe.ParentFrame.GetStats()
+        'DisplayGem()
+        'DisplayEnchant()
+        'Mainframe.ParentFrame.GetStats()
     End Sub
 
     Private Sub lblGem_MouseEnter(ByVal sender As System.Object, ByVal e As System.Windows.Input.MouseEventArgs) Handles lblGem2.MouseLeftButtonUp, lblGem3.MouseLeftButtonUp, lblGem1.MouseLeftButtonUp, lblGemColor1.MouseLeftButtonDown, lblGemColor2.MouseLeftButtonDown, lblGemColor3.MouseLeftButtonDown
@@ -358,6 +396,7 @@ Partial Public Class ItemEditor
             If GearS.SelectedItem <> "-1" Then
                 Item.LoadItem(GearS.SelectedItem)
                 DisplayItem()
+                Mainframe.ParentFrame.GetStats()
             End If
         End If
 
@@ -365,6 +404,7 @@ Partial Public Class ItemEditor
     End Sub
 
     Private Sub cmbReforgeFrom_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs) Handles cmbReforgeFrom.SelectionChanged
+        
         Select Case cmbReforgeFrom.SelectedValue
             Case "Crit"
                 txtReforge.MaxValue = Item.CritRating / 2.5
@@ -375,14 +415,17 @@ Partial Public Class ItemEditor
             Case "Hit"
                 txtReforge.MaxValue = Item.HitRating / 2.5
             Case "Mast"
-                txtReforge.MaxValue = Item.Mastery / 2.5
+                txtReforge.MaxValue = Item.MasteryRating / 2.5
             Case "Dodge"
                 txtReforge.MaxValue = Item.DodgeRating / 2.5
             Case "Parry"
                 txtReforge.MaxValue = Item.ParryRating / 2.5
         End Select
+
+
         If IsNothing(cmbReforgeFrom.SelectedValue) = False Then Item.ReForgingFrom = cmbReforgeFrom.SelectedValue
         Mainframe.ParentFrame.GetStats()
+       
     End Sub
 
     

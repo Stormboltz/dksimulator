@@ -31,6 +31,7 @@
                     <sdk:Label Height="28" Name="Label4" Content="intelligence"   Grid.Column="0" Grid.Row="3"/>
                     <TextBox Height="23"  Name="txtIntel" Grid.Column="1" Grid.Row="3"/>
                     <sdk:Label Height="28" Name="lblStam" Content="Stamina"  Grid.Column="0" Grid.Row="4"/>
+                    <TextBox Height="23"  Name="txtStam" Grid.Column="1" Grid.Row="4"/>
                 </Grid>
                 <Grid Name="DPSstats">
                     <Grid.RowDefinitions>
@@ -106,8 +107,7 @@
                         <RowDefinition Height="25" />
                         <RowDefinition Height="25" />
                         <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
-                        <RowDefinition Height="25" />
+                        
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="200*" />
@@ -115,13 +115,18 @@
                     </Grid.ColumnDefinitions>
                     <sdk:Label Content="Tank stats:"/>
                     <my:myGridControl Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" />
-                    <sdk:Label Height="28" Name="Label5" Content="Armor"    Grid.Column="0" Grid.Row="3"/>
-                    <TextBox Height="23"  Name="txtArmor" Grid.Column="1" Grid.Row="3"/>
-
+                    
                     <sdk:Label Content="Armor" Grid.Row="1"></sdk:Label>
+                    <TextBox Height="23"  Name="txtArmor" Grid.Column="1" Grid.Row="1"/>
+                    
                     <sdk:Label Content="Additional Armor" Grid.Row="2"></sdk:Label>
+                    <TextBox Height="23"  Name="txtAddArmor" Grid.Column="1" Grid.Row="2"/>
+                    
+                    
                     <sdk:Label Content="Dodge" Grid.Row="3"></sdk:Label>
+                    <TextBox Height="23"  Name="txtDodge" Grid.Column="1" Grid.Row="3"/>
                     <sdk:Label Content="Parry" Grid.Row="4"></sdk:Label>
+                    <TextBox Height="23"  Name="txtParry" Grid.Column="1" Grid.Row="4"/>
 
                 </Grid>
 

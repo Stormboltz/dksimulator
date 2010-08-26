@@ -1,7 +1,10 @@
 ﻿Public Class FesteringStrike
     Inherits Strikes.Strike
     Sub New(ByVal S As Sim)
-        MyBase.New(s)
+        MyBase.New(S)
+        BaseDamage = 840
+        Coeficient = 1.5
+        Multiplicator = 1
     End Sub
 
     'Festering Strike *New* - An instant attack that deals 150% weapon damage 
@@ -9,51 +12,21 @@
     'and Chains of Ice effects on the target by up to 6 sec. / 5 yd range, Blood+Frost
 
     public Overrides Function ApplyDamage(T As long) As boolean
-        Dim RNG As Double
         UseGCD(T)
-
-        If DoMyStrikeHit() = False Then
-            sim.CombatLog.write(T & vbTab & "FeS fail")
-            MissCount = MissCount + 1
+        Dim ret As Boolean = MyBase.ApplyDamage(T)
+        If ret Then
+            sim.RunicPower.add(10)
+            sim.Targets.MainTarget.BloodPlague.FadeAt = sim.Targets.MainTarget.BloodPlague.FadeAt + 6 * 100
+            sim.Targets.MainTarget.FrostFever.FadeAt = sim.Targets.MainTarget.FrostFever.FadeAt + 6 * 100
+            sim.Runes.UseBF(T, True)
+            Return True
+        Else
             Return False
         End If
-        Sim.RunicPower.add(10)
-        Dim intCount As Integer = 0
-
-        RNG = RngCrit
-
-        If RNG <= CritChance() Then
-            CritCount = CritCount + 1
-            LastDamage = AvrgCrit(T)
-            TotalCrit += LastDamage
-            sim.CombatLog.write(T & vbTab & "FeS crit for " & LastDamage)
-        Else
-            HitCount = HitCount + 1
-            LastDamage = AvrgNonCrit(T)
-            TotalHit += LastDamage
-            sim.CombatLog.write(T & vbTab & "FeS hit for " & LastDamage)
-        End If
-
-        total = total + LastDamage
-        sim.proc.TryOnMHHitProc()
-        sim.Targets.MainTarget.BloodPlague.FadeAt = sim.Targets.MainTarget.BloodPlague.FadeAt + 6 * 100
-        sim.Targets.MainTarget.FrostFever.FadeAt = sim.Targets.MainTarget.FrostFever.FadeAt + 6 * 100
-
-        sim.Runes.UseBF(T, True)
-
-        Return True
     End Function
-    Public Overrides Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
-        Dim tmp As Double
-        tmp = sim.MainStat.NormalisedMHDamage * 1.5
-        tmp = tmp + 840
-        tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
-        AvrgNonCrit = tmp
-    End Function
+    
 
    
-    Public Overrides Function CritChance() As Double
-        CritChance = sim.MainStat.crit
-    End Function
+    
     
 End Class

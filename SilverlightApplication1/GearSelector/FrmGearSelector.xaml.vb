@@ -24,6 +24,8 @@ Partial Public Class FrmGearSelector
     Friend FlaskDB As XDocument
     Friend ConsumableDB As XDocument
 
+    Private StatSummary As frmStatSummary
+
 
     Dim space As Integer = 10
 
@@ -85,6 +87,7 @@ Partial Public Class FrmGearSelector
 
     Public Sub Init(ByVal PFrame As MainForm)
         ParentFrame = PFrame
+        StatSummary = ParentFrame.StatSummary
         EPvalues = New EPValues
         InitDisplay()
     End Sub
@@ -224,21 +227,21 @@ Partial Public Class FrmGearSelector
                         Where el.Attribute("slot") = "16"
                         ).Count > 0)
                 If d Then
-                    ParentFrame.rDW.IsChecked = True
-                    ParentFrame.r2Hand.IsChecked = False
+                    StatSummary.rDW.IsChecked = True
+                    StatSummary.r2Hand.IsChecked = False
 
                     Me.rd2H.IsChecked = False
                     Me.rdDW.IsChecked = True
                 Else
-                    ParentFrame.rDW.IsChecked = False
-                    ParentFrame.r2Hand.IsChecked = True
+                    StatSummary.rDW.IsChecked = False
+                    StatSummary.r2Hand.IsChecked = True
                     Me.rd2H.IsChecked = True
                     Me.rdDW.IsChecked = False
                 End If
             Catch ex As Exception
                 Log.Log(ex.StackTrace, logging.Level.ERR)
-                ParentFrame.rDW.IsChecked = False
-                ParentFrame.r2Hand.IsChecked = True
+                StatSummary.rDW.IsChecked = False
+                StatSummary.r2Hand.IsChecked = True
                 Me.rd2H.IsChecked = True
                 Me.rdDW.IsChecked = False
             End Try
@@ -322,7 +325,7 @@ Partial Public Class FrmGearSelector
             Case 14
                 Return "Back"
             Case 15
-                If ParentFrame.rDW.IsChecked Then
+                If ParentFrame.StatSummary.rDW.IsChecked Then
                     Return "MainHand"
                 Else
                     Return "TwoHand"
@@ -391,19 +394,19 @@ Partial Public Class FrmGearSelector
 
 
                 Try
-                    ParentFrame.rDW.IsChecked = xmlChar.Element("character").Element("DW").Value
-                    ParentFrame.r2Hand.IsChecked = (ParentFrame.rDW.IsChecked = False)
+                    StatSummary.rDW.IsChecked = xmlChar.Element("character").Element("DW").Value
+                    StatSummary.r2Hand.IsChecked = (StatSummary.rDW.IsChecked = False)
                     rdDW.IsChecked = xmlChar.Element("character").Element("DW").Value
                     rd2H.IsChecked = (xmlChar.Element("character").Element("DW").Value = False)
                 Catch ex As Exception
                     Log.Log("LoadMycharacter: Cannot get DW", logging.Level.WARNING)
-                    ParentFrame.rDW.IsChecked = False
-                    ParentFrame.r2Hand.IsChecked = True
+                    StatSummary.rDW.IsChecked = False
+                    StatSummary.r2Hand.IsChecked = True
                     rdDW.IsChecked = False
                     rd2H.IsChecked = True
                 End Try
 
-                If ParentFrame.r2Hand.IsChecked Then
+                If StatSummary.r2Hand.IsChecked Then
                     Me.TwoHWeapSlot.Opacity = 1
                     Me.TwoHWeapSlot.IsHitTestVisible = True
                     Me.MHWeapSlot.Opacity = 0

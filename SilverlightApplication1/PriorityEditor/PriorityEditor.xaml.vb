@@ -117,6 +117,7 @@ Partial Public Class PriorityEditor
             btn.buttonDown.Opacity = 0
             btn.chkRetry.Opacity = 1
             btn.buttonAdd.Opacity = 1
+
         Next
         AutoExtend()
     End Sub

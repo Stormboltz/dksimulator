@@ -33,9 +33,9 @@ Friend Class BloodStrike
     Overrides Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
         Dim tmp As Double = MyBase.AvrgNonCrit(T, target)
         If sim.MainStat.T84PDPS = 1 Then
-            tmp = tmp * (1 + 0.125 * target.NumDesease * 1.2)
+            tmp = tmp * (1 + 0.1 * target.NumDesease * 1.2)
         Else
-            tmp = tmp * (1 + 0.125 * target.NumDesease)
+            tmp = tmp * (1 + 0.1 * target.NumDesease)
         End If
 
         Return tmp

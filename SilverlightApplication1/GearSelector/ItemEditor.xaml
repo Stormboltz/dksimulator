@@ -3,47 +3,36 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" d:DesignHeight="378" d:DesignWidth="300" xmlns:my="clr-namespace:DKSIMVB">
+    mc:Ignorable="d" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" d:DesignHeight="350" d:DesignWidth="300" xmlns:my="clr-namespace:DKSIMVB">
 
-    <Grid x:Name="LayoutRoot" >
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="196*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="36" />
-            <RowDefinition Height="24" />
-            <RowDefinition Height="24" />
-            <RowDefinition Height="24" />
-            <RowDefinition Height="24" />
-            <RowDefinition Height="24" />
-            <RowDefinition Height="24" />
-            <RowDefinition Height="24" />
-            <RowDefinition Height="24" />
-            <RowDefinition Height="24" />
-            <RowDefinition Height="24" />
-            <RowDefinition Height="24" />
-            <RowDefinition Height="24" />
-            <RowDefinition Height="24" />
-            <RowDefinition Height="41*" />
-        </Grid.RowDefinitions>
+    <StackPanel x:Name="LayoutRoot" >
 
-        <sdk:Label HorizontalAlignment="Left" Name="Equipment" VerticalAlignment="Top"  Margin="5,5,0,0" Content="Name" Foreground="Purple" Cursor="Hand" />
-        <sdk:Label HorizontalAlignment="Left" Margin="25,5,0,0" Name="lblHeroic" VerticalAlignment="Top"  Content="lblHeroic"  Grid.Row="1" Grid.ColumnSpan="2" />
-        <sdk:Label HorizontalAlignment="Left" Margin="25,5,0,0" Name="lblStat1" VerticalAlignment="Top"  Content="lblStat1"  Grid.Row="2" />
-        <sdk:Label HorizontalAlignment="Left" Margin="25,5,0,0" Name="lblStat2" VerticalAlignment="Top"  Content="lblStat2"  Grid.Row="3"  />
-        <sdk:Label HorizontalAlignment="Left" Margin="25,5,0,0" Name="lblStat3" VerticalAlignment="Top"  Content="lblStat3"  Grid.Row="4" />
-        <sdk:Label HorizontalAlignment="Left" Margin="25,5,0,0" Name="lblStat4" VerticalAlignment="Top"  Content="lblStat4"  Grid.Row="5" />
-        <sdk:Label HorizontalAlignment="Left" Margin="25,5,0,0" Name="lblStat5" VerticalAlignment="Top"  Content="lblStat5"  Grid.Row="6" />
-        <sdk:Label HorizontalAlignment="Left" Margin="5,5,0,0" Name="lblGemColor1" VerticalAlignment="Top" Width="10" Content="1"  Background="Red" Grid.Row="7" Cursor="Hand" />
-        <sdk:Label HorizontalAlignment="Left" Margin="5,5,0,0" Name="lblGemColor2" VerticalAlignment="Top" Width="10" Content="2"  Grid.Row="8" Cursor="Hand" />
-        <sdk:Label HorizontalAlignment="Left" Margin="5,5,0,0" Name="lblGemColor3" VerticalAlignment="Top" Width="10" Content="3"  Grid.Row="9" Cursor="Hand" />
-        <sdk:Label HorizontalAlignment="Left" Margin="25,5,0,0" Name="lblGem1" VerticalAlignment="Top"  Content="Gem 1"  Grid.Row="7" Cursor="Hand" />
-        <sdk:Label HorizontalAlignment="Left" Margin="25,5,0,3" Name="lblGem2" Content="Gem 2"  Grid.Row="8" Cursor="Hand" />
-        <sdk:Label HorizontalAlignment="Left" Margin="25,5,0,3" Name="lblGem3" Content="Gem 3"  Grid.Row="9" Cursor="Hand" />
-        <sdk:Label Content="Bonus"    HorizontalAlignment="Left" Margin="5,5,0,0" Name="lblBonus" VerticalAlignment="Top"   Grid.Row="10" Grid.Column="1" />
-        <sdk:Label Content="Enchant"  HorizontalAlignment="Left" Margin="5,5,0,0" Name="lblEnchant" VerticalAlignment="Top"  Grid.Row="11" Grid.Column="1" Cursor="Hand" />
-        <sdk:Label Grid.Row="12" Name="Label1" Content="Reforging:" />
-        <Grid Grid.Row="13" >
+        <StackPanel  >
+            <sdk:Label HorizontalAlignment="Left" Name="Equipment" VerticalAlignment="Top"  Margin="5,5,0,0" Content="Name (iLvl)" Foreground="Purple" Cursor="Hand" />
+            <sdk:Label HorizontalAlignment="Left" Margin="25,5,0,0" Name="lblHeroic" VerticalAlignment="Top"  Content="lblHeroic"  Grid.Row="1" />
+            <sdk:Label HorizontalAlignment="Left" Margin="25,5,0,0" Name="lblArmor" VerticalAlignment="Top"  Content="lblArmor + AddArm"  Grid.Row="2" />
+        </StackPanel>
+        <StackPanel Name="stkStats">
+        </StackPanel>
+        
+        <StackPanel >
+            <StackPanel Orientation="Horizontal">
+                <sdk:Label HorizontalAlignment="Left" Margin="5,5,0,0" Name="lblGemColor1" VerticalAlignment="Top" Width="10" Content="1"  Background="Red" Grid.Row="8" Cursor="Hand" />
+                <sdk:Label HorizontalAlignment="Left" Margin="25,5,0,0" Name="lblGem1" VerticalAlignment="Top"  Content="Gem 1"  Grid.Row="8" Cursor="Hand" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <sdk:Label HorizontalAlignment="Left" Margin="5,5,0,0" Name="lblGemColor2" VerticalAlignment="Top" Width="10" Content="2"  Grid.Row="9" Cursor="Hand" Background="Red" />
+                <sdk:Label HorizontalAlignment="Left" Margin="25,5,0,3" Name="lblGem2" Content="Gem 2"  Grid.Row="9" Cursor="Hand" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <sdk:Label HorizontalAlignment="Left" Margin="5,5,0,0" Name="lblGemColor3" VerticalAlignment="Top" Width="10" Content="3"  Grid.Row="10" Cursor="Hand" Background="Red" />
+                <sdk:Label HorizontalAlignment="Left" Margin="25,5,0,3" Name="lblGem3" Content="Gem 3"  Grid.Row="10" Cursor="Hand" />
+            </StackPanel>
+        </StackPanel>
+        <sdk:Label Content="Bonus"    HorizontalAlignment="Left" Margin="5,5,0,0" Name="lblBonus" VerticalAlignment="Top"   Grid.Row="11" Grid.Column="1" />
+        <sdk:Label Content="Enchant"  HorizontalAlignment="Left" Margin="5,5,0,0" Name="lblEnchant" VerticalAlignment="Top"  Grid.Row="12" Grid.Column="1" Cursor="Hand" />
+        <sdk:Label Grid.Row="13" Name="Label1" Content="Reforging:" Margin="5,5,0,0" />
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="60" />
                 <ColumnDefinition Width="100*" />
@@ -54,9 +43,9 @@
             <ComboBox Name="cmbReforgeFrom" Grid.Column="1" />
             <sdk:Label Content="To" HorizontalAlignment="Center" Grid.Column="2" ></sdk:Label>
             <ComboBox Name="cmbReforgeTo" Grid.Column="3" />
-            
-            
+
+
         </Grid>
-        
-    </Grid>
+
+    </StackPanel>
 </UserControl>

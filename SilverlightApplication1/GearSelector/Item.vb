@@ -10,34 +10,7 @@ Imports System.Linq
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
 Public Class Item
-
-    Friend Id As Integer
-    Friend name As String
-    Friend ilvl As Integer
-    Friend slot As Integer
-    Friend classs As Integer
-    Friend subclass As Integer
-    Friend heroic As Integer
-
-    Friend Strength As Integer
-    Friend Intel As Integer
-    Friend Agility As Integer
-    Friend BonusArmor As Integer
-    Friend Armor As Integer
-    Friend HasteRating As Integer
-    Friend ExpertiseRating As Integer
-
-
-    Friend HitRating As Integer
-    Friend AttackPower As Integer
-    Friend CritRating As Integer
-    Friend ArmorPenetrationRating As Integer
-    Friend Mastery As Integer
-    Friend DodgeRating As Integer
-    Friend ParryRating As Integer
-
-    Friend Speed As String = "0"
-    Friend DPS As String = "0"
+    Inherits WowItem
 
     Friend setid As Integer
     Friend gembonus As Integer
@@ -52,19 +25,9 @@ Public Class Item
     Friend ReForgingTo As String
     Friend ReForgingvalue As Integer
 
-    Friend icon As String
-
-
-
     Protected MainFrame As FrmGearSelector
-
     Protected ItemDB As XDocument
-
     Protected AdditionalGemNotSet As Boolean
-
-
-
-
 
     Sub New(ByVal MainFrm As FrmGearSelector, Optional ByVal ItemId As Integer = 0)
         MainFrame = MainFrm
@@ -88,38 +51,16 @@ Public Class Item
             Unload()
             Exit Sub
         End If
+
         Dim myItem As XElement
-        myItem = (From el In ItemDB.Element("items").Elements Where el.Element("id").Value = ItemId).First
-        name = myItem.<name>.Value
-        ilvl = myItem.Element("ilvl").Value
-        slot = myItem.Element("slot").Value
-        classs = myItem.Element("classs").Value
-        subclass = myItem.Element("subclass").Value
-        heroic = myItem.Element("heroic").Value
-        icon = myItem.Element("icon").Value
+        myItem = (From el In ItemDB.<items>.Elements Where el.<id>.Value = ItemId).First
 
+        MyBase.Load(myItem)
+        setid = myItem.<setid>.Value
 
-
-        Strength = myItem.Element("Strength").Value
-        Agility = myItem.Element("Agility").Value
-        BonusArmor = myItem.Element("BonusArmor").Value
-        Armor = myItem.Element("Armor").Value
-        HasteRating = myItem.Element("HasteRating").Value
-        ExpertiseRating = myItem.Element("ExpertiseRating").Value
-        HitRating = myItem.Element("HitRating").Value
-        AttackPower = myItem.Element("AttackPower").Value
-        CritRating = myItem.Element("CritRating").Value
-        ArmorPenetrationRating = myItem.Element("ArmorPenetrationRating").Value
-
-
-        Speed = myItem.Element("speed").Value
-        DPS = myItem.Element("dps").Value
-
-        setid = myItem.Element("setid").Value
-
-        Dim gem1Col As Integer = myItem.Element("gem1").Value
-        Dim gem2Col As Integer = myItem.Element("gem2").Value
-        Dim gem3Col As Integer = myItem.Element("gem3").Value
+        Dim gem1Col As Integer = myItem.<gem1>.Value
+        Dim gem2Col As Integer = myItem.<gem2>.Value
+        Dim gem3Col As Integer = myItem.<gem3>.Value
         Dim i As Integer
         i = gem1.Id
         If gem1Col <> 0 Then
@@ -162,38 +103,19 @@ Public Class Item
                 gem3 = New Gem(Me.MainFrame, 0)
             End If
         End If
-        gembonus = myItem.Element("gembonus").Value
-        keywords = myItem.Element("keywords").Value
-        icon = myItem.Element("icon").Value
+        gembonus = myItem.<gembonus>.Value
+        keywords = myItem.<keywords>.Value
+        icon = myItem.<icon>.Value
     End Sub
 
 
-    Sub Unload()
-        Id = 0
-        name = ""
-        ilvl = 0
-        slot = 0
-        classs = 0
-        subclass = 0
-        heroic = 0
-        Strength = 0
-        Agility = 0
-        BonusArmor = 0
-        Armor = 0
-        HasteRating = 0
-        ExpertiseRating = 0
-        HitRating = 0
-        AttackPower = 0
-        CritRating = 0
-        ArmorPenetrationRating = 0
-        Speed = 0
-        DPS = 0
+    Overrides Sub Unload()
+        MyBase.Unload()
         setid = 0
-        gem1.Detach()
-        gem2.Detach()
-        gem3.Detach()
-        Enchant.Detach()
-        icon = ""
+        gem1.Unload()
+        gem2.Unload()
+        gem3.Unload()
+        Enchant.Unload()
         gembonus = 0
         keywords = ""
     End Sub
@@ -225,36 +147,4 @@ Public Class Item
         End If
         Return False
     End Function
-
-    Function getItem(ByVal el As XElement) As Item
-        Dim itm As Item = Nothing
-        itm.Id = el.Element("id").Value
-        With itm
-
-            .name = el.Element("name").Value
-            .ilvl = el.Element("ilvl").Value
-            .slot = el.Element("slot").Value
-            .classs = el.Element("classs").Value
-            .subclass = el.Element("subclass").Value
-            .heroic = el.Element("heroic").Value
-            .Strength = el.Element("Strength").Value
-            .Agility = el.Element("Agility").Value
-            .BonusArmor = el.Element("slot").Value
-            .Armor = el.Element("slot").Value
-            .HasteRating = el.Element("HasteRating").Value
-            .ExpertiseRating = el.Element("ExpertiseRating").Value
-            .HitRating = el.Element("HitRating").Value
-            .AttackPower = el.Element("AttackPower").Value
-            .CritRating = el.Element("CritRating").Value
-            .ArmorPenetrationRating = el.Element("ArmorPenetrationRating").Value
-            .Speed = el.Element("speed").Value
-            .DPS = el.Element("dps").Value
-            .setid = el.Element("setid").Value
-            .gembonus = el.Element("gembonus").Value
-            .keywords = el.Element("keywords").Value
-        End With
-
-        Return itm
-    End Function
-
 End Class

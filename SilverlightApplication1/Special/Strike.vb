@@ -157,7 +157,7 @@ Namespace Strikes
         End Function
 
         Overridable Function CritChance() As Double
-            Return sim.MainStat.crit
+            Return sim.MainStat.crit + SpecialCritChance
         End Function
 
         Private _OffDamageBonus As Double = -1

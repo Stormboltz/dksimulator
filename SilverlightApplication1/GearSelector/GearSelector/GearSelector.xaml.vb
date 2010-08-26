@@ -24,36 +24,53 @@ Partial Public Class GearSelector
         Dim itm As New aItem
 
         With itm
-            .Id = el.Element("id").Value
-            .name = el.Element("name").Value
-            .ilvl = el.Element("ilvl").Value
-            .slot = el.Element("slot").Value
-            .classs = el.Element("classs").Value
-            .subclass = el.Element("subclass").Value
-            .heroic = el.Element("heroic").Value
-            .Str = el.Element("Strength").Value
-            .Agi = el.Element("Agility").Value
-            .BonusArmor = el.Element("BonusArmor").Value
-            .Armor = el.Element("Armor").Value
-            .Haste = el.Element("HasteRating").Value
-            .Exp = el.Element("ExpertiseRating").Value
-            .Hit = el.Element("HitRating").Value
-            .AP = el.Element("AttackPower").Value
-            .Crit = el.Element("CritRating").Value
+            .Id = el.<id>.Value
+            .name = el.<name>.Value
+            .ilvl = el.<ilvl>.Value
+            .slot = el.<slot>.Value
+            .classs = el.<classs>.Value
+            .subclass = el.<subclass>.Value
+            .heroic = el.<heroic>.Value
+            .Str = el.<Strength>.Value
+            .Agi = el.<Agility>.Value
+
+
+            .Haste = el.<HasteRating>.Value
+            .Exp = el.<ExpertiseRating>.Value
+            .Hit = el.<HitRating>.Value
+            .AP = el.<AttackPower>.Value
+            .Crit = el.<CritRating>.Value
             .ArP = 0
             Try
-                .ArP = el.Element("ArmorPenetrationRating").Value
+                .ArP = el.<ArmorPenetrationRating>.Value
             Catch ex As Exception
 
                 Log.Log("No ArP on " & .name, logging.Level.INFO)
                 .ArP = 0
             End Try
-            .Speed = el.Element("speed").Value
-            .DPS = el.Element("dps").Value
-            .setid = el.Element("setid").Value
-            .gembonus = el.Element("gembonus").Value
-            .keywords = el.Element("keywords").Value
+            .Speed = el.<speed>.Value
+            .DPS = el.<dps>.Value
+            .setid = el.<setid>.Value
+            .gembonus = el.<gembonus>.Value
+            .keywords = el.<keywords>.Value
             .EPVAlue = getItemEPValue(el)
+            Try
+                .Armor = el.<Armor>.Value
+            Catch
+            End Try
+            Try
+                .Dodge = el.<Dodge>.Value
+                .Parry = el.<Parry>.Value
+                .Stamina = el.<Stamina>.Value
+                .BonusArmor = el.<BonusArmor>.Value
+            Catch ex As Exception
+                .Dodge = 0
+                .Parry = 0
+                .Stamina = 0
+                .BonusArmor = 0
+            End Try
+
+
         End With
 
         Return itm
@@ -70,8 +87,8 @@ Partial Public Class GearSelector
 
         Dim itemList As List(Of aItem)
         ItemDB = MainFrame.ItemDB
-        itemList = (From el As XElement In ItemDB.Element("items").Elements
-                    Where el.Element("slot").Value = Slot
+        itemList = (From el As XElement In ItemDB.<items>.Elements
+                    Where el.<slot>.Value = Slot
                     Order By getItemEPValue(el) Descending
                     Select getItem(el)).ToList
         dGear.AutoGenerateColumns = True
@@ -84,47 +101,47 @@ Partial Public Class GearSelector
         Me.Slot = Slot
         Dim itemList As List(Of aItem)
         ItemDB = MainFrame.ItemDB
-        itemList = (From el In ItemDB.Element("items").Elements
-                    Where el.Element("slot") = Slot And Contains(el, filter)
+        itemList = (From el In ItemDB.<items>.Elements
+                    Where el.<slot>.Value = Slot And Contains(el, filter)
                     Order By getItemEPValue(el) Descending
                     Select getItem(el)).ToList
         dGear.AutoGenerateColumns = True
         dGear.ItemsSource = itemList
     End Sub
-   
+
     Function getItemEPValue(ByVal el As XElement) As Integer
         Dim tmp As Double = 0
 
-        tmp += el.Element("Strength").Value * MainFrame.EPvalues.Str
+        tmp += el.<Strength>.Value * MainFrame.EPvalues.Str
 
-        tmp += el.Element("Agility").Value * MainFrame.EPvalues.Agility
-        tmp += el.Element("Armor").Value * MainFrame.EPvalues.Armor
-        tmp += el.Element("BonusArmor").Value * MainFrame.EPvalues.Armor
-        tmp += el.Element("ExpertiseRating").Value * MainFrame.EPvalues.Exp
-        tmp += el.Element("dps").Value.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator) * MainFrame.EPvalues.MHDPS
-        tmp += el.Element("speed").Value.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator) * MainFrame.EPvalues.MHSpeed
-        tmp += el.Element("HitRating").Value * MainFrame.EPvalues.Hit
-        tmp += el.Element("AttackPower").Value * 1
-        tmp += el.Element("CritRating").Value * MainFrame.EPvalues.Crit
+        tmp += el.<Agility>.Value * MainFrame.EPvalues.Agility
+        tmp += el.<Armor>.Value * MainFrame.EPvalues.Armor
+        tmp += el.<BonusArmor>.Value * MainFrame.EPvalues.Armor
+        tmp += el.<ExpertiseRating>.Value * MainFrame.EPvalues.Exp
+        tmp += el.<dps>.Value.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator) * MainFrame.EPvalues.MHDPS
+        tmp += el.<speed>.Value.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator) * MainFrame.EPvalues.MHSpeed
+        tmp += el.<HitRating>.Value * MainFrame.EPvalues.Hit
+        tmp += el.<AttackPower>.Value * 1
+        tmp += el.<CritRating>.Value * MainFrame.EPvalues.Crit
         Try
-            tmp += el.Element("ArmorPenetrationRating").Value * MainFrame.EPvalues.ArP
+            tmp += el.<ArmorPenetrationRating>.Value * MainFrame.EPvalues.ArP
         Catch ex As Exception
             Log.Log("No ArP Error", logging.Level.INFO)
         End Try
         Try
-            tmp += el.Element("Mastery").Value * MainFrame.EPvalues.Mastery
+            tmp += el.<MasteryRating>.Value * MainFrame.EPvalues.Mastery
         Catch ex As Exception
             Log.Log("No Mastery Error", logging.Level.INFO)
         End Try
-        tmp += el.Element("HasteRating").Value * MainFrame.EPvalues.Haste
+        tmp += el.<HasteRating>.Value * MainFrame.EPvalues.Haste
 
-        If el.Element("gem1").Value <> 0 Then
+        If el.<gem1>.Value <> 0 Then
             tmp += 20 * MainFrame.EPvalues.Str
         End If
-        If el.Element("gem2").Value <> 0 Then
+        If el.<gem2>.Value <> 0 Then
             tmp += 20 * MainFrame.EPvalues.Str
         End If
-        If el.Element("gem3").Value <> 0 Then
+        If el.<gem3>.Value <> 0 Then
             tmp += 20 * MainFrame.EPvalues.Str
         End If
         Return Convert.ToInt32(tmp)
@@ -134,19 +151,19 @@ Partial Public Class GearSelector
     Private Function Contains(ByVal el As XElement, ByVal filter As String) As Boolean
         Dim tmp As String
         Dim tBool As Boolean = True
-        tmp = el.Element("name").Value & " " & _
-            el.Element("Strength").Value & " " & _
-            el.Element("Agility").Value & " " & _
-            el.Element("HasteRating").Value & " " & _
-            el.Element("ExpertiseRating").Value & " " & _
-            el.Element("HitRating").Value & " " & _
-            el.Element("AttackPower").Value & " " & _
-            el.Element("CritRating").Value & " " & _
-            el.Element("Mastery").Value & " " & _
-            el.Element("ilvl").Value & " " & _
-            el.Element("keywords").Value & " " & _
-            el.Element("speed").Value & " " & _
-            el.Element("dps").Value
+        tmp = el.<name>.Value & " " & _
+            el.<Strength>.Value & " " & _
+            el.<Agility>.Value & " " & _
+            el.<HasteRating>.Value & " " & _
+            el.<ExpertiseRating>.Value & " " & _
+            el.<HitRating>.Value & " " & _
+            el.<AttackPower>.Value & " " & _
+            el.<CritRating>.Value & " " & _
+            el.<Mastery>.Value & " " & _
+            el.<ilvl>.Value & " " & _
+            el.<keywords>.Value & " " & _
+            el.<speed>.Value & " " & _
+        el.<dps>.Value
         For Each s In filter.Split(" ")
             If tmp.ToUpper.Contains(s.ToUpper) = False Then
                 tBool = False
@@ -178,7 +195,7 @@ Partial Public Class GearSelector
         Property Str As Integer
         Friend Intel As Integer
         Property Agi As Integer
-        Friend BonusArmor As Integer
+
         Property Armor As Integer
         Property Haste As Integer
         Property Exp As Integer
@@ -190,6 +207,11 @@ Partial Public Class GearSelector
         Property ArP As Integer
         Property Speed As String = "0"
         Property DPS As String = "0"
+
+        Property BonusArmor As Integer
+        Property Dodge As Integer
+        Property Parry As Integer
+        Property Stamina As Integer
 
         Friend setid As Integer
         Friend gembonus As Integer

@@ -60,11 +60,18 @@ Partial Public Class VisualEquipSlot
 
     Private Sub cmdEquipSlot_MouseMove(ByVal sender As System.Object, ByVal e As System.Windows.Input.MouseEventArgs) Handles cmdEquipSlot.MouseMove
         Try
+
             If IsNothing(Mainframe) Then Exit Sub
             If Mainframe.ItemEditor1.Origin <> Me.Name Then
+                Diagnostics.Debug.WriteLine("Start1 " & Now.Ticks)
+                Dim t As Date = Now
                 Me.Cursor = Cursors.Wait
                 Mainframe.ItemEditor1.Load(Me)
                 Me.Cursor = Cursors.Arrow
+                Diagnostics.Debug.WriteLine("Stop " & (Now.Ticks - t.Ticks) / 100000 & "ms")
+
+
+
             End If
         Catch ex As Exception
             Log.Log(ex.StackTrace, logging.Level.ERR)

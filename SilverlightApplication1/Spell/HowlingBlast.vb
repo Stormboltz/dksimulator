@@ -13,6 +13,9 @@ Friend Class HowlingBlast
         BaseDamage = 1079
         Coeficient = 0.2
         Multiplicator = 1
+        If S.Character.Talents.GetNumOfThisSchool(Talents.Schools.Frost) > 20 Then
+            Multiplicator = Multiplicator * 1.2 'Frozen Heart
+        End If
 
 	End Sub
 	Function isAvailable(T As Long) As Boolean
@@ -86,18 +89,18 @@ Friend Class HowlingBlast
         Return tmp
     End Function
    
-	overrides Function CritChance() As Double
-		CritChance = sim.MainStat.SpellCrit
-		If sim.proc.KillingMachine.IsActive Then
-			Return 1
-		Else
-			If sim.DeathChill.IsAvailable(sim.TimeStamp) Then
-				sim.Deathchill.use(sim.TimeStamp)
-				sim.DeathChill.Active = false
-				Return 1
-			End If
-		End If
-	End Function
+    Overrides Function CritChance() As Double
+        If sim.proc.KillingMachine.IsActive Then
+            Return 1
+        Else
+            If sim.DeathChill.IsAvailable(sim.TimeStamp) Then
+                sim.DeathChill.use(sim.TimeStamp)
+                sim.DeathChill.Active = False
+                Return 1
+            End If
+        End If
+        Return MyBase.CritChance
+    End Function
 	overrides Function AvrgCrit(T As long,target As Targets.Target) As Double
 		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
 	End Function

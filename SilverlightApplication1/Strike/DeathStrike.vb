@@ -9,8 +9,13 @@
 Friend Class DeathStrike
 	Inherits Strikes.Strike
 	Sub New(S As sim)
-		MyBase.New(s)
-	End Sub
+        MyBase.New(S)
+        BaseDamage = 222.75
+        If sim.Sigils.Awareness Then BaseDamage = BaseDamage + 445.5
+        Coeficient = 1.5
+        Multiplicator = 1 + sim.Character.Talents.Talent("ImprovedDeathStrike").Value * 15 / 100
+        SpecialCritChance = sim.Character.Talents.Talent("ImprovedDeathStrike").Value * 3 / 100 + sim.MainStat.T72PDPS * 5 / 100
+    End Sub
 
 	'A deadly attack that deals 75% weapon damage plus 222.75
 	'and heals the Death Knight for a percent of damage done
@@ -72,34 +77,14 @@ Friend Class DeathStrike
 	End Function
 	public Overrides Function AvrgNonCrit(T as long,target As Targets.Target) As Double
 		Dim tmp As Double
-		
-		If offhand = false Then
-            tmp = sim.MainStat.NormalisedMHDamage * 1.5
-		Else
-            tmp = sim.MainStat.NormalisedOHDamage * 1.5
-		End If
-		tmp = tmp + 222.75
-        If sim.Sigils.Awareness Then tmp = tmp + 445.5
-        tmp = tmp * (1 + sim.Character.Talents.Talent("ImprovedDeathStrike").Value * 15 / 100)
-        If sim.character.glyph.DeathStrike Then
-            If Sim.RunicPower.Check(25) Then
-                tmp = tmp * (1 + 25 / 100)
-            Else
-                tmp = tmp * (1 + Sim.RunicPower.GetValue() / 100)
-            End If
-        End If
-        tmp = tmp * sim.MainStat.StandardPhysicalDamageMultiplier(T)
-
-        If offhand Then
-            tmp = tmp * 0.5
-            tmp = tmp * (1 + sim.Character.Talents.Talent("NervesofColdSteel").Value * 8.3333 / 100)
+        tmp = MyBase.AvrgNonCrit(T, target)
+        If sim.Character.Glyph.DeathStrike Then
+            tmp = tmp * (1 + Math.Max(sim.RunicPower.GetValue, 25) / 100)
         End If
         Return tmp
     End Function
     
-    Public Overrides Function CritChance() As Double
-        CritChance = sim.MainStat.crit + sim.Character.Talents.Talent("ImprovedDeathStrike").Value * 3 / 100 + sim.MainStat.T72PDPS * 5 / 100
-    End Function
+   
 	
 	
 	Public Overrides Sub Merge()

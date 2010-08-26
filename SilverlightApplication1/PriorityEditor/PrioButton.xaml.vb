@@ -43,4 +43,20 @@ Partial Public Class PrioButton
     Private Sub buttonDown_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles buttonDown.Click
         Mainfrm.MoveDown(Me)
     End Sub
+
+    Private Sub PrioButton_DragEnter(ByVal sender As Object, ByVal e As System.Windows.DragEventArgs) Handles Me.DragEnter
+
+    End Sub
+
+    Private Sub PrioButton_DragLeave(ByVal sender As Object, ByVal e As System.Windows.DragEventArgs) Handles Me.DragLeave
+
+    End Sub
+
+    Private Sub PrioButton_DragOver(ByVal sender As Object, ByVal e As System.Windows.DragEventArgs) Handles Me.DragOver
+
+    End Sub
+
+    Private Sub PrioButton_Drop(ByVal sender As Object, ByVal e As System.Windows.DragEventArgs) Handles Me.Drop
+
+    End Sub
 End Class

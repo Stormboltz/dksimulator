@@ -35,6 +35,7 @@ Public Class Supertype
     Friend BaseDamage As Double
     Friend Coeficient As Double
     Friend Multiplicator As Double
+    Friend SpecialCritChance As Double
 
     Friend LastDamage As Integer
 
