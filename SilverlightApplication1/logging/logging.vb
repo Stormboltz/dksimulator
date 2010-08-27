@@ -2,14 +2,19 @@
 Imports System.IO
 
 Public Class logging
+
+    Public LoggingLevel As Level = Level.ERR
+
+
     Enum Level As Integer
         INFO = 0
         WARNING = 1
         ERR = 2
         FATAL = 3
+        NO = 4
     End Enum
     Public Sub Log(ByVal message As String, ByVal LogLEvel As Level)
-        Exit Sub
+        If LogLEvel < LoggingLevel Then Exit Sub
         Try
             Using store As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
                 Using stream As Stream = New IsolatedStorageFileStream("Solution.Silverlight.log", FileMode.Append, FileAccess.Write, store)
@@ -30,4 +35,16 @@ Public Class logging
         Catch ex As Exception
         End Try
     End Sub
+
+    Public Sub Clean()
+        Try
+            Dim store As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+            Dim stream As Stream = New IsolatedStorageFileStream("Solution.Silverlight.log", FileMode.Create, FileAccess.Write, store)
+            stream.Close()
+            stream = Nothing
+            store = Nothing
+        Catch ex As Exception
+        End Try
+    End Sub
+
 End Class

@@ -890,7 +890,8 @@ Public Class Sim
                     Me.BoneShieldUsageStyle = 2
             End Select
             Try
-                ICCDamageBuff = XmlConfig.Element("config").Element("ICCBuff").Value
+                Dim s As String = XmlConfig.<config>.<ICCBuff>.Value
+                Integer.TryParse(s, ICCDamageBuff)
             Catch
 
                 ICCDamageBuff = 0
@@ -1070,11 +1071,19 @@ errH:
     Sub StoreMyDamage(ByVal damage As Long)
         Dim tmp As Long
         Dim i As Integer
-        On Error Resume Next
+        'On Error Resume Next
         tmp = damage
-        For i = 0 To MultipleDamage.Count
-            tmp = tmp - Integer.Parse(MultipleDamage.Item(i).ToString)
-        Next
+        If MultipleDamage.Count > 0 Then
+            For i = 0 To MultipleDamage.Count - 1
+                Try
+                    tmp = tmp - Long.Parse(MultipleDamage.Item(i).ToString)
+                Catch ex As Exception
+                    Diagnostics.Debug.WriteLine("error converting " & MultipleDamage.Item(i).ToString)
+                    Diagnostics.Debug.WriteLine(ex.StackTrace)
+                End Try
+
+            Next
+        End If
         MultipleDamage.Add(tmp)
     End Sub
 

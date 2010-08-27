@@ -169,8 +169,8 @@ Public Class WeaponProc
 					HitCount = HitCount + 1
 					totalhit += tmp
 				End If
-			Case "FallenCrusader"
-				sim.RuneForge.ProcFallenCrusader(Me, T)
+            Case "FallenCrusader", "3368"
+                sim.RuneForge.ProcFallenCrusader(Me, T)
 				
 			Case "Razorice"
 				sim.RuneForge.ProcRazorice(Me, T)

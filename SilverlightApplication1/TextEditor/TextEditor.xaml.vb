@@ -12,20 +12,21 @@ Partial Public Class TextEditor
         Me.DialogResult = True
     End Sub
 
-    Private Sub CancelButton_Click(ByVal sender As Object, ByVal e As RoutedEventArgs) Handles CancelButton.Click
-        Me.DialogResult = False
-    End Sub
 
     Sub OpenFileFromISO(ByVal path As String)
-
-        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream(path, FileMode.OpenOrCreate, FileAccess.Read, isoStore)
-                Dim myReader As StreamReader = New StreamReader(isoStream)
-                TextBox1.Text = myReader.ReadToEnd
-                myReader.Close()
-                isoStream.Close()
+        Try
+            Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+                Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream(path, FileMode.OpenOrCreate, FileAccess.Read, isoStore)
+                    Dim myReader As StreamReader = New StreamReader(isoStream)
+                    TextBox1.Text = myReader.ReadToEnd
+                    myReader.Close()
+                    isoStream.Close()
+                End Using
             End Using
-        End Using
+
+        Catch ex As Exception
+            msgBox("Error trying to open the file")
+        End Try
     End Sub
     Sub OpenFileFromXAP(ByVal path)
 

@@ -249,6 +249,22 @@
                 <sdk:TabItem Header="Stat Summary" Name="tabStatSummary" >
                     <my:frmStatSummary x:Name="StatSummary"></my:frmStatSummary>
                 </sdk:TabItem>
+                <sdk:TabItem Header="Debug" Name="tabDebug">
+                    <StackPanel>
+                        <ComboBox Name="cmbDebugLevel" SelectedValue="ERROR">
+                            <ComboBoxItem Content="INFO" />
+                            <ComboBoxItem Content="WARNING" />
+                            <ComboBoxItem Content="ERROR" />
+                            <ComboBoxItem Content="FATAL" />
+                            <ComboBoxItem Content="NO LOGGING" />
+                        </ComboBox>
+                        <sdk:Label Content=" "></sdk:Label>
+                        <Button Name="cmdShowDebug" Content="Show debug log"></Button>
+                        <sdk:Label Content=" "></sdk:Label>
+                        <Button Name="cmdCleanDebug" Content="Clean debug log"></Button>
+                    </StackPanel>
+                    
+                </sdk:TabItem>
             </sdk:TabControl>
         </Grid>
         <Grid Name="Grid1"  VerticalAlignment="Bottom">

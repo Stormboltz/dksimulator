@@ -127,12 +127,12 @@ NextUnholy:
 
                 For Each BT As TemplateButton In btList
                     Try
-                        BT.SetVal(xmlDoc.Element("Talents").Element(BT.Name).Value)
+                        BT.SetVal(xmlDoc.<Talents>.Elements(BT.Name).Value)
                     Catch
                     End Try
 
                 Next
-                For Each XNode As XElement In xmlDoc.Element("Talents").Element("Glyphs").Elements
+                For Each XNode As XElement In xmlDoc.<Talents>.Elements("Glyphs").Elements
                     If XNode.Value = 1 Then
                         Select Case i
                             Case 0
@@ -159,7 +159,7 @@ NextUnholy:
             Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/templates/" & path, FileMode.Create, isoStore)
                 Dim doc As XDocument = XDocument.Parse("<Talents><Glyphs/></Talents>")
 
-                For Each ctr As Control In Me.tbTpl.Children
+                For Each ctr As UIElement In Me.tbTpl.Children
                     If TypeOf ctr Is TemplateButton Then
                         Dim tb As TemplateButton = ctr
                         Dim xEl As XElement = XElement.Parse("<" & tb.Name & "/>")

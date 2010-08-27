@@ -185,7 +185,7 @@ Friend Class Procs
             End If
         End With
 
-        
+
 
 
         ReapingBotN = New Proc(s)
@@ -357,7 +357,7 @@ Friend Class Procs
             .DamageType = "Shadowmourne"
             .HasteSensible = True
             Try
-                If XmlCharacter.Element("character").Element("WeaponProc").Element("MHShadowmourne").Value = 1 Then
+                If XmlCharacter.<character>.<WeaponProc>.<MHShadowmourne>.Value = 1 Then
                     ._Name = "Shadowmourne"
                     .Equip()
                     .InternalCD = 10 'Chaos Bane Duration
@@ -365,7 +365,7 @@ Friend Class Procs
             Catch
             End Try
             Try
-                If XmlCharacter.Element("character").Element("WeaponProc").Element("MHShadowmourneCancelCB").Value = 1 Then
+                If XmlCharacter.<character>.<WeaponProc>.<MHShadowmourneCancelCB>.Value = 1 Then
                     ._Name = "Shadowmourne (Cancel CB)"
                     .Equip()
                     .InternalCD = 0.1 'Chaos Bane Duration
@@ -383,7 +383,7 @@ Friend Class Procs
             .ProcLenght = 0
             .HasteSensible = True
             Try
-                If XmlCharacter.Element("character").Element("WeaponProc").Element("MHBryntrollHeroic").Value = 1 Then
+                If XmlCharacter.<character>.<WeaponProc>.<MHBryntrollHeroic>.Value = 1 Then
                     ._Name = "BryntrollHeroic"
                     .ProcValue = 2538
                     .Equip()
@@ -391,7 +391,7 @@ Friend Class Procs
             Catch
             End Try
             Try
-                If XmlCharacter.Element("character").Element("WeaponProc").Element("MHBryntroll").Value = 1 Then
+                If XmlCharacter.<character>.<WeaponProc>.<MHBryntroll>.Value = 1 Then
                     ._Name = "Bryntroll"
                     .ProcValue = 2250
                     .Equip()
@@ -408,7 +408,7 @@ Friend Class Procs
             .ProcType = "ap"
             .ProcOn = Procs.ProcOnType.OnHit
             Try
-                If XmlCharacter.Element("character").Element("misc").Element("AshenBand").Value = True Then
+                If XmlCharacter.<character>.<misc>.<AshenBand>.Value = True Then
                     .Equip()
                 End If
             Catch ex As System.Exception
@@ -426,7 +426,7 @@ Friend Class Procs
             .ProcOn = Procs.ProcOnType.OnMHhit
             .HasteSensible = True
             Try
-                If Sim.XmlCharacter.Element("character").Element("WeaponProc").Element("MHtemperedViskag").Value = 1 Then .Equip()
+                If Sim.XmlCharacter.<character>.<WeaponProc>.<MHtemperedViskag>.Value = 1 Then .Equip()
             Catch
             End Try
         End With
@@ -442,7 +442,7 @@ Friend Class Procs
             .ProcOn = Procs.ProcOnType.OnOHhit
             .HasteSensible = True
             Try
-                If Sim.XmlCharacter.Element("character").Element("WeaponProc").Element("OHtemperedViskag").Value = 1 Then .Equip()
+                If Sim.XmlCharacter.<character>.<WeaponProc>.<OHtemperedViskag>.Value = 1 Then .Equip()
             Catch
             End Try
         End With
@@ -458,7 +458,7 @@ Friend Class Procs
             .ProcOn = Procs.ProcOnType.OnMHhit
             .HasteSensible = True
             Try
-                If Sim.XmlCharacter.Element("character").Element("WeaponProc").Element("MHSingedViskag").Value = 1 Then .Equip()
+                If Sim.XmlCharacter.<character>.<WeaponProc>.<MHSingedViskag>.Value = 1 Then .Equip()
             Catch
             End Try
 
@@ -476,7 +476,7 @@ Friend Class Procs
             .ProcOn = Procs.ProcOnType.OnOHhit
             .HasteSensible = True
             Try
-                If Sim.XmlCharacter.Element("character").Element("WeaponProc").Element("OHSingedViskag").Value = 1 Then .Equip()
+                If Sim.XmlCharacter.<character>.<WeaponProc>.<OHSingedViskag>.Value = 1 Then .Equip()
             Catch
             End Try
         End With
@@ -492,7 +492,7 @@ Friend Class Procs
             .ProcOn = Procs.ProcOnType.OnMHhit
             .HasteSensible = True
             Try
-                If Sim.XmlCharacter.Element("character").Element("WeaponProc").Element("MHEmpoweredDeathbringer").Value = 1 Then .Equip()
+                If Sim.XmlCharacter.<character>.<WeaponProc>.<MHEmpoweredDeathbringer>.Value = 1 Then .Equip()
             Catch ex As System.Exception
 
             End Try
@@ -509,7 +509,7 @@ Friend Class Procs
             .ProcOn = Procs.ProcOnType.OnOHhit
             .HasteSensible = True
             Try
-                If Sim.XmlCharacter.Element("character").Element("WeaponProc").Element("OHEmpoweredDeathbringer").Value = 1 Then .Equip()
+                If Sim.XmlCharacter.<character>.<WeaponProc>.<OHEmpoweredDeathbringer>.Value = 1 Then .Equip()
             Catch ex As System.Exception
             End Try
         End With
@@ -525,7 +525,7 @@ Friend Class Procs
             .ProcOn = Procs.ProcOnType.OnMHhit
             .HasteSensible = True
             Try
-                If Sim.XmlCharacter.Element("character").Element("WeaponProc").Element("MHRagingDeathbringer").Value = 1 Then .Equip()
+                If Sim.XmlCharacter.<character>.<WeaponProc>.<MHRagingDeathbringer>.Value = 1 Then .Equip()
             Catch
             End Try
 
@@ -542,7 +542,7 @@ Friend Class Procs
             .ProcOn = Procs.ProcOnType.OnOHhit
             .HasteSensible = True
             Try
-                If Sim.XmlCharacter.Element("character").Element("WeaponProc").Element("OHRagingDeathbringer").Value = 1 Then .Equip()
+                If Sim.XmlCharacter.<character>.<WeaponProc>.<OHRagingDeathbringer>.Value = 1 Then .Equip()
             Catch ex As System.Exception
 
             End Try
@@ -560,7 +560,7 @@ Friend Class Procs
             ._Name = "Hand Mounted Pyro Rocket"
             .ProcOn = Procs.ProcOnType.OnDamage
             Try
-                If XmlCharacter.Element("character").Element("misc").Element("HandMountedPyroRocket").Value = True Then
+                If XmlCharacter.<character>.<misc>.<HandMountedPyroRocket>.Value = True Then
                     .Equip()
                 End If
             Catch ex As System.Exception
@@ -578,7 +578,7 @@ Friend Class Procs
             ._Name = "Hyperspeed Accelerators"
             .ProcOn = Procs.ProcOnType.OnHit
             Try
-                If XmlCharacter.Element("character").Element("misc").Element("HyperspeedAccelerators").Value = True Then
+                If XmlCharacter.<character>.<misc>.<HyperspeedAccelerators>.Value = True Then
                     .Equip()
                 End If
             Catch ex As System.Exception
@@ -600,7 +600,7 @@ Friend Class Procs
             .ProcOn = Procs.ProcOnType.OnHit
 
             Try
-                If XmlCharacter.Element("character").Element("misc").Element("TailorEnchant").Value = True Then
+                If XmlCharacter.<character>.<misc>.<TailorEnchant>.Value = True Then
                     .Equip()
                 End If
             Catch ex As System.Exception
@@ -619,7 +619,7 @@ Friend Class Procs
             .ProcOn = Procs.ProcOnType.OnMHhit
             .HasteSensible = False
             Try
-                If Sim.XmlCharacter.Element("character").Element("misc").Element("SaroniteBomb").Value Then .Equip()
+                If Sim.XmlCharacter.<character>.<misc>.<SaroniteBomb>.Value Then .Equip()
             Catch ex As System.Exception
             End Try
         End With
@@ -635,7 +635,7 @@ Friend Class Procs
             .ProcOn = Procs.ProcOnType.OnMHhit
             .HasteSensible = False
             Try
-                If Sim.XmlCharacter.Element("character").Element("misc").Element("SapperCharge").Value Then .Equip()
+                If Sim.XmlCharacter.<character>.<misc>.<SapperCharge>.Value Then .Equip()
             Catch ex As System.Exception
             End Try
         End With
@@ -651,7 +651,7 @@ Friend Class Procs
             .ProcOn = Procs.ProcOnType.OnMHhit
             .HasteSensible = False
             Try
-                If XmlCharacter.Element("character").Element("misc").Element("IndestructiblePotion").Value Then .Equip()
+                If XmlCharacter.<character>.<misc>.<IndestructiblePotion>.Value Then .Equip()
             Catch ex As System.Exception
             End Try
         End With
@@ -667,7 +667,7 @@ Friend Class Procs
             .ProcOn = Procs.ProcOnType.OnMHhit
             .HasteSensible = False
             Try
-                If Sim.XmlCharacter.Element("character").Element("misc").Element("PotionofSpeed").Value Then
+                If Sim.XmlCharacter.<character>.<misc>.<PotionofSpeed>.Value Then
                     .Equip()
                 End If
             Catch ex As System.Exception

@@ -37,6 +37,7 @@ Public Class WowItem
 
     Friend Desc As String
     Overridable Sub Load(ByVal el As XElement)
+        Id = el.<id>.Value
         name = el.<name>.Value
         ilvl = el.<ilvl>.Value
         slot = el.<slot>.Value

@@ -197,12 +197,6 @@ Partial Public Class MainForm
 
     End Sub
     Private Sub Page_Loaded(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles MyBase.Loaded
-        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-            Dim f As String
-            For Each f In isoStore.GetFileNames
-                System.Diagnostics.Debug.WriteLine(f)
-            Next
-        End Using
 
         ConstrucFileDir()
 
@@ -533,23 +527,24 @@ sortie:
         Me.TabControl1.SelectedIndex = 0
     End Sub
     Sub LoadScaling()
-        On Error GoTo OUT
+        'On Error GoTo OUT
 
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
             Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/Scalingconfig.xml", FileMode.Open, isoStore)
                 Dim doc As XDocument = XDocument.Load(isoStream)
-
-                Dim ctrl As Control
                 Dim chkBox As CheckBox
-                For Each ctrl In gbScaling.Children
-                    If ctrl.Name.StartsWith("chkSca") Then
-                        chkBox = ctrl
-                        chkBox.IsChecked = doc.Element("config").Element("Stats").Element(chkBox.Name).Value
+
+
+                For Each stk In gbScaling.Children
+                    If TypeOf (stk) Is StackPanel Then
+                        For Each ctrl As Control In CType(stk, StackPanel).Children
+                            If ctrl.Name.StartsWith("chk") Then
+                                chkBox = ctrl
+                                chkBox.IsChecked = doc.<config>.<Stats>.Elements(chkBox.Name).Value
+                            End If
+                        Next
                     End If
                 Next
-
-
-
             End Using
         End Using
 
@@ -1592,6 +1587,7 @@ NextItem:
         TabSimOption.Visibility = Visib
         TabStatScaling.Visibility = Visib
         tabStatSummary.Visibility = Visib
+        tabDebug.Visibility = Visib
         TabTank.Visibility = Visib
         For Each tab As TabItem In TabControl1.Items
             tab.UpdateLayout()
@@ -1614,5 +1610,33 @@ NextItem:
             cmdEditCharacterWithGear_Click(Nothing, Nothing)
 
         End If
+    End Sub
+
+    Private Sub cmbDebugLevel_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs) Handles cmbDebugLevel.SelectionChanged
+
+        Select Case cmbDebugLevel.SelectedValue.ToString
+            Case "INFO"
+                Log.LoggingLevel = logging.Level.INFO
+            Case "DEBUG"
+                Log.LoggingLevel = logging.Level.WARNING
+            Case "ERROR"
+                Log.LoggingLevel = logging.Level.ERR
+            Case "FATAL"
+                Log.LoggingLevel = logging.Level.FATAL
+            Case "NO LOGGING"
+                Log.LoggingLevel = logging.Level.NO
+        End Select
+    End Sub
+
+    Private Sub cmdShowDebug_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdShowDebug.Click
+        Dim txtEditor As New TextEditor
+        txtEditor.OpenFileFromISO("Solution.Silverlight.log")
+        txtEditor.Show()
+    End Sub
+
+
+   
+    Private Sub cmdCleanDebug_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdCleanDebug.Click
+        Log.clean()
     End Sub
 End Class

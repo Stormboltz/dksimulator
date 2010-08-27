@@ -63,12 +63,12 @@ Partial Public Class VisualEquipSlot
 
             If IsNothing(Mainframe) Then Exit Sub
             If Mainframe.ItemEditor1.Origin <> Me.Name Then
-                Diagnostics.Debug.WriteLine("Start1 " & Now.Ticks)
-                Dim t As Date = Now
+                'Diagnostics.Debug.WriteLine("Start1 " & Now.Ticks)
+                'Dim t As Date = Now
                 Me.Cursor = Cursors.Wait
                 Mainframe.ItemEditor1.Load(Me)
                 Me.Cursor = Cursors.Arrow
-                Diagnostics.Debug.WriteLine("Stop " & (Now.Ticks - t.Ticks) / 100000 & "ms")
+                'Diagnostics.Debug.WriteLine("Stop " & (Now.Ticks - t.Ticks) / 100000 & "ms")
 
 
 

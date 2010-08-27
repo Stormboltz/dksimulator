@@ -466,9 +466,9 @@ Partial Public Class FrmGearSelector
                         End Try
 
                         Try
-                            iSlot.Item.ReForgingFrom = xmlChar.Element("character").Element(iSlot.Text).Element("reforge").Element("from").Value
-                            iSlot.Item.ReForgingTo = xmlChar.Element("character").Element(iSlot.Text).Element("reforge").Element("to").Value
-                            iSlot.Item.ReForgingvalue = xmlChar.Element("character").Element(iSlot.Text).Element("reforge").Element("value").Value
+                            iSlot.Item.ReForgingFrom = xmlChar.<character>.Elements(iSlot.Text).<reforge>.<from>.Value
+                            iSlot.Item.ReForgingTo = xmlChar.<character>.Elements(iSlot.Text).<reforge>.<to>.Value
+                            iSlot.Item.ReForgingvalue = xmlChar.<character>.Elements(iSlot.Text).<reforge>.<value>.Value
                         Catch ex As Exception
                             Log.Log("LoadMycharacter: Cannot get reforging for " & iSlot.Name, logging.Level.WARNING)
                         End Try

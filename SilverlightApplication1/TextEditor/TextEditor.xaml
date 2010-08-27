@@ -2,16 +2,17 @@
            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
            xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
-           Width="495" Height="444"
+           Width="500" Height="500"
            Title="TextEditor">
     <Grid x:Name="LayoutRoot" Margin="2">
         <Grid.RowDefinitions>
             <RowDefinition />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="50" />
         </Grid.RowDefinitions>
-
-        <Button x:Name="CancelButton" Content="Cancel" Width="75" Height="23" HorizontalAlignment="Right" Margin="0,12,0,0" Grid.Row="1" />
-        <Button x:Name="OKButton" Content="OK" Width="75" Height="23" HorizontalAlignment="Right"  Margin="0,12,79,0" Grid.Row="1" />
-        <TextBox Height="370" HorizontalAlignment="Left" Name="TextBox1" VerticalAlignment="Top" Width="473" IsReadOnly="True" />
+        <ScrollViewer HorizontalScrollBarVisibility="Auto">
+        <TextBox HorizontalAlignment="Left" Name="TextBox1" VerticalAlignment="Top" IsReadOnly="True" MinWidth="450" MinHeight="400" />
+        </ScrollViewer>
+        <Button x:Name="OKButton" Content="OK" Width="75" Height="23" HorizontalAlignment="Right"  Margin="0,10,80,10" Grid.Row="1" />
+        
     </Grid>
 </controls:ChildWindow>
