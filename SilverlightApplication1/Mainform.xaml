@@ -64,8 +64,6 @@
                         <ComboBox Height="23" HorizontalAlignment="Left" Name="cmbFlask" VerticalAlignment="Top" Width="120" />
                         <sdk:Label Height="23" HorizontalAlignment="Left" Name="lblDPS" VerticalAlignment="Top" Width="120" Content="(0) DPS" />
                         <StackPanel Height="170" Name="stackConsumable" />
-                        <Button Content="Quick DPS" Height="23" HorizontalAlignment="Left" Name="cmdQuickDPS" VerticalAlignment="Top" Width="75" />
-                        <Button Content="Quick EP" Height="23" HorizontalAlignment="Left" Name="cmdQuickEP" VerticalAlignment="Top" Width="75" />
                     </StackPanel>
                 </sdk:TabItem>
                 <sdk:TabItem Header="Report" Name="TabReport">

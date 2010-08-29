@@ -47,7 +47,7 @@ Friend Class DeathStrike
             CritCount = CritCount + 1
             LastDamage = AvrgCrit(T)
             sim.combatlog.write(T & vbtab & "DS crit for " & LastDamage)
-            sim.proc.tryOnCrit()
+            sim.proc.tryProcs(Procs.ProcOnType.OnCrit)
 
             totalcrit += LastDamage
         Else
@@ -58,16 +58,16 @@ Friend Class DeathStrike
         End If
         total = total + LastDamage
 		If OffHand = False Then
-            sim.proc.TryOnMHHitProc()
+            sim.proc.tryProcs(Procs.ProcOnType.OnMHhit)
 			If sim.proc.DRM.TryMe(T) Then
 				sim.Runes.UseFU(T, True)
 			Else
 				sim.Runes.UseFU(T, False)
 			End If
 			
-            sim.proc.TryOnFU()
+            sim.proc.tryProcs(Procs.ProcOnType.OnFU)
 		Else
-            sim.proc.TryOnOHHitProc()
+            sim.proc.tryProcs(Procs.ProcOnType.OnOHhit)
 		End If
 		
 		If sim.DRW.IsActive(T) Then

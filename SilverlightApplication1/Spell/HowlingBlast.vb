@@ -67,7 +67,8 @@ Friend Class HowlingBlast
                 End If
                 total = total + LastDamage
                 sim.RunicPower.add(sim.Character.Talents.Talent("ChillOfTheGrave").Value * 5)
-                sim.proc.TryOnSpellHit()
+                sim.proc.tryProcs(Procs.ProcOnType.OnDamage)
+
             End If
         Next
 

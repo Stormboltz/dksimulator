@@ -150,7 +150,7 @@ NameSpace Diseases
             End If
             total = total + tmp
             
-            sim.proc.tryOnDoT()
+            sim.proc.tryProcs(Procs.ProcOnType.OnDoT)
             nextTick = T + 300
             sim.FutureEventManager.Add(nextTick, "Disease")
             If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & Me.ToString & " hit for " & tmp)

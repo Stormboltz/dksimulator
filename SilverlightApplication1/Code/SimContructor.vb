@@ -1,4 +1,5 @@
 ﻿Imports System.Xml.Linq
+Imports System.Linq
 Imports System.Threading
 Imports System.IO.IsolatedStorage
 Imports System.IO
@@ -76,25 +77,26 @@ Public Module SimConstructor
     End Sub
 
 
-    Sub Start(ByVal SimTime As Double, ByVal MainFrm As MainForm, Optional ByVal StartNow As Boolean = False)
+    Sub Start(ByVal SimTime As Double, ByVal MainFrm As MainForm, Optional ByVal StartNow As Boolean = False, Optional ByVal epStat As String = "")
         Dim sim As Sim
         Dim newthread As System.Threading.Thread
         sim = New Sim
         _MainFrm = MainFrm
         StartNow = True
 
-        If EpStat <> "" Then
-            sim.Prepare(SimTime, MainFrm, EpStat, EPBase)
+        If epStat <> "" Then
+            sim.Prepare(SimTime, MainFrm, epStat, EPBase)
         Else
             AddHandler AllSimdone, AddressOf SingleSim_Done
             sim.Prepare(SimTime, MainFrm)
         End If
-      
+
         newthread = New Thread(AddressOf sim.Start)
         'newthread.IsBackground = True
         If sim.EPStat <> "" Then
             Try
                 newthread.Name = sim.EPStat
+
             Catch ex As Exception
 
             End Try
@@ -126,6 +128,51 @@ Public Module SimConstructor
         End Try
         Return i
     End Function
+
+    Sub CalculateTalentValue()
+        Try
+            RemoveHandler AllSimdone, AddressOf CalculateTalentValue
+        Catch ex As Exception
+
+        End Try
+        Dim rp As New Report
+        Dim c As New Collections.Generic.Dictionary(Of String, Long)
+
+        Dim XmlConfFile As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/config.xml", FileMode.Open, FileAccess.Read, IsolatedStorageFile.GetUserStoreForApplication)
+        Dim XmlConfig As XDocument = XDocument.Load(XmlConfFile)
+
+
+
+        Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/Templates/" & XmlConfig.<config>.<template>.Value, FileMode.Open, FileAccess.Read, IsolatedStorageFile.GetUserStoreForApplication())
+            Dim xdoc As XDocument = XDocument.Load(isoStream)
+
+            EpStat = "Original Spec"
+            c.Add(EpStat, DPSs(EpStat))
+            'EpStat = "EP TALENT AP EQ"
+            'SimConstructor.Start(SimTime, MainFrm)
+
+            For Each el As XElement In (From e As XElement In xdoc.<Talents>.Elements
+                                        Where e.Value <> 0 And e.Name.ToString <> "Glyphs")
+                EpStat = "EP TALENT " & el.Name.ToString
+                c.Add(EpStat, DPSs(EpStat))
+            Next
+
+        End Using
+
+
+
+        For Each itm In (From e In c Order By e.Value Descending)
+            rp.AddAdditionalInfo(itm.Key, " = " & itm.Value)
+        Next
+        Dim dif As Decimal = ((Now.Ticks - StartTime.Ticks) / 10000000)
+        rp.AddAdditionalInfo("Generated in ", Decimal.Round(dif, 2).ToString & " s")
+        rp.Save("")
+        EpStat = ""
+        _MainFrm.TryToOpenTextReport()
+
+    End Sub
+
+
     Sub CalculateEP()
         Try
             RemoveHandler AllSimdone, AddressOf CalculateEP
@@ -698,60 +745,10 @@ skipStats:
                     EpStat = "EP 4T10"
                     SimConstructor.Start(SimTime, MainFrm)
                 End If
-
-
-
-
-
 skipSets:
-
                 GoTo skipTrinket
-                'If doc.Element("config").Element("Trinket").Value.Contains("true") = False Then
-                '    GoTo skipTrinket
-                'End If
-
-                'EpStat = "EP NoTrinket"
-                'SimConstructor.Start(SimTime, MainFrm)
-
-                'EpStat = "EP AttackPowerNoTrinket"
-                'SimConstructor.Start(SimTime, MainFrm)
-
-
-                'Dim trinketsList As XElement
-                'Dim tNode As XElement
-                'trinketsList = doc.Element("config/Trinket")
-
-                'For Each tNode In trinketsList.Elements
-                '    If tNode.Value = "true" Then
-                '        EpStat = tNode.Name.ToString.Replace("chkEP", "EP ")
-                '        SimConstructor.Start(SimTime, MainFrm)
-                '    End If
-                'Next
-                'Jointhread()
-
-
-                'EpStat = "EP NoTrinket"
-                'BaseDPS = DPSs(EpStat)
-
-                'EpStat = "EP AttackPowerNoTrinket"
-                'APDPS = DPSs(EpStat)
-
-
-                'For Each tNode In trinketsList.Elements
-                '    If tNode.Value = "true" Then
-                '        Try
-                '            EpStat = tNode.Name.ToString.Replace("chkEP", "EP ")
-                '            DPS = DPSs(EpStat)
-                '            tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
-                '            tmp2 = (DPS - BaseDPS) / (2 * EPBase)
-                '            sReport = sReport + ("<tr><td>" & EpStat & " | " & toDDecimal(100 * tmp2 / tmp1)) & "</td></tr>"
-                '        Catch
-
-                '        End Try
-                '    End If
-                'Next
+               
 skipTrinket:
-
                 EpStat = ""
             End Using
 
@@ -835,54 +832,35 @@ skipTrinket:
         EpStat = ""
 
     End Sub
-    Sub StartSpecDpsValue(ByVal pb As ProgressBar, ByVal SimTime As Double, ByVal MainFrm As MainForm)
-        Dim sReport As String
+    Sub StartSpecDpsValue(ByVal SimTime As Double, ByVal MainFrm As MainForm)
 
-        'on error resume next
+        AddHandler AllSimdone, AddressOf CalculateTalentValue
+        StartTime = Now
+
         DPSs.Clear()
         ThreadCollection.Clear()
         simCollection.Clear()
-        EPBase = 50
+        EPBase = MainFrm.txtEPBase.Text
         _MainFrm = MainFrm
 
-        Dim doc As XDocument = New XDocument
+        Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/Templates/" & MainFrm.cmbTemplate.SelectedValue, FileMode.Open, FileAccess.Read, IsolatedStorageFile.GetUserStoreForApplication())
+            Dim xdoc As XDocument = XDocument.Load(isoStream)
 
-        doc.Load("\Templates\" & MainFrm.cmbTemplate.SelectedValue)
-        Dim xNodelist As XElement
-        xNodelist = doc.Element("Talents")
-        Dim xNode As XElement
+            EpStat = "Original Spec"
+            SimConstructor.Start(SimTime, MainFrm)
+            'EpStat = "EP TALENT AP EQ"
+            'SimConstructor.Start(SimTime, MainFrm)
 
-        EpStat = "OriginalSpec"
-        SimConstructor.Start(MainFrm.txtSimtime.Text, MainFrm)
+            For Each el As XElement In (From e As XElement In xdoc.<Talents>.Elements
+                                        Where e.Value <> 0 And e.Name.ToString <> "Glyphs")
+                EpStat = "EP TALENT " & el.Name.ToString
+                Diagnostics.Debug.WriteLine(EpStat)
 
+                SimConstructor.Start(SimTime, MainFrm, False, EpStat)
 
+            Next
 
-        For Each xNode In xNodelist.Elements
-            If (xNode.Name <> "URL" And xNode.Name <> "Glyphs") And xNode.Value <> "0" Then
-                EpStat = xNode.Name.ToString
-                SimConstructor.Start(MainFrm.txtSimtime.Text, MainFrm)
-            End If
-        Next
-        Jointhread()
-
-        Dim BaseDPS As Integer
-        EpStat = "OriginalSpec"
-        BaseDPS = DPSs(EpStat)
-
-        sReport = "<table border='0' cellspacing='0' style='font-family:Verdana; font-size:10px;'>"
-
-        sReport += "<tr><td>Average for " & EpStat & " | " & BaseDPS & "</tr></td>"
-
-
-        For Each xNode In xNodelist.Elements
-            If (xNode.Name <> "URL" And xNode.Name <> "Glyphs") And xNode.Value <> "0" Then
-                EpStat = xNode.Name.ToString
-                sReport += "<tr><td>Value for " & EpStat & " | " & toDDecimal((BaseDPS - DPSs(EpStat)) / xNode.Value) & "</tr></td>"
-            End If
-        Next
-        sReport += "</table>"
-        sReport += "<hr width='80%' align='center' noshade ></hr>"
-        'WriteReport(sReport)
+        End Using
         EpStat = ""
     End Sub
 

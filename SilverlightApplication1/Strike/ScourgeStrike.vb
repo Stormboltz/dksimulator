@@ -37,7 +37,7 @@ Friend Class ScourgeStrike
             LastDamage = AvrgNonCrit(T) * (1 + CritCoef)
             sim.combatlog.write(T & vbtab & "SS Physical crit for " & LastDamage)
             totalcrit += LastDamage
-            sim.proc.tryOnCrit()
+            sim.proc.tryProcs(Procs.ProcOnType.OnCrit)
             sim.ScourgeStrikeMagical.ApplyDamage(LastDamage, T, True)
         Else
             HitCount = HitCount + 1
@@ -61,8 +61,10 @@ Friend Class ScourgeStrike
             End If
         End If
         sim.Runes.UseUnholy(T, False)
-        sim.proc.TryOnFU()
-        sim.proc.TryOnMHHitProc()
+
+        sim.proc.tryProcs(Procs.ProcOnType.OnFU)
+
+        sim.proc.tryProcs(Procs.ProcOnType.OnMHhit)
         Return True
     End Function
 

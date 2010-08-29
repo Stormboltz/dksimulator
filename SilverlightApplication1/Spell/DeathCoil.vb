@@ -44,7 +44,7 @@ Friend class DeathCoil
             Return False
         End If
 
-        sim.proc.TryOnonRPDumpProcs()
+        sim.proc.tryProcs(Procs.ProcOnType.onRPDump)
         If sim.Character.Talents.Talent("UnholyBlight").Value = 1 Then
             sim.UnholyBlight.Apply(T, LastDamage)
         End If

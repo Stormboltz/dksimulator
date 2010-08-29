@@ -144,6 +144,18 @@ Public Class Talents
         Next
         AddIncluded()
 
+
+        'EP
+        If EpStat.StartsWith("EP TALENT") Then
+            Dim t As String = EpStat.Replace("EP TALENT ", "")
+            Dim i As Integer = Talent(t).Value
+
+            Diagnostics.Debug.WriteLine(t & " was " & i)
+
+            Talent(t).Value = 0
+        End If
+
+
     End Sub
 
 

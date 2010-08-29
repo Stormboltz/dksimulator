@@ -48,7 +48,7 @@ Public Class RuneStrike
         If RNG < CritChance Then
             'CRIT !
             LastDamage = AvrgCrit(T)
-            sim.proc.tryOnCrit()
+            sim.proc.tryProcs(Procs.ProcOnType.OnCrit)
 
             critcount += 1
             totalcrit += LastDamage
@@ -73,10 +73,12 @@ Public Class RuneStrike
         End If
 
         If OffHand = False Then
-            sim.proc.TryOnMHHitProc()
-            sim.proc.TryOnonRPDumpProcs()
+            sim.proc.tryProcs(Procs.ProcOnType.OnMHhit)
+            sim.proc.tryProcs(Procs.ProcOnType.onRPDump)
+
         Else
-            sim.proc.TryOnOHHitProc()
+
+            sim.proc.tryProcs(Procs.ProcOnType.OnOHhit)
         End If
         Return True
     End Function

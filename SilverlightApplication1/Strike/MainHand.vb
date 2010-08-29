@@ -73,7 +73,9 @@ Sub New(S As sim)
             LastDamage = AvrgCrit(T)
             CritCount = CritCount + 1
             If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "MH crit for " & LastDamage)
-            sim.proc.tryOnCrit()
+
+            sim.proc.tryProcs(Procs.ProcOnType.OnCrit)
+
             totalcrit += LastDamage
         End If
         If RNG >= (ChanceNotToTouch + MeleeGlacingChance + CritChance) Then
@@ -88,7 +90,8 @@ Sub New(S As sim)
         total = total + LastDamage
         If sim.Character.Talents.Talent("Necrosis").Value > 0 Then sim.Necrosis.Apply(LastDamage, T)
         If sim.proc.MHBloodCakedBlade.TryMe(T) Then sim.BloodCakedBlade.ApplyDamage(T)
-        sim.proc.tryOnMHWhitehitProc()
+        sim.proc.tryProcs(Procs.ProcOnType.OnMHWhiteHit)
+
         If sim.proc.ScentOfBlood.IsActive Then
             sim.proc.ScentOfBlood.Use()
             sim.RunicPower.add(10)

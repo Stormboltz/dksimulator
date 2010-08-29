@@ -41,7 +41,7 @@ Friend Class BloodBoil
                 End If
                 total = total + LastDamage
 
-                sim.proc.TryOnSpellHit()
+                sim.proc.tryProcs(Procs.ProcOnType.OnDamage)
             End If
         Next
         sim.RunicPower.add(10)

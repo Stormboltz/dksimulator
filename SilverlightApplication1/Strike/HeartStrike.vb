@@ -59,8 +59,8 @@ Friend Class HeartStrike
                 End If
             End If
             total = total + LastDamage
-            sim.proc.TryOnBloodStrike()
-            sim.proc.TryOnMHHitProc()
+            sim.proc.tryProcs(Procs.ProcOnType.OnBloodStrike)
+            sim.proc.tryProcs(Procs.ProcOnType.OnMHhit)
         Next
         sim.Runes.UseBlood(T, False)
 

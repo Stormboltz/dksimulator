@@ -104,7 +104,7 @@ Namespace Strikes
                 CritCount = CritCount + 1
                 sim.CombatLog.write(T & vbTab & Me.Name & " crit for " & LastDamage)
                 TotalCrit += LastDamage
-                sim.proc.tryOnCrit()
+                sim.proc.tryProcs(Procs.ProcOnType.OnCrit)
             Else
                 LastDamage = AvrgNonCrit(T)
                 HitCount = HitCount + 1
@@ -114,9 +114,9 @@ Namespace Strikes
             total = total + LastDamage
 
             If OffHand = False Then
-                sim.proc.TryOnMHHitProc()
+                sim.proc.tryProcs(Procs.ProcOnType.OnMHhit)
             Else
-                sim.proc.TryOnOHHitProc()
+                sim.proc.tryProcs(Procs.ProcOnType.OnOHhit)
             End If
             Return True
         End Function
@@ -162,7 +162,7 @@ Namespace Strikes
 
         Private _OffDamageBonus As Double = -1
         Function OffDamageBonus() As Double
-            If _OffDamageBonus <> -1 Then
+            If _OffDamageBonus = -1 Then
                 _OffDamageBonus = 0.5 * (1 + sim.Character.Talents.Talent("NervesofColdSteel").Value * 8.3333 / 100)
             End If
             Return _OffDamageBonus

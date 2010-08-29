@@ -196,4 +196,11 @@ NextUnholy:
         FilePath = oldPath
 
     End Sub
+
+    Private Sub cmdTalentDpsValue_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdTalentDpsValue.Click
+        SaveTemplate(FilePath)
+        SimConstructor.StartSpecDpsValue(10, App.Current.RootVisual)
+        Me.DialogResult = True
+
+    End Sub
 End Class

@@ -67,7 +67,7 @@ Friend Class OffHand
             'If sim.combatlog.LogDetails Then 
             If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "OH crit for " & LastDamage)
             'End If
-            sim.proc.tryOnCrit()
+            sim.proc.tryProcs(Procs.ProcOnType.OnCrit)
             totalcrit += LastDamage
         End If
 
@@ -90,8 +90,9 @@ Friend Class OffHand
         If sim.Character.Talents.Talent("Necrosis").Value > 0 Then
             Nec = sim.OHNecrosis.Apply(LastDamage, T)
         End If
-		If sim.proc.OHBloodCakedBlade.TryMe(T) Then sim.OHBloodCakedBlade.ApplyDamage(T)
-        sim.proc.TryOnOHHitProc()
+        If sim.proc.OHBloodCakedBlade.TryMe(T) Then sim.OHBloodCakedBlade.ApplyDamage(T)
+
+        sim.proc.tryProcs(Procs.ProcOnType.OnOHWhitehit)
 		return true
 	End Function
 	Overrides Function AvrgNonCrit(T as long,target As Targets.Target) As Double

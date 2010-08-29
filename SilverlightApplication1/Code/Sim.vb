@@ -517,7 +517,7 @@ Public Class Sim
         Diagnostics.Debug.WriteLine("DPS=" & DPS & " " & "TPS=" & TPS & " " & EPStat() & " hit=" & MainStat.Hit & " sphit=" & MainStat.SpellHit & " exp=" & MainStat.Expertise)
         'Diagnostics.Debug.WriteLine("Max events in queue " & me.FutureEventManager.Max )
         CombatLog.finish()
-        On Error Resume Next
+        'On Error Resume Next
         If Me.BloodPresence = 1 Then
             SimConstructor.DPSs.Add(TPS, Me.EPStat)
         Else

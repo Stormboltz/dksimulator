@@ -1,4 +1,5 @@
 Imports System.Xml.Linq
+Imports System.Linq
 
 '
 ' Created by SharpDevelop.
@@ -70,6 +71,8 @@ Friend Class Procs
         OnBloodStrike = 9
         OnPlagueStrike = 10
         onRPDump = 11 'For Runic Empowerment.
+        OnOHWhitehit = 12
+        OnWhitehit = 13
         'OnUse=9
     End Enum
 
@@ -167,7 +170,7 @@ Friend Class Procs
         With SuddenDoom
             ._Name = "SuddenDoom"
             .ProcChance = Sim.Character.Talents.Talent("SuddenDoom").Value * 0.05
-            .ProcOn = Procs.ProcOnType.OnMHWhiteHit
+            .ProcOn = Procs.ProcOnType.OnWhitehit
             .ProcLenght = 20
             If .ProcChance > 0 Then
                 .Equip()
@@ -192,14 +195,14 @@ Friend Class Procs
         With ReapingBotN
             If Sim.Character.Talents.Talent("Reaping").Value Then
                 ._Name = "Reaping"
-                .ProcChance = Sim.Character.Talents.Talent("Reaping").Value * 0.33
+                .ProcChance = Sim.Character.Talents.Talent("Reaping").Value
             ElseIf Sim.Character.Talents.Talent("BloodoftheNorth").Value Then
                 ._Name = "BloodoftheNorth"
-                .ProcChance = Sim.Character.Talents.Talent("BloodoftheNorth").Value * 0.3
+                .ProcChance = Sim.Character.Talents.Talent("BloodoftheNorth").Value
             End If
-
             If .ProcChance > 0 Then
                 If .ProcChance > 0.85 Then .ProcChance = 1.0
+                '.ProcOn = ProcOnType.OnBloodStrike
                 .Equip()
             End If
         End With
@@ -716,83 +719,39 @@ Friend Class Procs
         If Sim.Runes.UnholyRunes.Available Then Exit Sub
         T104PDPS.ApplyMe(T)
     End Sub
-    Sub TryOnMHHitProc()
-        Dim obj As Proc
-        For Each obj In OnMHhitProcs
+    
+    Sub tryProcs(ByVal ProcOnthat As ProcOnType)
+        For Each obj In (From s As Proc In EquipedProc Where s.ProcOn = ProcOnthat)
             obj.TryMe(Sim.TimeStamp)
         Next
+        Select Case ProcOnthat
+            Case ProcOnType.OnMHWhiteHit
+                tryProcs(ProcOnType.OnWhitehit)
+                tryProcs(ProcOnType.OnMHhit)
+                tryProcs(ProcOnType.OnHit)
 
-        For Each obj In OnHitProcs
-            obj.TryMe(Sim.TimeStamp)
-        Next
-        tryOnDamageProc()
-    End Sub
+            Case ProcOnType.OnOHWhitehit
+                tryProcs(ProcOnType.OnWhitehit)
+                tryProcs(ProcOnType.OnOHhit)
 
-    Sub TryOnOHHitProc()
-        Dim obj As Proc
-        For Each obj In OnOHhitProcs
-            obj.TryMe(Sim.TimeStamp)
-        Next
-        For Each obj In OnHitProcs
-            obj.TryMe(Sim.TimeStamp)
-        Next
-        tryOnDamageProc()
-    End Sub
+            Case ProcOnType.OnMHhit
+                tryProcs(ProcOnType.OnHit)
+                tryProcs(ProcOnType.OnDamage)
 
-    Sub TryOnFU()
-        Dim obj As Proc
-        For Each obj In OnFUProcs
-            obj.TryMe(Sim.TimeStamp)
-        Next
-    End Sub
+            Case ProcOnType.OnOHhit
+                tryProcs(ProcOnType.OnHit)
+                tryProcs(ProcOnType.OnDamage)
 
-    Sub tryOnCrit()
-        Dim obj As Proc
-        For Each obj In OnCritProcs
-            obj.TryMe(Sim.TimeStamp)
-        Next
+            Case ProcOnType.OnDoT
+                tryProcs(ProcOnType.OnDamage)
+
+
+
+        End Select
+
+
     End Sub
 
-    Sub tryOnDoT()
-        Dim obj As Proc
-        For Each obj In OnDoTProcs
-            obj.TryMe(Sim.TimeStamp)
-        Next
-        tryOnDamageProc()
-    End Sub
 
-    Sub TryOnSpellHit()
-        Dim obj As Proc
-        For Each obj In OnDamageProcs
-            obj.TryMe(Sim.TimeStamp)
-        Next
-        tryOnDamageProc()
-    End Sub
-
-    Sub TryOnBloodStrike()
-        Dim obj As Proc
-        For Each obj In OnBloodStrikeProcs
-            obj.TryMe(Sim.TimeStamp)
-        Next
-    End Sub
-    Sub tryOnDamageProc()
-        Dim obj As Proc
-        For Each obj In OnDamageProcs
-            obj.TryMe(Sim.TimeStamp)
-        Next
-    End Sub
-
-    Sub tryOnMHWhitehitProc()
-        Dim obj As Proc
-        For Each obj In OnMHWhitehitProcs
-            obj.TryMe(Sim.TimeStamp)
-        Next
-        TryOnMHHitProc()
-    End Sub
-    Sub TryOnonRPDumpProcs()
-        Dim obj As Proc
-        For Each obj In onRPDumpProcs
-            obj.TryMe(Sim.TimeStamp)
-        Next
-    End Sub
+  
 End Class

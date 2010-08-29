@@ -51,7 +51,7 @@ Friend Class FrostStrike
 
         If OffHand = False Then
             sim.proc.KillingMachine.Use()
-            sim.proc.TryOnonRPDumpProcs()
+            sim.proc.tryProcs(Procs.ProcOnType.onRPDump)
         End If
         Return True
     End Function

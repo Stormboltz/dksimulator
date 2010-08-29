@@ -26,7 +26,8 @@ Friend Class BloodStrike
             sim.RunicPower.add(10)
             sim.Runes.UseBlood(T, True)
         End If
-        sim.proc.TryOnBloodStrike()
+
+        sim.proc.tryProcs(Procs.ProcOnType.OnBloodStrike)
         Return True
     End Function
 

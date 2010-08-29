@@ -56,7 +56,7 @@ Friend Class Obliterate
             CritCount = CritCount + 1
             LastDamage = AvrgCrit(T)
             sim.combatlog.write(T & vbtab & "OB crit for " & LastDamage)
-            sim.proc.tryOnCrit()
+            sim.proc.tryProcs(Procs.ProcOnType.OnCrit)
             totalcrit += LastDamage
         Else
             HitCount = HitCount + 1
@@ -66,10 +66,10 @@ Friend Class Obliterate
         End If
         total = total + LastDamage
         If OffHand Then
-            sim.proc.TryOnOHHitProc()
+            sim.proc.tryProcs(Procs.ProcOnType.OnOHhit)
         Else
-            sim.proc.TryOnMHHitProc()
-            sim.proc.TryOnFU()
+            sim.proc.tryProcs(Procs.ProcOnType.OnMHhit)
+            sim.proc.tryProcs(Procs.ProcOnType.OnFU)
             sim.proc.Rime.TryMe(T)
         End If
 

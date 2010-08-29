@@ -29,7 +29,7 @@ Friend Class PlagueStrike
             CritCount = CritCount + 1
             LastDamage = AvrgCrit(T)
             sim.combatlog.write(T & vbtab & "PS crit for " & LastDamage)
-            sim.proc.tryOnCrit()
+            sim.proc.tryProcs(Procs.ProcOnType.OnCrit)
 
             totalcrit += LastDamage
         Else
@@ -40,11 +40,11 @@ Friend Class PlagueStrike
         End If
         total = total + LastDamage
         If OffHand = False Then
-            sim.proc.TryOnMHHitProc()
+            sim.proc.tryProcs(Procs.ProcOnType.OnMHhit)
             sim.runes.UseUnholy(T, False)
 
         Else
-            sim.proc.TryOnOHHitProc()
+            sim.proc.tryProcs(Procs.ProcOnType.OnOHhit)
         End If
         sim.proc.strife.tryme(t)
         sim.Targets.MainTarget.BloodPlague.Apply(T)

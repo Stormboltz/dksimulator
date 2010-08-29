@@ -84,7 +84,7 @@ Public Class Spell
                 sim.CombatLog.write(T & vbTab & Me.Name & " hit for " & LastDamage & vbTab)
             End If
             total = total + LastDamage
-            sim.proc.TryOnSpellHit()
+            sim.proc.tryProcs(Procs.ProcOnType.OnDamage)
             Return True
         End Function
 
