@@ -15,15 +15,14 @@ Partial Public Class TextEditor
 
     Sub OpenFileFromISO(ByVal path As String)
         Try
-            Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-                Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream(path, FileMode.OpenOrCreate, FileAccess.Read, isoStore)
-                    Dim myReader As StreamReader = New StreamReader(isoStream)
-                    TextBox1.Text = myReader.ReadToEnd
-                    myReader.Close()
-                    isoStream.Close()
-                End Using
-            End Using
 
+            Dim isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+            Dim isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream(path, FileMode.OpenOrCreate, FileAccess.Read, isoStore)
+            Dim myReader As StreamReader = New StreamReader(isoStream)
+            TextBox1.Text = myReader.ReadToEnd
+            myReader.Close()
+            isoStream.Close()
+            isoStore.Dispose()
         Catch ex As Exception
             msgBox("Error trying to open the file")
         End Try

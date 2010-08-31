@@ -16,6 +16,7 @@ Friend Class Butchery
 		init
         Sim = MySim
         value = 1 * Sim.Character.Talents.Talent("Butchery").Value
+
 	End Sub
 	
 	Function apply(T As long) as Boolean

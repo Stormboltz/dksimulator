@@ -41,7 +41,8 @@ Public Class AotD
 		HasteSensible = True
 		MHWeaponDPS = 0
 		MHWeaponSpeed = 2
-		isGuardian = true
+        isGuardian = True
+        logLevel = LogLevelEnum.Detailled
 	End Sub
 	
 	Sub Summon(T As Long)

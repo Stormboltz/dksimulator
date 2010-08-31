@@ -14,7 +14,8 @@ Public Class Bloodlust
 	Sub New(S As Sim)
 		Sim = S
 		cd = 0
-		ActiveUntil= 0
+        ActiveUntil = 0
+
 	End Sub
 	
 	Function IsAvailable(T As Long) As Boolean

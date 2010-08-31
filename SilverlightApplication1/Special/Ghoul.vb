@@ -31,7 +31,8 @@ Friend class Ghoul
 		ThreadMultiplicator = 0
 		HasteSensible = True
 		Claw = New Strikes.Strike(Sim)
-		Claw._Name = "Ghoul: Claw"
+        Claw._Name = "Ghoul: Claw"
+        logLevel = LogLevelEnum.Detailled
 	End Sub
 	
 	Sub Summon(T As Long)

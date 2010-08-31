@@ -18,6 +18,7 @@ Friend Class DeathandDecay
         Multiplicator = 1
         If sim.Character.Glyph.DeathandDecay Then Multiplicator *= 1.2
         If sim.MainStat.T102PTNK = 1 Then Multiplicator *= 1.2
+        logLevel = LogLevelEnum.Basic
     End Sub
 	
 	Public Overloads Overrides Sub Init()
@@ -38,7 +39,7 @@ Friend Class DeathandDecay
         sim.Runes.UseUnholy(T, False)
         ActiveUntil = T + 1000
         CD = T + 3000 - sim.Character.Talents.Talent("Morbidity").Value * 500
-        sim.RunicPower.add(10)
+        sim.RunicPower.add(15)
         sim.combatlog.write(T & vbtab & "D&D ")
         sim.FutureEventManager.Add(nextTick, "D&D")
 

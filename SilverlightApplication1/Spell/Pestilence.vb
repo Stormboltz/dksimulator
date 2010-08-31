@@ -10,7 +10,8 @@ Friend Class Pestilence
 	Inherits Spells.Spell
 	
 	Sub New(S As sim)
-		MyBase.New(s)
+        MyBase.New(S)
+        logLevel = LogLevelEnum.Basic
 	End Sub
 	
 	Function use(T As double) As Boolean
@@ -20,7 +21,7 @@ Friend Class Pestilence
             MissCount = MissCount + 1
             Return False
         End If
-		Sim.RunicPower.add (10)
+        sim.RunicPower.add(15)
 		sim.combatlog.write(T  & vbtab &  "Pestilence")
 		HitCount = HitCount +1
 		

@@ -9,7 +9,8 @@
 Friend Class Hysteria
 	inherits Spells.Spell
 	Sub New(S As sim)
-		MyBase.New(s)
+        MyBase.New(s)
+        logLevel = LogLevelEnum.detailed
 	End Sub
 	Function IsAvailable(T As Long) As Boolean
         If sim.Character.Talents.Talent("Hysteria").Value = 0 Then Return False

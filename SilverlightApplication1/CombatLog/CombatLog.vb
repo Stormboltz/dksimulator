@@ -35,6 +35,9 @@ Public Class CombatLog
 
     End Sub
 
+    Sub WriteDetails(ByVal s As String)
+        If LogDetails Then write(s)
+    End Sub
 
     Sub write(ByVal s As String)
         If Sim.TimeStamp > (10 * 60 * 100) Then Exit Sub 'To not explode Storage

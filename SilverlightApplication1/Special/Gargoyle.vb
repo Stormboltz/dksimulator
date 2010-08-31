@@ -22,7 +22,8 @@ Friend Class Gargoyle
 		sim.DamagingObject.Add(Me)
 		ThreadMultiplicator = 0
 		HasteSensible = True
-		isGuardian = true
+        isGuardian = True
+        logLevel = LogLevelEnum.Detailled
 	End Sub
 	
 	Function Summon(ByVal T As Long) As Boolean
@@ -31,7 +32,7 @@ Friend Class Gargoyle
 		End If
 
 		If cd <= T Then
-            StrikeCastTime = (2.0 / sim.MainStat.PhysicalHaste) * 100  'no haste cap for Garg.
+            StrikeCastTime = Math.Max(1, (2.0 / sim.MainStat.PhysicalHaste) * 100) 'no haste cap for Garg.
 			AP = sim.MainStat.AP
 			sim.RunicPower.Use(60)
             'sim.CombatLog.write(T & vbTab & "Gargoyle use")

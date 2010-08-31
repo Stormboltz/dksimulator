@@ -64,16 +64,16 @@ Module GlobalFunction
     End Function
 
     Function GetIdFromGlyphName(ByVal s As String) As String
-        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/config/template.xml", FileMode.Open, FileAccess.Read, isoStore)
-                Dim doc As XDocument = XDocument.Load(isoStream)
-                Try
-                    Return doc.Element("Talents").Element("Glyphs").Element(s).Value
-                Catch ex As Exception
-                    Return "0"
-                End Try
-            End Using
-        End Using
+        Dim isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+        Dim isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/config/template.xml", FileMode.Open, FileAccess.Read, isoStore)
+        Dim doc As XDocument = XDocument.Load(isoStream)
+        Try
+            Return doc.Element("Talents").Element("Glyphs").Element(s).Value
+        Catch ex As Exception
+            Return "0"
+        End Try
+        isoStream.Close()
+        isoStore.Dispose()
     End Function
 
     Sub initReport()

@@ -16,7 +16,7 @@ Friend Class HowlingBlast
         If S.Character.Talents.GetNumOfThisSchool(Talents.Schools.Frost) > 20 Then
             Multiplicator = Multiplicator * 1.2 'Frozen Heart
         End If
-
+        logLevel = LogLevelEnum.Basic
 	End Sub
 	Function isAvailable(T As Long) As Boolean
         If sim.Character.Talents.Talent("HowlingBlast").Value <> 1 Then Return False
@@ -36,7 +36,7 @@ Friend Class HowlingBlast
 
         Else
             sim.Runes.UseFrost(T, False)
-            sim.RunicPower.add(10)
+            sim.RunicPower.add(15)
         End If
         Dim Tar As Targets.Target
 
@@ -93,19 +93,10 @@ Friend Class HowlingBlast
     Overrides Function CritChance() As Double
         If sim.proc.KillingMachine.IsActive Then
             Return 1
-        Else
-            If sim.DeathChill.IsAvailable(sim.TimeStamp) Then
-                sim.DeathChill.use(sim.TimeStamp)
-                sim.DeathChill.Active = False
-                Return 1
-            End If
         End If
         Return MyBase.CritChance
     End Function
-	overrides Function AvrgCrit(T As long,target As Targets.Target) As Double
-		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
-	End Function
-	
+
 
 
 End Class

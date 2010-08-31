@@ -11,7 +11,8 @@ Public Class FrostPresence
 	Inherits Spells.Spell
 	
 	Sub New(S As sim)
-		MyBase.New(s)
+        MyBase.New(S)
+        logLevel = LogLevelEnum.Detailled
 	End Sub
 	
 	Function IsAvailable(T As Long) As Boolean

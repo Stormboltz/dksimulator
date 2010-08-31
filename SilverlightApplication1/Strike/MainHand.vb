@@ -14,7 +14,8 @@ Sub New(S As sim)
 	Protected Overrides sub init()
 		MyBase.init()
 		NextWhiteMainHit = 0
-		HasteSensible = true
+        HasteSensible = True
+        logLevel = LogLevelEnum.Detailled
 	End Sub
 
 	Overrides Function ApplyDamage(T As long) As boolean

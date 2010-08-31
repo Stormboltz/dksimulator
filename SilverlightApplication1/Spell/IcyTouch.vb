@@ -13,7 +13,7 @@ Friend Class IcyTouch
         If S.Character.Talents.GetNumOfThisSchool(Talents.Schools.Frost) > 20 Then
             Multiplicator = Multiplicator * 1.2 'Frozen Heart
         End If
-
+        logLevel = LogLevelEnum.Basic
 
 	End Sub
 	
@@ -24,7 +24,7 @@ Friend Class IcyTouch
         If ret = False Then
             Return False
         End If
-        sim.RunicPower.add(10 + (sim.Character.Talents.Talent("ChillOfTheGrave").Value * 5))
+        sim.RunicPower.add(15 + (sim.Character.Talents.Talent("ChillOfTheGrave").Value * 5))
         If sim.DRW.IsActive(T) Then
             sim.DRW.DRWIcyTouch()
         End If

@@ -14,11 +14,12 @@ Sub New(S As sim)
         BaseDamage = 0
         Coeficient = 0.25
         Multiplicator = 1
+        logLevel = LogLevelEnum.Detailled
+        DiseaseBonus = 0.125
     End Sub
 	
 	overrides Function AvrgNonCrit(T As Long, target As Targets.Target ) As Double
         Dim tmp As Double = MyBase.AvrgNonCrit(T, target)
-        tmp *= (1 + 4 * 0.125 * target.NumDesease)
         If sim.EPStat = "EP HasteEstimated" Then
             tmp *= sim.MainStat.EstimatedHasteBonus
         End If

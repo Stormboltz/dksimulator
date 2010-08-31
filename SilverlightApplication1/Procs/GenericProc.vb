@@ -86,7 +86,7 @@ Public Class Proc
             Case Procs.ProcOnType.onRPDump
                 sim.proc.onRPDumpProcs.Add(Me)
             Case Else
-                Diagnostics.Debug.WriteLine("No proc on value for " & Me.Name)
+                'Diagnostics.Debug.WriteLine("No proc on value for " & Me.Name)
         End Select
         sim.DamagingObject.Add(Me)
     End Sub
@@ -170,7 +170,6 @@ Public Class Proc
     Sub ApplyFade(ByVal T As Long)
         If sim.EPStat <> "" Then Exit Sub 'useless as no report generated.
         If ProcLenght Then
-            Fade = T + ProcLenght * 100
             AddUptime(T)
         End If
         HitCount += 1
@@ -181,7 +180,11 @@ Public Class Proc
 		If sim.combatlog.LogDetails Then sim.combatlog.write(sim.TimeStamp  & vbtab &  Me.ToString & " proc")
 		If MaxStack <> 0 Then
 			Stack = math.Min(Stack+1,MaxStack)
-		End If
+        End If
+        If ProcLenght Then
+            Fade = T + ProcLenght * 100
+        End If
+        HitCount += 1
 		ApplyFade(T)
 	End Sub
 	

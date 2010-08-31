@@ -5,6 +5,7 @@ Friend Class Necrosis
 		MyBase.New(s)
         HasteSensible = True
         Coeficient = 0.1 * sim.Character.Talents.Talent("Necrosis").Value
+        logLevel = LogLevelEnum.Detailled
     End Sub
 	
 	Function Apply(Damage As Double, T As long) As Double

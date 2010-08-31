@@ -10,8 +10,10 @@ Public Class UnholyPresence
 	Inherits Spells.Spell
 	
 	Sub New(S As sim)
-		MyBase.New(s)
-	End Sub
+        MyBase.New(S)
+        logLevel = LogLevelEnum.Detailled
+    End Sub
+
 	
 	Function IsAvailable(T As Long) As Boolean
         If sim.Runes.Unholy() Then

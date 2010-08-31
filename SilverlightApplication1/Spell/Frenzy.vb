@@ -14,7 +14,8 @@ Public Class Frenzy
 	Inherits Spells.Spell
 	
 	Sub New(s as Sim)
-		MyBase.New(s)
+        MyBase.New(s)
+        logLevel = LogLevelEnum.Detailled
 	End Sub
 	
 	
@@ -53,7 +54,7 @@ Public Class Frenzy
         End If
         UseGCD(T)
         sim.runes.UseDeathBlood(T, True)
-        Sim.RunicPower.add(10)
+        sim.RunicPower.add(10)
         CD = T + 3000
         Me.ActiveUntil = T + 3000
         If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "Using Ghoul Frenzy")

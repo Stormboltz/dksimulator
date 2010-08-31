@@ -23,9 +23,6 @@ Public Module rndom
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
             Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/EPconfig.xml", FileMode.Open, FileAccess.Read, isoStore)
                 Dim doc As XDocument = XDocument.Load(isoStream)
-
-
-
                 If doc.Element("config/Misc/chkEPSeed").Value = "True" Then
                     If RNGSeed = 0 Then
                         RandomNumberGenerator = New Random

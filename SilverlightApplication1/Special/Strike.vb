@@ -11,6 +11,7 @@ Namespace Strikes
     Public Class Strike
         Inherits Supertype
         Friend OffHand As Boolean
+        Friend OffHandStrike As Strike
 
 
 
@@ -18,6 +19,7 @@ Namespace Strikes
             sim.UseGCD(T, False)
         End Sub
         Public Sub New()
+            DamageSchool = DamageSchoolEnum.Physical
             init()
         End Sub
         Protected Overridable Sub init()
@@ -28,6 +30,8 @@ Namespace Strikes
             TotalHit = 0
             TotalCrit = 0
             ThreadMultiplicator = 1
+            DiseaseBonus = 0
+
             _RNG1 = Nothing
         End Sub
 
@@ -88,12 +92,20 @@ Namespace Strikes
             LastDamage = 0
 
             If OffHand = False Then
+                If sim.proc.ThreatOfThassarian.TryMe(T) Then OffHandStrike.ApplyDamage(T)
                 If DoMyStrikeHit() = False Then
-                    sim.CombatLog.write(T & vbTab & Me.Name & " fail")
+                    Select Case logLevel
+                        Case LogLevelEnum.Basic
+                            sim.CombatLog.write(T & vbTab & Me.Name & " fail")
+                        Case LogLevelEnum.Detailled
+                            sim.CombatLog.WriteDetails(T & vbTab & Me.Name & " fail")
+                    End Select
+
                     MissCount += 1
                     Return False
                 End If
             Else
+
                 If DoMyToTHit() = False Then Return False
             End If
 
@@ -102,14 +114,26 @@ Namespace Strikes
             If RNG <= CritChance() Then
                 LastDamage = AvrgCrit(T)
                 CritCount = CritCount + 1
-                sim.CombatLog.write(T & vbTab & Me.Name & " crit for " & LastDamage)
+                Select logLevel
+                    Case LogLevelEnum.Basic
+                        sim.CombatLog.write(T & vbTab & Me.Name & " crit for " & LastDamage)
+                    Case LogLevelEnum.Detailled
+                        sim.CombatLog.WriteDetails(T & vbTab & Me.Name & " crit for " & LastDamage)
+                End Select
+
                 TotalCrit += LastDamage
                 sim.proc.tryProcs(Procs.ProcOnType.OnCrit)
             Else
                 LastDamage = AvrgNonCrit(T)
                 HitCount = HitCount + 1
                 TotalHit += LastDamage
-                sim.CombatLog.write(T & vbTab & Me.Name & " hit for " & LastDamage)
+                Select Case logLevel
+                    Case LogLevelEnum.Basic
+                        sim.CombatLog.write(T & vbTab & Me.Name & " hit for " & LastDamage)
+                    Case LogLevelEnum.Detailled
+                        sim.CombatLog.WriteDetails(T & vbTab & Me.Name & " hit for " & LastDamage)
+                End Select
+
             End If
             total = total + LastDamage
 
@@ -130,8 +154,16 @@ Namespace Strikes
                 tmp = sim.MainStat.NormalisedOHDamage * Coeficient
             End If
             tmp += BaseDamage
-            tmp *= sim.MainStat.StandardPhysicalDamageMultiplier(T)
+            Select Case DamageSchool
+                Case DamageSchoolEnum.Physical
+                    tmp *= sim.MainStat.StandardPhysicalDamageMultiplier(T, target)
+                Case Else
+                    tmp *= sim.MainStat.StandardMagicalDamageMultiplier(T, target)
+            End Select
             tmp *= Multiplicator
+            If DiseaseBonus <> 0 Then
+                tmp = tmp * (1 + DiseaseBonus * target.NumDesease)
+            End If
             If OffHand Then
                 tmp = tmp * OffDamageBonus()
             End If
@@ -177,7 +209,20 @@ Namespace Strikes
             TotalCrit = 0
         End Sub
 
+        Public Overrides Sub Merge()
+            If sim.MainStat.DualW = False Then Exit Sub
+            total += OffHandStrike.total
+            TotalHit += OffHandStrike.TotalHit
+            TotalCrit += OffHandStrike.TotalCrit
 
+            MissCount = (MissCount + OffHandStrike.MissCount) / 2
+            HitCount = (HitCount + OffHandStrike.HitCount) / 2
+            CritCount = (CritCount + OffHandStrike.CritCount) / 2
+
+            OffHandStrike.total = 0
+            OffHandStrike.TotalHit = 0
+            OffHandStrike.TotalCrit = 0
+        End Sub
 
     End Class
 end Namespace

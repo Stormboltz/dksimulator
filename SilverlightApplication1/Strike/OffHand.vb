@@ -3,7 +3,8 @@ Friend Class OffHand
 	
 	Sub New(S As sim)
 		MyBase.New(s)
-		HasteSensible = true
+        HasteSensible = True
+        logLevel = LogLevelEnum.Detailled
 	End Sub
 	Friend NextWhiteOffHit As Long
 

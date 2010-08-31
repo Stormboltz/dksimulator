@@ -98,7 +98,7 @@ Public Class Sim
 
     Friend ScourgeStrike As ScourgeStrike
     Friend FesteringStrike As FesteringStrike
-    Friend ScourgeStrikeMagical As ScourgeStrikeMagical
+    Friend ScourgeStrikeMagical As ScourgeStrike.ScourgeStrikeMagical
     Friend MainHand As MainHand
     Friend OffHand As OffHand
 
@@ -111,7 +111,7 @@ Public Class Sim
     Friend BloodTap As BloodTap
     Friend Butchery As Butchery
     Friend DeathandDecay As DeathandDecay
-    Friend DeathChill As DeathChill
+
 
     'Friend Desolation As Desolation
     Friend Horn As Horn
@@ -173,8 +173,8 @@ Public Class Sim
 
     Friend ReportName As String
 
-    Friend XmlCharacter As New XDocument
-    Friend XmlConfig As New XDocument
+    Friend XmlCharacter As XDocument
+    Friend XmlConfig As XDocument
 
 
     Friend Scenario As Scenarios.Scenario
@@ -191,7 +191,12 @@ Public Class Sim
 
 
     Function EPStat() As String
-        Return _EPStat
+        If _EPStat <> "" Then
+            Return _EPStat
+        Else
+            Return ""
+        End If
+
     End Function
 
 
@@ -453,10 +458,18 @@ Public Class Sim
         End Select
         Return False
     End Function
-
+    
     Sub Start()
         SimStart = Now
-        isoStore = IsolatedStorageFile.GetUserStoreForApplication()
+        Try
+            isoStore = IsolatedStorageFile.GetUserStoreForApplication()
+        Catch ex As Exception
+            Diagnostics.Debug.WriteLine(ex.StackTrace)
+            RaiseEvent Sim_Closing(Me, EventArgs.Empty)
+            Return
+        End Try
+
+
         LoadConfig()
 
         Rnd(-1) 'Tell VB to initialize using Randomize's parameter
@@ -466,11 +479,11 @@ Public Class Sim
         TotalDamageAlternative = 0
         TimeStampCounter = 1
 
-        Dim intCount As Integer
+
         'Init
         Initialisation()
 
-        Dim resetTime As Integer
+
 
         TimeStamp = 1
         InitPresence()
@@ -518,10 +531,12 @@ Public Class Sim
         'Diagnostics.Debug.WriteLine("Max events in queue " & me.FutureEventManager.Max )
         CombatLog.finish()
         'On Error Resume Next
-        If Me.BloodPresence = 1 Then
-            SimConstructor.DPSs.Add(TPS, Me.EPStat)
-        Else
-            SimConstructor.DPSs.Add(DPS, Me.EPStat)
+        If Me.EPStat <> "" Then
+            If Me.BloodPresence = 1 Then
+                SimConstructor.DPSs.Add(TPS, Me.EPStat)
+            Else
+                SimConstructor.DPSs.Add(DPS, Me.EPStat)
+            End If
         End If
         'SimConstructor.simCollection.Remove(me)
         RaiseEvent Sim_Closing(Me, EventArgs.Empty)
@@ -635,7 +650,7 @@ Public Class Sim
         Ghoul.cd = 0
         AotD.cd = 0
         'Hysteria.CD = TimeStamp
-        DeathChill.Cd = 0
+
         'Desolation = New Desolation(me)
         MainHand.NextWhiteMainHit = TimeStamp
         FutureEventManager.Add(TimeStamp, "MainHand")
@@ -679,13 +694,8 @@ Public Class Sim
 
 
     Sub Initialisation()
-        'RandomNumberGenerator.Init 'done in Start
         'DamagingObject.Clear
         PetFriendly = XmlConfig.Element("config").Element("pet").Value
-
-        '_EpStat = SimConstructor.EpStat
-
-        'Buff = New Buff(Me)
 
         Dim targ As New Targets.Target(Me)
         Targets.CurrentTarget = targ
@@ -699,17 +709,15 @@ Public Class Sim
 
         BloodTap = New BloodTap(Me)
         HowlingBlast = New HowlingBlast(Me)
-        FesteringStrike = New FesteringStrike(Me)
+
 
         Ghoul = New Ghoul(Me)
         AotD = New AotD(Me)
         GhoulStat = New GhoulStat(Me)
-        'Hysteria = New Hysteria(Me)
-        DeathChill = New DeathChill(Me)
         PillarOfFrost = New PillarOfFrost(Me)
         Butchery = New Butchery(Me)
         DRW = New DRW(Me)
-        RuneStrike = New RuneStrike(Me)
+
         'LoadConfig
         'Desolation = New Desolation(me)
         RunicPower.Reset()
@@ -718,23 +726,44 @@ Public Class Sim
 
 
         ScourgeStrike = New ScourgeStrike(Me)
-        ScourgeStrikeMagical = New ScourgeStrikeMagical(Me)
+        ScourgeStrikeMagical = New ScourgeStrike.ScourgeStrikeMagical(Me)
+
+
+
+
+
+
+
+        FesteringStrike = New FesteringStrike(Me)
+        Dim OHFesteringStrike = New FesteringStrike(Me)
+        OHFesteringStrike.OffHand = True
+        FesteringStrike.OffHandStrike = OHFesteringStrike
 
         Obliterate = New Obliterate(Me)
-        PlagueStrike = New PlagueStrike(Me)
-        BloodStrike = New BloodStrike(Me)
-        FrostStrike = New FrostStrike(Me)
-
         OHObliterate = New Obliterate(Me)
         OHObliterate.OffHand = True
+        Obliterate.OffHandStrike = OHObliterate
+
+        PlagueStrike = New PlagueStrike(Me)
         OHPlagueStrike = New PlagueStrike(Me)
         OHPlagueStrike.OffHand = True
+        PlagueStrike.OffHandStrike = OHPlagueStrike
+
+        BloodStrike = New BloodStrike(Me)
         OHBloodStrike = New BloodStrike(Me)
         OHBloodStrike.OffHand = True
+        BloodStrike.OffHandStrike = OHBloodStrike
+
+        FrostStrike = New FrostStrike(Me)
         OHFrostStrike = New FrostStrike(Me)
         OHFrostStrike.OffHand = True
+        FrostStrike.OffHandStrike = OHFrostStrike
+
+        RuneStrike = New RuneStrike(Me)
         OHRuneStrike = New RuneStrike(Me)
         OHRuneStrike.OffHand = True
+        RuneStrike.OffHandStrike = OHRuneStrike
+
 
         BloodPresenceSwitch = New BloodPresence(Me)
         UnholyPresenceSwitch = New UnholyPresence(Me)
@@ -743,20 +772,28 @@ Public Class Sim
 
         MainHand = New MainHand(Me)
         OffHand = New OffHand(Me)
+
         DeathCoil = New DeathCoil(Me)
+
         IcyTouch = New IcyTouch(Me)
+
         Necrosis = New Necrosis(Me)
         OHNecrosis = New Necrosis(Me)
         OHNecrosis.OffHand = True
 
-
         Frenzy = New Frenzy(Me)
+
         BloodCakedBlade = New BloodCakedBlade(Me)
         OHBloodCakedBlade = New BloodCakedBlade(Me)
         OHBloodCakedBlade.OffHand = True
 
+
         DeathStrike = New DeathStrike(Me)
         OHDeathStrike = New DeathStrike(Me)
+        OHDeathStrike.OffHand = True
+        DeathStrike.OffHandStrike = OHDeathStrike
+
+
         BloodBoil = New BloodBoil(Me)
         HeartStrike = New HeartStrike(Me)
         DeathandDecay = New DeathandDecay(Me)
@@ -764,7 +801,6 @@ Public Class Sim
 
 
         Horn = New Horn(Me)
-        'Bloodlust= new Bloodlust(Me)
         Pestilence = New Pestilence(Me)
 
         proc.Init()
@@ -791,12 +827,12 @@ Public Class Sim
     End Sub
 
     Sub LoadConfig()
-
-
         Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/config.xml", FileMode.Open, FileAccess.Read, isoStore)
+            If IsNothing(XmlConfig) Then
+                XmlConfig = XDocument.Load(isoStream)
+                isoStream.Close()
+            End If
 
-            XmlConfig = XDocument.Load(isoStream)
-            isoStream.Close()
             Dim strCharacter As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/CharactersWithGear/" & XmlConfig.Element("config").Element("CharacterWithGear").Value, FileMode.Open, FileAccess.Read, isoStore)
             XmlCharacter = XDocument.Load(strCharacter)
             strCharacter.Close()
@@ -1066,7 +1102,7 @@ errH:
     End Sub
 
 
- 
+
 
     Sub StoreMyDamage(ByVal damage As Long)
         Dim tmp As Long

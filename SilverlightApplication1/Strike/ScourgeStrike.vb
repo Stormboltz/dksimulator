@@ -5,96 +5,62 @@ Friend Class ScourgeStrike
 	Private tmpMagical As integer
 	Private MagicHit As long
 	Private MagicCrit As long
-	Friend MagicTotal As Long
+    Friend MagicTotal As Long
+
+    Friend SSmagical As ScourgeStrikeMagical
 	
 	
 	Sub New(S As sim)
 		MyBase.New(s)
 		MagicCrit = 0
 		MagicHit = 0
-		MagicTotal = 0
+        MagicTotal = 0
+        logLevel = LogLevelEnum.Basic
+
+        BaseDamage = 561
+        If sim.Sigils.Awareness Then BaseDamage = BaseDamage + 189
+        If sim.Sigils.ArthriticBinding Then BaseDamage = BaseDamage + 91.35
+
+        Coeficient = 1
+        Multiplicator = 1
+        Multiplicator = Multiplicator * (1 + 10 * sim.Character.Talents.Talent("CorruptingStrikes").Value / 100)
+        If sim.MainStat.T102PDPS <> 0 Then Multiplicator = Multiplicator * 1.1
+
+
+        SpecialCritChance = sim.Character.Talents.Talent("ViciousStrikes").Value * 3 / 100 + sim.MainStat.T72PDPS * 5 / 100
+
+        _CritCoef = 1 + sim.Character.Talents.Talent("ViciousStrikes").Value * 15 / 100
+        _CritCoef = _CritCoef * (1 + 0.06 * sim.MainStat.CSD)
+
+        SSmagical = New ScourgeStrikeMagical(S)
+
 	End Sub
 	
 	public Overrides Function ApplyDamage(T As long) As boolean
-		Dim RNG As Double
-		'scourgestrike glyph
-		UseGCD(T)
-		
-		If DoMyStrikeHit = false Then
-			sim.combatlog.write(T  & vbtab &  "SS fail")
-			MissCount = MissCount + 1
-            Return False
-		End If
-		
-        sim.RunicPower.add(10 + sim.Character.Talents.Talent("Dirge").Value * 5 + 5 * sim.MainStat.T74PDPS)
-
-        tmpPhysical = 0
-        tmpMagical = 0
-        'Physical part
-        RNG = RngCrit
-        If RNG <= CritChance Then
-            CritCount = CritCount + 1
-            LastDamage = AvrgNonCrit(T) * (1 + CritCoef)
-            sim.combatlog.write(T & vbtab & "SS Physical crit for " & LastDamage)
-            totalcrit += LastDamage
-            sim.proc.tryProcs(Procs.ProcOnType.OnCrit)
-            sim.ScourgeStrikeMagical.ApplyDamage(LastDamage, T, True)
-        Else
-            HitCount = HitCount + 1
-            LastDamage = AvrgNonCrit(T)
-            totalhit += LastDamage
-            sim.combatlog.write(T & vbtab & "SS Physical hit for " & LastDamage)
+        UseGCD(T)
+        If MyBase.ApplyDamage(T) = False Then Return False
+        If OffHand = False Then
             sim.ScourgeStrikeMagical.ApplyDamage(LastDamage, T, False)
-        End If
+            UseGCD(T)
+            sim.RunicPower.add(15 + sim.Character.Talents.Talent("Dirge").Value * 5 + 5 * sim.MainStat.T74PDPS)
+            sim.Runes.UseUnholy(T, False)
 
-        total = total + LastDamage
-
-
-        If sim.character.glyph.ScourgeStrike Then
-            If sim.Targets.MainTarget.BloodPlague.ScourgeStrikeGlyphCounter < 3 Then
-                sim.Targets.MainTarget.BloodPlague.FadeAt = sim.Targets.MainTarget.BloodPlague.FadeAt + 3 * 100
-                sim.Targets.MainTarget.BloodPlague.ScourgeStrikeGlyphCounter = sim.Targets.MainTarget.BloodPlague.ScourgeStrikeGlyphCounter + 1
+            If sim.Character.Glyph.ScourgeStrike Then
+                If sim.Targets.MainTarget.BloodPlague.ScourgeStrikeGlyphCounter < 3 Then
+                    sim.Targets.MainTarget.BloodPlague.IncreaseDuration(300)
+                    sim.Targets.MainTarget.BloodPlague.ScourgeStrikeGlyphCounter += 1
+                End If
+                If sim.Targets.MainTarget.FrostFever.ScourgeStrikeGlyphCounter < 3 Then
+                    sim.Targets.MainTarget.FrostFever.IncreaseDuration(300)
+                    sim.Targets.MainTarget.FrostFever.ScourgeStrikeGlyphCounter += 1
+                End If
             End If
-            If sim.Targets.MainTarget.FrostFever.ScourgeStrikeGlyphCounter < 3 Then
-                sim.Targets.MainTarget.FrostFever.FadeAt = sim.Targets.MainTarget.FrostFever.FadeAt + 3 * 100
-                sim.Targets.MainTarget.FrostFever.ScourgeStrikeGlyphCounter = sim.Targets.MainTarget.FrostFever.ScourgeStrikeGlyphCounter + 1
-            End If
+            sim.proc.tryProcs(Procs.ProcOnType.OnFU)
+
         End If
-        sim.Runes.UseUnholy(T, False)
-
-        sim.proc.tryProcs(Procs.ProcOnType.OnFU)
-
-        sim.proc.tryProcs(Procs.ProcOnType.OnMHhit)
         Return True
     End Function
 
-    Overrides Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
-        tmpPhysical = sim.MainStat.NormalisedMHDamage
-        tmpPhysical = tmpPhysical * 1
-        tmpPhysical = tmpPhysical + 561
-        If sim.sigils.Awareness Then tmpPhysical = tmpPhysical + 189
-        If sim.sigils.ArthriticBinding Then tmpPhysical = tmpPhysical + 91.35
-        tmpPhysical = tmpPhysical * sim.MainStat.StandardPhysicalDamageMultiplier(T)
-        tmpPhysical = tmpPhysical * (1 + 6.6666666000000001 * sim.Character.Talents.Talent("CorruptingStrikes").Value / 100)
-        If sim.MainStat.T102PDPS <> 0 Then tmpPhysical = tmpPhysical * 1.1
-        Return tmpPhysical
-    End Function
-
-    Public Overrides Function CritCoef() As Double
-        If _CritCoef <> -1 Then Return _CritCoef
-        _CritCoef = 1 + sim.Character.Talents.Talent("ViciousStrikes").Value * 15 / 100
-        _CritCoef = _CritCoef * (1 + 0.06 * sim.MainStat.CSD)
-        Return _CritCoef
-    End Function
-
-
-
-    Public Overrides Function CritChance() As Double
-        Dim tmp As Double
-        tmp = sim.MainStat.crit + sim.Character.Talents.Talent("ViciousStrikes").Value * 3 / 100 + sim.MainStat.T72PDPS * 5 / 100
-        Return tmp
-    End Function
-	
 
 	Public Overrides sub Merge()
 		Total += sim.ScourgeStrikeMagical.Total
@@ -112,5 +78,33 @@ Friend Class ScourgeStrike
 	
 	
 	
-	
+    Public Class ScourgeStrikeMagical
+        Inherits Spells.Spell
+
+        Friend tmpPhysical As Integer
+        Sub New(ByVal S As Sim)
+            MyBase.New(S)
+            logLevel = LogLevelEnum.Basic
+        End Sub
+
+        Shadows Function ApplyDamage(ByVal PhysicalDamage As Integer, ByVal T As Long, ByVal IsCrit As Boolean) As Boolean
+            Dim tmp As Integer
+            tmpPhysical = PhysicalDamage
+            tmp = AvrgNonCrit(T)
+            HitCount += 1
+            TotalHit += tmp
+            total += tmp
+            Return True
+        End Function
+
+
+        Public Overrides Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
+            Dim tmpMagical As Integer
+            tmpMagical = tmpPhysical * (0.12 * target.NumDesease)
+            If sim.MainStat.T84PDPS = 1 Then tmpMagical = tmpMagical * 1.2
+            tmpMagical *= sim.MainStat.StandardMagicalDamageMultiplier(T, target)
+            If sim.RuneForge.CheckCinderglacier(True) > 0 Then tmpMagical *= 1.2
+            Return tmpMagical
+        End Function
+    End Class
 End Class

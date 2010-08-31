@@ -17,57 +17,31 @@ Friend Class HeartStrike
         If sim.MainStat.T102PDPS <> 0 Then Multiplicator = Multiplicator * 1.07
 
         If sim.MainStat.T92PTNK = 1 Then Multiplicator = Multiplicator * 1.05
-
+        logLevel = LogLevelEnum.Basic
 	End Sub
     Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
-        Dim RNG As Double
+
+        If MyBase.ApplyDamage(T) = False Then Return False
+
         UseGCD(T)
-        If DoMyStrikeHit() = False Then
-            sim.CombatLog.write(T & vbTab & "HS fail")
-            MissCount = MissCount + 1
-            Return False
-        End If
-        sim.RunicPower.add(10)
-        Dim intCount As Integer = 0
-        Dim Tar As Targets.Target
-        For Each Tar In sim.Targets.AllTargets
-            RNG = RngCrit
-            If Tar.Equals(sim.Targets.MainTarget) Then
-                If RNG <= CritChance() Then
-                    CritCount = CritCount + 1
-                    LastDamage = AvrgCrit(T, Tar)
-                    TotalCrit += LastDamage
-                    sim.CombatLog.write(T & vbTab & "HS crit for " & LastDamage)
-                Else
-                    HitCount = HitCount + 1
-                    LastDamage = AvrgNonCrit(T)
-                    TotalHit += LastDamage
-                    sim.CombatLog.write(T & vbTab & "HS hit for " & LastDamage)
-                End If
-            ElseIf intCount = 0 Then
-                intCount = 1
-                If RNG <= CritChance() Then
-                    CritCount = CritCount + 1
-                    LastDamage = AvrgCrit(T, Tar) / 2
-                    TotalCrit += LastDamage
-                    sim.CombatLog.write(T & vbTab & "HS crit for " & LastDamage)
-                Else
-                    HitCount = HitCount + 1
-                    LastDamage = AvrgNonCrit(T) / 2
-                    TotalHit += LastDamage
-                    sim.CombatLog.write(T & vbTab & "HS hit for " & LastDamage)
-                End If
-            End If
-            total = total + LastDamage
-            sim.proc.tryProcs(Procs.ProcOnType.OnBloodStrike)
-            sim.proc.tryProcs(Procs.ProcOnType.OnMHhit)
-        Next
+        sim.RunicPower.add(15)
         sim.Runes.UseBlood(T, False)
+        sim.proc.tryProcs(Procs.ProcOnType.OnBloodStrike)
+        Dim tmp As Double = Multiplicator
+        For Each Tar As Targets.Target In sim.Targets.AllTargets
+            Dim i As Integer = 0
+            If Tar.Equals(sim.Targets.CurrentTarget) = False Then
+                i += 1
+                Multiplicator = Math.Max(tmp * (1 - (0.25 * i)), 0)
+                MyBase.ApplyDamage(T)
+            End If
+            If Multiplicator <= 0 Then Exit For
+        Next
+        Multiplicator = tmp
 
         If sim.DRW.IsActive(T) Then
             sim.DRW.DRWHeartStrike()
         End If
-
 
         Return True
     End Function

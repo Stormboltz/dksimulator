@@ -2,7 +2,8 @@ Friend Class UnholyBlight
 	inherits Spells.Spell
 	
 	Sub New(S As sim)
-		MyBase.New(s)
+        MyBase.New(S)
+        logLevel = LogLevelEnum.Detailled
 	End Sub
 	
 	

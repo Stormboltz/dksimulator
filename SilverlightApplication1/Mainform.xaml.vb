@@ -39,6 +39,7 @@ Partial Public Class MainForm
     Public Sub New()
         InitializeComponent()
 
+
         'For some bizarre reason we need to tell the BackgoundWorker that we will be
         'reporting progress!
 
@@ -234,7 +235,7 @@ Partial Public Class MainForm
 
             isoStore.CreateDirectory("KahoDKSim/CharactersWithGear")
             CopyFileFromXAPtoISF("CharactersWithGear/Empty.xml")
-
+            CopyFileFromXAPtoISF("CharactersWithGear/Kahorie.xml")
 
             isoStore.CreateDirectory("KahoDKSim/CombatLog")
             CopyFileFromXAPtoISF("CombatLog/DoNotDelete.txt")
@@ -530,22 +531,24 @@ sortie:
         'On Error GoTo OUT
 
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/Scalingconfig.xml", FileMode.Open, isoStore)
-                Dim doc As XDocument = XDocument.Load(isoStream)
-                Dim chkBox As CheckBox
+            If isoStore.FileExists("KahoDKSim/Scalingconfig.xml") Then
+                Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/Scalingconfig.xml", FileMode.Open, isoStore)
+                    Dim doc As XDocument = XDocument.Load(isoStream)
+                    Dim chkBox As CheckBox
 
 
-                For Each stk In gbScaling.Children
-                    If TypeOf (stk) Is StackPanel Then
-                        For Each ctrl As Control In CType(stk, StackPanel).Children
-                            If ctrl.Name.StartsWith("chk") Then
-                                chkBox = ctrl
-                                chkBox.IsChecked = doc.<config>.<Stats>.Elements(chkBox.Name).Value
-                            End If
-                        Next
-                    End If
-                Next
-            End Using
+                    For Each stk In gbScaling.Children
+                        If TypeOf (stk) Is StackPanel Then
+                            For Each ctrl As Control In CType(stk, StackPanel).Children
+                                If ctrl.Name.StartsWith("chk") Then
+                                    chkBox = ctrl
+                                    chkBox.IsChecked = doc.<config>.<Stats>.Elements(chkBox.Name).Value
+                                End If
+                            Next
+                        End If
+                    Next
+                End Using
+            End If
         End Using
 
 
@@ -583,13 +586,15 @@ OUT:
         FlaskDB = XDocument.Load("GearSelector/Flask.xml")
         ConsumableDB = XDocument.Load("GearSelector/Consumables.xml")
     End Sub
-    Sub CopyFileFromXAPtoISF(ByVal XAPPAth As String)
+    Sub CopyFileFromXAPtoISF(ByVal XAPPAth As String, Optional ByVal overWrite As Boolean = False)
         Try
 
 
             Dim sr As StreamResourceInfo = Application.GetResourceStream(New Uri(XAPPAth, UriKind.Relative))
             Using fileStream As IO.Stream = sr.Stream
                 Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+                    If isoStore.FileExists("KahoDKSim/" & XAPPAth) And overWrite = False Then Return
+
                     Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/" & XAPPAth, FileMode.Create, FileAccess.Write, isoStore)
                         Do
                             Dim buffer(100000) As Byte
@@ -634,10 +639,6 @@ OUT:
         Dim s As Sim
         Dim i As Double
         Try
-
-
-            'RefreshRequest += 1
-            'On Error Resume Next
             If SimConstructor.simCollection.Count = 0 Then
                 ProgressBar1.Value = 0
                 Exit Sub
@@ -645,11 +646,12 @@ OUT:
             i = 0
             For Each s In SimConstructor.simCollection
                 If s.MaxTime <> 0 Then
-                    i += (s.TimeStamp / s.MaxTime) / SimConstructor.simCollection.Count
+                    i += (s.TimeStamp / s.MaxTime) / SimConstructor.SimCount
                 Else
                     i += 0
                 End If
             Next
+            i += SimConstructor.SimDone / SimConstructor.SimCount
             i = i * 100
             ProgressBar1.Value = i
         Catch ex As Exception
@@ -815,7 +817,7 @@ OUT:
     Private Sub cmdStartSim_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdStartSim.Click
         If LoadBeforeSim() = False Then Exit Sub
         If SimConstructor.simCollection.Count > 0 Then Return
-        EpStat = ""
+        SimConstructor.EpStat = ""
         SimConstructor.Start(txtSimtime.Text, Me, True)
     End Sub
 

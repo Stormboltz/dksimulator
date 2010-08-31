@@ -159,7 +159,7 @@ Friend Class Procs
         DRM = New Proc(s)
         With DRM
             ._Name = "DeathRuneMastery"
-            .ProcChance = Sim.Character.Talents.Talent("DRM").Value * 0.33
+            .ProcChance = Sim.Character.Talents.Talent("DRM").Value
             If .ProcChance > 0 Then
                 If .ProcChance > 0.85 Then .ProcChance = 1.0
                 .Equip()

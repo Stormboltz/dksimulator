@@ -10,7 +10,8 @@ Public Class Horn
 	Inherits Spells.Spell
 	
 	Sub New(S As sim)
-		MyBase.New(s)
+        MyBase.New(S)
+        logLevel = LogLevelEnum.Basic
 	End Sub
 	
 	

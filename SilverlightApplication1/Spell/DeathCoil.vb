@@ -13,6 +13,9 @@ Friend class DeathCoil
             Multiplicator = Multiplicator * (1.15)
         End If
         SpecialCritChance = 8 * sim.MainStat.T82PDPS / 100
+
+        logLevel = LogLevelEnum.Basic
+
     End Sub
 
 	

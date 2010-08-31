@@ -6,7 +6,8 @@ Friend Class WanderingPlague
 	
 	Sub New(S As sim)
 		MyBase.New(s)
-		nextTick = 0
+        nextTick = 0
+        logLevel = LogLevelEnum.detailed
 	End Sub
 	Function isAvailable(T As long) As Boolean
 		'internal CD of 1s

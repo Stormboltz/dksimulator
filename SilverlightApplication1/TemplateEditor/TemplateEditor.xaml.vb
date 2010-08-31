@@ -119,67 +119,62 @@ NextUnholy:
     End Sub
 
     Sub DisplayTemplateInEditor(ByVal path As String)
-        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-            Dim i As Integer
-            FilePath = path
-            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/templates/" & path, FileMode.Open, isoStore)
-                Dim xmlDoc As XDocument = XDocument.Load(isoStream)
+        Dim isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+        Dim i As Integer
+        FilePath = path
+        Dim isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/templates/" & path, FileMode.Open, isoStore)
+        Dim xmlDoc As XDocument = XDocument.Load(isoStream)
 
-                For Each BT As TemplateButton In btList
-                    Try
-                        BT.SetVal(xmlDoc.<Talents>.Elements(BT.Name).Value)
-                    Catch
-                    End Try
+        For Each BT As TemplateButton In btList
+            Try
+                BT.SetVal(xmlDoc.<Talents>.Elements(BT.Name).Value)
+            Catch
+            End Try
 
-                Next
-                For Each XNode As XElement In xmlDoc.<Talents>.Elements("Glyphs").Elements
-                    If XNode.Value = 1 Then
-                        Select Case i
-                            Case 0
-                                cmbGlyph1.SelectedItem = XNode.Name
-                            Case 1
-                                cmbGlyph2.SelectedItem = XNode.Name
-                            Case 2
-                                cmbGlyph3.SelectedItem = XNode.Name
-                        End Select
-                        i = i + 1
-                    End If
-                Next
-            End Using
-        End Using
-
-
-
-
-
+        Next
+        For Each XNode As XElement In xmlDoc.<Talents>.Elements("Glyphs").Elements
+            If XNode.Value = 1 Then
+                Select Case i
+                    Case 0
+                        cmbGlyph1.SelectedItem = XNode.Name
+                    Case 1
+                        cmbGlyph2.SelectedItem = XNode.Name
+                    Case 2
+                        cmbGlyph3.SelectedItem = XNode.Name
+                End Select
+                i = i + 1
+            End If
+        Next
+        isoStream.Close()
+        isoStore.Dispose()
     End Sub
     Sub SaveTemplate(ByVal path As String)
         If path = "" Then path = Me.FilePath
-        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/templates/" & path, FileMode.Create, isoStore)
-                Dim doc As XDocument = XDocument.Parse("<Talents><Glyphs/></Talents>")
+        Dim isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+        Dim isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/templates/" & path, FileMode.Create, isoStore)
+        Dim doc As XDocument = XDocument.Parse("<Talents><Glyphs/></Talents>")
 
-                For Each ctr As UIElement In Me.tbTpl.Children
-                    If TypeOf ctr Is TemplateButton Then
-                        Dim tb As TemplateButton = ctr
-                        Dim xEl As XElement = XElement.Parse("<" & tb.Name & "/>")
-                        xEl.SetValue(tb.Value)
-                        doc.Element("Talents").Add(xEl)
-                    End If
-                Next
-                Dim xGlyph As XDocument = XDocument.Load("config/template.xml")
-                For Each x As XElement In xGlyph.Element("Talents").Element("Glyphs").Elements
-                    Dim xEl As XElement = XElement.Parse("<" & x.Name.ToString & "/>")
-                    If x.Name = cmbGlyph1.SelectedValue Or x.Name = cmbGlyph2.SelectedValue Or x.Name = cmbGlyph3.SelectedValue Then
-                        xEl.SetValue(1)
-                    Else
-                        xEl.SetValue(0)
-                    End If
-                    doc.Element("Talents").Element("Glyphs").Add(xEl)
-                Next
-                doc.Save(isoStream)
-            End Using
-        End Using
+        For Each ctr As UIElement In Me.tbTpl.Children
+            If TypeOf ctr Is TemplateButton Then
+                Dim tb As TemplateButton = ctr
+                Dim xEl As XElement = XElement.Parse("<" & tb.Name & "/>")
+                xEl.SetValue(tb.Value)
+                doc.Element("Talents").Add(xEl)
+            End If
+        Next
+        Dim xGlyph As XDocument = XDocument.Load("config/template.xml")
+        For Each x As XElement In xGlyph.Element("Talents").Element("Glyphs").Elements
+            Dim xEl As XElement = XElement.Parse("<" & x.Name.ToString & "/>")
+            If x.Name = cmbGlyph1.SelectedValue Or x.Name = cmbGlyph2.SelectedValue Or x.Name = cmbGlyph3.SelectedValue Then
+                xEl.SetValue(1)
+            Else
+                xEl.SetValue(0)
+            End If
+            doc.Element("Talents").Element("Glyphs").Add(xEl)
+        Next
+        doc.Save(isoStream)
+        isoStream.Close()
+        isoStore.Dispose()
     End Sub
 
     Private Sub cmdPreview_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdPreview.Click
@@ -190,9 +185,9 @@ NextUnholy:
         Dim txtEditor As New TextEditor
         txtEditor.OpenFileFromISO(tmpPath)
         txtEditor.Show()
-        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-            isoStore.DeleteFile(tmpPath)
-        End Using
+        Dim isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+        isoStore.DeleteFile(tmpPath)
+        isoStore.Dispose()
         FilePath = oldPath
 
     End Sub

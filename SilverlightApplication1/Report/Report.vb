@@ -32,9 +32,6 @@ Public Class Report
                     Catch ex As Exception
                         Diagnostics.Debug.WriteLine(AdditionalInfo.InnerText)
                     End Try
-
-                    
-
                 Next
 
                 doc.Save(isoStream)

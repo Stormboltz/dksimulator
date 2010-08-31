@@ -44,16 +44,10 @@ Friend Class Character
         Buff = New Buff(S)
         XmlConfig = sim.XmlConfig
         Try
-            Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-                Dim path As String
-                path = XmlConfig.Element("config").Element("CharacterWithGear").Value
-                XmlDoc = S.XmlCharacter
-                loadtemplate("Templates/" & XmlConfig.Element("config").Element("template").Value)
-            End Using
-
-
-
-
+            Dim path As String
+            path = XmlConfig.Element("config").Element("CharacterWithGear").Value
+            XmlDoc = S.XmlCharacter
+            loadtemplate("Templates/" & XmlConfig.Element("config").Element("template").Value)
         Catch
 
             msgBox("Error finding Character config file")

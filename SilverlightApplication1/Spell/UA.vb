@@ -12,7 +12,8 @@ Friend Class PillarOfFrost
 
 
     Sub New(ByVal S As sim)
-        MyBase.New(s)
+        MyBase.New(S)
+        logLevel = LogLevelEnum.Basic
     End Sub
 
 
@@ -44,7 +45,7 @@ Friend Class PillarOfFrost
         ActiveUntil = T + 20 * 100
 
         sim._UseGCD(T, 1)
-        sim.RunicPower.add(10)
+        sim.RunicPower.add(15)
         sim.CombatLog.write(T & vbTab & "Pillar of Frost")
         Me.HitCount = Me.HitCount + 1
         AddUptime(T)

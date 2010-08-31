@@ -62,7 +62,11 @@ NameSpace Diseases
 			End If
 			return _Lenght
 		End Function
-		
+
+        Sub IncreaseDuration(ByVal T As Long)
+            FadeAt += T
+            uptime += T
+        End Sub
 		
 		
 		Overridable Function PerfectUsage(T As Long) As Boolean 'Unused

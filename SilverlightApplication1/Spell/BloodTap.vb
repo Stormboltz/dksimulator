@@ -10,7 +10,8 @@ Friend Class BloodTap
 	Inherits Spells.Spell
 	
 	Sub New(s As Sim)
-		MyBase.New(s)
+        MyBase.New(s)
+        logLevel = LogLevelEnum.Basic
 	End Sub
 	Function IsAvailable(T As Long) As Boolean
 
@@ -100,7 +101,7 @@ Friend Class BloodTap
 				
 		
 		Out:
-		sim.RunicPower.add(10)
+        sim.RunicPower.add(0)
 		sim.combatlog.write(T  & vbtab &  "Blood Tap")
 		
 		Me.HitCount = Me.HitCount + 1
@@ -119,7 +120,7 @@ Friend Class BloodTap
 			sim.Runes.BloodRune2.death = True
 			'sim.Runes.BloodRune2.BTuntil = T + 2000
 		End If
-		sim.RunicPower.add(10)
+        sim.RunicPower.add(0)
 		sim.combatlog.write(T  & vbtab &  "Blood Tap with Cancel Aura")
 		Me.HitCount = Me.HitCount + 1
 		sim._UseGCD(T, 1)

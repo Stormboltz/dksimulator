@@ -31,7 +31,8 @@ Public Module SimConstructor
     Public WithEvents _MainFrm As MainForm
     Public Event AllSimdone()
 
-
+    Friend SimCount As Integer
+    Friend SimDone As Integer
 
     Sub New()
 
@@ -39,6 +40,7 @@ Public Module SimConstructor
     Sub OnSim_Closing(ByVal sender As Object, ByVal e As EventArgs)
 
         If TypeOf sender Is Sim Then
+            SimDone += 1
             Dim s As Sim
             s = sender
             simCollection.Remove(sender)
@@ -46,8 +48,6 @@ Public Module SimConstructor
             PauseResumeThread()
             If simCollection.Count = 0 Then
                 RaiseEvent AllSimdone()
-
-
             Else
                 Diagnostics.Debug.WriteLine("SIM remaining: " & simCollection.Count)
             End If
@@ -59,6 +59,7 @@ Public Module SimConstructor
 
     Sub SingleSim_Done()
         RemoveHandler AllSimdone, AddressOf SingleSim_Done
+        SimDone += 1
         _MainFrm.TryToOpenReport()
     End Sub
 
@@ -77,19 +78,23 @@ Public Module SimConstructor
     End Sub
 
 
-    Sub Start(ByVal SimTime As Double, ByVal MainFrm As MainForm, Optional ByVal StartNow As Boolean = False, Optional ByVal epStat As String = "")
+    Sub Start(ByVal SimTime As Double, ByVal MainFrm As MainForm, Optional ByVal StartNow As Boolean = False, Optional ByVal myEPStat As String = "")
         Dim sim As Sim
         Dim newthread As System.Threading.Thread
         sim = New Sim
         _MainFrm = MainFrm
-        StartNow = True
+        'StartNow = True
 
-        If epStat <> "" Then
-            sim.Prepare(SimTime, MainFrm, epStat, EPBase)
+        If EpStat <> "" Then
+            SimCount += 1
+            sim.Prepare(SimTime, MainFrm, myEPStat, EPBase)
         Else
+            SimCount = 1
             AddHandler AllSimdone, AddressOf SingleSim_Done
             sim.Prepare(SimTime, MainFrm)
         End If
+
+
 
         newthread = New Thread(AddressOf sim.Start)
         'newthread.IsBackground = True
@@ -104,7 +109,8 @@ Public Module SimConstructor
         End If
         If StartNow Then
             newthread.Start()
-
+        Else
+            PauseResumeThread()
             'simCollection.Clear()
         End If
         ThreadCollection.Add(newthread)
@@ -147,23 +153,33 @@ Public Module SimConstructor
             Dim xdoc As XDocument = XDocument.Load(isoStream)
 
             EpStat = "Original Spec"
-            c.Add(EpStat, DPSs(EpStat))
+            Dim l As Long
+            l = DPSs(EpStat)
+            'c.Add(EpStat, l)
             'EpStat = "EP TALENT AP EQ"
             'SimConstructor.Start(SimTime, MainFrm)
+            Dim i As Integer
 
             For Each el As XElement In (From e As XElement In xdoc.<Talents>.Elements
                                         Where e.Value <> 0 And e.Name.ToString <> "Glyphs")
+                i = el.Value
                 EpStat = "EP TALENT " & el.Name.ToString
-                c.Add(EpStat, DPSs(EpStat))
+                Dim r As Long = DPSs(EpStat)
+                Try
+                    c.Add(EpStat, (l - r) / i)
+                Catch ex As Exception
+                    Stop
+                End Try
             Next
+
+
+            For Each itm In (From e In c Order By e.Value Descending)
+                rp.AddAdditionalInfo(itm.Key, " = " & itm.Value)
+            Next
+
 
         End Using
 
-
-
-        For Each itm In (From e In c Order By e.Value Descending)
-            rp.AddAdditionalInfo(itm.Key, " = " & itm.Value)
-        Next
         Dim dif As Decimal = ((Now.Ticks - StartTime.Ticks) / 10000000)
         rp.AddAdditionalInfo("Generated in ", Decimal.Round(dif, 2).ToString & " s")
         rp.Save("")
@@ -171,8 +187,6 @@ Public Module SimConstructor
         _MainFrm.TryToOpenTextReport()
 
     End Sub
-
-
     Sub CalculateEP()
         Try
             RemoveHandler AllSimdone, AddressOf CalculateEP
@@ -360,7 +374,7 @@ Public Module SimConstructor
         End Try
         Try
 
-        
+
             EpStat = ""
             EpStat = "EP 0T7"
             BaseDPS = DPSs(EpStat)
@@ -587,9 +601,11 @@ skipStats:
 
 
     End Sub
-    
+
 
     Sub StartEP(ByVal SimTime As Double, ByVal MainFrm As MainForm)
+        SimCount = 0
+        SimDone = 0
         AddHandler AllSimdone, AddressOf CalculateEP
         StartTime = Now
 
@@ -618,84 +634,84 @@ skipStats:
 
                 'Dry run
                 EpStat = "EP DryRun"
-                SimConstructor.Start(SimTime, MainFrm)
+                SimConstructor.Start(SimTime, MainFrm, False, EpStat)
 
 
                 EpStat = "EP AttackPower"
-                SimConstructor.Start(SimTime, MainFrm)
+                SimConstructor.Start(SimTime, MainFrm, False, EpStat)
 
                 If doc.Element("config").Element("Stats").Element("chkEPStr").Value = "true" Then
                     EpStat = "EP Strength"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                 End If
                 If doc.Element("config").Element("Stats").Element("chkEPAgility").Value = "true" Then
                     EpStat = "EP Agility"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                 End If
                 If doc.Element("config").Element("Stats").Element("chkEPCrit").Value = "true" Then
                     EpStat = "EP CritRating"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                 End If
                 If doc.Element("config").Element("Stats").Element("chkEPHaste").Value = "true" Then
                     EpStat = "EP HasteRating1"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                     EpStat = "EP HasteEstimated"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                 End If
                 If doc.Element("config").Element("Stats").Element("chkEPArP").Value = "true" Then
                     EpStat = "EP ArmorPenetrationRating"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                 End If
 
 
                 If doc.Element("config").Element("Stats").Element("chkEPExp").Value = "true" Then
                     EpStat = "EP ExpertiseRating"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                     EpStat = "EP ExpertiseRatingCap"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                     EpStat = "EP ExpertiseRatingCapAP"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
 
                     EpStat = "EP RelativeExpertiseRating"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
 
 
                     If MainFrm.cmdPresence.SelectedItem = "Frost" Then
                         EpStat = "EP ExpertiseRatingAfterCap"
-                        SimConstructor.Start(SimTime, MainFrm)
+                        SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                     End If
                 End If
 
                 If doc.Element("config").Element("Stats").Element("chkEPHit").Value = "true" Then
                     EpStat = "EP HitRating"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                     EpStat = "EP HitRatingCap"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                     EpStat = "EP HitRatingCapAP"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                 End If
                 If doc.Element("config").Element("Stats").Element("chkEPSpHit").Value = "true" Then
                     EpStat = "EP SpellHitRating"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                 End If
                 If doc.Element("config").Element("Stats").Element("chkEPSMHDPS").Value = "true" Then
                     EpStat = "EP WeaponDPS"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                 End If
                 If doc.Element("config").Element("Stats").Element("chkEPSMHSpeed").Value = "true" Then
                     EpStat = "EP WeaponSpeed"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                 End If
                 Dim tmpInt As Integer
                 tmpInt = EPBase
                 EPBase = 20
                 If doc.Element("config").Element("Stats").Element("chkEPAfterSpellHitRating").Value = "true" Then
                     EpStat = "EP AfterSpellHitBase"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                     EpStat = "EP AfterSpellHitBaseAP"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                     EpStat = "EP AfterSpellHitRating"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                 End If
                 EPBase = tmpInt
                 'Jointhread()
@@ -708,46 +724,46 @@ skipStats:
                 End If
 
                 EpStat = "EP 0T7"
-                SimConstructor.Start(SimTime, MainFrm)
+                SimConstructor.Start(SimTime, MainFrm, False, EpStat)
 
                 EpStat = "EP AttackPower0T7"
-                SimConstructor.Start(SimTime, MainFrm)
+                SimConstructor.Start(SimTime, MainFrm, False, EpStat)
 
                 If doc.Element("config").Element("Sets").Element("chkEP2T7").Value = "true" Then
                     EpStat = "EP 2T7"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                 End If
                 If doc.Element("config").Element("Sets").Element("chkEP4PT7").Value = "true" Then
                     EpStat = "EP 4T7"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                 End If
                 If doc.Element("config").Element("Sets").Element("chkEP2PT8").Value = "true" Then
                     EpStat = "EP 2T8"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                 End If
                 If doc.Element("config").Element("Sets").Element("chkEP4PT8").Value = "true" Then
                     EpStat = "EP 4T8"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                 End If
                 If doc.Element("config").Element("Sets").Element("chkEP2PT9").Value = "true" Then
                     EpStat = "EP 2T9"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                 End If
                 If doc.Element("config").Element("Sets").Element("chkEP4PT9").Value = "true" Then
                     EpStat = "EP 4T9"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                 End If
                 If doc.Element("config").Element("Sets").Element("chkEP2PT10").Value = "true" Then
                     EpStat = "EP 2T10"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                 End If
                 If doc.Element("config").Element("Sets").Element("chkEP4PT10").Value = "true" Then
                     EpStat = "EP 4T10"
-                    SimConstructor.Start(SimTime, MainFrm)
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                 End If
 skipSets:
                 GoTo skipTrinket
-               
+
 skipTrinket:
                 EpStat = ""
             End Using
@@ -833,7 +849,8 @@ skipTrinket:
 
     End Sub
     Sub StartSpecDpsValue(ByVal SimTime As Double, ByVal MainFrm As MainForm)
-
+        SimCount = 0
+        SimDone = 0
         AddHandler AllSimdone, AddressOf CalculateTalentValue
         StartTime = Now
 
@@ -847,7 +864,7 @@ skipTrinket:
             Dim xdoc As XDocument = XDocument.Load(isoStream)
 
             EpStat = "Original Spec"
-            SimConstructor.Start(SimTime, MainFrm)
+            SimConstructor.Start(SimTime, MainFrm, False, EpStat)
             'EpStat = "EP TALENT AP EQ"
             'SimConstructor.Start(SimTime, MainFrm)
 

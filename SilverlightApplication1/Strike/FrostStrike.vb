@@ -20,7 +20,8 @@ Friend Class FrostStrike
         End If
 
         SpecialCritChance = 8 / 100 * sim.MainStat.T82PDPS
-
+        DamageSchool = DamageSchoolEnum.Frost
+        logLevel = LogLevelEnum.Basic
 	End Sub
 	
 	public Overrides Function isAvailable(T As long) As Boolean
@@ -32,47 +33,31 @@ Friend Class FrostStrike
 	End Function
     Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
         Dim ret As Boolean = MyBase.ApplyDamage(T)
-
+        sim.proc.KillingMachine.Use()
+        If ret = False Then
+            Return False
+        End If
         If OffHand = False Then
             UseGCD(T)
-            If sim.proc.ThreatOfThassarian.TryMe(T) Then sim.OHFrostStrike.ApplyDamage(T)
-        End If
-
-        If ret Then
+            sim.RunicPower.add(25 + 5 * sim.Character.Talents.Talent("Dirge").Value)
+            sim.RunicPower.add(5 * sim.MainStat.T74PDPS)
             If sim.Character.Glyph.FrostStrike Then
                 sim.RunicPower.Use(32)
             Else
                 sim.RunicPower.Use(40)
             End If
-        Else
-            Return False
-        End If
-
-
-        If OffHand = False Then
-            sim.proc.KillingMachine.Use()
             sim.proc.tryProcs(Procs.ProcOnType.onRPDump)
         End If
         Return True
-    End Function
-    Public Shadows Function AvrgNonCrit(ByVal T As Long, Optional ByVal target As Targets.Target = Nothing) As Double
-        If target Is Nothing Then target = sim.Targets.MainTarget
-        Dim tmp As Double
-        If offhand = False Then
-            tmp = sim.MainStat.NormalisedMHDamage * Coeficient
-        Else
-            tmp = sim.MainStat.NormalisedOHDamage * Coeficient
 
-        End If
-        tmp = tmp + BaseDamage
-        tmp = tmp * Multiplicator
+    End Function
+    Public Overrides Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
+        If target Is Nothing Then target = sim.Targets.MainTarget
+        Dim tmp As Double = MyBase.AvrgNonCrit(T, target)
+
         If sim.ExecuteRange Then tmp = tmp * (1 + 0.06 * sim.Character.Talents.Talent("MercilessCombat").Value)
-        tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
         tmp *= sim.RuneForge.RazorIceMultiplier(T)
         If sim.RuneForge.CheckCinderglacier(OffHand) > 0 Then tmp *= 1.2
-        If offhand Then
-            tmp = tmp * OffDamageBonus()
-        End If
         Return tmp
     End Function
     Public Overrides Function CritChance() As Double
@@ -82,18 +67,5 @@ Friend Class FrostStrike
             Return MyBase.CritChance
         End If
     End Function
-    Public Overrides Sub Merge()
-        If sim.MainStat.DualW = False Then Exit Sub
-        total += sim.OHFrostStrike.total
-        TotalHit += sim.OHFrostStrike.TotalHit
-        TotalCrit += sim.OHFrostStrike.TotalCrit
-
-        MissCount = (MissCount + sim.OHFrostStrike.MissCount) / 2
-        HitCount = (HitCount + sim.OHFrostStrike.HitCount) / 2
-        CritCount = (CritCount + sim.OHFrostStrike.CritCount) / 2
-
-        sim.OHFrostStrike.total = 0
-        sim.OHFrostStrike.TotalHit = 0
-        sim.OHFrostStrike.TotalCrit = 0
-    End Sub
+   
 End Class

@@ -23,7 +23,9 @@ Friend Class DRW
 	Friend HeartStrike As Strikes.Strike
 	Friend DeathStrike As Strikes.Strike
 	Friend DeathCoil As Spells.Spell
-	Friend IcyTouch as Spells.Spell
+    Friend IcyTouch As Spells.Spell
+
+    Friend RuneStrike As Strikes.Strike
 	
 	
 	Sub New(S As Sim)
@@ -54,14 +56,17 @@ Friend Class DRW
 		
 		DeathStrike = New Strikes.Strike(sim)
 		DeathStrike._Name = "DRW: Death Strike"
-		
+
+        RuneStrike = New Strikes.Strike(sim)
+        RuneStrike._Name = "DRW: Rune Strike"
+
 		DeathCoil = New Spells.Spell(sim)
 		DeathCoil._Name = "DRW: Death Coil"
 		
 		IcyTouch = New Spells.Spell(sim)
 		IcyTouch._Name = "DRW: Icy Touch"
 		
-		
+        logLevel = LogLevelEnum.Detailled
 	End Sub
 	
 	Function IsActive(T as Long) As Boolean
@@ -387,7 +392,7 @@ Friend Class DRW
 		'damage = damage /2
 		If RNG < crit Then
 			damage = damage* 2
-			DeathCoil.TotalCrit += damage
+            PlaqueStrike.TotalCrit += damage
 			PlaqueStrike.CritCount = PlaqueStrike.CritCount +1
 			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Plague Strike crit for " & damage)
 		Else
@@ -396,7 +401,34 @@ Friend Class DRW
 			if sim.combatlog.LogDetails then sim.combatlog.write(sim.TimeStamp  & vbtab &  "DRW Plague Strike hit for " & damage)
 		End If
 		PlaqueStrike.total= PlaqueStrike.total+damage
-	End Sub
+    End Sub
+
+    Sub DRWRuneStrike()
+        Dim RNG As Double
+        Dim damage As Integer
+
+        RNG = RuneStrike.RngHit
+        If RNG < (MeleeMissChance + MeleeDodgeChance) Then
+            If sim.CombatLog.LogDetails Then sim.CombatLog.write(sim.TimeStamp & vbTab & "DRW Rune Strike fail")
+            RuneStrike.MissCount = RuneStrike.MissCount + 1
+            Exit Sub
+        End If
+        RNG = RuneStrike.RngCrit
+        damage = NormalisedMHDamage() * 1.5 + (15 * AP / 10)
+        damage = damage * PhysicalDamageMultiplier(sim.TimeStamp)
+        If RNG < crit() Then
+            damage = damage * 2
+            RuneStrike.TotalCrit += damage
+            RuneStrike.CritCount = RuneStrike.CritCount + 1
+            If sim.CombatLog.LogDetails Then sim.CombatLog.write(sim.TimeStamp & vbTab & "DRW Plague Strike crit for " & damage)
+        Else
+            RuneStrike.HitCount = RuneStrike.HitCount + 1
+            RuneStrike.TotalHit += damage
+            If sim.CombatLog.LogDetails Then sim.CombatLog.write(sim.TimeStamp & vbTab & "DRW Plague Strike hit for " & damage)
+        End If
+        RuneStrike.total = RuneStrike.total + damage
+    End Sub
+
 	Sub DRWIcyTouch
 		
 		Dim RNG As Double

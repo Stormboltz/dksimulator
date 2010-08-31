@@ -19,7 +19,27 @@ Public Class Supertype
 	Friend TotalGlance as Long
 	Friend _Name  as String
 	Friend isGuardian as Boolean = false
-	Friend HasteSensible as Boolean
+    Friend HasteSensible As Boolean
+
+    Friend logLevel As LogLevelEnum
+    Friend DiseaseBonus As Double
+    Friend DamageSchool As DamageSchoolEnum
+
+    Enum DamageSchoolEnum
+        Physical = 0
+        Frost = 1
+        Shadow = 2
+        OtherMagical = 3
+    End Enum
+
+
+    Enum LogLevelEnum
+        No = 0
+        Basic = 1
+        Detailled = 2
+    End Enum
+
+
 	Public ThreadMultiplicator As Double
 	Friend uptime As Long
 	Protected sim As Sim

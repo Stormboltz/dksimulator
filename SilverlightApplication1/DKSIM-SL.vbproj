@@ -284,7 +284,6 @@
     <Compile Include="Strike\PlagueStrike.vb" />
     <Compile Include="Strike\RuneStrike.vb" />
     <Compile Include="Strike\ScourgeStrike.vb" />
-    <Compile Include="Strike\ScourgeStrikeMagical.vb" />
     <Compile Include="TemplateEditor\TemplateButton.xaml.vb">
       <DependentUpon>TemplateButton.xaml</DependentUpon>
     </Compile>
@@ -324,6 +323,7 @@
     <Content Include="CharactersWithGear\Empty.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="CharactersWithGear\Kahorie.xml" />
     <Content Include="Characters\Empty.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

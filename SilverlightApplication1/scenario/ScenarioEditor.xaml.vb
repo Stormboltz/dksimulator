@@ -201,9 +201,9 @@ Partial Public Class ScenarioEditor
         Dim txtEditor As New TextEditor
         txtEditor.OpenFileFromISO(tmpPath)
         txtEditor.Show()
-        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-            isoStore.DeleteFile(tmpPath)
-        End Using
+        Dim isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+        isoStore.DeleteFile(tmpPath)
+        isoStore.Dispose()
         EditorFilePAth = oldPath
     End Sub
 

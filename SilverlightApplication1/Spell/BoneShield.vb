@@ -16,6 +16,7 @@ Public Class BoneShield
 	End Function
     Sub New(ByVal MySim As Sim)
         sim = MySim
+        logLevel = LogLevelEnum.Basic
     End Sub
     Sub UseCharge(ByVal T As Long)
         Charge = Charge - 1
@@ -53,7 +54,7 @@ Public Class BoneShield
         Me.ActiveUntil = T + BuffLength() * 100
         sim.Runes.UseDeathBlood(T, True)
         UseGCD(T)
-        sim.RunicPower.add(10)
+        sim.RunicPower.add(15)
         sim.CombatLog.write(T & vbTab & "Bone Shield")
         Charge = 3
         If sim.Character.Glyph.BoneShield Then Charge += 1

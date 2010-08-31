@@ -95,21 +95,21 @@ Public Class Talents
         Next
     End Sub
     Sub AddIncluded()
-        If GetNumOfThisSchool(Schools.Blood) > 30 Then
+        If GetNumOfThisSchool(Schools.Blood) > 25 Then
             For Each T As Talent In IncludedTalents
                 If T.School = Schools.Blood Then
                     Talent(T.Name).Value = 1
                 End If
             Next
         End If
-        If GetNumOfThisSchool(Schools.Frost) > 30 Then
+        If GetNumOfThisSchool(Schools.Frost) > 25 Then
             For Each T As Talent In IncludedTalents
                 If T.School = Schools.Frost Then
                     Talent(T.Name).Value = 1
                 End If
             Next
         End If
-        If GetNumOfThisSchool(Schools.Unholy) > 30 Then
+        If GetNumOfThisSchool(Schools.Unholy) > 25 Then
             For Each T As Talent In IncludedTalents
                 If T.School = Schools.Unholy Then
                     Talent(T.Name).Value = 1
@@ -146,8 +146,8 @@ Public Class Talents
 
 
         'EP
-        If EpStat.StartsWith("EP TALENT") Then
-            Dim t As String = EpStat.Replace("EP TALENT ", "")
+        If Sim.EPStat.StartsWith("EP TALENT") Then
+            Dim t As String = Sim.EPStat.Replace("EP TALENT ", "")
             Dim i As Integer = Talent(t).Value
 
             Diagnostics.Debug.WriteLine(t & " was " & i)
