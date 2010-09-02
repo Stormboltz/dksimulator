@@ -2,6 +2,9 @@
 <Priorities>
 	<BloodTap/>
   <FesteringStrike/>
+  <RuneStrike/>
+  <ScarletFever/>
+  <CrimsonScourge/>
 	<BoneShield/>
 	<GhoulFrenzy/>
 	<ScourgeStrike/>
@@ -9,6 +12,7 @@
 	<DRMObliterate/>
 	<Obliterate/>
 	<KMFrostStrike/>
+
 	<FrostStrike/>
 	<FrostStrikeMaxRp/>
 	<DRMDeathStrike/>
@@ -28,6 +32,7 @@
 	<KMRime/>
 	<DeathandDecay/>
 	<SaveRPForRuneStrike/>
+  
 	<Horn/>
 	<FadeRime/>
 	<CinderDisease/>

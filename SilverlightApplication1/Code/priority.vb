@@ -28,22 +28,31 @@ Friend Class priority
 		HighestPrio = 1
 		
 		For Each item as String In prio
-			Select Case item
-				Case "CinderDisease"
-					if sim.Targets.MainTarget.BloodPlague.Cinder = true and sim.Targets.MainTarget.FrostFever.Cinder = true then goto doNext
-					If sim.RuneForge.CheckCinderglacier(False) = 0 Then goto doNext
+            Select Case item
+                Case "RuneStrike"
+                    If sim.RuneStrike.trigger Then
+                        If sim.RunicPower.CheckRS(20) And sim.CanUseGCD(TimeStamp) Then
+                            sim.RuneStrike.ApplyDamage(TimeStamp)
+                            Return
+                        End If
+                    End If
+
+
+                Case "CinderDisease"
+                    If sim.Targets.MainTarget.BloodPlague.Cinder = True And sim.Targets.MainTarget.FrostFever.Cinder = True Then GoTo doNext
+                    If sim.RuneForge.CheckCinderglacier(False) = 0 Then GoTo doNext
                     If runes.Unholy() And sim.CanUseGCD(TimeStamp) And sim.Targets.MainTarget.BloodPlague.Cinder = False Then
                         sim.PlagueStrike.ApplyDamage(TimeStamp)
                         Exit Sub
                     End If
-					If runes.Frost(TimeStamp) and sim.CanUseGCD(Timestamp) and sim.Targets.MainTarget.FrostFever.Cinder = false  Then
-						sim.IcyTouch.ApplyDamage(TimeStamp)
-						exit sub
-					End If
-				
+                    If runes.Frost(TimeStamp) And sim.CanUseGCD(TimeStamp) And sim.Targets.MainTarget.FrostFever.Cinder = False Then
+                        sim.IcyTouch.ApplyDamage(TimeStamp)
+                        Exit Sub
+                    End If
+
                 Case "BloodTap"
-                    If sim.BloodTap.IsAvailable(Timestamp) And sim.Runes.BloodRune1.death = False And sim.Runes.BloodRune2.death = False Then
-                        sim.BloodTap.Use(Timestamp)
+                    If sim.BloodTap.IsAvailable(TimeStamp) And sim.Runes.BloodRune1.death = False And sim.Runes.BloodRune2.death = False Then
+                        sim.BloodTap.Use(TimeStamp)
                         'Diagnostics.Debug.WriteLine("BT")
                     End If
                 Case "BoneShield"
@@ -267,7 +276,7 @@ Friend Class priority
                         Exit Sub
                     End If
                 Case "BloodBoil"
-                    If runes.Blood(TimeStamp) = True And sim.CanUseGCD(Timestamp) Then
+                    If (runes.Blood(TimeStamp) = True Or sim.proc.CrimsonScourge.IsActive) And sim.CanUseGCD(TimeStamp) Then
                         If sim.BoneShieldUsageStyle = 3 Then
                             If sim.BoneShield.IsAvailable(TimeStamp) Then
                                 sim.BoneShield.Use(TimeStamp)
@@ -280,52 +289,64 @@ Friend Class priority
                         sim.BloodBoil.ApplyDamage(TimeStamp)
                         Exit Sub
                     End If
-				Case "Pestilance"
-					
-				Case "HowlingBlast"
-					If sim.HowlingBlast.isAvailable(TimeStamp) Then
+                Case ("CrimsonScourge")
+                    If Not sim.proc.CrimsonScourge.IsActive Then
+                        sim.BloodBoil.ApplyDamage(TimeStamp)
+                        Exit Sub
+                    End If
+                Case "ScarletFever"
+                    If (runes.Blood(TimeStamp) = True Or sim.proc.CrimsonScourge.IsActive) Then
+                        If Not sim.proc.ScarletFever.IsActive Then
+                            sim.BloodBoil.ApplyDamage(TimeStamp)
+                            Exit Sub
+                        End If
+                    End If
+                Case "Pestilance"
+
+                Case "HowlingBlast"
+                    If sim.HowlingBlast.isAvailable(TimeStamp) Then
                         If sim.proc.Rime.IsActive Or runes.Frost(TimeStamp) And sim.CanUseGCD(TimeStamp) Then
                             sim.HowlingBlast.ApplyDamage(TimeStamp)
                             Exit Sub
                         Else
                             'runes.ReserveFU(TimeStamp)
                         End If
-					Else
-					End If
-				Case "KMHowlingBlast"
-					If sim.HowlingBlast.isAvailable(TimeStamp) and sim.proc.KillingMachine.IsActive() Then
-						If sim.proc.rime.IsActive Or runes.FU(TimeStamp) and sim.CanUseGCD(Timestamp) Then
-							sim.HowlingBlast.ApplyDamage(TimeStamp)
+                    Else
+                    End If
+                Case "KMHowlingBlast"
+                    If sim.HowlingBlast.isAvailable(TimeStamp) And sim.proc.KillingMachine.IsActive() Then
+                        If sim.proc.Rime.IsActive Or runes.FU(TimeStamp) And sim.CanUseGCD(TimeStamp) Then
+                            sim.HowlingBlast.ApplyDamage(TimeStamp)
                             Exit Sub
-						Else
+                        Else
                             'runes.ReserveFU(TimeStamp)
-						End If
-					Else
-					End If
-				Case "KMRime"
-					If  sim.HowlingBlast.isAvailable(TimeStamp) and sim.proc.Rime.IsActive and sim.proc.KillingMachine.IsActive and sim.CanUseGCD(Timestamp)  Then
-						sim.HowlingBlast.ApplyDamage(TimeStamp)
-						exit sub
-					Else
-					End If
-				Case "FadeRime"
-					If  sim.HowlingBlast.isAvailable(TimeStamp) and sim.proc.Rime.IsActive and sim.proc.Rime.Fade< TimeStamp+250 and sim.CanUseGCD(Timestamp)  Then
-						sim.HowlingBlast.ApplyDamage(TimeStamp)
-						exit sub
-					Else
-					End If
-					
-				Case "DeathandDecay"
-					If sim.DeathAndDecay.isAvailable(TimeStamp) and sim.CanUseGCD(Timestamp) Then
-						sim.DeathAndDecay.Apply(TimeStamp)
-						Exit Sub
-					End If
-				Case "Horn"
-					If sim.Horn.isAvailable(TimeStamp) Then
-						sim.Horn.use(TimeStamp)
-						exit sub
-					End If
-			End Select
+                        End If
+                    Else
+                    End If
+                Case "KMRime"
+                    If sim.HowlingBlast.isAvailable(TimeStamp) And sim.proc.Rime.IsActive And sim.proc.KillingMachine.IsActive And sim.CanUseGCD(TimeStamp) Then
+                        sim.HowlingBlast.ApplyDamage(TimeStamp)
+                        Exit Sub
+                    Else
+                    End If
+                Case "FadeRime"
+                    If sim.HowlingBlast.isAvailable(TimeStamp) And sim.proc.Rime.IsActive And sim.proc.Rime.Fade < TimeStamp + 250 And sim.CanUseGCD(TimeStamp) Then
+                        sim.HowlingBlast.ApplyDamage(TimeStamp)
+                        Exit Sub
+                    Else
+                    End If
+
+                Case "DeathandDecay"
+                    If sim.DeathandDecay.isAvailable(TimeStamp) And sim.CanUseGCD(TimeStamp) Then
+                        sim.DeathandDecay.Apply(TimeStamp)
+                        Exit Sub
+                    End If
+                Case "Horn"
+                    If sim.Horn.isAvailable(TimeStamp) Then
+                        sim.Horn.use(TimeStamp)
+                        Exit Sub
+                    End If
+            End Select
 			doNext:
 		Next
 	End sub

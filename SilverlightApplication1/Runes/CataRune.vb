@@ -30,8 +30,13 @@ Public Class CataRune
     End Sub
 
 
-    Sub Use(ByVal T As Long, ByVal D As Boolean)
-        Me.Value -= 100
+    Sub Use(ByVal T As Long, ByVal D As Boolean, ByVal Alf As Boolean)
+        If Alf Then
+            Me.Value -= 50
+        Else
+            Me.Value -= 100
+        End If
+
         If Me.Value < 0 Then
             Diagnostics.Debug.WriteLine("RUNE USE ERROR")
         End If
@@ -42,6 +47,7 @@ Public Class CataRune
 
     End Sub
 
+    
 
     Function Available() As Boolean
         If Value >= 100 Then

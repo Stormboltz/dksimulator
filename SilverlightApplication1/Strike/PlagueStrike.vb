@@ -15,13 +15,21 @@ Friend Class PlagueStrike
 
 	End Sub
     Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
+        UseGCD(T)
+        If MyBase.ApplyDamage(T) = False Then
+            sim.Runes.UseUnholy(T, False, True)
+            Return False
+        End If
 
-        If MyBase.ApplyDamage(T) = False Then Return False
         If OffHand = False Then
-            UseGCD(T)
+
             sim.RunicPower.add(15 + sim.Character.Talents.Talent("Dirge").Value * 5)
             
             sim.Runes.UseUnholy(T, False)
+            If sim.Targets.MainTarget.BloodPlague.isActive(T) Then
+                sim.proc.CrimsonScourge.TryMe(T)
+            End If
+
             sim.proc.Strife.TryMe(T)
             sim.Targets.MainTarget.BloodPlague.Apply(T)
             If sim.DRW.IsActive(T) Then

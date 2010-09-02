@@ -48,16 +48,19 @@ Friend Class RuneForge
                     .ProcChance *= 2
                     .ProcLenght = 15
                     .ProcValue = 1
+                    ._Name = "Fallen Crusader"
                     FCProc = Proc
 					
                 Case "3370"
                     .ProcChance = 1
+                    ._Name = "RazorIce"
                     RIProc = Proc
 					
 
                 Case "3369"
                     .ProcChance *= 1.5
                     CGProc = Proc
+                    ._Name = "CinderGlacier"
 
                 Case "3789"
                     .DamageType = ""
@@ -65,14 +68,14 @@ Friend Class RuneForge
                     .ProcLenght = 15
                     .ProcValue = 400
                     .ProcType = "ap"
-				
+                    ._Name = "Berzerker"
 				Case Else
                     Diagnostics.Debug.WriteLine("Runeforge: " & RuneForge & " not implemented")
 					.ProcChance = 0.0
 					Exit Sub
 					
 			End Select
-			._Name &= RuneForge
+            '._Name &= RuneForge
 			
 		End With
 	End Sub
@@ -161,29 +164,29 @@ End Sub
 	Sub ProcCinderglacier(Proc As WeaponProc, T As Long)
 		Proc.BaseApplyMe(T)
 		If Proc IsNot CGProc Then CGProc.ApplyFade(T)
-		CGProc.Count = 2
-	End Sub
-	
-	
-	Function CheckFallenCrusader() As Boolean
-		If FCProc Is Nothing Then Return False
-		return FCProc.IsActive()
-		
-	End Function
-	
-	Function HasFallenCrusader() As Boolean
-		return FCProc IsNot Nothing
-		
-	End Function
-	
-	
-	Function CheckCinderglacier(consume As Boolean) As Integer
-		If CGProc Is Nothing Then Return 0
-		dim rv as Integer
-		rv = CGProc.Count
-		if consume Then CGProc.Use()
-		return rv
-	End Function
+        CGProc.CurrentStack = 2
+    End Sub
+
+
+    Function CheckFallenCrusader() As Boolean
+        If FCProc Is Nothing Then Return False
+        Return FCProc.IsActive()
+
+    End Function
+
+    Function HasFallenCrusader() As Boolean
+        Return FCProc IsNot Nothing
+
+    End Function
+
+
+    Function CheckCinderglacier(ByVal consume As Boolean) As Integer
+        If CGProc Is Nothing Then Return 0
+        Dim rv As Integer
+        rv = CGProc.CurrentStack
+        If consume Then CGProc.Use()
+        Return rv
+    End Function
 
 	Function AreStarsAligned(T As Long) As Boolean
 		If sim.WaitForFallenCrusader = False Then Return True

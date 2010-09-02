@@ -70,7 +70,7 @@ Public Module SimConstructor
         Dim i As Integer = 0
         i = 0
         For Each t In ThreadCollection
-            If i < core Then
+            If i <= core Then
                 If t.ThreadState = ThreadState.Unstarted Then t.Start()
             End If
             i += 1

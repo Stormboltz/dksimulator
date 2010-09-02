@@ -38,7 +38,11 @@ Friend Class ScourgeStrike
 	
 	public Overrides Function ApplyDamage(T As long) As boolean
         UseGCD(T)
-        If MyBase.ApplyDamage(T) = False Then Return False
+        If MyBase.ApplyDamage(T) = False Then
+            sim.Runes.UseUnholy(T, False, True)
+            Return False
+        End If
+
         If OffHand = False Then
             sim.ScourgeStrikeMagical.ApplyDamage(LastDamage, T, False)
             UseGCD(T)

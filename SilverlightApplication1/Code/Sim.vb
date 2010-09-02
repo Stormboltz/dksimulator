@@ -128,7 +128,7 @@ Public Class Sim
 
     Friend Gargoyle As Gargoyle
     Friend BoneShield As BoneShield
-    Friend Frenzy As Frenzy
+    Friend Frenzy As GhoulFrenzy
     Friend ERW As EmpowerRuneWeapon
 
 
@@ -458,7 +458,7 @@ Public Class Sim
         End Select
         Return False
     End Function
-    
+
     Sub Start()
         SimStart = Now
         Try
@@ -675,6 +675,7 @@ Public Class Sim
         BoneShield.CD = 0
         BoneShield.PreBuff()
         Scenario.SoftReset()
+        boss.SoftReset()
         NextFreeGCD = 0
         AMSTimer = TimeStamp + AMSCd
         If AMSAmount <> 0 And AMSCd <> 0 Then
@@ -781,7 +782,7 @@ Public Class Sim
         OHNecrosis = New Necrosis(Me)
         OHNecrosis.OffHand = True
 
-        Frenzy = New Frenzy(Me)
+        Frenzy = New GhoulFrenzy(Me)
 
         BloodCakedBlade = New BloodCakedBlade(Me)
         OHBloodCakedBlade = New BloodCakedBlade(Me)
@@ -923,7 +924,7 @@ Public Class Sim
                 Case "After Death rune OB/SS with cancel aura"
                     Me.BoneShieldUsageStyle = 4
                 Case Else
-                    Me.BoneShieldUsageStyle = 2
+                    Me.BoneShieldUsageStyle = 1
             End Select
             Try
                 Dim s As String = XmlConfig.<config>.<ICCBuff>.Value

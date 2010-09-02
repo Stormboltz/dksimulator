@@ -9,18 +9,21 @@
 Friend Class PillarOfFrost
     Inherits Spells.Spell
     Friend previousFade As Long
-
+    Friend Talented As Boolean
 
     Sub New(ByVal S As sim)
         MyBase.New(S)
         logLevel = LogLevelEnum.Basic
+        If sim.Character.Talents.Talent("PillarOfFrost").Value <> 0 Then Talented = True
+
+
     End Sub
 
 
 
     Function IsAvailable(ByVal T As Long) As Boolean
 
-        Return False
+        If Not Talented Then Return False
         If CD >= T Then Return False
         If sim.BloodTap.IsAvailable(T) And sim.Runes.Frost(T) = False Then
             Return True
@@ -31,7 +34,7 @@ Friend Class PillarOfFrost
     End Function
     Function Use(ByVal T As Long) As Boolean
 
-        Return False
+
         If sim.Runes.Frost(T) = False Then
             If sim.BloodTap.IsAvailable(T) Then
                 sim.BloodTap.Use(T)

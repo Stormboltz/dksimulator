@@ -34,6 +34,7 @@
 
 
                         </Grid.RowDefinitions>
+                        <sdk:Label Grid.ColumnSpan="3" Content="DK SIM" Margin="4" Name="lblApplication" />
                         <sdk:Label Content="Character:"  Name="lblCharacter" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" />
                         <ComboBox Name="cmbGearSelector" Grid.Row="1" Grid.Column="1"  />
                         <Button Content="Load" Name="cmdEditCharacterWithGear" Grid.Row="1" Grid.Column="2" />
@@ -280,7 +281,7 @@
             <Button Margin="32,5,31,5" Content="Start EP"  Name="btEP"    Grid.Column="3" />
 
             <Button Margin="32,5,31,5" Content="Beginner Mode"  Name="cmdAdvancedMode" Grid.Column="2" />
-            <ProgressBar  Margin="32,5,31,5" Name="ProgressBar1" Grid.ColumnSpan="4" Grid.Row="1"/>
+            <ProgressBar  Margin="32,5,31,5" Name="ProgressBar1" Grid.ColumnSpan="4" Grid.Row="1" />
         </Grid>
 
     </StackPanel>

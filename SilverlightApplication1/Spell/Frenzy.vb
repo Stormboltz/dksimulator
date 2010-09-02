@@ -10,16 +10,16 @@
 
 
 
-Public Class Frenzy
-	Inherits Spells.Spell
-	
-	Sub New(s as Sim)
+Public Class GhoulFrenzy
+    Inherits Spells.Spell
+
+    Sub New(ByVal s As Sim)
         MyBase.New(s)
-        logLevel = LogLevelEnum.Detailled
-	End Sub
-	
-	
-	Function IsFrenzyAvailable(T As Long) As Boolean
+        logLevel = LogLevelEnum.Basic
+    End Sub
+
+
+    Function IsFrenzyAvailable(ByVal T As Long) As Boolean
         If sim.Character.Talents.Talent("GhoulFrenzy").Value = 0 Then Return False
         If CD < T And sim.Runes.Unholy() Then Return True
         Return False

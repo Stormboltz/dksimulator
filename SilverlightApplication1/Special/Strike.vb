@@ -92,7 +92,10 @@ Namespace Strikes
             LastDamage = 0
 
             If OffHand = False Then
-                If sim.proc.ThreatOfThassarian.TryMe(T) Then OffHandStrike.ApplyDamage(T)
+                If Not OffHandStrike Is Nothing Then
+                    If sim.proc.ThreatOfThassarian.TryMe(T) Then OffHandStrike.ApplyDamage(T)
+                End If
+
                 If DoMyStrikeHit() = False Then
                     Select Case logLevel
                         Case LogLevelEnum.Basic
@@ -114,7 +117,7 @@ Namespace Strikes
             If RNG <= CritChance() Then
                 LastDamage = AvrgCrit(T)
                 CritCount = CritCount + 1
-                Select logLevel
+                Select Case logLevel
                     Case LogLevelEnum.Basic
                         sim.CombatLog.write(T & vbTab & Me.Name & " crit for " & LastDamage)
                     Case LogLevelEnum.Detailled

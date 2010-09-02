@@ -140,7 +140,10 @@ Friend Class Character
         If sim.RuneForge.CheckFallenCrusader Then
             tmp = tmp * 1.15
         End If
-        If sim.PillarOfFrost.isActive Then tmp = tmp * 1.2
+        If sim.PillarOfFrost.isActive Then
+            tmp = tmp * 1.2
+        End If
+
         Return tmp
     End Function
 

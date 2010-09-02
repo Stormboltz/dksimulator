@@ -14,12 +14,12 @@ Friend Class Procs
 
     Friend DRM As Proc
     Friend SuddenDoom As Proc
-
+    Friend ScarletFever As Proc
     Friend UnholyFrenzy As Proc
     Friend RunicEmpowerment As Proc
     Friend ThreatOfThassarian As Proc
     Friend ReapingBotN As Proc
-
+    Friend CrimsonScourge As Proc
     Friend T104PDPS As Proc
 
     'Friend Desolation As Proc
@@ -43,18 +43,8 @@ Friend Class Procs
 
     Friend AllProcs As New Collections.Generic.List(Of Proc)
     Friend EquipedProc As New Collections.Generic.List(Of Proc)
-    Friend OnHitProcs As New List(Of Proc)
-
-    Friend OnMHWhitehitProcs As New List(Of Proc)
-    Friend OnMHhitProcs As New List(Of Proc)
-    Friend OnOHhitProcs As New List(Of Proc)
-    Friend OnFUProcs As New List(Of Proc)
-    Friend OnCritProcs As New List(Of Proc)
-    Friend OnDamageProcs As New List(Of Proc)
-    Friend OnDoTProcs As New List(Of Proc)
-    Friend OnBloodStrikeProcs As New List(Of Proc)
-    Friend OnPlagueStrikeProcs As New List(Of Proc)
-    Friend onRPDumpProcs As New List(Of Proc)
+   
+   
     Private XmlCharacter As XDocument
 
 
@@ -73,6 +63,8 @@ Friend Class Procs
         onRPDump = 11 'For Runic Empowerment.
         OnOHWhitehit = 12
         OnWhitehit = 13
+        OnBossHitOrMiss = 14
+        OnBloodBoil = 15
         'OnUse=9
     End Enum
 
@@ -109,14 +101,48 @@ Friend Class Procs
 
         s.RuneForge.Init()
 
+        ScarletFever = New Proc(s)
+        With ScarletFever
+            ._Name = "Scarlet Fever"
+            .ProcLenght = 30
+            .ProcOn = ProcOnType.OnBloodBoil
+            .ProcChance = Sim.Character.Talents.Talent("ScarletFever").Value / 2
+            If .ProcChance > 0 Then .Equip()
+        End With
+
+        CrimsonScourge = New Proc(s)
+        With CrimsonScourge
+            ._Name = "Crimson Scourge"
+            .ProcLenght = 30
+            '.ProcOn = ProcOnType.OnPlagueStrike
+            .ProcChance = Sim.Character.Talents.Talent("CrimsonScourge").Value / 2
+            If .ProcChance > 0 Then .Equip()
+        End With
+
+
+
+        Dim MightOfFrozenWastes As New MightOfFrozenWastes(s)
+
+        With MightOfFrozenWastes
+            ._Name = "Might Of Frozen Wastes"
+
+            If Not s.Character.Dual Then
+                .ProcChance = 15 * s.Character.Talents.Talent("MightOfFrozenWastes").Value / 100
+                .ProcOn = ProcOnType.OnMHWhiteHit
+                If .ProcChance > 0 Then .Equip()
+            End If
+        End With
+
+
 
         RunicEmpowerment = New RunicEmpowerment(s)
         With RunicEmpowerment
             ._Name = "Runic Empowerment"
-            .ProcChance = 0.45
+            .ProcChance = 0.45000000000000001
             .ProcOn = ProcOnType.onRPDump
             .Equip()
         End With
+
         UnholyFrenzy = New Proc(s)
         With UnholyFrenzy
             ._Name = "Unholy Frenzy"
@@ -130,7 +156,7 @@ Friend Class Procs
         MHBloodCakedBlade = New Proc(s)
         With MHBloodCakedBlade
             ._Name = "MH Blood-Caked Blade"
-            .ProcChance = Sim.Character.Talents.Talent("BloodCakedBlade").Value * 0.1
+            .ProcChance = Sim.Character.Talents.Talent("BloodCakedBlade").Value * 0.10000000000000001
             If .ProcChance > 0 Then
                 .Equip()
             End If
@@ -139,7 +165,7 @@ Friend Class Procs
         OHBloodCakedBlade = New Proc(s)
         With OHBloodCakedBlade
             ._Name = "OH Blood-Caked Blade"
-            .ProcChance = Sim.Character.Talents.Talent("BloodCakedBlade").Value * 0.1
+            .ProcChance = Sim.Character.Talents.Talent("BloodCakedBlade").Value * 0.10000000000000001
             If .ProcChance > 0 Then
                 .Equip()
             End If
@@ -161,7 +187,7 @@ Friend Class Procs
             ._Name = "DeathRuneMastery"
             .ProcChance = Sim.Character.Talents.Talent("DRM").Value
             If .ProcChance > 0 Then
-                If .ProcChance > 0.85 Then .ProcChance = 1.0
+                If .ProcChance > 0.84999999999999998 Then .ProcChance = 1.0
                 .Equip()
             End If
         End With
@@ -169,7 +195,7 @@ Friend Class Procs
         SuddenDoom = New Proc(s)
         With SuddenDoom
             ._Name = "SuddenDoom"
-            .ProcChance = Sim.Character.Talents.Talent("SuddenDoom").Value * 0.05
+            .ProcChance = Sim.Character.Talents.Talent("SuddenDoom").Value * 0.050000000000000003
             .ProcOn = Procs.ProcOnType.OnWhitehit
             .ProcLenght = 20
             If .ProcChance > 0 Then
@@ -181,9 +207,11 @@ Friend Class Procs
         ThreatOfThassarian = New Proc(s)
         With ThreatOfThassarian
             ._Name = "ThreatOfThassarian"
-            .ProcChance = 0.3 * Sim.Character.Talents.Talent("ThreatOfThassarian").Value
+            If Sim.Character.Dual Then
+                .ProcChance = 0.29999999999999999 * Sim.Character.Talents.Talent("ThreatOfThassarian").Value
+            End If
             If .ProcChance > 0 Then
-                If .ProcChance > 0.85 Then .ProcChance = 1.0
+                If .ProcChance > 0.84999999999999998 Then .ProcChance = 1.0
                 If Sim.MainStat.DualW Then .Equip()
             End If
         End With
@@ -201,7 +229,7 @@ Friend Class Procs
                 .ProcChance = Sim.Character.Talents.Talent("BloodoftheNorth").Value
             End If
             If .ProcChance > 0 Then
-                If .ProcChance > 0.85 Then .ProcChance = 1.0
+                If .ProcChance > 0.84999999999999998 Then .ProcChance = 1.0
                 '.ProcOn = ProcOnType.OnBloodStrike
                 .Equip()
             End If
@@ -240,20 +268,20 @@ Friend Class Procs
         ScentOfBlood = New ScentOfBlood(s)
         With ScentOfBlood
             ._Name = "ScentOfBlood"
-            If s.BloodPresence = 1 Then
-                .Equip()
-                .Equiped = Sim.Character.Talents.Talent("ScentOfBlood").Value
-            Else
-                .Equiped = 0
+            If s.Character.GetPresence = "Blood" Then
+                .ProcOn = ProcOnType.OnBossHitOrMiss
+                .MaxStack = Sim.Character.Talents.Talent("ScentOfBlood").Value
+                .ProcValue = 3
+                .ProcLenght = 60
+                .ProcChance = 15 / 100
+                If .MaxStack > 0 Then .Equip()
             End If
-            .ProcLenght = 60
-            .ProcChance = 0.15
         End With
 
         With New Proc(s)
             ._Name = "Virulence"
             .ProcLenght = 20
-            .ProcChance = 0.85
+            .ProcChance = 0.84999999999999998
             .ProcValue = 200
             .ProcType = "str"
             .ProcOn = Procs.ProcOnType.OnFU
@@ -295,7 +323,7 @@ Friend Class Procs
 
         With New Proc(s)
             ._Name = "HauntedDreams"
-            .ProcChance = 0.15
+            .ProcChance = 0.14999999999999999
             .ProcValue = 173
             .ProcLenght = 10
             .InternalCD = 45
@@ -322,7 +350,7 @@ Friend Class Procs
             .InternalCD = 180
             .ProcChance = 1
             .ProcLenght = 15
-            .ProcValue = 0.2
+            .ProcValue = 0.20000000000000001
             .ProcOn = Procs.ProcOnType.OnDamage
             If s.Character.Troll Then .Equip()
         End With
@@ -371,7 +399,7 @@ Friend Class Procs
                 If XmlCharacter.<character>.<WeaponProc>.<MHShadowmourneCancelCB>.Value = 1 Then
                     ._Name = "Shadowmourne (Cancel CB)"
                     .Equip()
-                    .InternalCD = 0.1 'Chaos Bane Duration
+                    .InternalCD = 0.10000000000000001 'Chaos Bane Duration
                 End If
             Catch
 
@@ -404,7 +432,7 @@ Friend Class Procs
         End With
         With New Proc(s)
             ._Name = "AshenBand"
-            .ProcChance = 0.1
+            .ProcChance = 0.10000000000000001
             .ProcLenght = 10
             .ProcValue = 480
             .InternalCD = 45
@@ -420,7 +448,7 @@ Friend Class Procs
         End With
         Dim MHtemperedViskag As New WeaponProc(s)
         With MHtemperedViskag
-            .ProcChance = 0.04
+            .ProcChance = 0.040000000000000001
             .ProcLenght = 0
             .ProcValue = 2222
             .InternalCD = 0
@@ -436,7 +464,7 @@ Friend Class Procs
 
         Dim OHtemperedViskag As New WeaponProc(s)
         With OHtemperedViskag
-            .ProcChance = 0.04
+            .ProcChance = 0.040000000000000001
             .ProcLenght = 0
             .ProcValue = 2222
             .InternalCD = 0
@@ -452,7 +480,7 @@ Friend Class Procs
 
         Dim MHSingedViskag As New WeaponProc(s)
         With MHSingedViskag
-            .ProcChance = 0.04
+            .ProcChance = 0.040000000000000001
             .ProcLenght = 0
             .ProcValue = 2000
             .InternalCD = 0
@@ -470,7 +498,7 @@ Friend Class Procs
 
         Dim OHSingedViskag As New WeaponProc(s)
         With OHSingedViskag
-            .ProcChance = 0.04
+            .ProcChance = 0.040000000000000001
             .ProcLenght = 0
             .ProcValue = 2000
             .InternalCD = 0
@@ -486,7 +514,7 @@ Friend Class Procs
 
         Dim MHEmpoweredDeathbringer As New WeaponProc(s)
         With MHEmpoweredDeathbringer
-            .ProcChance = 0.065
+            .ProcChance = 0.065000000000000002
             .ProcLenght = 0
             .ProcValue = 1500
             .InternalCD = 0
@@ -503,7 +531,7 @@ Friend Class Procs
 
         Dim OHEmpoweredDeathbringer As New WeaponProc(s)
         With OHEmpoweredDeathbringer
-            .ProcChance = 0.065
+            .ProcChance = 0.065000000000000002
             .ProcLenght = 0
             .ProcValue = 1500
             .InternalCD = 0
@@ -519,7 +547,7 @@ Friend Class Procs
 
         Dim MHRagingDeathbringer As New WeaponProc(s)
         With MHRagingDeathbringer
-            .ProcChance = 0.065
+            .ProcChance = 0.065000000000000002
             .ProcLenght = 0
             .ProcValue = 1666
             .InternalCD = 0
@@ -536,7 +564,7 @@ Friend Class Procs
 
         Dim OHRagingDeathbringer As New WeaponProc(s)
         With OHRagingDeathbringer
-            .ProcChance = 0.065
+            .ProcChance = 0.065000000000000002
             .ProcLenght = 0
             .ProcValue = 1666
             .InternalCD = 0

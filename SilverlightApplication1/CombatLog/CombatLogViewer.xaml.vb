@@ -23,7 +23,16 @@ Partial Public Class CombatLogViewer
                 Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/Combatlog/Combatlog.txt", FileMode.Open, isoStore)
                     Dim Reader As New StreamReader(isoStream)
                     Do Until (Reader.EndOfStream Or i > 500)
+
                         Dim l As New CombatLogLine(Reader.ReadLine)
+                        If LogStack.Children.Count > 0 Then
+
+
+                            l.txtGCD.Text = (l.TimeStamp - CType(LogStack.Children.Last, CombatLogLine).TimeStamp) & " ms"
+                        Else
+                            l.txtGCD.Text = ""
+                        End If
+
                         Me.LogStack.Children.Add(l)
                         i += 1
                     Loop

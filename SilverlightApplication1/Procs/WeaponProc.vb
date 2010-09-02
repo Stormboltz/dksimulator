@@ -172,8 +172,8 @@ Public Class WeaponProc
             Case "FallenCrusader", "3368"
                 sim.RuneForge.ProcFallenCrusader(Me, T)
 				
-			Case "Razorice"
-				sim.RuneForge.ProcRazorice(Me, T)
+            Case "Razorice", "3370"
+                sim.RuneForge.ProcRazorIce(Me, T)
 			
 			Case "Cinderglacier"
 				sim.RuneForge.ProcCinderglacier(Me, T)

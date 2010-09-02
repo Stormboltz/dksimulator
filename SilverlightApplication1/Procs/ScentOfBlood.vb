@@ -15,7 +15,7 @@ Public Class ScentOfBlood
 	Overrides Sub ApplyMe(T As Long)
 		If sim.CombatLog.LogDetails Then sim.CombatLog.write(sim.TimeStamp & vbTab & Me.ToString & " proc")
 		Fade = T + ProcLenght * 100
-		Count = Equiped
+        CurrentStack = MaxStack
 		HitCount += 1
 	End Sub
 	

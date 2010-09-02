@@ -35,6 +35,12 @@ Friend Class FrostStrike
         Dim ret As Boolean = MyBase.ApplyDamage(T)
         sim.proc.KillingMachine.Use()
         If ret = False Then
+            UseGCD(T)
+            If sim.Character.Glyph.FrostStrike Then
+                sim.RunicPower.Use(16)
+            Else
+                sim.RunicPower.Use(20)
+            End If
             Return False
         End If
         If OffHand = False Then

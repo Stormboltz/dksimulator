@@ -21,7 +21,11 @@ Friend Class HeartStrike
 	End Sub
     Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
 
-        If MyBase.ApplyDamage(T) = False Then Return False
+        If MyBase.ApplyDamage(T) = False Then
+            sim.Runes.UseBlood(T, False, True)
+            Return False
+        End If
+
 
         UseGCD(T)
         sim.RunicPower.add(15)

@@ -32,12 +32,7 @@ Sub New(S As sim)
         NextWhiteMainHit = T + (WSpeed * 100) / sim.MainStat.PhysicalHaste
         sim.FutureEventManager.Add(NextWhiteMainHit, "MainHand")
 
-        If sim.BloodPresence = 1 Then
-            If sim.RuneStrike.trigger = True And sim.RunicPower.Check(20) Then
-                sim.RuneStrike.ApplyDamage(T)
-                Return True
-            End If
-        End If
+       
 
         Dim RNG As Double
         RNG = RngHit

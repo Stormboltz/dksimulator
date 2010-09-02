@@ -34,10 +34,14 @@ Friend Class Obliterate
     End Sub
 	
     Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
+        UseGCD(T)
+        If MyBase.ApplyDamage(T) = False Then
+            sim.Runes.UseFU(T, False, True)
+            Return False
+        End If
 
-        If MyBase.ApplyDamage(T) = False Then Return False
         If OffHand = False Then
-            UseGCD(T)
+
             sim.RunicPower.add(25 + 5 * sim.Character.Talents.Talent("ChillOfTheGrave").Value + 5 * sim.MainStat.T74PDPS)
 
             If sim.proc.DRM.TryMe(T) Then

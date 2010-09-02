@@ -21,106 +21,54 @@ Public Class Proc
 	Friend ProcTypeStack as String
 	Friend ProcValueStack as Integer
 	
-	Friend Count As Integer
-	
-	Friend ProcType As String
-	Friend ProcOn As procs.ProcOnType
-	
-	Friend previousFade As Long
-	
-	Friend isDebuff as Boolean
+    Friend CurrentStack As Integer
 
-	
-	
-	
-	Sub New()
-		_RNG1 = nothing
-		ProcChance = 0
-		Equiped = 0
-		ProcLenght = 0
-		ProcValue = 0
-		InternalCD = 0
-		count = 0
-		ThreadMultiplicator = 1
-		Total = 0
-		HitCount = 0
-		MissCount =0
-		CritCount = 0
-		TotalHit = 0
-		TotalCrit = 0
-		isDebuff = false
-	End Sub
-	Sub New(S As Sim)
-		Me.New
-		_name = Me.ToString
-		Sim = S
-		sim.proc.AllProcs.Add(me)
-	End Sub
-	
-	
-	Overridable Sub Equip()
-		If Equiped = 1 Then Exit Sub
-		Equiped = 1
-		sim.proc.EquipedProc.Add(me)
-		Select Case Me.ProcOn
-			Case Procs.ProcOnType.OnMisc
-				
-			Case procs.ProcOnType.OnCrit
-                sim.proc.OnCritProcs.Add(Me)
-			Case procs.ProcOnType.OnDamage
-                sim.proc.OnDamageProcs.Add(Me)
-			Case procs.ProcOnType.OnDoT
-                sim.proc.OnDoTProcs.Add(Me)
-			Case procs.ProcOnType.OnHit
-                sim.proc.OnHitProcs.Add(Me)
-			Case procs.ProcOnType.OnMHhit
-                sim.proc.OnMHhitProcs.Add(Me)
-			Case procs.ProcOnType.OnOHhit
-                sim.proc.OnOHhitProcs.Add(Me)
-			Case procs.ProcOnType.OnMHWhiteHit
-                sim.proc.OnMHWhitehitProcs.Add(Me)
-			Case procs.ProcOnType.OnFU
-                sim.proc.OnFUProcs.Add(Me)
-			Case procs.ProcOnType.OnBloodStrike
-                sim.proc.OnBloodStrikeProcs.Add(Me)
-            Case Procs.ProcOnType.onRPDump
-                sim.proc.onRPDumpProcs.Add(Me)
-            Case Else
-                'Diagnostics.Debug.WriteLine("No proc on value for " & Me.Name)
-        End Select
+    Friend ProcType As String
+    Friend ProcOn As procs.ProcOnType
+
+    Friend previousFade As Long
+
+    Friend isDebuff As Boolean
+
+
+
+
+    Sub New()
+        _RNG1 = Nothing
+        ProcChance = 0
+        Equiped = 0
+        ProcLenght = 0
+        ProcValue = 0
+        InternalCD = 0
+        CurrentStack = 0
+        ThreadMultiplicator = 1
+        Total = 0
+        HitCount = 0
+        MissCount = 0
+        CritCount = 0
+        TotalHit = 0
+        TotalCrit = 0
+        isDebuff = False
+    End Sub
+    Sub New(ByVal S As Sim)
+        Me.New()
+        _name = Me.ToString
+        Sim = S
+        sim.proc.AllProcs.Add(Me)
+    End Sub
+
+
+    Overridable Sub Equip()
+        If Equiped = 1 Then Exit Sub
+        Equiped = 1
+        sim.proc.EquipedProc.Add(Me)
         sim.DamagingObject.Add(Me)
     End Sub
 
     Overridable Sub UnEquip()
         Me.Equiped = 0
         sim.proc.EquipedProc.Remove(Me)
-        Select Case Me.ProcOn
-            Case Procs.ProcOnType.OnMisc
-
-            Case procs.ProcOnType.OnCrit
-                sim.proc.OnCritProcs.Remove(Me)
-            Case procs.ProcOnType.OnDamage
-                sim.proc.OnDamageProcs.Remove(Me)
-            Case procs.ProcOnType.OnDoT
-                sim.proc.OnDoTProcs.Remove(Me)
-            Case procs.ProcOnType.OnHit
-                sim.proc.OnHitProcs.Remove(Me)
-            Case procs.ProcOnType.OnMHhit
-                sim.proc.OnMHhitProcs.Remove(Me)
-            Case procs.ProcOnType.OnOHhit
-                sim.proc.OnOHhitProcs.Remove(Me)
-            Case procs.ProcOnType.OnMHWhiteHit
-                sim.proc.OnMHWhitehitProcs.Remove(Me)
-            Case procs.ProcOnType.OnFU
-                sim.proc.OnFUProcs.Remove(Me)
-            Case procs.ProcOnType.OnBloodStrike
-                sim.proc.OnBloodStrikeProcs.Remove(Me)
-            Case Procs.ProcOnType.onRPDump
-                sim.proc.onRPDumpProcs.Remove(Me)
-            Case Else
-                Diagnostics.Debug.WriteLine("No proc on value for " & Me.Name)
-        End Select
-        sim.DamagingObject.remove(Me)
+        sim.DamagingObject.Remove(Me)
     End Sub
 
 
@@ -143,9 +91,9 @@ Public Class Proc
     End Function
 
     Sub Use()
-        count -= 1
-        If count <= 0 Then
-            Fade = 0
+        CurrentStack -= 1
+        If CurrentStack <= 0 Then
+            Fade = sim.TimeStamp
             RemoveUptime(sim.TimeStamp)
         End If
     End Sub
@@ -223,11 +171,24 @@ Public Class Proc
 		previousFade = T
 	End Sub
 End Class
+Class MightOfFrozenWastes
+    Inherits Proc
+    Sub New(ByVal S As Sim)
+        MyBase.New(S)
+    End Sub
+    Public Overrides Sub ApplyMe(ByVal T As Long)
+        sim.RunicPower.add(100)
+        sim.CombatLog.write(sim.TimeStamp & vbTab & Me.Name & " proc")
+        MyBase.ApplyMe(T)
+    End Sub
+
+End Class
 Class RunicEmpowerment
     Inherits Proc
 
     Sub New(ByVal S As Sim)
         MyBase.New(S)
+
     End Sub
 
     Public Overrides Sub ApplyMe(ByVal T As Long)

@@ -12,25 +12,22 @@
             <RowDefinition Height="15" />
             <RowDefinition Height="15" />
                 <RowDefinition Height="15" />
-                <RowDefinition Height="15" />
-                <RowDefinition Height="15" />
-                <RowDefinition Height="15" />
             </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />
             <ColumnDefinition Width="80" />
             <ColumnDefinition Width="220" />
         </Grid.ColumnDefinitions>
-        <ProgressBar Height="10" HorizontalAlignment="Center"  Name="pbBlood1" VerticalAlignment="Center" Width="96" Maximum="100" Foreground="Crimson" Grid.Column="0" Grid.Row="0" />
-        <ProgressBar Height="10" HorizontalAlignment="Center"  Name="pbBlood2" VerticalAlignment="Center" Width="96" Maximum="100" Foreground="Crimson" Grid.Column="0" Grid.Row="1" />
-            <ProgressBar Height="10" HorizontalAlignment="Center"  Name="pbFrost1" VerticalAlignment="Center" Width="96" Maximum="100" Foreground="RoyalBlue" Grid.Column="0"  Grid.Row="2" />
-            <ProgressBar Height="10" HorizontalAlignment="Center"  Name="pbFrost2" VerticalAlignment="Center" Width="96" Maximum="100" Foreground="RoyalBlue" Grid.Column="0"  Grid.Row="3" />
-            <ProgressBar Height="10" HorizontalAlignment="Center" Name="pbUnholy1" VerticalAlignment="Center" Width="96" Maximum="100" Foreground="SeaGreen" Grid.Column="0" Grid.Row="4" />
-            <ProgressBar Height="10" HorizontalAlignment="Center" Name="pbUnholy2" VerticalAlignment="Center" Width="96" Maximum="100" Foreground="SeaGreen" Grid.Column="0" Grid.Row="5" />
-            <ProgressBar Height="10" HorizontalAlignment="Center" Name="pbRunic" VerticalAlignment="Center" Width="96" Maximum="130" Foreground="Yellow" Grid.Column="0" Grid.Row="6" />
-            <TextBlock Grid.Column="1" Height="24" HorizontalAlignment="Right" Name="txtTime" Text="0000000000" VerticalAlignment="Center" Margin="6,0,6,0" Grid.Row="3" />
-        <TextBlock Grid.Column="2" Height="24" HorizontalAlignment="Left" Name="txtAction" Text="0000000000" VerticalAlignment="Center" Margin="6,0,0,0" Grid.Row="3" />
-        
+        <ProgressBar Height="10" HorizontalAlignment="left"  Name="pbBlood1" VerticalAlignment="Center" Width="45" Maximum="100" Foreground="Crimson" Grid.Column="0" Grid.Row="0" />
+        <ProgressBar Height="10" HorizontalAlignment="Right"  Name="pbBlood2" VerticalAlignment="Center" Width="45" Maximum="100" Foreground="Crimson" Grid.Column="0" Grid.Row="0" />
+            <ProgressBar Height="10" HorizontalAlignment="left"  Name="pbFrost1" VerticalAlignment="Center" Width="45" Maximum="100" Foreground="RoyalBlue" Grid.Column="0"  Grid.Row="1" />
+            <ProgressBar Height="10" HorizontalAlignment="Right"  Name="pbFrost2" VerticalAlignment="Center" Width="45" Maximum="100" Foreground="RoyalBlue" Grid.Column="0"  Grid.Row="1" />
+            <ProgressBar Height="10" HorizontalAlignment="Left" Name="pbUnholy1" VerticalAlignment="Center" Width="45" Maximum="100" Foreground="SeaGreen" Grid.Column="0" Grid.Row="2" />
+            <ProgressBar Height="10" HorizontalAlignment="Right" Name="pbUnholy2" VerticalAlignment="Center" Width="45" Maximum="100" Foreground="SeaGreen" Grid.Column="0" Grid.Row="2" />
+            <ProgressBar Height="10" HorizontalAlignment="Center" Name="pbRunic" VerticalAlignment="Center" Width="96" Maximum="130" Foreground="Yellow" Grid.Column="0" Grid.Row="3" />
+            <TextBlock Grid.Column="1"  HorizontalAlignment="Right" Name="txtTime" Text="0000000000" VerticalAlignment="Center" Margin="6,0,6,0" Grid.Row="1" Grid.RowSpan="2" />
+            <TextBlock Grid.Column="2"  HorizontalAlignment="Left" Name="txtAction" Text="0000000000" VerticalAlignment="Center" Margin="6,0,0,0" Grid.Row="1" Grid.RowSpan="2"/>
+            <TextBlock Grid.Column="2"  HorizontalAlignment="Left" Name="txtGCD" Text="GCD = " VerticalAlignment="Center" Margin="6,0,0,0" Grid.Row="3" Grid.RowSpan="2"/>
     </Grid>
     </Border>
 </UserControl>

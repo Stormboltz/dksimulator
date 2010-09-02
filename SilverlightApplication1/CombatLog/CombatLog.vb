@@ -40,6 +40,10 @@ Public Class CombatLog
     End Sub
 
     Sub write(ByVal s As String)
+        If Sim.EPStat <> "" Then
+            enable = False
+            Return
+        End If
         If Sim.TimeStamp > (10 * 60 * 100) Then Exit Sub 'To not explode Storage
         If enable Then
             Dim tmp As String

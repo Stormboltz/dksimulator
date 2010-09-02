@@ -194,7 +194,8 @@ NextUnholy:
 
     Private Sub cmdTalentDpsValue_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdTalentDpsValue.Click
         SaveTemplate(FilePath)
-        SimConstructor.StartSpecDpsValue(10, App.Current.RootVisual)
+        CType(App.Current.RootVisual, MainForm).LoadBeforeSim()
+        SimConstructor.StartSpecDpsValue(Math.Min(Integer.Parse(CType(App.Current.RootVisual, MainForm).txtSimtime.Text), 10), App.Current.RootVisual)
         Me.DialogResult = True
 
     End Sub

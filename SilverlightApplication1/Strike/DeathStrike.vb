@@ -29,7 +29,14 @@ Friend Class DeathStrike
     Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
 
 
-        If MyBase.ApplyDamage(T) = False Then Return False
+
+        If MyBase.ApplyDamage(T) = False Then
+            UseGCD(T)
+            sim.Runes.UseFU(T, False, True)
+
+            Return False
+        End If
+
         If OffHand = False Then
             UseGCD(T)
             sim.RunicPower.add(25 + 5 * sim.Character.Talents.Talent("Dirge").Value)

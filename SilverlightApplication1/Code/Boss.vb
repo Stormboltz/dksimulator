@@ -38,6 +38,7 @@ Public Class Boss
         RNGHit = MyRng()
         NextHit = T + Speed
         Sim.FutureEventManager.Add(NextHit, "Boss")
+        Sim.proc.tryProcs(Procs.ProcOnType.OnBossHitOrMiss)
         If RNGHit > Avoidance Then
             'Boss hit
             Sim.BoneShield.UseCharge(T)
@@ -45,7 +46,6 @@ Public Class Boss
             'Boss miss
             Sim.RuneStrike.trigger = True
         End If
-        Sim.proc.ScentOfBlood.TryMe(T)
         Return True
     End Function
 
@@ -64,5 +64,7 @@ Public Class Boss
         End Try
 
     End Sub
-
+    Sub SoftReset()
+        If Sim.BloodPresence <> 0 Then Sim.FutureEventManager.Add(Sim.TimeStamp + 1, "Boss")
+    End Sub
 End Class

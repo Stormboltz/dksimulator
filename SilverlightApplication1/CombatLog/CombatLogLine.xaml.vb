@@ -1,22 +1,20 @@
 ﻿Partial Public Class CombatLogLine
     Inherits UserControl
-
+    Friend TimeStamp As Decimal
     Public Sub New(ByVal Line As String)
         InitializeComponent()
         SetContent(Line)
     End Sub
 
     Sub SetContent(ByVal Line As String)
-        '[200:145:177]	319	SS Physical crit for 12682	RP left = 55'
-
         Dim splitedLine As String()
         splitedLine = Line.Split(vbTab)
         Dim sRunes = splitedLine(0)
         Dim sTime = splitedLine(1)
         Dim sLine = splitedLine(2)
-
+        TimeStamp = CDec(sTime) / 100
         txtAction.Text = sLine
-        txtTime.Text = (CDec(sTime) / 100).ToString & "s"
+        txtTime.Text = TimeStamp.ToString & "s"
 
         sRunes = sRunes.Replace("[", "")
         sRunes = sRunes.Replace("]", "")

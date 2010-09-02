@@ -20,14 +20,22 @@ Friend Class BloodBoil
 
     Overrides Function ApplyDamage(ByVal T As Long) As Boolean
         UseGCD(T)
-        sim.Runes.UseBlood(T, False)
+        If sim.proc.CrimsonScourge.IsActive Then
+            sim.proc.CrimsonScourge.Use()
+        Else
+            sim.Runes.UseBlood(T, False)
+            sim.RunicPower.add(15)
+        End If
+
 
         For Each Tar As Targets.Target In sim.Targets.AllTargets
             'TODO Diffrent debuff for each target
             MyBase.ApplyDamage(T)
-            sim.proc.tryProcs(Procs.ProcOnType.OnDamage)
+
+
         Next
-        sim.RunicPower.add(15)
+        sim.proc.tryProcs(Procs.ProcOnType.OnBloodBoil)
+
         Return True
     End Function
     Overrides Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double

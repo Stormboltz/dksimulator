@@ -29,14 +29,15 @@ Friend class DeathCoil
         If sim.proc.SuddenDoom.IsActive Then
             sim.proc.SuddenDoom.Use()
         Else
-            If sim.Character.Talents.Talent("DRW").Value = 1 Then
-                If sim.DRW.cd < T And sim.RunicPower.Check(60) Then
-                    If sim.DRW.Summon(T) = True Then Return True
-                End If
-            End If
-            If sim.PetFriendly And sim.Character.Talents.Talent("SummonGargoyle").Value = 1 Then
-                If sim.Gargoyle.cd < T And sim.RunicPower.Check(60) Then
-                    If sim.Gargoyle.Summon(T) = True Then Return True
+            If sim.RunicPower.Check(60) Then
+                If sim.Character.Talents.Talent("DRW").Value = 1 Then
+                    If sim.DRW.cd < T Then
+                        If sim.DRW.Summon(T) = True Then Return True
+                    End If
+                ElseIf sim.PetFriendly And sim.Character.Talents.Talent("SummonGargoyle").Value = 1 Then
+                    If sim.Gargoyle.cd < T Then
+                        If sim.Gargoyle.Summon(T) = True Then Return True
+                    End If
                 End If
             End If
             sim.RunicPower.Use(40)

@@ -19,7 +19,7 @@ Public Class RuneStrike
         logLevel = LogLevelEnum.Basic
 
         BaseDamage = 0
-        Coeficient = 1.5
+        Coeficient = 2
 
         Multiplicator = 1
         Multiplicator *= (1 + sim.MainStat.T82PTNK * 0.1)
@@ -34,9 +34,13 @@ Public Class RuneStrike
 	End Sub
 	
 	overrides Function ApplyDamage(T As long) As boolean
-        BaseDamage = 15 * sim.MainStat.AP / 10
+        BaseDamage = 20 * sim.MainStat.AP / 100
         trigger = False
-        If MyBase.ApplyDamage(T) = False Then Return False
+        If MyBase.ApplyDamage(T) = False Then
+            sim.RunicPower.Use(10)
+            Return False
+        End If
+
         If OffHand = False Then
             UseGCD(T)
             sim.RunicPower.Use(20)

@@ -201,8 +201,7 @@ Partial Public Class MainForm
 
         ConstrucFileDir()
 
-
-        'Me..Text = "Kahorie's DK Simulator " & Application.ProductVersion
+        'lblApplication.Content = "Kahorie's DK Simulator " & App.Current.
         LoadTrinket()
         loadWindow()
         loadConfig()
@@ -1045,11 +1044,16 @@ OUT:
                 DPS1 = iSlot.Item.DPS
                 Speed1 = iSlot.Item.Speed
                 Try
-
-                    StatSummary.cmbWeaponProc1.Text = "MH" & (
-                        From el In WeapProcDB.<WeaponProcList>.<proc>
-                        Where (el.@<id> = iSlot.Item.Id)
-                        Select el).First.@<name>
+                    If (From el In WeapProcDB.<WeaponProcList>.<proc>
+                            Where (el.@<id> = iSlot.Item.Id)
+                            Select el).Count = 0 Then
+                        StatSummary.cmbWeaponProc1.Text = ""
+                    Else
+                        StatSummary.cmbWeaponProc1.Text = "MH" & (
+                            From el In WeapProcDB.<WeaponProcList>.<proc>
+                            Where (el.@<id> = iSlot.Item.Id)
+                            Select el).First.@<name>
+                    End If
                 Catch ex As Exception
                     Log.Log(ex.StackTrace, logging.Level.ERR)
                     StatSummary.cmbWeaponProc1.Text = ""
@@ -1078,10 +1082,18 @@ OUT:
                 Speed2 = iSlot.Item.Speed
 
                 Try
-                    StatSummary.cmbWeaponProc2.Text = "OH" & (
-                        From el In WeapProcDB.<WeaponProcList>.<proc>
-                        Where (el.@<id> = iSlot.Item.Id)
-                        Select el).First.@<name>
+                    If (
+                            From el In WeapProcDB.<WeaponProcList>.<proc>
+                            Where (el.@<id> = iSlot.Item.Id)
+                            Select el).Count = 0 Then
+                        StatSummary.cmbWeaponProc2.Text = ""
+                    Else
+                        StatSummary.cmbWeaponProc2.Text = "OH" & (
+                                                From el In WeapProcDB.<WeaponProcList>.<proc>
+                                                Where (el.@<id> = iSlot.Item.Id)
+                                                Select el).First.@<name>
+                    End If
+
                 Catch ex As Exception
                     Log.Log(ex.StackTrace, logging.Level.ERR)
                     StatSummary.cmbWeaponProc1.Text = ""

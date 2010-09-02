@@ -14,9 +14,14 @@
     'and Chains of Ice effects on the target by up to 6 sec. / 5 yd range, Blood+Frost
 
     Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
-        If MyBase.ApplyDamage(T) = False Then Return False
-        If OffHand = False Then
+        If MyBase.ApplyDamage(T) = False Then
+            sim.Runes.UseBF(T, False, True)
             UseGCD(T)
+            Return False
+        End If
+
+        If OffHand = False Then
+
             sim.RunicPower.add(25)
             sim.Targets.MainTarget.BloodPlague.IncreaseDuration(600)
             sim.Targets.MainTarget.FrostFever.IncreaseDuration(600)

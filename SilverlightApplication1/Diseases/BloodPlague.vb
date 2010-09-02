@@ -14,14 +14,13 @@ NameSpace Diseases
 		End Function
 		
 		
-		Overrides Function PerfectUsage(T As Long) As Boolean
-
+        Overrides Function PerfectUsage(ByVal T As Long) As Boolean
             If FadeAt <= sim.Runes.GetNextUnholy(T) Then
-                sim.Targets.MainTarget.FrostFever.ToReApply = True
+                ToReApply = True
                 Return True
             End If
             Return False
-		End Function
+        End Function
 		Public Overloads Overrides Sub Merge()
 			If Me.Equals(sim.Targets.MainTarget.BloodPlague) = False Then
 				With sim.Targets.MainTarget.BloodPlague
