@@ -179,7 +179,7 @@ Friend Class DRW
 		tmp = 1
 		tmp = tmp * getMitigation
 		tmp = tmp * (1 + 0.03 *  sim.Character.Buff.PcDamage)
-		tmp = tmp * (1 + 0.02 *  target.Debuff.PhysicalVuln)
+        tmp = tmp * (1 + 0.04 * target.Debuff.PhysicalVuln)
 		if Hyst then tmp = tmp * (1 + 0.2)
 		return tmp
 	End Function
@@ -195,8 +195,8 @@ Friend Class DRW
 		dim _Mitigation as Double
 		
 		
-		if target.Debuff.ArmorMajor > 0 then l_sunder = 1- 0.20
-		If target.Debuff.ArmorMinor > 0 Then l_ff = 1 - 0.05
+        If target.Debuff.ArmorMajor > 0 Then l_sunder = 1 - 0.12
+
 		ArPDebuffs = (l_sunder * l_ff)
 		Dim ArmorConstant As Double = 400 + (85 * 80) + 4.5 * 85 * (80 - 59)
 		
@@ -212,26 +212,15 @@ Friend Class DRW
 		Dim tmp As Double
 		tmp = 1
 		tmp = tmp * (1 + 0.03 *  sim.Character.Buff.PcDamage)
-		tmp = tmp * (1 + 0.13 *  target.Debuff.SpellDamageTaken)
+        tmp = tmp * (1 + 0.08 * target.Debuff.SpellDamageTaken)
 		return tmp
 	End Function
 	Function crit() As System.Double
 		return _crit
-'		Dim tmp As Double
-'		tmp = 20  'BaseCrit
-'		tmp = tmp + 5 *  sim.Buff.MeleeCrit
-'		tmp = tmp + 3 *  sim.Buff.CritChanceTaken
-'		crit = tmp / 100
-	End Function
+    End Function
 	Function SpellCrit() As Single
 		return _Spellcrit
-'		Dim tmp As Double
-'		tmp = 20
-'		tmp = tmp + 3 *  sim.Buff.CritChanceTaken
-'		tmp = tmp + 5 *  sim.Buff.SpellCrit
-'		tmp = tmp + 5  *  sim.Buff.SpellCritTaken
-'		SpellCrit = tmp / 100
-	End Function
+    End Function
 	Function Hit() As Double
 		Dim tmp As Double
 		tmp = sim.MainStat.Hit

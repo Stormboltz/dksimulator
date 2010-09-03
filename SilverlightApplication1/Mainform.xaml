@@ -123,31 +123,22 @@
                     <StackPanel Name="GrpBuff">
 
                         <CheckBox Content="Str/Agi" Height="16" Name="chkBStrAgi" IsChecked="True" Grid.Column="1" Grid.Row="0"/>
-                        <CheckBox Content="Attack power" Height="16" Name="chkBAP" IsChecked="True" Grid.Column="1" Grid.Row="1"/>
-                        <CheckBox Content="Attack power %" Height="16" Name="chkBAPPc" IsChecked="True" Grid.Column="1" Grid.Row="2"/>
-                        <CheckBox Content="% Damage" Height="16" Name="chkBPcDamage" IsChecked="True" Grid.Column="1" Grid.Row="3"/>
-                        <CheckBox Content="Haste" Height="16" Name="chkBHaste" IsChecked="True" Grid.Column="1" Grid.Row="4"/>
-                        <CheckBox Content="Melee Haste" Height="16" Name="chkBMeleeHaste" IsChecked="True" Grid.Column="1" Grid.Row="5"/>
-                        <CheckBox Content="Melee Crit" Height="16" Name="chkBMeleeCrit" IsChecked="True" Grid.Column="1" Grid.Row="6"/>
-                        <CheckBox Content="Spell Crit" Height="16" Name="chkBSpellCrit" IsChecked="True" Grid.Column="1" Grid.Row="7"/>
-                        <CheckBox Content="Spell Haste" Height="16" Name="chkBSpellHaste" IsChecked="True" Grid.Column="1" Grid.Row="8"/>
-                        <CheckBox Content="Stat Add" Height="16" Name="chkBStatAdd" IsChecked="True" Grid.Column="1" Grid.Row="9"/>
-                        <CheckBox Content="10% Stat" Height="16" Name="chkBStatMulti" IsChecked="True" Grid.Column="1" Grid.Row="10"/>
+                        <CheckBox Content="Armor" Height="16" Name="chkBArmor" IsChecked="True" Grid.Column="1" Grid.Row="0"/>
+                        <CheckBox Content="10% AP" Height="16" Name="chkBAPPc" IsChecked="True" Grid.Column="1" Grid.Row="2"/>
+                        <CheckBox Content="Burst Haste" Height="16" Name="chkBloodlust" IsChecked="True" Grid.Column="1" Grid.Row="12"/>
+                        <CheckBox Content="3% Damage" Height="16" Name="chkBPcDamage" IsChecked="True" Grid.Column="1" Grid.Row="3"/>
+                        <CheckBox Content="5% Crit" Height="16" Name="chkBCrit" IsChecked="True" Grid.Column="1" Grid.Row="6"/>
+                        <CheckBox Content="20% Melee Haste" Height="16" Name="chkBMeleeHaste" IsChecked="True" Grid.Column="1" Grid.Row="5"/>
+                        <CheckBox Content="5% Spell Haste" Height="16" Name="chkBSpellHaste" IsChecked="True" Grid.Column="1" Grid.Row="8"/>
+                        <CheckBox Content="5% Stat" Height="16" Name="chkBStatMulti" IsChecked="True" Grid.Column="1" Grid.Row="10"/>
                         <CheckBox Content="Draeni" Height="16" Name="chkDraeni" IsChecked="True" Grid.Column="1" Grid.Row="11"/>
-                        <CheckBox Content="Bloodlust" Height="16" Name="chkBloodlust" IsChecked="True" Grid.Column="1" Grid.Row="12"/>
+                        
                         <sdk:Label Content=" "></sdk:Label>
-                        <CheckBox Content="Major Armor debuff" Height="16" Name="chkBArmorMaj" IsChecked="True" Grid.Column="2" Grid.Row="0"/>
-                        <CheckBox Content="Minor Armor debuff" Height="16" Name="chkBArmorMinor" IsChecked="True" Grid.Column="2" Grid.Row="1"/>
-                        <CheckBox Content="Critical chance taken" Height="16" Name="chkBCritchanceTaken" IsChecked="True" Grid.Column="2" Grid.Row="2"/>
-                        <CheckBox Content="Physical Vulnerability" Height="16" Name="chkBPhyVuln" IsChecked="True" Grid.Column="2" Grid.Row="3"/>
-                        <CheckBox Content="Spell crit chance taken" Height="16" Name="chkBSpCrTaken" IsChecked="True" Grid.Column="2" Grid.Row="4"/>
-                        <CheckBox Content="Spell Damage taken" Height="16" Name="chkBSpDamTaken" IsChecked="True" Grid.Column="2" Grid.Row="5"/>
-                        <CheckBox Content="Spell hit taken" Height="16" Name="chkBSpHitTaken" IsChecked="True" Grid.Column="2" Grid.Row="6"/>
+                        <CheckBox Content="12% Armor debuff" Height="16" Name="chkBArmorMaj" IsChecked="True" Grid.Column="2" Grid.Row="0"/>
+                        <CheckBox Content="5% Spell crit chance taken" Height="16" Name="chkBSpCrTaken" IsChecked="True" Grid.Column="2" Grid.Row="4"/>
+                        <CheckBox Content="4% Physical Vulnerability" Height="16" Name="chkBPhyVuln" IsChecked="True" Grid.Column="2" Grid.Row="3"/>
+                        <CheckBox Content="8% Spell Damage taken" Height="16" Name="chkBSpDamTaken" IsChecked="True" Grid.Column="2" Grid.Row="5"/>
                         <sdk:Label Content=" "></sdk:Label>
-                        <CheckBox Content="Cryptic Fever from another DK" Height="16" Name="chkCrypticFever" IsChecked="True" Grid.Column="2" Grid.Row="8"/>
-                        <CheckBox Content="Frost Fever from another DK" Height="16" Name="chkFrostFever" IsChecked="True" Grid.Column="2" Grid.Row="9"/>
-                        <CheckBox Content="Blood Plague from another DK" Height="16" Name="chkBloodPlague" IsChecked="True" Grid.Column="2" Grid.Row="10"/>
-
                     </StackPanel>
 
                 </sdk:TabItem>
@@ -224,7 +215,7 @@
                             <RowDefinition Height="24" />
                             <RowDefinition Height="1*" />
                         </Grid.RowDefinitions>
-                        <Button Content="Sim scaling[NYI]" Name="cmdScaling" Grid.Row="2" />
+                        <Button Content="Sim scaling" Name="cmdScaling" Grid.Row="2" />
                         <StackPanel Grid.Row="0">
                             <CheckBox Content="Replace Critical rating" Name="chkScaCrit" />
                             <CheckBox Content="Replace Haste Rating" Name="chkScaHaste" />

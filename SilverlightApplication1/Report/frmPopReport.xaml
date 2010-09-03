@@ -3,7 +3,7 @@
            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
            xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
            Width="750" Height="550"
-           Title="frmPopReport" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk">
+           Title="frmPopReport" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit">
     <Grid x:Name="LayoutRoot" Margin="2">
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -13,6 +13,11 @@
             <StackPanel>
                 <sdk:DataGrid AutoGenerateColumns="True" FontSize="9"   Name="dgReport" MinColumnWidth="5"/>
                 <TextBox Grid.Row="1" Name="txtAdditionalInfo" Text="" IsReadOnly="True" />
+                <toolkit:Chart Name="Chart" Title="Title" Height="390">
+                    <toolkit:LineSeries Name="LineSerie">
+                    
+                    </toolkit:LineSeries>
+                </toolkit:Chart>
             </StackPanel>
         </ScrollViewer>
         <Button x:Name="OKButton" Content="OK" Width="75" Height="23" HorizontalAlignment="Right" Grid.Row="1" />

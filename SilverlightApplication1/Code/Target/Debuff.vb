@@ -14,16 +14,9 @@ Namespace Targets
     Public Class Debuff
 
         Friend ArmorMajor As Integer
-        Friend ArmorMinor As Integer
-        Friend CritChanceTaken As Integer
         Friend PhysicalVuln As Integer
         Friend SpellCritTaken As Integer
         Friend SpellDamageTaken As Integer
-        Friend SpellHitTaken As Integer
-        Friend CrypticFever As Integer
-        Friend BloodPlague As Integer
-        Friend FrostFever As Integer
-
         Protected sim As Sim
         Sub New(ByVal S As Sim)
             sim = S
@@ -33,17 +26,10 @@ Namespace Targets
             Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/Buffconfig.xml", FileMode.Open, FileAccess.Read, sim.isoStore)
                 doc = XDocument.Load(isoStream)
             End Using
-
             ArmorMajor = Bool2Int(doc.Element("config").Element("chkBArmorMaj").Value)
-            ArmorMinor = Bool2Int(doc.Element("config").Element("chkBArmorMinor").Value)
-            CritChanceTaken = Bool2Int(doc.Element("config").Element("chkBCritchanceTaken").Value)
             PhysicalVuln = Bool2Int(doc.Element("config").Element("chkBPhyVuln").Value)
             SpellCritTaken = Bool2Int(doc.Element("config").Element("chkBSpCrTaken").Value)
             SpellDamageTaken = Bool2Int(doc.Element("config").Element("chkBSpDamTaken").Value)
-            SpellHitTaken = Bool2Int(doc.Element("config").Element("chkBSpHitTaken").Value)
-            CrypticFever = Bool2Int(doc.Element("config").Element("chkCrypticFever").Value)
-            BloodPlague = Bool2Int(doc.Element("config").Element("chkBloodPlague").Value)
-            FrostFever = Bool2Int(doc.Element("config").Element("chkFrostFever").Value)
         End Sub
         Function Bool2Int(ByVal b As Boolean) As Integer
             If b = True Then
@@ -55,15 +41,14 @@ Namespace Targets
 
         Sub Unbuff()
             ArmorMajor = 0
-            ArmorMinor = 0
-            CritChanceTaken = 0
+
+
             PhysicalVuln = 0
             SpellCritTaken = 0
             SpellDamageTaken = 0
-            SpellHitTaken = 0
-            CrypticFever = 0
-            BloodPlague = 0
-            FrostFever = 0
+
+
+           
         End Sub
 
 

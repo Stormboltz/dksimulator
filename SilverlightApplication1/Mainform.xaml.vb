@@ -1653,4 +1653,8 @@ NextItem:
     Private Sub cmdCleanDebug_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdCleanDebug.Click
         Log.clean()
     End Sub
+
+    Private Sub cmdScaling_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdScaling.Click
+        SimConstructor.StartScaling(Me)
+    End Sub
 End Class

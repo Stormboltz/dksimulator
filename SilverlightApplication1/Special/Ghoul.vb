@@ -90,25 +90,23 @@ Friend class Ghoul
 		Dim tmp As Integer
 		tmp = sim.GhoulStat.Agility
 		tmp = tmp + 155 * 1.15 *  sim.Character.Buff.StrAgi
-		tmp = tmp + 37 * 1.4 *  sim.Character.Buff.StatAdd
-		tmp = tmp * (1 +  sim.Character.Buff.StatMulti / 10)
-		return tmp
-	End Function
-	
-	Function Strength() As Integer
-		Dim tmp As Integer
-		tmp = sim.GhoulStat.Strength
-		tmp = tmp + 155 * 1.15 *  sim.Character.Buff.StrAgi
-		tmp = tmp + 37 * 1.4 *  sim.Character.Buff.StatAdd
-		tmp = tmp * (1 +  sim.Character.Buff.StatMulti / 10)
-		return tmp
-	End Function
+        tmp = tmp * (1 + 5 * sim.Character.Buff.StatMulti / 100)
+        Return tmp
+    End Function
+
+    Function Strength() As Integer
+        Dim tmp As Integer
+        tmp = sim.GhoulStat.Strength
+        tmp = tmp + 155 * 1.15 * sim.Character.Buff.StrAgi
+        tmp = tmp * (1 + 5 * sim.Character.Buff.StatMulti / 100)
+        Return tmp
+    End Function
 	
 	Function AP() As Integer
 		Dim tmp As Integer
 		If isGuardian Then Return _AP
 		tmp = sim.GhoulStat.BaseAP + Strength() + Agility()
-		return (tmp + 687 * sim.Character.Buff.AttackPower) * (1 +  sim.Character.Buff.AttackPowerPc / 10)
+        Return (tmp) * (1 + sim.Character.Buff.AttackPowerPc / 10)
 	End Function
 	
 	Function ApplyDamage(T As long) As boolean

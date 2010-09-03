@@ -131,8 +131,7 @@ Friend Class Character
         End If
         tmp += sim.proc.GetActiveBonus("str")
         tmp = tmp + 155 * 1.15 * Buff.StrAgi
-        tmp = tmp + 37 * 1.4 * Buff.StatAdd
-        tmp = tmp * (1 + Buff.StatMulti / 10)
+        tmp = tmp * (1 + 5 * Buff.StatMulti / 100)
         tmp = tmp * (1 + Talents.Talent("BrittleBones").Value * 2 / 100)
         tmp = tmp * (1 + Talents.Talent("AbominationMight").Value / 100)
         tmp = tmp * (1 + Talents.Talent("RavenousDead").Value / 100)
@@ -156,8 +155,7 @@ Friend Class Character
         End If
         tmp += sim.proc.GetMaxPossibleBonus("str")
         tmp = tmp + 155 * 1.15 * Buff.StrAgi
-        tmp = tmp + 37 * 1.4 * Buff.StatAdd
-        tmp = tmp * (1 + Buff.StatMulti / 10)
+        tmp = tmp * (1 + 5 * Buff.StatMulti / 100)
         tmp = tmp * (1 + Talents.Talent("BrittleBones").Value * 2 / 100)
         tmp = tmp * (1 + Talents.Talent("AbominationMight").Value / 100)
         tmp = tmp * (1 + Talents.Talent("RavenousDead").Value / 100)
@@ -178,14 +176,14 @@ Friend Class Character
         If InStr(sim.EPStat, "ScaAgility") Then
             tmp = tmp + Replace(sim.EPStat, "ScaAgility", "") * sim.EPBase
         End If
-        tmp = (tmp + 155 * 1.15 * Buff.StrAgi + 37 * 1.4 * Buff.StatAdd) * (1 + Buff.StatMulti / 10)
+        tmp = (tmp + 155 * 1.15 * Buff.StrAgi) * (1 + 5 * Buff.StatMulti / 100)
         Return tmp
     End Function
 
     Function Intel() As Integer
         Dim tmp As Integer
         tmp = _Intel
-        tmp = (tmp + 37 * 1.4 * Buff.StatAdd) * (1 + Buff.StatMulti / 10)
+        tmp = (tmp) * (1 + Buff.StatMulti / 10)
         Return tmp
     End Function
 
@@ -195,7 +193,7 @@ Friend Class Character
         tmp = _Armor
         tmp2 = sim.boss.SpecialArmor
         tmp = tmp - tmp2
-        tmp = tmp + (750 * 1.4 * Buff.StatAdd)
+        tmp = tmp + (750 * 1.4 * Buff.Armor)
         tmp = tmp * (1 + Talents.Talent("Toughness").Value * 0.0333)
         If sim.BloodPresence = 1 Then
             tmp = tmp * 1.6
@@ -226,7 +224,6 @@ Friend Class Character
             Case Else
         End Select
         tmp = tmp + Int(Armor() / 180) * Talents.Talent("BladedArmor").Value
-        tmp = tmp + 687 * Buff.AttackPower
         Return tmp
     End Function
 

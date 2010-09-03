@@ -134,7 +134,42 @@ Public Module SimConstructor
         End Try
         Return i
     End Function
+    Sub CalculateStatScaling()
+        Try
+            RemoveHandler AllSimdone, AddressOf CalculateStatScaling
+        Catch ex As Exception
 
+        End Try
+        Dim rp As New Report
+        Dim c As New Collections.Generic.Dictionary(Of String, Long)
+        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/ScalingConfig.xml", FileMode.Open, FileAccess.Read, isoStore)
+                Dim doc As XDocument = XDocument.Load(isoStream)
+                Dim xNodelist As XElement
+                xNodelist = doc.Element("config").Element("Stats")
+                Dim xNode As XElement
+                Dim i As Integer
+
+                Dim max As Integer
+                max = 10
+                EPBase = 5
+                For Each xNode In xNodelist.Elements
+
+                    If xNode.Value = "true" Then
+                        Dim l As New StatScallingLine(xNode.Name.ToString)
+                        For i = 0 To max
+                            EpStat = Replace(xNode.Name.ToString, "chk", "") & i
+                            Dim r As Long = DPSs(EpStat)
+                            l.Add(i * EPBase, r)
+                        Next i
+                        rp.AddLine(l)
+                    End If
+                Next
+                rp.Save("")
+            End Using
+        End Using
+        _MainFrm.TryToOpenReport()
+    End Sub
     Sub CalculateTalentValue()
         Try
             RemoveHandler AllSimdone, AddressOf CalculateTalentValue
@@ -282,16 +317,7 @@ Public Module SimConstructor
         Catch
 
         End Try
-        Try
-            EpStat = "EP ArmorPenetrationRating"
-            DPS = DPSs(EpStat)
-            tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
-            tmp2 = (DPS - BaseDPS) / EPBase
-            ArP = toDDecimal(tmp2 / tmp1)
-            rp.AddAdditionalInfo(EpStat, ArP)
 
-        Catch
-        End Try
         Try
             EpStat = "EP ExpertiseRating"
             DPS = DPSs(EpStat)
@@ -518,8 +544,7 @@ Public Module SimConstructor
         EpStat = "EP CritRating"
         SimConstructor.Start(SimTime, MainFrm)
         EpStat = "EP HasteEstimated"
-        SimConstructor.Start(SimTime, MainFrm)
-        EpStat = "EP ArmorPenetrationRating"
+
         SimConstructor.Start(SimTime, MainFrm)
         EpStat = "EP RelativeExpertiseRating"
         SimConstructor.Start(SimTime, MainFrm)
@@ -564,10 +589,7 @@ Public Module SimConstructor
         tmp2 = (DPS - BaseDPS) / EPBase
         EPVal.Haste = Math.Max(0, toDDecimal(tmp2 / tmp1))
 
-        EpStat = "EP ArmorPenetrationRating"
-        DPS = DPSs(EpStat)
-        tmp2 = (DPS - BaseDPS) / EPBase
-        EPVal.ArP = Math.Max(0, toDDecimal(tmp2 / tmp1))
+
 
 
         EpStat = "EP RelativeExpertiseRating"
@@ -601,8 +623,6 @@ skipStats:
 
 
     End Sub
-
-
     Sub StartEP(ByVal SimTime As Double, ByVal MainFrm As MainForm)
         SimCount = 0
         SimDone = 0
@@ -658,10 +678,7 @@ skipStats:
                     EpStat = "EP HasteEstimated"
                     SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                 End If
-                If doc.Element("config").Element("Stats").Element("chkEPArP").Value = "true" Then
-                    EpStat = "EP ArmorPenetrationRating"
-                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
-                End If
+
 
 
                 If doc.Element("config").Element("Stats").Element("chkEPExp").Value = "true" Then
@@ -676,7 +693,7 @@ skipStats:
                     SimConstructor.Start(SimTime, MainFrm, False, EpStat)
 
 
-                    If MainFrm.cmdPresence.SelectedItem = "Frost" Then
+                    If MainFrm.cmdPresence.SelectedItem = "Blood" Then
                         EpStat = "EP ExpertiseRatingAfterCap"
                         SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                     End If
@@ -771,16 +788,18 @@ skipTrinket:
         End Using
 
     End Sub
-
-
-    Sub StartScaling(ByVal pb As ProgressBar, ByVal SimTime As Double, ByVal MainFrm As MainForm)
-
+    Sub StartScaling(ByVal MainFrm As MainForm)
+        AddHandler AllSimdone, AddressOf CalculateStatScaling
+        SimCount = 0
+        SimDone = 0
         DPSs.Clear()
         ThreadCollection.Clear()
         simCollection.Clear()
         EPBase = 50
         _MainFrm = MainFrm
-        Dim sReport As String
+
+        _MainFrm.LoadBeforeSim()
+
         Dim doc As XDocument = New XDocument
 
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
@@ -793,60 +812,19 @@ skipTrinket:
         xNodelist = doc.Element("config").Element("Stats")
         Dim xNode As XElement
         Dim i As Integer
-        sReport = "<table border='0' cellspacing='0' style='font-family:Verdana; font-size:10px;'>"
+
         Dim max As Integer
-        max = 200
+        max = 10
         EPBase = 5
-
-        sReport = sReport + ("<tr><td>Stat</td>")
-        For i = 0 To max
-            sReport = sReport & "<td>" & EPBase * i & "</td>"
-        Next
-        sReport = sReport + ("</tr>")
-
-        Dim INSRTCOLOR As String
         For Each xNode In xNodelist.Elements
-
-            If xNode.Value = "True" Then
+            If xNode.Value = "true" Then
                 For i = 0 To max
                     EpStat = Replace(xNode.Name.ToString, "chk", "") & i
-                    SimConstructor.Start(1, MainFrm)
+                    SimConstructor.Start(1, MainFrm, False, EpStat)
                 Next i
-                Jointhread()
-                EpStat = Replace(xNode.Name.ToString, "chk", "")
-
-                INSRTCOLOR = ""
-                Select Case EpStat
-                    Case "ScaExp"
-                        INSRTCOLOR = "Violet"
-                    Case "ScaHit"
-                        INSRTCOLOR = "Yellow"
-                    Case "ScaArP"
-                        INSRTCOLOR = "Maroon"
-                    Case "ScaHaste"
-                        INSRTCOLOR = "Pink"
-                    Case "ScaCrit"
-                        INSRTCOLOR = "Orange"
-                    Case "ScaAgility"
-                        INSRTCOLOR = "Purple"
-                    Case "ScaStr"
-                        INSRTCOLOR = "Red"
-                End Select
-                INSRTCOLOR = "Black"
-                sReport = sReport + ("<tr><td><font color=" & INSRTCOLOR & ">" & EpStat & "</td>")
-                For i = 0 To max
-                    sReport = sReport + ("<td>" & DPSs(EpStat & i) & "</td>")
-                Next i
-                sReport = sReport + ("</tr>")
             End If
-
         Next
-        sReport = sReport & "</table>"
-
-        'WriteReport(sReport)
-        'createGraph
         EpStat = ""
-
     End Sub
     Sub StartSpecDpsValue(ByVal SimTime As Double, ByVal MainFrm As MainForm)
         SimCount = 0

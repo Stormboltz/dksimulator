@@ -11,62 +11,82 @@ Partial Public Class ReportFrame
         InitializeComponent()
     End Sub
     Sub OpenReport(ByVal path As String)
-        Try
 
 
-            Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-                Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream(path, FileMode.OpenOrCreate, FileAccess.Read, isoStore)
-                    Dim myReader As XDocument = XDocument.Load(isoStream)
-                    Dim Source As List(Of ReportDisplayLine) = (From el In myReader.Element("Table").Elements("row")
-                                  Select GetItem(el)).ToList
 
-                    If Source.Count = 0 Then
-                        dgReport.Visibility = Windows.Visibility.Collapsed
+        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream(path, FileMode.OpenOrCreate, FileAccess.Read, isoStore)
+                Dim myReader As XDocument = XDocument.Load(isoStream)
+                Dim Source As List(Of ReportDisplayLine) = (From el In myReader.Element("Table").Elements("row")
+                             Select GetItem(el)).ToList
 
-                    Else
-                        dgReport.ItemsSource = Source
-                        dgReport.Visibility = Windows.Visibility.Visible
-                        Dim t As String = "[TABLE]"
-                        t &= "Ability| Damage done|||| hits||| Crits||| Misses|| Glances|||TPS| Uptime" & vbCrLf
-                        t &= "|Total| %| #| Avg| #| %| Avg| #| %| Avg|  #| Avg| #| Avg| %|  %| " & vbCrLf
 
-                        For Each r As ReportDisplayLine In Source
-                            t = t & r.Ability & "|"
-                            t = t & r.Damage_done_Total & "|"
-                            t = t & r.Damage_done_Pc & "|"
-                            t = t & r.Damage_done_Count & "|"
-                            t = t & r.Damage_done_Avg & "|"
-                            t = t & r.hit_count & "|"
-                            t = t & r.hit_count_Avg & "|"
-                            t = t & r.hit_count_Pc & "|"
-                            t = t & r.Crit_count & "|"
-                            t = t & r.Crit_count_Avg & "|"
-                            t = t & r.Crit_count_Pc & "|"
-                            t = t & r.Miss_Count & "|"
-                            t = t & r.Miss_Count_Pc & "|"
-                            t = t & r.Glance_Count & "|"
-                            t = t & r.Glance_Count_Avg & "|"
-                            t = t & r.Glance_Count_Pc & "|"
-                            t = t & r.TPS & "|"
-                            t = t & r.Uptime & "|" & vbCrLf
+
+                Try
+
+
+                    For Each eLine As XElement In myReader.Element("Table").Elements("Chart").Elements
+
+                        Dim c As New Collections.Generic.List(Of Long)
+                        For Each e As XElement In eLine.Elements
+                            c.Add(e.Value)
                         Next
-
-                        t &= "[/TABLE]" & vbCrLf
-                        Me.txtBBCode.Text = t
-                    End If
-
-                    isoStream.Close()
-                    Dim tmp As String = ""
-                    For Each el In myReader.Element("Table").Elements("AdditionalInfo")
-                        tmp += el.Attribute("Caption").Value & " " & el.Attribute("Text").Value & vbCr
+                        Dim serie As New System.Windows.Controls.DataVisualization.Charting.LineSeries
+                        serie.ItemsSource = c
+                        Me.Chart1.Series.Add(serie)
                     Next
-                    txtAdditionalInfo.Text = tmp
+                Catch ex As Exception
 
-                End Using
+                End Try
+
+
+
+
+                If Source.Count = 0 Then
+                    dgReport.Visibility = Windows.Visibility.Collapsed
+
+                Else
+                    dgReport.ItemsSource = Source
+                    dgReport.Visibility = Windows.Visibility.Visible
+                    'Dim t As String = "[TABLE]"
+                    't &= "Ability| Damage done|||| hits||| Crits||| Misses|| Glances|||TPS| Uptime" & vbCrLf
+                    't &= "|Total| %| #| Avg| #| %| Avg| #| %| Avg|  #| Avg| #| Avg| %|  %| " & vbCrLf
+
+                    'For Each r As ReportDisplayLine In Source
+                    '    t = t & r.Ability & "|"
+                    '    t = t & r.Damage_done_Total & "|"
+                    '    t = t & r.Damage_done_Pc & "|"
+                    '    t = t & r.Damage_done_Count & "|"
+                    '    t = t & r.Damage_done_Avg & "|"
+                    '    t = t & r.hit_count & "|"
+                    '    t = t & r.hit_count_Avg & "|"
+                    '    t = t & r.hit_count_Pc & "|"
+                    '    t = t & r.Crit_count & "|"
+                    '    t = t & r.Crit_count_Avg & "|"
+                    '    t = t & r.Crit_count_Pc & "|"
+                    '    t = t & r.Miss_Count & "|"
+                    '    t = t & r.Miss_Count_Pc & "|"
+                    '    t = t & r.Glance_Count & "|"
+                    '    t = t & r.Glance_Count_Avg & "|"
+                    '    t = t & r.Glance_Count_Pc & "|"
+                    '    t = t & r.TPS & "|"
+                    '    t = t & r.Uptime & "|" & vbCrLf
+                    'Next
+
+                    't &= "[/TABLE]" & vbCrLf
+                    'Me.txtBBCode.Text = t
+                End If
+
+                isoStream.Close()
+                Dim tmp As String = ""
+                For Each el In myReader.Element("Table").Elements("AdditionalInfo")
+                    tmp += el.Attribute("Caption").Value & " " & el.Attribute("Text").Value & vbCr
+                Next
+                txtAdditionalInfo.Text = tmp
+
             End Using
-        Catch ex As Exception
-            'msgBox("No report to open")
-        End Try
+        End Using
+     
     End Sub
 
 

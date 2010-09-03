@@ -44,6 +44,7 @@ Friend Class ScourgeStrike
         End If
 
         If OffHand = False Then
+
             sim.ScourgeStrikeMagical.ApplyDamage(LastDamage, T, False)
             UseGCD(T)
             sim.RunicPower.add(15 + sim.Character.Talents.Talent("Dirge").Value * 5 + 5 * sim.MainStat.T74PDPS)

@@ -42,15 +42,14 @@ Friend Class GhoulStat
 		if target is nothing then target = sim.Targets.MainTarget
 		Dim tmp As Double
 		tmp = 5  'BaseCrit
-		tmp = tmp + 5 *  sim.Character.Buff.MeleeCrit
-		tmp = tmp + 3 *  target.Debuff.CritChanceTaken
+        tmp = tmp + 5 * sim.Character.Buff.Crit
+
 		crit = tmp / 100
 	End Function
 	Function SpellCrit(Optional target As Targets.Target = Nothing) As Single
 		if target is nothing then target = sim.Targets.MainTarget
 		Dim tmp As Double
-		tmp = tmp + 3 *  target.Debuff.CritChanceTaken
-		tmp = tmp + 5 *  sim.Character.Buff.SpellCrit
+        tmp = tmp + 5 * Sim.Character.Buff.Crit
 		tmp = tmp + 5  *  target.Debuff.SpellCritTaken
 		SpellCrit = tmp / 100
 	End Function
@@ -100,9 +99,8 @@ Friend Class GhoulStat
 	Function ArmorMitigation(target as Targets.Target ) As Double
 		Dim tmp As Double
 		tmp = sim.MainStat.BossArmor
-		tmp = tmp * (1- 20 *  target.Debuff.ArmorMajor / 100)
-		tmp = tmp * (1- 5 *  target.Debuff.ArmorMinor / 100)
-		tmp = tmp * (1 - ArmorPen / 100)
+        tmp = tmp * (1 - 12 * target.Debuff.ArmorMajor / 100)
+        tmp = tmp * (1 - ArmorPen() / 100)
 		tmp = (tmp /((467.5*83)+tmp-22167.5))
 		
 		Return tmp
@@ -114,7 +112,7 @@ Friend Class GhoulStat
 		tmp = 1
 		tmp = tmp * (1 - ArmorMitigation(target))
 		tmp = tmp * (1 + 0.03 *  sim.Character.Buff.PcDamage)
-		tmp = tmp * (1 + 0.02 *  target.Debuff.PhysicalVuln)
+        tmp = tmp * (1 + 0.04 * target.Debuff.PhysicalVuln)
 		if sim.Character.Orc then tmp = tmp * 1.05
 		return tmp
 	End Function
@@ -124,7 +122,7 @@ Friend Class GhoulStat
 		Dim tmp As Double
 		tmp = 1
 		tmp = tmp * (1 + 0.03 *  sim.Character.Buff.PcDamage)
-		tmp = tmp * (1 + 0.13 *  target.Debuff.SpellDamageTaken)
+        tmp = tmp * (1 + 0.08 * target.Debuff.SpellDamageTaken)
 		if sim.Character.Orc then tmp = tmp * 1.05
 		Return tmp
 	End Function

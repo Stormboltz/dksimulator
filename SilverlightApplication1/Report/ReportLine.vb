@@ -34,7 +34,7 @@
     Sub New()
 
     End Sub
-    Function InnerText() As String
+    Overridable Function InnerText() As String
         Dim tmp As String = "<row>"
 
         tmp += "<Ability>" & Ability & "</Ability>"

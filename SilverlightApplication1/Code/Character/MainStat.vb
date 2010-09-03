@@ -335,10 +335,7 @@ Friend Class MainStat
         Dim tmp As Double
         tmp = tmp + character.CritRating / 45.91
         tmp = tmp + character.Agility * 0.016
-        tmp = tmp + 5 * Sim.Character.Buff.MeleeCrit
-        tmp = tmp + 3 * target.Debuff.CritChanceTaken
-
-
+        tmp = tmp + 5 * Sim.Character.Buff.Crit
         tmp = tmp - 4.8 'Crit malus vs bosses
         Return tmp / 100
     End Function
@@ -347,9 +344,8 @@ Friend Class MainStat
         Dim tmp As Double
         tmp = tmp + character.CritRating / 45.91
         tmp = tmp + character.Agility / 62.5
-        tmp = tmp + 5 * Sim.Character.Buff.MeleeCrit
-        tmp = tmp + 3 * target.Debuff.CritChanceTaken
-        tmp = tmp - 4.7999999999999998 'Crit malus vs bosses
+        tmp = tmp + 5 * Sim.Character.Buff.Crit
+        tmp = tmp - 4.8 'Crit malus vs bosses
 
         Return tmp / 100
     End Function
@@ -357,8 +353,8 @@ Friend Class MainStat
         If target Is Nothing Then target = Sim.Targets.MainTarget
         Dim tmp As Double
         tmp = character.SpellCritRating / 45.91
-        tmp = tmp + 3 * target.Debuff.CritChanceTaken
-        tmp = tmp + 5 * Sim.Character.Buff.SpellCrit
+
+        tmp = tmp + 5 * Sim.Character.Buff.Crit
         tmp = tmp + 5 * target.Debuff.SpellCritTaken
         tmp = tmp - 2.1000000000000001 'Spell crit malus vs bosses
 
@@ -472,7 +468,6 @@ Friend Class MainStat
         Dim tmp As Integer
         tmp = 17
         tmp = tmp - Sim.Character.Talents.Talent("Virulence").Value * 2
-        tmp = tmp - 3 * target.Debuff.SpellHitTaken
         tmp = tmp * 26.23
         Return tmp
     End Function
@@ -491,7 +486,6 @@ Friend Class MainStat
             tmp += Sim.Character.Buff.Draenei
         End If
         tmp += 1 * Sim.Character.Talents.Talent("Virulence").Value * 2
-        tmp += target.Debuff.SpellHitTaken * 3
         SpellHit = tmp / 100
     End Function
 
@@ -534,10 +528,9 @@ Friend Class MainStat
         Dim ArPDebuffs As Double
         Dim l_sunder As Double = 1.0
         Dim l_ff As Double = 1.0
-        If target.Debuff.ArmorMajor > 0 Then l_sunder = 1 - 0.2
-        If target.Debuff.ArmorMinor > 0 Then l_ff = 1 - 0.05
+        If target.Debuff.ArmorMajor > 0 Then l_sunder = 1 - 0.12
         ArPDebuffs = (l_sunder * l_ff)
-        Dim ArmorConstant As Double = 400 + (85 * 80) + 4.5 * 85 * (80 - 59)
+        Dim ArmorConstant As Double = 400 + (85 * AttackerLevel) + 4.5 * 85 * (AttackerLevel - 59)
         tmpArmor = BossArmor * ArPDebuffs
         Dim ArPCap As Double = Math.Min((tmpArmor + ArmorConstant) / 3, tmpArmor)
         tmpArmor = tmpArmor - ArPCap * Math.Min(1, ArmorPen)
@@ -578,7 +571,7 @@ Friend Class MainStat
         Dim tmp As Double
         tmp = _BaseDamageMultiplier(T)
 
-        tmp = tmp * (1 + 0.13 * target.Debuff.SpellDamageTaken)
+        tmp = tmp * (1 + 0.08 * target.Debuff.SpellDamageTaken)
         tmp = tmp * (1 - 15 / (510 + 15)) 'Partial Resistance. It's about 0,029% less damage on average.
 
         Return tmp
