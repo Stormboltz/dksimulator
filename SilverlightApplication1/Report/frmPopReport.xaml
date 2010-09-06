@@ -13,10 +13,14 @@
             <StackPanel>
                 <sdk:DataGrid AutoGenerateColumns="True" FontSize="9"   Name="dgReport" MinColumnWidth="5"/>
                 <TextBox Grid.Row="1" Name="txtAdditionalInfo" Text="" IsReadOnly="True" />
-                <toolkit:Chart Name="Chart" Title="Title" Height="390">
-                    <toolkit:LineSeries Name="LineSerie">
+                <toolkit:Chart Name="Chart1" Title="Chart Title" Height="400">
+                    <toolkit:Chart.Axes>
+                            <toolkit:LinearAxis Title="DPSs" Orientation="Y" Interval="1000" ShowGridLines="True" FontStyle="Italic"/>
+                            <toolkit:LinearAxis Title="Value" Orientation="X" Interval="50" ShowGridLines="True" FontStyle="Italic"/>
+                            <!--<toolkit:CategoryAxis Title="Stat" />-->
+                        </toolkit:Chart.Axes>
+
                     
-                    </toolkit:LineSeries>
                 </toolkit:Chart>
             </StackPanel>
         </ScrollViewer>

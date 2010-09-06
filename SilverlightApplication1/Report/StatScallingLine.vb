@@ -12,13 +12,11 @@ Public Class StatScallingLine
         RowColl.Add(New aRow(RowName, RowValue))
     End Sub
     Overrides Function InnerText() As String
-        Dim tmp As String = "<row>"
-
-        tmp += "<name>" & myStatName & "</name>"
+        Dim tmp As String = "<Chart name='" & myStatName & "'>"
         For Each r As aRow In (From x In RowColl Order By x.name Ascending).ToList
-            tmp += "<" & r.name & ">" & r.Value & "</" & r.name & ">"
+            tmp += "<col num='" & r.name & "'>" & r.Value & "</col>"
         Next
-        tmp += "</row>"
+        tmp += "</Chart>"
         Return tmp
     End Function
     Class aRow

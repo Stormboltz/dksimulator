@@ -71,7 +71,14 @@ Public Module SimConstructor
         i = 0
         For Each t In ThreadCollection
             If i <= core Then
-                If t.ThreadState = ThreadState.Unstarted Then t.Start()
+                If t.ThreadState = ThreadState.Unstarted Then
+                    Try
+                        t.Start()
+                    Catch ex As Exception
+
+                    End Try
+                End If
+
             End If
             i += 1
         Next
@@ -151,8 +158,8 @@ Public Module SimConstructor
                 Dim i As Integer
 
                 Dim max As Integer
-                max = 10
-                EPBase = 5
+                max = 50
+                EPBase = 20
                 For Each xNode In xNodelist.Elements
 
                     If xNode.Value = "true" Then
@@ -165,6 +172,7 @@ Public Module SimConstructor
                         rp.AddLine(l)
                     End If
                 Next
+                rp.AddAdditionalInfo("Note", "Open Report details for chart")
                 rp.Save("")
             End Using
         End Using
@@ -814,8 +822,8 @@ skipTrinket:
         Dim i As Integer
 
         Dim max As Integer
-        max = 10
-        EPBase = 5
+        max = 50
+        EPBase = 20
         For Each xNode In xNodelist.Elements
             If xNode.Value = "true" Then
                 For i = 0 To max

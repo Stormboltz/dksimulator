@@ -11,8 +11,8 @@ Friend Class BloodBoil
 
     Sub New(ByVal S As Sim)
         MyBase.New(S)
-        BaseDamage = 200
-        Coeficient = (0.04 * (1 + 0.2 * sim.Character.Talents.Talent("Impurity").Value))
+        BaseDamage = 200 * 1.33
+        Coeficient = (0.08 * (1 + 0.2 * sim.Character.Talents.Talent("Impurity").Value))
         Multiplicator = (1 + sim.Character.Talents.Talent("CrimsonScourge").Value * 0.2)
         logLevel = LogLevelEnum.Basic
         DiseaseBonus = 1

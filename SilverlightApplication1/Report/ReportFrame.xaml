@@ -11,13 +11,7 @@
                 <sdk:DataGrid AutoGenerateColumns="True" FontSize="9"   Name="dgReport" MinColumnWidth="5" Height="0"/>
                 <TextBox Grid.Row="1" Name="txtAdditionalInfo" Text="" IsReadOnly="True" />
                 <sdk:Label Content=" "></sdk:Label>
-                <toolkit:Chart Name="Chart1" Title="Chart Title">
-                    <toolkit:Chart.Axes>
-                        <toolkit:LinearAxis Title="DPSs" Orientation="x" Minimum="0" Maximum="20000" Interval="10000" ShowGridLines="True" FontStyle="Italic"/>
-                        <toolkit:CategoryAxis Title="Stat" />
-                    </toolkit:Chart.Axes>
-                    
-                </toolkit:Chart>
+                
                 <Button Content="Show Details" Name="cmdShowDetails"></Button>
             </StackPanel>
 
