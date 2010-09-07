@@ -6,71 +6,69 @@
     mc:Ignorable="d"
              Width="400"
              Height="450"
-    xmlns:my="clr-namespace:DKSIMVB">
-
-    <Grid x:Name="LayoutRoot" Width="400" Height="480">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="380" />
-            <ColumnDefinition Width="10" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="400" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="1*" />
-        </Grid.RowDefinitions>
-        <Button x:Name="cmdSaveNew" Content="Save as new" Width="80" Height="23" HorizontalAlignment="Right"  VerticalAlignment="Center" Grid.Row="1"  />
-        <Button Content="View XML" Grid.Row="1" Height="23" HorizontalAlignment="Left" VerticalAlignment="Center" Name="cmdViewXml"    />
-        <Button Content="Armory Import" Height="23" Grid.Row="1"  HorizontalAlignment="Center" VerticalAlignment="Center" Name="cmdArmoryImport"  />
-
-        <Grid >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition  />
-            </Grid.RowDefinitions>
+    xmlns:my="clr-namespace:DKSIMVB" xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit">
+    <toolkit:TwilightBlueTheme>
+        <Grid x:Name="LayoutRoot" Width="400" Height="480">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50" />
-                <ColumnDefinition Width="50" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="50" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="50" />
-                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="380" />
+                <ColumnDefinition Width="10" />
             </Grid.ColumnDefinitions>
-            
-            <my:VisualEquipSlot x:Name="HeadSlot" Grid.Column="0" Grid.Row="0" />
-            <my:VisualEquipSlot  x:Name="NeckSlot"  Grid.Column="0" Grid.Row="1"  />
-            <my:VisualEquipSlot  x:Name="ShoulderSlot"   Grid.Column="0" Grid.Row="2" />
-            <my:VisualEquipSlot   x:Name="BackSlot"  Grid.Column="0" Grid.Row="3" />
-            <my:VisualEquipSlot   x:Name="ChestSlot"  Grid.Column="0" Grid.Row="4" />
-            <my:VisualEquipSlot   x:Name="WristSlot" Grid.Column="0" Grid.Row="6" />
-            <my:VisualEquipSlot   x:Name="TwoHWeapSlot"  Grid.Column="1" Grid.Row="7" />
-            <my:VisualEquipSlot   x:Name="MHWeapSlot"  Grid.Column="1" Grid.Row="7" />
-            <my:VisualEquipSlot   x:Name="OHWeapSlot"  Grid.Column="3" Grid.Row="7"  />
-            <my:VisualEquipSlot   x:Name="SigilSlot"  Grid.Column="5" Grid.Row="7"  />
-            <my:VisualEquipSlot   x:Name="HandSlot"   Grid.Column="6" Grid.Row="0" />
-            <my:VisualEquipSlot   x:Name="BeltSlot"  Grid.Column="6"  Grid.Row="1" />
-            <my:VisualEquipSlot   x:Name="LegSlot"  Grid.Column="6" Grid.Row="2"  />
-            <my:VisualEquipSlot   x:Name="FeetSlot"   Grid.Column="6" Grid.Row="3"  />
-            <my:VisualEquipSlot   x:Name="ring1Slot"  Grid.Column="6" Grid.Row="4" />
-            <my:VisualEquipSlot   x:Name="ring2Slot"  Grid.Column="6" Grid.Row="5"  />
-            <my:VisualEquipSlot   x:Name="Trinket1Slot"  Grid.Column="6" Grid.Row="6"  />
-            <my:VisualEquipSlot   x:Name="Trinket2Slot"   Grid.Column="6" Grid.Row="7"  />
-            <my:ItemEditor Grid.Column="1" Grid.RowSpan="7" x:Name="ItemEditor1" Margin="6,0,6,0" Grid.ColumnSpan="5" />
-            <StackPanel Grid.Column="2" Grid.Row="7" VerticalAlignment="Center" >
-                <RadioButton Content="2H" Name="rd2H" GroupName="WeaponStyle" IsChecked="True" />
-                <RadioButton Content="DW" Name="rdDW" GroupName="WeaponStyle" />
-            </StackPanel>
-            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="400" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Button x:Name="cmdSaveNew" Content="Save as new" Width="80" Height="23" HorizontalAlignment="Right"  VerticalAlignment="Center" Grid.Row="1"  />
+            <Button Content="View XML" Grid.Row="1" Height="23" HorizontalAlignment="Left" VerticalAlignment="Center" Name="cmdViewXml"    />
+            <Button Content="Armory Import" Height="23" Grid.Row="1"  HorizontalAlignment="Center" VerticalAlignment="Center" Name="cmdArmoryImport"  />
+
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition  />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="50" />
+                </Grid.ColumnDefinitions>
+
+                <my:VisualEquipSlot x:Name="HeadSlot" Grid.Column="0" Grid.Row="0" />
+                <my:VisualEquipSlot  x:Name="NeckSlot"  Grid.Column="0" Grid.Row="1"  />
+                <my:VisualEquipSlot  x:Name="ShoulderSlot"   Grid.Column="0" Grid.Row="2" />
+                <my:VisualEquipSlot   x:Name="BackSlot"  Grid.Column="0" Grid.Row="3" />
+                <my:VisualEquipSlot   x:Name="ChestSlot"  Grid.Column="0" Grid.Row="4" />
+                <my:VisualEquipSlot   x:Name="WristSlot" Grid.Column="0" Grid.Row="6" />
+                <my:VisualEquipSlot   x:Name="TwoHWeapSlot"  Grid.Column="1" Grid.Row="7" />
+                <my:VisualEquipSlot   x:Name="MHWeapSlot"  Grid.Column="1" Grid.Row="7" />
+                <my:VisualEquipSlot   x:Name="OHWeapSlot"  Grid.Column="3" Grid.Row="7"  />
+                <my:VisualEquipSlot   x:Name="SigilSlot"  Grid.Column="5" Grid.Row="7"  />
+                <my:VisualEquipSlot   x:Name="HandSlot"   Grid.Column="6" Grid.Row="0" />
+                <my:VisualEquipSlot   x:Name="BeltSlot"  Grid.Column="6"  Grid.Row="1" />
+                <my:VisualEquipSlot   x:Name="LegSlot"  Grid.Column="6" Grid.Row="2"  />
+                <my:VisualEquipSlot   x:Name="FeetSlot"   Grid.Column="6" Grid.Row="3"  />
+                <my:VisualEquipSlot   x:Name="ring1Slot"  Grid.Column="6" Grid.Row="4" />
+                <my:VisualEquipSlot   x:Name="ring2Slot"  Grid.Column="6" Grid.Row="5"  />
+                <my:VisualEquipSlot   x:Name="Trinket1Slot"  Grid.Column="6" Grid.Row="6"  />
+                <my:VisualEquipSlot   x:Name="Trinket2Slot"   Grid.Column="6" Grid.Row="7"  />
+                <my:ItemEditor Grid.Column="1" Grid.RowSpan="7" x:Name="ItemEditor1" Margin="6,0,6,0" Grid.ColumnSpan="5" />
+                <StackPanel Grid.Column="2" Grid.Row="7" VerticalAlignment="Center" >
+                    <RadioButton Content="2H" Name="rd2H" GroupName="WeaponStyle" IsChecked="True" />
+                    <RadioButton Content="DW" Name="rdDW" GroupName="WeaponStyle" />
+                </StackPanel>
+            </Grid>
         </Grid>
-
-
-    </Grid>
+    </toolkit:TwilightBlueTheme>
 </UserControl>
