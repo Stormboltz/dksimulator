@@ -3,6 +3,7 @@ Imports System.Linq
 Imports System.Threading
 Imports System.IO.IsolatedStorage
 Imports System.IO
+Imports DKSIMVB.Simulator
 
 '
 ' Crée par SharpDevelop.

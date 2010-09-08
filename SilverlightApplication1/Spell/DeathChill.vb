@@ -6,29 +6,31 @@
 ' 
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Friend Class DeathChill
-	Friend Cd As Long
-	Friend Active As Boolean
-	Protected Sim as Sim
-	
-	
-	
-	Sub New(MySim as Sim)
-		cd = 0
-		Active= False
-        Sim = MySim
+Namespace Simulator.WowObjects.Spells
+    Friend Class DeathChill
+        Friend Cd As Long
+        Friend Active As Boolean
+        Protected Sim As Sim
 
-	End Sub
-	Function IsAvailable(T As Long) As Boolean
-        If Sim.Character.Talents.Talent("Deathchill").Value = 1 And Cd <= T Then
-            Return True
-        Else
-            Return False
-        End If
-	End Function
-	Sub use(T As Long)
-		CD = T + 3*60*100
-		sim.Threat = sim.Threat + 55
-		Active = true
-	End Sub
-End Class
+
+
+        Sub New(ByVal MySim As Sim)
+            Cd = 0
+            Active = False
+            Sim = MySim
+
+        End Sub
+        Function IsAvailable(ByVal T As Long) As Boolean
+            If Sim.Character.Talents.Talent("Deathchill").Value = 1 And Cd <= T Then
+                Return True
+            Else
+                Return False
+            End If
+        End Function
+        Sub use(ByVal T As Long)
+            Cd = T + 3 * 60 * 100
+            Sim.Threat = Sim.Threat + 55
+            Active = True
+        End Sub
+    End Class
+End Namespace

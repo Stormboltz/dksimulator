@@ -6,13 +6,14 @@
 '
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
+Namespace Simulator.WowObjects.Procs
+    Public Class Trinket
+        Inherits WeaponProc
 
-Public Class Trinket
-	inherits WeaponProc
-	
-	Sub New(S As Sim)
-		mybase.New(S)
-		Sim = S
-		s.TrinketsCollection.Add(Me)
-	End Sub
-End Class
+        Sub New(ByVal S As Sim)
+            MyBase.New(S)
+            Sim = S
+            S.TrinketsCollection.Add(Me)
+        End Sub
+    End Class
+End Namespace

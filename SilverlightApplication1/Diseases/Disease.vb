@@ -6,103 +6,103 @@
 '
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
-NameSpace Diseases
-	Public Class Disease
-		Inherits Supertype
-		
-		Friend nextTick As long
-		Friend FadeAt As long
-		
-		Friend AP as Integer
-		
-		Friend DamageTick As Integer
-		Friend ScourgeStrikeGlyphCounter As Integer
-		Friend OtherTargetsFade As Integer
-		Friend CritChance As Double
-		Friend Multiplier As Double
-		
-		Private _Lenght As Integer
-		Friend previousFade As Long
-		
-		
-		Friend Cinder As Boolean
-		
-		
-		Friend ToReApply as Boolean
-		
-		Sub New
-			init()
-		End Sub
-		
-		Sub New(S As sim)
-			me.New
-			Sim = S
-			sim.DamagingObject.Add(me)
-		End Sub
-		
-		Overridable Protected Sub init()
-			nextTick = 0
-			FadeAt= 0
-			total = 0
-			MissCount = 0
-			HitCount = 0
-			CritCount = 0
-			TotalHit = 0
-			TotalCrit = 0
-			AP = 0
-			OtherTargetsFade = 0
-			ThreadMultiplicator = 1
-			ToReApply = 0
-			_RNG1=nothing
-		End sub
-		
-		Function Lenght() as Integer
-			If _Lenght = 0 Then
-                _Lenght = 3000 + 600 * sim.Character.Talents.Talent("Epidemic").Value
-			End If
-			return _Lenght
-		End Function
+Namespace Simulator.WowObjects.Diseases
+    Public Class Disease
+        Inherits WowObject
+
+        Friend nextTick As Long
+        Friend FadeAt As Long
+
+        Friend AP As Integer
+
+        Friend DamageTick As Integer
+        Friend ScourgeStrikeGlyphCounter As Integer
+        Friend OtherTargetsFade As Integer
+        Friend CritChance As Double
+        Friend Multiplier As Double
+
+        Private _Lenght As Integer
+        Friend previousFade As Long
+
+
+        Friend Cinder As Boolean
+
+
+        Friend ToReApply As Boolean
+
+        Sub New()
+            init()
+        End Sub
+
+        Sub New(ByVal S As Sim)
+            Me.New()
+            Sim = S
+            Sim.DamagingObject.Add(Me)
+        End Sub
+
+        Protected Overridable Sub init()
+            nextTick = 0
+            FadeAt = 0
+            total = 0
+            MissCount = 0
+            HitCount = 0
+            CritCount = 0
+            TotalHit = 0
+            TotalCrit = 0
+            AP = 0
+            OtherTargetsFade = 0
+            ThreadMultiplicator = 1
+            ToReApply = 0
+            _RNG1 = Nothing
+        End Sub
+
+        Function Lenght() As Integer
+            If _Lenght = 0 Then
+                _Lenght = 3000 + 600 * Sim.Character.Talents.Talent("Epidemic").Value
+            End If
+            Return _Lenght
+        End Function
 
         Sub IncreaseDuration(ByVal T As Long)
             FadeAt += T
             uptime += T
         End Sub
-		
-		
-		Overridable Function PerfectUsage(T As Long) As Boolean 'Unused
-			return false
-		End Function
-		
-		Overridable Function isActive(T As Long) As Boolean
-			If T > FadeAt Then
-				isActive = False
-			Else
-				isActive = True
-			End If
-		End Function
-		
-		Overridable Function ShouldReapply(T As Long) As Boolean
-			return ToReapply or not isActive(T)
-		End Function
-		
-		Overridable Function CalculateCritChance(T As Long) As Double
-			return 0.0
-		End Function
-		
-		Overridable Function CalculateMultiplier(T As Long,target As Targets.Target) As Double
-			
-			Dim tmp As Double
-			tmp = sim.MainStat.StandardMagicalDamageMultiplier(T)
-			if sim.RuneForge.CheckCinderglacier(False) > 0 then tmp  *= 1.2
-            tmp = tmp * (1 + sim.Character.Talents.Talent("EbonPlaguebringer").Value * 15 / 100)
-            If sim.Character.Talents.GetNumOfThisSchool(Talents.Schools.Unholy) > 20 Then
+
+
+        Overridable Function PerfectUsage(ByVal T As Long) As Boolean 'Unused
+            Return False
+        End Function
+
+        Overridable Function isActive(ByVal T As Long) As Boolean
+            If T > FadeAt Then
+                isActive = False
+            Else
+                isActive = True
+            End If
+        End Function
+
+        Overridable Function ShouldReapply(ByVal T As Long) As Boolean
+            Return ToReApply Or Not isActive(T)
+        End Function
+
+        Overridable Function CalculateCritChance(ByVal T As Long) As Double
+            Return 0.0
+        End Function
+
+        Overridable Function CalculateMultiplier(ByVal T As Long, ByVal target As Targets.Target) As Double
+
+            Dim tmp As Double
+            tmp = Sim.Character.StandardMagicalDamageMultiplier(T)
+            If Sim.RuneForge.CheckCinderglacier(False) > 0 Then tmp *= 1.2
+            tmp = tmp * (1 + Sim.Character.Talents.Talent("EbonPlaguebringer").Value * 15 / 100)
+            If sim.Character.Talents.GetNumOfThisSchool(Character.Talents.Schools.Unholy) > 20 Then
                 tmp = tmp * 1.2 'Blightcaller
             End If
             Return tmp
         End Function
 
         Function Apply(ByVal T As Long) As Boolean
-            Apply(T, sim.Targets.MainTarget)
+            Apply(T, Sim.Targets.MainTarget)
             Return True
         End Function
 
@@ -112,10 +112,10 @@ NameSpace Diseases
                 nextTick = T + 3 * 100
             End If
 
-            sim.FutureEventManager.Add(nextTick, "Disease")
+            Sim.FutureEventManager.Add(nextTick, "Disease")
             ScourgeStrikeGlyphCounter = 0
             CritChance = CalculateCritChance(T)
-            If sim.RuneForge.CheckCinderglacier(False) > 0 Then
+            If Sim.RuneForge.CheckCinderglacier(False) > 0 Then
                 Cinder = True
             Else
                 Cinder = False
@@ -126,15 +126,15 @@ NameSpace Diseases
         End Function
 
         Overridable Function Refresh(ByVal T As Long) As Boolean
-            FadeAt = T + Lenght
-            AP = sim.MainStat.AP
+            FadeAt = T + Lenght()
+            AP = Sim.Character.AP
             DamageTick = AvrgNonCrit(T)
             AddUptime(T)
             Return True
         End Function
 
         Overridable Function AvrgNonCrit(ByVal T As Long) As Double
-            Return Multiplier * 1.15 * (26 + 0.055 * (1 + 0.2 * sim.Character.Talents.Talent("Impurity").Value) * AP)
+            Return Multiplier * 1.15 * (26 + 0.055 * (1 + 0.2 * Sim.Character.Talents.Talent("Impurity").Value) * AP)
         End Function
 
         Function ApplyDamage(ByVal T As Long) As Boolean
@@ -153,66 +153,66 @@ NameSpace Diseases
                 totalhit += tmp
             End If
             total = total + tmp
-            
-            sim.proc.tryProcs(Procs.ProcOnType.OnDoT)
+
+            sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.OnDoT)
             nextTick = T + 300
-            sim.FutureEventManager.Add(nextTick, "Disease")
-            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & Me.ToString & " hit for " & tmp)
+            Sim.FutureEventManager.Add(nextTick, "Disease")
+            If Sim.CombatLog.LogDetails Then Sim.CombatLog.write(T & vbTab & Me.ToString & " hit for " & tmp)
 
             Return True
         End Function
-		
+
         Protected _CritCoef As Double = -1
         Overridable Function CritCoef() As Double
             If _CritCoef <> -1 Then Return _CritCoef
-            _CritCoef = 1 + 0.06 * sim.MainStat.CSD
+            _CritCoef = 1 + 0.06 * Sim.Character.CSD
             Return _CritCoef
         End Function
-		
-		Overridable Function AvrgCrit(T As long) As Double
-			return DamageTick * (1 + CritCoef)
-		End Function
-		
-		
-		
-		Public Sub cleanup()
-			Total = 0
-			HitCount = 0
-			MissCount =0
-			CritCount = 0
-			TotalHit = 0
-			TotalCrit = 0
-		End Sub
-		
-		Sub AddUptime(T As Long)
-			dim tmp as Long
-			If Lenght + T > sim.NextReset Then
-				tmp = (sim.NextReset - T)
-			Else
-				tmp = Lenght
-			End If
-			
-			If previousFade < T  Then
-				uptime += tmp
-			Else
-				uptime += tmp - (previousFade-T)
-			End If
-			previousFade = T + tmp
-		End Sub
-		
-		
-		
-		
-		
-		
-		Sub RemoveUptime(T As Long)
-			If previousfade < T  Then
-			Else
-				uptime -= (previousFade-T)
-			End If
-			previousFade = T
-		End Sub
-		
-			
-	End Class
-end Namespace
+
+        Overridable Function AvrgCrit(ByVal T As Long) As Double
+            Return DamageTick * (1 + CritCoef())
+        End Function
+
+
+
+        Public Sub cleanup()
+            Total = 0
+            HitCount = 0
+            MissCount = 0
+            CritCount = 0
+            TotalHit = 0
+            TotalCrit = 0
+        End Sub
+
+        Sub AddUptime(ByVal T As Long)
+            Dim tmp As Long
+            If Lenght() + T > Sim.NextReset Then
+                tmp = (Sim.NextReset - T)
+            Else
+                tmp = Lenght()
+            End If
+
+            If previousFade < T Then
+                uptime += tmp
+            Else
+                uptime += tmp - (previousFade - T)
+            End If
+            previousFade = T + tmp
+        End Sub
+
+
+
+
+
+
+        Sub RemoveUptime(ByVal T As Long)
+            If previousFade < T Then
+            Else
+                uptime -= (previousFade - T)
+            End If
+            previousFade = T
+        End Sub
+
+
+    End Class
+End Namespace

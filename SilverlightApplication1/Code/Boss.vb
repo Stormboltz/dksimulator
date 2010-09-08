@@ -2,14 +2,7 @@
 Imports System.IO.IsolatedStorage
 Imports System.IO
 
-'
-' Crée par SharpDevelop.
-' Utilisateur: e0030653
-' Date: 29/09/2009
-' Heure: 09:57
-'
-' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
-'
+Namespace Simulator
 Public Class Boss
     Friend NextHit As Long
     Private Avoidance As Double
@@ -38,7 +31,7 @@ Public Class Boss
         RNGHit = MyRng()
         NextHit = T + Speed
         Sim.FutureEventManager.Add(NextHit, "Boss")
-        Sim.proc.tryProcs(Procs.ProcOnType.OnBossHitOrMiss)
+        Sim.proc.tryProcs(WowObjects.Procs.ProcsManager.ProcOnType.OnBossHitOrMiss)
         If RNGHit > Avoidance Then
             'Boss hit
             Sim.BoneShield.UseCharge(T)
@@ -68,3 +61,4 @@ Public Class Boss
         If Sim.BloodPresence <> 0 Then Sim.FutureEventManager.Add(Sim.TimeStamp + 1, "Boss")
     End Sub
 End Class
+End Namespace

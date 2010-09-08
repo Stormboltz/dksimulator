@@ -6,10 +6,12 @@
 '
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
-Namespace Strikes
+
+Namespace Simulator.WowObjects.Strikes
+
 
     Public Class Strike
-        Inherits Supertype
+        Inherits WowObject
         Friend OffHand As Boolean
         Friend OffHandStrike As Strike
 
@@ -62,20 +64,20 @@ Namespace Strikes
             Dim exp As Double
 
             If Me.OffHand Then
-                exp = sim.MainStat.OHExpertise
+                exp = sim.Character.OHExpertise
             Else
-                exp = sim.MainStat.MHExpertise
+                exp = sim.Character.MHExpertise
             End If
 
 
             If sim.BloodPresence = 1 Then
-                If Math.Min(exp, 0.065) + Math.Min(exp, 0.14) + Math.Min(sim.MainStat.Hit, 0.08) + RNG < 0.285 Then
+                If Math.Min(exp, 0.065) + Math.Min(exp, 0.14) + Math.Min(sim.Character.Hit, 0.08) + RNG < 0.285 Then
                     Return False
                 Else
                     Return True
                 End If
             Else
-                If Math.Min(exp, 0.065) + Math.Min(sim.MainStat.Hit, 0.08) + RNG < 0.145 Then
+                If Math.Min(exp, 0.065) + Math.Min(sim.Character.Hit, 0.08) + RNG < 0.145 Then
                     Return False
                 Else
                     Return True
@@ -125,7 +127,7 @@ Namespace Strikes
                 End Select
 
                 TotalCrit += LastDamage
-                sim.proc.tryProcs(Procs.ProcOnType.OnCrit)
+                sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.OnCrit)
             Else
                 LastDamage = AvrgNonCrit(T)
                 HitCount = HitCount + 1
@@ -141,9 +143,9 @@ Namespace Strikes
             total = total + LastDamage
 
             If OffHand = False Then
-                sim.proc.tryProcs(Procs.ProcOnType.OnMHhit)
+                sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.OnMHhit)
             Else
-                sim.proc.tryProcs(Procs.ProcOnType.OnOHhit)
+                sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.OnOHhit)
             End If
             Return True
         End Function
@@ -152,16 +154,16 @@ Namespace Strikes
         Overridable Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
             Dim tmp As Double
             If OffHand = False Then
-                tmp = sim.MainStat.NormalisedMHDamage * Coeficient
+                tmp = sim.Character.NormalisedMHDamage * Coeficient
             Else
-                tmp = sim.MainStat.NormalisedOHDamage * Coeficient
+                tmp = sim.Character.NormalisedOHDamage * Coeficient
             End If
             tmp += BaseDamage
             Select Case DamageSchool
                 Case DamageSchoolEnum.Physical
-                    tmp *= sim.MainStat.StandardPhysicalDamageMultiplier(T, target)
+                    tmp *= sim.Character.StandardPhysicalDamageMultiplier(T, target)
                 Case Else
-                    tmp *= sim.MainStat.StandardMagicalDamageMultiplier(T, target)
+                    tmp *= sim.Character.StandardMagicalDamageMultiplier(T, target)
             End Select
             tmp *= Multiplicator
             If DiseaseBonus <> 0 Then
@@ -181,18 +183,18 @@ Namespace Strikes
             Return AvrgCrit(T, sim.Targets.MainTarget)
         End Function
         Function AvrgCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
-            AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
+            AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef())
         End Function
 
         Protected _CritCoef As Double = -1
         Overridable Function CritCoef() As Double
             If _CritCoef <> -1 Then Return _CritCoef
-            _CritCoef = 1 + 0.06 * sim.MainStat.CSD
+            _CritCoef = 1 + 0.06 * sim.Character.CSD
             Return _CritCoef
         End Function
 
         Overridable Function CritChance() As Double
-            Return sim.MainStat.crit + SpecialCritChance
+            Return sim.Character.crit + SpecialCritChance
         End Function
 
         Private _OffDamageBonus As Double = -1
@@ -213,7 +215,7 @@ Namespace Strikes
         End Sub
 
         Public Overrides Sub Merge()
-            If sim.MainStat.DualW = False Then Exit Sub
+            If sim.Character.DualW = False Then Exit Sub
             total += OffHandStrike.total
             TotalHit += OffHandStrike.TotalHit
             TotalCrit += OffHandStrike.TotalCrit
@@ -228,4 +230,4 @@ Namespace Strikes
         End Sub
 
     End Class
-end Namespace
+End Namespace

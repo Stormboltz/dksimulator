@@ -6,9 +6,9 @@
 ' 
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
-Namespace Spells
+Namespace Simulator.WowObjects.Spells
     Public Class Spell
-        Inherits Supertype
+        Inherits WowObject
 
 
         Friend CD As Long
@@ -23,7 +23,7 @@ Namespace Spells
             If UnMissable Then Return True
 
 
-            If Math.Min(sim.MainStat.SpellHit, 0.17) + RNG < 0.17 Then
+            If Math.Min(Sim.Character.SpellHit, 0.17) + RNG < 0.17 Then
                 Return False
             Else
                 Return True
@@ -53,18 +53,18 @@ Namespace Spells
 
         Sub New(ByVal S As Sim)
             Me.New()
-            sim = S
-            sim.DamagingObject.Add(Me)
+            Sim = S
+            Sim.DamagingObject.Add(Me)
         End Sub
         Sub UseGCD(ByVal T As Long)
-            sim.UseGCD(T, True)
+            Sim.UseGCD(T, True)
         End Sub
 
         Public Overridable Function ApplyDamage(ByVal T As Long) As Boolean
             Dim RNG As Double
             LastDamage = 0
             If DoMySpellHit() = False Then
-                sim.CombatLog.write(T & vbTab & Me.Name & " fail")
+                Sim.CombatLog.write(T & vbTab & Me.Name & " fail")
                 MissCount = MissCount + 1
                 Return False
             End If
@@ -74,15 +74,15 @@ Namespace Spells
                 CritCount = CritCount + 1
                 LastDamage = AvrgCrit(T)
                 TotalCrit += LastDamage
-                sim.CombatLog.write(T & vbTab & Me.Name & " crit for " & LastDamage)
+                Sim.CombatLog.write(T & vbTab & Me.Name & " crit for " & LastDamage)
             Else
                 LastDamage = AvrgNonCrit(T)
                 TotalHit += LastDamage
                 HitCount = HitCount + 1
-                sim.CombatLog.write(T & vbTab & Me.Name & " hit for " & LastDamage & vbTab)
+                Sim.CombatLog.write(T & vbTab & Me.Name & " hit for " & LastDamage & vbTab)
             End If
             total = total + LastDamage
-            sim.proc.tryProcs(Procs.ProcOnType.OnDamage)
+            sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.OnDamage)
             Return True
         End Function
 
@@ -90,19 +90,19 @@ Namespace Spells
         Protected _CritCoef As Double = -1
         Overridable Function CritCoef() As Double
             If _CritCoef <> -1 Then Return _CritCoef
-            _CritCoef = 1 + 0.06 * sim.MainStat.CSD
+            _CritCoef = 1 + 0.06 * Sim.Character.CSD
             Return _CritCoef
         End Function
 
         Overridable Function CritChance() As Double
-            Return sim.MainStat.SpellCrit + SpecialCritChance
+            Return Sim.Character.SpellCrit + SpecialCritChance
         End Function
 
         Overridable Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
             Dim tmp As Double
-            tmp = BaseDamage + sim.MainStat.AP * Coeficient
+            tmp = BaseDamage + Sim.Character.AP * Coeficient
             tmp = tmp * Multiplicator
-            tmp = tmp * sim.MainStat.StandardMagicalDamageMultiplier(T)
+            tmp = tmp * Sim.Character.StandardMagicalDamageMultiplier(T)
             If DiseaseBonus <> 0 Then ' For BloodBloil
                 tmp = tmp * (1 + DiseaseBonus)
             End If
@@ -114,10 +114,10 @@ Namespace Spells
 
 
         Function AvrgNonCrit(ByVal T As Long) As Double
-            Return AvrgNonCrit(T, sim.Targets.MainTarget)
+            Return AvrgNonCrit(T, Sim.Targets.MainTarget)
         End Function
         Function AvrgCrit(ByVal T As Long) As Double
-            Return AvrgCrit(T, sim.Targets.MainTarget)
+            Return AvrgCrit(T, Sim.Targets.MainTarget)
         End Function
 
         Public Sub cleanup()

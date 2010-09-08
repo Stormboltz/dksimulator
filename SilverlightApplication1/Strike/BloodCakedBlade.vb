@@ -6,43 +6,45 @@
 '
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Friend class BloodCakedBlade
-	Inherits Strikes.Strike
-Sub New(S As sim)
-		MyBase.New(s)
-        HasteSensible = True
-        BaseDamage = 0
-        Coeficient = 0.25
-        Multiplicator = 1
-        logLevel = LogLevelEnum.Detailled
-        DiseaseBonus = 0.125
-    End Sub
-	
-	overrides Function AvrgNonCrit(T As Long, target As Targets.Target ) As Double
-        Dim tmp As Double = MyBase.AvrgNonCrit(T, target)
-        If sim.EPStat = "EP HasteEstimated" Then
-            tmp *= sim.MainStat.EstimatedHasteBonus
-        End If
-		return tmp
-	End Function
+Namespace Simulator.WowObjects.Strikes
+    Friend Class BloodCakedBlade
+        Inherits Strike
+        Sub New(ByVal S As Sim)
+            MyBase.New(S)
+            HasteSensible = True
+            BaseDamage = 0
+            Coeficient = 0.25
+            Multiplicator = 1
+            logLevel = LogLevelEnum.Detailled
+            DiseaseBonus = 0.125
+        End Sub
 
-	public Overrides Function CritChance() As Double
-        Return 0
-	End Function
-	
-	
-	Public Overrides Sub Merge()
-		If sim.MainStat.DualW = false Then exit sub
-		Total += sim.OHBloodCakedBlade.Total
-		TotalHit += sim.OHBloodCakedBlade.TotalHit
-		TotalCrit += sim.OHBloodCakedBlade.TotalCrit
+        Overrides Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
+            Dim tmp As Double = MyBase.AvrgNonCrit(T, target)
+            If Sim.EPStat = "EP HasteEstimated" Then
+                tmp *= Sim.Character.EstimatedHasteBonus
+            End If
+            Return tmp
+        End Function
 
-		MissCount = (MissCount + sim.OHBloodCakedBlade.MissCount)/2
-		HitCount = (HitCount + sim.OHBloodCakedBlade.HitCount)/2
-		CritCount = (CritCount + sim.OHBloodCakedBlade.CritCount)/2
-		
-		sim.OHBloodCakedBlade.Total = 0
-		sim.OHBloodCakedBlade.TotalHit = 0
-		sim.OHBloodCakedBlade.TotalCrit = 0
-	End sub
-End class
+        Public Overrides Function CritChance() As Double
+            Return 0
+        End Function
+
+
+        Public Overrides Sub Merge()
+            If Sim.Character.DualW = False Then Exit Sub
+            total += Sim.OHBloodCakedBlade.total
+            TotalHit += Sim.OHBloodCakedBlade.TotalHit
+            TotalCrit += Sim.OHBloodCakedBlade.TotalCrit
+
+            MissCount = (MissCount + Sim.OHBloodCakedBlade.MissCount) / 2
+            HitCount = (HitCount + Sim.OHBloodCakedBlade.HitCount) / 2
+            CritCount = (CritCount + Sim.OHBloodCakedBlade.CritCount) / 2
+
+            Sim.OHBloodCakedBlade.total = 0
+            Sim.OHBloodCakedBlade.TotalHit = 0
+            Sim.OHBloodCakedBlade.TotalCrit = 0
+        End Sub
+    End Class
+End Namespace

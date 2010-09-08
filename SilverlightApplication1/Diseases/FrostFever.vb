@@ -1,50 +1,50 @@
-NameSpace Diseases
-	Friend Class FrostFever
-		inherits Diseases.Disease
-		
-		Sub New(S As sim)
+Namespace Simulator.WowObjects.Diseases
+    Friend Class FrostFever
+        Inherits Diseases.Disease
+
+        Sub New(ByVal S As Sim)
             MyBase.New(S)
 
-		End Sub
-		Overrides Function PerfectUsage(T As Long) As Boolean
-            If FadeAt <= sim.Runes.GetNextFrost(T) Then
+        End Sub
+        Overrides Function PerfectUsage(ByVal T As Long) As Boolean
+            If FadeAt <= Sim.Runes.GetNextFrost(T) Then
                 ToReApply = True
                 Return True
             End If
             Return False
-		End Function
-		
-		Overrides Function CalculateMultiplier(T As Long,target As Targets.Target) As Double
-			if target is nothing then target = sim.Targets.MainTarget
-			Dim tmp As Double
-			tmp = MyBase.CalculateMultiplier(T,target) * sim.RuneForge.RazorIceMultiplier(T) 'TODO: only on main target
-            If sim.Character.Glyph.IcyTouch Then tmp = tmp * 1.2
-            If sim.Character.Talents.GetNumOfThisSchool(Talents.Schools.Frost) > 20 Then
+        End Function
+
+        Overrides Function CalculateMultiplier(ByVal T As Long, ByVal target As Targets.Target) As Double
+            If target Is Nothing Then target = Sim.Targets.MainTarget
+            Dim tmp As Double
+            tmp = MyBase.CalculateMultiplier(T, target) * Sim.RuneForge.RazorIceMultiplier(T) 'TODO: only on main target
+            If Sim.Character.Glyph.IcyTouch Then tmp = tmp * 1.2
+            If sim.Character.Talents.GetNumOfThisSchool(Character.Talents.Schools.Frost) > 20 Then
                 tmp = tmp * 1.2 'Frozen Heart
             End If
-           
-			return tmp
-		End Function
-		
-		Overrides Function Refresh(T As Long) As Boolean
+
+            Return tmp
+        End Function
+
+        Overrides Function Refresh(ByVal T As Long) As Boolean
             MyBase.Refresh(T)
             Return True
-		End Function
-		Public Overloads Overrides Sub Merge()
-			If Me.Equals(sim.Targets.MainTarget.FrostFever) = False Then
-				With sim.Targets.MainTarget.FrostFever
-					.Total += Total
-					.TotalHit += TotalHit
-					.TotalCrit += TotalCrit
-					.HitCount += HitCount 
-					.CritCount += CritCount
-				End With
-				Total = 0
-				TotalHit = 0
-				TotalCrit = 0
-				HitCount = 0
-				CritCount = 0
-			End If
-		End Sub
-	End Class
+        End Function
+        Public Overloads Overrides Sub Merge()
+            If Me.Equals(Sim.Targets.MainTarget.FrostFever) = False Then
+                With Sim.Targets.MainTarget.FrostFever
+                    .Total += Total
+                    .TotalHit += TotalHit
+                    .TotalCrit += TotalCrit
+                    .HitCount += HitCount
+                    .CritCount += CritCount
+                End With
+                Total = 0
+                TotalHit = 0
+                TotalCrit = 0
+                HitCount = 0
+                CritCount = 0
+            End If
+        End Sub
+    End Class
 End Namespace

@@ -6,34 +6,36 @@
 ' 
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
-Public Class BloodPresence
-	Inherits Spells.Spell
-	
-	Sub New(S As sim)
-        MyBase.New(S)
-        logLevel = LogLevelEnum.Detailled
-	End Sub
-	
-	Function IsAvailable(T As Long) As Boolean
-        If sim.Runes.AnyBlood(T) Then
-            Return True
-        Else
-            Return False
-        End If
+Namespace Simulator.WowObjects.Spells
+    Public Class BloodPresence
+        Inherits Spells.Spell
 
-	End Function
-	
-	
-	Function Use(T As Long) As Boolean
-        sim.BloodPresence = 1
-        sim.UnholyPresence = 0
-		sim.FrostPresence = 0
-		
-		sim.Runes.UseBlood(T,false)
-		sim.combatlog.write(T  & vbtab &  "Switch to Blood Presence")
-		Me.HitCount = Me.HitCount +1
-		sim._UseGCD(T, 1)
-		return true
-	End Function
-	
-End Class
+        Sub New(ByVal S As Sim)
+            MyBase.New(S)
+            logLevel = LogLevelEnum.Detailled
+        End Sub
+
+        Function IsAvailable(ByVal T As Long) As Boolean
+            If Sim.Runes.AnyBlood(T) Then
+                Return True
+            Else
+                Return False
+            End If
+
+        End Function
+
+
+        Function Use(ByVal T As Long) As Boolean
+            Sim.BloodPresence = 1
+            Sim.UnholyPresence = 0
+            Sim.FrostPresence = 0
+
+            Sim.Runes.UseBlood(T, False)
+            Sim.CombatLog.write(T & vbTab & "Switch to Blood Presence")
+            Me.HitCount = Me.HitCount + 1
+            Sim._UseGCD(T, 1)
+            Return True
+        End Function
+
+    End Class
+End Namespace

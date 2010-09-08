@@ -6,7 +6,7 @@
 ' 
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
-Namespace Targets
+Namespace Simulator.Targets
     Public Class TargetsManager
 
         Friend AllTargets As New Collections.Generic.List(Of Target)

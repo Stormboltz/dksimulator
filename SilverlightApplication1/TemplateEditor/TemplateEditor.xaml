@@ -3,8 +3,9 @@
            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
            xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
            Width="800"
+                      xmlns:theme="clr-namespace:System.Windows.Controls.Theming;assembly=System.Windows.Controls.Theming.BureauBlack"
            Title="TemplateEditor" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk">
-    <toolkit:TwilightBlueTheme>
+   
         <StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Grid x:Name="tbTpl" Margin="2" >
@@ -80,5 +81,5 @@
                 <Button x:Name="CancelButton" Width="80" Content="Cancel" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10"  />
             </StackPanel>
         </StackPanel>
-    </toolkit:TwilightBlueTheme>
+   
 </controls:ChildWindow>

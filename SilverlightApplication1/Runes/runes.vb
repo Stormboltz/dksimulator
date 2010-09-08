@@ -1,5 +1,5 @@
-Namespace Runes
-Friend Partial Class runes
+Namespace Simulator.WowObjects.Runes
+    Partial Friend Class runes
         Protected sim As Sim
         Friend BloodRune1 As CataRune
         Friend FrostRune1 As CataRune
@@ -11,7 +11,7 @@ Friend Partial Class runes
         Friend BloodRunes As RunePair
         Friend FrostRunes As RunePair
         Friend UnholyRunes As RunePair
-	
+
         Sub New(ByVal S As Sim)
             sim = S
             BloodRune1 = New CataRune(S)
@@ -41,7 +41,7 @@ Friend Partial Class runes
             UnholyRune2.Reset()
             FillRunes()
         End Sub
-	
+
         Sub FillRunes()
             BloodRunes.Refill(0.1)
             FrostRunes.Refill(0.1)
@@ -49,8 +49,8 @@ Friend Partial Class runes
             sim.FutureEventManager.Add(sim.TimeStamp + 10, "RuneFill")
         End Sub
 
-	
-	Function RuneState() As String
+
+        Function RuneState() As String
             Dim tmp As String = ""
             tmp = tmp & "[" & BloodRune1.Value & ":" & BloodRune1.Death_Report
             tmp = tmp & ":" & BloodRune2.Value & ":" & BloodRune2.Death_Report
@@ -429,7 +429,7 @@ Frost:
 
 
 
-   
+
 
         Function DRMFU(ByVal T As Long) As Boolean
 
@@ -454,6 +454,6 @@ Frost:
 
 
     End Class
-	
+
 End Namespace
 

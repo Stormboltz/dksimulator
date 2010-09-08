@@ -2,15 +2,8 @@
 Imports System.IO.IsolatedStorage
 Imports System.IO
 
-'
-' Crée par SharpDevelop.
-' Utilisateur: e0030653
-' Date: 4/22/2010
-' Heure: 2:12 PM
-'
-' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
-'
-Namespace Scenarios
+
+Namespace Simulator.Scenarios
     Public Class Scenario
         Friend sim As Sim
         Friend Elements As New Collection

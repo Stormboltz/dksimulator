@@ -1,230 +1,232 @@
-Friend class Ghoul
-	Inherits Supertype
-	
-	Friend NextWhiteMainHit As Long
-	Friend NextClaw as Long
-	Friend ActiveUntil As Long
-	Friend cd As Long
-	Friend _Haste As Double
-	Friend _AP As Integer
-	
-	Private MeleeMissChance As Single
-	Private MeleeDodgeChance As Single
-	Private MeleeGlacingChance As Single
-	Private SpellMissChance As Single
-	Private Claw As Strikes.Strike
-	
-	Sub new(MySim as Sim)
-		total = 0
-		MissCount = 0
-		HitCount = 0
-		CritCount = 0
-		cd = 0
-		ActiveUntil= 0
-		NextWhiteMainHit = 0
-		NextClaw = 0
-		TotalHit = 0
-		TotalCrit = 0
-		sim = MySim
-		MeleeGlacingChance = 0.25
-		sim.DamagingObject.Add(Me)
-		ThreadMultiplicator = 0
-		HasteSensible = True
-		Claw = New Strikes.Strike(Sim)
-        Claw._Name = "Ghoul: Claw"
-        logLevel = LogLevelEnum.Detailled
-	End Sub
-	
-	Sub Summon(T As Long)
-		If cd <= T Then
-			sim.FutureEventManager.Add(T,"Ghoul")
-			MeleeMissChance = math.Max(0.08 - sim.GhoulStat.Hit,0)
-			MeleeDodgeChance =  math.Max(0.065 - sim.GhoulStat.Expertise,0)
-			SpellMissChance = math.Max(0.17 - sim.GhoulStat.SpellHit,0)
-            If sim.Character.Talents.GetNumOfThisSchool(Talents.Schools.Unholy) > 30 Then
-                ActiveUntil = sim.MaxTime
-                cd = sim.MaxTime
-                isGuardian = False
-            Else
-                _Haste = sim.MainStat.PhysicalHaste
-                _AP = sim.GhoulStat.AP
-                ActiveUntil = T + 60 * 100
-                cd = ActiveUntil + (3 * 60 * 100)
-                isGuardian = True
+Namespace Simulator.WowObjects.PetsAndMinions
+    Friend Class Ghoul
+        Inherits WowObject
+
+        Friend NextWhiteMainHit As Long
+        Friend NextClaw As Long
+        Friend ActiveUntil As Long
+        Friend cd As Long
+        Friend _Haste As Double
+        Friend _AP As Integer
+
+        Private MeleeMissChance As Single
+        Private MeleeDodgeChance As Single
+        Private MeleeGlacingChance As Single
+        Private SpellMissChance As Single
+        Private Claw As Strikes.Strike
+
+        Sub New(ByVal MySim As Sim)
+            total = 0
+            MissCount = 0
+            HitCount = 0
+            CritCount = 0
+            cd = 0
+            ActiveUntil = 0
+            NextWhiteMainHit = 0
+            NextClaw = 0
+            TotalHit = 0
+            TotalCrit = 0
+            sim = MySim
+            MeleeGlacingChance = 0.25
+            sim.DamagingObject.Add(Me)
+            ThreadMultiplicator = 0
+            HasteSensible = True
+            Claw = New Strikes.Strike(sim)
+            Claw._Name = "Ghoul: Claw"
+            logLevel = LogLevelEnum.Detailled
+        End Sub
+
+        Sub Summon(ByVal T As Long)
+            If cd <= T Then
+                sim.FutureEventManager.Add(T, "Ghoul")
+                MeleeMissChance = Math.Max(0.08 - sim.GhoulStat.Hit, 0)
+                MeleeDodgeChance = Math.Max(0.065 - sim.GhoulStat.Expertise, 0)
+                SpellMissChance = Math.Max(0.17 - sim.GhoulStat.SpellHit, 0)
+                If sim.Character.Talents.GetNumOfThisSchool(Character.Talents.Schools.Unholy) > 30 Then
+                    ActiveUntil = sim.MaxTime
+                    cd = sim.MaxTime
+                    isGuardian = False
+                Else
+                    _Haste = sim.Character.PhysicalHaste
+                    _AP = sim.GhoulStat.AP
+                    ActiveUntil = T + 60 * 100
+                    cd = ActiveUntil + (3 * 60 * 100)
+                    isGuardian = True
+                End If
+                If T <= 1 Then
+                Else
+                    sim.CombatLog.write(T & vbTab & "Summon Ghoul")
+                    UseGCD(T)
+                End If
             End If
-			If T <=1 Then
-			Else
-				sim.combatlog.write(T  & vbtab &  "Summon Ghoul")
-				UseGCD(T)
-			End If
-		End If
-	End Sub
-	sub UseGCD(T as Long)
-		Sim.UseGCD(T, True)
-	End Sub
-	
-	Function NextActionTime() As Long
-		return Math.Min(NextClaw, NextWhiteMainHit)
-	End Function
-	
-	Sub TryActions(TimeStamp As Long)
-		If NextWhiteMainHit <= TimeStamp Then ApplyDamage(TimeStamp)
-		TryClaw(TimeStamp)
-		If sim.isInGCD(TimeStamp) And Sim.Frenzy.IsAutoFrenzyAvailable(Timestamp) Then
-			Sim.Frenzy.Frenzy(TimeStamp)
-		End If
-	End Sub
-	
-	Function Haste() As Double
-		Dim tmp As Double
-		If isGuardian Then
-			return _Haste
-		End If
-        tmp = sim.MainStat.PhysicalHaste
-        If sim.Frenzy.ActiveUntil >= sim.TimeStamp Then tmp = tmp * 1.5
-		Return tmp
+        End Sub
+        Sub UseGCD(ByVal T As Long)
+            sim.UseGCD(T, True)
+        End Sub
 
-	End Function
-	
-	Function Agility() As Integer
-		Dim tmp As Integer
-		tmp = sim.GhoulStat.Agility
-		tmp = tmp + 155 * 1.15 *  sim.Character.Buff.StrAgi
-        tmp = tmp * (1 + 5 * sim.Character.Buff.StatMulti / 100)
-        Return tmp
-    End Function
+        Function NextActionTime() As Long
+            Return Math.Min(NextClaw, NextWhiteMainHit)
+        End Function
 
-    Function Strength() As Integer
-        Dim tmp As Integer
-        tmp = sim.GhoulStat.Strength
-        tmp = tmp + 155 * 1.15 * sim.Character.Buff.StrAgi
-        tmp = tmp * (1 + 5 * sim.Character.Buff.StatMulti / 100)
-        Return tmp
-    End Function
-	
-	Function AP() As Integer
-		Dim tmp As Integer
-		If isGuardian Then Return _AP
-		tmp = sim.GhoulStat.BaseAP + Strength() + Agility()
-        Return (tmp) * (1 + sim.Character.Buff.AttackPowerPc / 10)
-	End Function
-	
-	Function ApplyDamage(T As long) As boolean
-        Dim LastDamage As Integer
-        Dim WSpeed As Single
-        WSpeed = sim.GhoulStat.MHWeaponSpeed
-        NextWhiteMainHit = T + sim.GhoulStat.SwingTime(Haste()) * 100
-        sim.FutureEventManager.Add(NextWhiteMainHit, "Ghoul")
-        Dim RNG As Double
-        RNG = RngHit
+        Sub TryActions(ByVal TimeStamp As Long)
+            If NextWhiteMainHit <= TimeStamp Then ApplyDamage(TimeStamp)
+            TryClaw(TimeStamp)
+            If sim.isInGCD(TimeStamp) And sim.Frenzy.IsAutoFrenzyAvailable(TimeStamp) Then
+                sim.Frenzy.Frenzy(TimeStamp)
+            End If
+        End Sub
 
-        If RNG < (MeleeMissChance + MeleeDodgeChance) Then
-            MissCount = MissCount + 1
-            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "Ghoul fail")
-            Return False
-        End If
-        If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then
-            LastDamage = AvrgNonCrit(T) * 0.7
-            total = total + LastDamage
-            TotalGlance += LastDamage
-            GlancingCount += 1
-        End If
-        If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) And RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance) Then
-            'CRIT !
-            LastDamage = AvrgCrit(T)
-            CritCount = CritCount + 1
-            totalcrit += LastDamage
-            total = total + LastDamage
-            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "Ghoul crit for " & LastDamage)
-        End If
-        If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance) Then
-            'normal hit
-            HitCount = HitCount + 1
-            LastDamage = AvrgNonCrit(T)
-            total = total + LastDamage
-            totalhit += LastDamage
-            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "Ghoul hit for " & LastDamage)
-        End If
-		return true
-	End Function
-	Function AvrgNonCrit(T As long) As Double
-		Dim tmp As Double
-		tmp = sim.GhoulStat.MHBaseDamage(AP) * sim.GhoulStat.PhysicalDamageMultiplier(T)
-		If sim.EPStat = "EP HasteEstimated" Then
-			tmp = tmp*sim.MainStat.EstimatedHasteBonus
-		End If
-		AvrgNonCrit = tmp
-	End Function
-	Function CritCoef() As Double
-		CritCoef = 1
-	End Function
-	Function CritChance() As Double
-		CritChance = sim.ghoulStat.crit
-	End Function
-	Function AvrgCrit(T As long) As Double
-		AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef)
-	End Function
-	Function TryClaw(T As Long) As Boolean
-		Dim RNG As Double
-        Dim LastDamage As Integer
-        If NextClaw > T Then Return False
-        RNG = Me.Claw.RngHit
-        If RNG < (MeleeMissChance + MeleeDodgeChance) Then
-            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "Ghoul's Claw fail")
-            Claw.MissCount += 1
-            Return False
-        End If
-        RNG = Me.Claw.RngCrit
-        If RNG <= CritChance Then
-            LastDamage = ClawAvrgCrit(T)
-            Claw.CritCount += 1
-            Claw.total += LastDamage
-            Claw.totalcrit += LastDamage
-            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "Ghoul's Claw for " & LastDamage)
-        Else
-            LastDamage = ClawAvrgNonCrit(T)
-            Claw.HitCount += 1
-            Claw.total += LastDamage
-            Claw.totalhit += LastDamage
-            If sim.combatlog.LogDetails Then sim.combatlog.write(T & vbtab & "Ghoul's Claw hit for " & LastDamage)
-        End If
-		NextClaw = T+sim.GhoulStat.ClawTime(haste()) * 100
-		sim.FutureEventManager.Add(NextClaw,"Ghoul")
-		return true
-	End Function
-	Function ClawAvrgNonCrit(T As long) As integer
-		return AvrgNonCrit(T) * 1.5
-	End Function
-	Function ClawAvrgCrit(T As long) As integer
-		return  AvrgNonCrit(T) * (1 + CritCoef)
-	End Function
-	Public Sub cleanup()
-		Total = 0
-		HitCount = 0
-		MissCount =0
-		CritCount = 0
-		TotalHit = 0
-		TotalCrit = 0
-	End Sub
+        Function Haste() As Double
+            Dim tmp As Double
+            If isGuardian Then
+                Return _Haste
+            End If
+            tmp = sim.Character.PhysicalHaste
+            If sim.Frenzy.ActiveUntil >= sim.TimeStamp Then tmp = tmp * 1.5
+            Return tmp
 
-    Public Overrides Function report() As ReportLine
-        If isGuardian And Claw.total > 0 Then Merge() 'if we don't have a permaghoul merge in claw
-        Return MyBase.Report()
-    End Function
+        End Function
 
-	Public Overrides Sub Merge()
-		
-		Total += Claw.Total
-		TotalHit += Claw.TotalHit
-		TotalCrit += Claw.TotalCrit
+        Function Agility() As Integer
+            Dim tmp As Integer
+            tmp = sim.GhoulStat.Agility
+            tmp = tmp + 155 * 1.15 * sim.Character.Buff.StrAgi
+            tmp = tmp * (1 + 5 * sim.Character.Buff.StatMulti / 100)
+            Return tmp
+        End Function
 
-		MissCount = (MissCount + Claw.MissCount)/2
-		HitCount = (HitCount + Claw.HitCount)/2
-		CritCount = (CritCount + Claw.CritCount)/2
-		
-		Claw.Total = 0
-		Claw.TotalHit = 0
-		Claw.TotalCrit = 0
-	End sub
-	
-end class
+        Function Strength() As Integer
+            Dim tmp As Integer
+            tmp = sim.GhoulStat.Strength
+            tmp = tmp + 155 * 1.15 * sim.Character.Buff.StrAgi
+            tmp = tmp * (1 + 5 * sim.Character.Buff.StatMulti / 100)
+            Return tmp
+        End Function
+
+        Function AP() As Integer
+            Dim tmp As Integer
+            If isGuardian Then Return _AP
+            tmp = sim.GhoulStat.BaseAP + Strength() + Agility()
+            Return (tmp) * (1 + sim.Character.Buff.AttackPowerPc / 10)
+        End Function
+
+        Function ApplyDamage(ByVal T As Long) As Boolean
+            Dim LastDamage As Integer
+            Dim WSpeed As Single
+            WSpeed = sim.GhoulStat.MHWeaponSpeed
+            NextWhiteMainHit = T + sim.GhoulStat.SwingTime(Haste()) * 100
+            sim.FutureEventManager.Add(NextWhiteMainHit, "Ghoul")
+            Dim RNG As Double
+            RNG = RngHit()
+
+            If RNG < (MeleeMissChance + MeleeDodgeChance) Then
+                MissCount = MissCount + 1
+                If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "Ghoul fail")
+                Return False
+            End If
+            If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then
+                LastDamage = AvrgNonCrit(T) * 0.7
+                total = total + LastDamage
+                TotalGlance += LastDamage
+                GlancingCount += 1
+            End If
+            If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) And RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance()) Then
+                'CRIT !
+                LastDamage = AvrgCrit(T)
+                CritCount = CritCount + 1
+                TotalCrit += LastDamage
+                total = total + LastDamage
+                If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "Ghoul crit for " & LastDamage)
+            End If
+            If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance()) Then
+                'normal hit
+                HitCount = HitCount + 1
+                LastDamage = AvrgNonCrit(T)
+                total = total + LastDamage
+                TotalHit += LastDamage
+                If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "Ghoul hit for " & LastDamage)
+            End If
+            Return True
+        End Function
+        Function AvrgNonCrit(ByVal T As Long) As Double
+            Dim tmp As Double
+            tmp = sim.GhoulStat.MHBaseDamage(AP) * sim.GhoulStat.PhysicalDamageMultiplier(T)
+            If sim.EPStat = "EP HasteEstimated" Then
+                tmp = tmp * sim.Character.EstimatedHasteBonus
+            End If
+            AvrgNonCrit = tmp
+        End Function
+        Function CritCoef() As Double
+            CritCoef = 1
+        End Function
+        Function CritChance() As Double
+            CritChance = sim.GhoulStat.crit
+        End Function
+        Function AvrgCrit(ByVal T As Long) As Double
+            AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef())
+        End Function
+        Function TryClaw(ByVal T As Long) As Boolean
+            Dim RNG As Double
+            Dim LastDamage As Integer
+            If NextClaw > T Then Return False
+            RNG = Me.Claw.RngHit
+            If RNG < (MeleeMissChance + MeleeDodgeChance) Then
+                If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "Ghoul's Claw fail")
+                Claw.MissCount += 1
+                Return False
+            End If
+            RNG = Me.Claw.RngCrit
+            If RNG <= CritChance() Then
+                LastDamage = ClawAvrgCrit(T)
+                Claw.CritCount += 1
+                Claw.total += LastDamage
+                Claw.totalcrit += LastDamage
+                If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "Ghoul's Claw for " & LastDamage)
+            Else
+                LastDamage = ClawAvrgNonCrit(T)
+                Claw.HitCount += 1
+                Claw.total += LastDamage
+                Claw.totalhit += LastDamage
+                If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "Ghoul's Claw hit for " & LastDamage)
+            End If
+            NextClaw = T + sim.GhoulStat.ClawTime(Haste()) * 100
+            sim.FutureEventManager.Add(NextClaw, "Ghoul")
+            Return True
+        End Function
+        Function ClawAvrgNonCrit(ByVal T As Long) As Integer
+            Return AvrgNonCrit(T) * 1.5
+        End Function
+        Function ClawAvrgCrit(ByVal T As Long) As Integer
+            Return AvrgNonCrit(T) * (1 + CritCoef())
+        End Function
+        Public Sub cleanup()
+            total = 0
+            HitCount = 0
+            MissCount = 0
+            CritCount = 0
+            TotalHit = 0
+            TotalCrit = 0
+        End Sub
+
+        Public Overrides Function report() As ReportLine
+            If isGuardian And Claw.total > 0 Then Merge() 'if we don't have a permaghoul merge in claw
+            Return MyBase.Report()
+        End Function
+
+        Public Overrides Sub Merge()
+
+            total += Claw.Total
+            TotalHit += Claw.TotalHit
+            TotalCrit += Claw.TotalCrit
+
+            MissCount = (MissCount + Claw.MissCount) / 2
+            HitCount = (HitCount + Claw.HitCount) / 2
+            CritCount = (CritCount + Claw.CritCount) / 2
+
+            Claw.Total = 0
+            Claw.TotalHit = 0
+            Claw.TotalCrit = 0
+        End Sub
+
+    End Class
+End Namespace

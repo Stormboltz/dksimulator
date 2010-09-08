@@ -5,22 +5,21 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="400" d:DesignWidth="250" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit">
-    <toolkit:TwilightBlueTheme>
+    
         <sdk:TabControl HorizontalAlignment="Left" Name="TabControl1" VerticalAlignment="Top">
 
             <sdk:TabItem Header="Visual" Name="TabItem1">
-                <toolkit:TwilightBlueTheme>
                     <StackPanel>
                         <sdk:DataGrid AutoGenerateColumns="True" FontSize="9"   Name="dgReport" MinColumnWidth="5" Height="0"/>
                         <TextBox Grid.Row="1" Name="txtAdditionalInfo" Text="" IsReadOnly="True" />
                         <sdk:Label Content=" "></sdk:Label>
                         <Button Content="Show Details" Name="cmdShowDetails"></Button>
                     </StackPanel>
-                </toolkit:TwilightBlueTheme>
+              
             </sdk:TabItem>
             <sdk:TabItem Header="BB-CODE" Name="TabItem2">
                 <TextBox Grid.Row="1" Name="txtBBCode" Text="" IsReadOnly="True" />
             </sdk:TabItem>
         </sdk:TabControl>
-    </toolkit:TwilightBlueTheme>
+    
 </UserControl>

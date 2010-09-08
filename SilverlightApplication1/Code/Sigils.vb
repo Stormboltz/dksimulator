@@ -1,11 +1,4 @@
-'
-' Created by SharpDevelop.
-' User: Fabien
-' Date: 14/03/2009
-' Time: 00:22
-'
-' To change this template use Tools | Options | Coding | Edit Standard Headers.
-'
+Namespace Simulator
 Friend Class Sigils
 	Friend WildBuck As Boolean 'DC + 80
 	Friend FrozenConscience As Boolean ' IT + 111
@@ -24,3 +17,4 @@ Friend Class Sigils
 	End Sub
 	
 end Class
+End Namespace

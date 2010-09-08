@@ -6,6 +6,8 @@ Imports System.ComponentModel
 Imports System.Threading
 
 
+
+
 Partial Public Class MainForm
     Inherits Page
 
@@ -635,7 +637,7 @@ OUT:
     'Shared ProgressBar1 As ProgressBar
 
     Friend Sub UpdateProgressBar()
-        Dim s As Sim
+        Dim s As Simulator.Sim
         Dim i As Double
         Try
             If SimConstructor.simCollection.Count = 0 Then
@@ -660,7 +662,7 @@ OUT:
     End Sub
 
     Sub UpdateProgressBars()
-        Dim s As Sim
+        Dim s As Simulator.Sim
         Dim i As Double
         'On Error Resume Next
         If SimConstructor.simCollection.Count = 0 Then
@@ -1649,9 +1651,9 @@ NextItem:
     End Sub
 
 
-   
+
     Private Sub cmdCleanDebug_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdCleanDebug.Click
-        Log.clean()
+        Log.Clean()
     End Sub
 
     Private Sub cmdScaling_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdScaling.Click

@@ -1,57 +1,51 @@
-'
-' Created by SharpDevelop.
-' User: Fabien
-' Date: 06/04/2009
-' Time: 22:07
-'
-' To change this template use Tools | Options | Coding | Edit Standard Headers.
-'
-Public Class RuneStrike
-	Inherits Strikes.Strike
-	
-	Friend trigger as Boolean
+Namespace Simulator.WowObjects.Strikes
+    Public Class RuneStrike
+        Inherits Strike
 
-	Sub New(S As sim )
-		MyBase.New(s)
-		sim = S
-		ThreadMultiplicator = 1.5 * 1.17
+        Friend trigger As Boolean
 
-        logLevel = LogLevelEnum.Basic
+        Sub New(ByVal S As sim)
+            MyBase.New(S)
+            sim = S
+            ThreadMultiplicator = 1.5 * 1.17
 
-        BaseDamage = 0
-        Coeficient = 2
+            logLevel = LogLevelEnum.Basic
 
-        Multiplicator = 1
-        Multiplicator *= (1 + sim.MainStat.T82PTNK * 0.1)
+            BaseDamage = 0
+            Coeficient = 2
+
+            Multiplicator = 1
+            Multiplicator *= (1 + sim.Character.T82PTNK * 0.1)
 
 
-        If sim.Character.Glyph.RuneStrike Then
-            SpecialCritChance = 0.1
-        End If
-
-
-
-	End Sub
-	
-	overrides Function ApplyDamage(T As long) As boolean
-        BaseDamage = 20 * sim.MainStat.AP / 100
-        trigger = False
-        If MyBase.ApplyDamage(T) = False Then
-            sim.RunicPower.Use(10)
-            Return False
-        End If
-
-        If OffHand = False Then
-            UseGCD(T)
-            sim.RunicPower.Use(20)
-            sim.proc.tryProcs(Procs.ProcOnType.onRPDump)
-            If sim.DRW.IsActive(T) Then
-                sim.DRW.DRWRuneStrike()
+            If sim.Character.Glyph.RuneStrike Then
+                SpecialCritChance = 0.1
             End If
-        End If
-        Return True
-    End Function
-End Class
 
 
 
+        End Sub
+
+        Overrides Function ApplyDamage(ByVal T As Long) As Boolean
+            BaseDamage = 20 * sim.Character.AP / 100
+            trigger = False
+            If MyBase.ApplyDamage(T) = False Then
+                sim.RunicPower.Use(10)
+                Return False
+            End If
+
+            If OffHand = False Then
+                UseGCD(T)
+                sim.RunicPower.Use(20)
+                sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.onRPDump)
+                If sim.DRW.IsActive(T) Then
+                    sim.DRW.DRWRuneStrike()
+                End If
+            End If
+            Return True
+        End Function
+    End Class
+
+
+
+End Namespace

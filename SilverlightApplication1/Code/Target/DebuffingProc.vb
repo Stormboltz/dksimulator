@@ -6,7 +6,9 @@
 ' 
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
-Public Class DebuffingProc
-	Inherits Proc
-	
-End Class
+Namespace Simulator.WowObjects.Procs
+    Public Class DebuffingProc
+        Inherits Proc
+
+    End Class
+End Namespace

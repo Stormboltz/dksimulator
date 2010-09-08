@@ -6,41 +6,43 @@
 ' 
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
-Public Class FrostPresence
+Namespace Simulator.WowObjects.Spells
+    Public Class FrostPresence
 
-	Inherits Spells.Spell
-	
-	Sub New(S As sim)
-        MyBase.New(S)
-        logLevel = LogLevelEnum.Detailled
-	End Sub
-	
-	Function IsAvailable(T As Long) As Boolean
-        If sim.Runes.Frost(T) Then
+        Inherits Spell
+
+        Sub New(ByVal S As Sim)
+            MyBase.New(S)
+            logLevel = LogLevelEnum.Detailled
+        End Sub
+
+        Function IsAvailable(ByVal T As Long) As Boolean
+            If Sim.Runes.Frost(T) Then
+                Return True
+            Else
+                Return False
+            End If
+        End Function
+
+
+        Function Use(ByVal T As Long) As Boolean
+            Sim.BloodPresence = 0
+            Sim.UnholyPresence = 0
+            Sim.FrostPresence = 10 + (2.5 * Sim.Character.Talents.Talent("IFrostPresence").Value)
+            Sim.Runes.UseFrost(T, False)
+            Sim.CombatLog.write(T & vbTab & "Switch to Frost Presence")
+            Me.HitCount = Me.HitCount + 1
+            Sim._UseGCD(T, 1)
+
             Return True
-        Else
-            Return False
-        End If
-	End Function
-	
-	
-	Function Use(T As Long) As Boolean
-		sim.BloodPresence = 0
-		sim.UnholyPresence = 0
-        sim.FrostPresence = 10 + (2.5 * sim.Character.Talents.Talent("IFrostPresence").Value)
-		sim.Runes.UseFrost(T,false)
-		sim.combatlog.write(T  & vbtab &  "Switch to Frost Presence")
-		Me.HitCount = Me.HitCount +1
-		sim._UseGCD(T, 1)
+        End Function
 
-		return true
-	End Function
-
-    Sub SetForFree()
-        sim.BloodPresence = 0
-        sim.UnholyPresence = 0
-        sim.FrostPresence = 10 + (2.5 * sim.Character.Talents.Talent("IFrostPresence").Value)
-    End Sub
+        Sub SetForFree()
+            Sim.BloodPresence = 0
+            Sim.UnholyPresence = 0
+            Sim.FrostPresence = 10 + (2.5 * Sim.Character.Talents.Talent("IFrostPresence").Value)
+        End Sub
 
 
-End Class
+    End Class
+End Namespace

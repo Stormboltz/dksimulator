@@ -6,48 +6,50 @@
 '
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Public Class Horn
-	Inherits Spells.Spell
-	
-	Sub New(S As sim)
-        MyBase.New(S)
-        logLevel = LogLevelEnum.Basic
-	End Sub
-	
-	
-	Function isAutoAvailable(T As Long) As Boolean
-		If sim.Rotate = True Then
-			If sim.Rotation.MyRotation.Contains("Horn") Then Return False
-		Else
-			if sim.Priority.prio.Contains("Horn") then return false
-		End If
-		if sim.runes.RuneRefreshTheNextGCD(T) = true then
-			Return isAvailable(T)
-		Else
-			Return False
-		End If
-	End Function
-	
-	
-	
-	Function isAvailable(T As Long) As Boolean
-        If sim.RunicPower.CheckMax(9) Then Return False
+Namespace Simulator.WowObjects.Spells
+    Public Class Horn
+        Inherits Spells.Spell
 
-        If CD <= T Then
+        Sub New(ByVal S As Sim)
+            MyBase.New(S)
+            logLevel = LogLevelEnum.Basic
+        End Sub
+
+
+        Function isAutoAvailable(ByVal T As Long) As Boolean
+            If Sim.Rotate = True Then
+                If Sim.Rotation.MyRotation.Contains("Horn") Then Return False
+            Else
+                If Sim.Priority.prio.Contains("Horn") Then Return False
+            End If
+            If Sim.Runes.RuneRefreshTheNextGCD(T) = True Then
+                Return isAvailable(T)
+            Else
+                Return False
+            End If
+        End Function
+
+
+
+        Function isAvailable(ByVal T As Long) As Boolean
+            If Sim.RunicPower.CheckMax(9) Then Return False
+
+            If CD <= T Then
+                Return True
+            Else
+                Return False
+            End If
+        End Function
+
+        Function use(ByVal T As Long) As Boolean
+            CD = T + 20 * 100
+            Sim.RunicPower.add(10)
+            HitCount = HitCount + 1
+            UseGCD(T)
+            Sim.CombatLog.write(T & vbTab & "Horn used")
             Return True
-        Else
-            Return False
-        End If
-	End Function
-	
-	Function use(T As Long) as Boolean
-		cd = t + 20 * 100
-		Sim.RunicPower.add(10)
-		HitCount = HitCount + 1
-		UseGCD(T)
-		sim.combatlog.write(T  & vbtab &  "Horn used")
-		return true
-	End Function
-	
-	
-End Class
+        End Function
+
+
+    End Class
+End Namespace

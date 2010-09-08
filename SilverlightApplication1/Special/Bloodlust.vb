@@ -6,38 +6,40 @@
 ' 
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
-Public Class Bloodlust
-	
-	Friend Cd as Long
-	Private ActiveUntil As Long
-	Protected Sim as Sim
-	Sub New(S As Sim)
-		Sim = S
-		cd = 0
-        ActiveUntil = 0
+Namespace Simulator.WowObjects.Spells
+    Public Class Bloodlust
 
-	End Sub
-	
-	Function IsAvailable(T As Long) As Boolean
-		if  sim.Character.Buff.Bloodlust = 0 then return false
-        If Cd <= T Then
-            Return True
-        Else
-            Return False
-        End If
-	End Function
+        Friend Cd As Long
+        Private ActiveUntil As Long
+        Protected Sim As Sim
+        Sub New(ByVal S As Sim)
+            Sim = S
+            Cd = 0
+            ActiveUntil = 0
 
-	Function IsActive(T as Long) as Boolean
-        If ActiveUntil > T Then
-            Return True
-        Else
-            Return False
-        End If
+        End Sub
 
-	End Function
-	
-	Sub use(T As Long)
-		CD = T + 10*60*100
-		ActiveUntil = T + 4000
-	End Sub
-End Class
+        Function IsAvailable(ByVal T As Long) As Boolean
+            If Sim.Character.Buff.Bloodlust = 0 Then Return False
+            If Cd <= T Then
+                Return True
+            Else
+                Return False
+            End If
+        End Function
+
+        Function IsActive(ByVal T As Long) As Boolean
+            If ActiveUntil > T Then
+                Return True
+            Else
+                Return False
+            End If
+
+        End Function
+
+        Sub use(ByVal T As Long)
+            Cd = T + 10 * 60 * 100
+            ActiveUntil = T + 4000
+        End Sub
+    End Class
+End Namespace

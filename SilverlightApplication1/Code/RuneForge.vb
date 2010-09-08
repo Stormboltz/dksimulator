@@ -6,224 +6,226 @@
 '
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
-Friend Class RuneForge
-	
-	Private RazorIceStack as Integer
-	
-	Private CinderglacierProc As Integer
-	Private WastedCG as Integer
-	Friend CGMultiplier As Double
-	Friend MHProc As WeaponProc
-	Friend OHProc As WeaponProc
-	
-	Friend FCProc As WeaponProc
-	Friend RIProc As WeaponProc
-	Friend CGProc As WeaponProc
-	
-	Friend OHRuneForge As String
-	Friend MHRuneForge As String
-	
-	Friend OHBerserkingActiveUntil As Long
-	
-	Private Sim As Sim
-	
-	Sub New(S As Sim )
-		Sim = S
-		CinderglacierProc = 0
-		WastedCG = 0
-		OHBerserkingActiveUntil = 0
-		CGMultiplier = 1.2
-	End Sub
+Namespace Simulator.WowObjects.Procs
+    Friend Class RuneForge
 
-	Sub SoftReset()
-	End Sub
+        Private RazorIceStack As Integer
 
-	Sub ConfigRuneForgeProc(Proc As WeaponProc, RuneForge As String)
-		If RuneForge = "" Then Exit Sub
-		With Proc
-			.DamageType = RuneForge
-			Select Case RuneForge
+        Private CinderglacierProc As Integer
+        Private WastedCG As Integer
+        Friend CGMultiplier As Double
+        Friend MHProc As WeaponProc
+        Friend OHProc As WeaponProc
 
-                Case "3368"
-                    .ProcChance *= 2
-                    .ProcLenght = 15
-                    .ProcValue = 1
-                    ._Name = "Fallen Crusader"
-                    FCProc = Proc
-					
-                Case "3370"
-                    .ProcChance = 1
-                    ._Name = "RazorIce"
-                    RIProc = Proc
-					
+        Friend FCProc As WeaponProc
+        Friend RIProc As WeaponProc
+        Friend CGProc As WeaponProc
 
-                Case "3369"
-                    .ProcChance *= 1.5
-                    CGProc = Proc
-                    ._Name = "CinderGlacier"
+        Friend OHRuneForge As String
+        Friend MHRuneForge As String
 
-                Case "3789"
-                    .DamageType = ""
-                    .ProcChance *= 1.2
-                    .ProcLenght = 15
-                    .ProcValue = 400
-                    .ProcType = "ap"
-                    ._Name = "Berzerker"
-				Case Else
-                    Diagnostics.Debug.WriteLine("Runeforge: " & RuneForge & " not implemented")
-					.ProcChance = 0.0
-					Exit Sub
-					
-			End Select
-            '._Name &= RuneForge
-			
-		End With
-	End Sub
+        Friend OHBerserkingActiveUntil As Long
 
-	Sub Init()
-		dim s as Sim
-        s = Sim
-        Try
-            If s.Character.Dual Then
-                MHRuneForge = s.XmlCharacter.Element("character").Element("MainHand").Element("enchant").Value
-            Else
+        Private Sim As Sim
 
-                MHRuneForge = s.XmlCharacter.Element("character").Element("TwoHand").Element("enchant").Value
-            End If
+        Sub New(ByVal S As Sim)
+            Sim = S
+            CinderglacierProc = 0
+            WastedCG = 0
+            OHBerserkingActiveUntil = 0
+            CGMultiplier = 1.2
+        End Sub
 
-        Catch ex As Exception
-            MHRuneForge = ""
-        End Try
+        Sub SoftReset()
+        End Sub
 
-        MHProc = New WeaponProc(s)
-        With MHProc
-            If s.MainStat.DualW Then ._Name = "MH "
-            .InternalCD = 0
-            .ProcOn = Procs.ProcOnType.OnMHhit
-            .ProcChance = s.MainStat.MHWeaponSpeed / 60
-        End With
-        ConfigRuneForgeProc(MHProc, MHRuneForge)
-        If MHProc.ProcChance > 0.0 Then MHProc.Equip()
+        Sub ConfigRuneForgeProc(ByVal Proc As WeaponProc, ByVal RuneForge As String)
+            If RuneForge = "" Then Exit Sub
+            With Proc
+                .DamageType = RuneForge
+                Select Case RuneForge
 
-        If s.MainStat.DualW Then
-            OHProc = New WeaponProc(s)
+                    Case "3368"
+                        .ProcChance *= 2
+                        .ProcLenght = 15
+                        .ProcValue = 1
+                        ._Name = "Fallen Crusader"
+                        FCProc = Proc
+
+                    Case "3370"
+                        .ProcChance = 1
+                        ._Name = "RazorIce"
+                        RIProc = Proc
+
+
+                    Case "3369"
+                        .ProcChance *= 1.5
+                        CGProc = Proc
+                        ._Name = "CinderGlacier"
+
+                    Case "3789"
+                        .DamageType = ""
+                        .ProcChance *= 1.2
+                        .ProcLenght = 15
+                        .ProcValue = 400
+                        .ProcType = Sim.Stat.AP
+                        ._Name = "Berzerker"
+                    Case Else
+                        Diagnostics.Debug.WriteLine("Runeforge: " & RuneForge & " not implemented")
+                        .ProcChance = 0.0
+                        Exit Sub
+
+                End Select
+                '._Name &= RuneForge
+
+            End With
+        End Sub
+
+        Sub Init()
+            Dim s As Sim
+            s = Sim
             Try
-                OHRuneForge = s.XmlCharacter.Element("character").Element("OffHand").Element("enchant").Value
+                If s.Character.Dual Then
+                    MHRuneForge = s.XmlCharacter.Element("character").Element("MainHand").Element("enchant").Value
+                Else
+
+                    MHRuneForge = s.XmlCharacter.Element("character").Element("TwoHand").Element("enchant").Value
+                End If
+
             Catch ex As Exception
-                OHRuneForge = ""
+                MHRuneForge = ""
             End Try
 
-            With OHProc
-                ._Name = "OH "
+            MHProc = New WeaponProc(s)
+            With MHProc
+                If s.Character.DualW Then ._Name = "MH "
                 .InternalCD = 0
-                .ProcOn = Procs.ProcOnType.OnOHhit
-                .ProcChance = s.MainStat.OHWeaponSpeed / 60
+                .ProcOn = ProcsManager.ProcOnType.OnMHhit
+                .ProcChance = s.Character.MHWeaponSpeed / 60
             End With
-            ConfigRuneForgeProc(OHProc, OHRuneForge)
-            If OHProc.ProcChance > 0.0 Then
-                OHProc.Equip()
+            ConfigRuneForgeProc(MHProc, MHRuneForge)
+            If MHProc.ProcChance > 0.0 Then MHProc.Equip()
 
-                If MHRuneForge = OHRuneForge Then
-                    Dim Proc As New WeaponProc(s)
-                    ConfigRuneForgeProc(Proc, MHRuneForge)
-                    Proc._Name &= " (Combined)"
-                    Proc.Equip()
+            If s.Character.DualW Then
+                OHProc = New WeaponProc(s)
+                Try
+                    OHRuneForge = s.XmlCharacter.Element("character").Element("OffHand").Element("enchant").Value
+                Catch ex As Exception
+                    OHRuneForge = ""
+                End Try
+
+                With OHProc
+                    ._Name = "OH "
+                    .InternalCD = 0
+                    .ProcOn = ProcsManager.ProcOnType.OnOHhit
+                    .ProcChance = s.Character.OHWeaponSpeed / 60
+                End With
+                ConfigRuneForgeProc(OHProc, OHRuneForge)
+                If OHProc.ProcChance > 0.0 Then
+                    OHProc.Equip()
+
+                    If MHRuneForge = OHRuneForge Then
+                        Dim Proc As New WeaponProc(s)
+                        ConfigRuneForgeProc(Proc, MHRuneForge)
+                        Proc._Name &= " (Combined)"
+                        Proc.Equip()
+                    End If
                 End If
+            Else
+                OHRuneForge = ""
+
+
+
             End If
-        Else
-            OHRuneForge = ""
+            If RIProc IsNot Nothing Then
+                With RIProc
+                    .ProcLenght = 20
+                    .ProcValue = Sim.Character.MHWeaponSpeed * Sim.Character.MHWeaponDPS * 0.02
+                    .MaxStack = 5
+                    .ProcValueStack = 2
+                End With
+            End If
+
+            If CGProc IsNot Nothing Then
+                With CGProc
+                    .ProcLenght = 30
+                    .ProcValue = 20
+                End With
+            End If
+
+
+        End Sub
+
+        Sub ProcFallenCrusader(ByVal Proc As WeaponProc, ByVal T As Long)
+            Proc.BaseApplyMe(T)
+            If FCProc IsNot Proc Then FCProc.ApplyFade(T)
+        End Sub
+
+
+        Sub ProcCinderglacier(ByVal Proc As WeaponProc, ByVal T As Long)
+            Proc.BaseApplyMe(T)
+            If Proc IsNot CGProc Then CGProc.ApplyFade(T)
+            CGProc.CurrentStack = 2
+        End Sub
+
+
+        Function CheckFallenCrusader() As Boolean
+            If FCProc Is Nothing Then Return False
+            Return FCProc.IsActive()
+
+        End Function
+
+        Function HasFallenCrusader() As Boolean
+            Return FCProc IsNot Nothing
+
+        End Function
+
+
+        Function CheckCinderglacier(ByVal consume As Boolean) As Integer
+            If CGProc Is Nothing Then Return 0
+            Dim rv As Integer
+            rv = CGProc.CurrentStack
+            If consume Then CGProc.Use()
+            Return rv
+        End Function
+
+        Function AreStarsAligned(ByVal T As Long) As Boolean
+            If Sim.WaitForFallenCrusader = False Then Return True
+            If CheckFallenCrusader() Then Return True
+            If HasFallenCrusader() Then Return False
+            Return True
+            '		If sim.MainStat.AP >=  sim.MainStat.GetMaxAP * 0.7 Then
+            '			Return True
+            '		Else
+            '			return false
+            '		End If
+        End Function
+
+        Function RazorIceMultiplier(ByVal T As Long) As Double
+            If RIProc Is Nothing Then Return 1.0
+            Return 1.0 + 0.02 * RIProc.Stack
+        End Function
+
+        Sub ProcRazorIce(ByVal Proc As WeaponProc, ByVal T As Long)
+            Dim tmp As Double
+            tmp = RIProc.procvalue
+            'Hastebonus should only be applied to procs from hasteable attacks
+            'If sim.EPStat = "EP HasteEstimated" Then
+            '	tmp *= sim.MainStat.EstimatedHasteBonus
+            'End If
+            RIProc.ApplyFade(T)
+
+            If RIProc.Stack < RIProc.MaxStack Then RIProc.Stack += 1
+
+            With Proc
+                If Proc IsNot RIProc Then .HitCount += 1
+                If Sim.CombatLog.LogDetails Then Sim.CombatLog.write(Sim.TimeStamp & vbTab & .ToString & " proc")
+                .total += tmp
+            End With
+        End Sub
 
 
 
-        End If
-		If RIProc IsNot Nothing Then
-			With RIProc
-				.ProcLenght = 20
-				.ProcValue = Sim.MainStat.MHWeaponSpeed * Sim.MainStat.MHWeaponDPS * 0.02
-				.MaxStack = 5
-				.ProcValueStack = 2
-			End With
-		End If
-		
-		If CGProc IsNot Nothing Then
-			With CGProc
-				.ProcLenght = 30
-				.ProcValue = 20
-			End With
-		End If
 
-		
-End Sub
-
-	Sub ProcFallenCrusader(Proc As WeaponProc, T as Long)
-		Proc.BaseApplyMe(T)
-		if FCProc IsNot Proc then FCProc.ApplyFade(T)
-	End Sub
-
-
-	Sub ProcCinderglacier(Proc As WeaponProc, T As Long)
-		Proc.BaseApplyMe(T)
-		If Proc IsNot CGProc Then CGProc.ApplyFade(T)
-        CGProc.CurrentStack = 2
-    End Sub
-
-
-    Function CheckFallenCrusader() As Boolean
-        If FCProc Is Nothing Then Return False
-        Return FCProc.IsActive()
-
-    End Function
-
-    Function HasFallenCrusader() As Boolean
-        Return FCProc IsNot Nothing
-
-    End Function
-
-
-    Function CheckCinderglacier(ByVal consume As Boolean) As Integer
-        If CGProc Is Nothing Then Return 0
-        Dim rv As Integer
-        rv = CGProc.CurrentStack
-        If consume Then CGProc.Use()
-        Return rv
-    End Function
-
-	Function AreStarsAligned(T As Long) As Boolean
-		If sim.WaitForFallenCrusader = False Then Return True
-		If checkFallenCrusader() Then Return True
-		If HasFallenCrusader() Then Return False
-		return true
-'		If sim.MainStat.AP >=  sim.MainStat.GetMaxAP * 0.7 Then
-'			Return True
-'		Else
-'			return false
-'		End If
-	End Function
-	
-	Function RazorIceMultiplier(T As Long) as Double
-		If RIProc Is Nothing Then Return 1.0
-		Return 1.0 + 0.02 * RIProc.Stack
-	End Function
-	
-	Sub ProcRazorIce(Proc As WeaponProc, T As Long)
-		Dim tmp As Double
-		tmp = RIProc.procvalue
-		'Hastebonus should only be applied to procs from hasteable attacks
-		'If sim.EPStat = "EP HasteEstimated" Then
-		'	tmp *= sim.MainStat.EstimatedHasteBonus
-		'End If
-		RIProc.ApplyFade(T)
-		
-		if RIProc.Stack < RIProc.MaxStack then RIProc.Stack += 1
-
-		With Proc
-			If Proc IsNot RIProc Then .HitCount += 1
-			If sim.CombatLog.LogDetails Then sim.CombatLog.write(sim.TimeStamp & vbTab & .ToString & " proc")
-			.total += tmp
-		End With
-	End Sub
-	
-	
-	
-	
-End Class
+    End Class
+End Namespace

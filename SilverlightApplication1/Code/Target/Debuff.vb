@@ -10,7 +10,7 @@ Imports System.IO
 '
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
-Namespace Targets
+Namespace Simulator.Targets
     Public Class Debuff
 
         Friend ArmorMajor As Integer
@@ -48,7 +48,7 @@ Namespace Targets
             SpellDamageTaken = 0
 
 
-           
+
         End Sub
 
 
