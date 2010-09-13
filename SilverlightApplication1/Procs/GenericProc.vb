@@ -16,6 +16,7 @@ Namespace Simulator.WowObjects.Procs
         Friend Equiped As Integer
         Friend ProcLenght As Integer
         Friend ProcValue As Integer
+        'Friend ProcMultiplier As Double = 1
         Friend InternalCD As Integer
         Friend Stack As Integer
         Friend MaxStack As Integer
@@ -28,13 +29,12 @@ Namespace Simulator.WowObjects.Procs
         Friend ProcOn As ProcsManager.ProcOnType
 
         Friend previousFade As Long
-
+        Friend Buff As SpellBuff
         Friend isDebuff As Boolean
 
 
-
-
-        Sub New()
+        Sub New(ByVal S As Sim)
+            MyBase.New(S)
             _RNG1 = Nothing
             ProcChance = 0
             Equiped = 0
@@ -43,18 +43,18 @@ Namespace Simulator.WowObjects.Procs
             InternalCD = 0
             CurrentStack = 0
             ThreadMultiplicator = 1
-            Total = 0
+            total = 0
             HitCount = 0
             MissCount = 0
             CritCount = 0
             TotalHit = 0
             TotalCrit = 0
             isDebuff = False
-        End Sub
-        Sub New(ByVal S As Sim)
-            Me.New()
+
             _name = Me.ToString
-            Sim = S
+            sim = S
+
+
             Sim.proc.AllProcs.Add(Me)
         End Sub
 
@@ -98,7 +98,11 @@ Namespace Simulator.WowObjects.Procs
                 RemoveUptime(Sim.TimeStamp)
             End If
         End Sub
-
+        Sub Cancel()
+            CurrentStack = 0
+            Fade = sim.TimeStamp
+            RemoveUptime(sim.TimeStamp)
+        End Sub
         Overridable Function IsAvailable(ByVal T As Long) As Boolean
             If Equiped = 0 Or CD > T Then Return False
             Return True
@@ -111,7 +115,9 @@ Namespace Simulator.WowObjects.Procs
                 Return False
             End If
             If CD > T Then Return False
-            If RngHit > ProcChance Then Return False
+            Dim d As Double = RngHit()
+
+            If d > ProcChance Then Return False
             ApplyMe(T)
             Return True
         End Function
@@ -125,8 +131,11 @@ Namespace Simulator.WowObjects.Procs
         End Sub
 
         Overridable Sub ApplyMe(ByVal T As Long)
+            If Not (IsNothing(Buff)) Then
+                Buff.Apply()
+            End If
             CD = T + InternalCD * 100
-            If Sim.CombatLog.LogDetails Then Sim.CombatLog.write(Sim.TimeStamp & vbTab & Me.ToString & " proc")
+            If sim.CombatLog.LogDetails Then sim.CombatLog.write(sim.TimeStamp & vbTab & Me.ToString & " proc")
             If MaxStack <> 0 Then
                 Stack = Math.Min(Stack + 1, MaxStack)
             End If
@@ -178,7 +187,7 @@ Namespace Simulator.WowObjects.Procs
             MyBase.New(S)
         End Sub
         Public Overrides Sub ApplyMe(ByVal T As Long)
-            Sim.RunicPower.add(100)
+            sim.RunicPower.add(10)
             Sim.CombatLog.write(Sim.TimeStamp & vbTab & Me.Name & " proc")
             MyBase.ApplyMe(T)
         End Sub
@@ -204,7 +213,11 @@ Namespace Simulator.WowObjects.Procs
             If Sim.Runes.FrostRune1.Value = 0 Then DepletedRunes.Add(Sim.Runes.FrostRune1)
             If Sim.Runes.FrostRune2.Value = 0 Then DepletedRunes.Add(Sim.Runes.FrostRune2)
 
-            If DepletedRunes.Count = 0 Then Return
+            If DepletedRunes.Count = 0 Then
+                sim.CombatLog.write(sim.TimeStamp & vbTab & Me.Name & " proc with no depleted rune")
+                Return
+            End If
+
             d = (DepletedRunes.Count - 1) * RngCrit
             Dim dec As Decimal = Convert.ToDecimal(d)
             Dim i As Integer
@@ -219,6 +232,40 @@ Namespace Simulator.WowObjects.Procs
 
             Sim.CombatLog.write(Sim.TimeStamp & vbTab & Me.Name & " proc")
             MyBase.ApplyMe(T)
+        End Sub
+
+    End Class
+    Class Shadowmourne
+        Inherits WeaponProc
+
+        Dim ChaosBaneBuff As SpellBuff
+        Dim ChaosBaneSpell As WeaponProc
+
+        Sub New(ByVal s As Sim)
+            MyBase.New(s)
+            ChaosBaneBuff = New SpellBuff(s, "Chaos Bane", Simulator.Sim.Stat.Strength, 270, 10)
+            ChaosBaneSpell = New WeaponProc(s)
+            With ChaosBaneSpell
+                .DamageType = "shadow"
+                ._Name = "Chaos Bane"
+                .ProcValue = 2000
+                .ProcChance = 1
+            End With
+        End Sub
+
+        Public Overrides Sub ApplyMe(ByVal T As Long)
+            If Buff.Currentstack > 9 Then
+                Buff.Fade()
+                CD = T + 1000
+                ChaosBaneBuff.Apply()
+                ChaosBaneSpell.TryMe(T)
+            Else
+                MyBase.ApplyMe(T)
+            End If
+        End Sub
+        Public Overrides Sub Equip()
+            MyBase.Equip()
+            ChaosBaneSpell.Equip()
         End Sub
 
     End Class

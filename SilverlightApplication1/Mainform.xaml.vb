@@ -817,7 +817,12 @@ OUT:
 
     Private Sub cmdStartSim_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdStartSim.Click
         If LoadBeforeSim() = False Then Exit Sub
+
         If SimConstructor.simCollection.Count > 0 Then Return
+        SimConstructor.SimDone = 0
+        SimConstructor.SimCount = 0
+
+
         SimConstructor.EpStat = ""
         SimConstructor.Start(txtSimtime.Text, Me, True)
     End Sub
@@ -1437,6 +1442,7 @@ NextItem:
         xmlChar.Element("character").Element("stat").Add(New XElement("Agility", CheckForInt(StatSummary.txtAgi.Text)))
         xmlChar.Element("character").Element("stat").Add(New XElement("Intel", CheckForInt(StatSummary.txtIntel.Text)))
         xmlChar.Element("character").Element("stat").Add(New XElement("Armor", CheckForInt(StatSummary.txtArmor.Text)))
+        xmlChar.Element("character").Element("stat").Add(New XElement("SpecialArmor", CheckForInt(StatSummary.txtAddArmor.Text)))
         xmlChar.Element("character").Element("stat").Add(New XElement("AttackPower", CheckForInt(StatSummary.txtAP.Text)))
         xmlChar.Element("character").Element("stat").Add(New XElement("HitRating", CheckForInt(StatSummary.txtHit.Text)))
         xmlChar.Element("character").Element("stat").Add(New XElement("CritRating", CheckForInt(StatSummary.txtCrit.Text)))

@@ -14,6 +14,8 @@ Namespace Simulator
 
         Sub Reset()
             MaxValue = 100
+            'If sim.Character.Talents.Talent("IcyTalons").Value > 0 Then MaxValue += 30
+            MaxValue += sim.Character.Talents.Talent("RunicPowerMastery").Value * 10
             Value = 10 'Start fight with some RP
         End Sub
 

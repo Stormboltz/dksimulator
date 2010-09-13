@@ -8,8 +8,7 @@ Namespace Simulator.WowObjects.Spells
             End If
             BaseDamage = 473
             If Sim.Sigils.FrozenConscience Then BaseDamage += 111
-            Coeficient = (0.1 * (1 + 0.2 * Sim.Character.Talents.Talent("Impurity").Value)) * (1 + Sim.Character.Talents.Talent("ImprovedIcyTouch").Value * 10 / 100)
-            Multiplicator = (1 + Sim.Character.Talents.Talent("ImprovedIcyTouch").Value * 10 / 100)
+            Coeficient = (0.1)
 
             If S.Character.Talents.GetNumOfThisSchool(Character.Talents.Schools.Frost) > 20 Then
                 Multiplicator = Multiplicator * 1.2 'Frozen Heart

@@ -16,7 +16,7 @@ Namespace Simulator.WowObjects.Spells
             Return Sim.BoneShieldTTL
         End Function
         Sub New(ByVal MySim As Sim)
-            Sim = MySim
+            MyBase.New(MySim)
             logLevel = LogLevelEnum.Basic
         End Sub
         Sub UseCharge(ByVal T As Long)

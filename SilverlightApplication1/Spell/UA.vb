@@ -11,13 +11,20 @@ Namespace Simulator.WowObjects.Spells
         Inherits spells.Spell
         Friend previousFade As Long
         Friend Talented As Boolean
+        Friend Proc As Procs.Proc
 
         Sub New(ByVal S As Sim)
             MyBase.New(S)
             logLevel = LogLevelEnum.Basic
             If Sim.Character.Talents.Talent("PillarOfFrost").Value <> 0 Then Talented = True
 
-
+            Proc = New Procs.Proc(S)
+            Proc.Multiplicator = 1.2
+            Proc.ProcOn = Procs.ProcsManager.ProcOnType.OnMisc
+            Proc.ProcChance = 1
+            Proc.ProcLenght = 20
+            Proc.Buff = New SpellBuff(S, "Pillar Of Frost", Simulator.Sim.Stat.Strength, 1.2, 20)
+            Proc.Equip()
         End Sub
 
 
@@ -47,7 +54,7 @@ Namespace Simulator.WowObjects.Spells
             CD = T + 60 * 100
             Sim.Runes.UseDeathBlood(T, True)
             ActiveUntil = T + 20 * 100
-
+            Proc.TryMe(T)
             Sim._UseGCD(T, 1)
             Sim.RunicPower.add(15)
             Sim.CombatLog.write(T & vbTab & "Pillar of Frost")

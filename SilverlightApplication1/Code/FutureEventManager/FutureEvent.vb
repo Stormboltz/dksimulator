@@ -9,11 +9,14 @@
 Public Class FutureEvent
 	Friend T As Long
 	Friend Ev As String
-	
-	Sub New (Timestamp As Long, EventName As String)
-		Me.T = Timestamp
-		me.Ev = EventName
-	End Sub
+    Friend WowObj As Simulator.WowObjects.WowObject
+    Sub New(ByVal Timestamp As Long, ByVal EventName As String, ByVal ReferenceObject As Simulator.WowObjects.WowObject)
+        Me.T = Timestamp
+        Me.Ev = EventName
+        If Not (ReferenceObject Is Nothing) Then
+            Me.WowObj = ReferenceObject
+        End If
+    End Sub
 	
 	
 	

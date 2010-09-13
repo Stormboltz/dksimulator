@@ -2,7 +2,7 @@
 <Rotations>
 	<BloodTap retry='0'/>
 	<BoneShield retry='0'/>
-	<GhoulFrenzy retry='0'/>
+  <DarkTransformation retry='0'/>
 	<ScourgeStrike retry='0'/>
   <FesteringStrike retry='0'/>
 	<PlagueStrike retry='0'/>

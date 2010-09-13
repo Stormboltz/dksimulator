@@ -14,6 +14,8 @@ Namespace Simulator
 
     Public Class Sim
 
+        Friend TimeWastedAnaliser As New TimeWastedAnaliser
+
         Public Event Sim_Closing(ByVal sender As Object, ByVal e As EventArgs)
         Friend isoStore As IsolatedStorage.IsolatedStorageFile
 
@@ -135,10 +137,10 @@ Namespace Simulator
 
         Friend Gargoyle As Gargoyle
         Friend BoneShield As BoneShield
-        Friend Frenzy As GhoulFrenzy
+        'Friend Frenzy As GhoulFrenzy
         Friend ERW As EmpowerRuneWeapon
 
-
+        Friend DarkTransformation As DarkTransformation
 
 
         Friend proc As ProcsManager
@@ -200,6 +202,8 @@ Namespace Simulator
             ArP = 10
             Agility = 11
             Intel = 12
+            SpecialArmor = 13
+            GhoulDamage = 14
         End Enum
 
 
@@ -279,6 +283,10 @@ Namespace Simulator
             'this routine returns whether an explicit action was taken
             proc.Bloodlust.TryMe(TimeStamp)
             Select Case FE.Ev
+                Case "BuffFade"
+                    Dim SB As SpellBuff = CType(FE.WowObj, SpellBuff)
+                    SB.Fade()
+                    Return True
                 Case "Boss"
                     If BloodPresence = 1 Then
                         If boss.NextHit <= TimeStamp Then
@@ -286,6 +294,7 @@ Namespace Simulator
                         End If
                     End If
                 Case "GCD", "Rune"
+                    Me.Runes.FillRunes()
                     If isInGCD(TimeStamp) Then Return True
                     If Me.Rotation.IntroDone = False Then
                         Rotation.DoIntro(TimeStamp)
@@ -345,7 +354,6 @@ Namespace Simulator
                             If isInGCD(TimeStamp) Then Return True
                         End If
                     End If
-
                 Case "AotD"
                     If AotD.ActiveUntil >= TimeStamp Then
                         If AotD.NextWhiteMainHit <= TimeStamp Then AotD.ApplyDamage(TimeStamp)
@@ -686,7 +694,7 @@ Namespace Simulator
             Ghoul.NextClaw = TimeStamp
             Ghoul.NextWhiteMainHit = TimeStamp
             FutureEventManager.Add(TimeStamp, "Ghoul")
-            Frenzy.CD = 0
+            'Frenzy.CD = 0
             DeathandDecay.CD = 0
             Gargoyle.cd = 0
             Horn.CD = 0
@@ -752,7 +760,7 @@ Namespace Simulator
 
 
 
-
+            DarkTransformation = New DarkTransformation(Me)
 
 
 
@@ -803,7 +811,7 @@ Namespace Simulator
             OHNecrosis = New Necrosis(Me)
             OHNecrosis.OffHand = True
 
-            Frenzy = New GhoulFrenzy(Me)
+            'Frenzy = New GhoulFrenzy(Me)
 
             BloodCakedBlade = New Strikes.BloodCakedBlade(Me)
             OHBloodCakedBlade = New Strikes.BloodCakedBlade(Me)
@@ -921,10 +929,10 @@ Namespace Simulator
 
 
 
+                proc = New ProcsManager(Me)
 
                 RuneForge = New RuneForge(Me)
                 RunicPower = New RunicPower(Me)
-                proc = New ProcsManager(Me)
 
                 Character = New Character.MainStat(Me)
 
@@ -1005,7 +1013,7 @@ errH:
         End Sub
 
         Sub Report()
-
+            TimeWastedAnaliser.Report()
             Dim myArray As New Collections.Generic.List(Of Long)
             Dim obj As WowObject
 
@@ -1074,7 +1082,7 @@ errH:
                 If Pestilence.HitCount <> 0 Then myReport.AddLine(Pestilence.Report)
                 If BoneShield.HitCount <> 0 Then myReport.AddLine(BoneShield.Report)
                 If BloodTap.HitCount <> 0 Then myReport.AddLine(BloodTap.Report)
-                If Frenzy.HitCount <> 0 Then myReport.AddLine(Frenzy.Report)
+                'If Frenzy.HitCount <> 0 Then myReport.AddLine(Frenzy.Report)
                 If PillarOfFrost.HitCount <> 0 Then myReport.AddLine(PillarOfFrost.Report)
                 'On Error Resume Next
                 Dim pr As Proc

@@ -5,14 +5,14 @@ Namespace Simulator.WowObjects.Strikes
             MyBase.New(S)
             BaseDamage = 378
             Coeficient = 1
-            Multiplicator = (1 + sim.Character.Talents.Talent("CorruptingStrikes").Value * 10 / 100)
+            Multiplicator *= (1 + sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100)
             If sim.Character.Glyph.PlagueStrike Then Multiplicator *= 1.2
             logLevel = LogLevelEnum.Basic
-            SpecialCritChance = sim.Character.Talents.Talent("ViciousStrikes").Value * 3 / 100
+
             SpecialCritChance += sim.Character.T72PTNK * 0.1
 
-            _CritCoef = (1 + sim.Character.Talents.Talent("ViciousStrikes").Value * 15 / 100)
-            _CritCoef = _CritCoef * (1 + 0.06 * sim.Character.CSD)
+
+            _CritCoef = (1 + 0.06 * sim.Character.CSD)
 
         End Sub
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
@@ -24,7 +24,7 @@ Namespace Simulator.WowObjects.Strikes
 
             If OffHand = False Then
 
-                sim.RunicPower.add(15 + sim.Character.Talents.Talent("Dirge").Value * 5)
+                sim.RunicPower.add(15)
 
                 sim.Runes.UseUnholy(T, False)
                 If sim.Targets.MainTarget.BloodPlague.isActive(T) Then

@@ -15,9 +15,10 @@ Namespace Simulator.WowObjects.Spells
         Sub New(ByVal MySim As Sim)
             MyBase.New(MySim)
             BaseDamage = 31
-            Coeficient = (0.0475 * (1 + 0.2 * Sim.Character.Talents.Talent("Impurity").Value))
+            Coeficient = (0.0475)
             Multiplicator = 1
-            If Sim.Character.Glyph.DeathandDecay Then Multiplicator *= 1.2
+            Multiplicator *= (1 + sim.Character.Talents.Talent("Morbidity").Value * 0.1)
+            If sim.Character.Glyph.DeathandDecay Then Multiplicator *= 1.2
             If Sim.Character.T102PTNK = 1 Then Multiplicator *= 1.2
             logLevel = LogLevelEnum.Basic
         End Sub
@@ -39,7 +40,7 @@ Namespace Simulator.WowObjects.Spells
             nextTick = T + 100
             Sim.Runes.UseUnholy(T, False)
             ActiveUntil = T + 1000
-            CD = T + 3000 - Sim.Character.Talents.Talent("Morbidity").Value * 500
+            CD = T + 3000
             Sim.RunicPower.add(15)
             Sim.CombatLog.write(T & vbTab & "D&D ")
             Sim.FutureEventManager.Add(nextTick, "D&D")

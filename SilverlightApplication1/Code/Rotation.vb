@@ -59,12 +59,12 @@ Namespace Simulator
                     Else
                         If retry = 0 Then Return True
                     End If
-                Case "GhoulFrenzy"
-                    If sim.Frenzy.IsFrenzyAvailable(TimeStamp) Then
-                        Return sim.Frenzy.Frenzy(TimeStamp)
-                    Else
-                        If retry = 0 Then Return True
-                    End If
+                    'Case "GhoulFrenzy"
+                    '    If sim.Frenzy.IsFrenzyAvailable(TimeStamp) Then
+                    '        Return sim.Frenzy.Frenzy(TimeStamp)
+                    '    Else
+                    '        If retry = 0 Then Return True
+                    '    End If
                 Case "ScourgeStrike"
                     If Runes.Unholy() = True Then
                         Return sim.ScourgeStrike.ApplyDamage(TimeStamp)

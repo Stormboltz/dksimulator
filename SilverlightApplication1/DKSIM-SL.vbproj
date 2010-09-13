@@ -122,10 +122,12 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Code\Boss.vb" />
-    <Compile Include="Code\Character\Buff.vb" />
+    <Compile Include="Code\Character\RaidBuffs.vb" />
     <Compile Include="Code\Character\Character.vb" />
     <Compile Include="Code\Character\MainStat.vb" />
     <Compile Include="Code\Character\Stat.vb" />
+    <Compile Include="Code\SimObjet.vb" />
+    <Compile Include="Code\TimeWastedAnaliser.vb" />
     <Compile Include="CombatLog\CombatLog.vb" />
     <Compile Include="Code\FutureEventManager\FutureEvent.vb" />
     <Compile Include="Code\FutureEventManager\FutureEventManager.vb" />
@@ -142,7 +144,7 @@
     <Compile Include="Code\Sigils.vb" />
     <Compile Include="Code\Sim.vb" />
     <Compile Include="Code\SimContructor.vb" />
-    <Compile Include="Code\Supertype.vb" />
+    <Compile Include="Code\WowObject.vb" />
     <Compile Include="Code\Target\Debuff.vb" />
     <Compile Include="Code\Target\DebuffingProc.vb" />
     <Compile Include="Code\Target\Target.vb" />
@@ -187,11 +189,13 @@
     <Compile Include="CustomControl\myGridControl.xaml.vb">
       <DependentUpon>myGridControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Procs\SpellBuff.vb" />
     <Compile Include="Report\frmPopReport.xaml.vb">
       <DependentUpon>frmPopReport.xaml</DependentUpon>
     </Compile>
     <Compile Include="Report\StatScallingLine.vb" />
     <Compile Include="Runes\RunePair.vb" />
+    <Compile Include="Spell\DarkTransformation.vb" />
     <Compile Include="Strike\FesteringStrike.vb" />
     <Compile Include="Talents\Talent.vb" />
     <Compile Include="Talents\Talents.vb" />

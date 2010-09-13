@@ -13,17 +13,13 @@ Namespace Simulator.WowObjects.Spells
         End Sub
         Function isAvailable(ByVal T As Long) As Boolean
             If sim.Character.Talents.Talent("HowlingBlast").Value <> 1 Then Return False
-            If CD <= T Then
-                Return True
-            Else
-                Return False
-            End If
+            Return True
         End Function
 
         Overrides Function ApplyDamage(ByVal T As Long) As Boolean
             Dim RNG As Double
             UseGCD(T)
-            cd = T + 800
+
             If sim.proc.Rime.IsActive Then
                 sim.proc.Rime.Use()
 

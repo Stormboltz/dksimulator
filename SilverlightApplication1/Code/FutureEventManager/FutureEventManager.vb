@@ -11,38 +11,61 @@ Imports System.Collections
 Imports Microsoft.VisualBasic
 Namespace Simulator
     Public Class FutureEventManager
+        Inherits SimObjet
         Protected List As New Collections.Generic.List(Of FutureEvent)
         Friend Max As Integer
-        Protected sim As Sim
+
+
 
         Sub New(ByVal s As Sim)
-            sim = s
+            MyBase.new(s)
+            _Name = "FutureEventManager"
         End Sub
 
 
-        Sub Add(ByVal T As Long, ByVal Ev As String)
+        Function Add(ByVal T As Long, ByVal Ev As String, Optional ByVal ReferenceObject As Simulator.WowObjects.WowObject = Nothing) As FutureEvent
+            TimeWasted.Start()
             If T < sim.TimeStamp Then
                 Diagnostics.Debug.WriteLine("Try to go back in time")
             End If
-            Dim FE As New FutureEvent(T, Ev)
+            Dim FE As New FutureEvent(T, Ev, ReferenceObject)
+
+            'List.Add(FE)
             List.Insert(GetRowToInsert(T), FE)
-            'If List.Count > Max Then max = 	List.Count
-        End Sub
+            'Dim myComparer As myEventComparer = New myEventComparer()
+            'List.Sort(myComparer)
+            TimeWasted.Pause()
+            Return FE
+        End Function
 
         Function GetRowToInsert(ByVal T As Long) As Integer
+
             Dim FE As FutureEvent
             Dim i As Integer
             For i = 0 To List.Count - 1
                 FE = List.Item(i)
-                If FE.T > T Then Return i
+                If FE.T >= T Then Return i
             Next
             Return List.Count
+
+
         End Function
 
         Function GetFirst() As FutureEvent
+
+            TimeWasted.Start()
+
+
+
             Dim FE As FutureEvent
+            ' = (From F In List
+            '  Order By F.T Ascending
+            '  Select F).First
+
+            'List.Remove(FE)
             FE = List.Item(0)
-            List.Remove(List.Item(0))
+            List.Remove(FE)
+            TimeWasted.Pause()
             Return FE
         End Function
 
@@ -51,21 +74,32 @@ Namespace Simulator
         End Sub
 
         Sub Remove(ByVal Ev As String)
+            TimeWasted.Start()
             Dim FE As FutureEvent
             For Each FE In List
                 If FE.Ev = Ev Then
                     List.Remove(FE)
                 End If
             Next
+            TimeWasted.Pause()
+        End Sub
+        Sub Remove(ByVal Ev As FutureEvent)
+            TimeWasted.Start()
+            List.Remove(Ev)
+            TimeWasted.Pause()
         End Sub
 
+
+
         Sub Reschedule(ByVal Ev As String, ByVal T As Long)
+            TimeWasted.Start()
             Dim FE As FutureEvent
             For Each FE In List
                 If FE.Ev = Ev Then FE.T = T
             Next
             Dim myComparer As myEventComparer = New myEventComparer()
             List.Sort(myComparer)
+            TimeWasted.Pause()
         End Sub
 
         Public Class myEventComparer

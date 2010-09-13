@@ -17,7 +17,8 @@ Namespace Simulator.WowObjects.Procs
         Friend MHProc As WeaponProc
         Friend OHProc As WeaponProc
 
-        Friend FCProc As WeaponProc
+        Friend FallenCrusaderBuff As SpellBuff
+
         Friend RIProc As WeaponProc
         Friend CGProc As WeaponProc
 
@@ -30,33 +31,40 @@ Namespace Simulator.WowObjects.Procs
 
         Sub New(ByVal S As Sim)
             Sim = S
+
+            FallenCrusaderBuff = New SpellBuff(S, "Fallen Crusader", Simulator.Sim.Stat.Strength, 1.2, 15)
+
+
             CinderglacierProc = 0
             WastedCG = 0
             OHBerserkingActiveUntil = 0
             CGMultiplier = 1.2
+
+           
+
         End Sub
 
         Sub SoftReset()
         End Sub
+
+
+
 
         Sub ConfigRuneForgeProc(ByVal Proc As WeaponProc, ByVal RuneForge As String)
             If RuneForge = "" Then Exit Sub
             With Proc
                 .DamageType = RuneForge
                 Select Case RuneForge
-
                     Case "3368"
                         .ProcChance *= 2
                         .ProcLenght = 15
-                        .ProcValue = 1
+                        .Multiplicator = 1.2
                         ._Name = "Fallen Crusader"
-                        FCProc = Proc
-
+                        .Buff = FallenCrusaderBuff
                     Case "3370"
                         .ProcChance = 1
                         ._Name = "RazorIce"
                         RIProc = Proc
-
 
                     Case "3369"
                         .ProcChance *= 1.5
@@ -64,20 +72,18 @@ Namespace Simulator.WowObjects.Procs
                         ._Name = "CinderGlacier"
 
                     Case "3789"
-                        .DamageType = ""
                         .ProcChance *= 1.2
                         .ProcLenght = 15
                         .ProcValue = 400
-                        .ProcType = Sim.Stat.AP
+                        .Buff = New SpellBuff(Sim, "Berzerker", Simulator.Sim.Stat.AP, 400, 15)
                         ._Name = "Berzerker"
+
                     Case Else
                         Diagnostics.Debug.WriteLine("Runeforge: " & RuneForge & " not implemented")
-                        .ProcChance = 0.0
+                        .ProcChance = 0
                         Exit Sub
 
                 End Select
-                '._Name &= RuneForge
-
             End With
         End Sub
 
@@ -88,10 +94,8 @@ Namespace Simulator.WowObjects.Procs
                 If s.Character.Dual Then
                     MHRuneForge = s.XmlCharacter.Element("character").Element("MainHand").Element("enchant").Value
                 Else
-
                     MHRuneForge = s.XmlCharacter.Element("character").Element("TwoHand").Element("enchant").Value
                 End If
-
             Catch ex As Exception
                 MHRuneForge = ""
             End Try
@@ -156,28 +160,24 @@ Namespace Simulator.WowObjects.Procs
 
         End Sub
 
-        Sub ProcFallenCrusader(ByVal Proc As WeaponProc, ByVal T As Long)
-            Proc.BaseApplyMe(T)
-            If FCProc IsNot Proc Then FCProc.ApplyFade(T)
-        End Sub
-
 
         Sub ProcCinderglacier(ByVal Proc As WeaponProc, ByVal T As Long)
-            Proc.BaseApplyMe(T)
+            Proc.ApplyMe(T)
             If Proc IsNot CGProc Then CGProc.ApplyFade(T)
             CGProc.CurrentStack = 2
         End Sub
 
 
         Function CheckFallenCrusader() As Boolean
-            If FCProc Is Nothing Then Return False
-            Return FCProc.IsActive()
-
+            If FallenCrusaderBuff Is Nothing Then Return False
+            If FallenCrusaderBuff.Currentstack > 0 Then Return True
+            Return False
         End Function
 
         Function HasFallenCrusader() As Boolean
-            Return FCProc IsNot Nothing
-
+            If FallenCrusaderBuff Is Nothing Then Return False
+            If FallenCrusaderBuff.Currentstack > 0 Then Return True
+            Return False
         End Function
 
 

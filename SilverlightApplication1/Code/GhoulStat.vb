@@ -27,7 +27,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
             BaseStrength = 331
             APtoDPS = 0.89 / 14  'from observation
 
-            StrengthMultiplier = 0.7 * (1 + Sim.Character.Talents.Talent("ravenousdead").Value * 0.2)
+            StrengthMultiplier = 0.7
             If Sim.Character.Glyph.Ghoul Then StrengthMultiplier = StrengthMultiplier + 0.4
         End Sub
 
@@ -114,6 +114,13 @@ Namespace Simulator.WowObjects.PetsAndMinions
             tmp = tmp * (1 - ArmorMitigation(target))
             tmp = tmp * (1 + 0.03 * Sim.Character.Buff.PcDamage)
             tmp = tmp * (1 + 0.04 * target.Debuff.PhysicalVuln)
+            If Sim.Ghoul.ShadowInfusion.IsActive Then
+                tmp = tmp * (1 + 0.1 * (Sim.Ghoul.ShadowInfusion.Stack))
+            End If
+            If Sim.DarkTransformation.DarkTransformationBuff.IsActive Then
+                tmp = tmp * (2)
+            End If
+
             If Sim.Character.Orc Then tmp = tmp * 1.05
             Return tmp
         End Function

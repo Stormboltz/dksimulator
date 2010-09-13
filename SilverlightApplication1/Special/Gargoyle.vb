@@ -11,6 +11,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
         Private SpellHit As Double
 
         Sub New(ByVal S As Sim)
+            MyBase.New(S)
             total = 0
             MissCount = 0
             HitCount = 0
@@ -19,8 +20,8 @@ Namespace Simulator.WowObjects.PetsAndMinions
             ActiveUntil = 0
             TotalHit = 0
             TotalCrit = 0
-            Sim = S
-            Sim.DamagingObject.Add(Me)
+            sim = S
+            sim.DamagingObject.Add(Me)
             ThreadMultiplicator = 0
             HasteSensible = True
             isGuardian = True

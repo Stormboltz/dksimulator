@@ -20,10 +20,7 @@ Namespace Simulator.WowObjects.Strikes
         Sub UseGCD(ByVal T As Long)
             sim.UseGCD(T, False)
         End Sub
-        Public Sub New()
-            DamageSchool = DamageSchoolEnum.Physical
-            init()
-        End Sub
+
         Protected Overridable Sub init()
             total = 0
             MissCount = 0
@@ -38,7 +35,9 @@ Namespace Simulator.WowObjects.Strikes
         End Sub
 
         Sub New(ByVal S As Sim)
-            Me.New()
+            MyBase.New(S)
+            DamageSchool = DamageSchoolEnum.Physical
+            init()
             sim = S
             sim.DamagingObject.Add(Me)
         End Sub
@@ -47,9 +46,9 @@ Namespace Simulator.WowObjects.Strikes
         Overrides Function Name() As String
             If _Name <> "" Then Return _Name
             If OffHand = False Then
-                Return Me.ToString
+                Return ShortenName(Me.ToString)
             Else
-                Return Me.ToString & "(OH)"
+                Return ShortenName(Me.ToString) & "(OH)"
             End If
         End Function
 

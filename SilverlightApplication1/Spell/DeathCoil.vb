@@ -8,8 +8,8 @@ Namespace Simulator.WowObjects.Spells
             If Sim.Sigils.VengefulHeart Then BaseDamage += 380
             If Sim.Sigils.WildBuck Then BaseDamage += 80
 
-            Coeficient = (0.15 * (1 + 0.2 * Sim.Character.Talents.Talent("Impurity").Value))
-            Multiplicator = 1 + Sim.Character.Talents.Talent("Morbidity").Value * 5 / 100
+            Coeficient = (0.15)
+            Multiplicator = 1 + sim.Character.Talents.Talent("Morbidity").Value * 0.05
             If Sim.Character.Glyph.DarkDeath Then
                 Multiplicator = Multiplicator * (1.15)
             End If

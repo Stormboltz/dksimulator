@@ -15,179 +15,138 @@ Namespace Simulator.WowObjects.Procs
             _Name = ""
         End Sub
 
-        Sub BaseApplyMe(ByVal T As Long)
-            MyBase.ApplyMe(T)
-        End Sub
-
         Overrides Sub ApplyMe(ByVal T As Long)
             If DamageType = "" Then
-                BaseApplyMe(T)
+                MyBase.ApplyMe(T)
                 Exit Sub
             End If
             CD = T + InternalCD * 100
             Dim tmp As Double
             Select Case DamageType
-                Case "Shadowmourne"
-                    If Fade <= T Then Stack = 0
-
-                    If Stack < 9 Then
-                        Stack += 1
-                        CD = T
-                        Fade = T + ProcLenght * 100
-                    Else
-                        Fade = CD
-                        If Rng3 < (0.17 - Sim.Character.SpellHit) Then
-                            MissCount = MissCount + 1
-                            Exit Sub
-                        End If
-                        tmp = ProcValue * Sim.Character.StandardMagicalDamageMultiplier(Sim.TimeStamp)
-                        totalhit += tmp
-                        If Sim.CombatLog.LogDetails Then Sim.CombatLog.write(Sim.TimeStamp & vbTab & Me.ToString & " proc")
-
-                        HitCount += 1
-                        AddUptime(T)
-                    End If
+                Case "Fallen Crisader", 3368
                 Case "Bryntroll"
-                    If Rng3 < (0.17 - Sim.Character.SpellHit) Then
+                    If RngCrit < (0.17 - sim.Character.SpellHit) Then
                         MissCount = MissCount + 1
                         Exit Sub
                     End If
-                    tmp = ProcValue * Sim.Character.StandardMagicalDamageMultiplier(Sim.TimeStamp)
+                    tmp = ProcValue * sim.Character.StandardMagicalDamageMultiplier(sim.TimeStamp)
                     HitCount = HitCount + 1
-                    totalhit += tmp
+                    TotalHit += tmp
 
                 Case "TinyAbomination"
                     Me.Stack += 1
                     If Me.Stack = 8 Then
                         Me.Stack = 0
-                        If Sim.Character.DualW Then
-                            If Rng4 > 0.5 Then
-                                tmp = Sim.MainHand.AvrgNonCrit(T) / 2
+                        If sim.Character.DualW Then
+                            If RngCrit > 0.5 Then
+                                tmp = sim.MainHand.AvrgNonCrit(T) / 2
                                 Me.CD = T + 1
-                                Sim.proc.tryProcs(ProcsManager.ProcOnType.OnMHhit)
+                                sim.proc.tryProcs(ProcsManager.ProcOnType.OnMHhit)
                                 Me.CD = 0
                             Else
 
-                                tmp = Sim.OffHand.AvrgNonCrit(T) / 2
+                                tmp = sim.OffHand.AvrgNonCrit(T) / 2
                                 Me.CD = T + 1
-                                Sim.proc.tryProcs(ProcsManager.ProcOnType.OnOHhit)
+                                sim.proc.tryProcs(ProcsManager.ProcOnType.OnOHhit)
                                 Me.CD = 0
                             End If
                         Else
-                            tmp = Sim.MainHand.AvrgNonCrit(T) / 2
+                            tmp = sim.MainHand.AvrgNonCrit(T) / 2
                         End If
-                        If RngCrit < Sim.Character.crit Then
+                        If RngCrit < sim.Character.crit Then
                             tmp = tmp * 2
                             CritCount += 1
                             TotalCrit += tmp
                         Else
-                            hitCount += 1
+                            HitCount += 1
                             TotalHit += tmp
                         End If
                     End If
                 Case "DeathbringersWill"
                     Dim RNG As Double
-                    RNG = Rng3
+                    RNG = RngCrit
                     AddUptime(T)
                     If RNG < 0.33 Then
-                        ProcType = sim.Stat.Strength
+                        Buff.Stat = Simulator.Sim.Stat.Strength
                     ElseIf RNG < 0.66 Then
-                        ProcType = sim.Stat.Crit
+                        Buff.Stat = Simulator.Sim.Stat.Crit
                     Else
-                        ProcType = sim.Stat.Haste
+                        Buff.Stat = Simulator.Sim.Stat.Haste
                     End If
-                    If Sim.CombatLog.LogDetails Then Sim.CombatLog.write(Sim.TimeStamp & vbTab & Me.ToString & " proc")
-                    Fade = T + ProcLenght * 100
-                    HitCount += 1
-                Case "DeathbringersWillHeroic"
-                    Dim RNG As Double
-                    RNG = Rng3
-                    AddUptime(T)
-                    If RNG < 0.33 Then
-                        ProcType = sim.Stat.Strength
-                    ElseIf RNG < 0.66 Then
-                        ProcType = sim.Stat.Crit
-                    Else
-                        ProcType = sim.Stat.Haste
-                    End If
-                    If Sim.CombatLog.LogDetails Then Sim.CombatLog.write(Sim.TimeStamp & vbTab & Me.ToString & " proc")
+                    Buff.Apply()
+                    If sim.CombatLog.LogDetails Then sim.CombatLog.write(sim.TimeStamp & vbTab & Me.ToString & " proc")
                     Fade = T + ProcLenght * 100
                     HitCount += 1
                 Case "arcane"
-                    If Rng3 < (0.17 - Sim.Character.SpellHit) Then
+                    If RngCrit < (0.17 - sim.Character.SpellHit) Then
                         MissCount = MissCount + 1
                         Exit Sub
                     End If
-                    If RngCrit <= Sim.Character.SpellCrit Then
+                    If RngCrit <= sim.Character.SpellCrit Then
                         CritCount = CritCount + 1
-                        tmp = ProcValue * 1.5 * Sim.Character.StandardMagicalDamageMultiplier(Sim.TimeStamp)
-                        Totalcrit += tmp
+                        tmp = ProcValue * 1.5 * sim.Character.StandardMagicalDamageMultiplier(sim.TimeStamp)
+                        TotalCrit += tmp
                     Else
-                        tmp = ProcValue * Sim.Character.StandardMagicalDamageMultiplier(Sim.TimeStamp)
+                        tmp = ProcValue * sim.Character.StandardMagicalDamageMultiplier(sim.TimeStamp)
                         HitCount = HitCount + 1
-                        Totalhit += tmp
+                        TotalHit += tmp
                     End If
                 Case "shadow"
-                    If Rng3 < (0.17 - Sim.Character.SpellHit) Then
+                    If RngCrit < (0.17 - sim.Character.SpellHit) Then
                         MissCount = MissCount + 1
                         Exit Sub
                     End If
-                    If RngCrit <= Sim.Character.SpellCrit Then
+                    If RngCrit <= sim.Character.SpellCrit Then
                         CritCount = CritCount + 1
-                        tmp = ProcValue * 1.5 * Sim.Character.StandardMagicalDamageMultiplier(Sim.TimeStamp)
+                        tmp = ProcValue * 1.5 * sim.Character.StandardMagicalDamageMultiplier(sim.TimeStamp)
 
-                        totalcrit += tmp
+                        TotalCrit += tmp
                     Else
-                        tmp = ProcValue * Sim.Character.StandardMagicalDamageMultiplier(Sim.TimeStamp)
+                        tmp = ProcValue * sim.Character.StandardMagicalDamageMultiplier(sim.TimeStamp)
 
                         HitCount = HitCount + 1
-                        totalhit += tmp
+                        TotalHit += tmp
                     End If
                 Case "SaroniteBomb"
-                    tmp = ProcValue * Sim.Character.StandardMagicalDamageMultiplier(Sim.TimeStamp)
+                    tmp = ProcValue * sim.Character.StandardMagicalDamageMultiplier(sim.TimeStamp)
                     HitCount = HitCount + 1
-                    totalhit += tmp
+                    TotalHit += tmp
                 Case "SapperCharge"
-                    If RngCrit <= Sim.Character.crit Then
+                    If RngCrit <= sim.Character.crit Then
                         CritCount = CritCount + 1
-                        tmp = ProcValue * 1.5 * Sim.Character.StandardMagicalDamageMultiplier(Sim.TimeStamp)
+                        tmp = ProcValue * 1.5 * sim.Character.StandardMagicalDamageMultiplier(sim.TimeStamp)
 
-                        totalcrit += tmp
+                        TotalCrit += tmp
                     Else
-                        tmp = ProcValue * Sim.Character.StandardMagicalDamageMultiplier(Sim.TimeStamp)
+                        tmp = ProcValue * sim.Character.StandardMagicalDamageMultiplier(sim.TimeStamp)
                         HitCount = HitCount + 1
-                        totalhit += tmp
+                        TotalHit += tmp
                     End If
 
                 Case "physical"
-                    If RngCrit <= Sim.Character.crit Then
+                    If RngCrit <= sim.Character.crit Then
                         CritCount = CritCount + 1
-                        tmp = ProcValue * 2 * Sim.Character.StandardPhysicalDamageMultiplier(Sim.TimeStamp)
-                        totalcrit += tmp
+                        tmp = ProcValue * 2 * sim.Character.StandardPhysicalDamageMultiplier(sim.TimeStamp)
+                        TotalCrit += tmp
                     Else
-                        tmp = ProcValue * Sim.Character.StandardPhysicalDamageMultiplier(Sim.TimeStamp)
+                        tmp = ProcValue * sim.Character.StandardPhysicalDamageMultiplier(sim.TimeStamp)
                         HitCount = HitCount + 1
-                        totalhit += tmp
+                        TotalHit += tmp
                     End If
-                Case "FallenCrusader", "3368"
-                    Sim.RuneForge.ProcFallenCrusader(Me, T)
-
                 Case "Razorice", "3370"
-                    Sim.RuneForge.ProcRazorIce(Me, T)
+                    sim.RuneForge.ProcRazorIce(Me, T)
 
                 Case "Cinderglacier"
-                    Sim.RuneForge.ProcCinderglacier(Me, T)
+                    sim.RuneForge.ProcCinderglacier(Me, T)
 
                 Case "torrent"
-                    Sim.RunicPower.add(Me.ProcValue)
+                    sim.RunicPower.add(Me.ProcValue)
                     HitCount = HitCount + 1
-
-
                 Case "BloodWorms"
-                    tmp = 50 + 0.006 * Sim.Character.AP
+                    tmp = 50 + 0.006 * sim.Character.AP
                     tmp = tmp * 10
-                    tmp = tmp * (1 + Sim.Character.Haste)
-                    tmp = tmp * Sim.GhoulStat.PhysicalDamageMultiplier(T)
+                    tmp = tmp * (1 + sim.Character.Haste)
+                    tmp = tmp * sim.GhoulStat.PhysicalDamageMultiplier(T)
                     Dim RNG As Double = RngCrit
                     If RNG < 0.33 Then
                         tmp = tmp * 2

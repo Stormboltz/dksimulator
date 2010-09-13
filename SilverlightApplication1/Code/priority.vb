@@ -62,9 +62,14 @@ Namespace Simulator
                             Exit Sub
                         End If
 
-                    Case "GhoulFrenzy"
-                        If sim.Frenzy.IsFrenzyAvailable(TimeStamp) And sim.CanUseGCD(TimeStamp) Then
-                            sim.Frenzy.Frenzy(TimeStamp)
+                        'Case "GhoulFrenzy"
+                        '    If sim.Frenzy.IsFrenzyAvailable(TimeStamp) And sim.CanUseGCD(TimeStamp) Then
+                        '        sim.Frenzy.Frenzy(TimeStamp)
+                        '        Exit Sub
+                        '    End If
+                    Case "DarkTransformation"
+                        If sim.DarkTransformation.IsAvailable Then
+                            sim.DarkTransformation.ApplyDamage(TimeStamp)
                             Exit Sub
                         End If
                     Case "FesteringStrike"

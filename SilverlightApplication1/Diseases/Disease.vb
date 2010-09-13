@@ -30,12 +30,10 @@ Namespace Simulator.WowObjects.Diseases
 
         Friend ToReApply As Boolean
 
-        Sub New()
-            init()
-        End Sub
 
         Sub New(ByVal S As Sim)
-            Me.New()
+            MyBase.New(S)
+            init()
             Sim = S
             Sim.DamagingObject.Add(Me)
         End Sub
@@ -96,8 +94,13 @@ Namespace Simulator.WowObjects.Diseases
             If Sim.RuneForge.CheckCinderglacier(False) > 0 Then tmp *= 1.2
             tmp = tmp * (1 + Sim.Character.Talents.Talent("EbonPlaguebringer").Value * 15 / 100)
             If sim.Character.Talents.GetNumOfThisSchool(Character.Talents.Schools.Unholy) > 20 Then
-                tmp = tmp * 1.2 'Blightcaller
+                tmp = tmp * 1.32 'Blightcaller
             End If
+            If target.Equals(sim.Targets.MainTarget) = False Then
+                tmp = tmp / 2
+                tmp *= (1 + sim.Character.Talents.Talent("Contagion").Value * 0.5)
+            End If
+
             Return tmp
         End Function
 
@@ -134,7 +137,7 @@ Namespace Simulator.WowObjects.Diseases
         End Function
 
         Overridable Function AvrgNonCrit(ByVal T As Long) As Double
-            Return Multiplier * 1.15 * (26 + 0.055 * (1 + 0.2 * Sim.Character.Talents.Talent("Impurity").Value) * AP)
+            Return Multiplier * 1.15 * (26 + 0.055 * AP)
         End Function
 
         Function ApplyDamage(ByVal T As Long) As Boolean

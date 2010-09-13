@@ -8,6 +8,7 @@
 '
 Namespace Simulator.WowObjects
     Public Class WowObject
+        Inherits SimObjet
 
         Friend MissCount As Integer
         Friend HitCount As Integer
@@ -18,49 +19,41 @@ Namespace Simulator.WowObjects
         Friend TotalHit As Long
         Friend TotalCrit As Long
         Friend TotalGlance As Long
-        Friend _Name As String
+
         Friend isGuardian As Boolean = False
         Friend HasteSensible As Boolean
 
         Friend logLevel As LogLevelEnum
         Friend DiseaseBonus As Double
         Friend DamageSchool As DamageSchoolEnum
+        Public ThreadMultiplicator As Double
+        Friend uptime As Long
 
+        Protected _RNG1 As Random
+        Protected _RNG2 As Random
+        Friend RngCrit As Double
+        Friend Rng3 As Double
+
+
+        Friend BaseDamage As Double
+        Friend Coeficient As Double
+        Friend Multiplicator As Double = 1
+        Friend SpecialCritChance As Double
+
+
+
+        Friend LastDamage As Integer
         Enum DamageSchoolEnum
             Physical = 0
             Frost = 1
             Shadow = 2
             OtherMagical = 3
         End Enum
-
-
         Enum LogLevelEnum
             No = 0
             Basic = 1
             Detailled = 2
         End Enum
-
-
-        Public ThreadMultiplicator As Double
-        Friend uptime As Long
-        Protected sim As Sim
-        Protected _RNG1 As Random
-        Protected _RNG2 As Random
-        Protected _RNG3 As Random
-        Protected _RNG4 As Random
-        Protected _RNG5 As Random
-        Friend RngCrit As Double
-        Friend Rng3 As Double
-        Friend Rng4 As Double
-
-        Friend BaseDamage As Double
-        Friend Coeficient As Double
-        Friend Multiplicator As Double
-        Friend SpecialCritChance As Double
-
-        Friend LastDamage As Integer
-
-
         Overridable Function Report() As ReportLine
             If HitCount + CritCount = 0 Then Return Nothing
             Dim R As New ReportLine
@@ -101,32 +94,27 @@ Namespace Simulator.WowObjects
             'tmp = Replace(tmp, vbTab & 0, vbTab)
             Return R
         End Function
-
-
-
         Overridable Sub Merge()
 
         End Sub
-
-        Public Overridable Function Name() As String
-            If _Name <> "" Then Return _Name
-            Return Me.ToString
-        End Function
+        
 
         Function RngHit() As Double
+            TimeWasted.Start()
             If _RNG1 Is Nothing Then
                 ' I have made that to not mess up the RNG is a strike miss
                 _RNG1 = New Random(ConvertToInt(Me.Name) + RNGSeeder)
                 _RNG2 = New Random(ConvertToInt(Me.Name) + RNGSeeder + 1)
-                _RNG3 = New Random(ConvertToInt(Me.Name) + RNGSeeder + 2)
-                _RNG4 = New Random(ConvertToInt(Me.Name) + RNGSeeder + 3)
             End If
             RngCrit = _RNG2.NextDouble
-            Rng3 = _RNG3.NextDouble
-            Rng4 = _RNG4.NextDouble
-            Return _RNG1.NextDouble
+            Dim d As Double = _RNG1.NextDouble
+            TimeWasted.Pause()
+            Return d
         End Function
 
+        Public Sub New(ByVal s As Sim)
+            MyBase.New(s)
+        End Sub
 
     End Class
 End Namespace

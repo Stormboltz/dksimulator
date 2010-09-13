@@ -285,7 +285,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 20
                 .ProcChance = 0.85
                 .ProcValue = 200
-                .ProcType = Sim.Stat.Strength
+                .Buff = New SpellBuff(s, "Virulence", Simulator.Sim.Stat.Strength, 200, 20)
                 .ProcOn = ProcOnType.OnFU
                 If s.Sigils.Virulence Then .Equip()
             End With
@@ -295,7 +295,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 15
                 .ProcChance = 1
                 .ProcValueStack = 73
-                .ProcTypeStack = Sim.Stat.Strength
+                .Buff = New SpellBuff(s, "Virulence", Simulator.Sim.Stat.Strength, 73, 3, 20)
                 .MaxStack = 3
                 .ProcOn = ProcsManager.ProcOnType.OnFU
                 If s.Sigils.HangedMan Then .Equip()
@@ -308,7 +308,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcChance = 1
                 .ProcValue = 144
                 .ProcLenght = 10
-                .ProcType = Sim.Stat.AP
+                .Buff = New SpellBuff(Sim, "Strife", Simulator.Sim.Stat.AP, 144, 10)
                 If s.Sigils.Strife Then .Equip()
             End With
 
@@ -318,7 +318,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcValue = 180
                 .ProcLenght = 15
                 .InternalCD = 45
-                .ProcType = Sim.Stat.Strength
+                .Buff = New SpellBuff(s, "T9 DPS 2P", Simulator.Sim.Stat.Strength, 180, 15)
                 .ProcOn = ProcsManager.ProcOnType.OnBloodStrike
                 If s.Character.T92PDPS = 1 Then .Equip()
             End With
@@ -329,7 +329,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcValue = 173
                 .ProcLenght = 10
                 .InternalCD = 45
-                .ProcType = Sim.Stat.Crit
+                .Buff = New SpellBuff(s, "Haunted Dreams", Simulator.Sim.Stat.Crit, 173, 10)
                 .ProcOn = ProcsManager.ProcOnType.OnBloodStrike
                 If s.Sigils.HauntedDreams Then .Equip()
             End With
@@ -342,7 +342,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcChance = 1
                 .ProcLenght = 15
                 .ProcValue = 322
-                .ProcType = Sim.Stat.AP
+                .Buff = New SpellBuff(Sim, "Orc Racial", Simulator.Sim.Stat.AP, 322, 15)
                 If s.Character.Orc Then .Equip()
             End With
 
@@ -379,21 +379,19 @@ Namespace Simulator.WowObjects.Procs
                 End If
                 .isGuardian = True
             End With
-            Dim Shadowmourne As New WeaponProc(s)
+            Dim Shadowmourne As New Shadowmourne(s)
             With Shadowmourne
                 .ProcOn = ProcsManager.ProcOnType.OnMHhit
                 .ProcChance = 1
                 .ProcValueStack = 30
-                .ProcValue = 2000
+                .MaxStack = 10
                 .ProcLenght = 60 ' Soul Fragment Duration
-                .ProcTypeStack = Sim.Stat.Strength
-                .DamageType = "Shadowmourne"
+                .Buff = New SpellBuff(s, "Shadowmourne", Simulator.Sim.Stat.Strength, 30, 10, 60)
                 .HasteSensible = True
                 Try
                     If XmlCharacter.<character>.<WeaponProc>.<MHShadowmourne>.Value = 1 Then
                         ._Name = "Shadowmourne"
                         .Equip()
-                        .InternalCD = 10 'Chaos Bane Duration
                     End If
                 Catch
                 End Try
@@ -438,7 +436,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 10
                 .ProcValue = 480
                 .InternalCD = 45
-                .ProcType = Sim.Stat.AP
+                .Buff = New SpellBuff(Sim, "Ashen Band", Simulator.Sim.Stat.AP, 480, 10)
                 .ProcOn = ProcsManager.ProcOnType.OnHit
                 Try
                     If XmlCharacter.<character>.<misc>.<AshenBand>.Value = True Then
@@ -607,7 +605,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 12
                 .ProcValue = 340
                 .InternalCD = 60
-                .ProcType = Sim.Stat.Haste
+                .Buff = New SpellBuff(s, "Hyperspeed Accelerators", Simulator.Sim.Stat.Haste, 340, 12)
                 ._Name = "Hyperspeed Accelerators"
                 .ProcOn = ProcsManager.ProcOnType.OnHit
                 Try
@@ -628,7 +626,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 15
                 .ProcValue = 400
                 .InternalCD = 60
-                .ProcType = Sim.Stat.AP
+                .Buff = New SpellBuff(Sim, "Swordguard Embroidery", Simulator.Sim.Stat.AP, 400, 15)
                 ._Name = "Swordguard Embroidery"
                 .ProcOn = ProcsManager.ProcOnType.OnHit
 
@@ -678,7 +676,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcChance = 0.5
                 .ProcLenght = 120
                 .ProcValue = 2500
-                .ProcType = Sim.Stat.Armor
+                .Buff = New SpellBuff(s, "Indestructible Potion", Simulator.Sim.Stat.SpecialArmor, 2500, 120)
                 .InternalCD = 6000 '10 minutes
                 ._Name = "Indestructible Potion"
                 .ProcOn = ProcsManager.ProcOnType.OnMHhit
@@ -694,7 +692,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcChance = 0.5
                 .ProcLenght = 15
                 .ProcValue = 500
-                .ProcType = Sim.Stat.Haste
+                .Buff = New SpellBuff(s, "Potion of speed", Simulator.Sim.Stat.Haste, 500, 15)
                 .InternalCD = 6000 '10 minutes
                 ._Name = "Potion of Speed"
                 .ProcOn = ProcsManager.ProcOnType.OnMHhit
@@ -708,7 +706,42 @@ Namespace Simulator.WowObjects.Procs
             End With
 
         End Sub
+        Function GetMultiPlier(ByVal stat As Sim.Stat) As Double
+            If stat = Sim.Stat.None Then Return 1
 
+            Dim tmp As Double = 1
+            For Each prc As Proc In (From p As Proc In EquipedProc
+                             Where p.ProcType = stat And p.IsActive And p.Multiplicator <> 1
+                             )
+                tmp *= prc.Multiplicator
+            Next
+
+            For Each prc As Proc In (From p As Proc In EquipedProc
+                             Where p.ProcTypeStack = stat And p.IsActive And p.Multiplicator <> 1
+                             )
+                tmp *= prc.Multiplicator * prc.Stack
+            Next
+            Return tmp
+
+        End Function
+        Function GetMaxMultiPlier(ByVal stat As Sim.Stat) As Double
+            If stat = Sim.Stat.None Then Return 1
+
+            Dim tmp As Double = 1
+            For Each prc As Proc In (From p As Proc In EquipedProc
+                             Where p.ProcType = stat And p.Multiplicator <> 1
+                             )
+                tmp *= prc.Multiplicator
+            Next
+
+            For Each prc As Proc In (From p As Proc In EquipedProc
+                             Where p.ProcTypeStack = stat And p.Multiplicator <> 1
+                             )
+                tmp += prc.Multiplicator * prc.Stack
+            Next
+            Return tmp
+
+        End Function
         Function GetActiveBonus(ByVal stat As Sim.Stat) As Integer
             If stat = Sim.Stat.None Then Return 0
             Dim tmp As Integer
@@ -721,7 +754,7 @@ Namespace Simulator.WowObjects.Procs
             For Each prc As Proc In (From p As Proc In EquipedProc
                              Where p.ProcTypeStack = stat And p.IsActive
                              )
-                tmp += prc.ProcValue * prc.Stack
+                tmp += prc.ProcValueStack * prc.Stack
             Next
             Return tmp
         End Function

@@ -26,14 +26,9 @@ Namespace Simulator.WowObjects.Strikes
 
             Coeficient = 1
             Multiplicator = 1
-            Multiplicator = Multiplicator * (1 + 10 * sim.Character.Talents.Talent("CorruptingStrikes").Value / 100)
+            Multiplicator *= (1 + sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100)
             If sim.Character.T102PDPS <> 0 Then Multiplicator = Multiplicator * 1.1
-
-
-            SpecialCritChance = sim.Character.Talents.Talent("ViciousStrikes").Value * 3 / 100 + sim.Character.T72PDPS * 5 / 100
-
-            _CritCoef = 1 + sim.Character.Talents.Talent("ViciousStrikes").Value * 15 / 100
-            _CritCoef = _CritCoef * (1 + 0.06 * sim.Character.CSD)
+            _CritCoef = (1 + 0.06 * sim.Character.CSD)
 
             SSmagical = New ScourgeStrikeMagical(S)
 
@@ -50,7 +45,7 @@ Namespace Simulator.WowObjects.Strikes
 
                 sim.ScourgeStrikeMagical.ApplyDamage(LastDamage, T, False)
                 UseGCD(T)
-                sim.RunicPower.add(15 + sim.Character.Talents.Talent("Dirge").Value * 5 + 5 * sim.Character.T74PDPS)
+                sim.RunicPower.add(15 + 5 * sim.Character.T74PDPS)
                 sim.Runes.UseUnholy(T, False)
 
                 If sim.Character.Glyph.ScourgeStrike Then

@@ -13,18 +13,31 @@
 
         End Sub
 
-        Sub Use(ByVal T As Long, ByVal D As Boolean)
+        Sub Use(ByVal T As Long, ByVal D As Boolean, ByVal alf As Boolean)
+            Dim cost As Integer
+            If alf Then
+                cost = 50
+            Else
+                cost = 100
+            End If
+
             If Rune2.Value > 0 Then
                 Dim i As Integer
                 i = Rune2.Value
-                Rune2.Value = 0
-                Rune1.Value = Rune1.Value - (100 - i)
-            ElseIf Rune1.Value = 100 Then
-                Rune1.Value = 0
+
+                Rune2.Value -= cost
+                If Rune2.Value < 0 Then
+                    Rune1.Value += Rune2.Value
+                    Rune2.Value = 0
+                End If
             Else
-                Diagnostics.Debug.WriteLine("Negative Rune")
+                Rune1.Value -= cost
             End If
-            If Rune1.Value + Rune2.Value < 0 Then Diagnostics.Debug.WriteLine("Negative Rune")
+            If Rune1.Value < 0 Then
+                Diagnostics.Debug.WriteLine("Negative Rune")
+                Rune1.Value = 0
+            End If
+            If Rune1.Value + Rune2.Value < 0 Then Diagnostics.Debug.WriteLine("Negative Runes")
 
         End Sub
 

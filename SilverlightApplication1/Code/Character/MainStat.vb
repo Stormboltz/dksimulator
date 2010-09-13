@@ -48,7 +48,9 @@ Namespace Simulator.Character
         Friend ArmorPenetrationRating As Stat
         Friend ExpertiseRating As Stat
         Friend Intel As Stat
-        Friend Armor As Stat
+        Friend MasteryRating As Stat
+        Friend Armor As ArmorStat
+        'Friend SpecialArmor As Stat
 
 
 
@@ -66,14 +68,14 @@ Namespace Simulator.Character
 
         Friend Talents As Talents
 
-        Friend Buff As Buff
+        Friend Buff As RaidBuffs
 
         Friend Glyph As glyph
         Sub New(ByVal S As Sim)
 
             Sim = S
             Talents = New Talents(Sim)
-            Buff = New Buff(S)
+            Buff = New RaidBuffs(S)
             XmlConfig = Sim.XmlConfig
             Try
                 Dim path As String
@@ -96,25 +98,28 @@ Namespace Simulator.Character
 
 
 
-            
+
         End Sub
 
         Sub InitStats()
-            Strength = New Stat(Simulator.Sim.Stat.Strength, Sim)
+            Strength = New Stat(Simulator.Sim.Stat.Strength, Sim, True, True)
             Agility = New Stat(Simulator.Sim.Stat.Agility, Sim)
-            AttackPower = New Stat(Simulator.Sim.Stat.AP, Sim)
+            AttackPower = New Stat(Simulator.Sim.Stat.AP, Sim, True)
             HitRating = New Stat(Simulator.Sim.Stat.Hit, Sim)
-            CritRating = New Stat(Simulator.Sim.Stat.Crit, Sim)
+            CritRating = New Stat(Simulator.Sim.Stat.Crit, Sim, True)
             HasteRating = New Stat(Simulator.Sim.Stat.Haste, Sim)
             ArmorPenetrationRating = New Stat(Simulator.Sim.Stat.ArP, Sim)
             ExpertiseRating = New Stat(Simulator.Sim.Stat.Expertise, Sim)
             Intel = New Stat(Simulator.Sim.Stat.Intel, Sim)
-            Armor = New Stat(Simulator.Sim.Stat.Armor, Sim)
+            Armor = New ArmorStat(Simulator.Sim.Stat.Armor, Sim)
+            MasteryRating = New Stat(Simulator.Sim.Stat.Mastery, Sim, True)
+
             Try
                 Strength.BaseValue = Int32.Parse(XmlCharacter.Element("character").Element("stat").Element("Strength").Value)
                 Agility.BaseValue = Int32.Parse(XmlCharacter.Element("character").Element("stat").Element("Agility").Value)
                 Intel.BaseValue = Int32.Parse(XmlCharacter.Element("character").Element("stat").Element("Intel").Value)
                 Armor.BaseValue = Int32.Parse(XmlCharacter.Element("character").Element("stat").Element("Armor").Value)
+                Armor.SpecialArmor = Int32.Parse(XmlCharacter.Element("character").Element("stat").Element("SpecialArmor").Value)
                 AttackPower.BaseValue = Int32.Parse(XmlCharacter.Element("character").Element("stat").Element("AttackPower").Value)
                 HitRating.BaseValue = Int32.Parse(XmlCharacter.Element("character").Element("stat").Element("HitRating").Value)
                 CritRating.BaseValue = Int32.Parse(XmlCharacter.Element("character").Element("stat").Element("CritRating").Value)
@@ -136,8 +141,6 @@ Namespace Simulator.Character
             Select Case EpStat
                 Case "EP Strength"
                     Strength.BaseValue += Sim.EPBase
-
-                   
                 Case "EP AttackPower"
                     AttackPower.BaseValue += 2 * Sim.EPBase
                 Case "EP AttackPower0T7"
@@ -179,11 +182,21 @@ Namespace Simulator.Character
                 Case "EP ArmorPenetrationRating"
                     ArmorPenetrationRating.BaseValue += Sim.EPBase
                 Case "EP Agility"
-                    Agility.BaseValue = +Sim.EPBase
-
+                    Agility.BaseValue += Sim.EPBase
+                Case "EP CritRating"
+                    CritRating.BaseValue += Sim.EPBase
                 Case ""
 
                 Case Else
+                    
+                    If InStr(Sim.EPStat, "ScaCrit") Then
+                        If InStr(Sim.EPStat, "ScaCritA") Then
+                            CritRating.BaseValue += Replace(Sim.EPStat, "ScaCritA", "") * Sim.EPBase
+                        Else
+                            CritRating.BaseValue = Replace(Sim.EPStat, "ScaCrit", "") * Sim.EPBase
+                        End If
+                    End If
+
 
                     If InStr(Sim.EPStat, "ScaAgility") Then
                         Agility.BaseValue += Replace(Sim.EPStat, "ScaAgility", "") * Sim.EPBase
@@ -220,9 +233,31 @@ Namespace Simulator.Character
 
             End Select
 
-            'check that Talent are loaded!
+            'check that Talent and buff are loaded!
             AttackPower.AdditiveBuff += Int(Armor.Value / 180) * Talents.Talent("BladedArmor").Value
 
+            Agility.AdditiveBuff += (155 * 1.15 * Buff.StrAgi)
+            Agility.MultiplicativeBuff *= (1 + 5 * Buff.StatMulti / 100)
+
+            Strength.AdditiveBuff += (155 * 1.15 * Buff.StrAgi)
+            Strength.MultiplicativeBuff *= (1 + 5 * Buff.StatMulti / 100)
+            Strength.MultiplicativeBuff *= (1 + Talents.Talent("BrittleBones").Value * 2 / 100)
+            Strength.MultiplicativeBuff *= (1 + Talents.Talent("AbominationMight").Value / 100)
+
+            If Talents.Talent("UnholyMight").Value <> 0 Then
+                Strength.MultiplicativeBuff *= 1.15
+            End If
+
+
+
+            Intel.MultiplicativeBuff *= (1 + 5 * Buff.StatMulti / 100)
+
+
+            Armor.AdditiveBuff += 750 * 1.4 * Buff.Armor
+            Armor.MultiplicativeBuff *= (1 + Talents.Talent("Toughness").Value * 0.0333)
+            If Sim.BloodPresence = 1 Then
+                Armor.MultiplicativeBuff *= 1.6
+            End If
 
             Try
                 MHWeaponDPS = (XmlCharacter.Element("character").Element("weapon").Element("mainhand").Element("dps").Value).Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
@@ -492,83 +527,10 @@ Namespace Simulator.Character
         Function GetPetCalculation() As Boolean
             Return XmlConfig.Element("config").Element("pet").Value
         End Function
-        Function Strength() As Integer
-            Dim tmp As Integer
-            tmp = _Strength
-            
-            tmp += Sim.proc.GetActiveBonus(Sim.Stat.Strength)
-            tmp = tmp + 155 * 1.15 * Buff.StrAgi
-            tmp = tmp * (1 + 5 * Buff.StatMulti / 100)
-            tmp = tmp * (1 + Talents.Talent("BrittleBones").Value * 2 / 100)
-            tmp = tmp * (1 + Talents.Talent("AbominationMight").Value / 100)
-            tmp = tmp * (1 + Talents.Talent("RavenousDead").Value / 100)
+       
 
-            If Sim.RuneForge.CheckFallenCrusader Then
-                tmp = tmp * 1.15
-            End If
-            If Sim.PillarOfFrost.isActive Then
-                tmp = tmp * 1.2
-            End If
-
-            Return tmp
-        End Function
-      
-        Function Agility() As Integer
-            Dim tmp As Integer
-            tmp = _Agility
-            
-            tmp = (tmp + 155 * 1.15 * Buff.StrAgi) * (1 + 5 * Buff.StatMulti / 100)
-            Return tmp
-        End Function
-
-        Function Intel() As Integer
-            Dim tmp As Integer
-            tmp = _Intel
-            tmp = (tmp) * (1 + Buff.StatMulti / 10)
-            Return tmp
-        End Function
-
-        Function Armor() As Integer
-            Dim tmp As Integer
-            Dim tmp2 As Integer
-            tmp = _Armor
-            tmp2 = Sim.boss.SpecialArmor
-            tmp = tmp - tmp2
-            tmp = tmp + (750 * 1.4 * Buff.Armor)
-            tmp = tmp * (1 + Talents.Talent("Toughness").Value * 0.0333)
-            If Sim.BloodPresence = 1 Then
-                tmp = tmp * 1.6
-            End If
-
-
-            tmp2 += Sim.proc.GetActiveBonus(Sim.Stat.Armor)
-            tmp = tmp + tmp2
-            Return tmp
-        End Function
-
-        Function AttackPower() As Integer
-            Dim tmp As Integer
-            tmp = _AttackPower
-
-            Return tmp
-        End Function
-
-
-    
-
-      
-
-        Function SpellHitRating() As Integer
-            SpellHitRating = HitRating.Value()
-        End Function
-
-        Function SpellCritRating() As Integer
-            SpellCritRating = CritRating.Value()
-        End Function
-
-        Function SpellHasteRating() As Integer
-            SpellHasteRating = HasteRating.Value()
-        End Function
+        
+       
 
         Function Dual() As Boolean
             If _Dual <> 0 Then
@@ -598,51 +560,19 @@ Namespace Simulator.Character
      
 #Region "Attack Power"
 
-        Function BaseAP() As Integer
+        Function AP() As Integer
             Dim tmp As Integer
-            tmp += Sim.proc.GetActiveBonus(Sim.Stat.AP)
-            tmp = tmp + AttackPower.Value()
+
+            tmp = AttackPower.Value()
             tmp = tmp + Strength.Value() * 2
             tmp = tmp + 550
             tmp = tmp * (1 + Sim.Character.Buff.AttackPowerPc / 10)
+            ' Diagnostics.Debug.WriteLine(Sim.TimeStamp & ": AP is " & tmp)
             Return tmp
         End Function
 
-        Function GetMaxAP() As Integer
-            Dim tmp As Integer
-            If _MaxAp <> 0 Then Return _MaxAp
-            tmp += Sim.proc.GetMaxPossibleBonus(Sim.Stat.AP)
-            tmp += AttackPower.MaxValue()
-            tmp += Strength.MaxValue() * 2
-            tmp += 550
-            tmp = tmp * (1 + Sim.Character.Buff.AttackPowerPc / 10)
-            _MaxAp = tmp
-            Return tmp
-        End Function
-
-        Function AP() As Integer
-            Return BaseAP()
-        End Function
 #End Region
 #Region "Crit"
-
-        Function CritRating() As Integer
-            Dim tmp As Integer
-            tmp = _CritRating
-            If Sim.EPStat = "EP CritRating" Then
-                tmp = tmp + Sim.EPBase
-            End If
-            If InStr(Sim.EPStat, "ScaCrit") Then
-                If InStr(Sim.EPStat, "ScaCritA") Then
-                    tmp = tmp + Replace(Sim.EPStat, "ScaCritA", "") * Sim.EPBase
-                Else
-                    tmp = Replace(Sim.EPStat, "ScaCrit", "") * Sim.EPBase
-                End If
-            End If
-            tmp += Sim.proc.GetActiveBonus(Sim.Stat.Crit)
-            Return tmp
-        End Function
-
         Function crit(Optional ByVal target As Targets.Target = Nothing) As System.Double
             If target Is Nothing Then target = Sim.Targets.MainTarget
             Dim tmp As Double
@@ -665,7 +595,7 @@ Namespace Simulator.Character
         Function SpellCrit(Optional ByVal target As Targets.Target = Nothing) As Single
             If target Is Nothing Then target = Sim.Targets.MainTarget
             Dim tmp As Double
-            tmp = SpellCritRating() / 45.91
+            tmp = CritRating.Value / 45.91
 
             tmp = tmp + 5 * Sim.Character.Buff.Crit
             tmp = tmp + 5 * target.Debuff.SpellCritTaken
@@ -709,11 +639,7 @@ Namespace Simulator.Character
         End Function
 #End Region
 #Region "Expertise"
-        Function ExpertiseRating() As Integer
-            Dim tmp As Integer
-            tmp = _ExpertiseRating
-            Return tmp
-        End Function
+        
 
         Function MHExpertise() As Double
             Dim tmp As Double
@@ -801,7 +727,7 @@ Namespace Simulator.Character
         Function SpellHit(Optional ByVal target As Targets.Target = Nothing) As Double
             If target Is Nothing Then target = Sim.Targets.MainTarget
             Dim tmp As Double
-            tmp = SpellHitRating() / 26.23
+            tmp = HitRating.Value() / 26.23
             If InStr(Sim.EPStat, "EP ") <> 0 Then
                 If InStr(Sim.EPStat, "Hit") = 0 Then
                     tmp += Sim.Character.Buff.Draenei

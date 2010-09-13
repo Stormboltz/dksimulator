@@ -1,67 +1,114 @@
 ﻿Namespace Simulator.Character
     Public Class Stat
+        Inherits SimObjet
 
-        Friend Name As String
 
         Friend AdditiveBuff As Integer
-        Friend MultiplicativeBuff As Integer = 1
-
+        Friend MultiplicativeBuff As Double = 1
+        Friend CanHaveMultiplicativeBuff As Boolean
+        Friend CanHaveProc As Boolean
         Private Stat As Sim.Stat
-        Protected sim As Sim
         Friend BaseValue As Integer
 
 
-        Sub New(ByVal Type As Sim.Stat, ByVal S As Sim)
+
+
+
+        Sub New(ByVal Type As Sim.Stat, ByVal S As Sim, Optional ByVal CanHaveProc As Boolean = False, Optional ByVal CanHaveMultiplicativeBuff As Boolean = False)
+            MyBase.New(S)
+            Me.CanHaveProc = CanHaveProc
+            Me.CanHaveMultiplicativeBuff = CanHaveMultiplicativeBuff
             sim = S
+            Stat = Type
             Select Case Type
                 Case sim.Stat.AP
-                    Name = "Attack Power"
+                    _Name = "Attack Power"
                 Case sim.Stat.Armor
-                    Name = "Armor"
+                    _Name = "Armor"
                 Case sim.Stat.ArP
-                    Name = "Armor Penetration Rating"
+                    _Name = "Armor Penetration Rating"
                 Case sim.Stat.Crit
-                    Name = "Critical Stike Rating"
+                    _Name = "Critical Stike Rating"
                 Case sim.Stat.Expertise
-                    Name = "Expertise Rating"
+                    _Name = "Expertise Rating"
                 Case sim.Stat.Haste
-                    Name = "Haste Rating"
+                    _Name = "Haste Rating"
                 Case sim.Stat.Hit
-                    Name = "Hit Rating"
+                    _Name = "Hit Rating"
                 Case sim.Stat.Mastery
-                    Name = "Mastery Rating"
+                    _Name = "Mastery Rating"
                 Case sim.Stat.Strength
-                    Name = "Strength"
+                    _Name = "Strength"
                 Case sim.Stat.Agility
-                    Name = "Agility"
+                    _Name = "Agility"
+                Case sim.Stat.Intel
+                    _Name = "Itelligence"
                 Case Else
-                    Diagnostics.Debug.WriteLine("WTF is this stack")
+                    Diagnostics.Debug.WriteLine("WTF is this stat")
             End Select
-
         End Sub
 
-        Function Value() As Integer
+        Overridable Sub AddMulti(ByVal i As Double)
+            If i = 1 Then Exit Sub
+            If CanHaveMultiplicativeBuff Then
+                MultiplicativeBuff *= i
+            Else
+                Diagnostics.Debug.WriteLine("It's not supposed to be")
+            End If
+        End Sub
+        Overridable Sub RemoveMulti(ByVal i As Double)
+            If CanHaveMultiplicativeBuff Then
+                MultiplicativeBuff /= i
+            Else
+                Diagnostics.Debug.WriteLine("It's not supposed to be")
+            End If
+
+        End Sub
+        Overridable Sub Add(ByVal i As Integer)
+            BaseValue += i
+        End Sub
+        Overridable Sub Remove(ByVal i As Integer)
+            BaseValue -= i
+        End Sub
+
+        Overridable Function Value() As Integer
+            TimeWasted.Start()
             Dim tmp As Integer
             If AdditiveBuff <> 0 Then
                 BaseValue += AdditiveBuff
                 AdditiveBuff = 0
             End If
-            tmp = (BaseValue + VariableValue()) * MultiplicativeBuff
-
+            tmp = BaseValue * MultiplicativeBuff
+            TimeWasted.Pause()
             Return tmp
         End Function
-        Function MaxValue() As Integer
+        Overridable Function MaxValue() As Integer
+            TimeWasted.Start()
             Dim tmp As Integer
             If AdditiveBuff <> 0 Then
                 BaseValue += AdditiveBuff
                 AdditiveBuff = 0
             End If
-            tmp = (BaseValue + sim.proc.GetMaxPossibleBonus(Stat)) * MultiplicativeBuff
-
+            tmp = (BaseValue + sim.proc.GetMaxPossibleBonus(Stat)) * MultiplicativeBuff * sim.proc.GetMaxMultiPlier(Stat)
+            TimeWasted.Pause()
             Return tmp
         End Function
-        Function VariableValue() As Integer
-            Return 0
+
+    End Class
+
+    Class ArmorStat
+        Inherits Stat
+        Friend SpecialArmor As Integer
+
+        Sub New(ByVal Type As Sim.Stat, ByVal S As Sim, Optional ByVal CanHaveProc As Boolean = False, Optional ByVal CanHaveMultiplicativeBuff As Boolean = False)
+            MyBase.New(Type, S)
+            _Name = "Armor"
+        End Sub
+
+        Public Overrides Function Value() As Integer
+            Dim i As Integer = MyBase.Value()
+            i = i + SpecialArmor
+            Return i
         End Function
 
     End Class

@@ -4,7 +4,7 @@ Imports System.IO
 
 
 Namespace Simulator.Character
-    Friend Class Buff
+    Friend Class RaidBuffs
 
         Friend StrAgi As Integer
         Friend AttackPowerPc As Integer

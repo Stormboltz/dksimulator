@@ -24,6 +24,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
         Friend MHWeaponSpeed As Double
 
         Sub New(ByVal MySim As Sim)
+            MyBase.New(MySim)
             _Name = "Army of the Dead"
             total = 0
             MissCount = 0
@@ -35,9 +36,9 @@ Namespace Simulator.WowObjects.PetsAndMinions
             NextClaw = 0
             TotalHit = 0
             TotalCrit = 0
-            Sim = MySim
+            sim = MySim
             MeleeGlacingChance = 0.25
-            Sim.DamagingObject.Add(Me)
+            sim.DamagingObject.Add(Me)
             ThreadMultiplicator = 0
             HasteSensible = True
             MHWeaponDPS = 0
@@ -210,7 +211,6 @@ Namespace Simulator.WowObjects.PetsAndMinions
             tmp = 331
             str = sim.Character.Strength.Value
             tmp += str / 2
-            tmp += str * (Sim.Character.Talents.Talent("ravenousdead").Value * 0.2)
             Return tmp
         End Function
         Function crit(Optional ByVal target As Targets.Target = Nothing) As System.Double
@@ -230,7 +230,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
 
 
         Function SpellHaste() As Double
-            Return Sim.Character.SpellHasteRating()
+            Return sim.Character.HasteRating.Value()
         End Function
         Function Expertise() As Double
             Dim tmp As Double

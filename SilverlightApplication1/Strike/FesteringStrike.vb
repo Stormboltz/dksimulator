@@ -6,7 +6,7 @@
             BaseDamage = 840
             Coeficient = 1.5
             Multiplicator = 1
-            Multiplicator = Multiplicator * (1 + 10 * Sim.Character.Talents.Talent("CorruptingStrikes").Value / 100)
+            Multiplicator *= (1 + sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100)
             logLevel = LogLevelEnum.Basic
         End Sub
 
@@ -22,7 +22,7 @@
             End If
 
             If OffHand = False Then
-
+                UseGCD(T)
                 Sim.RunicPower.add(25)
                 Sim.Targets.MainTarget.BloodPlague.IncreaseDuration(600)
                 Sim.Targets.MainTarget.FrostFever.IncreaseDuration(600)

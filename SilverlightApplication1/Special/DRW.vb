@@ -35,6 +35,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
 
 
         Sub New(ByVal S As Sim)
+            MyBase.New(S)
             _Name = "DRW: Melee"
             total = 0
             MissCount = 0

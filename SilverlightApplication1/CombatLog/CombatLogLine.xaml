@@ -4,22 +4,22 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="115" d:DesignWidth="400">
+    d:DesignHeight="65" d:DesignWidth="600">
     <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Name="Border1" VerticalAlignment="Center"  >
-    <Grid x:Name="LayoutRoot" Background="White">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="15" />
-            <RowDefinition Height="15" />
-            <RowDefinition Height="15" />
+        <Grid x:Name="LayoutRoot" Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15" />
+                <RowDefinition Height="15" />
+                <RowDefinition Height="15" />
                 <RowDefinition Height="15" />
             </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100" />
-            <ColumnDefinition Width="80" />
-            <ColumnDefinition Width="220" />
-        </Grid.ColumnDefinitions>
-        <ProgressBar Height="10" HorizontalAlignment="left"  Name="pbBlood1" VerticalAlignment="Center" Width="45" Maximum="100" Foreground="Crimson" Grid.Column="0" Grid.Row="0" />
-        <ProgressBar Height="10" HorizontalAlignment="Right"  Name="pbBlood2" VerticalAlignment="Center" Width="45" Maximum="100" Foreground="Crimson" Grid.Column="0" Grid.Row="0" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="90" />
+                <ColumnDefinition Width="410" />
+            </Grid.ColumnDefinitions>
+            <ProgressBar Height="10" HorizontalAlignment="left"  Name="pbBlood1" VerticalAlignment="Center" Width="45" Maximum="100" Foreground="Crimson" Grid.Column="0" Grid.Row="0" />
+            <ProgressBar Height="10" HorizontalAlignment="Right"  Name="pbBlood2" VerticalAlignment="Center" Width="45" Maximum="100" Foreground="Crimson" Grid.Column="0" Grid.Row="0" />
             <ProgressBar Height="10" HorizontalAlignment="left"  Name="pbFrost1" VerticalAlignment="Center" Width="45" Maximum="100" Foreground="RoyalBlue" Grid.Column="0"  Grid.Row="1" />
             <ProgressBar Height="10" HorizontalAlignment="Right"  Name="pbFrost2" VerticalAlignment="Center" Width="45" Maximum="100" Foreground="RoyalBlue" Grid.Column="0"  Grid.Row="1" />
             <ProgressBar Height="10" HorizontalAlignment="Left" Name="pbUnholy1" VerticalAlignment="Center" Width="45" Maximum="100" Foreground="SeaGreen" Grid.Column="0" Grid.Row="2" />
@@ -28,6 +28,6 @@
             <TextBlock Grid.Column="1"  HorizontalAlignment="Right" Name="txtTime" Text="0000000000" VerticalAlignment="Center" Margin="6,0,6,0" Grid.Row="1" Grid.RowSpan="2" />
             <TextBlock Grid.Column="2"  HorizontalAlignment="Left" Name="txtAction" Text="0000000000" VerticalAlignment="Center" Margin="6,0,0,0" Grid.Row="1" Grid.RowSpan="2"/>
             <TextBlock Grid.Column="2"  HorizontalAlignment="Left" Name="txtGCD" Text="GCD = " VerticalAlignment="Center" Margin="6,0,0,0" Grid.Row="3" Grid.RowSpan="2"/>
-    </Grid>
+        </Grid>
     </Border>
 </UserControl>

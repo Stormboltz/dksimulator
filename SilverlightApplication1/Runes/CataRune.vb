@@ -21,27 +21,28 @@ Namespace Simulator.WowObjects.Runes
 
 
         Sub New(ByVal S As Sim)
+            MyBase.New(S)
             Me.reserved = False
             Me.death = False
 
             MaxValue = 100
             Me.Value = MaxValue
-            Sim = S
+            sim = S
 
         End Sub
 
 
         Sub Use(ByVal T As Long, ByVal D As Boolean, ByVal Alf As Boolean)
-            If Alf Then
-                Me.Value -= 50
-            Else
-                Me.Value -= 100
-            End If
+            'If Alf Then
+            '    Me.Value -= 50
+            'Else
+            '    Me.Value -= 100
+            'End If
 
-            If Me.Value < 0 Then
-                Diagnostics.Debug.WriteLine("RUNE USE ERROR")
-            End If
-            '        Parent.Use(T, D)
+            'If Me.Value < 0 Then
+            '    Diagnostics.Debug.WriteLine("RUNE USE ERROR")
+            'End If
+            Parent.Use(T, D, Alf)
             death = D
             If BTuntil > T Then death = True
             Sim.proc.tryT104PDPS(T)

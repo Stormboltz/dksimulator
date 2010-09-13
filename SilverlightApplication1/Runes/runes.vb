@@ -1,6 +1,8 @@
 Namespace Simulator.WowObjects.Runes
     Partial Friend Class runes
-        Protected sim As Sim
+        Inherits SimObjet
+
+
         Friend BloodRune1 As CataRune
         Friend FrostRune1 As CataRune
         Friend UnholyRune1 As CataRune
@@ -13,7 +15,8 @@ Namespace Simulator.WowObjects.Runes
         Friend UnholyRunes As RunePair
 
         Sub New(ByVal S As Sim)
-            sim = S
+            MyBase.New(S)
+            _Name = "Runes"
             BloodRune1 = New CataRune(S)
             BloodRune2 = New CataRune(S)
             FrostRune1 = New CataRune(S)
@@ -41,12 +44,19 @@ Namespace Simulator.WowObjects.Runes
             UnholyRune2.Reset()
             FillRunes()
         End Sub
-
+        Friend PreviousRuneFill As Long
         Sub FillRunes()
-            BloodRunes.Refill(0.1)
-            FrostRunes.Refill(0.1)
-            UnholyRunes.Refill(0.1)
-            sim.FutureEventManager.Add(sim.TimeStamp + 10, "RuneFill")
+            Dim l As Long = sim.TimeStamp
+            If l = PreviousRuneFill Then Exit Sub
+            TimeWasted.Start()
+            BloodRunes.Refill((l - PreviousRuneFill) / 100)
+            FrostRunes.Refill((l - PreviousRuneFill) / 100)
+            UnholyRunes.Refill((l - PreviousRuneFill) / 100)
+            If Not sim.isInGCD(l) Then
+                sim.FutureEventManager.Add(sim.TimeStamp + 10, "RuneFill")
+            End If
+            PreviousRuneFill = sim.TimeStamp
+            TimeWasted.Pause()
         End Sub
 
 

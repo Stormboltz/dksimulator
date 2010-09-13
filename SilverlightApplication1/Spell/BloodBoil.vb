@@ -15,7 +15,7 @@ Namespace Simulator.WowObjects.Spells
         Sub New(ByVal S As Sim)
             MyBase.New(S)
             BaseDamage = 200 * 1.33
-            Coeficient = (0.08 * (1 + 0.2 * Sim.Character.Talents.Talent("Impurity").Value))
+            Coeficient = (0.08)
             Multiplicator = (1 + Sim.Character.Talents.Talent("CrimsonScourge").Value * 0.2)
             logLevel = LogLevelEnum.Basic
             DiseaseBonus = 1

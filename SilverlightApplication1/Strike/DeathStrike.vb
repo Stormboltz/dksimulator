@@ -40,7 +40,7 @@ Namespace Simulator.WowObjects.Strikes
 
             If OffHand = False Then
                 UseGCD(T)
-                sim.RunicPower.add(25 + 5 * sim.Character.Talents.Talent("Dirge").Value)
+                sim.RunicPower.add(25)
                 sim.RunicPower.add(5 * sim.Character.T74PDPS)
                 If sim.proc.DRM.TryMe(T) Then
                     sim.Runes.UseFU(T, True)

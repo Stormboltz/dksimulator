@@ -30,12 +30,6 @@ Namespace Simulator.WowObjects.Spells
             End If
         End Function
 
-        Sub New()
-            Init()
-        End Sub
-
-
-
 
         Overridable Sub Init()
             total = 0
@@ -52,7 +46,8 @@ Namespace Simulator.WowObjects.Spells
         End Sub
 
         Sub New(ByVal S As Sim)
-            Me.New()
+            MyBase.New(S)
+            Init()
             Sim = S
             Sim.DamagingObject.Add(Me)
         End Sub
