@@ -27,6 +27,33 @@ Partial Public Class ReportFrame
                 Else
                     dgReport.ItemsSource = Source
                     dgReport.Visibility = Windows.Visibility.Visible
+                    Dim t As String = "[TABLE]"
+                    t &= "Ability| Damage done|||| hits||| Crits||| Misses|| Glances|||TPS| Uptime" & vbCrLf
+                    t &= "|Total| %| #| Avg| #| %| Avg| #| %| Avg|  #| Avg| #| Avg| %|  %| " & vbCrLf
+
+                    For Each r As ReportDisplayLine In Source
+                        t = t & r.Ability & "|"
+                        t = t & r.Damage_done_Total & "|"
+                        t = t & r.Damage_done_Pc & "|"
+                        t = t & r.Damage_done_Count & "|"
+                        t = t & r.Damage_done_Avg & "|"
+                        t = t & r.hit_count & "|"
+                        t = t & r.hit_count_Avg & "|"
+                        t = t & r.hit_count_Pc & "|"
+                        t = t & r.Crit_count & "|"
+                        t = t & r.Crit_count_Avg & "|"
+                        t = t & r.Crit_count_Pc & "|"
+                        t = t & r.Miss_Count & "|"
+                        t = t & r.Miss_Count_Pc & "|"
+                        t = t & r.Glance_Count & "|"
+                        t = t & r.Glance_Count_Avg & "|"
+                        t = t & r.Glance_Count_Pc & "|"
+                        t = t & r.TPS & "|"
+                        t = t & r.Uptime & "|" & vbCrLf
+                    Next
+
+                    t &= "[/TABLE]" & vbCrLf
+                    Me.txtBBCode.Text = t
                 End If
 
                 isoStream.Close()

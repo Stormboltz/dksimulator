@@ -1,9 +1,10 @@
-﻿<controls:ChildWindow x:Class="DKSIMVB.frmPopReport"
+﻿<controls:ChildWindow xmlns:my="clr-namespace:System.Windows.Controls.Theming;assembly=System.Windows.Controls.Theming.WhistlerBlue"  x:Class="DKSIMVB.frmPopReport"
            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
            xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
            Width="750" Height="550"
            Title="frmPopReport" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit">
+    
     <Grid x:Name="LayoutRoot" Margin="2">
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -15,8 +16,8 @@
                 <TextBox Grid.Row="1" Name="txtAdditionalInfo" Text="" IsReadOnly="True" />
                 <toolkit:Chart Name="Chart1" Title="Chart Title" Height="400">
                     <toolkit:Chart.Axes>
-                            <toolkit:LinearAxis Title="DPSs" Orientation="Y" Interval="1000" ShowGridLines="True" FontStyle="Italic"/>
-                            <toolkit:LinearAxis Title="Value" Orientation="X" Interval="50" ShowGridLines="True" FontStyle="Italic"/>
+                            <toolkit:LinearAxis Title="DPSs" Orientation="Y"  ShowGridLines="True" FontStyle="Italic"/>
+                            <toolkit:LinearAxis Title="Value" Orientation="X" ShowGridLines="True" FontStyle="Italic"/>
                             <!--<toolkit:CategoryAxis Title="Stat" />-->
                         </toolkit:Chart.Axes>
 
@@ -27,4 +28,5 @@
         <Button x:Name="OKButton" Content="OK" Width="75" Height="23" HorizontalAlignment="Right" Grid.Row="1" />
 
     </Grid>
+    
 </controls:ChildWindow>

@@ -13,7 +13,7 @@ Imports DKSIMVB.Simulator.WowObjects.Procs
 Namespace Simulator
 
     Public Class Sim
-
+        Dim DPSLine As New StatScallingLine("DPS")
         Friend TimeWastedAnaliser As New TimeWastedAnaliser
 
         Public Event Sim_Closing(ByVal sender As Object, ByVal e As EventArgs)
@@ -283,6 +283,10 @@ Namespace Simulator
             'this routine returns whether an explicit action was taken
             proc.Bloodlust.TryMe(TimeStamp)
             Select Case FE.Ev
+                Case "SaveCurrentDPS"
+
+                    DPSLine.Add(CInt(TimeStamp / 100), TotalDamage() / (TimeStamp / 100))
+                    FutureEventManager.Add(TimeStamp + 500, "SaveCurrentDPS")
                 Case "BuffFade"
                     Dim SB As SpellBuff = CType(FE.WowObj, SpellBuff)
                     SB.Fade()
@@ -522,8 +526,9 @@ Namespace Simulator
             ' Pre Pull Activities
 
             PrePull(TimeStamp)
-            SoftReset()
 
+            SoftReset()
+            FutureEventManager.Add(TimeStamp + 500, "SaveCurrentDPS")
             Dim FE As FutureEvent
             Do Until False
 
@@ -1128,6 +1133,8 @@ errH:
                 myReport.AddAdditionalInfo("RuneEnchant", Character.GetMHEnchant)
             End If
             myReport.AddAdditionalInfo("Pet Calculation", Character.GetPetCalculation)
+            myReport.AddLine(DPSLine)
+
             myReport.Save("")
         End Sub
 

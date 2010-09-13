@@ -138,7 +138,7 @@ Namespace Simulator.Character
                 msgBox("Error reading Character config file. You should open and check it. ")
             End Try
 
-            Select Case EpStat
+            Select Case Sim.EPStat
                 Case "EP Strength"
                     Strength.BaseValue += Sim.EPBase
                 Case "EP AttackPower"
@@ -188,7 +188,7 @@ Namespace Simulator.Character
                 Case ""
 
                 Case Else
-                    
+
                     If InStr(Sim.EPStat, "ScaCrit") Then
                         If InStr(Sim.EPStat, "ScaCritA") Then
                             CritRating.BaseValue += Replace(Sim.EPStat, "ScaCritA", "") * Sim.EPBase
