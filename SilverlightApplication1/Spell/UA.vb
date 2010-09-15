@@ -23,7 +23,7 @@ Namespace Simulator.WowObjects.Spells
             Proc.ProcOn = Procs.ProcsManager.ProcOnType.OnMisc
             Proc.ProcChance = 1
             Proc.ProcLenght = 20
-            Proc.Buff = New SpellBuff(S, "Pillar Of Frost", Simulator.Sim.Stat.Strength, 1.2, 20)
+            Proc.Effect = New Procs.SpellBuff(S, "Pillar Of Frost", Simulator.Sim.Stat.Strength, 1.2, 20)
             Proc.Equip()
         End Sub
 

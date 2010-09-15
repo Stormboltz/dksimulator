@@ -107,7 +107,7 @@ Namespace Simulator.WowObjects.Runes
             'withoutHaste 10s per rune 
             Dim tmp As Double
             'tmp = (1 / 10)
-            tmp = (1 / 10) * Sim.Character.Haste
+            tmp = (1 / 10) * sim.Character.Haste.Value
             If Sim.UnholyPresence = 1 Then
                 tmp = tmp * (1.1 + Sim.Character.Talents.Talent("ImprovedUnholyPresence").Value * 2.5 / 100)
             End If

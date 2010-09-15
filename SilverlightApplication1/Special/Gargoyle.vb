@@ -34,13 +34,13 @@ Namespace Simulator.WowObjects.PetsAndMinions
             End If
 
             If cd <= T Then
-                StrikeCastTime = Math.Max(1, (2.0 / Sim.Character.PhysicalHaste) * 100) 'no haste cap for Garg.
+                StrikeCastTime = Math.Max(1, (2.0 / sim.Character.PhysicalHaste.Value) * 100) 'no haste cap for Garg.
                 AP = Sim.Character.AP
                 Sim.RunicPower.Use(60)
                 'sim.CombatLog.write(T & vbTab & "Gargoyle use")
                 cd = T + 3 * 60 * 100
                 ActiveUntil = T + 30 * 100
-                SpellHit = Sim.Character.SpellHit
+                SpellHit = sim.Character.SpellHit.Value
                 UseGCD(T)
                 NextGargoyleStrike = T + 1000
                 Sim.FutureEventManager.Add(NextGargoyleStrike, "Gargoyle")
@@ -94,9 +94,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
             tmp = 120
             tmp = tmp + (AP * 0.3333)
             tmp = tmp * MagicalDamageMultiplier(T)
-            If Sim.EPStat = "EP HasteEstimated" Then
-                tmp = tmp * Sim.Character.EstimatedHasteBonus
-            End If
+            
             Return tmp
         End Function
         Function CritCoef() As Double

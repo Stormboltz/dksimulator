@@ -60,7 +60,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
                     cd = sim.MaxTime
                     isGuardian = False
                 Else
-                    _Haste = sim.Character.PhysicalHaste
+                    _Haste = sim.Character.PhysicalHaste.Value
                     _AP = sim.GhoulStat.AP
                     ActiveUntil = T + 60 * 100
                     cd = ActiveUntil + (3 * 60 * 100)
@@ -94,7 +94,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
             If isGuardian Then
                 Return _Haste
             End If
-            tmp = sim.Character.PhysicalHaste
+            tmp = sim.Character.PhysicalHaste.Value
             'If sim.Frenzy.ActiveUntil >= sim.TimeStamp Then tmp = tmp * 1.5
             Return tmp
 
@@ -164,9 +164,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
         Function AvrgNonCrit(ByVal T As Long) As Double
             Dim tmp As Double
             tmp = sim.GhoulStat.MHBaseDamage(AP) * sim.GhoulStat.PhysicalDamageMultiplier(T)
-            If sim.EPStat = "EP HasteEstimated" Then
-                tmp = tmp * sim.Character.EstimatedHasteBonus
-            End If
+           
             AvrgNonCrit = tmp
         End Function
         Function CritCoef() As Double

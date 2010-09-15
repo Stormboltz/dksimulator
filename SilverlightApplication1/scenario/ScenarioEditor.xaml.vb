@@ -5,7 +5,7 @@ Imports System.IO
 Partial Public Class ScenarioEditor
     Inherits ChildWindow
     Protected Friend EditorFilePAth As String
-    Friend WithEvents UI As UserInput
+    Dim WithEvents UI As New UserInput
     Protected MainForm As MainForm
 
 
@@ -176,7 +176,7 @@ Partial Public Class ScenarioEditor
 
     Sub Userinput_close() Handles UI.Closing
         If UI.DialogResult Then
-            EditorFilePAth = "/Scenario/" & UI.txtInput.Text & ".xml"
+            EditorFilePAth = UI.txtInput.Text & ".xml"
             SaveScenario()
             Me.DialogResult = True
         End If

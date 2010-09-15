@@ -59,7 +59,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcChance = 1
                 .InternalCD = 0
                 .MaxStack = 20
-                .Buff = New SpellBuff(S, "Herkuml War Token", Simulator.Sim.Stat.AP, 17, 20, 10)
+                .Effect = New SpellBuff(S, "Herkuml War Token", Simulator.Sim.Stat.AP, 17, 20, 10)
                 .ProcValueStack = 17
                 .ProcLenght = 10
             End With
@@ -71,7 +71,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcChance = 0.5
                 .InternalCD = 120
                 .ProcLenght = 20
-                .Buff = New SpellBuff(sim, "Mark of Supremacy", Simulator.Sim.Stat.AP, 1024, 20)
+                .Effect = New SpellBuff(sim, "Mark of Supremacy", Simulator.Sim.Stat.AP, 1024, 20)
                 .ProcValue = "1024"
             End With
 
@@ -82,7 +82,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcChance = 0.5
                 .InternalCD = 120
                 .ProcLenght = "20"
-                .Buff = New SpellBuff(sim, "Vengeance of the Forsaken", Simulator.Sim.Stat.AP, 860, 20)
+                .Effect = New SpellBuff(sim, "Vengeance of the Forsaken", Simulator.Sim.Stat.AP, 860, 20)
                 .ProcValue = "860"
             End With
 
@@ -93,7 +93,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcChance = 0.5
                 .InternalCD = 120
                 .ProcLenght = 20
-                .Buff = New SpellBuff(sim, "Vengeance of the Forsaken Heroic", Simulator.Sim.Stat.AP, 1000, 20)
+                .Effect = New SpellBuff(sim, "Vengeance of the Forsaken Heroic", Simulator.Sim.Stat.AP, 1000, 20)
                 .ProcValue = "1000"
             End With
 
@@ -115,7 +115,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 30
                 .ProcValue = 600
                 .InternalCD = 105
-                .Buff = New SpellBuff(S, "Deathbringers Will", Simulator.Sim.Stat.Haste, 600, 30)
+                .Effect = New SpellBuff(S, "Deathbringers Will", Simulator.Sim.Stat.Haste, 600, 30)
                 .DamageType = "DeathbringersWill"
                 .ProcOn = ProcsManager.ProcOnType.OnDamage
             End With
@@ -128,7 +128,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcValue = 700
                 .InternalCD = 105
                 .DamageType = "DeathbringersWill"
-                .Buff = New SpellBuff(S, "Deathbringers Will Heroic", Simulator.Sim.Stat.Haste, 700, 30)
+                .Effect = New SpellBuff(S, "Deathbringers Will Heroic", Simulator.Sim.Stat.Haste, 700, 30)
                 .ProcOn = ProcsManager.ProcOnType.OnDamage
             End With
 
@@ -140,7 +140,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 15
                 .ProcValue = 1100
                 .InternalCD = 45
-                .Buff = New SpellBuff(sim, "Whispering Fanged Skull", Simulator.Sim.Stat.AP, 1100, 15)
+                .Effect = New SpellBuff(sim, "Whispering Fanged Skull", Simulator.Sim.Stat.AP, 1100, 15)
                 .ProcOn = ProcsManager.ProcOnType.OnDamage
             End With
 
@@ -152,7 +152,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcValue = 1250
                 .InternalCD = 45
                 .DamageType = ""
-                .Buff = New SpellBuff(sim, "Whispering Fanged Skull Heroic", Simulator.Sim.Stat.AP, 1250, 15)
+                .Effect = New SpellBuff(sim, "Whispering Fanged Skull Heroic", Simulator.Sim.Stat.AP, 1250, 15)
                 .ProcOn = ProcsManager.ProcOnType.OnDamage
             End With
 
@@ -164,7 +164,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcValue = 678
                 .InternalCD = 45
                 .DamageType = ""
-                .Buff = New SpellBuff(S, "Needle-Encrusted Scorpion", Simulator.Sim.Stat.Crit, 678, 10)
+                .Effect = New SpellBuff(S, "Needle-Encrusted Scorpion", Simulator.Sim.Stat.Crit, 678, 10)
                 .ProcOn = ProcsManager.ProcOnType.OnCrit
             End With
 
@@ -176,7 +176,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 15
                 .ProcValue = 450
                 .InternalCD = 45
-                .Buff = New SpellBuff(S, "Death Choice", Simulator.Sim.Stat.Strength, 450, 15)
+                .Effect = New SpellBuff(S, "Death Choice", Simulator.Sim.Stat.Strength, 450, 15)
                 .ProcOn = ProcsManager.ProcOnType.OnDamage
             End With
 
@@ -187,7 +187,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 15
                 .ProcValue = 510
                 .InternalCD = 45
-                .Buff = New SpellBuff(S, "Death Choice Heroic", Simulator.Sim.Stat.Strength, 510, 15)
+                .Effect = New SpellBuff(S, "Death Choice Heroic", Simulator.Sim.Stat.Strength, 510, 15)
                 .ProcOn = ProcsManager.ProcOnType.OnDamage
             End With
 
@@ -198,7 +198,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 15
                 .ProcValue = 300
                 .InternalCD = 45
-                .Buff = New SpellBuff(S, "Greatness", Simulator.Sim.Stat.Strength, 300, 15)
+                .Effect = New SpellBuff(S, "Greatness", Simulator.Sim.Stat.Strength, 300, 15)
 
                 .ProcOn = ProcsManager.ProcOnType.OnDamage
             End With
@@ -210,7 +210,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 10
                 .ProcValue = 665
                 .InternalCD = 45
-                .Buff = New SpellBuff(S, "Mjol Rune", Simulator.Sim.Stat.Crit, 665, 10)
+                .Effect = New SpellBuff(S, "Mjol Rune", Simulator.Sim.Stat.Crit, 665, 10)
                 .ProcOn = ProcsManager.ProcOnType.OnHit
             End With
 
@@ -221,7 +221,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 10
                 .ProcValue = 612
                 .InternalCD = 45
-                .Buff = New SpellBuff(S, "GrimToll", Simulator.Sim.Stat.Crit, 612, 10)
+                .Effect = New SpellBuff(S, "GrimToll", Simulator.Sim.Stat.Crit, 612, 10)
                 .ProcOn = ProcsManager.ProcOnType.OnHit
             End With
 
@@ -232,7 +232,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 10
                 .ProcValue = 410
                 .InternalCD = 45
-                .Buff = New SpellBuff(S, "Bitter Anguish", Simulator.Sim.Stat.Haste, 410, 10)
+                .Effect = New SpellBuff(S, "Bitter Anguish", Simulator.Sim.Stat.Haste, 410, 10)
                 .ProcOn = ProcsManager.ProcOnType.OnCrit
             End With
 
@@ -243,7 +243,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 10
                 .ProcValue = 1000
                 .InternalCD = 45
-                .Buff = New SpellBuff(sim, "Mirror of truth", Simulator.Sim.Stat.AP, 1000, 10)
+                .Effect = New SpellBuff(sim, "Mirror of truth", Simulator.Sim.Stat.AP, 1000, 10)
                 .ProcOn = ProcsManager.ProcOnType.OnCrit
             End With
 
@@ -254,7 +254,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 10
                 .ProcValue = 1234
                 .InternalCD = 45
-                .Buff = New SpellBuff(sim, "Pyrite", Simulator.Sim.Stat.AP, 1234, 10)
+                .Effect = New SpellBuff(sim, "Pyrite", Simulator.Sim.Stat.AP, 1234, 10)
                 .ProcOn = ProcsManager.ProcOnType.OnCrit
             End With
 
@@ -265,7 +265,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 10
                 .ProcValue = 1284
                 .InternalCD = 45
-                .Buff = New SpellBuff(sim, "Old God", Simulator.Sim.Stat.AP, 1284, 10)
+                .Effect = New SpellBuff(sim, "Old God", Simulator.Sim.Stat.AP, 1284, 10)
                 .ProcOn = ProcsManager.ProcOnType.OnCrit
             End With
 
@@ -276,7 +276,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 10
                 .ProcValue = 1008
                 .InternalCD = 45
-                .Buff = New SpellBuff(sim, "Victory", Simulator.Sim.Stat.AP, 1008, 10)
+                .Effect = New SpellBuff(sim, "Victory", Simulator.Sim.Stat.AP, 1008, 10)
                 .ProcOn = ProcsManager.ProcOnType.OnHit
             End With
 
@@ -287,7 +287,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 10
                 .ProcValue = 612
                 .InternalCD = 45
-                .Buff = New SpellBuff(S, "DarkMatter", Simulator.Sim.Stat.Crit, 612, 10)
+                .Effect = New SpellBuff(S, "DarkMatter", Simulator.Sim.Stat.Crit, 612, 10)
                 .ProcOn = ProcsManager.ProcOnType.OnHit
             End With
 
@@ -297,7 +297,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 10
                 .ProcValue = 726
                 .InternalCD = 45
-                .Buff = New SpellBuff(S, "Comet's Trail", Simulator.Sim.Stat.Haste, .ProcValue, 10)
+                .Effect = New SpellBuff(S, "Comet's Trail", Simulator.Sim.Stat.Haste, .ProcValue, 10)
                 ._Name = "Comet"
                 .ProcOn = ProcsManager.ProcOnType.OnHit
             End With

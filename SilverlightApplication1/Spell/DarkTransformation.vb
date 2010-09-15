@@ -27,10 +27,14 @@
 
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
             sim.Runes.UseUnholy(T, False)
+            UseGCD(T)
+            sim.RunicPower.add(15)
+            sim.CombatLog.write(T & vbTab & "Dark Transformation")
             HitCount = HitCount + 1
-            sim.Ghoul.ShadowInfusion.Stack -= 5
+            sim.Ghoul.ShadowInfusion.Stack = 0
             sim.Ghoul.ShadowInfusion.CD = T + 3000
             sim.Ghoul.ShadowInfusion.Cancel()
+
             DarkTransformationBuff.TryMe(T)
             Return (True)
         End Function

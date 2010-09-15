@@ -46,7 +46,7 @@
         Sub Pause()
 #If DEBUG Then
 
-            Total += Now.Ticks - LastStart
+            Total += 1 + Now.Ticks - LastStart
             LastStart = 0
 #End If
         End Sub

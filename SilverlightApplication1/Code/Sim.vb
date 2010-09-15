@@ -13,9 +13,12 @@ Imports DKSIMVB.Simulator.WowObjects.Procs
 Namespace Simulator
 
     Public Class Sim
-        Dim DPSLine As New StatScallingLine("DPS")
+        Dim DPSLine As New StatScallingLine("Real Time DPS")
+        Dim DPSLineAverage As New StatScallingLine("AverageDPS")
         Friend TimeWastedAnaliser As New TimeWastedAnaliser
-
+        Friend SpellBuffManager As New SpellBuffManager
+        Friend SpellEffectManager As New SpellEffectManager
+        Friend EffectManager As New EffectManager
         Public Event Sim_Closing(ByVal sender As Object, ByVal e As EventArgs)
         Friend isoStore As IsolatedStorage.IsolatedStorageFile
 
@@ -278,17 +281,24 @@ Namespace Simulator
 
             End Try
         End Sub
-
+        Dim PreviousDamage As Long
+        Dim PreviousDamageTimeStamp As Long
         Function ProcessEvent(ByVal FE As FutureEvent) As Boolean
             'this routine returns whether an explicit action was taken
             proc.Bloodlust.TryMe(TimeStamp)
             Select Case FE.Ev
                 Case "SaveCurrentDPS"
-
-                    DPSLine.Add(CInt(TimeStamp / 100), TotalDamage() / (TimeStamp / 100))
+                    Dim CurrentDamage As Long
+                    CurrentDamage = TotalDamage()
+                    Dim CurrentDPS As Long
+                    CurrentDPS = (CurrentDamage - PreviousDamage) / ((TimeStamp - PreviousDamageTimeStamp) / 100)
+                    DPSLine.Add(CInt(TimeStamp / 100), CurrentDPS)
+                    DPSLineAverage.Add(CInt(TimeStamp / 100), CurrentDamage / (TimeStamp / 100))
+                    PreviousDamageTimeStamp = TimeStamp
+                    PreviousDamage = CurrentDamage
                     FutureEventManager.Add(TimeStamp + 500, "SaveCurrentDPS")
                 Case "BuffFade"
-                    Dim SB As SpellBuff = CType(FE.WowObj, SpellBuff)
+                    Dim SB As Effect = CType(FE.WowObj, Effect)
                     SB.Fade()
                     Return True
                 Case "Boss"
@@ -561,7 +571,7 @@ Namespace Simulator
 
             DPS = 100 * TotalDamage() / TimeStamp
             Report()
-            Diagnostics.Debug.WriteLine("DPS=" & DPS & " " & "TPS=" & TPS & " " & EPStat() & " hit=" & Character.Hit & " sphit=" & Character.SpellHit & " exp=" & Character.Expertise)
+            Diagnostics.Debug.WriteLine("DPS=" & DPS & " " & "TPS=" & TPS & " " & EPStat() & " hit=" & Character.Hit.Value & " sphit=" & Character.SpellHit.Value & " exp=" & Character.Expertise.Value)
             'Diagnostics.Debug.WriteLine("Max events in queue " & me.FutureEventManager.Max )
             CombatLog.finish()
             'On Error Resume Next
@@ -614,7 +624,7 @@ Namespace Simulator
         Sub UseGCD(ByVal T As Long, ByVal Spell As Boolean)
             Dim tmp As Long
             If Spell Then
-                tmp = Math.Max(150.0 / Character.SpellHaste, 100)
+                tmp = Math.Max(150.0 / Character.SpellHaste.Value, 100)
             Else
                 tmp = 150
             End If
@@ -665,7 +675,7 @@ Namespace Simulator
             Me.Rotation.IntroStep = 0
             Runes.SoftReset()
             FutureEventManager.Add(TimeStamp, "Rune")
-
+            SpellEffectManager.SoftReset()
 
 
             RunicPower.Reset()
@@ -731,10 +741,6 @@ Namespace Simulator
         Sub Initialisation()
             'DamagingObject.Clear
             PetFriendly = XmlConfig.Element("config").Element("pet").Value
-
-            Dim targ As New Targets.Target(Me)
-            Targets.CurrentTarget = targ
-            Targets.MainTarget = targ
 
             'Keep this order for RuneX -> Runse -> Rotation/Prio
             Runes = New Runes.runes(Me)
@@ -941,6 +947,15 @@ Namespace Simulator
 
                 Character = New Character.MainStat(Me)
 
+                Dim targ As New Targets.Target(Me)
+                Targets.CurrentTarget = targ
+                Targets.MainTarget = targ
+
+
+                Character.InitStats()
+                Character.InitTrinkets()
+                Character.InitSets()
+
                 Me.CombatLog.enable = XmlConfig.Element("config").Element("log").Value
                 Me.CombatLog.LogDetails = XmlConfig.Element("config").Element("logdetail").Value
                 MergeReport = XmlConfig.Element("config").Element("chkMergeReport").Value
@@ -1096,6 +1111,10 @@ errH:
                         myReport.AddLine(pr.Report)
                     End If
                 Next
+                For Each eff In EffectManager.Effects
+                    myReport.AddLine(eff.Report)
+                Next
+
             End If
 
             Dim minDPS As Integer
@@ -1134,7 +1153,7 @@ errH:
             End If
             myReport.AddAdditionalInfo("Pet Calculation", Character.GetPetCalculation)
             myReport.AddLine(DPSLine)
-
+            myReport.AddLine(DPSLineAverage)
             myReport.Save("")
         End Sub
 

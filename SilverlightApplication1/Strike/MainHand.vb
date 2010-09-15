@@ -20,21 +20,14 @@ Namespace Simulator.WowObjects.Strikes
         End Sub
 
         Overrides Function ApplyDamage(ByVal T As Long) As Boolean
-
-            Dim WSpeed As Single
             Dim MeleeMissChance As Single
             Dim MeleeDodgeChance As Single
             Dim MeleeGlacingChance As Single
             Dim MeleeParryChance As Single
             Dim ChanceNotToTouch As Single
 
-            WSpeed = sim.Character.MHWeaponSpeed
-
-            NextWhiteMainHit = T + (WSpeed * 100) / sim.Character.PhysicalHaste
+            NextWhiteMainHit = T + sim.Character.ModifiedMHWeaponSpeed.Value * 100
             sim.FutureEventManager.Add(NextWhiteMainHit, "MainHand")
-
-
-
             Dim RNG As Double
             RNG = RngHit()
             MeleeGlacingChance = 0.25
@@ -50,7 +43,7 @@ Namespace Simulator.WowObjects.Strikes
                 MeleeMissChance = 0.08
             End If
 
-            ChanceNotToTouch = Math.Max(0, MeleeMissChance - sim.Character.Hit) + Math.Max(0, MeleeDodgeChance - sim.Character.MHExpertise) + Math.Max(0, MeleeParryChance - sim.Character.MHExpertise)
+            ChanceNotToTouch = Math.Max(0, MeleeMissChance - sim.Character.Hit.Value) + Math.Max(0, MeleeDodgeChance - sim.Character.MHExpertise.Value) + Math.Max(0, MeleeParryChance - sim.Character.MHExpertise.Value)
 
             If RNG < ChanceNotToTouch Then
                 MissCount = MissCount + 1
@@ -99,14 +92,11 @@ Namespace Simulator.WowObjects.Strikes
             Dim tmp As Double
             tmp = sim.Character.MHBaseDamage
             tmp = tmp * sim.Character.WhiteHitDamageMultiplier(T)
-            If sim.EPStat = "EP HasteEstimated" Then
-                tmp = tmp * sim.Character.EstimatedHasteBonus
-            End If
             AvrgNonCrit = tmp
         End Function
 
         Overrides Function CritChance() As Double
-            CritChance = sim.Character.critAutoattack
+            CritChance = sim.Character.Crit.Value
         End Function
 
 

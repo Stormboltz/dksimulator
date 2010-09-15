@@ -29,7 +29,7 @@ Namespace Simulator.WowObjects.Procs
         Friend ProcOn As ProcsManager.ProcOnType
 
         Friend previousFade As Long
-        Friend Buff As SpellBuff
+        Friend Effect As Effect
         Friend isDebuff As Boolean
 
 
@@ -84,9 +84,12 @@ Namespace Simulator.WowObjects.Procs
 
 
         Overridable Function IsActive() As Boolean
-            If Fade >= Sim.TimeStamp Then
+            TimeWasted.Start()
+            If Fade >= sim.TimeStamp Then
+                TimeWasted.Pause()
                 Return True
             Else
+                TimeWasted.Pause()
                 Return False
             End If
         End Function
@@ -127,12 +130,12 @@ Namespace Simulator.WowObjects.Procs
             If ProcLenght Then
                 AddUptime(T)
             End If
-            HitCount += 1
+
         End Sub
 
         Overridable Sub ApplyMe(ByVal T As Long)
-            If Not (IsNothing(Buff)) Then
-                Buff.Apply()
+            If Not (IsNothing(Effect)) Then
+                Effect.Apply()
             End If
             CD = T + InternalCD * 100
             If sim.CombatLog.LogDetails Then sim.CombatLog.write(sim.TimeStamp & vbTab & Me.ToString & " proc")
@@ -243,22 +246,23 @@ Namespace Simulator.WowObjects.Procs
 
         Sub New(ByVal s As Sim)
             MyBase.New(s)
-            ChaosBaneBuff = New SpellBuff(s, "Chaos Bane", Simulator.Sim.Stat.Strength, 270, 10)
+            ChaosBaneBuff = New SpellBuff(s, "Chaos Bane Buff", Simulator.Sim.Stat.Strength, 270, 10)
             ChaosBaneSpell = New WeaponProc(s)
             With ChaosBaneSpell
                 .DamageType = "shadow"
-                ._Name = "Chaos Bane"
+                ._Name = "Chaos Bane - Damage"
                 .ProcValue = 2000
                 .ProcChance = 1
             End With
         End Sub
 
         Public Overrides Sub ApplyMe(ByVal T As Long)
-            If Buff.Currentstack > 9 Then
-                Buff.Fade()
+            If CType(Effect, SpellBuff).Currentstack > 9 Then
+                Effect.FAde()
                 CD = T + 1000
                 ChaosBaneBuff.Apply()
                 ChaosBaneSpell.TryMe(T)
+                Stack = 0
             Else
                 MyBase.ApplyMe(T)
             End If

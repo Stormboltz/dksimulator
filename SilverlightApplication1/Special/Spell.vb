@@ -23,7 +23,7 @@ Namespace Simulator.WowObjects.Spells
             If UnMissable Then Return True
 
 
-            If Math.Min(Sim.Character.SpellHit, 0.17) + RNG < 0.17 Then
+            If Math.Min(sim.Character.SpellHit.Value, 0.17) + RNG < 0.17 Then
                 Return False
             Else
                 Return True
@@ -90,7 +90,7 @@ Namespace Simulator.WowObjects.Spells
         End Function
 
         Overridable Function CritChance() As Double
-            Return Sim.Character.SpellCrit + SpecialCritChance
+            Return sim.Character.SpellCrit.Value + SpecialCritChance
         End Function
 
         Overridable Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double

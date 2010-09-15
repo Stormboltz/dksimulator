@@ -152,6 +152,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 30
                 .InternalCD = 180
                 .ProcOn = ProcOnType.OnFU
+                .Effect = New SpellEffect(s, ._Name, SpellEffectManager.SpeelEffectEnum.IncreaseAttackSpeed, 1.3, 30)
                 If Sim.Character.Talents.Talent("UnholyFrenzy").Value = 1 Then .Equip()
             End With
 
@@ -181,6 +182,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 40
                 .InternalCD = 10 * 60
                 .CD = 500
+                .Effect = New SpellEffect(s, ._Name, SpellEffectManager.SpeelEffectEnum.IncreaseAttackAndCastingSpeed, 1.3, 40)
                 If Sim.Character.Buff.Bloodlust Then .Equip()
             End With
 
@@ -285,7 +287,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 20
                 .ProcChance = 0.85
                 .ProcValue = 200
-                .Buff = New SpellBuff(s, "Virulence", Simulator.Sim.Stat.Strength, 200, 20)
+                .Effect = New SpellBuff(s, "Virulence", Simulator.Sim.Stat.Strength, 200, 20)
                 .ProcOn = ProcOnType.OnFU
                 If s.Sigils.Virulence Then .Equip()
             End With
@@ -295,7 +297,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 15
                 .ProcChance = 1
                 .ProcValueStack = 73
-                .Buff = New SpellBuff(s, "Virulence", Simulator.Sim.Stat.Strength, 73, 3, 20)
+                .Effect = New SpellBuff(s, "Virulence", Simulator.Sim.Stat.Strength, 73, 3, 20)
                 .MaxStack = 3
                 .ProcOn = ProcsManager.ProcOnType.OnFU
                 If s.Sigils.HangedMan Then .Equip()
@@ -308,7 +310,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcChance = 1
                 .ProcValue = 144
                 .ProcLenght = 10
-                .Buff = New SpellBuff(Sim, "Strife", Simulator.Sim.Stat.AP, 144, 10)
+                .Effect = New SpellBuff(Sim, "Strife", Simulator.Sim.Stat.AP, 144, 10)
                 If s.Sigils.Strife Then .Equip()
             End With
 
@@ -318,7 +320,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcValue = 180
                 .ProcLenght = 15
                 .InternalCD = 45
-                .Buff = New SpellBuff(s, "T9 DPS 2P", Simulator.Sim.Stat.Strength, 180, 15)
+                .Effect = New SpellBuff(s, "T9 DPS 2P", Simulator.Sim.Stat.Strength, 180, 15)
                 .ProcOn = ProcsManager.ProcOnType.OnBloodStrike
                 If s.Character.T92PDPS = 1 Then .Equip()
             End With
@@ -329,7 +331,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcValue = 173
                 .ProcLenght = 10
                 .InternalCD = 45
-                .Buff = New SpellBuff(s, "Haunted Dreams", Simulator.Sim.Stat.Crit, 173, 10)
+                .Effect = New SpellBuff(s, "Haunted Dreams", Simulator.Sim.Stat.Crit, 173, 10)
                 .ProcOn = ProcsManager.ProcOnType.OnBloodStrike
                 If s.Sigils.HauntedDreams Then .Equip()
             End With
@@ -342,7 +344,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcChance = 1
                 .ProcLenght = 15
                 .ProcValue = 322
-                .Buff = New SpellBuff(Sim, "Orc Racial", Simulator.Sim.Stat.AP, 322, 15)
+                .Effect = New SpellBuff(Sim, "Orc Racial", Simulator.Sim.Stat.AP, 322, 15)
                 If s.Character.Orc Then .Equip()
             End With
 
@@ -352,6 +354,7 @@ Namespace Simulator.WowObjects.Procs
                 .InternalCD = 180
                 .ProcChance = 1
                 .ProcLenght = 15
+                .Effect = New SpellEffect(s, ._Name, SpellEffectManager.SpeelEffectEnum.IncreaseAttackAndCastingSpeed, 1.2, 10)
                 .ProcValue = 0.2
                 .ProcOn = ProcsManager.ProcOnType.OnDamage
                 If s.Character.Troll Then .Equip()
@@ -386,7 +389,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcValueStack = 30
                 .MaxStack = 10
                 .ProcLenght = 60 ' Soul Fragment Duration
-                .Buff = New SpellBuff(s, "Shadowmourne", Simulator.Sim.Stat.Strength, 30, 10, 60)
+                .Effect = New SpellBuff(s, "Shadowmourne", Simulator.Sim.Stat.Strength, 30, 10, 60)
                 .HasteSensible = True
                 Try
                     If XmlCharacter.<character>.<WeaponProc>.<MHShadowmourne>.Value = 1 Then
@@ -436,7 +439,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 10
                 .ProcValue = 480
                 .InternalCD = 45
-                .Buff = New SpellBuff(Sim, "Ashen Band", Simulator.Sim.Stat.AP, 480, 10)
+                .Effect = New SpellBuff(Sim, "Ashen Band", Simulator.Sim.Stat.AP, 480, 10)
                 .ProcOn = ProcsManager.ProcOnType.OnHit
                 Try
                     If XmlCharacter.<character>.<misc>.<AshenBand>.Value = True Then
@@ -605,7 +608,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 12
                 .ProcValue = 340
                 .InternalCD = 60
-                .Buff = New SpellBuff(s, "Hyperspeed Accelerators", Simulator.Sim.Stat.Haste, 340, 12)
+                .Effect = New SpellBuff(s, "Hyperspeed Accelerators", Simulator.Sim.Stat.Haste, 340, 12)
                 ._Name = "Hyperspeed Accelerators"
                 .ProcOn = ProcsManager.ProcOnType.OnHit
                 Try
@@ -626,7 +629,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 15
                 .ProcValue = 400
                 .InternalCD = 60
-                .Buff = New SpellBuff(Sim, "Swordguard Embroidery", Simulator.Sim.Stat.AP, 400, 15)
+                .Effect = New SpellBuff(Sim, "Swordguard Embroidery", Simulator.Sim.Stat.AP, 400, 15)
                 ._Name = "Swordguard Embroidery"
                 .ProcOn = ProcsManager.ProcOnType.OnHit
 
@@ -676,7 +679,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcChance = 0.5
                 .ProcLenght = 120
                 .ProcValue = 2500
-                .Buff = New SpellBuff(s, "Indestructible Potion", Simulator.Sim.Stat.SpecialArmor, 2500, 120)
+                .Effect = New SpellBuff(s, "Indestructible Potion", Simulator.Sim.Stat.SpecialArmor, 2500, 120)
                 .InternalCD = 6000 '10 minutes
                 ._Name = "Indestructible Potion"
                 .ProcOn = ProcsManager.ProcOnType.OnMHhit
@@ -692,7 +695,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcChance = 0.5
                 .ProcLenght = 15
                 .ProcValue = 500
-                .Buff = New SpellBuff(s, "Potion of speed", Simulator.Sim.Stat.Haste, 500, 15)
+                .Effect = New SpellBuff(s, "Potion of speed", Simulator.Sim.Stat.Haste, 500, 15)
                 .InternalCD = 6000 '10 minutes
                 ._Name = "Potion of Speed"
                 .ProcOn = ProcsManager.ProcOnType.OnMHhit

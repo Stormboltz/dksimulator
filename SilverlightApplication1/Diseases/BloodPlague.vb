@@ -9,7 +9,7 @@ Namespace Simulator.WowObjects.Diseases
         End Sub
 
         Overrides Function CalculateCritChance(ByVal T As Long) As Double
-            If Sim.Character.T94PDPS = 1 Then Return Sim.Character.crit
+            If sim.Character.T94PDPS = 1 Then Return sim.Character.Crit.Value
             Return 0.0
         End Function
 

@@ -63,20 +63,20 @@ Namespace Simulator.WowObjects.Strikes
             Dim exp As Double
 
             If Me.OffHand Then
-                exp = sim.Character.OHExpertise
+                exp = sim.Character.OHExpertise.Value
             Else
-                exp = sim.Character.MHExpertise
+                exp = sim.Character.MHExpertise.Value
             End If
 
 
             If sim.BloodPresence = 1 Then
-                If Math.Min(exp, 0.065) + Math.Min(exp, 0.14) + Math.Min(sim.Character.Hit, 0.08) + RNG < 0.285 Then
+                If Math.Min(exp, 0.065) + Math.Min(exp, 0.14) + Math.Min(sim.Character.Hit.Value, 0.08) + RNG < 0.285 Then
                     Return False
                 Else
                     Return True
                 End If
             Else
-                If Math.Min(exp, 0.065) + Math.Min(sim.Character.Hit, 0.08) + RNG < 0.145 Then
+                If Math.Min(exp, 0.065) + Math.Min(sim.Character.Hit.Value, 0.08) + RNG < 0.145 Then
                     Return False
                 Else
                     Return True
@@ -193,7 +193,7 @@ Namespace Simulator.WowObjects.Strikes
         End Function
 
         Overridable Function CritChance() As Double
-            Return sim.Character.crit + SpecialCritChance
+            Return sim.Character.Crit.Value + SpecialCritChance
         End Function
 
         Private _OffDamageBonus As Double = -1

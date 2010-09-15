@@ -57,7 +57,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
 
         Function Expertise() As Double
             Dim tmp As Double
-            tmp = Sim.Character.Hit
+            tmp = Sim.Character.Hit.Value
             tmp = tmp * 214 / 32.79
 
             Return tmp
@@ -65,13 +65,13 @@ Namespace Simulator.WowObjects.PetsAndMinions
 
         Function Hit() As Double
             Dim tmp As Double
-            tmp = Sim.Character.Hit
+            tmp = Sim.Character.Hit.Value
             Return tmp
         End Function
 
         Function SpellHit() As Double
             'Dim tmp As Double
-            Return Sim.Character.SpellHit
+            Return Sim.Character.SpellHit.Value
         End Function
 
         Function ArmorPen() As Double

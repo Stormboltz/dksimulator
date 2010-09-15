@@ -25,7 +25,7 @@ Namespace Simulator.WowObjects.Procs
             Select Case DamageType
                 Case "Fallen Crisader", 3368
                 Case "Bryntroll"
-                    If RngCrit < (0.17 - sim.Character.SpellHit) Then
+                    If RngCrit < (0.17 - sim.Character.SpellHit.Value) Then
                         MissCount = MissCount + 1
                         Exit Sub
                     End If
@@ -53,7 +53,7 @@ Namespace Simulator.WowObjects.Procs
                         Else
                             tmp = sim.MainHand.AvrgNonCrit(T) / 2
                         End If
-                        If RngCrit < sim.Character.crit Then
+                        If RngCrit < sim.Character.Crit.Value Then
                             tmp = tmp * 2
                             CritCount += 1
                             TotalCrit += tmp
@@ -66,6 +66,7 @@ Namespace Simulator.WowObjects.Procs
                     Dim RNG As Double
                     RNG = RngCrit
                     AddUptime(T)
+                    Dim Buff As SpellBuff = CType(Effect, SpellBuff)
                     If RNG < 0.33 Then
                         Buff.Stat = Simulator.Sim.Stat.Strength
                     ElseIf RNG < 0.66 Then
@@ -73,16 +74,16 @@ Namespace Simulator.WowObjects.Procs
                     Else
                         Buff.Stat = Simulator.Sim.Stat.Haste
                     End If
-                    Buff.Apply()
+                    Effect.Apply()
                     If sim.CombatLog.LogDetails Then sim.CombatLog.write(sim.TimeStamp & vbTab & Me.ToString & " proc")
                     Fade = T + ProcLenght * 100
                     HitCount += 1
                 Case "arcane"
-                    If RngCrit < (0.17 - sim.Character.SpellHit) Then
+                    If RngCrit < (0.17 - sim.Character.SpellHit.Value) Then
                         MissCount = MissCount + 1
                         Exit Sub
                     End If
-                    If RngCrit <= sim.Character.SpellCrit Then
+                    If RngCrit <= sim.Character.SpellCrit.Value Then
                         CritCount = CritCount + 1
                         tmp = ProcValue * 1.5 * sim.Character.StandardMagicalDamageMultiplier(sim.TimeStamp)
                         TotalCrit += tmp
@@ -92,27 +93,19 @@ Namespace Simulator.WowObjects.Procs
                         TotalHit += tmp
                     End If
                 Case "shadow"
-                    If RngCrit < (0.17 - sim.Character.SpellHit) Then
+                    If RngHit() < (0.17 - sim.Character.SpellHit.Value) Then
                         MissCount = MissCount + 1
                         Exit Sub
                     End If
-                    If RngCrit <= sim.Character.SpellCrit Then
-                        CritCount = CritCount + 1
-                        tmp = ProcValue * 1.5 * sim.Character.StandardMagicalDamageMultiplier(sim.TimeStamp)
-
-                        TotalCrit += tmp
-                    Else
-                        tmp = ProcValue * sim.Character.StandardMagicalDamageMultiplier(sim.TimeStamp)
-
-                        HitCount = HitCount + 1
-                        TotalHit += tmp
-                    End If
+                    tmp = ProcValue * sim.Character.StandardMagicalDamageMultiplier(sim.TimeStamp)
+                    HitCount = HitCount + 1
+                    TotalHit += tmp
                 Case "SaroniteBomb"
                     tmp = ProcValue * sim.Character.StandardMagicalDamageMultiplier(sim.TimeStamp)
                     HitCount = HitCount + 1
                     TotalHit += tmp
                 Case "SapperCharge"
-                    If RngCrit <= sim.Character.crit Then
+                    If RngCrit <= sim.Character.Crit.Value Then
                         CritCount = CritCount + 1
                         tmp = ProcValue * 1.5 * sim.Character.StandardMagicalDamageMultiplier(sim.TimeStamp)
 
@@ -124,7 +117,7 @@ Namespace Simulator.WowObjects.Procs
                     End If
 
                 Case "physical"
-                    If RngCrit <= sim.Character.crit Then
+                    If RngCrit <= sim.Character.Crit.Value Then
                         CritCount = CritCount + 1
                         tmp = ProcValue * 2 * sim.Character.StandardPhysicalDamageMultiplier(sim.TimeStamp)
                         TotalCrit += tmp
@@ -145,7 +138,7 @@ Namespace Simulator.WowObjects.Procs
                 Case "BloodWorms"
                     tmp = 50 + 0.006 * sim.Character.AP
                     tmp = tmp * 10
-                    tmp = tmp * (1 + sim.Character.Haste)
+                    tmp = tmp * (1 + sim.Character.Haste.Value)
                     tmp = tmp * sim.GhoulStat.PhysicalDamageMultiplier(T)
                     Dim RNG As Double = RngCrit
                     If RNG < 0.33 Then

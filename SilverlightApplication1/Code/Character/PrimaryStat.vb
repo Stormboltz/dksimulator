@@ -1,18 +1,16 @@
 ﻿Namespace Simulator.Character
-    Public Class Stat
+    Public Class PrimaryStat
         Inherits SimObjet
 
 
-        Friend AdditiveBuff As Integer
-        Friend MultiplicativeBuff As Double = 1
+
         Friend CanHaveMultiplicativeBuff As Boolean
         Friend CanHaveProc As Boolean
         Private Stat As Sim.Stat
-        Friend BaseValue As Integer
-
-
-
-
+        Private BaseValue As Integer
+        Private CurrentValue As Integer
+        Private MultiplicativeBuff As Double = 1
+        Event ValueModifed()
 
         Sub New(ByVal Type As Sim.Stat, ByVal S As Sim, Optional ByVal CanHaveProc As Boolean = False, Optional ByVal CanHaveMultiplicativeBuff As Boolean = False)
             MyBase.New(S)
@@ -47,7 +45,6 @@
                     Diagnostics.Debug.WriteLine("WTF is this stat")
             End Select
         End Sub
-
         Overridable Sub AddMulti(ByVal i As Double)
             If i = 1 Then Exit Sub
             If CanHaveMultiplicativeBuff Then
@@ -55,6 +52,7 @@
             Else
                 Diagnostics.Debug.WriteLine("It's not supposed to be")
             End If
+            CalculateCurrentValue()
         End Sub
         Overridable Sub RemoveMulti(ByVal i As Double)
             If CanHaveMultiplicativeBuff Then
@@ -62,42 +60,42 @@
             Else
                 Diagnostics.Debug.WriteLine("It's not supposed to be")
             End If
-
+            CalculateCurrentValue()
         End Sub
         Overridable Sub Add(ByVal i As Integer)
             BaseValue += i
+            CalculateCurrentValue()
         End Sub
-        Overridable Sub Remove(ByVal i As Integer)
-            BaseValue -= i
+        Overridable Sub Replace(ByVal i As Integer)
+            BaseValue = i
+            CalculateCurrentValue()
         End Sub
 
-        Overridable Function Value() As Integer
+        Overridable Sub Remove(ByVal i As Integer)
+            BaseValue -= i
+            CalculateCurrentValue()
+        End Sub
+        Sub CalculateCurrentValue()
             TimeWasted.Start()
-            Dim tmp As Integer
-            If AdditiveBuff <> 0 Then
-                BaseValue += AdditiveBuff
-                AdditiveBuff = 0
-            End If
-            tmp = BaseValue * MultiplicativeBuff
+
+
+            CurrentValue = BaseValue * MultiplicativeBuff
+            RaiseEvent ValueModifed()
             TimeWasted.Pause()
-            Return tmp
+        End Sub
+        Overridable Function Value() As Integer
+            Return CurrentValue
         End Function
         Overridable Function MaxValue() As Integer
             TimeWasted.Start()
             Dim tmp As Integer
-            If AdditiveBuff <> 0 Then
-                BaseValue += AdditiveBuff
-                AdditiveBuff = 0
-            End If
             tmp = (BaseValue + sim.proc.GetMaxPossibleBonus(Stat)) * MultiplicativeBuff * sim.proc.GetMaxMultiPlier(Stat)
             TimeWasted.Pause()
             Return tmp
         End Function
-
     End Class
-
     Class ArmorStat
-        Inherits Stat
+        Inherits PrimaryStat
         Friend SpecialArmor As Integer
 
         Sub New(ByVal Type As Sim.Stat, ByVal S As Sim, Optional ByVal CanHaveProc As Boolean = False, Optional ByVal CanHaveMultiplicativeBuff As Boolean = False)

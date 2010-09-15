@@ -83,7 +83,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
 
         Function PhysicalHaste() As Double
             Dim tmp As Double
-            tmp = Sim.Character.PhysicalHaste
+            tmp = sim.Character.PhysicalHaste.Value
             Return tmp
         End Function
 
@@ -131,9 +131,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
             Dim tmp As Double
             tmp = MHBaseDamage()
             tmp = tmp * PhysicalDamageMultiplier(T)
-            If Sim.EPStat = "EP HasteEstimated" Then
-                tmp = tmp * Sim.Character.EstimatedHasteBonus
-            End If
+            
             AvrgNonCrit = tmp
         End Function
         Function CritCoef() As Double
@@ -234,20 +232,20 @@ Namespace Simulator.WowObjects.PetsAndMinions
         End Function
         Function Expertise() As Double
             Dim tmp As Double
-            tmp = Sim.Character.Hit
+            tmp = sim.Character.Hit.Value
             tmp = tmp * 214 / 32.79
             Return tmp
         End Function
 
         Function Hit() As Double
             Dim tmp As Double
-            tmp = Sim.Character.Hit
+            tmp = sim.Character.Hit.Value
             Return tmp
         End Function
 
         Function SpellHit() As Double
             'Dim tmp As Double
-            Return Sim.Character.SpellHit
+            Return sim.Character.SpellHit.Value
         End Function
 
         Function MHBaseDamage() As Double

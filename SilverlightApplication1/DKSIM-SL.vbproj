@@ -123,10 +123,11 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Code\Boss.vb" />
+    <Compile Include="Code\Character\CalculatedStat.vb" />
     <Compile Include="Code\Character\RaidBuffs.vb" />
     <Compile Include="Code\Character\Character.vb" />
     <Compile Include="Code\Character\MainStat.vb" />
-    <Compile Include="Code\Character\Stat.vb" />
+    <Compile Include="Code\Character\PrimaryStat.vb" />
     <Compile Include="Code\SimObjet.vb" />
     <Compile Include="Code\TimeWastedAnaliser.vb" />
     <Compile Include="CombatLog\CombatLog.vb" />
@@ -190,7 +191,10 @@
     <Compile Include="CustomControl\myGridControl.xaml.vb">
       <DependentUpon>myGridControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Procs\Effect.vb" />
     <Compile Include="Procs\SpellBuff.vb" />
+    <Compile Include="Procs\DamagingSpell.vb" />
+    <Compile Include="Procs\SpellEffect.vb" />
     <Compile Include="Report\frmPopReport.xaml.vb">
       <DependentUpon>frmPopReport.xaml</DependentUpon>
     </Compile>
@@ -4363,10 +4367,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Resource Include="System.Windows.Controls.Theming.TwilightBlue.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Resource>
     <Content Include="Templates\Empty.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

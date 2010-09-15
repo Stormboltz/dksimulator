@@ -21,9 +21,7 @@ Namespace Simulator.WowObjects.Strikes
 
         Overrides Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
             Dim tmp As Double = MyBase.AvrgNonCrit(T, target)
-            If Sim.EPStat = "EP HasteEstimated" Then
-                tmp *= Sim.Character.EstimatedHasteBonus
-            End If
+            
             Return tmp
         End Function
 

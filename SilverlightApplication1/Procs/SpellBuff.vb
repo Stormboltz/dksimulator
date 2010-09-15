@@ -1,19 +1,14 @@
-﻿Namespace Simulator.WowObjects
+﻿Namespace Simulator.WowObjects.Procs
     Public Class SpellBuff
-        Inherits WowObject
-        Dim Value As Integer
-        Friend Stat As Sim.Stat
-        Dim Lenght As Long
-        Friend previousFade As Long
-        Friend Currentstack As Integer
-        Dim MaxStack As Integer = 1
-        Dim FutureEvent As FutureEvent
+        Inherits Effect
+        
 
-     
+
 
 
         Sub New(ByVal s As Sim, ByVal name As String, ByVal stat As Sim.Stat, ByVal value As Integer, ByVal Length As Long)
             MyBase.New(s)
+            sim.SpellBuffManager.SpellBuffs.Add(Me)
             _Name = name
             Me.Stat = stat
             Me.Value = value
@@ -21,6 +16,7 @@
         End Sub
         Sub New(ByVal s As Sim, ByVal name As String, ByVal stat As Sim.Stat, ByVal Multiplicator As Double, ByVal Length As Long)
             MyBase.New(s)
+            sim.SpellBuffManager.SpellBuffs.Add(Me)
             _Name = name
             Me.Stat = stat
             Me.Multiplicator = Multiplicator
@@ -29,6 +25,7 @@
         End Sub
         Sub New(ByVal s As Sim, ByVal name As String, ByVal stat As Sim.Stat, ByVal StackValue As Integer, ByVal MaxStack As Integer, ByVal length As Long)
             MyBase.New(s)
+            sim.SpellBuffManager.SpellBuffs.Add(Me)
             _Name = name
             Me.Stat = stat
             Me.Value = StackValue
@@ -39,36 +36,10 @@
 
 
 
-        Sub AddUptime(ByVal T As Long)
-
-            If EpStat <> "" Then Return
-            Dim tmp As Long
-
-            If Lenght * 100 + T > sim.NextReset Then
-                tmp = (sim.NextReset - T) / 100
-            Else
-                tmp = Lenght
-            End If
-
-            If previousFade < T Then
-                uptime += tmp * 100
-            Else
-                uptime += tmp * 100 - (previousFade - T)
-            End If
-            previousFade = T + tmp * 100
-        End Sub
-
-        Sub RemoveUptime(ByVal T As Long)
-            If EpStat <> "" Then Return
-            If previousFade < T Then
-            Else
-                uptime -= (previousFade - T)
-            End If
-            previousFade = T
-        End Sub
-
-        Sub Apply()
+        
+        Overrides Sub Apply()
             TimeWasted.Start()
+            MyBase.Apply()
             If Currentstack < MaxStack Then
                 Currentstack += 1
                 If Multiplicator <> 1 Then
@@ -99,6 +70,7 @@
                             Diagnostics.Debug.WriteLine("SpellBuff: WTF is this stat")
                             'Error 10
                     End Select
+
                 ElseIf Value <> 0 Then
                     Select Case Stat
                         Case Simulator.Sim.Stat.Agility
@@ -132,18 +104,27 @@
                 Else
                     Diagnostics.Debug.WriteLine("SpellBuff: WTF is this Spell")
                 End If
+            Else
+
             End If
             Dim T As Long = sim.TimeStamp
-            If Currentstack > 1 Then sim.FutureEventManager.Remove(FutureEvent)
+            If Not IsNothing(FutureEvent) Then
+                If FutureEvent.T > T Then
+                    sim.FutureEventManager.Remove(FutureEvent)
+                End If
+            End If
+            
+
+
             FutureEvent = sim.FutureEventManager.Add(T + (Lenght * 100), "BuffFade", Me)
 
             AddUptime(T)
             TimeWasted.Pause()
         End Sub
 
-        Sub Fade()
+        Overrides Sub Fade()
             TimeWasted.Start()
-            If Multiplicator <> 1 Then
+            If Multiplicator <> 1 And Currentstack <> 0 Then
                 Select Case Stat
                     Case Simulator.Sim.Stat.Agility
                         sim.Character.Agility.RemoveMulti(Multiplicator)
@@ -212,4 +193,16 @@
         End Sub
 
     End Class
+    Class SpellBuffManager
+        Friend SpellBuffs As New List(Of SpellBuff)
+
+        Sub FadeAll()
+            For Each SB In SpellBuffs
+                SB.Fade()
+            Next
+        End Sub
+
+
+    End Class
+
 End Namespace

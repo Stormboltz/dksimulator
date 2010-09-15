@@ -96,16 +96,16 @@ Namespace Simulator.WowObjects.PetsAndMinions
                 'Else
                 '	Hyst = false
                 'End If
-                SpellHaste = sim.Character.SpellHaste
-                Haste = sim.Character.PhysicalHaste
+                SpellHaste = sim.Character.SpellHaste.Value
+                Haste = sim.Character.PhysicalHaste.Value
                 AP = sim.Character.AP
-                _Crit = sim.Character.critAutoattack ' Crit seems based on charater crit
-                _SpellCrit = sim.Character.SpellCrit '
+                _Crit = sim.Character.Crit.Value ' Crit seems based on charater crit
+                _SpellCrit = sim.Character.SpellCrit.Value '
                 MeleeGlacingChance = 0.25
-                MeleeMissChance = 0.08 - sim.Character.Hit
+                MeleeMissChance = 0.08 - sim.Character.Hit.Value
                 If MeleeMissChance < 0 Then MeleeMissChance = 0
                 MeleeDodgeChance = MeleeMissChance * 0.065 / 0.08
-                SpellMissChance = 0.17 - sim.Character.SpellHit
+                SpellMissChance = 0.17 - sim.Character.SpellHit.Value
                 If SpellMissChance < 0 Then SpellMissChance = 0
                 cd = T + (1.5 * 6000)
                 sim.RunicPower.Use(60)
@@ -165,10 +165,8 @@ Namespace Simulator.WowObjects.PetsAndMinions
             Dim tmp As Double
             tmp = MHBaseDamage()
             tmp = tmp * PhysicalDamageMultiplier(T)
-            If sim.EPStat = "EP HasteEstimated" Then
-                tmp = tmp * sim.Character.EstimatedHasteBonus
-            End If
-            '	tmp = tmp/2
+          
+
             Return tmp
         End Function
         Function CritCoef() As Double
@@ -230,12 +228,12 @@ Namespace Simulator.WowObjects.PetsAndMinions
         End Function
         Function Hit() As Double
             Dim tmp As Double
-            tmp = sim.Character.Hit
+            tmp = sim.Character.Hit.Value
             Return tmp
         End Function
         Function SpellHit() As Double
             Dim tmp As Double
-            tmp = sim.Character.SpellHit
+            tmp = sim.Character.SpellHit.Value
             Return tmp
         End Function
         Function MHBaseDamage() As Double
