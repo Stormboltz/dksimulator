@@ -60,7 +60,7 @@ Namespace Simulator.WowObjects.Procs
                         .ProcLenght = 15
                         .Multiplicator = 1.2
                         ._Name = "Fallen Crusader"
-                        .Buff = FallenCrusaderBuff
+                        .Effects.Add(FallenCrusaderBuff)
                     Case "3370"
                         .ProcChance = 1
                         ._Name = "RazorIce"
@@ -75,7 +75,7 @@ Namespace Simulator.WowObjects.Procs
                         .ProcChance *= 1.2
                         .ProcLenght = 15
                         .ProcValue = 400
-                        .Buff = New SpellBuff(Sim, "Berzerker", Simulator.Sim.Stat.AP, 400, 15)
+                        .Effects.Add(New SpellBuff(Sim, "Berzerker", Simulator.Sim.Stat.AP, 400, 15))
                         ._Name = "Berzerker"
 
                     Case Else
@@ -223,9 +223,6 @@ Namespace Simulator.WowObjects.Procs
                 .total += tmp
             End With
         End Sub
-
-
-
 
     End Class
 End Namespace

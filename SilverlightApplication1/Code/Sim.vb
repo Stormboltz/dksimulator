@@ -207,6 +207,7 @@ Namespace Simulator
             Intel = 12
             SpecialArmor = 13
             GhoulDamage = 14
+            Stamina = 15
         End Enum
 
 

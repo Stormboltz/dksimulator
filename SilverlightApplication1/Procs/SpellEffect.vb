@@ -45,6 +45,7 @@
 
         End Sub
         Overrides Sub Fade()
+            MyBase.FAde()
             If Multiplicator <> 0 And Currentstack <> 0 Then
                 Select Case Effect
                     Case SpellEffectManager.SpeelEffectEnum.IncreaseAttackSpeed

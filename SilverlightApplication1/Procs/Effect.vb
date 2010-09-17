@@ -9,6 +9,7 @@
         Friend Currentstack As Integer
         Protected MaxStack As Integer = 1
         Protected FutureEvent As FutureEvent
+        Friend Active As Boolean
 
         Sub New(ByVal s As Sim)
             MyBase.New(s)
@@ -17,9 +18,10 @@
 
         Overridable Sub Apply()
             HitCount += 1
+            Active = True
         End Sub
         Overridable Sub FAde()
-
+            Active = False
         End Sub
         Sub AddUptime(ByVal T As Long)
 

@@ -1441,6 +1441,7 @@ NextItem:
         xmlChar.Element("character").Element("stat").Add(New XElement("Strength", CheckForInt(StatSummary.txtStr.Text)))
         xmlChar.Element("character").Element("stat").Add(New XElement("Agility", CheckForInt(StatSummary.txtAgi.Text)))
         xmlChar.Element("character").Element("stat").Add(New XElement("Intel", CheckForInt(StatSummary.txtIntel.Text)))
+        xmlChar.Element("character").Element("stat").Add(New XElement("Stamina", CheckForInt(StatSummary.txtStam.Text)))
         xmlChar.Element("character").Element("stat").Add(New XElement("Armor", CheckForInt(StatSummary.txtArmor.Text)))
         xmlChar.Element("character").Element("stat").Add(New XElement("SpecialArmor", CheckForInt(StatSummary.txtAddArmor.Text)))
         xmlChar.Element("character").Element("stat").Add(New XElement("AttackPower", CheckForInt(StatSummary.txtAP.Text)))

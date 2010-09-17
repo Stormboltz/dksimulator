@@ -66,15 +66,14 @@ Namespace Simulator.WowObjects.Procs
                     Dim RNG As Double
                     RNG = RngCrit
                     AddUptime(T)
-                    Dim Buff As SpellBuff = CType(Effect, SpellBuff)
                     If RNG < 0.33 Then
-                        Buff.Stat = Simulator.Sim.Stat.Strength
+                        Effects(0).Stat = Simulator.Sim.Stat.Strength
                     ElseIf RNG < 0.66 Then
-                        Buff.Stat = Simulator.Sim.Stat.Crit
+                        Effects(0).Stat = Simulator.Sim.Stat.Crit
                     Else
-                        Buff.Stat = Simulator.Sim.Stat.Haste
+                        Effects(0).Stat = Simulator.Sim.Stat.Haste
                     End If
-                    Effect.Apply()
+                    Effects(0).Apply()
                     If sim.CombatLog.LogDetails Then sim.CombatLog.write(sim.TimeStamp & vbTab & Me.ToString & " proc")
                     Fade = T + ProcLenght * 100
                     HitCount += 1

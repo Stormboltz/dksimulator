@@ -123,6 +123,7 @@
         End Sub
 
         Overrides Sub Fade()
+            MyBase.FAde()
             TimeWasted.Start()
             If Multiplicator <> 1 And Currentstack <> 0 Then
                 Select Case Stat

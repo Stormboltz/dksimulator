@@ -10,6 +10,7 @@
         Haste
         SpellHit
         MeleeHit
+        Health
     End Enum
 
     Public Class CalculatedStat
@@ -99,7 +100,7 @@
         Sub New(ByVal s As Sim, ByVal PrimaryStat As PrimaryStat)
             MyBase.New(s, PrimaryStat)
             RatingRatio = 32.79
-            AdditiveBuff = 0.25 * sim.Character.Talents.Talent("Vot3W").Value * 2
+            AdditiveBuff = 0.25 * sim.Character.Talents.Talent("Vot3W").Value * 6
             CalculateCurrentValue()
         End Sub
     End Class
@@ -108,7 +109,7 @@
         Sub New(ByVal s As Sim, ByVal PrimaryStat As PrimaryStat)
             MyBase.New(s, PrimaryStat)
             RatingRatio = 32.79
-            AdditiveBuff = 0.25 * sim.Character.Talents.Talent("Vot3W").Value * 2
+            AdditiveBuff = 0.25 * sim.Character.Talents.Talent("Vot3W").Value * 6
             AdditiveBuff += sim.Character.MHExpertiseBonus * 0.25 / 100
             CalculateCurrentValue()
         End Sub
@@ -118,7 +119,7 @@
         Sub New(ByVal s As Sim, ByVal PrimaryStat As PrimaryStat)
             MyBase.New(s, PrimaryStat)
             RatingRatio = 32.79
-            AdditiveBuff = 0.25 * sim.Character.Talents.Talent("Vot3W").Value * 2
+            AdditiveBuff = 0.25 * sim.Character.Talents.Talent("Vot3W").Value * 6
             AdditiveBuff += sim.Character.OHExpertiseBonus * 0.25 / 100
             CalculateCurrentValue()
         End Sub

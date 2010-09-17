@@ -29,7 +29,7 @@ Namespace Simulator.WowObjects.Procs
         Friend ProcOn As ProcsManager.ProcOnType
 
         Friend previousFade As Long
-        Friend Effect As Effect
+        Friend Effects As New List(Of Effect)
         Friend isDebuff As Boolean
 
 
@@ -134,8 +134,10 @@ Namespace Simulator.WowObjects.Procs
         End Sub
 
         Overridable Sub ApplyMe(ByVal T As Long)
-            If Not (IsNothing(Effect)) Then
-                Effect.Apply()
+            If Effects.Count > 0 Then
+                For Each e In Effects
+                    e.Apply()
+                Next
             End If
             CD = T + InternalCD * 100
             If sim.CombatLog.LogDetails Then sim.CombatLog.write(sim.TimeStamp & vbTab & Me.ToString & " proc")
@@ -257,8 +259,8 @@ Namespace Simulator.WowObjects.Procs
         End Sub
 
         Public Overrides Sub ApplyMe(ByVal T As Long)
-            If CType(Effect, SpellBuff).Currentstack > 9 Then
-                Effect.FAde()
+            If Effects.Item(0).Currentstack > 9 Then
+                Effects.Item(0).FAde()
                 CD = T + 1000
                 ChaosBaneBuff.Apply()
                 ChaosBaneSpell.TryMe(T)

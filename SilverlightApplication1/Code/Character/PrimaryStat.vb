@@ -2,8 +2,6 @@
     Public Class PrimaryStat
         Inherits SimObjet
 
-
-
         Friend CanHaveMultiplicativeBuff As Boolean
         Friend CanHaveProc As Boolean
         Private Stat As Sim.Stat
@@ -40,7 +38,9 @@
                 Case sim.Stat.Agility
                     _Name = "Agility"
                 Case sim.Stat.Intel
-                    _Name = "Itelligence"
+                    _Name = "Intelligence"
+                Case sim.Stat.Stamina
+                    _Name = "Stamina"
                 Case Else
                     Diagnostics.Debug.WriteLine("WTF is this stat")
             End Select

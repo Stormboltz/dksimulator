@@ -50,6 +50,9 @@ Namespace Simulator.Character
         Friend Intel As PrimaryStat
         Friend MasteryRating As PrimaryStat
         Friend Armor As ArmorStat
+
+        Friend Stamina As PrimaryStat
+        Friend Health As CalculatedStats.CalculatedStat
         'Friend SpecialArmor As Stat
 
         Friend Crit As CalculatedStats.Crit
@@ -110,16 +113,20 @@ Namespace Simulator.Character
         End Sub
         Sub InitStats()
             Strength = New PrimaryStat(Simulator.Sim.Stat.Strength, Sim, True, True)
-            Agility = New PrimaryStat(Simulator.Sim.Stat.Agility, Sim)
+            Agility = New PrimaryStat(Simulator.Sim.Stat.Agility, Sim, False, True)
             AttackPower = New PrimaryStat(Simulator.Sim.Stat.AP, Sim, True)
             HitRating = New PrimaryStat(Simulator.Sim.Stat.Hit, Sim)
             CritRating = New PrimaryStat(Simulator.Sim.Stat.Crit, Sim, True)
             HasteRating = New PrimaryStat(Simulator.Sim.Stat.Haste, Sim)
             ArmorPenetrationRating = New PrimaryStat(Simulator.Sim.Stat.ArP, Sim)
             ExpertiseRating = New PrimaryStat(Simulator.Sim.Stat.Expertise, Sim)
-            Intel = New PrimaryStat(Simulator.Sim.Stat.Intel, Sim)
+            Intel = New PrimaryStat(Simulator.Sim.Stat.Intel, Sim, True, True)
             Armor = New ArmorStat(Simulator.Sim.Stat.Armor, Sim)
             MasteryRating = New PrimaryStat(Simulator.Sim.Stat.Mastery, Sim, True)
+
+            Stamina = New PrimaryStat(Simulator.Sim.Stat.Stamina, Sim, True, True)
+            Health = New CalculatedStats.CalculatedStat(Sim, Stamina, 0.001)
+            Health._Name = "Health"
 
             Crit = New CalculatedStats.Crit(Sim, CritRating)
             Crit._Name = "Crit"
@@ -179,6 +186,7 @@ Namespace Simulator.Character
                 HasteRating.Add(Int32.Parse(XmlCharacter.Element("character").Element("stat").Element("HasteRating").Value))
                 ArmorPenetrationRating.Add(Int32.Parse(XmlCharacter.Element("character").Element("stat").Element("ArmorPenetrationRating").Value))
                 ExpertiseRating.Add(Int32.Parse(XmlCharacter.Element("character").Element("stat").Element("ExpertiseRating").Value))
+                Stamina.Add(Int32.Parse(XmlCharacter.Element("character").Element("stat").Element("Stamina").Value))
                 _Dual = Int32.Parse(XmlCharacter.Element("character").Element("weapon").Element("count").Value)
 
                 MHExpertiseBonus = Int32.Parse(XmlCharacter.Element("character").Element("racials").Element("MHExpertiseBonus").Value)
@@ -287,12 +295,17 @@ Namespace Simulator.Character
             End Select
 
             'check that Talent and buff are loaded!
-
+            Stamina.AddMulti(1 + 5 * Buff.StatMulti / 100)
+            Stamina.AddMulti(1 + Sim.Character.Talents.Talent("Vot3W").Value * 9 / 100)
+            If Sim.BloodPresence Then Stamina.AddMulti(1.08)
+            Stamina.AddMulti(1.05) 'Plate Specialization
+            Stamina.Add(140) 'Fortitude
 
             Agility.Add(155 * 1.15 * Buff.StrAgi)
             Agility.AddMulti(1 + 5 * Buff.StatMulti / 100)
 
             Strength.Add(155 * 1.15 * Buff.StrAgi)
+            Strength.AddMulti(1.05) 'Plate Specialization
             Strength.AddMulti(1 + 5 * Buff.StatMulti / 100)
             Strength.AddMulti(1 + Talents.Talent("BrittleBones").Value * 2 / 100)
             Strength.AddMulti(1 + Talents.Talent("AbominationMight").Value / 100)
@@ -354,7 +367,7 @@ Namespace Simulator.Character
 
 
 
-
+            Diagnostics.Debug.WriteLine("Health= " & Health.Value & " Stam= " & Stamina.Value)
         End Sub
         Sub InitTrinkets()
             'Trinkets

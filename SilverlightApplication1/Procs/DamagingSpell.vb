@@ -25,6 +25,7 @@
         End Sub
 
         Overrides Sub Fade()
+            MyBase.FAde()
             TimeWasted.Start()
             RemoveUptime(sim.TimeStamp)
             Currentstack = 0
