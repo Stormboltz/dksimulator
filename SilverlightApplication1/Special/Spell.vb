@@ -15,7 +15,7 @@ Namespace Simulator.WowObjects.Spells
         Friend ActiveUntil As Long
         Friend UnMissable As Boolean
 
-
+        
 
         Function DoMySpellHit() As Boolean
             Dim RNG As Double
@@ -124,6 +124,16 @@ Namespace Simulator.WowObjects.Spells
             TotalCrit = 0
         End Sub
 
+        Overridable Function IsAvailable() As Boolean
+            Return Me.Resource.IsAvailable
+        End Function
+
+        Overridable Sub Use()
+            Me.Resource.Use()
+        End Sub
+        Overridable Sub UseAlf()
+            Me.Resource.UseAlf()
+        End Sub
 
     End Class
 End Namespace

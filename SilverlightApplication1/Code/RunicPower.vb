@@ -23,6 +23,10 @@ Namespace Simulator
             Value -= Cost
             Total += Cost
         End Sub
+        Sub UseAll()
+            Total += Value
+            Value = 0
+        End Sub
 
         Function Check(ByVal Cost As Integer) As Boolean
             Return Value >= Cost
@@ -49,7 +53,7 @@ Namespace Simulator
         End Function
 
 
-        Sub add(ByVal i As Double)
+        Sub add(ByVal i As Double) ' Before presence
             i = i * (1 + sim.FrostPresence / 100)
             sim.Threat = sim.Threat + i * 5
             Value = i + Value

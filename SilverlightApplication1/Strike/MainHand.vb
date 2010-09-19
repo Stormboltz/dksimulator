@@ -78,7 +78,7 @@ Namespace Simulator.WowObjects.Strikes
 
 
             total = total + LastDamage
-            If sim.Character.Talents.Talent("Necrosis").Value > 0 Then sim.Necrosis.Apply(LastDamage, T)
+            'If sim.Character.Talents.Talent("Necrosis").Value > 0 Then sim.Necrosis.Apply(LastDamage, T)
             If sim.proc.MHBloodCakedBlade.TryMe(T) Then sim.BloodCakedBlade.ApplyDamage(T)
             sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.OnMHWhiteHit)
 

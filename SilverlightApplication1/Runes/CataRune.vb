@@ -108,9 +108,7 @@ Namespace Simulator.WowObjects.Runes
             Dim tmp As Double
             'tmp = (1 / 10)
             tmp = (1 / 10) * sim.Character.Haste.Value
-            If Sim.UnholyPresence = 1 Then
-                tmp = tmp * (1.1 + Sim.Character.Talents.Talent("ImprovedUnholyPresence").Value * 2.5 / 100)
-            End If
+            tmp *= sim.Character.RuneRegeneration.Value
 
             Return tmp
         End Function

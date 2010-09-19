@@ -11,7 +11,7 @@ Namespace Simulator.WowObjects.Strikes
 
 
         Overrides Function ApplyDamage(ByVal T As Long) As Boolean
-            Dim Nec As Double
+            'Dim Nec As Double
 
 
             Dim RNG As Double
@@ -85,9 +85,9 @@ Namespace Simulator.WowObjects.Strikes
                 sim.RunicPower.add(10)
             End If
             total = total + LastDamage
-            If sim.Character.Talents.Talent("Necrosis").Value > 0 Then
-                Nec = sim.OHNecrosis.Apply(LastDamage, T)
-            End If
+            'If sim.Character.Talents.Talent("Necrosis").Value > 0 Then
+            '    Nec = sim.OHNecrosis.Apply(LastDamage, T)
+            'End If
             If sim.proc.OHBloodCakedBlade.TryMe(T) Then sim.OHBloodCakedBlade.ApplyDamage(T)
 
             sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.OnOHWhitehit)

@@ -15,21 +15,21 @@ Namespace Simulator.WowObjects.Spells
             logLevel = LogLevelEnum.Detailled
         End Sub
 
-        Function Use(ByVal T As Long) As Boolean
-            If CD > T Then Return False
-            CD = T + (5 * 60 * 100)
+        Overrides Sub Use()
+            If CD > sim.TimeStamp Then Return
+            CD = sim.TimeStamp + (5 * 60 * 100)
 
-            Sim.Runes.BloodRune1.Activate()
-            Sim.Runes.BloodRune2.Activate()
-            Sim.Runes.FrostRune1.Activate()
-            Sim.Runes.FrostRune2.Activate()
-            Sim.Runes.UnholyRune1.Activate()
-            Sim.Runes.UnholyRune2.Activate()
-            Sim.RunicPower.add(25)
-            Sim.CombatLog.write(T & vbTab & "EmpowerRuneWeapon")
-            Sim._UseGCD(T, 1)
-            Return True
-        End Function
+            sim.Runes.BloodRune1.Activate()
+            sim.Runes.BloodRune2.Activate()
+            sim.Runes.FrostRune1.Activate()
+            sim.Runes.FrostRune2.Activate()
+            sim.Runes.UnholyRune1.Activate()
+            sim.Runes.UnholyRune2.Activate()
+            sim.RunicPower.add(25)
+            sim.CombatLog.write(sim.TimeStamp & vbTab & "EmpowerRuneWeapon")
+            sim._UseGCD(sim.TimeStamp, 1)
+
+        End Sub
 
     End Class
 

@@ -1,19 +1,25 @@
 Namespace Simulator.WowObjects.Spells
     Friend Class HowlingBlast
         Inherits Spell
+        Dim alternateRessource As Resource
+        Dim talented As Boolean
         Sub New(ByVal S As sim)
             MyBase.New(S)
             BaseDamage = 1079
             Coeficient = 0.2
             Multiplicator = 1
+            Resource = New Resource(S, ResourcesEnum.FrostRune, 15, False)
+            alternateRessource = New Resource(S, ResourcesEnum.None, 0, False)
+            If sim.Character.Talents.Talent("HowlingBlast").Value = 1 Then talented = True
             If S.Character.Talents.GetNumOfThisSchool(Character.Talents.Schools.Frost) > 20 Then
                 Multiplicator = Multiplicator * 1.2 'Frozen Heart
             End If
             logLevel = LogLevelEnum.Basic
         End Sub
-        Function isAvailable(ByVal T As Long) As Boolean
-            If sim.Character.Talents.Talent("HowlingBlast").Value <> 1 Then Return False
-            Return True
+        Overrides Function isAvailable() As Boolean
+            If Not talented Then Return False
+            If sim.proc.Rime.IsActive Then Return True
+            Return MyBase.IsAvailable
         End Function
 
         Overrides Function ApplyDamage(ByVal T As Long) As Boolean
@@ -22,25 +28,19 @@ Namespace Simulator.WowObjects.Spells
 
             If sim.proc.Rime.IsActive Then
                 sim.proc.Rime.Use()
-
             Else
-                sim.Runes.UseFrost(T, False)
-                sim.RunicPower.add(15)
+                Resource.Use()
             End If
+
             Dim Tar As Targets.Target
 
             For Each Tar In sim.Targets.AllTargets
-
                 If DoMySpellHit() = False Then
                     sim.CombatLog.write(T & vbTab & Me.Name & " fail")
-                    sim.proc.KillingMachine.Use()
                     sim.proc.Rime.Use()
                     MissCount = MissCount + 1
                 Else
-
-
                     RNG = RngCrit
-
                     Dim ccT As Double
                     ccT = CritChance()
                     If RNG <= ccT Then
@@ -57,12 +57,9 @@ Namespace Simulator.WowObjects.Spells
                     total = total + LastDamage
                     sim.RunicPower.add(sim.Character.Talents.Talent("ChillOfTheGrave").Value * 5)
                     sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.OnDamage)
-
                 End If
             Next
 
-
-            sim.proc.KillingMachine.Use()
             If sim.character.glyph.HowlingBlast Then
                 sim.Targets.MainTarget.FrostFever.Apply(T)
             End If
@@ -80,9 +77,9 @@ Namespace Simulator.WowObjects.Spells
         End Function
 
         Overrides Function CritChance() As Double
-            If sim.proc.KillingMachine.IsActive Then
-                Return 1
-            End If
+            'If sim.proc.KillingMachine.IsActive Then
+            '    Return 1
+            'End If
             Return MyBase.CritChance
         End Function
 

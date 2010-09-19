@@ -4,6 +4,9 @@ Imports System.IO
 Namespace Simulator.Character
 
     Public Class Talents
+
+
+
         Private Talents As New Collections.Generic.Dictionary(Of String, Talent)
         'Private Talents As New List(Of Talent)
         Private IncludedTalents As New List(Of Talent)

@@ -56,7 +56,7 @@ Namespace Simulator.WowObjects.Diseases
 
         Function Lenght() As Integer
             If _Lenght = 0 Then
-                _Lenght = 3000 + 600 * Sim.Character.Talents.Talent("Epidemic").Value
+                _Lenght = 2100 + 400 * sim.Character.Talents.Talent("Epidemic").Value
             End If
             Return _Lenght
         End Function
@@ -188,9 +188,10 @@ Namespace Simulator.WowObjects.Diseases
         End Sub
 
         Sub AddUptime(ByVal T As Long)
+            If Not sim.CalculateUPtime Then Return
             Dim tmp As Long
-            If Lenght() + T > Sim.NextReset Then
-                tmp = (Sim.NextReset - T)
+            If Lenght() + T > sim.NextReset Then
+                tmp = (sim.NextReset - T)
             Else
                 tmp = Lenght()
             End If
@@ -209,6 +210,7 @@ Namespace Simulator.WowObjects.Diseases
 
 
         Sub RemoveUptime(ByVal T As Long)
+            If Not sim.CalculateUPtime Then Return
             If previousFade < T Then
             Else
                 uptime -= (previousFade - T)

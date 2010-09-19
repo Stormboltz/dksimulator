@@ -6,8 +6,8 @@ Namespace Simulator.WowObjects.Spells
             'Base Damage
             BaseDamage = 885
             If Sim.Sigils.VengefulHeart Then BaseDamage += 380
-            If Sim.Sigils.WildBuck Then BaseDamage += 80
-
+            If sim.Sigils.WildBuck Then BaseDamage += 80
+            Resource = New Resource(S, ResourcesEnum.RunicPower, 40 - (3 * sim.Character.Talents.Talent("RunicCorruption").Value))
             Coeficient = (0.15)
             Multiplicator = 1 + sim.Character.Talents.Talent("Morbidity").Value * 0.05
             If Sim.Character.Glyph.DarkDeath Then
@@ -21,8 +21,9 @@ Namespace Simulator.WowObjects.Spells
 
 
 
-        Function isAvailable(ByVal T As Long) As Boolean
-            Return Sim.RunicPower.CheckRS(40) Or Sim.proc.SuddenDoom.IsActive
+        Overrides Function isAvailable() As Boolean
+            If MyBase.IsAvailable Then Return True
+            Return sim.proc.SuddenDoom.IsActive
         End Function
 
         Overrides Function ApplyDamage(ByVal T As Long) As Boolean
@@ -30,18 +31,18 @@ Namespace Simulator.WowObjects.Spells
             If Sim.proc.SuddenDoom.IsActive Then
                 Sim.proc.SuddenDoom.Use()
             Else
-                If Sim.RunicPower.Check(60) Then
-                    If Sim.Character.Talents.Talent("DRW").Value = 1 Then
-                        If Sim.DRW.cd < T Then
-                            If Sim.DRW.Summon(T) = True Then Return True
+                If sim.RunicPower.Check(60) Then
+                    If sim.Character.Talents.Talent("DRW").Value = 1 Then
+                        If sim.DRW.cd < T Then
+                            If sim.DRW.Summon(T) = True Then Return True
                         End If
-                    ElseIf Sim.PetFriendly And Sim.Character.Talents.Talent("SummonGargoyle").Value = 1 Then
-                        If Sim.Gargoyle.cd < T Then
-                            If Sim.Gargoyle.Summon(T) = True Then Return True
+                    ElseIf sim.PetFriendly And sim.Character.Talents.Talent("SummonGargoyle").Value = 1 Then
+                        If sim.Gargoyle.cd < T Then
+                            If sim.Gargoyle.Summon(T) = True Then Return True
                         End If
                     End If
                 End If
-                Sim.RunicPower.Use(40)
+                Resource.Use()
             End If
             UseGCD(T)
             Dim ret As Boolean = MyBase.ApplyDamage(T)

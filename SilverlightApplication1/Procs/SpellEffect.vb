@@ -20,6 +20,7 @@
             MyBase.Apply()
 
 
+            Dim T As Long = sim.TimeStamp
             If Currentstack < MaxStack Then
                 Currentstack += 1
 
@@ -31,10 +32,42 @@
                     Case SpellEffectManager.SpeelEffectEnum.IncreaseAttackAndCastingSpeed
                         sim.Character.SpellHaste.AddMulti(Value * Currentstack)
                         sim.Character.PhysicalHaste.AddMulti(Value * Currentstack)
+                    Case SpellEffectManager.SpeelEffectEnum.IncreaseRuneRegeneration
+                        sim.Character.RuneRegeneration.AddMulti(Value * Currentstack)
+                        For i As Integer = 1 To Lenght
+                            sim.FutureEventManager.Add(T + (i * 100), "RuneFill", Me)
+                        Next
+                    Case SpellEffectManager.SpeelEffectEnum.RunicEmpowerement
+                        Dim d As Double '= RngCrit
+                        Dim DepletedRunes As New List(Of Runes.CataRune)
+                        If sim.Runes.BloodRune1.Value = 0 Then DepletedRunes.Add(sim.Runes.BloodRune1)
+                        If sim.Runes.BloodRune2.Value = 0 Then DepletedRunes.Add(sim.Runes.BloodRune2)
+
+                        If sim.Runes.UnholyRune1.Value = 0 Then DepletedRunes.Add(sim.Runes.UnholyRune1)
+                        If sim.Runes.UnholyRune2.Value = 0 Then DepletedRunes.Add(sim.Runes.UnholyRune2)
+
+                        If sim.Runes.FrostRune1.Value = 0 Then DepletedRunes.Add(sim.Runes.FrostRune1)
+                        If sim.Runes.FrostRune2.Value = 0 Then DepletedRunes.Add(sim.Runes.FrostRune2)
+
+                        If DepletedRunes.Count = 0 Then
+                            sim.CombatLog.write(sim.TimeStamp & vbTab & Me.Name & " proc with no depleted rune")
+                            Return
+                        End If
+
+                        d = (DepletedRunes.Count - 1) * RngCrit
+                        Dim dec As Decimal = Convert.ToDecimal(d)
+                        Dim i As Integer
+                        i = Decimal.Round(dec, 0)
+                        Try
+                            DepletedRunes.Item(i).Value = 100
+                            sim.CombatLog.write(sim.TimeStamp & vbTab & Me.Name & "on " & DepletedRunes.Item(i).Name)
+                        Catch ex As Exception
+
+                        End Try
                 End Select
             End If
             
-            Dim T As Long = sim.TimeStamp
+
             If Not IsNothing(FutureEvent) Then
                 If FutureEvent.T > T Then
                     sim.FutureEventManager.Remove(FutureEvent)
@@ -45,7 +78,7 @@
 
         End Sub
         Overrides Sub Fade()
-            MyBase.FAde()
+            MyBase.Fade()
             If Multiplicator <> 0 And Currentstack <> 0 Then
                 Select Case Effect
                     Case SpellEffectManager.SpeelEffectEnum.IncreaseAttackSpeed
@@ -55,6 +88,8 @@
                     Case SpellEffectManager.SpeelEffectEnum.IncreaseAttackAndCastingSpeed
                         sim.Character.PhysicalHaste.RemoveMulti(Value * Currentstack)
                         sim.Character.SpellHaste.RemoveMulti(Value * Currentstack)
+                    Case SpellEffectManager.SpeelEffectEnum.IncreaseRuneRegeneration
+                        sim.Character.RuneRegeneration.RemoveMulti(Value * Currentstack)
                 End Select
 
             End If
@@ -69,6 +104,8 @@
             IncreaseAttackSpeed
             IncreaseCastingSpeed
             IncreaseAttackAndCastingSpeed
+            IncreaseRuneRegeneration
+            RunicEmpowerement
         End Enum
 
         Friend SpellEffects As New List(Of SpellEffect)

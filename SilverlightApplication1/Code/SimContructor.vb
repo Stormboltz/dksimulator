@@ -304,20 +304,10 @@ Public Module SimConstructor
         End Try
 
 
-        Try
-            EpStat = "EP HasteEstimated"
-            DPS = DPSs(EpStat)
-            tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
-            tmp2 = (DPS - BaseDPS) / EPBase
-            Haste = toDDecimal(tmp2 / tmp1)
-            rp.AddAdditionalInfo(EpStat, Haste)
-
-        Catch
-
-        End Try
+        
 
         Try
-            EpStat = "EP HasteRating1"
+            EpStat = "EP HasteRating"
             DPS = DPSs(EpStat)
             tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
             tmp2 = (DPS - BaseDPS) / EPBase
@@ -515,14 +505,14 @@ Public Module SimConstructor
         Haste = Haste.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
         Crit = Crit.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
 
-        Dim lootlink As String
-        lootlink = "http://www.guildox.com/wr.asp?Cla=2048&s7=3.2&str=" & Str & "&Arm=" & 0.028 & "&mh=" & Haste & "&dps=" & MHDPS & "&mcr=" & Crit & _
-         "&odps=" & 0 & "&Agi=" & Agility & "&mhit=" & Hit & "&map=1" & "&msp=" & MHSpeed & "&arp=" & ArP & "&osp=0" & "&Exp=" & Exp
-        rp.AddAdditionalInfo("lootlink non hit caped", lootlink)
+        ' Dim lootlink As String
+        'lootlink = "http://www.guildox.com/wr.asp?Cla=2048&s7=3.2&str=" & Str & "&Arm=" & 0.028 & "&mh=" & Haste & "&dps=" & MHDPS & "&mcr=" & Crit & _
+        '"&odps=" & 0 & "&Agi=" & Agility & "&mhit=" & Hit & "&map=1" & "&msp=" & MHSpeed & "&arp=" & ArP & "&osp=0" & "&Exp=" & Exp
+        'rp.AddAdditionalInfo("lootlink non hit caped", lootlink)
 
-        lootlink = "http://www.guildox.com/wr.asp?Cla=2048&s7=3.2&str=" & Str & "&Arm=" & 0.028 & "&mh=" & Haste & "&dps=" & MHDPS & "&mcr=" & Crit & _
-    "&odps=" & 0 & "&Agi=" & Agility & "&mhit=" & SpHit & "&map=1" & "&msp=" & MHSpeed & "&arp=" & ArP & "&osp=0" & "&Exp=" & Exp
-        rp.AddAdditionalInfo("lootlink hit caped", lootlink)
+        'lootlink = "http://www.guildox.com/wr.asp?Cla=2048&s7=3.2&str=" & Str & "&Arm=" & 0.028 & "&mh=" & Haste & "&dps=" & MHDPS & "&mcr=" & Crit & _
+        '"&odps=" & 0 & "&Agi=" & Agility & "&mhit=" & SpHit & "&map=1" & "&msp=" & MHSpeed & "&arp=" & ArP & "&osp=0" & "&Exp=" & Exp
+        'rp.AddAdditionalInfo("lootlink hit caped", lootlink)
         Dim pwan As String
         pwan = "Pawn: v1: " + Convert.ToChar(34) + "Non hit caped" + Convert.ToChar(34) + ": ArmorPenetration=" + ArP + ", HitRating=" + Hit + ", CritRating=" + Crit + ", Dps=" + MHDPS + ", Strength=" + Str + ", Armor=0.028, Agility=" + Agility + ", HasteRating=" + Haste + ", Speed=" + MHSpeed + ", ExpertiseRating=" + Exp + ", Ap=1, GemQualityLevel=82 )"
         rp.AddAdditionalInfo("pwan Non hit caped", pwan)
@@ -551,9 +541,7 @@ Public Module SimConstructor
         EpStat = "EP Agility"
         SimConstructor.Start(SimTime, MainFrm)
         EpStat = "EP CritRating"
-        SimConstructor.Start(SimTime, MainFrm)
-        EpStat = "EP HasteEstimated"
-
+        
         SimConstructor.Start(SimTime, MainFrm)
         EpStat = "EP RelativeExpertiseRating"
         SimConstructor.Start(SimTime, MainFrm)
@@ -592,13 +580,6 @@ Public Module SimConstructor
         DPS = DPSs(EpStat)
         tmp2 = (DPS - BaseDPS) / EPBase
         EPVal.Crit = Math.Max(0, toDDecimal(tmp2 / tmp1))
-
-        EpStat = "EP HasteEstimated"
-        DPS = DPSs(EpStat)
-        tmp2 = (DPS - BaseDPS) / EPBase
-        EPVal.Haste = Math.Max(0, toDDecimal(tmp2 / tmp1))
-
-
 
 
         EpStat = "EP RelativeExpertiseRating"
@@ -682,10 +663,9 @@ skipStats:
                     SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                 End If
                 If doc.Element("config").Element("Stats").Element("chkEPHaste").Value = "true" Then
-                    EpStat = "EP HasteRating1"
+                    EpStat = "EP HasteRating"
                     SimConstructor.Start(SimTime, MainFrm, False, EpStat)
-                    EpStat = "EP HasteEstimated"
-                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
+
                 End If
 
 

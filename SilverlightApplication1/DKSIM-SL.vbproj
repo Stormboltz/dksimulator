@@ -128,6 +128,7 @@
     <Compile Include="Code\Character\Character.vb" />
     <Compile Include="Code\Character\MainStat.vb" />
     <Compile Include="Code\Character\PrimaryStat.vb" />
+    <Compile Include="Code\Ressources.vb" />
     <Compile Include="Code\SimObjet.vb" />
     <Compile Include="Code\TimeWastedAnaliser.vb" />
     <Compile Include="CombatLog\CombatLog.vb" />

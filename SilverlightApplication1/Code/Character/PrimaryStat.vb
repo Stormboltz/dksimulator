@@ -44,6 +44,7 @@
                 Case Else
                     Diagnostics.Debug.WriteLine("WTF is this stat")
             End Select
+            CalculateCurrentValue()
         End Sub
         Overridable Sub AddMulti(ByVal i As Double)
             If i = 1 Then Exit Sub

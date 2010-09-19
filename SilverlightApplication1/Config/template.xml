@@ -85,9 +85,9 @@
     <ResilientInfection row="2" col="2">2</ResilientInfection>
    
     <Morbidity row="2" col="4">3</Morbidity>
-    
-    
-    <Necrosis row="3" col="1">3</Necrosis>
+
+
+    <RunicCorruption row="3" col="1">2</RunicCorruption>
     <UnholyFrenzy row="3" col="2">1</UnholyFrenzy>
     <Contagion row="3" col="3">3</Contagion>
     <ShadowInfusion row="3" col="4">3</ShadowInfusion>

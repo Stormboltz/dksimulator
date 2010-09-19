@@ -2,13 +2,6 @@
     Public Class DamagingSpell
         Inherits Effect
 
-       
-
-        Function IsActive()
-            If sim.TimeStamp > FutureEvent.T Then Return False
-            Return True
-        End Function
-
         Sub New(ByVal s As Sim)
             MyBase.New(s)
         End Sub

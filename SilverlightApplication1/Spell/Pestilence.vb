@@ -13,74 +13,74 @@ Namespace Simulator.WowObjects.Spells
         Sub New(ByVal S As Sim)
             MyBase.New(S)
             logLevel = LogLevelEnum.Basic
+            Dim D As Boolean = (sim.Character.Talents.Talent("Reaping").Value + sim.Character.Talents.Talent("BloodoftheNorth").Value > 0)
+            Resource = New Resource(S, ResourcesEnum.BloodRune, 15, D)
         End Sub
 
-        Function use(ByVal T As Double) As Boolean
+        Overrides Sub use()
+            Dim T As Double = sim.TimeStamp
             UseGCD(T)
-            If DoMySpellHit = False Then
-                Sim.CombatLog.write(T & vbTab & "Pestilence fail")
+
+
+            If DoMySpellHit() = False Then
+                sim.CombatLog.write(T & vbTab & "Pestilence fail")
                 MissCount = MissCount + 1
-                Return False
+                Return
             End If
-            Sim.RunicPower.add(15)
-            Sim.CombatLog.write(T & vbTab & "Pestilence")
+            MyBase.Use()
+
+            sim.CombatLog.write(T & vbTab & "Pestilence")
             HitCount = HitCount + 1
 
-            If Sim.proc.ReapingBotN.TryMe(T) Then
-                Sim.Runes.UseBlood(T, True)
-            Else
-                Sim.Runes.UseBlood(T, False)
-            End If
-
             Dim Tar As Targets.Target
-            If Sim.Targets.MainTarget.BloodPlague.FadeAt > T Then
-                For Each Tar In Sim.Targets.AllTargets
-                    If Tar.Equals(Sim.Targets.MainTarget) = False Then
+            If sim.Targets.MainTarget.BloodPlague.FadeAt > T Then
+                For Each Tar In sim.Targets.AllTargets
+                    If Tar.Equals(sim.Targets.MainTarget) = False Then
                         Tar.BloodPlague.Apply(T, Tar)
                     End If
                 Next
             End If
-            If Sim.Targets.MainTarget.FrostFever.FadeAt > T Then
-                For Each Tar In Sim.Targets.AllTargets
-                    If Tar.Equals(Sim.Targets.MainTarget) = False Then
+            If sim.Targets.MainTarget.FrostFever.FadeAt > T Then
+                For Each Tar In sim.Targets.AllTargets
+                    If Tar.Equals(sim.Targets.MainTarget) = False Then
                         Tar.FrostFever.Apply(T, Tar)
                     End If
                 Next
             End If
 
-            If Sim.Character.Glyph.Disease Then
-                If Sim.Targets.MainTarget.BloodPlague.FadeAt > T Then
-                    Sim.Targets.MainTarget.BloodPlague.Refresh(T)
+            If sim.Character.Glyph.Disease Then
+                If sim.Targets.MainTarget.BloodPlague.FadeAt > T Then
+                    sim.Targets.MainTarget.BloodPlague.Refresh(T)
                 End If
-                If Sim.Targets.MainTarget.FrostFever.FadeAt > T Then
-                    Sim.Targets.MainTarget.FrostFever.Refresh(T)
+                If sim.Targets.MainTarget.FrostFever.FadeAt > T Then
+                    sim.Targets.MainTarget.FrostFever.Refresh(T)
                 End If
             End If
 
-            Return True
-        End Function
+
+        End Sub
         Function PerfectUsage(ByVal T As Double) As Boolean
             Dim tmp1 As Long
             Dim tmp2 As Long
 
             Dim blood As Boolean
 
-            If Sim.Character.Talents.Talent("Gargoyle").Value = 1 Then
-                blood = Sim.Runes.BloodOnly(T)
+            If sim.Character.Talents.Talent("Gargoyle").Value = 1 Then
+                blood = sim.Runes.BloodOnly(T)
             Else
-                blood = Sim.Runes.AnyBlood(T)
+                blood = sim.Runes.AnyBlood(T)
             End If
             If blood Then
-                tmp1 = Math.Min(Sim.Targets.MainTarget.BloodPlague.FadeAt, Sim.Targets.MainTarget.FrostFever.FadeAt)
+                tmp1 = Math.Min(sim.Targets.MainTarget.BloodPlague.FadeAt, sim.Targets.MainTarget.FrostFever.FadeAt)
                 If tmp1 < T Then
                     Return False
                 End If
 
-                If Sim.Targets.MainTarget.BloodPlague.FadeAt <> Sim.Targets.MainTarget.FrostFever.FadeAt Then
+                If sim.Targets.MainTarget.BloodPlague.FadeAt <> sim.Targets.MainTarget.FrostFever.FadeAt Then
                     Return True
                 End If
                 If tmp1 - T > 800 Then Return False
-                tmp2 = Sim.Runes.GetNextBloodCD(T)
+                tmp2 = sim.Runes.GetNextBloodCD(T)
                 If tmp2 > tmp1 Or tmp2 = 0 Then
                     Return True
                 End If

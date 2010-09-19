@@ -9,7 +9,7 @@
         Friend Currentstack As Integer
         Protected MaxStack As Integer = 1
         Protected FutureEvent As FutureEvent
-        Friend Active As Boolean
+        Friend IsActive As Boolean
 
         Sub New(ByVal s As Sim)
             MyBase.New(s)
@@ -18,13 +18,13 @@
 
         Overridable Sub Apply()
             HitCount += 1
-            Active = True
+            IsActive = True
         End Sub
-        Overridable Sub FAde()
-            Active = False
+        Overridable Sub Fade()
+            IsActive = False
         End Sub
         Sub AddUptime(ByVal T As Long)
-
+            If Not sim.CalculateUPtime Then Return
             If EpStat <> "" Then Return
             Dim tmp As Long
 
@@ -43,6 +43,7 @@
         End Sub
 
         Sub RemoveUptime(ByVal T As Long)
+            If Not sim.CalculateUPtime Then Return
             If EpStat <> "" Then Return
             If previousFade < T Then
             Else
@@ -54,7 +55,6 @@
     End Class
     Class EffectManager
         Friend Effects As New List(Of Effect)
-
     End Class
 End Namespace
 

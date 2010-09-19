@@ -7,28 +7,28 @@
         Sub New(ByVal S As Sim)
             MyBase.New(S)
             logLevel = LogLevelEnum.Detailled
+            Resource = New Resource(S, ResourcesEnum.AllRunicPower, 0, False)
+        End Sub
+
+        Sub CancelAura()
+            If sim.UnholyPresence <> 0 Then
+                sim.Character.RuneRegeneration.RemoveMulti(1.1 + sim.Character.Talents.Talent("ImprovedUnholyPresence").Value * 0.025)
+            End If
+            sim.UnholyPresence = 0
+        End Sub
+        
+
+        Overrides Sub Use()
+            sim.BloodPresenceSwitch.CancelAura()
+            sim.FrostPresenceSwitch.CancelAura()
+            sim.Character.RuneRegeneration.AddMulti(1.1 + sim.Character.Talents.Talent("ImprovedUnholyPresence").Value * 0.025)
+            sim.UnholyPresence = 1
+            sim.CombatLog.write(sim.TimeStamp & vbTab & "Switch to Unholy Presence")
+            Me.HitCount = Me.HitCount + 1
+            sim._UseGCD(sim.TimeStamp, 1)
         End Sub
 
 
-        Function IsAvailable(ByVal T As Long) As Boolean
-            If Sim.Runes.Unholy() Then
-                Return True
-            Else
-                Return False
-            End If
-        End Function
-
-
-        Function Use(ByVal T As Long) As Boolean
-            Sim.BloodPresence = 0
-            Sim.UnholyPresence = 1
-            Sim.FrostPresence = 0
-            Sim.Runes.UseUnholy(T, False)
-            Sim.CombatLog.write(T & vbTab & "Switch to Unholy Presence")
-            Me.HitCount = Me.HitCount + 1
-            Sim._UseGCD(T, 1)
-            Return True
-        End Function
 
     End Class
 End Namespace

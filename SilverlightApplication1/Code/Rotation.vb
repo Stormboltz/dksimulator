@@ -48,14 +48,17 @@ Namespace Simulator
         Function DoRoration(ByVal TimeStamp As Double, ByVal Ability As String, ByVal retry As Integer) As Boolean
             Select Case Ability
                 Case "BloodTap"
-                    If sim.BloodTap.IsAvailable(TimeStamp) Then
-                        Return sim.BloodTap.Use(TimeStamp)
+                    If sim.BloodTap.IsAvailable() Then
+                        sim.BloodTap.Use()
+                        Return True
                     Else
                         If retry = 0 Then Return True
                     End If
                 Case "BoneShield"
-                    If sim.BoneShield.IsAvailable(TimeStamp) Then
-                        Return sim.BoneShield.Use(TimeStamp)
+                    If sim.BoneShield.IsAvailable() Then
+
+                        sim.BoneShield.Use()
+                        Return True
                     Else
                         If retry = 0 Then Return True
                     End If
@@ -91,7 +94,8 @@ Namespace Simulator
                     End If
                 Case "EmpowerRuneWeapon"
                     If sim.ERW.CD <= TimeStamp Then
-                        Return sim.ERW.Use(TimeStamp)
+                        sim.ERW.Use()
+                        Return True
                     End If
                 Case "FrostStrike"
                     If sim.FrostStrike.isAvailable(TimeStamp) = True Then
@@ -114,12 +118,12 @@ Namespace Simulator
                 Case "BloodStrike"
                     If Runes.AnyBlood(TimeStamp) Then
                         If sim.BoneShieldUsageStyle = 1 Then
-                            If sim.BoneShield.IsAvailable(TimeStamp) Then
-                                sim.BoneShield.Use(TimeStamp)
+                            If sim.BoneShield.IsAvailable() Then
+                                sim.BoneShield.Use()
                                 Return True
                             End If
-                            If sim.PillarOfFrost.IsAvailable(TimeStamp) Then
-                                sim.PillarOfFrost.Use(TimeStamp)
+                            If sim.PillarOfFrost.IsAvailable() Then
+                                sim.PillarOfFrost.Use()
                                 Return True
                             End If
                         End If
@@ -157,8 +161,7 @@ Namespace Simulator
                         If retry = 0 Then Return True
                     End If
                 Case "DeathCoil"
-                    If sim.DeathCoil.isAvailable(TimeStamp) = True Then
-
+                    If sim.DeathCoil.isAvailable() = True Then
                         Return sim.DeathCoil.ApplyDamage(TimeStamp)
                         'Diagnostics.Debug.WriteLine("DC")
                         Exit Function
@@ -168,12 +171,12 @@ Namespace Simulator
                 Case "BloodBoil"
                     If Runes.AnyBlood(TimeStamp) = True Then
                         If sim.BoneShieldUsageStyle = 3 Then
-                            If sim.BoneShield.IsAvailable(TimeStamp) Then
-                                sim.BoneShield.Use(TimeStamp)
+                            If sim.BoneShield.IsAvailable() Then
+                                sim.BoneShield.Use()
                                 Return True
                             End If
-                            If sim.PillarOfFrost.IsAvailable(TimeStamp) Then
-                                sim.PillarOfFrost.Use(TimeStamp)
+                            If sim.PillarOfFrost.IsAvailable() Then
+                                sim.PillarOfFrost.Use()
                                 Return True
                             End If
                         End If
@@ -184,47 +187,48 @@ Namespace Simulator
                         If retry = 0 Then Return True
                     End If
                 Case "HowlingBlast"
-                    If sim.HowlingBlast.isAvailable(TimeStamp) Then
-                        If sim.proc.Rime.IsActive Or Runes.Frost(TimeStamp) Then
-                            Return sim.HowlingBlast.ApplyDamage(TimeStamp)
-                            Exit Function
-                        Else
-
-                        End If
+                    If sim.HowlingBlast.isAvailable() Then
+                        Return sim.HowlingBlast.ApplyDamage(TimeStamp)
+                        Exit Function
                     Else
                         If retry = 0 Then Return True
                     End If
                 Case "DeathandDecay"
-                    If sim.DeathandDecay.isAvailable(TimeStamp) Then
+                    If sim.DeathandDecay.isAvailable() Then
                         Return sim.DeathandDecay.Apply(TimeStamp)
                     End If
                 Case "Pestilence"
-                    If Runes.AnyBlood(TimeStamp) Then
-                        Return sim.Pestilence.use(TimeStamp)
+                    If sim.Pestilence.IsAvailable Then
+                        sim.Pestilence.use()
+                        Return True
                     Else
                         If retry = 0 Then Return True
                     End If
                 Case "Horn"
-                    If sim.Horn.isAvailable(TimeStamp) Then
-                        Return sim.Horn.use(TimeStamp)
+                    If sim.Horn.isAvailable() Then
+                        sim.Horn.use()
+                        Return True
                     Else
                         If retry = 0 Then Return True
                     End If
                 Case "BloodPresence"
-                    If sim.BloodPresenceSwitch.IsAvailable(TimeStamp) Then
-                        Return sim.BloodPresenceSwitch.Use(TimeStamp)
+                    If sim.BloodPresenceSwitch.IsAvailable() Then
+                        sim.BloodPresenceSwitch.Use()
+                        Return True
                     Else
                         If retry = 0 Then Return True
                     End If
                 Case "FrostPresence"
-                    If sim.FrostPresenceSwitch.IsAvailable(TimeStamp) Then
-                        Return sim.FrostPresenceSwitch.Use(TimeStamp)
+                    If sim.FrostPresenceSwitch.IsAvailable() Then
+                        sim.FrostPresenceSwitch.Use()
+                        Return True
                     Else
                         If retry = 0 Then Return True
                     End If
                 Case "UnholyPresence"
-                    If sim.UnholyPresenceSwitch.IsAvailable(TimeStamp) Then
-                        Return sim.UnholyPresenceSwitch.Use(TimeStamp)
+                    If sim.UnholyPresenceSwitch.IsAvailable() Then
+                        sim.UnholyPresenceSwitch.Use()
+                        Return True
                     Else
                         If retry = 0 Then Return True
                     End If

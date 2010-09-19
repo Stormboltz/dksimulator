@@ -150,6 +150,26 @@
             CurrentValue = MyBase.Value() + ((sim.Character.Agility.Value / 62.5) / 100)
         End Sub
     End Class
+    Class RuneRegeneration
+        Inherits CalculatedStat
+        Dim WithEvents CalculatedStat As CalculatedStat
+
+        Sub New(ByVal s As Sim, ByVal CalcStat As CalculatedStat)
+            MyBase.New(s, CalcStat.PrimaryStat)
+            CalculatedStat = CalcStat
+            CalculateCurrentValue()
+            _Name = "Rune Regeneration"
+        End Sub
+
+        Overrides Sub CalculateCurrentValue() Handles CalculatedStat.CaluclatedStat_Update
+            CurrentValue = MultiplicativeBuff
+        End Sub
+
+
+    End Class
+
+
+
     Class ModifiedWeaponSpeed
         Inherits CalculatedStat
         Dim WithEvents CalculatedStat As CalculatedStat

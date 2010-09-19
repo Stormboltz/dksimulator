@@ -6,6 +6,7 @@
 
         Sub New(ByVal s As Sim)
             MyBase.New(s)
+            Resource = New Resource(s, ResourcesEnum.UnholyRune, 15, False)
             DarkTransformationBuff = New Procs.Proc(sim)
             DarkTransformationBuff.ProcLenght = 30
             DarkTransformationBuff.ProcChance = 1
@@ -18,7 +19,7 @@
 
         End Sub
 
-        Function IsAvailable() As Boolean
+        Overrides Function IsAvailable() As Boolean
             If DarkTransformationBuff.Equiped = 0 Then Return False
             If Not sim.Runes.Unholy Then Return False
             If Not sim.Ghoul.ShadowInfusion.Stack >= 5 Then Return False
@@ -26,15 +27,13 @@
         End Function
 
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
-            sim.Runes.UseUnholy(T, False)
+            Use()
             UseGCD(T)
-            sim.RunicPower.add(15)
             sim.CombatLog.write(T & vbTab & "Dark Transformation")
             HitCount = HitCount + 1
             sim.Ghoul.ShadowInfusion.Stack = 0
             sim.Ghoul.ShadowInfusion.CD = T + 3000
             sim.Ghoul.ShadowInfusion.Cancel()
-
             DarkTransformationBuff.TryMe(T)
             Return (True)
         End Function

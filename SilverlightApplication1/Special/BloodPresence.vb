@@ -13,29 +13,22 @@ Namespace Simulator.WowObjects.Spells
         Sub New(ByVal S As Sim)
             MyBase.New(S)
             logLevel = LogLevelEnum.Detailled
+            Resource = New Resource(S, ResourcesEnum.AllRunicPower, 0, False)
         End Sub
 
-        Function IsAvailable(ByVal T As Long) As Boolean
-            If Sim.Runes.AnyBlood(T) Then
-                Return True
-            Else
-                Return False
-            End If
+        Sub CancelAura()
+            sim.BloodPresence = 0
+        End Sub
 
-        End Function
-
-
-        Function Use(ByVal T As Long) As Boolean
-            Sim.BloodPresence = 1
-            Sim.UnholyPresence = 0
-            Sim.FrostPresence = 0
-
-            Sim.Runes.UseBlood(T, False)
-            Sim.CombatLog.write(T & vbTab & "Switch to Blood Presence")
+        Overrides Sub Use()
+            MyBase.Use()
+            sim.BloodPresence = 1
+            sim.FrostPresenceSwitch.CancelAura()
+            sim.UnholyPresenceSwitch.cancelAura()
+            sim.CombatLog.write(sim.TimeStamp & vbTab & "Switch to Blood Presence")
             Me.HitCount = Me.HitCount + 1
-            Sim._UseGCD(T, 1)
-            Return True
-        End Function
+            sim._UseGCD(sim.TimeStamp, 1)
+        End Sub
 
     End Class
 End Namespace

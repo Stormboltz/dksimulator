@@ -8,6 +8,7 @@
     End Sub
 
     Sub Report()
+
 #If DEBUG Then
         Dim L As Long
         For Each T As TimeWasted In (From tw In TimeWastedCol
@@ -37,6 +38,7 @@
 
         Sub Start()
 #If DEBUG Then
+            If sim.EPStat <> "" Then Exit Sub
             If LastStart <> 0 Then
                 Diagnostics.Debug.WriteLine("TimeWasted: Start without prior ending")
             End If
@@ -45,8 +47,8 @@
         End Sub
         Sub Pause()
 #If DEBUG Then
-
-            Total += 1 + Now.Ticks - LastStart
+            If sim.EPStat <> "" Then Exit Sub
+            Total += Now.Ticks - LastStart
             LastStart = 0
 #End If
         End Sub

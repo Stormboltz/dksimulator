@@ -52,13 +52,13 @@ Namespace Simulator
                         End If
 
                     Case "BloodTap"
-                        If sim.BloodTap.IsAvailable(TimeStamp) And sim.Runes.BloodRune1.death = False And sim.Runes.BloodRune2.death = False Then
-                            sim.BloodTap.Use(TimeStamp)
+                        If sim.BloodTap.IsAvailable() And sim.Runes.BloodRune1.death = False And sim.Runes.BloodRune2.death = False Then
+                            sim.BloodTap.Use()
                             'Diagnostics.Debug.WriteLine("BT")
                         End If
                     Case "BoneShield"
-                        If sim.BoneShield.IsAvailable(TimeStamp) Then
-                            sim.BoneShield.Use(TimeStamp)
+                        If sim.BoneShield.IsAvailable() Then
+                            sim.BoneShield.Use()
                             Exit Sub
                         End If
 
@@ -139,12 +139,12 @@ Namespace Simulator
                         If sim.Character.Talents.Talent("Reaping").Value = 3 Or sim.Character.Talents.Talent("BloodoftheNorth").Value = 3 Then
                             If runes.Blood(TimeStamp) And sim.CanUseGCD(TimeStamp) Then
                                 If sim.BoneShieldUsageStyle = 1 Then
-                                    If sim.BoneShield.IsAvailable(TimeStamp) Then
-                                        sim.BoneShield.Use(TimeStamp)
+                                    If sim.BoneShield.IsAvailable() Then
+                                        sim.BoneShield.Use()
                                         Exit Sub
                                     End If
-                                    If sim.PillarOfFrost.IsAvailable(TimeStamp) Then
-                                        sim.PillarOfFrost.Use(TimeStamp)
+                                    If sim.PillarOfFrost.IsAvailable() Then
+                                        sim.PillarOfFrost.Use()
                                         Exit Sub
                                     End If
                                 End If
@@ -154,12 +154,12 @@ Namespace Simulator
                         Else
                             If runes.AnyBlood(TimeStamp) And sim.CanUseGCD(TimeStamp) Then
                                 If sim.BoneShieldUsageStyle = 1 Then
-                                    If sim.BoneShield.IsAvailable(TimeStamp) Then
-                                        sim.BoneShield.Use(TimeStamp)
+                                    If sim.BoneShield.IsAvailable() Then
+                                        sim.BoneShield.Use()
                                         Exit Sub
                                     End If
-                                    If sim.PillarOfFrost.IsAvailable(TimeStamp) Then
-                                        sim.PillarOfFrost.Use(TimeStamp)
+                                    If sim.PillarOfFrost.IsAvailable() Then
+                                        sim.PillarOfFrost.Use()
                                         Exit Sub
                                     End If
                                 End If
@@ -179,7 +179,7 @@ Namespace Simulator
                             Exit Sub
                         End If
                     Case "Rime"
-                        If sim.proc.Rime.IsActive And sim.HowlingBlast.isAvailable(TimeStamp) And sim.CanUseGCD(TimeStamp) Then
+                        If sim.HowlingBlast.isAvailable And sim.CanUseGCD(TimeStamp) Then
                             sim.HowlingBlast.ApplyDamage(TimeStamp)
                             Exit Sub
                         End If
@@ -188,18 +188,18 @@ Namespace Simulator
                             If sim.Targets.MainTarget.FrostFever.isActive(TimeStamp) And sim.Targets.MainTarget.BloodPlague.isActive(TimeStamp) Then
                                 If sim.Targets.IsFrostFeverOnAll(TimeStamp) = False And sim.Targets.IsBloodPlagueOnAll(TimeStamp) = False Then
                                     If runes.Blood(TimeStamp) Then
-                                        sim.Pestilence.use(TimeStamp)
+                                        sim.Pestilence.use()
                                     End If
                                 End If
                             End If
                         End If
                         If sim.Character.Glyph.Disease Then
                             If sim.Pestilence.PerfectUsage(TimeStamp) Then
-                                sim.Pestilence.use(TimeStamp)
+                                sim.Pestilence.use()
                                 Exit Sub
                             Else
                                 If sim.Targets.MainTarget.FrostFever.ShouldReapply(TimeStamp) Then
-                                    If sim.Character.Talents.Talent("HowlingBlast").Value = 1 And sim.Character.Glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp) Then
+                                    If sim.Character.Glyph.HowlingBlast And sim.HowlingBlast.isAvailable() Then
                                         If sim.proc.Rime.IsActive Or runes.Frost(TimeStamp) Then
                                             sim.HowlingBlast.ApplyDamage(TimeStamp)
                                             Exit Sub
@@ -213,7 +213,7 @@ Namespace Simulator
                             End If
                         Else
                             If sim.Targets.MainTarget.FrostFever.PerfectUsage(TimeStamp) = True Or sim.Targets.MainTarget.FrostFever.ToReApply Then
-                                If sim.Character.Talents.Talent("HowlingBlast").Value = 1 And sim.Character.Glyph.HowlingBlast And sim.HowlingBlast.isAvailable(TimeStamp) Then
+                                If sim.Character.Glyph.HowlingBlast And sim.HowlingBlast.isAvailable() Then
                                     If sim.proc.Rime.IsActive Or runes.Frost(TimeStamp) Then
                                         sim.HowlingBlast.ApplyDamage(TimeStamp)
                                         Exit Sub
@@ -228,21 +228,21 @@ Namespace Simulator
 
                     Case "EmpowerRuneWeapon"
                         If sim.ERW.CD <= TimeStamp Then
-                            sim.ERW.Use(TimeStamp)
+                            sim.ERW.Use()
                         End If
                     Case "BloodPlague"
                         If sim.Targets.Count > 1 And sim.KeepDiseaseOnOthersTarget Then
                             If sim.Targets.MainTarget.FrostFever.isActive(TimeStamp) And sim.Targets.MainTarget.BloodPlague.isActive(TimeStamp) Then
                                 If sim.Targets.IsFrostFeverOnAll(TimeStamp) = False And sim.Targets.IsBloodPlagueOnAll(TimeStamp) = False Then
                                     If runes.Blood(TimeStamp) Then
-                                        sim.Pestilence.use(TimeStamp)
+                                        sim.Pestilence.use()
                                     End If
                                 End If
                             End If
                         End If
                         If sim.Character.Glyph.Disease Then
                             If sim.Pestilence.PerfectUsage(TimeStamp) Then
-                                sim.Pestilence.use(TimeStamp)
+                                sim.Pestilence.use()
                                 Exit Sub
                             Else
                                 If sim.Targets.MainTarget.BloodPlague.ShouldReapply(TimeStamp) Then
@@ -276,7 +276,7 @@ Namespace Simulator
                             Exit Sub
                         End If
                     Case "DeathCoil"
-                        If sim.DeathCoil.isAvailable(TimeStamp) = True And sim.CanUseGCD(TimeStamp) Then
+                        If sim.DeathCoil.isAvailable() = True And sim.CanUseGCD(TimeStamp) Then
                             sim.DeathCoil.ApplyDamage(TimeStamp)
                             'Diagnostics.Debug.WriteLine("DC")
                             Exit Sub
@@ -284,12 +284,12 @@ Namespace Simulator
                     Case "BloodBoil"
                         If (runes.Blood(TimeStamp) = True Or sim.proc.CrimsonScourge.IsActive) And sim.CanUseGCD(TimeStamp) Then
                             If sim.BoneShieldUsageStyle = 3 Then
-                                If sim.BoneShield.IsAvailable(TimeStamp) Then
-                                    sim.BoneShield.Use(TimeStamp)
+                                If sim.BoneShield.IsAvailable() Then
+                                    sim.BoneShield.Use()
                                     Exit Sub
                                 End If
-                                If sim.PillarOfFrost.IsAvailable(TimeStamp) Then
-                                    sim.PillarOfFrost.Use(TimeStamp)
+                                If sim.PillarOfFrost.IsAvailable() Then
+                                    sim.PillarOfFrost.Use()
                                 End If
                             End If
                             sim.BloodBoil.ApplyDamage(TimeStamp)
@@ -310,46 +310,35 @@ Namespace Simulator
                     Case "Pestilance"
 
                     Case "HowlingBlast"
-                        If sim.HowlingBlast.isAvailable(TimeStamp) Then
-                            If sim.proc.Rime.IsActive Or runes.Frost(TimeStamp) And sim.CanUseGCD(TimeStamp) Then
-                                sim.HowlingBlast.ApplyDamage(TimeStamp)
-                                Exit Sub
-                            Else
-                                'runes.ReserveFU(TimeStamp)
-                            End If
-                        Else
+                        If sim.HowlingBlast.isAvailable() Then
+
+                            sim.HowlingBlast.ApplyDamage(TimeStamp)
+                            Exit Sub
                         End If
                     Case "KMHowlingBlast"
-                        If sim.HowlingBlast.isAvailable(TimeStamp) And sim.proc.KillingMachine.IsActive() Then
-                            If sim.proc.Rime.IsActive Or runes.FU(TimeStamp) And sim.CanUseGCD(TimeStamp) Then
+                        If sim.HowlingBlast.isAvailable() And sim.proc.KillingMachine.IsActive() Then
                                 sim.HowlingBlast.ApplyDamage(TimeStamp)
                                 Exit Sub
-                            Else
-                                'runes.ReserveFU(TimeStamp)
-                            End If
-                        Else
                         End If
                     Case "KMRime"
-                        If sim.HowlingBlast.isAvailable(TimeStamp) And sim.proc.Rime.IsActive And sim.proc.KillingMachine.IsActive And sim.CanUseGCD(TimeStamp) Then
+                        If sim.HowlingBlast.isAvailable() And sim.proc.Rime.IsActive And sim.proc.KillingMachine.IsActive And sim.CanUseGCD(TimeStamp) Then
                             sim.HowlingBlast.ApplyDamage(TimeStamp)
                             Exit Sub
                         Else
                         End If
                     Case "FadeRime"
-                        If sim.HowlingBlast.isAvailable(TimeStamp) And sim.proc.Rime.IsActive And sim.proc.Rime.Fade < TimeStamp + 250 And sim.CanUseGCD(TimeStamp) Then
+                        If sim.HowlingBlast.isAvailable() And sim.proc.Rime.IsActive And sim.proc.Rime.Fade < TimeStamp + 250 And sim.CanUseGCD(TimeStamp) Then
                             sim.HowlingBlast.ApplyDamage(TimeStamp)
                             Exit Sub
-                        Else
                         End If
-
                     Case "DeathandDecay"
-                        If sim.DeathandDecay.isAvailable(TimeStamp) And sim.CanUseGCD(TimeStamp) Then
+                        If sim.DeathandDecay.isAvailable() And sim.CanUseGCD(TimeStamp) Then
                             sim.DeathandDecay.Apply(TimeStamp)
                             Exit Sub
                         End If
                     Case "Horn"
-                        If sim.Horn.isAvailable(TimeStamp) Then
-                            sim.Horn.use(TimeStamp)
+                        If sim.Horn.isAvailable() Then
+                            sim.Horn.use()
                             Exit Sub
                         End If
                 End Select

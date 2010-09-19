@@ -137,10 +137,15 @@ Namespace Simulator.WowObjects.Procs
 
 
 
-            RunicEmpowerment = New RunicEmpowerment(s)
+            RunicEmpowerment = New Proc(s)
             With RunicEmpowerment
                 ._Name = "Runic Empowerment"
                 .ProcChance = 0.45
+                If Sim.Character.Talents.Talent("RunicCorruption").Value > 0 Then
+                    .Effects.Add(New SpellEffect(s, "Runic Corruption", SpellEffectManager.SpeelEffectEnum.IncreaseRuneRegeneration, 1 + Sim.Character.Talents.Talent("RunicCorruption").Value * 0.5, 3))
+                Else
+                    .Effects.Add(New SpellEffect(s, "Runic Empowerment", SpellEffectManager.SpeelEffectEnum.RunicEmpowerement, 0, 20))
+                End If
                 .ProcOn = ProcOnType.onRPDump
                 .Equip()
             End With

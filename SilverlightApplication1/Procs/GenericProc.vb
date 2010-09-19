@@ -163,10 +163,11 @@ Namespace Simulator.WowObjects.Procs
         End Sub
 
         Sub AddUptime(ByVal T As Long)
+            If Not sim.CalculateUPtime Then Return
             Dim tmp As Long
 
-            If ProcLenght * 100 + T > Sim.NextReset Then
-                tmp = (Sim.NextReset - T) / 100
+            If ProcLenght * 100 + T > sim.NextReset Then
+                tmp = (sim.NextReset - T) / 100
             Else
                 tmp = ProcLenght
             End If
@@ -198,48 +199,7 @@ Namespace Simulator.WowObjects.Procs
         End Sub
 
     End Class
-    Class RunicEmpowerment
-        Inherits Proc
-
-        Sub New(ByVal S As Sim)
-            MyBase.New(S)
-
-        End Sub
-
-        Public Overrides Sub ApplyMe(ByVal T As Long)
-            Dim d As Double '= RngCrit
-            Dim DepletedRunes As New List(Of Runes.CataRune)
-            If Sim.Runes.BloodRune1.Value = 0 Then DepletedRunes.Add(Sim.Runes.BloodRune1)
-            If Sim.Runes.BloodRune2.Value = 0 Then DepletedRunes.Add(Sim.Runes.BloodRune2)
-
-            If Sim.Runes.UnholyRune1.Value = 0 Then DepletedRunes.Add(Sim.Runes.UnholyRune1)
-            If Sim.Runes.UnholyRune2.Value = 0 Then DepletedRunes.Add(Sim.Runes.UnholyRune2)
-
-            If Sim.Runes.FrostRune1.Value = 0 Then DepletedRunes.Add(Sim.Runes.FrostRune1)
-            If Sim.Runes.FrostRune2.Value = 0 Then DepletedRunes.Add(Sim.Runes.FrostRune2)
-
-            If DepletedRunes.Count = 0 Then
-                sim.CombatLog.write(sim.TimeStamp & vbTab & Me.Name & " proc with no depleted rune")
-                Return
-            End If
-
-            d = (DepletedRunes.Count - 1) * RngCrit
-            Dim dec As Decimal = Convert.ToDecimal(d)
-            Dim i As Integer
-            i = Decimal.Round(dec, 0)
-
-            Try
-                DepletedRunes.Item(i).Value = 100
-                Sim.CombatLog.write(Sim.TimeStamp & vbTab & Me.Name & "on " & DepletedRunes.Item(i).Name)
-            Catch ex As Exception
-                msgBox(ex.StackTrace)
-            End Try
-
-            Sim.CombatLog.write(Sim.TimeStamp & vbTab & Me.Name & " proc")
-            MyBase.ApplyMe(T)
-        End Sub
-
-    End Class
+ 
     Class Shadowmourne
         Inherits WeaponProc
 

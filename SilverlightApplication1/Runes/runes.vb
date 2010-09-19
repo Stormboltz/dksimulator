@@ -177,6 +177,25 @@ Frost:
             End If
             Return T
         End Function
+
+
+
+        Function Death() As Boolean
+            If BloodRune1.Available And BloodRune1.death = True Then Return True
+            If BloodRune2.Available And BloodRune2.death = True Then Return True
+            If FrostRune1.Available And FrostRune1.death = True Then Return True
+            If FrostRune2.Available And FrostRune2.death = True Then Return True
+            If UnholyRune1.Available And UnholyRune1.death = True Then Return True
+            If UnholyRune2.Available And UnholyRune2.death = True Then Return True
+            Return False
+        End Function
+
+
+
+
+
+
+
         Function AnyBlood(ByVal T As Long) As Boolean
             If BloodRune1.AvailableTime <= T And BloodRune1.reserved = False Then Return True
             If BloodRune2.AvailableTime <= T And BloodRune2.reserved = False Then Return True

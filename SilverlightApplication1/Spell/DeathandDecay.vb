@@ -29,10 +29,9 @@ Namespace Simulator.WowObjects.Spells
             ThreadMultiplicator = 1.9
         End Sub
 
-        Function isAvailable(ByVal T As Long) As Boolean
-            If CD > T Then Return False
-            If Sim.Runes.Unholy() Then Return True
-            Return False
+        Overrides Function isAvailable() As Boolean
+            If CD > sim.TimeStamp Then Return False
+            Return MyBase.IsAvailable
         End Function
 
         Function Apply(ByVal T As Long) As Boolean

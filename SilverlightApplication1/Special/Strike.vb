@@ -227,6 +227,15 @@ Namespace Simulator.WowObjects.Strikes
             OffHandStrike.TotalHit = 0
             OffHandStrike.TotalCrit = 0
         End Sub
+        Overridable Function IsAvailable() As Boolean
+            Return Me.Resource.IsAvailable
+        End Function
 
+        Overridable Sub Use()
+            Me.Resource.Use()
+        End Sub
+        Overridable Sub UseAlf()
+            Me.Resource.UseAlf()
+        End Sub
     End Class
 End Namespace

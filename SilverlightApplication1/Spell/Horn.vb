@@ -13,6 +13,7 @@ Namespace Simulator.WowObjects.Spells
         Sub New(ByVal S As Sim)
             MyBase.New(S)
             logLevel = LogLevelEnum.Basic
+            Resource = New Resource(S, ResourcesEnum.None, 10, False)
         End Sub
 
 
@@ -23,7 +24,7 @@ Namespace Simulator.WowObjects.Spells
                 If Sim.Priority.prio.Contains("Horn") Then Return False
             End If
             If Sim.Runes.RuneRefreshTheNextGCD(T) = True Then
-                Return isAvailable(T)
+                Return isAvailable()
             Else
                 Return False
             End If
@@ -31,25 +32,23 @@ Namespace Simulator.WowObjects.Spells
 
 
 
-        Function isAvailable(ByVal T As Long) As Boolean
-            If Sim.RunicPower.CheckMax(9) Then Return False
+        Overrides Function isAvailable() As Boolean
+            If sim.RunicPower.CheckMax(9) Then Return False
 
-            If CD <= T Then
+            If CD <= sim.TimeStamp Then
                 Return True
             Else
                 Return False
             End If
         End Function
 
-        Function use(ByVal T As Long) As Boolean
-            CD = T + 20 * 100
-            Sim.RunicPower.add(10)
+        Overrides Sub use()
+            CD = sim.TimeStamp + 20 * 100
+            sim.RunicPower.add(10)
             HitCount = HitCount + 1
-            UseGCD(T)
-            Sim.CombatLog.write(T & vbTab & "Horn used")
-            Return True
-        End Function
-
+            UseGCD(sim.TimeStamp)
+            sim.CombatLog.write(sim.TimeStamp & vbTab & "Horn used")
+        End Sub
 
     End Class
 End Namespace

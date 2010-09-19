@@ -12,89 +12,30 @@ Namespace Simulator.WowObjects.Spells
         Friend previousFade As Long
         Friend Talented As Boolean
         Friend Proc As Procs.Proc
+        Friend Buff As Procs.SpellBuff
 
         Sub New(ByVal S As Sim)
             MyBase.New(S)
             logLevel = LogLevelEnum.Basic
             If Sim.Character.Talents.Talent("PillarOfFrost").Value <> 0 Then Talented = True
-
-            Proc = New Procs.Proc(S)
-            Proc.Multiplicator = 1.2
-            Proc.ProcOn = Procs.ProcsManager.ProcOnType.OnMisc
-            Proc.ProcChance = 1
-            Proc.ProcLenght = 20
-            Proc.Effects.Add(New Procs.SpellBuff(S, "Pillar Of Frost", Simulator.Sim.Stat.Strength, 1.2, 20))
-            Proc.Equip()
+            Buff = (New Procs.SpellBuff(S, "Pillar Of Frost", Simulator.Sim.Stat.Strength, 1.2, 20))
+            Resource = New Resource(S, ResourcesEnum.BloodTap, 15, True)
         End Sub
 
 
 
-        Function IsAvailable(ByVal T As Long) As Boolean
-
+        Overrides Function IsAvailable() As Boolean
             If Not Talented Then Return False
-            If CD >= T Then Return False
-            If Sim.BloodTap.IsAvailable(T) And Sim.Runes.Frost(T) = False Then
-                Return True
-            Else
-                Return False
-            End If
-
+            If CD >= sim.TimeStamp Then Return False
+            Return MyBase.IsAvailable
         End Function
-        Function Use(ByVal T As Long) As Boolean
-
-
-            If Sim.Runes.Frost(T) = False Then
-                If Sim.BloodTap.IsAvailable(T) Then
-                    Sim.BloodTap.Use(T)
-                Else
-                    Return False
-                End If
-            End If
-
-            CD = T + 60 * 100
-            Sim.Runes.UseDeathBlood(T, True)
-            ActiveUntil = T + 20 * 100
-            Proc.TryMe(T)
-            Sim._UseGCD(T, 1)
-            Sim.RunicPower.add(15)
-            Sim.CombatLog.write(T & vbTab & "Pillar of Frost")
+        Overrides Sub Use()
+            MyBase.Use()
+            CD = sim.TimeStamp + 60 * 100
+            Buff.Apply()
+            sim._UseGCD(sim.TimeStamp, 1)
+            sim.CombatLog.write(sim.TimeStamp & vbTab & "Pillar of Frost")
             Me.HitCount = Me.HitCount + 1
-            AddUptime(T)
-            Return True
-        End Function
-        Function isActive() As Boolean
-            If ActiveUntil >= Sim.TimeStamp Then
-                Return True
-            Else
-                Return False
-            End If
-        End Function
-
-
-        Sub AddUptime(ByVal T As Long)
-            Dim tmp As Long
-            If ActiveUntil > Sim.NextReset Then
-                tmp = (Sim.NextReset - T)
-            Else
-                tmp = ActiveUntil - T
-            End If
-
-            If previousFade < T Then
-                uptime += tmp
-            Else
-                uptime += tmp - (previousFade - T)
-            End If
-            previousFade = T + tmp
         End Sub
-
-        Sub RemoveUptime(ByVal T As Long)
-            If previousFade < T Then
-            Else
-                uptime -= (previousFade - T)
-            End If
-            previousFade = T
-        End Sub
-
-
     End Class
 End Namespace

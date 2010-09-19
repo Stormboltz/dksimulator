@@ -8,7 +8,7 @@ Namespace Simulator.WowObjects.Strikes
         Sub New(ByVal S As Sim)
             MyBase.New(S)
             HasteSensible = True
-            Coeficient = 0.1 * Sim.Character.Talents.Talent("Necrosis").Value
+            'Coeficient = 0.1 * Sim.Character.Talents.Talent("Necrosis").Value
             logLevel = LogLevelEnum.Detailled
         End Sub
 

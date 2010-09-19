@@ -16,7 +16,7 @@ Namespace Simulator.WowObjects.Strikes
             BaseDamage = 934.4
             If Sim.Sigils.Awareness Then BaseDamage = BaseDamage + 336
             Coeficient = 1.6
-            Multiplicator = (1 + Sim.Character.Talents.Talent("Annihilation").Value * 10 / 100)
+            Multiplicator = (1 + sim.Character.Talents.Talent("Annihilation").Value * 15 / 100)
             If Sim.Character.Glyph.Obliterate Then Multiplicator = Multiplicator * 1.2
             If Sim.Character.T102PDPS <> 0 Then Multiplicator = Multiplicator * 1.1
             logLevel = LogLevelEnum.Basic
@@ -42,7 +42,7 @@ Namespace Simulator.WowObjects.Strikes
             End If
 
             If OffHand = False Then
-
+                sim.proc.KillingMachine.Use()
                 sim.RunicPower.add(25 + 5 * sim.Character.Talents.Talent("ChillOfTheGrave").Value + 5 * sim.Character.T74PDPS)
 
                 If Sim.proc.DRM.TryMe(T) Then
@@ -66,5 +66,9 @@ Namespace Simulator.WowObjects.Strikes
             Return tmp
         End Function
 
+        Public Overrides Function CritChance() As Double
+            If sim.proc.KillingMachine.IsActive Then Return 1
+            Return MyBase.CritChance()
+        End Function
     End Class
 End Namespace

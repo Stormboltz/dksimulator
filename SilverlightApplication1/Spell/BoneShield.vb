@@ -11,6 +11,7 @@ Namespace Simulator.WowObjects.Spells
         Inherits Spells.Spell
         Friend Charge As Integer
         Friend previousFade As Long
+        Dim Talented As Boolean
 
         Function BuffLength() As Integer
             Return Sim.BoneShieldTTL
@@ -18,6 +19,8 @@ Namespace Simulator.WowObjects.Spells
         Sub New(ByVal MySim As Sim)
             MyBase.New(MySim)
             logLevel = LogLevelEnum.Basic
+            Resource = New Resource(sim, ResourcesEnum.BloodTap, 15, False)
+            If sim.Character.Talents.Talent("BoneShield").Value = 1 Then Talented = True
         End Sub
         Sub UseCharge(ByVal T As Long)
             Charge = Charge - 1
@@ -37,39 +40,26 @@ Namespace Simulator.WowObjects.Spells
         End Sub
         Public Overloads Overrides Sub Init()
             MyBase.Init()
-
         End Sub
 
 
-        Function Use(ByVal T As Long) As Boolean
-            If Sim.Character.Talents.Talent("BoneShield").Value = 0 Then Return False
-            If Sim.Runes.Unholy() = False Then
-                If Sim.BloodTap.IsAvailable(T) Then
-                    Sim.BloodTap.Use(T)
-                Else
-                    Return False
-                End If
-            End If
-
-            Me.CD = T + 60 * 100
-            Me.ActiveUntil = T + BuffLength() * 100
-            Sim.Runes.UseDeathBlood(T, True)
-            UseGCD(T)
-            Sim.RunicPower.add(15)
-            Sim.CombatLog.write(T & vbTab & "Bone Shield")
+        Overrides Sub Use()
+            If Not Talented Then Return
+            Me.CD = sim.TimeStamp + 60 * 100
+            Me.ActiveUntil = sim.TimeStamp + BuffLength() * 100
+            MyBase.Use()
+            UseGCD(sim.TimeStamp)
+            sim.CombatLog.write(sim.TimeStamp & vbTab & "Bone Shield")
             Charge = 3
-            If Sim.Character.Glyph.BoneShield Then Charge += 1
+            If sim.Character.Glyph.BoneShield Then Charge += 1
             HitCount += 1
-            AddUptime(T)
-            Return True
-        End Function
+            AddUptime(sim.TimeStamp)
+        End Sub
 
-        Function IsAvailable(ByVal T As Long) As Boolean
-            If Sim.Character.Talents.Talent("BoneShield").Value = 0 Then Return False
-            If ActiveUntil > T Then Return False
-            If Sim.BloodTap.IsAvailable(T) = False Then Return False
-            If CD > T Then Return False
-            Return True
+        Overrides Function IsAvailable() As Boolean
+            If CD > sim.TimeStamp Then Return False
+            If ActiveUntil > sim.TimeStamp Then Return False
+            Return MyBase.IsAvailable
         End Function
 
         Function Value(ByVal T As Long) As Integer
@@ -81,9 +71,10 @@ Namespace Simulator.WowObjects.Spells
         End Function
 
         Sub AddUptime(ByVal T As Long)
+            If Not sim.CalculateUPtime Then Return
             Dim tmp As Long
-            If ActiveUntil > Sim.NextReset Then
-                tmp = (Sim.NextReset - T)
+            If ActiveUntil > sim.NextReset Then
+                tmp = (sim.NextReset - T)
             Else
                 tmp = ActiveUntil - T
             End If

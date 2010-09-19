@@ -65,6 +65,7 @@ Namespace Simulator.Character
         Friend Haste As CalculatedStats.Haste
         Friend PhysicalHaste As CalculatedStats.PhysicalHaste
         Friend SpellHaste As CalculatedStats.SpellHaste
+        Friend RuneRegeneration As CalculatedStats.RuneRegeneration
 
         Friend Hit As CalculatedStats.CalculatedStat
         Friend SpellHit As CalculatedStats.CalculatedStat
@@ -111,6 +112,16 @@ Namespace Simulator.Character
             _Mitigation = 0
             _LastArP = 0
         End Sub
+
+        Function GetExpertiseRatingCap()
+            Dim tmp As Double = 26
+            tmp /= 0.25
+            tmp *= 0.3279
+            Return tmp
+        End Function
+
+
+
         Sub InitStats()
             Strength = New PrimaryStat(Simulator.Sim.Stat.Strength, Sim, True, True)
             Agility = New PrimaryStat(Simulator.Sim.Stat.Agility, Sim, False, True)
@@ -128,52 +139,7 @@ Namespace Simulator.Character
             Health = New CalculatedStats.CalculatedStat(Sim, Stamina, 0.001)
             Health._Name = "Health"
 
-            Crit = New CalculatedStats.Crit(Sim, CritRating)
-            Crit._Name = "Crit"
-            SpellCrit = New CalculatedStats.SpellCrit(Sim, CritRating)
-            SpellCrit._Name = "SpellCrit"
-
-            Expertise = New CalculatedStats.Expertise(Sim, ExpertiseRating)
-            Expertise._Name = "Expertise"
-            MHExpertise = New CalculatedStats.MHExpertise(Sim, ExpertiseRating)
-            MHExpertise._Name = "MHExpertise"
-            OHExpertise = New CalculatedStats.OHExpertise(Sim, ExpertiseRating)
-            OHExpertise._Name = "OHExpertise"
-
-
-            Haste = New CalculatedStats.Haste(Sim, HasteRating)
-            Haste._Name = "Haste"
-
-            PhysicalHaste = New CalculatedStats.PhysicalHaste(Sim, HasteRating)
-            PhysicalHaste._Name = "PhysicalHaste"
-            PhysicalHaste.AddMulti(1 + Sim.UnholyPresence * 0.1)
-            If Sim.UnholyPresence > 0 Then
-                'TODO: Verify if additive or multplicative
-                PhysicalHaste.AddMulti(Sim.Character.Talents.Talent(1 + "ImprovedUnholyPresence").Value * 0.025)
-            End If
-            If Sim.Character.Talents.Talent("ImprovedIcyTalons").Value Then PhysicalHaste.AddMulti(1.05)
-            If Sim.Character.Talents.Talent("IcyTalons").Value = 1 Then PhysicalHaste.AddMulti(1.2)
-            If Sim.Character.Buff.MeleeHaste Then PhysicalHaste.AddMulti(1.2)
-
-
-            SpellHaste = New CalculatedStats.SpellHaste(Sim, HasteRating)
-            SpellHaste._Name = "Spell Haste"
-            If Sim.Character.Buff.SpellHaste Then SpellHaste.AddMulti(1.05)
-
-            ArmorPenetration = New CalculatedStats.CalculatedStat(Sim, ArmorPenetrationRating, 22.55)
-            ArmorPenetration._Name = "ArmorPenetration"
-            Mastery = New CalculatedStats.CalculatedStat(Sim, MasteryRating, 22.5)
-            Mastery._Name = "Mastery"
-
-            Hit = New CalculatedStats.CalculatedStat(Sim, HitRating, 22.5)
-            Hit._Name = "Hit"
-            Hit.Add(Sim.Character.Buff.Draenei)
-            If DualW() Then Hit.Add(Sim.Character.Talents.Talent("NervesofColdSteel").Value)
-
-            SpellHit = New CalculatedStats.CalculatedStat(Sim, HitRating, 22.5)
-            SpellHit._Name = "SpellHit"
-            SpellHit.Add(Sim.Character.Buff.Draenei)
-            SpellHit.Add(Sim.Character.Talents.Talent("Virulence").Value * 2)
+            
             Try
                 Strength.Add(Int32.Parse(XmlCharacter.Element("character").Element("stat").Element("Strength").Value))
                 Agility.Add(Int32.Parse(XmlCharacter.Element("character").Element("stat").Element("Agility").Value))
@@ -194,6 +160,8 @@ Namespace Simulator.Character
                 Orc = XmlCharacter.Element("character").Element("racials").Element("Orc").Value
                 Troll = XmlCharacter.Element("character").Element("racials").Element("Troll").Value
                 BloodElf = XmlCharacter.Element("character").Element("racials").Element("BloodElf").Value
+
+
             Catch
                 Diagnostics.Debug.WriteLine("Error reading Character config file.")
                 msgBox("Error reading Character config file. You should open and check it. ")
@@ -214,20 +182,29 @@ Namespace Simulator.Character
                     AttackPower.Add(2 * Sim.EPBase)
                 Case "EP HitRatingCapAP"
                     AttackPower.Add(2 * Sim.EPBase)
+                    HitRating.Replace(263 - Talents.Talent("NervesofColdSteel").Value * 32.79)
                 Case "EP HitRating"
-                    HitRating.Add(263 - Talents.Talent("NervesofColdSteel").Value * 32.79 - Sim.EPBase)
-                Case "EP HitRatingCap", "EP HitRatingCapAP"
-                    HitRating.Add(263 - Talents.Talent("NervesofColdSteel").Value * 32.79)
+                    HitRating.Replace(263 - Talents.Talent("NervesofColdSteel").Value * 32.79 - Sim.EPBase)
+                Case "EP HitRatingCap"
+                    HitRating.Replace(263 - Talents.Talent("NervesofColdSteel").Value * 32.79)
                 Case "EP SpellHitRating"
-                    HitRating.Add(263 - Talents.Talent("NervesofColdSteel").Value * 32.79 + 20)
+                    HitRating.Replace(263 - Talents.Talent("NervesofColdSteel").Value * 32.79 + 20)
                 Case "EP AfterSpellHitBase", "EP AfterSpellHitBaseAP"
-                    HitRating.Add(Sim.Character.SpellHitCapRating)
+                    HitRating.Replace(Sim.Character.SpellHitCapRating)
                 Case "EP AfterSpellHitRating"
-                    HitRating.Add(Sim.Character.SpellHitCapRating + Sim.EPBase)
+                    HitRating.Replace(Sim.Character.SpellHitCapRating + Sim.EPBase)
                 Case "EP RelativeHitRating"
                     HitRating.Add(Sim.EPBase)
 
-                Case "EP HasteRating1"
+                Case "EP ExpertiseRating"
+                    ExpertiseRating.Replace(GetExpertiseRatingCap() - Sim.EPBase)
+                Case "EP ExpertiseRatingCap"
+                    ExpertiseRating.Replace(GetExpertiseRatingCap())
+                Case "EP ExpertiseRatingCapAP"
+                    ExpertiseRating.Replace(GetExpertiseRatingCap())
+                Case "EP RelativeExpertiseRating"
+                    ExpertiseRating.Add(Sim.EPBase)
+                Case "EP HasteRating"
                     HasteRating.Add(Sim.EPBase)
                 Case "EP HasteRating2"
                     HasteRating.Add(2 * Sim.EPBase)
@@ -286,6 +263,13 @@ Namespace Simulator.Character
                             HitRating.Replace(Replace(Sim.EPStat, "ScaHit", "") * Sim.EPBase)
                         End If
                     End If
+                    If InStr(Sim.EPStat, "ScaExp") Then
+                        If InStr(Sim.EPStat, "ScaExpA") Then
+                            ExpertiseRating.Add(Replace(Sim.EPStat, "ScaExpA", "") * Sim.EPBase)
+                        Else
+                            ExpertiseRating.Replace(Replace(Sim.EPStat, "ScaExp", "") * Sim.EPBase)
+                        End If
+                    End If
                     If InStr(Sim.EPStat, "ScaStr") Then
                         Strength.Add(Replace(Sim.EPStat, "ScaStr", "") * Sim.EPBase)
                     End If
@@ -293,6 +277,55 @@ Namespace Simulator.Character
 
 
             End Select
+
+            Crit = New CalculatedStats.Crit(Sim, CritRating)
+            Crit._Name = "Crit"
+            SpellCrit = New CalculatedStats.SpellCrit(Sim, CritRating)
+            SpellCrit._Name = "SpellCrit"
+
+            Expertise = New CalculatedStats.Expertise(Sim, ExpertiseRating)
+            Expertise._Name = "Expertise"
+            MHExpertise = New CalculatedStats.MHExpertise(Sim, ExpertiseRating)
+            MHExpertise._Name = "MHExpertise"
+            OHExpertise = New CalculatedStats.OHExpertise(Sim, ExpertiseRating)
+            OHExpertise._Name = "OHExpertise"
+            Haste = New CalculatedStats.Haste(Sim, HasteRating)
+            Haste._Name = "Haste"
+
+            RuneRegeneration = New CalculatedStats.RuneRegeneration(Sim, Haste)
+            RuneRegeneration._Name = "Rune Regeneration"
+            PhysicalHaste = New CalculatedStats.PhysicalHaste(Sim, HasteRating)
+            PhysicalHaste._Name = "PhysicalHaste"
+            PhysicalHaste.AddMulti(1 + Sim.UnholyPresence * 0.1)
+            If Sim.UnholyPresence > 0 Then
+                'TODO: Verify if additive or multplicative
+                PhysicalHaste.AddMulti(1.1 + Sim.Character.Talents.Talent("ImprovedUnholyPresence").Value * 0.025)
+                RuneRegeneration.AddMulti(1.1 + Sim.Character.Talents.Talent("ImprovedUnholyPresence").Value * 0.025)
+            End If
+            If Sim.Character.Talents.Talent("ImprovedIcyTalons").Value Then PhysicalHaste.AddMulti(1.05)
+            If Sim.Character.Talents.Talent("IcyTalons").Value = 1 Then PhysicalHaste.AddMulti(1.2)
+            If Sim.Character.Buff.MeleeHaste Then PhysicalHaste.AddMulti(1.2)
+
+
+            SpellHaste = New CalculatedStats.SpellHaste(Sim, HasteRating)
+            SpellHaste._Name = "Spell Haste"
+            If Sim.Character.Buff.SpellHaste Then SpellHaste.AddMulti(1.05)
+
+            ArmorPenetration = New CalculatedStats.CalculatedStat(Sim, ArmorPenetrationRating, 22.55)
+            ArmorPenetration._Name = "ArmorPenetration"
+            Mastery = New CalculatedStats.CalculatedStat(Sim, MasteryRating, 22.5)
+            Mastery._Name = "Mastery"
+
+            Hit = New CalculatedStats.CalculatedStat(Sim, HitRating, 22.5)
+            Hit._Name = "Hit"
+            Hit.Add(Sim.Character.Buff.Draenei / 100)
+            If DualW() Then Hit.Add(Sim.Character.Talents.Talent("NervesofColdSteel").Value)
+
+            SpellHit = New CalculatedStats.CalculatedStat(Sim, HitRating, 22.5)
+            SpellHit._Name = "SpellHit"
+            SpellHit.Add(Sim.Character.Buff.Draenei / 100)
+            SpellHit.Add(Sim.Character.Talents.Talent("Virulence").Value * 2 / 100)
+
 
             'check that Talent and buff are loaded!
             Stamina.AddMulti(1 + 5 * Buff.StatMulti / 100)
@@ -367,7 +400,7 @@ Namespace Simulator.Character
 
 
 
-            Diagnostics.Debug.WriteLine("Health= " & Health.Value & " Stam= " & Stamina.Value)
+            'Diagnostics.Debug.WriteLine("Health= " & Health.Value & " Stam= " & Stamina.Value)
         End Sub
         Sub InitTrinkets()
             'Trinkets
@@ -642,7 +675,7 @@ Namespace Simulator.Character
             If target Is Nothing Then target = Sim.Targets.MainTarget
             Dim tmp As Integer
             tmp = 17
-            tmp = tmp - Sim.Character.Talents.Talent("Virulence").Value * 2
+            tmp = tmp - Sim.Character.Talents.Talent("Virulence").Value * 2 - Sim.Character.Buff.Draenei
             tmp = tmp * 26.23
             Return tmp
         End Function

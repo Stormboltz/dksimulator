@@ -10,6 +10,11 @@ Namespace Simulator.WowObjects
     Public Class WowObject
         Inherits SimObjet
 
+
+        Friend ResourceType As Simulator.ResourcesEnum
+        Friend Resource As Simulator.Resource
+
+
         Friend MissCount As Integer
         Friend HitCount As Integer
         Friend CritCount As Integer
@@ -116,5 +121,6 @@ Namespace Simulator.WowObjects
             MyBase.New(s)
         End Sub
 
+       
     End Class
 End Namespace

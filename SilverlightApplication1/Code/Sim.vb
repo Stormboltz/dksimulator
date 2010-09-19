@@ -13,6 +13,7 @@ Imports DKSIMVB.Simulator.WowObjects.Procs
 Namespace Simulator
 
     Public Class Sim
+        Friend CalculateUPtime As Boolean = True
         Dim DPSLine As New StatScallingLine("Real Time DPS")
         Dim DPSLineAverage As New StatScallingLine("AverageDPS")
         Friend TimeWastedAnaliser As New TimeWastedAnaliser
@@ -300,7 +301,7 @@ Namespace Simulator
                     FutureEventManager.Add(TimeStamp + 500, "SaveCurrentDPS")
                 Case "BuffFade"
                     Dim SB As Effect = CType(FE.WowObj, Effect)
-                    SB.Fade()
+                    SB.FAde()
                     Return True
                 Case "Boss"
                     If BloodPresence = 1 Then
@@ -318,11 +319,13 @@ Namespace Simulator
                     If BoneShieldUsageStyle = 2 Then 'after BS
                         If Runes.BloodRune1.Available(TimeStamp) = False And Runes.BloodRune1.death = True Then
                             If Runes.BloodRune2.Available(TimeStamp) = False And Runes.BloodRune2.death = True Then
-                                If BoneShield.IsAvailable(TimeStamp) Then
-                                    If BoneShield.Use(TimeStamp) Then Return True
+                                If BoneShield.IsAvailable() Then
+                                    BoneShield.Use()
+                                    Return True
                                 End If
-                                If PillarOfFrost.IsAvailable(TimeStamp) Then
-                                    If PillarOfFrost.Use(TimeStamp) Then Return True
+                                If PillarOfFrost.IsAvailable() Then
+                                    PillarOfFrost.Use()
+                                    Return True
                                 End If
                             End If
                         End If
@@ -338,21 +341,21 @@ Namespace Simulator
                     If BoneShieldUsageStyle = 4 Then 'after Death rune OB/SS with cancel aura
                         If Runes.BloodRune1.Available(TimeStamp) = False And Runes.BloodRune1.death = False Then
                             If Runes.BloodRune2.Available(TimeStamp) = False And Runes.BloodRune2.death = False Then
-                                If BoneShield.IsAvailable(TimeStamp) Then
-                                    If BoneShield.Use(TimeStamp) Then
-                                        BloodTap.CancelAura()
-                                        Return True
-                                    End If
+                                If BoneShield.IsAvailable() Then
+                                    BoneShield.Use()
+                                    BloodTap.CancelAura()
+                                    Return True
                                 End If
-                                If PillarOfFrost.IsAvailable(TimeStamp) Then
-                                    If PillarOfFrost.Use(TimeStamp) Then
-                                        BloodTap.CancelAura()
-                                        Return True
-                                    End If
-                                End If
+                            End If
+                            If PillarOfFrost.IsAvailable() Then
+                                PillarOfFrost.Use()
+                                BloodTap.CancelAura()
+                                Return True
                             End If
                         End If
                     End If
+
+
                     If PetFriendly Then
                         If Ghoul.ActiveUntil < TimeStamp And Ghoul.cd < TimeStamp And CanUseGCD(TimeStamp) Then
                             Ghoul.Summon(TimeStamp)
@@ -365,7 +368,7 @@ Namespace Simulator
                     End If
                     If Me.Rotation.IntroDone Then
                         If Horn.isAutoAvailable(TimeStamp) And CanUseGCD(TimeStamp) Then
-                            Horn.use(TimeStamp)
+                            Horn.use()
                             If isInGCD(TimeStamp) Then Return True
                         End If
                     End If
@@ -525,12 +528,13 @@ Namespace Simulator
 
 
             'Init
+
             Initialisation()
 
 
 
             TimeStamp = 1
-            InitPresence()
+
             If Character.Talents.Talent("MasterOfGhouls").Value = 1 Then Ghoul.Summon(1)
             Rotation.LoadIntro()
             If Rotate Then Rotation.loadRotation()
@@ -952,7 +956,7 @@ Namespace Simulator
                 Targets.CurrentTarget = targ
                 Targets.MainTarget = targ
 
-
+                InitPresence()
                 Character.InitStats()
                 Character.InitTrinkets()
                 Character.InitSets()
@@ -1107,7 +1111,9 @@ errH:
                 If PillarOfFrost.HitCount <> 0 Then myReport.AddLine(PillarOfFrost.Report)
                 'On Error Resume Next
                 Dim pr As Proc
-                For Each pr In proc.EquipedProc
+                For Each pr In (From p In proc.EquipedProc
+                                 Where p.total = 0 And p.Effects.Count = 0
+                                 Order By p.uptime Descending)
                     If pr.total = 0 Then
                         myReport.AddLine(pr.Report)
                     End If
