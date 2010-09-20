@@ -17,9 +17,12 @@ Public Partial Class MainForm
 	End Sub
 	
 	Sub Button1Click(sender As Object, e As EventArgs)
-		Dim x As New Extractor
-		
-		'x.CataCreateDB
-		x.CataUpdateDatabase
+'		Dim x As New Extractor
+'		
+'		x.CataCreateDB
+'		x.CataUpdateDatabase
+Dim splitter As New ImageSplitter
+splitter.Split
+
 	End Sub
 End Class

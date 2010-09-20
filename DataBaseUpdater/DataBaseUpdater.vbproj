@@ -54,6 +54,7 @@
     <Import Include="System.Drawing" />
     <Import Include="System.Windows.Forms" />
     <Compile Include="Extractor.vb" />
+    <Compile Include="ImageSplitter.vb" />
     <Compile Include="MainForm.Designer.vb">
       <DependentUpon>MainForm.vb</DependentUpon>
     </Compile>
