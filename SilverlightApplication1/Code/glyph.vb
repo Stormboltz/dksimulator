@@ -15,7 +15,15 @@ Namespace Simulator.Character
 
         Default ReadOnly Property Glyph(ByVal name As String) As Boolean
             Get
-                Return GetGlyph(name).Equiped
+                Dim G As Glyph = GetGlyph(name)
+                If G Is Nothing Then
+                    Return False
+
+                Else
+                    Return G.Equiped
+
+
+                End If
             End Get
         End Property
 
@@ -49,7 +57,7 @@ Namespace Simulator.Character
                 Return GlyphCol(Name)
             Catch ex As Exception
                 Diagnostics.Debug.WriteLine("WTF IS THIS Glyph: " & Name)
-                Return GlyphCol("none")
+                Return Nothing
             End Try
         End Function
     End Class
