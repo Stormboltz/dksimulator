@@ -90,7 +90,7 @@ Namespace Simulator.Character
 
         Friend Buff As RaidBuffs
 
-        Friend Glyph As glyph
+        Friend Glyph As Glyphs
         Sub New(ByVal S As Sim)
 
             Sim = S
@@ -108,17 +108,12 @@ Namespace Simulator.Character
             BossArmor = 10643
 
             Sim.boss = New Boss(S)
-            
+
             _Mitigation = 0
             _LastArP = 0
         End Sub
 
-        Function GetExpertiseRatingCap()
-            Dim tmp As Double = 26
-            tmp /= 0.25
-            tmp *= 0.3279
-            Return tmp
-        End Function
+       
 
 
 
@@ -139,7 +134,7 @@ Namespace Simulator.Character
             Health = New CalculatedStats.CalculatedStat(Sim, Stamina, 0.001)
             Health._Name = "Health"
 
-            
+
             Try
                 Strength.Add(Int32.Parse(XmlCharacter.Element("character").Element("stat").Element("Strength").Value))
                 Agility.Add(Int32.Parse(XmlCharacter.Element("character").Element("stat").Element("Agility").Value))
@@ -151,6 +146,7 @@ Namespace Simulator.Character
                 CritRating.Add(Int32.Parse(XmlCharacter.Element("character").Element("stat").Element("CritRating").Value))
                 HasteRating.Add(Int32.Parse(XmlCharacter.Element("character").Element("stat").Element("HasteRating").Value))
                 ArmorPenetrationRating.Add(Int32.Parse(XmlCharacter.Element("character").Element("stat").Element("ArmorPenetrationRating").Value))
+                MasteryRating.Add(Int32.Parse(XmlCharacter.Element("character").Element("stat").Element("MasteryRating").Value))
                 ExpertiseRating.Add(Int32.Parse(XmlCharacter.Element("character").Element("stat").Element("ExpertiseRating").Value))
                 Stamina.Add(Int32.Parse(XmlCharacter.Element("character").Element("stat").Element("Stamina").Value))
                 _Dual = Int32.Parse(XmlCharacter.Element("character").Element("weapon").Element("count").Value)
@@ -178,45 +174,46 @@ Namespace Simulator.Character
                     AttackPower.Add(2 * Sim.EPBase)
                 Case "EP AfterSpellHitBaseAP"
                     AttackPower.Add(2 * Sim.EPBase)
-                Case "EP ExpertiseRatingCapAP"
-                    AttackPower.Add(2 * Sim.EPBase)
+                    Sim.Character.Buff.Draenei = 0
+                    HitRating.Replace(Sim.Character.SpellHitCapRating)
                 Case "EP HitRatingCapAP"
                     AttackPower.Add(2 * Sim.EPBase)
-                    HitRating.Replace(263 - Talents.Talent("NervesofColdSteel").Value * 32.79)
+                    Sim.Character.Buff.Draenei = 0
+                    HitRating.Replace(HitCapRating)
                 Case "EP HitRating"
-                    HitRating.Replace(263 - Talents.Talent("NervesofColdSteel").Value * 32.79 - Sim.EPBase)
+                    Sim.Character.Buff.Draenei = 0
+                    HitRating.Replace(HitCapRating() - Sim.EPBase)
                 Case "EP HitRatingCap"
-                    HitRating.Replace(263 - Talents.Talent("NervesofColdSteel").Value * 32.79)
+                    Sim.Character.Buff.Draenei = 0
+                    HitRating.Replace(HitCapRating)
                 Case "EP SpellHitRating"
-                    HitRating.Replace(263 - Talents.Talent("NervesofColdSteel").Value * 32.79 + 20)
-                Case "EP AfterSpellHitBase", "EP AfterSpellHitBaseAP"
-                    HitRating.Replace(Sim.Character.SpellHitCapRating)
+                    Sim.Character.Buff.Draenei = 0
+                    HitRating.Replace(HitCapRating() + 20)
+
+                Case "EP AfterSpellHitBase"
+                    Sim.Character.Buff.Draenei = 0
+                    HitRating.Replace(SpellHitCapRating)
+
                 Case "EP AfterSpellHitRating"
-                    HitRating.Replace(Sim.Character.SpellHitCapRating + Sim.EPBase)
+                    Sim.Character.Buff.Draenei = 0
+                    HitRating.Replace(SpellHitCapRating() + Sim.EPBase)
+
                 Case "EP RelativeHitRating"
                     HitRating.Add(Sim.EPBase)
-
                 Case "EP ExpertiseRating"
                     ExpertiseRating.Replace(GetExpertiseRatingCap() - Sim.EPBase)
                 Case "EP ExpertiseRatingCap"
                     ExpertiseRating.Replace(GetExpertiseRatingCap())
                 Case "EP ExpertiseRatingCapAP"
+                    AttackPower.Add(2 * Sim.EPBase)
                     ExpertiseRating.Replace(GetExpertiseRatingCap())
+
                 Case "EP RelativeExpertiseRating"
                     ExpertiseRating.Add(Sim.EPBase)
                 Case "EP HasteRating"
                     HasteRating.Add(Sim.EPBase)
-                Case "EP HasteRating2"
-                    HasteRating.Add(2 * Sim.EPBase)
-                Case "EP HasteRating3"
-                    HasteRating.Add(3 * Sim.EPBase)
-                Case "EP HasteRating4"
-                    HasteRating.Add(3 * Sim.EPBase)
-                Case "EP HasteRating5"
-                    HasteRating.Add(5 * Sim.EPBase)
-                Case "EP HasteRating6"
-                    HasteRating.Add(6 * Sim.EPBase)
-
+                Case "EP MasteryRating"
+                    MasteryRating.Add(Sim.EPBase)
                 Case "EP ArmorPenetrationRating"
                     ArmorPenetrationRating.Add(Sim.EPBase)
                 Case "EP Agility"
@@ -274,6 +271,13 @@ Namespace Simulator.Character
                         Strength.Add(Replace(Sim.EPStat, "ScaStr", "") * Sim.EPBase)
                     End If
 
+                    If InStr(Sim.EPStat, "ScaMast") Then
+                        If InStr(Sim.EPStat, "ScaMastA") Then
+                            MasteryRating.Add(Replace(Sim.EPStat, "ScaMastA", "") * Sim.EPBase)
+                        Else
+                            MasteryRating.Replace(Replace(Sim.EPStat, "ScaMast", "") * Sim.EPBase)
+                        End If
+                    End If
 
 
             End Select
@@ -313,15 +317,16 @@ Namespace Simulator.Character
 
             ArmorPenetration = New CalculatedStats.CalculatedStat(Sim, ArmorPenetrationRating, 22.55)
             ArmorPenetration._Name = "ArmorPenetration"
-            Mastery = New CalculatedStats.CalculatedStat(Sim, MasteryRating, 22.5)
+
+            Mastery = New CalculatedStats.CalculatedStat(Sim, MasteryRating, 45.9)
             Mastery._Name = "Mastery"
 
-            Hit = New CalculatedStats.CalculatedStat(Sim, HitRating, 22.5)
+            Hit = New CalculatedStats.CalculatedStat(Sim, HitRating, 32.79)
             Hit._Name = "Hit"
             Hit.Add(Sim.Character.Buff.Draenei / 100)
             If DualW() Then Hit.Add(Sim.Character.Talents.Talent("NervesofColdSteel").Value)
 
-            SpellHit = New CalculatedStats.CalculatedStat(Sim, HitRating, 22.5)
+            SpellHit = New CalculatedStats.CalculatedStat(Sim, HitRating, 26.232)
             SpellHit._Name = "SpellHit"
             SpellHit.Add(Sim.Character.Buff.Draenei / 100)
             SpellHit.Add(Sim.Character.Talents.Talent("Virulence").Value * 2 / 100)
@@ -631,7 +636,7 @@ Namespace Simulator.Character
         End Function
         Sub loadtemplate(ByVal file As String)
             Talents.ReadTemplate(file)
-            Glyph = New glyph(file)
+            Glyph = New Glyphs(Sim, file)
         End Sub
         Function Dual() As Boolean
             If _Dual <> 0 Then
@@ -667,19 +672,27 @@ Namespace Simulator.Character
         End Function
 
 #End Region
-
-
-
-
         Function SpellHitCapRating(Optional ByVal target As Targets.Target = Nothing) As Integer
             If target Is Nothing Then target = Sim.Targets.MainTarget
             Dim tmp As Integer
             tmp = 17
-            tmp = tmp - Sim.Character.Talents.Talent("Virulence").Value * 2 - Sim.Character.Buff.Draenei
-            tmp = tmp * 26.23
+            tmp = tmp - Sim.Character.Talents.Talent("Virulence").Value * 2
+            tmp = tmp * 26.232
             Return tmp
         End Function
-
+        Function GetExpertiseRatingCap() As Double
+            Dim tmp As Double = 26
+            tmp /= 0.25
+            tmp *= 0.3279
+            Return tmp
+        End Function
+        Function HitCapRating() As Integer
+            Dim tmp As Integer
+            tmp = 8
+            tmp = tmp - Sim.Character.Talents.Talent("NervesofColdSteel").Value
+            tmp = tmp * 32.79
+            Return tmp
+        End Function
 
 
 

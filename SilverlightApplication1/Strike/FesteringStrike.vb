@@ -7,6 +7,7 @@
             Coeficient = 1.5
             Multiplicator = 1
             Multiplicator *= (1 + sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100)
+            Resource = New Resource(S, ResourcesEnum.BloodFrostRune, 25, True)
             logLevel = LogLevelEnum.Basic
         End Sub
 
@@ -16,17 +17,19 @@
 
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
             If MyBase.ApplyDamage(T) = False Then
-                Sim.Runes.UseBF(T, False, True)
+                UseAlf()
+
                 UseGCD(T)
                 Return False
             End If
 
             If OffHand = False Then
                 UseGCD(T)
-                Sim.RunicPower.add(25)
+                Use()
+
                 Sim.Targets.MainTarget.BloodPlague.IncreaseDuration(600)
                 Sim.Targets.MainTarget.FrostFever.IncreaseDuration(600)
-                Sim.Runes.UseBF(T, True)
+
             End If
             Return True
         End Function

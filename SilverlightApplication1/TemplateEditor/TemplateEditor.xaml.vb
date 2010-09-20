@@ -88,12 +88,16 @@ NextUnholy:
         Next
 
 
-        For Each xNode In XmlDoc.Element("Talents").Element("Glyphs").Elements
-            cmbGlyph1.Items.Add(xNode.Name)
-            cmbGlyph2.Items.Add(xNode.Name)
-            cmbGlyph3.Items.Add(xNode.Name)
+        For Each xNode In XmlDoc.<Talents>.<Glyphs>.<Major>.Elements
+            cmbMajorGlyph1.Items.Add(xNode.Name)
+            cmbMajorGlyph2.Items.Add(xNode.Name)
+            cmbMajorGlyph3.Items.Add(xNode.Name)
         Next
-
+        For Each xNode In XmlDoc.<Talents>.<Glyphs>.<Prime>.Elements
+            cmbPrimeGlyph1.Items.Add(xNode.Name)
+            cmbPrimeGlyph2.Items.Add(xNode.Name)
+            cmbPrimeGlyph3.Items.Add(xNode.Name)
+        Next
 
     End Sub
     Sub SetTalentPointnumber()
@@ -132,19 +136,36 @@ NextUnholy:
             End Try
 
         Next
-        For Each XNode As XElement In xmlDoc.<Talents>.Elements("Glyphs").Elements
+
+        For Each XNode As XElement In xmlDoc.<Talents>.<Glyphs>.<Major>.Elements
             If XNode.Value = 1 Then
                 Select Case i
                     Case 0
-                        cmbGlyph1.SelectedItem = XNode.Name
+                        cmbMajorGlyph1.SelectedItem = XNode.Name
                     Case 1
-                        cmbGlyph2.SelectedItem = XNode.Name
+                        cmbMajorGlyph2.SelectedItem = XNode.Name
                     Case 2
-                        cmbGlyph3.SelectedItem = XNode.Name
+                        cmbMajorGlyph3.SelectedItem = XNode.Name
                 End Select
                 i = i + 1
             End If
         Next
+        i = 0
+        For Each XNode As XElement In xmlDoc.<Talents>.<Glyphs>.<Prime>.Elements
+            If XNode.Value = 1 Then
+                Select Case i
+                    Case 0
+                        cmbPrimeGlyph1.SelectedItem = XNode.Name
+                    Case 1
+                        cmbPrimeGlyph2.SelectedItem = XNode.Name
+                    Case 2
+                        cmbPrimeGlyph3.SelectedItem = XNode.Name
+                End Select
+                i = i + 1
+            End If
+        Next
+
+
         isoStream.Close()
         isoStore.Dispose()
     End Sub
@@ -153,24 +174,41 @@ NextUnholy:
         Dim isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
         Dim isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/templates/" & path, FileMode.Create, isoStore)
         Dim doc As XDocument = XDocument.Parse("<Talents><Glyphs/></Talents>")
+        Dim xEl As XElement
 
         For Each ctr As UIElement In Me.tbTpl.Children
             If TypeOf ctr Is TemplateButton Then
                 Dim tb As TemplateButton = ctr
-                Dim xEl As XElement = XElement.Parse("<" & tb.Name & "/>")
+                xEl = XElement.Parse("<" & tb.Name & "/>")
                 xEl.SetValue(tb.Value)
                 doc.Element("Talents").Add(xEl)
             End If
         Next
+
+        'Add Major And Prime Glyph
+        xEl = XElement.Parse("<Major/>")
+        doc.Element("Talents").Element("Glyphs").Add(xEl)
+        xEl = XElement.Parse("<Prime/>")
+        doc.Element("Talents").Element("Glyphs").Add(xEl)
+
         Dim xGlyph As XDocument = XDocument.Load("config/template.xml")
-        For Each x As XElement In xGlyph.Element("Talents").Element("Glyphs").Elements
-            Dim xEl As XElement = XElement.Parse("<" & x.Name.ToString & "/>")
-            If x.Name = cmbGlyph1.SelectedValue Or x.Name = cmbGlyph2.SelectedValue Or x.Name = cmbGlyph3.SelectedValue Then
+        For Each x As XElement In xGlyph.<Talents>.<Glyphs>.<Major>.Elements
+            xEl = XElement.Parse("<" & x.Name.ToString & "/>")
+            If x.Name = cmbMajorGlyph1.SelectedValue Or x.Name = cmbMajorGlyph2.SelectedValue Or x.Name = cmbMajorGlyph3.SelectedValue Then
                 xEl.SetValue(1)
             Else
                 xEl.SetValue(0)
             End If
-            doc.Element("Talents").Element("Glyphs").Add(xEl)
+            doc.Element("Talents").Element("Glyphs").Element("Major").Add(xEl)
+        Next
+        For Each x As XElement In xGlyph.<Talents>.<Glyphs>.<Prime>.Elements
+            xEl = XElement.Parse("<" & x.Name.ToString & "/>")
+            If x.Name = cmbPrimeGlyph1.SelectedValue Or x.Name = cmbPrimeGlyph2.SelectedValue Or x.Name = cmbPrimeGlyph3.SelectedValue Then
+                xEl.SetValue(1)
+            Else
+                xEl.SetValue(0)
+            End If
+            doc.Element("Talents").Element("Glyphs").Element("Prime").Add(xEl)
         Next
         doc.Save(isoStream)
         isoStream.Close()

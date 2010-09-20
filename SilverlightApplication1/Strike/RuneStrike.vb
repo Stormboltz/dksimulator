@@ -18,7 +18,7 @@ Namespace Simulator.WowObjects.Strikes
             Multiplicator *= (1 + sim.Character.T82PTNK * 0.1)
 
 
-            If sim.Character.Glyph.RuneStrike Then
+            If sim.Character.Glyph("RuneStrike") Then
                 SpecialCritChance = 0.1
             End If
 

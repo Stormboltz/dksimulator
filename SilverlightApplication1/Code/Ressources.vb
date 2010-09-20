@@ -100,7 +100,7 @@
             Dim A As Boolean = True
             Select Case Ress
                 Case ResourcesEnum.RunicPower
-                    sim.RunicPower.Use(Cost)
+                    sim.RunicPower.Use(Cost / 2)
                 Case ResourcesEnum.BloodFrostRune
                     sim.Runes.UseBF(sim.TimeStamp, DeathRune, A)
                 Case ResourcesEnum.BloodRune

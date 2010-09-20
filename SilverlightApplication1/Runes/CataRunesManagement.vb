@@ -7,25 +7,16 @@
 ' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
 '
 Namespace Runes
-Friend Partial Class runes
-        
+    Partial Friend Class runes
 
-
-	
-	
-        
-	
-	
-	
-
-	Function cataBFU (T As Long) As Boolean
-		If BloodRunes.Value >= 100 And FrostRunes.Value >= 100 And UnholyRunes.Value >= 100 Then
-			Return True
-		Else
-			return false
-		End If
-	End Function
-	Function CataGetNextUnholy(T As Long) As Long
+        Function cataBFU(ByVal T As Long) As Boolean
+            If BloodRunes.Value >= 100 And FrostRunes.Value >= 100 And UnholyRunes.Value >= 100 Then
+                Return True
+            Else
+                Return False
+            End If
+        End Function
+        Function CataGetNextUnholy(ByVal T As Long) As Long
             Dim bArray As New Collections.Generic.List(Of Long)
             If BloodRunes.NextAvailableTime > T And BloodRunes.death = True Then bArray.Add(BloodRunes.AvailableTime)
             If FrostRunes.NextAvailableTime > T And FrostRunes.death = True Then bArray.Add(FrostRunes.AvailableTime)
@@ -66,72 +57,72 @@ Friend Partial Class runes
             End If
             Return T
         End Function
-	
-	
-	
-	Function CataAnyBlood(T as long) As Boolean
-		If BloodRunes.Available And BloodRunes.reserved=false Then return  True
-		If FrostRunes.Available And FrostRunes.death = True and FrostRunes.reserved=false Then return  True
+
+
+
+        Function CataAnyBlood(ByVal T As Long) As Boolean
+            If BloodRunes.Available And BloodRunes.reserved = False Then Return True
+            If FrostRunes.Available And FrostRunes.death = True And FrostRunes.reserved = False Then Return True
             If UnholyRunes.Available And UnholyRunes.death = True And UnholyRunes.reserved = False Then Return True
             Return False
-	End Function
-	
-	
-	Function CataBlood(T as long) As Boolean
-		If BloodRunes.Available And BloodRunes.death = False and BloodRunes.reserved=false Then return  True
-		If FrostRunes.Available  And FrostRunes.death = True and FrostRunes.reserved=false Then return  True
+        End Function
+
+
+        Function CataBlood(ByVal T As Long) As Boolean
+            If BloodRunes.Available And BloodRunes.death = False And BloodRunes.reserved = False Then Return True
+            If FrostRunes.Available And FrostRunes.death = True And FrostRunes.reserved = False Then Return True
             If UnholyRunes.Available And UnholyRunes.death = True And UnholyRunes.reserved = False Then Return True
             Return False
-	End Function
-	
-	Function CataBloodOnly(T as long) As Boolean
+        End Function
+
+        Function CataBloodOnly(ByVal T As Long) As Boolean
             If BloodRunes.Available Then Return True
             Return False
-	End Function
-	
-	
-	Function CataFrostOnly(T As Long) As Boolean
+        End Function
+
+
+        Function CataFrostOnly(ByVal T As Long) As Boolean
             If FrostRunes.Available And FrostRunes.reserved = False Then Return True
             Return False
-	End Function
-	
-	Function CataUnholyOnly(T as long) As Boolean
+        End Function
+
+        Function CataUnholyOnly(ByVal T As Long) As Boolean
             If UnholyRunes.Available And UnholyRunes.reserved = False Then Return True
             Return False
-	End Function
-	
-	
-	Function CataFrost(T as long) As Boolean
-		If BloodRunes.Available And BloodRunes.death = True and BloodRunes.reserved=false Then return  True
-		If FrostRunes.Available and FrostRunes.reserved=false Then return True
+        End Function
+
+
+        Function CataFrost(ByVal T As Long) As Boolean
+            If BloodRunes.Available And BloodRunes.death = True And BloodRunes.reserved = False Then Return True
+            If FrostRunes.Available And FrostRunes.reserved = False Then Return True
             If UnholyRunes.Available And UnholyRunes.death = True And UnholyRunes.reserved = False Then Return True
             Return False
-	End Function
-	
-	Function CataUnholy(T as long) As Boolean
-		If BloodRunes.Available And BloodRunes.death = True and BloodRunes.reserved=false Then return  True
-		If FrostRunes.Available And FrostRunes.death = True and FrostRunes.reserved=false Then return True
+        End Function
+
+        Function CataUnholy(ByVal T As Long) As Boolean
+            If BloodRunes.Available And BloodRunes.death = True And BloodRunes.reserved = False Then Return True
+            If FrostRunes.Available And FrostRunes.death = True And FrostRunes.reserved = False Then Return True
             If UnholyRunes.Available And UnholyRunes.reserved = False Then Return True
             Return False
-	End Function
-	
-	Function CataFU(T As long) As Boolean
-		If UnholyRunes.Available And FrostRunes.Available Then
-			return true
-		End If
-		If UnholyRunes.Available And BloodRunes.Available and BloodRunes.death Then
-			return true
-		End If
-		If  BloodRunes.AvailableTwice and BloodRunes.death Then
-			return true
-		End If
+        End Function
+
+        Function CataFU(ByVal T As Long) As Boolean
+            If UnholyRunes.Available And FrostRunes.Available Then
+                Return True
+            End If
+            If UnholyRunes.Available And BloodRunes.Available And BloodRunes.death Then
+                Return True
+            End If
+            If BloodRunes.AvailableTwice And BloodRunes.death Then
+                Return True
+            End If
             Return False
-	End Function
-	
-	Function CataUseDeathBlood(T As Long,Death As Boolean) As Boolean
-		If BloodRunes.Available And BloodRune1.death Then
-			BloodRunes.Use(T,Death)
-		Else
+        End Function
+
+        Function CataUseDeathBlood(ByVal T As Long, ByVal Death As Boolean) As Boolean
+            If BloodRunes.Available And BloodRune1.death Then
+                BloodRunes.Use(T, Death)
+            Else
                 Diagnostics.Debug.WriteLine("Error in CataUseDeathBlood")
             End If
             Return False
@@ -210,35 +201,35 @@ Friend Partial Class runes
             Return False
         End Function
 
-	
-	Function CataReserveFU(T As Long) As Boolean
-		FrostRunes.reserved = True
+
+        Function CataReserveFU(ByVal T As Long) As Boolean
+            FrostRunes.reserved = True
             UnholyRunes.reserved = True
             Return False
-	End Function	
-		
-	Function CataUnReserveFU(T As long) as Boolean
-		FrostRunes.reserved=False
-		UnholyRunes.reserved=False
+        End Function
+
+        Function CataUnReserveFU(ByVal T As Long) As Boolean
+            FrostRunes.reserved = False
+            UnholyRunes.reserved = False
             BloodRunes.reserved = False
             Return False
-	End Function
-	
-	
-	Function CataDRMFU( T As Long) As Boolean
+        End Function
+
+
+        Function CataDRMFU(ByVal T As Long) As Boolean
             If UnholyRunes.Available And FrostRunes.Available And UnholyRunes.death = False And FrostRunes.death = False Then
                 Return True
             End If
             Return False
-	End Function
-	
-	Function CataRuneRefreshTheNextGCD(T as long) As Boolean
+        End Function
+
+        Function CataRuneRefreshTheNextGCD(ByVal T As Long) As Boolean
             Dim tmp As Long
             tmp = sim.NextFreeGCD
             If BloodRunes.Available = False And BloodRunes.AvailableTime < tmp Then Return False
             If FrostRunes.Available = False And FrostRunes.AvailableTime < tmp Then Return False
             If UnholyRunes.Available = False And UnholyRunes.AvailableTime < tmp Then Return False
-		return true
-	End Function
-End Class
+            Return True
+        End Function
+    End Class
 End Namespace

@@ -9,7 +9,7 @@
 Namespace Simulator.WowObjects.Spells
     Friend Class DeathandDecay
         Inherits Spell
-
+        Dim Length As Integer
         Friend nextTick As Long
 
         Sub New(ByVal MySim As Sim)
@@ -18,8 +18,9 @@ Namespace Simulator.WowObjects.Spells
             Coeficient = (0.0475)
             Multiplicator = 1
             Multiplicator *= (1 + sim.Character.Talents.Talent("Morbidity").Value * 0.1)
-            If sim.Character.Glyph.DeathandDecay Then Multiplicator *= 1.2
-            If Sim.Character.T102PTNK = 1 Then Multiplicator *= 1.2
+            If sim.Character.T102PTNK = 1 Then Multiplicator *= 1.2
+            Length = 1000
+            If sim.Character.Glyph("DeathAndDecay") Then Length *= 1.5
             logLevel = LogLevelEnum.Basic
         End Sub
 
@@ -38,7 +39,7 @@ Namespace Simulator.WowObjects.Spells
             UseGCD(T)
             nextTick = T + 100
             Sim.Runes.UseUnholy(T, False)
-            ActiveUntil = T + 1000
+            ActiveUntil = T + Length
             CD = T + 3000
             Sim.RunicPower.add(15)
             Sim.CombatLog.write(T & vbTab & "D&D ")

@@ -11,51 +11,70 @@ Imports System.IO
 ' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
 Namespace Simulator.Character
-    Friend Class glyph
+    Friend Class Glyphs
+
+        Default ReadOnly Property Glyph(ByVal name As String) As Boolean
+            Get
+                Return GetGlyph(name).Equiped
+            End Get
+        End Property
+
+
+        Friend GlyphCol As New Collections.Generic.Dictionary(Of String, Glyph)
         Friend xmlGlyph As New XDocument
-        Friend BloodStrike As Boolean
-        Friend DRW As Boolean
-        Friend DarkDeath As Boolean
-        Friend DeathandDecay As Boolean
-        Friend DeathStrike As Boolean
-        Friend Disease As Boolean
-        Friend FrostStrike As Boolean
-        Friend HowlingBlast As Boolean
-        Friend IcyTouch As Boolean
-        Friend Obliterate As Boolean
-        Friend PlagueStrike As Boolean
-        Friend RuneStrike As Boolean
-        Friend ScourgeStrike As Boolean
-        Friend Ghoul As Boolean
-        Friend UnholyBlight As Boolean
-        Friend BoneShield As Boolean
+        Friend GoD As Boolean
+        Dim sim As Sim
 
-
-        Sub New(ByVal path As String)
+        Sub New(ByVal s As Sim, ByVal path As String)
             On Error Resume Next
             Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
                 Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/" & path, FileMode.Open, FileAccess.Read, isoStore)
                     xmlGlyph = XDocument.Load(isoStream)
                 End Using
             End Using
+            Dim Gl As Glyph
+            For Each e As XElement In xmlGlyph.<Talents>.<Glyphs>.<Prime>.Elements
+                Gl = New Glyph(GlyphCol, e.Name.ToString, e.Value)
+            Next
 
+            For Each e As XElement In xmlGlyph.<Talents>.<Glyphs>.<Major>.Elements
+                Gl = New Glyph(GlyphCol, e.Name.ToString, e.Value)
+            Next
+            If Me("disease") Then GoD = True
+        End Sub
 
-            BloodStrike = (xmlGlyph.Element("Talents").Element("Glyphs").Element("BloodStrike").Value = 1)
-            DRW = (xmlGlyph.Element("Talents").Element("Glyphs").Element("DRW").Value = 1)
-            DarkDeath = (xmlGlyph.Element("Talents").Element("Glyphs").Element("DarkDeath").Value = 1)
-            DeathandDecay = (xmlGlyph.Element("Talents").Element("Glyphs").Element("DeathandDecay").Value = 1)
-            DeathStrike = (xmlGlyph.Element("Talents").Element("Glyphs").Element("DeathStrike").Value = 1)
-            Disease = (xmlGlyph.Element("Talents").Element("Glyphs").Element("Disease").Value = 1) 'NYI
-            FrostStrike = (xmlGlyph.Element("Talents").Element("Glyphs").Element("FrostStrike").Value = 1)
-            HowlingBlast = (xmlGlyph.Element("Talents").Element("Glyphs").Element("HowlingBlast").Value = 1)
-            IcyTouch = (xmlGlyph.Element("Talents").Element("Glyphs").Element("IcyTouch").Value = 1)
-            Obliterate = (xmlGlyph.Element("Talents").Element("Glyphs").Element("Obliterate").Value = 1)
-            PlagueStrike = (xmlGlyph.Element("Talents").Element("Glyphs").Element("PlagueStrike").Value = 1)
-            RuneStrike = (xmlGlyph.Element("Talents").Element("Glyphs").Element("RuneStrike").Value = 1) 'NYI
-            ScourgeStrike = (xmlGlyph.Element("Talents").Element("Glyphs").Element("ScourgeStrike").Value = 1)
-            Ghoul = (xmlGlyph.Element("Talents").Element("Glyphs").Element("Ghoul").Value = 1)
-            UnholyBlight = (xmlGlyph.Element("Talents").Element("Glyphs").Element("UnholyBlight").Value = 1)
-            BoneShield = (xmlGlyph.Element("Talents").Element("Glyphs").Element("BoneShield").Value = 1)
+        Function GetGlyph(ByVal Name As String) As Glyph
+            Try
+                Name = Name.ToLower
+                Return GlyphCol(Name)
+            Catch ex As Exception
+                Diagnostics.Debug.WriteLine("WTF IS THIS Glyph: " & Name)
+                Return GlyphCol("none")
+            End Try
+        End Function
+    End Class
+    Class Glyph
+        Friend Name As String
+        Friend Equiped As Boolean
+
+        Sub New(ByVal s As Sim, ByVal GlyphName As String, ByVal Equip As Boolean)
+            Equiped = Equip
+            Name = GlyphName.ToLower
+            Try
+                s.Character.Glyph.GlyphCol.Add(Name, Me)
+            Catch
+                Diagnostics.Debug.WriteLine("Error Adding Glyph " & GlyphName)
+            End Try
+
+        End Sub
+        Sub New(ByVal GlyphList As Dictionary(Of String, Glyph), ByVal GlyphName As String, ByVal Equip As Boolean)
+            Equiped = Equip
+            Name = GlyphName.ToLower
+            Try
+                GlyphList.Add(Name, Me)
+            Catch
+                Diagnostics.Debug.WriteLine("Error Adding Glyph " & GlyphName)
+            End Try
 
         End Sub
     End Class

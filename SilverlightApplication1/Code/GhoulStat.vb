@@ -28,7 +28,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
             APtoDPS = 0.89 / 14  'from observation
 
             StrengthMultiplier = 0.7
-            If Sim.Character.Glyph.Ghoul Then StrengthMultiplier = StrengthMultiplier + 0.4
+            If Sim.Character.Glyph("RaiseDead") Then StrengthMultiplier = StrengthMultiplier + 0.4
         End Sub
 
         Function Strength() As Integer

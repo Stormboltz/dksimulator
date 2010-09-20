@@ -110,9 +110,9 @@ Namespace Simulator.WowObjects.PetsAndMinions
                 cd = T + (1.5 * 6000)
                 sim.RunicPower.Use(60)
                 ActiveUntil = T + 1200
-                If sim.Character.Glyph.DRW Then
-                    ActiveUntil = ActiveUntil + 500
-                End If
+                'If sim.Character.Glyph("DRW") Then ActiveUntil = ActiveUntil + 500
+                'TODO: Add threat mod
+
                 UseGCD(T)
                 NextDRW = T
                 sim.FutureEventManager.Add(NextDRW, "DRW")

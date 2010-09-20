@@ -647,15 +647,10 @@ Namespace Simulator
 
         Function CanUseGCD(ByVal T As Long) As Boolean
             CanUseGCD = True
-            If Character.Glyph.Disease Then
+            If Character.Glyph.GoD Then
                 Dim tGDC As Long
                 'return false
-                If UnholyPresence Then
-                    tGDC = 100 + latency / 10 + 50
-                Else
-                    tGDC = 150 + latency / 10 + 50
-                End If
-
+                tGDC = 150 + latency / 10 + 50
                 If Math.Min(Targets.MainTarget.BloodPlague.FadeAt, Targets.MainTarget.FrostFever.FadeAt) < (T + tGDC) Then
                     'Diagnostics.Debug.WriteLine (RuneState & "time left on disease= " & (math.Min(BloodPlague.FadeAt,FrostFever.FadeAt) -T)/100 & "s" & " - " & T/100)
                     Return False
@@ -1015,6 +1010,9 @@ errH:
                 Case "Unholy"
                     UnholyPresence = 1
                 Case "Frost"
+                    If FrostPresenceSwitch Is Nothing Then
+                        FrostPresenceSwitch = New FrostPresence(Me)
+                    End If
                     Me.FrostPresenceSwitch.SetForFree()
                     'FrostPresence = 1
             End Select

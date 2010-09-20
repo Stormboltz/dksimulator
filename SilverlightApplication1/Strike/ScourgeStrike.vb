@@ -48,16 +48,16 @@ Namespace Simulator.WowObjects.Strikes
                 sim.RunicPower.add(15 + 5 * sim.Character.T74PDPS)
                 sim.Runes.UseUnholy(T, False)
 
-                If sim.Character.Glyph.ScourgeStrike Then
-                    If sim.Targets.MainTarget.BloodPlague.ScourgeStrikeGlyphCounter < 3 Then
-                        sim.Targets.MainTarget.BloodPlague.IncreaseDuration(300)
-                        sim.Targets.MainTarget.BloodPlague.ScourgeStrikeGlyphCounter += 1
-                    End If
-                    If sim.Targets.MainTarget.FrostFever.ScourgeStrikeGlyphCounter < 3 Then
-                        sim.Targets.MainTarget.FrostFever.IncreaseDuration(300)
-                        sim.Targets.MainTarget.FrostFever.ScourgeStrikeGlyphCounter += 1
-                    End If
-                End If
+                'If sim.Character.Glyph("ScourgeStrike") Then
+                '    If sim.Targets.MainTarget.BloodPlague.ScourgeStrikeGlyphCounter < 3 Then
+                '        sim.Targets.MainTarget.BloodPlague.IncreaseDuration(300)
+                '        sim.Targets.MainTarget.BloodPlague.ScourgeStrikeGlyphCounter += 1
+                '    End If
+                '    If sim.Targets.MainTarget.FrostFever.ScourgeStrikeGlyphCounter < 3 Then
+                '        sim.Targets.MainTarget.FrostFever.IncreaseDuration(300)
+                '        sim.Targets.MainTarget.FrostFever.ScourgeStrikeGlyphCounter += 1
+                '    End If
+                'End If
                 sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.OnFU)
 
             End If
@@ -87,6 +87,7 @@ Namespace Simulator.WowObjects.Strikes
             Friend tmpPhysical As Integer
             Sub New(ByVal S As Sim)
                 MyBase.New(S)
+                If sim.Character.Glyph("ScourgeStrike") Then Multiplicator *= 1.3
                 logLevel = LogLevelEnum.Basic
             End Sub
 

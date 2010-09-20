@@ -9,8 +9,6 @@
             Rune2 = r2
             Rune1.Parent = Me
             Rune2.Parent = Me
-
-
         End Sub
 
         Sub Use(ByVal T As Long, ByVal D As Boolean, ByVal alf As Boolean)

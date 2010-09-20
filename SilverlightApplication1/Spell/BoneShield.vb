@@ -31,10 +31,10 @@ Namespace Simulator.WowObjects.Spells
             End If
         End Sub
         Sub PreBuff()
-            If Sim.Character.Talents.Talent("BoneShield").Value = 1 Then
-                CD = Sim.TimeStamp + 60 * 100
-                ActiveUntil = Sim.TimeStamp + BuffLength() * 100
-                AddUptime(Sim.TimeStamp)
+            If Talented Then
+                CD = sim.TimeStamp + 60 * 100
+                ActiveUntil = sim.TimeStamp + BuffLength() * 100
+                AddUptime(sim.TimeStamp)
                 HitCount += 1
             End If
         End Sub
@@ -51,7 +51,7 @@ Namespace Simulator.WowObjects.Spells
             UseGCD(sim.TimeStamp)
             sim.CombatLog.write(sim.TimeStamp & vbTab & "Bone Shield")
             Charge = 3
-            If sim.Character.Glyph.BoneShield Then Charge += 1
+            'If sim.Character.Glyph("BoneShield") Then Charge += 1
             HitCount += 1
             AddUptime(sim.TimeStamp)
         End Sub

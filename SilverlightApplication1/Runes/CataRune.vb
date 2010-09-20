@@ -33,18 +33,20 @@ Namespace Simulator.WowObjects.Runes
 
 
         Sub Use(ByVal T As Long, ByVal D As Boolean, ByVal Alf As Boolean)
-            'If Alf Then
-            '    Me.Value -= 50
-            'Else
-            '    Me.Value -= 100
-            'End If
+            If Alf Then
+                Me.Value -= 50
+            Else
+                Me.Value -= 100
+                death = D
+                If BTuntil > T Then death = True
+            End If
 
-            'If Me.Value < 0 Then
-            '    Diagnostics.Debug.WriteLine("RUNE USE ERROR")
-            'End If
-            Parent.Use(T, D, Alf)
-            death = D
-            If BTuntil > T Then death = True
+            If Me.Value < 0 Then
+                Diagnostics.Debug.WriteLine("RUNE USE ERROR")
+            End If
+            'Parent.Use(T, D, Alf)
+
+
             Sim.proc.tryT104PDPS(T)
 
         End Sub

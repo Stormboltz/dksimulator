@@ -85,7 +85,7 @@ Namespace Simulator.WowObjects.Strikes
         End Function
 
         Public Overridable Function isAvailable(ByVal T As Long) As Boolean
-            Return False
+            Return Resource.IsAvailable
         End Function
 
         Public Overridable Function ApplyDamage(ByVal T As Long) As Boolean

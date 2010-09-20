@@ -6,7 +6,6 @@ Namespace Simulator.WowObjects.Strikes
             BaseDamage = 378
             Coeficient = 1
             Multiplicator *= (1 + sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100)
-            If sim.Character.Glyph.PlagueStrike Then Multiplicator *= 1.2
             logLevel = LogLevelEnum.Basic
 
             SpecialCritChance += sim.Character.T72PTNK * 0.1

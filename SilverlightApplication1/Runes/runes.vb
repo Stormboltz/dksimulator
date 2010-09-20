@@ -79,35 +79,33 @@ Namespace Simulator.WowObjects.Runes
         End Function
         Sub UseBF(ByVal T As Long, ByVal Death As Boolean, Optional ByVal Alf As Boolean = False)
             'use Blood
-            If BloodRune1.Available And BloodRune1.death = False Then
-                BloodRune1.Use(T, Death, Alf)
-            ElseIf BloodRune2.Available And BloodRune2.death = False Then
+
+            If BloodRune2.Available And BloodRune2.death = False Then
                 BloodRune2.Use(T, Death, Alf)
-            ElseIf BloodRune1.Available Then
+            ElseIf BloodRune1.Available And BloodRune1.death = False Then
                 BloodRune1.Use(T, Death, Alf)
             ElseIf BloodRune2.Available Then
                 BloodRune2.Use(T, Death, Alf)
+            ElseIf BloodRune1.Available Then
+                BloodRune1.Use(T, Death, Alf)
             Else
                 Diagnostics.Debug.WriteLine("BF ERROR")
             End If
 
 Frost:
             'Use Frost
-            If FrostRune1.Available And FrostRune1.death = False Then
-                FrostRune1.Use(T, Death, Alf)
-            ElseIf FrostRune2.Available And FrostRune2.death = False Then
+            If FrostRune2.Available And FrostRune2.death = False Then
                 FrostRune2.Use(T, Death, Alf)
-            ElseIf FrostRune1.Available Then
+            ElseIf FrostRune1.Available And FrostRune1.death = False Then
                 FrostRune1.Use(T, Death, Alf)
             ElseIf FrostRune2.Available Then
                 FrostRune2.Use(T, Death, Alf)
+            ElseIf FrostRune1.Available Then
+                FrostRune1.Use(T, Death, Alf)
             Else
                 Diagnostics.Debug.WriteLine("BF ERROR")
             End If
         End Sub
-
-
-
         Function BFU(Optional ByVal T As Long = -1) As Boolean
             If T = -1 Then
                 If BloodRune1.Available Or BloodRune2.Available Then
@@ -178,8 +176,6 @@ Frost:
             Return T
         End Function
 
-
-
         Function Death() As Boolean
             If BloodRune1.Available And BloodRune1.death = True Then Return True
             If BloodRune2.Available And BloodRune2.death = True Then Return True
@@ -189,12 +185,6 @@ Frost:
             If UnholyRune2.Available And UnholyRune2.death = True Then Return True
             Return False
         End Function
-
-
-
-
-
-
 
         Function AnyBlood(ByVal T As Long) As Boolean
             If BloodRune1.AvailableTime <= T And BloodRune1.reserved = False Then Return True
@@ -309,40 +299,38 @@ Frost:
             Return FR And UH
         End Function
         Sub UseDeathBlood(ByVal T As Long, ByVal Death As Boolean, Optional ByVal Alf As Boolean = False)
-            If BloodRune1.Available(T) And BloodRune1.death = True Then
-                BloodRune1.Use(T, Death, Alf)
+            If BloodRune2.Available(T) And BloodRune2.death = True Then
+                BloodRune2.Use(T, Death, Alf)
             Else
-                If BloodRune2.Available(T) And BloodRune2.death = True Then
-                    BloodRune2.Use(T, Death, Alf)
+                If BloodRune1.Available(T) And BloodRune1.death = True Then
+                    BloodRune1.Use(T, Death, Alf)
                 End If
             End If
         End Sub
-
-
         Sub UseBlood(ByVal T As Long, ByVal Death As Boolean, Optional ByVal Alf As Boolean = False)
-            If BloodRune1.Available And BloodRune1.death = False Then
-                BloodRune1.Use(T, Death, Alf)
+            If BloodRune2.Available And BloodRune2.death = False Then
+                BloodRune2.Use(T, Death, Alf)
             Else
-                If BloodRune2.Available And BloodRune2.death = False Then
-                    BloodRune2.Use(T, Death, Alf)
+                If BloodRune1.Available And BloodRune1.death = False Then
+                    BloodRune1.Use(T, Death, Alf)
                 Else
-                    If BloodRune1.Available Then
-                        BloodRune1.Use(T, Death, Alf)
+                    If BloodRune2.Available Then
+                        BloodRune2.Use(T, Death, Alf)
                     Else
-                        If BloodRune2.Available Then
-                            BloodRune2.Use(T, Death, Alf)
+                        If BloodRune1.Available Then
+                            BloodRune1.Use(T, Death, Alf)
                         Else
-                            If FrostRune1.Available And FrostRune1.death = True Then
-                                FrostRune1.Use(T, Death, Alf)
+                            If FrostRune2.Available And FrostRune2.death = True Then
+                                FrostRune2.Use(T, Death, Alf)
                             Else
-                                If FrostRune2.Available And FrostRune2.death = True Then
-                                    FrostRune2.Use(T, Death, Alf)
+                                If FrostRune1.Available And FrostRune1.death = True Then
+                                    FrostRune1.Use(T, Death, Alf)
                                 Else
-                                    If UnholyRune1.Available And UnholyRune1.death = True Then
-                                        UnholyRune1.Use(T, Death, Alf)
+                                    If UnholyRune2.Available And UnholyRune2.death = True Then
+                                        UnholyRune2.Use(T, Death, Alf)
                                     Else
-                                        If UnholyRune2.Available And UnholyRune2.death = True Then
-                                            UnholyRune2.Use(T, Death, Alf)
+                                        If UnholyRune1.Available And UnholyRune1.death = True Then
+                                            UnholyRune1.Use(T, Death, Alf)
                                         Else
                                             Diagnostics.Debug.WriteLine("ERROR Blood RUNE")
                                         End If
@@ -360,23 +348,23 @@ Frost:
         Sub UseFrost(ByVal T As Long, ByVal Death As Boolean, Optional ByVal Alf As Boolean = False)
 
 
-            If FrostRune1.Available Then
-                FrostRune1.Use(T, Death, Alf)
+            If FrostRune2.Available Then
+                FrostRune2.Use(T, Death, Alf)
             Else
-                If FrostRune2.Available Then
-                    FrostRune2.Use(T, Death, Alf)
+                If FrostRune1.Available Then
+                    FrostRune1.Use(T, Death, Alf)
                 Else
-                    If BloodRune1.Available And BloodRune1.death = True Then
-                        BloodRune1.Use(T, Death, Alf)
+                    If BloodRune2.Available And BloodRune2.death = True Then
+                        BloodRune2.Use(T, Death, Alf)
                     Else
-                        If BloodRune2.Available And BloodRune2.death = True Then
-                            BloodRune2.Use(T, Death, Alf)
+                        If BloodRune1.Available And BloodRune1.death = True Then
+                            BloodRune1.Use(T, Death, Alf)
                         Else
-                            If UnholyRune1.Available And UnholyRune1.death = True Then
-                                UnholyRune1.Use(T, Death, Alf)
+                            If UnholyRune2.Available And UnholyRune2.death = True Then
+                                UnholyRune2.Use(T, Death, Alf)
                             Else
-                                If UnholyRune2.Available And UnholyRune2.death = True Then
-                                    UnholyRune2.Use(T, Death, Alf)
+                                If UnholyRune1.Available And UnholyRune1.death = True Then
+                                    UnholyRune1.Use(T, Death, Alf)
                                 Else
                                     Diagnostics.Debug.WriteLine("ERROR FROST RUNE")
                                 End If
@@ -386,27 +374,24 @@ Frost:
                 End If
             End If
         End Sub
-
         Sub UseUnholy(ByVal T As Long, ByVal Death As Boolean, Optional ByVal Alf As Boolean = False)
-
-
-            If UnholyRune1.Available Then
-                UnholyRune1.Use(T, Death, Alf)
+            If UnholyRune2.Available Then
+                UnholyRune2.Use(T, Death, Alf)
             Else
-                If UnholyRune2.Available Then
-                    UnholyRune2.Use(T, Death, Alf)
+                If UnholyRune1.Available Then
+                    UnholyRune1.Use(T, Death, Alf)
                 Else
-                    If BloodRune1.Available And BloodRune1.death = True Then
-                        BloodRune1.Use(T, Death, Alf)
+                    If BloodRune2.Available And BloodRune2.death = True Then
+                        BloodRune2.Use(T, Death, Alf)
                     Else
-                        If BloodRune2.Available And BloodRune2.death = True Then
-                            BloodRune2.Use(T, Death, Alf)
+                        If BloodRune1.Available And BloodRune1.death = True Then
+                            BloodRune1.Use(T, Death, Alf)
                         Else
-                            If FrostRune1.Available And FrostRune1.death = True Then
-                                FrostRune1.Use(T, Death, Alf)
+                            If FrostRune2.Available And FrostRune2.death = True Then
+                                FrostRune2.Use(T, Death, Alf)
                             Else
-                                If FrostRune2.Available And FrostRune2.death = True Then
-                                    FrostRune2.Use(T, Death, Alf)
+                                If FrostRune1.Available And FrostRune1.death = True Then
+                                    FrostRune1.Use(T, Death, Alf)
                                 Else
                                     Diagnostics.Debug.WriteLine("Unholy rune ERROR")
                                 End If
@@ -417,17 +402,17 @@ Frost:
             End If
         End Sub
         Sub UseFU(ByVal T As Long, ByVal Death As Boolean, Optional ByVal Alf As Boolean = False)
-            If FrostRune1.Available Then
-                FrostRune1.Use(T, Death, Alf)
+            If FrostRune2.Available Then
+                FrostRune2.Use(T, Death, Alf)
             Else
-                If FrostRune2.Available Then
-                    FrostRune2.Use(T, Death, Alf)
+                If FrostRune1.Available Then
+                    FrostRune1.Use(T, Death, Alf)
                 Else
-                    If BloodRune1.Available And BloodRune1.death = True Then
-                        BloodRune1.Use(T, Death, Alf)
+                    If BloodRune2.Available And BloodRune2.death = True Then
+                        BloodRune2.Use(T, Death, Alf)
                     Else
-                        If BloodRune2.Available And BloodRune2.death = True Then
-                            BloodRune2.Use(T, Death, Alf)
+                        If BloodRune1.Available And BloodRune1.death = True Then
+                            BloodRune1.Use(T, Death, Alf)
                         Else
                             Diagnostics.Debug.WriteLine("ERRRRRROOOOORRRR FU @ :" & T)
                             Exit Sub
@@ -436,17 +421,17 @@ Frost:
                 End If
             End If
 
-            If UnholyRune1.Available Then
-                UnholyRune1.Use(T, Death, Alf)
+            If UnholyRune2.Available Then
+                UnholyRune2.Use(T, Death, Alf)
             Else
-                If UnholyRune2.Available Then
-                    UnholyRune2.Use(T, Death, Alf)
+                If UnholyRune1.Available Then
+                    UnholyRune1.Use(T, Death, Alf)
                 Else
-                    If BloodRune1.Available And BloodRune1.death = True Then
-                        BloodRune1.Use(T, Death, Alf)
+                    If BloodRune2.Available And BloodRune2.death = True Then
+                        BloodRune2.Use(T, Death, Alf)
                     Else
-                        If BloodRune2.Available And BloodRune2.death = True Then
-                            BloodRune2.Use(T, Death, Alf)
+                        If BloodRune1.Available And BloodRune1.death = True Then
+                            BloodRune1.Use(T, Death, Alf)
                         Else
                             Diagnostics.Debug.WriteLine("ERRRRRROOOOORRRR FU @ :" & T)
                             Exit Sub
@@ -455,9 +440,6 @@ Frost:
                 End If
             End If
         End Sub
-
-
-
 
 
         Function DRMFU(ByVal T As Long) As Boolean

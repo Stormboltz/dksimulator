@@ -14,7 +14,7 @@ Namespace Simulator.WowObjects.Spells
                 Multiplicator = Multiplicator * 1.2 'Frozen Heart
             End If
             logLevel = LogLevelEnum.Basic
-
+            DamageSchool = DamageSchoolEnum.Frost
         End Sub
 
         Overrides Function ApplyDamage(ByVal T As Long) As Boolean
@@ -36,7 +36,10 @@ Namespace Simulator.WowObjects.Spells
             Dim tmp As Double = MyBase.AvrgNonCrit(T, target)
             If Sim.ExecuteRange Then tmp *= (1 + 0.06 * Sim.Character.Talents.Talent("MercilessCombat").Value)
             If Sim.RuneForge.CheckCinderglacier(True) > 0 Then tmp *= 1.2
-            tmp *= Sim.RuneForge.RazorIceMultiplier(T)
+            tmp *= sim.RuneForge.RazorIceMultiplier(T)
+            If sim.Character.Talents.GetNumOfThisSchool(Character.Talents.Schools.Frost) > 20 Then
+                tmp *= 1 + sim.Character.Mastery.Value * 2.5
+            End If
             'TODO: only on main target
             Sim.Targets.MainTarget.FrostFever.Apply(T)
             'Moved this here as an IcyTouch with 1 CG charge left will reapply a CG buffed FF

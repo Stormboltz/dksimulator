@@ -4,7 +4,7 @@ Namespace Simulator.WowObjects.Diseases
 
         Sub New(ByVal S As Sim)
             MyBase.New(S)
-
+            DamageSchool = DamageSchoolEnum.Frost
         End Sub
         Overrides Function PerfectUsage(ByVal T As Long) As Boolean
             If FadeAt <= Sim.Runes.GetNextFrost(T) Then
@@ -18,9 +18,10 @@ Namespace Simulator.WowObjects.Diseases
             If target Is Nothing Then target = Sim.Targets.MainTarget
             Dim tmp As Double
             tmp = MyBase.CalculateMultiplier(T, target) * Sim.RuneForge.RazorIceMultiplier(T) 'TODO: only on main target
-            If Sim.Character.Glyph.IcyTouch Then tmp = tmp * 1.2
+            If sim.Character.Glyph("IcyTouch") Then tmp = tmp * 1.2
             If sim.Character.Talents.GetNumOfThisSchool(Character.Talents.Schools.Frost) > 20 Then
                 tmp = tmp * 1.2 'Frozen Heart
+                tmp *= 1 + sim.Character.Mastery.Value * 2.5
             End If
 
             Return tmp

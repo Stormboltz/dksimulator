@@ -202,7 +202,7 @@
                                 <CheckBox Content="Agility" Height="16" Name="chkEPAgility" IsChecked="True" />
                                 <CheckBox Content="Crit rating" Height="16" Name="chkEPCrit" IsChecked="True" />
                                 <CheckBox Content="Haste rating" Height="16" Name="chkEPHaste" IsChecked="True" />
-                                <CheckBox Content="Armor Penetration rating" Height="16" Name="chkEPArP" IsChecked="True" />
+                                <CheckBox Content="Mastery Rating" Height="16" Name="chkEPMast" IsChecked="True" />
                                 <CheckBox Content="Hit rating" Height="16" Name="chkEPHit" IsChecked="True" />
                                 <CheckBox Content="Hit rating after melee cap" Height="16" Name="chkEPSpHit" IsChecked="True" />
                                 <CheckBox Content="Hit rating after spell cap" Height="16" Name="chkEPAfterSpellHitRating" />
@@ -240,20 +240,20 @@
                         <StackPanel Grid.Row="0">
                             <CheckBox Content="Replace Critical rating" Name="chkScaCrit" />
                             <CheckBox Content="Replace Haste Rating" Name="chkScaHaste" />
-                            <CheckBox Content="Replace Expertise rating" Name="chkScaExp" />
-                            <CheckBox Content="Replace Hit rating" Name="chkScaHit" />
-                            <CheckBox Content="Replace Armor Penetration" Name="chkScaArP" />
+                            <CheckBox Content="Replace Expertise Rating" Name="chkScaExp" />
+                            <CheckBox Content="Replace Hit Rating" Name="chkScaHit" />
+                            <CheckBox Content="Replace Mastery Rating" Name="chkScaMast" />
 
                         </StackPanel>
                         <StackPanel Grid.Column="0" Grid.Row="1">
                             <CheckBox  Content="Add Weapon DPS" Name="chkScaDPSA" IsChecked="True" />
                             <CheckBox Content="Add Agility" Name="chkScaAgility" IsChecked="True" />
                             <CheckBox Content="Add Strength" Name="chkScaStr" IsChecked="True" />
-                            <CheckBox Content="Add Critical rating" Name="chkScaCritA" IsChecked="True" />
+                            <CheckBox Content="Add Critical Rating" Name="chkScaCritA" IsChecked="True" />
                             <CheckBox Content="Add Haste Rating" Name="chkScaHasteA" IsChecked="True" />
-                            <CheckBox Content="Add Expertise rating" Name="chkScaExpA" IsChecked="True" />
-                            <CheckBox Content="Add Hit rating" Name="chkScaHitA" IsChecked="True" />
-                            <CheckBox Content="Add Armor Penetration" Name="chkScaArPA" IsChecked="True" />
+                            <CheckBox Content="Add Expertise Rating" Name="chkScaExpA" IsChecked="True" />
+                            <CheckBox Content="Add Hit Rating" Name="chkScaHitA" IsChecked="True" />
+                            <CheckBox Content="Add Mastery Rating" Name="chkScaMastA" IsChecked="True" />
                         </StackPanel>
                     </Grid>
 

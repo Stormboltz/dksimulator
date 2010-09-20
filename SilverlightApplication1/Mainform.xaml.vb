@@ -543,7 +543,10 @@ sortie:
                             For Each ctrl As Control In CType(stk, StackPanel).Children
                                 If ctrl.Name.StartsWith("chk") Then
                                     chkBox = ctrl
-                                    chkBox.IsChecked = doc.<config>.<Stats>.Elements(chkBox.Name).Value
+                                    Try
+                                        chkBox.IsChecked = doc.<config>.<Stats>.Elements(chkBox.Name).Value
+                                    Catch ex As Exception
+                                    End Try
                                 End If
                             Next
                         End If
@@ -1438,6 +1441,7 @@ NextItem:
 
 
         xmlChar.Element("character").Add(New XElement("stat", ""))
+
         xmlChar.Element("character").Element("stat").Add(New XElement("Strength", CheckForInt(StatSummary.txtStr.Text)))
         xmlChar.Element("character").Element("stat").Add(New XElement("Agility", CheckForInt(StatSummary.txtAgi.Text)))
         xmlChar.Element("character").Element("stat").Add(New XElement("Intel", CheckForInt(StatSummary.txtIntel.Text)))
@@ -1445,6 +1449,7 @@ NextItem:
         xmlChar.Element("character").Element("stat").Add(New XElement("Armor", CheckForInt(StatSummary.txtArmor.Text)))
         xmlChar.Element("character").Element("stat").Add(New XElement("SpecialArmor", CheckForInt(StatSummary.txtAddArmor.Text)))
         xmlChar.Element("character").Element("stat").Add(New XElement("AttackPower", CheckForInt(StatSummary.txtAP.Text)))
+        xmlChar.Element("character").Element("stat").Add(New XElement("MasteryRating", CheckForInt(StatSummary.txtMast.Text)))
         xmlChar.Element("character").Element("stat").Add(New XElement("HitRating", CheckForInt(StatSummary.txtHit.Text)))
         xmlChar.Element("character").Element("stat").Add(New XElement("CritRating", CheckForInt(StatSummary.txtCrit.Text)))
         xmlChar.Element("character").Element("stat").Add(New XElement("HasteRating", CheckForInt(StatSummary.txtHaste.Text)))

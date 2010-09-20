@@ -193,13 +193,13 @@ Namespace Simulator
                                 End If
                             End If
                         End If
-                        If sim.Character.Glyph.Disease Then
+                        If sim.Character.Glyph.GoD Then
                             If sim.Pestilence.PerfectUsage(TimeStamp) Then
                                 sim.Pestilence.use()
                                 Exit Sub
                             Else
                                 If sim.Targets.MainTarget.FrostFever.ShouldReapply(TimeStamp) Then
-                                    If sim.Character.Glyph.HowlingBlast And sim.HowlingBlast.isAvailable() Then
+                                    If sim.HowlingBlast.Glyphed And sim.HowlingBlast.isAvailable() Then
                                         If sim.proc.Rime.IsActive Or runes.Frost(TimeStamp) Then
                                             sim.HowlingBlast.ApplyDamage(TimeStamp)
                                             Exit Sub
@@ -213,7 +213,7 @@ Namespace Simulator
                             End If
                         Else
                             If sim.Targets.MainTarget.FrostFever.PerfectUsage(TimeStamp) = True Or sim.Targets.MainTarget.FrostFever.ToReApply Then
-                                If sim.Character.Glyph.HowlingBlast And sim.HowlingBlast.isAvailable() Then
+                                If sim.HowlingBlast.Glyphed And sim.HowlingBlast.isAvailable() Then
                                     If sim.proc.Rime.IsActive Or runes.Frost(TimeStamp) Then
                                         sim.HowlingBlast.ApplyDamage(TimeStamp)
                                         Exit Sub
@@ -240,7 +240,7 @@ Namespace Simulator
                                 End If
                             End If
                         End If
-                        If sim.Character.Glyph.Disease Then
+                        If sim.Character.Glyph.GoD Then
                             If sim.Pestilence.PerfectUsage(TimeStamp) Then
                                 sim.Pestilence.use()
                                 Exit Sub

@@ -108,22 +108,40 @@
     <SummonGargoyle row="7" col="2">1</SummonGargoyle>
   </unholy>
   <Glyphs>
-    <none>00</none>
-    <BloodStrike>03</BloodStrike>
-    <DarkDeath>08</DarkDeath>
-    <DeathStrike>10</DeathStrike>
-    <FrostStrike>13</FrostStrike>
-    <HowlingBlast>14</HowlingBlast>
-    <IcyTouch>17</IcyTouch>
-    <Obliterate>18</Obliterate>
-    <PlagueStrike>19</PlagueStrike>
-    <ScourgeStrike>22</ScourgeStrike>
-    <UnholyBlight>25</UnholyBlight>
-    <Ghoul>27</Ghoul>
-    <DeathandDecay>11</DeathandDecay>
-    <DRW>06</DRW>
-    <Disease>12</Disease>
-    <RuneStrike>20</RuneStrike>
-    <BoneShield>04</BoneShield>
+    <Major>
+      <none>00</none>
+      <DeathandDecay/>
+      <DeathCoil/>
+      <DeathStrike></DeathStrike>
+      <FrostStrike></FrostStrike>
+      <HeartStrike></HeartStrike>
+      <HowlingBlast></HowlingBlast>
+      <IcyTouch></IcyTouch>
+      <Obliterate></Obliterate>
+      <RaiseDead></RaiseDead>
+      <RuneStrike></RuneStrike>
+      <ScourgeStrike></ScourgeStrike>
+    </Major>
+    
+    <Prime>
+      <Empty>99</Empty>
+      <AntiMagicShell></AntiMagicShell>
+      <BloodBoil></BloodBoil>
+      <BoneShield></BoneShield>
+      <ChainsofIce></ChainsofIce>
+      <DancingRuneWeapon></DancingRuneWeapon>
+      <DarkCommand></DarkCommand>
+      <DeathGrip></DeathGrip>
+      <Disease></Disease>
+      <HungeringCold></HungeringCold>
+      <IceboundFortitude></IceboundFortitude>
+      <Pestilence></Pestilence>
+      <PillarofFrost></PillarofFrost>
+      <RuneTap></RuneTap>
+      <Strangulate></Strangulate>
+      <UnholyBlight></UnholyBlight>
+      <VampiricBlood></VampiricBlood>
+    </Prime>
+   
   </Glyphs>
 </Talents>

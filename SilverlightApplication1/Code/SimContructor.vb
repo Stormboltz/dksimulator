@@ -251,7 +251,7 @@ Public Module SimConstructor
         Dim MHDPS As String
         Dim SpHit As String
         Dim Hit As String
-        Dim ArP As String
+        Dim Mast As String
         Dim Haste As String
         Dim Crit As String
 
@@ -262,7 +262,7 @@ Public Module SimConstructor
         MHDPS = 0
         SpHit = 0
         Hit = 0
-        ArP = 0
+        Mast = 0
         Haste = 0
         Crit = 0
 
@@ -303,8 +303,17 @@ Public Module SimConstructor
         Catch
         End Try
 
+        Try
+            EpStat = "EP MasteryRating"
+            DPS = DPSs(EpStat)
+            tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
+            tmp2 = (DPS - BaseDPS) / EPBase
+            Mast = toDDecimal(tmp2 / tmp1)
+            rp.AddAdditionalInfo(EpStat, Mast)
+            '	WriteReport ("Average for " & EPStat & " | " & DPS)
+        Catch
+        End Try
 
-        
 
         Try
             EpStat = "EP HasteRating"
@@ -356,6 +365,8 @@ Public Module SimConstructor
             '	WriteReport ("Average for " & EPStat & " | " & DPS)
         Catch
         End Try
+        
+
 
         Try
             EpStat = "EP SpellHitRating"
@@ -501,7 +512,7 @@ Public Module SimConstructor
         MHDPS = MHDPS.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
         SpHit = SpHit.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
         Hit = Hit.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
-        ArP = ArP.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
+        Mast = Mast.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
         Haste = Haste.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
         Crit = Crit.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
 
@@ -514,10 +525,10 @@ Public Module SimConstructor
         '"&odps=" & 0 & "&Agi=" & Agility & "&mhit=" & SpHit & "&map=1" & "&msp=" & MHSpeed & "&arp=" & ArP & "&osp=0" & "&Exp=" & Exp
         'rp.AddAdditionalInfo("lootlink hit caped", lootlink)
         Dim pwan As String
-        pwan = "Pawn: v1: " + Convert.ToChar(34) + "Non hit caped" + Convert.ToChar(34) + ": ArmorPenetration=" + ArP + ", HitRating=" + Hit + ", CritRating=" + Crit + ", Dps=" + MHDPS + ", Strength=" + Str + ", Armor=0.028, Agility=" + Agility + ", HasteRating=" + Haste + ", Speed=" + MHSpeed + ", ExpertiseRating=" + Exp + ", Ap=1, GemQualityLevel=82 )"
-        rp.AddAdditionalInfo("pwan Non hit caped", pwan)
-        pwan = "Pawn: v1: " + Convert.ToChar(34) + "Hit caped" + Convert.ToChar(34) + ": ArmorPenetration=" + ArP + ", HitRating=" + SpHit + ", CritRating=" + Crit + ", Dps=" + MHDPS + ", Strength=" + Str + ", Armor=0.028, Agility=" + Agility + ", HasteRating=" + Haste + ", Speed=" + MHSpeed + ", ExpertiseRating=" + Exp + ", Ap=1, GemQualityLevel=82 )"
-        rp.AddAdditionalInfo("pwan hit caped", pwan)
+        pwan = "Pawn: v1: " + Convert.ToChar(34) + "Non hit caped" + Convert.ToChar(34) + ": MasteryRating=" + Mast + ", HitRating=" + Hit + ", CritRating=" + Crit + ", Dps=" + MHDPS + ", Strength=" + Str + ", Armor=0.028, Agility=" + Agility + ", HasteRating=" + Haste + ", Speed=" + MHSpeed + ", ExpertiseRating=" + Exp + ", Ap=1, GemQualityLevel=82 )"
+        rp.AddAdditionalInfo("pawn Non hit caped", pwan)
+        pwan = "Pawn: v1: " + Convert.ToChar(34) + "Hit caped" + Convert.ToChar(34) + ": MasteryRating=" + Mast + ", HitRating=" + SpHit + ", CritRating=" + Crit + ", Dps=" + MHDPS + ", Strength=" + Str + ", Armor=0.028, Agility=" + Agility + ", HasteRating=" + Haste + ", Speed=" + MHSpeed + ", ExpertiseRating=" + Exp + ", Ap=1, GemQualityLevel=82 )"
+        rp.AddAdditionalInfo("pawn hit caped", pwan)
         Dim dif As Decimal = ((Now.Ticks - StartTime.Ticks) / 10000000)
         rp.AddAdditionalInfo("Generated in ", Decimal.Round(dif, 2).ToString & " s")
         rp.Save("")
@@ -541,7 +552,7 @@ Public Module SimConstructor
         EpStat = "EP Agility"
         SimConstructor.Start(SimTime, MainFrm)
         EpStat = "EP CritRating"
-        
+
         SimConstructor.Start(SimTime, MainFrm)
         EpStat = "EP RelativeExpertiseRating"
         SimConstructor.Start(SimTime, MainFrm)
@@ -665,10 +676,12 @@ skipStats:
                 If doc.Element("config").Element("Stats").Element("chkEPHaste").Value = "true" Then
                     EpStat = "EP HasteRating"
                     SimConstructor.Start(SimTime, MainFrm, False, EpStat)
-
                 End If
 
-
+                If doc.Element("config").Element("Stats").Element("chkEPMast").Value = "true" Then
+                    EpStat = "EP MasteryRating"
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
+                End If
 
                 If doc.Element("config").Element("Stats").Element("chkEPExp").Value = "true" Then
                     EpStat = "EP ExpertiseRating"

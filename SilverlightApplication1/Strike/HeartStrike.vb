@@ -16,7 +16,7 @@ Namespace Simulator.WowObjects.Strikes
             Coeficient = 1
             Multiplicator = (1 + sim.Character.Talents.Talent("BloodoftheNorth").Value * 5 / 100)
             If sim.Character.T102PDPS <> 0 Then Multiplicator = Multiplicator * 1.07
-
+            If sim.Character.Glyph("HeartStrike") Then Multiplicator += 1.3
             If sim.Character.T92PTNK = 1 Then Multiplicator = Multiplicator * 1.05
             logLevel = LogLevelEnum.Basic
         End Sub

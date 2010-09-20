@@ -19,40 +19,27 @@ Namespace Simulator.WowObjects.Strikes
             If S.Character.Talents.GetNumOfThisSchool(Character.Talents.Schools.Frost) > 20 Then
                 Multiplicator = Multiplicator * 1.2 'Frozen Heart
             End If
+            Dim c As Integer = 40
+            If sim.Character.Glyph("froststrike") Then c -= 8
+            Resource = New Resource(S, ResourcesEnum.RunicPower, c)
 
             SpecialCritChance = 8 / 100 * sim.Character.T82PDPS
             DamageSchool = DamageSchoolEnum.Frost
             logLevel = LogLevelEnum.Basic
         End Sub
 
-        Public Overrides Function isAvailable(ByVal T As Long) As Boolean
-            If sim.Character.Glyph.FrostStrike Then
-                isAvailable = sim.RunicPower.CheckRS(32)
-            Else
-                isAvailable = sim.RunicPower.CheckRS(40)
-            End If
-        End Function
+       
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
             Dim ret As Boolean = MyBase.ApplyDamage(T)
             sim.proc.KillingMachine.Use()
             If ret = False Then
                 UseGCD(T)
-                If sim.Character.Glyph.FrostStrike Then
-                    sim.RunicPower.Use(16)
-                Else
-                    sim.RunicPower.Use(20)
-                End If
+                UseAlf()
                 Return False
             End If
             If OffHand = False Then
                 UseGCD(T)
-                sim.RunicPower.add(25)
-                sim.RunicPower.add(5 * sim.Character.T74PDPS)
-                If sim.Character.Glyph.FrostStrike Then
-                    sim.RunicPower.Use(32)
-                Else
-                    sim.RunicPower.Use(40)
-                End If
+                Use()
                 sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.onRPDump)
             End If
             Return True
@@ -65,6 +52,7 @@ Namespace Simulator.WowObjects.Strikes
             If sim.ExecuteRange Then tmp = tmp * (1 + 0.06 * sim.Character.Talents.Talent("MercilessCombat").Value)
             tmp *= sim.RuneForge.RazorIceMultiplier(T)
             If sim.RuneForge.CheckCinderglacier(OffHand) > 0 Then tmp *= 1.2
+            tmp *= 1 + sim.Character.Mastery.Value * 2.5
             Return tmp
         End Function
         Public Overrides Function CritChance() As Double

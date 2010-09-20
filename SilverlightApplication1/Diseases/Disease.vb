@@ -94,7 +94,8 @@ Namespace Simulator.WowObjects.Diseases
             If Sim.RuneForge.CheckCinderglacier(False) > 0 Then tmp *= 1.2
             tmp = tmp * (1 + Sim.Character.Talents.Talent("EbonPlaguebringer").Value * 15 / 100)
             If sim.Character.Talents.GetNumOfThisSchool(Character.Talents.Schools.Unholy) > 20 Then
-                tmp = tmp * 1.32 'Blightcaller
+                tmp = tmp * (1.32) 'Blightcaller
+                tmp = tmp * (1 + 4 * sim.Character.Mastery.Value)
             End If
             If target.Equals(sim.Targets.MainTarget) = False Then
                 tmp = tmp / 2

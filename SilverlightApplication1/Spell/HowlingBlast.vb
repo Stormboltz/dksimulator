@@ -3,6 +3,8 @@ Namespace Simulator.WowObjects.Spells
         Inherits Spell
         Dim alternateRessource As Resource
         Dim talented As Boolean
+        Friend Glyphed As Boolean
+
         Sub New(ByVal S As sim)
             MyBase.New(S)
             BaseDamage = 1079
@@ -14,7 +16,9 @@ Namespace Simulator.WowObjects.Spells
             If S.Character.Talents.GetNumOfThisSchool(Character.Talents.Schools.Frost) > 20 Then
                 Multiplicator = Multiplicator * 1.2 'Frozen Heart
             End If
+            If sim.Character.Glyph("HowlingBlast") Then Glyphed = True
             logLevel = LogLevelEnum.Basic
+            DamageSchool = DamageSchoolEnum.Frost
         End Sub
         Overrides Function isAvailable() As Boolean
             If Not talented Then Return False
@@ -60,7 +64,7 @@ Namespace Simulator.WowObjects.Spells
                 End If
             Next
 
-            If sim.character.glyph.HowlingBlast Then
+            If Glyphed Then
                 sim.Targets.MainTarget.FrostFever.Apply(T)
             End If
 
@@ -73,6 +77,7 @@ Namespace Simulator.WowObjects.Spells
             If sim.ExecuteRange Then tmp = tmp * (1 + 0.06 * sim.Character.Talents.Talent("MercilessCombat").Value)
             tmp *= sim.RuneForge.RazorIceMultiplier(T) 'TODO: only on main target
             If sim.RuneForge.CheckCinderglacier(True) > 0 Then tmp *= 1.2
+            tmp *= 1 + sim.Character.Mastery.Value * 2.5
             Return tmp
         End Function
 

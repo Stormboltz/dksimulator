@@ -48,7 +48,7 @@ Namespace Simulator.WowObjects.Spells
                 Next
             End If
 
-            If sim.Character.Glyph.Disease Then
+            If sim.Character.Glyph.GoD Then
                 If sim.Targets.MainTarget.BloodPlague.FadeAt > T Then
                     sim.Targets.MainTarget.BloodPlague.Refresh(T)
                 End If
@@ -65,7 +65,7 @@ Namespace Simulator.WowObjects.Spells
 
             Dim blood As Boolean
 
-            If sim.Character.Talents.Talent("Gargoyle").Value = 1 Then
+            If sim.Character.Talents("SummonGargoyle") = 1 Then
                 blood = sim.Runes.BloodOnly(T)
             Else
                 blood = sim.Runes.AnyBlood(T)

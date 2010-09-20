@@ -17,7 +17,7 @@ Namespace Simulator.WowObjects.Strikes
             If Sim.Sigils.Awareness Then BaseDamage = BaseDamage + 336
             Coeficient = 1.6
             Multiplicator = (1 + sim.Character.Talents.Talent("Annihilation").Value * 15 / 100)
-            If Sim.Character.Glyph.Obliterate Then Multiplicator = Multiplicator * 1.2
+            If sim.Character.Glyph("Obliterate") Then Multiplicator = Multiplicator * 1.25
             If Sim.Character.T102PDPS <> 0 Then Multiplicator = Multiplicator * 1.1
             logLevel = LogLevelEnum.Basic
             If Sim.Character.T72PDPS Then

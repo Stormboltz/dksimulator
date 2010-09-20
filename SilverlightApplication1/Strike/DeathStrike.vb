@@ -9,6 +9,7 @@
 Namespace Simulator.WowObjects.Strikes
     Friend Class DeathStrike
         Inherits Strike
+        Dim Glyphed As Boolean
         Sub New(ByVal S As Sim)
             MyBase.New(S)
             BaseDamage = 222.75
@@ -17,7 +18,7 @@ Namespace Simulator.WowObjects.Strikes
             Multiplicator = 1 + sim.Character.Talents.Talent("ImprovedDeathStrike").Value * 15 / 100
             SpecialCritChance = sim.Character.Talents.Talent("ImprovedDeathStrike").Value * 3 / 100 + sim.Character.T72PDPS * 5 / 100
             logLevel = LogLevelEnum.Basic
-
+            Glyphed = sim.Character.Glyph("DeathStrike")
 
 
 
@@ -57,8 +58,8 @@ Namespace Simulator.WowObjects.Strikes
         Public Overrides Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
             Dim tmp As Double
             tmp = MyBase.AvrgNonCrit(T, target)
-            If sim.Character.Glyph.DeathStrike Then
-                tmp = tmp * (1 + Math.Max(sim.RunicPower.GetValue, 25) / 100)
+            If Glyphed Then
+                tmp = tmp * (1 + (Math.Max(sim.RunicPower.GetValue, 100) * 0.004))
             End If
             Return tmp
         End Function
