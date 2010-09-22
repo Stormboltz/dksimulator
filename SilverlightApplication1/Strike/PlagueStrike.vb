@@ -7,29 +7,22 @@ Namespace Simulator.WowObjects.Strikes
             Coeficient = 1
             Multiplicator *= (1 + sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100)
             logLevel = LogLevelEnum.Basic
-
             SpecialCritChance += sim.Character.T72PTNK * 0.1
-
-
             _CritCoef = (1 + 0.06 * sim.Character.CSD)
-
+            Resource = New Resource(S, ResourcesEnum.UnholyRune, False, 15)
         End Sub
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
             UseGCD(T)
             If MyBase.ApplyDamage(T) = False Then
-                sim.Runes.UseUnholy(T, False, True)
+                UseAlf()
                 Return False
             End If
 
             If OffHand = False Then
-
-                sim.RunicPower.add(15)
-
-                sim.Runes.UseUnholy(T, False)
+                Use()
                 If sim.Targets.MainTarget.BloodPlague.isActive(T) Then
                     sim.proc.CrimsonScourge.TryMe(T)
                 End If
-
                 sim.proc.Strife.TryMe(T)
                 sim.Targets.MainTarget.BloodPlague.Apply(T)
                 If sim.DRW.IsActive(T) Then

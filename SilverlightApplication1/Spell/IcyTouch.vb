@@ -3,32 +3,35 @@ Namespace Simulator.WowObjects.Spells
         Inherits Spells.Spell
         Sub New(ByVal S As Sim)
             MyBase.New(S)
-            If S.BloodPresence = 1 Then
-                ThreadMultiplicator = 7
-            End If
+            'If S.BloodPresence = 1 Then No more
+            '    ThreadMultiplicator = 7
+            'End If
             BaseDamage = 473
             If Sim.Sigils.FrozenConscience Then BaseDamage += 111
-            Coeficient = (0.1)
+            Coeficient = (0.13) 'Free Imp Icy Touch 
 
             If S.Character.Talents.GetNumOfThisSchool(Character.Talents.Schools.Frost) > 20 Then
                 Multiplicator = Multiplicator * 1.2 'Frozen Heart
             End If
             logLevel = LogLevelEnum.Basic
             DamageSchool = DamageSchoolEnum.Frost
+            Dim rp As Integer = 15 + (sim.Character.Talents.Talent("ChillOfTheGrave").Value * 5)
+            Resource = New Resource(S, ResourcesEnum.FrostRune, False, rp)
         End Sub
 
         Overrides Function ApplyDamage(ByVal T As Long) As Boolean
             Dim ret As Boolean = MyBase.ApplyDamage(T)
             UseGCD(T)
-            Sim.proc.KillingMachine.Use()
+            sim.proc.KillingMachine.Use()
+
             If ret = False Then
                 Return False
             End If
-            Sim.RunicPower.add(15 + (Sim.Character.Talents.Talent("ChillOfTheGrave").Value * 5))
+
             If Sim.DRW.IsActive(T) Then
                 Sim.DRW.DRWIcyTouch()
             End If
-            Sim.Runes.UseFrost(T, False)
+            Use()
             Return True
         End Function
         Overrides Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double

@@ -23,12 +23,19 @@
         Dim Cost As Integer
         Dim DeathRune As Boolean
 
-        Sub New(ByVal s As Sim, ByVal Ressource As ResourcesEnum, ByVal Cost As Integer)
+        Sub New(ByVal s As Sim, ByVal Ressource As ResourcesEnum)
+            sim = s
+            Ress = Ressource
+            Me.Cost = 0
+        End Sub
+
+
+        Sub New(ByVal s As Sim, ByVal Ressource As ResourcesEnum, ByVal RPCost As Integer)
             sim = s
             Ress = Ressource
             Me.Cost = Cost
         End Sub
-        Sub New(ByVal s As Sim, ByVal Ressource As ResourcesEnum, ByVal RPGain As Integer, ByVal ToDeathRune As Boolean)
+        Sub New(ByVal s As Sim, ByVal Ressource As ResourcesEnum, ByVal ToDeathRune As Boolean, ByVal RPGain As Integer)
             sim = s
             Ress = Ressource
             DeathRune = ToDeathRune
@@ -91,6 +98,8 @@
                 Case ResourcesEnum.BloodRune
                     sim.BloodTap.Use()
                     sim.Runes.UseDeathBlood(sim.TimeStamp, True)
+                Case ResourcesEnum.None
+                    sim.RunicPower.add(Cost)
                 Case Else
                     Diagnostics.Debug.WriteLine("WTF IS THIS RESOURCE")
             End Select

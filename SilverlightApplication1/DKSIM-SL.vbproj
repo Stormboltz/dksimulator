@@ -1771,6 +1771,21 @@
     <Resource Include="images\UnholyFrenzy.jpg" />
     <Resource Include="images\UnholyFrenzyG.jpg" />
     <Resource Include="images\VirulenceG.jpg" />
+    <Resource Include="images\spell\FesteringStrike.jpg" />
+    <Resource Include="images\spell\ScarletFever.jpg" />
+    <Resource Include="images\spell\CrimsonScourge.jpg" />
+    <Resource Include="images\spell\DarkTransformation.jpg" />
+    <Resource Include="images\spell\FadeRime.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\spell\EmpowerRuneWeapon.jpg" />
+    <Resource Include="images\spell\pestilence.jpg" />
+    <Resource Include="images\spell\bloodpresence.jpg" />
+    <Resource Include="images\spell\frostpresence.jpg" />
+    <Resource Include="images\spell\unholypresence.jpg" />
+    <Resource Include="images\spell\KMObliterate.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Intro\Intro.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

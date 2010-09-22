@@ -10,8 +10,8 @@ Namespace Simulator.WowObjects.Spells
             BaseDamage = 1079
             Coeficient = 0.2
             Multiplicator = 1
-            Resource = New Resource(S, ResourcesEnum.FrostRune, 15, False)
-            alternateRessource = New Resource(S, ResourcesEnum.None, 0, False)
+            Resource = New Resource(S, ResourcesEnum.FrostRune, False, 15)
+            alternateRessource = New Resource(S, ResourcesEnum.None)
             If sim.Character.Talents.Talent("HowlingBlast").Value = 1 Then talented = True
             If S.Character.Talents.GetNumOfThisSchool(Character.Talents.Schools.Frost) > 20 Then
                 Multiplicator = Multiplicator * 1.2 'Frozen Heart

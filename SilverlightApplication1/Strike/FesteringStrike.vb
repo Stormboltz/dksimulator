@@ -7,7 +7,7 @@
             Coeficient = 1.5
             Multiplicator = 1
             Multiplicator *= (1 + sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100)
-            Resource = New Resource(S, ResourcesEnum.BloodFrostRune, 25, True)
+            Resource = New Resource(S, ResourcesEnum.BloodFrostRune, True, 25)
             logLevel = LogLevelEnum.Basic
         End Sub
 

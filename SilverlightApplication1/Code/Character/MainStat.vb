@@ -300,7 +300,6 @@ Namespace Simulator.Character
             RuneRegeneration._Name = "Rune Regeneration"
             PhysicalHaste = New CalculatedStats.PhysicalHaste(Sim, HasteRating)
             PhysicalHaste._Name = "PhysicalHaste"
-            PhysicalHaste.AddMulti(1 + Sim.UnholyPresence * 0.1)
             If Sim.UnholyPresence > 0 Then
                 'TODO: Verify if additive or multplicative
                 PhysicalHaste.AddMulti(1.1 + Sim.Character.Talents.Talent("ImprovedUnholyPresence").Value * 0.025)
@@ -318,10 +317,10 @@ Namespace Simulator.Character
             ArmorPenetration = New CalculatedStats.CalculatedStat(Sim, ArmorPenetrationRating, 22.55)
             ArmorPenetration._Name = "ArmorPenetration"
 
-            Mastery = New CalculatedStats.CalculatedStat(Sim, MasteryRating, 45.9)
+            Mastery = New CalculatedStats.CalculatedStat(Sim, MasteryRating, 45.906)
             Mastery._Name = "Mastery"
 
-            Hit = New CalculatedStats.CalculatedStat(Sim, HitRating, 32.79)
+            Hit = New CalculatedStats.CalculatedStat(Sim, HitRating, 30.7548)
             Hit._Name = "Hit"
             Hit.Add(Sim.Character.Buff.Draenei / 100)
             If DualW() Then Hit.Add(Sim.Character.Talents.Talent("NervesofColdSteel").Value)

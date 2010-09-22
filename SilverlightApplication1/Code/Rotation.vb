@@ -69,7 +69,7 @@ Namespace Simulator
                     '        If retry = 0 Then Return True
                     '    End If
                 Case "ScourgeStrike"
-                    If Runes.Unholy() = True Then
+                    If sim.ScourgeStrike.IsAvailable Then
                         Return sim.ScourgeStrike.ApplyDamage(TimeStamp)
                         'Diagnostics.Debug.WriteLine("SS")
                         Exit Function
@@ -77,7 +77,7 @@ Namespace Simulator
                         If retry = 0 Then Return True
                     End If
                 Case "PlagueStrike"
-                    If Runes.Unholy() Then
+                    If sim.PlagueStrike.IsAvailable Then
                         Return sim.PlagueStrike.ApplyDamage(TimeStamp)
                         'Diagnostics.Debug.WriteLine("PS")
                         Exit Function
@@ -85,7 +85,7 @@ Namespace Simulator
                         If retry = 0 Then Return True
                     End If
                 Case "Obliterate"
-                    If Runes.FU(TimeStamp) = True Then
+                    If sim.Obliterate.IsAvailable Then
                         Return sim.Obliterate.ApplyDamage(TimeStamp)
                         'Diagnostics.Debug.WriteLine("OB")
                         Exit Function
@@ -107,7 +107,7 @@ Namespace Simulator
                         If retry = 0 Then Return True
                     End If
                 Case "DeathStrike"
-                    If Runes.FU(TimeStamp) Then
+                    If sim.DeathStrike.IsAvailable Then
 
                         Return sim.DeathStrike.ApplyDamage(TimeStamp)
                         'Diagnostics.Debug.WriteLine("BS")
@@ -116,7 +116,7 @@ Namespace Simulator
                         If retry = 0 Then Return True
                     End If
                 Case "BloodStrike"
-                    If Runes.AnyBlood(TimeStamp) Then
+                    If sim.BloodStrike.IsAvailable Then
                         If sim.BoneShieldUsageStyle = 1 Then
                             If sim.BoneShield.IsAvailable() Then
                                 sim.BoneShield.Use()
@@ -134,7 +134,7 @@ Namespace Simulator
                         If retry = 0 Then Return True
                     End If
                 Case "HeartStrike"
-                    If Runes.AnyBlood(TimeStamp) = True Then
+                    If sim.HeartStrike.IsAvailable Then
 
                         Return sim.HeartStrike.ApplyDamage(TimeStamp)
                         'Diagnostics.Debug.WriteLine("HS")
@@ -143,8 +143,7 @@ Namespace Simulator
                         If retry = 0 Then Return True
                     End If
                 Case "BloodPlague"
-
-                    If sim.Targets.MainTarget.BloodPlague.isActive(TimeStamp + 150) = False And Runes.Unholy() = True Then
+                    If sim.Targets.MainTarget.BloodPlague.isActive(TimeStamp + 150) = False And sim.PlagueStrike.IsAvailable Then
                         Return sim.PlagueStrike.ApplyDamage(TimeStamp)
                         'Diagnostics.Debug.WriteLine("PS")
                         Exit Function
@@ -152,10 +151,8 @@ Namespace Simulator
                         If retry = 0 Then Return True
                     End If
                 Case "IcyTouch"
-                    If Runes.Frost(TimeStamp) = True Then
-
+                    If sim.IcyTouch.IsAvailable Then
                         Return sim.IcyTouch.ApplyDamage(TimeStamp)
-                        'Diagnostics.Debug.WriteLine("IT")
                         Exit Function
                     Else
                         If retry = 0 Then Return True
@@ -169,7 +166,7 @@ Namespace Simulator
                         If retry = 0 Then Return True
                     End If
                 Case "BloodBoil"
-                    If Runes.AnyBlood(TimeStamp) = True Then
+                    If sim.BloodBoil.IsAvailable Then
                         If sim.BoneShieldUsageStyle = 3 Then
                             If sim.BoneShield.IsAvailable() Then
                                 sim.BoneShield.Use()

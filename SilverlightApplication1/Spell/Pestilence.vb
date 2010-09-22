@@ -14,7 +14,7 @@ Namespace Simulator.WowObjects.Spells
             MyBase.New(S)
             logLevel = LogLevelEnum.Basic
             Dim D As Boolean = (sim.Character.Talents.Talent("Reaping").Value + sim.Character.Talents.Talent("BloodoftheNorth").Value > 0)
-            Resource = New Resource(S, ResourcesEnum.BloodRune, 15, D)
+            Resource = New Resource(S, ResourcesEnum.BloodRune, D, 15)
         End Sub
 
         Overrides Sub use()

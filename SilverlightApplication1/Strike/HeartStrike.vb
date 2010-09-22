@@ -18,19 +18,18 @@ Namespace Simulator.WowObjects.Strikes
             If sim.Character.T102PDPS <> 0 Then Multiplicator = Multiplicator * 1.07
             If sim.Character.Glyph("HeartStrike") Then Multiplicator += 1.3
             If sim.Character.T92PTNK = 1 Then Multiplicator = Multiplicator * 1.05
+
+            Resource = New Resource(S, ResourcesEnum.BloodRune, False, 15)
             logLevel = LogLevelEnum.Basic
         End Sub
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
-
+            UseGCD(T)
             If MyBase.ApplyDamage(T) = False Then
-                sim.Runes.UseBlood(T, False, True)
+                UseAlf()
                 Return False
             End If
+            Use()
 
-
-            UseGCD(T)
-            sim.RunicPower.add(15)
-            sim.Runes.UseBlood(T, False)
             sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.OnBloodStrike)
             Dim tmp As Double = Multiplicator
             For Each Tar As Targets.Target In sim.Targets.AllTargets
@@ -44,10 +43,7 @@ Namespace Simulator.WowObjects.Strikes
             Next
             Multiplicator = tmp
 
-            If sim.DRW.IsActive(T) Then
-                sim.DRW.DRWHeartStrike()
-            End If
-
+            If sim.DRW.IsActive(T) Then sim.DRW.DRWHeartStrike()
             Return True
         End Function
     End Class

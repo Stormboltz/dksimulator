@@ -29,35 +29,24 @@ Namespace Simulator.WowObjects.Strikes
             Multiplicator *= (1 + sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100)
             If sim.Character.T102PDPS <> 0 Then Multiplicator = Multiplicator * 1.1
             _CritCoef = (1 + 0.06 * sim.Character.CSD)
-
+            Dim rp As Integer = 15 + 5 * sim.Character.T74PDPS
             SSmagical = New ScourgeStrikeMagical(S)
+            Resource = New Resource(sim, ResourcesEnum.UnholyRune, False, rp)
 
         End Sub
 
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
             UseGCD(T)
             If MyBase.ApplyDamage(T) = False Then
-                sim.Runes.UseUnholy(T, False, True)
+                UseAlf()
                 Return False
             End If
 
             If OffHand = False Then
 
                 sim.ScourgeStrikeMagical.ApplyDamage(LastDamage, T, False)
-                UseGCD(T)
-                sim.RunicPower.add(15 + 5 * sim.Character.T74PDPS)
-                sim.Runes.UseUnholy(T, False)
 
-                'If sim.Character.Glyph("ScourgeStrike") Then
-                '    If sim.Targets.MainTarget.BloodPlague.ScourgeStrikeGlyphCounter < 3 Then
-                '        sim.Targets.MainTarget.BloodPlague.IncreaseDuration(300)
-                '        sim.Targets.MainTarget.BloodPlague.ScourgeStrikeGlyphCounter += 1
-                '    End If
-                '    If sim.Targets.MainTarget.FrostFever.ScourgeStrikeGlyphCounter < 3 Then
-                '        sim.Targets.MainTarget.FrostFever.IncreaseDuration(300)
-                '        sim.Targets.MainTarget.FrostFever.ScourgeStrikeGlyphCounter += 1
-                '    End If
-                'End If
+                Use()
                 sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.OnFU)
 
             End If
@@ -89,6 +78,7 @@ Namespace Simulator.WowObjects.Strikes
                 MyBase.New(S)
                 If sim.Character.Glyph("ScourgeStrike") Then Multiplicator *= 1.3
                 logLevel = LogLevelEnum.Basic
+                Resource = New Resource(sim, ResourcesEnum.None)
             End Sub
 
             Shadows Function ApplyDamage(ByVal PhysicalDamage As Integer, ByVal T As Long, ByVal IsCrit As Boolean) As Boolean

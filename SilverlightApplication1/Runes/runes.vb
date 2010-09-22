@@ -58,8 +58,6 @@ Namespace Simulator.WowObjects.Runes
             PreviousRuneFill = sim.TimeStamp
             TimeWasted.Pause()
         End Sub
-
-
         Function RuneState() As String
             Dim tmp As String = ""
             tmp = tmp & "[" & BloodRune1.Value & ":" & BloodRune1.Death_Report
@@ -72,8 +70,6 @@ Namespace Simulator.WowObjects.Runes
             tmp = tmp & "]"
             Return tmp
         End Function
-
-
         Function BF() As Boolean
             Return (BloodRunes.Available And FrostRunes.Available)
         End Function
@@ -175,7 +171,6 @@ Frost:
             End If
             Return T
         End Function
-
         Function Death() As Boolean
             If BloodRune1.Available And BloodRune1.death = True Then Return True
             If BloodRune2.Available And BloodRune2.death = True Then Return True
@@ -185,7 +180,6 @@ Frost:
             If UnholyRune2.Available And UnholyRune2.death = True Then Return True
             Return False
         End Function
-
         Function AnyBlood(ByVal T As Long) As Boolean
             If BloodRune1.AvailableTime <= T And BloodRune1.reserved = False Then Return True
             If BloodRune2.AvailableTime <= T And BloodRune2.reserved = False Then Return True
@@ -196,7 +190,6 @@ Frost:
             Return False
         End Function
         Function Blood(ByVal T As Long) As Boolean
-
             If BloodRune1.AvailableTime <= T And BloodRune1.death = False And BloodRune1.reserved = False Then Return True
             If BloodRune2.AvailableTime <= T And BloodRune2.death = False And BloodRune2.reserved = False Then Return True
             If FrostRune1.AvailableTime <= T And FrostRune1.death = True And FrostRune1.reserved = False Then Return True

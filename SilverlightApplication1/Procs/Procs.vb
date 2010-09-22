@@ -23,7 +23,7 @@ Namespace Simulator.WowObjects.Procs
         Friend CrimsonScourge As Proc
         Friend T104PDPS As Proc
 
-        'Friend Desolation As Proc
+
 
         Friend KillingMachine As Proc
         Friend Rime As Proc
@@ -108,6 +108,7 @@ Namespace Simulator.WowObjects.Procs
                 ._Name = "Scarlet Fever"
                 .ProcLenght = 30
                 .ProcOn = ProcOnType.OnBloodBoil
+                .Effects.Add(New SpellEffect(s, "Scarlet Fever", SpellEffectManager.SpeelEffectEnum.Debuff, 0, 30))
                 .ProcChance = Sim.Character.Talents.Talent("ScarletFever").Value / 2
                 If .ProcChance > 0 Then .Equip()
             End With
@@ -217,7 +218,7 @@ Namespace Simulator.WowObjects.Procs
             With ThreatOfThassarian
                 ._Name = "ThreatOfThassarian"
                 If Sim.Character.Dual Then
-                    .ProcChance = 0.3 * Sim.Character.Talents.Talent("ThreatOfThassarian").Value
+                    .ProcChance = Sim.Character.Talents.Talent("ThreatOfThassarian").Value / 3
                 End If
                 If .ProcChance > 0 Then
                     If .ProcChance > 0.85 Then .ProcChance = 1.0

@@ -8,14 +8,8 @@ Namespace Simulator.WowObjects.Diseases
             MyBase.New(S)
         End Sub
 
-        Overrides Function CalculateCritChance(ByVal T As Long) As Double
-            If sim.Character.T94PDPS = 1 Then Return sim.Character.Crit.Value
-            Return 0.0
-        End Function
-
-
         Overrides Function PerfectUsage(ByVal T As Long) As Boolean
-            If FadeAt <= Sim.Runes.GetNextUnholy(T) Then
+            If FadeAt <= sim.Runes.GetNextUnholy(T) Then
                 ToReApply = True
                 Return True
             End If

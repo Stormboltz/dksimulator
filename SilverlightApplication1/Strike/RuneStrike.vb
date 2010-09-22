@@ -21,9 +21,26 @@ Namespace Simulator.WowObjects.Strikes
             If sim.Character.Glyph("RuneStrike") Then
                 SpecialCritChance = 0.1
             End If
+            CanBeDodge = False
+            Resource = New Resource(S, ResourcesEnum.RunicPower, 20)
 
+        End Sub
+        Public Overrides Function IsAvailable() As Boolean
+            If trigger Then
+                Return MyBase.IsAvailable()
+            Else
+                Return False
+            End If
+        End Function
 
+        Public Overrides Sub Use()
+            MyBase.Use()
+            trigger = False
+        End Sub
 
+        Public Overrides Sub UseAlf()
+            MyBase.UseAlf()
+            trigger = False
         End Sub
 
         Overrides Function ApplyDamage(ByVal T As Long) As Boolean

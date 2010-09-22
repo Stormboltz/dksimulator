@@ -14,6 +14,7 @@ Namespace Simulator.WowObjects.Strikes
         Inherits WowObject
         Friend OffHand As Boolean
         Friend OffHandStrike As Strike
+        Friend CanBeDodge As Boolean = True
 
 
 
@@ -68,20 +69,30 @@ Namespace Simulator.WowObjects.Strikes
                 exp = sim.Character.MHExpertise.Value
             End If
 
+            If CanBeDodge Then
 
-            If sim.BloodPresence = 1 Then
-                If Math.Min(exp, 0.065) + Math.Min(exp, 0.14) + Math.Min(sim.Character.Hit.Value, 0.08) + RNG < 0.285 Then
-                    Return False
+
+                If sim.BloodPresence = 1 Then
+                    If Math.Min(exp, 0.065) + Math.Min(exp, 0.14) + Math.Min(sim.Character.Hit.Value, 0.08) + RNG < 0.285 Then
+                        Return False
+                    Else
+                        Return True
+                    End If
                 Else
-                    Return True
+                    If Math.Min(exp, 0.065) + Math.Min(sim.Character.Hit.Value, 0.08) + RNG < 0.145 Then
+                        Return False
+                    Else
+                        Return True
+                    End If
                 End If
             Else
-                If Math.Min(exp, 0.065) + Math.Min(sim.Character.Hit.Value, 0.08) + RNG < 0.145 Then
+                If Math.Min(sim.Character.Hit.Value, 0.08) + RNG < 0.08 Then
                     Return False
                 Else
                     Return True
                 End If
             End If
+
         End Function
 
         Public Overridable Function isAvailable(ByVal T As Long) As Boolean
@@ -91,6 +102,11 @@ Namespace Simulator.WowObjects.Strikes
         Public Overridable Function ApplyDamage(ByVal T As Long) As Boolean
             Dim RNG As Double
             LastDamage = 0
+#If DEBUG Then
+            If Resource Is Nothing Then
+                Err.Raise("666", ("No resource specified for this object"))
+            End If
+#End If
 
             If OffHand = False Then
                 If Not OffHandStrike Is Nothing Then
@@ -234,7 +250,8 @@ Namespace Simulator.WowObjects.Strikes
         Overridable Sub Use()
             Me.Resource.Use()
         End Sub
-        Overridable Sub UseAlf()
+
+        Overridable  Sub UseAlf()
             Me.Resource.UseAlf()
         End Sub
     End Class

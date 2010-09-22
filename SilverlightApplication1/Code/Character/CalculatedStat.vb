@@ -99,7 +99,7 @@
         Inherits CalculatedStat
         Sub New(ByVal s As Sim, ByVal PrimaryStat As PrimaryStat)
             MyBase.New(s, PrimaryStat)
-            RatingRatio = 32.79
+            RatingRatio = 30.7548
             AdditiveBuff = 0.25 * sim.Character.Talents.Talent("Vot3W").Value * 6
             CalculateCurrentValue()
         End Sub
@@ -108,8 +108,8 @@
         Inherits CalculatedStat
         Sub New(ByVal s As Sim, ByVal PrimaryStat As PrimaryStat)
             MyBase.New(s, PrimaryStat)
-            RatingRatio = 32.79
-            AdditiveBuff = 0.25 * sim.Character.Talents.Talent("Vot3W").Value * 6
+            RatingRatio = 30.7548
+            AdditiveBuff = 0.25 * sim.Character.Talents.Talent("Vot3W").Value * 6 / 100
             AdditiveBuff += sim.Character.MHExpertiseBonus * 0.25 / 100
             CalculateCurrentValue()
         End Sub
@@ -118,8 +118,8 @@
         Inherits CalculatedStat
         Sub New(ByVal s As Sim, ByVal PrimaryStat As PrimaryStat)
             MyBase.New(s, PrimaryStat)
-            RatingRatio = 32.79
-            AdditiveBuff = 0.25 * sim.Character.Talents.Talent("Vot3W").Value * 6
+            RatingRatio = 30.7548
+            AdditiveBuff = 0.25 * (sim.Character.Talents.Talent("Vot3W").Value * 6 / 100)
             AdditiveBuff += sim.Character.OHExpertiseBonus * 0.25 / 100
             CalculateCurrentValue()
         End Sub
@@ -128,7 +128,7 @@
         Inherits CalculatedStat
         Sub New(ByVal s As Sim, ByVal PrimaryStat As PrimaryStat)
             MyBase.New(s, PrimaryStat)
-            RatingRatio = 45.91
+            RatingRatio = 45.906
             AdditiveBuff += 5 * sim.Character.Buff.Crit / 100
             AdditiveBuff += 5 * sim.Targets.MainTarget.Debuff.SpellCritTaken / 100
             AdditiveBuff -= 0.021 'Spell crit malus vs bosses
@@ -139,7 +139,7 @@
         Inherits CalculatedStat
         Sub New(ByVal s As Sim, ByVal PrimaryStat As PrimaryStat)
             MyBase.New(s, PrimaryStat)
-            RatingRatio = 45.91
+            RatingRatio = 45.906
             AdditiveBuff += 5 * sim.Character.Buff.Crit / 100
             AdditiveBuff += 5 * sim.Targets.MainTarget.Debuff.SpellCritTaken / 100
             AdditiveBuff -= 0.048 'Crit malus vs bosses

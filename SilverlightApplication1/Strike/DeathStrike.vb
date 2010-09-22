@@ -19,7 +19,12 @@ Namespace Simulator.WowObjects.Strikes
             SpecialCritChance = sim.Character.Talents.Talent("ImprovedDeathStrike").Value * 3 / 100 + sim.Character.T72PDPS * 5 / 100
             logLevel = LogLevelEnum.Basic
             Glyphed = sim.Character.Glyph("DeathStrike")
-
+            Dim rp As Integer = 25 + 5 * sim.Character.T74PDPS
+            If sim.Character.Talents("DRM") = 1 Then
+                Resource = New Resource(S, ResourcesEnum.FrostUnholy, True, rp)
+            Else
+                Resource = New Resource(S, ResourcesEnum.FrostUnholy, False, rp)
+            End If
 
 
         End Sub
@@ -29,29 +34,17 @@ Namespace Simulator.WowObjects.Strikes
         'for each of <his/her> diseases on the target.
 
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
-
-
-
             If MyBase.ApplyDamage(T) = False Then
                 UseGCD(T)
-                sim.Runes.UseFU(T, False, True)
-
+                UseAlf()
                 Return False
             End If
 
             If OffHand = False Then
                 UseGCD(T)
-                sim.RunicPower.add(25)
-                sim.RunicPower.add(5 * sim.Character.T74PDPS)
-                If sim.proc.DRM.TryMe(T) Then
-                    sim.Runes.UseFU(T, True)
-                Else
-                    sim.Runes.UseFU(T, False)
-                End If
+                Use()
                 sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.OnFU)
-                If sim.DRW.IsActive(T) Then
-                    sim.DRW.DRWDeathStrike()
-                End If
+                If sim.DRW.IsActive(T) Then sim.DRW.DRWDeathStrike()
             End If
             Return True
         End Function

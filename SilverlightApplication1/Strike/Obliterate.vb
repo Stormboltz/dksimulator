@@ -31,25 +31,25 @@ Namespace Simulator.WowObjects.Strikes
             Else
                 DiseaseBonus = (0.125)
             End If
+            Dim rp As Integer = 25 + 5 * sim.Character.Talents.Talent("ChillOfTheGrave").Value + 5 * sim.Character.T74PDPS
+            If sim.Character.Talents("DRM") = 1 Then
+                Resource = New Resource(sim, ResourcesEnum.FrostUnholy, True, rp)
+            Else
+                Resource = New Resource(sim, ResourcesEnum.FrostUnholy, False, rp)
+            End If
 
         End Sub
 
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
             UseGCD(T)
             If MyBase.ApplyDamage(T) = False Then
-                Sim.Runes.UseFU(T, False, True)
+                UseAlf()
                 Return False
             End If
 
             If OffHand = False Then
                 sim.proc.KillingMachine.Use()
-                sim.RunicPower.add(25 + 5 * sim.Character.Talents.Talent("ChillOfTheGrave").Value + 5 * sim.Character.T74PDPS)
-
-                If Sim.proc.DRM.TryMe(T) Then
-                    Sim.Runes.UseFU(T, True)
-                Else
-                    Sim.Runes.UseFU(T, False)
-                End If
+                Use()
                 sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.OnFU)
                 Sim.proc.Rime.TryMe(T)
                 If Sim.DRW.IsActive(T) Then

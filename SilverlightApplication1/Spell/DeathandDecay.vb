@@ -22,6 +22,7 @@ Namespace Simulator.WowObjects.Spells
             Length = 1000
             If sim.Character.Glyph("DeathAndDecay") Then Length *= 1.5
             logLevel = LogLevelEnum.Basic
+            Resource = New Resource(sim, ResourcesEnum.UnholyRune, False, 15)
         End Sub
 
         Public Overloads Overrides Sub Init()
@@ -38,10 +39,9 @@ Namespace Simulator.WowObjects.Spells
         Function Apply(ByVal T As Long) As Boolean
             UseGCD(T)
             nextTick = T + 100
-            Sim.Runes.UseUnholy(T, False)
             ActiveUntil = T + Length
             CD = T + 3000
-            Sim.RunicPower.add(15)
+            Use()
             Sim.CombatLog.write(T & vbTab & "D&D ")
             Sim.FutureEventManager.Add(nextTick, "D&D")
 

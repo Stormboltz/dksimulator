@@ -84,7 +84,7 @@ Namespace Simulator.WowObjects.Diseases
         End Function
 
         Overridable Function CalculateCritChance(ByVal T As Long) As Double
-            Return 0.0
+            Return sim.Character.SpellCrit.Value
         End Function
 
         Overridable Function CalculateMultiplier(ByVal T As Long, ByVal target As Targets.Target) As Double

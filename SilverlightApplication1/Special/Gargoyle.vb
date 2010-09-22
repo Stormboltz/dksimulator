@@ -9,6 +9,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
         Private StrikeCastTime As Long
         Private AP As Integer
         Private SpellHit As Double
+        Private CritChance As Double
 
         Sub New(ByVal S As Sim)
             MyBase.New(S)
@@ -35,7 +36,8 @@ Namespace Simulator.WowObjects.PetsAndMinions
 
             If cd <= T Then
                 StrikeCastTime = Math.Max(1, (2.0 / sim.Character.PhysicalHaste.Value) * 100) 'no haste cap for Garg.
-                AP = Sim.Character.AP
+                AP = sim.Character.AP
+                CritChance = sim.Character.SpellCrit.Value
                 Sim.RunicPower.Use(60)
                 'sim.CombatLog.write(T & vbTab & "Gargoyle use")
                 cd = T + 3 * 60 * 100
@@ -72,16 +74,16 @@ Namespace Simulator.WowObjects.PetsAndMinions
 
             RNG = RngCrit
             Dim LastDamage As Integer
-            If RNG <= CritChance() Then
+            If RNG <= CritChance Then
                 LastDamage = AvrgCrit(T)
                 CritCount = CritCount + 1
                 TotalCrit += LastDamage
-                If Sim.CombatLog.LogDetails Then Sim.CombatLog.write(T & vbTab & "Gargoyle Strike crit for " & LastDamage)
+                If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "Gargoyle Strike crit for " & LastDamage)
             Else
                 LastDamage = AvrgNonCrit(T)
                 HitCount = HitCount + 1
                 TotalHit += LastDamage
-                If Sim.CombatLog.LogDetails Then Sim.CombatLog.write(T & vbTab & "Gargoyle Strike hit for " & LastDamage)
+                If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "Gargoyle Strike hit for " & LastDamage)
             End If
 
 
@@ -100,9 +102,9 @@ Namespace Simulator.WowObjects.PetsAndMinions
         Function CritCoef() As Double
             Return 1
         End Function
-        Function CritChance() As Double
-            CritChance = SpellCrit()
-        End Function
+        'Function CritChance() As Double
+        '    CritChance = SpellCrit()
+        'End Function
         Function AvrgCrit(ByVal T As Long) As Double
             AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef())
         End Function

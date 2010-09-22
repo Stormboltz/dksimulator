@@ -126,10 +126,10 @@ Namespace Simulator
         Friend DeathandDecay As DeathandDecay
 
 
-        'Friend Desolation As Desolation
+
         Friend Horn As Horn
         Friend HowlingBlast As HowlingBlast
-        'Friend Hysteria As Hysteria
+
         Friend IcyTouch As IcyTouch
         Friend Necrosis As Necrosis
         Friend OHNecrosis As Necrosis
@@ -693,9 +693,7 @@ Namespace Simulator
             HowlingBlast.CD = 0
             Ghoul.cd = 0
             AotD.cd = 0
-            'Hysteria.CD = TimeStamp
-
-            'Desolation = New Desolation(me)
+            
             MainHand.NextWhiteMainHit = TimeStamp
             FutureEventManager.Add(TimeStamp, "MainHand")
 
@@ -759,8 +757,7 @@ Namespace Simulator
             Butchery = New Butchery(Me)
             DRW = New DRW(Me)
 
-            'LoadConfig
-            'Desolation = New Desolation(me)
+            
             RunicPower.Reset()
             NextFreeGCD = 0
             Threat = 0

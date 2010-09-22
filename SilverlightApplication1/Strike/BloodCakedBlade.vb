@@ -17,6 +17,8 @@ Namespace Simulator.WowObjects.Strikes
             Multiplicator = 1
             logLevel = LogLevelEnum.Detailled
             DiseaseBonus = 0.125
+            Resource = New Resource(S, ResourcesEnum.None)
+
         End Sub
 
         Overrides Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double

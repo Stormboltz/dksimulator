@@ -19,23 +19,31 @@ Namespace Simulator.WowObjects.Spells
             Multiplicator = (1 + Sim.Character.Talents.Talent("CrimsonScourge").Value * 0.2)
             logLevel = LogLevelEnum.Basic
             DiseaseBonus = 1
+            Resource = New Resource(S, ResourcesEnum.BloodRune, False, 15)
         End Sub
+
+        Public Overrides Function IsAvailable() As Boolean
+            Return MyBase.IsAvailable()
+            If sim.proc.CrimsonScourge.IsActive Then Return True
+        End Function
+
+
+        Public Overrides Sub Use()
+            If sim.proc.CrimsonScourge.IsActive Then
+                sim.proc.CrimsonScourge.Use()
+            Else
+                MyBase.Use()
+            End If
+        End Sub
+
+
 
         Overrides Function ApplyDamage(ByVal T As Long) As Boolean
             UseGCD(T)
-            If Sim.proc.CrimsonScourge.IsActive Then
-                Sim.proc.CrimsonScourge.Use()
-            Else
-                Sim.Runes.UseBlood(T, False)
-                Sim.RunicPower.add(15)
-            End If
-
-
-            For Each Tar As Targets.Target In Sim.Targets.AllTargets
+            Use()
+            For Each Tar As Targets.Target In sim.Targets.AllTargets
                 'TODO Diffrent debuff for each target
                 MyBase.ApplyDamage(T)
-
-
             Next
             sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.OnBloodBoil)
 

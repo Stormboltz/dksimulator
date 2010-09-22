@@ -106,6 +106,7 @@
             IncreaseAttackAndCastingSpeed
             IncreaseRuneRegeneration
             RunicEmpowerement
+            Debuff
         End Enum
 
         Friend SpellEffects As New List(Of SpellEffect)

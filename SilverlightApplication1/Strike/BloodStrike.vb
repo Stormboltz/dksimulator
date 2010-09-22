@@ -17,7 +17,7 @@ Namespace Simulator.WowObjects.Strikes
             Else
                 DiseaseBonus = 0.1
             End If
-
+            Resource = New Resource(S, ResourcesEnum.BloodRune, True, 15)
 
         End Sub
 
@@ -26,21 +26,15 @@ Namespace Simulator.WowObjects.Strikes
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
             If MyBase.ApplyDamage(T) = False Then
                 UseGCD(T)
-                sim.Runes.UseBlood(T, True, True)
+                UseAlf()
                 Return False
             End If
-
-
             If OffHand = False Then
                 UseGCD(T)
-                sim.RunicPower.add(15)
-                sim.Runes.UseBlood(T, True)
+                Use()
                 sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.OnBloodStrike)
             End If
             Return True
         End Function
-
-
-
     End Class
 End Namespace

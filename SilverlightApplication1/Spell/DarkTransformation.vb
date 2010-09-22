@@ -6,7 +6,7 @@
 
         Sub New(ByVal s As Sim)
             MyBase.New(s)
-            Resource = New Resource(s, ResourcesEnum.UnholyRune, 15, False)
+            Resource = New Resource(s, ResourcesEnum.UnholyRune, False, 15)
             DarkTransformationBuff = New Procs.Proc(sim)
             DarkTransformationBuff.ProcLenght = 30
             DarkTransformationBuff.ProcChance = 1
@@ -16,14 +16,13 @@
             If sim.Character.Talents.Talent("DarkTransformation").Value > 0 Then
                 DarkTransformationBuff.Equip()
             End If
-
+            Resource = New Resource(s, ResourcesEnum.UnholyRune, False, 15)
         End Sub
 
         Overrides Function IsAvailable() As Boolean
             If DarkTransformationBuff.Equiped = 0 Then Return False
-            If Not sim.Runes.Unholy Then Return False
             If Not sim.Ghoul.ShadowInfusion.Stack >= 5 Then Return False
-            Return True
+            Return MyBase.IsAvailable
         End Function
 
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
