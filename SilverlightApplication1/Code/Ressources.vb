@@ -33,7 +33,7 @@
         Sub New(ByVal s As Sim, ByVal Ressource As ResourcesEnum, ByVal RPCost As Integer)
             sim = s
             Ress = Ressource
-            Me.Cost = Cost
+            Me.Cost = RPCost
         End Sub
         Sub New(ByVal s As Sim, ByVal Ressource As ResourcesEnum, ByVal ToDeathRune As Boolean, ByVal RPGain As Integer)
             sim = s
@@ -95,7 +95,7 @@
                 Case ResourcesEnum.UnholyRune
                     sim.Runes.UseUnholy(sim.TimeStamp, DeathRune)
                     sim.RunicPower.add(Cost)
-                Case ResourcesEnum.BloodRune
+                Case ResourcesEnum.BloodTap
                     sim.BloodTap.Use()
                     sim.Runes.UseDeathBlood(sim.TimeStamp, True)
                 Case ResourcesEnum.None

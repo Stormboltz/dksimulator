@@ -72,7 +72,7 @@
         Inherits CalculatedStat
         Sub New(ByVal s As Sim, ByVal PrimaryStat As PrimaryStat)
             MyBase.New(s, PrimaryStat)
-            RatingRatio = 25.22
+            RatingRatio = 32.79
             AdditiveBuff = 1 '<= Very important
             CalculateCurrentValue()
         End Sub
@@ -81,7 +81,7 @@
         Inherits CalculatedStat
         Sub New(ByVal s As Sim, ByVal PrimaryStat As PrimaryStat)
             MyBase.New(s, PrimaryStat)
-            RatingRatio = 25.22
+            RatingRatio = 32.79
             AdditiveBuff = 1 '<= Very important
             CalculateCurrentValue()
         End Sub
@@ -90,7 +90,7 @@
         Inherits CalculatedStat
         Sub New(ByVal s As Sim, ByVal PrimaryStat As PrimaryStat)
             MyBase.New(s, PrimaryStat)
-            RatingRatio = 25.22
+            RatingRatio = 32.79
             AdditiveBuff = 1 '<= Very important
             CalculateCurrentValue()
         End Sub

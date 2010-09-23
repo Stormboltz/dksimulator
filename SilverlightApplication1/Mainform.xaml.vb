@@ -1384,18 +1384,18 @@ NextItem:
         '		BonusArmor
         StatSummary.txtArmor.Text = Armor
         StatSummary.txtHaste.Text = HasteRating
-        StatSummary.lblHAste.Content = "Haste Rating (" & toDDecimal(HasteRating / 25.22) & "%)"
+        StatSummary.lblHAste.Content = "Haste Rating (" & toDDecimal(HasteRating / 32.79) & "%)"
 
         StatSummary.txtExp.Text = ExpertiseRating
         StatSummary.lblExp.Content = "Expertise Rating(" & (toDDecimal(ExpertiseRating / 32.79)) * 4 & ")"
         StatSummary.txtHit.Text = HitRating
-        StatSummary.lblHit.Content = "Hit Rating(" & toDDecimal(HitRating / 32.79) & "%)"
+        StatSummary.lblHit.Content = "Hit Rating(" & toDDecimal(HitRating / 30.7548) & "%)"
         StatSummary.txtAP.Text = AttackPower
         StatSummary.txtArP.Text = ArmorPenetrationRating
         StatSummary.lblArP.Content = "ArP(" & toDDecimal(ArmorPenetrationRating / 13.99) & ")"
 
         StatSummary.txtCrit.Text = CritRating
-        StatSummary.lblCrit.Content = "CritRating(" & toDDecimal(CritRating / 45.91) & "%)"
+        StatSummary.lblCrit.Content = "CritRating(" & toDDecimal(CritRating / 45.906) & "%)"
         StatSummary.txtIntel.Text = Intel
         StatSummary.txtMHDPS.Text = DPS1
         StatSummary.txtMHWSpeed.Text = Speed1

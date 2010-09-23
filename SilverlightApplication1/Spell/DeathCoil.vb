@@ -29,7 +29,7 @@ Namespace Simulator.WowObjects.Spells
         Overrides Function ApplyDamage(ByVal T As Long) As Boolean
 
             If Sim.proc.SuddenDoom.IsActive Then
-                Sim.proc.SuddenDoom.Use()
+                sim.proc.SuddenDoom.Cancel()
             Else
                 If sim.RunicPower.Check(60) Then
                     If sim.Character.Talents.Talent("DRW").Value = 1 Then

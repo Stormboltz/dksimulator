@@ -22,7 +22,9 @@
             If Rune2.Value > 0 Then
                 Dim i As Integer
                 i = Rune2.Value
-
+                If Not alf Then
+                    Rune2.death = D
+                End If
                 Rune2.Value -= cost
                 If Rune2.Value < 0 Then
                     Rune1.Value += Rune2.Value

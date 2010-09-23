@@ -57,6 +57,7 @@ Namespace Simulator.WowObjects.Spells
         End Sub
 
         Overrides Function IsAvailable() As Boolean
+            If Not Talented Then Return False
             If CD > sim.TimeStamp Then Return False
             If ActiveUntil > sim.TimeStamp Then Return False
             Return MyBase.IsAvailable

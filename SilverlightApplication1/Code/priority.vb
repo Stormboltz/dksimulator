@@ -165,7 +165,7 @@ Namespace Simulator
                             Exit Sub
                         End If
                     Case "Rime"
-                        If sim.HowlingBlast.isAvailable And sim.CanUseGCD(TimeStamp) Then
+                        If sim.proc.Rime.IsActive And sim.CanUseGCD(TimeStamp) Then
                             sim.HowlingBlast.ApplyDamage(TimeStamp)
                             Exit Sub
                         End If
