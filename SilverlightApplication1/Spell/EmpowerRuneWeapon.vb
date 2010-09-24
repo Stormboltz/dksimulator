@@ -27,7 +27,7 @@ Namespace Simulator.WowObjects.Spells
             sim.Runes.UnholyRune2.Activate()
             sim.RunicPower.add(25)
             sim.CombatLog.write(sim.TimeStamp & vbTab & "EmpowerRuneWeapon")
-            sim._UseGCD(sim.TimeStamp, 1)
+            sim._UseGCD(1)
 
         End Sub
 

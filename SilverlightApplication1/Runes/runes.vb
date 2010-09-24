@@ -70,61 +70,6 @@ Namespace Simulator.WowObjects.Runes
             tmp = tmp & "]"
             Return tmp
         End Function
-        Function BF() As Boolean
-            Return (BloodRunes.Available And FrostRunes.Available)
-        End Function
-        Sub UseBF(ByVal T As Long, ByVal Death As Boolean, Optional ByVal Alf As Boolean = False)
-            'use Blood
-
-            If BloodRune2.Available And BloodRune2.death = False Then
-                BloodRune2.Use(T, Death, Alf)
-            ElseIf BloodRune1.Available And BloodRune1.death = False Then
-                BloodRune1.Use(T, Death, Alf)
-            ElseIf BloodRune2.Available Then
-                BloodRune2.Use(T, Death, Alf)
-            ElseIf BloodRune1.Available Then
-                BloodRune1.Use(T, Death, Alf)
-            Else
-                Diagnostics.Debug.WriteLine("BF ERROR")
-            End If
-
-Frost:
-            'Use Frost
-            If FrostRune2.Available And FrostRune2.death = False Then
-                FrostRune2.Use(T, Death, Alf)
-            ElseIf FrostRune1.Available And FrostRune1.death = False Then
-                FrostRune1.Use(T, Death, Alf)
-            ElseIf FrostRune2.Available Then
-                FrostRune2.Use(T, Death, Alf)
-            ElseIf FrostRune1.Available Then
-                FrostRune1.Use(T, Death, Alf)
-            Else
-                Diagnostics.Debug.WriteLine("BF ERROR")
-            End If
-        End Sub
-        Function BFU(Optional ByVal T As Long = -1) As Boolean
-            If T = -1 Then
-                If BloodRune1.Available Or BloodRune2.Available Then
-                    If FrostRune1.Available Or FrostRune2.Available Then
-                        If UnholyRune1.Available Or UnholyRune2.Available Then
-                            Return True
-                        End If
-                    End If
-                End If
-                Return False
-            Else
-                If BloodRune1.AvailableTime <= T Or BloodRune2.AvailableTime <= T Then
-                    If FrostRune1.AvailableTime <= T Or FrostRune2.AvailableTime <= T Then
-                        If UnholyRune1.AvailableTime <= T Or UnholyRune2.AvailableTime <= T Then
-                            Return True
-                        End If
-                    End If
-                End If
-                Return False
-            End If
-
-
-        End Function
         Function GetNextUnholy(ByVal T As Long) As Long
             Dim bArray As New Collections.Generic.List(Of Long)
             If BloodRune1.AvailableTime > T And BloodRune1.death = True Then bArray.Add(BloodRune1.AvailableTime)
@@ -141,6 +86,9 @@ Frost:
             End If
 
         End Function
+
+
+#Region "Get Next Runes"
         Function GetNextFrost(ByVal T As Long) As Long
 
             Dim bArray As New Collections.Generic.List(Of Long)
@@ -171,6 +119,22 @@ Frost:
             End If
             Return T
         End Function
+#End Region
+
+#Region "Rune Available"
+        Function BF() As Boolean
+            Return (BloodRunes.Available And FrostRunes.Available)
+        End Function
+        Function BFU() As Boolean
+            If BloodRune1.Available Or BloodRune2.Available Then
+                If FrostRune1.Available Or FrostRune2.Available Then
+                    If UnholyRune1.Available Or UnholyRune2.Available Then
+                        Return True
+                    End If
+                End If
+            End If
+            Return False
+        End Function
         Function Death() As Boolean
             If BloodRune1.Available And BloodRune1.death = True Then Return True
             If BloodRune2.Available And BloodRune2.death = True Then Return True
@@ -180,48 +144,47 @@ Frost:
             If UnholyRune2.Available And UnholyRune2.death = True Then Return True
             Return False
         End Function
-        Function AnyBlood(ByVal T As Long) As Boolean
-            If BloodRune1.AvailableTime <= T And BloodRune1.reserved = False Then Return True
-            If BloodRune2.AvailableTime <= T And BloodRune2.reserved = False Then Return True
-            If FrostRune1.AvailableTime <= T And FrostRune1.death = True And FrostRune1.reserved = False Then Return True
-            If FrostRune2.AvailableTime <= T And FrostRune2.death = True And FrostRune2.reserved = False Then Return True
-            If UnholyRune1.AvailableTime <= T And UnholyRune1.death = True And UnholyRune1.reserved = False Then Return True
-            If UnholyRune2.AvailableTime <= T And UnholyRune2.death = True And UnholyRune2.reserved = False Then Return True
+        Function AnyBlood() As Boolean
+            If BloodRune1.Available And BloodRune1.reserved = False Then Return True
+            If BloodRune2.Available And BloodRune2.reserved = False Then Return True
+            If FrostRune1.Available And FrostRune1.death = True And FrostRune1.reserved = False Then Return True
+            If FrostRune2.Available And FrostRune2.death = True And FrostRune2.reserved = False Then Return True
+            If UnholyRune1.Available And UnholyRune1.death = True And UnholyRune1.reserved = False Then Return True
+            If UnholyRune2.Available And UnholyRune2.death = True And UnholyRune2.reserved = False Then Return True
             Return False
         End Function
-        Function Blood(ByVal T As Long) As Boolean
-            If BloodRune1.AvailableTime <= T And BloodRune1.death = False And BloodRune1.reserved = False Then Return True
-            If BloodRune2.AvailableTime <= T And BloodRune2.death = False And BloodRune2.reserved = False Then Return True
-            If FrostRune1.AvailableTime <= T And FrostRune1.death = True And FrostRune1.reserved = False Then Return True
-            If FrostRune2.AvailableTime <= T And FrostRune2.death = True And FrostRune2.reserved = False Then Return True
-            If UnholyRune1.AvailableTime <= T And UnholyRune1.death = True And UnholyRune1.reserved = False Then Return True
-            If UnholyRune2.AvailableTime <= T And UnholyRune2.death = True And UnholyRune2.reserved = False Then Return True
+        Function Blood() As Boolean
+            If BloodRune1.Available And BloodRune1.death = False And BloodRune1.reserved = False Then Return True
+            If BloodRune2.Available And BloodRune2.death = False And BloodRune2.reserved = False Then Return True
+            If FrostRune1.Available And FrostRune1.death = True And FrostRune1.reserved = False Then Return True
+            If FrostRune2.Available And FrostRune2.death = True And FrostRune2.reserved = False Then Return True
+            If UnholyRune1.Available And UnholyRune1.death = True And UnholyRune1.reserved = False Then Return True
+            If UnholyRune2.Available And UnholyRune2.death = True And UnholyRune2.reserved = False Then Return True
             Return False
         End Function
-        Function BloodOnly(ByVal T As Long) As Boolean
+        Function BloodOnly() As Boolean
+            If BloodRune1.Available And Not BloodRune1.death Then Return True
+            If BloodRune2.Available And Not BloodRune2.death Then Return True
+            Return False
+        End Function
+        Function FrostOnly() As Boolean
+            If FrostRune1.Available And FrostRune1.reserved = False Then Return True
+            If FrostRune2.Available And FrostRune2.reserved = False Then Return True
+            Return False
+        End Function
+        Function UnholyOnly() As Boolean
 
-            If BloodRune1.AvailableTime <= T Then Return True
-            If BloodRune2.AvailableTime <= T Then Return True
+            If UnholyRune1.Available And UnholyRune1.reserved = False Then Return True
+            If UnholyRune2.Available And UnholyRune2.reserved = False Then Return True
             Return False
         End Function
-        Function FrostOnly(ByVal T As Long) As Boolean
-            If FrostRune1.AvailableTime <= T And FrostRune1.reserved = False Then Return True
-            If FrostRune2.AvailableTime <= T And FrostRune2.reserved = False Then Return True
-            Return False
-        End Function
-        Function UnholyOnly(ByVal T As Long) As Boolean
-
-            If UnholyRune1.AvailableTime <= T And UnholyRune1.reserved = False Then Return True
-            If UnholyRune2.AvailableTime <= T And UnholyRune2.reserved = False Then Return True
-            Return False
-        End Function
-        Function Frost(ByVal T As Long) As Boolean
-            If BloodRune1.AvailableTime <= T And BloodRune1.death = True And BloodRune1.reserved = False Then Return True
-            If BloodRune2.AvailableTime <= T And BloodRune2.death = True And BloodRune2.reserved = False Then Return True
-            If FrostRune1.AvailableTime <= T And FrostRune1.reserved = False Then Return True
-            If FrostRune2.AvailableTime <= T And FrostRune2.reserved = False Then Return True
-            If UnholyRune1.AvailableTime <= T And UnholyRune1.death = True And UnholyRune1.reserved = False Then Return True
-            If UnholyRune2.AvailableTime <= T And UnholyRune2.death = True And UnholyRune2.reserved = False Then Return True
+        Function Frost() As Boolean
+            If BloodRune1.Available And BloodRune1.death = True And BloodRune1.reserved = False Then Return True
+            If BloodRune2.Available And BloodRune2.death = True And BloodRune2.reserved = False Then Return True
+            If FrostRune1.Available And FrostRune1.reserved = False Then Return True
+            If FrostRune2.Available And FrostRune2.reserved = False Then Return True
+            If UnholyRune1.Available And UnholyRune1.death = True And UnholyRune1.reserved = False Then Return True
+            If UnholyRune2.Available And UnholyRune2.death = True And UnholyRune2.reserved = False Then Return True
             Return False
         End Function
 
@@ -235,21 +198,21 @@ Frost:
             Return False
         End Function
 
-        Function FU(ByVal T As Long) As Boolean
+        Function FU() As Boolean
             Dim UH As Boolean
             Dim Rune1reserved As Boolean
             Dim Rune2reserved As Boolean
-            If FrostRune1.AvailableTime <= T Then
+            If FrostRune1.Available Then
                 UH = True
             Else
-                If FrostRune2.AvailableTime <= T Then
+                If FrostRune2.Available Then
                     UH = True
                 Else
-                    If BloodRune1.AvailableTime <= T And BloodRune1.death = True Then
+                    If BloodRune1.Available And BloodRune1.death = True Then
                         Rune1reserved = True
                         UH = True
                     Else
-                        If BloodRune2.AvailableTime <= T And BloodRune2.death = True Then
+                        If BloodRune2.Available And BloodRune2.death = True Then
                             UH = True
                             Rune2reserved = True
                         Else
@@ -268,16 +231,16 @@ Frost:
 
             Dim FR As Boolean
 
-            If UnholyRune1.AvailableTime <= T Then
+            If UnholyRune1.Available Then
                 FR = True
             Else
-                If UnholyRune2.AvailableTime <= T Then
+                If UnholyRune2.Available Then
                     FR = True
                 Else
-                    If BloodRune1.AvailableTime <= T And BloodRune1.death = True And Rune1reserved = False Then
+                    If BloodRune1.Available And BloodRune1.death = True And Rune1reserved = False Then
                         FR = True
                     Else
-                        If BloodRune2.AvailableTime <= T And BloodRune2.death = True And Rune2reserved = False Then
+                        If BloodRune2.Available And BloodRune2.death = True And Rune2reserved = False Then
                             FR = True
                         Else
                             FR = False
@@ -291,12 +254,23 @@ Frost:
             Rune2reserved = False
             Return FR And UH
         End Function
+        Function DRMFU() As Boolean
+
+            If (FrostRune1.Available And FrostRune1.death = False) And (UnholyRune1.Available And UnholyRune1.death = False) Then Return True
+            If (FrostRune1.Available And FrostRune1.death = False) And (UnholyRune2.Available And UnholyRune2.death = False) Then Return True
+            If (FrostRune2.Available And FrostRune2.death = False) And (UnholyRune1.Available And UnholyRune1.death = False) Then Return True
+            If (FrostRune2.Available And FrostRune2.death = False) And (UnholyRune2.Available And UnholyRune2.death = False) Then Return True
+            Return False
+        End Function
+#End Region
+
+#Region "UseRunes"
         Sub UseDeathBlood(ByVal T As Long, ByVal Death As Boolean, Optional ByVal Alf As Boolean = False)
             If BloodRune2.Available(T) And BloodRune2.death = True Then
-                BloodRune2.Use(T, Death, Alf)
+                BloodRune2.Use(T, False, Alf)
             Else
                 If BloodRune1.Available(T) And BloodRune1.death = True Then
-                    BloodRune1.Use(T, Death, Alf)
+                    BloodRune1.Use(T, False, Alf)
                 End If
             End If
         End Sub
@@ -433,16 +407,39 @@ Frost:
                 End If
             End If
         End Sub
+        Sub UseBF(ByVal T As Long, ByVal Death As Boolean, Optional ByVal Alf As Boolean = False)
+            'use Blood
+
+            If BloodRune2.Available And BloodRune2.death = False Then
+                BloodRune2.Use(T, Death, Alf)
+            ElseIf BloodRune1.Available And BloodRune1.death = False Then
+                BloodRune1.Use(T, Death, Alf)
+            ElseIf BloodRune2.Available Then
+                BloodRune2.Use(T, Death, Alf)
+            ElseIf BloodRune1.Available Then
+                BloodRune1.Use(T, Death, Alf)
+            Else
+                Diagnostics.Debug.WriteLine("BF ERROR")
+            End If
+
+Frost:
+            'Use Frost
+            If FrostRune2.Available And FrostRune2.death = False Then
+                FrostRune2.Use(T, Death, Alf)
+            ElseIf FrostRune1.Available And FrostRune1.death = False Then
+                FrostRune1.Use(T, Death, Alf)
+            ElseIf FrostRune2.Available Then
+                FrostRune2.Use(T, Death, Alf)
+            ElseIf FrostRune1.Available Then
+                FrostRune1.Use(T, Death, Alf)
+            Else
+                Diagnostics.Debug.WriteLine("BF ERROR")
+            End If
+        End Sub
+#End Region
 
 
-        Function DRMFU(ByVal T As Long) As Boolean
 
-            If (FrostRune1.AvailableTime <= T And FrostRune1.death = False) And (UnholyRune1.AvailableTime <= T And UnholyRune1.death = False) Then Return True
-            If (FrostRune1.AvailableTime <= T And FrostRune1.death = False) And (UnholyRune2.AvailableTime <= T And UnholyRune2.death = False) Then Return True
-            If (FrostRune2.AvailableTime <= T And FrostRune2.death = False) And (UnholyRune1.AvailableTime <= T And UnholyRune1.death = False) Then Return True
-            If (FrostRune2.AvailableTime <= T And FrostRune2.death = False) And (UnholyRune2.AvailableTime <= T And UnholyRune2.death = False) Then Return True
-            Return False
-        End Function
 
         Function RuneRefreshTheNextGCD(ByVal T As Long) As Boolean
             Dim tmp As Long

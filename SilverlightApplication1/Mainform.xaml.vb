@@ -595,6 +595,7 @@ OUT:
 
 
             Dim sr As StreamResourceInfo = Application.GetResourceStream(New Uri(XAPPAth, UriKind.Relative))
+
             Using fileStream As IO.Stream = sr.Stream
                 Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
                     If isoStore.FileExists("KahoDKSim/" & XAPPAth) And overWrite = False Then Return

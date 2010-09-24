@@ -10,7 +10,7 @@ Namespace Simulator.WowObjects
     Public Class WowObject
         Inherits SimObjet
 
-
+        Friend Talented As Boolean
         Friend ResourceType As Simulator.ResourcesEnum
         Friend Resource As Simulator.Resource
 

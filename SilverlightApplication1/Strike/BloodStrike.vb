@@ -24,13 +24,14 @@ Namespace Simulator.WowObjects.Strikes
 
 
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
+            If Not OffHand Then UseGCD()
             If MyBase.ApplyDamage(T) = False Then
-                UseGCD(T)
+
                 UseAlf()
                 Return False
             End If
             If OffHand = False Then
-                UseGCD(T)
+
                 Use()
                 sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.OnBloodStrike)
             End If

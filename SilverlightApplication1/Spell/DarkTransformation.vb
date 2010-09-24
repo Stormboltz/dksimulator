@@ -14,13 +14,14 @@
             DarkTransformationBuff._Name = "Dark Transformation"
 
             If sim.Character.Talents.Talent("DarkTransformation").Value > 0 Then
+                Talented = True
                 DarkTransformationBuff.Equip()
             End If
             Resource = New Resource(s, ResourcesEnum.UnholyRune, False, 15)
         End Sub
 
         Overrides Function IsAvailable() As Boolean
-            If DarkTransformationBuff.Equiped = 0 Then Return False
+            If Not Talented Then Return False
             If Not sim.Ghoul.ShadowInfusion.Stack >= 5 Then Return False
             Return MyBase.IsAvailable
         End Function

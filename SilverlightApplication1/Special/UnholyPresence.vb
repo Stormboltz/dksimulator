@@ -25,7 +25,7 @@
             sim.UnholyPresence = 1
             sim.CombatLog.write(sim.TimeStamp & vbTab & "Switch to Unholy Presence")
             Me.HitCount = Me.HitCount + 1
-            sim._UseGCD(sim.TimeStamp, 1)
+            sim._UseGCD(1)
         End Sub
 
 

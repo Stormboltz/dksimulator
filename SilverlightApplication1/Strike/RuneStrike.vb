@@ -46,13 +46,14 @@ Namespace Simulator.WowObjects.Strikes
         Overrides Function ApplyDamage(ByVal T As Long) As Boolean
             BaseDamage = 20 * sim.Character.AP / 100
             trigger = False
+            If Not OffHand Then UseGCD()
             If MyBase.ApplyDamage(T) = False Then
                 sim.RunicPower.Use(10)
                 Return False
             End If
 
             If OffHand = False Then
-                UseGCD(T)
+
                 sim.RunicPower.Use(20)
                 sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.onRPDump)
                 If sim.DRW.IsActive(T) Then

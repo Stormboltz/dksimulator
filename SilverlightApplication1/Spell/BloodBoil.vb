@@ -19,7 +19,12 @@ Namespace Simulator.WowObjects.Spells
             Multiplicator = (1 + Sim.Character.Talents.Talent("CrimsonScourge").Value * 0.2)
             logLevel = LogLevelEnum.Basic
             DiseaseBonus = 1
-            Resource = New Resource(S, ResourcesEnum.BloodRune, False, 15)
+            If sim.Character.Talents.GetNumOfThisSchool(Character.Talents.Schools.Blood) > 20 Then
+                Resource = New Resource(S, ResourcesEnum.BloodRune, False, 15)
+            Else
+                Resource = New Resource(S, ResourcesEnum.BloodRune, False, 15)
+            End If
+
         End Sub
 
         Public Overrides Function IsAvailable() As Boolean
@@ -30,7 +35,7 @@ Namespace Simulator.WowObjects.Spells
 
         Public Overrides Sub Use()
             If sim.proc.CrimsonScourge.IsActive Then
-                sim.proc.CrimsonScourge.Use()
+                sim.proc.CrimsonScourge.Cancel()
             Else
                 MyBase.Use()
             End If

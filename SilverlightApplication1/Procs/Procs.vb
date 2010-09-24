@@ -303,7 +303,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 15
                 .ProcChance = 1
                 .ProcValueStack = 73
-                .Effects.Add(New SpellBuff(s, "Virulence", Simulator.Sim.Stat.Strength, 73, 3, 20))
+                .Effects.Add(New SpellBuff(s, "Hanged Man", Simulator.Sim.Stat.Strength, 73, 3, 20))
                 .MaxStack = 3
                 .ProcOn = ProcsManager.ProcOnType.OnFU
                 If s.Sigils.HangedMan Then .Equip()

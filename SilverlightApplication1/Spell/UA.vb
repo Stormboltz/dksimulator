@@ -10,7 +10,7 @@ Namespace Simulator.WowObjects.Spells
     Friend Class PillarOfFrost
         Inherits spells.Spell
         Friend previousFade As Long
-        Friend Talented As Boolean
+
         Friend Proc As Procs.Proc
         Friend Buff As Procs.SpellBuff
 
@@ -33,7 +33,7 @@ Namespace Simulator.WowObjects.Spells
             MyBase.Use()
             CD = sim.TimeStamp + 60 * 100
             Buff.Apply()
-            sim._UseGCD(sim.TimeStamp, 1)
+            sim._UseGCD(1)
             sim.CombatLog.write(sim.TimeStamp & vbTab & "Pillar of Frost")
             Me.HitCount = Me.HitCount + 1
         End Sub

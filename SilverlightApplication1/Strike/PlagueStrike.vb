@@ -12,7 +12,7 @@ Namespace Simulator.WowObjects.Strikes
             Resource = New Resource(S, ResourcesEnum.UnholyRune, False, 15)
         End Sub
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
-            UseGCD(T)
+            If Not OffHand Then UseGCD()
             If MyBase.ApplyDamage(T) = False Then
                 UseAlf()
                 Return False
@@ -20,6 +20,7 @@ Namespace Simulator.WowObjects.Strikes
 
             If OffHand = False Then
                 Use()
+
                 If sim.Targets.MainTarget.BloodPlague.isActive(T) Then
                     sim.proc.CrimsonScourge.TryMe(T)
                 End If

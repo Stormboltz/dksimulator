@@ -21,9 +21,9 @@ Namespace Simulator.WowObjects.Strikes
             If Sim.Character.T102PDPS <> 0 Then Multiplicator = Multiplicator * 1.1
             logLevel = LogLevelEnum.Basic
             If Sim.Character.T72PDPS Then
-                SpecialCritChance = 1.05
+                SpecialCritChance = 0.05
             Else
-                SpecialCritChance = 1
+                SpecialCritChance = 0
             End If
 
             If Sim.Character.T84PDPS = 1 Then
@@ -41,14 +41,14 @@ Namespace Simulator.WowObjects.Strikes
         End Sub
 
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
-            UseGCD(T)
+            If Not OffHand Then UseGCD()
             If MyBase.ApplyDamage(T) = False Then
                 UseAlf()
                 Return False
             End If
 
             If OffHand = False Then
-                sim.proc.KillingMachine.Use()
+                sim.proc.KillingMachine.Cancel()
                 Use()
                 sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.OnFU)
                 Sim.proc.Rime.TryMe(T)

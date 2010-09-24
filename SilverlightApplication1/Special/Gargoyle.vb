@@ -53,7 +53,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
             End If
         End Function
         Sub UseGCD(ByVal T As Long)
-            Sim.UseGCD(T, True)
+            sim.UseGCD(True)
         End Sub
         Function ApplyDamage(ByVal T As Long) As Boolean
             NextGargoyleStrike = T + StrikeCastTime

@@ -28,7 +28,7 @@ Namespace Simulator.WowObjects.Spells
             MyBase.Use()
             sim.CombatLog.write(sim.TimeStamp & vbTab & "Switch to Frost Presence")
             Me.HitCount = Me.HitCount + 1
-            sim._UseGCD(sim.TimeStamp, 1)
+            sim._UseGCD(1)
 
 
         End Sub

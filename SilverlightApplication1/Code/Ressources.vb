@@ -2,6 +2,7 @@
     Enum ResourcesEnum
         RunicPower
         BloodRune
+        BloodOrDeathRune
         FrostRune
         UnholyRune
         BloodFrostRune
@@ -47,18 +48,20 @@
                     Return sim.RunicPower.Check(Cost)
                 Case ResourcesEnum.BloodFrostRune
                     Return sim.Runes.BF()
+                Case ResourcesEnum.BloodOrDeathRune
+                    Return sim.Runes.AnyBlood()
                 Case ResourcesEnum.BloodRune
                     If DeathRune Then
-                        Return sim.Runes.BloodOnly(sim.TimeStamp)
+                        Return sim.Runes.BloodOnly()
                     Else
-                        Return sim.Runes.AnyBlood(sim.TimeStamp)
+                        Return sim.Runes.AnyBlood()
                     End If
                 Case ResourcesEnum.Death
                     Return sim.Runes.Death()
                 Case ResourcesEnum.FrostRune
-                    Return sim.Runes.Frost(sim.TimeStamp)
+                    Return sim.Runes.Frost()
                 Case ResourcesEnum.FrostUnholy
-                    Return sim.Runes.FU(sim.TimeStamp)
+                    Return sim.Runes.FU()
                 Case ResourcesEnum.UnholyRune
                     Return sim.Runes.Unholy()
                 Case ResourcesEnum.BloodTap
@@ -80,7 +83,7 @@
                 Case ResourcesEnum.BloodFrostRune
                     sim.Runes.UseBF(sim.TimeStamp, DeathRune)
                     sim.RunicPower.add(Cost)
-                Case ResourcesEnum.BloodRune
+                Case ResourcesEnum.BloodRune, ResourcesEnum.BloodOrDeathRune
                     sim.Runes.UseBlood(sim.TimeStamp, DeathRune)
                     sim.RunicPower.add(Cost)
                 Case ResourcesEnum.Death

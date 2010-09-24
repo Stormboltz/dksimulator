@@ -7,7 +7,8 @@ Namespace Simulator.WowObjects.Diseases
             DamageSchool = DamageSchoolEnum.Frost
         End Sub
         Overrides Function PerfectUsage(ByVal T As Long) As Boolean
-            If FadeAt <= Sim.Runes.GetNextFrost(T) Then
+            If FadeAt > T + 1000 Then Return False
+            If FadeAt <= sim.Runes.GetNextFrost(T) Then
                 ToReApply = True
                 Return True
             End If

@@ -66,9 +66,9 @@ Namespace Simulator.WowObjects.Spells
             Dim blood As Boolean
 
             If sim.Character.Talents("SummonGargoyle") = 1 Then
-                blood = sim.Runes.BloodOnly(T)
+                blood = sim.Runes.BloodOnly()
             Else
-                blood = sim.Runes.AnyBlood(T)
+                blood = sim.Runes.AnyBlood()
             End If
             If blood Then
                 tmp1 = Math.Min(sim.Targets.MainTarget.BloodPlague.FadeAt, sim.Targets.MainTarget.FrostFever.FadeAt)

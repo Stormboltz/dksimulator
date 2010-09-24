@@ -22,7 +22,7 @@ Namespace Simulator.WowObjects.Spells
         Overrides Function ApplyDamage(ByVal T As Long) As Boolean
             Dim ret As Boolean = MyBase.ApplyDamage(T)
             UseGCD(T)
-            sim.proc.KillingMachine.Use()
+            sim.proc.KillingMachine.Cancel()
 
             If ret = False Then
                 Return False

@@ -27,7 +27,7 @@ Namespace Simulator.WowObjects.Spells
             sim.UnholyPresenceSwitch.cancelAura()
             sim.CombatLog.write(sim.TimeStamp & vbTab & "Switch to Blood Presence")
             Me.HitCount = Me.HitCount + 1
-            sim._UseGCD(sim.TimeStamp, 1)
+            sim._UseGCD(1)
         End Sub
 
     End Class

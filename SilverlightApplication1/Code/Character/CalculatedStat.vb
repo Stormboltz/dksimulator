@@ -51,7 +51,7 @@
             Return CurrentValue
         End Function
 
-        Sub Add(ByVal i As Integer)
+        Sub Add(ByVal i As Double)
             AdditiveBuff += i
             CalculateCurrentValue()
         End Sub

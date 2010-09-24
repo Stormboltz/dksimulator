@@ -34,14 +34,15 @@ Namespace Simulator.WowObjects.Strikes
         'for each of <his/her> diseases on the target.
 
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
+            If Not OffHand Then UseGCD()
             If MyBase.ApplyDamage(T) = False Then
-                UseGCD(T)
+
                 UseAlf()
                 Return False
             End If
 
             If OffHand = False Then
-                UseGCD(T)
+
                 Use()
                 sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.OnFU)
                 If sim.DRW.IsActive(T) Then sim.DRW.DRWDeathStrike()

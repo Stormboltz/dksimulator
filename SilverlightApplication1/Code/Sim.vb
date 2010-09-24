@@ -606,35 +606,42 @@ Namespace Simulator
             Diagnostics.Debug.WriteLine(i)
         End Function
 
-        Sub _UseGCD(ByVal T As Long, ByVal Length As Long)
+        Sub _UseGCD(ByVal Length As Long)
             Dim tmp As Long
+
             GCDUsage.HitCount += 1
-            If Length + T > NextReset Then
-                tmp = (NextReset - T)
+            If TimeStamp + Length > NextReset Then
+                tmp = (NextReset - TimeStamp)
             Else
                 tmp = Length
             End If
-            If NextFreeGCD > T Then
-                'should never happen currently is called when use BS etc is after a special
-                tmp += T - NextFreeGCD
+            If NextFreeGCD > TimeStamp Then
+                'should never happen. currently is called when use BS etc is after a special
+                tmp += NextFreeGCD - TimeStamp
+            Else
+                GCDUsage.uptime += tmp
             End If
-            GCDUsage.uptime += tmp
-            T += Length
-            If T > NextFreeGCD Then
-                NextFreeGCD = T
+            If (TimeStamp + Length) > NextFreeGCD Then
+                NextFreeGCD = TimeStamp + Length
                 FutureEventManager.Add(NextFreeGCD, "GCD")
             End If
+
+            
         End Sub
 
-        Sub UseGCD(ByVal T As Long, ByVal Spell As Boolean)
+        Sub UseGCD(ByVal Spell As Boolean)
             Dim tmp As Long
-            If Spell Then
-                tmp = Math.Max(150.0 / Character.SpellHaste.Value, 100)
+            If UnholyPresence > 0 Then
+                tmp = 100
             Else
-                tmp = 150
+                If Spell Then
+                    tmp = Math.Max(150.0 / Character.SpellHaste.Value, 100)
+                Else
+                    tmp = 150
+                End If
             End If
             tmp += latency / 10
-            _UseGCD(T, tmp)
+            _UseGCD(tmp)
         End Sub
 
         Function isInGCD(ByVal T As Long) As Boolean

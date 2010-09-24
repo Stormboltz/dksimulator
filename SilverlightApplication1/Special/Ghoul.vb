@@ -69,12 +69,12 @@ Namespace Simulator.WowObjects.PetsAndMinions
                 If T <= 1 Then
                 Else
                     sim.CombatLog.write(T & vbTab & "Summon Ghoul")
-                    UseGCD(T)
+                    UseGCD()
                 End If
             End If
         End Sub
-        Sub UseGCD(ByVal T As Long)
-            sim.UseGCD(T, True)
+        Sub UseGCD()
+            sim.UseGCD(False)
         End Sub
 
         Function NextActionTime() As Long

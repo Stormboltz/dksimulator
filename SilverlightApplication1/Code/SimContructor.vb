@@ -15,7 +15,7 @@ Imports DKSIMVB.Simulator
 '
 Public Module SimConstructor
     Private StartTime As Date
-
+    Dim MaxSimForScaling As Integer = 50
 
     Friend PetFriendly As Boolean
 
@@ -158,14 +158,13 @@ Public Module SimConstructor
                 Dim xNode As XElement
                 Dim i As Integer
 
-                Dim max As Integer
-                max = 50
+
                 EPBase = 20
                 For Each xNode In xNodelist.Elements
 
                     If xNode.Value = "true" Then
                         Dim l As New StatScallingLine(xNode.Name.ToString)
-                        For i = 0 To max
+                        For i = 0 To MaxSimForScaling
                             EpStat = Replace(xNode.Name.ToString, "chk", "") & i
                             Dim r As Long = DPSs(EpStat)
                             l.Add(i * EPBase, r)
@@ -815,12 +814,11 @@ skipTrinket:
         Dim xNode As XElement
         Dim i As Integer
 
-        Dim max As Integer
-        max = 50
+
         EPBase = 20
         For Each xNode In xNodelist.Elements
             If xNode.Value = "true" Then
-                For i = 0 To max
+                For i = 0 To MaxSimForScaling
                     EpStat = Replace(xNode.Name.ToString, "chk", "") & i
                     SimConstructor.Start(1, MainFrm, False, EpStat)
                 Next i

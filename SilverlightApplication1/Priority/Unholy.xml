@@ -2,8 +2,11 @@
 <Priority>
   <BloodPlague></BloodPlague>
   <FrostFever></FrostFever>
+  <DeathCoilMaxRp></DeathCoilMaxRp>
+  <DarkTransformation></DarkTransformation>
   <ScourgeStrike></ScourgeStrike>
   <FesteringStrike></FesteringStrike>
+  <SuddenDoom></SuddenDoom>
   <BloodStrike></BloodStrike>
   <DeathCoil></DeathCoil>
 </Priority>

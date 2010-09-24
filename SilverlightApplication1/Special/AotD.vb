@@ -57,7 +57,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
                 If T <= 1 Then
                 Else
                     Sim.CombatLog.write(T & vbTab & "Summon AoTD")
-                    UseGCD(T)
+                    UseGCD(False)
                 End If
                 Sim.FutureEventManager.Add(T, "AotD")
             End If
@@ -77,8 +77,8 @@ Namespace Simulator.WowObjects.PetsAndMinions
 
 
 
-        Sub UseGCD(ByVal T As Long)
-            Sim._UseGCD(T, Sim.latency / 10 + 400)
+        Sub UseGCD(ByVal Spell As Boolean)
+            sim._UseGCD(300)
         End Sub
 
         Function PhysicalHaste() As Double

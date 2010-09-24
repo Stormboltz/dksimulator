@@ -16,19 +16,20 @@
         'and Chains of Ice effects on the target by up to 6 sec. / 5 yd range, Blood+Frost
 
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
+            If Not OffHand Then UseGCD()
             If MyBase.ApplyDamage(T) = False Then
                 UseAlf()
 
-                UseGCD(T)
+
                 Return False
             End If
 
             If OffHand = False Then
-                UseGCD(T)
+
                 Use()
 
-                Sim.Targets.MainTarget.BloodPlague.IncreaseDuration(600)
-                Sim.Targets.MainTarget.FrostFever.IncreaseDuration(600)
+                sim.Targets.MainTarget.BloodPlague.IncreaseDuration(600)
+                sim.Targets.MainTarget.FrostFever.IncreaseDuration(600)
 
             End If
             Return True

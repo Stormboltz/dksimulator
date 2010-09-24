@@ -52,7 +52,7 @@ Namespace Simulator.WowObjects.Spells
             Sim.DamagingObject.Add(Me)
         End Sub
         Sub UseGCD(ByVal T As Long)
-            Sim.UseGCD(T, True)
+            sim.UseGCD(True)
         End Sub
 
         Public Overridable Function ApplyDamage(ByVal T As Long) As Boolean

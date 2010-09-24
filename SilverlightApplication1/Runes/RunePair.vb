@@ -23,7 +23,22 @@
                 Dim i As Integer
                 i = Rune2.Value
                 If Not alf Then
-                    Rune2.death = D
+                    If Rune1.Value = 100 Then
+                        If D Then
+                            If Rune2.death Then
+                                Rune1.death = True
+                            Else
+                                Rune2.death = True
+                            End If
+                        Else
+                            If Rune2.death Then
+                                Rune2.death = False
+                            Else
+                                Rune1.death = False
+                            End If
+                        End If
+                        Rune2.death = D
+                    End If
                 End If
                 Rune2.Value -= cost
                 If Rune2.Value < 0 Then
@@ -32,6 +47,9 @@
                 End If
             Else
                 Rune1.Value -= cost
+                If Not alf Then
+                    Rune1.death = D
+                End If
             End If
             If Rune1.Value < 0 Then
                 Diagnostics.Debug.WriteLine("Negative Rune")

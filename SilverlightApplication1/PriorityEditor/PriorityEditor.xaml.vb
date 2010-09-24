@@ -125,13 +125,23 @@ Partial Public Class PriorityEditor
     Sub LoadAvailablePrio()
 
         Dim doc As XDocument = XDocument.Load("config/PrioritiesList.xml")
+        Dim cmb As ComboBox = cmbPreset
+        Dim lbl As Label = lblPreset
         grpAvailablePrio.Children.Clear()
+        grpAvailablePrio.Children.Add(lbl)
+        grpAvailablePrio.Children.Add(cmb)
         Dim btn As PrioButton
         Dim i As Integer
         Dim node As XElement
-
-        For Each node In doc.Element("Priorities").Elements
-
+        Dim Preset As String = ""
+        If Not IsNothing(cmbPreset.SelectedItem) Then
+            Preset = cmbPreset.SelectedItem.Content
+        End If
+        Dim nodelist = (From e In doc.Element("Priorities").Elements
+                          Where e.Name.ToString.ToLower = Preset.ToLower Or e.Name.ToString.ToLower = "all"
+                          ).Elements
+        For Each node In nodelist
+            ' e.Name = cmbPreset.SelectedValue.ToString Or
             btn = New PrioButton(Me)
             Me.grpAvailablePrio.Children.Add(btn)
 
@@ -143,7 +153,7 @@ Partial Public Class PriorityEditor
             btn.chkRetry.Opacity = 0
             i += 1
         Next
-        AutoExtend()
+        'AutoExtend()
     End Sub
     Sub AutoExtend()
         grpAvailablePrio.Height = grpAvailablePrio.Children.Count * 50
@@ -330,5 +340,14 @@ Partial Public Class PriorityEditor
         End Using
 
         FilePath = oldPath
+    End Sub
+
+    Private Sub cmbPreset_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs) Handles cmbPreset.SelectionChanged
+        Select Case EditType
+            Case PossibleEditType.Intro
+                LoadAvailableRota()
+            Case PossibleEditType.Priority
+                LoadAvailablePrio()
+        End Select
     End Sub
 End Class

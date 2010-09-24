@@ -9,6 +9,7 @@ Namespace Simulator.WowObjects.Diseases
         End Sub
 
         Overrides Function PerfectUsage(ByVal T As Long) As Boolean
+            If FadeAt > T + 1000 Then Return False
             If FadeAt <= sim.Runes.GetNextUnholy(T) Then
                 ToReApply = True
                 Return True

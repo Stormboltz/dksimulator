@@ -19,11 +19,11 @@ Namespace Simulator.WowObjects.Strikes
             If sim.Character.Glyph("HeartStrike") Then Multiplicator += 1.3
             If sim.Character.T92PTNK = 1 Then Multiplicator = Multiplicator * 1.05
 
-            Resource = New Resource(S, ResourcesEnum.BloodRune, False, 15)
+            Resource = New Resource(S, ResourcesEnum.BloodOrDeathRune, False, 15)
             logLevel = LogLevelEnum.Basic
         End Sub
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
-            UseGCD(T)
+            If Not OffHand Then UseGCD()
             If MyBase.ApplyDamage(T) = False Then
                 UseAlf()
                 Return False

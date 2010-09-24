@@ -30,8 +30,25 @@ Namespace Simulator
 
             For Each item As String In prio
                 Select Case item
+                    Case "ShadowInfusion"
+                        If sim.Ghoul.ShadowInfusion.Equiped Then
+                            If sim.Ghoul.ShadowInfusion.IsAvailable(sim.TimeStamp) Then
+                                If sim.Ghoul.ShadowInfusion.Stack < 5 Then
+                                    If sim.DeathCoil.isAvailable() And sim.CanUseGCD(TimeStamp) Then
+                                        sim.DeathCoil.ApplyDamage(TimeStamp)
+                                        Exit Sub
+                                    End If
+                                End If
+                            End If
+                        Else
+                            'removeme from prio
+                        End If
+                    Case "SuddenDoom"
+                        If sim.proc.SuddenDoom.IsActive Then
+                            sim.DeathCoil.ApplyDamage(TimeStamp)
+                            Return
+                        End If
                     Case "RuneStrike"
-
                         If sim.RuneStrike.IsAvailable Then
                             If sim.RunicPower.CheckRS(20) And sim.CanUseGCD(TimeStamp) Then
                                 sim.RuneStrike.ApplyDamage(TimeStamp)
@@ -54,12 +71,11 @@ Namespace Simulator
                                 Exit Sub
                             End If
                         End If
-                        
+
 
                     Case "BloodTap"
                         If sim.BloodTap.IsAvailable() And sim.Runes.BloodRune1.death = False And sim.Runes.BloodRune2.death = False Then
                             sim.BloodTap.Use()
-                            'Diagnostics.Debug.WriteLine("BT")
                         End If
                     Case "BoneShield"
                         If sim.BoneShield.IsAvailable() Then
@@ -67,11 +83,6 @@ Namespace Simulator
                             Exit Sub
                         End If
 
-                        'Case "GhoulFrenzy"
-                        '    If sim.Frenzy.IsFrenzyAvailable(TimeStamp) And sim.CanUseGCD(TimeStamp) Then
-                        '        sim.Frenzy.Frenzy(TimeStamp)
-                        '        Exit Sub
-                        '    End If
                     Case "DarkTransformation"
                         If sim.DarkTransformation.IsAvailable Then
                             sim.DarkTransformation.ApplyDamage(TimeStamp)
@@ -131,7 +142,7 @@ Namespace Simulator
                             Exit Sub
                         End If
                     Case "DRMDeathStrike"
-                        If runes.DRMFU(TimeStamp) And sim.CanUseGCD(TimeStamp) Then
+                        If runes.DRMFU() And sim.CanUseGCD(TimeStamp) Then
                             sim.DeathStrike.ApplyDamage(TimeStamp)
                             'Diagnostics.Debug.WriteLine("BS")
                             Exit Sub
@@ -321,6 +332,7 @@ Namespace Simulator
                 End Select
 doNext:
             Next
+
         End Sub
 
 

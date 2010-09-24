@@ -2,7 +2,7 @@ Namespace Simulator.WowObjects.Spells
     Friend Class HowlingBlast
         Inherits Spell
         Dim alternateRessource As Resource
-        Dim talented As Boolean
+
         Friend Glyphed As Boolean
 
         Sub New(ByVal S As sim)
@@ -31,7 +31,7 @@ Namespace Simulator.WowObjects.Spells
             UseGCD(T)
 
             If sim.proc.Rime.IsActive Then
-                sim.proc.Rime.Use()
+                sim.proc.Rime.Cancel()
             Else
                 Resource.Use()
             End If
@@ -41,7 +41,7 @@ Namespace Simulator.WowObjects.Spells
             For Each Tar In sim.Targets.AllTargets
                 If DoMySpellHit() = False Then
                     sim.CombatLog.write(T & vbTab & Me.Name & " fail")
-                    sim.proc.Rime.Use()
+                    sim.proc.Rime.Cancel()
                     MissCount = MissCount + 1
                 Else
                     RNG = RngCrit

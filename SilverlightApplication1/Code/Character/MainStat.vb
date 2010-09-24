@@ -323,7 +323,7 @@ Namespace Simulator.Character
             Hit = New CalculatedStats.CalculatedStat(Sim, HitRating, 30.7548)
             Hit._Name = "Hit"
             Hit.Add(Sim.Character.Buff.Draenei / 100)
-            If DualW() Then Hit.Add(Sim.Character.Talents.Talent("NervesofColdSteel").Value)
+            If DualW() Then Hit.Add(Sim.Character.Talents.Talent("NervesofColdSteel").Value / 100)
 
             SpellHit = New CalculatedStats.CalculatedStat(Sim, HitRating, 26.232)
             SpellHit._Name = "SpellHit"

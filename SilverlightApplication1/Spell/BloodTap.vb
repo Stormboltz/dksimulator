@@ -106,7 +106,7 @@ Out:
             sim.CombatLog.write(sim.TimeStamp & vbTab & "Blood Tap")
 
             Me.HitCount = Me.HitCount + 1
-            sim._UseGCD(sim.TimeStamp, 1)
+            sim._UseGCD(1)
 
         End Sub
 
@@ -124,7 +124,7 @@ Out:
             sim.RunicPower.add(0)
             sim.CombatLog.write(T & vbTab & "Blood Tap with Cancel Aura")
             Me.HitCount = Me.HitCount + 1
-            sim._UseGCD(T, 1)
+            sim._UseGCD(1)
             Return True
         End Function
 

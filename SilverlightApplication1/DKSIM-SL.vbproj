@@ -1786,6 +1786,10 @@
     <Resource Include="images\spell\KMObliterate.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="images\spell\ShadowInfusion.jpg" />
+    <Resource Include="images\spell\SuddenDoom.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Intro\Intro.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

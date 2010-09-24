@@ -103,8 +103,10 @@ Namespace Simulator.WowObjects.Procs
         End Sub
         Sub Cancel()
             CurrentStack = 0
-            Fade = sim.TimeStamp
-            RemoveUptime(sim.TimeStamp)
+            If Fade > sim.TimeStamp Then
+                Fade = sim.TimeStamp
+                RemoveUptime(sim.TimeStamp)
+            End If
         End Sub
         Overridable Function IsAvailable(ByVal T As Long) As Boolean
             If Equiped = 0 Or CD > T Then Return False

@@ -36,7 +36,7 @@ Namespace Simulator.WowObjects.Strikes
         End Sub
 
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
-            UseGCD(T)
+            If Not OffHand Then UseGCD()
             If MyBase.ApplyDamage(T) = False Then
                 UseAlf()
                 Return False

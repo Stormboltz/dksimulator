@@ -11,7 +11,7 @@ Namespace Simulator.WowObjects.Spells
         Inherits Spells.Spell
         Friend Charge As Integer
         Friend previousFade As Long
-        Dim Talented As Boolean
+
 
         Function BuffLength() As Integer
             Return Sim.BoneShieldTTL

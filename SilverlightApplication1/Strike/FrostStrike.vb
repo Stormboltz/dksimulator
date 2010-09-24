@@ -23,7 +23,7 @@ Namespace Simulator.WowObjects.Strikes
             If sim.Character.Glyph("froststrike") Then c -= 8
             Resource = New Resource(S, ResourcesEnum.RunicPower, c)
 
-            SpecialCritChance = 8 / 100 * sim.Character.T82PDPS
+            SpecialCritChance = 8 * sim.Character.T82PDPS / 100
             DamageSchool = DamageSchoolEnum.Frost
             logLevel = LogLevelEnum.Basic
         End Sub
@@ -31,14 +31,13 @@ Namespace Simulator.WowObjects.Strikes
        
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
             Dim ret As Boolean = MyBase.ApplyDamage(T)
-            sim.proc.KillingMachine.Use()
+            sim.proc.KillingMachine.Cancel()
+            If Not OffHand Then UseGCD()
             If ret = False Then
-                UseGCD(T)
                 UseAlf()
                 Return False
             End If
             If OffHand = False Then
-                UseGCD(T)
                 Use()
                 sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.onRPDump)
             End If

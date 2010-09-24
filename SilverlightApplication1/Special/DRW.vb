@@ -176,7 +176,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
             AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef())
         End Function
         Sub UseGCD(ByVal T As Long)
-            sim.UseGCD(T, True)
+            sim.UseGCD(True)
         End Sub
         Function PhysicalDamageMultiplier(ByVal T As Long, Optional ByVal target As Targets.Target = Nothing) As Double
             If target Is Nothing Then target = sim.Targets.MainTarget

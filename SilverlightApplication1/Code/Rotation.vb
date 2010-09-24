@@ -62,12 +62,7 @@ Namespace Simulator
                     Else
                         If retry = 0 Then Return True
                     End If
-                    'Case "GhoulFrenzy"
-                    '    If sim.Frenzy.IsFrenzyAvailable(TimeStamp) Then
-                    '        Return sim.Frenzy.Frenzy(TimeStamp)
-                    '    Else
-                    '        If retry = 0 Then Return True
-                    '    End If
+                
                 Case "ScourgeStrike"
                     If sim.ScourgeStrike.IsAvailable Then
                         Return sim.ScourgeStrike.ApplyDamage(TimeStamp)
@@ -160,7 +155,6 @@ Namespace Simulator
                 Case "DeathCoil"
                     If sim.DeathCoil.isAvailable() = True Then
                         Return sim.DeathCoil.ApplyDamage(TimeStamp)
-                        'Diagnostics.Debug.WriteLine("DC")
                         Exit Function
                     Else
                         If retry = 0 Then Return True

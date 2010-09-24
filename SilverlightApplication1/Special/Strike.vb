@@ -18,8 +18,8 @@ Namespace Simulator.WowObjects.Strikes
 
 
 
-        Sub UseGCD(ByVal T As Long)
-            sim.UseGCD(T, False)
+        Sub UseGCD()
+            sim.UseGCD(False)
         End Sub
 
         Protected Overridable Sub init()
