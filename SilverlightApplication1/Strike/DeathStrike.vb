@@ -19,7 +19,7 @@ Namespace Simulator.WowObjects.Strikes
             SpecialCritChance = sim.Character.Talents.Talent("ImprovedDeathStrike").Value * 3 / 100 + sim.Character.T72PDPS * 5 / 100
             logLevel = LogLevelEnum.Basic
             Glyphed = sim.Character.Glyph("DeathStrike")
-            Dim rp As Integer = 25 + 5 * sim.Character.T74PDPS
+            Dim rp As Integer = 20 + 5 * sim.Character.T74PDPS
             If sim.Character.Talents("DRM") = 1 Then
                 Resource = New Resource(S, ResourcesEnum.FrostUnholy, True, rp)
             Else

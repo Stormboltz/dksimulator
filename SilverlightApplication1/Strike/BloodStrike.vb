@@ -17,7 +17,7 @@ Namespace Simulator.WowObjects.Strikes
             Else
                 DiseaseBonus = 0.1
             End If
-            Resource = New Resource(S, ResourcesEnum.BloodRune, True, 15)
+            Resource = New Resource(S, ResourcesEnum.BloodRune, True, 10)
 
         End Sub
 

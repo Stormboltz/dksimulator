@@ -202,6 +202,15 @@ Partial Public Class MainForm
     Private Sub Page_Loaded(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles MyBase.Loaded
 
         ConstrucFileDir()
+        Dim ass As System.Reflection.Assembly = System.Reflection.Assembly.GetExecutingAssembly
+
+        If ass.FullName <> "" Then
+            Dim parts As String() = ass.FullName.Split(",")
+            Me.Title = "Kahorie's DK Simulator " & parts(1)
+        End If
+
+
+
 
         'lblApplication.Content = "Kahorie's DK Simulator " & App.Current.
         LoadTrinket()
@@ -221,6 +230,8 @@ Partial Public Class MainForm
     End Sub
     Sub ConstrucFileDir()
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+           
+
             isoStore.CreateDirectory("KahoDKSim")
             'isoStore.CreateDirectory("KahoDKSim/Config")
             'CopyFileFromXAPtoISF("config/PrioritiesList.xml")
@@ -820,6 +831,9 @@ OUT:
     End Sub
 
     Private Sub cmdStartSim_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdStartSim.Click
+        If isoStore.Quota < 24000000 Then
+            Dim ret As Boolean = isoStore.IncreaseQuotaTo(25000000)
+        End If
         If LoadBeforeSim() = False Then Exit Sub
 
         If SimConstructor.simCollection.Count > 0 Then Return
@@ -1671,5 +1685,9 @@ NextItem:
 
     Private Sub cmdScaling_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdScaling.Click
         SimConstructor.StartScaling(Me)
+    End Sub
+
+    Private Sub cmdRngSeeder_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdRngSeeder.Click
+        RNGSeeder += 1
     End Sub
 End Class

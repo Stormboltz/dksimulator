@@ -115,8 +115,10 @@ Module GlobalFunction
     End Function
     Function ConvertToInt(ByVal S As String) As Integer
         Dim tmp As Double
+        Dim j As Integer
         For i As Integer = 0 To S.Length - 1
-            tmp += Char.GetNumericValue(S.Chars(i))
+            j = AscW(S.Chars(i))
+            tmp += j
         Next
         Return Integer.Parse(tmp)
     End Function

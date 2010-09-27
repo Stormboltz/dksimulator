@@ -9,7 +9,7 @@ Namespace Simulator.WowObjects.Strikes
             logLevel = LogLevelEnum.Basic
             SpecialCritChance += sim.Character.T72PTNK * 0.1
             _CritCoef = (1 + 0.06 * sim.Character.CSD)
-            Resource = New Resource(S, ResourcesEnum.UnholyRune, False, 15)
+            Resource = New Resource(S, ResourcesEnum.UnholyRune, False, 10)
         End Sub
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
             If Not OffHand Then UseGCD()

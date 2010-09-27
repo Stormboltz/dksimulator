@@ -97,7 +97,8 @@ Namespace Simulator.WowObjects.Procs
         Sub Use()
             CurrentStack -= 1
             If CurrentStack <= 0 Then
-                Fade = Sim.TimeStamp
+                Fade = sim.TimeStamp
+                CurrentStack = 0
                 RemoveUptime(Sim.TimeStamp)
             End If
         End Sub
@@ -121,8 +122,10 @@ Namespace Simulator.WowObjects.Procs
             End If
             If CD > T Then Return False
             Dim d As Double = RngHit()
+            If d > ProcChance Then
+                Return False
+            End If
 
-            If d > ProcChance Then Return False
             ApplyMe(T)
             Return True
         End Function

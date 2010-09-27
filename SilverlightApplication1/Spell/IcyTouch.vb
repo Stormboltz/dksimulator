@@ -15,7 +15,7 @@ Namespace Simulator.WowObjects.Spells
             End If
             logLevel = LogLevelEnum.Basic
             DamageSchool = DamageSchoolEnum.Frost
-            Dim rp As Integer = 15 + (sim.Character.Talents.Talent("ChillOfTheGrave").Value * 5)
+            Dim rp As Integer = 10 + (sim.Character.Talents.Talent("ChillOfTheGrave").Value * 5)
             Resource = New Resource(S, ResourcesEnum.FrostRune, False, rp)
         End Sub
 

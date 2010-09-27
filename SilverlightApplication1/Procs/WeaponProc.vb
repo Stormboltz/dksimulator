@@ -23,7 +23,9 @@ Namespace Simulator.WowObjects.Procs
             CD = T + InternalCD * 100
             Dim tmp As Double
             Select Case DamageType
-                Case "Fallen Crisader", 3368
+                Case "Fallen Crusader", "3368"
+                    MyBase.ApplyMe(T)
+                    Exit Sub
                 Case "Bryntroll"
                     If RngCrit < (0.17 - sim.Character.SpellHit.Value) Then
                         MissCount = MissCount + 1
@@ -128,7 +130,7 @@ Namespace Simulator.WowObjects.Procs
                 Case "Razorice", "3370"
                     sim.RuneForge.ProcRazorIce(Me, T)
 
-                Case "Cinderglacier"
+                Case "Cinderglacier", "3369"
                     sim.RuneForge.ProcCinderglacier(Me, T)
 
                 Case "torrent"

@@ -552,7 +552,6 @@ Namespace Simulator
                 TimeStamp = FE.T
                 If TimeStamp >= MaxTime Then Exit Do
                 ProcessEvent(FE)
-
             Loop
 
             TotalDamageAlternative = TotalDamageAlternative + TotalDamage()
@@ -574,7 +573,14 @@ Namespace Simulator
             End If
 
 
+            '
+
+            'If MultipleDamage.Count > 1 Then
+            '    MultipleDamage.Sort()
+            '    DPS = GetMedianValue() / FightLength
+            'Else
             DPS = 100 * TotalDamage() / TimeStamp
+            'End If
             Report()
             Diagnostics.Debug.WriteLine("DPS=" & DPS & " " & "TPS=" & TPS & " " & EPStat() & " hit=" & Character.Hit.Value & " sphit=" & Character.SpellHit.Value & " exp=" & Character.Expertise.Value)
             'Diagnostics.Debug.WriteLine("Max events in queue " & me.FutureEventManager.Max )
@@ -1187,7 +1193,10 @@ errH:
             End If
             MultipleDamage.Add(tmp)
         End Sub
-
+        Function GetMedianValue() As Long
+            Dim i As Integer = MultipleDamage.Count / 2
+            Return MultipleDamage(i)
+        End Function
 
 
 

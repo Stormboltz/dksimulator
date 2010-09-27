@@ -19,7 +19,7 @@ Namespace Simulator.WowObjects.Spells
         Sub New(ByVal MySim As Sim)
             MyBase.New(MySim)
             logLevel = LogLevelEnum.Basic
-            Resource = New Resource(sim, ResourcesEnum.BloodTap, False, 15)
+            Resource = New Resource(sim, ResourcesEnum.BloodTap, False, 10)
             If sim.Character.Talents.Talent("BoneShield").Value = 1 Then Talented = True
         End Sub
         Sub UseCharge(ByVal T As Long)

@@ -17,7 +17,7 @@ Namespace Simulator.WowObjects.Procs
         Friend MHProc As WeaponProc
         Friend OHProc As WeaponProc
 
-        Friend FallenCrusaderBuff As SpellBuff
+        Friend FallenCrusaderBuff As SpellEffect
 
         Friend RIProc As WeaponProc
         Friend CGProc As WeaponProc
@@ -32,8 +32,7 @@ Namespace Simulator.WowObjects.Procs
         Sub New(ByVal S As Sim)
             Sim = S
 
-            FallenCrusaderBuff = New SpellBuff(S, "Fallen Crusader", Simulator.Sim.Stat.Strength, 1.2, 15)
-
+            FallenCrusaderBuff = New SpellEffect(S, "Fallen Crusader", SpellEffectManager.SpeelEffectEnum.StrengthPercentage, 1.2, 15)
 
             CinderglacierProc = 0
             WastedCG = 0
@@ -69,7 +68,7 @@ Namespace Simulator.WowObjects.Procs
                     Case "3369"
                         .ProcChance *= 1.5
                         CGProc = Proc
-                        ._Name = "CinderGlacier"
+                        ._Name = "Cinderglacier"
 
                     Case "3789"
                         .ProcChance *= 1.2
@@ -91,6 +90,7 @@ Namespace Simulator.WowObjects.Procs
             Dim s As Sim
             s = Sim
             Try
+
                 If s.Character.Dual Then
                     MHRuneForge = s.XmlCharacter.Element("character").Element("MainHand").Element("enchant").Value
                 Else
@@ -162,7 +162,8 @@ Namespace Simulator.WowObjects.Procs
 
 
         Sub ProcCinderglacier(ByVal Proc As WeaponProc, ByVal T As Long)
-            Proc.ApplyMe(T)
+            'Proc.ApplyMe(T)
+
             If Proc IsNot CGProc Then CGProc.ApplyFade(T)
             CGProc.CurrentStack = 2
         End Sub

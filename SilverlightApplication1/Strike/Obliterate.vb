@@ -31,7 +31,7 @@ Namespace Simulator.WowObjects.Strikes
             Else
                 DiseaseBonus = (0.125)
             End If
-            Dim rp As Integer = 25 + 5 * sim.Character.Talents.Talent("ChillOfTheGrave").Value + 5 * sim.Character.T74PDPS
+            Dim rp As Integer = 20 + 5 * sim.Character.Talents.Talent("ChillOfTheGrave").Value + 5 * sim.Character.T74PDPS
             If sim.Character.Talents("DRM") = 1 Then
                 Resource = New Resource(sim, ResourcesEnum.FrostUnholy, True, rp)
             Else

@@ -6,18 +6,16 @@
 
         Sub New(ByVal s As Sim)
             MyBase.New(s)
-            Resource = New Resource(s, ResourcesEnum.UnholyRune, False, 15)
+            Resource = New Resource(s, ResourcesEnum.UnholyRune, False, 10)
             DarkTransformationBuff = New Procs.Proc(sim)
             DarkTransformationBuff.ProcLenght = 30
             DarkTransformationBuff.ProcChance = 1
             DarkTransformationBuff.ProcOn = Procs.ProcsManager.ProcOnType.OnMisc
             DarkTransformationBuff._Name = "Dark Transformation"
-
             If sim.Character.Talents.Talent("DarkTransformation").Value > 0 Then
                 Talented = True
                 DarkTransformationBuff.Equip()
             End If
-            Resource = New Resource(s, ResourcesEnum.UnholyRune, False, 15)
         End Sub
 
         Overrides Function IsAvailable() As Boolean

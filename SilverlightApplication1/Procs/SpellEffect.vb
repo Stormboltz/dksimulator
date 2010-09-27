@@ -25,6 +25,8 @@
                 Currentstack += 1
 
                 Select Case Effect
+                    Case SpellEffectManager.SpeelEffectEnum.StrengthPercentage
+                        sim.Character.Strength.AddMulti(Value * Currentstack)
                     Case SpellEffectManager.SpeelEffectEnum.IncreaseAttackSpeed
                         sim.Character.PhysicalHaste.AddMulti(Value * Currentstack)
                     Case SpellEffectManager.SpeelEffectEnum.IncreaseCastingSpeed
@@ -54,13 +56,14 @@
                             Return
                         End If
 
-                        d = (DepletedRunes.Count - 1) * RngCrit
+                        d = (DepletedRunes.Count - 1) * RngHit()
                         Dim dec As Decimal = Convert.ToDecimal(d)
                         Dim i As Integer
                         i = Decimal.Round(dec, 0)
+                        Currentstack = 0
                         Try
                             DepletedRunes.Item(i).Value = 100
-                            sim.CombatLog.write(sim.TimeStamp & vbTab & Me.Name & "on " & DepletedRunes.Item(i).Name)
+                            sim.CombatLog.write(sim.TimeStamp & vbTab & Me.Name & " on " & DepletedRunes.Item(i).Name)
                         Catch ex As Exception
 
                         End Try
@@ -73,14 +76,17 @@
                     sim.FutureEventManager.Remove(FutureEvent)
                 End If
             End If
-            FutureEvent = sim.FutureEventManager.Add(T + (Lenght * 100), "BuffFade", Me)
+            If Lenght <> 0 Then
+                FutureEvent = sim.FutureEventManager.Add(T + (Lenght * 100), "BuffFade", Me)
+            End If
             AddUptime(T)
-
         End Sub
         Overrides Sub Fade()
             MyBase.Fade()
             If Multiplicator <> 0 And Currentstack <> 0 Then
                 Select Case Effect
+                    Case SpellEffectManager.SpeelEffectEnum.StrengthPercentage
+                        sim.Character.Strength.RemoveMulti(Value * Currentstack)
                     Case SpellEffectManager.SpeelEffectEnum.IncreaseAttackSpeed
                         sim.Character.PhysicalHaste.RemoveMulti(Value * Currentstack)
                     Case SpellEffectManager.SpeelEffectEnum.IncreaseCastingSpeed
@@ -90,6 +96,8 @@
                         sim.Character.SpellHaste.RemoveMulti(Value * Currentstack)
                     Case SpellEffectManager.SpeelEffectEnum.IncreaseRuneRegeneration
                         sim.Character.RuneRegeneration.RemoveMulti(Value * Currentstack)
+                    Case Else
+
                 End Select
 
             End If
@@ -105,6 +113,7 @@
             IncreaseCastingSpeed
             IncreaseAttackAndCastingSpeed
             IncreaseRuneRegeneration
+            StrengthPercentage
             RunicEmpowerement
             Debuff
         End Enum

@@ -91,24 +91,6 @@ Partial Public Class ReportFrame
         r.Glance_Count_Pc = el.Element("Glance_Count_Pc").Value
         r.TPS = el.Element("TPS").Value
         r.Uptime = el.Element("Uptime").Value
-        'If r.Damage_done_Total = "0" Then r.Damage_done_Total = ""
-        'If r.Damage_done_Total = "0" Then r.Damage_done_Total = ""
-        'If r.Damage_done_Count = "0" Then r.Damage_done_Count = ""
-        'If r.Damage_done_Avg = "0" Then r.Damage_done_Avg = ""
-        'If r.hit_count = "0" Then r.hit_count = ""
-        'If r.hit_count_Avg = "0" Then r.hit_count_Avg = ""
-        'If r.hit_count_Pc = "0" Then r.hit_count_Pc = ""
-        'If r.Crit_count = "0" Then r.Crit_count = ""
-        'If r.Crit_count_Avg = "0" Then r.Crit_count_Avg = ""
-        'If r.Crit_count_Pc = "0" Then r.Crit_count_Pc = ""
-        'If r.Miss_Count = "0" Then r.Miss_Count = ""
-        'If r.Miss_Count_Pc = "0" Then r.Miss_Count_Pc = ""
-        'If r.Glance_Count = "0" Then r.Glance_Count = ""
-        'If r.Glance_Count_Avg = "0" Then r.Glance_Count_Avg = ""
-        'If r.Glance_Count_Pc = "0" Then r.Glance_Count_Pc = ""
-        'If r.TPS = "0" Then r.TPS = ""
-        'If r.Uptime = "0" Then r.Uptime = ""
-
         Return r
     End Function
     Class ReportDisplayLine

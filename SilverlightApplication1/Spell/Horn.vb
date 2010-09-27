@@ -44,7 +44,7 @@ Namespace Simulator.WowObjects.Spells
 
         Overrides Sub use()
             CD = sim.TimeStamp + 20 * 100
-            sim.RunicPower.add(10)
+            MyBase.Use()
             HitCount = HitCount + 1
             UseGCD(sim.TimeStamp)
             sim.CombatLog.write(sim.TimeStamp & vbTab & "Horn used")

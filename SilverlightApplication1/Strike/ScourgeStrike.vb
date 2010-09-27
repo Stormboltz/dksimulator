@@ -29,7 +29,7 @@ Namespace Simulator.WowObjects.Strikes
             Multiplicator *= (1 + sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100)
             If sim.Character.T102PDPS <> 0 Then Multiplicator = Multiplicator * 1.1
             _CritCoef = (1 + 0.06 * sim.Character.CSD)
-            Dim rp As Integer = 15 + 5 * sim.Character.T74PDPS
+            Dim rp As Integer = 10 + 5 * sim.Character.T74PDPS
             SSmagical = New ScourgeStrikeMagical(S)
             Resource = New Resource(sim, ResourcesEnum.UnholyRune, False, rp)
 

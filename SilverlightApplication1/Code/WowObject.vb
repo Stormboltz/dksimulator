@@ -104,7 +104,9 @@ Namespace Simulator.WowObjects
         End Sub
         
 
+
         Function RngHit() As Double
+            Dim LastRng As Double
             TimeWasted.Start()
             If _RNG1 Is Nothing Then
                 ' I have made that to not mess up the RNG is a strike miss
@@ -112,9 +114,11 @@ Namespace Simulator.WowObjects
                 _RNG2 = New Random(ConvertToInt(Me.Name) + RNGSeeder + 1)
             End If
             RngCrit = _RNG2.NextDouble
-            Dim d As Double = _RNG1.NextDouble
+            LastRng = _RNG1.NextDouble
+            
+
             TimeWasted.Pause()
-            Return d
+            Return LastRng
         End Function
 
         Public Sub New(ByVal s As Sim)
