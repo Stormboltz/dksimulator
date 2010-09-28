@@ -4,7 +4,7 @@
            xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
            Width="750" Height="550"
            Title="frmPopReport" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit">
-    
+
     <Grid x:Name="LayoutRoot" Margin="2">
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -14,19 +14,17 @@
             <StackPanel>
                 <sdk:DataGrid AutoGenerateColumns="True" FontSize="9"   Name="dgReport" MinColumnWidth="5"/>
                 <TextBox Grid.Row="1" Name="txtAdditionalInfo" Text="" IsReadOnly="True" />
-                <toolkit:Chart Name="Chart1" Title="Chart Title" Height="400">
+                <toolkit:Chart Name="Chart1" Height="400">
                     <toolkit:Chart.Axes>
-                            <toolkit:LinearAxis Title="DPSs" Orientation="Y"  ShowGridLines="True" FontStyle="Italic"/>
-                            <toolkit:LinearAxis Title="Value" Orientation="X" ShowGridLines="True" FontStyle="Italic"/>
-                            <!--<toolkit:CategoryAxis Title="Stat" />-->
-                        </toolkit:Chart.Axes>
-
-                    
-                </toolkit:Chart>
+                        <toolkit:LinearAxis Name="YAxe" Title="DPSs" Orientation="Y"  ShowGridLines="True" FontStyle="Italic"/>
+                        <toolkit:LinearAxis Name="XAxe" Title="Value" Orientation="X" ShowGridLines="True" FontStyle="Italic"/>
+                    </toolkit:Chart.Axes>
+                                 </toolkit:Chart>
+                <ScrollBar Orientation="Horizontal" Name="ScrollBar1" />
             </StackPanel>
         </ScrollViewer>
         <Button x:Name="OKButton" Content="OK" Width="75" Height="23" HorizontalAlignment="Right" Grid.Row="1" />
 
     </Grid>
-    
+
 </controls:ChildWindow>

@@ -543,7 +543,7 @@ Namespace Simulator
             PrePull(TimeStamp)
 
             SoftReset()
-            FutureEventManager.Add(TimeStamp + 500, "SaveCurrentDPS")
+
             Dim FE As FutureEvent
             Do Until False
 
@@ -671,19 +671,11 @@ Namespace Simulator
             End If
         End Function
 
-
-
-
-
-
-
-        Function DoMyWhiteHit() As Boolean
-            'unused
-            Return False
-        End Function
+        
 
         Sub SoftReset()
             FutureEventManager.Clear()
+            FutureEventManager.Add(TimeStamp + 500, "SaveCurrentDPS")
             Me.RotationStep = 0
             Me.Rotation.IntroStep = 0
             Runes.SoftReset()
