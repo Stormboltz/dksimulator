@@ -19,7 +19,7 @@ Partial Public Class ReportFrame
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
             Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream(path, FileMode.OpenOrCreate, FileAccess.Read, isoStore)
                 Dim myReader As XDocument = XDocument.Load(isoStream)
-                Dim Source As List(Of ReportDisplayLine) = (From el In myReader.Element("Table").Elements("row")
+                Dim Source As List(Of ReportDisplayLine) = (From el In myReader.Element("Report").Element("Table").Elements("row")
                              Select GetItem(el)).ToList
 
                 If Source.Count = 0 Then
@@ -58,7 +58,7 @@ Partial Public Class ReportFrame
 
                 isoStream.Close()
                 Dim tmp As String = ""
-                For Each el In myReader.Element("Table").Elements("AdditionalInfo")
+                For Each el In myReader.Element("Report").Elements("AdditionalInfo")
                     tmp += el.Attribute("Caption").Value & " " & el.Attribute("Text").Value & vbCr
                 Next
                 txtAdditionalInfo.Text = tmp

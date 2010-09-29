@@ -290,14 +290,15 @@ Namespace Simulator
             proc.Bloodlust.TryMe(TimeStamp)
             Select Case FE.Ev
                 Case "SaveCurrentDPS"
-                    Dim CurrentDamage As Long
-                    CurrentDamage = TotalDamage()
+                    Dim CurrentDamageforThisFight As Long
+                    CurrentDamageforThisFight = TotalDamage() - MultipleDamage.Sum
+
                     Dim CurrentDPS As Long
-                    CurrentDPS = (CurrentDamage - PreviousDamage) / ((TimeStamp - PreviousDamageTimeStamp) / 100)
+                    CurrentDPS = (TotalDamage() - PreviousDamage) / ((TimeStamp - PreviousDamageTimeStamp) / 100)
                     DPSLine.Add(CInt(TimeStamp / 100), CurrentDPS)
-                    DPSLineAverage.Add(CInt(TimeStamp / 100), CurrentDamage / (TimeStamp / 100))
+                    DPSLineAverage.Add(CInt(TimeStamp / 100), CInt(100 * CurrentDamageforThisFight / (TimeStamp - LastReset)))
                     PreviousDamageTimeStamp = TimeStamp
-                    PreviousDamage = CurrentDamage
+                    PreviousDamage = TotalDamage()
                     FutureEventManager.Add(TimeStamp + 500, "SaveCurrentDPS")
                 Case "BuffFade"
                     Dim SB As Effect = CType(FE.WowObj, Effect)
@@ -1159,8 +1160,8 @@ errH:
                 myReport.AddAdditionalInfo("RuneEnchant", Character.GetMHEnchant)
             End If
             myReport.AddAdditionalInfo("Pet Calculation", Character.GetPetCalculation)
-            myReport.AddLine(DPSLine)
-            myReport.AddLine(DPSLineAverage)
+            'myReport.ChartLines.Add(DPSLine)
+            myReport.ChartLines.Add(DPSLineAverage)
             myReport.Save("")
         End Sub
 

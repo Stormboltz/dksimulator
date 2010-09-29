@@ -5,6 +5,7 @@ Imports System.Xml.Linq
 Public Class Report
     Friend Lines As New List(Of ReportLine)
     Friend AdditionalInfos As New List(Of AdditionalInfo)
+    Friend ChartLines As New List(Of ReportLine)
 
     Friend Sub AddLine(ByVal Line As ReportLine)
         If IsNothing(Line) = False Then
@@ -19,16 +20,31 @@ Public Class Report
         If path = "" Then path = "Report.xml"
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
             Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/Report/" & path, FileMode.Create, isoStore)
-                Dim doc As XDocument = XDocument.Parse("<Table></Table>")
+                Dim doc As XDocument = XDocument.Parse("<Report></Report>")
+
+                Dim Tbl As XElement = XElement.Parse("<Table></Table>")
+                doc.Element("Report").Add(Tbl)
                 For Each Line In Lines
                     Dim xEl As XElement = XElement.Parse(Line.InnerText)
-                    doc.Element("Table").Add(xEl)
+                    doc.Element("Report").Element("Table").Add(xEl)
                 Next
+
+
+                Dim chart As XElement = XElement.Parse("<Chart/>")
+                doc.Element("Report").Add(chart)
+                For Each Line In ChartLines
+                    Dim xEl As XElement = XElement.Parse(Line.InnerText)
+                    doc.Element("Report").Element("Chart").Add(xEl)
+                Next
+
+
+
+
 
                 For Each AdditionalInfo In AdditionalInfos
                     Try
                         Dim xEl As XElement = XElement.Parse(AdditionalInfo.InnerText)
-                        doc.Element("Table").Add(xEl)
+                        doc.Element("Report").Add(xEl)
                     Catch ex As Exception
                         Diagnostics.Debug.WriteLine(AdditionalInfo.InnerText)
                     End Try

@@ -169,7 +169,7 @@ Public Module SimConstructor
                             Dim r As Long = DPSs(EpStat)
                             l.Add(i * EPBase, r)
                         Next i
-                        rp.AddLine(l)
+                        rp.ChartLines.Add(l)
                     End If
                 Next
                 rp.AddAdditionalInfo("Note", "Open Report details for chart")
