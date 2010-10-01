@@ -34,7 +34,7 @@ Namespace Simulator
                         If sim.Ghoul.ShadowInfusion.Equiped Then
                             If sim.Ghoul.ShadowInfusion.IsAvailable(sim.TimeStamp) Then
                                 If sim.Ghoul.ShadowInfusion.Stack < 5 Then
-                                    If sim.DeathCoil.isAvailable() And sim.CanUseGCD(TimeStamp) Then
+                                    If sim.DeathCoil.isAvailable() Then
                                         sim.DeathCoil.ApplyDamage(TimeStamp)
                                         Exit Sub
                                     End If
@@ -50,7 +50,7 @@ Namespace Simulator
                         End If
                     Case "RuneStrike"
                         If sim.RuneStrike.IsAvailable Then
-                            If sim.RunicPower.CheckRS(20) And sim.CanUseGCD(TimeStamp) Then
+                            If sim.RunicPower.CheckRS(20) Then
                                 sim.RuneStrike.ApplyDamage(TimeStamp)
                                 Return
                             End If
@@ -60,13 +60,13 @@ Namespace Simulator
                         If sim.RuneForge.CheckCinderglacier(False) = 0 Then GoTo doNext
 
                         If sim.Targets.MainTarget.BloodPlague.Cinder = False Then
-                            If sim.PlagueStrike.IsAvailable And sim.CanUseGCD(TimeStamp) Then
+                            If sim.PlagueStrike.IsAvailable Then
                                 sim.PlagueStrike.ApplyDamage(TimeStamp)
                                 Exit Sub
                             End If
                         End If
                         If sim.Targets.MainTarget.FrostFever.Cinder = False Then
-                            If sim.IcyTouch.IsAvailable And sim.CanUseGCD(TimeStamp) Then
+                            If sim.IcyTouch.IsAvailable Then
                                 sim.IcyTouch.ApplyDamage(TimeStamp)
                                 Exit Sub
                             End If
@@ -74,8 +74,9 @@ Namespace Simulator
 
 
                     Case "BloodTap"
-                        If sim.BloodTap.IsAvailable() And sim.Runes.BloodRune1.death = False And sim.Runes.BloodRune2.death = False Then
+                        If sim.BloodTap.IsAvailable() And (Not sim.Runes.Blood) Then
                             sim.BloodTap.Use()
+                            Exit Sub
                         End If
                     Case "BoneShield"
                         If sim.BoneShield.IsAvailable() Then
@@ -89,73 +90,65 @@ Namespace Simulator
                             Exit Sub
                         End If
                     Case "FesteringStrike"
-                        If sim.FesteringStrike.IsAvailable And sim.CanUseGCD(TimeStamp) Then
+                        If sim.FesteringStrike.IsAvailable Then
                             sim.FesteringStrike.ApplyDamage(TimeStamp)
                             Exit Sub
                         End If
 
                     Case "ScourgeStrike"
-                        If sim.ScourgeStrike.IsAvailable And sim.CanUseGCD(TimeStamp) Then
+                        If sim.ScourgeStrike.IsAvailable Then
                             sim.ScourgeStrike.ApplyDamage(TimeStamp)
-                            'Diagnostics.Debug.WriteLine("SS")
                             Exit Sub
                         End If
                     Case "PlagueStrike"
-                        If sim.PlagueStrike.IsAvailable And sim.CanUseGCD(TimeStamp) Then
+                        If sim.PlagueStrike.IsAvailable Then
                             sim.PlagueStrike.ApplyDamage(TimeStamp)
-                            'Diagnostics.Debug.WriteLine("PS")
                             Exit Sub
                         End If
                     Case "KMObliterate"
                         If sim.proc.KillingMachine.IsActive Then
-                            If sim.Obliterate.IsAvailable And sim.CanUseGCD(TimeStamp) Then
+                            If sim.Obliterate.IsAvailable Then
                                 sim.Obliterate.ApplyDamage(TimeStamp)
-                                'Diagnostics.Debug.WriteLine("OB")
                                 Exit Sub
                             End If
                         End If
                     Case "Obliterate"
-                        If sim.Obliterate.IsAvailable And sim.CanUseGCD(TimeStamp) Then
+                        If sim.Obliterate.IsAvailable Then
                             sim.Obliterate.ApplyDamage(TimeStamp)
-                            'Diagnostics.Debug.WriteLine("OB")
                             Exit Sub
                         End If
 
                     Case "KMFrostStrike"
                         If sim.proc.KillingMachine.IsActive Then
-                            If sim.FrostStrike.IsAvailable(TimeStamp) = True And sim.CanUseGCD(TimeStamp) Then
+                            If sim.FrostStrike.IsAvailable(TimeStamp) = True Then
                                 sim.FrostStrike.ApplyDamage(TimeStamp)
                                 Exit Sub
                             End If
                         End If
 
                     Case "FrostStrike"
-                        If sim.FrostStrike.IsAvailable(TimeStamp) = True And sim.CanUseGCD(TimeStamp) Then
+                        If sim.FrostStrike.IsAvailable(TimeStamp) = True Then
                             sim.FrostStrike.ApplyDamage(TimeStamp)
                             Exit Sub
                         End If
 
                     Case "FrostStrikeMaxRp"
-                        If sim.RunicPower.CheckMax(20) And sim.CanUseGCD(TimeStamp) Then
+                        If sim.RunicPower.CheckMax(20) Then
                             sim.FrostStrike.ApplyDamage(TimeStamp)
-                            'Diagnostics.Debug.WriteLine("FS")
                             Exit Sub
                         End If
                     Case "DRMDeathStrike"
-                        If runes.DRMFU() And sim.CanUseGCD(TimeStamp) Then
+                        If runes.DRMFU() Then
                             sim.DeathStrike.ApplyDamage(TimeStamp)
-                            'Diagnostics.Debug.WriteLine("BS")
                             Exit Sub
                         End If
                     Case "DeathStrike"
-                        If sim.DeathStrike.IsAvailable And sim.CanUseGCD(TimeStamp) Then
+                        If sim.DeathStrike.IsAvailable Then
                             sim.DeathStrike.ApplyDamage(TimeStamp)
-                            'Diagnostics.Debug.WriteLine("BS")
                             Exit Sub
                         End If
                     Case "BloodStrike"
-
-                        If sim.BloodStrike.IsAvailable And sim.CanUseGCD(TimeStamp) Then
+                        If sim.BloodStrike.IsAvailable Then
                             If sim.BoneShieldUsageStyle = 1 Then
                                 If sim.BoneShield.IsAvailable() Then
                                     sim.BoneShield.Use()
@@ -169,14 +162,13 @@ Namespace Simulator
                             sim.BloodStrike.ApplyDamage(TimeStamp)
                             Exit Sub
                         End If
-
                     Case "HeartStrike"
-                        If sim.HeartStrike.IsAvailable And sim.CanUseGCD(TimeStamp) Then
+                        If sim.HeartStrike.IsAvailable Then
                             sim.HeartStrike.ApplyDamage(TimeStamp)
                             Exit Sub
                         End If
                     Case "Rime"
-                        If sim.proc.Rime.IsActive And sim.CanUseGCD(TimeStamp) Then
+                        If sim.proc.Rime.IsActive Then
                             sim.HowlingBlast.ApplyDamage(TimeStamp)
                             Exit Sub
                         End If
@@ -190,37 +182,16 @@ Namespace Simulator
                                 End If
                             End If
                         End If
-                        If sim.Character.Glyph.GoD Then
-                            If sim.Pestilence.PerfectUsage(TimeStamp) Then
-                                sim.Pestilence.use()
+                        If sim.Targets.MainTarget.FrostFever.PerfectUsage(TimeStamp) = True Or sim.Targets.MainTarget.FrostFever.ToReApply Then
+                            If sim.HowlingBlast.Glyphed And sim.HowlingBlast.isAvailable() Then
+                                sim.HowlingBlast.ApplyDamage(TimeStamp)
                                 Exit Sub
-                            Else
-                                If sim.Targets.MainTarget.FrostFever.ShouldReapply(TimeStamp) Then
-                                    If sim.HowlingBlast.Glyphed And sim.HowlingBlast.isAvailable() Then
-
-                                        sim.HowlingBlast.ApplyDamage(TimeStamp)
-                                        Exit Sub
-
-                                    End If
-                                    If sim.IcyTouch.IsAvailable Then
-                                        sim.IcyTouch.ApplyDamage(TimeStamp)
-                                        Exit Sub
-                                    End If
-                                End If
                             End If
-                        Else
-                            If sim.Targets.MainTarget.FrostFever.PerfectUsage(TimeStamp) = True Or sim.Targets.MainTarget.FrostFever.ToReApply Then
-                                If sim.HowlingBlast.Glyphed And sim.HowlingBlast.isAvailable() Then
-                                    sim.HowlingBlast.ApplyDamage(TimeStamp)
-                                    Exit Sub
-                                End If
-                                If sim.IcyTouch.IsAvailable Then
-                                    sim.IcyTouch.ApplyDamage(TimeStamp)
-                                    Exit Sub
-                                End If
+                            If sim.IcyTouch.IsAvailable Then
+                                sim.IcyTouch.ApplyDamage(TimeStamp)
+                                Exit Sub
                             End If
                         End If
-
                     Case "EmpowerRuneWeapon"
                         If sim.ERW.CD <= TimeStamp Then
                             sim.ERW.Use()
@@ -235,50 +206,30 @@ Namespace Simulator
                                 End If
                             End If
                         End If
-
-                        If sim.Character.Glyph.GoD Then
-                            If sim.Pestilence.PerfectUsage(TimeStamp) Then
-                                sim.Pestilence.use()
+                        If sim.Targets.MainTarget.BloodPlague.PerfectUsage(TimeStamp) Or sim.Targets.MainTarget.BloodPlague.ToReApply Then
+                            If sim.PlagueStrike.IsAvailable Then
+                                sim.PlagueStrike.ApplyDamage(TimeStamp)
                                 Exit Sub
-                            Else
-                                If sim.Targets.MainTarget.BloodPlague.ShouldReapply(TimeStamp) Then
-                                    If sim.PlagueStrike.IsAvailable Then
-                                        sim.PlagueStrike.ApplyDamage(TimeStamp)
-                                        Exit Sub
-                                    End If
-                                End If
-                            End If
-
-                        Else
-
-                            If sim.Targets.MainTarget.BloodPlague.PerfectUsage(TimeStamp) Or sim.Targets.MainTarget.BloodPlague.ToReApply Then
-                                If sim.PlagueStrike.IsAvailable Then
-                                    sim.PlagueStrike.ApplyDamage(TimeStamp)
-                                    Exit Sub
-                                End If
                             End If
                         End If
-
                     Case "IcyTouch"
-                        If sim.IcyTouch.IsAvailable And sim.CanUseGCD(TimeStamp) Then
+                        If sim.IcyTouch.IsAvailable Then
                             sim.IcyTouch.ApplyDamage(TimeStamp)
                             Exit Sub
                         End If
 
                     Case "DeathCoilMaxRp"
-                        If sim.RunicPower.CheckMax(15) And sim.CanUseGCD(TimeStamp) Then
+                        If sim.RunicPower.CheckMax(15) Then
                             sim.DeathCoil.ApplyDamage(TimeStamp)
-                            'Diagnostics.Debug.WriteLine("DC")
                             Exit Sub
                         End If
                     Case "DeathCoil"
-                        If sim.DeathCoil.isAvailable() And sim.CanUseGCD(TimeStamp) Then
+                        If sim.DeathCoil.isAvailable() Then
                             sim.DeathCoil.ApplyDamage(TimeStamp)
-                            'Diagnostics.Debug.WriteLine("DC")
                             Exit Sub
                         End If
                     Case "BloodBoil"
-                        If sim.BloodBoil.IsAvailable And sim.CanUseGCD(TimeStamp) Then
+                        If sim.BloodBoil.IsAvailable Then
                             If sim.BoneShieldUsageStyle = 3 Then
                                 If sim.BoneShield.IsAvailable() Then
                                     sim.BoneShield.Use()
@@ -313,19 +264,19 @@ Namespace Simulator
                     Case "FadeRime"
                         If sim.proc.Rime.IsActive Then
                             If sim.proc.Rime.Fade < TimeStamp + 250 Then
-                                If sim.HowlingBlast.isAvailable() And sim.CanUseGCD(TimeStamp) Then
+                                If sim.HowlingBlast.isAvailable() Then
                                     sim.HowlingBlast.ApplyDamage(TimeStamp)
                                     Exit Sub
                                 End If
                             End If
                         End If
                     Case "DeathandDecay"
-                        If sim.DeathandDecay.isAvailable() And sim.CanUseGCD(TimeStamp) Then
+                        If sim.DeathandDecay.isAvailable() Then
                             sim.DeathandDecay.Apply(TimeStamp)
                             Exit Sub
                         End If
                     Case "Horn"
-                        If sim.Horn.isAvailable() And sim.CanUseGCD(TimeStamp) Then
+                        If sim.Horn.isAvailable() Then
                             sim.Horn.use()
                             Exit Sub
                         End If

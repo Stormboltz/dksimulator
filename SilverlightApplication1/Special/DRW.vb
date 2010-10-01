@@ -52,6 +52,9 @@ Namespace Simulator.WowObjects.PetsAndMinions
             HasteSensible = True
             isGuardian = True
 
+            If sim.Character.Talents.Talent("DRW").Value > 0 Then
+                Talented = True
+            End If
             PlaqueStrike = New Strikes.Strike(sim)
             PlaqueStrike._Name = "DRW: Plaque Strike"
 

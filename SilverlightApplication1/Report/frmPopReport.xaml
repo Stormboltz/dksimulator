@@ -24,10 +24,19 @@
                         <toolkit:LinearAxis Name="XAxe" Title="Value" Orientation="X" ShowGridLines="True" FontStyle="Italic"/>
                     </toolkit:Chart.Axes>
                 </toolkit:Chart>
-                <StackPanel Name="panelPrvNext" Orientation="Horizontal" >
-                    <Button Content="Previous 300 seconds" Name="Previous"></Button>
-                    <Button Content="Next 300 seconds" Name="Next"></Button>
-                </StackPanel>
+
+                <Grid Name="panelChartList" Width="690" HorizontalAlignment="Left" >
+                    <Grid.RowDefinitions>
+                        
+                       </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                </Grid>
             </StackPanel>
         </ScrollViewer>
         <Button x:Name="OKButton" Content="OK" Width="75" Height="23" HorizontalAlignment="Right" Grid.Row="1" />

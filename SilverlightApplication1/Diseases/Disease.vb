@@ -50,7 +50,7 @@ Namespace Simulator.WowObjects.Diseases
             AP = 0
             OtherTargetsFade = 0
             ThreadMultiplicator = 1
-            ToReApply = 0
+            ToReApply = True
             _RNG1 = Nothing
         End Sub
 

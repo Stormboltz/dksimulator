@@ -28,34 +28,38 @@ Namespace Simulator.WowObjects.Spells
 
         Overrides Function ApplyDamage(ByVal T As Long) As Boolean
 
-            If Sim.proc.SuddenDoom.IsActive Then
-                sim.proc.SuddenDoom.Cancel()
-            Else
-                If sim.RunicPower.Check(60) Then
-                    If sim.Character.Talents.Talent("DRW").Value = 1 Then
-                        If sim.DRW.cd < T Then
-                            If sim.DRW.Summon(T) = True Then Return True
-                        End If
-                    ElseIf sim.PetFriendly And sim.Character.Talents.Talent("SummonGargoyle").Value = 1 Then
-                        If sim.Gargoyle.cd < T Then
-                            If sim.Gargoyle.Summon(T) = True Then Return True
-                        End If
+            If sim.RunicPower.Check(60) Then
+                If sim.DRW.Talented Then
+                    If sim.DRW.cd < T Then
+                        If sim.DRW.Summon(T) Then Return True
+                    End If
+                ElseIf sim.Gargoyle.Talented Then
+                    If sim.Gargoyle.cd < T Then
+                        If sim.Gargoyle.Summon(T) Then Return True
                     End If
                 End If
-                Resource.Use()
             End If
+
+            
             UseGCD(T)
             Dim ret As Boolean = MyBase.ApplyDamage(T)
             If ret = False Then
                 Return False
             End If
+            If sim.proc.SuddenDoom.IsActive Then
+                sim.proc.SuddenDoom.Cancel()
+            Else
+                If sim.RunicPower.Check(60) Then
+                End If
+                Resource.Use()
+            End If
 
             sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.onRPDump)
-            If Sim.Character.Talents.Talent("UnholyBlight").Value = 1 Then
-                Sim.UnholyBlight.Apply(T, LastDamage)
+            If sim.Character.Talents.Talent("UnholyBlight").Value = 1 Then
+                sim.UnholyBlight.Apply(T, LastDamage)
             End If
-            If Sim.DRW.IsActive(T) Then
-                Sim.DRW.DRWDeathCoil()
+            If sim.DRW.IsActive(T) Then
+                sim.DRW.DRWDeathCoil()
             End If
             Return True
 

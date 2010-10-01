@@ -20,8 +20,6 @@ Namespace Simulator.WowObjects.Spells
         Overrides Sub use()
             Dim T As Double = sim.TimeStamp
             UseGCD(T)
-
-
             If DoMySpellHit() = False Then
                 sim.CombatLog.write(T & vbTab & "Pestilence fail")
                 MissCount = MissCount + 1
@@ -47,17 +45,6 @@ Namespace Simulator.WowObjects.Spells
                     End If
                 Next
             End If
-
-            If sim.Character.Glyph.GoD Then
-                If sim.Targets.MainTarget.BloodPlague.FadeAt > T Then
-                    sim.Targets.MainTarget.BloodPlague.Refresh(T)
-                End If
-                If sim.Targets.MainTarget.FrostFever.FadeAt > T Then
-                    sim.Targets.MainTarget.FrostFever.Refresh(T)
-                End If
-            End If
-
-
         End Sub
         Function PerfectUsage(ByVal T As Double) As Boolean
             Dim tmp1 As Long

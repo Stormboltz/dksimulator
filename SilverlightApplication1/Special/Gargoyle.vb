@@ -27,6 +27,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
             HasteSensible = True
             isGuardian = True
             logLevel = LogLevelEnum.Detailled
+            If sim.Character.Talents.Talent("SummonGargoyle").Value Then Talented = True
         End Sub
 
         Function Summon(ByVal T As Long) As Boolean

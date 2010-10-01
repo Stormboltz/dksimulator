@@ -13,6 +13,71 @@ Partial Public Class frmPopReport
         InitializeComponent()
 
     End Sub
+    Sub OnCheckBox_Check(ByVal sender As Object, ByVal e As RoutedEventArgs)
+        Dim serie = New LineSeries
+        serie.DependentValuePath = "X"
+        serie.IndependentValuePath = "Y"
+
+        serie.Title = sender.content
+        serie.ItemsSource = LoadThisQuery(sender.content)
+        Try
+            If serie.DataPointStyle Is Nothing Then
+                Dim resStyle As Style = Application.Current.Resources("MyDotStyle")
+                Dim dpStyle As New Style
+                dpStyle.BasedOn = resStyle
+                dpStyle.TargetType = resStyle.TargetType
+                dpStyle.Setters.Add(New Setter(BackgroundProperty, GetColor(Chart1.Series.Count)))
+                serie.DataPointStyle = dpStyle
+            End If
+
+            Chart1.Series.Add(serie)
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+    Sub OnCheckBox_UnCheck(ByVal sender As Object, ByVal e As RoutedEventArgs)
+        Try
+            Dim serie As LineSeries
+            serie = (From s As LineSeries In Chart1.Series
+                         Where s.Title = sender.content).First
+            Chart1.Series.Remove(serie)
+            serie = Nothing
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    Sub AddACheckboxForEachGraph()
+        For Each eLine As XElement In myReader.<Report>.<Chart>.Elements
+            Dim nm As String = eLine.@name
+            Dim ck As New CheckBox
+            ck.Name = "chk" & nm
+            ck.Content = nm
+
+            AddHandler ck.Checked, AddressOf OnCheckBox_Check
+            AddHandler ck.Unchecked, AddressOf OnCheckBox_UnCheck
+
+            Dim col As Integer
+            Dim row As Integer
+            Try
+
+
+                row = Math.Floor(panelChartList.Children.Count / 5)
+                col = panelChartList.Children.Count - (row * 5)
+                If panelChartList.RowDefinitions.Count < row Then
+                    panelChartList.RowDefinitions.Add(New RowDefinition)
+                End If
+                panelChartList.Children.Add(ck)
+                Grid.SetColumn(ck, col)
+                Grid.SetRow(ck, row)
+            Catch ex As Exception
+
+            End Try
+
+        Next
+        panelChartList.RowDefinitions.Add(New RowDefinition)
+    End Sub
+
 
     Public Sub New(ByVal ReportFrame As ReportFrame)
         InitializeComponent()
@@ -23,16 +88,16 @@ Partial Public Class frmPopReport
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
             Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream(ReportFrame.ReportPath, FileMode.OpenOrCreate, FileAccess.Read, isoStore)
                 myReader = XDocument.Load(isoStream)
-                Try
-
-                    LoadQueryInMem()
-                    SetMinAndMAxChartAxis()
-                    LoadChart(0)
-                Catch ex As Exception
-                End Try
+                AddACheckboxForEachGraph()
+                'Try
+                '    LoadQueryInMem()
+                '    SetMinAndMAxChartAxis()
+                '    LoadChart(0)
+                'Catch ex As Exception
+                'End Try
             End Using
         End Using
-        If Chart1.Series.Count = 0 Then
+        If panelChartList.Children.Count = 0 Then
             Chart1.Visibility = Visibility.Collapsed
         End If
 
@@ -54,7 +119,7 @@ Partial Public Class frmPopReport
 
     Sub SetMinAndMAxChartAxis()
         If queryCol(0).Count < 60 Then
-            panelPrvNext.Visibility = Visibility.Collapsed
+            panelChartList.Visibility = Visibility.Collapsed
         End If
 
         Dim min As Long
@@ -76,6 +141,26 @@ Partial Public Class frmPopReport
     End Sub
     Dim queryCol As New List(Of List(Of Point))
     Dim SerieNames As New List(Of String)
+    Function LoadThisQuery(ByVal name As String) As List(Of Point)
+        Dim Q As New List(Of Point)
+        For Each eLine As XElement In (From l In myReader.<Report>.<Chart>.Elements("Line")
+                                       Where l.@name = name).ToList
+
+            Dim pointList As String()
+            pointList = eLine.Value.Split("|")
+            For Each p In pointList
+                If p.Contains(";") Then
+                    Dim sp As String()
+                    sp = p.Split(";")
+                    Q.Add(New Point(sp(1), sp(0)))
+                End If
+            Next
+            Dim nm As String = eLine.@name
+            SerieNames.Add(nm)
+            queryCol.Add(Q)
+        Next
+        Return Q
+    End Function
     Sub LoadQueryInMem()
         For Each eLine As XElement In myReader.<Report>.<Chart>.Elements
             Dim Q As New List(Of Point)
@@ -182,16 +267,16 @@ Partial Public Class frmPopReport
 
     End Function
     Dim CurChartStep As Integer = 0
-    Private Sub Previous_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Previous.Click
-        CurChartStep -= 1
-        CurChartStep = Math.Max(CurChartStep, 0)
-        LoadChart(CurChartStep * 60)
-        LoadChart(CurChartStep * 60)
-    End Sub
+    'Private Sub Previous_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles Previous.Click
+    '    CurChartStep -= 1
+    '    CurChartStep = Math.Max(CurChartStep, 0)
+    '    LoadChart(CurChartStep * 60)
+    '    LoadChart(CurChartStep * 60)
+    'End Sub
 
-    Private Sub Next_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles [Next].Click
-        CurChartStep += 1
-        LoadChart(CurChartStep * 60)
-        LoadChart(CurChartStep * 60)
-    End Sub
+    'Private Sub Next_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles [Next].Click
+    '    CurChartStep += 1
+    '    LoadChart(CurChartStep * 60)
+    '    LoadChart(CurChartStep * 60)
+    'End Sub
 End Class

@@ -252,7 +252,6 @@
     <Compile Include="Report\ReportLine.vb" />
     <Compile Include="Runes\CataRune.vb" />
     <None Include="Runes\CataRunesManagement.vb" />
-    <None Include="Runes\rune.vb" />
     <Compile Include="Runes\runes.vb" />
     <Compile Include="scenario\Element.vb" />
     <Compile Include="scenario\myTextButton.xaml.vb">
@@ -1793,6 +1792,8 @@
     <Resource Include="images\spell\SuddenDoom.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="images\ImprovedBloodTap.jpg" />
+    <Resource Include="images\ImprovedBloodTapG.jpg" />
     <Content Include="Intro\Intro.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

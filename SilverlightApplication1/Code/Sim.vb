@@ -14,8 +14,11 @@ Namespace Simulator
 
     Public Class Sim
         Friend CalculateUPtime As Boolean = True
-        Dim DPSLine As New StatScallingLine("Real Time DPS")
-        Dim DPSLineAverage As New StatScallingLine("AverageDPS")
+
+        Dim Graphs As New List(Of StatScallingLine)
+
+        Dim DPSLine As StatScallingLine
+        Dim DPSLineAverage As StatScallingLine
         Friend TimeWastedAnaliser As New TimeWastedAnaliser
         Friend SpellBuffManager As New SpellBuffManager
         Friend SpellEffectManager As New SpellEffectManager
@@ -28,6 +31,7 @@ Namespace Simulator
         Friend UselessCheckColl As New Collection
 
         Friend FightLength As Integer
+        Friend FightNumber As Integer
         Friend ScenarioPath As String
 
 
@@ -283,22 +287,23 @@ Namespace Simulator
 
             End Try
         End Sub
-        Dim PreviousDamage As Long
-        Dim PreviousDamageTimeStamp As Long
+        Dim PreviousDamageTotal As Long
+        'Dim PreviousDamageTimeStamp As Long
+
         Function ProcessEvent(ByVal FE As FutureEvent) As Boolean
             'this routine returns whether an explicit action was taken
             proc.Bloodlust.TryMe(TimeStamp)
             Select Case FE.Ev
                 Case "SaveCurrentDPS"
                     Dim CurrentDamageforThisFight As Long
-                    CurrentDamageforThisFight = TotalDamage() - MultipleDamage.Sum
+                    CurrentDamageforThisFight = TotalDamage() - PreviousDamageTotal
 
-                    Dim CurrentDPS As Long
-                    CurrentDPS = (TotalDamage() - PreviousDamage) / ((TimeStamp - PreviousDamageTimeStamp) / 100)
-                    DPSLine.Add(CInt(TimeStamp / 100), CurrentDPS)
-                    DPSLineAverage.Add(CInt(TimeStamp / 100), CInt(100 * CurrentDamageforThisFight / (TimeStamp - LastReset)))
-                    PreviousDamageTimeStamp = TimeStamp
-                    PreviousDamage = TotalDamage()
+                    'Dim CurrentDPS As Long
+                    'CurrentDPS = (TotalDamage() - PreviousDamage) / ((TimeStamp - PreviousDamageTimeStamp) / 100)
+                    'DPSLine.Add(CInt((TimeStamp - LastReset) / 100), CurrentDPS)
+                    'PreviousDamageTimeStamp = TimeStamp
+                    'PreviousDamage = TotalDamage()
+                    DPSLineAverage.Add(CInt((TimeStamp - LastReset) / 100), CInt(100 * CurrentDamageforThisFight / (TimeStamp - LastReset)))
                     FutureEventManager.Add(TimeStamp + 500, "SaveCurrentDPS")
                 Case "BuffFade"
                     Dim SB As Effect = CType(FE.WowObj, Effect)
@@ -358,17 +363,17 @@ Namespace Simulator
 
 
                     If PetFriendly Then
-                        If Ghoul.ActiveUntil < TimeStamp And Ghoul.cd < TimeStamp And CanUseGCD(TimeStamp) Then
+                        If Ghoul.ActiveUntil < TimeStamp And Ghoul.cd < TimeStamp Then
                             Ghoul.Summon(TimeStamp)
                             If isInGCD(TimeStamp) Then Return True
                         End If
-                        If AotD.cd < TimeStamp And CanUseGCD(TimeStamp) Then
+                        If AotD.cd < TimeStamp Then
                             AotD.Summon(TimeStamp)
                             If isInGCD(TimeStamp) Then Return True
                         End If
                     End If
                     If Me.Rotation.IntroDone Then
-                        If Horn.isAutoAvailable(TimeStamp) And CanUseGCD(TimeStamp) Then
+                        If Horn.isAutoAvailable(TimeStamp) Then
                             Horn.use()
                             If isInGCD(TimeStamp) Then Return True
                         End If
@@ -500,6 +505,7 @@ Namespace Simulator
                     StoreMyDamage(TotalDamage)
                     LastReset = NextReset
                     SoftReset()
+                    PreviousDamageTotal = TotalDamage()
                     _MainFrm.TryToUpdateProgressBar()
                 Case Else
                     Diagnostics.Debug.WriteLine("WTF is this event ?")
@@ -659,23 +665,30 @@ Namespace Simulator
             End If
         End Function
 
-        Function CanUseGCD(ByVal T As Long) As Boolean
-            CanUseGCD = True
-            If Character.Glyph.GoD Then
-                Dim tGDC As Long
-                'return false
-                tGDC = 150 + latency / 10 + 50
-                If Math.Min(Targets.MainTarget.BloodPlague.FadeAt, Targets.MainTarget.FrostFever.FadeAt) < (T + tGDC) Then
-                    'Diagnostics.Debug.WriteLine (RuneState & "time left on disease= " & (math.Min(BloodPlague.FadeAt,FrostFever.FadeAt) -T)/100 & "s" & " - " & T/100)
-                    Return False
-                End If
-            End If
-        End Function
+       
 
         
 
         Sub SoftReset()
             FutureEventManager.Clear()
+            FightNumber += 1
+            'Save Current Graph and make a new one.
+            If Not IsNothing(DPSLine) Then
+                If DPSLine.InnerText <> "" Then
+                    'Graphs.Add(DPSLine)
+                End If
+            End If
+            If Not IsNothing(DPSLineAverage) Then
+                If DPSLineAverage.InnerText <> "" Then
+                    MultipleDamage.Last()
+                    DPSLineAverage.myStatName = DPSLineAverage.myStatName & " - " & Int(MultipleDamage.Last() / FightLength)
+                    Graphs.Add(DPSLineAverage)
+                End If
+            End If
+            
+            DPSLine = New StatScallingLine("Real Time DPS" & FightNumber)
+            DPSLineAverage = New StatScallingLine("Fight_" & FightNumber)
+
             FutureEventManager.Add(TimeStamp + 500, "SaveCurrentDPS")
             Me.RotationStep = 0
             Me.Rotation.IntroStep = 0
@@ -699,7 +712,7 @@ Namespace Simulator
             HowlingBlast.CD = 0
             Ghoul.cd = 0
             AotD.cd = 0
-            
+
             MainHand.NextWhiteMainHit = TimeStamp
             FutureEventManager.Add(TimeStamp, "MainHand")
 
@@ -1160,8 +1173,12 @@ errH:
                 myReport.AddAdditionalInfo("RuneEnchant", Character.GetMHEnchant)
             End If
             myReport.AddAdditionalInfo("Pet Calculation", Character.GetPetCalculation)
+
+            For Each Line In Graphs
+                myReport.ChartLines.Add(Line)
+            Next
             'myReport.ChartLines.Add(DPSLine)
-            myReport.ChartLines.Add(DPSLineAverage)
+            'myReport.ChartLines.Add(DPSLineAverage)
             myReport.Save("")
         End Sub
 

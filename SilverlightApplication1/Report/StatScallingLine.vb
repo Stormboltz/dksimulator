@@ -2,7 +2,7 @@
 Public Class StatScallingLine
     Inherits ReportLine
     Dim RowColl As New Collections.Generic.List(Of aRow)
-    Dim myStatName As String
+    Friend myStatName As String
     Sub New(ByVal StatName As String)
         myStatName = StatName
     End Sub

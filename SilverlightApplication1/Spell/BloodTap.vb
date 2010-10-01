@@ -9,10 +9,12 @@
 Namespace Simulator.WowObjects.Spells
     Friend Class BloodTap
         Inherits Spells.Spell
+        Dim InternalCD As Integer
 
         Sub New(ByVal s As Sim)
             MyBase.New(s)
             logLevel = LogLevelEnum.Basic
+            InternalCD = (60 - (15 * sim.Character.Talents("ImprovedBloodTap"))) * 100
         End Sub
         Overrides Function IsAvailable() As Boolean
             If sim.TimeStamp >= CD Then
@@ -36,7 +38,7 @@ Namespace Simulator.WowObjects.Spells
 
         Overrides Sub Use()
 
-            CD = sim.TimeStamp + 6000
+            CD = sim.TimeStamp + InternalCD
 
             If Not sim.Runes.BloodRune2.Available Then
                 sim.Runes.BloodRune2.Activate()
@@ -61,7 +63,7 @@ Out:
         End Sub
 
         Function UseWithCancelBT(ByVal T As Long) As Boolean
-            CD = T + 6000
+            CD = T + InternalCD
             If sim.Runes.BloodRune1.AvailableTime > T And sim.Runes.BloodRune1.death = False Then
                 sim.Runes.BloodRune1.Activate()
                 sim.Runes.BloodRune1.death = True
@@ -71,7 +73,7 @@ Out:
                 sim.Runes.BloodRune2.death = True
                 'sim.Runes.BloodRune2.BTuntil = T + 2000
             End If
-            sim.RunicPower.add(0)
+            sim.RunicPower.add(10)
             sim.CombatLog.write(T & vbTab & "Blood Tap with Cancel Aura")
             Me.HitCount = Me.HitCount + 1
             sim._UseGCD(1)

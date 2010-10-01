@@ -30,7 +30,7 @@ Namespace Simulator.Character
 
         Friend GlyphCol As New Collections.Generic.Dictionary(Of String, Glyph)
         Friend xmlGlyph As New XDocument
-        Friend GoD As Boolean
+        'Friend GoD As Boolean
         Dim sim As Sim
 
         Sub New(ByVal s As Sim, ByVal path As String)
@@ -48,7 +48,7 @@ Namespace Simulator.Character
             For Each e As XElement In xmlGlyph.<Talents>.<Glyphs>.<Major>.Elements
                 Gl = New Glyph(GlyphCol, e.Name.ToString, e.Value)
             Next
-            If Me("disease") Then GoD = True
+            'If Me("disease") Then GoD = True
         End Sub
 
         Function GetGlyph(ByVal Name As String) As Glyph

@@ -9,15 +9,17 @@
     <Butchery row="1" col="1" >2</Butchery>
     <BladeBarrier row="1" col="2">3</BladeBarrier>
     <BladedArmor row="1" col="3">3</BladedArmor>
-
-    <BloodCakedBlade row="2" col="1">3</BloodCakedBlade>
+    
+    <ImprovedBloodTap row="2" col="1">2</ImprovedBloodTap>
     <ScentOfBlood row="2" col="2">3</ScentOfBlood>
     <ScarletFever row="2" col="3">2</ScarletFever>
-
-    <AbominationMight row="3" col="1">2</AbominationMight>
+    <HandOfDoom row="2" col="4">2</HandOfDoom>
+    
+    <BloodCakedBlade row="3" col="1">3</BloodCakedBlade>
     <BoneShield row="3" col="2">1</BoneShield>
     <Toughness row="3" col="3">3</Toughness>
-    <HandOfDoom row="3" col="4">2</HandOfDoom>
+    <AbominationMight row="3" col="4">2</AbominationMight>
+       
 
     <SanguineFortitude row="4" col="1">3</SanguineFortitude>
     <BloodParasite row="4" col="2">3</BloodParasite>
@@ -108,7 +110,7 @@
     <SummonGargoyle row="7" col="2">1</SummonGargoyle>
   </unholy>
   <Glyphs>
-    <Major>
+    <Prime>
       <none>00</none>
       <DeathandDecay/>
       <DeathCoil/>
@@ -121,27 +123,23 @@
       <RaiseDead></RaiseDead>
       <RuneStrike></RuneStrike>
       <ScourgeStrike></ScourgeStrike>
-    </Major>
+    </Prime>
     
-    <Prime>
+    <Major>
       <Empty>99</Empty>
       <AntiMagicShell></AntiMagicShell>
       <BloodBoil></BloodBoil>
       <BoneShield></BoneShield>
       <ChainsofIce></ChainsofIce>
       <DancingRuneWeapon></DancingRuneWeapon>
-      <DarkCommand></DarkCommand>
       <DeathGrip></DeathGrip>
-      <Disease></Disease>
       <HungeringCold></HungeringCold>
-      <IceboundFortitude></IceboundFortitude>
       <Pestilence></Pestilence>
       <PillarofFrost></PillarofFrost>
       <RuneTap></RuneTap>
       <Strangulate></Strangulate>
-      <UnholyBlight></UnholyBlight>
       <VampiricBlood></VampiricBlood>
-    </Prime>
+    </Major>
    
   </Glyphs>
 </Talents>

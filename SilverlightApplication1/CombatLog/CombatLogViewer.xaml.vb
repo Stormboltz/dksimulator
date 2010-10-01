@@ -3,6 +3,8 @@ Imports System.IO
 
 Partial Public Class CombatLogViewer
     Inherits ChildWindow
+    Dim FullCombatLog As New List(Of CombatLogTableLine)
+
 
     Public Sub New()
         InitializeComponent()
@@ -24,7 +26,7 @@ Partial Public Class CombatLogViewer
 
                     Dim Reader As New StreamReader(isoStream)
 
-                    Dim tbl As New List(Of CombatLogTableLine)
+
                     Dim PrevLine As CombatLogTableLine = Nothing
 
 
@@ -38,7 +40,7 @@ Partial Public Class CombatLogViewer
                             l.GCD = 0 & " ms"
                         End If
 
-                        tbl.Add(l)
+                        FullCombatLog.Add(l)
                         PrevLine = l
                         'Dim l As New CombatLogLine(Reader.ReadLine)
                         'If LogStack.Children.Count > 0 Then
@@ -51,7 +53,7 @@ Partial Public Class CombatLogViewer
                         i += 1
                     Loop
                     tblCombatLog.AutoGenerateColumns = True
-                    tblCombatLog.ItemsSource = tbl
+                    tblCombatLog.ItemsSource = FullCombatLog
                     Reader.Close()
                 End Using
             End Using
@@ -121,8 +123,24 @@ Partial Public Class CombatLogViewer
         e.Column.Header = e.Column.Header.ToString.Replace("Unholy2", "U")
         e.Column.Header = e.Column.Header.ToString.Replace("RunicPower", "RP")
     End Sub
+    Private Sub txtFilter_TextChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.TextChangedEventArgs) Handles txtFilter.TextChanged
+        Dim FilterArry As String() = CType(sender, TextBox).Text.Trim.Split(" ")
+        If FilterArry.Count = 0 Then
+            tblCombatLog.ItemsSource = FullCombatLog
+            Return
+        End If
+        tblCombatLog.ItemsSource = (From l In FullCombatLog
+                                    Where ContainAny(l.Action, FilterArry)
+                                    ).ToList
+    End Sub
 
-   
+    Function ContainAny(ByVal Text As String, ByVal Array As String())
+        For Each s In Array
+            If Text.ToLower.Contains(s.ToLower) Then Return True
+        Next
+        Return False
+    End Function
+
 End Class
 
 
