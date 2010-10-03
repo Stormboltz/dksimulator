@@ -60,12 +60,12 @@ Namespace Simulator.WowObjects.Runes
         End Sub
         Function RuneState() As String
             Dim tmp As String = ""
-            tmp = tmp & "[" & BloodRune1.Value & ":" & BloodRune1.Death_Report
-            tmp = tmp & ":" & BloodRune2.Value & ":" & BloodRune2.Death_Report
-            tmp = tmp & ":" & FrostRune1.Value & ":" & FrostRune1.Death_Report
-            tmp = tmp & ":" & FrostRune2.Value & ":" & FrostRune2.Death_Report
-            tmp = tmp & ":" & UnholyRune1.Value & ":" & UnholyRune1.Death_Report
-            tmp = tmp & ":" & UnholyRune2.Value & ":" & UnholyRune2.Death_Report
+            tmp = tmp & "[" & CInt(BloodRune1.Value) & ":" & BloodRune1.Death_Report
+            tmp = tmp & ":" & CInt(BloodRune2.Value) & ":" & BloodRune2.Death_Report
+            tmp = tmp & ":" & CInt(FrostRune1.Value) & ":" & FrostRune1.Death_Report
+            tmp = tmp & ":" & CInt(FrostRune2.Value) & ":" & FrostRune2.Death_Report
+            tmp = tmp & ":" & CInt(UnholyRune1.Value) & ":" & UnholyRune1.Death_Report
+            tmp = tmp & ":" & CInt(UnholyRune2.Value) & ":" & UnholyRune2.Death_Report
             tmp = tmp & ":" & sim.RunicPower.GetValue & ":" & sim.RunicPower.MaxValue
             tmp = tmp & "]"
             Return tmp

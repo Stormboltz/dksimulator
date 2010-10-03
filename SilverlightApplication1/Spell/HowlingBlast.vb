@@ -7,12 +7,17 @@ Namespace Simulator.WowObjects.Spells
 
         Sub New(ByVal S As sim)
             MyBase.New(S)
-            BaseDamage = 1079
-            Coeficient = 0.2
+            If S.level85 Then
+                BaseDamage = 1153 + 1251 / 2
+            Else
+                BaseDamage = 1035 + 1123 / 2
+            End If
+
+            Coeficient = 0.4
             Multiplicator = 1
 
-            Resource = New Resource(S, ResourcesEnum.FrostRune, False, 10)
-            alternateRessource = New Resource(S, ResourcesEnum.None)
+            Resource = New Resource(S, ResourcesEnum.FrostRune, False, 10 + sim.Character.Talents.Talent("ChillOfTheGrave").Value * 5)
+            alternateRessource = New Resource(S, ResourcesEnum.None, False, sim.Character.Talents.Talent("ChillOfTheGrave").Value * 5)
             If sim.Character.Talents.Talent("HowlingBlast").Value = 1 Then talented = True
             If S.Character.Talents.GetNumOfThisSchool(Character.Talents.Schools.Frost) > 20 Then
                 Multiplicator = Multiplicator * 1.2 'Frozen Heart
@@ -30,21 +35,17 @@ Namespace Simulator.WowObjects.Spells
         Overrides Function ApplyDamage(ByVal T As Long) As Boolean
             Dim RNG As Double
             UseGCD(T)
-
-            If sim.proc.Rime.IsActive Then
-                sim.proc.Rime.Cancel()
-            Else
-                Resource.Use()
-            End If
+            Dim OneHit As Boolean
+           
 
             Dim Tar As Targets.Target
 
             For Each Tar In sim.Targets.AllTargets
                 If DoMySpellHit() = False Then
                     sim.CombatLog.write(T & vbTab & Me.Name & " fail")
-                    sim.proc.Rime.Cancel()
                     MissCount = MissCount + 1
                 Else
+                    OneHit = True
                     RNG = RngCrit
                     Dim ccT As Double
                     ccT = CritChance()
@@ -60,15 +61,26 @@ Namespace Simulator.WowObjects.Spells
                         TotalHit += LastDamage
                     End If
                     total = total + LastDamage
-                    sim.RunicPower.add(sim.Character.Talents.Talent("ChillOfTheGrave").Value * 5)
                     sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.OnDamage)
                     If Glyphed Then
                         Tar.FrostFever.Apply(T)
                     End If
                 End If
-
             Next
+            If OneHit Then
+                If sim.proc.Rime.IsActive Then
+                    sim.proc.Rime.Cancel()
+                    alternateRessource.Use()
+                Else
+                    Resource.Use()
+                End If
+                Return True
+            Else
+                sim.proc.Rime.Cancel()
+                Return False
+            End If
 
+            
             Return True
         End Function
         Overrides Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double

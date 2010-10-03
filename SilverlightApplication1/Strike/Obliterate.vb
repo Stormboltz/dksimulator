@@ -13,7 +13,11 @@ Namespace Simulator.WowObjects.Strikes
 
         Sub New(ByVal S As Sim)
             MyBase.New(S)
-            BaseDamage = 934.4
+            If S.level85 Then
+                BaseDamage = 650 * 160 / 100
+            Else
+                BaseDamage = 584 * 160 / 100
+            End If
             If Sim.Sigils.Awareness Then BaseDamage = BaseDamage + 336
             Coeficient = 1.6
             Multiplicator = (1 + sim.Character.Talents.Talent("Annihilation").Value * 15 / 100)
@@ -43,7 +47,7 @@ Namespace Simulator.WowObjects.Strikes
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
             If Not OffHand Then UseGCD()
             If MyBase.ApplyDamage(T) = False Then
-                UseAlf()
+                'UseAlf()
                 Return False
             End If
 

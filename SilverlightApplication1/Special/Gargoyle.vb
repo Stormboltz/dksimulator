@@ -36,18 +36,19 @@ Namespace Simulator.WowObjects.PetsAndMinions
             End If
 
             If cd <= T Then
+                sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.OnGargoyleSummon)
                 StrikeCastTime = Math.Max(1, (2.0 / sim.Character.PhysicalHaste.Value) * 100) 'no haste cap for Garg.
                 AP = sim.Character.AP
-                CritChance = sim.Character.SpellCrit.Value
-                Sim.RunicPower.Use(60)
+                CritChance = SpellCrit() 'sim.Character.SpellCrit.Value
+                sim.RunicPower.Use(60)
                 'sim.CombatLog.write(T & vbTab & "Gargoyle use")
                 cd = T + 3 * 60 * 100
                 ActiveUntil = T + 30 * 100
                 SpellHit = sim.Character.SpellHit.Value
                 UseGCD(T)
                 NextGargoyleStrike = T + 1000
-                Sim.FutureEventManager.Add(NextGargoyleStrike, "Gargoyle")
-                Sim.CombatLog.write(T & vbTab & "Summon Gargoyle")
+                sim.FutureEventManager.Add(NextGargoyleStrike, "Gargoyle")
+                sim.CombatLog.write(T & vbTab & "Summon Gargoyle")
                 Return True
             Else
                 Return False
@@ -119,9 +120,9 @@ Namespace Simulator.WowObjects.PetsAndMinions
             Return tmp
         End Function
         Function SpellCrit(Optional ByVal target As Targets.Target = Nothing) As Single
-            If target Is Nothing Then target = Sim.Targets.MainTarget
+            If target Is Nothing Then target = sim.Targets.MainTarget
             Dim tmp As Double
-            tmp = tmp + 5 * Sim.Character.Buff.Crit
+            tmp = tmp + 5 * sim.Character.Buff.Crit
             tmp = tmp + 5 * target.Debuff.SpellCritTaken
             SpellCrit = tmp / 100
         End Function

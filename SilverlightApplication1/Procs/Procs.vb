@@ -67,6 +67,7 @@ Namespace Simulator.WowObjects.Procs
             OnWhitehit = 13
             OnBossHitOrMiss = 14
             OnBloodBoil = 15
+            OnGargoyleSummon = 16
             'OnUse=9
         End Enum
 
@@ -157,7 +158,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcChance = 1
                 .ProcLenght = 30
                 .InternalCD = 180
-                .ProcOn = ProcOnType.OnFU
+                .ProcOn = ProcOnType.OnGargoyleSummon
                 .Effects.Add(New SpellEffect(s, ._Name, SpellEffectManager.SpeelEffectEnum.IncreaseAttackSpeed, 1.3, 30))
                 If Sim.Character.Talents.Talent("UnholyFrenzy").Value = 1 Then .Equip()
             End With

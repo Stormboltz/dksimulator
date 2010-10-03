@@ -815,12 +815,13 @@ skipTrinket:
         Dim i As Integer
 
 
+        Dim simtime As Integer = Math.Min(Integer.Parse(CType(App.Current.RootVisual, MainForm).txtSimtime.Text), 100)
         EPBase = 20
         For Each xNode In xNodelist.Elements
             If xNode.Value = "true" Then
                 For i = 0 To MaxSimForScaling
                     EpStat = Replace(xNode.Name.ToString, "chk", "") & i
-                    SimConstructor.Start(1, MainFrm, False, EpStat)
+                    SimConstructor.Start(simtime, MainFrm, False, EpStat)
                 Next i
             End If
         Next

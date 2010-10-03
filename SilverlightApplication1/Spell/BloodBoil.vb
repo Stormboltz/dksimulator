@@ -14,7 +14,12 @@ Namespace Simulator.WowObjects.Spells
 
         Sub New(ByVal S As Sim)
             MyBase.New(S)
-            BaseDamage = 200 * 1.33
+            If S.level85 Then
+                BaseDamage = 297 * 1.33
+            Else
+                BaseDamage = 200 * 1.33
+            End If
+
             Coeficient = (0.08)
             Multiplicator = (1 + Sim.Character.Talents.Talent("CrimsonScourge").Value * 0.2)
             logLevel = LogLevelEnum.Basic
@@ -51,7 +56,6 @@ Namespace Simulator.WowObjects.Spells
                 MyBase.ApplyDamage(T)
             Next
             sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.OnBloodBoil)
-
             Return True
         End Function
         Overrides Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double

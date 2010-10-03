@@ -5,6 +5,7 @@ Partial Public Class GemSelector
     Inherits ChildWindow
 
     Friend gemDB As New XDocument
+    Friend GemList As New List(Of mGem)
     Friend Slot As String
     Friend type As Integer
     Friend SelectedItem As String
@@ -24,11 +25,6 @@ Partial Public Class GemSelector
         MainFrame = M
         gemDB = M.GemDB
 
-        '
-        ' TODO : Add constructor code after InitializeComponents
-        '
-
-
     End Sub
 
 
@@ -36,30 +32,38 @@ Partial Public Class GemSelector
         SelectedItem = sender.SelectedItems.Item(0).subitems.item(1).text
         Me.Close()
     End Sub
-    
+
 
     Sub LoadItem(ByVal GemNum As Integer, ByVal slot As Integer, ByVal type As Integer)
+        gemDB = MainFrame.GemDB
+
+        If GemList.Count = 0 Then
+            Dim g As mGem
+            For Each e In gemDB.Element("gems").Elements
+                g = New mGem(e)
+                g.EPVAlue = getItemEPValue(g)
+                GemList.Add(g)
+            Next
+        End If
+
         Me.GemNum = GemNum
         Me.type = type
         Me.Slot = slot
-
-
         If txtFilter.Text.Trim <> "" Then
             FilterList(txtFilter.Text)
             Return
         End If
-
-
-
         Dim statusReport As List(Of mGem)
         Dim doc As XDocument = MainFrame.GemDB
         If type = 1 Then
-            statusReport = (From el In doc.Element("gems").Elements Where el.Element("subclass").Value = 6 Select aGem(el)).ToList()
+            statusReport = (From g In GemList
+                            Where g.subclass = 6).ToList
         Else
-            statusReport = (From el In doc.Element("gems").Elements
-                            Where (el.Element("quality").Value = 4 And (el.Element("reqskill").Value = 0 Or el.Element("reqskill").Value = GetSkillID(Me.MainFrame.ParentFrame.cmbSkill1.SelectedItem) Or el.Element("reqskill").Value = GetSkillID(Me.MainFrame.ParentFrame.cmbSkill2.SelectedItem)))
-                            Order By getItemEPValue(el) Descending
-                            Select aGem(el)).ToList()
+            statusReport = (From g In GemList
+                            Where g.reqskill = 0 Or
+                            g.reqskill = GetSkillID(Me.MainFrame.ParentFrame.cmbSkill1.SelectedItem) Or
+            g.reqskill = GetSkillID(Me.MainFrame.ParentFrame.cmbSkill2.SelectedItem)
+                            Order By g.EPVAlue Descending).ToList
         End If
         gGems.AutoGenerateColumns = True
         Try
@@ -70,44 +74,44 @@ Partial Public Class GemSelector
 
     End Sub
 
-    Sub TextBox1TextChanged(ByVal sender As TextBox, ByVal e As EventArgs)
-        
-    End Sub
-
     Private Sub FilterList(ByVal filter As String)
         Dim statusReport As List(Of mGem)
         Dim doc As XDocument = MainFrame.GemDB
         If type = 1 Then
-            statusReport = (From el In doc.Element("gems").Elements
-                            Where el.Element("subclass").Value = 6 And Contains(el, filter)
-                            Order By getItemEPValue(el) Descending
-                            Select aGem(el)).ToList()
+            statusReport = (From g In GemList
+                            Where g.subclass = 6 And Contains(g, filter)
+                            Order By g.EPVAlue Descending
+                            ).ToList
         Else
-            statusReport = (From el In doc.Element("gems").Elements
-                            Where (el.Element("quality").Value = 4 And Contains(el, filter) And (el.Element("reqskill").Value = 0 Or el.Element("reqskill").Value = GetSkillID(Me.MainFrame.ParentFrame.cmbSkill1.SelectedItem) Or el.Element("reqskill").Value = GetSkillID(Me.MainFrame.ParentFrame.cmbSkill2.SelectedItem)))
-                            Order By getItemEPValue(el) Descending
-                            Select aGem(el)).ToList()
+            statusReport = (From g In GemList
+                            Where Contains(g, filter) And (g.reqskill = 0 Or g.reqskill = GetSkillID(Me.MainFrame.ParentFrame.cmbSkill1.SelectedItem) Or g.reqskill = GetSkillID(Me.MainFrame.ParentFrame.cmbSkill2.SelectedItem))
+                            Order By g.EPVAlue Descending
+                            ).ToList
         End If
         gGems.AutoGenerateColumns = True
         gGems.ItemsSource = statusReport
         Me.type = type
     End Sub
     Sub ColorGrid()
-        
+
     End Sub
-    Private Function Contains(ByVal el As XElement, ByVal filter As String) As Boolean
+    Private Function Contains(ByVal g As mGem, ByVal filter As String) As Boolean
         Dim tmp As String
         Dim tBool As Boolean = True
-        tmp = el.Element("name").Value & " " & _
-            el.Element("Strength").Value & " " & _
-            el.Element("Agility").Value & " " & _
-            el.Element("HasteRating").Value & " " & _
-            el.Element("ExpertiseRating").Value & " " & _
-            el.Element("HitRating").Value & " " & _
-            el.Element("AttackPower").Value & " " & _
-            el.Element("CritRating").Value & " " & _
-            el.Element("ArmorPenetrationRating").Value & " " & _
-            el.Element("keywords").Value
+        tmp = g.name & " " & _
+            g.Str & " " & _
+            g.Agi & " " & _
+            g.Haste & " " & _
+            g.Exp & " " & _
+            g.Hit & " " & _
+            g.AP & " " & _
+            g.Crit & " " & _
+            g.ArP & " " & _
+            g.Mast & " " & _
+            g.Dodge & " " & _
+            g.Parry & " " & _
+            g.keywords
+
         For Each s In filter.Split(" ")
             If tmp.ToUpper.Contains(s.ToUpper) = False Then
                 tBool = False
@@ -115,25 +119,6 @@ Partial Public Class GemSelector
         Next
         Return tBool
     End Function
-    Function aGem(ByVal el As XElement) As mGem
-        Dim myGem As New mGem
-        myGem.Id = Convert.ToInt32(el.Element("id").Value)
-        With myGem
-            .name = el.Element("name").Value
-            .Str = el.Element("Strength").Value
-            .Agi = el.Element("Agility").Value
-            .Haste = el.Element("HasteRating").Value
-            .Exp = el.Element("ExpertiseRating").Value
-            .Hit = el.Element("HitRating").Value
-            .AP = el.Element("AttackPower").Value
-            .Crit = el.Element("CritRating").Value
-            .ArP = el.Element("ArmorPenetrationRating").Value
-            .ColorId = el.Element("subclass").Value
-            .EPVAlue = getItemEPValue(el)
-        End With
-        Return myGem
-    End Function
-
 
     Sub GearSelectorLoad(ByVal sender As Object, ByVal e As EventArgs)
 
@@ -142,40 +127,25 @@ Partial Public Class GemSelector
         If SelectedItem <> "" Then Me.DialogResult = True
     End Sub
 
-    Function getItemEPValue(ByVal txDoc As XDocument) As Double
+
+
+    Function getItemEPValue(ByVal gem As mGem) As Double
         Dim tmp As Double = 0
-        tmp += txDoc.Element("/item/Strength").Value * MainFrame.EPvalues.Str
-        tmp += txDoc.Element("/item/Agility").Value * MainFrame.EPvalues.Agility
-        tmp += txDoc.Element("/item/ExpertiseRating").Value * MainFrame.EPvalues.Exp
-        tmp += txDoc.Element("/item/HitRating").Value * MainFrame.EPvalues.Hit
-        tmp += txDoc.Element("/item/AttackPower").Value * 1
-        tmp += txDoc.Element("/item/CritRating").Value * MainFrame.EPvalues.Crit
-        tmp += txDoc.Element("/item/ArmorPenetrationRating").Value * MainFrame.EPvalues.ArP
-        tmp += txDoc.Element("/item/HasteRating").Value * MainFrame.EPvalues.Haste
-
-
-
+        tmp += gem.Str * MainFrame.EPvalues.Str
+        tmp += gem.Agi * MainFrame.EPvalues.Agility
+        tmp += gem.Exp * MainFrame.EPvalues.Exp
+        tmp += gem.Hit * MainFrame.EPvalues.Hit
+        tmp += gem.AP
+        tmp += gem.Crit * MainFrame.EPvalues.Crit
+        tmp += gem.ArP * MainFrame.EPvalues.ArP
+        tmp += gem.Haste * MainFrame.EPvalues.Haste
+        tmp += gem.Mast * MainFrame.EPvalues.Mastery
         Return tmp
     End Function
-    Function getItemEPValue(ByVal el As XElement) As Integer
-        Dim tmp As Double = 0
-
-        tmp += el.Element("Strength").Value * MainFrame.EPvalues.Str
-        tmp += el.Element("Agility").Value * MainFrame.EPvalues.Agility
-        tmp += el.Element("ExpertiseRating").Value * MainFrame.EPvalues.Exp
-        tmp += el.Element("HitRating").Value * MainFrame.EPvalues.Hit
-        tmp += el.Element("AttackPower").Value * 1
-        tmp += el.Element("CritRating").Value * MainFrame.EPvalues.Crit
-        tmp += el.Element("ArmorPenetrationRating").Value * MainFrame.EPvalues.ArP
-        tmp += el.Element("HasteRating").Value * MainFrame.EPvalues.Haste
-        Return Convert.ToInt32(tmp)
 
 
-    End Function
-    Sub CmdClearClick(ByVal sender As Object, ByVal e As EventArgs)
-        SelectedItem = 0
-        Me.Close()
-    End Sub
+ 
+    
     Public Class mGem
         Friend Id As Integer
         Property name As String
@@ -186,14 +156,49 @@ Partial Public Class GemSelector
         Property Hit As Integer
         Property AP As Integer
         Property Crit As Integer
+        Property Mast As Integer
         Property ArP As Integer
         Property EPVAlue As Integer
+        Property Dodge As Integer
+        Property Parry As Integer
         Friend ColorId As Integer
+        Friend subclass As Integer
+        Friend quality As Integer
+        Friend reqskill As Integer
+        Friend keywords As String
+  
+        Sub New(ByVal el As XElement)
+            Try
+
+
+                Id = Convert.ToInt32(el.Element("id").Value)
+                With Me
+                    .name = el.Element("name").Value
+                    .Str = el.Element("Strength").Value
+                    .Agi = el.Element("Agility").Value
+                    .Haste = el.Element("HasteRating").Value
+                    .Exp = el.Element("ExpertiseRating").Value
+                    .Hit = el.Element("HitRating").Value
+                    .AP = el.Element("AttackPower").Value
+                    .Crit = el.Element("CritRating").Value
+                    .ArP = el.Element("ArmorPenetrationRating").Value
+                    .Mast = el.Element("Mastery").Value
+                    .ColorId = el.Element("subclass").Value
+                    .Dodge = el.Element("Dodge").Value
+                    .Parry = el.Element("Parry").Value
+                    .subclass = el.Element("subclass").Value
+                    .quality = el.Element("quality").Value
+                    .reqskill = el.Element("reqskill").Value
+                    .keywords = el.Element("keywords").Value
+                End With
+            Catch ex As Exception
+
+            End Try
+        End Sub
+
+
     End Class
 
-    Private Sub gGems_AutoGeneratingColumn(ByVal sender As Object, ByVal e As System.Windows.Controls.DataGridAutoGeneratingColumnEventArgs) Handles gGems.AutoGeneratingColumn
-
-    End Sub
 
     Private Sub gGems_BeginningEdit(ByVal sender As Object, ByVal e As System.Windows.Controls.DataGridBeginningEditEventArgs) Handles gGems.BeginningEdit
         Dim a As mGem
@@ -222,5 +227,10 @@ Partial Public Class GemSelector
         Dim r As DataGridRow = e.Row
         Dim g As mGem = r.DataContext
         r.Background = New SolidColorBrush(GemColor(g.ColorId))
+    End Sub
+
+    Private Sub NoneButton_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles NoneButton.Click
+        SelectedItem = 0
+        Me.DialogResult = True
     End Sub
 End Class

@@ -10,13 +10,13 @@ Namespace Simulator.WowObjects.Runes
     Public Class CataRune
         Inherits WowObject
 
-        Friend Value As Integer
+        Friend Value As Double
         Friend reserved As Boolean
         Friend death As Boolean
 
         Friend Parent As RunePair
         Friend BTuntil As Long
-        Friend MaxValue As Integer
+
 
 
 
@@ -24,22 +24,14 @@ Namespace Simulator.WowObjects.Runes
             MyBase.New(S)
             Me.reserved = False
             Me.death = False
-
-            MaxValue = 100
-            Me.Value = MaxValue
+            Me.Value = 100
             sim = S
 
         End Sub
 
 
         Sub Use(ByVal T As Long, ByVal D As Boolean, ByVal Alf As Boolean)
-            If Alf Then
-                Parent.Use(T, False, Alf)
-            Else
-                Parent.Use(T, D, Alf)
-            End If
-
-
+            Parent.Use(T, D)
             'If Alf Then
             '    Me.Value -= 50
             'Else

@@ -116,7 +116,7 @@ Namespace Simulator.WowObjects.Strikes
                 If DoMyStrikeHit() = False Then
                     Select Case logLevel
                         Case LogLevelEnum.Basic
-                            sim.CombatLog.write(T & vbTab & Me.Name & " fail")
+                            If Not OffHand Then sim.CombatLog.write(T & vbTab & Me.Name & " fail")
                         Case LogLevelEnum.Detailled
                             sim.CombatLog.WriteDetails(T & vbTab & Me.Name & " fail")
                     End Select
@@ -136,7 +136,7 @@ Namespace Simulator.WowObjects.Strikes
                 CritCount = CritCount + 1
                 Select Case logLevel
                     Case LogLevelEnum.Basic
-                        sim.CombatLog.write(T & vbTab & Me.Name & " crit for " & LastDamage)
+                        If Not OffHand Then sim.CombatLog.write(T & vbTab & Me.Name & " crit for " & LastDamage)
                     Case LogLevelEnum.Detailled
                         sim.CombatLog.WriteDetails(T & vbTab & Me.Name & " crit for " & LastDamage)
                 End Select
@@ -149,7 +149,7 @@ Namespace Simulator.WowObjects.Strikes
                 TotalHit += LastDamage
                 Select Case logLevel
                     Case LogLevelEnum.Basic
-                        sim.CombatLog.write(T & vbTab & Me.Name & " hit for " & LastDamage)
+                        If Not OffHand Then sim.CombatLog.write(T & vbTab & Me.Name & " hit for " & LastDamage)
                     Case LogLevelEnum.Detailled
                         sim.CombatLog.WriteDetails(T & vbTab & Me.Name & " hit for " & LastDamage)
                 End Select

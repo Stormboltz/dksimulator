@@ -4,7 +4,12 @@ Namespace Simulator.WowObjects.Strikes
 
         Sub New(ByVal S As Sim)
             MyBase.New(S)
-            BaseDamage = 611.2
+            If S.level85 Then
+                BaseDamage = 850
+            Else
+                BaseDamage = 764
+            End If
+
             If sim.Sigils.DarkRider Then BaseDamage += 90
             Coeficient = 0.8
             Multiplicator = 1
@@ -27,7 +32,7 @@ Namespace Simulator.WowObjects.Strikes
             If Not OffHand Then UseGCD()
             If MyBase.ApplyDamage(T) = False Then
 
-                UseAlf()
+                'UseAlf()
                 Return False
             End If
             If OffHand = False Then

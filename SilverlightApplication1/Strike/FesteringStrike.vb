@@ -3,7 +3,12 @@
         Inherits Strike
         Sub New(ByVal S As Sim)
             MyBase.New(S)
-            BaseDamage = 840
+            If S.level85 Then
+                BaseDamage = 560 * 150 / 100
+            Else
+                BaseDamage = 503 * 150 / 100
+            End If
+
             Coeficient = 1.5
             Multiplicator = 1
             Multiplicator *= (1 + sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100)
@@ -18,7 +23,7 @@
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
             If Not OffHand Then UseGCD()
             If MyBase.ApplyDamage(T) = False Then
-                UseAlf()
+                'UseAlf()
 
 
                 Return False

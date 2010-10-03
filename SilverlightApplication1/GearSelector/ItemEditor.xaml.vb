@@ -39,8 +39,13 @@ Partial Public Class ItemEditor
     End Sub
 
     Sub displayReforge()
-        cmbReforgeFrom.SelectedValue = Item.ReForgingFrom
-        cmbReforgeTo.SelectedValue = Item.ReForgingTo
+        Try
+            cmbReforgeFrom.SelectedValue = Item.ReForgingFrom
+            cmbReforgeTo.SelectedValue = Item.ReForgingTo
+        Catch ex As Exception
+
+        End Try
+
         txtReforge.txtValue.Text = Item.ReForgingvalue
     End Sub
     Sub displayReforgingTo()
@@ -52,6 +57,9 @@ Partial Public Class ItemEditor
         cmbReforgeTo.Items.Add("Mast")
         cmbReforgeTo.Items.Add("Dodge")
         cmbReforgeTo.Items.Add("Parry")
+        For Each e In cmbReforgeFrom.Items
+            cmbReforgeTo.Items.Remove(e.ToString)
+        Next
     End Sub
     Sub init(ByVal m As FrmGearSelector, ByVal slot As Integer)
         Mainframe = m
@@ -214,6 +222,7 @@ Partial Public Class ItemEditor
             lbl.Content = "Haste Rating = " & Item.HasteRating
             stkStats.Children.Add(lbl)
             cmbReforgeFrom.Items.Add("Haste")
+            cmbReforgeTo.Items.Remove("Haste")
         End If
 
         If Item.CritRating <> 0 Then
@@ -221,6 +230,7 @@ Partial Public Class ItemEditor
             lbl.Content = "Crit Rating = " & Item.CritRating
             stkStats.Children.Add(lbl)
             cmbReforgeFrom.Items.Add("Crit")
+            cmbReforgeTo.Items.Remove("Crit")
         End If
         If Item.ArmorPenetrationRating <> 0 Then
             lbl = New Label
@@ -236,15 +246,15 @@ Partial Public Class ItemEditor
 
 
             cmbReforgeFrom.Items.Add("Hit")
+            cmbReforgeTo.Items.Remove("Hit")
         End If
 
         If Item.ExpertiseRating <> 0 Then
             lbl = New Label
             lbl.Content = "Expertise Rating = " & Item.ExpertiseRating
             stkStats.Children.Add(lbl)
-
-
             cmbReforgeFrom.Items.Add("Exp")
+            cmbReforgeTo.Items.Remove("Exp")
         End If
 
         If Item.MasteryRating <> 0 Then
@@ -254,6 +264,7 @@ Partial Public Class ItemEditor
 
 
             cmbReforgeFrom.Items.Add("Mast")
+            cmbReforgeTo.Items.Remove("Mast")
         End If
 
         If Item.DodgeRating <> 0 Then
@@ -263,6 +274,7 @@ Partial Public Class ItemEditor
 
 
             cmbReforgeFrom.Items.Add("Dodge")
+            cmbReforgeTo.Items.Remove("Dodge")
         End If
 
         If Item.ParryRating <> 0 Then
@@ -270,6 +282,7 @@ Partial Public Class ItemEditor
             lbl.Content = "Parry Rating = " & Item.ParryRating
             stkStats.Children.Add(lbl)
             cmbReforgeFrom.Items.Add("Parry")
+            cmbReforgeTo.Items.Remove("Parry")
         End If
 
         If Item.gem1.GemSlotColorName <> "" Then

@@ -37,7 +37,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
             TotalHit = 0
             TotalCrit = 0
             sim = MySim
-            MeleeGlacingChance = 0.25
+            MeleeGlacingChance = 0
             sim.DamagingObject.Add(Me)
             ThreadMultiplicator = 0
             HasteSensible = True
@@ -103,12 +103,12 @@ Namespace Simulator.WowObjects.PetsAndMinions
                 If Sim.CombatLog.LogDetails Then Sim.CombatLog.write(T & vbTab & "AotD fail")
                 Return False
             End If
-            If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then
-                LastDamage = AvrgNonCrit(T) * 0.7
-                total = total + LastDamage
-                totalhit += LastDamage
-                HitCount = HitCount + 8
-            End If
+            'If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then
+            '    LastDamage = AvrgNonCrit(T) * 0.7
+            '    total = total + LastDamage
+            '    totalhit += LastDamage
+            '    HitCount = HitCount + 8
+            'End If
             If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) And RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance()) Then
                 'CRIT !
                 LastDamage = AvrgCrit(T)
@@ -215,7 +215,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
             If target Is Nothing Then target = Sim.Targets.MainTarget
             Dim tmp As Double
             tmp = 5  'BaseCrit
-            tmp = tmp + 5 * Sim.Character.Buff.Crit
+            tmp = tmp + 5 * sim.Character.Buff.Crit
             crit = tmp / 100
         End Function
         Function SpellCrit(Optional ByVal target As Targets.Target = Nothing) As Single

@@ -12,9 +12,14 @@ Namespace Simulator.WowObjects.Spells
         Dim Length As Integer
         Friend nextTick As Long
 
-        Sub New(ByVal MySim As Sim)
-            MyBase.New(MySim)
-            BaseDamage = 31
+        Sub New(ByVal S As Sim)
+            MyBase.New(S)
+            If s.level85 Then
+                BaseDamage = 46
+            Else
+                BaseDamage = 31
+            End If
+
             Coeficient = (0.0475)
             Multiplicator = 1
             Multiplicator *= (1 + sim.Character.Talents.Talent("Morbidity").Value * 0.1)

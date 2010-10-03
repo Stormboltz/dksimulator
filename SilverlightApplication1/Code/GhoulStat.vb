@@ -27,8 +27,8 @@ Namespace Simulator.WowObjects.PetsAndMinions
             BaseStrength = 331
             APtoDPS = 0.89 / 14  'from observation
 
-            StrengthMultiplier = 0.7
-            If Sim.Character.Glyph("RaiseDead") Then StrengthMultiplier = StrengthMultiplier + 0.4
+            StrengthMultiplier = 1
+            If Sim.Character.Glyph("RaiseDead") Then StrengthMultiplier = StrengthMultiplier * 1.4
         End Sub
 
         Function Strength() As Integer
@@ -41,11 +41,12 @@ Namespace Simulator.WowObjects.PetsAndMinions
 
         Function crit(Optional ByVal target As Targets.Target = Nothing) As System.Double
             If target Is Nothing Then target = Sim.Targets.MainTarget
-            Dim tmp As Double
-            tmp = 5  'BaseCrit
-            tmp = tmp + 5 * Sim.Character.Buff.Crit
 
-            crit = tmp / 100
+            Return Sim.Character.Crit.Value
+            'Dim tmp As Double
+            'tmp = Sim.Character.Crit.Value
+            'tmp = tmp + 5 * Sim.Character.Buff.Crit
+            'crit = tmp / 100
         End Function
         Function SpellCrit(Optional ByVal target As Targets.Target = Nothing) As Single
             If target Is Nothing Then target = Sim.Targets.MainTarget
@@ -114,6 +115,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
             tmp = tmp * (1 - ArmorMitigation(target))
             tmp = tmp * (1 + 0.03 * Sim.Character.Buff.PcDamage)
             tmp = tmp * (1 + 0.04 * target.Debuff.PhysicalVuln)
+            tmp = tmp * (1 + Sim.FrostPresence / 100)
             If Sim.Ghoul.ShadowInfusion.IsActive Then
                 tmp = tmp * (1 + 0.1 * (Sim.Ghoul.ShadowInfusion.Stack))
             End If

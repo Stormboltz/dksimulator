@@ -14,12 +14,13 @@
 
             <Button x:Name="CancelButton" Content="Cancel" Width="75" Height="23" HorizontalAlignment="Right" Margin="0,12,0,0" Grid.Row="1" />
             <Button x:Name="OKButton" Content="OK" Width="75" Height="23" HorizontalAlignment="Right"  Margin="0,12,79,0" Grid.Row="1" />
-            <sdk:DataGrid AutoGenerateColumns="true" Name="gGems">
+        <Button x:Name="NoneButton" Content="None" Width="75" Height="23" HorizontalAlignment="Right"  Margin="0,12,160,0" Grid.Row="1" />
+        <sdk:DataGrid AutoGenerateColumns="true" Name="gGems">
                 <sdk:DataGrid.Columns>
 
                 </sdk:DataGrid.Columns>
             </sdk:DataGrid>
-            <TextBox Height="23" HorizontalAlignment="Right" Margin="0,12,204,0" Name="txtFilter" Width="468" Grid.Row="1" />
+            <TextBox Height="23" HorizontalAlignment="Right" Margin="0,12,284,0" Name="txtFilter" Width="468" Grid.Row="1" />
         </Grid>
     
 </controls:ChildWindow>

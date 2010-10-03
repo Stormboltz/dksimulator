@@ -12,7 +12,12 @@ Namespace Simulator.WowObjects.Strikes
 
         Sub New(ByVal S As Sim)
             MyBase.New(S)
-            BaseDamage = 275
+            If S.level85 Then
+                BaseDamage = 277 * 110 / 100
+            Else
+                BaseDamage = 250 * 110 / 100
+
+            End If
             If sim.Sigils.VengefulHeart Then BaseDamage = BaseDamage + 113
             Coeficient = 1.1
             Multiplicator = (1 + sim.Character.Talents.Talent("BloodoftheNorth").Value * 5 / 100)
@@ -34,7 +39,7 @@ Namespace Simulator.WowObjects.Strikes
             sim.proc.KillingMachine.Cancel()
             If Not OffHand Then UseGCD()
             If ret = False Then
-                UseAlf()
+                'UseAlf()
                 Return False
             End If
             If OffHand = False Then

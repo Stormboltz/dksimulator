@@ -12,7 +12,12 @@ Namespace Simulator.WowObjects.Strikes
         Dim Glyphed As Boolean
         Sub New(ByVal S As Sim)
             MyBase.New(S)
-            BaseDamage = 222.75
+            If S.level85 Then
+                BaseDamage = 331 * 150 / 100
+            Else
+                BaseDamage = 297 * 150 / 100
+            End If
+
             If sim.Sigils.Awareness Then BaseDamage = BaseDamage + 445.5
             Coeficient = 1.5
             Multiplicator = 1 + sim.Character.Talents.Talent("ImprovedDeathStrike").Value * 15 / 100
@@ -37,7 +42,7 @@ Namespace Simulator.WowObjects.Strikes
             If Not OffHand Then UseGCD()
             If MyBase.ApplyDamage(T) = False Then
 
-                UseAlf()
+                'UseAlf()
                 Return False
             End If
 

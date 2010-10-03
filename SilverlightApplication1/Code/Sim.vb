@@ -14,7 +14,7 @@ Namespace Simulator
 
     Public Class Sim
         Friend CalculateUPtime As Boolean = True
-
+        Friend level85 As Boolean
         Dim Graphs As New List(Of StatScallingLine)
 
         Dim DPSLine As StatScallingLine
@@ -128,7 +128,7 @@ Namespace Simulator
         Friend BloodTap As BloodTap
         Friend Butchery As Butchery
         Friend DeathandDecay As DeathandDecay
-
+        Friend Outbreak As Outbreak
 
 
         Friend Horn As Horn
@@ -729,6 +729,7 @@ Namespace Simulator
             'Frenzy.CD = 0
             DeathandDecay.CD = 0
             Gargoyle.cd = 0
+            Outbreak.CD = 0
             Horn.CD = 0
             'Bloodlust.Cd = 0
             proc.SoftReset()
@@ -854,6 +855,7 @@ Namespace Simulator
             BloodBoil = New BloodBoil(Me)
             HeartStrike = New Strikes.HeartStrike(Me)
             DeathandDecay = New DeathandDecay(Me)
+            Outbreak = New Outbreak(Me)
             Gargoyle = New Gargoyle(Me)
 
 
@@ -912,6 +914,7 @@ Namespace Simulator
 
                 latency = XmlConfig.Element("config").Element("latency").Value
                 ShowProc = XmlConfig.Element("config").Element("ShowProc").Value
+                level85 = XmlConfig.Element("config").<lvl85>.Value
 
                 Sigils = New Sigils(Me)
                 Sigils.WildBuck = False
@@ -943,15 +946,15 @@ Namespace Simulator
                     Case 40207
                         Sigils.Awareness = True
                     Case 51417, 42619, 42620, 42621, 42622
-                        Sigils.Strife = True
+                        ' Sigils.Strife = True
                     Case 40715
-                        Sigils.HauntedDreams = True
+                        'Sigils.HauntedDreams = True
                     Case 45254
-                        Sigils.VengefulHeart = True
+                        'Sigils.VengefulHeart = True
                     Case 47673
-                        Sigils.Virulence = True
+                        'Sigils.Virulence = True
                     Case 50459
-                        Sigils.HangedMan = True
+                        'Sigils.HangedMan = True
                 End Select
 
 
@@ -1117,6 +1120,7 @@ errH:
                     myReport.AddLine(Runes.UnholyRune1.Report)
                     myReport.AddLine(Runes.UnholyRune2.Report)
                 End If
+                If Outbreak.HitCount <> 0 Then myReport.AddLine(Outbreak.Report)
                 If Horn.HitCount <> 0 Then myReport.AddLine(Horn.Report)
                 If Pestilence.HitCount <> 0 Then myReport.AddLine(Pestilence.Report)
                 If BoneShield.HitCount <> 0 Then myReport.AddLine(BoneShield.Report)

@@ -4,7 +4,12 @@ Namespace Simulator.WowObjects.Spells
         Sub New(ByVal S As Sim)
             MyBase.New(S)
             'Base Damage
-            BaseDamage = 885
+            If S.level85 Then
+                BaseDamage = 985
+            Else
+                BaseDamage = 885
+            End If
+
             If Sim.Sigils.VengefulHeart Then BaseDamage += 380
             If sim.Sigils.WildBuck Then BaseDamage += 80
             Resource = New Resource(S, ResourcesEnum.RunicPower, 40 - (3 * sim.Character.Talents.Talent("RunicCorruption").Value))
@@ -43,15 +48,13 @@ Namespace Simulator.WowObjects.Spells
             
             UseGCD(T)
             Dim ret As Boolean = MyBase.ApplyDamage(T)
-            If ret = False Then
-                Return False
-            End If
             If sim.proc.SuddenDoom.IsActive Then
                 sim.proc.SuddenDoom.Cancel()
             Else
-                If sim.RunicPower.Check(60) Then
-                End If
                 Resource.Use()
+            End If
+            If ret = False Then
+                Return False
             End If
 
             sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.onRPDump)

@@ -314,18 +314,25 @@ Namespace Simulator.Character
             SpellHaste._Name = "Spell Haste"
             If Sim.Character.Buff.SpellHaste Then SpellHaste.AddMulti(1.05)
 
-            ArmorPenetration = New CalculatedStats.CalculatedStat(Sim, ArmorPenetrationRating, 22.55)
+            If Sim.level85 Then
+                ArmorPenetration = New CalculatedStats.CalculatedStat(Sim, ArmorPenetrationRating, 90)
+                Mastery = New CalculatedStats.CalculatedStat(Sim, MasteryRating, 179.28)
+                Hit = New CalculatedStats.CalculatedStat(Sim, HitRating, 120.109)
+                SpellHit = New CalculatedStats.CalculatedStat(Sim, HitRating, 102.446)
+            Else
+                ArmorPenetration = New CalculatedStats.CalculatedStat(Sim, ArmorPenetrationRating, 22.55)
+                Mastery = New CalculatedStats.CalculatedStat(Sim, MasteryRating, 45.906)
+                Hit = New CalculatedStats.CalculatedStat(Sim, HitRating, 30.7548)
+                SpellHit = New CalculatedStats.CalculatedStat(Sim, HitRating, 26.232)
+            End If
+
             ArmorPenetration._Name = "ArmorPenetration"
-
-            Mastery = New CalculatedStats.CalculatedStat(Sim, MasteryRating, 45.906)
             Mastery._Name = "Mastery"
-
-            Hit = New CalculatedStats.CalculatedStat(Sim, HitRating, 30.7548)
             Hit._Name = "Hit"
             Hit.Add(Sim.Character.Buff.Draenei / 100)
             If DualW() Then Hit.Add(Sim.Character.Talents.Talent("NervesofColdSteel").Value / 100)
 
-            SpellHit = New CalculatedStats.CalculatedStat(Sim, HitRating, 26.232)
+
             SpellHit._Name = "SpellHit"
             SpellHit.Add(Sim.Character.Buff.Draenei / 100)
             SpellHit.Add(Sim.Character.Talents.Talent("Virulence").Value * 2 / 100)
@@ -784,7 +791,7 @@ Namespace Simulator.Character
             tmp = _BaseDamageMultiplier(T)
 
             tmp = tmp * (1 + 0.08 * target.Debuff.SpellDamageTaken)
-            tmp = tmp * (1 - 15 / (510 + 15)) 'Partial Resistance. It's about 0,029% less damage on average.
+            'tmp = tmp * (1 - 15 / (510 + 15)) 'Partial Resistance. It's about 0,029% less damage on average. No more Partial Resistance in Cata   
 
             Return tmp
         End Function

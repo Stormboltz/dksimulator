@@ -46,14 +46,21 @@ Namespace Simulator
                 Return
             End If
             'If Sim.TimeStamp > (10 * 60 * 100) Then Exit Sub 'To not explode Storage
-            If enable Then
-                Dim tmp As String
-                tmp = ""
-                tmp = Sim.Runes.RuneState()
+            Try
+                If enable Then
 
-                If txtFile Is Nothing Then InitcombatLog()
-                txtFile.WriteLine(tmp & vbTab & s & vbTab & "RP left = " & Sim.RunicPower.GetValue())
-            End If
+                    Dim tmp As String
+                    tmp = ""
+                    tmp = Sim.Runes.RuneState()
+
+                    If txtFile Is Nothing Then InitcombatLog()
+                    
+                    txtFile.WriteLine(tmp & vbTab & s & vbTab & "RP left = " & Sim.RunicPower.GetValue())
+                End If
+            Catch ex As Exception
+                enable = False
+            End Try
+            
 
         End Sub
         Sub finish()

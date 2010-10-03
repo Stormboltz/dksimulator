@@ -183,6 +183,10 @@ Namespace Simulator
                             End If
                         End If
                         If sim.Targets.MainTarget.FrostFever.PerfectUsage(TimeStamp) = True Or sim.Targets.MainTarget.FrostFever.ToReApply Then
+                            If sim.Outbreak.IsAvailable Then
+                                sim.Outbreak.ApplyDamage(TimeStamp)
+                                Exit Sub
+                            End If
                             If sim.HowlingBlast.Glyphed And sim.HowlingBlast.isAvailable() Then
                                 sim.HowlingBlast.ApplyDamage(TimeStamp)
                                 Exit Sub
@@ -207,6 +211,10 @@ Namespace Simulator
                             End If
                         End If
                         If sim.Targets.MainTarget.BloodPlague.PerfectUsage(TimeStamp) Or sim.Targets.MainTarget.BloodPlague.ToReApply Then
+                            If sim.Outbreak.IsAvailable Then
+                                sim.Outbreak.ApplyDamage(TimeStamp)
+                                Exit Sub
+                            End If
                             If sim.PlagueStrike.IsAvailable Then
                                 sim.PlagueStrike.ApplyDamage(TimeStamp)
                                 Exit Sub

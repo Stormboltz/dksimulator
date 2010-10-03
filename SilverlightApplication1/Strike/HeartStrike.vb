@@ -11,7 +11,11 @@ Namespace Simulator.WowObjects.Strikes
         Inherits Strike
         Sub New(ByVal S As Sim)
             MyBase.New(S)
-            BaseDamage = 368
+            If sim.level85 Then
+                BaseDamage = 819
+            Else
+                BaseDamage = 736
+            End If
             If sim.Sigils.DarkRider Then BaseDamage = BaseDamage + 90
             Coeficient = 1
             Multiplicator = (1 + sim.Character.Talents.Talent("BloodoftheNorth").Value * 5 / 100)
@@ -25,7 +29,7 @@ Namespace Simulator.WowObjects.Strikes
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
             If Not OffHand Then UseGCD()
             If MyBase.ApplyDamage(T) = False Then
-                UseAlf()
+                'UseAlf()
                 Return False
             End If
             Use()

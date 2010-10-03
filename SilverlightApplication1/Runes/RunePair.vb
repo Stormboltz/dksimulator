@@ -4,59 +4,33 @@
         Dim Rune1 As CataRune
         Dim Rune2 As CataRune
 
+        Dim RuneToRefill As CataRune
+        
+
         Sub New(ByVal r1 As CataRune, ByVal r2 As CataRune)
             Rune1 = r1
             Rune2 = r2
             Rune1.Parent = Me
             Rune2.Parent = Me
+            RuneToRefill = Rune1
         End Sub
 
-        Sub Use(ByVal T As Long, ByVal D As Boolean, ByVal alf As Boolean)
+        Sub Use(ByVal T As Long, ByVal ToDeath As Boolean)
             Dim cost As Integer
-            If alf Then
-                cost = 50
-            Else
-                cost = 100
-            End If
+            cost = 100
 
-            If Rune2.Value > 0 Then
-                Dim i As Integer
-                i = Rune2.Value
-                If Not alf Then
-                    If Rune1.Value = 100 Then
-                        If D Then
-                            If Rune2.death Then
-                                Rune1.death = True
-                            Else
-                                Rune2.death = True
-                            End If
-                        Else
-                            If Rune2.death Then
-                                Rune2.death = False
-                            Else
-                                Rune1.death = False
-                            End If
-                        End If
-                        Rune2.death = D
-                    End If
-                End If
-                Rune2.Value -= cost
-                If Rune2.Value < 0 Then
-                    Rune1.Value += Rune2.Value
-                    Rune2.Value = 0
-                End If
-            Else
-                Rune1.Value -= cost
-                If Not alf Then
-                    Rune1.death = D
-                End If
-            End If
-            If Rune1.Value < 0 Then
-                Diagnostics.Debug.WriteLine("Negative Rune")
+            If Rune1.Value = 100 Then
                 Rune1.Value = 0
+                Rune1.death = ToDeath
+                RuneToRefill = Rune2
+            ElseIf Rune2.Value = 100 Then
+                Rune2.Value = 0
+                Rune2.death = ToDeath
+                RuneToRefill = Rune1
+            Else
+                RuneToRefill = OppositeRune(RuneToRefill)
+                Diagnostics.Debug.WriteLine("Negative Rune")
             End If
-            If Rune1.Value + Rune2.Value < 0 Then Diagnostics.Debug.WriteLine("Negative Runes")
-
         End Sub
 
         Function Available() As Boolean
@@ -77,15 +51,37 @@
 
         Sub Refill(ByVal second As Double)
             Dim tmp As Double
+            Dim r As CataRune = RuneToRefill
+
             tmp = Rune1.RunePerSecond() * second * 100
-            Rune1.Value += tmp
-            If Rune1.Value > Rune1.MaxValue Then
+            r.Value += tmp
+            If r.Value > 100 Then
                 Dim d As Double
-                d = Rune1.Value - Rune1.MaxValue
-                Rune1.Value = Rune1.MaxValue
-                Rune2.Value = Math.Min(Rune2.Value + d, Rune2.MaxValue)
+                d = r.Value - 100
+                r.Value = 100
+                RuneToRefill = OppositeRune(r)
+                RuneToRefill.Value = Math.Min(RuneToRefill.Value + d, 100)
+                RuneToRefill = RuneToRefill
             End If
-            If Rune1.Value = Rune1.MaxValue Or Rune2.Value = Rune2.MaxValue Then Rune1.AddEventInManager()
+            If Rune1.Value = 100 Or Rune2.Value = 100 Then Rune1.AddEventInManager()
         End Sub
+        Function RuneToRefill_deprecated() As CataRune
+            If Rune1.Value >= 100 Then
+                Return Rune2
+            ElseIf Rune2.Value >= 100 Then
+                Return Rune1
+            ElseIf Rune1.Value >= Rune2.Value Then
+                Return Rune1
+            Else
+                Return Rune2
+            End If
+        End Function
+        Function OppositeRune(ByVal rune As CataRune)
+            If rune.Equals(Rune1) Then
+                Return Rune2
+            Else
+                Return Rune1
+            End If
+        End Function
     End Class
 End Namespace

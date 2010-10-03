@@ -6,9 +6,14 @@ Namespace Simulator.WowObjects.Spells
             'If S.BloodPresence = 1 Then No more
             '    ThreadMultiplicator = 7
             'End If
-            BaseDamage = 473
+            If S.level85 Then
+                BaseDamage = 505 + 547 / 2
+            Else
+                BaseDamage = 454 + 492 / 2
+            End If
+
             If Sim.Sigils.FrozenConscience Then BaseDamage += 111
-            Coeficient = (0.13) 'Free Imp Icy Touch 
+            Coeficient = (0.2) 'Free Imp Icy Touch 
 
             If S.Character.Talents.GetNumOfThisSchool(Character.Talents.Schools.Frost) > 20 Then
                 Multiplicator = Multiplicator * 1.2 'Frozen Heart

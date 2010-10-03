@@ -109,6 +109,7 @@
 
         End Sub
         Sub UseAlf()
+
             Dim A As Boolean = True
             Select Case Ress
                 Case ResourcesEnum.RunicPower

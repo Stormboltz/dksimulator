@@ -20,7 +20,12 @@ Namespace Simulator.WowObjects.Strikes
             MagicTotal = 0
             logLevel = LogLevelEnum.Basic
 
-            BaseDamage = 561
+            If S.level85 Then
+                BaseDamage = 624 * 100 / 100
+            Else
+                BaseDamage = 561 * 100 / 100
+            End If
+
             If sim.Sigils.Awareness Then BaseDamage = BaseDamage + 189
             If sim.Sigils.ArthriticBinding Then BaseDamage = BaseDamage + 91.35
 
@@ -38,7 +43,7 @@ Namespace Simulator.WowObjects.Strikes
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
             If Not OffHand Then UseGCD()
             If MyBase.ApplyDamage(T) = False Then
-                UseAlf()
+                'UseAlf()
                 Return False
             End If
 

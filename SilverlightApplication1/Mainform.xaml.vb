@@ -32,9 +32,9 @@ Partial Public Class MainForm
 
     Private WithEvents TEdit As New TemplateEditor
     Private WithEvents PrioEditor As New PriorityEditor
-
     Private WithEvents ScenarioEditor As ScenarioEditor
 
+    Private WithEvents frmStatSummaryWithEvent As frmStatSummary
 
 
 
@@ -160,7 +160,7 @@ Partial Public Class MainForm
 
         doc.Element("config").Add(New XElement("CharacterWithGear", cmbGearSelector.SelectedValue))
         doc.Element("config").Add(New XElement("template", cmbTemplate.SelectedValue))
-
+        doc.Element("config").Add(New XElement("lvl85", level85))
         doc.Element("config").Add(New XElement("mode", "priority"))
 
         doc.Element("config").Add(New XElement("intro", cmbIntro.SelectedValue))
@@ -200,7 +200,7 @@ Partial Public Class MainForm
 
     End Sub
     Private Sub Page_Loaded(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles MyBase.Loaded
-
+        frmStatSummaryWithEvent = Me.StatSummary
         ConstrucFileDir()
         Dim ass As System.Reflection.Assembly = System.Reflection.Assembly.GetExecutingAssembly
 
@@ -247,7 +247,7 @@ Partial Public Class MainForm
 
             isoStore.CreateDirectory("KahoDKSim/CharactersWithGear")
             CopyFileFromXAPtoISF("CharactersWithGear/Empty.xml")
-            CopyFileFromXAPtoISF("CharactersWithGear/Kahorie.xml")
+            CopyFileFromXAPtoISF("CharactersWithGear/Kahorie.xml", True)
 
             isoStore.CreateDirectory("KahoDKSim/CombatLog")
             CopyFileFromXAPtoISF("CombatLog/DoNotDelete.txt")
@@ -346,7 +346,8 @@ Partial Public Class MainForm
                     isoStream.Close()
                     cmbGearSelector.SelectedValue = doc.Element("config").<CharacterWithGear>.Value
                     cmbTemplate.SelectedValue = doc.Element("config").<template>.Value
-
+                    level85 = doc.Element("config").<lvl85>.Value
+                    If level85 Then btlvl85.Content = "Set to level 80"
                     cmbPrio.IsEnabled = True
                     cmbIntro.SelectedValue = doc.Element("config").<intro>.Value
                     cmbPrio.SelectedValue = doc.Element("config").<priority>.Value
@@ -831,9 +832,15 @@ OUT:
     End Sub
 
     Private Sub cmdStartSim_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdStartSim.Click
+
         If isoStore.Quota < 24000000 Then
             Dim ret As Boolean = isoStore.IncreaseQuotaTo(25000000)
         End If
+
+        If isoStore.AvailableFreeSpace < 10000 Then
+            Dim ret As Boolean = isoStore.IncreaseQuotaTo(isoStore.Quota + 2000000)
+        End If
+
         If LoadBeforeSim() = False Then Exit Sub
 
         If SimConstructor.simCollection.Count > 0 Then Return
@@ -940,9 +947,10 @@ OUT:
         End Try
 
     End Sub
-    Sub GetStats()
+    Sub GetStats() Handles frmStatSummaryWithEvent.DPS_Stat_changed
         If IsNothing(GearSelector) Then Exit Sub
         If GearSelector.InLoad Then Exit Sub
+        If StatSummary.chkManualInput.IsChecked Then GoTo refreshRating
         Dim iSlot As VisualEquipSlot
 
         Dim Strength As Integer
@@ -1399,18 +1407,11 @@ NextItem:
         '		BonusArmor
         StatSummary.txtArmor.Text = Armor
         StatSummary.txtHaste.Text = HasteRating
-        StatSummary.lblHAste.Content = "Haste Rating (" & toDDecimal(HasteRating / 32.79) & "%)"
-
         StatSummary.txtExp.Text = ExpertiseRating
-        StatSummary.lblExp.Content = "Expertise Rating(" & (toDDecimal(ExpertiseRating / 32.79)) * 4 & ")"
         StatSummary.txtHit.Text = HitRating
-        StatSummary.lblHit.Content = "Hit Rating(" & toDDecimal(HitRating / 30.7548) & "%)"
         StatSummary.txtAP.Text = AttackPower
         StatSummary.txtArP.Text = ArmorPenetrationRating
-        StatSummary.lblArP.Content = "ArP(" & toDDecimal(ArmorPenetrationRating / 13.99) & ")"
-
         StatSummary.txtCrit.Text = CritRating
-        StatSummary.lblCrit.Content = "CritRating(" & toDDecimal(CritRating / 45.906) & "%)"
         StatSummary.txtIntel.Text = Intel
         StatSummary.txtMHDPS.Text = DPS1
         StatSummary.txtMHWSpeed.Text = Speed1
@@ -1418,18 +1419,33 @@ NextItem:
         StatSummary.txtOHWSpeed.Text = Speed2
         StatSummary.txtMast.Text = MasteryRating
         StatSummary.txtStam.Text = Stamina
-        StatSummary.txtdodge.text = DodgeRating
+        StatSummary.txtDodge.Text = DodgeRating
         StatSummary.txtParry.Text = ParryRating
         StatSummary.txtAddArmor.Text = BonusArmor
+refreshRating:
+        If level85 Then
+            StatSummary.lblHAste.Content = "Haste Rating (" & toDDecimal(StatSummary.txtHaste.Text / 128.05701) & "%)"
+            StatSummary.lblExp.Content = "Expertise Rating(" & (toDDecimal(StatSummary.txtExp.Text / 120.109)) * 4 & ")"
+            StatSummary.lblHit.Content = "Hit Rating(" & toDDecimal(StatSummary.txtHit.Text / 120.109) & "%)"
+            StatSummary.lblArP.Content = "ArP(" & toDDecimal(StatSummary.txtArP.Text / 13.99) & ")"
+            StatSummary.lblCrit.Content = "CritRating(" & toDDecimal(StatSummary.txtCrit.Text / 179.28) & "%)"
+            StatSummary.lblMast.Content = "Mastery Rating(" & toDDecimal(StatSummary.txtMast.Text / 179.28) & "%)"
+        Else
+            StatSummary.lblHAste.Content = "Haste Rating (" & toDDecimal(StatSummary.txtHaste.Text / 32.79) & "%)"
+            StatSummary.lblExp.Content = "Expertise Rating(" & (toDDecimal(StatSummary.txtExp.Text / 32.79)) * 4 & ")"
+            StatSummary.lblHit.Content = "Hit Rating(" & toDDecimal(StatSummary.txtHit.Text / 30.7548) & "%)"
+            StatSummary.lblArP.Content = "ArP(" & toDDecimal(StatSummary.txtArP.Text / 13.99) & ")"
+            StatSummary.lblCrit.Content = "CritRating(" & toDDecimal(StatSummary.txtCrit.Text / 45.906) & "%)"
+            StatSummary.lblMast.Content = "Mastery Rating(" & toDDecimal(StatSummary.txtMast.Text / 45.906) & "%)"
+        End If
+
+
 
 
 
     End Sub
     Sub SaveMycharacter()
         Dim xmlChar As XDocument = XDocument.Parse("<character/>")
-
-
-
         xmlChar.Element("character").Add(New XElement("race", cmbRace.SelectedItem))
         xmlChar.Element("character").Add(New XElement("skill1", cmbSkill1.SelectedItem))
         xmlChar.Element("character").Add(New XElement("skill2", cmbSkill2.SelectedItem))
@@ -1437,7 +1453,7 @@ NextItem:
         xmlChar.Element("character").Add(New XElement("flask", cmbFlask.SelectedItem))
         xmlChar.Element("character").Add(New XElement("DW", StatSummary.rDW.IsChecked.ToString))
         xmlChar.Element("character").Add(New XElement("TwoHand", StatSummary.r2Hand.IsChecked.ToString))
-
+        xmlChar.Element("character").Add(New XElement("ManualInput", StatSummary.chkManualInput.IsChecked))
 
         Dim iSlot As VisualEquipSlot
         For Each iSlot In GearSelector.EquipmentList
@@ -1456,7 +1472,6 @@ NextItem:
 
 
         xmlChar.Element("character").Add(New XElement("stat", ""))
-
         xmlChar.Element("character").Element("stat").Add(New XElement("Strength", CheckForInt(StatSummary.txtStr.Text)))
         xmlChar.Element("character").Element("stat").Add(New XElement("Agility", CheckForInt(StatSummary.txtAgi.Text)))
         xmlChar.Element("character").Element("stat").Add(New XElement("Intel", CheckForInt(StatSummary.txtIntel.Text)))
@@ -1690,4 +1705,18 @@ NextItem:
     Private Sub cmdRngSeeder_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdRngSeeder.Click
         RNGSeeder += 1
     End Sub
+    Dim level85 As Boolean
+    Private Sub btlvl85_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles btlvl85.Click
+        If level85 Then
+            btlvl85.Content = "Set to level 85"
+            level85 = False
+            GetStats()
+        Else
+            btlvl85.Content = "Set to level 80"
+            level85 = True
+            GetStats()
+        End If
+        
+    End Sub
+
 End Class

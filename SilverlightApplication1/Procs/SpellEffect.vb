@@ -40,6 +40,8 @@
                             sim.FutureEventManager.Add(T + (i * 100), "RuneFill", Me)
                         Next
                     Case SpellEffectManager.SpeelEffectEnum.RunicEmpowerement
+
+                        Currentstack = 0
                         Dim d As Double '= RngCrit
                         Dim DepletedRunes As New List(Of Runes.CataRune)
                         If sim.Runes.BloodRune1.Value = 0 Then DepletedRunes.Add(sim.Runes.BloodRune1)
@@ -60,7 +62,7 @@
                         Dim dec As Decimal = Convert.ToDecimal(d)
                         Dim i As Integer
                         i = Decimal.Round(dec, 0)
-                        Currentstack = 0
+
                         Try
                             DepletedRunes.Item(i).Value = 100
                             sim.CombatLog.write(sim.TimeStamp & vbTab & Me.Name & " on " & DepletedRunes.Item(i).Name)

@@ -6,13 +6,13 @@
     mc:Ignorable="d"
     d:DesignHeight="1500" d:DesignWidth="300" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" xmlns:my="clr-namespace:DKSIMVB" xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit">
 
-
     <Grid x:Name="LayoutRoot" Background="White">
 
 
         <ScrollViewer Grid.Column="1" Grid.Row="1">
 
             <StackPanel>
+                <CheckBox Name="chkManualInput"  Content="Manual Input" />
                 <toolkit:Expander Header="Main stats" >
                     <Grid Name="Mainstats">
                         <Grid.RowDefinitions>
@@ -104,9 +104,9 @@
                         <sdk:Label Height="28" Name="Label12" Content="MH Speed"   Grid.Column="0" Grid.Row="3"/>
                         <TextBox   Height="23" Name="txtMHWSpeed" Grid.Column="1" Grid.Row="3" />
                         <sdk:Label Height="28" Name="Label13" Content="OH DPS"   Grid.Column="0" Grid.Row="4"/>
-                        <TextBox  Height="23" Name="txtOHDPS" IsEnabled="False"  Grid.Column="1" Grid.Row="4" />
+                        <TextBox  Height="23" Name="txtOHDPS"  Grid.Column="1" Grid.Row="4" />
                         <sdk:Label Height="28" Name="Label222" Content="OH Speed"   Grid.Column="0" Grid.Row="5"/>
-                        <TextBox Height="23" Name="txtOHWSpeed" IsEnabled="False" Grid.Column="1" Grid.Row="5" />
+                        <TextBox Height="23" Name="txtOHWSpeed"  Grid.Column="1" Grid.Row="5" />
 
 
 
@@ -207,7 +207,7 @@
                         <CheckBox Content="Ashen Band of Endless Vengeance" Height="16" Name="chkAshenBand" Grid.ColumnSpan="2" Grid.Row="5"  />
                         <TextBox Height="23" Name="cmbSetBonus1"   Grid.ColumnSpan="2" Grid.Row="6" />
                         <TextBox Height="23" Name="cmbSetBonus2"   Grid.ColumnSpan="2" Grid.Row="7" />
-                        <TextBox Height="23" Name="cmbWeaponProc1"  Grid.ColumnSpan="2" Grid.Row="7" />
+                        <TextBox Height="23" Name="cmbWeaponProc1"  Grid.ColumnSpan="2" Grid.Row="8" />
                         <TextBox Height="23" Name="cmbWeaponProc2"  Grid.ColumnSpan="2" Grid.Row="9" />
                         <TextBox Height="23" Name="cmbTrinket1" Grid.ColumnSpan="2" Grid.Row="10"  />
                         <TextBox Height="23" Name="cmbTrinket2"  Grid.ColumnSpan="2" Grid.Row="11" />

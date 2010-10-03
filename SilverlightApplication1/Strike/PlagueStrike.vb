@@ -3,7 +3,12 @@ Namespace Simulator.WowObjects.Strikes
         Inherits Strike
         Sub New(ByVal S As Sim)
             MyBase.New(S)
-            BaseDamage = 378
+            If S.level85 Then
+                BaseDamage = 420 * 100 / 100
+            Else
+                BaseDamage = 378 * 100 / 100
+            End If
+
             Coeficient = 1
             Multiplicator *= (1 + sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100)
             logLevel = LogLevelEnum.Basic
@@ -14,7 +19,7 @@ Namespace Simulator.WowObjects.Strikes
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
             If Not OffHand Then UseGCD()
             If MyBase.ApplyDamage(T) = False Then
-                UseAlf()
+                'UseAlf()
                 Return False
             End If
 

@@ -28,7 +28,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
             TotalHit = 0
             TotalCrit = 0
             sim = MySim
-            MeleeGlacingChance = 0.25
+            MeleeGlacingChance = 0
             sim.DamagingObject.Add(Me)
             ThreadMultiplicator = 0
             HasteSensible = True
@@ -95,9 +95,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
                 Return _Haste
             End If
             tmp = sim.Character.PhysicalHaste.Value
-            'If sim.Frenzy.ActiveUntil >= sim.TimeStamp Then tmp = tmp * 1.5
             Return tmp
-
         End Function
 
         Function Agility() As Integer
@@ -137,12 +135,12 @@ Namespace Simulator.WowObjects.PetsAndMinions
                 If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "Ghoul fail")
                 Return False
             End If
-            If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then
-                LastDamage = AvrgNonCrit(T) * 0.7
-                total = total + LastDamage
-                TotalGlance += LastDamage
-                GlancingCount += 1
-            End If
+            'If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then
+            '    LastDamage = AvrgNonCrit(T) * 0.7
+            '    total = total + LastDamage
+            '    TotalGlance += LastDamage
+            '    GlancingCount += 1
+            'End If
             If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) And RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance()) Then
                 'CRIT !
                 LastDamage = AvrgCrit(T)
@@ -164,7 +162,6 @@ Namespace Simulator.WowObjects.PetsAndMinions
         Function AvrgNonCrit(ByVal T As Long) As Double
             Dim tmp As Double
             tmp = sim.GhoulStat.MHBaseDamage(AP) * sim.GhoulStat.PhysicalDamageMultiplier(T)
-           
             AvrgNonCrit = tmp
         End Function
         Function CritCoef() As Double

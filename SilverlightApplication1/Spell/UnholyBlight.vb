@@ -6,7 +6,7 @@ Namespace Simulator.WowObjects.Spells
         Sub New(ByVal S As Sim)
             MyBase.New(S)
             logLevel = LogLevelEnum.Detailled
-            Glyphed = sim.Character.Glyph("UnholyBlight")
+            Glyphed = False ' sim.Character.Glyph("UnholyBlight")
         End Sub
 
 
