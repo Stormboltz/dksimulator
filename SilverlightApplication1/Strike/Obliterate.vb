@@ -52,7 +52,7 @@ Namespace Simulator.WowObjects.Strikes
             End If
 
             If OffHand = False Then
-                sim.proc.KillingMachine.Cancel()
+                sim.proc.KillingMachine.Fade()
                 Use()
                 sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.OnFU)
                 Sim.proc.Rime.TryMe(T)

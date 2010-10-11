@@ -36,7 +36,7 @@ Namespace Simulator.WowObjects.Strikes
        
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
             Dim ret As Boolean = MyBase.ApplyDamage(T)
-            sim.proc.KillingMachine.Cancel()
+            sim.proc.KillingMachine.Fade()
             If Not OffHand Then UseGCD()
             If ret = False Then
                 'UseAlf()

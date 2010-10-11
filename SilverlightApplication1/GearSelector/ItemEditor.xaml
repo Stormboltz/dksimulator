@@ -39,11 +39,12 @@
                 <ColumnDefinition Width="14" />
                 <ColumnDefinition Width="100*" />
             </Grid.ColumnDefinitions>
-            <my:ForgeTextBox Width="60" x:Name="txtReforge" Grid.Column="0"  />
+            <TextBox Width="60" Name="txtReforge" Grid.Column="0" />
+
+            
             <ComboBox Name="cmbReforgeFrom" Grid.Column="1" />
             <sdk:Label Content="To" HorizontalAlignment="Center" Grid.Column="2" ></sdk:Label>
             <ComboBox Name="cmbReforgeTo" Grid.Column="3" />
-
 
         </Grid>
 

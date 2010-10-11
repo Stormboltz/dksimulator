@@ -46,7 +46,7 @@ Partial Public Class ItemEditor
 
         End Try
 
-        txtReforge.txtValue.Text = Item.ReForgingvalue
+        txtReforge.Text = Item.ReForgingvalue
     End Sub
     Sub displayReforgingTo()
         cmbReforgeTo.Items.Clear()
@@ -420,29 +420,29 @@ Partial Public Class ItemEditor
         
         Select Case cmbReforgeFrom.SelectedValue
             Case "Crit"
-                txtReforge.MaxValue = Item.CritRating / 2.5
+                txtReforge.Text = Decimal.Round(Item.CritRating * 0.4, 0)
             Case "Exp"
-                txtReforge.MaxValue = Item.ExpertiseRating / 2.5
+                txtReforge.Text = Decimal.Round(Item.ExpertiseRating * 0.4, 0)
             Case "Haste"
-                txtReforge.MaxValue = Item.HasteRating / 2.5
+                txtReforge.Text = Decimal.Round(Item.HasteRating * 0.4, 0)
             Case "Hit"
-                txtReforge.MaxValue = Item.HitRating / 2.5
+                txtReforge.Text = Decimal.Round(Item.HitRating * 0.4, 0)
             Case "Mast"
-                txtReforge.MaxValue = Item.MasteryRating / 2.5
+                txtReforge.Text = Decimal.Round(Item.MasteryRating * 0.4, 0)
             Case "Dodge"
-                txtReforge.MaxValue = Item.DodgeRating / 2.5
+                txtReforge.Text = Decimal.Round(Item.DodgeRating * 0.4, 0)
             Case "Parry"
-                txtReforge.MaxValue = Item.ParryRating / 2.5
+                txtReforge.Text = Decimal.Round(Item.ParryRating * 0.4, 0)
         End Select
 
-
         If IsNothing(cmbReforgeFrom.SelectedValue) = False Then Item.ReForgingFrom = cmbReforgeFrom.SelectedValue
+        Item.ReForgingvalue = txtReforge.Text
         Mainframe.ParentFrame.GetStats()
        
     End Sub
 
     
-    Private Sub txtReforge_ValueUpdated(ByVal NewValue As Integer) Handles txtReforge.ValueUpdated
+    Private Sub txtReforge_ValueUpdated(ByVal NewValue As Integer)
         Item.ReForgingvalue = NewValue
         Mainframe.ParentFrame.GetStats()
     End Sub

@@ -25,7 +25,7 @@ Namespace Simulator.WowObjects.Procs
 
 
 
-        Friend KillingMachine As Proc
+        Friend KillingMachine As SpellEffect
         Friend Rime As Proc
         Friend ScentOfBlood As ScentOfBlood
         Friend Strife As Proc
@@ -257,15 +257,30 @@ Namespace Simulator.WowObjects.Procs
 
             End With
 
-            KillingMachine = New Proc(s)
-            With KillingMachine
+            Dim KillingMachineMH = New Proc(s)
+            KillingMachine = New SpellEffect(s, "Killing Machine", SpellEffectManager.SpeelEffectEnum.KillingMachine, 0, 10)
+            With KillingMachineMH
                 ._Name = "KillingMachine"
                 .ProcOn = ProcsManager.ProcOnType.OnMHWhiteHit
                 If Sim.Character.Talents.Talent("KillingMachine").Value > 0 Then .Equip()
+                .Effects.Add(KillingMachine)
                 .Equiped = Sim.Character.Talents.Talent("KillingMachine").Value
                 .ProcLenght = 30
                 .ProcChance = (Sim.Character.Talents.Talent("KillingMachine").Value) * s.Character.MHWeaponSpeed / 60
             End With
+
+            Dim KillingMachineOH = New Proc(s)
+            With KillingMachineOH
+                ._Name = "KillingMachine (OH)"
+                .ProcOn = ProcsManager.ProcOnType.OnOHWhitehit
+                .Effects.Add(KillingMachine)
+                If Sim.Character.Talents.Talent("KillingMachine").Value > 0 Then .Equip()
+                .Equiped = Sim.Character.Talents.Talent("KillingMachine").Value
+                .ProcLenght = 30
+                .ProcChance = (Sim.Character.Talents.Talent("KillingMachine").Value) * s.Character.OHWeaponSpeed / 60
+            End With
+
+
 
             Rime = New Proc(s)
             With Rime

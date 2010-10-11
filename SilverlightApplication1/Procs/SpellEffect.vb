@@ -118,6 +118,7 @@
             StrengthPercentage
             RunicEmpowerement
             Debuff
+            KillingMachine
         End Enum
 
         Friend SpellEffects As New List(Of SpellEffect)
