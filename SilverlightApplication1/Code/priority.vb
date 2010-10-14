@@ -197,7 +197,7 @@ Namespace Simulator
                             End If
                         End If
                     Case "EmpowerRuneWeapon"
-                        If sim.ERW.CD <= TimeStamp Then
+                        If sim.ERW.IsAvailable Then
                             sim.ERW.Use()
                         End If
                     Case "BloodPlague"

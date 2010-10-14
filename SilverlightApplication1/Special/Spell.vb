@@ -11,18 +11,22 @@ Namespace Simulator.WowObjects.Spells
         Inherits WowObject
 
 
-        Friend CD As Long
+        Protected CD As Long
         Friend ActiveUntil As Long
         Friend UnMissable As Boolean
 
-        
+
+        Public Overrides Sub SoftReset()
+            MyBase.SoftReset()
+            CD = 0
+            ActiveUntil = 0
+        End Sub
+
 
         Function DoMySpellHit() As Boolean
             Dim RNG As Double
             RNG = RngHit()
             If UnMissable Then Return True
-
-
             If Math.Min(sim.Character.SpellHit.Value, 0.17) + RNG < 0.17 Then
                 Return False
             Else

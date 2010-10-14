@@ -350,75 +350,78 @@ Partial Public Class FrmGearSelector
             Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/CharactersWithGear/" & FilePath, FileMode.Open, FileAccess.Read, isoStore)
                 Dim xmlChar As XDocument = XDocument.Load(isoStream)
                 Try
-                    ParentFrame.StatSummary.chkManualInput.IsChecked = xmlChar.Element("character").<ManualInput>.Value
+                    ParentFrame.StatSummary.chkManualInput.IsChecked = xmlChar.<character>.<ManualInput>.Value
 
                     If ParentFrame.StatSummary.chkManualInput.IsChecked Then
 
-                        StatSummary.txtStr.Text = xmlChar.Element("character").Element("stat").<Strength>.Value
-                        StatSummary.txtAgi.Text = xmlChar.Element("character").Element("stat").<Agility>.Value
-                        StatSummary.txtIntel.Text = xmlChar.Element("character").Element("stat").<Intel>.Value
+                        StatSummary.txtStr.Text = xmlChar.<character>.<stat>.<Strength>.Value
+                        StatSummary.txtAgi.Text = xmlChar.<character>.<stat>.<Agility>.Value
+                        StatSummary.txtIntel.Text = xmlChar.<character>.<stat>.<Intel>.Value
 
-                        StatSummary.txtStam.Text = xmlChar.Element("character").Element("stat").<Stamina>.Value
-                        StatSummary.txtArmor.Text = xmlChar.Element("character").Element("stat").<Armor>.Value
-                        StatSummary.txtAddArmor.Text = xmlChar.Element("character").Element("stat").<SpecialArmor>.Value
-                        StatSummary.txtAP.Text = xmlChar.Element("character").Element("stat").<AttackPower>.Value
-                        StatSummary.txtMast.Text = xmlChar.Element("character").Element("stat").<MasteryRating>.Value
-                        StatSummary.txtHit.Text = xmlChar.Element("character").Element("stat").<HitRating>.Value
-                        StatSummary.txtCrit.Text = xmlChar.Element("character").Element("stat").<CritRating>.Value
-                        StatSummary.txtHaste.Text = xmlChar.Element("character").Element("stat").<HasteRating>.Value
-                        StatSummary.txtArP.Text = xmlChar.Element("character").Element("stat").<ArmorPenetrationRating>.Value
-                        StatSummary.txtExp.Text = xmlChar.Element("character").Element("stat").<ExpertiseRating>.Value
+                        StatSummary.txtStam.Text = xmlChar.<character>.<stat>.<Stamina>.Value
+                        StatSummary.txtArmor.Text = xmlChar.<character>.<stat>.<Armor>.Value
+                        StatSummary.txtAddArmor.Text = xmlChar.<character>.<stat>.<SpecialArmor>.Value
+                        StatSummary.txtAP.Text = xmlChar.<character>.<stat>.<AttackPower>.Value
+                        StatSummary.txtMast.Text = xmlChar.<character>.<stat>.<MasteryRating>.Value
+                        StatSummary.txtHit.Text = xmlChar.<character>.<stat>.<HitRating>.Value
+                        StatSummary.txtCrit.Text = xmlChar.<character>.<stat>.<CritRating>.Value
+                        StatSummary.txtHaste.Text = xmlChar.<character>.<stat>.<HasteRating>.Value
+                        StatSummary.txtArP.Text = xmlChar.<character>.<stat>.<ArmorPenetrationRating>.Value
+                        StatSummary.txtExp.Text = xmlChar.<character>.<stat>.<ExpertiseRating>.Value
 
 
-                        StatSummary.txtMHDPS.Text = xmlChar.Element("character").Element("weapon").Element("mainhand").<dps>.Value
-                        StatSummary.txtMHWSpeed.Text = xmlChar.Element("character").Element("weapon").Element("mainhand").<speed>.Value
+                        StatSummary.txtMHDPS.Text = xmlChar.<character>.<weapon>.<mainhand>.<dps>.Value
+                        StatSummary.txtMHWSpeed.Text = xmlChar.<character>.<weapon>.<mainhand>.<speed>.Value
 
-                        If xmlChar.Element("character").Element("weapon").<count>.Value = 2 Then
-                            StatSummary.txtOHDPS.Text = xmlChar.Element("character").Element("weapon").Element("offhand").<dps>.Value
-                            StatSummary.txtOHWSpeed.Text = xmlChar.Element("character").Element("weapon").Element("offhand").<speed>.Value
+                        If xmlChar.<character>.<weapon>.<count>.Value = 2 Then
+                            StatSummary.txtOHDPS.Text = xmlChar.<character>.<weapon>.<offhand>.<dps>.Value
+                            StatSummary.txtOHWSpeed.Text = xmlChar.<character>.<weapon>.<offhand>.<speed>.Value
                         End If
-                        Select Case xmlChar.Element("character").<Set>.Elements.Count
+                        Select Case xmlChar.<character>.<Set>.Elements.Count
                             Case 1
-                                StatSummary.cmbSetBonus1.Text = xmlChar.Element("character").Element("Set").Elements.First.Name.ToString
+                                StatSummary.cmbSetBonus1.Text = xmlChar.<character>.<Set>.Elements.First.Name.ToString
                             Case 2
-                                StatSummary.cmbSetBonus1.Text = xmlChar.Element("character").Element("Set").Elements.First.Name.ToString
-                                StatSummary.cmbSetBonus2.Text = xmlChar.Element("character").Element("Set").Elements.Last.Name.ToString
+                                StatSummary.cmbSetBonus1.Text = xmlChar.<character>.<Set>.Elements.First.Name.ToString
+                                StatSummary.cmbSetBonus2.Text = xmlChar.<character>.<Set>.Elements.Last.Name.ToString
                             Case Else
 
                         End Select
 
-                        Select Case xmlChar.Element("character").<trinket>.Elements.Count
+                        Select Case xmlChar.<character>.<trinket>.Elements.Count
                             Case 1
-                                StatSummary.cmbTrinket1.Text = xmlChar.Element("character").Element("trinket").Elements.First.Name.ToString
+                                StatSummary.cmbTrinket1.Text = xmlChar.<character>.<trinket>.Elements.First.Name.ToString
                             Case 2
-                                StatSummary.cmbTrinket1.Text = xmlChar.Element("character").Element("trinket").Elements.First.Name.ToString
-                                StatSummary.cmbTrinket2.Text = xmlChar.Element("character").Element("trinket").Elements.Last.Name.ToString
+                                StatSummary.cmbTrinket1.Text = xmlChar.<character>.<trinket>.Elements.First.Name.ToString
+                                StatSummary.cmbTrinket2.Text = xmlChar.<character>.<trinket>.Elements.Last.Name.ToString
                             Case Else
 
                         End Select
 
 
-                        Select Case xmlChar.Element("character").<WeaponProc>.Elements.Count
+                        Select Case xmlChar.<character>.<WeaponProc>.Elements.Count
                             Case 1
-                                StatSummary.cmbWeaponProc1.Text = xmlChar.Element("character").Element("WeaponProc").Elements.First.Name.ToString
+                                StatSummary.cmbWeaponProc1.Text = xmlChar.<character>.<WeaponProc>.Elements.First.Name.ToString
                             Case 2
-                                StatSummary.cmbWeaponProc1.Text = xmlChar.Element("character").Element("WeaponProc").Elements.First.Name.ToString
-                                StatSummary.cmbWeaponProc2.Text = xmlChar.Element("character").Element("WeaponProc").Elements.Last.Name.ToString
+                                StatSummary.cmbWeaponProc1.Text = xmlChar.<character>.<WeaponProc>.Elements.First.Name.ToString
+                                StatSummary.cmbWeaponProc2.Text = xmlChar.<character>.<WeaponProc>.Elements.Last.Name.ToString
                             Case Else
 
                         End Select
 
-                        StatSummary.chkIngenieer.IsChecked = xmlChar.Element("character").Element("misc").<HandMountedPyroRocket>.Value
-                        StatSummary.chkAccelerators.IsChecked = xmlChar.Element("character").Element("misc").<HyperspeedAccelerators>.Value
-                        StatSummary.chkMeta.IsChecked = xmlChar.Element("character").Element("misc").<ChaoticSkyflareDiamond>.Value
-                        StatSummary.chkTailorEnchant.IsChecked = xmlChar.Element("character").Element("misc").<TailorEnchant>.Value
-                        StatSummary.chkAshenBand.IsChecked = xmlChar.Element("character").Element("misc").<AshenBand>.Value
+                        StatSummary.chkIngenieer.IsChecked = xmlChar.<character>.<misc>.<HandMountedPyroRocket>.Value
+                        StatSummary.chkAccelerators.IsChecked = xmlChar.<character>.<misc>.<HyperspeedAccelerators>.Value
+                        StatSummary.chkMeta.IsChecked = xmlChar.<character>.<misc>.<ChaoticSkyflareDiamond>.Value
+                        StatSummary.chkTailorEnchant.IsChecked = xmlChar.<character>.<misc>.<TailorEnchant>.Value
+                        StatSummary.chkAshenBand.IsChecked = xmlChar.<character>.<misc>.<AshenBand>.Value
 
-                        StatSummary.txtMHExpBonus.Text = xmlChar.Element("character").Element("racials").<MHExpertiseBonus>.Value
-                        StatSummary.txtOHExpBonus.Text = xmlChar.Element("character").Element("racials").<OHExpertiseBonus>.Value
-                        StatSummary.chkBloodFury.IsChecked = xmlChar.Element("character").Element("racials").<Orc>.Value
-                        StatSummary.chkBerzerking.IsChecked = xmlChar.Element("character").Element("racials").<Troll>.Value
-                        StatSummary.chkArcaneTorrent.IsChecked = xmlChar.Element("character").Element("racials").<BloodElf>.Value
+                        StatSummary.txtMHExpBonus.Text = xmlChar.<character>.<racials>.<MHExpertiseBonus>.Value
+                        StatSummary.txtOHExpBonus.Text = xmlChar.<character>.<racials>.<OHExpertiseBonus>.Value
+                        StatSummary.chkBloodFury.IsChecked = xmlChar.<character>.<racials>.<Orc>.Value
+                        StatSummary.chkBerzerking.IsChecked = xmlChar.<character>.<racials>.<Troll>.Value
+                        StatSummary.chkArcaneTorrent.IsChecked = xmlChar.<character>.<racials>.<BloodElf>.Value
+                        StatSummary.chkDraeni.IsChecked = xmlChar.<character>.<racials>.<Dreani>.Value
+                        StatSummary.chkWorgen.IsChecked = xmlChar.<character>.<Worgen>.<Dreani>.Value
+                        StatSummary.chkGoblin.IsChecked = xmlChar.<character>.<Goblin>.<Dreani>.Value
                     End If
 
 
@@ -432,8 +435,8 @@ Partial Public Class FrmGearSelector
                 'Dim root As xml.XmlElement = xmlChar.DocumentElement
                 Dim iSlot As VisualEquipSlot
                 Try
-                    Diagnostics.Debug.WriteLine(xmlChar.Element("character").Element("race").Value)
-                    ParentFrame.cmbRace.SelectedValue = xmlChar.Element("character").Element("race").Value
+                    Diagnostics.Debug.WriteLine(xmlChar.<character>.<race>.Value)
+                    ParentFrame.cmbRace.SelectedValue = xmlChar.<character>.<race>.Value
                 Catch ex As Exception
                     Log.Log("LoadMycharacter: Cannot get Race", logging.Level.WARNING)
                     ParentFrame.cmbRace.SelectedValue = "Orc"
@@ -441,14 +444,14 @@ Partial Public Class FrmGearSelector
 
 
                 Try
-                    ParentFrame.cmbFood.SelectedValue = xmlChar.Element("character").Element("food").Value
+                    ParentFrame.cmbFood.SelectedValue = xmlChar.<character>.<food>.Value
                 Catch ex As Exception
                     Log.Log("LoadMycharacter: Cannot get food", logging.Level.WARNING)
                     ParentFrame.cmbFood.SelectedValue = "AP Food"
                 End Try
 
                 Try
-                    ParentFrame.cmbFlask.SelectedValue = xmlChar.Element("character").Element("flask").Value
+                    ParentFrame.cmbFlask.SelectedValue = xmlChar.<character>.<flask>.Value
                 Catch ex As Exception
                     Log.Log("LoadMycharacter: Cannot get Flask", logging.Level.WARNING)
                     ParentFrame.cmbFlask.SelectedValue = "Flask of Endless Rage"
@@ -456,14 +459,14 @@ Partial Public Class FrmGearSelector
 
 
                 Try
-                    ParentFrame.cmbSkill1.SelectedValue = xmlChar.Element("character").Element("skill1").Value
+                    ParentFrame.cmbSkill1.SelectedValue = xmlChar.<character>.<skill1>.Value
                 Catch ex As Exception
                     Log.Log("LoadMycharacter: Cannot get skill1", logging.Level.WARNING)
                     ParentFrame.cmbSkill1.SelectedValue = "Jewelcrafting"
                 End Try
 
                 Try
-                    ParentFrame.cmbSkill2.SelectedValue = xmlChar.Element("character").Element("skill2").Value
+                    ParentFrame.cmbSkill2.SelectedValue = xmlChar.<character>.<skill2>.Value
                 Catch ex As Exception
                     Log.Log("LoadMycharacter: Cannot get skill2", logging.Level.WARNING)
                     ParentFrame.cmbSkill2.SelectedValue = "Blacksmithing"
@@ -472,10 +475,10 @@ Partial Public Class FrmGearSelector
 
 
                 Try
-                    StatSummary.rDW.IsChecked = xmlChar.Element("character").Element("DW").Value
+                    StatSummary.rDW.IsChecked = xmlChar.<character>.<DW>.Value
                     StatSummary.r2Hand.IsChecked = (StatSummary.rDW.IsChecked = False)
-                    rdDW.IsChecked = xmlChar.Element("character").Element("DW").Value
-                    rd2H.IsChecked = (xmlChar.Element("character").Element("DW").Value = False)
+                    rdDW.IsChecked = xmlChar.<character>.<DW>.Value
+                    rd2H.IsChecked = (xmlChar.<character>.<DW>.Value = False)
                 Catch ex As Exception
                     Log.Log("LoadMycharacter: Cannot get DW", logging.Level.WARNING)
                     StatSummary.rDW.IsChecked = False
@@ -509,7 +512,7 @@ Partial Public Class FrmGearSelector
 
                 For Each itm In ParentFrame.stackConsumable.Children
                     Try
-                        itm.IsChecked = xmlChar.Element("character").Element("misc").Element(itm.Name).Value
+                        itm.IsChecked = xmlChar.<character>.<misc>.Elements(itm.Name).Value
                     Catch ex As Exception
                         Log.Log("LoadMycharacter: Cannot get Consumable", logging.Level.WARNING)
                         itm.IsChecked = False
@@ -518,27 +521,27 @@ Partial Public Class FrmGearSelector
 
                 For Each iSlot In Me.EquipmentList
                     Try
-                        iSlot.Item.LoadItem(xmlChar.Element("character").Element(iSlot.Text).Element("id").Value)
+                        iSlot.Item.LoadItem(xmlChar.<character>.Elements(iSlot.Text).<id>.Value)
                         iSlot.DisplayItem()
                         Try
-                            iSlot.Item.gem1.Attach(xmlChar.Element("character").Element(iSlot.Text).Element("gem1").Value)
+                            iSlot.Item.gem1.Attach(xmlChar.<character>.Elements(iSlot.Text).<gem1>.Value)
                         Catch ex As Exception
                             Log.Log("LoadMycharacter: Cannot get Gem1 for " & iSlot.Name, logging.Level.WARNING)
 
                         End Try
                         Try
-                            iSlot.Item.gem2.Attach(xmlChar.Element("character").Element(iSlot.Text).Element("gem2").Value)
+                            iSlot.Item.gem2.Attach(xmlChar.<character>.Elements(iSlot.Text).<gem2>.Value)
                         Catch ex As Exception
                             Log.Log("LoadMycharacter: Cannot get Gem2 for " & iSlot.Name, logging.Level.WARNING)
 
                         End Try
                         Try
-                            iSlot.Item.gem3.Attach(xmlChar.Element("character").Element(iSlot.Text).Element("gem3").Value)
+                            iSlot.Item.gem3.Attach(xmlChar.<character>.Elements(iSlot.Text).<gem3>.Value)
                         Catch ex As Exception
                             Log.Log("LoadMycharacter: Cannot get Gem3 for " & iSlot.Name, logging.Level.WARNING)
                         End Try
                         Try
-                            iSlot.Item.Enchant.Attach(xmlChar.Element("character").Element(iSlot.Text).Element("enchant").Value)
+                            iSlot.Item.Enchant.Attach(xmlChar.<character>.Elements(iSlot.Text).<enchant>.Value)
                         Catch ex As Exception
                             Log.Log("LoadMycharacter: Cannot get enchant for " & iSlot.Name, logging.Level.WARNING)
                         End Try
@@ -911,7 +914,7 @@ Partial Public Class FrmGearSelector
         tmpPath = "tempo.xml"
         FilePath = tmpPath
         ParentFrame.SaveMycharacter()
-        Dim txtEditor As New TextEditor
+        Dim txtEditor As New myTextReader
         txtEditor.OpenFileFromISO("KahoDKSim/CharactersWithGear/" & tmpPath)
         txtEditor.Show()
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
@@ -974,5 +977,23 @@ Partial Public Class FrmGearSelector
 
     Private Sub rdDW_Checked(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles rdDW.Checked
         RaiseEvent rdDW_Check(sender, e)
+    End Sub
+    Dim WithEvents TextEditor As mytextEditor
+
+    Private Sub cmdImport_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdImport.Click
+        Dim xEdit As New mytextEditor
+        TextEditor = xEdit
+        TextEditor.Folder = "KahoDKSim/CharactersWithGear"
+        TextEditor.Show()
+    End Sub
+
+    Private Sub TextEditor_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles TextEditor.Closing
+        If TextEditor.DialogResult Then
+            FilePath = ""
+            CType(App.Current.RootVisual, MainForm).RefreshCharacterList()
+            CType(App.Current.RootVisual, MainForm).cmbGearSelector.SelectedValue = TextEditor.FileName
+            FilePath = TextEditor.FileName
+            LoadMycharacter()
+        End If
     End Sub
 End Class

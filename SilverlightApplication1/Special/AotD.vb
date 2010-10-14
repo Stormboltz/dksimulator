@@ -74,7 +74,13 @@ Namespace Simulator.WowObjects.PetsAndMinions
             Sim.FutureEventManager.Add(T, "AotD")
         End Sub
 
-
+        Public Overrides Sub SoftReset()
+            MyBase.SoftReset()
+            NextWhiteMainHit = 0
+            NextClaw = 0
+            ActiveUntil = 0
+            cd = 0
+        End Sub
 
 
         Sub UseGCD(ByVal Spell As Boolean)

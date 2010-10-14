@@ -15,6 +15,15 @@ Namespace Simulator.WowObjects.Spells
             logLevel = LogLevelEnum.Detailled
         End Sub
 
+
+        Public Overrides Function IsAvailable() As Boolean
+            If CD > sim.TimeStamp Then
+                Return False
+            Else
+                Return True
+            End If
+        End Function
+
         Overrides Sub Use()
             If CD > sim.TimeStamp Then Return
             CD = sim.TimeStamp + (5 * 60 * 100)

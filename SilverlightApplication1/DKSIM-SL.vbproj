@@ -141,8 +141,6 @@
     <Compile Include="Code\GlobalFunction.vb" />
     <Compile Include="Code\glyph.vb" />
     <Compile Include="Code\priority.vb" />
-    <Compile Include="Code\RandomNumberGenerator.vb" />
-    <Compile Include="Code\rndom.vb" />
     <Compile Include="Code\Rotation.vb" />
     <Compile Include="Code\RuneForge.vb" />
     <Compile Include="Code\RunicPower.vb" />
@@ -311,8 +309,11 @@
     <Compile Include="TemplateEditor\TemplateEditor.xaml.vb">
       <DependentUpon>TemplateEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TextEditor\TextEditor.xaml.vb">
-      <DependentUpon>TextEditor.xaml</DependentUpon>
+    <Compile Include="TextEditor\myTextEditor.xaml.vb">
+      <DependentUpon>myTextEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TextEditor\TextReader.xaml.vb">
+      <DependentUpon>TextReader.xaml</DependentUpon>
     </Compile>
     <Compile Include="Trinkets\Trinket.vb" />
     <Compile Include="Trinkets\Trinkets.vb" />
@@ -347,6 +348,10 @@
     <Content Include="Characters\Empty.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Page Include="TextEditor\myTextEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CombatLog\CombatLogViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1885,7 +1890,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TextEditor\TextEditor.xaml">
+    <Page Include="TextEditor\TextReader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1893,9 +1898,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Content Include="XMLFile1.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Resource Include="images\AbominationMight.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

@@ -332,7 +332,7 @@ Partial Public Class PriorityEditor
                 FilePath = oldPath
                 Exit Sub
         End Select
-        Dim txtEditor As New TextEditor
+        Dim txtEditor As New myTextReader
         txtEditor.OpenFileFromISO(tmpPath)
         txtEditor.Show()
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
@@ -349,5 +349,40 @@ Partial Public Class PriorityEditor
             Case PossibleEditType.Priority
                 LoadAvailablePrio()
         End Select
+    End Sub
+    Dim WithEvents TextEditor As mytextEditor
+
+    Private Sub cmdImport_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdImport.Click
+        Dim xEdit As New mytextEditor
+        TextEditor = xEdit
+        Select Case EditType
+            Case PossibleEditType.Intro
+                xEdit.Folder = "KahoDKSim/Intro"
+            Case PossibleEditType.Priority
+                xEdit.Folder = ("KahoDKSim/Priority")
+            Case PossibleEditType.Rotation
+                xEdit.Folder = ("KahoDKSim/Rotation")
+            Case Else
+                Exit Sub
+        End Select
+        xEdit.Show()
+    End Sub
+
+    Private Sub TextEditor_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles TextEditor.Closing
+        If TextEditor.DialogResult Then
+
+
+            FilePath = TextEditor.FileName
+            Select Case EditType
+                Case PossibleEditType.Intro
+                    OpenIntroForEdit(FilePath)
+                Case PossibleEditType.Priority
+                    OpenPrioForEdit(FilePath)
+                Case PossibleEditType.Rotation
+                    OpenRotaForEdit(FilePath)
+                Case Else
+                    Exit Sub
+            End Select
+        End If
     End Sub
 End Class

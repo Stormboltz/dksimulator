@@ -15,6 +15,10 @@
             MyBase.New(s)
             sim.EffectManager.Effects.Add(Me)
         End Sub
+        Public Overrides Sub SoftReset()
+            MyBase.SoftReset()
+        End Sub
+
 
         Overridable Sub Apply()
             HitCount += 1

@@ -18,10 +18,12 @@
                 <RowDefinition Height="40" />
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
-            <Button x:Name="cmdSaveNew" Content="Save as new" Width="80" Height="23" HorizontalAlignment="Right"  VerticalAlignment="Center" Grid.Row="1"  />
-            <Button Content="View XML" Grid.Row="1" Height="23" HorizontalAlignment="Left" VerticalAlignment="Center" Name="cmdViewXml"    />
-            <Button Content="Armory Import" Height="23" Grid.Row="1"  HorizontalAlignment="Center" VerticalAlignment="Center" Name="cmdArmoryImport"  />
-
+        <StackPanel Grid.Row="1" Orientation="Horizontal" >
+            <Button Content="View XML" Name="cmdViewXml"  Margin="10"  />
+            <Button x:Name="cmdImport" Content="Import" Width="80" Margin="10"  />
+            <Button x:Name="cmdSaveNew" Content="Save as new" Width="80" Margin="10" />
+            <Button Content="Armory Import"   Name="cmdArmoryImport" Margin="10" />
+        </StackPanel>
             <Grid >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>

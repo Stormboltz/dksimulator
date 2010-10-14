@@ -198,7 +198,7 @@ Partial Public Class ScenarioEditor
         SaveScenario()
         Dim tmpPath As String
         tmpPath = ("KahoDKSim/Scenario/tempo.xml")
-        Dim txtEditor As New TextEditor
+        Dim txtEditor As New myTextReader
         txtEditor.OpenFileFromISO(tmpPath)
         txtEditor.Show()
         Dim isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()

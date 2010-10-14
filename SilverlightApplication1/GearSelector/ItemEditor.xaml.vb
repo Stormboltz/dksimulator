@@ -47,6 +47,21 @@ Partial Public Class ItemEditor
         End Try
 
         txtReforge.Text = Item.ReForgingvalue
+        If txtReforge.Text = 0 Then
+            Dim tmp As String = ""
+            For Each i In cmbReforgeFrom.Items
+                tmp += GetMAxToReforge(i.ToString) & " or "
+            Next
+            Try
+                tmp = tmp.Remove(tmp.Length - 3)
+                txtReforge.Text = tmp
+            Catch ex As Exception
+
+            End Try
+
+        End If
+
+
     End Sub
     Sub displayReforgingTo()
         cmbReforgeTo.Items.Clear()
@@ -61,6 +76,10 @@ Partial Public Class ItemEditor
             cmbReforgeTo.Items.Remove(e.ToString)
         Next
     End Sub
+
+
+
+
     Sub init(ByVal m As FrmGearSelector, ByVal slot As Integer)
         Mainframe = m
         Me.SlotId = slot
@@ -172,6 +191,7 @@ Partial Public Class ItemEditor
 
     End Sub
     Sub DisplayItem()
+        txtReforge.Text = 0
         cmbReforgeFrom.Items.Clear()
         stkStats.Children.Clear()
         Dim lbl As Label
@@ -189,7 +209,7 @@ Partial Public Class ItemEditor
         Else
             lblArmor.Content = "Armor = " & Item.Armor
         End If
-        
+
 
         If Item.Stamina <> 0 Then
             lbl = New Label
@@ -322,11 +342,12 @@ Partial Public Class ItemEditor
         End If
         Try
             If xGemBonus Is Nothing Then xGemBonus = Mainframe.GemBonusDB
-            'If Item.gembonus <> 0 Then
-            '    lblBonus.Content = (From el In xGemBonus.Element("bonus").Elements
-            '                    Where el.Element("id").Value = Item.gembonus
-            '                    Select el).First.Element("Desc").Value
-            'End If
+
+            If Item.gembonus <> 0 Then
+                lblBonus.Content = "+" & (From el In xGemBonus.<bonus>.Elements
+                                Where el.<id>.Value = Item.gembonus
+                                ).First.<Desc>.Value
+            End If
 
 
 
@@ -334,6 +355,19 @@ Partial Public Class ItemEditor
             Log.Log(ex.StackTrace, logging.Level.ERR)
             lblBonus.Content = "<bonus>"
         End Try
+
+
+
+        If SlotId = 12 Then
+            cmbReforgeFrom.IsEnabled = False
+            cmbReforgeTo.IsEnabled = False
+            txtReforge.Text = 0
+            txtReforge.IsEnabled = False
+        Else
+            cmbReforgeFrom.IsEnabled = True
+            cmbReforgeTo.IsEnabled = True
+            txtReforge.IsEnabled = True
+        End If
         'DisplayGem()
         'DisplayEnchant()
         'Mainframe.ParentFrame.GetStats()
@@ -417,29 +451,34 @@ Partial Public Class ItemEditor
     End Sub
 
     Private Sub cmbReforgeFrom_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs) Handles cmbReforgeFrom.SelectionChanged
-        
-        Select Case cmbReforgeFrom.SelectedValue
-            Case "Crit"
-                txtReforge.Text = Decimal.Round(Item.CritRating * 0.4, 0)
-            Case "Exp"
-                txtReforge.Text = Decimal.Round(Item.ExpertiseRating * 0.4, 0)
-            Case "Haste"
-                txtReforge.Text = Decimal.Round(Item.HasteRating * 0.4, 0)
-            Case "Hit"
-                txtReforge.Text = Decimal.Round(Item.HitRating * 0.4, 0)
-            Case "Mast"
-                txtReforge.Text = Decimal.Round(Item.MasteryRating * 0.4, 0)
-            Case "Dodge"
-                txtReforge.Text = Decimal.Round(Item.DodgeRating * 0.4, 0)
-            Case "Parry"
-                txtReforge.Text = Decimal.Round(Item.ParryRating * 0.4, 0)
-        End Select
+        txtReforge.Text = GetMAxToReforge(cmbReforgeFrom.SelectedValue)
 
         If IsNothing(cmbReforgeFrom.SelectedValue) = False Then Item.ReForgingFrom = cmbReforgeFrom.SelectedValue
         Item.ReForgingvalue = txtReforge.Text
         Mainframe.ParentFrame.GetStats()
        
     End Sub
+
+    Function GetMAxToReforge(ByVal stat As String)
+        Select Case stat
+            Case "Crit"
+                Return Decimal.Round(Item.CritRating * 0.4, 0)
+            Case "Exp"
+                Return Decimal.Round(Item.ExpertiseRating * 0.4, 0)
+            Case "Haste"
+                Return Decimal.Round(Item.HasteRating * 0.4, 0)
+            Case "Hit"
+                Return Decimal.Round(Item.HitRating * 0.4, 0)
+            Case "Mast"
+                Return Decimal.Round(Item.MasteryRating * 0.4, 0)
+            Case "Dodge"
+                Return Decimal.Round(Item.DodgeRating * 0.4, 0)
+            Case "Parry"
+                Return Decimal.Round(Item.ParryRating * 0.4, 0)
+            Case Else
+                Return 0
+        End Select
+    End Function
 
     
     Private Sub txtReforge_ValueUpdated(ByVal NewValue As Integer)

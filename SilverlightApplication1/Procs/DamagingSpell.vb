@@ -5,7 +5,12 @@
         Sub New(ByVal s As Sim)
             MyBase.New(s)
         End Sub
-     
+
+        Public Overrides Sub SoftReset()
+            MyBase.SoftReset()
+            Fade()
+        End Sub
+
         Overrides Sub Apply()
             TimeWasted.Start()
             MyBase.Apply()
@@ -18,7 +23,7 @@
         End Sub
 
         Overrides Sub Fade()
-            MyBase.FAde()
+            MyBase.Fade()
             TimeWasted.Start()
             RemoveUptime(sim.TimeStamp)
             Currentstack = 0

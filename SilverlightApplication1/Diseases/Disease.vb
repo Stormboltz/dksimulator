@@ -66,6 +66,13 @@ Namespace Simulator.WowObjects.Diseases
             uptime += T
         End Sub
 
+        Public Overrides Sub SoftReset()
+            MyBase.SoftReset()
+            nextTick = 0
+            FadeAt = 0
+            ToReApply = True
+
+        End Sub
 
         Overridable Function PerfectUsage(ByVal T As Long) As Boolean 'Unused
             Return False
@@ -79,9 +86,7 @@ Namespace Simulator.WowObjects.Diseases
             End If
         End Function
 
-        Overridable Function ShouldReapply(ByVal T As Long) As Boolean
-            Return ToReApply Or Not isActive(T)
-        End Function
+         
 
         Overridable Function CalculateCritChance(ByVal T As Long) As Double
             Return sim.Character.SpellCrit.Value

@@ -353,13 +353,7 @@ Namespace Simulator.WowObjects.Procs
             Next
         End Sub
 
-        Sub SoftReset()
-            Dim tk As Trinket
-
-            For Each tk In sim.TrinketsCollection
-                tk.CD = 0
-            Next
-        End Sub
+       
 
 
     End Class

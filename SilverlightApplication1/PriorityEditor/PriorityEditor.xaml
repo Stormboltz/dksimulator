@@ -30,10 +30,11 @@
             <StackPanel Name="grpCurrentPrio" AllowDrop="True" />
         </ScrollViewer>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Right" >
-            <Button Content="View XML" Name="cmdPreview" Width="80" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" />
-            <Button Content="Save As" Name="cmdSaveAs" Width="80" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10"  />
-            <Button x:Name="OKButton" Content="Save" Width="80" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="10" />
-            <Button x:Name="CancelButton" Width="80" Content="Cancel" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10"  />
+            <Button Content="Import" Name="cmdImport" Width="75" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" />
+            <Button Content="View XML" Name="cmdPreview" Width="75" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" />
+            <Button Content="Save As" Name="cmdSaveAs" Width="75" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10"  />
+            <Button x:Name="OKButton" Content="Save" Width="75" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="10" />
+            <Button x:Name="CancelButton" Width="75" Content="Cancel" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10"  />
         </StackPanel>
     </Grid>
 </controls:ChildWindow>

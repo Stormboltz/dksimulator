@@ -30,6 +30,14 @@ Namespace Simulator.WowObjects.PetsAndMinions
             If sim.Character.Talents.Talent("SummonGargoyle").Value Then Talented = True
         End Sub
 
+
+        Public Overrides Sub SoftReset()
+            MyBase.SoftReset()
+            cd = 0
+            ActiveUntil = 0
+            NextGargoyleStrike = 0
+        End Sub
+
         Function Summon(ByVal T As Long) As Boolean
             If Sim.RuneForge.AreStarsAligned(T) = False Then
                 Return False

@@ -76,7 +76,7 @@ Namespace Simulator
         Friend KeepDiseaseOnOthersTarget As Boolean
 
 
-        Friend RandomNumberGenerator As RandomNumberGenerator
+
 
         Friend Runes As Runes.runes
 
@@ -527,7 +527,6 @@ Namespace Simulator
             LoadConfig()
 
             Rnd(-1) 'Tell VB to initialize using Randomize's parameter
-            RandomNumberGenerator = New RandomNumberGenerator 'init here, so that we don't get the same rng numbers for short fights.
 
             MaxTime = SimTime * 60 * 60 * 100
             TotalDamageAlternative = 0
@@ -665,7 +664,8 @@ Namespace Simulator
             End If
         End Function
 
-       
+        Friend MySimlationObjects As New List(Of SimObjet)
+
 
         
 
@@ -678,6 +678,7 @@ Namespace Simulator
                     'Graphs.Add(DPSLine)
                 End If
             End If
+
             If Not IsNothing(DPSLineAverage) Then
                 If DPSLineAverage.InnerText <> "" Then
                     MultipleDamage.Last()
@@ -692,26 +693,18 @@ Namespace Simulator
             FutureEventManager.Add(TimeStamp + 500, "SaveCurrentDPS")
             Me.RotationStep = 0
             Me.Rotation.IntroStep = 0
+
             Runes.SoftReset()
             FutureEventManager.Add(TimeStamp, "Rune")
             SpellEffectManager.SoftReset()
 
-
-            RunicPower.Reset()
-            Targets.KillEveryoneExceptMainTarget()
-            Dim T As Targets.Target
-            For Each T In Targets.AllTargets
-                T.BloodPlague.nextTick = 0
-                T.BloodPlague.FadeAt = 0
-                T.FrostFever.nextTick = 0
-                T.FrostFever.FadeAt = 0
+            For Each obj In MySimlationObjects
+                obj.softReset()
             Next
 
+            RunicPower.SoftReset()
+            Targets.KillEveryoneExceptMainTarget()
 
-            BloodTap.CD = 0
-            HowlingBlast.CD = 0
-            Ghoul.cd = 0
-            AotD.cd = 0
 
             MainHand.NextWhiteMainHit = TimeStamp
             FutureEventManager.Add(TimeStamp, "MainHand")
@@ -721,20 +714,7 @@ Namespace Simulator
                 FutureEventManager.Add(TimeStamp, "OffHand")
             End If
 
-            Gargoyle.NextGargoyleStrike = 0
-
-            Ghoul.NextClaw = TimeStamp
-            Ghoul.NextWhiteMainHit = TimeStamp
-            FutureEventManager.Add(TimeStamp, "Ghoul")
-            'Frenzy.CD = 0
-            DeathandDecay.CD = 0
-            Gargoyle.cd = 0
-            Outbreak.CD = 0
-            Horn.CD = 0
-            'Bloodlust.Cd = 0
-            proc.SoftReset()
-            Trinkets.SoftReset()
-            BoneShield.CD = 0
+            proc.Bloodlust.CD = TimeStamp + 500
             BoneShield.PreBuff()
             Scenario.SoftReset()
             boss.SoftReset()
@@ -744,12 +724,12 @@ Namespace Simulator
                 FutureEventManager.Add(AMSTimer + AMSCd, "AMS")
             End If
 
-            ERW.CD = 0
-            RuneForge.SoftReset()
+
             If Character.Talents.Talent("Butchery").Value > 0 Then
                 Butchery.nextTick = TimeStamp + 500
                 FutureEventManager.Add(Butchery.nextTick, "Butchery")
             End If
+
             Me.Rotation.IntroDone = False
             PrePull(TimeStamp)
 
@@ -778,7 +758,7 @@ Namespace Simulator
             DRW = New DRW(Me)
 
             
-            RunicPower.Reset()
+            RunicPower.SoftReset()
             NextFreeGCD = 0
             Threat = 0
 

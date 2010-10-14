@@ -88,7 +88,7 @@ Namespace Simulator
                         If retry = 0 Then Return True
                     End If
                 Case "EmpowerRuneWeapon"
-                    If sim.ERW.CD <= TimeStamp Then
+                    If sim.ERW.IsAvailable Then
                         sim.ERW.Use()
                         Return True
                     End If

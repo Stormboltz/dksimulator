@@ -220,7 +220,7 @@ NextUnholy:
         SaveTemplate("tempo.xml")
         Dim tmpPath As String
         tmpPath = ("KahoDKSim/templates/tempo.xml")
-        Dim txtEditor As New TextEditor
+        Dim txtEditor As New myTextReader
         txtEditor.OpenFileFromISO(tmpPath)
         txtEditor.Show()
         Dim isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()

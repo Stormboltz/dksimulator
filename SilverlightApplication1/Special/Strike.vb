@@ -254,5 +254,10 @@ Namespace Simulator.WowObjects.Strikes
         Overridable  Sub UseAlf()
             Me.Resource.UseAlf()
         End Sub
+
+        Public Overrides Sub SoftReset()
+            MyBase.SoftReset()
+
+        End Sub
     End Class
 End Namespace

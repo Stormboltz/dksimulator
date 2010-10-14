@@ -58,6 +58,12 @@ Namespace Simulator.WowObjects.Procs
             Sim.proc.AllProcs.Add(Me)
         End Sub
 
+        Public Overrides Sub SoftReset()
+            MyBase.SoftReset()
+            CD = 0
+            Fade = 0
+            Stack = 0
+        End Sub
 
         Overridable Sub Equip()
             If Equiped = 1 Then Exit Sub

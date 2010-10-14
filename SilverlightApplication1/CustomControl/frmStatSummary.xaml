@@ -34,7 +34,7 @@
                         <TextBox Height="23"  Name="txtStr" Grid.Column="1" Grid.Row="1"/>
                         <sdk:Label Height="28" Name="Label3" Content="Agility"  Grid.Column="0" Grid.Row="2"/>
                         <TextBox Height="23"  Name="txtAgi" Grid.Column="1" Grid.Row="2"/>
-                        <sdk:Label Height="28" Name="Label4" Content="intelligence"   Grid.Column="0" Grid.Row="3"/>
+                        <sdk:Label Height="28" Name="Label4" Content="Intelligence"   Grid.Column="0" Grid.Row="3"/>
                         <TextBox Height="23"  Name="txtIntel" Grid.Column="1" Grid.Row="3"/>
                         <sdk:Label Height="28" Name="lblStam" Content="Stamina"  Grid.Column="0" Grid.Row="4"/>
                         <TextBox Height="23"  Name="txtStam" Grid.Column="1" Grid.Row="4"/>
@@ -156,6 +156,8 @@
                             <RowDefinition Height="25" />
                             <RowDefinition Height="25" />
                             <RowDefinition Height="25" />
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="25" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="200*" />
@@ -172,7 +174,10 @@
                         <CheckBox Content="Blood Fury + Pet Damage" Height="19" Name="chkBloodFury"  Grid.ColumnSpan="2" Grid.Row="3" />
                         <CheckBox Content="Berzerking" Height="19" Name="chkBerzerking"   Grid.ColumnSpan="2" Grid.Row="4" />
                         <CheckBox Content="Arcane Torrent" Height="19" Name="chkArcaneTorrent"  Grid.ColumnSpan="2" Grid.Row="5"  />
-
+                        <CheckBox Content="1% Hit" Height="19" Name="chkDraeni"  Grid.ColumnSpan="2" Grid.Row="6"  />
+                        <CheckBox Content="1% Crit" Height="19" Name="chkWorgen"  Grid.ColumnSpan="2" Grid.Row="7"  />
+                        <CheckBox Content="1% Haste" Height="19" Name="chkGoblin"  Grid.ColumnSpan="2" Grid.Row="8"  />
+                        
                     </Grid>
                 </toolkit:Expander>
                 <toolkit:Expander Header="Misc" >

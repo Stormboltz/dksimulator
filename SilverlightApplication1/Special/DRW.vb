@@ -78,6 +78,11 @@ Namespace Simulator.WowObjects.PetsAndMinions
 
             logLevel = LogLevelEnum.Detailled
         End Sub
+        Public Overrides Sub SoftReset()
+            MyBase.SoftReset()
+            cd = 0
+
+        End Sub
 
         Function IsActive(ByVal T As Long) As Boolean
             If ActiveUntil >= T Then
@@ -168,7 +173,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
             Dim tmp As Double
             tmp = MHBaseDamage()
             tmp = tmp * PhysicalDamageMultiplier(T)
-          
+
 
             Return tmp
         End Function

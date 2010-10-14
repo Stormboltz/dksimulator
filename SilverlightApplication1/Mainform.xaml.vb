@@ -885,6 +885,9 @@ OUT:
         txEdit.OpenReport("KahoDKSim/Report/Report.xml")
         ReportStack.Children.Add(txEdit)
         Me.TabReport.IsSelected = True
+
+
+        scrollReport.ScrollToBottom()
     End Sub
 
     Private Sub cmdReport_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdReport.Click
@@ -985,6 +988,9 @@ OUT:
         StatSummary.chkBloodFury.IsChecked = False
         StatSummary.chkBerzerking.IsChecked = False
         StatSummary.chkArcaneTorrent.IsChecked = False
+        StatSummary.chkDraeni.IsChecked = False
+        StatSummary.chkWorgen.IsChecked = False
+        StatSummary.chkGoblin.IsChecked = False
 
         StatSummary.cmbSetBonus1.Text = ""
         StatSummary.cmbSetBonus2.Text = ""
@@ -1368,6 +1374,16 @@ NextItem:
         If cmbRace.SelectedItem = "Blood Elf" Then
             StatSummary.chkArcaneTorrent.IsChecked = True
         End If
+        If cmbRace.SelectedItem = "Worgen" Then
+            StatSummary.chkWorgen.IsChecked = True
+        End If
+        If cmbRace.SelectedItem = "Draenei" Then
+            StatSummary.chkDraeni.IsChecked = True
+        End If
+        If cmbRace.SelectedItem = "Goblin" Then
+            StatSummary.chkGoblin.IsChecked = True
+        End If
+
         ' Set bonus1
         If cSetBonus.Count > 0 Then
             cSetBonus.Sort()
@@ -1427,12 +1443,12 @@ refreshRating:
             StatSummary.lblHAste.Content = "Haste Rating (" & toDDecimal(StatSummary.txtHaste.Text / 128.05701) & "%)"
             StatSummary.lblExp.Content = "Expertise Rating(" & (toDDecimal(StatSummary.txtExp.Text / 120.109)) * 4 & ")"
             StatSummary.lblHit.Content = "Hit Rating(" & toDDecimal(StatSummary.txtHit.Text / 120.109) & "%)"
-            StatSummary.lblArP.Content = "ArP(" & toDDecimal(StatSummary.txtArP.Text / 13.99) & ")"
+            StatSummary.lblArP.Content = "ArP(" & toDDecimal(StatSummary.txtArP.Text / 13.99) & "%)"
             StatSummary.lblCrit.Content = "CritRating(" & toDDecimal(StatSummary.txtCrit.Text / 179.28) & "%)"
             StatSummary.lblMast.Content = "Mastery Rating(" & toDDecimal(StatSummary.txtMast.Text / 179.28) & "%)"
         Else
             StatSummary.lblHAste.Content = "Haste Rating (" & toDDecimal(StatSummary.txtHaste.Text / 32.79) & "%)"
-            StatSummary.lblExp.Content = "Expertise Rating(" & (toDDecimal(StatSummary.txtExp.Text / 32.79)) * 4 & ")"
+            StatSummary.lblExp.Content = "Expertise Rating(" & (toDDecimal(StatSummary.txtExp.Text / 30.7548)) * 4 & ")"
             StatSummary.lblHit.Content = "Hit Rating(" & toDDecimal(StatSummary.txtHit.Text / 30.7548) & "%)"
             StatSummary.lblArP.Content = "ArP(" & toDDecimal(StatSummary.txtArP.Text / 13.99) & ")"
             StatSummary.lblCrit.Content = "CritRating(" & toDDecimal(StatSummary.txtCrit.Text / 45.906) & "%)"
@@ -1564,6 +1580,13 @@ refreshRating:
         xmlChar.Element("character").Element("racials").Add(New XElement("Orc", StatSummary.chkBloodFury.IsChecked))
         xmlChar.Element("character").Element("racials").Add(New XElement("Troll", StatSummary.chkBerzerking.IsChecked))
         xmlChar.Element("character").Element("racials").Add(New XElement("BloodElf", StatSummary.chkArcaneTorrent.IsChecked))
+
+        xmlChar.Element("character").Element("racials").Add(New XElement("Dreani", StatSummary.chkDraeni.IsChecked))
+        xmlChar.Element("character").Element("racials").Add(New XElement("Worgen", StatSummary.chkWorgen.IsChecked))
+        xmlChar.Element("character").Element("racials").Add(New XElement("Goblin", StatSummary.chkGoblin.IsChecked))
+
+
+
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
             Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/CharactersWithGear/" & GearSelector.FilePath, FileMode.Create, isoStore)
                 xmlChar.Save(isoStream)
@@ -1687,7 +1710,7 @@ refreshRating:
     End Sub
 
     Private Sub cmdShowDebug_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdShowDebug.Click
-        Dim txtEditor As New TextEditor
+        Dim txtEditor As New myTextReader
         txtEditor.OpenFileFromISO("Solution.Silverlight.log")
         txtEditor.Show()
     End Sub

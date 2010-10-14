@@ -88,15 +88,7 @@ Namespace Simulator.WowObjects.Procs
             Return Nothing
         End Function
 
-        Sub SoftReset()
-            Dim prc As Proc
-            For Each prc In AllProcs
-                prc.CD = 0
-                prc.Fade = 0
-                prc.Stack = 0
-            Next
-            Bloodlust.CD = Sim.TimeStamp + 500
-        End Sub
+      
 
         Sub Init()
             Dim s As Sim

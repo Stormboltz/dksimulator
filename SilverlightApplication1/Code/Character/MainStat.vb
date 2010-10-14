@@ -174,28 +174,28 @@ Namespace Simulator.Character
                     AttackPower.Add(2 * Sim.EPBase)
                 Case "EP AfterSpellHitBaseAP"
                     AttackPower.Add(2 * Sim.EPBase)
-                    Sim.Character.Buff.Draenei = 0
+
                     HitRating.Replace(Sim.Character.SpellHitCapRating)
                 Case "EP HitRatingCapAP"
                     AttackPower.Add(2 * Sim.EPBase)
-                    Sim.Character.Buff.Draenei = 0
+
                     HitRating.Replace(HitCapRating)
                 Case "EP HitRating"
-                    Sim.Character.Buff.Draenei = 0
+
                     HitRating.Replace(HitCapRating() - Sim.EPBase)
                 Case "EP HitRatingCap"
-                    Sim.Character.Buff.Draenei = 0
+
                     HitRating.Replace(HitCapRating)
                 Case "EP SpellHitRating"
-                    Sim.Character.Buff.Draenei = 0
+
                     HitRating.Replace(HitCapRating() + 20)
 
                 Case "EP AfterSpellHitBase"
-                    Sim.Character.Buff.Draenei = 0
+
                     HitRating.Replace(SpellHitCapRating)
 
                 Case "EP AfterSpellHitRating"
-                    Sim.Character.Buff.Draenei = 0
+
                     HitRating.Replace(SpellHitCapRating() + Sim.EPBase)
 
                 Case "EP RelativeHitRating"
@@ -329,14 +329,29 @@ Namespace Simulator.Character
             ArmorPenetration._Name = "ArmorPenetration"
             Mastery._Name = "Mastery"
             Hit._Name = "Hit"
-            Hit.Add(Sim.Character.Buff.Draenei / 100)
+            If XmlCharacter.<character>.<racials>.<Dreani>.Value = True Then
+                Hit.Add(1 / 100)
+            End If
+
             If DualW() Then Hit.Add(Sim.Character.Talents.Talent("NervesofColdSteel").Value / 100)
 
 
             SpellHit._Name = "SpellHit"
-            SpellHit.Add(Sim.Character.Buff.Draenei / 100)
+            If XmlCharacter.<character>.<racials>.<Dreani>.Value = True Then
+                SpellHit.Add(1 / 100)
+            End If
+
             SpellHit.Add(Sim.Character.Talents.Talent("Virulence").Value * 2 / 100)
 
+
+            If XmlCharacter.<character>.<racials>.<Worgen>.Value = True Then
+                Crit.Add(1 / 100)
+                SpellCrit.Add(1 / 100)
+            End If
+
+            If XmlCharacter.<character>.<racials>.<Goblin>.Value = True Then
+                PhysicalHaste.Add(1 / 100)
+            End If
 
             'check that Talent and buff are loaded!
             Stamina.AddMulti(1 + 5 * Buff.StatMulti / 100)
@@ -683,20 +698,27 @@ Namespace Simulator.Character
             Dim tmp As Integer
             tmp = 17
             tmp = tmp - Sim.Character.Talents.Talent("Virulence").Value * 2
+            If XmlCharacter.<character>.<racials>.<Dreani>.Value = True Then
+                tmp = tmp - 1
+            End If
+
             tmp = tmp * 26.232
             Return tmp
         End Function
         Function GetExpertiseRatingCap() As Double
             Dim tmp As Double = 26
-            tmp /= 0.25
-            tmp *= 0.3279
+            tmp /= 25
+            tmp *= 30.7548
             Return tmp
         End Function
         Function HitCapRating() As Integer
             Dim tmp As Integer
             tmp = 8
+            If XmlCharacter.<character>.<racials>.<Dreani>.Value = True Then
+                tmp = tmp - 1
+            End If
             tmp = tmp - Sim.Character.Talents.Talent("NervesofColdSteel").Value
-            tmp = tmp * 32.79
+            tmp = tmp * 30.7548
             Return tmp
         End Function
 

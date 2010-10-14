@@ -15,7 +15,7 @@ Namespace Simulator.Character
         Friend SpellHaste As Integer
         Friend Armor As Integer
         Friend StatMulti As Integer
-        Friend Draenei As Integer
+        'Friend Draenei As Integer
 
 
 
@@ -36,7 +36,7 @@ Namespace Simulator.Character
                 MeleeHaste = Bool2Int(doc.Element("config").Element("chkBMeleeHaste").Value)
                 SpellHaste = Bool2Int(doc.Element("config").Element("chkBSpellHaste").Value)
                 StatMulti = Bool2Int(doc.Element("config").Element("chkBStatMulti").Value)
-                Draenei = Bool2Int(doc.Element("config").Element("chkDraeni").Value)
+
             End Using
 
         End Sub

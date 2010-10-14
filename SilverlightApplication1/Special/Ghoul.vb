@@ -3,7 +3,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
         Inherits WowObject
         Friend ShadowInfusion As Procs.Proc
         Friend NextWhiteMainHit As Long
-        Friend NextClaw As Long
+        Protected NextClaw As Long
         Friend ActiveUntil As Long
         Friend cd As Long
         Friend _Haste As Double
@@ -14,6 +14,15 @@ Namespace Simulator.WowObjects.PetsAndMinions
         Private MeleeGlacingChance As Single
         Private SpellMissChance As Single
         Private Claw As Strikes.Strike
+
+
+        Public Overrides Sub SoftReset()
+            MyBase.SoftReset()
+            cd = 0
+            NextClaw = sim.TimeStamp
+            NextWhiteMainHit = sim.TimeStamp
+            sim.FutureEventManager.Add(sim.TimeStamp, "Ghoul")
+        End Sub
 
         Sub New(ByVal MySim As Sim)
             MyBase.New(MySim)
@@ -28,7 +37,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
             TotalHit = 0
             TotalCrit = 0
             sim = MySim
-            MeleeGlacingChance = 0
+            MeleeGlacingChance = 0.24
             sim.DamagingObject.Add(Me)
             ThreadMultiplicator = 0
             HasteSensible = True
@@ -84,9 +93,6 @@ Namespace Simulator.WowObjects.PetsAndMinions
         Sub TryActions(ByVal TimeStamp As Long)
             If NextWhiteMainHit <= TimeStamp Then ApplyDamage(TimeStamp)
             TryClaw(TimeStamp)
-            'If sim.isInGCD(TimeStamp) And sim.Frenzy.IsAutoFrenzyAvailable(TimeStamp) Then
-            '    sim.Frenzy.Frenzy(TimeStamp)
-            'End If
         End Sub
 
         Function Haste() As Double
@@ -135,12 +141,12 @@ Namespace Simulator.WowObjects.PetsAndMinions
                 If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "Ghoul fail")
                 Return False
             End If
-            'If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then
-            '    LastDamage = AvrgNonCrit(T) * 0.7
-            '    total = total + LastDamage
-            '    TotalGlance += LastDamage
-            '    GlancingCount += 1
-            'End If
+            If RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) Then
+                LastDamage = AvrgNonCrit(T) * 0.7
+                total = total + LastDamage
+                TotalGlance += LastDamage
+                GlancingCount += 1
+            End If
             If RNG >= (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance) And RNG < (MeleeMissChance + MeleeDodgeChance + MeleeGlacingChance + CritChance()) Then
                 'CRIT !
                 LastDamage = AvrgCrit(T)
@@ -235,6 +241,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
 
         Public Overrides Function report() As ReportLine
             If isGuardian And Claw.total > 0 Then Merge() 'if we don't have a permaghoul merge in claw
+
             Return MyBase.Report()
         End Function
 
@@ -244,13 +251,18 @@ Namespace Simulator.WowObjects.PetsAndMinions
             TotalHit += Claw.TotalHit
             TotalCrit += Claw.TotalCrit
 
-            MissCount = (MissCount + Claw.MissCount) / 2
-            HitCount = (HitCount + Claw.HitCount) / 2
-            CritCount = (CritCount + Claw.CritCount) / 2
+            MissCount = (MissCount + Claw.MissCount)
+            HitCount = (HitCount + Claw.HitCount)
+            CritCount = (CritCount + Claw.CritCount)
 
             Claw.Total = 0
             Claw.TotalHit = 0
             Claw.TotalCrit = 0
+
+            Claw.HitCount = 0
+            Claw.CritCount = 0
+            Claw.MissCount = 0
+
         End Sub
 
     End Class

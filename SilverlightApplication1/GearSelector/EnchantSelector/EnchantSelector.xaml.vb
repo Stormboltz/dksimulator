@@ -141,4 +141,10 @@ Partial Public Class EnchantSelector
     Private Sub gEnchant_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs) Handles gEnchant.SelectionChanged
 
     End Sub
+
+
+    Private Sub NoneButton_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles NoneButton.Click
+        SelectedItem = 0
+        Me.DialogResult = True
+    End Sub
 End Class

@@ -6,6 +6,7 @@
         Sub New(ByVal s As Simulator.Sim)
             sim = s
             TimeWasted = New TimeWastedAnaliser.TimeWasted(Me)
+
         End Sub
         Public Overridable Function Name() As String
 
@@ -14,6 +15,8 @@
 
             Return t
         End Function
+        Overridable Sub SoftReset()
 
+        End Sub
     End Class
 End Namespace

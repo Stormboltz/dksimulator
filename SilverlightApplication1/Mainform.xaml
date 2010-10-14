@@ -77,7 +77,7 @@
                 </sdk:TabItem>
                 <sdk:TabItem Header="Report" Name="TabReport">
 
-                    <ScrollViewer Name="ScrollViewer2">
+                    <ScrollViewer Name="scrollReport" HorizontalScrollBarVisibility="Auto">
                         <StackPanel Name="ReportStack"></StackPanel>
                     </ScrollViewer>
 

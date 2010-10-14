@@ -35,7 +35,8 @@ Namespace Simulator.WowObjects.Runes
             UnholyRunes = New RunePair(UnholyRune1, UnholyRune2)
         End Sub
 
-        Sub SoftReset()
+        Overrides Sub SoftReset()
+            MyBase.SoftReset()
             BloodRune1.Reset()
             BloodRune2.Reset()
             FrostRune1.Reset()

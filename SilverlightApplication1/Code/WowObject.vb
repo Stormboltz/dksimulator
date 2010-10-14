@@ -103,28 +103,32 @@ Namespace Simulator.WowObjects
 
         End Sub
         
-
+        Sub RNGReset()
+            _RNG1 = New Random(ConvertToInt(Me.Name) + sim.FightNumber + RNGSeeder)
+            _RNG2 = New Random(ConvertToInt(Me.Name) + sim.FightNumber + RNGSeeder + 1)
+        End Sub
 
         Function RngHit() As Double
             Dim LastRng As Double
             TimeWasted.Start()
-            If _RNG1 Is Nothing Then
-                ' I have made that to not mess up the RNG is a strike miss
-                _RNG1 = New Random(ConvertToInt(Me.Name) + RNGSeeder)
-                _RNG2 = New Random(ConvertToInt(Me.Name) + RNGSeeder + 1)
-            End If
-            RngCrit = _RNG2.NextDouble
             LastRng = _RNG1.NextDouble
-            
-
+            RngCrit = _RNG2.NextDouble
             TimeWasted.Pause()
             Return LastRng
         End Function
 
         Public Sub New(ByVal s As Sim)
             MyBase.New(s)
+            s.MySimlationObjects.Add(Me)
         End Sub
 
-       
+        Overrides Sub SoftReset()
+            MyBase.SoftReset()
+            RNGReset()
+
+
+        End Sub
+
+
     End Class
 End Namespace

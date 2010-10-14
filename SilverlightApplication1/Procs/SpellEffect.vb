@@ -106,7 +106,10 @@
             Currentstack = 0
             RemoveUptime(sim.TimeStamp)
         End Sub
-
+        Public Overrides Sub SoftReset()
+            MyBase.SoftReset()
+            Fade()
+        End Sub
     End Class
 
     Public Class SpellEffectManager

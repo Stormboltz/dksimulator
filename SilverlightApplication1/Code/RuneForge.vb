@@ -43,11 +43,6 @@ Namespace Simulator.WowObjects.Procs
 
         End Sub
 
-        Sub SoftReset()
-        End Sub
-
-
-
 
         Sub ConfigRuneForgeProc(ByVal Proc As WeaponProc, ByVal RuneForge As String)
             If RuneForge = "" Then Exit Sub

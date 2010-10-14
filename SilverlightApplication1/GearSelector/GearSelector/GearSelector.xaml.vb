@@ -252,4 +252,9 @@ Partial Public Class GearSelector
             LoadItem(Me.Slot)
         End If
     End Sub
+
+    Private Sub NoneButton_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles NoneButton.Click
+        SelectedItem = 0
+        Me.DialogResult = True
+    End Sub
 End Class

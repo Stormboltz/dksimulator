@@ -28,6 +28,12 @@ Namespace Simulator.WowObjects.Runes
             sim = S
 
         End Sub
+        Public Overrides Sub SoftReset()
+            MyBase.SoftReset()
+            Value = 100
+            death = False
+            reserved = False
+        End Sub
 
 
         Sub Use(ByVal T As Long, ByVal D As Boolean, ByVal Alf As Boolean)
@@ -74,9 +80,9 @@ Namespace Simulator.WowObjects.Runes
 
         Function AvailableTime() As Long
             'Dim tmp As Long
-            If Value >= 100 Then Return Sim.TimeStamp
+            If Value >= 100 Then Return sim.TimeStamp
             Dim d As Double
-            d = ((100 - Value) * RunePerSecond() * 100 + Sim.TimeStamp)
+            d = ((100 - Value) * RunePerSecond() * 100 + sim.TimeStamp)
 
             Return Convert.ToInt64(d + 1)
         End Function
@@ -91,7 +97,7 @@ Namespace Simulator.WowObjects.Runes
             Value = 100
         End Sub
         Sub AddEventInManager()
-            Sim.FutureEventManager.Add(Sim.TimeStamp, "Rune")
+            sim.FutureEventManager.Add(sim.TimeStamp, "Rune")
         End Sub
 
 

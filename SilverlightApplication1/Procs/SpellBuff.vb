@@ -193,6 +193,11 @@
 
         End Sub
 
+        Public Overrides Sub SoftReset()
+            MyBase.SoftReset()
+            Fade()
+        End Sub
+
     End Class
     Class SpellBuffManager
         Friend SpellBuffs As New List(Of SpellBuff)

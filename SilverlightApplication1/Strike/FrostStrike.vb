@@ -60,7 +60,7 @@ Namespace Simulator.WowObjects.Strikes
             Return tmp
         End Function
         Public Overrides Function CritChance() As Double
-            If sim.proc.KillingMachine.IsActive() = True Then
+            If sim.proc.KillingMachine.IsActive = True Then
                 Return 1
             Else
                 Return MyBase.CritChance

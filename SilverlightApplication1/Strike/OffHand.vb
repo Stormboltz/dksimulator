@@ -28,7 +28,7 @@ Namespace Simulator.WowObjects.Strikes
 
 
             RNG = RngHit()
-            MeleeGlacingChance = 0
+            MeleeGlacingChance = 0.24
             MeleeDodgeChance = 0.065
             MeleeMissChance = 0.27
             If sim.BloodPresence = 1 Then
@@ -48,15 +48,15 @@ Namespace Simulator.WowObjects.Strikes
             End If
 
 
-            'If RNG < (ChanceNotToTouch + MeleeGlacingChance) Then
-            '    'Glancing
-            '    LastDamage = AvrgNonCrit(T) * 0.7
-            '    GlancingCount = GlancingCount + 1
-            '    TotalGlance += LastDamage
-            '    'If sim.combatlog.LogDetails Then 
-            '    If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "OH glancing for " & LastDamage)
-            '    'End If
-            'End If
+            If RNG < (ChanceNotToTouch + MeleeGlacingChance) Then
+                'Glancing
+                LastDamage = AvrgNonCrit(T) * 0.7
+                GlancingCount = GlancingCount + 1
+                TotalGlance += LastDamage
+                'If sim.combatlog.LogDetails Then 
+                If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "OH glancing for " & LastDamage)
+                'End If
+            End If
 
             If RNG >= (ChanceNotToTouch + MeleeGlacingChance) And RNG < (ChanceNotToTouch + MeleeGlacingChance + CritChance()) Then
                 'CRIT !

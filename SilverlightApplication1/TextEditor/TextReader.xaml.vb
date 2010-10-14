@@ -1,7 +1,7 @@
 ﻿Imports System.IO.IsolatedStorage
 Imports System.IO
 
-Partial Public Class TextEditor
+Partial Public Class myTextReader
     Inherits ChildWindow
 
     Public Sub New()
