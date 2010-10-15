@@ -128,6 +128,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
             Return tmp
         End Function
         Function SpellCrit(Optional ByVal target As Targets.Target = Nothing) As Single
+            Return 0
             If target Is Nothing Then target = sim.Targets.MainTarget
             Dim tmp As Double
             tmp = tmp + 5 * sim.Character.Buff.Crit

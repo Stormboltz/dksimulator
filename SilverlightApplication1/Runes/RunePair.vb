@@ -18,19 +18,48 @@
         Sub Use(ByVal T As Long, ByVal ToDeath As Boolean)
             Dim cost As Integer
             cost = 100
-
-            If Rune1.Value = 100 Then
-                Rune1.Value = 0
-                Rune1.death = ToDeath
-                RuneToRefill = Rune2
-            ElseIf Rune2.Value = 100 Then
-                Rune2.Value = 0
-                Rune2.death = ToDeath
-                RuneToRefill = Rune1
+            If Rune1.death Then
+                If Rune2.Value = 100 Then
+                    Rune2.Value = 0
+                    Rune2.death = ToDeath
+                    RuneToRefill = Rune1
+                ElseIf Rune1.Value = 100 Then
+                    Rune1.Value = 0
+                    Rune1.death = ToDeath
+                    RuneToRefill = Rune2
+                Else
+                    RuneToRefill = OppositeRune(RuneToRefill)
+                    Diagnostics.Debug.WriteLine("Negative Rune")
+                End If
+            ElseIf Rune2.death Then
+                If Rune1.Value = 100 Then
+                    Rune1.Value = 0
+                    Rune1.death = ToDeath
+                    RuneToRefill = Rune2
+                ElseIf Rune2.Value = 100 Then
+                    Rune2.Value = 0
+                    Rune2.death = ToDeath
+                    RuneToRefill = Rune1
+                Else
+                    RuneToRefill = OppositeRune(RuneToRefill)
+                    Diagnostics.Debug.WriteLine("Negative Rune")
+                End If
             Else
-                RuneToRefill = OppositeRune(RuneToRefill)
-                Diagnostics.Debug.WriteLine("Negative Rune")
+                If Rune1.Value = 100 Then
+                    Rune1.Value = 0
+                    Rune1.death = ToDeath
+                    RuneToRefill = Rune2
+                ElseIf Rune2.Value = 100 Then
+                    Rune2.Value = 0
+                    Rune2.death = ToDeath
+                    RuneToRefill = Rune1
+                Else
+                    RuneToRefill = OppositeRune(RuneToRefill)
+                    Diagnostics.Debug.WriteLine("Negative Rune")
+                End If
+
             End If
+          
         End Sub
 
         Function Available() As Boolean

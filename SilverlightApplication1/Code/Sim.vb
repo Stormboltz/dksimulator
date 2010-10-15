@@ -379,6 +379,7 @@ Namespace Simulator
                         End If
                     End If
                 Case "AotD"
+                    If Not PetFriendly Then Return False
                     If AotD.ActiveUntil >= TimeStamp Then
                         If AotD.NextWhiteMainHit <= TimeStamp Then AotD.ApplyDamage(TimeStamp)
                         If AotD.NextClaw <= TimeStamp Then AotD.Claw(TimeStamp)
@@ -399,15 +400,18 @@ Namespace Simulator
                         End If
                     Next
                 Case "DRW"
+                    If Not PetFriendly Then Return False
                     If DRW.IsActive(TimeStamp) Then
                         If DRW.NextDRW <= TimeStamp Then DRW.ApplyDamage(TimeStamp)
                     End If
                 Case "Gargoyle"
+                    If Not PetFriendly Then Return False
                     If Gargoyle.ActiveUntil >= TimeStamp Then
                         If Gargoyle.NextGargoyleStrike <= TimeStamp Then Gargoyle.ApplyDamage(TimeStamp)
                     End If
 
                 Case "Ghoul"
+                    If Not PetFriendly Then Return False
                     If Ghoul.ActiveUntil >= TimeStamp Then
                         Ghoul.TryActions(TimeStamp)
                     End If

@@ -124,7 +124,7 @@ Namespace Simulator.WowObjects.Runes
 
 #Region "Rune Available"
         Function BF() As Boolean
-            Return (BloodRunes.Available And FrostRunes.Available)
+            Return (BloodOnlyNoDeath() And FrostOnlyNoDeath())
         End Function
         Function BFU() As Boolean
             If BloodRune1.Available Or BloodRune2.Available Then
@@ -163,20 +163,20 @@ Namespace Simulator.WowObjects.Runes
             If UnholyRune2.Available And UnholyRune2.death = True And UnholyRune2.reserved = False Then Return True
             Return False
         End Function
-        Function BloodOnly() As Boolean
+        Function BloodOnlyNoDeath() As Boolean
             If BloodRune1.Available And Not BloodRune1.death Then Return True
             If BloodRune2.Available And Not BloodRune2.death Then Return True
             Return False
         End Function
-        Function FrostOnly() As Boolean
-            If FrostRune1.Available And FrostRune1.reserved = False Then Return True
-            If FrostRune2.Available And FrostRune2.reserved = False Then Return True
+        Function FrostOnlyNoDeath() As Boolean
+            If FrostRune1.Available And FrostRune1.death = False Then Return True
+            If FrostRune2.Available And FrostRune2.death = False Then Return True
             Return False
         End Function
-        Function UnholyOnly() As Boolean
+        Function UnholyOnlyNoDeath() As Boolean
 
-            If UnholyRune1.Available And UnholyRune1.reserved = False Then Return True
-            If UnholyRune2.Available And UnholyRune2.reserved = False Then Return True
+            If UnholyRune1.Available And UnholyRune1.death = False Then Return True
+            If UnholyRune2.Available And UnholyRune2.death = False Then Return True
             Return False
         End Function
         Function Frost() As Boolean

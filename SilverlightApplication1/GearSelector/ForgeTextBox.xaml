@@ -7,8 +7,11 @@
     d:Height="24" d:Width="62">
 
     <Grid x:Name="LayoutRoot" Background="White">
-        <Button Content="+" Height="12" HorizontalAlignment="Right"  Name="btPlus" VerticalAlignment="Top" Width="12" FontSize="8" Padding="0" />
-        <Button Content="-" HorizontalAlignment="Right" Name="btMinus" Width="12" FontSize="8" Padding="0" Height="12" VerticalAlignment="Bottom" />
-        <TextBox Height="24" HorizontalAlignment="Left" Name="txtValue" VerticalAlignment="Top" Width="50" Text="0" FlowDirection="RightToLeft" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Button Content="x" Name="btRemove" Grid.Column="1" Foreground="Red" />
+        <TextBox  Name="txtValue" Text="0" FlowDirection="RightToLeft" Grid.Column="0" />
     </Grid>
 </UserControl>

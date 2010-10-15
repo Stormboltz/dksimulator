@@ -7,22 +7,22 @@
 
 
     Property hit_count As Long
-    Property hit_count_Pc As Long
-    Property hit_count_Avg As Long
+    Property hit_Pc As Long
+    Property hit_Avg As Long
 
     Property Crit_count As Long
-    Property Crit_count_Pc As Long
-    Property Crit_count_Avg As Long
+    Property Crit_Pc As Long
+    Property Crit_Avg As Long
 
     Property Miss_Count As Long
-    Property Miss_Count_Pc As Long
+    Property Miss_Pc As Long
 
 
 
 
     Property Glance_Count As Long
-    Property Glance_Count_Pc As Long
-    Property Glance_Count_Avg As Long
+    Property Glance_Pc As Long
+    Property Glance_Avg As Long
 
     Property Uptime As Long
 
@@ -39,20 +39,20 @@
 
         tmp += "<Ability>" & Ability & "</Ability>"
         tmp += "<Damage_done_Total>" & Damage_done_Total & "</Damage_done_Total>"
-        tmp += "<Damage_done_Pc>" & Damage_done_Pc & "</Damage_done_Pc>"
-        tmp += "<Damage_done_Count>" & Damage_done_Count & "</Damage_done_Count>"
-        tmp += "<Damage_done_Avg>" & Damage_done_Avg & "</Damage_done_Avg>"
-        tmp += "<hit_count>" & hit_count & "</hit_count>"
-        tmp += "<hit_count_Avg>" & hit_count_Avg & "</hit_count_Avg>"
-        tmp += "<hit_count_Pc>" & hit_count_Pc & "</hit_count_Pc>"
-        tmp += "<Crit_count>" & Crit_count & "</Crit_count>"
-        tmp += "<Crit_count_Avg>" & Crit_count_Avg & "</Crit_count_Avg>"
-        tmp += "<Crit_count_Pc>" & Crit_count_Pc & "</Crit_count_Pc>"
+        tmp += "<Damage_Pc>" & Damage_done_Pc & "</Damage_Pc>"
+        tmp += "<Damage_Count>" & Damage_done_Count & "</Damage_Count>"
+        tmp += "<Damage_Avg>" & Damage_done_Avg & "</Damage_Avg>"
+        tmp += "<hit_Count>" & hit_count & "</hit_Count>"
+        tmp += "<hit_Avg>" & hit_Avg & "</hit_Avg>"
+        tmp += "<hit_Pc>" & hit_Pc & "</hit_Pc>"
+        tmp += "<Crit_Count>" & Crit_count & "</Crit_Count>"
+        tmp += "<Crit_Avg>" & Crit_Avg & "</Crit_Avg>"
+        tmp += "<Crit_Pc>" & Crit_Pc & "</Crit_Pc>"
         tmp += "<Miss_Count>" & Miss_Count & "</Miss_Count>"
-        tmp += "<Miss_Count_Pc>" & Miss_Count_Pc & "</Miss_Count_Pc>"
+        tmp += "<Miss_Pc>" & Miss_Pc & "</Miss_Pc>"
         tmp += "<Glance_Count>" & Glance_Count & "</Glance_Count>"
-        tmp += "<Glance_Count_Avg>" & Glance_Count_Avg & "</Glance_Count_Avg>"
-        tmp += "<Glance_Count_Pc>" & Glance_Count_Pc & "</Glance_Count_Pc>"
+        tmp += "<Glance_Avg>" & Glance_Avg & "</Glance_Avg>"
+        tmp += "<Glance_Pc>" & Glance_Pc & "</Glance_Pc>"
         tmp += "<TPS>" & TPS & "</TPS>"
         tmp += "<Uptime>" & Uptime & "</Uptime>"
         tmp += "</row>"

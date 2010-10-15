@@ -33,8 +33,8 @@
 
                 Use()
 
-                sim.Targets.MainTarget.BloodPlague.IncreaseDuration(600)
-                sim.Targets.MainTarget.FrostFever.IncreaseDuration(600)
+                sim.Targets.MainTarget.BloodPlague.IncreaseDuration(800)
+                sim.Targets.MainTarget.FrostFever.IncreaseDuration(800)
 
             End If
             Return True

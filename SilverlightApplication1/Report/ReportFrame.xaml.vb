@@ -34,20 +34,20 @@ Partial Public Class ReportFrame
                     For Each r As ReportDisplayLine In Source
                         t = t & r.Ability & "|"
                         t = t & r.Damage_done_Total & "|"
-                        t = t & r.Damage_done_Pc & "|"
-                        t = t & r.Damage_done_Count & "|"
-                        t = t & r.Damage_done_Avg & "|"
+                        t = t & r.Damage_Pc & "|"
+                        t = t & r.Damage_Count & "|"
+                        t = t & r.Damage_Avg & "|"
                         t = t & r.hit_count & "|"
-                        t = t & r.hit_count_Avg & "|"
-                        t = t & r.hit_count_Pc & "|"
+                        t = t & r.hit_Avg & "|"
+                        t = t & r.hit_Pc & "|"
                         t = t & r.Crit_count & "|"
-                        t = t & r.Crit_count_Avg & "|"
-                        t = t & r.Crit_count_Pc & "|"
+                        t = t & r.Crit_Avg & "|"
+                        t = t & r.Crit_Pc & "|"
                         t = t & r.Miss_Count & "|"
-                        t = t & r.Miss_Count_Pc & "|"
+                        t = t & r.Miss_Pc & "|"
                         t = t & r.Glance_Count & "|"
-                        t = t & r.Glance_Count_Avg & "|"
-                        t = t & r.Glance_Count_Pc & "|"
+                        t = t & r.Glance_Avg & "|"
+                        t = t & r.Glance_Pc & "|"
                         t = t & r.TPS & "|"
                         t = t & r.Uptime & "|" & vbCrLf
                     Next
@@ -73,43 +73,43 @@ Partial Public Class ReportFrame
 
     Function GetItem(ByVal el As XElement) As ReportDisplayLine
         Dim r As New ReportDisplayLine
-        r.Ability = el.Element("Ability").Value
-        r.Damage_done_Total = el.Element("Damage_done_Total").Value
-        r.Damage_done_Pc = el.Element("Damage_done_Pc").Value
-        r.Damage_done_Count = el.Element("Damage_done_Count").Value
-        r.Damage_done_Avg = el.Element("Damage_done_Avg").Value
-        r.hit_count = el.Element("hit_count").Value
-        r.hit_count_Avg = el.Element("hit_count_Avg").Value
-        r.hit_count_Pc = el.Element("hit_count_Pc").Value
-        r.Crit_count = el.Element("Crit_count").Value
-        r.Crit_count_Avg = el.Element("Crit_count_Avg").Value
-        r.Crit_count_Pc = el.Element("Crit_count_Pc").Value
-        r.Miss_Count = el.Element("Miss_Count").Value
-        r.Miss_Count_Pc = el.Element("Miss_Count_Pc").Value
-        r.Glance_Count = el.Element("Glance_Count").Value
-        r.Glance_Count_Avg = el.Element("Glance_Count_Avg").Value
-        r.Glance_Count_Pc = el.Element("Glance_Count_Pc").Value
-        r.TPS = el.Element("TPS").Value
-        r.Uptime = el.Element("Uptime").Value
+        r.Ability = el.<Ability>.Value
+        r.Damage_done_Total = el.<Damage_done_Total>.Value
+        r.Damage_Pc = el.<Damage_Pc>.Value
+        r.Damage_Count = el.<Damage_Count>.Value
+        r.Damage_Avg = el.<Damage_Avg>.Value
+        r.hit_count = el.<hit_Count>.Value
+        r.hit_Avg = el.<hit_Avg>.Value
+        r.hit_Pc = el.<hit_Pc>.Value
+        r.Crit_count = el.<Crit_Count>.Value
+        r.Crit_Avg = el.<Crit_Avg>.Value
+        r.Crit_Pc = el.<Crit_Pc>.Value
+        r.Miss_Count = el.<Miss_Count>.Value
+        r.Miss_Pc = el.<Miss_Pc>.Value
+        r.Glance_Count = el.<Glance_Count>.Value
+        r.Glance_Avg = el.<Glance_Avg>.Value
+        r.Glance_Pc = el.<Glance_Pc>.Value
+        r.TPS = el.<TPS>.Value
+        r.Uptime = el.<Uptime>.Value
         Return r
     End Function
     Class ReportDisplayLine
         Property Ability As String
         Property Damage_done_Total As Double
-        Property Damage_done_Pc As Double
-        Property Damage_done_Count As Double
-        Property Damage_done_Avg As Double
+        Property Damage_Pc As Double
+        Property Damage_Count As Double
+        Property Damage_Avg As Double
         Property hit_count As Double
-        Property hit_count_Avg As Double
-        Property hit_count_Pc As Double
+        Property hit_Avg As Double
+        Property hit_Pc As Double
         Property Crit_count As Double
-        Property Crit_count_Avg As Double
-        Property Crit_count_Pc As Double
+        Property Crit_Avg As Double
+        Property Crit_Pc As Double
         Property Miss_Count As Double
-        Property Miss_Count_Pc As Double
+        Property Miss_Pc As Double
         Property Glance_Count As Double
-        Property Glance_Count_Avg As Double
-        Property Glance_Count_Pc As Double
+        Property Glance_Avg As Double
+        Property Glance_Pc As Double
         Property TPS As Double
         Property Uptime As Double
     End Class
@@ -117,6 +117,8 @@ Partial Public Class ReportFrame
     Private Sub dgReport_AutoGeneratingColumn(ByVal sender As Object, ByVal e As System.Windows.Controls.DataGridAutoGeneratingColumnEventArgs) Handles dgReport.AutoGeneratingColumn
         e.Column.Header = e.Column.Header.ToString.Replace("_", vbCrLf)
         e.Column.Header = e.Column.Header.ToString.Replace("Damage", "Dmg")
+        e.Column.Header = e.Column.Header.ToString.Replace("Pc", "%")
+        e.Column.Header = e.Column.Header.ToString.Replace("Count", "#")
     End Sub
 
 

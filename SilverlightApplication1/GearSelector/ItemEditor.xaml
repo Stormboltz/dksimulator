@@ -35,16 +35,16 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="60" />
+                <ColumnDefinition Width="12" />
                 <ColumnDefinition Width="100*" />
                 <ColumnDefinition Width="14" />
                 <ColumnDefinition Width="100*" />
             </Grid.ColumnDefinitions>
             <TextBox Width="60" Name="txtReforge" Grid.Column="0" />
-
-            
-            <ComboBox Name="cmbReforgeFrom" Grid.Column="1" />
-            <sdk:Label Content="To" HorizontalAlignment="Center" Grid.Column="2" ></sdk:Label>
-            <ComboBox Name="cmbReforgeTo" Grid.Column="3" />
+            <Button Content="x" Name="btRemove" Grid.Column="1" Foreground="Red" />
+            <ComboBox Name="cmbReforgeFrom" Grid.Column="2" />
+            <sdk:Label Content="To" HorizontalAlignment="Center" Grid.Column="3" ></sdk:Label>
+            <ComboBox Name="cmbReforgeTo" Grid.Column="4" />
 
         </Grid>
 

@@ -14,6 +14,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
         Private MeleeGlacingChance As Single
         Private SpellMissChance As Single
         Private Claw As Strikes.Strike
+        Private SuperClaw As Strikes.Strike
 
 
         Public Overrides Sub SoftReset()
@@ -44,6 +45,11 @@ Namespace Simulator.WowObjects.PetsAndMinions
             Claw = New Strikes.Strike(sim)
             Claw._Name = "Ghoul: Claw"
             logLevel = LogLevelEnum.Detailled
+
+            SuperClaw = New Strikes.Strike(sim)
+            SuperClaw._Name = "Ghoul: Sweeping Claw"
+
+
             ShadowInfusion = New Procs.Proc(MySim)
             If sim.Character.Talents.Talent("ShadowInfusion").Value > 0 Then
                 With ShadowInfusion
@@ -106,6 +112,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
 
         Function Agility() As Integer
             Dim tmp As Integer
+            Return 0
             tmp = sim.GhoulStat.Agility
             tmp = tmp + 155 * 1.15 * sim.Character.Buff.StrAgi
             tmp = tmp * (1 + 5 * sim.Character.Buff.StatMulti / 100)
@@ -123,7 +130,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
         Function AP() As Integer
             Dim tmp As Integer
             If isGuardian Then Return _AP
-            tmp = sim.GhoulStat.BaseAP + Strength() + Agility()
+            tmp = sim.GhoulStat.BaseAP + Strength() * 2
             Return (tmp) * (1 + sim.Character.Buff.AttackPowerPc / 10)
         End Function
 
@@ -174,52 +181,96 @@ Namespace Simulator.WowObjects.PetsAndMinions
             CritCoef = 1
         End Function
         Function CritChance() As Double
+            Return 0.05
             CritChance = sim.GhoulStat.crit
         End Function
         Function AvrgCrit(ByVal T As Long) As Double
             AvrgCrit = AvrgNonCrit(T) * (1 + CritCoef())
         End Function
-        Function TryClaw(ByVal T As Long) As Boolean
+
+
+        Function SuperClaw_ApplyDamage(ByVal t As Long) As Boolean
+
             Dim RNG As Double
             Dim LastDamage As Integer
-            If NextClaw > T Then Return False
+            If NextClaw > t Then Return False
+
 
             For Each Tar As Targets.Target In sim.Targets.AllTargets
                 Dim i As Integer = 0
                 RNG = Me.Claw.RngHit
                 If RNG < (MeleeMissChance + MeleeDodgeChance) Then
-                    If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "Ghoul's Claw fail")
-                    Claw.MissCount += 1
+                    If sim.CombatLog.LogDetails Then sim.CombatLog.write(t & vbTab & "Ghoul's Super Claw fail")
+                    SuperClaw.MissCount += 1
                     Return False
                 End If
 
                 RNG = Me.Claw.RngCrit
                 If RNG <= CritChance() Then
-                    LastDamage = ClawAvrgCrit(T)
-                    Claw.CritCount += 1
-                    Claw.total += LastDamage
-                    Claw.TotalCrit += LastDamage
-                    If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "Ghoul's Claw for " & LastDamage)
+                    LastDamage = ClawAvrgCrit(t)
+                    SuperClaw.CritCount += 1
+                    SuperClaw.total += LastDamage
+                    SuperClaw.TotalCrit += LastDamage
+                    If sim.CombatLog.LogDetails Then sim.CombatLog.write(t & vbTab & "Ghoul's Super Claw for " & LastDamage)
                 Else
-                    LastDamage = ClawAvrgNonCrit(T)
-                    Claw.HitCount += 1
-                    Claw.total += LastDamage
-                    Claw.TotalHit += LastDamage
-                    If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "Ghoul's Claw hit for " & LastDamage)
+                    LastDamage = ClawAvrgNonCrit(t)
+                    SuperClaw.HitCount += 1
+                    SuperClaw.total += LastDamage
+                    SuperClaw.TotalHit += LastDamage
+                    If sim.CombatLog.LogDetails Then sim.CombatLog.write(t & vbTab & "Ghoul's Super Claw hit for " & LastDamage)
                 End If
                 i += 1
-                If Not Me.sim.DarkTransformation.DarkTransformationBuff.IsActive Then
-                    Exit For
-                End If
                 If i > 3 Then
                     Exit For
                 End If
             Next
 
+            NextClaw = t + sim.GhoulStat.ClawTime(Haste()) * 100
+            sim.FutureEventManager.Add(NextClaw, "Ghoul")
+            Return True
+        End Function
+
+        Function TryClaw(ByVal T As Long) As Boolean
+
+
+            Dim RNG As Double
+            Dim LastDamage As Integer
+            If NextClaw > T Then Return False
+
+            If Me.sim.DarkTransformation.DarkTransformationBuff.IsActive Then
+                SuperClaw_ApplyDamage(T)
+                Return True
+            End If
+
+
+            RNG = Me.Claw.RngHit
+            If RNG < (MeleeMissChance + MeleeDodgeChance) Then
+                If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "Ghoul's Claw fail")
+                Claw.MissCount += 1
+                Return False
+            End If
+
+            RNG = Me.Claw.RngCrit
+            If RNG <= CritChance() Then
+                LastDamage = ClawAvrgCrit(T)
+                Claw.CritCount += 1
+                Claw.total += LastDamage
+                Claw.TotalCrit += LastDamage
+                If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "Ghoul's Claw for " & LastDamage)
+            Else
+                LastDamage = ClawAvrgNonCrit(T)
+                Claw.HitCount += 1
+                Claw.total += LastDamage
+                Claw.TotalHit += LastDamage
+                If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & "Ghoul's Claw hit for " & LastDamage)
+            End If
+
             NextClaw = T + sim.GhoulStat.ClawTime(Haste()) * 100
             sim.FutureEventManager.Add(NextClaw, "Ghoul")
             Return True
         End Function
+
+
         Function ClawAvrgNonCrit(ByVal T As Long) As Integer
             If Me.sim.DarkTransformation.DarkTransformationBuff.IsActive Then
                 Return AvrgNonCrit(T) * 1.5
@@ -228,7 +279,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
             End If
         End Function
         Function ClawAvrgCrit(ByVal T As Long) As Integer
-            Return AvrgNonCrit(T) * (1 + CritCoef())
+            Return ClawAvrgNonCrit(T) * (1 + CritCoef())
         End Function
         Public Sub cleanup()
             total = 0
@@ -247,21 +298,30 @@ Namespace Simulator.WowObjects.PetsAndMinions
 
         Public Overrides Sub Merge()
 
-            total += Claw.Total
-            TotalHit += Claw.TotalHit
-            TotalCrit += Claw.TotalCrit
+            total += Claw.total + SuperClaw.total
+            TotalHit += Claw.TotalHit + SuperClaw.TotalHit
+            TotalCrit += Claw.TotalCrit + SuperClaw.TotalCrit
 
-            MissCount = (MissCount + Claw.MissCount)
-            HitCount = (HitCount + Claw.HitCount)
-            CritCount = (CritCount + Claw.CritCount)
+            MissCount = (MissCount + Claw.MissCount + SuperClaw.MissCount)
+            HitCount = (HitCount + Claw.HitCount + SuperClaw.HitCount)
+            CritCount = (CritCount + Claw.CritCount + SuperClaw.CritCount)
 
-            Claw.Total = 0
+            Claw.total = 0
             Claw.TotalHit = 0
             Claw.TotalCrit = 0
 
             Claw.HitCount = 0
             Claw.CritCount = 0
             Claw.MissCount = 0
+
+            SuperClaw.total = 0
+            SuperClaw.TotalHit = 0
+            SuperClaw.TotalCrit = 0
+
+            SuperClaw.HitCount = 0
+            SuperClaw.CritCount = 0
+            SuperClaw.MissCount = 0
+
 
         End Sub
 

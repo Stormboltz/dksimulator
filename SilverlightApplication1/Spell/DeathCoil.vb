@@ -13,7 +13,7 @@ Namespace Simulator.WowObjects.Spells
             If Sim.Sigils.VengefulHeart Then BaseDamage += 380
             If sim.Sigils.WildBuck Then BaseDamage += 80
             Resource = New Resource(S, ResourcesEnum.RunicPower, 40 - (3 * sim.Character.Talents.Talent("RunicCorruption").Value))
-            Coeficient = (0.15)
+            Coeficient = 0.3
             Multiplicator = 1 + sim.Character.Talents.Talent("Morbidity").Value * 0.05
             If sim.Character.Glyph("DeathCoil") Then
                 Multiplicator = Multiplicator * (1.15)

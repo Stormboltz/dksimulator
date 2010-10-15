@@ -36,7 +36,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
         End Function
 
         Function AP() As Double 'non-permaghoul calculation
-            Return BaseAP + Strength() + Agility
+            Return BaseAP + Strength() * 2 + Agility
         End Function
 
         Function crit(Optional ByVal target As Targets.Target = Nothing) As System.Double
@@ -94,7 +94,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
         End Function
 
         Function ClawTime(ByVal Haste As Double) As Double
-            Return 4.0
+            Return 4.0 / Haste
         End Function
 
 

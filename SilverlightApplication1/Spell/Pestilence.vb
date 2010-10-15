@@ -53,7 +53,7 @@ Namespace Simulator.WowObjects.Spells
             Dim blood As Boolean
 
             If sim.Character.Talents("SummonGargoyle") = 1 Then
-                blood = sim.Runes.BloodOnly()
+                blood = sim.Runes.BloodOnlyNoDeath()
             Else
                 blood = sim.Runes.AnyBlood()
             End If

@@ -2,8 +2,10 @@
 <Priorities>
   <unholy>
     <BloodStrike/>
+    <BloodStrikeOnDoubleBlood/>
     <DarkTransformation/>
     <FesteringStrike/>
+    <FesteringStrike4Disease/>
     <ScourgeStrike/>
     <ShadowInfusion/>
     <SuddenDoom/>

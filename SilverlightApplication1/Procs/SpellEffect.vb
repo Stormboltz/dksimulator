@@ -29,15 +29,17 @@
                         sim.Character.Strength.AddMulti(Value * Currentstack)
                     Case SpellEffectManager.SpeelEffectEnum.IncreaseAttackSpeed
                         sim.Character.PhysicalHaste.AddMulti(Value * Currentstack)
+                        sim.Character.RuneRegeneration.AddMulti(Value * Currentstack)
                     Case SpellEffectManager.SpeelEffectEnum.IncreaseCastingSpeed
                         sim.Character.SpellHaste.AddMulti(Value * Currentstack)
                     Case SpellEffectManager.SpeelEffectEnum.IncreaseAttackAndCastingSpeed
                         sim.Character.SpellHaste.AddMulti(Value * Currentstack)
                         sim.Character.PhysicalHaste.AddMulti(Value * Currentstack)
+                        sim.Character.RuneRegeneration.AddMulti(Value * Currentstack)
                     Case SpellEffectManager.SpeelEffectEnum.IncreaseRuneRegeneration
                         sim.Character.RuneRegeneration.AddMulti(Value * Currentstack)
-                        For i As Integer = 1 To Lenght
-                            sim.FutureEventManager.Add(T + (i * 100), "RuneFill", Me)
+                        For i As Integer = 1 To (Lenght * 10)
+                            sim.FutureEventManager.Add(T + (i * 10), "RuneFill", Me)
                         Next
                     Case SpellEffectManager.SpeelEffectEnum.RunicEmpowerement
 
@@ -91,11 +93,13 @@
                         sim.Character.Strength.RemoveMulti(Value * Currentstack)
                     Case SpellEffectManager.SpeelEffectEnum.IncreaseAttackSpeed
                         sim.Character.PhysicalHaste.RemoveMulti(Value * Currentstack)
+                        sim.Character.RuneRegeneration.RemoveMulti(Value * Currentstack)
                     Case SpellEffectManager.SpeelEffectEnum.IncreaseCastingSpeed
                         sim.Character.SpellHaste.RemoveMulti(Value * Currentstack)
                     Case SpellEffectManager.SpeelEffectEnum.IncreaseAttackAndCastingSpeed
                         sim.Character.PhysicalHaste.RemoveMulti(Value * Currentstack)
                         sim.Character.SpellHaste.RemoveMulti(Value * Currentstack)
+                        sim.Character.RuneRegeneration.RemoveMulti(Value * Currentstack)
                     Case SpellEffectManager.SpeelEffectEnum.IncreaseRuneRegeneration
                         sim.Character.RuneRegeneration.RemoveMulti(Value * Currentstack)
                     Case Else

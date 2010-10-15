@@ -22,7 +22,7 @@ Namespace Simulator.WowObjects.Strikes
                 SpecialCritChance = 0.1
             End If
             CanBeDodge = False
-            Resource = New Resource(S, ResourcesEnum.RunicPower, 20)
+            Resource = New Resource(S, ResourcesEnum.RunicPower, 30)
 
         End Sub
         Public Overrides Function IsAvailable() As Boolean
@@ -44,7 +44,7 @@ Namespace Simulator.WowObjects.Strikes
         End Sub
 
         Overrides Function ApplyDamage(ByVal T As Long) As Boolean
-            BaseDamage = 20 * sim.Character.AP / 100
+            BaseDamage = 15 * sim.Character.AP / 100
             trigger = False
             If Not OffHand Then UseGCD()
             If MyBase.ApplyDamage(T) = False Then

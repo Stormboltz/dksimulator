@@ -6,20 +6,6 @@ Namespace Simulator.WowObjects.Diseases
             MyBase.New(S)
             DamageSchool = DamageSchoolEnum.Frost
         End Sub
-        Overrides Function PerfectUsage(ByVal T As Long) As Boolean
-            If FadeAt > T + 300 Then
-                Return False
-            Else
-                Return True
-            End If
-
-            'If FadeAt > T + 1000 Then Return False
-            'If FadeAt <= sim.Runes.GetNextFrost(T) Then
-            '    ToReApply = True
-            '    Return True
-            'End If
-            'Return False
-        End Function
 
         Overrides Function CalculateMultiplier(ByVal T As Long, ByVal target As Targets.Target) As Double
             If target Is Nothing Then target = Sim.Targets.MainTarget

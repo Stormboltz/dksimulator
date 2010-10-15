@@ -2,7 +2,7 @@
 Imports System.Linq
 Partial Public Class ItemEditor
     Inherits UserControl
-
+    Dim inLoad As Boolean
     Dim _Text As String
     Public Sub New()
         InitializeComponent()
@@ -27,6 +27,7 @@ Partial Public Class ItemEditor
 
     Protected Mainframe As FrmGearSelector
     Sub Load(ByVal VSlot As VisualEquipSlot)
+        inLoad = True
         Mainframe = VSlot.Mainframe
         Me.SlotId = VSlot.SlotId
         Item = VSlot.Item
@@ -36,6 +37,7 @@ Partial Public Class ItemEditor
         DisplayGem()
         displayReforgingTo()
         displayReforge()
+        inLoad = False
     End Sub
 
     Sub displayReforge()
@@ -349,8 +351,6 @@ Partial Public Class ItemEditor
                                 ).First.<Desc>.Value
             End If
 
-
-
         Catch ex As Exception
             Log.Log(ex.StackTrace, logging.Level.ERR)
             lblBonus.Content = "<bonus>"
@@ -358,15 +358,17 @@ Partial Public Class ItemEditor
 
 
 
-        If SlotId = 12 Then
+        If cmbReforgeFrom.Items.Count = 0 Then
             cmbReforgeFrom.IsEnabled = False
             cmbReforgeTo.IsEnabled = False
+            btRemove.IsEnabled = False
             txtReforge.Text = 0
             txtReforge.IsEnabled = False
         Else
             cmbReforgeFrom.IsEnabled = True
             cmbReforgeTo.IsEnabled = True
             txtReforge.IsEnabled = True
+            btRemove.IsEnabled = True
         End If
         'DisplayGem()
         'DisplayEnchant()
@@ -451,10 +453,17 @@ Partial Public Class ItemEditor
     End Sub
 
     Private Sub cmbReforgeFrom_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs) Handles cmbReforgeFrom.SelectionChanged
+        If inLoad Then Exit Sub
         txtReforge.Text = GetMAxToReforge(cmbReforgeFrom.SelectedValue)
 
-        If IsNothing(cmbReforgeFrom.SelectedValue) = False Then Item.ReForgingFrom = cmbReforgeFrom.SelectedValue
-        Item.ReForgingvalue = txtReforge.Text
+        If IsNothing(cmbReforgeFrom.SelectedValue) = False Then
+            Item.ReForgingFrom = cmbReforgeFrom.SelectedValue
+            Item.ReForgingvalue = txtReforge.Text
+        Else
+            Item.ReForgingFrom = ""
+            Item.ReForgingvalue = 0
+        End If
+
         Mainframe.ParentFrame.GetStats()
        
     End Sub
@@ -481,14 +490,24 @@ Partial Public Class ItemEditor
     End Function
 
     
-    Private Sub txtReforge_ValueUpdated(ByVal NewValue As Integer)
-        Item.ReForgingvalue = NewValue
-        Mainframe.ParentFrame.GetStats()
-    End Sub
+    
 
     Private Sub cmbReforgeTo_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs) Handles cmbReforgeTo.SelectionChanged
-        If IsNothing(cmbReforgeTo.SelectedValue) = False Then Item.ReForgingTo = cmbReforgeTo.SelectedValue
+        If inLoad Then Exit Sub
+        If IsNothing(cmbReforgeTo.SelectedValue) = False Then
+            Item.ReForgingTo = cmbReforgeTo.SelectedValue
+        Else
+            Item.ReForgingTo = ""
+        End If
         Mainframe.ParentFrame.GetStats()
     End Sub
 
+    Private Sub btRemove_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles btRemove.Click
+        txtReforge.Text = 0
+        cmbReforgeTo.SelectedItem = Nothing
+        cmbReforgeFrom.SelectedItem = Nothing
+        Item.ReForgingvalue = 0
+        displayReforge()
+        Mainframe.ParentFrame.GetStats()
+    End Sub
 End Class

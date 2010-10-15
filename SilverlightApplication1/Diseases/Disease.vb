@@ -29,7 +29,7 @@ Namespace Simulator.WowObjects.Diseases
 
 
         Friend ToReApply As Boolean
-
+        Friend ToReApplyWithFest As Boolean
 
         Sub New(ByVal S As Sim)
             MyBase.New(S)
@@ -51,6 +51,7 @@ Namespace Simulator.WowObjects.Diseases
             OtherTargetsFade = 0
             ThreadMultiplicator = 1
             ToReApply = True
+            ToReApplyWithFest = False
             _RNG1 = Nothing
         End Sub
 
@@ -62,6 +63,8 @@ Namespace Simulator.WowObjects.Diseases
         End Function
 
         Sub IncreaseDuration(ByVal T As Long)
+            ToReApply = False
+            ToReApplyWithFest = False
             FadeAt += T
             uptime += T
         End Sub
@@ -70,13 +73,12 @@ Namespace Simulator.WowObjects.Diseases
             MyBase.SoftReset()
             nextTick = 0
             FadeAt = 0
-            ToReApply = True
 
+            ToReApply = True
+            ToReApplyWithFest = False
         End Sub
 
-        Overridable Function PerfectUsage(ByVal T As Long) As Boolean 'Unused
-            Return False
-        End Function
+       
 
         Overridable Function isActive(ByVal T As Long) As Boolean
             If T > FadeAt Then
@@ -117,6 +119,7 @@ Namespace Simulator.WowObjects.Diseases
 
         Overridable Function Apply(ByVal T As Long, ByVal target As Targets.Target) As Boolean
             ToReApply = False
+            ToReApplyWithFest = False
             If nextTick <= T Then
                 nextTick = T + 3 * 100
             End If
@@ -135,8 +138,9 @@ Namespace Simulator.WowObjects.Diseases
         End Function
 
         Overridable Function Refresh(ByVal T As Long) As Boolean
+            
             FadeAt = T + Lenght()
-            AP = Sim.Character.AP
+            AP = sim.Character.AP
             DamageTick = AvrgNonCrit(T)
             AddUptime(T)
             Return True
@@ -165,8 +169,15 @@ Namespace Simulator.WowObjects.Diseases
 
             sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.OnDoT)
             nextTick = T + 300
-            Sim.FutureEventManager.Add(nextTick, "Disease")
-            If Sim.CombatLog.LogDetails Then Sim.CombatLog.write(T & vbTab & Me.ToString & " hit for " & tmp)
+            sim.FutureEventManager.Add(nextTick, "Disease")
+            If FadeAt < T + 1000 Then
+                ToReApplyWithFest = True
+                If nextTick > FadeAt Then
+                    ToReApply = True
+                End If
+            End If
+            
+            If sim.CombatLog.LogDetails Then sim.CombatLog.write(T & vbTab & Me.ToString & " hit for " & tmp)
 
             Return True
         End Function
@@ -181,18 +192,14 @@ Namespace Simulator.WowObjects.Diseases
         Overridable Function AvrgCrit(ByVal T As Long) As Double
             Return DamageTick * (1 + CritCoef())
         End Function
-
-
-
         Public Sub cleanup()
-            Total = 0
+            total = 0
             HitCount = 0
             MissCount = 0
             CritCount = 0
             TotalHit = 0
             TotalCrit = 0
         End Sub
-
         Sub AddUptime(ByVal T As Long)
             If Not sim.CalculateUPtime Then Return
             Dim tmp As Long
@@ -209,12 +216,6 @@ Namespace Simulator.WowObjects.Diseases
             End If
             previousFade = T + tmp
         End Sub
-
-
-
-
-
-
         Sub RemoveUptime(ByVal T As Long)
             If Not sim.CalculateUPtime Then Return
             If previousFade < T Then

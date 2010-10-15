@@ -52,7 +52,7 @@
                     Return sim.Runes.AnyBlood()
                 Case ResourcesEnum.BloodRune
                     If DeathRune Then
-                        Return sim.Runes.BloodOnly()
+                        Return sim.Runes.BloodOnlyNoDeath()
                     Else
                         Return sim.Runes.AnyBlood()
                     End If

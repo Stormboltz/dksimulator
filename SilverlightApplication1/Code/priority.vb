@@ -74,9 +74,13 @@ Namespace Simulator
 
 
                     Case "BloodTap"
-                        If sim.BloodTap.IsAvailable() And (Not sim.Runes.Blood) Then
-                            sim.BloodTap.Use()
-                            Exit Sub
+                        If sim.BloodTap.IsAvailable() Then
+                            If (Not sim.Runes.Blood) Then
+                                If sim.Runes.BloodRune1.Value < 80 And sim.Runes.BloodRune2.Value < 80 Then
+                                    sim.BloodTap.Use()
+                                End If
+                                Exit Sub
+                            End If
                         End If
                     Case "BoneShield"
                         If sim.BoneShield.IsAvailable() Then
@@ -94,7 +98,13 @@ Namespace Simulator
                             sim.FesteringStrike.ApplyDamage(TimeStamp)
                             Exit Sub
                         End If
-
+                    Case "FesteringStrike4Disease"
+                        If sim.Targets.MainTarget.BloodPlague.ToReApplyWithFest Then
+                            If sim.Runes.Blood And sim.Runes.Frost Then
+                                sim.FesteringStrike.ApplyDamage(TimeStamp)
+                                Exit Sub
+                            End If
+                        End If
                     Case "ScourgeStrike"
                         If sim.ScourgeStrike.IsAvailable Then
                             sim.ScourgeStrike.ApplyDamage(TimeStamp)
@@ -147,6 +157,21 @@ Namespace Simulator
                             sim.DeathStrike.ApplyDamage(TimeStamp)
                             Exit Sub
                         End If
+                    Case "BloodStrikeOnDoubleBlood"
+                        If sim.Runes.BloodRunes.AvailableTwice Then
+                            If sim.BoneShieldUsageStyle = 1 Then
+                                If sim.BoneShield.IsAvailable() Then
+                                    sim.BoneShield.Use()
+                                    Exit Sub
+                                End If
+                                If sim.PillarOfFrost.IsAvailable() Then
+                                    sim.PillarOfFrost.Use()
+                                    Exit Sub
+                                End If
+                            End If
+                            sim.BloodStrike.ApplyDamage(TimeStamp)
+                            Exit Sub
+                        End If
                     Case "BloodStrike"
                         If sim.BloodStrike.IsAvailable Then
                             If sim.BoneShieldUsageStyle = 1 Then
@@ -182,7 +207,7 @@ Namespace Simulator
                                 End If
                             End If
                         End If
-                        If sim.Targets.MainTarget.FrostFever.PerfectUsage(TimeStamp) = True Or sim.Targets.MainTarget.FrostFever.ToReApply Then
+                        If sim.Targets.MainTarget.FrostFever.ToReApply Then
                             If sim.Outbreak.IsAvailable Then
                                 sim.Outbreak.ApplyDamage(TimeStamp)
                                 Exit Sub
@@ -196,6 +221,7 @@ Namespace Simulator
                                 Exit Sub
                             End If
                         End If
+
                     Case "EmpowerRuneWeapon"
                         If sim.ERW.IsAvailable Then
                             sim.ERW.Use()
@@ -210,7 +236,7 @@ Namespace Simulator
                                 End If
                             End If
                         End If
-                        If sim.Targets.MainTarget.BloodPlague.PerfectUsage(TimeStamp) Or sim.Targets.MainTarget.BloodPlague.ToReApply Then
+                        If sim.Targets.MainTarget.BloodPlague.ToReApply Then
                             If sim.Outbreak.IsAvailable Then
                                 sim.Outbreak.ApplyDamage(TimeStamp)
                                 Exit Sub
