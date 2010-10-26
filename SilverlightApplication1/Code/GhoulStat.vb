@@ -111,11 +111,8 @@ Namespace Simulator.WowObjects.PetsAndMinions
         Function PhysicalDamageMultiplier(ByVal T As Long, Optional ByVal target As Targets.Target = Nothing) As Double
             If target Is Nothing Then target = Sim.Targets.MainTarget
             Dim tmp As Double
-            tmp = 1
-            tmp = tmp * (1 - ArmorMitigation(target))
-            tmp = tmp * (1 + 0.03 * Sim.Character.Buff.PcDamage)
-            tmp = tmp * (1 + 0.04 * target.Debuff.PhysicalVuln)
-            tmp = tmp * (1 + Sim.FrostPresence / 100)
+            tmp = Sim.Character.StandardPhysicalDamageMultiplier(T, target)
+            
             If Sim.Ghoul.ShadowInfusion.IsActive Then
                 tmp = tmp * (1 + 0.1 * (Sim.Ghoul.ShadowInfusion.Stack))
             End If
@@ -130,9 +127,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
         Function MagicalDamageMultiplier(ByVal T As Long, Optional ByVal target As Targets.Target = Nothing) As Double
             If target Is Nothing Then target = Sim.Targets.MainTarget
             Dim tmp As Double
-            tmp = 1
-            tmp = tmp * (1 + 0.03 * Sim.Character.Buff.PcDamage)
-            tmp = tmp * (1 + 0.08 * target.Debuff.SpellDamageTaken)
+            tmp = Sim.Character.StandardMagicalDamageMultiplier(T, target)
             If Sim.Character.Orc Then tmp = tmp * 1.05
             Return tmp
         End Function

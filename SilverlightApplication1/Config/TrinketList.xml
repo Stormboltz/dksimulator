@@ -1,34 +1,34 @@
 <?xml version="1.0"?>
 <TrinketList>
-	<MjolnirRunestone id='45931'></MjolnirRunestone>
-	<DeathbringersWill id='50362'></DeathbringersWill>
-	<DeathbringersWillHeroic id='50363'></DeathbringersWillHeroic>
-	<WhisperingFangedSkull id='50342'></WhisperingFangedSkull>
-	<WhisperingFangedSkullHeroic id='50343'></WhisperingFangedSkullHeroic>
-	<HerkumlWarToken id='50355'></HerkumlWarToken>
-	<MarkofSupremacy id='47734'></MarkofSupremacy>
-	<VengeanceoftheForsaken id='47881'></VengeanceoftheForsaken>
-	<VengeanceoftheForsaken1 id='47725'></VengeanceoftheForsaken1>
-	<VengeanceoftheForsakenHeroic id='47948'></VengeanceoftheForsakenHeroic>
-	<VengeanceoftheForsakenHeroic1 id='48020'></VengeanceoftheForsakenHeroic1>
-	<NeedleEncrustedScorpion id='50198'></NeedleEncrustedScorpion>
-	<GrimToll id='40256'></GrimToll>
-	<BitterAnguish id='43573'></BitterAnguish>
-	<Mirror id='40684'></Mirror>
-	<Greatness id='42987'></Greatness>
-	<DCDeath id='42990'></DCDeath>
-	<Victory id='47214'></Victory>
-	<Necromantic id='40373'></Necromantic>
-	<Bandit id='40371'></Bandit>
-	<Pyrite id='45286'></Pyrite>
-	<DarkMatter id='46038'></DarkMatter>
-	<OldGod id='45522'></OldGod>
-	<Comet id='45609'></Comet>
-	<DeathChoice id='47303'></DeathChoice>
-	<DeathChoiceHeroic id='47464'></DeathChoiceHeroic>
-	<DeathChoice1 id='47115'></DeathChoice1>
-	<DeathChoiceHeroic1 id='47131'></DeathChoiceHeroic1>
-	<TinyAbomination id='50351'></TinyAbomination>
-  <SharpenedTwilightScaleHeroic id='54569' ></SharpenedTwilightScaleHeroic>
-  <SharpenedTwilightScale id='54590'></SharpenedTwilightScale>
+  <trinket name="MjolnirRunestone" id="45931" ></trinket>
+  <trinket name="DeathbringersWill" id="50362" ></trinket>
+  <trinket name="DeathbringersWillHeroic" id="50363" ></trinket>
+  <trinket name="WhisperingFangedSkull" id="50342" ></trinket>
+  <trinket name="WhisperingFangedSkullHeroic" id="50343" ></trinket>
+  <trinket name="HerkumlWarToken" id="50355" ></trinket>
+  <trinket name="MarkofSupremacy" id="47734" ></trinket>
+  <trinket name="VengeanceoftheForsaken" id="47725" ></trinket>
+  <trinket name="VengeanceoftheForsaken" id="47881" ></trinket>
+  <trinket name="VengeanceoftheForsakenHeroic" id="47948" ></trinket>
+  <trinket name="VengeanceoftheForsakenHeroic" id="48020" ></trinket>
+  <trinket name="NeedleEncrustedScorpion" id="50198" ></trinket>
+  <trinket name="GrimToll" id="40256" ></trinket>
+  <trinket name="BitterAnguish" id="43573" ></trinket>
+  <trinket name="Mirror" id="40684" ></trinket>
+  <trinket name="Greatness" id="42987" ></trinket>
+  <trinket name="DCDeath" id="42990" ></trinket>
+  <trinket name="Victory" id="47214" ></trinket>
+  <trinket name="Necromantic" id="40373" ></trinket>
+  <trinket name="Bandit" id="40371" ></trinket>
+  <trinket name="Pyrite" id="45286" ></trinket>
+  <trinket name="DarkMatter" id="46038" ></trinket>
+  <trinket name="OldGod" id="45522" ></trinket>
+  <trinket name="Comet" id="45609" ></trinket>
+  <trinket name="DeathChoice" id="47303" ></trinket>
+  <trinket name="DeathChoiceHeroic" id="47464" ></trinket>
+  <trinket name="DeathChoice" id="47115" ></trinket>
+  <trinket name="DeathChoiceHeroic" id="47131" ></trinket>
+  <trinket name="TinyAbomination" id="50351" ></trinket>
+  <trinket name="SharpenedTwilightScaleHeroic" id="54569" ></trinket>
+  <trinket name="SharpenedTwilightScale" id="54590" ></trinket>
 </TrinketList>

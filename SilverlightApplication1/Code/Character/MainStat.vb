@@ -166,11 +166,9 @@ Namespace Simulator.Character
             Select Case Sim.EPStat
                 Case "EP Strength"
                     Strength.Add(Sim.EPBase)
-                Case "EP AttackPower"
+                Case "EP AttackPower", "EP Trinket NoTrinketAP"
                     AttackPower.Add(2 * Sim.EPBase)
                 Case "EP AttackPower0T7"
-                    AttackPower.Add(2 * Sim.EPBase)
-                Case "EP AttackPowerNoTrinket"
                     AttackPower.Add(2 * Sim.EPBase)
                 Case "EP AfterSpellHitBaseAP"
                     AttackPower.Add(2 * Sim.EPBase)
@@ -220,6 +218,7 @@ Namespace Simulator.Character
                     Agility.Add(Sim.EPBase)
                 Case "EP CritRating"
                     CritRating.Add(Sim.EPBase)
+
                 Case ""
 
                 Case Else
@@ -305,6 +304,11 @@ Namespace Simulator.Character
                 PhysicalHaste.AddMulti(1.1 + Sim.Character.Talents.Talent("ImprovedUnholyPresence").Value * 0.025)
                 RuneRegeneration.AddMulti(1.1 + Sim.Character.Talents.Talent("ImprovedUnholyPresence").Value * 0.025)
             End If
+            If Sim.BloodPresence > 0 Then
+                Dim j As Integer = Sim.Character.Talents.Talent("ImprovedBloodPresence").Value
+                RuneRegeneration.AddMulti(1 + 0.1 * j)
+            End If
+
             If Sim.Character.Talents.Talent("ImprovedIcyTalons").Value Then PhysicalHaste.AddMulti(1.05)
             If Sim.Character.Talents.Talent("IcyTalons").Value = 1 Then PhysicalHaste.AddMulti(1.2)
             If Sim.Character.Buff.MeleeHaste Then PhysicalHaste.AddMulti(1.2)
@@ -431,129 +435,36 @@ Namespace Simulator.Character
         Sub InitTrinkets()
             'Trinkets
             Sim.Trinkets = New Trinkets(Sim)
-
-
             Try
-                Select Case Sim._EPStat
-                    Case "EP NoTrinket"
-                    Case "EP AttackPowerNoTrinket"
-                    Case "EP MjolnirRunestone"
-                        Sim.Trinkets.MjolRune.Equip()
-                    Case "EP GrimToll"
-                        Sim.Trinkets.GrimToll.Equip()
-                    Case "EP BitterAnguish"
-                        Sim.Trinkets.BitterAnguish.Equip()
-                    Case "EP Mirror"
-                        Sim.Trinkets.Mirror.Equip()
-                    Case "EP Greatness"
-                        Sim.Trinkets.Greatness.Equip()
-                    Case "EP DCDeath"
-                        Sim.Trinkets.DCDeath.Equip()
-                    Case "EP Victory"
-                        Sim.Trinkets.Victory.Equip()
-                    Case "EP Necromantic"
-                        Sim.Trinkets.Necromantic.Equip()
-                    Case "EP Bandit"
-                        Sim.Trinkets.Bandit.Equip()
-                    Case "EP Pyrite"
-                        Sim.Trinkets.Pyrite.Equip()
-                    Case "EP DarkMatter"
-                        Sim.Trinkets.DarkMatter.Equip()
-                    Case "EP OldGod"
-                        Sim.Trinkets.OldGod.Equip()
-                    Case "EP Comet"
-                        Sim.Trinkets.Comet.Equip()
-                    Case "EP DeathChoice"
-                        Sim.Trinkets.DeathChoice.Equip()
-                    Case "EP DeathChoiceHeroic"
-                        Sim.Trinkets.DeathChoiceHeroic.Equip()
-                    Case "EP DeathbringersWill"
-                        Sim.Trinkets.DeathbringersWill.Equip()
-                    Case "EP TinyAbomination"
-                        Sim.Trinkets.TinyAbomination.Equip()
-                    Case "EP DeathbringersWillHeroic"
-                        Sim.Trinkets.DeathbringersWillHeroic.Equip()
-                    Case "EP WhisperingFangedSkull"
-                        Sim.Trinkets.WhisperingFangedSkull.Equip()
-                    Case "EP WhisperingFangedSkullHeroic"
-                        Sim.Trinkets.WhisperingFangedSkullHeroic.Equip()
-                    Case "EP NeedleEncrustedScorpion"
-                        Sim.Trinkets.NeedleEncrustedScorpion.Equip()
-                    Case "EP HerkumlWarToken"
-                        Sim.Trinkets.HerkumlWarToken.Equip()
-                    Case "EP MarkofSupremacy"
-                        Sim.Trinkets.MarkofSupremacy.Equip()
-                    Case "EP VengeanceoftheForsaken"
-                        Sim.Trinkets.VengeanceoftheForsaken.Equip()
-                    Case "EP VengeanceoftheForsakenHeroic"
-                        Sim.Trinkets.VengeanceoftheForsakenHeroic.Equip()
-
-
-
-                    Case Else
-                        For Each el In XmlCharacter.Element("character").Element("trinket").Elements
-                            Select Case el.Name
-                                Case "MjolnirRunestone"
-                                    Sim.Trinkets.MjolRune.Equip()
-                                Case "GrimToll"
-                                    Sim.Trinkets.GrimToll.Equip()
-                                Case "BitterAnguish"
-                                    Sim.Trinkets.BitterAnguish.Equip()
-                                Case "Mirror"
-                                    Sim.Trinkets.Mirror.Equip()
-                                Case "Greatness"
-                                    Sim.Trinkets.Greatness.Equip()
-                                Case "DCDeath"
-                                    Sim.Trinkets.DCDeath.Equip()
-                                Case "Victory"
-                                    Sim.Trinkets.Victory.Equip()
-                                Case "Necromantic"
-                                    Sim.Trinkets.Necromantic.Equip()
-                                Case "Bandit"
-                                    Sim.Trinkets.Bandit.Equip()
-                                Case "Pyrite"
-                                    Sim.Trinkets.Pyrite.Equip()
-                                Case "DarkMatter"
-                                    Sim.Trinkets.DarkMatter.Equip()
-                                Case "OldGod"
-                                    Sim.Trinkets.OldGod.Equip()
-                                Case "Comet"
-                                    Sim.Trinkets.Comet.Equip()
-                                Case "DeathChoice"
-                                    Sim.Trinkets.DeathChoice.Equip()
-                                Case "DeathChoiceHeroic"
-                                    Sim.Trinkets.DeathChoiceHeroic.Equip()
-                                Case "DeathbringersWill"
-                                    Sim.Trinkets.DeathbringersWill.Equip()
-                                Case "DeathbringersWillHeroic"
-                                    Sim.Trinkets.DeathbringersWillHeroic.Equip()
-                                Case "WhisperingFangedSkull"
-                                    Sim.Trinkets.WhisperingFangedSkull.Equip()
-                                Case "WhisperingFangedSkullHeroic"
-                                    Sim.Trinkets.WhisperingFangedSkullHeroic.Equip()
-                                Case "NeedleEncrustedScorpion"
-                                    Sim.Trinkets.NeedleEncrustedScorpion.Equip()
-                                Case "TinyAbomination"
-                                    Sim.Trinkets.TinyAbomination.Equip()
-                                Case "HerkumlWarToken"
-                                    Sim.Trinkets.HerkumlWarToken.Equip()
-                                Case "MarkofSupremacy"
-                                    Sim.Trinkets.MarkofSupremacy.Equip()
-                                Case "VengeanceoftheForsaken"
-                                    Sim.Trinkets.VengeanceoftheForsaken.Equip()
-                                Case "VengeanceoftheForsakenHeroic"
-                                    Sim.Trinkets.VengeanceoftheForsakenHeroic.Equip()
-
-                            End Select
-                        Next
-
-
-
-
-
-                End Select
+                If Sim.EPStat.Contains("EP Trinket") Then
+                    Dim TkName As String = Sim._EPStat.Replace("EP Trinket ", "")
+                    Try
+                        If TkName = "NoTrinket" Then Exit Sub
+                        If TkName = "NoTrinketAP" Then Exit Sub
+                        Dim trk As Trinket = Sim.Trinkets(TkName)
+                        If IsNothing(trk) Then
+                            Log.Log(TkName & " is not implemented", logging.Level.ERR)
+                        Else
+                            Sim.Trinkets(TkName).Equip()
+                        End If
+                       
+            Catch ex As Exception
+                Diagnostics.Debug.WriteLine(TkName & " is not implemented")
+                Log.Log(TkName & " is not implemented", logging.Level.ERR)
+            End Try
+                Else
+                    For Each el In XmlCharacter.Element("character").Element("trinket").Elements
+                        Try
+                            Sim.Trinkets(el.Name.ToString).Equip()
+                        Catch ex As Exception
+                            Diagnostics.Debug.WriteLine(el.Name.ToString & "is not implemented")
+                            Log.Log(el.Name.ToString & " is not implemented", logging.Level.ERR)
+                        End Try
+                    Next
+                End If
             Catch
                 Diagnostics.Debug.WriteLine("ERROR init trinket")
+                Log.Log("ERROR init trinket", logging.Level.ERR)
             End Try
         End Sub
         Sub InitSets()
@@ -787,7 +698,7 @@ Namespace Simulator.Character
             tmp = tmp * (1 + 0.03 * Sim.Character.Buff.PcDamage)
             tmp = tmp * (1 + 0.02 * Sim.BoneShield.Value(T))
             tmp = tmp * (1 + Sim.proc.GetActiveBonus(Sim.Stat.Multiplicative) / 100)
-            'If Sim.proc.Desolation.IsActiveAt(T) Then tmp = tmp * (1 + Sim.proc.Desolation.ProcValue * 0.01)
+            tmp *= (1 + Sim.ICCDamageBuff / 100)
             If Sim.proc.T104PDPS.IsActiveAt(T) Then tmp = tmp * 1.03
             Return tmp
         End Function

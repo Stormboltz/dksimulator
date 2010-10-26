@@ -53,6 +53,7 @@ Namespace Simulator.Character
 
         Function GetGlyph(ByVal Name As String) As Glyph
             Try
+                If Name = "" Then Return Nothing
                 Name = Name.ToLower
                 Return GlyphCol(Name)
             Catch ex As Exception

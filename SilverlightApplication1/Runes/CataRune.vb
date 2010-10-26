@@ -37,19 +37,15 @@ Namespace Simulator.WowObjects.Runes
 
 
         Sub Use(ByVal T As Long, ByVal D As Boolean, ByVal Alf As Boolean)
-            Parent.Use(T, D)
-            'If Alf Then
-            '    Me.Value -= 50
-            'Else
-            '    Me.Value -= 100
-            '    death = D
-            '    If BTuntil > T Then death = True
-            'End If
 
-            'If Me.Value < 0 Then
-            '    Diagnostics.Debug.WriteLine("RUNE USE ERROR")
-            'End If
-            '
+            If Value <> 100 Then
+                Diagnostics.Debug.WriteLine("Negative Rune")
+                Err.Raise(666, "Negative Rune")
+            End If
+
+            Value = 0
+            death = D
+            Parent.RuneToRefill = Parent.OppositeRune(Me)
             sim.proc.tryT104PDPS(T)
 
         End Sub

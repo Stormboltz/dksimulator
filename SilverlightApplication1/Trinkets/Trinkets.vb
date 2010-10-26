@@ -14,45 +14,62 @@ Namespace Simulator.WowObjects.Procs
         Protected XmlCharacter As XDocument
 
 
-        Friend GrimToll As Trinket
-        Friend BitterAnguish As Trinket
-        Friend Mirror As Trinket
-        Friend DCDeath As Trinket
-        Friend Victory As Trinket
-        Friend Necromantic As Trinket
-        Friend Bandit As Trinket
-        Friend Pyrite As Trinket
-        Friend DarkMatter As Trinket
-        Friend OldGod As Trinket
-        Friend Comet As Trinket
-        Friend DeathChoice As Trinket
-        Friend DeathChoiceHeroic As Trinket
-        Friend Greatness As Trinket
-        Friend MjolRune As Trinket
-        Friend DeathbringersWill As Trinket
-        Friend DeathbringersWillHeroic As Trinket
-        Friend HerkumlWarToken As Trinket
-        Friend MarkofSupremacy As Trinket
-        Friend VengeanceoftheForsaken As Trinket
-        Friend VengeanceoftheForsakenHeroic As Trinket
-        Friend WhisperingFangedSkull As Trinket
-        Friend WhisperingFangedSkullHeroic As Trinket
-        Friend NeedleEncrustedScorpion As Trinket
-        Friend TinyAbomination As Trinket
 
 
 
+        Default ReadOnly Property Trinket(ByVal TrinketName As String) As Trinket
+            Get
+                Return GetTrinketByName(TrinketName)
+            End Get
+        End Property
 
+
+        Function GetTrinketByName(ByVal TrinketName) As Trinket
+            Try
+
+
+                Dim Query = (From tk In sim.TrinketsCollection
+                             Where tk._Name = TrinketName)
+                Dim i As Integer = Query.Count
+                If i = 0 Then
+                    Return Nothing
+                Else
+                    Return Query.First
+                End If
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End Function
 
 
         Protected sim As Sim
         Sub New(ByVal S As Sim)
+
+
+
             sim = S
             XmlCharacter = S.XmlCharacter
 
+            Dim SharpenedTwilightScaleHeroic As New Trinket(S)
+            With SharpenedTwilightScaleHeroic
+                ._Name = "SharpenedTwilightScaleHeroic"
+                .ProcOn = ProcsManager.ProcOnType.OnDamage
+                .ProcChance = 0.35
+                .InternalCD = 45
+                .Effects.Add(New SpellBuff(S, "Sharpened Twilight Scale Heroic", Simulator.Sim.Stat.AP, 1742, 15))
+                .ProcLenght = 15
+            End With
+            Dim SharpenedTwilightScale As New Trinket(S)
+            With SharpenedTwilightScale
+                ._Name = "SharpenedTwilightScale"
+                .ProcOn = ProcsManager.ProcOnType.OnDamage
+                .ProcChance = 0.35
+                .InternalCD = 45
+                .Effects.Add(New SpellBuff(S, "Sharpened Twilight Scale", Simulator.Sim.Stat.AP, 1304, 15))
+                .ProcLenght = 15
+            End With
 
-
-            HerkumlWarToken = New Trinket(S)
+            Dim HerkumlWarToken = New Trinket(S)
             With HerkumlWarToken
                 ._Name = "HerkumlWarToken"
                 .ProcOn = ProcsManager.ProcOnType.OnHit
@@ -64,7 +81,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 10
             End With
 
-            MarkofSupremacy = New Trinket(S)
+            Dim MarkofSupremacy = New Trinket(S)
             With MarkofSupremacy
                 ._Name = "MarkofSupremacy"
                 .ProcOn = ProcsManager.ProcOnType.OnHit
@@ -75,7 +92,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcValue = "1024"
             End With
 
-            VengeanceoftheForsaken = New Trinket(S)
+            Dim VengeanceoftheForsaken = New Trinket(S)
             With VengeanceoftheForsaken
                 ._Name = "VengeanceoftheForsaken"
                 .ProcOn = ProcsManager.ProcOnType.OnHit
@@ -86,7 +103,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcValue = "860"
             End With
 
-            VengeanceoftheForsakenHeroic = New Trinket(S)
+            Dim VengeanceoftheForsakenHeroic = New Trinket(S)
             With VengeanceoftheForsakenHeroic
                 ._Name = "VengeanceoftheForsakenHeroic"
                 .ProcOn = ProcsManager.ProcOnType.OnHit
@@ -97,7 +114,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcValue = "1000"
             End With
 
-            TinyAbomination = New Trinket(S)
+            Dim TinyAbomination = New Trinket(S)
             With TinyAbomination
                 ._Name = "TinyAbomination"
                 .ProcOn = ProcsManager.ProcOnType.OnHit
@@ -108,7 +125,7 @@ Namespace Simulator.WowObjects.Procs
             End With
 
 
-            DeathbringersWill = New Trinket(S)
+            Dim DeathbringersWill = New Trinket(S)
             With DeathbringersWill
                 ._Name = "DeathbringersWill"
                 .ProcChance = 0.35
@@ -120,7 +137,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcOn = ProcsManager.ProcOnType.OnDamage
             End With
 
-            DeathbringersWillHeroic = New Trinket(S)
+            Dim DeathbringersWillHeroic = New Trinket(S)
             With DeathbringersWillHeroic
                 ._Name = "DeathbringersWillHeroic"
                 .ProcChance = 0.35
@@ -133,7 +150,7 @@ Namespace Simulator.WowObjects.Procs
             End With
 
 
-            WhisperingFangedSkull = New Trinket(S)
+            Dim WhisperingFangedSkull = New Trinket(S)
             With WhisperingFangedSkull
                 ._Name = "WhisperingFangedSkull"
                 .ProcChance = 0.35
@@ -144,7 +161,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcOn = ProcsManager.ProcOnType.OnDamage
             End With
 
-            WhisperingFangedSkullHeroic = New Trinket(S)
+            Dim WhisperingFangedSkullHeroic = New Trinket(S)
             With WhisperingFangedSkullHeroic
                 ._Name = "WhisperingFangedSkullHeroic"
                 .ProcChance = 0.35
@@ -156,7 +173,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcOn = ProcsManager.ProcOnType.OnDamage
             End With
 
-            NeedleEncrustedScorpion = New Trinket(S)
+            Dim NeedleEncrustedScorpion = New Trinket(S)
             With NeedleEncrustedScorpion
                 ._Name = "NeedleEncrustedScorpion"
                 .ProcChance = 0.1
@@ -169,7 +186,7 @@ Namespace Simulator.WowObjects.Procs
             End With
 
 
-            DeathChoice = New Trinket(S)
+            Dim DeathChoice = New Trinket(S)
             With DeathChoice
                 ._Name = "DeathChoice"
                 .ProcChance = 0.35
@@ -180,7 +197,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcOn = ProcsManager.ProcOnType.OnDamage
             End With
 
-            DeathChoiceHeroic = New Trinket(S)
+            Dim DeathChoiceHeroic = New Trinket(S)
             With DeathChoiceHeroic
                 ._Name = "DeathChoiceHeroic"
                 .ProcChance = 0.35
@@ -191,7 +208,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcOn = ProcsManager.ProcOnType.OnDamage
             End With
 
-            Greatness = New Trinket(S)
+            Dim Greatness = New Trinket(S)
             With Greatness
                 ._Name = "Greatness"
                 .ProcChance = 0.35
@@ -203,18 +220,18 @@ Namespace Simulator.WowObjects.Procs
                 .ProcOn = ProcsManager.ProcOnType.OnDamage
             End With
 
-            MjolRune = New Trinket(S)
+            Dim MjolRune = New Trinket(S)
             With MjolRune
-                ._Name = "MjolRune"
+                ._Name = "MjolnirRunestone"
                 .ProcChance = 0.15
                 .ProcLenght = 10
                 .ProcValue = 665
                 .InternalCD = 45
-                .Effects.Add(New SpellBuff(S, "Mjol Rune", Simulator.Sim.Stat.Crit, 665, 10))
+                .Effects.Add(New SpellBuff(S, "Mjolnir Runestone", Simulator.Sim.Stat.Crit, 665, 10))
                 .ProcOn = ProcsManager.ProcOnType.OnHit
             End With
 
-            GrimToll = New Trinket(S)
+            Dim GrimToll = New Trinket(S)
             With GrimToll
                 ._Name = "GrimToll"
                 .ProcChance = 0.15
@@ -225,7 +242,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcOn = ProcsManager.ProcOnType.OnHit
             End With
 
-            BitterAnguish = New Trinket(S)
+            Dim BitterAnguish = New Trinket(S)
             With BitterAnguish
                 ._Name = "BitterAnguish"
                 .ProcChance = 0.1
@@ -236,7 +253,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcOn = ProcsManager.ProcOnType.OnCrit
             End With
 
-            Mirror = New Trinket(S)
+            Dim Mirror = New Trinket(S)
             With Mirror
                 ._Name = "Mirror"
                 .ProcChance = 0.1
@@ -247,7 +264,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcOn = ProcsManager.ProcOnType.OnCrit
             End With
 
-            Pyrite = New Trinket(S)
+            Dim Pyrite = New Trinket(S)
             With Pyrite
                 ._Name = "Pyrite"
                 .ProcChance = 0.1
@@ -258,7 +275,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcOn = ProcsManager.ProcOnType.OnCrit
             End With
 
-            OldGod = New Trinket(S)
+            Dim OldGod = New Trinket(S)
             With OldGod
                 ._Name = "OldGod"
                 .ProcChance = 0.1
@@ -269,7 +286,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcOn = ProcsManager.ProcOnType.OnCrit
             End With
 
-            Victory = New Trinket(S)
+            Dim Victory = New Trinket(S)
             With Victory
                 ._Name = "Victory"
                 .ProcChance = 0.2
@@ -280,7 +297,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcOn = ProcsManager.ProcOnType.OnHit
             End With
 
-            DarkMatter = New Trinket(S)
+            Dim DarkMatter = New Trinket(S)
             With DarkMatter
                 ._Name = "DarkMatter"
                 .ProcChance = 0.15
@@ -291,7 +308,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcOn = ProcsManager.ProcOnType.OnHit
             End With
 
-            Comet = New Trinket(S)
+            Dim Comet = New Trinket(S)
             With Comet
                 .ProcChance = 0.15
                 .ProcLenght = 10
@@ -302,7 +319,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcOn = ProcsManager.ProcOnType.OnHit
             End With
 
-            DCDeath = New Trinket(S)
+            Dim DCDeath = New Trinket(S)
             With DCDeath
                 .ProcChance = 0.15
                 .ProcLenght = 0
@@ -313,7 +330,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcOn = ProcsManager.ProcOnType.OnDamage
             End With
 
-            Necromantic = New Trinket(S)
+            Dim Necromantic = New Trinket(S)
             With Necromantic
                 .ProcChance = 0.1
                 .ProcLenght = 0
@@ -324,7 +341,7 @@ Namespace Simulator.WowObjects.Procs
                 .ProcOn = ProcsManager.ProcOnType.OnDoT
             End With
 
-            Bandit = New Trinket(S)
+            Dim Bandit = New Trinket(S)
             With Bandit
                 .ProcChance = 0.1
                 .ProcLenght = 0
@@ -353,7 +370,7 @@ Namespace Simulator.WowObjects.Procs
             Next
         End Sub
 
-       
+
 
 
     End Class

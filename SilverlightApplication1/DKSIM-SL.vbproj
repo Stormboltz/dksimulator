@@ -159,6 +159,9 @@
     <Compile Include="CombatLog\CombatLogViewer.xaml.vb">
       <DependentUpon>CombatLogViewer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CombatLog\LogComparer.xaml.vb">
+      <DependentUpon>LogComparer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomControl\frmStatSummary.xaml.vb">
       <DependentUpon>frmStatSummary.xaml</DependentUpon>
     </Compile>
@@ -363,6 +366,10 @@
     <Content Include="CombatLog\DoNotDelete.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Page Include="CombatLog\LogComparer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Content Include="Config\PrioritiesList.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -1800,6 +1807,7 @@
     </Resource>
     <Resource Include="images\ImprovedBloodTap.jpg" />
     <Resource Include="images\ImprovedBloodTapG.jpg" />
+    <Resource Include="images\spell\FesteringStrike4Disease.jpg" />
     <Content Include="Intro\Intro.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

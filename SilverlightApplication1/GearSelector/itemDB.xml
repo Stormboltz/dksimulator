@@ -52956,12 +52956,12 @@
     <Agility>0</Agility>
     <HasteRating>0</HasteRating>
     <ExpertiseRating>0</ExpertiseRating>
-    <ArmorPenetrationRating>163</ArmorPenetrationRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
     <dps>0.0</dps>
     <speed>0</speed>
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
-    <CritRating>0</CritRating>
+    <CritRating>163</CritRating>
     <Mastery>0</Mastery>
     <setid>0</setid>
     <icon>inv_misc_rubysanctum4</icon>
@@ -56292,12 +56292,12 @@
     <Agility>0</Agility>
     <HasteRating>0</HasteRating>
     <ExpertiseRating>0</ExpertiseRating>
-    <ArmorPenetrationRating>184</ArmorPenetrationRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
     <dps>0.0</dps>
     <speed>0</speed>
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
-    <CritRating>0</CritRating>
+    <CritRating>184</CritRating>
     <Mastery>0</Mastery>
     <setid>0</setid>
     <icon>inv_misc_rubysanctum4</icon>

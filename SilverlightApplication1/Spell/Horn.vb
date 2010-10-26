@@ -13,7 +13,7 @@ Namespace Simulator.WowObjects.Spells
         Sub New(ByVal S As Sim)
             MyBase.New(S)
             logLevel = LogLevelEnum.Basic
-            Resource = New Resource(S, ResourcesEnum.None, 10, False)
+            Resource = New Resource(S, ResourcesEnum.None, False, 10)
         End Sub
 
 

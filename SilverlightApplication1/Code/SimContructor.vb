@@ -266,11 +266,17 @@ Public Module SimConstructor
         Crit = 0
 
         Dim rp As New Report
-        EpStat = "EP DryRun"
-        BaseDPS = DPSs(EpStat)
+        Try
 
-        EpStat = "EP AttackPower"
-        APDPS = DPSs(EpStat)
+
+            EpStat = "EP DryRun"
+            BaseDPS = DPSs(EpStat)
+
+            EpStat = "EP AttackPower"
+            APDPS = DPSs(EpStat)
+        Catch ex As Exception
+
+        End Try
 
         rp.AddAdditionalInfo(EpStat, "1 (" & toDDecimal((APDPS - BaseDPS) / (2 * EPBase)) & " DPS/per AP)")
 
@@ -364,7 +370,7 @@ Public Module SimConstructor
             '	WriteReport ("Average for " & EPStat & " | " & DPS)
         Catch
         End Try
-        
+
 
 
         Try
@@ -488,21 +494,37 @@ Public Module SimConstructor
         Catch ex As Exception
 
         End Try
-        'rp.AddAdditionalInfo("Template", _MainFrm.cmbTemplate.SelectedValue)
+
+        Dim isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+        Dim isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/EPconfig.xml", FileMode.Open, FileAccess.Read, isoStore)
+        Dim doc As XDocument = XDocument.Load(isoStream)
 
 
-        'If Rotate Then
-        '    rp.AddAdditionalInfo("Rotation", _MainFrm.cmbRotation.SelectedValue)
-        'Else
-        '    rp.AddAdditionalInfo("Priority", _MainFrm.cmbPrio.SelectedValue)
-        'End If
-        'rp.AddAdditionalInfo("Presence", _MainFrm.cmdPresence.SelectedValue)
-        'rp.AddAdditionalInfo("Sigil", _MainFrm.cmbSigils.SelectedValue)
-        'Try
-        '    rp.AddAdditionalInfo("RuneEnchant", _MainFrm.cmbRuneMH.SelectedValue & " / " & _MainFrm.cmbRuneOH.SelectedValue)
-        'Catch ex As Exception
-        'End Try
-        'rp.AddAdditionalInfo("Pet Calculation", _MainFrm.ckPet.IsChecked)
+        If (From el In doc.<config>.<Trinket>.Elements
+                   Where el.Value = True).Count > 0 Then
+            EpStat = "EP Trinket NoTrinket"
+            BaseDPS = DPSs(EpStat)
+            EpStat = "EP Trinket NoTrinketAP"
+            APDPS = DPSs(EpStat)
+        Else
+            GoTo skipTrinket
+        End If
+
+        For Each el In doc.<config>.<Trinket>.Elements
+            If el.Value = True Then
+                EpStat = "EP Trinket " & el.Name.ToString.Replace("chkEP", "")
+                DPS = DPSs(EpStat)
+                tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
+                tmp2 = (DPS - BaseDPS)
+                rp.AddAdditionalInfo(EpStat, toDDecimal(tmp2 / tmp1))
+            End If
+
+        Next
+skipTrinket:
+
+        isoStream.Close()
+
+
 
         Str = Str.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
         Agility = Agility.Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".")
@@ -780,7 +802,29 @@ skipStats:
                     SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                 End If
 skipSets:
+
+                If (From el In doc.<config>.<Trinket>.Elements
+                    Where el.Value = True).Count > 0 Then
+                    EpStat = "EP Trinket NoTrinket"
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
+                    EpStat = "EP Trinket NoTrinketAP"
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
+                Else
+                    GoTo skipTrinket
+                End If
+
+                For Each el In doc.<config>.<Trinket>.Elements
+                    If el.Value = True Then
+
+                        EpStat = "EP Trinket " & el.Name.ToString.Replace("chkEP", "")
+                        SimConstructor.Start(SimTime, MainFrm, False, EpStat)
+                    End If
+
+                Next
+
                 GoTo skipTrinket
+
+
 
 skipTrinket:
                 EpStat = ""
@@ -898,7 +942,7 @@ skipTrinket:
         Loop
     End Sub
 
-   
+
 
 
 

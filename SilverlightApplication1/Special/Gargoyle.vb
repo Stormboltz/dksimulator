@@ -120,15 +120,13 @@ Namespace Simulator.WowObjects.PetsAndMinions
         End Function
 
         Function MagicalDamageMultiplier(ByVal T As Long, Optional ByVal target As Targets.Target = Nothing) As Double
-            If target Is Nothing Then target = Sim.Targets.MainTarget
+            If target Is Nothing Then target = sim.Targets.MainTarget
             Dim tmp As Double
-            tmp = 1
-            tmp = tmp * (1 + 0.03 * Sim.Character.Buff.PcDamage)
-            tmp = tmp * (1 + 0.08 * target.Debuff.SpellDamageTaken)
+            tmp = sim.Character.StandardMagicalDamageMultiplier(T, target)
             Return tmp
         End Function
         Function SpellCrit(Optional ByVal target As Targets.Target = Nothing) As Single
-            Return 0
+            'Return 0
             If target Is Nothing Then target = sim.Targets.MainTarget
             Dim tmp As Double
             tmp = tmp + 5 * sim.Character.Buff.Crit

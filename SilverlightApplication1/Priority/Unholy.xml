@@ -2,11 +2,14 @@
 <Priority>
   <BloodPlague></BloodPlague>
   <FrostFever></FrostFever>
+  <FesteringStrike4Disease></FesteringStrike4Disease>
   <DeathCoilMaxRp></DeathCoilMaxRp>
   <DarkTransformation></DarkTransformation>
+  <SuddenDoom></SuddenDoom>
   <ScourgeStrike></ScourgeStrike>
   <FesteringStrike></FesteringStrike>
-  <SuddenDoom></SuddenDoom>
   <BloodStrike></BloodStrike>
   <DeathCoil></DeathCoil>
+  <BloodTap></BloodTap>
+  <EmpowerRuneWeapon></EmpowerRuneWeapon>
 </Priority>

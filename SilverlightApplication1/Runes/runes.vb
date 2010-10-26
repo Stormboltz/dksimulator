@@ -155,14 +155,21 @@ Namespace Simulator.WowObjects.Runes
             Return False
         End Function
         Function Blood() As Boolean
-            If BloodRune1.Available And BloodRune1.death = False And BloodRune1.reserved = False Then Return True
-            If BloodRune2.Available And BloodRune2.death = False And BloodRune2.reserved = False Then Return True
-            If FrostRune1.Available And FrostRune1.death = True And FrostRune1.reserved = False Then Return True
-            If FrostRune2.Available And FrostRune2.death = True And FrostRune2.reserved = False Then Return True
-            If UnholyRune1.Available And UnholyRune1.death = True And UnholyRune1.reserved = False Then Return True
-            If UnholyRune2.Available And UnholyRune2.death = True And UnholyRune2.reserved = False Then Return True
+            If BloodRune1.Available And BloodRune1.death = False Then Return True
+            If BloodRune2.Available And BloodRune2.death = False Then Return True
+            If FrostRune1.Available And FrostRune1.death = True Then Return True
+            If FrostRune2.Available And FrostRune2.death = True Then Return True
+            If UnholyRune1.Available And UnholyRune1.death = True Then Return True
+            If UnholyRune2.Available And UnholyRune2.death = True Then Return True
             Return False
         End Function
+        Function BloodOnly() As Boolean
+            If BloodRune1.Available Then Return True
+            If BloodRune2.Available Then Return True
+
+            Return False
+        End Function
+
         Function BloodOnlyNoDeath() As Boolean
             If BloodRune1.Available And Not BloodRune1.death Then Return True
             If BloodRune2.Available And Not BloodRune2.death Then Return True
@@ -186,6 +193,11 @@ Namespace Simulator.WowObjects.Runes
             If FrostRune2.Available And FrostRune2.reserved = False Then Return True
             If UnholyRune1.Available And UnholyRune1.death = True And UnholyRune1.reserved = False Then Return True
             If UnholyRune2.Available And UnholyRune2.death = True And UnholyRune2.reserved = False Then Return True
+            Return False
+        End Function
+        Function FrostOnly() As Boolean
+            If FrostRune1.Available Then Return True
+            If FrostRune2.Available Then Return True
             Return False
         End Function
 
@@ -444,13 +456,13 @@ Frost:
 
         Function RuneRefreshTheNextGCD(ByVal T As Long) As Boolean
             Dim tmp As Long
-            tmp = T + 150 + sim.latency / 10
-            If BloodRune1.AvailableTime >= T And BloodRune1.AvailableTime < tmp Then Return False
-            If BloodRune2.AvailableTime >= T And BloodRune2.AvailableTime < tmp Then Return False
-            If FrostRune1.AvailableTime >= T And FrostRune1.AvailableTime < tmp Then Return False
-            If FrostRune2.AvailableTime >= T And FrostRune2.AvailableTime < tmp Then Return False
-            If UnholyRune1.AvailableTime >= T And UnholyRune1.AvailableTime < tmp Then Return False
-            If UnholyRune2.AvailableTime >= T And UnholyRune2.AvailableTime < tmp Then Return False
+            tmp = T + 100 + sim.latency / 10
+            If BloodRune1.AvailableTime > T And BloodRune1.AvailableTime < tmp Then Return False
+            If BloodRune2.AvailableTime > T And BloodRune2.AvailableTime < tmp Then Return False
+            If FrostRune1.AvailableTime > T And FrostRune1.AvailableTime < tmp Then Return False
+            If FrostRune2.AvailableTime > T And FrostRune2.AvailableTime < tmp Then Return False
+            If UnholyRune1.AvailableTime > T And UnholyRune1.AvailableTime < tmp Then Return False
+            If UnholyRune2.AvailableTime > T And UnholyRune2.AvailableTime < tmp Then Return False
             Return True
         End Function
 

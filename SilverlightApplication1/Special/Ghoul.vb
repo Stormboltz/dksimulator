@@ -111,7 +111,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
         End Function
 
         Function Agility() As Integer
-            Dim tmp As Integer
+            Dim tmp As Double
             Return 0
             tmp = sim.GhoulStat.Agility
             tmp = tmp + 155 * 1.15 * sim.Character.Buff.StrAgi

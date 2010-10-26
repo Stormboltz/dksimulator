@@ -1,11 +1,11 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Priority>
-	<FrostFever></FrostFever>
-	<BloodPlague></BloodPlague>
-	
-	<KMFrostStrike></KMFrostStrike>
-	<Obliterate></Obliterate>
-	<BloodStrike></BloodStrike>
-	<FrostStrike></FrostStrike>
-    <Rime></Rime>
+  <Rime></Rime>
+  <FrostFever></FrostFever>
+  <BloodPlague></BloodPlague>
+  <KMObliterate></KMObliterate>
+  <BloodStrike></BloodStrike>
+  <FrostStrike></FrostStrike>
+  <Obliterate></Obliterate>
+  <EmpowerRuneWeapon></EmpowerRuneWeapon>
 </Priority>

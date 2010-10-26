@@ -10,6 +10,7 @@ Namespace Simulator.Character
                 Return Talent(Name).Value
             End Get
         End Property
+        Friend MainSpec As Schools
 
         Private Talents As New Collections.Generic.Dictionary(Of String, Talent)
         'Private Talents As New List(Of Talent)
@@ -32,6 +33,7 @@ Namespace Simulator.Character
                 Return Talents(Name)
             Catch ex As Exception
                 Diagnostics.Debug.WriteLine("WTF IS THIS TALENT " & Name)
+
                 Return New Talent(Name, Schools.Blood)
             End Try
         End Function
@@ -104,13 +106,16 @@ Namespace Simulator.Character
         End Sub
         Sub AddIncluded()
             If GetNumOfThisSchool(Schools.Blood) > 25 Then
+                MainSpec = Schools.Blood
                 For Each T As Talent In IncludedTalents
                     If T.School = Schools.Blood Then
                         Talent(T.Name).Value = 1
                     End If
+
                 Next
             End If
             If GetNumOfThisSchool(Schools.Frost) > 25 Then
+                MainSpec = Schools.Frost
                 For Each T As Talent In IncludedTalents
                     If T.School = Schools.Frost Then
                         Talent(T.Name).Value = 1
@@ -118,6 +123,7 @@ Namespace Simulator.Character
                 Next
             End If
             If GetNumOfThisSchool(Schools.Unholy) > 25 Then
+                MainSpec = Schools.Unholy
                 For Each T As Talent In IncludedTalents
                     If T.School = Schools.Unholy Then
                         Talent(T.Name).Value = 1

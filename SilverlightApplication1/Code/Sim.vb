@@ -506,6 +506,7 @@ Namespace Simulator
                         End If
                     Next
                 Case "FightStop"
+                    CombatLog.write(TimeStamp & vbTab & "Fight End")
                     StoreMyDamage(TotalDamage)
                     LastReset = NextReset
                     SoftReset()
@@ -570,17 +571,17 @@ Namespace Simulator
 
 
 
-            Dim obj As WowObject
-            If ICCDamageBuff > 0 Then
-                For Each obj In DamagingObject
-                    If obj.isGuardian = False Then
-                        obj.total *= (1 + ICCDamageBuff / 100)
-                        obj.TotalCrit *= (1 + ICCDamageBuff / 100)
-                        obj.TotalHit *= (1 + ICCDamageBuff / 100)
-                        obj.TotalGlance *= (1 + ICCDamageBuff / 100)
-                    End If
-                Next
-            End If
+            'Dim obj As WowObject
+            'If ICCDamageBuff > 0 Then
+            '    For Each obj In DamagingObject
+            '        If obj.isGuardian = False Then
+            '            obj.total *= (1 + ICCDamageBuff / 100)
+            '            obj.TotalCrit *= (1 + ICCDamageBuff / 100)
+            '            obj.TotalHit *= (1 + ICCDamageBuff / 100)
+            '            obj.TotalGlance *= (1 + ICCDamageBuff / 100)
+            '        End If
+            '    Next
+            'End If
 
 
             '

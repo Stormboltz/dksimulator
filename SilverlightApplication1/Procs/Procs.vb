@@ -177,7 +177,7 @@ Namespace Simulator.WowObjects.Procs
             Bloodlust = New Proc(s)
             With Bloodlust
                 ._Name = "Bloodlust"
-                .ProcChance = 0
+                .ProcChance = 1
                 .ProcLenght = 40
                 .InternalCD = 10 * 60
                 .CD = 500

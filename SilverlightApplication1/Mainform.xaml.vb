@@ -1,4 +1,5 @@
 ﻿Imports System.Xml.Linq
+Imports System.Linq
 Imports System.IO.IsolatedStorage
 Imports System.IO
 Imports System.Windows.Resources
@@ -142,7 +143,7 @@ Partial Public Class MainForm
                 doc.Element("config").Element("Sets").Add(New XElement(chkBox.Name, chkBox.IsChecked))
             End If
         Next
-        For Each ctrl As Control In grpEPSet.Children
+        For Each ctrl As Control In grpEPTrinkets.Children
             If ctrl.Name.StartsWith("chk") Then
                 chkBox = ctrl
                 doc.Element("config").Element("Trinket").Add(New XElement(chkBox.Name, chkBox.IsChecked))
@@ -317,17 +318,17 @@ Partial Public Class MainForm
                         End Try
                     Next
 
-                    'For Each ctrl In grpEPTrinkets.Children
-                    '    Try
-                    '        If ctrl.Name.StartsWith("chkEP") Then
-                    '            chkBox = ctrl
-                    '            chkBox.IsChecked = doc.Element("config").Element("Trinket").Element(chkBox.Name).Value
-                    '        End If
-                    '    Catch ex As Exception
+                    For Each ctrl In grpEPTrinkets.Children
+                        Try
+                            If ctrl.Name.StartsWith("chkEP") Then
+                                chkBox = ctrl
+                                chkBox.IsChecked = doc.Element("config").Element("Trinket").Element(chkBox.Name).Value
+                            End If
+                        Catch ex As Exception
 
-                    '    End Try
+                        End Try
 
-                    'Next
+                    Next
                 End Using
             End Using
         Catch ex As Exception
@@ -428,20 +429,22 @@ sortie:
             item = Nothing
         Next
         grpEPTrinkets.Children.Clear()
-        For Each xNode In doc.Descendants
-            Dim ckTrinket As New CheckBox
+        For Each xNode In doc.<TrinketList>.Elements
             Try
-                ckTrinket.Name = "chkEP" & xNode.Name.ToString
-                ckTrinket.Content = xNode.Name
-                'ckTrinket.Height = 20
-                'ckTrinket.Width = 180
+                Dim tkName As String = "chkEP" & xNode.Attribute("name").Value
+                For Each c In grpEPTrinkets.Children
+                    If CType(c, CheckBox).Name = tkName Then GoTo NextTrinket
+                Next
+                Dim ckTrinket As New CheckBox
+                ckTrinket.Name = tkName
+                ckTrinket.Content = xNode.Attribute("name").Value
                 grpEPTrinkets.Children.Add(ckTrinket)
-
-
             Catch ex As Exception
                 Log.Log(ex.StackTrace, logging.Level.ERR)
                 System.Diagnostics.Debug.WriteLine("Err:" & xNode.Name.ToString)
+
             End Try
+NextTrinket:
         Next
     End Sub
 
@@ -1742,4 +1745,32 @@ refreshRating:
         
     End Sub
 
+    Sub CleanUp() Handles cmdCleanCache.Click
+        Dim isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+       
+        For Each fld In isoStore.GetDirectoryNames
+            CleanAndDeleteFolder("/" & fld & "/")
+
+        Next
+        'and rebuild
+        Page_Loaded(Nothing, Nothing)
+    End Sub
+
+    Sub CleanAndDeleteFolder(ByVal Path As String)
+        Dim isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+
+        For Each folder In isoStore.GetDirectoryNames(Path)
+            CleanAndDeleteFolder(Path & "/" & folder & "/")
+        Next
+        For Each file In isoStore.GetFileNames(Path)
+            isoStore.DeleteFile(Path & "/" & file)
+        Next
+
+    End Sub
+
+
+    Private Sub cmdCompareLog_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdCompareLog.Click
+        Dim cmp As New LogComparer
+        cmp.Show()
+    End Sub
 End Class

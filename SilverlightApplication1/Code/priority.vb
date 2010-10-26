@@ -30,6 +30,117 @@ Namespace Simulator
 
             For Each item As String In prio
                 Select Case item
+
+                    Case "BloodOverCap"
+                        If runes.BloodRunes.SoonToBeAvailableTwice Then
+                            Select Case sim.Character.Talents.MainSpec
+                                Case Character.Talents.Schools.Unholy
+                                    If runes.BloodRune1.death Or runes.BloodRune2.death Then
+                                        If sim.DarkTransformation.IsAvailable Then
+                                            sim.DarkTransformation.ApplyDamage(TimeStamp)
+                                            Exit Sub
+                                        ElseIf sim.ScourgeStrike.IsAvailable Then
+                                            sim.ScourgeStrike.ApplyDamage(TimeStamp)
+                                            Exit Sub
+                                        End If
+                                    Else
+                                        If sim.FesteringStrike.IsAvailable Then
+                                            sim.FesteringStrike.ApplyDamage(TimeStamp)
+                                            Exit Sub
+                                        End If
+                                    End If
+                                Case Character.Talents.Schools.Frost
+                                    If runes.BloodRune1.death Or runes.BloodRune2.death Then
+                                        If sim.Obliterate.IsAvailable Then
+                                            sim.Obliterate.ApplyDamage(TimeStamp)
+                                            Exit Sub
+                                        ElseIf sim.HowlingBlast.isAvailable Then
+                                            sim.HowlingBlast.ApplyDamage(TimeStamp)
+                                            Exit Sub
+                                        End If
+                                    Else
+                                        If sim.BloodStrike.IsAvailable Then
+                                            sim.BloodStrike.ApplyDamage(TimeStamp)
+                                            Exit Sub
+                                        End If
+                                    End If
+                                Case Character.Talents.Schools.Blood
+                                    If sim.HeartStrike.IsAvailable Then
+                                        sim.HeartStrike.ApplyDamage(TimeStamp)
+                                        Exit Sub
+                                    End If
+                            End Select
+                        End If
+                    Case "FrostOverCap"
+                        If runes.FrostRunes.SoonToBeAvailableTwice Then
+                            Select Case sim.Character.Talents.MainSpec
+                                Case Character.Talents.Schools.Unholy
+                                    If runes.FrostRune1.death Or runes.FrostRune2.death Then
+                                        If sim.DarkTransformation.IsAvailable Then
+                                            sim.DarkTransformation.ApplyDamage(TimeStamp)
+                                            Exit Sub
+                                        ElseIf sim.ScourgeStrike.IsAvailable Then
+                                            sim.ScourgeStrike.ApplyDamage(TimeStamp)
+                                            Exit Sub
+                                        End If
+                                    Else
+                                        If sim.FesteringStrike.IsAvailable Then
+                                            sim.FesteringStrike.ApplyDamage(TimeStamp)
+                                            Exit Sub
+                                        End If
+                                    End If
+                                Case Character.Talents.Schools.Frost
+
+                                    If sim.Obliterate.IsAvailable Then
+                                        sim.Obliterate.ApplyDamage(TimeStamp)
+                                        Exit Sub
+                                    ElseIf sim.HowlingBlast.isAvailable Then
+                                        sim.HowlingBlast.ApplyDamage(TimeStamp)
+                                        Exit Sub
+                                    End If
+                                Case Character.Talents.Schools.Blood
+                                    If sim.DeathStrike.IsAvailable Then
+                                        sim.DeathStrike.ApplyDamage(TimeStamp)
+                                        Exit Sub
+                                    End If
+                            End Select
+
+                        End If
+                    Case "UnholyOverCap"
+                        If runes.UnholyRunes.SoonToBeAvailableTwice Then
+                            Select Case sim.Character.Talents.MainSpec
+                                Case Character.Talents.Schools.Unholy
+                                    If sim.DarkTransformation.IsAvailable Then
+                                        sim.DarkTransformation.ApplyDamage(TimeStamp)
+                                        Exit Sub
+                                    ElseIf sim.ScourgeStrike.IsAvailable Then
+                                        sim.ScourgeStrike.ApplyDamage(TimeStamp)
+                                        Exit Sub
+                                    End If
+                                Case Character.Talents.Schools.Frost
+                                    If sim.Obliterate.IsAvailable Then
+                                        sim.Obliterate.ApplyDamage(TimeStamp)
+                                        Exit Sub
+                                    ElseIf sim.PlagueStrike.IsAvailable Then
+                                        sim.PlagueStrike.ApplyDamage(TimeStamp)
+                                        Exit Sub
+                                    End If
+
+                                Case Character.Talents.Schools.Blood
+                                    If sim.DeathStrike.IsAvailable Then
+                                        sim.DeathStrike.ApplyDamage(TimeStamp)
+                                        Exit Sub
+                                    End If
+                            End Select
+
+                        End If
+                    Case "RunicCorruption"
+                        If Not sim.proc.RunicEmpowerment.Effects(0).IsActive Then
+                            If sim.DeathCoil.isAvailable() Then
+                                sim.DeathCoil.ApplyDamage(TimeStamp)
+                                Exit Sub
+                            End If
+                        End If
                     Case "ShadowInfusion"
                         If sim.Ghoul.ShadowInfusion.Equiped Then
                             If sim.Ghoul.ShadowInfusion.IsAvailable(sim.TimeStamp) Then
@@ -100,7 +211,7 @@ Namespace Simulator
                         End If
                     Case "FesteringStrike4Disease"
                         If sim.Targets.MainTarget.BloodPlague.ToReApplyWithFest Then
-                            If sim.Runes.Blood And sim.Runes.Frost Then
+                            If sim.Runes.BloodOnly And sim.Runes.FrostOnly Then
                                 sim.FesteringStrike.ApplyDamage(TimeStamp)
                                 Exit Sub
                             End If

@@ -131,6 +131,7 @@
                         <CheckBox Content="Detailled combat log" Name="ckLogRP" Grid.Column="2" Grid.Row="1" />
                         <Button Content="Display last report" Name="cmdReport" Grid.Column="4" Grid.Row="1" />
                         <Button Content="Display last log" Name="cmdShowLog" Grid.Row="2" Grid.Column="4" />
+                        <Button Content="Compare fight" Name="cmdCompareLog" Grid.Row="2" Grid.Column="4" />
                     </StackPanel>
 
                 </sdk:TabItem>
@@ -277,6 +278,8 @@
                         <Button Name="cmdShowDebug" Content="Show debug log"></Button>
                         <sdk:Label Content=" "></sdk:Label>
                         <Button Name="cmdCleanDebug" Content="Clean debug log"></Button>
+                        <sdk:Label Content=" "></sdk:Label>
+                        <Button Name="cmdCleanCache" Content="Wipe all local data (profile, prio...)"></Button>
                     </StackPanel>
 
                 </sdk:TabItem>

@@ -4,7 +4,7 @@
         Dim Rune1 As CataRune
         Dim Rune2 As CataRune
 
-        Dim RuneToRefill As CataRune
+        Friend RuneToRefill As CataRune
         
 
         Sub New(ByVal r1 As CataRune, ByVal r2 As CataRune)
@@ -71,13 +71,19 @@
         End Function
 
         Function AvailableTwice() As Boolean
-            If Rune1.Value >= 100 And Rune2.Value >= 100 Then
+            If Rune1.Value + Rune2.Value >= 200 Then
                 Return True
             Else
                 Return False
             End If
         End Function
-
+        Function SoonToBeAvailableTwice() As Boolean
+            If Rune1.Value + Rune2.Value >= 170 Then
+                Return True
+            Else
+                Return False
+            End If
+        End Function
         Sub Refill(ByVal second As Double)
             Dim tmp As Double
             Dim r As CataRune = RuneToRefill
