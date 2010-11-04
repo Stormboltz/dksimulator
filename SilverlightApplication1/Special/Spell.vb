@@ -53,7 +53,8 @@ Namespace Simulator.WowObjects.Spells
             MyBase.New(S)
             Init()
             Sim = S
-            Sim.DamagingObject.Add(Me)
+            sim.DamagingObject.Add(Me)
+            Multiplicator = 1
         End Sub
         Sub UseGCD(ByVal T As Long)
             sim.UseGCD(True)

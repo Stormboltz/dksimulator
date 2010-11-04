@@ -329,7 +329,7 @@ Namespace Simulator.Character
                 Hit = New CalculatedStats.CalculatedStat(Sim, HitRating, 30.7548)
                 SpellHit = New CalculatedStats.CalculatedStat(Sim, HitRating, 26.232)
             End If
-
+            Mastery.Add(0.08)
             ArmorPenetration._Name = "ArmorPenetration"
             Mastery._Name = "Mastery"
             Hit._Name = "Hit"

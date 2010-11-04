@@ -350,7 +350,8 @@ Partial Public Class FrmGearSelector
             Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/CharactersWithGear/" & FilePath, FileMode.Open, FileAccess.Read, isoStore)
                 Dim xmlChar As XDocument = XDocument.Load(isoStream)
                 Try
-                    ParentFrame.StatSummary.chkManualInput.IsChecked = xmlChar.<character>.<ManualInput>.Value
+                    Dim r As String = xmlChar.<character>.<ManualInput>.Value
+                    If r <> "" Then ParentFrame.StatSummary.chkManualInput.IsChecked = xmlChar.<character>.<ManualInput>.Value
 
                     If ParentFrame.StatSummary.chkManualInput.IsChecked Then
 

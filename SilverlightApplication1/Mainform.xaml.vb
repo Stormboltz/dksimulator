@@ -1073,7 +1073,7 @@ OUT:
 
         StatSummary.txtMHExpBonus.Text = 0
         StatSummary.txtOHExpBonus.Text = 0
-
+        Dim PrevHit As Integer
         For Each iSlot In GearSelector.EquipmentList
 
             If iSlot.Item.Id = 0 Then GoTo NextItem
@@ -1363,6 +1363,9 @@ OUT:
             If iSlot.Item.Id = 50401 Or iSlot.Item.Id = 50402 Or iSlot.Item.Id = 52572 Or iSlot.Item.Id = 52571 Then
                 StatSummary.chkAshenBand.IsChecked = True
             End If
+
+            Diagnostics.Debug.WriteLine("Added " & iSlot.Item.name & "Hit= " & HitRating - PrevHit)
+            PrevHit = HitRating
 NextItem:
         Next
         ' Bloodfury
@@ -1772,5 +1775,56 @@ refreshRating:
     Private Sub cmdCompareLog_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdCompareLog.Click
         Dim cmp As New LogComparer
         cmp.Show()
+    End Sub
+
+    Private Sub cmdOptimizer_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdOptimizer.Click
+        Dim opt As New Optimizer(ItemDB, Me)
+        Dim myBestof As Optimizer.EquipementSet = opt.Populate()
+
+        myBestof.Report()
+        For Each iSlot In GearSelector.EquipmentList
+            Dim Id As String = iSlot.Item.Id
+            If Id <> 0 Then
+                Try
+
+
+                    Dim itm As Optimizer.OptimizerWowItem = (From eL In myBestof.ItemList
+                                                             Where eL.Id = Id).First
+
+                    Select Case itm.ReforgeFrom
+                        Case Optimizer.SecondatyStat.CritRating
+                            iSlot.Item.ReForgingFrom = "Crit"
+                        Case Optimizer.SecondatyStat.HitRating
+                            iSlot.Item.ReForgingFrom = "Hit"
+                        Case Optimizer.SecondatyStat.ExpertiseRating
+                            iSlot.Item.ReForgingFrom = "Exp"
+
+                        Case Optimizer.SecondatyStat.HasteRating
+                            iSlot.Item.ReForgingFrom = "Haste"
+                        Case Optimizer.SecondatyStat.MasteryRating
+                            iSlot.Item.ReForgingFrom = "Mast"
+                    End Select
+                    Select Case itm.Reforgeto
+                        Case Optimizer.SecondatyStat.CritRating
+                            iSlot.Item.ReForgingTo = "Crit"
+                        Case Optimizer.SecondatyStat.HitRating
+                            iSlot.Item.ReForgingTo = "Hit"
+                        Case Optimizer.SecondatyStat.ExpertiseRating
+                            iSlot.Item.ReForgingTo = "Exp"
+
+                        Case Optimizer.SecondatyStat.HasteRating
+                            iSlot.Item.ReForgingTo = "Haste"
+                        Case Optimizer.SecondatyStat.MasteryRating
+                            iSlot.Item.ReForgingTo = "Mast"
+                    End Select
+
+                    iSlot.Item.ReForgingvalue = itm.ReforgeValue
+                Catch ex As Exception
+
+                End Try
+
+            End If
+        Next
+        GetStats()
     End Sub
 End Class

@@ -89,5 +89,31 @@ Public Class WowItem
         icon = ""
     End Sub
 
+    Overridable Function Clone() As WowItem
+        Dim w As New WowItem
+        w.Id = Id
+        w.name = name
+        w.ilvl = ilvl
+        w.slot = slot
+        w.classs = classs
+        w.subclass = subclass
+        w.heroic = heroic
+        w.Strength = Strength
+        w.Agility = Agility
+        w.BonusArmor = BonusArmor
+        w.Armor = Armor
+        w.HasteRating = HasteRating
+        w.ExpertiseRating = ExpertiseRating
+        w.HitRating = HitRating
+        w.AttackPower = AttackPower
+        w.CritRating = CritRating
+        w.ArmorPenetrationRating = ArmorPenetrationRating
+        w.Speed = Speed
+        w.DPS = DPS
+
+        Return w
+
+    End Function
+
 
 End Class

@@ -15,9 +15,9 @@ Namespace Simulator.WowObjects.Spells
             If Sim.Sigils.FrozenConscience Then BaseDamage += 111
             Coeficient = (0.2) 'Free Imp Icy Touch 
 
-            If S.Character.Talents.GetNumOfThisSchool(Character.Talents.Schools.Frost) > 20 Then
-                Multiplicator = Multiplicator * 1.2 'Frozen Heart
-            End If
+            'If sim.Character.Talents.MainSpec = Character.Talents.Schools.Frost Then
+            '    Multiplicator = Multiplicator * 1.2 'Frozen Heart
+            'End If
             logLevel = LogLevelEnum.Basic
             DamageSchool = DamageSchoolEnum.Frost
             Dim rp As Integer = 10 + (sim.Character.Talents.Talent("ChillOfTheGrave").Value * 5)
@@ -45,7 +45,7 @@ Namespace Simulator.WowObjects.Spells
             If Sim.ExecuteRange Then tmp *= (1 + 0.06 * Sim.Character.Talents.Talent("MercilessCombat").Value)
             If Sim.RuneForge.CheckCinderglacier(True) > 0 Then tmp *= 1.2
             tmp *= sim.RuneForge.RazorIceMultiplier(T)
-            If sim.Character.Talents.GetNumOfThisSchool(Character.Talents.Schools.Frost) > 20 Then
+            If sim.Character.Talents.MainSpec = Character.Talents.Schools.Frost Then
                 tmp *= 1 + sim.Character.Mastery.Value * 2.5
             End If
             'TODO: only on main target

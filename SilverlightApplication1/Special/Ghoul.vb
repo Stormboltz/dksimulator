@@ -70,7 +70,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
                 MeleeMissChance = Math.Max(0.08 - sim.GhoulStat.Hit, 0)
                 MeleeDodgeChance = Math.Max(0.065 - sim.GhoulStat.Expertise, 0)
                 SpellMissChance = Math.Max(0.17 - sim.GhoulStat.SpellHit, 0)
-                If sim.Character.Talents.GetNumOfThisSchool(Character.Talents.Schools.Unholy) > 30 Then
+                If sim.Character.Talents.MainSpec = Character.Talents.Schools.Unholy Then
                     ActiveUntil = sim.MaxTime
                     cd = sim.MaxTime
                     isGuardian = False

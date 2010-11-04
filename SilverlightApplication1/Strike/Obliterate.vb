@@ -13,6 +13,7 @@ Namespace Simulator.WowObjects.Strikes
 
         Sub New(ByVal S As Sim)
             MyBase.New(S)
+            'TOTAL = (MHdamage+Base Damage*Multiplicator) * Multiplicator*CoefDeBase/100
             If S.level85 Then
                 BaseDamage = 650 * 160 / 100
             Else
@@ -20,9 +21,9 @@ Namespace Simulator.WowObjects.Strikes
             End If
             If Sim.Sigils.Awareness Then BaseDamage = BaseDamage + 336
             Coeficient = 1.6
-            Multiplicator = (1 + sim.Character.Talents.Talent("Annihilation").Value * 15 / 100)
-            If sim.Character.Glyph("Obliterate") Then Multiplicator = Multiplicator * 1.25
-            If Sim.Character.T102PDPS <> 0 Then Multiplicator = Multiplicator * 1.1
+            Multiplicator += sim.Character.Talents.Talent("Annihilation").Value * 15 / 100
+            If sim.Character.Glyph("Obliterate") Then Multiplicator += 0.25
+            If sim.Character.T102PDPS <> 0 Then Multiplicator += 0.1
             logLevel = LogLevelEnum.Basic
             If Sim.Character.T72PDPS Then
                 SpecialCritChance = 0.05

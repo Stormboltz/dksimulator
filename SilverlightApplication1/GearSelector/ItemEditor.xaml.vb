@@ -52,7 +52,7 @@ Partial Public Class ItemEditor
         If txtReforge.Text = 0 Then
             Dim tmp As String = ""
             For Each i In cmbReforgeFrom.Items
-                tmp += GetMAxToReforge(i.ToString) & " or "
+                tmp += GetValueToReforge(i.ToString) & " or "
             Next
             Try
                 tmp = tmp.Remove(tmp.Length - 3)
@@ -454,7 +454,7 @@ Partial Public Class ItemEditor
 
     Private Sub cmbReforgeFrom_SelectionChanged(ByVal sender As System.Object, ByVal e As System.Windows.Controls.SelectionChangedEventArgs) Handles cmbReforgeFrom.SelectionChanged
         If inLoad Then Exit Sub
-        txtReforge.Text = GetMAxToReforge(cmbReforgeFrom.SelectedValue)
+        txtReforge.Text = GetValueToReforge(cmbReforgeFrom.SelectedValue)
 
         If IsNothing(cmbReforgeFrom.SelectedValue) = False Then
             Item.ReForgingFrom = cmbReforgeFrom.SelectedValue
@@ -465,25 +465,25 @@ Partial Public Class ItemEditor
         End If
 
         Mainframe.ParentFrame.GetStats()
-       
+
     End Sub
 
-    Function GetMAxToReforge(ByVal stat As String)
+    Function GetValueToReforge(ByVal stat As String)
         Select Case stat
             Case "Crit"
-                Return Decimal.Round(Item.CritRating * 0.4, 0)
+                Return Decimal.Truncate(Item.CritRating * 0.4)
             Case "Exp"
-                Return Decimal.Round(Item.ExpertiseRating * 0.4, 0)
+                Return Decimal.Truncate(Item.ExpertiseRating * 0.4)
             Case "Haste"
-                Return Decimal.Round(Item.HasteRating * 0.4, 0)
+                Return Decimal.Truncate(Item.HasteRating * 0.4)
             Case "Hit"
-                Return Decimal.Round(Item.HitRating * 0.4, 0)
+                Return Decimal.Truncate(Item.HitRating * 0.4)
             Case "Mast"
-                Return Decimal.Round(Item.MasteryRating * 0.4, 0)
+                Return Decimal.Truncate(Item.MasteryRating * 0.4)
             Case "Dodge"
-                Return Decimal.Round(Item.DodgeRating * 0.4, 0)
+                Return Decimal.Truncate(Item.DodgeRating * 0.4)
             Case "Parry"
-                Return Decimal.Round(Item.ParryRating * 0.4, 0)
+                Return Decimal.Truncate(Item.ParryRating * 0.4)
             Case Else
                 Return 0
         End Select

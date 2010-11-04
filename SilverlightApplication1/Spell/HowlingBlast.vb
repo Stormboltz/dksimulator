@@ -19,9 +19,9 @@ Namespace Simulator.WowObjects.Spells
             Resource = New Resource(S, ResourcesEnum.FrostRune, False, 10 + sim.Character.Talents.Talent("ChillOfTheGrave").Value * 5)
             alternateRessource = New Resource(S, ResourcesEnum.None, False, sim.Character.Talents.Talent("ChillOfTheGrave").Value * 5)
             If sim.Character.Talents.Talent("HowlingBlast").Value = 1 Then talented = True
-            If S.Character.Talents.GetNumOfThisSchool(Character.Talents.Schools.Frost) > 20 Then
-                Multiplicator = Multiplicator * 1.2 'Frozen Heart
-            End If
+            'If sim.Character.Talents.MainSpec = Character.Talents.Schools.Frost Then
+            '    Multiplicator = Multiplicator * 1.2 'Frozen Heart
+            'End If
             If sim.Character.Glyph("HowlingBlast") Then Glyphed = True
             logLevel = LogLevelEnum.Basic
             DamageSchool = DamageSchoolEnum.Frost

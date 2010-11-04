@@ -41,6 +41,7 @@ Namespace Simulator.WowObjects.Strikes
             init()
             sim = S
             sim.DamagingObject.Add(Me)
+            Multiplicator = 1
         End Sub
 
 

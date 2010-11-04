@@ -21,10 +21,10 @@ Namespace Simulator.WowObjects.Spells
             End If
 
             Coeficient = (0.08)
-            Multiplicator = (1 + Sim.Character.Talents.Talent("CrimsonScourge").Value * 0.2)
+            Multiplicator += sim.Character.Talents.Talent("CrimsonScourge").Value * 0.2
             logLevel = LogLevelEnum.Basic
             DiseaseBonus = 1
-            If sim.Character.Talents.GetNumOfThisSchool(Character.Talents.Schools.Blood) > 20 Then
+            If sim.Character.Talents.MainSpec = Character.Talents.Schools.Blood Then
                 Resource = New Resource(S, ResourcesEnum.BloodOrDeathRune, False, 10)
             Else
                 Resource = New Resource(S, ResourcesEnum.BloodRune, False, 10)

@@ -10,7 +10,7 @@ Namespace Simulator.WowObjects.Strikes
             End If
 
             Coeficient = 1
-            Multiplicator *= (1 + sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100)
+            Multiplicator += sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100
             logLevel = LogLevelEnum.Basic
             SpecialCritChance += sim.Character.T72PTNK * 0.1
             _CritCoef = (1 + 0.06 * sim.Character.CSD)

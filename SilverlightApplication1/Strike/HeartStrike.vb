@@ -18,10 +18,10 @@ Namespace Simulator.WowObjects.Strikes
             End If
             If sim.Sigils.DarkRider Then BaseDamage = BaseDamage + 90
             Coeficient = 1
-            Multiplicator = (1 + sim.Character.Talents.Talent("BloodoftheNorth").Value * 5 / 100)
-            If sim.Character.T102PDPS <> 0 Then Multiplicator = Multiplicator * 1.07
+            Multiplicator += sim.Character.Talents.Talent("BloodoftheNorth").Value * 5 / 100
+            If sim.Character.T102PDPS <> 0 Then Multiplicator += 0.07
             If sim.Character.Glyph("HeartStrike") Then Multiplicator += 1.3
-            If sim.Character.T92PTNK = 1 Then Multiplicator = Multiplicator * 1.05
+            If sim.Character.T92PTNK = 1 Then Multiplicator += 0.05
 
             Resource = New Resource(S, ResourcesEnum.BloodOrDeathRune, False, 10)
             logLevel = LogLevelEnum.Basic
@@ -43,7 +43,8 @@ Namespace Simulator.WowObjects.Strikes
                     Multiplicator = Math.Max(tmp * (1 - (0.25 * i)), 0)
                     MyBase.ApplyDamage(T)
                 End If
-                If Multiplicator <= 0 Then Exit For
+
+                If i > 3 Then Exit For
             Next
             Multiplicator = tmp
 

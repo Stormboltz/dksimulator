@@ -21,9 +21,9 @@ Namespace Simulator.WowObjects.Strikes
             If sim.Sigils.VengefulHeart Then BaseDamage = BaseDamage + 113
             Coeficient = 1.1
             Multiplicator = (1 + sim.Character.Talents.Talent("BloodoftheNorth").Value * 5 / 100)
-            If S.Character.Talents.GetNumOfThisSchool(Character.Talents.Schools.Frost) > 20 Then
-                Multiplicator = Multiplicator * 1.2 'Frozen Heart
-            End If
+            'If sim.Character.Talents.MainSpec = Character.Talents.Schools.Frost Then
+            '    Multiplicator = Multiplicator * 1.2 'Frozen Heart
+            'End If
             Dim c As Integer = 40
             If sim.Character.Glyph("froststrike") Then c -= 8
             Resource = New Resource(S, ResourcesEnum.RunicPower, c)

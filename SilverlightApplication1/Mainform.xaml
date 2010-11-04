@@ -35,7 +35,7 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="24" />
                             <RowDefinition Height="24" />
-
+                            <RowDefinition Height="24" />
 
                         </Grid.RowDefinitions>
                         <sdk:Label Grid.ColumnSpan="3" Content="DK SIM" Margin="4" Name="lblApplication" />
@@ -55,9 +55,10 @@
                         <Button Content="Edit" Name="cmdEditPrio" Grid.Row="5" Grid.Column="2" />
                         <sdk:Label Content="Presence:" Name="lblPresence" Grid.Row="8" HorizontalAlignment="Right" />
                         <ComboBox  Name="cmdPresence" Grid.Row="8" Grid.Column="1" />
-                        <sdk:Label Content="Scenario:"   Name="lblScenario" Grid.Row="12" HorizontalAlignment="Right" />
-                        <ComboBox Name="cmbScenario"  Grid.Row="12" Grid.Column="1" />
-                        <Button Content="Edit"  Name="cmdEditScenario" Grid.Row="12" Grid.Column="2" />
+                        <sdk:Label Content="Scenario:"   Name="lblScenario" Grid.Row="9" HorizontalAlignment="Right" />
+                        <ComboBox Name="cmbScenario"  Grid.Row="9" Grid.Column="1" />
+                        <Button Content="Edit"  Name="cmdEditScenario" Grid.Row="9" Grid.Column="2" />
+                        
                     </Grid >
 
                 </sdk:TabItem>
@@ -264,6 +265,49 @@
                     <my:frmStatSummary x:Name="StatSummary"></my:frmStatSummary>
 
                 </sdk:TabItem>
+                <sdk:TabItem Header="EP Values" Name="tabEPVAlue">
+                    
+                    <StackPanel Orientation="Horizontal" >
+                        <Button Grid.Row="10" Grid.Column="1" Name="cmdOptimizer" >Optimize</Button>
+                        <StackPanel>
+                            <sdk:Label Height="24" >Stat </sdk:Label>
+                            <sdk:Label Height="24">Stength :</sdk:Label>
+                            <sdk:Label Height="24">Hit :</sdk:Label>
+                            <sdk:Label Height="24">Haste :</sdk:Label>
+                            <sdk:Label Height="24">Crit :</sdk:Label>
+                            <sdk:Label Height="24">Mastery :</sdk:Label>
+                            <sdk:Label Height="24">Expertise :</sdk:Label>
+                        </StackPanel>
+                        <StackPanel>
+                            <sdk:Label Height="24">Before Cap</sdk:Label>
+                            <TextBox Name="txtStrBC" Text="0"></TextBox>
+                            <TextBox Name="txtHitBC"  Text="4"></TextBox>
+                            <TextBox Name="txtHasteBC" Text="3"></TextBox>
+                            <TextBox Name="txtCritBC" Text="0"></TextBox>
+                            <TextBox Name="txtMastBC" Text="0"></TextBox>
+                            <TextBox Name="txtExpBC" Text="3.5"></TextBox>
+                            
+                        </StackPanel>
+                        <StackPanel>
+                            <sdk:Label Height="24">Cap</sdk:Label>
+                            <TextBox Name="txtStrC" Text="0"></TextBox>
+                            <TextBox Name="txtHitC" Text="246"></TextBox>
+                            <TextBox Name="txtHasteC" Text="900"></TextBox>
+                            <TextBox Name="txtCritC" Text="0"></TextBox>
+                            <TextBox Name="txtMastC" Text="0"></TextBox>
+                            <TextBox Name="txtExpC" Text="174"></TextBox>
+                        </StackPanel>
+                        <StackPanel>
+                            <sdk:Label Height="24">after Cap</sdk:Label>
+                            <TextBox Name="txtStrAC" Text="3"></TextBox>
+                            <TextBox Name="txtHitAC" Text="1.5"></TextBox>
+                            <TextBox Name="txtHasteAC" Text="2"></TextBox>
+                            <TextBox Name="txtCritAC" Text="2.1"></TextBox>
+                            <TextBox Name="txtMastAC" Text="2.5"></TextBox>
+                            <TextBox Name="txtExpAC"  Text="0"></TextBox>
+                        </StackPanel>
+                    </StackPanel>
+                </sdk:TabItem>
                 <sdk:TabItem Header="Debug" Name="tabDebug">
 
                     <StackPanel>
@@ -300,7 +344,7 @@
             </Grid.ColumnDefinitions>
             <Button Margin="32,5,31,5" Content="Start Simulation" Name="cmdStartSim"  Grid.Row="0" />
             <Button Margin="32,5,31,5" Content="Start EP"  Name="btEP"    Grid.Column="3" />
-<Button Margin="32,5,31,5" Content="Switch to level 85"  Name="btlvl85"    Grid.Column="1" />
+            <Button Margin="32,5,31,5" Content="Switch to level 85"  Name="btlvl85"    Grid.Column="1" />
             <Button Margin="32,5,31,5" Content="Beginner Mode"  Name="cmdAdvancedMode" Grid.Column="2" />
             <ProgressBar  Margin="32,5,31,5" Name="ProgressBar1" Grid.ColumnSpan="4" Grid.Row="1" />
         </Grid>

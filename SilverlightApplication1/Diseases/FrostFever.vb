@@ -10,13 +10,18 @@ Namespace Simulator.WowObjects.Diseases
         Overrides Function CalculateMultiplier(ByVal T As Long, ByVal target As Targets.Target) As Double
             If target Is Nothing Then target = Sim.Targets.MainTarget
             Dim tmp As Double
+            Multiplicator = 1
+
             tmp = MyBase.CalculateMultiplier(T, target) * Sim.RuneForge.RazorIceMultiplier(T) 'TODO: only on main target
-            If sim.Character.Glyph("IcyTouch") Then tmp = tmp * 1.2
-            If sim.Character.Talents.GetNumOfThisSchool(Character.Talents.Schools.Frost) > 20 Then
-                tmp = tmp * 1.2 'Frozen Heart
-                tmp *= 1 + sim.Character.Mastery.Value * 2.5
+            If sim.Character.Glyph("IcyTouch") Then Multiplicator += 0.2
+            If sim.Character.Talents.MainSpec = Character.Talents.Schools.Frost Then
+                Multiplicator += sim.Character.Mastery.Value * 2.5
+            End If
+            If sim.Character.Talents.MainSpec = (Character.Talents.Schools.Unholy) Then
+                Multiplicator += 4 * sim.Character.Mastery.Value
             End If
 
+            tmp *= Multiplicator
             Return tmp
         End Function
 

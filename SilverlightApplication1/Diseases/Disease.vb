@@ -97,12 +97,13 @@ Namespace Simulator.WowObjects.Diseases
         Overridable Function CalculateMultiplier(ByVal T As Long, ByVal target As Targets.Target) As Double
 
             Dim tmp As Double
+            Multiplicator = 1
+
             tmp = Sim.Character.StandardMagicalDamageMultiplier(T)
             If Sim.RuneForge.CheckCinderglacier(False) > 0 Then tmp *= 1.2
-            tmp = tmp * (1 + Sim.Character.Talents.Talent("EbonPlaguebringer").Value * 15 / 100)
-            If sim.Character.Talents.GetNumOfThisSchool(Character.Talents.Schools.Unholy) > 20 Then
-                tmp = tmp * (1.32) 'Blightcaller
-                tmp = tmp * (1 + 4 * sim.Character.Mastery.Value)
+            Multiplicator += sim.Character.Talents.Talent("EbonPlaguebringer").Value * 15 / 100
+            If sim.Character.Talents.MainSpec = (Character.Talents.Schools.Unholy) Then
+                Multiplicator += 4 * sim.Character.Mastery.Value
             End If
             If target.Equals(sim.Targets.MainTarget) = False Then
                 tmp = tmp / 2

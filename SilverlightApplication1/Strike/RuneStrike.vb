@@ -14,8 +14,8 @@ Namespace Simulator.WowObjects.Strikes
             BaseDamage = 0
             Coeficient = 2
 
-            Multiplicator = 1
-            Multiplicator *= (1 + sim.Character.T82PTNK * 0.1)
+
+            Multiplicator += sim.Character.T82PTNK * 0.1
 
 
             If sim.Character.Glyph("RuneStrike") Then

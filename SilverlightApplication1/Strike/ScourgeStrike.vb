@@ -30,9 +30,9 @@ Namespace Simulator.WowObjects.Strikes
             If sim.Sigils.ArthriticBinding Then BaseDamage = BaseDamage + 91.35
 
             Coeficient = 1
-            Multiplicator = 1
-            Multiplicator *= (1 + sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100)
-            If sim.Character.T102PDPS <> 0 Then Multiplicator = Multiplicator * 1.1
+
+            Multiplicator += sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100
+            If sim.Character.T102PDPS <> 0 Then Multiplicator += 0.1
             _CritCoef = (1 + 0.06 * sim.Character.CSD)
             Dim rp As Integer = 10 + 5 * sim.Character.T74PDPS
             SSmagical = New ScourgeStrikeMagical(S)
@@ -82,8 +82,8 @@ Namespace Simulator.WowObjects.Strikes
             Friend tmpPhysical As Integer
             Sub New(ByVal S As Sim)
                 MyBase.New(S)
-                If sim.Character.Glyph("ScourgeStrike") Then Multiplicator *= 1.3
-                Multiplicator *= (1 + sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100)
+                If sim.Character.Glyph("ScourgeStrike") Then Multiplicator += 0.3
+                Multiplicator += sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100
                 logLevel = LogLevelEnum.Basic
                 Resource = New Resource(sim, ResourcesEnum.None)
             End Sub

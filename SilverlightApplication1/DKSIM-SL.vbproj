@@ -191,6 +191,7 @@
     <Compile Include="GearSelector\ForgeTextBox.xaml.vb">
       <DependentUpon>ForgeTextBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GearSelector\Optimizer.vb" />
     <Compile Include="GearSelector\WowItem.vb" />
     <Compile Include="logging\logging.vb" />
     <Compile Include="CustomControl\myGridControl.xaml.vb">

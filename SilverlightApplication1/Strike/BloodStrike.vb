@@ -14,8 +14,8 @@ Namespace Simulator.WowObjects.Strikes
             Coeficient = 0.8
             Multiplicator = 1
 
-            Multiplicator = Multiplicator * (1 + sim.Character.Talents.Talent("BloodoftheNorth").Value * 5 / 100)
-            If sim.Character.T92PTNK = 1 Then Multiplicator = Multiplicator * 1.05
+            Multiplicator += sim.Character.Talents.Talent("BloodoftheNorth").Value * 5 / 100
+            If sim.Character.T92PTNK = 1 Then Multiplicator += 0.05
             logLevel = LogLevelEnum.Basic
             If sim.Character.T84PDPS = 1 Then
                 DiseaseBonus = 0.1 * 1.2
