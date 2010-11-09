@@ -10,19 +10,17 @@ Namespace Simulator.WowObjects.Strikes
                 BaseDamage = 764
             End If
 
-            If sim.Sigils.DarkRider Then BaseDamage += 90
+            'If sim.Sigils.DarkRider Then BaseDamage += 90
             Coeficient = 0.8
+            If sim.Character.T92PTNK = 1 Then Coeficient += 0.05
             Multiplicator = 1
-
-            Multiplicator += sim.Character.Talents.Talent("BloodoftheNorth").Value * 5 / 100
-            If sim.Character.T92PTNK = 1 Then Multiplicator += 0.05
             logLevel = LogLevelEnum.Basic
             If sim.Character.T84PDPS = 1 Then
                 DiseaseBonus = 0.1 * 1.2
             Else
                 DiseaseBonus = 0.1
             End If
-            Resource = New Resource(S, ResourcesEnum.BloodRune, True, 10)
+            Resource = New Resource(S, Resource.ResourcesEnum.BloodRune, True, 10)
 
         End Sub
 

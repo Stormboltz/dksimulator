@@ -10,15 +10,15 @@ Namespace Simulator.WowObjects.Spells
                 BaseDamage = 885
             End If
 
-            If Sim.Sigils.VengefulHeart Then BaseDamage += 380
-            If sim.Sigils.WildBuck Then BaseDamage += 80
-            Resource = New Resource(S, ResourcesEnum.RunicPower, 40 - (3 * sim.Character.Talents.Talent("RunicCorruption").Value))
+            'If Sim.Sigils.VengefulHeart Then BaseDamage += 380
+            'If sim.Sigils.WildBuck Then BaseDamage += 80
+            Resource = New Resource(S, Resource.ResourcesEnum.RunicPower, 40 - (3 * sim.Character.Talents.Talent("RunicCorruption").Value))
             Coeficient = 0.3
             Multiplicator += sim.Character.Talents.Talent("Morbidity").Value * 0.05
             If sim.Character.Glyph("DeathCoil") Then
                 Multiplicator += 0.15
             End If
-            SpecialCritChance = 8 * Sim.Character.T82PDPS / 100
+            AdditionalCritChance = 8 * Sim.Character.T82PDPS / 100
 
             logLevel = LogLevelEnum.Basic
 

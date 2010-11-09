@@ -25,9 +25,9 @@ Namespace Simulator.WowObjects.Spells
             logLevel = LogLevelEnum.Basic
             DiseaseBonus = 1
             If sim.Character.Talents.MainSpec = Character.Talents.Schools.Blood Then
-                Resource = New Resource(S, ResourcesEnum.BloodOrDeathRune, False, 10)
+                Resource = New Resource(S, Resource.ResourcesEnum.BloodOrDeathRune, False, 10)
             Else
-                Resource = New Resource(S, ResourcesEnum.BloodRune, False, 10)
+                Resource = New Resource(S, Resource.ResourcesEnum.BloodRune, False, 10)
             End If
 
         End Sub

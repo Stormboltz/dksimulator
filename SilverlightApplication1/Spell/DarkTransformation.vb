@@ -6,7 +6,7 @@
 
         Sub New(ByVal s As Sim)
             MyBase.New(s)
-            Resource = New Resource(s, ResourcesEnum.UnholyRune, False, 10)
+            Resource = New Resource(s, Resource.ResourcesEnum.UnholyRune, False, 10)
             DarkTransformationBuff = New Procs.Proc(sim)
             DarkTransformationBuff.ProcLenght = 30
             DarkTransformationBuff.ProcChance = 1

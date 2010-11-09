@@ -28,7 +28,7 @@ Namespace Simulator.WowObjects.Procs
         Friend KillingMachine As SpellEffect
         Friend Rime As Proc
         Friend ScentOfBlood As ScentOfBlood
-        Friend Strife As Proc
+
         Friend TrollRacial As Proc
 
         Friend MHBloodCakedBlade As Proc
@@ -222,23 +222,6 @@ Namespace Simulator.WowObjects.Procs
 
 
 
-            ReapingBotN = New Proc(s)
-            With ReapingBotN
-                If Sim.Character.Talents.Talent("Reaping").Value Then
-                    ._Name = "Reaping"
-                    .ProcChance = Sim.Character.Talents.Talent("Reaping").Value
-                ElseIf Sim.Character.Talents.Talent("BloodoftheNorth").Value Then
-                    ._Name = "BloodoftheNorth"
-                    .ProcChance = Sim.Character.Talents.Talent("BloodoftheNorth").Value
-                End If
-                If .ProcChance > 0 Then
-                    If .ProcChance > 0.85 Then .ProcChance = 1.0
-                    '.ProcOn = ProcOnType.OnBloodStrike
-                    .Equip()
-                End If
-            End With
-
-
             T104PDPS = New Proc(s)
             With T104PDPS
                 ._Name = "T104PDPS"
@@ -258,7 +241,7 @@ Namespace Simulator.WowObjects.Procs
                 .Effects.Add(KillingMachine)
                 .Equiped = Sim.Character.Talents.Talent("KillingMachine").Value
                 .ProcLenght = 30
-                .ProcChance = (Sim.Character.Talents.Talent("KillingMachine").Value) * s.Character.MHWeaponSpeed / 60
+                .ProcChance = (Sim.Character.Talents.Talent("KillingMachine").Value * 2) * s.Character.MHWeaponSpeed / 60
             End With
 
             Dim KillingMachineOH = New Proc(s)
@@ -269,7 +252,7 @@ Namespace Simulator.WowObjects.Procs
                 If Sim.Character.Talents.Talent("KillingMachine").Value > 0 Then .Equip()
                 .Equiped = Sim.Character.Talents.Talent("KillingMachine").Value
                 .ProcLenght = 30
-                .ProcChance = (Sim.Character.Talents.Talent("KillingMachine").Value) * s.Character.OHWeaponSpeed / 60
+                .ProcChance = (Sim.Character.Talents.Talent("KillingMachine").Value * 2) * s.Character.OHWeaponSpeed / 60
             End With
 
 
@@ -296,37 +279,37 @@ Namespace Simulator.WowObjects.Procs
                 End If
             End With
 
-            With New Proc(s)
-                ._Name = "Virulence"
-                .ProcLenght = 20
-                .ProcChance = 0.85
-                .ProcValue = 200
-                .Effects.Add(New SpellBuff(s, "Virulence", Simulator.Sim.Stat.Strength, 200, 20))
-                .ProcOn = ProcOnType.OnFU
-                If s.Sigils.Virulence Then .Equip()
-            End With
+            'With New Proc(s)
+            '    ._Name = "Virulence"
+            '    .ProcLenght = 20
+            '    .ProcChance = 0.85
+            '    .ProcValue = 200
+            '    .Effects.Add(New SpellBuff(s, "Virulence", Simulator.Sim.Stat.Strength, 200, 20))
+            '    .ProcOn = ProcOnType.OnFU
+            '    If s.Sigils.Virulence Then .Equip()
+            'End With
 
-            With New Proc(s)
-                ._Name = "HangedMan"
-                .ProcLenght = 15
-                .ProcChance = 1
-                .ProcValueStack = 73
-                .Effects.Add(New SpellBuff(s, "Hanged Man", Simulator.Sim.Stat.Strength, 73, 3, 20))
-                .MaxStack = 3
-                .ProcOn = ProcsManager.ProcOnType.OnFU
-                If s.Sigils.HangedMan Then .Equip()
-            End With
+            'With New Proc(s)
+            '    ._Name = "HangedMan"
+            '    .ProcLenght = 15
+            '    .ProcChance = 1
+            '    .ProcValueStack = 73
+            '    .Effects.Add(New SpellBuff(s, "Hanged Man", Simulator.Sim.Stat.Strength, 73, 3, 20))
+            '    .MaxStack = 3
+            '    .ProcOn = ProcsManager.ProcOnType.OnFU
+            '    If s.Sigils.HangedMan Then .Equip()
+            'End With
 
 
-            Strife = New Proc(s)
-            With Strife
-                ._Name = "Strife"
-                .ProcChance = 1
-                .ProcValue = 144
-                .ProcLenght = 10
-                .Effects.Add(New SpellBuff(Sim, "Strife", Simulator.Sim.Stat.AP, 144, 10))
-                If s.Sigils.Strife Then .Equip()
-            End With
+            'Strife = New Proc(s)
+            'With Strife
+            '    ._Name = "Strife"
+            '    .ProcChance = 1
+            '    .ProcValue = 144
+            '    .ProcLenght = 10
+            '    .Effects.Add(New SpellBuff(Sim, "Strife", Simulator.Sim.Stat.AP, 144, 10))
+            '    If s.Sigils.Strife Then .Equip()
+            'End With
 
             With New Proc(s)
                 ._Name = "T92PDPS"
@@ -339,16 +322,16 @@ Namespace Simulator.WowObjects.Procs
                 If s.Character.T92PDPS = 1 Then .Equip()
             End With
 
-            With New Proc(s)
-                ._Name = "HauntedDreams"
-                .ProcChance = 0.15
-                .ProcValue = 173
-                .ProcLenght = 10
-                .InternalCD = 45
-                .Effects.Add(New SpellBuff(s, "Haunted Dreams", Simulator.Sim.Stat.Crit, 173, 10))
-                .ProcOn = ProcsManager.ProcOnType.OnBloodStrike
-                If s.Sigils.HauntedDreams Then .Equip()
-            End With
+            'With New Proc(s)
+            '    ._Name = "HauntedDreams"
+            '    .ProcChance = 0.15
+            '    .ProcValue = 173
+            '    .ProcLenght = 10
+            '    .InternalCD = 45
+            '    .Effects.Add(New SpellBuff(s, "Haunted Dreams", Simulator.Sim.Stat.Crit, 173, 10))
+            '    .ProcOn = ProcsManager.ProcOnType.OnBloodStrike
+            '    If s.Sigils.HauntedDreams Then .Equip()
+            'End With
 
 
             With New Proc(s)

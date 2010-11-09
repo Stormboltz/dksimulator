@@ -1,8 +1,12 @@
 ﻿Imports System.Xml.Linq
 Imports System.Linq
+Imports System.IO.IsolatedStorage
+Imports System.IO
+Imports System.ComponentModel
+
 
 Public Class Optimizer
-
+    Inherits BackgroundWorker
     Enum SecondatyStat
         None
         CritRating
@@ -12,13 +16,19 @@ Public Class Optimizer
         ExpertiseRating
     End Enum
     Dim SlotList As New List(Of Slot)
-    Dim EquipementSetList As New List(Of EquipementSet)
-    Dim ParentForm As MainForm
+    Dim WiPEquipementSetList As New List(Of EquipementSet)
+    Dim unFinishedSet As New List(Of EquipementSet)
+    Dim FinishedSet As New List(Of EquipementSet)
 
 
-    Sub New(ByVal ItemDB As XDocument, ByVal MainForm As MainForm)
+    Event CalculationDone(ByVal EquipementSet)
+
+
+    Sub New(ByVal ItemDB As XDocument, ByVal MainForm As MainForm, ByVal DW As Boolean)
+
+        'Me.ReportProgress(0)
         Dim slt As Slot
-        ParentForm = MainForm
+
         slt = New Slot("Head", MainForm.GearSelector.HeadSlot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.HeadSlot.Item.Id).First, SlotList)
         slt = New Slot("Neck", MainForm.GearSelector.NeckSlot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.NeckSlot.Item.Id).First, SlotList)
         slt = New Slot("Shoulder", MainForm.GearSelector.ShoulderSlot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.ShoulderSlot.Item.Id).First, SlotList)
@@ -34,86 +44,207 @@ Public Class Optimizer
         slt = New Slot("Trinket1", MainForm.GearSelector.Trinket1Slot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.Trinket1Slot.Item.Id).First, SlotList)
         slt = New Slot("Trinket2", MainForm.GearSelector.Trinket2Slot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.Trinket2Slot.Item.Id).First, SlotList)
         slt = New Slot("Sigil", MainForm.GearSelector.Trinket2Slot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.SigilSlot.Item.Id).First, SlotList)
-        If MainForm.GearSelector.rdDW.IsChecked Then
+        If DW Then
             slt = New Slot("MainHand", MainForm.GearSelector.MHWeapSlot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.MHWeapSlot.Item.Id).First, SlotList)
             slt = New Slot("OffHand", MainForm.GearSelector.OHWeapSlot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.OHWeapSlot.Item.Id).First, SlotList)
         Else
             slt = New Slot("TwoHand", MainForm.GearSelector.TwoHWeapSlot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.TwoHWeapSlot.Item.Id).First, SlotList)
         End If
     End Sub
+    Friend FinishedCount As Long
 
-    Function Populate() As EquipementSet
+    Sub Populate()
         For Each s In SlotList
-            s.GenerateVariation()
+            s.GenerateVariation(True)
         Next
-        Dim EPStatSet As New AllStat(ParentForm)
+
+        Dim max As Long = 1
+        Dim r As Integer
+        For Each s In SlotList
+            r = s.ItemList.Count
+            max *= r
+        Next
+
+
+
+        Dim EPStatSet As New AllStat()
 
         Dim EQ As New EquipementSet(EPStatSet)
-        EquipementSetList.Add(EQ)
+        'WiPEquipementSetList.Add(EQ)
+        unFinishedSet.Add(EQ)
         Dim i As Integer = 1
-        For Each s In SlotList
-            CloneAndAttach(s, i)
-            i += 1
-        Next
-        Return EquipementSetList.Item(0)
-    End Function
-
-    Sub CloneAndAttach(ByVal sl As Slot, ByVal expected As Integer)
-        Dim localEquipementSetList As New List(Of EquipementSet)
-        Dim EquipementSetListToRemove As New List(Of EquipementSet)
-        For Each itm In sl.ItemList
-            For Each EQSet In EquipementSetList
-                Dim NewEQSet As EquipementSet
-                NewEQSet = EQSet.Clone()
-                NewEQSet.ItemList.Add(itm)
-                localEquipementSetList.Add(NewEQSet)
-                'EquipementSetListToRemove.Add(EQSet)
-            Next
-        Next
-        For Each e In EquipementSetList
-            For Each i In e.ItemList
-                i = Nothing
-            Next
-            e = Nothing
-        Next
-        For Each w In EquipementSetList
-            w.ItemList.Clear()
-            w = Nothing
-        Next
-        EquipementSetList.Clear()
 
 
-        EquipementSetList = localEquipementSetList
-
-        'EquipementSetList.AddRange(localEquipementSetList)
-        'EquipementSetList = (From e In EquipementSetList
-        '              Where e.ItemList.Count = expected).ToList
-
-        'For Each e In EquipementSetListToRemove
-        '    e.ItemList.Clear()
-        '    e = Nothing
+        'For j = 0 To SlotList.Count - 1
+        '    CloneAndAttach(SlotList.Item(j))
+        '    i += 1
         'Next
-        Diagnostics.Debug.WriteLine("EquipementSet Count=" & EquipementSetList.Count)
 
-        If EquipementSetList.Count > 100000 Then
-            ' clean the lowest EP to release memory
-            EquipementSetList = (From e In EquipementSetList
-                                 Order By e.EPValue Descending
-                                              ).ToList
-            'Dim ItemTocleanList = (From e In EquipementSetList
-            '                      Skip (1 + EquipementSetList.Count / 2)
-            '                      ).ToList
-            'For Each w In ItemTocleanList
-            '    w = Nothing
-            'Next
-            'ItemTocleanList.Clear()
-            'ItemTocleanList = Nothing
-            EquipementSetList = (From e In EquipementSetList
-                                 Take 100000
-                                  ).ToList
+        Me.ReportProgress(1)
+
+        Dim k As Integer
+        Dim l As Integer
+ProcessList:
+        Dim lst As List(Of EquipementSet)
+        Do Until unFinishedSet.Count = 0 And WiPEquipementSetList.Count = 0
+takeNext:
+            If unFinishedSet.Count = 0 Then
+                unFinishedSet = WiPEquipementSetList.ToList
+                WiPEquipementSetList.Clear()
+
+            End If
+            If unFinishedSet.Count = 0 Then Exit Do
+            Dim myEq As EquipementSet = unFinishedSet.Item(0)
+
+            If myEq.ItemList.Count = SlotList.Count Then
+                lst = (From e In unFinishedSet
+                         Where e.ItemList.Count = SlotList.Count).ToList
+                FinishedCount += lst.Count
+                FinishedSet.AddRange(lst)
+                For Each eqp As EquipementSet In lst
+                    unFinishedSet.Remove(eqp)
+                Next
+                lst.Clear()
+                GoTo takeNext
+            End If
+            i += 1
+
+            WiPEquipementSetList.AddRange(myEq.CloneAddingThisSlot(SlotList.Item(myEq.ItemList.Count)))
+            unFinishedSet.Remove(myEq)
+            ' ProcessEquipementSetList()
+
+         
+processNext:
+            If WiPEquipementSetList.Count > 0 Then
+                Dim myLastEq As EquipementSet = WiPEquipementSetList.Last
+                If myLastEq.ItemList.Count = SlotList.Count Then
+                    FinishedSet.Add(myLastEq)
+                    FinishedCount += 1
+                Else
+                    WiPEquipementSetList.AddRange(myLastEq.CloneAddingThisSlot(SlotList.Item(myLastEq.ItemList.Count)))
+                End If
+                WiPEquipementSetList.Remove(myLastEq)
+                CleanupFinishedSet()
+
+                l += 1
+                If l = 1000 Then
+                    Me.ReportProgress(1 + 100 * FinishedCount / max)
+                    l = 0
+                End If
+                GoTo processNext
+            End If
+
+
+            CleanupFinishedSet()
+            k += 1
+            If k = 10000 Then
+                CleanUpList()
+                Me.ReportProgress(FinishedSet(0).EPValue)
+                k = 0
+            End If
+
+
+        Loop
+        CleanUpList()
+        If unFinishedSet.Count > 0 Or WiPEquipementSetList.Count > 0 Then GoTo ProcessList
+        FinishedSet = (From e In FinishedSet
+                       Order By e.EPValue Descending).ToList
+
+
+        Dim ret As New RunWorkerCompletedEventArgs(FinishedSet.First, Nothing, False)
+        Me.OnRunWorkerCompleted(ret)
+
+    End Sub
+
+
+
+    Sub CleanupFinishedSet()
+
+        If FinishedSet.Count > 100000 Then
+            FinishedSet = (From e In FinishedSet
+                            Order By e.EPValue Descending
+                            Take 10
+                            ).ToList
+        End If
+
+    End Sub
+
+    Sub PutFinishedInTheRightList()
+        Dim lst = (From e In WiPEquipementSetList Where e.ItemList.Count = SlotList.Count).ToList()
+
+        If lst.Count > 0 Then
+            FinishedCount += lst.Count
+            FinishedSet.AddRange(lst)
+            For Each eqp As EquipementSet In lst
+                WiPEquipementSetList.Remove(eqp)
+            Next
+
         End If
 
 
+    End Sub
+
+    Sub CleanUpList()
+        PutFinishedInTheRightList()
+
+        Dim buffer As Integer = 500
+
+        CleanupFinishedSet()
+
+        If WiPEquipementSetList.Count > buffer Then
+
+            WiPEquipementSetList = (From e In WiPEquipementSetList
+                                 Where e.ItemList.Count < SlotList.Count
+                                              ).ToList
+
+            unFinishedSet.AddRange((From e In WiPEquipementSetList
+                                    Skip (buffer + 1)
+                                    ).ToList)
+
+            unFinishedSet = (From e In unFinishedSet
+                             Order By e.ItemList.Count Descending).ToList
+
+            WiPEquipementSetList = (From e In WiPEquipementSetList
+                                 Take buffer
+                                 ).ToList
+
+            WiPEquipementSetList = (From e In WiPEquipementSetList
+                                 Order By e.ItemList.Count Ascending
+                                 ).ToList
+        End If
+
+    End Sub
+
+    Sub ProcessEquipementSetList(Optional ByVal Stack = 0)
+        If Stack > 5000 Then
+            ' CleanUpList()
+            Exit Sub
+        End If
+
+        If WiPEquipementSetList.Count > 0 Then
+            Dim myEq As EquipementSet = WiPEquipementSetList.Last
+            If myEq.ItemList.Count = SlotList.Count Then
+                FinishedSet.Add(myEq)
+                FinishedCount += 1
+            Else
+                WiPEquipementSetList.AddRange(myEq.CloneAddingThisSlot(SlotList.Item(myEq.ItemList.Count)))
+            End If
+            WiPEquipementSetList.Remove(myEq)
+            ProcessEquipementSetList(Stack + 1)
+        End If
+    End Sub
+    Sub CloneAndAttach(ByVal sl As Slot)
+        Dim localEquipementSetList As New List(Of EquipementSet)
+        Dim EquipementSetListToRemove As New List(Of EquipementSet)
+
+        For Each EQSet In WiPEquipementSetList
+            localEquipementSetList.AddRange(EQSet.CloneAddingThisSlot(sl))
+            EQSet = Nothing
+        Next
+        WiPEquipementSetList.Clear()
+        WiPEquipementSetList = localEquipementSetList
+        Diagnostics.Debug.WriteLine("EquipementSet Count=" & WiPEquipementSetList.Count)
+        CleanUpList()
     End Sub
     Class AllStat
         Friend EPStr As Stat
@@ -123,37 +254,26 @@ Public Class Optimizer
         Friend EPExp As Stat
         Friend EPMast As Stat
 
-        Sub New(ByVal MF As MainForm)
-            EPStr = New Stat(MF.txtStrC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator), _
-                             MF.txtStrBC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator), _
-                                         MF.txtStrAC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator))
-            EPHast = New Stat(MF.txtHasteC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator), _
-                              MF.txtHasteBC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator), _
-                              MF.txtHasteAC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator))
-            EPCrit = New Stat(MF.txtCritC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator), _
-                              MF.txtCritBC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator), _
-                              MF.txtCritAC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator))
-
-
-            EPHit = New Stat(MF.txtHitC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator), _
-                             MF.txtHitBC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator), _
-                             MF.txtHitAC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator))
-            EPExp = New Stat(MF.txtExpC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator), _
-                             MF.txtExpBC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator), _
-                             MF.txtExpAC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator))
-            EPMast = New Stat(MF.txtMastC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator), _
-                            MF.txtMastBC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator), _
-                            MF.txtMastAC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator))
-
-
+        Sub New()
+            Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+                Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/Optimiser.xml", FileMode.Open, isoStore)
+                    Dim doc As XDocument = XDocument.Load(isoStream)
+                    EPStr = New Stat(doc.<EPValues>.<str>.<cap>.Value, doc.<EPValues>.<str>.<beforecap>.Value, doc.<EPValues>.<str>.<aftercap>.Value)
+                    EPHast = New Stat(doc.<EPValues>.<haste>.<cap>.Value, doc.<EPValues>.<haste>.<beforecap>.Value, doc.<EPValues>.<haste>.<aftercap>.Value)
+                    EPCrit = New Stat(doc.<EPValues>.<crit>.<cap>.Value, doc.<EPValues>.<crit>.<beforecap>.Value, doc.<EPValues>.<crit>.<aftercap>.Value)
+                    EPHit = New Stat(doc.<EPValues>.<hit>.<cap>.Value, doc.<EPValues>.<hit>.<beforecap>.Value, doc.<EPValues>.<hit>.<aftercap>.Value)
+                    EPExp = New Stat(doc.<EPValues>.<exp>.<cap>.Value, doc.<EPValues>.<exp>.<beforecap>.Value, doc.<EPValues>.<exp>.<aftercap>.Value)
+                    EPMast = New Stat(doc.<EPValues>.<mast>.<cap>.Value, doc.<EPValues>.<mast>.<beforecap>.Value, doc.<EPValues>.<mast>.<aftercap>.Value)
+                End Using
+            End Using
         End Sub
 
 
 
         Class Stat
-            Dim Cap As Integer
-            Dim ValBeforeCap As Double
-            Dim ValAfterCap As Double
+            Friend Cap As Integer
+            Friend ValBeforeCap As Double
+            Friend ValAfterCap As Double
 
             Sub New(ByVal Cap As Integer, ByVal BefCap As Double, ByVal AftCat As Double)
                 Me.Cap = Cap
@@ -175,12 +295,10 @@ Public Class Optimizer
             End Function
 
 
+
         End Class
 
     End Class
-
-
-
 
     Class EquipementSet
         Inherits WowItem
@@ -227,7 +345,6 @@ Public Class Optimizer
 
         Sub New(ByVal EPStatSet As AllStat)
             EPStats = EPStatSet
-
         End Sub
 
         Shadows Function Clone() As EquipementSet
@@ -239,10 +356,18 @@ Public Class Optimizer
             Return NewSet
         End Function
 
-
+        Function CloneAddingThisSlot(ByVal sl As Slot) As List(Of EquipementSet)
+            Dim localEquipementSetList As New List(Of EquipementSet)
+            For Each Item In sl.ItemList
+                Dim NewEQSet As EquipementSet
+                NewEQSet = Me.Clone()
+                NewEQSet.ItemList.Add(Item)
+                localEquipementSetList.Add(NewEQSet)
+            Next
+            Return localEquipementSetList
+        End Function
 
     End Class
-
 
     Class OptimizerWowItem
         Inherits WowItem
@@ -250,6 +375,35 @@ Public Class Optimizer
         Friend ReforgeFrom As SecondatyStat
         Friend Reforgeto As SecondatyStat
         Friend ReforgeValue As Integer
+
+        Property ValueBeforeCap As Double
+        Property ValueAfterCap As Double
+
+
+        Function GetValueAfterCap(ByVal EPStats As AllStat) As Double
+
+            Dim d As Double = 0
+            d += Me.Strength * EPStats.EPStr.ValAfterCap
+            d += Me.HitRating * EPStats.EPHit.ValAfterCap
+            d += Me.CritRating * EPStats.EPCrit.ValAfterCap
+            d += Me.ExpertiseRating * EPStats.EPExp.ValAfterCap
+            d += Me.HasteRating * EPStats.EPHast.ValAfterCap
+            d += Me.MasteryRating * EPStats.EPMast.ValAfterCap
+            ValueAfterCap = d
+            Return d
+
+        End Function
+        Function GetValueBeforeCap(ByVal EPStats As AllStat, Optional ByVal WithoutHit As Boolean = False, Optional ByVal WithoutExp As Boolean = False) As Double
+            Dim d As Double = 0
+            d += Me.Strength * EPStats.EPStr.ValBeforeCap
+            If WithoutHit = False Then d += Me.HitRating * EPStats.EPHit.ValBeforeCap
+            If WithoutExp = False Then d += Me.ExpertiseRating * EPStats.EPExp.ValBeforeCap
+            d += Me.CritRating * EPStats.EPCrit.ValBeforeCap
+            d += Me.HasteRating * EPStats.EPHast.ValBeforeCap
+            d += Me.MasteryRating * EPStats.EPMast.ValBeforeCap
+            ValueBeforeCap = d
+            Return d
+        End Function
 
         Shadows Function Clone() As OptimizerWowItem
 
@@ -282,7 +436,6 @@ Public Class Optimizer
 
 
     End Class
-
 
     Class Slot
         Friend ItemList As New List(Of OptimizerWowItem)
@@ -347,7 +500,9 @@ Public Class Optimizer
             List.Add(Me)
         End Sub
 
-        Sub GenerateVariation()
+
+
+        Sub GenerateVariation(Optional ByVal ForHiTExpOnly As Boolean = False)
             ItemList.Add(OriginalItem)
 
 
@@ -394,6 +549,132 @@ Public Class Optimizer
                 Itm.ExpertiseRating -= Ref
                 ItemList.AddRange(GenerateVariationForThisStat(Itm, Ref))
             End If
+            Dim EPs As New AllStat
+            Dim d1 = OriginalItem.GetValueAfterCap(EPs)
+            Dim d2 = OriginalItem.GetValueBeforeCap(EPs)
+
+            ' get WeakestStatValue
+            Dim CalcWithoutExp As Boolean = True
+            Dim WStat As Double = Math.Min(EPs.EPCrit.ValBeforeCap, EPs.EPMast.ValBeforeCap)
+            WStat = Math.Min(EPs.EPHast.ValBeforeCap, WStat)
+            If EPs.EPExp.ValBeforeCap < WStat Then
+                'get rid of exp
+                ItemList = (From e In ItemList Where e.Reforgeto <> SecondatyStat.ExpertiseRating).ToList
+            Else
+                CalcWithoutExp = False
+            End If
+            ItemList = (From e In ItemList
+            Order By e.GetValueBeforeCap(EPs) Descending
+                ).ToList
+
+            Dim f = (From e In ItemList
+                Where e.GetValueBeforeCap(EPs) >= d2
+                ).ToList
+
+
+            If EPs.EPHast.ValBeforeCap > Math.Max(EPs.EPCrit.ValBeforeCap, EPs.EPMast.ValBeforeCap) Then
+                ItemList = (From e In ItemList Where e.ReforgeFrom <> SecondatyStat.HasteRating).ToList
+            End If
+
+            If EPs.EPCrit.ValBeforeCap > Math.Max(EPs.EPHast.ValBeforeCap, EPs.EPMast.ValBeforeCap) Then
+                ItemList = (From e In ItemList Where e.ReforgeFrom <> SecondatyStat.CritRating).ToList
+            End If
+
+            If EPs.EPMast.ValBeforeCap > Math.Max(EPs.EPHast.ValBeforeCap, EPs.EPCrit.ValBeforeCap) Then
+                ItemList = (From e In ItemList Where e.ReforgeFrom <> SecondatyStat.MasteryRating).ToList
+            End If
+
+            If EPs.EPHast.ValBeforeCap < Math.Min(EPs.EPCrit.ValBeforeCap, EPs.EPMast.ValBeforeCap) Then
+                ItemList = (From e In ItemList Where e.Reforgeto <> SecondatyStat.HasteRating).ToList
+            End If
+
+            If EPs.EPCrit.ValBeforeCap < Math.Min(EPs.EPHast.ValBeforeCap, EPs.EPMast.ValBeforeCap) Then
+                ItemList = (From e In ItemList Where e.Reforgeto <> SecondatyStat.CritRating).ToList
+            End If
+
+            If EPs.EPMast.ValBeforeCap < Math.Min(EPs.EPHast.ValBeforeCap, EPs.EPCrit.ValBeforeCap) Then
+                ItemList = (From e In ItemList Where e.Reforgeto <> SecondatyStat.MasteryRating).ToList
+            End If
+
+            d2 = OriginalItem.GetValueBeforeCap(EPs, True, CalcWithoutExp)
+            Dim List2 As List(Of OptimizerWowItem)
+            'take the best one only
+            If CalcWithoutExp Then
+                List2 = (From e In ItemList Where
+                         e.ReforgeFrom <> SecondatyStat.HitRating AndAlso e.Reforgeto <> SecondatyStat.HitRating
+                        Order By e.GetValueBeforeCap(EPs) Descending
+                        ).ToList
+
+            Else
+                List2 = (From e In ItemList Where
+                         e.ReforgeFrom <> SecondatyStat.ExpertiseRating AndAlso e.Reforgeto <> SecondatyStat.ExpertiseRating _
+                         AndAlso e.ReforgeFrom <> SecondatyStat.HitRating AndAlso e.Reforgeto <> SecondatyStat.HitRating
+                        Order By e.GetValueBeforeCap(EPs) Descending
+                        ).ToList
+            End If
+
+            If List2.Count > 1 Then
+                For i As Integer = 1 To List2.Count - 1
+                    ItemList.Remove(List2(i))
+                Next
+            End If
+
+
+            List2 = (From e In ItemList Where
+                         e.ReforgeFrom = SecondatyStat.HitRating
+                        Order By e.GetValueBeforeCap(EPs) Descending
+                        ).ToList
+
+            If List2.Count > 1 Then
+                For i As Integer = 1 To List2.Count - 1
+                    ItemList.Remove(List2(i))
+                Next
+            End If
+            If Not CalcWithoutExp Then
+                List2 = (From e In ItemList Where
+                        e.ReforgeFrom = SecondatyStat.ExpertiseRating
+                       Order By e.GetValueBeforeCap(EPs) Descending
+                       ).ToList
+
+                If List2.Count > 1 Then
+                    For i As Integer = 1 To List2.Count - 1
+                        ItemList.Remove(List2(i))
+                    Next
+                End If
+            End If
+
+
+            'For Each e In List2
+
+            '    If e.Reforgeto <> SecondatyStat.HitRating AndAlso e.ReforgeFrom <> SecondatyStat.HitRating Then
+            '        If CalcWithoutExp Then
+            '            ItemList.Remove(e)
+            '        Else
+            '            If e.Reforgeto <> SecondatyStat.ExpertiseRating AndAlso e.ReforgeFrom <> SecondatyStat.ExpertiseRating Then
+            '                ItemList.Remove(e)
+            '            End If
+            '        End If
+            '    End If
+            'Next
+
+
+            'If ForHiTExpOnly Then
+            '    If EPs.EPExp.ValBeforeCap < (Math.Min(EPs.EPCrit.ValBeforeCap, EPs.EPMast.ValBeforeCap)) Then
+            '        ItemList = (From e In ItemList
+            '                    Where (e.Reforgeto <> SecondatyStat.ExpertiseRating AndAlso (e.HitRating <> 0)) OrElse e.ReforgeFrom = e.Reforgeto
+            '                    ).ToList
+            '    Else
+            '        ItemList = (From e In ItemList
+            '                    Where (e.ExpertiseRating <> 0 OrElse e.HitRating <> 0) OrElse e.ReforgeFrom = e.Reforgeto
+            '                    ).ToList
+            '    End If
+            'Else
+
+            '    Dim ValAfterCapList = (From i In ItemList
+            '                       Where i.GetValueAfterCap(EPs) >= d1 OrElse i.GetValueBeforeCap(EPs) >= d2
+            '                       Order By i.GetValueAfterCap(EPs) Descending).ToList
+            '    ItemList = ValAfterCapList.ToList
+            'End If
 
             For Each itm In Me.ItemList
                 itm.Strength += EchantAnGem.Strength
@@ -406,30 +687,14 @@ Public Class Optimizer
             EchantAnGem = Nothing
 
 
+
+
+
         End Sub
 
         Function GenerateVariationForThisStat(ByVal item As OptimizerWowItem, ByVal Value As Integer) As List(Of OptimizerWowItem)
             Dim lst As New List(Of OptimizerWowItem)
             Dim NewItem As OptimizerWowItem
-
-            If item.CritRating = 0 Then
-                NewItem = item.Clone
-                NewItem.Reforgeto = SecondatyStat.CritRating
-                NewItem.CritRating += Value
-                lst.Add(NewItem)
-            End If
-            If item.HasteRating = 0 Then
-                NewItem = item.Clone
-                NewItem.Reforgeto = SecondatyStat.HasteRating
-                NewItem.HasteRating += Value
-                lst.Add(NewItem)
-            End If
-            If item.MasteryRating = 0 Then
-                NewItem = item.Clone
-                NewItem.Reforgeto = SecondatyStat.MasteryRating
-                NewItem.MasteryRating += Value
-                lst.Add(NewItem)
-            End If
             If item.HitRating = 0 Then
                 NewItem = item.Clone
                 NewItem.Reforgeto = SecondatyStat.HitRating
@@ -443,8 +708,33 @@ Public Class Optimizer
                 lst.Add(NewItem)
             End If
 
+            If item.HasteRating = 0 Then
+                NewItem = item.Clone
+                NewItem.Reforgeto = SecondatyStat.HasteRating
+                NewItem.HasteRating += Value
+                lst.Add(NewItem)
+            End If
+
+
+            If item.CritRating = 0 Then
+                NewItem = item.Clone
+                NewItem.Reforgeto = SecondatyStat.CritRating
+                NewItem.CritRating += Value
+                lst.Add(NewItem)
+            End If
+
+
+
+            If item.MasteryRating = 0 Then
+                NewItem = item.Clone
+                NewItem.Reforgeto = SecondatyStat.MasteryRating
+                NewItem.MasteryRating += Value
+                lst.Add(NewItem)
+            End If
 
             Return lst
+
+
         End Function
 
         Function GetReforgeValue(ByVal stat As SecondatyStat, ByVal item As WowItem) As Integer
@@ -466,10 +756,5 @@ Public Class Optimizer
 
 
     End Class
-
-
-
-
-
 
 End Class

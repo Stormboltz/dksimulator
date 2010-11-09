@@ -17,7 +17,7 @@ Namespace Simulator.WowObjects.Strikes
             Multiplicator = 1
             logLevel = LogLevelEnum.Detailled
             DiseaseBonus = 0.125
-            Resource = New Resource(S, ResourcesEnum.None)
+            Resource = New Resource(S, Resource.ResourcesEnum.None)
 
         End Sub
 

@@ -16,14 +16,13 @@ Namespace Simulator.WowObjects.Strikes
             Else
                 BaseDamage = 736
             End If
-            If sim.Sigils.DarkRider Then BaseDamage = BaseDamage + 90
+            'If sim.Sigils.DarkRider Then BaseDamage = BaseDamage + 90
             Coeficient = 1
-            Multiplicator += sim.Character.Talents.Talent("BloodoftheNorth").Value * 5 / 100
-            If sim.Character.T102PDPS <> 0 Then Multiplicator += 0.07
-            If sim.Character.Glyph("HeartStrike") Then Multiplicator += 1.3
-            If sim.Character.T92PTNK = 1 Then Multiplicator += 0.05
 
-            Resource = New Resource(S, ResourcesEnum.BloodOrDeathRune, False, 10)
+            If sim.Character.T92PTNK = 1 Then Coeficient += 0.05
+            If sim.Character.T102PDPS <> 0 Then Coeficient += 0.07
+            If sim.Character.Glyph("HeartStrike") Then Coeficient += 0.3
+            Resource = New Resource(S, Resource.ResourcesEnum.BloodOrDeathRune, False, 10)
             logLevel = LogLevelEnum.Basic
         End Sub
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean

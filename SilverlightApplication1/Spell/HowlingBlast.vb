@@ -16,8 +16,8 @@ Namespace Simulator.WowObjects.Spells
             Coeficient = 0.4
             Multiplicator = 1
 
-            Resource = New Resource(S, ResourcesEnum.FrostRune, False, 10 + sim.Character.Talents.Talent("ChillOfTheGrave").Value * 5)
-            alternateRessource = New Resource(S, ResourcesEnum.None, False, sim.Character.Talents.Talent("ChillOfTheGrave").Value * 5)
+            Resource = New Resource(S, Resource.ResourcesEnum.FrostRune, False, 10 + sim.Character.Talents.Talent("ChillOfTheGrave").Value * 5)
+            alternateRessource = New Resource(S, Resource.ResourcesEnum.None, False, sim.Character.Talents.Talent("ChillOfTheGrave").Value * 5)
             If sim.Character.Talents.Talent("HowlingBlast").Value = 1 Then talented = True
             'If sim.Character.Talents.MainSpec = Character.Talents.Schools.Frost Then
             '    Multiplicator = Multiplicator * 1.2 'Frozen Heart
@@ -90,7 +90,7 @@ Namespace Simulator.WowObjects.Spells
             If sim.ExecuteRange Then tmp = tmp * (1 + 0.06 * sim.Character.Talents.Talent("MercilessCombat").Value)
             tmp *= sim.RuneForge.RazorIceMultiplier(T) 'TODO: only on main target
             If sim.RuneForge.CheckCinderglacier(True) > 0 Then tmp *= 1.2
-            tmp *= 1 + sim.Character.Mastery.Value * 2.5
+            tmp *= 1 + sim.Character.Mastery.Value * 2
             Return tmp
         End Function
 

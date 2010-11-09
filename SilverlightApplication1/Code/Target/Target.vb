@@ -14,6 +14,7 @@ Namespace Simulator.Targets
         Protected sim As Sim
         Friend BloodPlague As BloodPlague
         Friend FrostFever As FrostFever
+        Friend EbonPlaguebringer As Integer = -1
 
 
 
@@ -38,11 +39,21 @@ Namespace Simulator.Targets
             Me.Finalize()
         End Sub
 
-        Function NumDesease() As Integer
-            NumDesease = 0
-            If BloodPlague.isActive(sim.TimeStamp) Then NumDesease = NumDesease + 1
-            If FrostFever.isActive(sim.TimeStamp) Then NumDesease = NumDesease + 1
-            If (sim.Character.Talents.Talent("EbonPlaguebringer").Value >= 1) And NumDesease >= 1 Then NumDesease = NumDesease + 1
+        Function NumDisease() As Integer
+            Dim tmp As Integer
+            tmp = 0
+            If BloodPlague.isActive(sim.TimeStamp) Then tmp = tmp + 1
+            If FrostFever.isActive(sim.TimeStamp) Then tmp = tmp + 1
+
+            If EbonPlaguebringer = -1 Then
+                If sim.Character.Talents.Talent("EbonPlaguebringer").Value >= 1 Then
+                    EbonPlaguebringer = 1
+                Else
+                    EbonPlaguebringer = 0
+                End If
+            End If
+            If (EbonPlaguebringer = 1) And tmp >= 1 Then tmp = tmp + 1
+            Return tmp
         End Function
 
 

@@ -954,6 +954,9 @@ OUT:
 
     End Sub
     Sub GetStats() Handles frmStatSummaryWithEvent.DPS_Stat_changed
+        Try
+
+        
         If IsNothing(GearSelector) Then Exit Sub
         If GearSelector.InLoad Then Exit Sub
         If StatSummary.chkManualInput.IsChecked Then GoTo refreshRating
@@ -1462,7 +1465,9 @@ refreshRating:
         End If
 
 
-
+        Catch ex As Exception
+            Log.Log(Err.Description, logging.Level.ERR)
+        End Try
 
 
     End Sub
@@ -1777,20 +1782,17 @@ refreshRating:
         cmp.Show()
     End Sub
 
-    Private Sub cmdOptimizer_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdOptimizer.Click
-        Dim opt As New Optimizer(ItemDB, Me)
-        Dim myBestof As Optimizer.EquipementSet = opt.Populate()
 
-        myBestof.Report()
+
+
+    Sub DisplayOptimizerResult(ByVal EQSet As Optimizer.EquipementSet)
+        EQSet.Report()
         For Each iSlot In GearSelector.EquipmentList
             Dim Id As String = iSlot.Item.Id
             If Id <> 0 Then
                 Try
-
-
-                    Dim itm As Optimizer.OptimizerWowItem = (From eL In myBestof.ItemList
+                    Dim itm As Optimizer.OptimizerWowItem = (From eL In EQSet.ItemList
                                                              Where eL.Id = Id).First
-
                     Select Case itm.ReforgeFrom
                         Case Optimizer.SecondatyStat.CritRating
                             iSlot.Item.ReForgingFrom = "Crit"
@@ -1827,4 +1829,75 @@ refreshRating:
         Next
         GetStats()
     End Sub
+
+
+
+    Private Sub cmdOptimizer_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdOptimizer.Click
+        ProgressBar1.Maximum = 100
+
+        Dim Xdoc As XDocument = XDocument.Parse("<EPValues/>")
+
+        Xdoc.Element("EPValues").Add(New XElement("str", ""))
+        Xdoc.Element("EPValues").Element("str").Add((New XElement("cap", txtStrC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator))))
+        Xdoc.Element("EPValues").Element("str").Add((New XElement("beforecap", txtStrBC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator))))
+        Xdoc.Element("EPValues").Element("str").Add((New XElement("aftercap", txtStrBC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator))))
+
+        Xdoc.Element("EPValues").Add(New XElement("haste", ""))
+        Xdoc.Element("EPValues").Element("haste").Add((New XElement("cap", txtHasteC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator))))
+        Xdoc.Element("EPValues").Element("haste").Add((New XElement("beforecap", txtHasteBC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator))))
+        Xdoc.Element("EPValues").Element("haste").Add((New XElement("aftercap", txtHasteBC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator))))
+
+        Xdoc.Element("EPValues").Add(New XElement("crit", ""))
+        Xdoc.Element("EPValues").Element("crit").Add((New XElement("cap", txtCritC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator))))
+        Xdoc.Element("EPValues").Element("crit").Add((New XElement("beforecap", txtCritBC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator))))
+        Xdoc.Element("EPValues").Element("crit").Add((New XElement("aftercap", txtCritBC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator))))
+
+        Xdoc.Element("EPValues").Add(New XElement("hit", ""))
+        Xdoc.Element("EPValues").Element("hit").Add((New XElement("cap", txtHitC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator))))
+        Xdoc.Element("EPValues").Element("hit").Add((New XElement("beforecap", txtHitBC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator))))
+        Xdoc.Element("EPValues").Element("hit").Add((New XElement("aftercap", txtHitAC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator))))
+
+        Xdoc.Element("EPValues").Add(New XElement("exp", ""))
+        Xdoc.Element("EPValues").Element("exp").Add((New XElement("cap", txtExpC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator))))
+        Xdoc.Element("EPValues").Element("exp").Add((New XElement("beforecap", txtExpBC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator))))
+        Xdoc.Element("EPValues").Element("exp").Add((New XElement("aftercap", txtExpAC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)))
+        )
+        Xdoc.Element("EPValues").Add(New XElement("mast", ""))
+        Xdoc.Element("EPValues").Element("mast").Add((New XElement("cap", txtMastC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator))))
+        Xdoc.Element("EPValues").Element("mast").Add((New XElement("beforecap", txtMastBC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator))))
+        Xdoc.Element("EPValues").Element("mast").Add((New XElement("aftercap", txtMastBC.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator))))
+        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/Optimiser.xml", FileMode.Create, isoStore)
+                Xdoc.Save(isoStream)
+            End Using
+        End Using
+        Dim dw As Boolean = GearSelector.rdDW.IsChecked
+
+        Dim bw As Optimizer = New Optimizer(ItemDB, Me, dw)
+        bw.WorkerReportsProgress = True
+        bw.WorkerSupportsCancellation = True
+
+        AddHandler bw.DoWork, AddressOf bw_DoWork
+        AddHandler bw.ProgressChanged, AddressOf bw_ProgressChanged
+        AddHandler bw.RunWorkerCompleted, AddressOf bw_DisplayResult
+        bw.RunWorkerAsync()
+    End Sub
+
+    Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs)
+        Dim worker As Optimizer = CType(sender, Optimizer)
+        worker.Populate()
+    End Sub
+
+
+    Private Sub bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs)
+        'cmdOptimizer.Content = e.ProgressPercentage
+        ProgressBar1.Value = e.ProgressPercentage
+    End Sub
+    Private Sub bw_DisplayResult(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs)
+        If IsNothing(e.Result) Then Exit Sub
+        DisplayOptimizerResult(e.Result)
+
+    End Sub
+
+
 End Class

@@ -19,7 +19,7 @@ Namespace Simulator.WowObjects.Spells
             logLevel = LogLevelEnum.Basic
             If Sim.Character.Talents.Talent("PillarOfFrost").Value <> 0 Then Talented = True
             Buff = (New Procs.SpellBuff(S, "Pillar Of Frost", Simulator.Sim.Stat.Strength, 1.2, 20))
-            Resource = New Resource(S, ResourcesEnum.BloodTap, True, 10)
+            Resource = New Resource(S, Resource.ResourcesEnum.BloodTap, True, 10)
         End Sub
 
 

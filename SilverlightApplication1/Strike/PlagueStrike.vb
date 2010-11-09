@@ -4,17 +4,17 @@ Namespace Simulator.WowObjects.Strikes
         Sub New(ByVal S As Sim)
             MyBase.New(S)
             If S.level85 Then
-                BaseDamage = 420 * 100 / 100
+                BaseDamage = 420
             Else
-                BaseDamage = 378 * 100 / 100
+                BaseDamage = 378
             End If
 
             Coeficient = 1
-            Multiplicator += sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100
+            Coeficient += sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100
             logLevel = LogLevelEnum.Basic
-            SpecialCritChance += sim.Character.T72PTNK * 0.1
+            AdditionalCritChance += sim.Character.T72PTNK * 0.1
             _CritCoef = (1 + 0.06 * sim.Character.CSD)
-            Resource = New Resource(S, ResourcesEnum.UnholyRune, False, 10)
+            Resource = New Resource(S, Resource.ResourcesEnum.UnholyRune, False, 10)
         End Sub
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
             If Not OffHand Then UseGCD()
@@ -29,7 +29,7 @@ Namespace Simulator.WowObjects.Strikes
                 If sim.Targets.MainTarget.BloodPlague.isActive(T) Then
                     sim.proc.CrimsonScourge.TryMe(T)
                 End If
-                sim.proc.Strife.TryMe(T)
+
                 sim.Targets.MainTarget.BloodPlague.Apply(T)
                 If sim.DRW.IsActive(T) Then
                     sim.DRW.DRWPlagueStrike()

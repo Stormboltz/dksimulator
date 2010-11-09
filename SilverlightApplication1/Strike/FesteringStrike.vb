@@ -4,15 +4,15 @@
         Sub New(ByVal S As Sim)
             MyBase.New(S)
             If S.level85 Then
-                BaseDamage = 560 * 150 / 100
+                BaseDamage = 560
             Else
-                BaseDamage = 503 * 150 / 100
+                BaseDamage = 503
             End If
 
             Coeficient = 1.5
             Multiplicator = 1
-            Multiplicator *= (1 + sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100)
-            Resource = New Resource(S, ResourcesEnum.BloodFrostRune, True, 20)
+            Coeficient += (sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100)
+            Resource = New Resource(S, Resource.ResourcesEnum.BloodFrostRune, True, 20)
             logLevel = LogLevelEnum.Basic
         End Sub
 

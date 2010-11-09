@@ -8,22 +8,15 @@ Namespace Simulator.WowObjects.Strikes
             MyBase.New(S)
             sim = S
             ThreadMultiplicator = 1.5 * 1.17
-
             logLevel = LogLevelEnum.Basic
-
             BaseDamage = 0
-            Coeficient = 2
-
-
+            Coeficient = 1.5
             Multiplicator += sim.Character.T82PTNK * 0.1
-
-
             If sim.Character.Glyph("RuneStrike") Then
-                SpecialCritChance = 0.1
+                AdditionalCritChance = 0.1
             End If
             CanBeDodge = False
-            Resource = New Resource(S, ResourcesEnum.RunicPower, 30)
-
+            Resource = New Resource(S, Resource.ResourcesEnum.RunicPower, 30)
         End Sub
         Public Overrides Function IsAvailable() As Boolean
             If trigger Then
@@ -44,17 +37,20 @@ Namespace Simulator.WowObjects.Strikes
         End Sub
 
         Overrides Function ApplyDamage(ByVal T As Long) As Boolean
-            BaseDamage = 15 * sim.Character.AP / 100
+            If sim.level85 Then
+                BaseDamage = 15 * sim.Character.AP / 100
+            Else
+                BaseDamage = 20 * sim.Character.AP / 100
+            End If
+
             trigger = False
             If Not OffHand Then UseGCD()
             If MyBase.ApplyDamage(T) = False Then
-                sim.RunicPower.Use(10)
                 Return False
             End If
 
             If OffHand = False Then
-
-                sim.RunicPower.Use(20)
+                Use()
                 sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.onRPDump)
                 If sim.DRW.IsActive(T) Then
                     sim.DRW.DRWRuneStrike()

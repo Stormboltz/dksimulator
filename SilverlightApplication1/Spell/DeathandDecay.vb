@@ -27,7 +27,7 @@ Namespace Simulator.WowObjects.Spells
             Length = 1000
             If sim.Character.Glyph("DeathAndDecay") Then Length *= 1.5
             logLevel = LogLevelEnum.Basic
-            Resource = New Resource(sim, ResourcesEnum.UnholyRune, False, 10)
+            Resource = New Resource(sim, Resource.ResourcesEnum.UnholyRune, False, 10)
         End Sub
 
         Public Overloads Overrides Sub Init()

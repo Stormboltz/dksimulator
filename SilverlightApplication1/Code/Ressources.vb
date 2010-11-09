@@ -1,17 +1,5 @@
 ﻿Namespace Simulator
-    Enum ResourcesEnum
-        RunicPower
-        BloodRune
-        BloodOrDeathRune
-        FrostRune
-        UnholyRune
-        BloodFrostRune
-        FrostUnholy
-        Death
-        BloodTap
-        AllRunicPower
-        None
-    End Enum
+
 
 
 
@@ -19,6 +7,21 @@
 
 
     Class Resource
+        Enum ResourcesEnum
+            RunicPower
+            BloodRune
+            BloodOrDeathRune
+            FrostRune
+            UnholyRune
+            BloodFrostRune
+            FrostUnholy
+            Death
+            BloodTap
+            AllRunicPower
+            None
+        End Enum
+
+
         Dim sim As Sim
         Dim Ress As ResourcesEnum
         Dim Cost As Integer
@@ -31,12 +34,12 @@
         End Sub
 
 
-        Sub New(ByVal s As Sim, ByVal Ressource As ResourcesEnum, ByVal RPCost As Integer)
+        Sub New(ByVal s As Sim, ByVal Ressource As Resource.ResourcesEnum, ByVal RPCost As Integer)
             sim = s
             Ress = Ressource
             Me.Cost = RPCost
         End Sub
-        Sub New(ByVal s As Sim, ByVal Ressource As ResourcesEnum, ByVal ToDeathRune As Boolean, ByVal RPGain As Integer)
+        Sub New(ByVal s As Sim, ByVal Ressource As Resource.ResourcesEnum, ByVal ToDeathRune As Boolean, ByVal RPGain As Integer)
             sim = s
             Ress = Ressource
             DeathRune = ToDeathRune
@@ -44,29 +47,29 @@
         End Sub
         Function IsAvailable() As Boolean
             Select Case Ress
-                Case ResourcesEnum.RunicPower
+                Case Resource.ResourcesEnum.RunicPower
                     Return sim.RunicPower.Check(Cost)
-                Case ResourcesEnum.BloodFrostRune
+                Case Resource.ResourcesEnum.BloodFrostRune
                     Return sim.Runes.BF()
-                Case ResourcesEnum.BloodOrDeathRune
+                Case Resource.ResourcesEnum.BloodOrDeathRune
                     Return sim.Runes.AnyBlood()
-                Case ResourcesEnum.BloodRune
+                Case Resource.ResourcesEnum.BloodRune
                     If DeathRune Then
                         Return sim.Runes.BloodOnlyNoDeath()
                     Else
                         Return sim.Runes.AnyBlood()
                     End If
-                Case ResourcesEnum.Death
+                Case Resource.ResourcesEnum.Death
                     Return sim.Runes.Death()
-                Case ResourcesEnum.FrostRune
+                Case Resource.ResourcesEnum.FrostRune
                     Return sim.Runes.Frost()
-                Case ResourcesEnum.FrostUnholy
+                Case Resource.ResourcesEnum.FrostUnholy
                     Return sim.Runes.FU()
-                Case ResourcesEnum.UnholyRune
+                Case Resource.ResourcesEnum.UnholyRune
                     Return sim.Runes.Unholy()
-                Case ResourcesEnum.BloodTap
+                Case Resource.ResourcesEnum.BloodTap
                     Return sim.BloodTap.IsAvailable()
-                Case ResourcesEnum.AllRunicPower
+                Case Resource.ResourcesEnum.AllRunicPower
                     Return True
                 Case Else
                     Diagnostics.Debug.WriteLine("WTF IS THIS RESOURCE")
@@ -76,32 +79,32 @@
 
         Sub Use()
             Select Case Ress
-                Case ResourcesEnum.RunicPower
+                Case Resource.ResourcesEnum.RunicPower
                     sim.RunicPower.Use(Cost)
-                Case ResourcesEnum.AllRunicPower
+                Case Resource.ResourcesEnum.AllRunicPower
                     sim.RunicPower.UseAll()
-                Case ResourcesEnum.BloodFrostRune
+                Case Resource.ResourcesEnum.BloodFrostRune
                     sim.Runes.UseBF(sim.TimeStamp, DeathRune)
                     sim.RunicPower.add(Cost)
-                Case ResourcesEnum.BloodRune, ResourcesEnum.BloodOrDeathRune
+                Case Resource.ResourcesEnum.BloodRune, Resource.ResourcesEnum.BloodOrDeathRune
                     sim.Runes.UseBlood(sim.TimeStamp, DeathRune)
                     sim.RunicPower.add(Cost)
-                Case ResourcesEnum.Death
+                Case Resource.ResourcesEnum.Death
                     sim.Runes.UseDeathBlood(sim.TimeStamp, DeathRune)
                     sim.RunicPower.add(Cost)
-                Case ResourcesEnum.FrostRune
+                Case Resource.ResourcesEnum.FrostRune
                     sim.Runes.UseFrost(sim.TimeStamp, DeathRune)
                     sim.RunicPower.add(Cost)
-                Case ResourcesEnum.FrostUnholy
+                Case Resource.ResourcesEnum.FrostUnholy
                     sim.Runes.UseFU(sim.TimeStamp, DeathRune)
                     sim.RunicPower.add(Cost)
-                Case ResourcesEnum.UnholyRune
+                Case Resource.ResourcesEnum.UnholyRune
                     sim.Runes.UseUnholy(sim.TimeStamp, DeathRune)
                     sim.RunicPower.add(Cost)
-                Case ResourcesEnum.BloodTap
+                Case Resource.ResourcesEnum.BloodTap
                     sim.BloodTap.Use()
                     sim.Runes.UseDeathBlood(sim.TimeStamp, True)
-                Case ResourcesEnum.None
+                Case Resource.ResourcesEnum.None
                     sim.RunicPower.add(Cost)
                 Case Else
                     Diagnostics.Debug.WriteLine("WTF IS THIS RESOURCE")
@@ -112,19 +115,19 @@
 
             Dim A As Boolean = True
             Select Case Ress
-                Case ResourcesEnum.RunicPower
+                Case Resource.ResourcesEnum.RunicPower
                     sim.RunicPower.Use(Cost / 2)
-                Case ResourcesEnum.BloodFrostRune
+                Case Resource.ResourcesEnum.BloodFrostRune
                     sim.Runes.UseBF(sim.TimeStamp, DeathRune, A)
-                Case ResourcesEnum.BloodRune
+                Case Resource.ResourcesEnum.BloodRune
                     sim.Runes.UseBlood(sim.TimeStamp, DeathRune, A)
-                Case ResourcesEnum.Death
+                Case Resource.ResourcesEnum.Death
                     sim.Runes.UseDeathBlood(sim.TimeStamp, DeathRune, A)
-                Case ResourcesEnum.FrostRune
+                Case Resource.ResourcesEnum.FrostRune
                     sim.Runes.UseFrost(sim.TimeStamp, DeathRune, A)
-                Case ResourcesEnum.FrostUnholy
+                Case Resource.ResourcesEnum.FrostUnholy
                     sim.Runes.UseFU(sim.TimeStamp, DeathRune, A)
-                Case ResourcesEnum.UnholyRune
+                Case Resource.ResourcesEnum.UnholyRune
                     sim.Runes.UseUnholy(sim.TimeStamp, DeathRune, A)
                 Case Else
                     Diagnostics.Debug.WriteLine("WTF IS THIS RESOURCE")
@@ -132,8 +135,5 @@
         End Sub
     End Class
 
-    Public Class Resources
-
-
-    End Class
+   
 End Namespace

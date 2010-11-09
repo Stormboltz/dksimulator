@@ -58,7 +58,7 @@
                         <sdk:Label Content="Scenario:"   Name="lblScenario" Grid.Row="9" HorizontalAlignment="Right" />
                         <ComboBox Name="cmbScenario"  Grid.Row="9" Grid.Column="1" />
                         <Button Content="Edit"  Name="cmdEditScenario" Grid.Row="9" Grid.Column="2" />
-                        
+
                     </Grid >
 
                 </sdk:TabItem>
@@ -266,46 +266,61 @@
 
                 </sdk:TabItem>
                 <sdk:TabItem Header="EP Values" Name="tabEPVAlue">
-                    
-                    <StackPanel Orientation="Horizontal" >
-                        <Button Grid.Row="10" Grid.Column="1" Name="cmdOptimizer" >Optimize</Button>
-                        <StackPanel>
-                            <sdk:Label Height="24" >Stat </sdk:Label>
-                            <sdk:Label Height="24">Stength :</sdk:Label>
-                            <sdk:Label Height="24">Hit :</sdk:Label>
-                            <sdk:Label Height="24">Haste :</sdk:Label>
-                            <sdk:Label Height="24">Crit :</sdk:Label>
-                            <sdk:Label Height="24">Mastery :</sdk:Label>
-                            <sdk:Label Height="24">Expertise :</sdk:Label>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Grid.Row="10" Grid.Column="1" Name="cmdOptimizer" >Optimize</Button>
+                            <StackPanel>
+                                <sdk:Label Height="24" >Stat</sdk:Label>
+                                <sdk:Label Height="24">Stength :</sdk:Label>
+                                <sdk:Label Height="24">Hit :</sdk:Label>
+                                <sdk:Label Height="24">Haste :</sdk:Label>
+                                <sdk:Label Height="24">Crit :</sdk:Label>
+                                <sdk:Label Height="24">Mastery :</sdk:Label>
+                                <sdk:Label Height="24">Expertise :</sdk:Label>
+                            </StackPanel>
+                            <StackPanel>
+                                <sdk:Label Height="24">Before Cap</sdk:Label>
+                                <TextBox Name="txtStrBC" Text="3"></TextBox>
+                                <TextBox Name="txtHitBC"  Text="4"></TextBox>
+                                <TextBox Name="txtHasteBC" Text="3"></TextBox>
+                                <TextBox Name="txtCritBC" Text="2.1"></TextBox>
+                                <TextBox Name="txtMastBC" Text="2.5"></TextBox>
+                                <TextBox Name="txtExpBC" Text="3.5"></TextBox>
+                            </StackPanel>
+                            <StackPanel>
+                                <sdk:Label Height="24">Cap</sdk:Label>
+                                <TextBox Name="txtStrC" Text="0" Opacity="0"></TextBox>
+                                <TextBox Name="txtHitC" Text="246"></TextBox>
+                                <TextBox Name="txtHasteC" Text="900" Opacity="0"></TextBox>
+                                <TextBox Name="txtCritC" Text="0" Opacity="0"></TextBox>
+                                <TextBox Name="txtMastC" Text="0" Opacity="0"></TextBox>
+                                <TextBox Name="txtExpC" Text="174"></TextBox>
+                            </StackPanel>
+                            <StackPanel>
+                                <sdk:Label Height="24">after Cap</sdk:Label>
+                                <TextBox Name="txtStrAC" Text="3" Opacity="0"></TextBox>
+                                <TextBox Name="txtHitAC" Text="1.5" ></TextBox>
+                                <TextBox Name="txtHasteAC" Text="3" Opacity="0"></TextBox>
+                                <TextBox Name="txtCritAC" Text="2.1" Opacity="0" ></TextBox>
+                                <TextBox Name="txtMastAC" Text="2.5" Opacity="0"></TextBox>
+                                <TextBox Name="txtExpAC"  Text="0"></TextBox>
+                            </StackPanel>
                         </StackPanel>
-                        <StackPanel>
-                            <sdk:Label Height="24">Before Cap</sdk:Label>
-                            <TextBox Name="txtStrBC" Text="0"></TextBox>
-                            <TextBox Name="txtHitBC"  Text="4"></TextBox>
-                            <TextBox Name="txtHasteBC" Text="3"></TextBox>
-                            <TextBox Name="txtCritBC" Text="0"></TextBox>
-                            <TextBox Name="txtMastBC" Text="0"></TextBox>
-                            <TextBox Name="txtExpBC" Text="3.5"></TextBox>
+                        <TextBlock >
+                            This tool will only reforge for the moment.<LineBreak/>
+                            Gem/Enchant optimization will be available<LineBreak/>
+                            sooner or later.<LineBreak/>
+                            Once the calculation is done move the mouse <LineBreak/>
+                            over a slot item to update the display.<LineBreak/><LineBreak/> 
+                            WARNING: Avoid to have the same rating values <LineBreak/> 
+                            or the calculation will be very long.<LineBreak/><LineBreak/> 
+                           
+                            Note: Calculation with Expertise not set as the <LineBreak/>
+                            lowest value will take longer.<LineBreak/>
                             
-                        </StackPanel>
-                        <StackPanel>
-                            <sdk:Label Height="24">Cap</sdk:Label>
-                            <TextBox Name="txtStrC" Text="0"></TextBox>
-                            <TextBox Name="txtHitC" Text="246"></TextBox>
-                            <TextBox Name="txtHasteC" Text="900"></TextBox>
-                            <TextBox Name="txtCritC" Text="0"></TextBox>
-                            <TextBox Name="txtMastC" Text="0"></TextBox>
-                            <TextBox Name="txtExpC" Text="174"></TextBox>
-                        </StackPanel>
-                        <StackPanel>
-                            <sdk:Label Height="24">after Cap</sdk:Label>
-                            <TextBox Name="txtStrAC" Text="3"></TextBox>
-                            <TextBox Name="txtHitAC" Text="1.5"></TextBox>
-                            <TextBox Name="txtHasteAC" Text="2"></TextBox>
-                            <TextBox Name="txtCritAC" Text="2.1"></TextBox>
-                            <TextBox Name="txtMastAC" Text="2.5"></TextBox>
-                            <TextBox Name="txtExpAC"  Text="0"></TextBox>
-                        </StackPanel>
+                        </TextBlock>
+                        
+
                     </StackPanel>
                 </sdk:TabItem>
                 <sdk:TabItem Header="Debug" Name="tabDebug">

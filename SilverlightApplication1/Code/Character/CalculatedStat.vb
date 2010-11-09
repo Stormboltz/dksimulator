@@ -116,7 +116,7 @@
             If sim.level85 Then
                 RatingRatio = 120.109
             Else
-                RatingRatio = 30.7548
+                RatingRatio = 26.769
             End If
             AdditiveBuff = 0.25 * sim.Character.Talents.Talent("Vot3W").Value * 6
             CalculateCurrentValue()
@@ -129,7 +129,7 @@
             If sim.level85 Then
                 RatingRatio = 120.109
             Else
-                RatingRatio = 30.7548
+                RatingRatio = 26.769
             End If
             AdditiveBuff = 0.25 * sim.Character.Talents.Talent("Vot3W").Value * 6 / 100
             AdditiveBuff += sim.Character.MHExpertiseBonus * 0.25 / 100
@@ -143,7 +143,7 @@
             If sim.level85 Then
                 RatingRatio = 120.109
             Else
-                RatingRatio = 30.7548
+                RatingRatio = 26.769
             End If
 
             AdditiveBuff = 0.25 * (sim.Character.Talents.Talent("Vot3W").Value * 6 / 100)

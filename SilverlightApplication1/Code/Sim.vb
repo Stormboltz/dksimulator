@@ -84,7 +84,7 @@ Namespace Simulator
 
 
         Friend Character As Character.MainStat
-        Friend Sigils As Sigils
+        Friend Sigils As Sigils_deprecated
         Friend boss As Boss
 
         'Strike Creation
@@ -643,7 +643,7 @@ Namespace Simulator
                 FutureEventManager.Add(NextFreeGCD, "GCD")
             End If
 
-            
+
         End Sub
 
         Sub UseGCD(ByVal Spell As Boolean)
@@ -672,7 +672,7 @@ Namespace Simulator
         Friend MySimlationObjects As New List(Of SimObjet)
 
 
-        
+
 
         Sub SoftReset()
             FutureEventManager.Clear()
@@ -691,7 +691,7 @@ Namespace Simulator
                     Graphs.Add(DPSLineAverage)
                 End If
             End If
-            
+
             DPSLine = New StatScallingLine("Real Time DPS" & FightNumber)
             DPSLineAverage = New StatScallingLine("Fight_" & FightNumber)
 
@@ -762,7 +762,7 @@ Namespace Simulator
             Butchery = New Butchery(Me)
             DRW = New DRW(Me)
 
-            
+
             RunicPower.SoftReset()
             NextFreeGCD = 0
             Threat = 0
@@ -901,46 +901,46 @@ Namespace Simulator
                 ShowProc = XmlConfig.Element("config").Element("ShowProc").Value
                 level85 = XmlConfig.Element("config").<lvl85>.Value
 
-                Sigils = New Sigils(Me)
-                Sigils.WildBuck = False
-                Sigils.FrozenConscience = False
-                Sigils.DarkRider = False
-                Sigils.ArthriticBinding = False
-                Sigils.Awareness = False
-                Sigils.Strife = False
-                Sigils.HauntedDreams = False
-                Sigils.VengefulHeart = False
-                Sigils.Virulence = False
-                Sigils.HangedMan = False
-                Dim sigilId As Integer
-                Try
-                    sigilId = XmlCharacter.Element("character").Element("Sigil").Element("id").Value
-                Catch ex As Exception
-                    sigilId = 0
-                End Try
+                'Sigils = New Sigils_deprecated(Me)
+                'Sigils.WildBuck = False
+                'Sigils.FrozenConscience = False
+                'Sigils.DarkRider = False
+                'Sigils.ArthriticBinding = False
+                'Sigils.Awareness = False
+                'Sigils.Strife = False
+                'Sigils.HauntedDreams = False
+                'Sigils.VengefulHeart = False
+                'Sigils.Virulence = False
+                'Sigils.HangedMan = False
+                'Dim sigilId As Integer
+                'Try
+                '    sigilId = XmlCharacter.Element("character").Element("Sigil").Element("id").Value
+                'Catch ex As Exception
+                '    sigilId = 0
+                'End Try
 
-                Select Case sigilId
-                    Case 3
-                        Sigils.WildBuck = True
-                    Case 4
-                        Sigils.FrozenConscience = True
-                    Case 1
-                        Sigils.DarkRider = True
-                    Case 2
-                        Sigils.ArthriticBinding = True
-                    Case 40207
-                        Sigils.Awareness = True
-                    Case 51417, 42619, 42620, 42621, 42622
-                        ' Sigils.Strife = True
-                    Case 40715
-                        'Sigils.HauntedDreams = True
-                    Case 45254
-                        'Sigils.VengefulHeart = True
-                    Case 47673
-                        'Sigils.Virulence = True
-                    Case 50459
-                        'Sigils.HangedMan = True
-                End Select
+                'Select Case sigilId
+                '    Case 3
+                '        Sigils.WildBuck = True
+                '    Case 4
+                '        Sigils.FrozenConscience = True
+                '    Case 1
+                '        Sigils.DarkRider = True
+                '    Case 2
+                '        Sigils.ArthriticBinding = True
+                '    Case 40207
+                '        Sigils.Awareness = True
+                '    Case 51417, 42619, 42620, 42621, 42622
+                '        ' Sigils.Strife = True
+                '    Case 40715
+                '        'Sigils.HauntedDreams = True
+                '    Case 45254
+                '        'Sigils.VengefulHeart = True
+                '    Case 47673
+                '        'Sigils.Virulence = True
+                '    Case 50459
+                '        'Sigils.HangedMan = True
+                'End Select
 
 
 

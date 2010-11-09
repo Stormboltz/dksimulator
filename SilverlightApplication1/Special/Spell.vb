@@ -95,7 +95,7 @@ Namespace Simulator.WowObjects.Spells
         End Function
 
         Overridable Function CritChance() As Double
-            Return sim.Character.SpellCrit.Value + SpecialCritChance
+            Return sim.Character.SpellCrit.Value + AdditionalCritChance
         End Function
 
         Overridable Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double

@@ -18,7 +18,7 @@ Namespace Simulator.WowObjects.Diseases
                 Multiplicator += sim.Character.Mastery.Value * 2.5
             End If
             If sim.Character.Talents.MainSpec = (Character.Talents.Schools.Unholy) Then
-                Multiplicator += 4 * sim.Character.Mastery.Value
+                Multiplicator += 5 * sim.Character.Mastery.Value
             End If
 
             tmp *= Multiplicator

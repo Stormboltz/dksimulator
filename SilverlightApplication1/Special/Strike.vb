@@ -121,17 +121,13 @@ Namespace Simulator.WowObjects.Strikes
                         Case LogLevelEnum.Detailled
                             sim.CombatLog.WriteDetails(T & vbTab & Me.Name & " fail")
                     End Select
-
                     MissCount += 1
                     Return False
                 End If
             Else
-
                 If DoMyToTHit() = False Then Return False
             End If
-
             RNG = RngCrit
-
             If RNG <= CritChance() Then
                 LastDamage = AvrgCrit(T)
                 CritCount = CritCount + 1
@@ -170,20 +166,21 @@ Namespace Simulator.WowObjects.Strikes
         Overridable Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
             Dim tmp As Double
             If OffHand = False Then
-                tmp = sim.Character.NormalisedMHDamage * Coeficient
+                tmp = (sim.Character.NormalisedMHDamage + BaseDamage) * Coeficient
             Else
-                tmp = sim.Character.NormalisedOHDamage * Coeficient
+                tmp = (sim.Character.NormalisedOHDamage + BaseDamage) * Coeficient
             End If
-            tmp += BaseDamage
+
             Select Case DamageSchool
                 Case DamageSchoolEnum.Physical
                     tmp *= sim.Character.StandardPhysicalDamageMultiplier(T, target)
                 Case Else
                     tmp *= sim.Character.StandardMagicalDamageMultiplier(T, target)
             End Select
+
             tmp *= Multiplicator
             If DiseaseBonus <> 0 Then
-                tmp = tmp * (1 + DiseaseBonus * target.NumDesease)
+                tmp = tmp * (1 + DiseaseBonus * target.NumDisease)
             End If
             If OffHand Then
                 tmp = tmp * OffDamageBonus()
@@ -210,7 +207,7 @@ Namespace Simulator.WowObjects.Strikes
         End Function
 
         Overridable Function CritChance() As Double
-            Return sim.Character.Crit.Value + SpecialCritChance
+            Return sim.Character.Crit.Value + AdditionalCritChance
         End Function
 
         Private _OffDamageBonus As Double = -1

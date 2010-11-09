@@ -7,7 +7,7 @@
         Sub New(ByVal S As Sim)
             MyBase.New(S)
             logLevel = LogLevelEnum.Detailled
-            Resource = New Resource(S, ResourcesEnum.AllRunicPower)
+            Resource = New Resource(S, Resource.ResourcesEnum.AllRunicPower)
         End Sub
 
         Sub CancelAura()

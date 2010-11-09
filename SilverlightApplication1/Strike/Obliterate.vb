@@ -13,22 +13,21 @@ Namespace Simulator.WowObjects.Strikes
 
         Sub New(ByVal S As Sim)
             MyBase.New(S)
-            'TOTAL = (MHdamage+Base Damage*Multiplicator) * Multiplicator*CoefDeBase/100
+            'TOTAL = (MHdamage+Base Damage)*coef* Multiplicator
             If S.level85 Then
-                BaseDamage = 650 * 160 / 100
+                BaseDamage = 650
             Else
-                BaseDamage = 584 * 160 / 100
+                BaseDamage = 584
             End If
-            If Sim.Sigils.Awareness Then BaseDamage = BaseDamage + 336
             Coeficient = 1.6
-            Multiplicator += sim.Character.Talents.Talent("Annihilation").Value * 15 / 100
-            If sim.Character.Glyph("Obliterate") Then Multiplicator += 0.25
-            If sim.Character.T102PDPS <> 0 Then Multiplicator += 0.1
+            Coeficient += sim.Character.Talents.Talent("Annihilation").Value * 15 / 100
+            If sim.Character.Glyph("Obliterate") Then Coeficient += 0.25
+            If sim.Character.T102PDPS <> 0 Then Coeficient += 0.1
             logLevel = LogLevelEnum.Basic
             If Sim.Character.T72PDPS Then
-                SpecialCritChance = 0.05
+                AdditionalCritChance = 0.05
             Else
-                SpecialCritChance = 0
+                AdditionalCritChance = 0
             End If
 
             If Sim.Character.T84PDPS = 1 Then
@@ -38,9 +37,9 @@ Namespace Simulator.WowObjects.Strikes
             End If
             Dim rp As Integer = 20 + 5 * sim.Character.Talents.Talent("ChillOfTheGrave").Value + 5 * sim.Character.T74PDPS
             If sim.Character.Talents("DRM") = 1 Then
-                Resource = New Resource(sim, ResourcesEnum.FrostUnholy, True, rp)
+                Resource = New Resource(sim, Resource.ResourcesEnum.FrostUnholy, True, rp)
             Else
-                Resource = New Resource(sim, ResourcesEnum.FrostUnholy, False, rp)
+                Resource = New Resource(sim, Resource.ResourcesEnum.FrostUnholy, False, rp)
             End If
 
         End Sub

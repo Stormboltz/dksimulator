@@ -4,14 +4,12 @@ Imports System.IO
 Namespace Simulator.Character
 
     Public Class Talents
-
         Default ReadOnly Property Tal(ByVal Name As String) As Integer
             Get
                 Return Talent(Name).Value
             End Get
         End Property
         Friend MainSpec As Schools
-
         Private Talents As New Collections.Generic.Dictionary(Of String, Talent)
         'Private Talents As New List(Of Talent)
         Private IncludedTalents As New List(Of Talent)

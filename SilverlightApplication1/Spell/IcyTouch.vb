@@ -12,7 +12,7 @@ Namespace Simulator.WowObjects.Spells
                 BaseDamage = 454 + 492 / 2
             End If
 
-            If Sim.Sigils.FrozenConscience Then BaseDamage += 111
+            'If Sim.Sigils.FrozenConscience Then BaseDamage += 111
             Coeficient = (0.2) 'Free Imp Icy Touch 
 
             'If sim.Character.Talents.MainSpec = Character.Talents.Schools.Frost Then
@@ -21,7 +21,7 @@ Namespace Simulator.WowObjects.Spells
             logLevel = LogLevelEnum.Basic
             DamageSchool = DamageSchoolEnum.Frost
             Dim rp As Integer = 10 + (sim.Character.Talents.Talent("ChillOfTheGrave").Value * 5)
-            Resource = New Resource(S, ResourcesEnum.FrostRune, False, rp)
+            Resource = New Resource(S, Resource.ResourcesEnum.FrostRune, False, rp)
         End Sub
 
         Overrides Function ApplyDamage(ByVal T As Long) As Boolean
@@ -46,7 +46,7 @@ Namespace Simulator.WowObjects.Spells
             If Sim.RuneForge.CheckCinderglacier(True) > 0 Then tmp *= 1.2
             tmp *= sim.RuneForge.RazorIceMultiplier(T)
             If sim.Character.Talents.MainSpec = Character.Talents.Schools.Frost Then
-                tmp *= 1 + sim.Character.Mastery.Value * 2.5
+                tmp *= 1 + sim.Character.Mastery.Value * 2
             End If
             'TODO: only on main target
             Sim.Targets.MainTarget.FrostFever.Apply(T)

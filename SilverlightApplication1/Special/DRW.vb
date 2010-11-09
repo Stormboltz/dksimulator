@@ -268,7 +268,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
             End If
             damage = NormalisedMHDamage() * 0.8 + 467.2
             damage = damage * PhysicalDamageMultiplier(sim.TimeStamp)
-            damage = damage * (1 + 0.125 * sim.Targets.MainTarget.NumDesease)
+            damage = damage * (1 + 0.125 * sim.Targets.MainTarget.NumDisease)
             damage = damage / 2
 
             RNG = Obliterate.RngCrit
@@ -328,7 +328,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
                 RNG = HeartStrike.RngCrit
                 damage = NormalisedMHDamage() * 0.5 + 368
                 damage = damage * PhysicalDamageMultiplier(sim.TimeStamp)
-                damage = damage * (1 + 0.1 * t.NumDesease)
+                damage = damage * (1 + 0.1 * t.NumDisease)
                 If RNG < crit() Then
                     damage = damage * 2
                     HeartStrike.CritCount = HeartStrike.CritCount + 1

@@ -4,7 +4,7 @@
 
         Sub New(ByVal S As Sim)
             MyBase.New(S)
-            Me.Resource = New Resource(S, ResourcesEnum.None, 0)
+            Me.Resource = New Resource(S, Resource.ResourcesEnum.None, 0)
             logLevel = LogLevelEnum.Basic
             DamageSchool = DamageSchoolEnum.OtherMagical
         End Sub

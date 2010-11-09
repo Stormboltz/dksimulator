@@ -21,23 +21,22 @@ Namespace Simulator.WowObjects.Strikes
             logLevel = LogLevelEnum.Basic
 
             If S.level85 Then
-                BaseDamage = 624 * 100 / 100
+                BaseDamage = 624
             Else
-                BaseDamage = 561 * 100 / 100
+                BaseDamage = 561
             End If
 
-            If sim.Sigils.Awareness Then BaseDamage = BaseDamage + 189
-            If sim.Sigils.ArthriticBinding Then BaseDamage = BaseDamage + 91.35
-
+            
             Coeficient = 1
 
-            Multiplicator += sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100
-            If sim.Character.T102PDPS <> 0 Then Multiplicator += 0.1
+            Coeficient += sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100
+
+            If sim.Character.T102PDPS <> 0 Then Coeficient += 0.1
             _CritCoef = (1 + 0.06 * sim.Character.CSD)
             Dim rp As Integer = 10 + 5 * sim.Character.T74PDPS
             SSmagical = New ScourgeStrikeMagical(S)
             SSmagical._Name = "Scourge Strike Magical"
-            Resource = New Resource(sim, ResourcesEnum.UnholyRune, False, rp)
+            Resource = New Resource(sim, Resource.ResourcesEnum.UnholyRune, False, rp)
 
         End Sub
 
@@ -85,7 +84,7 @@ Namespace Simulator.WowObjects.Strikes
                 If sim.Character.Glyph("ScourgeStrike") Then Multiplicator += 0.3
                 Multiplicator += sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100
                 logLevel = LogLevelEnum.Basic
-                Resource = New Resource(sim, ResourcesEnum.None)
+                Resource = New Resource(sim, Resource.ResourcesEnum.None)
             End Sub
 
             Shadows Function ApplyDamage(ByVal PhysicalDamage As Integer, ByVal T As Long, ByVal IsCrit As Boolean) As Boolean
@@ -101,10 +100,11 @@ Namespace Simulator.WowObjects.Strikes
 
             Public Overrides Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
                 Dim tmpMagical As Integer
-                tmpMagical = tmpPhysical * (0.12 * target.NumDesease)
+                tmpMagical = tmpPhysical * (0.12 * target.NumDisease)
                 If sim.Character.T84PDPS = 1 Then tmpMagical = tmpMagical * 1.2
                 tmpMagical *= sim.Character.StandardMagicalDamageMultiplier(T, target)
                 If sim.RuneForge.CheckCinderglacier(True) > 0 Then tmpMagical *= 1.2
+                tmpMagical *= Multiplicator
                 Return tmpMagical
             End Function
         End Class

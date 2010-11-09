@@ -11,7 +11,7 @@ Namespace Simulator.WowObjects
         Inherits SimObjet
 
         Friend Talented As Boolean
-        Friend ResourceType As Simulator.ResourcesEnum
+        Friend ResourceType As Resource.ResourcesEnum
         Friend Resource As Simulator.Resource
 
 
@@ -43,7 +43,7 @@ Namespace Simulator.WowObjects
         Friend BaseDamage As Double
         Friend Coeficient As Double
         Friend Multiplicator As Double = 1
-        Friend SpecialCritChance As Double
+        Friend AdditionalCritChance As Double
 
 
 
