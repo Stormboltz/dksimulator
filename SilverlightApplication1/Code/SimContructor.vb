@@ -240,7 +240,7 @@ Public Module SimConstructor
         Dim BaseDPS As Long
         Dim APDPS As Long
         Dim DPS As Long
-        Dim tmp1 As Double
+        'Dim tmp1 As Double
         Dim tmp2 As Double
 
         Dim Str As String
@@ -278,32 +278,31 @@ Public Module SimConstructor
 
         End Try
 
-        rp.AddAdditionalInfo(EpStat, "1 (" & toDDecimal((APDPS - BaseDPS) / (2 * EPBase)) & " DPS/per AP)")
+        rp.AddAdditionalInfo(EpStat, toDDecimal((APDPS - BaseDPS) / (2 * EPBase)) & " DPS")
 
         Try
             EpStat = "EP Strength"
             DPS = DPSs(EpStat)
-            tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
+
             tmp2 = (DPS - BaseDPS) / EPBase
-            Str = toDDecimal(tmp2 / tmp1)
+            Str = toDDecimal(tmp2)
             rp.AddAdditionalInfo(EpStat, Str)
         Catch
         End Try
         Try
             EpStat = "EP Agility"
             DPS = DPSs(EpStat)
-            tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
             tmp2 = (DPS - BaseDPS) / EPBase
-            Agility = toDDecimal(tmp2 / tmp1)
+            Agility = toDDecimal(tmp2)
             rp.AddAdditionalInfo(EpStat, Agility)
         Catch
         End Try
         Try
             EpStat = "EP CritRating"
             DPS = DPSs(EpStat)
-            tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
             tmp2 = (DPS - BaseDPS) / EPBase
-            Crit = toDDecimal(tmp2 / tmp1)
+
+            Crit = toDDecimal(tmp2)
             rp.AddAdditionalInfo(EpStat, Crit)
         Catch
         End Try
@@ -311,9 +310,8 @@ Public Module SimConstructor
         Try
             EpStat = "EP MasteryRating"
             DPS = DPSs(EpStat)
-            tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
             tmp2 = (DPS - BaseDPS) / EPBase
-            Mast = toDDecimal(tmp2 / tmp1)
+            Mast = toDDecimal(tmp2)
             rp.AddAdditionalInfo(EpStat, Mast)
             '	WriteReport ("Average for " & EPStat & " | " & DPS)
         Catch
@@ -323,10 +321,9 @@ Public Module SimConstructor
         Try
             EpStat = "EP HasteRating"
             DPS = DPSs(EpStat)
-            tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
             tmp2 = (DPS - BaseDPS) / EPBase
-            rp.AddAdditionalInfo(EpStat, toDDecimal(tmp2 / tmp1))
-
+            Haste = toDDecimal(tmp2)
+            rp.AddAdditionalInfo(EpStat, Haste)
         Catch
 
         End Try
@@ -334,28 +331,18 @@ Public Module SimConstructor
         Try
             EpStat = "EP ExpertiseRating"
             DPS = DPSs(EpStat)
-
-
-            tmp1 = (DPSs("EP ExpertiseRatingCapAP") - DPSs("EP ExpertiseRatingCap")) / (2 * EPBase)
             tmp2 = (DPS - DPSs("EP ExpertiseRatingCap")) / EPBase
-            Exp = toDDecimal(-tmp2 / tmp1)
+            Exp = toDDecimal(-tmp2)
             rp.AddAdditionalInfo(EpStat, Exp)
-
-            EpStat = "EP RelativeExpertiseRating"
-            DPS = DPSs(EpStat)
-            tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
-            tmp2 = (DPS - BaseDPS) / EPBase
-            rp.AddAdditionalInfo("Personal Expertise value", toDDecimal(tmp2 / tmp1))
         Catch
         End Try
-
 
         Try
             EpStat = "EP ExpertiseRatingAfterCap"
             DPS = DPSs(EpStat)
-            tmp1 = (DPSs("EP ExpertiseRatingCapAP") - DPSs("EP ExpertiseRatingCap")) / (2 * EPBase)
             tmp2 = (DPS - DPSs("EP ExpertiseRatingCap")) / EPBase
-            rp.AddAdditionalInfo("ExpertiseRating After Dodge Cap", toDDecimal(tmp2 / tmp1))
+            tmp2 = toDDecimal(tmp2)
+            rp.AddAdditionalInfo("ExpertiseRating After Dodge Cap", tmp2)
         Catch
         End Try
 
@@ -363,9 +350,8 @@ Public Module SimConstructor
         Try
             EpStat = "EP HitRating"
             DPS = DPSs(EpStat)
-            tmp1 = (DPSs("EP HitRatingCapAP") - DPSs("EP HitRatingCap")) / (2 * EPBase)
             tmp2 = (DPS - DPSs("EP HitRatingCap")) / EPBase
-            Hit = toDDecimal(-tmp2 / tmp1)
+            Hit = toDDecimal(-tmp2)
             rp.AddAdditionalInfo("Before Melee Hit Cap", Hit)
             '	WriteReport ("Average for " & EPStat & " | " & DPS)
         Catch
@@ -376,119 +362,101 @@ Public Module SimConstructor
         Try
             EpStat = "EP SpellHitRating"
             DPS = DPSs(EpStat)
-            tmp1 = (DPSs("EP HitRatingCapAP") - DPSs("EP HitRatingCap")) / (2 * EPBase)
             tmp2 = (DPS - DPSs("EP HitRatingCap")) / 20
-            SpHit = toDDecimal(tmp2 / tmp1)
+            SpHit = toDDecimal(tmp2)
             rp.AddAdditionalInfo(EpStat, SpHit)
         Catch
         End Try
         Try
             EpStat = "EP WeaponDPS"
             DPS = DPSs(EpStat)
-            tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
+
             tmp2 = (DPS - BaseDPS) / 10
-            MHDPS = toDDecimal(tmp2 / tmp1)
+            MHDPS = toDDecimal(tmp2)
             rp.AddAdditionalInfo(EpStat, MHDPS)
         Catch
         End Try
         Try
             EpStat = "EP WeaponSpeed"
             DPS = DPSs(EpStat)
-            tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
             tmp2 = (DPS - BaseDPS) / 0.1
-            MHSpeed = toDDecimal(tmp2 / tmp1)
+            MHSpeed = toDDecimal(tmp2)
             rp.AddAdditionalInfo(EpStat, MHSpeed)
         Catch
         End Try
 
         Try
-            EpStat = "EP AfterSpellHitBase"
-            BaseDPS = DPSs(EpStat)
-            EpStat = "EP AfterSpellHitBaseAP"
-            APDPS = DPSs(EpStat)
+            BaseDPS = DPSs("EP AfterSpellHitBase")
             EpStat = "EP AfterSpellHitRating"
             DPS = DPSs(EpStat)
-            tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
             tmp2 = (DPS - BaseDPS) / EPBase
-            rp.AddAdditionalInfo(EpStat, toDDecimal(tmp2 / tmp1))
+            rp.AddAdditionalInfo(EpStat, toDDecimal(tmp2))
         Catch
         End Try
+
         Try
-
-
             EpStat = ""
             EpStat = "EP 0T7"
             BaseDPS = DPSs(EpStat)
 
-            EpStat = "EP AttackPower0T7"
-            APDPS = DPSs(EpStat)
-
             Try
                 EpStat = "EP 2T7"
                 DPS = DPSs(EpStat)
-                tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
-                tmp2 = (DPS - BaseDPS) / (2 * EPBase)
-                rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
+                tmp2 = (DPS - BaseDPS)
+                rp.AddAdditionalInfo(EpStat, toDDecimal(tmp2))
             Catch
             End Try
+
             Try
                 EpStat = "EP 4T7"
                 DPS = DPSs(EpStat)
-                tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
-                tmp2 = (DPS - BaseDPS) / (2 * EPBase)
-                rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
-
+                tmp2 = (DPS - BaseDPS)
+                rp.AddAdditionalInfo(EpStat, toDDecimal(tmp2))
             Catch
             End Try
+
             Try
                 EpStat = "EP 2T8"
                 DPS = DPSs(EpStat)
-                tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
                 tmp2 = (DPS - BaseDPS) / (2 * EPBase)
-                rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
-
+                rp.AddAdditionalInfo(EpStat, toDDecimal(tmp2))
             Catch
             End Try
             Try
                 EpStat = "EP 4T8"
                 DPS = DPSs(EpStat)
-                tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
                 tmp2 = (DPS - BaseDPS) / (2 * EPBase)
-                rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
+                rp.AddAdditionalInfo(EpStat, toDDecimal(tmp2))
 
             Catch
             End Try
             Try
                 EpStat = "EP 2T9"
                 DPS = DPSs(EpStat)
-                tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
                 tmp2 = (DPS - BaseDPS) / (2 * EPBase)
-                rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
+                rp.AddAdditionalInfo(EpStat, toDDecimal(tmp2))
 
             Catch
             End Try
             Try
                 EpStat = "EP 4T9"
                 DPS = DPSs(EpStat)
-                tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
-                tmp2 = (DPS - BaseDPS) / (2 * EPBase)
-                rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
+                tmp2 = (DPS - BaseDPS)
+                rp.AddAdditionalInfo(EpStat, toDDecimal(tmp2))
             Catch
             End Try
             Try
                 EpStat = "EP 2T10"
                 DPS = DPSs(EpStat)
-                tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
-                tmp2 = (DPS - BaseDPS) / (2 * EPBase)
-                rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
+                tmp2 = (DPS - BaseDPS)
+                rp.AddAdditionalInfo(EpStat, toDDecimal(tmp2))
             Catch
             End Try
             Try
                 EpStat = "EP 4T10"
                 DPS = DPSs(EpStat)
-                tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
-                tmp2 = (DPS - BaseDPS) / (2 * EPBase)
-                rp.AddAdditionalInfo(EpStat, toDDecimal(100 * tmp2 / tmp1))
+                tmp2 = (DPS - BaseDPS)
+                rp.AddAdditionalInfo(EpStat, toDDecimal(tmp2))
             Catch
             End Try
         Catch ex As Exception
@@ -504,8 +472,6 @@ Public Module SimConstructor
                    Where el.Value = True).Count > 0 Then
             EpStat = "EP Trinket NoTrinket"
             BaseDPS = DPSs(EpStat)
-            EpStat = "EP Trinket NoTrinketAP"
-            APDPS = DPSs(EpStat)
         Else
             GoTo skipTrinket
         End If
@@ -514,9 +480,8 @@ Public Module SimConstructor
             If el.Value = True Then
                 EpStat = "EP Trinket " & el.Name.ToString.Replace("chkEP", "")
                 DPS = DPSs(EpStat)
-                tmp1 = (APDPS - BaseDPS) / (2 * EPBase)
                 tmp2 = (DPS - BaseDPS)
-                rp.AddAdditionalInfo(EpStat, toDDecimal(tmp2 / tmp1))
+                rp.AddAdditionalInfo(EpStat, toDDecimal(tmp2))
             End If
 
         Next
@@ -709,13 +674,8 @@ skipStats:
                     SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                     EpStat = "EP ExpertiseRatingCap"
                     SimConstructor.Start(SimTime, MainFrm, False, EpStat)
-                    EpStat = "EP ExpertiseRatingCapAP"
-                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
-
-                    EpStat = "EP RelativeExpertiseRating"
-                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
-
-
+                    'EpStat = "EP RelativeExpertiseRating"
+                    'SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                     If MainFrm.cmdPresence.SelectedItem = "Blood" Then
                         EpStat = "EP ExpertiseRatingAfterCap"
                         SimConstructor.Start(SimTime, MainFrm, False, EpStat)
@@ -726,8 +686,6 @@ skipStats:
                     EpStat = "EP HitRating"
                     SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                     EpStat = "EP HitRatingCap"
-                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
-                    EpStat = "EP HitRatingCapAP"
                     SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                 End If
                 If doc.Element("config").Element("Stats").Element("chkEPSpHit").Value = "true" Then
@@ -748,15 +706,10 @@ skipStats:
                 If doc.Element("config").Element("Stats").Element("chkEPAfterSpellHitRating").Value = "true" Then
                     EpStat = "EP AfterSpellHitBase"
                     SimConstructor.Start(SimTime, MainFrm, False, EpStat)
-                    EpStat = "EP AfterSpellHitBaseAP"
-                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                     EpStat = "EP AfterSpellHitRating"
                     SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                 End If
                 EPBase = tmpInt
-                'Jointhread()
-
-
 
 skipStats:
                 If doc.Element("config").Element("Sets").Value.Contains("true") = False Then
@@ -764,9 +717,6 @@ skipStats:
                 End If
 
                 EpStat = "EP 0T7"
-                SimConstructor.Start(SimTime, MainFrm, False, EpStat)
-
-                EpStat = "EP AttackPower0T7"
                 SimConstructor.Start(SimTime, MainFrm, False, EpStat)
 
                 If doc.Element("config").Element("Sets").Element("chkEP2T7").Value = "true" Then
@@ -807,24 +757,17 @@ skipSets:
                     Where el.Value = True).Count > 0 Then
                     EpStat = "EP Trinket NoTrinket"
                     SimConstructor.Start(SimTime, MainFrm, False, EpStat)
-                    EpStat = "EP Trinket NoTrinketAP"
-                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                 Else
                     GoTo skipTrinket
                 End If
 
                 For Each el In doc.<config>.<Trinket>.Elements
                     If el.Value = True Then
-
                         EpStat = "EP Trinket " & el.Name.ToString.Replace("chkEP", "")
                         SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                     End If
-
                 Next
-
                 GoTo skipTrinket
-
-
 
 skipTrinket:
                 EpStat = ""

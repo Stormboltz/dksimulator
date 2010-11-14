@@ -500,6 +500,68 @@ processNext:
             List.Add(Me)
         End Sub
 
+        Function GetTheHighestStattoReforge(ByVal EPs As AllStat) As SecondatyStat
+            Dim tmp As SecondatyStat = Nothing
+            Dim prevResult As Double = 0
+            If OriginalItem.CritRating = 0 Then
+                If prevResult < SecondatyStat.CritRating * EPs.EPCrit.ValBeforeCap Then
+                    prevResult = SecondatyStat.CritRating * EPs.EPCrit.ValBeforeCap
+                    tmp = SecondatyStat.CritRating
+                End If
+            End If
+
+            If OriginalItem.HasteRating = 0 Then
+                If prevResult < SecondatyStat.HasteRating * EPs.EPHast.ValBeforeCap Then
+                    prevResult = SecondatyStat.HasteRating * EPs.EPHast.ValBeforeCap
+                    tmp = SecondatyStat.HasteRating
+                End If
+
+            End If
+
+            If OriginalItem.MasteryRating = 0 Then
+                If prevResult < SecondatyStat.MasteryRating * EPs.EPMast.ValBeforeCap Then
+                    prevResult = SecondatyStat.MasteryRating * EPs.EPMast.ValBeforeCap
+                    tmp = SecondatyStat.MasteryRating
+                End If
+            End If
+            If prevResult <> 0 Then
+                Return tmp
+            Else
+                Return Nothing
+            End If
+        End Function
+
+        Function GetTheLowestStattoReforge(ByVal EPs As AllStat) As SecondatyStat
+            Dim tmp As SecondatyStat = Nothing
+            Dim prevResult As Double = Double.MaxValue
+            If OriginalItem.CritRating <> 0 Then
+                If prevResult > SecondatyStat.CritRating * EPs.EPCrit.ValBeforeCap Then
+                    prevResult = SecondatyStat.CritRating * EPs.EPCrit.ValBeforeCap
+                    tmp = SecondatyStat.CritRating
+                End If
+            End If
+
+            If OriginalItem.HasteRating <> 0 Then
+                If prevResult > SecondatyStat.HasteRating * EPs.EPHast.ValBeforeCap Then
+                    prevResult = SecondatyStat.HasteRating * EPs.EPHast.ValBeforeCap
+                    tmp = SecondatyStat.HasteRating
+                End If
+
+            End If
+
+            If OriginalItem.MasteryRating <> 0 Then
+                If prevResult > SecondatyStat.MasteryRating * EPs.EPMast.ValBeforeCap Then
+                    prevResult = SecondatyStat.MasteryRating * EPs.EPMast.ValBeforeCap
+                    tmp = SecondatyStat.MasteryRating
+                End If
+            End If
+            If prevResult <> Double.MaxValue Then
+                Return tmp
+            Else
+                Return Nothing
+            End If
+
+        End Function
 
 
         Sub GenerateVariation(Optional ByVal ForHiTExpOnly As Boolean = False)
@@ -572,27 +634,28 @@ processNext:
                 ).ToList
 
 
-            If EPs.EPHast.ValBeforeCap > Math.Max(EPs.EPCrit.ValBeforeCap, EPs.EPMast.ValBeforeCap) Then
+
+            If EPs.EPHast.ValBeforeCap > Math.Min(EPs.EPCrit.ValBeforeCap, EPs.EPMast.ValBeforeCap) Then
                 ItemList = (From e In ItemList Where e.ReforgeFrom <> SecondatyStat.HasteRating).ToList
             End If
 
-            If EPs.EPCrit.ValBeforeCap > Math.Max(EPs.EPHast.ValBeforeCap, EPs.EPMast.ValBeforeCap) Then
+            If EPs.EPCrit.ValBeforeCap > Math.Min(EPs.EPHast.ValBeforeCap, EPs.EPMast.ValBeforeCap) Then
                 ItemList = (From e In ItemList Where e.ReforgeFrom <> SecondatyStat.CritRating).ToList
             End If
 
-            If EPs.EPMast.ValBeforeCap > Math.Max(EPs.EPHast.ValBeforeCap, EPs.EPCrit.ValBeforeCap) Then
+            If EPs.EPMast.ValBeforeCap > Math.Min(EPs.EPHast.ValBeforeCap, EPs.EPCrit.ValBeforeCap) Then
                 ItemList = (From e In ItemList Where e.ReforgeFrom <> SecondatyStat.MasteryRating).ToList
             End If
 
-            If EPs.EPHast.ValBeforeCap < Math.Min(EPs.EPCrit.ValBeforeCap, EPs.EPMast.ValBeforeCap) Then
+            If EPs.EPHast.ValBeforeCap < Math.Max(EPs.EPCrit.ValBeforeCap, EPs.EPMast.ValBeforeCap) Then
                 ItemList = (From e In ItemList Where e.Reforgeto <> SecondatyStat.HasteRating).ToList
             End If
 
-            If EPs.EPCrit.ValBeforeCap < Math.Min(EPs.EPHast.ValBeforeCap, EPs.EPMast.ValBeforeCap) Then
+            If EPs.EPCrit.ValBeforeCap < Math.Max(EPs.EPHast.ValBeforeCap, EPs.EPMast.ValBeforeCap) Then
                 ItemList = (From e In ItemList Where e.Reforgeto <> SecondatyStat.CritRating).ToList
             End If
 
-            If EPs.EPMast.ValBeforeCap < Math.Min(EPs.EPHast.ValBeforeCap, EPs.EPCrit.ValBeforeCap) Then
+            If EPs.EPMast.ValBeforeCap < Math.Max(EPs.EPHast.ValBeforeCap, EPs.EPCrit.ValBeforeCap) Then
                 ItemList = (From e In ItemList Where e.Reforgeto <> SecondatyStat.MasteryRating).ToList
             End If
 

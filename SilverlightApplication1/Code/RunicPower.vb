@@ -4,12 +4,22 @@ Namespace Simulator
         Friend MaxValue As Integer
         Friend Wasted As Integer
         Friend Total As Integer
-
+        Friend RPBonus As Double
         Protected sim As Sim
         Sub New(ByVal S As Sim)
             sim = S
             Value = 0
             Total = 0
+
+            RPBonus = 1
+            If sim.FrostPresence > 0 Then
+                RPBonus += 0.1
+            ElseIf sim.Character.Talents("IFrostPresence") > 0 Then
+                RPBonus += (0.02 * sim.Character.Talents("IFrostPresence"))
+            End If
+
+
+
         End Sub
 
         Sub SoftReset()
@@ -54,7 +64,7 @@ Namespace Simulator
 
 
         Sub add(ByVal i As Double) ' Before presence
-            i = i * (1 + sim.FrostPresence / 100)
+            i = i * RPBonus
             sim.Threat = sim.Threat + i * 5
             Value = i + Value
             'Diagnostics.Debug.WriteLine ("RP= " & Value)

@@ -947,7 +947,7 @@ Namespace Simulator
                 proc = New ProcsManager(Me)
 
                 RuneForge = New RuneForge(Me)
-                RunicPower = New RunicPower(Me)
+
 
                 Character = New Character.MainStat(Me)
 
@@ -959,6 +959,8 @@ Namespace Simulator
                 Character.InitStats()
                 Character.InitTrinkets()
                 Character.InitSets()
+
+                RunicPower = New RunicPower(Me)
 
                 Me.CombatLog.enable = XmlConfig.Element("config").Element("log").Value
                 Me.CombatLog.LogDetails = XmlConfig.Element("config").Element("logdetail").Value

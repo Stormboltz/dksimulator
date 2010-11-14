@@ -222,6 +222,7 @@ Partial Public Class MainForm
         LoadScaling()
         LoadTankOptions()
         LoadDB()
+        loadEPValue()
 
         initReport()
         'Randomize()
@@ -387,6 +388,46 @@ Partial Public Class MainForm
         End Try
 
     End Sub
+    Sub loadEPValue()
+        Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/Optimiser.xml", FileMode.Open, isoStore)
+                Dim doc As XDocument = XDocument.Load(isoStream)
+                txtStrAC.Text = doc.<EPValues>.<str>.<aftercap>.Value
+                txtStrBC.Text = doc.<EPValues>.<str>.<beforecap>.Value
+                txtStrC.Text = doc.<EPValues>.<str>.<cap>.Value
+
+                txtHasteAC.Text = doc.<EPValues>.<haste>.<aftercap>.Value
+                txtHasteBC.Text = doc.<EPValues>.<haste>.<beforecap>.Value
+                txtHasteC.Text = doc.<EPValues>.<haste>.<cap>.Value
+
+                txtCritAC.Text = doc.<EPValues>.<crit>.<aftercap>.Value
+                txtCritBC.Text = doc.<EPValues>.<crit>.<beforecap>.Value
+                txtCritC.Text = doc.<EPValues>.<crit>.<cap>.Value
+
+                txtHitAC.Text = doc.<EPValues>.<hit>.<aftercap>.Value
+                txtHitBC.Text = doc.<EPValues>.<hit>.<beforecap>.Value
+                txtHitC.Text = doc.<EPValues>.<hit>.<cap>.Value
+
+
+                txtExpAC.Text = doc.<EPValues>.<exp>.<aftercap>.Value
+                txtExpBC.Text = doc.<EPValues>.<exp>.<beforecap>.Value
+                txtExpC.Text = doc.<EPValues>.<exp>.<cap>.Value
+
+
+                txtMastAC.Text = doc.<EPValues>.<mast>.<aftercap>.Value
+                txtMastBC.Text = doc.<EPValues>.<mast>.<beforecap>.Value
+                txtMastC.Text = doc.<EPValues>.<mast>.<cap>.Value
+
+
+
+
+
+            End Using
+        End Using
+
+    End Sub
+
+
     Sub LoadDefaultConfig()
         cmbGearSelector.SelectedValue = "Empty.xml"
         cmbTemplate.SelectedValue = "Empty.xml"
@@ -956,513 +997,513 @@ OUT:
     Sub GetStats() Handles frmStatSummaryWithEvent.DPS_Stat_changed
         Try
 
-        
-        If IsNothing(GearSelector) Then Exit Sub
-        If GearSelector.InLoad Then Exit Sub
-        If StatSummary.chkManualInput.IsChecked Then GoTo refreshRating
-        Dim iSlot As VisualEquipSlot
 
-        Dim Strength As Integer
-        Dim Intel As Integer
-        Dim Agility As Integer
+            If IsNothing(GearSelector) Then Exit Sub
+            If GearSelector.InLoad Then Exit Sub
+            If StatSummary.chkManualInput.IsChecked Then GoTo refreshRating
+            Dim iSlot As VisualEquipSlot
 
-        Dim Armor As Integer
-        Dim HasteRating As Integer
-        Dim ExpertiseRating As Integer
-        Dim HitRating As Integer
-        Dim AttackPower As Integer
-        Dim CritRating As Integer
+            Dim Strength As Integer
+            Dim Intel As Integer
+            Dim Agility As Integer
 
-        Dim Stamina As Integer
-        Dim BonusArmor As Integer
-        Dim MasteryRating As Integer
-        Dim DodgeRating As Integer
-        Dim ParryRating As Integer
+            Dim Armor As Integer
+            Dim HasteRating As Integer
+            Dim ExpertiseRating As Integer
+            Dim HitRating As Integer
+            Dim AttackPower As Integer
+            Dim CritRating As Integer
 
-        Dim ArmorPenetrationRating As Integer
-        Dim Speed1 As String = "0"
-        Dim Speed2 As String = "0"
-        Dim DPS1 As String = "0"
-        Dim DPS2 As String = "0"
+            Dim Stamina As Integer
+            Dim BonusArmor As Integer
+            Dim MasteryRating As Integer
+            Dim DodgeRating As Integer
+            Dim ParryRating As Integer
 
-
-        StatSummary.chkMeta.IsChecked = False
-        StatSummary.chkTailorEnchant.IsChecked = False
-        StatSummary.chkIngenieer.IsChecked = False
-        StatSummary.chkAccelerators.IsChecked = False
-        StatSummary.chkAshenBand.IsChecked = False
-        StatSummary.chkBloodFury.IsChecked = False
-        StatSummary.chkBerzerking.IsChecked = False
-        StatSummary.chkArcaneTorrent.IsChecked = False
-        StatSummary.chkDraeni.IsChecked = False
-        StatSummary.chkWorgen.IsChecked = False
-        StatSummary.chkGoblin.IsChecked = False
-
-        StatSummary.cmbSetBonus1.Text = ""
-        StatSummary.cmbSetBonus2.Text = ""
-
-        Dim cSetBonus As New Collections.Generic.List(Of String)
-        Select Case GearSelector.ParentFrame.cmbRace.SelectedValue
-            Case "Blood Elf"
-                Strength = 172
-                Agility = 114
-                Intel = 39
-            Case "Draenei"
-                Strength = 176
-                Agility = 109
-                Intel = 36
-            Case "Dwarf"
-                Strength = 177
-                Agility = 108
-                Intel = 34
-            Case "Gnome"
-                Strength = 170
-                Agility = 115
-                Intel = 42
-            Case "Human"
-                Strength = 175
-                Agility = 112
-                Intel = 35
-            Case "Night Elf"
-                Strength = 172
-                Agility = 117
-                Intel = 35
-            Case "Orc"
-                Strength = 178
-                Agility = 109
-                Intel = 32
-            Case "Tauren"
-                Strength = 180
-                Agility = 107
-                Intel = 30
-            Case "Troll"
-                Strength = 176
-                Agility = 114
-                Intel = 31
-            Case "Undead"
-                Strength = 174
-                Agility = 110
-                Intel = 33
-            Case "Goblin"
-                Strength = 174
-                Agility = 110
-                Intel = 33
-            Case "Worgen"
-                Strength = 174
-                Agility = 110
-                Intel = 33
-        End Select
-        'Food
-        Strength += GearSelector.Food.Strength
-        Agility += GearSelector.Food.Agility
-        HasteRating += GearSelector.Food.HasteRating
-        ExpertiseRating += GearSelector.Food.ExpertiseRating
-        HitRating += GearSelector.Food.HitRating
-        AttackPower += GearSelector.Food.AttackPower
-        CritRating += GearSelector.Food.CritRating
-        ArmorPenetrationRating += GearSelector.Food.ArmorPenetrationRating
-
-        'Flask
-        Strength += GearSelector.Flask.Strength
-        Agility += GearSelector.Flask.Agility
-        HasteRating += GearSelector.Flask.HasteRating
-        ExpertiseRating += GearSelector.Flask.ExpertiseRating
-        HitRating += GearSelector.Flask.HitRating
-        AttackPower += GearSelector.Flask.AttackPower
-        CritRating += GearSelector.Flask.CritRating
-        ArmorPenetrationRating += GearSelector.Flask.ArmorPenetrationRating
-        Armor += GearSelector.Flask.Armor
+            Dim ArmorPenetrationRating As Integer
+            Dim Speed1 As String = "0"
+            Dim Speed2 As String = "0"
+            Dim DPS1 As String = "0"
+            Dim DPS2 As String = "0"
 
 
-        StatSummary.txtMHExpBonus.Text = 0
-        StatSummary.txtOHExpBonus.Text = 0
-        Dim PrevHit As Integer
-        For Each iSlot In GearSelector.EquipmentList
+            StatSummary.chkMeta.IsChecked = False
+            StatSummary.chkTailorEnchant.IsChecked = False
+            StatSummary.chkIngenieer.IsChecked = False
+            StatSummary.chkAccelerators.IsChecked = False
+            StatSummary.chkAshenBand.IsChecked = False
+            StatSummary.chkBloodFury.IsChecked = False
+            StatSummary.chkBerzerking.IsChecked = False
+            StatSummary.chkArcaneTorrent.IsChecked = False
+            StatSummary.chkDraeni.IsChecked = False
+            StatSummary.chkWorgen.IsChecked = False
+            StatSummary.chkGoblin.IsChecked = False
 
-            If iSlot.Item.Id = 0 Then GoTo NextItem
-            If iSlot.SlotId = 17 And StatSummary.rDW.IsChecked Then GoTo NextItem
-            If iSlot.SlotId = 13 And StatSummary.r2Hand.IsChecked Then GoTo NextItem
+            StatSummary.cmbSetBonus1.Text = ""
+            StatSummary.cmbSetBonus2.Text = ""
 
-            Dim subc As Integer = iSlot.Item.subclass
+            Dim cSetBonus As New Collections.Generic.List(Of String)
+            Select Case GearSelector.ParentFrame.cmbRace.SelectedValue
+                Case "Blood Elf"
+                    Strength = 172
+                    Agility = 114
+                    Intel = 39
+                Case "Draenei"
+                    Strength = 176
+                    Agility = 109
+                    Intel = 36
+                Case "Dwarf"
+                    Strength = 177
+                    Agility = 108
+                    Intel = 34
+                Case "Gnome"
+                    Strength = 170
+                    Agility = 115
+                    Intel = 42
+                Case "Human"
+                    Strength = 175
+                    Agility = 112
+                    Intel = 35
+                Case "Night Elf"
+                    Strength = 172
+                    Agility = 117
+                    Intel = 35
+                Case "Orc"
+                    Strength = 178
+                    Agility = 109
+                    Intel = 32
+                Case "Tauren"
+                    Strength = 180
+                    Agility = 107
+                    Intel = 30
+                Case "Troll"
+                    Strength = 176
+                    Agility = 114
+                    Intel = 31
+                Case "Undead"
+                    Strength = 174
+                    Agility = 110
+                    Intel = 33
+                Case "Goblin"
+                    Strength = 174
+                    Agility = 110
+                    Intel = 33
+                Case "Worgen"
+                    Strength = 174
+                    Agility = 110
+                    Intel = 33
+            End Select
+            'Food
+            Strength += GearSelector.Food.Strength
+            Agility += GearSelector.Food.Agility
+            HasteRating += GearSelector.Food.HasteRating
+            ExpertiseRating += GearSelector.Food.ExpertiseRating
+            HitRating += GearSelector.Food.HitRating
+            AttackPower += GearSelector.Food.AttackPower
+            CritRating += GearSelector.Food.CritRating
+            ArmorPenetrationRating += GearSelector.Food.ArmorPenetrationRating
 
-            If iSlot.Text.ToString = "TwoHand" Or iSlot.Text.ToString = "MainHand" Then
-                DPS1 = iSlot.Item.DPS
-                Speed1 = iSlot.Item.Speed
-                Try
-                    If (From el In WeapProcDB.<WeaponProcList>.<proc>
-                            Where (el.@<id> = iSlot.Item.Id)
-                            Select el).Count = 0 Then
-                        StatSummary.cmbWeaponProc1.Text = ""
-                    Else
-                        StatSummary.cmbWeaponProc1.Text = "MH" & (
-                            From el In WeapProcDB.<WeaponProcList>.<proc>
-                            Where (el.@<id> = iSlot.Item.Id)
-                            Select el).First.@<name>
-                    End If
-                Catch ex As Exception
-                    Log.Log(ex.StackTrace, logging.Level.ERR)
-                    StatSummary.cmbWeaponProc1.Text = ""
-                End Try
-                Select Case GearSelector.ParentFrame.cmbRace.SelectedValue
-                    Case "Dwarf"
-                        If subc = 4 Or subc = 5 Then
-                            StatSummary.txtMHExpBonus.Text = 5
-                        End If
-                    Case "Human"
-                        If subc = 4 Or subc = 5 Or subc = 7 Or subc = 8 Then
-                            StatSummary.txtMHExpBonus.Text = 3
-                        End If
-                    Case "Orc"
-                        If subc = 0 Or subc = 1 Then
-                            StatSummary.txtMHExpBonus.Text = 5
-                        End If
-                End Select
-
-
-
-            End If
-
-            If iSlot.Text.ToString = "OffHand" Then
-                DPS2 = iSlot.Item.DPS
-                Speed2 = iSlot.Item.Speed
-
-                Try
-                    If (
-                            From el In WeapProcDB.<WeaponProcList>.<proc>
-                            Where (el.@<id> = iSlot.Item.Id)
-                            Select el).Count = 0 Then
-                        StatSummary.cmbWeaponProc2.Text = ""
-                    Else
-                        StatSummary.cmbWeaponProc2.Text = "OH" & (
-                                                From el In WeapProcDB.<WeaponProcList>.<proc>
-                                                Where (el.@<id> = iSlot.Item.Id)
-                                                Select el).First.@<name>
-                    End If
-
-                Catch ex As Exception
-                    Log.Log(ex.StackTrace, logging.Level.ERR)
-                    StatSummary.cmbWeaponProc1.Text = ""
-                End Try
-
-                Select Case GearSelector.ParentFrame.cmbRace.SelectedValue
-                    Case "Dwarf"
-                        If subc = 4 Or subc = 5 Then
-                            StatSummary.txtOHExpBonus.Text = 5
-                        End If
-                    Case "Human"
-                        If subc = 4 Or subc = 5 Or subc = 7 Or subc = 8 Then
-                            StatSummary.txtOHExpBonus.Text = 3
-                        End If
-                    Case "Orc"
-                        If subc = 0 Or subc = 1 Then
-                            StatSummary.txtOHExpBonus.Text = 5
-                        End If
-                End Select
-            End If
-            If iSlot.Item.setid <> 0 Then
-                cSetBonus.Add(iSlot.Item.setid)
-            End If
-
-            If iSlot.Text.ToString = "Trinket1" Then
-                Try
-                    StatSummary.cmbTrinket1.Text = (
-                        From el In trinketDB.<TrinketList>.<trinket>
-                        Where (el.@<id> = iSlot.Item.Id)
-                        Select el).FirstOrDefault.@<name>
-                Catch ex As Exception
-                    Log.Log("No Effect on Trinket1", logging.Level.INFO)
-                    StatSummary.cmbTrinket1.Text = ""
-                End Try
-            End If
-            If iSlot.Text.ToString = "Trinket2" Then
-                Try
-                    StatSummary.cmbTrinket2.Text = (From el In trinketDB.<TrinketList>.<trinket>
-                        Where (el.@<id> = iSlot.Item.Id)
-                        Select el).FirstOrDefault.@<name>
-                Catch ex As Exception
-                    Log.Log("No Effect on Trinket1", logging.Level.INFO)
-                    StatSummary.cmbTrinket2.Text = ""
-                End Try
-            End If
+            'Flask
+            Strength += GearSelector.Flask.Strength
+            Agility += GearSelector.Flask.Agility
+            HasteRating += GearSelector.Flask.HasteRating
+            ExpertiseRating += GearSelector.Flask.ExpertiseRating
+            HitRating += GearSelector.Flask.HitRating
+            AttackPower += GearSelector.Flask.AttackPower
+            CritRating += GearSelector.Flask.CritRating
+            ArmorPenetrationRating += GearSelector.Flask.ArmorPenetrationRating
+            Armor += GearSelector.Flask.Armor
 
 
+            StatSummary.txtMHExpBonus.Text = 0
+            StatSummary.txtOHExpBonus.Text = 0
+            Dim PrevHit As Integer
+            For Each iSlot In GearSelector.EquipmentList
 
-            If iSlot.Item.Id <> 0 Then
-                Strength += iSlot.Item.Strength
-                Agility += iSlot.Item.Agility
-                BonusArmor += iSlot.Item.BonusArmor
-                Armor += iSlot.Item.Armor
-                HasteRating += iSlot.Item.HasteRating
-                ExpertiseRating += iSlot.Item.ExpertiseRating
-                HitRating += iSlot.Item.HitRating
-                AttackPower += iSlot.Item.AttackPower
-                CritRating += iSlot.Item.CritRating
-                ArmorPenetrationRating += iSlot.Item.ArmorPenetrationRating
-                BonusArmor += iSlot.Item.BonusArmor
-                Stamina += iSlot.Item.Stamina
-                MasteryRating += iSlot.Item.MasteryRating
-                DodgeRating += iSlot.Item.DodgeRating
-                ParryRating += iSlot.Item.ParryRating
+                If iSlot.Item.Id = 0 Then GoTo NextItem
+                If iSlot.SlotId = 17 And StatSummary.rDW.IsChecked Then GoTo NextItem
+                If iSlot.SlotId = 13 And StatSummary.r2Hand.IsChecked Then GoTo NextItem
 
+                Dim subc As Integer = iSlot.Item.subclass
 
-                If iSlot.Item.gem1.Id <> 0 Then
-                    Strength += iSlot.Item.gem1.Strength
-                    Agility += iSlot.Item.gem1.Agility
-                    HasteRating += iSlot.Item.gem1.HasteRating
-                    ExpertiseRating += iSlot.Item.gem1.ExpertiseRating
-                    HitRating += iSlot.Item.gem1.HitRating
-                    AttackPower += iSlot.Item.gem1.AttackPower
-                    CritRating += iSlot.Item.gem1.CritRating
-                    ArmorPenetrationRating += iSlot.Item.gem1.ArmorPenetrationRating
-
-                    BonusArmor += iSlot.Item.gem1.BonusArmor
-                    Stamina += iSlot.Item.gem1.Stamina
-                    MasteryRating += iSlot.Item.gem1.MasteryRating
-                    DodgeRating += iSlot.Item.gem1.DodgeRating
-                    ParryRating += iSlot.Item.gem1.ParryRating
-
-
-                End If
-                If iSlot.Item.gem2.Id <> 0 Then
-                    Strength += iSlot.Item.gem2.Strength
-                    Agility += iSlot.Item.gem2.Agility
-                    HasteRating += iSlot.Item.gem2.HasteRating
-                    ExpertiseRating += iSlot.Item.gem2.ExpertiseRating
-                    HitRating += iSlot.Item.gem2.HitRating
-                    AttackPower += iSlot.Item.gem2.AttackPower
-                    CritRating += iSlot.Item.gem2.CritRating
-                    ArmorPenetrationRating += iSlot.Item.gem2.ArmorPenetrationRating
-
-                    BonusArmor += iSlot.Item.gem2.BonusArmor
-                    Stamina += iSlot.Item.gem2.Stamina
-                    MasteryRating += iSlot.Item.gem2.MasteryRating
-                    DodgeRating += iSlot.Item.gem2.DodgeRating
-                    ParryRating += iSlot.Item.gem2.ParryRating
-
-                End If
-                If iSlot.Item.gem3.Id <> 0 Then
-                    Strength += iSlot.Item.gem3.Strength
-                    Agility += iSlot.Item.gem3.Agility
-                    HasteRating += iSlot.Item.gem3.HasteRating
-                    ExpertiseRating += iSlot.Item.gem3.ExpertiseRating
-                    HitRating += iSlot.Item.gem3.HitRating
-                    AttackPower += iSlot.Item.gem3.AttackPower
-                    CritRating += iSlot.Item.gem3.CritRating
-                    ArmorPenetrationRating += iSlot.Item.gem3.ArmorPenetrationRating
-
-                    BonusArmor += iSlot.Item.gem3.BonusArmor
-                    Stamina += iSlot.Item.gem3.Stamina
-                    MasteryRating += iSlot.Item.gem3.MasteryRating
-                    DodgeRating += iSlot.Item.gem3.DodgeRating
-                    ParryRating += iSlot.Item.gem3.ParryRating
-
-                End If
-
-                If iSlot.Item.IsGembonusActif And iSlot.Item.gembonus <> 0 Then
+                If iSlot.Text.ToString = "TwoHand" Or iSlot.Text.ToString = "MainHand" Then
+                    DPS1 = iSlot.Item.DPS
+                    Speed1 = iSlot.Item.Speed
                     Try
-                        Dim el As XElement = (From ele In GemBonusDB.<bonus>.Elements
-                                              Where ele.<id>.Value = iSlot.Item.gembonus
-                                              Select ele).FirstOrDefault
-                        Strength += el.<Strength>.Value
-                        Agility += el.<Agility>.Value
-                        HasteRating += el.<HasteRating>.Value
-                        ExpertiseRating += el.<ExpertiseRating>.Value
-                        HitRating += el.<HitRating>.Value
-                        AttackPower += el.<AttackPower>.Value
-                        CritRating += el.<CritRating>.Value
-                        ArmorPenetrationRating += el.<ArmorPenetrationRating>.Value
+                        If (From el In WeapProcDB.<WeaponProcList>.<proc>
+                                Where (el.@<id> = iSlot.Item.Id)
+                                Select el).Count = 0 Then
+                            StatSummary.cmbWeaponProc1.Text = ""
+                        Else
+                            StatSummary.cmbWeaponProc1.Text = "MH" & (
+                                From el In WeapProcDB.<WeaponProcList>.<proc>
+                                Where (el.@<id> = iSlot.Item.Id)
+                                Select el).First.@<name>
+                        End If
+                    Catch ex As Exception
+                        Log.Log(ex.StackTrace, logging.Level.ERR)
+                        StatSummary.cmbWeaponProc1.Text = ""
+                    End Try
+                    Select Case GearSelector.ParentFrame.cmbRace.SelectedValue
+                        Case "Dwarf"
+                            If subc = 4 Or subc = 5 Then
+                                StatSummary.txtMHExpBonus.Text = 5
+                            End If
+                        Case "Human"
+                            If subc = 4 Or subc = 5 Or subc = 7 Or subc = 8 Then
+                                StatSummary.txtMHExpBonus.Text = 3
+                            End If
+                        Case "Orc"
+                            If subc = 0 Or subc = 1 Then
+                                StatSummary.txtMHExpBonus.Text = 5
+                            End If
+                    End Select
 
-                        Stamina += el.<Stamina>.Value
-                        MasteryRating += el.<MasteryRating>.Value
-                        DodgeRating += el.<DodgeRating>.Value
-                        ParryRating += el.<ParryRating>.Value
-                        BonusArmor += el.<BonusArmor>.Value
+
+
+                End If
+
+                If iSlot.Text.ToString = "OffHand" Then
+                    DPS2 = iSlot.Item.DPS
+                    Speed2 = iSlot.Item.Speed
+
+                    Try
+                        If (
+                                From el In WeapProcDB.<WeaponProcList>.<proc>
+                                Where (el.@<id> = iSlot.Item.Id)
+                                Select el).Count = 0 Then
+                            StatSummary.cmbWeaponProc2.Text = ""
+                        Else
+                            StatSummary.cmbWeaponProc2.Text = "OH" & (
+                                                    From el In WeapProcDB.<WeaponProcList>.<proc>
+                                                    Where (el.@<id> = iSlot.Item.Id)
+                                                    Select el).First.@<name>
+                        End If
 
                     Catch ex As Exception
                         Log.Log(ex.StackTrace, logging.Level.ERR)
+                        StatSummary.cmbWeaponProc1.Text = ""
+                    End Try
 
+                    Select Case GearSelector.ParentFrame.cmbRace.SelectedValue
+                        Case "Dwarf"
+                            If subc = 4 Or subc = 5 Then
+                                StatSummary.txtOHExpBonus.Text = 5
+                            End If
+                        Case "Human"
+                            If subc = 4 Or subc = 5 Or subc = 7 Or subc = 8 Then
+                                StatSummary.txtOHExpBonus.Text = 3
+                            End If
+                        Case "Orc"
+                            If subc = 0 Or subc = 1 Then
+                                StatSummary.txtOHExpBonus.Text = 5
+                            End If
+                    End Select
+                End If
+                If iSlot.Item.setid <> 0 Then
+                    cSetBonus.Add(iSlot.Item.setid)
+                End If
+
+                If iSlot.Text.ToString = "Trinket1" Then
+                    Try
+                        StatSummary.cmbTrinket1.Text = (
+                            From el In trinketDB.<TrinketList>.<trinket>
+                            Where (el.@<id> = iSlot.Item.Id)
+                            Select el).FirstOrDefault.@<name>
+                    Catch ex As Exception
+                        Log.Log("No Effect on Trinket1", logging.Level.INFO)
+                        StatSummary.cmbTrinket1.Text = ""
+                    End Try
+                End If
+                If iSlot.Text.ToString = "Trinket2" Then
+                    Try
+                        StatSummary.cmbTrinket2.Text = (From el In trinketDB.<TrinketList>.<trinket>
+                            Where (el.@<id> = iSlot.Item.Id)
+                            Select el).FirstOrDefault.@<name>
+                    Catch ex As Exception
+                        Log.Log("No Effect on Trinket1", logging.Level.INFO)
+                        StatSummary.cmbTrinket2.Text = ""
                     End Try
                 End If
 
-                If iSlot.Item.Enchant.Id <> 0 Then
-                    Strength += iSlot.Item.Enchant.Strength
-                    Agility += iSlot.Item.Enchant.Agility
-                    HasteRating += iSlot.Item.Enchant.HasteRating
-                    ExpertiseRating += iSlot.Item.Enchant.ExpertiseRating
-                    HitRating += iSlot.Item.Enchant.HitRating
-                    AttackPower += iSlot.Item.Enchant.AttackPower
-                    CritRating += iSlot.Item.Enchant.CritRating
-                    ArmorPenetrationRating += iSlot.Item.Enchant.ArmorPenetrationRating
-
-                    BonusArmor += iSlot.Item.Enchant.BonusArmor
-                    Stamina += iSlot.Item.Enchant.Stamina
-                    MasteryRating += iSlot.Item.Enchant.MasteryRating
-                    DodgeRating += iSlot.Item.Enchant.DodgeRating
-                    ParryRating += iSlot.Item.Enchant.ParryRating
 
 
-                End If
-
-                'Reforge
-                If iSlot.Item.ReForgingvalue <> 0 Then
-                    Select Case iSlot.Item.ReForgingFrom
-                        Case "Crit"
-                            CritRating -= iSlot.Item.ReForgingvalue
-                        Case "Exp"
-                            ExpertiseRating -= iSlot.Item.ReForgingvalue
-                        Case "Haste"
-                            HasteRating -= iSlot.Item.ReForgingvalue
-                        Case "Hit"
-                            HitRating -= iSlot.Item.ReForgingvalue
-                        Case "Mast"
-                            MasteryRating -= iSlot.Item.ReForgingvalue
-                        Case "Dodge"
-                            DodgeRating -= iSlot.Item.ReForgingvalue
-                        Case "Parry"
-                            ParryRating -= iSlot.Item.ReForgingvalue
-                    End Select
-
-                    Select Case iSlot.Item.ReForgingTo
-                        Case "Crit"
-                            CritRating += iSlot.Item.ReForgingvalue
-                        Case "Exp"
-                            ExpertiseRating += iSlot.Item.ReForgingvalue
-                        Case "Haste"
-                            HasteRating += iSlot.Item.ReForgingvalue
-                        Case "Hit"
-                            HitRating += iSlot.Item.ReForgingvalue
-                        Case "Mast"
-                            MasteryRating += iSlot.Item.ReForgingvalue
-                        Case "Dodge"
-                            DodgeRating += iSlot.Item.ReForgingvalue
-                        Case "Parry"
-                            ParryRating += iSlot.Item.ReForgingvalue
-                    End Select
-
-                End If
+                If iSlot.Item.Id <> 0 Then
+                    Strength += iSlot.Item.Strength
+                    Agility += iSlot.Item.Agility
+                    BonusArmor += iSlot.Item.BonusArmor
+                    Armor += iSlot.Item.Armor
+                    HasteRating += iSlot.Item.HasteRating
+                    ExpertiseRating += iSlot.Item.ExpertiseRating
+                    HitRating += iSlot.Item.HitRating
+                    AttackPower += iSlot.Item.AttackPower
+                    CritRating += iSlot.Item.CritRating
+                    ArmorPenetrationRating += iSlot.Item.ArmorPenetrationRating
+                    BonusArmor += iSlot.Item.BonusArmor
+                    Stamina += iSlot.Item.Stamina
+                    MasteryRating += iSlot.Item.MasteryRating
+                    DodgeRating += iSlot.Item.DodgeRating
+                    ParryRating += iSlot.Item.ParryRating
 
 
+                    If iSlot.Item.gem1.Id <> 0 Then
+                        Strength += iSlot.Item.gem1.Strength
+                        Agility += iSlot.Item.gem1.Agility
+                        HasteRating += iSlot.Item.gem1.HasteRating
+                        ExpertiseRating += iSlot.Item.gem1.ExpertiseRating
+                        HitRating += iSlot.Item.gem1.HitRating
+                        AttackPower += iSlot.Item.gem1.AttackPower
+                        CritRating += iSlot.Item.gem1.CritRating
+                        ArmorPenetrationRating += iSlot.Item.gem1.ArmorPenetrationRating
 
-            End If
+                        BonusArmor += iSlot.Item.gem1.BonusArmor
+                        Stamina += iSlot.Item.gem1.Stamina
+                        MasteryRating += iSlot.Item.gem1.MasteryRating
+                        DodgeRating += iSlot.Item.gem1.DodgeRating
+                        ParryRating += iSlot.Item.gem1.ParryRating
 
-            ' Meta Gem
-            If iSlot.Item.gem1.Id = 41398 Or iSlot.Item.gem1.Id = 41285 Then
-                StatSummary.chkMeta.IsChecked = True
-            End If
-            ' Tailor enchant
-            If iSlot.Item.Enchant.Id = 7 Then
-                StatSummary.chkTailorEnchant.IsChecked = True
-            End If
-            ' PyroRocket
-            If iSlot.Item.Enchant.Id = 3603 Then
-                StatSummary.chkIngenieer.IsChecked = True
-            End If
-            ' Hyperspeed accelerator
-            If iSlot.Item.Enchant.Id = 3604 Then
-                StatSummary.chkAccelerators.IsChecked = True
-            End If
 
-            ' Ashen band
-            If iSlot.Item.Id = 50401 Or iSlot.Item.Id = 50402 Or iSlot.Item.Id = 52572 Or iSlot.Item.Id = 52571 Then
-                StatSummary.chkAshenBand.IsChecked = True
-            End If
-
-            Diagnostics.Debug.WriteLine("Added " & iSlot.Item.name & "Hit= " & HitRating - PrevHit)
-            PrevHit = HitRating
-NextItem:
-        Next
-        ' Bloodfury
-        If GearSelector.ParentFrame.cmbRace.SelectedItem = "Orc" Then
-            StatSummary.chkBloodFury.IsChecked = True
-        End If
-        ' Berzerking
-        If GearSelector.ParentFrame.cmbRace.SelectedItem = "Troll" Then
-            StatSummary.chkBerzerking.IsChecked = True
-        End If
-        ' Arcane torrent
-        If cmbRace.SelectedItem = "Blood Elf" Then
-            StatSummary.chkArcaneTorrent.IsChecked = True
-        End If
-        If cmbRace.SelectedItem = "Worgen" Then
-            StatSummary.chkWorgen.IsChecked = True
-        End If
-        If cmbRace.SelectedItem = "Draenei" Then
-            StatSummary.chkDraeni.IsChecked = True
-        End If
-        If cmbRace.SelectedItem = "Goblin" Then
-            StatSummary.chkGoblin.IsChecked = True
-        End If
-
-        ' Set bonus1
-        If cSetBonus.Count > 0 Then
-            cSetBonus.Sort()
-            cSetBonus = GearSelector.TransformToSet(cSetBonus)
-            Dim i As Integer
-            Dim sId As String
-
-            Do Until cSetBonus.Count = 0
-
-                sId = cSetBonus.Item(0)
-                i = GearSelector.CollectionDuplicateCount(cSetBonus, cSetBonus.Item(0))
-                If i >= 4 Then
-                    StatSummary.cmbSetBonus1.Text = cSetBonus.Item(0)
-                    StatSummary.cmbSetBonus1.Text = StatSummary.cmbSetBonus1.Text.Replace("DPS", "4PDPS")
-                    StatSummary.cmbSetBonus1.Text = StatSummary.cmbSetBonus1.Text.Replace("TNK", "4PTNK")
-                End If
-                If i >= 2 Then
-                    If StatSummary.cmbSetBonus1.Text <> "" Then
-                        StatSummary.cmbSetBonus2.Text = cSetBonus.Item(0)
-                        StatSummary.cmbSetBonus2.Text = StatSummary.cmbSetBonus2.Text.Replace("DPS", "2PDPS")
-                        StatSummary.cmbSetBonus2.Text = StatSummary.cmbSetBonus2.Text.Replace("TNK", "2PTNK")
-                    Else
-                        StatSummary.cmbSetBonus1.Text = cSetBonus.Item(0)
-                        StatSummary.cmbSetBonus1.Text = StatSummary.cmbSetBonus1.Text.Replace("DPS", "2PDPS")
-                        StatSummary.cmbSetBonus1.Text = StatSummary.cmbSetBonus1.Text.Replace("TNK", "2PTNK")
                     End If
-                End If
-                Do Until cSetBonus.Contains(sId) = False
-                    cSetBonus.Remove(sId)
-                Loop
-            Loop
-        End If
+                    If iSlot.Item.gem2.Id <> 0 Then
+                        Strength += iSlot.Item.gem2.Strength
+                        Agility += iSlot.Item.gem2.Agility
+                        HasteRating += iSlot.Item.gem2.HasteRating
+                        ExpertiseRating += iSlot.Item.gem2.ExpertiseRating
+                        HitRating += iSlot.Item.gem2.HitRating
+                        AttackPower += iSlot.Item.gem2.AttackPower
+                        CritRating += iSlot.Item.gem2.CritRating
+                        ArmorPenetrationRating += iSlot.Item.gem2.ArmorPenetrationRating
 
-        Armor += Agility * 2
-        StatSummary.txtStr.Text = Strength
-        StatSummary.txtAgi.Text = Agility
-        '		BonusArmor
-        StatSummary.txtArmor.Text = Armor
-        StatSummary.txtHaste.Text = HasteRating
-        StatSummary.txtExp.Text = ExpertiseRating
-        StatSummary.txtHit.Text = HitRating
-        StatSummary.txtAP.Text = AttackPower
-        StatSummary.txtArP.Text = ArmorPenetrationRating
-        StatSummary.txtCrit.Text = CritRating
-        StatSummary.txtIntel.Text = Intel
-        StatSummary.txtMHDPS.Text = DPS1
-        StatSummary.txtMHWSpeed.Text = Speed1
-        StatSummary.txtOHDPS.Text = DPS2
-        StatSummary.txtOHWSpeed.Text = Speed2
-        StatSummary.txtMast.Text = MasteryRating
-        StatSummary.txtStam.Text = Stamina
-        StatSummary.txtDodge.Text = DodgeRating
-        StatSummary.txtParry.Text = ParryRating
-        StatSummary.txtAddArmor.Text = BonusArmor
+                        BonusArmor += iSlot.Item.gem2.BonusArmor
+                        Stamina += iSlot.Item.gem2.Stamina
+                        MasteryRating += iSlot.Item.gem2.MasteryRating
+                        DodgeRating += iSlot.Item.gem2.DodgeRating
+                        ParryRating += iSlot.Item.gem2.ParryRating
+
+                    End If
+                    If iSlot.Item.gem3.Id <> 0 Then
+                        Strength += iSlot.Item.gem3.Strength
+                        Agility += iSlot.Item.gem3.Agility
+                        HasteRating += iSlot.Item.gem3.HasteRating
+                        ExpertiseRating += iSlot.Item.gem3.ExpertiseRating
+                        HitRating += iSlot.Item.gem3.HitRating
+                        AttackPower += iSlot.Item.gem3.AttackPower
+                        CritRating += iSlot.Item.gem3.CritRating
+                        ArmorPenetrationRating += iSlot.Item.gem3.ArmorPenetrationRating
+
+                        BonusArmor += iSlot.Item.gem3.BonusArmor
+                        Stamina += iSlot.Item.gem3.Stamina
+                        MasteryRating += iSlot.Item.gem3.MasteryRating
+                        DodgeRating += iSlot.Item.gem3.DodgeRating
+                        ParryRating += iSlot.Item.gem3.ParryRating
+
+                    End If
+
+                    If iSlot.Item.IsGembonusActif And iSlot.Item.gembonus <> 0 Then
+                        Try
+                            Dim el As XElement = (From ele In GemBonusDB.<bonus>.Elements
+                                                  Where ele.<id>.Value = iSlot.Item.gembonus
+                                                  Select ele).FirstOrDefault
+                            Strength += el.<Strength>.Value
+                            Agility += el.<Agility>.Value
+                            HasteRating += el.<HasteRating>.Value
+                            ExpertiseRating += el.<ExpertiseRating>.Value
+                            HitRating += el.<HitRating>.Value
+                            AttackPower += el.<AttackPower>.Value
+                            CritRating += el.<CritRating>.Value
+                            ArmorPenetrationRating += el.<ArmorPenetrationRating>.Value
+
+                            Stamina += el.<Stamina>.Value
+                            MasteryRating += el.<MasteryRating>.Value
+                            DodgeRating += el.<DodgeRating>.Value
+                            ParryRating += el.<ParryRating>.Value
+                            BonusArmor += el.<BonusArmor>.Value
+
+                        Catch ex As Exception
+                            Log.Log(ex.StackTrace, logging.Level.ERR)
+
+                        End Try
+                    End If
+
+                    If iSlot.Item.Enchant.Id <> 0 Then
+                        Strength += iSlot.Item.Enchant.Strength
+                        Agility += iSlot.Item.Enchant.Agility
+                        HasteRating += iSlot.Item.Enchant.HasteRating
+                        ExpertiseRating += iSlot.Item.Enchant.ExpertiseRating
+                        HitRating += iSlot.Item.Enchant.HitRating
+                        AttackPower += iSlot.Item.Enchant.AttackPower
+                        CritRating += iSlot.Item.Enchant.CritRating
+                        ArmorPenetrationRating += iSlot.Item.Enchant.ArmorPenetrationRating
+
+                        BonusArmor += iSlot.Item.Enchant.BonusArmor
+                        Stamina += iSlot.Item.Enchant.Stamina
+                        MasteryRating += iSlot.Item.Enchant.MasteryRating
+                        DodgeRating += iSlot.Item.Enchant.DodgeRating
+                        ParryRating += iSlot.Item.Enchant.ParryRating
+
+
+                    End If
+
+                    'Reforge
+                    If iSlot.Item.ReForgingvalue <> 0 Then
+                        Select Case iSlot.Item.ReForgingFrom
+                            Case "Crit"
+                                CritRating -= iSlot.Item.ReForgingvalue
+                            Case "Exp"
+                                ExpertiseRating -= iSlot.Item.ReForgingvalue
+                            Case "Haste"
+                                HasteRating -= iSlot.Item.ReForgingvalue
+                            Case "Hit"
+                                HitRating -= iSlot.Item.ReForgingvalue
+                            Case "Mast"
+                                MasteryRating -= iSlot.Item.ReForgingvalue
+                            Case "Dodge"
+                                DodgeRating -= iSlot.Item.ReForgingvalue
+                            Case "Parry"
+                                ParryRating -= iSlot.Item.ReForgingvalue
+                        End Select
+
+                        Select Case iSlot.Item.ReForgingTo
+                            Case "Crit"
+                                CritRating += iSlot.Item.ReForgingvalue
+                            Case "Exp"
+                                ExpertiseRating += iSlot.Item.ReForgingvalue
+                            Case "Haste"
+                                HasteRating += iSlot.Item.ReForgingvalue
+                            Case "Hit"
+                                HitRating += iSlot.Item.ReForgingvalue
+                            Case "Mast"
+                                MasteryRating += iSlot.Item.ReForgingvalue
+                            Case "Dodge"
+                                DodgeRating += iSlot.Item.ReForgingvalue
+                            Case "Parry"
+                                ParryRating += iSlot.Item.ReForgingvalue
+                        End Select
+
+                    End If
+
+
+
+                End If
+
+                ' Meta Gem
+                If iSlot.Item.gem1.Id = 41398 Or iSlot.Item.gem1.Id = 41285 Then
+                    StatSummary.chkMeta.IsChecked = True
+                End If
+                ' Tailor enchant
+                If iSlot.Item.Enchant.Id = 7 Then
+                    StatSummary.chkTailorEnchant.IsChecked = True
+                End If
+                ' PyroRocket
+                If iSlot.Item.Enchant.Id = 3603 Then
+                    StatSummary.chkIngenieer.IsChecked = True
+                End If
+                ' Hyperspeed accelerator
+                If iSlot.Item.Enchant.Id = 3604 Then
+                    StatSummary.chkAccelerators.IsChecked = True
+                End If
+
+                ' Ashen band
+                If iSlot.Item.Id = 50401 Or iSlot.Item.Id = 50402 Or iSlot.Item.Id = 52572 Or iSlot.Item.Id = 52571 Then
+                    StatSummary.chkAshenBand.IsChecked = True
+                End If
+
+                Diagnostics.Debug.WriteLine("Added " & iSlot.Item.name & "Hit= " & HitRating - PrevHit)
+                PrevHit = HitRating
+NextItem:
+            Next
+            ' Bloodfury
+            If GearSelector.ParentFrame.cmbRace.SelectedItem = "Orc" Then
+                StatSummary.chkBloodFury.IsChecked = True
+            End If
+            ' Berzerking
+            If GearSelector.ParentFrame.cmbRace.SelectedItem = "Troll" Then
+                StatSummary.chkBerzerking.IsChecked = True
+            End If
+            ' Arcane torrent
+            If cmbRace.SelectedItem = "Blood Elf" Then
+                StatSummary.chkArcaneTorrent.IsChecked = True
+            End If
+            If cmbRace.SelectedItem = "Worgen" Then
+                StatSummary.chkWorgen.IsChecked = True
+            End If
+            If cmbRace.SelectedItem = "Draenei" Then
+                StatSummary.chkDraeni.IsChecked = True
+            End If
+            If cmbRace.SelectedItem = "Goblin" Then
+                StatSummary.chkGoblin.IsChecked = True
+            End If
+
+            ' Set bonus1
+            If cSetBonus.Count > 0 Then
+                cSetBonus.Sort()
+                cSetBonus = GearSelector.TransformToSet(cSetBonus)
+                Dim i As Integer
+                Dim sId As String
+
+                Do Until cSetBonus.Count = 0
+
+                    sId = cSetBonus.Item(0)
+                    i = GearSelector.CollectionDuplicateCount(cSetBonus, cSetBonus.Item(0))
+                    If i >= 4 Then
+                        StatSummary.cmbSetBonus1.Text = cSetBonus.Item(0)
+                        StatSummary.cmbSetBonus1.Text = StatSummary.cmbSetBonus1.Text.Replace("DPS", "4PDPS")
+                        StatSummary.cmbSetBonus1.Text = StatSummary.cmbSetBonus1.Text.Replace("TNK", "4PTNK")
+                    End If
+                    If i >= 2 Then
+                        If StatSummary.cmbSetBonus1.Text <> "" Then
+                            StatSummary.cmbSetBonus2.Text = cSetBonus.Item(0)
+                            StatSummary.cmbSetBonus2.Text = StatSummary.cmbSetBonus2.Text.Replace("DPS", "2PDPS")
+                            StatSummary.cmbSetBonus2.Text = StatSummary.cmbSetBonus2.Text.Replace("TNK", "2PTNK")
+                        Else
+                            StatSummary.cmbSetBonus1.Text = cSetBonus.Item(0)
+                            StatSummary.cmbSetBonus1.Text = StatSummary.cmbSetBonus1.Text.Replace("DPS", "2PDPS")
+                            StatSummary.cmbSetBonus1.Text = StatSummary.cmbSetBonus1.Text.Replace("TNK", "2PTNK")
+                        End If
+                    End If
+                    Do Until cSetBonus.Contains(sId) = False
+                        cSetBonus.Remove(sId)
+                    Loop
+                Loop
+            End If
+
+            Armor += Agility * 2
+            StatSummary.txtStr.Text = Strength
+            StatSummary.txtAgi.Text = Agility
+            '		BonusArmor
+            StatSummary.txtArmor.Text = Armor
+            StatSummary.txtHaste.Text = HasteRating
+            StatSummary.txtExp.Text = ExpertiseRating
+            StatSummary.txtHit.Text = HitRating
+            StatSummary.txtAP.Text = AttackPower
+            StatSummary.txtArP.Text = ArmorPenetrationRating
+            StatSummary.txtCrit.Text = CritRating
+            StatSummary.txtIntel.Text = Intel
+            StatSummary.txtMHDPS.Text = DPS1
+            StatSummary.txtMHWSpeed.Text = Speed1
+            StatSummary.txtOHDPS.Text = DPS2
+            StatSummary.txtOHWSpeed.Text = Speed2
+            StatSummary.txtMast.Text = MasteryRating
+            StatSummary.txtStam.Text = Stamina
+            StatSummary.txtDodge.Text = DodgeRating
+            StatSummary.txtParry.Text = ParryRating
+            StatSummary.txtAddArmor.Text = BonusArmor
 refreshRating:
-        If level85 Then
-            StatSummary.lblHAste.Content = "Haste Rating (" & toDDecimal(StatSummary.txtHaste.Text / 128.05701) & "%)"
-            StatSummary.lblExp.Content = "Expertise Rating(" & (toDDecimal(StatSummary.txtExp.Text / 120.109)) * 4 & ")"
-            StatSummary.lblHit.Content = "Hit Rating(" & toDDecimal(StatSummary.txtHit.Text / 120.109) & "%)"
-            StatSummary.lblArP.Content = "ArP(" & toDDecimal(StatSummary.txtArP.Text / 13.99) & "%)"
-            StatSummary.lblCrit.Content = "CritRating(" & toDDecimal(StatSummary.txtCrit.Text / 179.28) & "%)"
-            StatSummary.lblMast.Content = "Mastery Rating(" & toDDecimal(StatSummary.txtMast.Text / 179.28) & "%)"
-        Else
-            StatSummary.lblHAste.Content = "Haste Rating (" & toDDecimal(StatSummary.txtHaste.Text / 32.79) & "%)"
-            StatSummary.lblExp.Content = "Expertise Rating(" & (toDDecimal(StatSummary.txtExp.Text / 30.7548)) * 4 & ")"
-            StatSummary.lblHit.Content = "Hit Rating(" & toDDecimal(StatSummary.txtHit.Text / 30.7548) & "%)"
-            StatSummary.lblArP.Content = "ArP(" & toDDecimal(StatSummary.txtArP.Text / 13.99) & ")"
-            StatSummary.lblCrit.Content = "CritRating(" & toDDecimal(StatSummary.txtCrit.Text / 45.906) & "%)"
-            StatSummary.lblMast.Content = "Mastery Rating(" & toDDecimal(StatSummary.txtMast.Text / 45.906) & "%)"
-        End If
+            If level85 Then
+                StatSummary.lblHAste.Content = "Haste Rating (" & toDDecimal(StatSummary.txtHaste.Text / 128.05701) & "%)"
+                StatSummary.lblExp.Content = "Expertise Rating(" & (toDDecimal(StatSummary.txtExp.Text / 120.109)) * 4 & ")"
+                StatSummary.lblHit.Content = "Hit Rating(" & toDDecimal(StatSummary.txtHit.Text / 120.109) & "%)"
+                StatSummary.lblArP.Content = "ArP(" & toDDecimal(StatSummary.txtArP.Text / 13.99) & "%)"
+                StatSummary.lblCrit.Content = "CritRating(" & toDDecimal(StatSummary.txtCrit.Text / 179.28) & "%)"
+                StatSummary.lblMast.Content = "Mastery Rating(" & toDDecimal(StatSummary.txtMast.Text / 179.28) & "%)"
+            Else
+                StatSummary.lblHAste.Content = "Haste Rating (" & toDDecimal(StatSummary.txtHaste.Text / 32.79) & "%)"
+                StatSummary.lblExp.Content = "Expertise Rating(" & (toDDecimal(StatSummary.txtExp.Text / 30.7548)) * 4 & ")"
+                StatSummary.lblHit.Content = "Hit Rating(" & toDDecimal(StatSummary.txtHit.Text / 30.7548) & "%)"
+                StatSummary.lblArP.Content = "ArP(" & toDDecimal(StatSummary.txtArP.Text / 13.99) & ")"
+                StatSummary.lblCrit.Content = "CritRating(" & toDDecimal(StatSummary.txtCrit.Text / 45.906) & "%)"
+                StatSummary.lblMast.Content = "Mastery Rating(" & toDDecimal(StatSummary.txtMast.Text / 45.906) & "%)"
+            End If
 
 
         Catch ex As Exception
@@ -1750,12 +1791,12 @@ refreshRating:
             level85 = True
             GetStats()
         End If
-        
+
     End Sub
 
     Sub CleanUp() Handles cmdCleanCache.Click
         Dim isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
-       
+
         For Each fld In isoStore.GetDirectoryNames
             CleanAndDeleteFolder("/" & fld & "/")
 
