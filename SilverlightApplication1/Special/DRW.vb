@@ -106,7 +106,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
                 'End If
                 SpellHaste = sim.Character.SpellHaste.Value
                 Haste = sim.Character.PhysicalHaste.Value
-                AP = sim.Character.AP
+                AP = sim.Character.AP.CurrentValue
                 _Crit = sim.Character.Crit.Value ' Crit seems based on charater crit
                 _SpellCrit = sim.Character.SpellCrit.Value '
                 MeleeGlacingChance = 0.25

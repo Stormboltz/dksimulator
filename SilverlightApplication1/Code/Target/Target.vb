@@ -1,10 +1,4 @@
-﻿'
-' Crée par SharpDevelop.
-' Utilisateur: e0030653
-' Date: 4/23/2010
-' Heure: 11:37 AM
-'
-' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
+﻿
 '
 Imports DKSIMVB.Simulator.WowObjects.Diseases
 

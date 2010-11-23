@@ -1,10 +1,4 @@
 '
-' Created by SharpDevelop.
-' User: e0030653
-' Date: 01/04/2009
-' Time: 15:33
-'
-' To change this template use Tools | Options | Coding | Edit Standard Headers.
 '
 Namespace Simulator.WowObjects.Spells
     Friend Class Pestilence

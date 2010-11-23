@@ -464,7 +464,7 @@ sortie:
     End Sub
     Sub LoadTrinket()
         Dim xDoc As New Xml.Linq.XDocument()
-        Dim doc As XDocument = XDocument.Load("config/TrinketList.xml")
+        Dim doc As XDocument = XDocument.Load("GearSelector/TrinketList.xml")
         Dim item As Control
         For Each item In grpEPTrinkets.Children
             item = Nothing
@@ -1320,7 +1320,8 @@ OUT:
                             BonusArmor += el.<BonusArmor>.Value
 
                         Catch ex As Exception
-                            Log.Log(ex.StackTrace, logging.Level.ERR)
+                            Log.Log("Error with gem bonus " & iSlot.Item.gembonus, logging.Level.ERR)
+                            'Log.Log(ex.StackTrace, logging.Level.ERR)
 
                         End Try
                     End If

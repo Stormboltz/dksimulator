@@ -1,10 +1,4 @@
-﻿'
-' Crée par SharpDevelop.
-' Utilisateur: e0030653
-' Date: 03/08/2009
-' Heure: 14:32
-' 
-' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
+﻿
 '
 Namespace Simulator.WowObjects.Spells
     Public Class Bloodlust

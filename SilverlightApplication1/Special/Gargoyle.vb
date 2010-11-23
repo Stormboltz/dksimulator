@@ -46,7 +46,7 @@ Namespace Simulator.WowObjects.PetsAndMinions
             If cd <= T Then
                 sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.OnGargoyleSummon)
                 StrikeCastTime = Math.Max(1, (2.0 / sim.Character.PhysicalHaste.Value) * 100) 'no haste cap for Garg.
-                AP = sim.Character.AP
+                AP = sim.Character.AP.CurrentValue
                 CritChance = SpellCrit() 'sim.Character.SpellCrit.Value
                 sim.RunicPower.Use(60)
                 'sim.CombatLog.write(T & vbTab & "Gargoyle use")

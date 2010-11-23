@@ -1,11 +1,4 @@
-﻿'
-' Crée par SharpDevelop.
-' Utilisateur: e0030653
-' Date: 2/23/2010
-' Heure: 1:25 PM
-'
-' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
-'
+﻿
 Public Module Module1
     Function GemColor(ByVal id As String) As Color
         Select Case id

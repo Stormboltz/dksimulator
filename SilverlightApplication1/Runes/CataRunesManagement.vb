@@ -1,11 +1,4 @@
-﻿'
-' Crée par SharpDevelop.
-' Utilisateur: e0030653
-' Date: 4/13/2010
-' Heure: 3:52 PM
-'
-' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
-'
+﻿
 Namespace Runes
     Partial Friend Class runes
 

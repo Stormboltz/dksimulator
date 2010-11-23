@@ -146,7 +146,7 @@ Namespace Simulator.WowObjects.Diseases
         Overridable Function Refresh(ByVal T As Long) As Boolean
             
             FadeAt = T + Lenght()
-            AP = sim.Character.AP
+            AP = sim.Character.AP.CurrentValue
             DamageTick = AvrgNonCrit(T)
             AddUptime(T)
             Return True

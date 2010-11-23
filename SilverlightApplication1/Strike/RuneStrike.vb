@@ -38,9 +38,9 @@ Namespace Simulator.WowObjects.Strikes
 
         Overrides Function ApplyDamage(ByVal T As Long) As Boolean
             If sim.level85 Then
-                BaseDamage = 15 * sim.Character.AP / 100
+                BaseDamage = 15 * sim.Character.AP.CurrentValue / 100
             Else
-                BaseDamage = 20 * sim.Character.AP / 100
+                BaseDamage = 20 * sim.Character.AP.CurrentValue / 100
             End If
 
             trigger = False

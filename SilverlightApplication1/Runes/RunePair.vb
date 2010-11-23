@@ -94,6 +94,8 @@
                 Dim d As Double
                 d = r.Value - 100
                 r.Value = 100
+                If r.death Then r.sim.proc.tryProcs(Procs.ProcsManager.ProcOnType.OnDeathRune)
+
                 RuneToRefill = OppositeRune(r)
                 RuneToRefill.Value = Math.Min(RuneToRefill.Value + d, 100)
                 RuneToRefill = RuneToRefill

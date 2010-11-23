@@ -25,7 +25,8 @@ Namespace Simulator.WowObjects.Strikes
             If sim.Character.Glyph("froststrike") Then c -= 8
             Resource = New Resource(S, Resource.ResourcesEnum.RunicPower, c)
 
-            AdditionalCritChance = 8 * sim.Character.T82PDPS / 100
+            AdditionalCritChance += 8 * sim.Character.T82PDPS / 100
+            AdditionalCritChance += 5 * sim.Character.T112PDPS / 100
             DamageSchool = DamageSchoolEnum.Frost
             logLevel = LogLevelEnum.Basic
         End Sub

@@ -1,11 +1,4 @@
-﻿'
-' Crée par SharpDevelop.
-' Utilisateur: e0030653
-' Date: 4/22/2010
-' Heure: 2:13 PM
-' 
-' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
-'
+﻿
 Namespace Simulator.Scenarios
     Public Class Element
         Friend CanTakePetDamage As Boolean = True

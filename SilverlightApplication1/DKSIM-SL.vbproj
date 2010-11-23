@@ -386,7 +386,7 @@
     <Content Include="Config\template.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Config\TrinketList.xml">
+    <Content Include="Config\deprecated_TrinketList.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Config\WeaponProcList.xml">

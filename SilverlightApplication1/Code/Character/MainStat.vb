@@ -32,6 +32,14 @@ Namespace Simulator.Character
         Friend T104PDPS As Integer
         Friend T92PTNK As Integer
         Friend T102PTNK As Integer
+
+        Friend T112PDPS As Integer
+        Friend T114PDPS As Integer
+
+        Friend T112PTNK As Integer
+        Friend T114PTNK As Integer
+
+
         Private _Mitigation As Double
         Private _LastArP As Double
         Protected Sim As Sim
@@ -72,7 +80,7 @@ Namespace Simulator.Character
 
         Friend ArmorPenetration As CalculatedStats.CalculatedStat
         Friend Mastery As CalculatedStats.CalculatedStat
-
+        Friend AP As CalculatedStats.AttackPower
         Friend ModifiedMHWeaponSpeed As CalculatedStats.ModifiedWeaponSpeed
         Friend ModifiedOHWeaponSpeed As CalculatedStats.ModifiedWeaponSpeed
 
@@ -120,7 +128,7 @@ Namespace Simulator.Character
         Sub InitStats()
             Strength = New PrimaryStat(Simulator.Sim.Stat.Strength, Sim, True, True)
             Agility = New PrimaryStat(Simulator.Sim.Stat.Agility, Sim, False, True)
-            AttackPower = New PrimaryStat(Simulator.Sim.Stat.AP, Sim, True)
+            AttackPower = New PrimaryStat(Simulator.Sim.Stat.AP, Sim, True, True)
             HitRating = New PrimaryStat(Simulator.Sim.Stat.Hit, Sim)
             CritRating = New PrimaryStat(Simulator.Sim.Stat.Crit, Sim, True)
             HasteRating = New PrimaryStat(Simulator.Sim.Stat.Haste, Sim)
@@ -384,6 +392,11 @@ Namespace Simulator.Character
 
             Armor.Add(750 * 1.4 * Buff.Armor)
             Armor.AddMulti(1 + Talents.Talent("Toughness").Value * 0.0333)
+            AP = New CalculatedStats.AttackPower(Sim, AttackPower)
+            If Sim.Character.Buff.AttackPowerPc Then
+                AP.AddMulti(1.1)
+            End If
+
             If Sim.BloodPresence = 1 Then
                 Armor.AddMulti(1.6)
             End If
@@ -497,6 +510,12 @@ Namespace Simulator.Character
                     T102PDPS = 1
                 Case "EP 4T10"
                     T104PDPS = 1
+                Case "EP 2T11"
+                    T112PDPS = 1
+                Case "EP 4T11"
+                    T114PDPS = 1
+                Case "EP 4T11 Tank"
+                    T112PTNK = 1
                 Case Else
                     For Each el In XmlCharacter.Element("character").Element("Set").Elements
                         Select Case el.Name
@@ -528,6 +547,13 @@ Namespace Simulator.Character
                                 T92PTNK = 1
                             Case "T102PTNK"
                                 T102PTNK = 1
+                            Case "T112PTNK"
+                                T112PTNK = 1
+                            Case "T112PDPS"
+                                T112PDPS = 1
+                            Case "T114PDPS"
+                                T114PDPS = 1
+
                         End Select
                     Next
             End Select
@@ -592,7 +618,7 @@ Namespace Simulator.Character
      
 #Region "Attack Power"
 
-        Function AP() As Integer
+        Function APs() As Integer
             Dim tmp As Integer
 
             tmp = AttackPower.Value()
@@ -642,9 +668,9 @@ Namespace Simulator.Character
             Dim tmp As Double
             tmp = MHWeaponSpeed * MHWeaponDPS
             If DualW() Then
-                tmp = tmp + 2.4 * (AP() / 14)
+                tmp = tmp + 2.4 * (AP.CurrentValue / 14)
             Else
-                tmp = tmp + 3.3 * (AP() / 14)
+                tmp = tmp + 3.3 * (AP.CurrentValue / 14)
 
             End If
             Return tmp
@@ -652,16 +678,16 @@ Namespace Simulator.Character
         Function NormalisedOHDamage() As Double
             Dim tmp As Double
             tmp = OHWeaponSpeed * OHWeaponDPS
-            tmp = tmp + 2.4 * (AP() / 14)
+            tmp = tmp + 2.4 * (AP.CurrentValue / 14)
             Return tmp
         End Function
         Function MHBaseDamage() As Double
             Dim tmp As Double
-            tmp = (MHWeaponDPS + (AP() / 14)) * MHWeaponSpeed
+            tmp = (MHWeaponDPS + (AP.CurrentValue / 14)) * MHWeaponSpeed
             Return tmp
         End Function
         Function OHBaseDamage() As Double
-            OHBaseDamage = (OHWeaponDPS + (AP() / 14)) * OHWeaponSpeed
+            OHBaseDamage = (OHWeaponDPS + (AP.CurrentValue / 14)) * OHWeaponSpeed
         End Function
 #End Region
         Function ArmorPen() As Double

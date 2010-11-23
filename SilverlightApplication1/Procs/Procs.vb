@@ -68,6 +68,7 @@ Namespace Simulator.WowObjects.Procs
             OnBossHitOrMiss = 14
             OnBloodBoil = 15
             OnGargoyleSummon = 16
+            OnDeathRune = 17
             'OnUse=9
         End Enum
 
@@ -229,8 +230,18 @@ Namespace Simulator.WowObjects.Procs
                 .ProcLenght = 15
                 .ProcValue = 3
                 .ProcChance = 1
-
             End With
+
+            Dim T114PDPS = New Proc(s)
+            With T114PDPS
+                ._Name = "T11 DPS 4 Piece bonus"
+                If Sim.Character.T114PDPS = 1 Then .Equip()
+                .ProcOn = ProcOnType.OnDeathRune
+                .ProcChance = 1
+                .Effects.Add(New SpellBuff(Sim, "Item - Death Knight T11 DPS 4P Bonus", Simulator.Sim.Stat.AP, 1.03, 30))
+            End With
+
+
 
             Dim KillingMachineMH = New Proc(s)
             KillingMachine = New SpellEffect(s, "Killing Machine", SpellEffectManager.SpeelEffectEnum.KillingMachine, 0, 10)
@@ -279,38 +290,6 @@ Namespace Simulator.WowObjects.Procs
                 End If
             End With
 
-            'With New Proc(s)
-            '    ._Name = "Virulence"
-            '    .ProcLenght = 20
-            '    .ProcChance = 0.85
-            '    .ProcValue = 200
-            '    .Effects.Add(New SpellBuff(s, "Virulence", Simulator.Sim.Stat.Strength, 200, 20))
-            '    .ProcOn = ProcOnType.OnFU
-            '    If s.Sigils.Virulence Then .Equip()
-            'End With
-
-            'With New Proc(s)
-            '    ._Name = "HangedMan"
-            '    .ProcLenght = 15
-            '    .ProcChance = 1
-            '    .ProcValueStack = 73
-            '    .Effects.Add(New SpellBuff(s, "Hanged Man", Simulator.Sim.Stat.Strength, 73, 3, 20))
-            '    .MaxStack = 3
-            '    .ProcOn = ProcsManager.ProcOnType.OnFU
-            '    If s.Sigils.HangedMan Then .Equip()
-            'End With
-
-
-            'Strife = New Proc(s)
-            'With Strife
-            '    ._Name = "Strife"
-            '    .ProcChance = 1
-            '    .ProcValue = 144
-            '    .ProcLenght = 10
-            '    .Effects.Add(New SpellBuff(Sim, "Strife", Simulator.Sim.Stat.AP, 144, 10))
-            '    If s.Sigils.Strife Then .Equip()
-            'End With
-
             With New Proc(s)
                 ._Name = "T92PDPS"
                 .ProcChance = 0.5
@@ -321,18 +300,6 @@ Namespace Simulator.WowObjects.Procs
                 .ProcOn = ProcsManager.ProcOnType.OnBloodStrike
                 If s.Character.T92PDPS = 1 Then .Equip()
             End With
-
-            'With New Proc(s)
-            '    ._Name = "HauntedDreams"
-            '    .ProcChance = 0.15
-            '    .ProcValue = 173
-            '    .ProcLenght = 10
-            '    .InternalCD = 45
-            '    .Effects.Add(New SpellBuff(s, "Haunted Dreams", Simulator.Sim.Stat.Crit, 173, 10))
-            '    .ProcOn = ProcsManager.ProcOnType.OnBloodStrike
-            '    If s.Sigils.HauntedDreams Then .Equip()
-            'End With
-
 
             With New Proc(s)
                 ._Name = "OrcRacial"
@@ -379,6 +346,7 @@ Namespace Simulator.WowObjects.Procs
                 End If
                 .isGuardian = True
             End With
+
             Dim Shadowmourne As New Shadowmourne(s)
             With Shadowmourne
                 .ProcOn = ProcsManager.ProcOnType.OnMHhit

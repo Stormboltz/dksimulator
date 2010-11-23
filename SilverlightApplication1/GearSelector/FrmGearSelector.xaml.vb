@@ -106,13 +106,18 @@ Partial Public Class FrmGearSelector
         Dim cl As New Collections.Generic.List(Of String)
         For i = 0 To col.Count - 1
             Dim xElem As XElement
-            xElem = (From el In SetBonusDB.Element("SetBonus").Elements
+            Dim lst = (From el In SetBonusDB.Element("SetBonus").Elements
                       Where GetIDs(el).Contains(col(i))
-                      Select el).First
+                      Select el).ToList
+            If lst.Count > 0 Then
+                xElem = (From el In SetBonusDB.Element("SetBonus").Elements
+                                      Where GetIDs(el).Contains(col(i))
+                                      Select el).First
 
-            s = xElem.Attribute("name").Value
-            s += xElem.Attribute("type").Value
-            cl.Add(s)
+                s = xElem.Attribute("name").Value
+                s += xElem.Attribute("type").Value
+                cl.Add(s)
+            End If
         Next
         Return cl
     End Function

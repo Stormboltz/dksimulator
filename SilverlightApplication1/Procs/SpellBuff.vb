@@ -47,7 +47,7 @@
                         Case Simulator.Sim.Stat.Agility
                             sim.Character.Agility.AddMulti(Multiplicator)
                         Case Simulator.Sim.Stat.AP
-                            sim.Character.AttackPower.AddMulti(Multiplicator)
+                            sim.Character.AP.AddMulti(Multiplicator)
                         Case Simulator.Sim.Stat.Armor
                             sim.Character.Armor.AddMulti(Multiplicator)
                         Case Simulator.Sim.Stat.ArP
@@ -76,7 +76,7 @@
                         Case Simulator.Sim.Stat.Agility
                             sim.Character.Agility.Add(Value)
                         Case Simulator.Sim.Stat.AP
-                            sim.Character.AttackPower.Add(Value)
+                            sim.Character.AP.Add(Value)
                         Case Simulator.Sim.Stat.Armor
                             sim.Character.Armor.Add(Value)
                         Case Simulator.Sim.Stat.ArP
@@ -130,7 +130,7 @@
                     Case Simulator.Sim.Stat.Agility
                         sim.Character.Agility.RemoveMulti(Multiplicator)
                     Case Simulator.Sim.Stat.AP
-                        sim.Character.AttackPower.RemoveMulti(Multiplicator)
+                        sim.Character.AP.RemoveMulti(Multiplicator)
                     Case Simulator.Sim.Stat.Armor
                         sim.Character.Armor.RemoveMulti(Multiplicator)
                     Case Simulator.Sim.Stat.ArP
@@ -158,7 +158,7 @@
                     Case Simulator.Sim.Stat.Agility
                         sim.Character.Agility.Remove(Value * Currentstack)
                     Case Simulator.Sim.Stat.AP
-                        sim.Character.AttackPower.Remove(Value * Currentstack)
+                        sim.Character.AP.Remove(Value * Currentstack)
                     Case Simulator.Sim.Stat.Armor
                         sim.Character.Armor.Remove(Value * Currentstack)
                     Case Simulator.Sim.Stat.ArP

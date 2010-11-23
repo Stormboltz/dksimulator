@@ -100,7 +100,7 @@ Namespace Simulator.WowObjects.Spells
 
         Overridable Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
             Dim tmp As Double
-            tmp = BaseDamage + Sim.Character.AP * Coeficient
+            tmp = BaseDamage + sim.Character.AP.CurrentValue * Coeficient
             tmp = tmp * Multiplicator
             tmp = tmp * Sim.Character.StandardMagicalDamageMultiplier(T)
             If DiseaseBonus <> 0 Then ' For BloodBloil

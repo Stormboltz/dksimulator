@@ -1,10 +1,4 @@
-﻿'
-' Crée par SharpDevelop.
-' Utilisateur: e0030653
-' Date: 3/22/2010
-' Heure: 3:40 PM
-' 
-' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
+﻿
 '
 Namespace Simulator.WowObjects.Spells
     Public Class BloodPresence

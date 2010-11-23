@@ -354,6 +354,255 @@ Namespace Simulator.WowObjects.Procs
 
 
 
+            Dim tk = New Trinket(S)
+            With tk
+                ._Name = "ZabroksLuckyTooth"
+                .ProcChance = 0.5
+                .ProcLenght = 15
+                .InternalCD = 90
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Mastery, 1095, 15))
+                .ProcOn = ProcsManager.ProcOnType.OnHit
+            End With
+            tk = New Trinket(S)
+            With tk
+                ._Name = "Tank-Commander Insignia"
+                .ProcChance = 0.3
+                .ProcLenght = 20
+                .InternalCD = 90
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Haste, 1314, 20))
+                .ProcOn = ProcsManager.ProcOnType.OnCrit
+            End With
+            tk = New Trinket(S)
+            With tk
+                ._Name = "Shrine-Cleansing Purifier"
+                .ProcChance = 0.3
+                .ProcLenght = 20
+                .InternalCD = 90
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Haste, 1314, 20))
+                .ProcOn = ProcsManager.ProcOnType.OnCrit
+            End With
+            tk = New Trinket(S)
+            With tk
+                ._Name = "Oremantles Favor"
+                .ProcChance = 0.5
+                .ProcLenght = 20
+                .InternalCD = 120
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Crit, 970, 20))
+                .ProcOn = ProcsManager.ProcOnType.OnHit
+            End With
+            tk = New Trinket(S)
+            With tk
+
+
+                ._Name = "Right Eye of Rajh Heroic"
+                .ProcChance = 0.19
+                .ProcLenght = 14
+                .InternalCD = 49
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Crit, 612, 10))
+                .ProcOn = ProcsManager.ProcOnType.OnHit
+            End With
+            tk = New Trinket(S)
+            With tk
+
+
+                ._Name = "Souls Anguish"
+                .ProcChance = 0.2
+                .ProcLenght = 15
+                .InternalCD = 50
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Crit, 612, 10))
+                .ProcOn = ProcsManager.ProcOnType.OnHit
+            End With
+            tk = New Trinket(S)
+            With tk
+                ._Name = "Right Eye of Rajh"
+                .ProcChance = 0.21
+                .ProcLenght = 16
+                .InternalCD = 51
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Crit, 612, 10))
+                .ProcOn = ProcsManager.ProcOnType.OnHit
+            End With
+            tk = New Trinket(S)
+            With tk
+                ._Name = "Might of the Ocean Heroic"
+                .ProcChance = 0.22
+                .ProcLenght = 17
+                .InternalCD = 52
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Crit, 612, 10))
+                .ProcOn = ProcsManager.ProcOnType.OnHit
+            End With
+            tk = New Trinket(S)
+            With tk
+                ._Name = "Mark of Khardros Heroic"
+                .ProcChance = 0.23
+                .ProcLenght = 18
+                .InternalCD = 53
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Crit, 612, 10))
+                .ProcOn = ProcsManager.ProcOnType.OnHit
+            End With
+            tk = New Trinket(S)
+
+            With tk
+                ._Name = "Mark of Khardros"
+                .ProcChance = 0.24
+                .ProcLenght = 19
+                .InternalCD = 54
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Crit, 612, 10))
+                .ProcOn = ProcsManager.ProcOnType.OnHit
+            End With
+            tk = New Trinket(S)
+            With tk
+                ._Name = "Magnetite Mirror"
+                .ProcChance = 0.25
+                .ProcLenght = 20
+                .InternalCD = 55
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Crit, 612, 10))
+                .ProcOn = ProcsManager.ProcOnType.OnHit
+            End With
+            tk = New Trinket(S)
+            With tk
+                ._Name = "Magnetite Mirror Heroic"
+                .ProcChance = 0.26
+                .ProcLenght = 21
+                .InternalCD = 56
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Crit, 612, 10))
+                .ProcOn = ProcsManager.ProcOnType.OnHit
+            End With
+            tk = New Trinket(S)
+            With tk
+                ._Name = "Kvaldir Battle Standard"
+                .ProcChance = 0.27
+                .ProcLenght = 22
+                .InternalCD = 57
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Crit, 612, 10))
+                .ProcOn = ProcsManager.ProcOnType.OnHit
+            End With
+            tk = New Trinket(S)
+            With tk
+                ._Name = "Kvaldir Battle Standard"
+                .ProcChance = 0.28
+                .ProcLenght = 23
+                .InternalCD = 58
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Crit, 612, 10))
+                .ProcOn = ProcsManager.ProcOnType.OnHit
+            End With
+            tk = New Trinket(S)
+            With tk
+                ._Name = "Heart of Solace Heroic"
+                .ProcChance = 0.29
+                .ProcLenght = 24
+                .InternalCD = 59
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Crit, 612, 10))
+                .ProcOn = ProcsManager.ProcOnType.OnHit
+            End With
+            tk = New Trinket(S)
+            With tk
+                ._Name = "Heart of Solace"
+                .ProcChance = 0.3
+                .ProcLenght = 25
+                .InternalCD = 60
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Crit, 612, 10))
+                .ProcOn = ProcsManager.ProcOnType.OnHit
+            End With
+            tk = New Trinket(S)
+            With tk
+                ._Name = "Harrisons Insignia of Panache"
+                .ProcChance = 0.31
+                .ProcLenght = 26
+                .InternalCD = 61
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Crit, 612, 10))
+                .ProcOn = ProcsManager.ProcOnType.OnHit
+            End With
+            tk = New Trinket(S)
+            With tk
+                ._Name = "Figurine - King of Boars"
+                .ProcChance = 0.32
+                .ProcLenght = 27
+                .InternalCD = 62
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Crit, 612, 10))
+                .ProcOn = ProcsManager.ProcOnType.OnHit
+            End With
+            tk = New Trinket(S)
+            With tk
+                ._Name = "License to Slay"
+                .ProcChance = 0.33
+                .ProcLenght = 28
+                .InternalCD = 63
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Crit, 612, 10))
+                .ProcOn = ProcsManager.ProcOnType.OnHit
+            End With
+            tk = New Trinket(S)
+            With tk
+                ._Name = "Impatience of Youth"
+                .ProcChance = 0.34
+                .ProcLenght = 29
+                .InternalCD = 64
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Crit, 612, 10))
+                .ProcOn = ProcsManager.ProcOnType.OnHit
+            End With
+            tk = New Trinket(S)
+            With tk
+                ._Name = "Impatience of Youth"
+                .ProcChance = 0.35
+                .ProcLenght = 30
+                .InternalCD = 65
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Crit, 612, 10))
+                .ProcOn = ProcsManager.ProcOnType.OnHit
+            End With
+            tk = New Trinket(S)
+            With tk
+                ._Name = "Heart of Rage"
+                .ProcChance = 0.36
+                .ProcLenght = 31
+                .InternalCD = 66
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Crit, 612, 10))
+                .ProcOn = ProcsManager.ProcOnType.OnHit
+            End With
+            tk = New Trinket(S)
+            With tk
+                ._Name = "Heart of Rage Heroic"
+                .ProcChance = 0.37
+                .ProcLenght = 32
+                .InternalCD = 67
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Crit, 612, 10))
+                .ProcOn = ProcsManager.ProcOnType.OnHit
+            End With
+            tk = New Trinket(S)
+            With tk
+                ._Name = "Fury of Angerforge"
+                .ProcChance = 0.38
+                .ProcLenght = 33
+                .InternalCD = 68
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Crit, 612, 10))
+                .ProcOn = ProcsManager.ProcOnType.OnHit
+            End With
+            tk = New Trinket(S)
+            With tk
+                ._Name = "Darkmoon Card: Hurricane"
+                .ProcChance = 0.39
+                .ProcLenght = 34
+                .InternalCD = 69
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Crit, 612, 10))
+                .ProcOn = ProcsManager.ProcOnType.OnHit
+            End With
+            tk = New Trinket(S)
+            With tk
+                ._Name = "Crushing Weight Heroic"
+                .ProcChance = 0.4
+                .ProcLenght = 35
+                .InternalCD = 70
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Crit, 612, 10))
+                .ProcOn = ProcsManager.ProcOnType.OnHit
+            End With
+            tk = New Trinket(S)
+            With tk
+                ._Name = "Crushing Weight"
+                .ProcChance = 0.41
+                .ProcLenght = 36
+                .InternalCD = 71
+                .Effects.Add(New SpellBuff(S, ._Name, Simulator.Sim.Stat.Crit, 612, 10))
+                .ProcOn = ProcsManager.ProcOnType.OnHit
+            End With
+
 
 
 

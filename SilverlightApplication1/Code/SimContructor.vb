@@ -5,14 +5,8 @@ Imports System.IO.IsolatedStorage
 Imports System.IO
 Imports DKSIMVB.Simulator
 
-'
-' Crée par SharpDevelop.
-' Utilisateur: e0030653
-' Date: 15/09/2009
-' Heure: 16:15
-'
-' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
-'
+
+
 Public Module SimConstructor
     Private StartTime As Date
     Dim MaxSimForScaling As Integer = 50
@@ -459,6 +453,30 @@ Public Module SimConstructor
                 rp.AddAdditionalInfo(EpStat, toDDecimal(tmp2))
             Catch
             End Try
+
+            Try
+                EpStat = "EP 2T11"
+                DPS = DPSs(EpStat)
+                tmp2 = (DPS - BaseDPS)
+                rp.AddAdditionalInfo(EpStat, toDDecimal(tmp2))
+            Catch
+            End Try
+
+            Try
+                EpStat = "EP 4T11"
+                DPS = DPSs(EpStat)
+                tmp2 = (DPS - BaseDPS)
+                rp.AddAdditionalInfo(EpStat, toDDecimal(tmp2))
+            Catch
+            End Try
+
+            Try
+                EpStat = "EP 4T11 Tank"
+                DPS = DPSs(EpStat)
+                tmp2 = (DPS - BaseDPS)
+                rp.AddAdditionalInfo(EpStat, toDDecimal(tmp2))
+            Catch
+            End Try
         Catch ex As Exception
 
         End Try
@@ -628,16 +646,12 @@ skipStats:
             Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/EPconfig.xml", FileMode.Open, FileAccess.Read, isoStore)
                 Dim doc As XDocument = XDocument.Load(isoStream)
 
-
-
-
                 If SimTime = 0 Then SimTime = 1
                 If (From el In doc.Element("config").Element("Stats").Elements
                     Where el.Value = ("true")
                     Select el).Count = 0 Then
                     GoTo skipStats
                 End If
-
 
                 'Dry run
                 EpStat = "EP DryRun"
@@ -749,6 +763,18 @@ skipStats:
                 End If
                 If doc.Element("config").Element("Sets").Element("chkEP4PT10").Value = "true" Then
                     EpStat = "EP 4T10"
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
+                End If
+                If doc.Element("config").Element("Sets").Element("chkEP2PT11").Value = "true" Then
+                    EpStat = "EP 2T11"
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
+                End If
+                If doc.Element("config").Element("Sets").Element("chkEP4PT11").Value = "true" Then
+                    EpStat = "EP 4T11"
+                    SimConstructor.Start(SimTime, MainFrm, False, EpStat)
+                End If
+                If doc.Element("config").Element("Sets").Element("chkEP2PT11TNK").Value = "true" Then
+                    EpStat = "EP 4T11 Tank"
                     SimConstructor.Start(SimTime, MainFrm, False, EpStat)
                 End If
 skipSets:

@@ -1,12 +1,7 @@
 ﻿Imports System.Xml.Linq
 
 '
-' Crée par SharpDevelop.
-' Utilisateur: e0030653
-' Date: 3/25/2010
-' Heure: 4:04 PM
-'
-' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
+
 '
 Public Class Flask
     Inherits WowItem

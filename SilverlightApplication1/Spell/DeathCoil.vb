@@ -18,8 +18,8 @@ Namespace Simulator.WowObjects.Spells
             If sim.Character.Glyph("DeathCoil") Then
                 Multiplicator += 0.15
             End If
-            AdditionalCritChance = 8 * Sim.Character.T82PDPS / 100
-
+            AdditionalCritChance += 8 * sim.Character.T82PDPS / 100
+            AdditionalCritChance += 5 * sim.Character.T112PDPS / 100
             logLevel = LogLevelEnum.Basic
 
         End Sub

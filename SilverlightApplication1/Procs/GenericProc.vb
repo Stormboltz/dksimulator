@@ -1,11 +1,4 @@
-﻿'
-' Crée par SharpDevelop.
-' Utilisateur: e0030653
-' Date: 11/9/2009
-' Heure: 2:04 PM
-'
-' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
-'
+﻿
 Namespace Simulator.WowObjects.Procs
     Public Class Proc
         Inherits WowObject

@@ -1,10 +1,4 @@
-﻿'
-' Crée par SharpDevelop.
-' Utilisateur: e0030653
-' Date: 11/12/2009
-' Heure: 3:15 PM
-' 
-' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
+﻿
 '
 Namespace Simulator.WowObjects.Procs
     Public Class RazorIce

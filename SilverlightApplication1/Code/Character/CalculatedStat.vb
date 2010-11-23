@@ -203,7 +203,27 @@
 
     End Class
 
+    Class AttackPower
+        Inherits CalculatedStat
+        Sub New(ByVal s As Sim, ByVal PrimaryStat As PrimaryStat)
+            MyBase.New(s, PrimaryStat)
+            If sim.level85 Then
+                RatingRatio = 179.28
+            Else
+                RatingRatio = 45.906
+            End If
+            CalculateCurrentValue()
+        End Sub
+        Overrides Sub CalculateCurrentValue()
+            Dim tmp As Double
+            tmp = sim.Character.AttackPower.Value()
+            tmp = tmp + sim.Character.Strength.Value() * 2
+            tmp = tmp + 550
+            tmp *= MultiplicativeBuff
+            CurrentValue = tmp
+        End Sub
 
+    End Class
 
     Class ModifiedWeaponSpeed
         Inherits CalculatedStat

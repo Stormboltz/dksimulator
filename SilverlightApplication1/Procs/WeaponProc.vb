@@ -137,7 +137,7 @@ Namespace Simulator.WowObjects.Procs
                     sim.RunicPower.add(Me.ProcValue)
                     HitCount = HitCount + 1
                 Case "BloodWorms"
-                    tmp = 50 + 0.006 * sim.Character.AP
+                    tmp = 50 + 0.006 * sim.Character.AP.CurrentValue
                     tmp = tmp * 10
                     tmp = tmp * (1 + sim.Character.Haste.Value)
                     tmp = tmp * sim.GhoulStat.PhysicalDamageMultiplier(T)

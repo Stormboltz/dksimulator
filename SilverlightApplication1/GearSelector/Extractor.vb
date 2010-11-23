@@ -1,11 +1,5 @@
 ﻿'
-' Crée par SharpDevelop.
-' Utilisateur: e0030653
-' Date: 2/22/2010
-' Heure: 10:42 AM
-'
-' Pour changer ce modèle utiliser Outils | Options | Codage | Editer les en-têtes standards.
-'
+
 Imports System
 Imports System.IO
 Imports System.Net

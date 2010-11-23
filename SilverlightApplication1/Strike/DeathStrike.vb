@@ -20,7 +20,7 @@ Namespace Simulator.WowObjects.Strikes
 
             Coeficient = 1.5
             Coeficient += sim.Character.Talents.Talent("ImprovedDeathStrike").Value * 15 / 100
-
+            Coeficient += sim.Character.T112PTNK * 5 / 100
             AdditionalCritChance = sim.Character.Talents.Talent("ImprovedDeathStrike").Value * 3 / 100 + sim.Character.T72PDPS * 5 / 100
             logLevel = LogLevelEnum.Basic
             Glyphed = sim.Character.Glyph("DeathStrike")
