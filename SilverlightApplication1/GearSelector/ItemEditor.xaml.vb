@@ -349,6 +349,8 @@ Partial Public Class ItemEditor
                 lblBonus.Content = "+" & (From el In xGemBonus.<bonus>.Elements
                                 Where el.<id>.Value = Item.gembonus
                                 ).First.<Desc>.Value
+            Else
+                lblBonus.Content = ""
             End If
 
         Catch ex As Exception

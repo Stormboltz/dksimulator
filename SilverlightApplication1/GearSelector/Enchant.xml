@@ -1,487 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
 <enchant>
-	<item>
-		<id>3817</id>
-		<slot>1</slot>
-		<name>Arcanum of Torment</name>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>50</AttackPower>
-		<CritRating>20</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
- 
-		<reqskill>0</reqskill>
-		<Desc></Desc>
+  <item>
+    <id>3756</id>
+    <slot>9</slot>
+    <name>Fur Lining - Attack Power</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>130</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>165</reqskill>
+    <Desc></Desc>
     <Stamina>0</Stamina>
     <BonusArmor>0</BonusArmor>
     <MasteryRating>0</MasteryRating>
     <DodgeRating>0</DodgeRating>
     <ParryRating>0</ParryRating>
-	</item>
-	<item>
-		<id>3835</id>
-		<slot>3</slot>
-		<name>Master's Inscription of the Axe</name>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>120</AttackPower>
-		<CritRating>15</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<reqskill>773</reqskill>
-		<Desc></Desc>
+  </item>
+  <item>
+    <id>3845</id>
+    <slot>9</slot>
+    <name>Greater Assault</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>50</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
     <Stamina>0</Stamina>
     <BonusArmor>0</BonusArmor>
     <MasteryRating>0</MasteryRating>
     <DodgeRating>0</DodgeRating>
     <ParryRating>0</ParryRating>
-	</item>
-	<item>
-		<id>3808</id>
-		<slot>3</slot>
-		<name>Greater Inscription of the Axe</name>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>40</AttackPower>
-		<CritRating>15</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<reqskill>0</reqskill>
-		<Desc></Desc>
+  </item>
+  <item>
+    <id>3231</id>
+    <slot>9</slot>
+    <name>Expertise</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>15</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
     <Stamina>0</Stamina>
     <BonusArmor>0</BonusArmor>
     <MasteryRating>0</MasteryRating>
     <DodgeRating>0</DodgeRating>
     <ParryRating>0</ParryRating>
-	</item>
-	<item>
-		<id>3875</id>
-		<slot>3</slot>
-		<name>Lesser Inscription of the Axe</name>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>30</AttackPower>
-		<CritRating>10</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<reqskill>0</reqskill>
-		<Desc></Desc>
+  </item>
+  <item>
+    <id>3826</id>
+    <slot>8</slot>
+    <name>IceWalker</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>12</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>12</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
     <Stamina>0</Stamina>
     <BonusArmor>0</BonusArmor>
     <MasteryRating>0</MasteryRating>
     <DodgeRating>0</DodgeRating>
     <ParryRating>0</ParryRating>
-	</item>
-	<item>
-		<id>3831</id>
-		<slot>16</slot>
-		<name>Greater Speed</name>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>23</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<reqskill>0</reqskill>
-		<Desc></Desc>
+  </item>
+  <item>
+    <id>1597</id>
+    <slot>8</slot>
+    <name>Greater Assault</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>32</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
     <Stamina>0</Stamina>
     <BonusArmor>0</BonusArmor>
     <MasteryRating>0</MasteryRating>
     <DodgeRating>0</DodgeRating>
     <ParryRating>0</ParryRating>
-	</item>
-	<item>
-		<id>1099</id>
-		<slot>16</slot>
-		<name>Major Agility</name>
-		<Strength>0</Strength>
-		<Agility>22</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<reqskill>0</reqskill>
-		<Desc></Desc>
+  </item>
+  <item>
+    <id>3606</id>
+    <slot>8</slot>
+    <name>Nitro Boosts</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>24</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>202</reqskill>
+    <Desc>Critical Strike Rating</Desc>
     <Stamina>0</Stamina>
     <BonusArmor>0</BonusArmor>
     <MasteryRating>0</MasteryRating>
     <DodgeRating>0</DodgeRating>
     <ParryRating>0</ParryRating>
-	</item>
-	<item>
-		<id>3730</id>
-		<slot>16</slot>
-		<name>Swordguard Embroidery</name>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<reqskill>197</reqskill>
-		<Desc></Desc>
+  </item>
+  <item>
+    <id>4069</id>
+    <slot>8</slot>
+    <name>Enchant Boots - Haste</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>50</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
     <Stamina>0</Stamina>
     <BonusArmor>0</BonusArmor>
     <MasteryRating>0</MasteryRating>
     <DodgeRating>0</DodgeRating>
     <ParryRating>0</ParryRating>
-	</item>
-	<item>
-		<id>3605</id>
-		<slot>16</slot>
-		<name>Flexweave Underlay</name>
-		<Strength>0</Strength>
-		<Agility>23</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<reqskill>202</reqskill>
-		<Desc></Desc>
+  </item>
+  <item>
+    <id>3823</id>
+    <slot>7</slot>
+    <name>Icescale Leg Armor</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>75</AttackPower>
+    <CritRating>22</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
     <Stamina>0</Stamina>
     <BonusArmor>0</BonusArmor>
     <MasteryRating>0</MasteryRating>
     <DodgeRating>0</DodgeRating>
     <ParryRating>0</ParryRating>
-	</item>
-	<item>
-		<id>3832</id>
-		<slot>5</slot>
-		<name>Powerful Stats</name>
-		<Strength>10</Strength>
-		<Agility>10</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<reqskill>0</reqskill>
-		<Desc></Desc>
+  </item>
+  <item>
+    <id>3832</id>
+    <slot>5</slot>
+    <name>Powerful Stats</name>
+    <Strength>10</Strength>
+    <Agility>10</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
     <Stamina>0</Stamina>
     <BonusArmor>0</BonusArmor>
     <MasteryRating>0</MasteryRating>
     <DodgeRating>0</DodgeRating>
     <ParryRating>0</ParryRating>
-	</item>
-	<item>
-		<id>3756</id>
-		<slot>9</slot>
-		<name>Fur Lining - Attack Power</name>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>130</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<reqskill>165</reqskill>
-		<Desc></Desc>
+  </item>
+  <item>
+    <id>3835</id>
+    <slot>3</slot>
+    <name>Master's Inscription of the Axe</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>120</AttackPower>
+    <CritRating>15</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>773</reqskill>
+    <Desc></Desc>
     <Stamina>0</Stamina>
     <BonusArmor>0</BonusArmor>
     <MasteryRating>0</MasteryRating>
     <DodgeRating>0</DodgeRating>
     <ParryRating>0</ParryRating>
-	</item>
-	<item>
-		<id>3845</id>
-		<slot>9</slot>
-		<name>Greater Assault</name>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>50</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<reqskill>0</reqskill>
-		<Desc></Desc>
+  </item>
+  <item>
+    <id>3808</id>
+    <slot>3</slot>
+    <name>Greater Inscription of the Axe</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>40</AttackPower>
+    <CritRating>15</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
     <Stamina>0</Stamina>
     <BonusArmor>0</BonusArmor>
     <MasteryRating>0</MasteryRating>
     <DodgeRating>0</DodgeRating>
     <ParryRating>0</ParryRating>
-	</item>
-	<item>
-		<id>3231</id>
-		<slot>9</slot>
-		<name>Expertise</name>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>15</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<reqskill>0</reqskill>
-		<Desc></Desc>
+  </item>
+  <item>
+    <id>3875</id>
+    <slot>3</slot>
+    <name>Lesser Inscription of the Axe</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>30</AttackPower>
+    <CritRating>10</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
     <Stamina>0</Stamina>
     <BonusArmor>0</BonusArmor>
     <MasteryRating>0</MasteryRating>
     <DodgeRating>0</DodgeRating>
     <ParryRating>0</ParryRating>
-	</item>
-	<item>
-		<id>3231</id>
-		<slot>10</slot>
-		<name>Expertise</name>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>15</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<reqskill>0</reqskill>
-		<Desc></Desc>
+  </item>
+  <item>
+    <id>3368</id>
+    <slot>17</slot>
+    <name>Fallen Crusader</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
     <Stamina>0</Stamina>
     <BonusArmor>0</BonusArmor>
     <MasteryRating>0</MasteryRating>
     <DodgeRating>0</DodgeRating>
     <ParryRating>0</ParryRating>
-	</item>
-	<item>
-		<id>3234</id>
-		<slot>10</slot>
-		<name>Precision</name>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>20</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<reqskill>0</reqskill>
-		<Desc></Desc>
-    <Stamina>0</Stamina>
-    <BonusArmor>0</BonusArmor>
-    <MasteryRating>0</MasteryRating>
-    <DodgeRating>0</DodgeRating>
-    <ParryRating>0</ParryRating>
-	</item>
-	<item>
-		<id>1603</id>
-		<slot>10</slot>
-		<name>Crusher</name>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>44</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<reqskill>0</reqskill>
-		<Desc></Desc>
-    <Stamina>0</Stamina>
-    <BonusArmor>0</BonusArmor>
-    <MasteryRating>0</MasteryRating>
-    <DodgeRating>0</DodgeRating>
-    <ParryRating>0</ParryRating>
-	</item>
-	<item>
-		<id>684</id>
-		<slot>10</slot>
-		<name>Major Strength</name>
-		<Strength>15</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<reqskill>0</reqskill>
-		<Desc></Desc>
-    <Stamina>0</Stamina>
-    <BonusArmor>0</BonusArmor>
-    <MasteryRating>0</MasteryRating>
-    <DodgeRating>0</DodgeRating>
-    <ParryRating>0</ParryRating>
-	</item>
-	<item>
-		<id>3603</id>
-		<slot>10</slot>
-		<name>Hand-Mounted Pyro Rocket</name>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>202</ArmorPenetrationRating>
-		<reqskill>202</reqskill>
-		<Desc></Desc>
-    <Stamina>0</Stamina>
-    <BonusArmor>0</BonusArmor>
-    <MasteryRating>0</MasteryRating>
-    <DodgeRating>0</DodgeRating>
-    <ParryRating>0</ParryRating>
-	</item>
-	<item>
-		<id>3604</id>
-		<slot>10</slot>
-		<name>Hyperspeed Accelerators</name>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<reqskill>202</reqskill>
-		<Desc></Desc>
-    <Stamina>0</Stamina>
-    <BonusArmor>0</BonusArmor>
-    <MasteryRating>0</MasteryRating>
-    <DodgeRating>0</DodgeRating>
-    <ParryRating>0</ParryRating>
-	</item>
-	<item>
-		<id>3823</id>
-		<slot>7</slot>
-		<name>Icescale Leg Armor</name>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>75</AttackPower>
-		<CritRating>22</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<reqskill>0</reqskill>
-		<Desc></Desc>
-    <Stamina>0</Stamina>
-    <BonusArmor>0</BonusArmor>
-    <MasteryRating>0</MasteryRating>
-    <DodgeRating>0</DodgeRating>
-    <ParryRating>0</ParryRating>
-	</item>
-	<item>
-		<id>3826</id>
-		<slot>8</slot>
-		<name>IceWalker</name>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>12</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>12</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<reqskill>0</reqskill>
-		<Desc></Desc>
-    <Stamina>0</Stamina>
-    <BonusArmor>0</BonusArmor>
-    <MasteryRating>0</MasteryRating>
-    <DodgeRating>0</DodgeRating>
-    <ParryRating>0</ParryRating>
-	</item>
-	<item>
-		<id>1597</id>
-		<slot>8</slot>
-		<name>Greater Assault</name>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>32</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<reqskill>0</reqskill>
-		<Desc></Desc>
-    <Stamina>0</Stamina>
-    <BonusArmor>0</BonusArmor>
-    <MasteryRating>0</MasteryRating>
-    <DodgeRating>0</DodgeRating>
-    <ParryRating>0</ParryRating>
-	</item>
-	
-	<item>
-		<id>3606</id>
-		<slot>8</slot>
-		<name>Nitro Boosts</name>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>24</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<reqskill>202</reqskill>
-		<Desc>Critical Strike Rating</Desc>
-    <Stamina>0</Stamina>
-    <BonusArmor>0</BonusArmor>
-    <MasteryRating>0</MasteryRating>
-    <DodgeRating>0</DodgeRating>
-    <ParryRating>0</ParryRating>
-	</item>
-	
-	<item>
-		<id>3839</id>
-		<slot>11</slot>
-		<name>Enchant Ring - Assault</name>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>40</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<reqskill>333</reqskill>
-		<Desc></Desc>
-    <Stamina>0</Stamina>
-    <BonusArmor>0</BonusArmor>
-    <MasteryRating>0</MasteryRating>
-    <DodgeRating>0</DodgeRating>
-    <ParryRating>0</ParryRating>
-	</item>
-	<item>
-		<id>3368</id>
-		<slot>17</slot>
-		<name>Fallen Crusader</name>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<reqskill>0</reqskill>
-		<Desc></Desc>
-    <Stamina>0</Stamina>
-    <BonusArmor>0</BonusArmor>
-    <MasteryRating>0</MasteryRating>
-    <DodgeRating>0</DodgeRating>
-    <ParryRating>0</ParryRating>
-	</item>
+  </item>
   <item>
     <id>3370</id>
     <slot>17</slot>
@@ -542,72 +320,10 @@
     <DodgeRating>0</DodgeRating>
     <ParryRating>0</ParryRating>
   </item>
-  
-
   <item>
-		<id>3368</id>
-		<slot>13</slot>
-		<name>Fallen Crusader</name>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<reqskill>0</reqskill>
-		<Desc></Desc>
-    <Stamina>0</Stamina>
-    <BonusArmor>0</BonusArmor>
-    <MasteryRating>0</MasteryRating>
-    <DodgeRating>0</DodgeRating>
-    <ParryRating>0</ParryRating>
-	</item>
-	<item>
-		<id>3370</id>
-		<slot>13</slot>
-		<name>Razorice</name>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<reqskill>0</reqskill>
-		<Desc></Desc>
-    <Stamina>0</Stamina>
-    <BonusArmor>0</BonusArmor>
-    <MasteryRating>0</MasteryRating>
-    <DodgeRating>0</DodgeRating>
-    <ParryRating>0</ParryRating>
-	</item>
-	<item>
-		<id>3369</id>
-		<slot>13</slot>
-		<name>Cinderglacier</name>
-		<Strength>0</Strength>
-		<Agility>0</Agility>
-		<HasteRating>0</HasteRating>
-		<ExpertiseRating>0</ExpertiseRating>
-		<HitRating>0</HitRating>
-		<AttackPower>0</AttackPower>
-		<CritRating>0</CritRating>
-		<ArmorPenetrationRating>0</ArmorPenetrationRating>
-		<reqskill>0</reqskill>
-		<Desc></Desc>
-    <Stamina>0</Stamina>
-    <BonusArmor>0</BonusArmor>
-    <MasteryRating>0</MasteryRating>
-    <DodgeRating>0</DodgeRating>
-    <ParryRating>0</ParryRating>
-	</item>
-  <item>
-    <id>3789</id>
+    <id>4099</id>
     <slot>13</slot>
-    <name>Berserking</name>
+    <name>Enchant Weapon - Landslide</name>
     <Strength>0</Strength>
     <Agility>0</Agility>
     <HasteRating>0</HasteRating>
@@ -624,7 +340,6 @@
     <DodgeRating>0</DodgeRating>
     <ParryRating>0</ParryRating>
   </item>
-
   <item>
     <id>3368</id>
     <slot>17</slot>
@@ -640,26 +355,6 @@
     <reqskill>0</reqskill>
     <Desc></Desc>
     <Stamina>500</Stamina>
-    <BonusArmor>0</BonusArmor>
-    <MasteryRating>0</MasteryRating>
-    <DodgeRating>0</DodgeRating>
-    <ParryRating>0</ParryRating>
-  </item>
-  <item>
-    <id>3883</id>
-    <slot>13</slot>
-    <name>Nerubian Carapace</name>
-    <Strength>0</Strength>
-    <Agility>0</Agility>
-    <HasteRating>0</HasteRating>
-    <ExpertiseRating>0</ExpertiseRating>
-    <HitRating>0</HitRating>
-    <AttackPower>0</AttackPower>
-    <CritRating>0</CritRating>
-    <ArmorPenetrationRating>0</ArmorPenetrationRating>
-    <reqskill>0</reqskill>
-    <Desc></Desc>
-    <Stamina>250</Stamina>
     <BonusArmor>0</BonusArmor>
     <MasteryRating>0</MasteryRating>
     <DodgeRating>0</DodgeRating>
@@ -685,28 +380,7 @@
     <DodgeRating>0</DodgeRating>
     <ParryRating>4</ParryRating>
   </item>
-  
-    <item>
-    <id>3594</id>
-    <slot>13</slot>
-    <name>Swordbreaking</name>
-    <Strength>0</Strength>
-    <Agility>0</Agility>
-    <HasteRating>0</HasteRating>
-    <ExpertiseRating>0</ExpertiseRating>
-    <HitRating>0</HitRating>
-    <AttackPower>0</AttackPower>
-    <CritRating>0</CritRating>
-    <ArmorPenetrationRating>0</ArmorPenetrationRating>
-    <reqskill>0</reqskill>
-    <Desc></Desc>
-    <Stamina>0</Stamina>
-    <BonusArmor>0</BonusArmor>
-    <MasteryRating>0</MasteryRating>
-    <DodgeRating>0</DodgeRating>
-    <ParryRating>2</ParryRating>
-  </item>
-    <item>
+  <item>
     <id>3367</id>
     <slot>17</slot>
     <name>Spellshattering</name>
@@ -744,6 +418,1086 @@
     <BonusArmor>0</BonusArmor>
     <MasteryRating>0</MasteryRating>
     <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>3831</id>
+    <slot>16</slot>
+    <name>Greater Speed</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>23</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>1099</id>
+    <slot>16</slot>
+    <name>Major Agility</name>
+    <Strength>0</Strength>
+    <Agility>22</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>3730</id>
+    <slot>16</slot>
+    <name>Swordguard Embroidery</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>197</reqskill>
+    <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>3605</id>
+    <slot>16</slot>
+    <name>Flexweave Underlay</name>
+    <Strength>0</Strength>
+    <Agility>23</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>202</reqskill>
+    <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>3368</id>
+    <slot>13</slot>
+    <name>Fallen Crusader</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>3370</id>
+    <slot>13</slot>
+    <name>Razorice</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>3369</id>
+    <slot>13</slot>
+    <name>Cinderglacier</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>3789</id>
+    <slot>13</slot>
+    <name>Berserking</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>3883</id>
+    <slot>13</slot>
+    <name>Nerubian Carapace</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>250</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>3594</id>
+    <slot>13</slot>
+    <name>Swordbreaking</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>2</ParryRating>
+  </item>
+  <item>
+    <id>3839</id>
+    <slot>11</slot>
+    <name>Enchant Ring - Assault</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>40</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>333</reqskill>
+    <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4081</id>
+    <slot>11</slot>
+    <name>Enchant Ring - Greater Stamina</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>60</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4078</id>
+    <slot>11</slot>
+    <name>Enchant Ring - Strength</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>3231</id>
+    <slot>10</slot>
+    <name>Expertise</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>15</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>3234</id>
+    <slot>10</slot>
+    <name>Precision</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>20</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>1603</id>
+    <slot>10</slot>
+    <name>Crusher</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>44</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>684</id>
+    <slot>10</slot>
+    <name>Major Strength</name>
+    <Strength>15</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>3603</id>
+    <slot>10</slot>
+    <name>Hand-Mounted Pyro Rocket</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>202</ArmorPenetrationRating>
+    <reqskill>202</reqskill>
+    <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>3604</id>
+    <slot>10</slot>
+    <name>Hyperspeed Accelerators</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>202</reqskill>
+    <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4068</id>
+    <slot>10</slot>
+    <name>Enchant Gloves - Haste</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>50</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>3817</id>
+    <slot>1</slot>
+    <name>Arcanum of Torment</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>50</AttackPower>
+    <CritRating>20</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4106</id>
+    <slot>10</slot>
+    <name>Enchant Gloves - Mighty Strength</name>
+    <Strength>50</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc />
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4107</id>
+    <slot>10</slot>
+    <name>Enchant Gloves - Greater Mastery</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc />
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>65</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4075</id>
+    <slot>10</slot>
+    <name>Enchant Gloves - Exceptional Strength</name>
+    <Strength>35</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc />
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4082</id>
+    <slot>10</slot>
+    <name>Enchant Gloves - Greater Expertise</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>50</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc />
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4071</id>
+    <slot>9</slot>
+    <name>Enchant Bracer - Critical Strike</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>50</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc />
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4086</id>
+    <slot>9</slot>
+    <name>Enchant Bracer - Dodge</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>50</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4089</id>
+    <slot>9</slot>
+    <name>Enchant Bracer - Precision</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>50</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc />
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4095</id>
+    <slot>9</slot>
+    <name>Enchant Bracer - Greater Expertise</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>50</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc />
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4101</id>
+    <slot>9</slot>
+    <name>Enchant Bracer - Greater Critical Strike</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>65</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc />
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4108</id>
+    <slot>9</slot>
+    <name>Enchant Bracer - Greater Speed</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>65</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc />
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4070</id>
+    <slot>5</slot>
+    <name>Enchant Chest - Stamina</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>55</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4103</id>
+    <slot>5</slot>
+    <name>Enchant Chest - Greater Stamina</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>75</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4102</id>
+    <slot>5</slot>
+    <name>Enchant Chest - Peerless Stats</name>
+    <Strength>20</Strength>
+    <Agility>20</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc />
+    <Stamina>20</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4100</id>
+    <slot>16</slot>
+    <name>Enchant Cloak - Greater Critical Strike</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>65</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc />
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4087</id>
+    <slot>16</slot>
+    <name>Enchant Cloak - Critical Strike</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>50</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc />
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4090</id>
+    <slot>16</slot>
+    <name>Enchant Cloak - Protection</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>250</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4092</id>
+    <slot>8</slot>
+    <name>Enchant Boots - Precision</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>50</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc />
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4094</id>
+    <slot>8</slot>
+    <name>Enchant Boots - Mastery</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc />
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>50</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4104</id>
+    <slot>8</slot>
+    <name>Enchant Boots - Lavawalker</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc />
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>35</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4195</id>
+    <slot>3</slot>
+    <name>Inscription of the Earth Prince</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc />
+    <Stamina>195</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>25</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4194</id>
+    <slot>3</slot>
+    <name>Lionsmane Inscription</name>
+    <Strength>130</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>25</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc />
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>130</id>
+    <slot>9</slot>
+    <name>Draconic Embossment - Strength</name>
+    <Strength>130</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>165</reqskill>
+    <Desc />
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4189</id>
+    <slot>9</slot>
+    <name>Draconic Embossment - Stamina</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>165</reqskill>
+    <Desc />
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4126</id>
+    <slot>7</slot>
+    <name>Dragonbone Leg Reinforcements</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>190</AttackPower>
+    <CritRating>55</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc />
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4127</id>
+    <slot>7</slot>
+    <name>Charscale Leg Reinforcements</name>
+    <Strength>0</Strength>
+    <Agility>55</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc />
+    <Stamina>145</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4122</id>
+    <slot>7</slot>
+    <name>Scorched Leg Armor</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>110</AttackPower>
+    <CritRating>45</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc />
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4124</id>
+    <slot>7</slot>
+    <name>Twilight Leg Armor</name>
+    <Strength>0</Strength>
+    <Agility>45</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc />
+    <Stamina>85</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4197</id>
+    <slot>3</slot>
+    <name>Inscription of Unbreakable Quartz</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>45</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>20</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4201</id>
+    <slot>3</slot>
+    <name>Inscription of Jagged Stone</name>
+    <Strength>30</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>20</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc />
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4198</id>
+    <slot>3</slot>
+    <name>Greater Inscription of Unbreakable Quartz</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>75</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>25</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4202</id>
+    <slot>3</slot>
+    <name>Greater Inscription of Jagged Stone</name>
+    <Strength>50</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>25</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc />
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4208</id>
+    <slot>1</slot>
+    <name>Arcanum of the Highlands</name>
+    <Strength>60</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>0</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>35</MasteryRating>
+    <DodgeRating>0</DodgeRating>
+    <ParryRating>0</ParryRating>
+  </item>
+  <item>
+    <id>4206</id>
+    <slot>1</slot>
+    <name>Arcanum of the Earthern Ring</name>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <reqskill>0</reqskill>
+    <Desc></Desc>
+    <Stamina>90</Stamina>
+    <BonusArmor>0</BonusArmor>
+    <MasteryRating>0</MasteryRating>
+    <DodgeRating>35</DodgeRating>
     <ParryRating>0</ParryRating>
   </item>
 </enchant>

@@ -1942,4 +1942,8 @@ refreshRating:
     End Sub
 
 
+    Private Sub cmdEnchantEditor_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdEnchantEditor.Click
+        Dim s As New EnchantEditor
+        s.Show()
+    End Sub
 End Class

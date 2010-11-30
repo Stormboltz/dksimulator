@@ -60,9 +60,8 @@ Partial Public Class GemSelector
                             Where g.subclass = 6).ToList
         Else
             statusReport = (From g In GemList
-                            Where g.reqskill = 0 Or
-                            g.reqskill = GetSkillID(Me.MainFrame.ParentFrame.cmbSkill1.SelectedItem) Or
-            g.reqskill = GetSkillID(Me.MainFrame.ParentFrame.cmbSkill2.SelectedItem)
+                            Where g.subclass <> 6 AndAlso
+                              (g.reqskill = 0 Or g.reqskill = GetSkillID(Me.MainFrame.ParentFrame.cmbSkill1.SelectedItem) Or g.reqskill = GetSkillID(Me.MainFrame.ParentFrame.cmbSkill2.SelectedItem))
                             Order By g.EPVAlue Descending).ToList
         End If
         gGems.AutoGenerateColumns = True
@@ -84,7 +83,9 @@ Partial Public Class GemSelector
                             ).ToList
         Else
             statusReport = (From g In GemList
-                            Where Contains(g, filter) And (g.reqskill = 0 Or g.reqskill = GetSkillID(Me.MainFrame.ParentFrame.cmbSkill1.SelectedItem) Or g.reqskill = GetSkillID(Me.MainFrame.ParentFrame.cmbSkill2.SelectedItem))
+                            Where Contains(g, filter) AndAlso
+                                g.subclass <> 6 AndAlso
+                                (g.reqskill = 0 Or g.reqskill = GetSkillID(Me.MainFrame.ParentFrame.cmbSkill1.SelectedItem) Or g.reqskill = GetSkillID(Me.MainFrame.ParentFrame.cmbSkill2.SelectedItem))
                             Order By g.EPVAlue Descending
                             ).ToList
         End If
@@ -182,7 +183,7 @@ Partial Public Class GemSelector
                     .AP = el.Element("AttackPower").Value
                     .Crit = el.Element("CritRating").Value
                     .ArP = el.Element("ArmorPenetrationRating").Value
-                    .Mast = el.Element("Mastery").Value
+                    .Mast = el.Element("MasteryRating").Value
                     .ColorId = el.Element("subclass").Value
                     .Dodge = el.Element("Dodge").Value
                     .Parry = el.Element("Parry").Value

@@ -66,12 +66,20 @@ Namespace Simulator.WowObjects.Procs
                         ._Name = "Cinderglacier"
 
                     Case "3789"
+                        .DamageType = ""
                         .ProcChance *= 1.2
                         .ProcLenght = 15
                         .ProcValue = 400
                         .Effects.Add(New SpellBuff(Sim, "Berzerker", Simulator.Sim.Stat.AP, 400, 15))
                         ._Name = "Berzerker"
+                    Case "4099"
+                        .DamageType = ""
+                        .ProcChance *= 1
+                        .ProcLenght = 12
+                        .ProcValue = 1000
+                        .Effects.Add(New SpellBuff(Sim, "Landslide", Simulator.Sim.Stat.AP, 1000, 12))
 
+                        ._Name = "Berzerker"
                     Case Else
                         Diagnostics.Debug.WriteLine("Runeforge: " & RuneForge & " not implemented")
                         .ProcChance = 0

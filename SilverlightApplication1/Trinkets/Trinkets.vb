@@ -392,8 +392,6 @@ Namespace Simulator.WowObjects.Procs
             End With
             tk = New Trinket(S)
             With tk
-
-
                 ._Name = "Right Eye of Rajh Heroic"
                 .ProcChance = 0.19
                 .ProcLenght = 14

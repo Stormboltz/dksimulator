@@ -34,31 +34,31 @@
 
   <trinket name='ZabroksLuckyTooth' id='63745'></trinket>
   <trinket name='ZabroksLuckyTooth' id='63742'></trinket>
-  <trinket name='Tank-Commander Insignia' id='63841'></trinket>
-  <trinket name='Shrine-Cleansing Purifier' id='63838'></trinket>
-  <trinket name='Oremantles Favor' id='61448'></trinket>
-  <trinket name='Right Eye of Rajh Heroic' id='56431'></trinket>
-  <trinket name='Souls Anguish' id='66994'></trinket>
-  <trinket name='Right Eye of Rajh' id='56100'></trinket>
-  <trinket name='Might of the Ocean Heroic' id='56285'></trinket>
-  <trinket name='Mark of Khardros Heroic' id='56458'></trinket>
-  <trinket name='Mark of Khardros' id='56132'></trinket>
-  <trinket name='Magnetite Mirror' id='55814'></trinket>
-  <trinket name='Magnetite Mirror Heroic' id='56345'></trinket>
-  <trinket name='Kvaldir Battle Standard' id='59685'></trinket>
-  <trinket name='Kvaldir Battle Standard' id='59689'></trinket>
-  <trinket name='Heart of Solace Heroic' id='56393'></trinket>
-  <trinket name='Heart of Solace' id='55868'></trinket>
-  <trinket name='Harrisons Insignia of Panache' id='65803'></trinket>
-  <trinket name='Figurine - King of Boars' id='52351'></trinket>
-  <trinket name='License to Slay' id='58180'></trinket>
-  <trinket name='Impatience of Youth' id='62464'></trinket>
-  <trinket name='Impatience of Youth' id='62469'></trinket>
-  <trinket name='Heart of Rage' id='59224'></trinket>
-  <trinket name='Heart of Rage Heroic' id='65072'></trinket>
-  <trinket name='Fury of Angerforge' id='59461'></trinket>
-  <trinket name='Darkmoon Card: Hurricane' id='62049'></trinket>
-  <trinket name='Crushing Weight Heroic' id='65118'></trinket>
-  <trinket name='Crushing Weight' id='59506'></trinket>
+  <trinket name='TankCommanderInsignia' id='63841'></trinket>
+  <trinket name='ShrineCleansingPurifier' id='63838'></trinket>
+  <trinket name='OremantlesFavor' id='61448'></trinket>
+  <trinket name='RightEyeofRajhHeroic' id='56431'></trinket>
+  <trinket name='SoulsAnguish' id='66994'></trinket>
+  <trinket name='RightEyeofRajh' id='56100'></trinket>
+  <trinket name='MightoftheOceanHeroic' id='56285'></trinket>
+  <trinket name='MarkofKhardrosHeroic' id='56458'></trinket>
+  <trinket name='MarkofKhardros' id='56132'></trinket>
+  <trinket name='MagnetiteMirror' id='55814'></trinket>
+  <trinket name='MagnetiteMirrorHeroic' id='56345'></trinket>
+  <trinket name='KvaldirBattleStandard' id='59685'></trinket>
+  <trinket name='KvaldirBattleStandard' id='59689'></trinket>
+  <trinket name='HeartofSolaceHeroic' id='56393'></trinket>
+  <trinket name='HeartofSolace' id='55868'></trinket>
+  <trinket name='HarrisonsInsigniaofPanache' id='65803'></trinket>
+  <trinket name='Figurine-KingofBoars' id='52351'></trinket>
+  <trinket name='LicensetoSlay' id='58180'></trinket>
+  <trinket name='ImpatienceofYouth' id='62464'></trinket>
+  <trinket name='ImpatienceofYouth' id='62469'></trinket>
+  <trinket name='HeartofRage' id='59224'></trinket>
+  <trinket name='HeartofRageHeroic' id='65072'></trinket>
+  <trinket name='FuryofAngerforge' id='59461'></trinket>
+  <trinket name='DarkmoonCardHurricane' id='62049'></trinket>
+  <trinket name='CrushingWeightHeroic' id='65118'></trinket>
+  <trinket name='CrushingWeight' id='59506'></trinket>
 
 </TrinketList>

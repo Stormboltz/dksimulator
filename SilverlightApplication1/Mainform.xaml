@@ -345,6 +345,8 @@
                         <Button Name="cmdCleanDebug" Content="Clean debug log"></Button>
                         <sdk:Label Content=" "></sdk:Label>
                         <Button Name="cmdCleanCache" Content="Wipe all local data (profile, prio...)"></Button>
+                        <sdk:Label Content=" "></sdk:Label>
+                        <Button Name="cmdEnchantEditor" Content="Enchant editor"></Button>
                     </StackPanel>
 
                 </sdk:TabItem>
