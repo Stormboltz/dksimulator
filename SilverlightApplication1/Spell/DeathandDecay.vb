@@ -43,7 +43,7 @@ Namespace Simulator.WowObjects.Spells
 
         Function Apply(ByVal T As Long) As Boolean
             UseGCD(T)
-            nextTick = T + 100
+            nextTick = T
             ActiveUntil = T + Length
             CD = T + 3000
             Use()
@@ -86,11 +86,6 @@ Namespace Simulator.WowObjects.Spells
             End If
             Return True
         End Function
-
-        Overrides Function AvrgCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
-            AvrgCrit = AvrgNonCrit(T, target) * (0.5 + CritCoef())
-        End Function
-
 
     End Class
 End Namespace

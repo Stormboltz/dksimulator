@@ -389,8 +389,13 @@ Partial Public Class MainForm
 
     End Sub
     Sub loadEPValue()
+
         Using isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+            Try
+
+            
             Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/Optimiser.xml", FileMode.Open, isoStore)
+
                 Dim doc As XDocument = XDocument.Load(isoStream)
                 txtStrAC.Text = doc.<EPValues>.<str>.<aftercap>.Value
                 txtStrBC.Text = doc.<EPValues>.<str>.<beforecap>.Value
@@ -422,7 +427,10 @@ Partial Public Class MainForm
 
 
 
-            End Using
+                End Using
+            Catch ex As Exception
+
+            End Try
         End Using
 
     End Sub

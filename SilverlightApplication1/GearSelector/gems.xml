@@ -1,5 +1,29 @@
 <?xml version="1.0"?>
 <gems>
+  <item id="52206">
+    <id>52206</id>
+    <quality>3</quality>
+    <name>Bold Inferno Ruby</name>
+    <ilvl>85</ilvl>
+    <slot>0</slot>
+    <classs>3</classs>
+    <subclass>0</subclass>
+    <Stamina>0</Stamina>
+    <Dodge>0</Dodge>
+    <Parry>0</Parry>
+    <Strength>40</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <MasteryRating>0</MasteryRating>
+    <reqskill>0</reqskill>
+    <keywords>Strenght</keywords>
+  </item>
+  
   <item id="59493">
     <id>59493</id>
     <quality>3</quality>
@@ -137,6 +161,29 @@
     <MasteryRating>0</MasteryRating>
     <reqskill>755</reqskill>
     <keywords>ExpertiseRating</keywords>
+  </item>
+  <item id="52255">
+    <id>52255</id>
+    <quality>4</quality>
+    <name>Bold Chimera's Eye</name>
+    <ilvl>80</ilvl>
+    <slot>0</slot>
+    <classs>3</classs>
+    <subclass>0</subclass>
+    <Stamina>0</Stamina>
+    <Dodge>0</Dodge>
+    <Parry>0</Parry>
+    <Strength>67</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <MasteryRating>0</MasteryRating>
+    <reqskill>755</reqskill>
+    <keywords>Strength</keywords>
   </item>
   <item id="42142">
     <id>42142</id>
@@ -805,6 +852,30 @@
     <reqskill>0</reqskill>
     <keywords>MasteryStrength</keywords>
   </item>
+  <item id="52214">
+    <id>52214</id>
+    <quality>4</quality>
+    <name>Fierce Ember Topaz</name>
+    <ilvl>80</ilvl>
+    <slot>0</slot>
+    <classs>3</classs>
+    <subclass>5</subclass>
+    <Stamina>0</Stamina>
+    <Dodge>0</Dodge>
+    <Parry>0</Parry>
+    <Strength>20</Strength>
+    <Agility>0</Agility>
+    <HasteRating>20</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <MasteryRating>0</MasteryRating>
+    <reqskill>0</reqskill>
+    <keywords>HasteRatingStrength</keywords>
+  </item>
+  
   <item id="40146">
     <id>40146</id>
     <quality>4</quality>

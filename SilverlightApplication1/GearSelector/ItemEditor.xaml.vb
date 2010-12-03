@@ -362,6 +362,8 @@ Partial Public Class ItemEditor
 
         If cmbReforgeFrom.Items.Count = 0 Then
             cmbReforgeFrom.IsEnabled = False
+            cmbReforgeFrom.SelectedItem = Nothing
+            cmbReforgeTo.SelectedItem = Nothing
             cmbReforgeTo.IsEnabled = False
             btRemove.IsEnabled = False
             txtReforge.Text = 0

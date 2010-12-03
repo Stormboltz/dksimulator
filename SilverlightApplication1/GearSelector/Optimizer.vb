@@ -427,6 +427,7 @@ processNext:
             w.ArmorPenetrationRating = ArmorPenetrationRating
             w.Speed = Speed
             w.DPS = DPS
+            w.MasteryRating = MasteryRating
             w.ReforgeFrom = ReforgeFrom
             w.Reforgeto = Reforgeto
             w.ReforgeValue = ReforgeValue
@@ -635,108 +636,107 @@ processNext:
 
 
 
-            If EPs.EPHast.ValBeforeCap > Math.Min(EPs.EPCrit.ValBeforeCap, EPs.EPMast.ValBeforeCap) Then
-                ItemList = (From e In ItemList Where e.ReforgeFrom <> SecondatyStat.HasteRating).ToList
-            End If
+            Dim HitList As List(Of OptimizerWowItem)
 
-            If EPs.EPCrit.ValBeforeCap > Math.Min(EPs.EPHast.ValBeforeCap, EPs.EPMast.ValBeforeCap) Then
-                ItemList = (From e In ItemList Where e.ReforgeFrom <> SecondatyStat.CritRating).ToList
-            End If
 
-            If EPs.EPMast.ValBeforeCap > Math.Min(EPs.EPHast.ValBeforeCap, EPs.EPCrit.ValBeforeCap) Then
-                ItemList = (From e In ItemList Where e.ReforgeFrom <> SecondatyStat.MasteryRating).ToList
-            End If
+            HitList = (From e In ItemList
+                       Where e.ReforgeFrom = SecondatyStat.HitRating Or
+                       e.Reforgeto = SecondatyStat.HitRating
+                       Order By e.GetValueBeforeCap(EPs) Descending).ToList
 
-            If EPs.EPHast.ValBeforeCap < Math.Max(EPs.EPCrit.ValBeforeCap, EPs.EPMast.ValBeforeCap) Then
-                ItemList = (From e In ItemList Where e.Reforgeto <> SecondatyStat.HasteRating).ToList
-            End If
+            Dim ExpList As List(Of OptimizerWowItem)
 
-            If EPs.EPCrit.ValBeforeCap < Math.Max(EPs.EPHast.ValBeforeCap, EPs.EPMast.ValBeforeCap) Then
-                ItemList = (From e In ItemList Where e.Reforgeto <> SecondatyStat.CritRating).ToList
-            End If
+            ExpList = (From e In ItemList
+                      Where e.ReforgeFrom = SecondatyStat.ExpertiseRating Or
+                      e.Reforgeto = SecondatyStat.ExpertiseRating
+                      Order By e.GetValueBeforeCap(EPs) Descending).ToList
 
-            If EPs.EPMast.ValBeforeCap < Math.Max(EPs.EPHast.ValBeforeCap, EPs.EPCrit.ValBeforeCap) Then
-                ItemList = (From e In ItemList Where e.Reforgeto <> SecondatyStat.MasteryRating).ToList
-            End If
 
-            d2 = OriginalItem.GetValueBeforeCap(EPs, True, CalcWithoutExp)
-            Dim List2 As List(Of OptimizerWowItem)
-            'take the best one only
-            If CalcWithoutExp Then
-                List2 = (From e In ItemList Where
-                         e.ReforgeFrom <> SecondatyStat.HitRating AndAlso e.Reforgeto <> SecondatyStat.HitRating
+            Dim OtherList As List(Of OptimizerWowItem)
+
+            OtherList = (From e In ItemList Where
+                         e.ReforgeFrom <> SecondatyStat.ExpertiseRating AndAlso
+                         e.Reforgeto <> SecondatyStat.ExpertiseRating AndAlso
+                         e.ReforgeFrom <> SecondatyStat.HitRating AndAlso
+                         e.Reforgeto <> SecondatyStat.HitRating
                         Order By e.GetValueBeforeCap(EPs) Descending
                         ).ToList
 
-            Else
-                List2 = (From e In ItemList Where
-                         e.ReforgeFrom <> SecondatyStat.ExpertiseRating AndAlso e.Reforgeto <> SecondatyStat.ExpertiseRating _
-                         AndAlso e.ReforgeFrom <> SecondatyStat.HitRating AndAlso e.Reforgeto <> SecondatyStat.HitRating
-                        Order By e.GetValueBeforeCap(EPs) Descending
-                        ).ToList
-            End If
-
-            If List2.Count > 1 Then
-                For i As Integer = 1 To List2.Count - 1
-                    ItemList.Remove(List2(i))
-                Next
-            End If
+            ItemList.Clear()
+            If HitList.Count > 0 Then ItemList.Add(HitList.First)
+            If ExpList.Count > 0 Then ItemList.Add(ExpList.First)
+            If OtherList.Count > 0 Then ItemList.Add(OtherList.First)
 
 
-            List2 = (From e In ItemList Where
-                         e.ReforgeFrom = SecondatyStat.HitRating
-                        Order By e.GetValueBeforeCap(EPs) Descending
-                        ).ToList
+            'If EPs.EPHast.ValBeforeCap > Math.Min(EPs.EPCrit.ValBeforeCap, EPs.EPMast.ValBeforeCap) Then
+            '    ItemList = (From e In ItemList Where e.ReforgeFrom <> SecondatyStat.HasteRating).ToList
+            'End If
 
-            If List2.Count > 1 Then
-                For i As Integer = 1 To List2.Count - 1
-                    ItemList.Remove(List2(i))
-                Next
-            End If
-            If Not CalcWithoutExp Then
-                List2 = (From e In ItemList Where
-                        e.ReforgeFrom = SecondatyStat.ExpertiseRating
-                       Order By e.GetValueBeforeCap(EPs) Descending
-                       ).ToList
+            'If EPs.EPCrit.ValBeforeCap > Math.Min(EPs.EPHast.ValBeforeCap, EPs.EPMast.ValBeforeCap) Then
+            '    ItemList = (From e In ItemList Where e.ReforgeFrom <> SecondatyStat.CritRating).ToList
+            'End If
 
-                If List2.Count > 1 Then
-                    For i As Integer = 1 To List2.Count - 1
-                        ItemList.Remove(List2(i))
-                    Next
-                End If
-            End If
+            'If EPs.EPMast.ValBeforeCap > Math.Min(EPs.EPHast.ValBeforeCap, EPs.EPCrit.ValBeforeCap) Then
+            '    ItemList = (From e In ItemList Where e.ReforgeFrom <> SecondatyStat.MasteryRating).ToList
+            'End If
 
+            'If EPs.EPHast.ValBeforeCap < Math.Max(EPs.EPCrit.ValBeforeCap, EPs.EPMast.ValBeforeCap) Then
+            '    ItemList = (From e In ItemList Where e.Reforgeto <> SecondatyStat.HasteRating).ToList
+            'End If
 
-            'For Each e In List2
+            'If EPs.EPCrit.ValBeforeCap < Math.Max(EPs.EPHast.ValBeforeCap, EPs.EPMast.ValBeforeCap) Then
+            '    ItemList = (From e In ItemList Where e.Reforgeto <> SecondatyStat.CritRating).ToList
+            'End If
 
-            '    If e.Reforgeto <> SecondatyStat.HitRating AndAlso e.ReforgeFrom <> SecondatyStat.HitRating Then
-            '        If CalcWithoutExp Then
-            '            ItemList.Remove(e)
-            '        Else
-            '            If e.Reforgeto <> SecondatyStat.ExpertiseRating AndAlso e.ReforgeFrom <> SecondatyStat.ExpertiseRating Then
-            '                ItemList.Remove(e)
-            '            End If
-            '        End If
-            '    End If
-            'Next
+            'If EPs.EPMast.ValBeforeCap < Math.Max(EPs.EPHast.ValBeforeCap, EPs.EPCrit.ValBeforeCap) Then
+            '    ItemList = (From e In ItemList Where e.Reforgeto <> SecondatyStat.MasteryRating).ToList
+            'End If
 
+            'd2 = OriginalItem.GetValueBeforeCap(EPs, True, CalcWithoutExp)
+            'Dim List2 As List(Of OptimizerWowItem)
+            ''take the best one only
+            'If CalcWithoutExp Then
+            '    List2 = (From e In ItemList Where
+            '             e.ReforgeFrom <> SecondatyStat.HitRating AndAlso e.Reforgeto <> SecondatyStat.HitRating
+            '            Order By e.GetValueBeforeCap(EPs) Descending
+            '            ).ToList
 
-            'If ForHiTExpOnly Then
-            '    If EPs.EPExp.ValBeforeCap < (Math.Min(EPs.EPCrit.ValBeforeCap, EPs.EPMast.ValBeforeCap)) Then
-            '        ItemList = (From e In ItemList
-            '                    Where (e.Reforgeto <> SecondatyStat.ExpertiseRating AndAlso (e.HitRating <> 0)) OrElse e.ReforgeFrom = e.Reforgeto
-            '                    ).ToList
-            '    Else
-            '        ItemList = (From e In ItemList
-            '                    Where (e.ExpertiseRating <> 0 OrElse e.HitRating <> 0) OrElse e.ReforgeFrom = e.Reforgeto
-            '                    ).ToList
-            '    End If
             'Else
+            '    List2 = (From e In ItemList Where
+            '             e.ReforgeFrom <> SecondatyStat.ExpertiseRating AndAlso e.Reforgeto <> SecondatyStat.ExpertiseRating _
+            '             AndAlso e.ReforgeFrom <> SecondatyStat.HitRating AndAlso e.Reforgeto <> SecondatyStat.HitRating
+            '            Order By e.GetValueBeforeCap(EPs) Descending
+            '            ).ToList
+            'End If
 
-            '    Dim ValAfterCapList = (From i In ItemList
-            '                       Where i.GetValueAfterCap(EPs) >= d1 OrElse i.GetValueBeforeCap(EPs) >= d2
-            '                       Order By i.GetValueAfterCap(EPs) Descending).ToList
-            '    ItemList = ValAfterCapList.ToList
+            'If List2.Count > 1 Then
+            '    For i As Integer = 1 To List2.Count - 1
+            '        ItemList.Remove(List2(i))
+            '    Next
+            'End If
+
+
+            'List2 = (From e In ItemList Where
+            '             e.ReforgeFrom = SecondatyStat.HitRating
+            '            Order By e.GetValueBeforeCap(EPs) Descending
+            '            ).ToList
+
+            'If List2.Count > 1 Then
+            '    For i As Integer = 1 To List2.Count - 1
+            '        ItemList.Remove(List2(i))
+            '    Next
+            'End If
+            'If Not CalcWithoutExp Then
+            '    List2 = (From e In ItemList Where
+            '            e.ReforgeFrom = SecondatyStat.ExpertiseRating
+            '           Order By e.GetValueBeforeCap(EPs) Descending
+            '           ).ToList
+
+            '    If List2.Count > 1 Then
+            '        For i As Integer = 1 To List2.Count - 1
+            '            ItemList.Remove(List2(i))
+            '        Next
+            '    End If
             'End If
 
             For Each itm In Me.ItemList
