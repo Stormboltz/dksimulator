@@ -1,6 +1,8 @@
 ﻿Imports System.Xml
 Imports System.Net
 Imports System.Xml.Linq
+Imports System.Xml.XPath
+
 Imports System.Linq
 Imports System.IO.IsolatedStorage
 Imports System.IO
@@ -190,16 +192,22 @@ Partial Public Class FrmGearSelector
 
     Sub ImportMyXMLCharacter(ByVal xmltext As String)
         Try
-            Dim xmlChar As XDocument = XDocument.Parse(xmltext)
+
+            'Dim xmlChar As XDocument = XDocument.Parse(xmltext)
+            Dim xmlChar As XDocument = XDocument.Load("GearSelector/ArmoryImport/ArmoSample.xml")
             Dim iSlot As VisualEquipSlot
             Me.InLoad = True
             Dim charfound As Boolean = False
             Dim tmp As String = ""
+            Dim xGearList As XElement
+
 
             InLoad = True
 
+            Dim aList = xmlChar.XPathSelectElements("//a").Count
+
             Try
-                ParentFrame.cmbRace.SelectedItem = xmlChar.Element("page").Element("characterInfo").Element("character").Attribute("race").Value
+                ParentFrame.cmbRace.SelectedItem = (From el In xmlChar...<a> Where el.@class = "race").Value
             Catch ex As Exception
                 Log.Log(ex.StackTrace, logging.Level.ERR)
             End Try
@@ -218,23 +226,33 @@ Partial Public Class FrmGearSelector
             Dim xItem As XElement
             ParentFrame.cmbSkill1.SelectedItem = Nothing
             ParentFrame.cmbSkill2.SelectedItem = Nothing
-            For Each xItem In xmlChar.Element("page").Element("characterInfo").Element("characterTab").Element("professions").Elements("skill")
+            Dim l = (From el In xmlChar...<span> Where el.@class = "profession-details").ToList
+
+
+            For Each xItem In l
                 If ParentFrame.cmbSkill1.SelectedItem <> "" Then
-                    ParentFrame.cmbSkill2.SelectedItem = xItem.Attribute("name").Value
+                    ParentFrame.cmbSkill2.SelectedItem = (From el In xItem.<span> Where el.@<class> = "value").Value
                 Else
-                    ParentFrame.cmbSkill1.SelectedItem = xItem.Attribute("name").Value
+                    ParentFrame.cmbSkill1.SelectedItem = (From el In xItem.<span> Where el.@<class> = "value").Value
                 End If
             Next
 
+            xGearList = (From el In xmlChar...<div>
+                   Where el.@class = "summary-inventory summary-inventory-advanced").First
+
             Try
                 Dim d As Boolean
-                d = ((From el As XElement In xmlChar.Element("page").Element("characterInfo").Element("characterTab").Element("items").Elements
-                        Where el.Attribute("slot") = "16"
-                        ).Count > 0)
+                Dim x = (From el In (From el In xGearList.<div> Where el.@<data-id> = 16)...<div>
+                         Where el.@<class> = "item-tooltip").Count
+                If x > 0 Then
+                    d = True
+                Else
+                    d = False
+                End If
+
                 If d Then
                     StatSummary.rDW.IsChecked = True
                     StatSummary.r2Hand.IsChecked = False
-
                     Me.rd2H.IsChecked = False
                     Me.rdDW.IsChecked = True
                 Else
@@ -251,21 +269,41 @@ Partial Public Class FrmGearSelector
                 Me.rdDW.IsChecked = False
             End Try
 
-            For Each xItem In xmlChar.Element("page").Element("characterInfo").Element("characterTab").Element("items").Elements("item")
+            For Each xItem In xGearList.Elements
+
                 charfound = True
                 For Each iSlot In Me.EquipmentList
-                    If iSlot.text = ArmorySlot2MySlot(xItem.Attribute("slot").Value) Then
+                    If iSlot.Text = ArmorySlot2MySlot(xItem.Attribute("data-id").Value) Then
                         Try
-                            iSlot.Item.LoadItem(xItem.Attribute("id").Value)
+                            Dim dataitem As String = (From el In xItem...<a>
+                                                      Where el.@<class> = "item").@<data-item>
+                            Dim Values = dataitem.Split("&amp;")
+                            Dim id As Integer = (From el In Values Where el.StartsWith("id=")).First.Replace("id=", "")
+                            iSlot.Item.LoadItem(id)
                             iSlot.DisplayItem()
-                            iSlot.Item.gem1.Attach(xItem.Attribute("gem0Id").Value)
+
+                            Dim gm As String = (From el In Values Where el.StartsWith("g1=")).First.Replace("g1=", "")
+                            iSlot.Item.gem1.Attach(gm)
+
+                            gm = 0
+                            gm = (From el In Values Where el.StartsWith("g2=")).First.Replace("g2=", "")
                             iSlot.Item.gem2.Attach(xItem.Attribute("gem1Id").Value)
+
+                            gm = 0
+                            gm = (From el In Values Where el.StartsWith("g3=")).First.Replace("g3=", "")
                             iSlot.Item.gem3.Attach(xItem.Attribute("gem2Id").Value)
 
+                            Dim ench As String = 0
+                            ench = (From el In Values Where el.StartsWith("e=")).First.Replace("e=", "")
                             iSlot.Item.Enchant.Attach(xItem.Attribute("permanentenchant").Value)
-
+                            Dim refId As String = (From el In Values Where el.StartsWith("re=")).First.Replace("re=", "")
+                            Dim refF As String = ""
+                            Dim refT As String = ""
+                            GetReforgeFromArmory(refId, refF, refT)
+                            iSlot.Item.ReForgingFrom = refF
+                            iSlot.Item.ReForgingTo = refT
                         Catch ex As System.Exception
-                            'Diagnostics.Debug.WriteLine (ex.ToString)
+                            Diagnostics.Debug.WriteLine(ex.ToString)
                         End Try
 
                     End If
@@ -281,11 +319,161 @@ Partial Public Class FrmGearSelector
             Me.InLoad = False
         End Try
     End Sub
-
+    Sub GetReforgeFromArmory(ByVal ArmoryRef As Integer, ByRef refFrom As String, ByRef RefTo As String)
+        Select Case ArmoryRef
+            
+            Case 64
+                refFrom = "Dodge"
+                RefTo = "Spirit"
+            Case 65
+                refFrom = "Dodge"
+                RefTo = "Parry"
+            Case 66
+                refFrom = "Dodge"
+                RefTo = "Hit"
+            Case 67
+                refFrom = "Dodge"
+                RefTo = "Crit"
+            Case 68
+                refFrom = "Dodge"
+                RefTo = "Haste"
+            Case 69
+                refFrom = "Dodge"
+                RefTo = "Exp"
+            Case 70
+                refFrom = "Dodge"
+                RefTo = "Mast"
+            Case 71
+                refFrom = "Parry"
+                RefTo = "Spirit"
+            Case 72
+                refFrom = "Parry"
+                RefTo = "Dodge"
+            Case 73
+                refFrom = "Parry"
+                RefTo = "Hit"
+            Case 74
+                refFrom = "Parry"
+                RefTo = "Crit"
+            Case 75
+                refFrom = "Parry"
+                RefTo = "Haste"
+            Case 76
+                refFrom = "Parry"
+                RefTo = "Exp"
+            Case 77
+                refFrom = "Parry"
+                RefTo = "Mast"
+            Case 78
+                refFrom = "Hit"
+                RefTo = "Spirit"
+            Case 79
+                refFrom = "Hit"
+                RefTo = "Dodge"
+            Case 80
+                refFrom = "Hit"
+                RefTo = "Parry"
+            Case 81
+                refFrom = "Hit"
+                RefTo = "Crit"
+            Case 82
+                refFrom = "Hit"
+                RefTo = "Haste"
+            Case 83
+                RefTo = "Exp"
+            Case 84
+                refFrom = "Hit"
+                RefTo = "Mast"
+            Case 85
+                refFrom = "Hit"
+                RefTo = "Spirit"
+            Case 86
+                RefTo = "Dodge"
+            Case 87
+                refFrom = "Hit"
+                RefTo = "Parry"
+            Case 88
+                RefTo = "Hit"
+            Case 89
+                refFrom = "Hit"
+                RefTo = "Haste"
+            Case 90
+                refFrom = "Hit"
+                RefTo = "Exp"
+            Case 91
+                refFrom = "Hit"
+                RefTo = "Mast"
+            Case 92
+                refFrom = "Haste"
+                RefTo = "Spirit"
+            Case 93
+                refFrom = "Haste"
+                RefTo = "Dodge"
+            Case 94
+                refFrom = "Haste"
+                RefTo = "Parry"
+            Case 95
+                refFrom = "Haste"
+                RefTo = "Hit"
+            Case 96
+                refFrom = "Haste"
+                RefTo = "Crit"
+            Case 97
+                RefTo = "Exp"
+            Case 98
+                refFrom = "Haste"
+                RefTo = "Mast"
+            Case 99
+                refFrom = "Exp"
+                RefTo = "Spirit"
+            Case 100
+                refFrom = "Exp"
+                RefTo = "Dodge"
+            Case 101
+                refFrom = "Exp"
+                RefTo = "Parry"
+            Case 102
+                refFrom = "Exp"
+                RefTo = "Hit"
+            Case 103
+                refFrom = "Exp"
+                RefTo = "Crit"
+            Case 104
+                refFrom = "Exp"
+                RefTo = "Haste"
+            Case 105
+                refFrom = "Exp"
+                RefTo = "Mast"
+            Case 106
+                refFrom = "Mast"
+                RefTo = "Spirit"
+            Case 107
+                refFrom = "Mast"
+                RefTo = "Dodge"
+            Case 108
+                refFrom = "Mast"
+                RefTo = "Parry"
+            Case 109
+                refFrom = "Mast"
+                RefTo = "Hit"
+            Case 110
+                refFrom = "Mast"
+                RefTo = "Crit"
+            Case 111
+                refFrom = "Mast"
+                RefTo = "Haste"
+            Case 112
+                refFrom = "Mast"
+                RefTo = "Exp"
+            Case Else
+                refFrom = ""
+                RefTo = ""
+        End Select
+    End Sub
 
     Sub ImportMyCharacter(ByVal region As String, ByVal realmName As String, ByVal characterName As String)
 
-        Dim url As String = "./armory.php?region=" & region.ToUpper & "&r=" & realmName & "&n=" & characterName
+        Dim url As String = "./newarmory.php?region=" & region.ToUpper & "&r=" & realmName & "&n=" & characterName
         Dim webClient As WebClient = New WebClient()
         AddHandler webClient.DownloadStringCompleted, AddressOf wc_OpenDonwloadCompleted
         Dim ur As New Uri(url, UriKind.Relative)
@@ -560,7 +748,7 @@ Partial Public Class FrmGearSelector
                             Log.Log("LoadMycharacter: Cannot get reforging for " & iSlot.Name, logging.Level.WARNING)
                         End Try
 
-                       
+
 
 
 
@@ -974,7 +1162,7 @@ Partial Public Class FrmGearSelector
 
     End Sub
 
-    
+
     Event rd2H_Check(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs)
     Event rdDW_Check(ByVal sender As Object, ByVal e As System.Windows.RoutedEventArgs)
     Private Sub rd2H_Checked(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles rd2H.Checked

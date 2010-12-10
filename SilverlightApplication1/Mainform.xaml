@@ -347,6 +347,7 @@
                         <Button Name="cmdCleanCache" Content="Wipe all local data (profile, prio...)"></Button>
                         <sdk:Label Content=" "></sdk:Label>
                         <Button Name="cmdEnchantEditor" Content="Enchant editor"></Button>
+                        <Button Name="cmdFakeArmory" Content="Fake Armory Import"></Button>
                     </StackPanel>
 
                 </sdk:TabItem>

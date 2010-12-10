@@ -1,185 +1,4027 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="/_layout/character/sheet.xsl"?>
-<page globalSearch="1" lang="en_us" requestUrl="/character-sheet.xml">
-  <tabInfo subTab="profile" tab="character" tabGroup="character" tabUrl="r=Chants+%C3%A9ternels&amp;cn=Kahorie&amp;gn=M%C3%A9liades"/>
-  <characterInfo>
-    <character battleGroup="Sturmangriff / Charge" charUrl="r=Chants+%C3%A9ternels&amp;cn=Kahorie" class="Death Knight" classId="6" classUrl="c=Death+Knight" faction="Alliance" factionId="0" gender="Female" genderId="1" guildName="Méliades" guildUrl="r=Chants+%C3%A9ternels&amp;gn=M%C3%A9liades" lastModified="July 12, 2010" level="80" name="Kahorie" points="5085" prefix="" race="Night Elf" raceId="4" realm="Chants éternels" suffix=" the Kingslayer" titleId="140">
-      <arenaTeams>
-        <arenaTeam battleGroup="Sturmangriff / Charge" created="1229904000000" faction="Alliance" factionId="0" gamesPlayed="0" gamesWon="0" lastSeasonRanking="0" name="Insert coin" ranking="0" rating="0" realm="Chants éternels" realmUrl="b=Sturmangriff+%2F+Charge&amp;r=Chants+%C3%A9ternels&amp;ts=2&amp;t=Insert+coin&amp;ff=realm&amp;fv=Chants+%C3%A9ternels&amp;select=Insert+coin" season="0" seasonGamesPlayed="0" seasonGamesWon="0" size="2" teamSize="2" teamUrl="r=Chants+%C3%A9ternels&amp;ts=2&amp;t=Insert+coin&amp;select=Insert+coin" url="r=Chants+%C3%A9ternels&amp;ts=2&amp;t=Insert+coin&amp;select=Insert+coin">
-          <emblem background="fff0e9ff" borderColor="ffcf274a" borderStyle="1" iconColor="ff000000" iconStyle="55"/>
-          <members>
-            <character battleGroup="" charUrl="r=Chants+%C3%A9ternels&amp;cn=Kahorie" class="Death Knight" classId="6" contribution="0" gamesPlayed="0" gamesWon="0" gender="Female" genderId="1" guild="Méliades" guildId="19549" guildUrl="r=Chants+%C3%A9ternels&amp;gn=M%C3%A9liades" name="Kahorie" race="Night Elf" raceId="4" seasonGamesPlayed="0" seasonGamesWon="0" teamRank="0"/>
+﻿<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb">
+  <head>
+    <title>Kahorie @ Chants Ã©ternels - World of Warcraft</title>
+    <meta content="false" http-equiv="imagetoolbar" />
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+    <link rel="shortcut icon" href="/wow/static/local-common/images/favicons/wow.ico" type="image/x-icon"/>
+    <link rel="search" type="application/opensearchdescription+xml" href="http://eu.battle.net/en-gb/data/opensearch" title="Battle.net Search" />
+    <link rel="stylesheet" type="text/css" media="all" href="/wow/static/local-common/css/common.css?v15" />
+    <!--[if IE]><link rel="stylesheet" type="text/css" media="all" href="/wow/static/local-common/css/common-ie.css?v15" /><![endif]-->
+    <!--[if IE 6]><link rel="stylesheet" type="text/css" media="all" href="/wow/static/local-common/css/common-ie6.css?v15" /><![endif]-->
+    <!--[if IE 7]><link rel="stylesheet" type="text/css" media="all" href="/wow/static/local-common/css/common-ie7.css?v15" /><![endif]-->
+    <link title="World of Warcraft - News" href="/wow/en/feed/news" type="application/atom+xml" rel="alternate"/>
+    <link rel="stylesheet" type="text/css" media="all" href="/wow/static/css/wow.css?v2" />
+    <link rel="stylesheet" type="text/css" media="all" href="/wow/static/css/profile.css?v2" />
+    <!--[if IE]><link rel="stylesheet" type="text/css" media="all" href="/wow/static/css/profile-ie.css?v2" /><![endif]-->
 
-            <character battleGroup="" charUrl="r=Chants+%C3%A9ternels&amp;cn=Chrislink" class="Druid" classId="11" contribution="0" gamesPlayed="0" gamesWon="0" gender="Male" genderId="0" guild="Méliades" guildId="19549" guildUrl="r=Chants+%C3%A9ternels&amp;gn=M%C3%A9liades" name="Chrislink" race="Night Elf" raceId="4" seasonGamesPlayed="0" seasonGamesWon="0" teamRank="1"/>
-            <character battleGroup="" charUrl="r=Chants+%C3%A9ternels&amp;cn=Kaesys" class="Shaman" classId="7" contribution="0" gamesPlayed="0" gamesWon="0" gender="Female" genderId="1" guildId="0" name="Kaesys" race="Draenei" raceId="11" seasonGamesPlayed="0" seasonGamesWon="0" teamRank="1"/>
-          </members>
-        </arenaTeam>
-        <arenaTeam battleGroup="Sturmangriff / Charge" created="1252368000000" faction="Alliance" factionId="0" gamesPlayed="0" gamesWon="0" lastSeasonRanking="0" name="Insert more coins" ranking="0" rating="0" realm="Chants éternels" realmUrl="b=Sturmangriff+%2F+Charge&amp;r=Chants+%C3%A9ternels&amp;ts=3&amp;t=Insert+more+coins&amp;ff=realm&amp;fv=Chants+%C3%A9ternels&amp;select=Insert+more+coins" season="0" seasonGamesPlayed="0" seasonGamesWon="0" size="3" teamSize="3" teamUrl="r=Chants+%C3%A9ternels&amp;ts=3&amp;t=Insert+more+coins&amp;select=Insert+more+coins" url="r=Chants+%C3%A9ternels&amp;ts=3&amp;t=Insert+more+coins&amp;select=Insert+more+coins">
-          <emblem background="ff000000" borderColor="ff337d67" borderStyle="2" iconColor="fffcc42e" iconStyle="55"/>
-          <members>
-            <character battleGroup="" charUrl="r=Chants+%C3%A9ternels&amp;cn=Kahorie" class="Death Knight" classId="6" contribution="0" gamesPlayed="0" gamesWon="0" gender="Female" genderId="1" guild="Méliades" guildId="19549" guildUrl="r=Chants+%C3%A9ternels&amp;gn=M%C3%A9liades" name="Kahorie" race="Night Elf" raceId="4" seasonGamesPlayed="0" seasonGamesWon="0" teamRank="0"/>
-            <character battleGroup="" charUrl="r=Chants+%C3%A9ternels&amp;cn=Chrislink" class="Druid" classId="11" contribution="0" gamesPlayed="0" gamesWon="0" gender="Male" genderId="0" guild="Méliades" guildId="19549" guildUrl="r=Chants+%C3%A9ternels&amp;gn=M%C3%A9liades" name="Chrislink" race="Night Elf" raceId="4" seasonGamesPlayed="0" seasonGamesWon="0" teamRank="1"/>
+    <!--[if IE 6]><link rel="stylesheet" type="text/css" media="all" href="/wow/static/css/profile-ie6.css?v2" /><![endif]-->
+    <link rel="stylesheet" type="text/css" media="all" href="/wow/static/css/character/summary.css?v2" />
+    <!--[if IE]><link rel="stylesheet" type="text/css" media="all" href="/wow/static/css/character/summary-ie.css?v2" /><![endif]-->
+    <!--[if IE 6]><link rel="stylesheet" type="text/css" media="all" href="/wow/static/css/character/summary-ie6.css?v2" /><![endif]-->
+    <!--[if IE]><link rel="stylesheet" type="text/css" media="all" href="/wow/static/css/wow-ie.css?v2" /><![endif]-->
+    <!--[if IE 6]><link rel="stylesheet" type="text/css" media="all" href="/wow/static/css/wow-ie6.css?v2" /><![endif]-->
+    <!--[if IE 7]><link rel="stylesheet" type="text/css" media="all" href="/wow/static/css/wow-ie7.css?v2" /><![endif]-->
+    <script type="text/javascript" src="/wow/static/local-common/js/third-party/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="/wow/static/local-common/js/core.js?v15"></script>
+    <script type="text/javascript" src="/wow/static/local-common/js/tooltip.js?v15"></script>
+    <!--[if IE 6]> <script type="text/javascript">
+//<![CDATA[
+try { document.execCommand('BackgroundImageCache', false, true) } catch(e) {}
+//]]>
+</script>
+<![endif]-->
+    <script type="text/javascript">
+      //<![CDATA[
+Core.staticUrl = '/wow/static';
+Core.baseUrl = '/wow/en';
+Core.project = 'wow';
+Core.locale = 'en-gb';
+Core.buildRegion = 'eu';
+Core.loggedIn = false;
+Flash.videoPlayer = 'http://eu.media.blizzard.com/wow/player/videoplayer.swf';
+Flash.videoBase = 'http://eu.media.blizzard.com/wow/media/videos';
+Flash.ratingImage = 'http://eu.media.blizzard.com/wow/player/rating-pegi.jpg';
+//]]>
+    </script>
+    <style type="text/css">
+      #content .content-top { background: url("/wow/static/images/character/summary/backgrounds/class/6.jpg") left top no-repeat; }
+      .profile-wrapper { background-image: url("http://eu.battle.net/static-render/eu/chants-eternels/32/17580576-profilemain.jpg?alt=/wow/static/images/2d/profilemain/class/6-1.jpg"); }
 
-          </members>
-        </arenaTeam>
-      </arenaTeams>
-      <modelBasePath value="http://eu.media.battle.net.edgesuite.net/"/>
-    </character>
-    <characterTab>
-      <talentSpecs>
-        <talentSpec active="1" group="2" icon="spell_deathknight_unholypresence" prim="Unholy" treeOne="0" treeThree="54" treeTwo="17"/>
-        <talentSpec group="1" icon="spell_deathknight_bloodpresence" prim="Blood" treeOne="50" treeThree="13" treeTwo="8"/>
+    </style>
+  </head>
+  <body class="en-gb">
+    <div id="wrapper">
+      <div id="header">
+        <div id="search-bar">
+          <form action="/wow/en/search" method="get" id="search-form">
+            <div>
+              <input type="submit" id="search-button" value="" tabindex="41"/>
+              <input type="text" name="q" id="search-field" maxlength="200" tabindex="40" alt="Search the Armory, forums and moreâ€¦" value="Search the Armory, forums and moreâ€¦" />
+            </div>
+          </form>
+        </div>
+        <h1 id="logo">
+          <a href="/wow/en/">World of Warcraft</a>
+        </h1>
+        <div class="header-plate-wrapper">
 
-      </talentSpecs>
-      <buffs/>
-      <debuffs/>
-      <pvp>
-        <lifetimehonorablekills value="16751"/>
-        <arenacurrency value="375"/>
-      </pvp>
-      <professions>
-        <skill id="333" key="enchanting" max="450" name="Enchanting" value="450"/>
-        <skill id="755" key="jewelcrafting" max="450" name="Jewelcrafting" value="450"/>
-      </professions>
-      <characterBars>
-        <health effective="29041"/>
-        <secondBar casting="-1" effective="100" notCasting="-1" perFive="-1" type="p"/>
-      </characterBars>
-      <baseStats>
-        <strength attack="5194" base="183" block="-1" effective="2607"/>
-        <agility armor="314" attack="-1" base="116" critHitPercent="5.70" effective="157"/>
-        <stamina base="160" effective="2110" health="20920" petBonus="-1"/>
-        <intellect base="35" critHitPercent="-1.00" effective="55" mana="-1" petBonus="-1"/>
-        <spirit base="59" effective="79" healthRegen="45" manaRegen="-1"/>
-        <armor base="16034" effective="16034" percent="51.28" petBonus="-1"/>
-      </baseStats>
-      <resistances>
-        <arcane petBonus="-1" value="0"/>
-        <fire petBonus="-1" value="0"/>
-        <frost petBonus="-1" value="0"/>
+          <div class="header-plate">
+            <ul id="menu">
+              <li class="menu-home">
+                <a href="/wow/en/" class="active">
+                  <span>Home</span>
+                </a>
+              </li>
+              <li class="menu-game">
+                <a href="/wow/en/game/">
+                  <span>Game</span>
+                </a>
+              </li>
+              <li class="menu-community">
+                <a href="/wow/en/community/">
+                  <span>Community</span>
+                </a>
+              </li>
+              <li class="menu-media">
+                <a href="/wow/en/media/">
+                  <span>Media</span>
+                </a>
 
-        <holy petBonus="-1" value="0"/>
-        <nature petBonus="-1" value="0"/>
-        <shadow petBonus="-1" value="0"/>
-      </resistances>
-      <melee>
-        <mainHandDamage dps="844.1" max="3203" min="2564" percent="0" speed="3.42"/>
-        <offHandDamage dps="236.0" max="436" min="435" percent="0" speed="1.85"/>
-        <mainHandSpeed hastePercent="8.33" hasteRating="210" value="3.42"/>
-        <offHandSpeed hastePercent="8.33" hasteRating="210" value="1.85"/>
+              </li>
+              <li class="menu-forums">
+                <a href="/wow/en/forum/">
+                  <span>Forums</span>
+                </a>
+              </li>
+              <li class="menu-services">
+                <a href="/wow/en/services/">
+                  <span>Services</span>
+                </a>
+              </li>
+            </ul>
+            <div class="user-plate ajax-update">
+              <div class="user-meta meta-login">
+                <a href="?login" onclick="return Login.open('https://eu.battle.net/login/login.frag')">
+                  <strong>Log in</strong>
+                </a> with your Battle.net account to post comments and personalize your site content.
+              </div>
+            </div>
 
-        <power base="5434" effective="6093" increasedDps="435.0"/>
-        <hitRating increasedHitPercent="7.41" penetration="751" reducedArmorPercent="53.66" value="243"/>
-        <critChance percent="34.47" plusPercent="25.77" rating="1183"/>
-        <expertise additional="0" percent="1.25" rating="0" value="5"/>
-      </melee>
-      <ranged>
-        <weaponSkill rating="0" value="0"/>
-        <damage dps="0.0" max="0" min="0" percent="0" speed="0.00"/>
-        <speed hastePercent="8.33" hasteRating="210" value="0.00"/>
+          </div>
+        </div>
+      </div>
+      <div id="content">
+        <div class="content-top">
+          <div class="content-trail">
+            <ol class="ui-breadcrumb">
+              <li>
+                <a href="/wow/en/" rel="np">
+                  World of Warcraft
+                </a>
+              </li>
+              <li class="last">
+                <a href="/wow/en/character/Chants-eternels/Kahorie/advanced" rel="np">
+                  Kahorie @ Chants Ã©ternels
+                </a>
+              </li>
 
-        <power base="147" effective="806" increasedDps="57.0" petAttack="-1.00" petSpell="-1.00"/>
-        <hitRating increasedHitPercent="7.41" penetration="751" reducedArmorPercent="53.66" value="243"/>
-        <critChance percent="33.75" plusPercent="25.77" rating="1183"/>
-      </ranged>
-      <spell>
-        <bonusDamage>
-          <arcane value="0"/>
-          <fire value="0"/>
-          <frost value="0"/>
+            </ol>
+          </div>
+          <div class="content-bot">
+            <div id="profile-wrapper" class="profile-wrapper profile-wrapper-advanced profile-wrapper-alliance">
+              <div class="profile-sidebar-anchor">
+                <div class="profile-sidebar-outer">
+                  <div class="profile-sidebar-inner">
+                    <div class="profile-sidebar-contents">
+                      <div class="profile-info-anchor">
+                        <div class="profile-info">
+                          <div class="name">
+                            <a href="/wow/en/character/chants-eternels/kahorie/" rel="np">Kahorie</a>
+                          </div>
+                          <div class="title-guild">
+                            <div class="title"> Bane of the Fallen King</div>
+                            <div class="guild">
+                              <a href="/wow/en/guild/chants-eternels/m%c3%a9liades/?character=kahorie">MÃ©liades</a>
+                            </div>
+                          </div>
+                          <span class="clear">
+                            <!-- -->
+                          </span>
+                          <div class="under-name color-c6">
+                            <span class="level">
+                              <strong>85</strong>
+                            </span>
+                            <a href="/wow/en/game/race/draenei" class="race">Draenei</a>
+                            <a id="profile-info-spec" href="/wow/en/character/chants-eternels/kahorie/talent/" class="spec tip">Frost</a>
+                            <a href="/wow/en/game/class/death-knight" class="class">Death Knight</a>
+                            <span class="comma">,</span>
+                            <span class="realm tip" id="profile-info-realm" data-battlegroup="Sturmangriff / Charge">
+                              Chants Ã©ternels
+                            </span>
+                          </div>
+                          <div class="achievements">
+                            <a href="/wow/en/character/chants-eternels/kahorie/achievement">5640</a>
+                          </div>
+                        </div>
+                      </div>
+                      <ul class="profile-sidebar-menu" id="profile-sidebar-menu">
+                        <li class=" active">
+                          <a href="/wow/en/character/chants-eternels/kahorie/" class="" rel="np">
+                            <span class="arrow">
+                              <span class="icon">Summary</span>
+                            </span>
+                          </a>
+                        </li>
+                        <li class="">
+                          <a href="/wow/en/character/chants-eternels/kahorie/talent/" class="" rel="np">
+                            <span class="arrow">
+                              <span class="icon">Talents &amp; Glyphs</span>
+                            </span>
+                          </a>
+                        </li>
+                        <li class=" disabled">
+                          <a href="javascript:;" class=" has-submenu vault" rel="np">
+                            <span class="arrow">
+                              <span class="icon">Auctions</span>
+                            </span>
+                          </a>
+                        </li>
+                        <li class=" disabled">
+                          <a href="javascript:;" class=" vault" rel="np">
+                            <span class="arrow">
+                              <span class="icon">Events</span>
+                            </span>
+                          </a>
+                        </li>
+                        <li class="">
+                          <a href="/wow/en/character/chants-eternels/kahorie/achievement" class=" has-submenu" rel="np">
+                            <span class="arrow">
+                              <span class="icon">Achievements</span>
+                            </span>
+                          </a>
+                        </li>
 
-          <holy value="0"/>
-          <nature value="0"/>
-          <shadow value="0"/>
-          <petBonus attack="-1" damage="-1" fromType=""/>
-        </bonusDamage>
-        <bonusHealing value="0"/>
-        <hitRating increasedHitPercent="9.26" penetration="0" reducedResist="0" value="243"/>
-        <critChance rating="1183">
-          <arcane percent="28.77"/>
 
-          <fire percent="28.77"/>
-          <frost percent="28.77"/>
-          <holy percent="28.77"/>
-          <nature percent="28.77"/>
-          <shadow percent="28.77"/>
-        </critChance>
-        <penetration value="0"/>
-        <manaRegen casting="0.00" notCasting="0.00"/>
-        <hasteRating hastePercent="8.33" hasteRating="210"/>
 
-      </spell>
-      <defenses>
-        <armor base="16034" effective="16034" percent="51.28" petBonus="-1"/>
-        <defense decreasePercent="0.00" increasePercent="0.00" plusDefense="0" rating="0" value="400.00"/>
-        <dodge increasePercent="0.00" percent="5.54" rating="0"/>
-        <parry increasePercent="14.39" percent="16.40" rating="651"/>
-        <block increasePercent="0.00" percent="0.00" rating="0"/>
-        <resilience damagePercent="0.00" hitPercent="0.00" value="0.00"/>
-      </defenses>
 
-      <items>
-        <item displayInfoId="64601" durability="89" gem0Id="41398" gem1Id="42142" gem2Id="0" gemIcon0="inv_jewelcrafting_shadowspirit_02" gemIcon1="inv_jewelcrafting_dragonseye05" icon="inv_helmet_151" id="51127" level="264" maxDurability="100" name="Sanctified Scourgelord Helmet" permanentEnchantIcon="ability_warrior_rampage" permanentEnchantItemId="44879" permanentenchant="3817" pickUp="PickUpLargeChain" putDown="PutDownLArgeChain" randomPropertiesId="0" rarity="4" seed="0" slot="0"/>
-        <item displayInfoId="64190" durability="0" gem0Id="40111" gem1Id="0" gem2Id="0" gemIcon0="inv_jewelcrafting_gem_37" icon="inv_jewelry_necklace_48" id="50647" level="277" maxDurability="0" name="Ahn'kahar Onyx Neckguard" permanentenchant="0" pickUp="PickUpRing" putDown="PutDownRing" randomPropertiesId="0" rarity="4" seed="0" slot="1"/>
-        <item displayInfoId="64706" durability="89" gem0Id="42142" gem1Id="0" gem2Id="0" gemIcon0="inv_jewelcrafting_dragonseye05" icon="inv_shoulder_130" id="51125" level="264" maxDurability="100" name="Sanctified Scourgelord Shoulderplates" permanentEnchantIcon="inv_axe_85" permanentEnchantItemId="44871" permanentenchant="3808" pickUp="PickUpLargeChain" putDown="PutDownLArgeChain" randomPropertiesId="0" rarity="4" seed="0" slot="2"/>
-        <item displayInfoId="64872" durability="0" gem0Id="0" gem1Id="0" gem2Id="0" icon="inv_misc_ribbon_01" id="52019" level="1" maxDurability="0" name="Precious's Ribbon" permanentenchant="0" pickUp="PickUpCloth_Leather01" putDown="PutDownCloth_Leather01" randomPropertiesId="0" rarity="2" seed="1574911360" slot="3"/>
-        <item displayInfoId="64584" durability="147" gem0Id="42142" gem1Id="49110" gem2Id="0" gemIcon0="inv_jewelcrafting_dragonseye05" gemIcon1="inv_misc_gem_pearl_12" icon="inv_chest_plate_26" id="51310" level="277" maxDurability="165" name="Sanctified Scourgelord Battleplate" permanentEnchantIcon="inv_scroll_03" permanentEnchantItemId="44465" permanentenchant="3832" pickUp="PickUpLargeChain" putDown="PutDownLArgeChain" randomPropertiesId="0" rarity="4" seed="0" slot="4"/>
-        <item displayInfoId="64798" durability="49" gem0Id="40142" gem1Id="40111" gem2Id="40111" gemIcon0="inv_jewelcrafting_gem_39" gemIcon1="inv_jewelcrafting_gem_37" gemIcon2="inv_jewelcrafting_gem_37" icon="inv_belt_63" id="50620" level="277" maxDurability="55" name="Coldwraith Links" permanentenchant="0" pickUp="PickUpLargeChain" putDown="PutDownLArgeChain" randomPropertiesId="0" rarity="4" seed="1751366272" slot="5"/>
-        <item displayInfoId="64588" durability="107" gem0Id="40111" gem1Id="40111" gem2Id="40111" gemIcon0="inv_jewelcrafting_gem_37" gemIcon1="inv_jewelcrafting_gem_37" gemIcon2="inv_jewelcrafting_gem_37" icon="inv_pants_plate_31" id="50624" level="277" maxDurability="120" name="Scourge Reaver's Legplates" permanentEnchantIcon="inv_misc_armorkit_33" permanentEnchantItemId="38374" permanentenchant="3823" pickUp="PickUpLargeChain" putDown="PutDownLArgeChain" randomPropertiesId="0" rarity="4" seed="2019801728" slot="6"/>
-        <item displayInfoId="64797" durability="66" gem0Id="40142" gem1Id="40111" gem2Id="0" gemIcon0="inv_jewelcrafting_gem_39" gemIcon1="inv_jewelcrafting_gem_37" icon="inv_boots_plate_13" id="50639" level="277" maxDurability="75" name="Blood-Soaked Saronite Stompers" permanentEnchantIcon="inv_scroll_03" permanentEnchantItemId="44469" permanentenchant="1597" pickUp="PickUpLargeChain" putDown="PutDownLArgeChain" randomPropertiesId="0" rarity="4" seed="1450711168" slot="7"/>
-        <item displayInfoId="64795" durability="48" gem0Id="40146" gem1Id="0" gem2Id="0" gemIcon0="inv_jewelcrafting_gem_39" icon="inv_bracer_42" id="50002" level="264" maxDurability="55" name="Polar Bear Claw Bracers" permanentEnchantIcon="inv_scroll_03" permanentEnchantItemId="44815" permanentenchant="3845" pickUp="PickUpLargeChain" putDown="PutDownLArgeChain" randomPropertiesId="0" rarity="4" seed="2013895040" slot="8"/>
-        <item displayInfoId="64602" durability="50" gem0Id="40142" gem1Id="0" gem2Id="0" gemIcon0="inv_jewelcrafting_gem_39" icon="inv_gauntlets_87" id="51128" level="264" maxDurability="55" name="Sanctified Scourgelord Gauntlets" permanentEnchantIcon="inv_scroll_03" permanentEnchantItemId="44458" permanentenchant="1603" pickUp="PickUpLargeChain" putDown="PutDownLArgeChain" randomPropertiesId="0" rarity="4" seed="0" slot="9"/>
-        <item displayInfoId="64173" durability="0" gem0Id="40142" gem1Id="0" gem2Id="0" gemIcon0="inv_jewelcrafting_gem_39" icon="inv_jewelry_ring_84" id="50693" level="277" maxDurability="0" name="Might of Blight" permanentEnchantIcon="trade_engraving" permanentEnchantSpellDesc="Permanently enchant a ring to increase attack power by 40.  Only the Enchanter's rings can be enchanted, and enchanting a ring will cause it to become soulbound." permanentEnchantSpellName="Enchant Ring - Assault" permanentenchant="3839" pickUp="PickUpRing" putDown="PutDownRing" randomPropertiesId="0" rarity="4" seed="1484567552" slot="10"/>
-        <item displayInfoId="63958" durability="0" gem0Id="40146" gem1Id="0" gem2Id="0" gemIcon0="inv_jewelcrafting_gem_39" icon="inv_jewelry_ring_81" id="52572" level="277" maxDurability="0" name="Ashen Band of Endless Might" permanentEnchantIcon="trade_engraving" permanentEnchantSpellDesc="Permanently enchant a ring to increase attack power by 40.  Only the Enchanter's rings can be enchanted, and enchanting a ring will cause it to become soulbound." permanentEnchantSpellName="Enchant Ring - Assault" permanentenchant="3839" pickUp="PickUpMetalSmall" putDown="PutDownSmallMEtal" randomPropertiesId="0" rarity="4" seed="143490800" slot="11"/>
-        <item displayInfoId="64244" durability="0" gem0Id="0" gem1Id="0" gem2Id="0" icon="inv_jewelry_trinket_04" id="50362" level="264" maxDurability="0" name="Deathbringer's Will" permanentenchant="0" pickUp="PickUpWand" putDown="PutDownWand" randomPropertiesId="0" rarity="4" seed="1308424448" slot="12"/>
-        <item displayInfoId="61413" durability="0" gem0Id="0" gem1Id="0" gem2Id="0" icon="inv_misc_bone_skull_02" id="47131" level="258" maxDurability="0" name="Death's Verdict" permanentenchant="0" pickUp="PickUpWand" putDown="PutDownWand" randomPropertiesId="0" rarity="4" seed="639574704" slot="13"/>
-        <item displayInfoId="64325" durability="0" gem0Id="40111" gem1Id="0" gem2Id="0" gemIcon0="inv_jewelcrafting_gem_37" icon="inv_misc_cape_26" id="51912" level="264" maxDurability="0" name="Saronite Gargoyle Cloak" permanentEnchantIcon="inv_scroll_03" permanentEnchantItemId="39003" permanentenchant="3831" pickUp="PickUpCloth_Leather01" putDown="PutDownCloth_Leather01" randomPropertiesId="0" rarity="4" seed="0" slot="14"/>
-        <item displayInfoId="65153" durability="131" gem0Id="40111" gem1Id="40111" gem2Id="40111" gemIcon0="inv_jewelcrafting_gem_37" gemIcon1="inv_jewelcrafting_gem_37" gemIcon2="inv_jewelcrafting_gem_37" icon="inv_axe_113" id="49623" level="284" maxDurability="145" name="Shadowmourne" permanentEnchantIcon="spell_holy_retributionaura" permanentEnchantSpellDesc="Affixes your rune weapon with a rune that has a chance to heal you for 3% and increase total Strength by 15% for 15 sec.  Modifying your rune weapon requires a Rune Forge in Ebon Hold." permanentEnchantSpellName="Rune of the Fallen Crusader" permanentenchant="3368" pickUp="PickUpMetalLArge" putDown="PutDownLArgeMEtal" randomPropertiesId="0" rarity="5" seed="28667896" slot="15"/>
-        <item displayInfoId="64573" durability="0" gem0Id="0" gem1Id="0" gem2Id="0" icon="inv_misc_noose_01" id="50459" level="264" maxDurability="0" name="Sigil of the Hanged Man" permanentenchant="0" pickUp="PickUpWoodSmall" putDown="PutDownWoodSmall" randomPropertiesId="0" rarity="4" seed="0" slot="17"/>
 
-      </items>
-      <glyphs>
-        <glyph effect="Your Ghoul receives an additional 40% of your Strength and 40% of your Stamina." icon="ui-glyph-rune-3" id="527" name="Glyph of the Ghoul" type="major"/>
-        <glyph effect="Your Raise Dead spell no longer requires a reagent." icon="ui-glyph-rune-7" id="555" name="Glyph of Raise Dead" type="minor"/>
-        <glyph effect="Increases the radius of your Pestilence effect by 5 yards." icon="ui-glyph-rune-12" id="553" name="Glyph of Pestilence" type="minor"/>
-        <glyph effect="Increases the damage or healing done by Death Coil by 15%." icon="ui-glyph-rune-8" id="771" name="Glyph of Dark Death" type="major"/>
-        <glyph effect="Increases the duration of your Horn of Winter ability by 1 min." icon="ui-glyph-rune-15" id="522" name="Glyph of Horn of Winter" type="minor"/>
-        <glyph effect="Your Frost Fever disease deals 20% additional damage." icon="ui-glyph-rune-14" id="524" name="Glyph of Icy Touch" type="major"/>
-      </glyphs>
+                        <li class="">
+                          <a href="/wow/en/character/chants-eternels/kahorie/statistic" class=" has-submenu" rel="np">
+                            <span class="arrow">
+                              <span class="icon">Statistics</span>
+                            </span>
+                          </a>
+                        </li>
+                       <li class="">
+                          <a href="/wow/en/character/chants-eternels/kahorie/reputation/" class="" rel="np">
+                            <span class="arrow">
+                              <span class="icon">Reputation</span>
+                            </span>
+                          </a>
+                        </li>
 
-    </characterTab>
-    <summary>
-      <c earned="477" points="5085" total="1058" totalPoints="11675"/>
-      <category id="92" name="General">
-        <c earned="31" earnedPoints="340" total="54" totalPoints="570"/>
-      </category>
-      <category id="96" name="Quests">
-        <c earned="21" earnedPoints="210" total="49" totalPoints="530"/>
-      </category>
 
-      <category id="97" name="Exploration">
-        <c earned="18" earnedPoints="195" total="70" totalPoints="830"/>
-      </category>
-      <category id="95" name="Player vs. Player">
-        <c earned="100" earnedPoints="1060" total="166" totalPoints="1930"/>
-      </category>
-      <category id="168" name="Dungeons &amp; Raids">
-        <c earned="267" earnedPoints="2865" total="458" totalPoints="4955"/>
-      </category>
 
-      <category id="169" name="Professions">
-        <c earned="12" earnedPoints="120" total="75" totalPoints="760"/>
-      </category>
-      <category id="201" name="Reputation">
-        <c earned="7" earnedPoints="85" total="45" totalPoints="560"/>
-      </category>
-      <category id="155" name="World Events">
-        <c earned="21" earnedPoints="210" total="141" totalPoints="1540"/>
-      </category>
 
-      <category id="81" name="Feats of Strength">
-        <c earned="9"/>
-      </category>
-    </summary>
-  </characterInfo>
-</page>
+
+                        <li class="">
+
+                          <a href="/wow/en/character/chants-eternels/kahorie/pvp" class="" rel="np">
+                            <span class="arrow">
+                              <span class="icon">PvP</span>
+                            </span>
+                          </a>
+
+                        </li>
+
+
+
+
+
+                        <li class="">
+
+                          <a href="/wow/en/character/chants-eternels/kahorie/feed" class="" rel="np">
+                            <span class="arrow">
+                              <span class="icon">Activity Feed</span>
+                            </span>
+                          </a>
+
+                        </li>
+
+
+
+
+
+
+
+
+
+                        <li class="">
+
+                          <a href="/wow/en/guild/chants-eternels/m%c3%a9liades/?character=kahorie" class=" has-submenu" rel="np">
+                            <span class="arrow">
+                              <span class="icon">Guild</span>
+                            </span>
+                          </a>
+
+                        </li>
+
+
+                      </ul>
+
+
+
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="profile-contents">
+                <div class="summary-top">
+                  <div class="summary-top-right">
+                    <ul class="profile-view-options" id="profile-view-options-summary">
+                      <li>
+                        <a href="javascript:;" rel="np" class="threed disabled">
+                          3D
+                        </a>
+                      </li>
+
+                      <li class="current">
+                        <a href="/wow/en/character/chants-eternels/kahorie/advanced" rel="np" class="advanced">
+                          Advanced
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/wow/en/character/chants-eternels/kahorie/simple" rel="np" class="simple">
+                          Simple
+                        </a>
+                      </li>
+                    </ul>
+                    <div class="summary-averageilvl">
+                      <div class="rest">
+                        Average item level<br />
+                        (<span class="equipped">316</span> Equipped)
+                      </div>
+
+                      <div id="summary-averageilvl-best" class="best tip" data-id="averageilvl">
+                        318
+                      </div>
+                    </div>
+                  </div>
+                  <div class="summary-top-inventory">
+                    <div id="summary-inventory" class="summary-inventory summary-inventory-advanced">
+                      <div data-id="0" data-type="1" class="slot slot-1 item-quality-2" style=" left: 0px; top: 0px;">
+                        <div class="slot-inner">
+                          <div class="slot-contents">
+                            <a href="/wow/en/item/63775" class="item" data-item="i=63775&amp;s=1840777472&amp;d=68">
+                              <img src="http://eu.battle.net/wow-assets/static/images/icons/56/inv_helmet_plate_cataclysm_b_02.jpg" alt="" />
+                              <span class="frame"></span>
+                            </a>
+                            <div class="details">
+                              <span class="name-shadow">Helm of Verdant Explosion</span>
+                              <span class="name color-q2">
+                                <a href="/wow/en/item/63775" data-item="i=63775&amp;s=1840777472&amp;d=68">Helm of Verdant Explosion</a>
+                                <a href="javascript:;" class="audit-warning"></a>
+
+                              </span>
+                              <span class="level">318</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div data-id="1" data-type="2" class="slot slot-2 item-quality-3" style=" left: 0px; top: 58px;">
+
+                        <div class="slot-inner">
+                          <div class="slot-contents">
+                            <a href="/wow/en/item/65739" class="item" data-item="i=65739&amp;s=1671604224">
+                              <img src="http://eu.battle.net/wow-assets/static/images/icons/56/inv_jewelry_necklace_41.jpg" alt="" />
+                              <span class="frame"></span>
+                            </a>
+                            <div class="details">
+                              <span class="name-shadow">Necklace of the Dead City</span>
+                              <span class="name color-q3">
+                                <a href="/wow/en/item/65739" data-item="i=65739&amp;s=1671604224">Necklace of the Dead City</a>
+                              </span>
+
+                              <span class="level">325</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div data-id="2" data-type="3" class="slot slot-3 item-quality-2" style=" left: 0px; top: 116px;">
+                        <div class="slot-inner">
+
+                          <div class="slot-contents">
+                            <a href="/wow/en/item/63903" class="item" data-item="i=63903&amp;s=1388281856&amp;d=52">
+                              <img src="http://eu.battle.net/wow-assets/static/images/icons/56/inv_shoulder_plate_cataclysm_b_02.jpg" alt="" />
+                              <span class="frame"></span>
+                            </a>
+                            <div class="details">
+                              <span class="name-shadow">Song-Reflecting Spaulders</span>
+                              <span class="name color-q2">
+                                <a href="/wow/en/item/63903" data-item="i=63903&amp;s=1388281856&amp;d=52">Song-Reflecting Spaulders</a>
+                                <a href="javascript:;" class="audit-warning"></a>
+                              </span>
+                              <span class="level">318</span>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div data-id="14" data-type="16" class="slot slot-16 item-quality-2" style=" left: 0px; top: 174px;">
+                        <div class="slot-inner">
+                          <div class="slot-contents">
+                            <a href="/wow/en/item/61415" class="item" data-item="i=61415&amp;s=2061075456">
+                              <img src="http://eu.battle.net/wow-assets/static/images/icons/56/inv_misc_cape_cataclysm_tank_b_01.jpg" alt="" />
+                              <span class="frame"></span>
+                            </a>
+
+                            <div class="details">
+                              <span class="name-shadow">Cloak of Fungal Growth</span>
+                              <span class="name color-q2">
+                                <a href="/wow/en/item/61415" data-item="i=61415&amp;s=2061075456">Cloak of Fungal Growth</a>
+                                <a href="javascript:;" class="audit-warning"></a>
+                              </span>
+                              <span class="level">305</span>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                      <div data-id="4" data-type="5" class="slot slot-5 item-quality-3" style=" left: 0px; top: 232px;">
+                        <div class="slot-inner">
+                          <div class="slot-contents">
+                            <a href="/wow/en/item/63831" class="item" data-item="i=63831&amp;s=950511680&amp;d=96">
+                              <img src="http://eu.battle.net/wow-assets/static/images/icons/56/inv_chest_plate_dungeonplate_c_03.jpg" alt="" />
+                              <span class="frame"></span>
+                            </a>
+                            <div class="details">
+
+                              <span class="name-shadow">Flynn&#39;s Favorite Chestplate</span>
+                              <span class="name color-q3">
+                                <a href="/wow/en/item/63831" data-item="i=63831&amp;s=950511680&amp;d=96">Flynn&#39;s Favorite Chestplate</a>
+                                <a href="javascript:;" class="audit-warning"></a>
+                              </span>
+                              <span class="level">333</span>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                      <div data-id="3" data-type="4" class="slot slot-4 item-quality-2" style=" left: 0px; top: 290px;">
+                        <div class="slot-inner">
+                          <div class="slot-contents">
+                            <a href="/wow/en/item/52019" class="item" data-item="i=52019&amp;s=1574911360">
+                              <img src="http://eu.battle.net/wow-assets/static/images/icons/56/inv_misc_ribbon_01.jpg" alt="" />
+                              <span class="frame"></span>
+                            </a>
+                            <div class="details">
+
+                              <span class="name-shadow">Precious&#39; Ribbon</span>
+                              <span class="name color-q2">
+                                <a href="/wow/en/item/52019" data-item="i=52019&amp;s=1574911360">Precious&#39; Ribbon</a>
+                              </span>
+                              <span class="level">1</span>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div data-id="18" data-type="19" class="slot slot-19" style=" left: 0px; top: 348px;">
+                        <div class="slot-inner">
+                          <div class="slot-contents">
+                            <a href="javascript:;" class="empty">
+                              <span class="frame"></span>
+                            </a>
+
+                          </div>
+                        </div>
+                      </div>
+                      <div data-id="8" data-type="9" class="slot slot-9 item-quality-2" style=" left: 0px; top: 406px;">
+                        <div class="slot-inner">
+                          <div class="slot-contents">
+                            <a href="/wow/en/item/63925" class="item" data-item="i=63925&amp;s=1506673280&amp;d=34">
+                              <img src="http://eu.battle.net/wow-assets/static/images/icons/56/inv_bracer_plate_cataclysm_b_02.jpg" alt="" />
+                              <span class="frame"></span>
+                            </a>
+                            <div class="details">
+
+                              <span class="name-shadow">Scavenger Bracers</span>
+                              <span class="name color-q2">
+                                <a href="/wow/en/item/63925" data-item="i=63925&amp;s=1506673280&amp;d=34">Scavenger Bracers</a>
+                                <a href="javascript:;" class="audit-warning"></a>
+                              </span>
+                              <span class="level">318</span>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                      <div data-id="9" data-type="10" class="slot slot-10 slot-align-right item-quality-3" style=" top: 0px; right: 0px;">
+                        <div class="slot-inner">
+                          <div class="slot-contents">
+                            <a href="/wow/en/item/65773" class="item" data-item="i=65773&amp;s=1934171904&amp;d=38">
+                              <img src="http://eu.battle.net/wow-assets/static/images/icons/56/inv_glove_plate_dungeonplate_c_03.jpg" alt="" />
+                              <span class="frame"></span>
+                            </a>
+                            <div class="details">
+                              <span class="name-shadow">Gloves of Gnomebliteration</span>
+
+                              <span class="name color-q3">
+                                <a href="javascript:;" class="audit-warning"></a>
+                                <a href="/wow/en/item/65773" data-item="i=65773&amp;s=1934171904&amp;d=38">Gloves of Gnomebliteration</a>
+                              </span>
+                              <span class="level">325</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div data-id="5" data-type="6" class="slot slot-6 slot-align-right item-quality-4" style=" top: 58px; right: 0px;">
+                        <div class="slot-inner">
+                          <div class="slot-contents">
+                            <a href="/wow/en/item/50620" class="item" data-item="i=50620&amp;es=3729&amp;g0=1322&amp;g1=1287&amp;g2=1287&amp;re=146&amp;s=1751366272&amp;d=51">
+                              <img src="http://eu.battle.net/wow-assets/static/images/icons/56/inv_belt_63.jpg" alt="" />
+                              <span class="frame"></span>
+                            </a>
+                            <div class="details">
+                              <span class="name-shadow">Coldwraith Links</span>
+                              <span class="name color-q4">
+
+                                <a href="/wow/en/item/50620" data-item="i=50620&amp;es=3729&amp;g0=1322&amp;g1=1287&amp;g2=1287&amp;re=146&amp;s=1751366272&amp;d=51">Coldwraith Links</a>
+                              </span>
+                              <span class="level">277</span>
+                              <span class="sockets">
+                                <span class="icon-socket socket-4">
+                                  <a href="/wow/en/item/40146" class="gem">
+                                    <img src="http://eu.battle.net/wow-assets/static/images/icons/18/inv_jewelcrafting_gem_39.jpg" alt="" />
+                                    <span class="frame"></span>
+
+                                  </a>
+                                </span>
+                                <span class="icon-socket socket-2">
+                                  <a href="/wow/en/item/40111" class="gem">
+                                    <img src="http://eu.battle.net/wow-assets/static/images/icons/18/inv_jewelcrafting_gem_37.jpg" alt="" />
+                                    <span class="frame"></span>
+                                  </a>
+                                </span>
+                                <span class="icon-socket socket-14">
+
+                                  <a href="/wow/en/item/40111" class="gem">
+                                    <img src="http://eu.battle.net/wow-assets/static/images/icons/18/inv_jewelcrafting_gem_37.jpg" alt="" />
+                                    <span class="frame"></span>
+                                  </a>
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div data-id="6" data-type="7" class="slot slot-7 slot-align-right item-quality-3" style=" top: 116px; right: 0px;">
+                        <div class="slot-inner">
+                          <div class="slot-contents">
+                            <a href="/wow/en/item/61412" class="item" data-item="i=61412&amp;s=161601264&amp;d=84">
+                              <img src="http://eu.battle.net/wow-assets/static/images/icons/56/inv_pants_plate_dungeonplate_c_03.jpg" alt="" />
+                              <span class="frame"></span>
+                            </a>
+                            <div class="details">
+                              <span class="name-shadow">Fungus-Stained Legplates</span>
+
+                              <span class="name color-q3">
+                                <a href="javascript:;" class="audit-warning"></a>
+                                <a href="/wow/en/item/61412" data-item="i=61412&amp;s=161601264&amp;d=84">Fungus-Stained Legplates</a>
+                              </span>
+                              <span class="level">318</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div data-id="7" data-type="8" class="slot slot-8 slot-align-right item-quality-3" style=" top: 174px; right: 0px;">
+                        <div class="slot-inner">
+                          <div class="slot-contents">
+                            <a href="/wow/en/item/65861" class="item" data-item="i=65861&amp;s=562458752&amp;d=58">
+                              <img src="http://eu.battle.net/wow-assets/static/images/icons/56/inv_boots_plate_dungeonplate_c_03.jpg" alt="" />
+                              <span class="frame"></span>
+                            </a>
+                            <div class="details">
+                              <span class="name-shadow">Statue Climbers</span>
+                              <span class="name color-q3">
+
+                                <a href="javascript:;" class="audit-warning"></a>
+                                <a href="/wow/en/item/65861" data-item="i=65861&amp;s=562458752&amp;d=58">Statue Climbers</a>
+                              </span>
+                              <span class="level">325</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div data-id="10" data-type="11" class="slot slot-11 slot-align-right item-quality-2" style=" top: 232px; right: 0px;">
+                        <div class="slot-inner">
+                          <div class="slot-contents">
+                            <a href="/wow/en/item/63796" class="item" data-item="i=63796&amp;s=925194432">
+                              <img src="http://eu.battle.net/wow-assets/static/images/icons/56/inv_misc_moodring2.jpg" alt="" />
+                              <span class="frame"></span>
+                            </a>
+                            <div class="details">
+                              <span class="name-shadow">Dark-Eye Ring</span>
+                              <span class="name color-q2">
+                                <a href="javascript:;" class="audit-warning"></a>
+                                <a href="/wow/en/item/63796" data-item="i=63796&amp;s=925194432">Dark-Eye Ring</a>
+
+                              </span>
+                              <span class="level">318</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div data-id="11" data-type="11" class="slot slot-11 slot-align-right item-quality-2" style=" top: 290px; right: 0px;">
+
+                        <div class="slot-inner">
+                          <div class="slot-contents">
+                            <a href="/wow/en/item/61409" class="item" data-item="i=61409&amp;s=1177883264">
+                              <img src="http://eu.battle.net/wow-assets/static/images/icons/56/inv_misc_moodring2.jpg" alt="" />
+                              <span class="frame"></span>
+                            </a>
+                            <div class="details">
+                              <span class="name-shadow">Therazane&#39;s Seal</span>
+                              <span class="name color-q2">
+                                <a href="javascript:;" class="audit-warning"></a>
+                                <a href="/wow/en/item/61409" data-item="i=61409&amp;s=1177883264">Therazane&#39;s Seal</a>
+
+                              </span>
+                              <span class="level">305</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div data-id="12" data-type="12" class="slot slot-12 slot-align-right item-quality-2" style=" top: 348px; right: 0px;">
+
+                        <div class="slot-inner">
+                          <div class="slot-contents">
+                            <a href="/wow/en/item/63841" class="item" data-item="i=63841&amp;s=221980848">
+                              <img src="http://eu.battle.net/wow-assets/static/images/icons/56/inv_misc_token_argentdawn.jpg" alt="" />
+                              <span class="frame"></span>
+                            </a>
+                            <div class="details">
+                              <span class="name-shadow">Tank-Commander Insignia</span>
+                              <span class="name color-q2">
+                                <a href="/wow/en/item/63841" data-item="i=63841&amp;s=221980848">Tank-Commander Insignia</a>
+                              </span>
+
+                              <span class="level">318</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div data-id="13" data-type="12" class="slot slot-12 slot-align-right item-quality-2" style=" top: 406px; right: 0px;">
+                        <div class="slot-inner">
+
+                          <div class="slot-contents">
+                            <a href="/wow/en/item/61448" class="item" data-item="i=61448&amp;s=191595104">
+                              <img src="http://eu.battle.net/wow-assets/static/images/icons/56/inv_stone_weightstone_01.jpg" alt="" />
+                              <span class="frame"></span>
+                            </a>
+                            <div class="details">
+                              <span class="name-shadow">Oremantle&#39;s Favor</span>
+                              <span class="name color-q2">
+                                <a href="/wow/en/item/61448" data-item="i=61448&amp;s=191595104">Oremantle&#39;s Favor</a>
+                              </span>
+
+                              <span class="level">305</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div data-id="15" data-type="21" class="slot slot-21 slot-align-right item-quality-3" style=" left: -6px; bottom: 0px;">
+                        <div class="slot-inner">
+
+                          <div class="slot-contents">
+                            <a href="/wow/en/item/63787" class="item" data-item="i=63787&amp;e=3368&amp;s=885534976&amp;d=97">
+                              <img src="http://eu.battle.net/wow-assets/static/images/icons/56/inv_sword_2h_cataclysm_c_01.jpg" alt="" />
+                              <span class="frame"></span>
+                            </a>
+                            <div class="details">
+                              <span class="name-shadow">Oversized Oblique Ogre Obliterator</span>
+                              <span class="name color-q3">
+                                <a href="/wow/en/item/63787" data-item="i=63787&amp;e=3368&amp;s=885534976&amp;d=97">Oversized Oblique Ogre Obliterator</a>
+                              </span>
+                              <span class="enchant-shadow">
+
+                                Rune of the Fallen Crusader
+                              </span>
+                              <div class="enchant color-q2">
+                                <span class="tip" onmouseover="Tooltip.show(this, '#lsdklgns34-wow-10001');">Rune of the Fallen Crusader</span>
+                                <div id="lsdklgns34-wow-10001" style="display: none">
+                                  <div class="item-tooltip">
+
+
+
+
+
+
+                                    <span data-bla="spell_holy_retributionaura"  class="icon-frame frame-56" style='background-image: url("http://eu.battle.net/wow-assets/static/images/icons/56/spell_holy_retributionaura.jpg");'>
+                                    </span>
+                                    <h3>Rune of the Fallen Crusader</h3>
+
+                                    <span class="color-tooltip-yellow">Affixes your rune weapon with a rune that has a chance to heal you for 3% and increase total Strength by 15% for 15 sec.  Modifying your rune weapon requires a Rune Forge in Ebon Hold.</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <span class="level">333</span>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div data-id="16" data-type="22" class="slot slot-22" style=" left: 271px; bottom: 0px;">
+                        <div class="slot-inner">
+                          <div class="slot-contents">
+                            <a href="javascript:;" class="empty">
+                              <span class="frame"></span>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <div data-id="17" data-type="28" class="slot slot-28 item-quality-2" style=" left: 548px; bottom: 0px;">
+                        <div class="slot-inner">
+                          <div class="slot-contents">
+                            <a href="/wow/en/item/63891" class="item" data-item="i=63891&amp;s=204810864">
+                              <img src="http://eu.battle.net/wow-assets/static/images/icons/56/inv_bannerpvp_03.jpg" alt="" />
+                              <span class="frame"></span>
+                            </a>
+                            <div class="details">
+                              <span class="name-shadow">Shore-Cleansing Standard</span>
+                              <span class="name color-q2">
+
+                                <a href="/wow/en/item/63891" data-item="i=63891&amp;s=204810864">Shore-Cleansing Standard</a>
+                                <a href="javascript:;" class="audit-warning"></a>
+                              </span>
+                              <span class="level">318</span>
+                              <span class="sockets">
+                                <span class="icon-socket socket-14">
+                                  <span class="empty"></span>
+                                  <span class="frame"></span>
+                                </span>
+
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <script type="text/javascript">
+                      //<![CDATA[
+		$(document).ready(function() {
+			new Summary.Inventory({ view: "advanced" }, {
+			
+			0: {
+				name: "Helm of Verdant Explosion",
+				quality: 2,
+				icon: "inv_helmet_plate_cataclysm_b_02"
+			}
+			,
+			1: {
+				name: "Necklace of the Dead City",
+				quality: 3,
+				icon: "inv_jewelry_necklace_41"
+			}
+			,
+			2: {
+				name: "Song-Reflecting Spaulders",
+				quality: 2,
+				icon: "inv_shoulder_plate_cataclysm_b_02"
+			}
+			,
+			14: {
+				name: "Cloak of Fungal Growth",
+				quality: 2,
+				icon: "inv_misc_cape_cataclysm_tank_b_01"
+			}
+			,
+			4: {
+				name: "Flynn\'s Favorite Chestplate",
+				quality: 3,
+				icon: "inv_chest_plate_dungeonplate_c_03"
+			}
+			,
+			3: {
+				name: "Precious\' Ribbon",
+				quality: 2,
+				icon: "inv_misc_ribbon_01"
+			}
+			,
+			8: {
+				name: "Scavenger Bracers",
+				quality: 2,
+				icon: "inv_bracer_plate_cataclysm_b_02"
+			}
+			,
+			9: {
+				name: "Gloves of Gnomebliteration",
+				quality: 3,
+				icon: "inv_glove_plate_dungeonplate_c_03"
+			}
+			,
+			5: {
+				name: "Coldwraith Links",
+				quality: 4,
+				icon: "inv_belt_63"
+			}
+			,
+			6: {
+				name: "Fungus-Stained Legplates",
+				quality: 3,
+				icon: "inv_pants_plate_dungeonplate_c_03"
+			}
+			,
+			7: {
+				name: "Statue Climbers",
+				quality: 3,
+				icon: "inv_boots_plate_dungeonplate_c_03"
+			}
+			,
+			10: {
+				name: "Dark-Eye Ring",
+				quality: 2,
+				icon: "inv_misc_moodring2"
+			}
+			,
+			11: {
+				name: "Therazane\'s Seal",
+				quality: 2,
+				icon: "inv_misc_moodring2"
+			}
+			,
+			12: {
+				name: "Tank-Commander Insignia",
+				quality: 2,
+				icon: "inv_misc_token_argentdawn"
+			}
+			,
+			13: {
+				name: "Oremantle\'s Favor",
+				quality: 2,
+				icon: "inv_stone_weightstone_01"
+			}
+			,
+			15: {
+				name: "Oversized Oblique Ogre Obliterator",
+				quality: 3,
+				icon: "inv_sword_2h_cataclysm_c_01"
+			}
+			,
+			17: {
+				name: "Shore-Cleansing Standard",
+				quality: 2,
+				icon: "inv_bannerpvp_03"
+			}
+			});
+		});
+	//]]>
+                    </script>
+
+                  </div>
+
+                </div>
+
+                <div class="summary-fansite-anchor">
+                  <div class="summary-fansite">
+                    Find Kahorie on:
+                    <div id="sdgksdngklsdngl35"></div>
+                    <script type="text/javascript">
+                      //<![CDATA[
+						$(document).ready(function() {
+							Fansite.generate($('#sdgksdngklsdngl35'), "character|eu|Kahorie|chants-eternels");
+						});
+	//]]>
+                    </script>
+                  </div>
+
+                </div>
+
+                <div class="summary-middle">
+                  <div class="summary-middle-inner">
+
+                    <div class="summary-middle-right">
+                      <div class="summary-audit" id="summary-audit">
+                        <div class="category-right">
+                          <span class="tip" id="summary-audit-whatisthis">What is this?</span>
+                        </div>
+                        <h3 class="category ">Character Audit</h3>
+
+                        <div class="profile-box-simple">
+
+                          <ul class="summary-audit-list">
+                            <li>
+                              <span class="number">1</span> unspent talent point
+                            </li>
+                            <li data-slots="10,7,2,0,11,9,4,8,14,6">
+                              <span class="tip">
+
+                                <span class="number">10</span> unenchanted items
+                              </span>
+                            </li>
+                            <li data-slots="17">
+                              <span class="number">1</span> empty socket
+                              in
+                              <span class="tip">1 item</span>
+                            </li>
+
+                            <li data-slots="10,11">
+                              <span class="icon">
+
+
+
+
+
+
+                                <span class="icon-frame frame-12">
+                                  <img src="http://eu.battle.net/wow-assets/static/images/icons/18/trade_engraving.jpg" alt="" width="12" height="12" />
+                                </span>
+                              </span>
+                              Enchanting:
+                              <span class="tip">
+                                <span class="number">2</span> unenchanted rings
+                              </span>
+
+                            </li>
+                            <li>
+                              <span class="icon">
+
+
+
+
+
+
+                                <span class="icon-frame frame-12">
+                                  <img src="http://eu.battle.net/wow-assets/static/images/icons/18/inv_misc_gem_01.jpg" alt="" width="12" height="12" />
+                                </span>
+                              </span>
+                              Jewelcrafting:
+                              <span class="number">3</span> unused <a href="/wow/en/item/42225" class="color-q3">Dragon&#39;s Eye</a>
+
+                            </li>
+                          </ul>
+
+                          <script type="text/javascript">
+                            //<![CDATA[
+		$(document).ready(function() {
+			new Summary.Audit({
+	"unenchantedItems": {
+			10: 1,
+			7: 1,
+			2: 1,
+			0: 1,
+			11: 1,
+			9: 1,
+			4: 1,
+			8: 1,
+			14: 1,
+			6: 1
+	},
+	"itemsWithEmptySockets": {
+			17: 1
+	},
+	"missingEnchanterEnchants": {
+			10: 1,
+			11: 1
+	},
+				"foo": true
+			});
+		});
+	//]]>
+                          </script>
+                        </div>
+                      </div>
+                      <div id="summary-reforging" class="summary-reforging">
+                        <h3 class="category ">Reforging</h3>
+
+                        <div class="profile-box-simple">
+
+
+                          <div class="arrow-anchor">
+                            <div class="arrow" style="top: 2.5px"></div>
+                          </div>
+                          <ul class="increases">
+                            <li data-stat="37" data-sources='{"32":34}'>
+                              <div class="text">
+                                <span class="value">+34</span>
+                                <span class="name">Expertise Rating</span>
+                              </div>
+                            </li>
+                          </ul>
+                          <ul class="reductions">
+
+                            <li data-stat="32" data-sources='{"37":34}'>
+                              <div class="text">
+                                <span class="value">-34</span>
+                                <span class="name">Crit Rating</span>
+                              </div>
+                            </li>
+                          </ul>
+                          <span class="clear">
+                            <!-- -->
+                          </span>
+                          <script type="text/javascript">
+                            //<![CDATA[
+		$(document).ready(function() {
+			new Summary.Reforging();
+		});
+	//]]>
+                          </script>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="summary-middle-left">
+                      <div class="summary-bonus-tally">
+                        <h3 class="category ">Enchant/Gem Bonuses</h3>
+
+                        <div class="profile-box-simple">
+
+
+                          <div class="numerical">
+                            <ul>
+                              <li>
+
+                                <span class="value">+56</span> Strength
+                              </li>
+                              <li>
+                                <span class="value">+10</span> Haste Rating
+                              </li>
+                            </ul>
+                          </div>
+                          <div class="other">
+
+                            <span class="name">
+                              <span class="tip" onmouseover="Tooltip.show(this, '#lsdklgns34-wow-10002');">Rune of the Fallen Crusader</span>
+                              <div id="lsdklgns34-wow-10002" style="display: none">
+                                <div class="item-tooltip">
+
+
+
+
+
+
+                                  <span data-bla="spell_holy_retributionaura"  class="icon-frame frame-56" style='background-image: url("http://eu.battle.net/wow-assets/static/images/icons/56/spell_holy_retributionaura.jpg");'>
+                                  </span>
+                                  <h3>Rune of the Fallen Crusader</h3>
+                                  <span class="color-tooltip-yellow">Affixes your rune weapon with a rune that has a chance to heal you for 3% and increase total Strength by 15% for 15 sec.  Modifying your rune weapon requires a Rune Forge in Ebon Hold.</span>
+                                </div>
+
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="summary-gems">
+                        <h3 class="category ">Gems</h3>
+
+                        <div class="profile-box-simple">
+
+
+                          <div class="summary-gems">
+                            <ul>
+                              <li>
+                                <span class="value">2</span>
+                                <span class="times">x</span>
+                                <span class="icon">
+                                  <span class="icon-socket socket-2">
+
+                                    <a href="/wow/en/item/40111" class="gem">
+                                      <img src="http://eu.battle.net/wow-assets/static/images/icons/18/inv_jewelcrafting_gem_37.jpg" alt="" />
+                                      <span class="frame"></span>
+                                    </a>
+                                  </span>
+                                </span>
+                                <a href="/wow/en/item/40111" class="name color-q4">Bold Cardinal Ruby</a>
+                                <span class="clear">
+                                  <!-- -->
+                                </span>
+                              </li>
+
+                              <li>
+                                <span class="value">1</span>
+                                <span class="times">x</span>
+                                <span class="icon">
+                                  <span class="icon-socket socket-6">
+                                    <a href="/wow/en/item/40146" class="gem">
+                                      <img src="http://eu.battle.net/wow-assets/static/images/icons/18/inv_jewelcrafting_gem_39.jpg" alt="" />
+                                      <span class="frame"></span>
+
+                                    </a>
+                                  </span>
+                                </span>
+                                <a href="/wow/en/item/40146" class="name color-q4">Fierce Ametrine</a>
+                                <span class="clear">
+                                  <!-- -->
+                                </span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <span class="clear">
+                        <!-- -->
+                      </span>
+                    </div>
+                    <span class="clear">
+                      <!-- -->
+                    </span>
+                  </div>
+                </div>
+
+                <div class="summary-bottom">
+
+                  <div class="profile-recentactivity">
+                    <h3 class="category ">
+                      Recent Activity
+                    </h3>
+                    <div class="profile-box-simple">
+                      <ul class="activity-feed">
+
+
+
+                        <li class="ach ">
+                          <dl>
+
+                            <dd>
+
+                              <a href="achievement#92:a4826" rel="np" onmouseover="Tooltip.show(this, '#achv-tooltip-0');">
+
+
+
+
+
+
+                                <span data-bla="achievement_level_85"  class="icon-frame frame-18" style='background-image: url("http://eu.battle.net/wow-assets/static/images/icons/18/achievement_level_85.jpg");'>
+                                </span>
+                              </a>
+
+                              Earned the achievement <a href="achievement#92:a4826" rel="np" onmouseover="Tooltip.show(this, '#achv-tooltip-0');">Level 85</a> for 10 points.
+
+                              <div id="achv-tooltip-0" style="display: none">
+
+                                <div class="item-tooltip">
+
+
+
+
+
+
+                                  <span data-bla="achievement_level_85"  class="icon-frame frame-56" style='background-image: url("http://eu.battle.net/wow-assets/static/images/icons/56/achievement_level_85.jpg");'>
+                                  </span>
+
+                                  <h3>Level 85</h3>
+                                  <div class="color-tooltip-yellow">Reach level 85.</div>
+                                </div>
+                              </div>
+
+                            </dd>
+                            <dt>2 days ago</dt>
+                          </dl>
+                        </li>
+
+
+
+                        <li class="ach ">
+                          <dl>
+                            <dd>
+
+                              <a href="achievement#96:15070:a5451" rel="np" onmouseover="Tooltip.show(this, '#achv-tooltip-1');">
+
+
+
+
+
+
+                                <span data-bla="inv_jewelry_ring_ahnqiraj_05"  class="icon-frame frame-18" style='background-image: url("http://eu.battle.net/wow-assets/static/images/icons/18/inv_jewelry_ring_ahnqiraj_05.jpg");'>
+                                </span>
+                              </a>
+
+                              Earned the achievement <a href="achievement#96:15070:a5451" rel="np" onmouseover="Tooltip.show(this, '#achv-tooltip-1');">Consumed by Nightmare</a> for 10 points.
+
+                              <div id="achv-tooltip-1" style="display: none">
+                                <div class="item-tooltip">
+
+
+
+
+
+
+
+                                  <span data-bla="inv_jewelry_ring_ahnqiraj_05"  class="icon-frame frame-56" style='background-image: url("http://eu.battle.net/wow-assets/static/images/icons/56/inv_jewelry_ring_ahnqiraj_05.jpg");'>
+                                  </span>
+
+                                  <h3>Consumed by Nightmare</h3>
+                                  <div class="color-tooltip-yellow">Endure the 3 nightmares of Iso&#39;rath in the Twilight Highlands.</div>
+                                </div>
+                              </div>
+                            </dd>
+
+                            <dt>2 days ago</dt>
+                          </dl>
+                        </li>
+
+
+
+                        <li class="ach ">
+                          <dl>
+                            <dd>
+
+                              <a href="achievement#96:15070:a4960" rel="np" onmouseover="Tooltip.show(this, '#achv-tooltip-2');">
+
+
+
+
+
+
+                                <span data-bla="inv_jewelry_ring_03"  class="icon-frame frame-18" style='background-image: url("http://eu.battle.net/wow-assets/static/images/icons/18/inv_jewelry_ring_03.jpg");'>
+                                </span>
+                              </a>
+
+                              Earned the achievement <a href="achievement#96:15070:a4960" rel="np" onmouseover="Tooltip.show(this, '#achv-tooltip-2');">Round Three. Fight!</a> for 10 points.
+
+                              <div id="achv-tooltip-2" style="display: none">
+                                <div class="item-tooltip">
+
+
+
+
+
+
+
+                                  <span data-bla="inv_jewelry_ring_03"  class="icon-frame frame-56" style='background-image: url("http://eu.battle.net/wow-assets/static/images/icons/56/inv_jewelry_ring_03.jpg");'>
+                                  </span>
+
+                                  <h3>Round Three. Fight!</h3>
+                                  <div class="color-tooltip-yellow">Complete the Crucible of Carnage quests in Twilight Highlands up to and including The Twilight Terror!</div>
+                                </div>
+                              </div>
+                            </dd>
+                            <dt>2 days ago</dt>
+
+                          </dl>
+                        </li>
+
+
+
+                        <li>
+                          <dl>
+                            <dd>
+
+                              <a href="/wow/en/item/63787" class="color-q3" data-item="i=63787&amp;e=3368&amp;s=885534976&amp;d=97">
+
+
+
+
+
+                                <span data-bla="inv_sword_2h_cataclysm_c_01"  class="icon-frame frame-18" style='background-image: url("http://eu.battle.net/wow-assets/static/images/icons/18/inv_sword_2h_cataclysm_c_01.jpg");'>
+
+                                </span>
+                              </a>
+
+                              Obtained <a href="/wow/en/item/63787" class="color-q3" data-item="i=63787&amp;e=3368&amp;s=885534976&amp;d=97">Oversized Oblique Ogre Obliterator</a>.
+                            </dd>
+                            <dt>2 days ago</dt>
+                          </dl>
+                        </li>
+
+
+                        <li class="crit ">
+                          <dl>
+                            <dd>
+
+                              <a href="achievement#92:a5373" rel="np" class="icon" onmouseover="Tooltip.show(this, '#achv-tooltip-4');"></a>
+                              Completed step <strong>Weapon</strong> of achievement <a href="achievement#92:a5373" rel="np" onmouseover="Tooltip.show(this, '#achv-tooltip-4');">Cataclysmically Superior</a>.
+                              <div id="achv-tooltip-4" style="display: none">
+
+                                <div class="item-tooltip">
+
+
+
+
+
+
+                                  <span data-bla="spell_frost_wizardmark"  class="icon-frame frame-56" style='background-image: url("http://eu.battle.net/wow-assets/static/images/icons/56/spell_frost_wizardmark.jpg");'>
+                                  </span>
+
+                                  <h3>Cataclysmically Superior</h3>
+                                  <div class="color-tooltip-yellow">Equip a superior item in every slot with a minimum item level of 333.</div>
+                                </div>
+                              </div>
+
+                            </dd>
+                            <dt>2 days ago</dt>
+                          </dl>
+                        </li>
+                      </ul>
+                      <a class="profile-linktomore" href="/wow/en/character/chants-eternels/kahorie/feed" rel="np">Earlier activity</a>
+
+                      <span class="clear">
+                        <!-- -->
+                      </span>
+                    </div>
+
+                  </div>
+
+                  <div class="summary-bottom-left">
+
+                    <div class="summary-talents" id="summary-talents">
+                      <ul>
+
+                        <li class="summary-talents-1">
+                          <a href="/wow/en/character/chants-eternels/kahorie/talent/secondary" class="active">
+                            <span class="inner">
+                              <span class="checkmark"></span>
+
+                              <span class="icon">
+                                <img src="http://eu.battle.net/wow-assets/static/images/icons/36/spell_deathknight_frostpresence.jpg" alt="" />
+                                <span class="frame"></span>
+                              </span>
+                              <span class="roles">
+                                <span class="icon-dps"></span>
+                              </span>
+                              <span class="name-build">
+                                <span class="name">Frost</span>
+                                <span class="build">
+                                  5<ins>/</ins>32<ins>/</ins>3
+                                </span>
+
+                              </span>
+                            </span>
+                          </a>
+                        </li>
+
+                        <li class="summary-talents-1">
+                          <a href="/wow/en/character/chants-eternels/kahorie/talent/primary">
+                            <span class="inner">
+                              <span class="icon">
+                                <img src="http://eu.battle.net/wow-assets/static/images/icons/36/spell_deathknight_bloodpresence.jpg" alt="" />
+                                <span class="frame"></span>
+                              </span>
+                              <span class="roles">
+                                <span class="icon-tank"></span>
+
+                              </span>
+                              <span class="name-build">
+                                <span class="name">Blood</span>
+                                <span class="build">
+                                  36<ins>/</ins>0<ins>/</ins>4
+                                </span>
+                              </span>
+                            </span>
+                          </a>
+
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="summary-health-resource">
+                      <ul>
+                        <li class="health" id="summary-health" data-id="health">
+                          <span class="name">Health</span>
+                          <span class="value">95483</span>
+                        </li>
+                        <li class="resource-6" id="summary-power" data-id="power-6">
+                          <span class="name">Runic</span>
+                          <span class="value">130</span>
+                        </li>
+
+                      </ul>
+                    </div>
+
+                    <div class="summary-stats-profs-bgs">
+
+
+                      <div class="summary-stats" id="summary-stats">
+                        <div id="summary-stats-advanced" class="summary-stats-advanced">
+                          <div class="summary-stats-advanced-base">
+                            <div class="summary-stats-column">
+
+                              <h4>Base</h4>
+                              <ul>
+
+
+
+
+
+
+                                <li data-id="strength" class="">
+                                  <span class="name">Strength</span>
+                                  <span class="value color-q2">3304</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="stamina" class="">
+                                  <span class="name">Stamina</span>
+                                  <span class="value color-q2">3747</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="mastery" class="">
+                                  <span class="name">Mastery</span>
+
+                                  <span class="value">12.10</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                          <div class="summary-stats-advanced-role">
+                            <div class="summary-stats-column">
+
+                              <h4>Other</h4>
+                              <ul>
+
+
+
+
+
+                                <li data-id="meleeattackpower" class="">
+                                  <span class="name">Attack Power</span>
+                                  <span class="value">7431</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+                                <li data-id="expertise" class="">
+                                  <span class="name">Expertise</span>
+                                  <span class="value">13</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="meleehaste" class="">
+                                  <span class="name">Haste</span>
+
+                                  <span class="value">8.12%</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="meleehit" class="">
+                                  <span class="name">Hit</span>
+                                  <span class="value">3.10%</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+
+                                </li>
+
+
+
+
+
+
+                                <li data-id="meleecrit" class="">
+                                  <span class="name">Crit</span>
+                                  <span class="value">2.89%</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+                              </ul>
+
+                            </div>
+                          </div>
+                          <div class="summary-stats-end"></div>
+                        </div>
+
+                        <div id="summary-stats-simple" class="summary-stats-simple" style=" display: none">
+                          <div class="summary-stats-simple-base">
+
+
+                            <div class="summary-stats-column">
+
+                              <h4>Base</h4>
+                              <ul>
+
+
+
+
+
+
+                                <li data-id="strength" class="">
+                                  <span class="name">Strength</span>
+                                  <span class="value color-q2">3304</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="agility" class="">
+                                  <span class="name">Agility</span>
+                                  <span class="value">118</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="stamina" class="">
+                                  <span class="name">Stamina</span>
+
+                                  <span class="value color-q2">3747</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="intellect" class="">
+                                  <span class="name">Intellect</span>
+                                  <span class="value">36</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+
+                                </li>
+
+
+
+
+
+
+                                <li data-id="spirit" class="">
+                                  <span class="name">Spirit</span>
+                                  <span class="value">65</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="mastery" class="">
+
+                                  <span class="name">Mastery</span>
+                                  <span class="value">12.10</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                          <div class="summary-stats-simple-other">
+
+                            <a id="summary-stats-simple-arrow" class="summary-stats-simple-arrow" href="javascript:;"></a>
+
+
+                            <div class="summary-stats-column">
+                              <h4>Melee</h4>
+                              <ul>
+
+
+
+
+                                <li data-id="meleedamage" class="">
+                                  <span class="name">Damage</span>
+
+                                  <span class="value">3043Â â€“ 3689</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+                                <li data-id="meleedps" class="">
+                                  <span class="name">DPS</span>
+                                  <span class="value">1528.6</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+
+                                </li>
+
+
+
+
+
+                                <li data-id="meleeattackpower" class="">
+                                  <span class="name">Attack Power</span>
+                                  <span class="value">7431</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+                                <li data-id="meleespeed" class="">
+
+                                  <span class="name">Speed</span>
+                                  <span class="value">2.20</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="meleehaste" class="">
+                                  <span class="name">Haste</span>
+                                  <span class="value">8.12%</span>
+
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="meleehit" class="">
+                                  <span class="name">Hit</span>
+                                  <span class="value">3.10%</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="meleecrit" class="">
+                                  <span class="name">Crit</span>
+                                  <span class="value">2.89%</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+                                <li data-id="expertise" class="">
+                                  <span class="name">Expertise</span>
+
+                                  <span class="value">13</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+                              </ul>
+                            </div>
+
+
+                            <div class="summary-stats-column" style="display: none">
+                              <h4>Ranged</h4>
+
+                              <ul>
+
+
+
+
+                                <li data-id="rangeddamage" class=" no-tooltip">
+                                  <span class="name">Damage</span>
+                                  <span class="value color-q0">--</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="rangeddps" class=" no-tooltip">
+
+                                  <span class="name">DPS</span>
+                                  <span class="value color-q0">--</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+                                <li data-id="rangedattackpower" class="">
+                                  <span class="name">Attack Power</span>
+                                  <span class="value">0</span>
+
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="rangedspeed" class=" no-tooltip">
+                                  <span class="name">Speed</span>
+                                  <span class="value color-q0">--</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="rangedhaste" class="">
+                                  <span class="name">Haste</span>
+                                  <span class="value">8.12%</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="rangedhit" class="">
+                                  <span class="name">Hit</span>
+
+                                  <span class="value">3.10%</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="rangedcrit" class="">
+                                  <span class="name">Crit</span>
+                                  <span class="value">2.89%</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+
+                                </li>
+                              </ul>
+                            </div>
+
+
+                            <div class="summary-stats-column" style="display: none">
+                              <h4>Spell</h4>
+                              <ul>
+
+
+
+
+
+
+                                <li data-id="spellpower" class="">
+
+                                  <span class="name">Spell Power</span>
+                                  <span class="value">26</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="spellhaste" class="">
+                                  <span class="name">Haste</span>
+                                  <span class="value">8.12%</span>
+
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="spellhit" class="">
+                                  <span class="name">Hit</span>
+                                  <span class="value">3.63%</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="spellcrit" class="">
+                                  <span class="name">Crit</span>
+                                  <span class="value">2.41%</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="spellpenetration" class="">
+                                  <span class="name">Penetration</span>
+
+                                  <span class="value">0</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="manaregen" class=" no-tooltip">
+                                  <span class="name">Mana Regen</span>
+                                  <span class="value color-q0">--</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+
+                                </li>
+
+
+
+
+
+
+                                <li data-id="combatregen" class=" no-tooltip">
+                                  <span class="name">Combat Regen</span>
+                                  <span class="value color-q0">--</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+                              </ul>
+
+                            </div>
+
+
+                            <div class="summary-stats-column" style="display: none">
+                              <h4>Defense</h4>
+                              <ul>
+
+
+
+
+
+
+                                <li data-id="armor" class="">
+                                  <span class="name">Armour</span>
+
+                                  <span class="value">17669</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="dodge" class="">
+                                  <span class="name">Dodge</span>
+                                  <span class="value">3.94%</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+
+                                </li>
+
+
+
+
+
+
+                                <li data-id="parry" class="">
+                                  <span class="name">Parry</span>
+                                  <span class="value">9.89%</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="block" class="">
+
+                                  <span class="name">Block</span>
+                                  <span class="value">0.00%</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="resilience" class="">
+                                  <span class="name">Resilience</span>
+                                  <span class="value">0</span>
+
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+                              </ul>
+                            </div>
+
+
+                            <div class="summary-stats-column" style="display: none">
+                              <h4>Resistance</h4>
+                              <ul>
+
+
+
+
+
+
+                                <li data-id="arcaneres" class=" has-icon">
+                                  <span class="icon">
+
+
+
+
+
+                                    <span class="icon-frame frame-12">
+                                      <img src="http://eu.battle.net/wow-assets/static/images/icons/18/resist_arcane.jpg" alt="" width="12" height="12" />
+                                    </span>
+                                  </span>
+                                  <span class="name">Arcane</span>
+                                  <span class="value">0</span>
+
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="fireres" class=" has-icon">
+                                  <span class="icon">
+
+
+
+
+
+                                    <span class="icon-frame frame-12">
+                                      <img src="http://eu.battle.net/wow-assets/static/images/icons/18/resist_fire.jpg" alt="" width="12" height="12" />
+                                    </span>
+                                  </span>
+                                  <span class="name">Fire</span>
+
+                                  <span class="value">0</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="frostres" class=" has-icon">
+                                  <span class="icon">
+
+
+
+
+
+                                    <span class="icon-frame frame-12">
+                                      <img src="http://eu.battle.net/wow-assets/static/images/icons/18/resist_frost.jpg" alt="" width="12" height="12" />
+                                    </span>
+
+                                  </span>
+                                  <span class="name">Frost</span>
+                                  <span class="value">0</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="natureres" class=" has-icon">
+                                  <span class="icon">
+
+
+
+
+
+                                    <span class="icon-frame frame-12">
+
+                                      <img src="http://eu.battle.net/wow-assets/static/images/icons/18/resist_nature.jpg" alt="" width="12" height="12" />
+                                    </span>
+                                  </span>
+                                  <span class="name">Nature</span>
+                                  <span class="value">0</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+
+
+
+
+
+                                <li data-id="shadowres" class=" has-icon">
+
+                                  <span class="icon">
+
+
+
+
+
+                                    <span class="icon-frame frame-12">
+                                      <img src="http://eu.battle.net/wow-assets/static/images/icons/18/resist_shadow.jpg" alt="" width="12" height="12" />
+                                    </span>
+                                  </span>
+                                  <span class="name">Shadow</span>
+                                  <span class="value">85</span>
+                                  <span class="clear">
+                                    <!-- -->
+                                  </span>
+                                </li>
+
+                              </ul>
+                            </div>
+                          </div>
+                          <div class="summary-stats-end"></div>
+                        </div>
+
+                        <a href="javascript:;" id="summary-stats-toggler" class="summary-stats-toggler">
+                          <span class="inner">
+                            <span class="arrow">Show all stats</span>
+                          </span>
+                        </a>
+                      </div>
+
+                      <script type="text/javascript">
+                        //<![CDATA[
+		$(document).ready(function() {
+			new Summary.Stats({
+
+			"health": 95483,
+			"power": 130,
+			"powerTypeId": 6,
+			"hasOffhandWeapon": false,
+			"masteryName": "Frozen Heart",
+			"masteryDescription": "Increases all frost damage done by 16%.  Each point of Mastery increases frost damage by an additional 2.0%.",
+			"averageItemLevelEquipped": 316,
+			"averageItemLevelBest": 318,
+			"dmgMainMax": 3689,
+			"dmgMainMin": 3043,
+			"resilience_crit": -1,
+			"holyResist": 0,
+			"spellHitRating": 372,
+			"agiBase": 118,
+			"rangeAtkPowerBase": 0,
+			"expertiseOffPercent": 3.25,
+			"critPercent": 2.893847942352295,
+			"dmgOffMin": 531,
+			"spellDmg_petAp": -1,
+			"agi_armor": 236,
+			"rangeCritPercent": 2.893847942352295,
+			"resistHoly_pet": -1,
+			"dodgeRatingPercent": 0,
+			"parryRating": 892,
+			"parry": 9.886752128601074,
+			"rangeBonusWeaponRating": 0,
+			"atkPowerBase": 7431,
+			"str_ap": 6588,
+			"hitRating": 372,
+			"block_damage": 30,
+			"dmgOffMax": 532,
+			"masteryRating": 735,
+			"spellCritRating": 432,
+			"bonusOffWeaponRating": 0,
+			"resilience_damage": 0,
+			"resilience": 0,
+			"masteryRatingBonus": 4.099730968475342,
+			"expertiseOff": 13,
+			"dmgMainSpeed": 2.2019999027252197,
+			"rangeAtkPowerBonus": 0,
+			"expertiseMain": 13,
+			"shadowDamage": 26,
+			"defensePercent": 0,
+			"rangeHitRating": 372,
+			"blockRating": 0,
+			"spellDmg_petSpellDmg": -1,
+			"shadowResist": 85,
+			"armor_petArmor": -1,
+			"block": 0,
+			"dmgOffDps": 398.0203552246094,
+			"resistNature_pet": -1,
+			"dmgRangeMax": -1,
+			"armorPercent": 40.39643859863281,
+			"resistArcane_pet": -1,
+			"dmgMainDps": 1528.5557861328125,
+			"spellHitRatingPercent": 3.6311910152435303,
+			"healing": 26,
+			"manaRegenPerFive": 0,
+			"str_block": -1,
+			"rangeAtkPowerLoss": 0,
+			"dmgRangeDps": -1,
+			"frostCrit": 2.409637928009033,
+			"armorPenetrationPercent": 0,
+			"rangeCritRating": 432,
+			"fireDamage": 26,
+			"resistShadow_pet": -1,
+			"shadowCrit": 2.409637928009033,
+			"hasteRating": 1040,
+			"rangeHitRatingPercent": 3.0971920490264893,
+			"natureResist": 0,
+			"arcaneDamage": 26,
+			"intTotal": 36,
+			"expertiseRating": 394,
+			"bonusOffMainWeaponSkill": 0,
+			"expertiseMainPercent": 3.25,
+			"agiTotal": 118,
+			"frostResist": 0,
+			"int_mp": -1,
+			"arcaneCrit": 2.409637928009033,
+			"ap_dps": 530.7857055664062,
+			"holyCrit": 2.409637928009033,
+			"atkPowerLoss": 0,
+			"staBase": 174,
+			"bonusMainWeaponSkill": 0,
+			"fireResist": 0,
+			"blockRatingPercent": 0,
+			"natureCrit": 2.409637928009033,
+			"hitRatingPercent": 3.0971920490264893,
+			"sprBase": 65,
+			"agi_ap": -1,
+			"dodge": 3.9379770755767822,
+			"atkPowerBonus": 0,
+			"int_crit": -1,
+			"rap_petSpellDmg": -1,
+			"spr_regen": -1,
+			"mastery": 12.0997314453125,
+			"expertiseRatingPercent": 13.121438026428223,
+			"arcaneResist": 0,
+			"sprTotal": 65,
+			"manaRegenCombat": 0,
+			"rangeCritRatingPercent": 2.409637928009033,
+			"resistFrost_pet": -1,
+			"dmgRangeSpeed": -1,
+			"dodgeRating": 0,
+			"bonusMainWeaponRating": 0,
+			"intBase": 36,
+			"hasteRatingPercent": 8.121373176574707,
+			"frostDamage": 26,
+			"agi_crit": 0.4842106103897095,
+			"sta_hp": 37290,
+			"strBase": 209,
+			"armorTotal": 17669,
+			"critRatingPercent": 2.409637928009033,
+			"rangeHasteRatingPercent": 8.121373176574707,
+			"rangeBonusWeaponSkill": 0,
+			"sta_petSta": -1,
+			"spellCritRatingPercent": 2.409637928009033,
+			"dmgRangeMin": -1,
+			"rangeHasteRating": 1040,
+			"armorBase": 17669,
+			"critRating": 432,
+			"spellCritPercent": 2.409637928009033,
+			"armorPenetration": 0,
+			"dmgOffSpeed": 1.3350000381469727,
+			"resistFire_pet": -1,
+			"defense": 0,
+			"spellPenetration": 0,
+			"strTotal": 3304,
+			"parryRatingPercent": 5.0475640296936035,
+			"staTotal": 3747,
+			"rap_petAp": -1,
+			"fireCrit": 2.409637928009033,
+			"natureDamage": 26,
+			"holyDamage": 26,
+	"foo": true
+});
+		});
+	//]]>
+                      </script>
+
+
+                      <div class="summary-stats-bottom">
+
+                        <div class="summary-battlegrounds">
+                          <ul>
+                            <li class="rating">
+                              <span class="name">Battleground rating</span>
+                              <span class="value">0</span>
+                              <span class="clear">
+                                <!-- -->
+                              </span>
+
+                            </li>
+                            <li class="kills">
+                              <span class="name">Honourable kills</span>
+                              <span class="value">21609</span>
+                              <span class="clear">
+                                <!-- -->
+                              </span>
+                            </li>
+                          </ul>
+                        </div>
+
+                        <div class="summary-professions">
+                          <ul>
+                            <li>
+                              <div class="profile-progress border-3" >
+                                <div class="bar border-3" style="width: 85%"></div>
+                                <div class="bar-contents">
+                                  <span class="profession-details">
+                                    <span class="icon">
+                                      <span class="icon-frame frame-12">
+                                        <img src="http://eu.battle.net/wow-assets/static/images/icons/18/trade_engraving.jpg" alt="" width="12" height="12" />
+                                      </span>
+                                    </span>
+                                    <span class="name">Enchanting</span>
+                                    <span class="value">450</span>
+                                  </span>
+                                  <a href="javascript:;" data-fansite="skill|333|Enchanting" class="fansite-link fansite-small"> </a>
+                                </div>
+                              </div>
+                            </li>
+                            <li>
+
+
+
+                              <div class="profile-progress border-3" >
+
+                                <div class="bar border-3" style="width: 87%"></div>
+                                <div class="bar-contents">
+                                  <span class="profession-details">
+                                    <span class="icon">
+
+
+
+
+
+                                      <span class="icon-frame frame-12">
+                                        <img src="http://eu.battle.net/wow-assets/static/images/icons/18/inv_misc_gem_01.jpg" alt="" width="12" height="12" />
+                                      </span>
+                                    </span>
+                                    <span class="name">Jewelcrafting</span>
+                                    <span class="value">460</span>
+
+                                  </span>
+
+                                  <a href="javascript:;" data-fansite="skill|755|Jewelcrafting" class="fansite-link fansite-small"> </a>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+
+                        <span class="clear">
+                          <!-- -->
+                        </span>
+
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <span class="clear">
+                    <!-- -->
+                  </span>
+
+                  <div id="summary-raid" class="summary-raid">
+                    <h3 class="category">Raid Progression</h3>
+
+                    <div class="profile-box-full">
+
+                      <div class="prestige">
+                        <div>
+                          Most prestigious raid title:
+                          <strong>
+                            <a href="/wow/en/character/chants-eternels/kahorie/achievement#168:14922:a4583" onmouseover="Tooltip.show(this, '#lsdklgns34-wow-10003');"> Bane of the Fallen King</a>
+                            <div id="lsdklgns34-wow-10003" style="display: none">
+                              <div class="item-tooltip">
+
+
+
+
+
+
+                                <span data-bla="achievement_boss_lichking"  class="icon-frame frame-56" style='background-image: url("http://eu.battle.net/wow-assets/static/images/icons/56/achievement_boss_lichking.jpg");'>
+                                </span>
+
+                                <h3>Bane of the Fallen King</h3>
+                                <span class="color-tooltip-yellow">Defeat the Lich King in Icecrown Citadel in 10-player Heroic mode.</span>
+                              </div>
+                            </div>
+                          </strong>
+                        </div>
+                      </div>
+
+                      <div class="summary-raid-wrapper">
+
+                        <div class="summary-raid-wrapper-left">
+
+                          <a id="summary-raid-arrow-left" class="arrow-left" href="javascript:;"></a>
+                          <a id="summary-raid-arrow-right" class="arrow-right" href="javascript:;"></a>
+
+                          <div class="normal">
+                            <span>Normal</span>
+                          </div>
+                          <div class="heroic">
+                            <span>Heroic</span>
+                          </div>
+                        </div>
+
+                        <div id="summary-raid-wrapper-table" class="summary-raid-wrapper-table">
+
+                          <table cellspacing="0">
+                            <thead>
+                              <tr>
+                                <th class="spacer-left">
+                                  <div></div>
+                                </th>
+                                <th class="trivial" colspan="43">
+                                  <div class="name-anchor">
+                                    <div class="name" id="summary-raid-head-trivial">Trivial</div>
+
+                                  </div>
+                                  <div class="marker"></div>
+                                </th>
+                                <th></th>
+                                <th class="challenging" colspan="7">
+                                  <div class="name-anchor">
+                                    <div class="name">Challenging</div>
+                                  </div>
+
+                                  <div class="marker"></div>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr class="icons">
+                                <td></td>
+                                <td class="mc" data-raid="mc">
+                                  <div class="icon">
+                                    <div>MC</div>
+                                  </div>
+
+                                </td>
+                                <td class="spacer">
+                                  <div></div>
+                                </td>
+                                <td class="bwl" data-raid="bwl">
+                                  <div class="icon">
+                                    <div>BWL</div>
+                                  </div>
+                                </td>
+                                <td class="spacer">
+                                  <div></div>
+                                </td>
+                                <td class="aq10" data-raid="aq10">
+                                  <div class="icon">
+                                    <div>AQ10</div>
+                                  </div>
+
+                                </td>
+                                <td class="spacer">
+                                  <div></div>
+                                </td>
+                                <td class="aq40" data-raid="aq40">
+                                  <div class="icon">
+                                    <div>AQ40</div>
+                                  </div>
+                                </td>
+                                <td class="spacer">
+                                  <div></div>
+                                </td>
+                                <td class="kar" data-raid="kar">
+                                  <div class="icon">
+                                    <div>Kar</div>
+                                  </div>
+
+                                </td>
+                                <td class="spacer">
+                                  <div></div>
+                                </td>
+                                <td class="gru" data-raid="gru">
+                                  <div class="icon">
+                                    <div>Gru</div>
+                                  </div>
+                                </td>
+                                <td class="spacer">
+                                  <div></div>
+                                </td>
+                                <td class="mag" data-raid="mag">
+                                  <div class="icon">
+                                    <div>Mag</div>
+                                  </div>
+
+                                </td>
+                                <td class="spacer">
+                                  <div></div>
+                                </td>
+                                <td class="za" data-raid="za">
+                                  <div class="icon">
+                                    <div>ZA</div>
+                                  </div>
+                                </td>
+                                <td class="spacer">
+                                  <div></div>
+                                </td>
+                                <td class="ssc" data-raid="ssc">
+                                  <div class="icon">
+                                    <div>SSC</div>
+                                  </div>
+
+                                </td>
+                                <td class="spacer">
+                                  <div></div>
+                                </td>
+                                <td class="tk" data-raid="tk">
+                                  <div class="icon">
+                                    <div>TK</div>
+                                  </div>
+                                </td>
+                                <td class="spacer">
+                                  <div></div>
+                                </td>
+                                <td class="mh" data-raid="mh">
+                                  <div class="icon">
+                                    <div>MH</div>
+                                  </div>
+
+                                </td>
+                                <td class="spacer">
+                                  <div></div>
+                                </td>
+                                <td class="bt" data-raid="bt">
+                                  <div class="icon">
+                                    <div>BT</div>
+                                  </div>
+                                </td>
+                                <td class="spacer">
+                                  <div></div>
+                                </td>
+                                <td class="sp" data-raid="sp">
+                                  <div class="icon">
+                                    <div>SP</div>
+                                  </div>
+
+                                </td>
+                                <td class="spacer">
+                                  <div></div>
+                                </td>
+                                <td class="voa" data-raid="voa">
+                                  <div class="icon">
+                                    <div>VoA</div>
+                                  </div>
+                                </td>
+                                <td class="spacer">
+                                  <div></div>
+                                </td>
+                                <td class="nax" data-raid="nax">
+                                  <div class="icon">
+                                    <div>Nax</div>
+                                  </div>
+
+                                </td>
+                                <td class="spacer">
+                                  <div></div>
+                                </td>
+                                <td class="os" data-raid="os">
+                                  <div class="icon">
+                                    <div>OS</div>
+                                  </div>
+                                </td>
+                                <td class="spacer">
+                                  <div></div>
+                                </td>
+                                <td class="eoe" data-raid="eoe">
+                                  <div class="icon">
+                                    <div>EoE</div>
+                                  </div>
+
+                                </td>
+                                <td class="spacer">
+                                  <div></div>
+                                </td>
+                                <td class="uld" data-raid="uld">
+                                  <div class="icon">
+                                    <div>Uld</div>
+                                  </div>
+                                </td>
+                                <td class="spacer">
+                                  <div></div>
+                                </td>
+                                <td class="ony" data-raid="ony">
+                                  <div class="icon">
+                                    <div>Ony</div>
+                                  </div>
+
+                                </td>
+                                <td class="spacer">
+                                  <div></div>
+                                </td>
+                                <td class="toc" data-raid="toc">
+                                  <div class="icon">
+                                    <div>ToC</div>
+                                  </div>
+                                </td>
+                                <td class="spacer">
+                                  <div></div>
+                                </td>
+                                <td class="icc" data-raid="icc">
+                                  <div class="icon">
+                                    <div>ICC</div>
+                                  </div>
+
+                                </td>
+                                <td class="spacer">
+                                  <div></div>
+                                </td>
+                                <td class="rs" data-raid="rs">
+                                  <div class="icon">
+                                    <div>RS</div>
+                                  </div>
+                                </td>
+                                <td class="spacer">
+                                  <div></div>
+                                </td>
+                                <td class="bh" data-raid="bh">
+                                  <div class="icon">
+                                    <div>BH</div>
+                                  </div>
+
+                                </td>
+                                <td class="spacer">
+                                  <div></div>
+                                </td>
+                                <td class="bd" data-raid="bd">
+                                  <div class="icon">
+                                    <div>BD</div>
+                                  </div>
+                                </td>
+                                <td class="spacer">
+                                  <div></div>
+                                </td>
+                                <td class="tfw" data-raid="tfw">
+                                  <div class="icon">
+                                    <div>TFW</div>
+                                  </div>
+
+                                </td>
+                                <td class="spacer">
+                                  <div></div>
+                                </td>
+                                <td class="bot" data-raid="bot">
+                                  <div class="icon">
+                                    <div>BoT</div>
+                                  </div>
+                                </td>
+                                <td class="spacer-edge">
+                                  <div></div>
+                                </td>
+                              </tr>
+                              <tr class="normal">
+
+                                <td></td>
+                                <td data-raid="mc" class="status status-incomplete">
+                                  <div></div>
+                                </td>
+                                <td></td>
+                                <td data-raid="bwl" class="status status-incomplete">
+                                  <div></div>
+                                </td>
+                                <td></td>
+                                <td data-raid="aq10" class="status status-incomplete">
+                                  <div></div>
+                                </td>
+                                <td></td>
+                                <td data-raid="aq40" class="status status-completed">
+                                  <div></div>
+                                </td>
+                                <td></td>
+
+                                <td data-raid="kar" class="status status-completed">
+                                  <div></div>
+                                </td>
+                                <td></td>
+                                <td data-raid="gru" class="status status-incomplete">
+                                  <div></div>
+                                </td>
+                                <td></td>
+                                <td data-raid="mag" class="status status-incomplete">
+                                  <div></div>
+                                </td>
+                                <td></td>
+                                <td data-raid="za" class="status status-incomplete">
+                                  <div></div>
+                                </td>
+                                <td></td>
+                                <td data-raid="ssc" class="status status-incomplete">
+                                  <div></div>
+                                </td>
+
+                                <td></td>
+                                <td data-raid="tk" class="status status-incomplete">
+                                  <div></div>
+                                </td>
+                                <td></td>
+                                <td data-raid="mh" class="status status-incomplete">
+                                  <div></div>
+                                </td>
+                                <td></td>
+                                <td data-raid="bt" class="status status-incomplete">
+                                  <div></div>
+                                </td>
+                                <td></td>
+                                <td data-raid="sp" class="status status-completed">
+                                  <div></div>
+                                </td>
+                                <td></td>
+
+                                <td data-raid="voa" class="status status-completed">
+                                  <div></div>
+                                </td>
+                                <td></td>
+                                <td data-raid="nax" class="status status-completed">
+                                  <div></div>
+                                </td>
+                                <td></td>
+                                <td data-raid="os" class="status status-completed">
+                                  <div></div>
+                                </td>
+                                <td></td>
+                                <td data-raid="eoe" class="status status-completed">
+                                  <div></div>
+                                </td>
+                                <td></td>
+                                <td data-raid="uld" class="status status-completed">
+                                  <div></div>
+                                </td>
+
+                                <td></td>
+                                <td data-raid="ony" class="status status-completed">
+                                  <div></div>
+                                </td>
+                                <td></td>
+                                <td data-raid="toc" class="status status-completed">
+                                  <div></div>
+                                </td>
+                                <td></td>
+                                <td data-raid="icc" class="status status-completed">
+                                  <div></div>
+                                </td>
+                                <td></td>
+                                <td data-raid="rs" class="status status-completed">
+                                  <div></div>
+                                </td>
+                                <td></td>
+
+                                <td data-raid="bh" class="status status-incomplete">
+                                  <div></div>
+                                </td>
+                                <td></td>
+                                <td data-raid="bd" class="status status-incomplete">
+                                  <div></div>
+                                </td>
+                                <td></td>
+                                <td data-raid="tfw" class="status status-incomplete">
+                                  <div></div>
+                                </td>
+                                <td></td>
+                                <td data-raid="bot" class="status status-incomplete">
+                                  <div></div>
+                                </td>
+                              </tr>
+                              <tr class="heroic">
+
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td data-raid="toc" class="status status-completed">
+                                  <div></div>
+                                </td>
+                                <td></td>
+                                <td data-raid="icc" class="status status-completed">
+                                  <div></div>
+                                </td>
+                                <td></td>
+                                <td data-raid="rs" class="status status-completed">
+                                  <div></div>
+                                </td>
+                                <td></td>
+
+                                <td></td>
+                                <td></td>
+                                <td data-raid="bd" class="status status-incomplete">
+                                  <div></div>
+                                </td>
+                                <td></td>
+                                <td data-raid="tfw" class="status status-incomplete">
+                                  <div></div>
+                                </td>
+                                <td></td>
+                                <td data-raid="bot" class="status status-incomplete">
+                                  <div></div>
+                                </td>
+                              </tr>
+                              <tr class="timeline">
+
+                                <td></td>
+                                <td class="expansion-0" colspan="8">
+                                  <div class="marker">
+                                    <span class="square-anchor" data-expansion="0">
+                                      <span class="square"></span>
+                                    </span>
+                                  </div>
+                                </td>
+                                <td class="expansion-1" colspan="18">
+                                  <div class="marker">
+                                    <span class="square-anchor" data-expansion="1">
+                                      <span class="square"></span>
+                                    </span>
+                                  </div>
+                                </td>
+                                <td class="expansion-2" colspan="18">
+                                  <div class="marker">
+                                    <span class="square-anchor" data-expansion="2">
+                                      <span class="square"></span>
+                                    </span>
+                                  </div>
+                                </td>
+                                <td class="expansion-3" colspan="8">
+                                  <div class="marker">
+                                    <span class="square-anchor" data-expansion="3">
+                                      <span class="square"></span>
+                                    </span>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+
+                        </div>
+
+                        <span class="clear">
+                          <!-- -->
+                        </span>
+                      </div>
+
+                      <div class="summary-raid-legend">
+                        <span class="completed">Completed</span>
+                        <span class="in-progress">In progress</span>
+                      </div>
+
+                      <script type="text/javascript">
+                        //<![CDATA[
+		$(document).ready(function() {
+			new Summary.RaidProgression({ nTrivialRaids: 22, nOptimalRaids: 0, nChallengingRaids: 4  }, {
+		mc: {
+			name: "Molten Core",
+			playerLevel: 60,
+			nPlayers: 40,
+			location: "Blackrock Mountain",
+			normalEncounters: 	[
+			{ name: "Ragnaros", nKills: 0 }
+]
+		},
+		bwl: {
+			name: "Blackwing Lair",
+			playerLevel: 60,
+			nPlayers: 40,
+			location: "Blackrock Mountain",
+			normalEncounters: 	[
+			{ name: "Nefarian", nKills: 0 }
+]
+		},
+		aq10: {
+			name: "Ruins of Ahn\'Qiraj",
+			playerLevel: 60,
+			nPlayers: 10,
+			location: "Silithus",
+			normalEncounters: 	[
+			{ name: "Ossirian the Unscarred", nKills: 0 }
+]
+		},
+		aq40: {
+			name: "Ahn\'Qiraj",
+			playerLevel: 60,
+			nPlayers: 40,
+			location: "Silithus",
+			normalEncounters: 	[
+			{ name: "C\'Thun", nKills: 1 }
+]
+		},
+		kar: {
+			name: "Karazhan",
+			playerLevel: 70,
+			nPlayers: 10,
+			location: "Deadwind Pass",
+			normalEncounters: 	[
+			{ name: "Prince Malchezaar", nKills: 1 }
+]
+		},
+		gru: {
+			name: "Gruul\'s Lair",
+			playerLevel: 70,
+			nPlayers: 25,
+			location: "Blade\'s Edge Mountains",
+			normalEncounters: 	[
+			{ name: "Gruul the Dragonkiller", nKills: 0 }
+]
+		},
+		mag: {
+			name: "Magtheridon\'s Lair",
+			playerLevel: 70,
+			nPlayers: 25,
+			location: "Hellfire Peninsula",
+			normalEncounters: 	[
+			{ name: "Magtheridon", nKills: 0 }
+]
+		},
+		za: {
+			name: "Zul\'Aman",
+			playerLevel: 70,
+			nPlayers: 10,
+			location: "Ghostlands",
+			normalEncounters: 	[
+			{ name: "Zul\'jin", nKills: 0 }
+]
+		},
+		ssc: {
+			name: "Serpentshrine Cavern",
+			playerLevel: 70,
+			nPlayers: 25,
+			location: "Zangarmarsh",
+			normalEncounters: 	[
+			{ name: "Lady Vashj", nKills: 0 }
+]
+		},
+		tk: {
+			name: "Tempest Keep",
+			playerLevel: 70,
+			nPlayers: 25,
+			location: "Netherstorm",
+			normalEncounters: 	[
+			{ name: "Kael\'thas Sunstrider", nKills: 0 }
+]
+		},
+		mh: {
+			name: "Hyjal Summit",
+			playerLevel: 70,
+			nPlayers: 25,
+			location: "Caverns of Time",
+			normalEncounters: 	[
+			{ name: "Archimonde", nKills: 0 }
+]
+		},
+		bt: {
+			name: "Black Temple",
+			playerLevel: 70,
+			nPlayers: 25,
+			location: "Shadowmoon Valley",
+			normalEncounters: 	[
+			{ name: "Illidan Stormrage", nKills: 0 }
+]
+		},
+		sp: {
+			name: "Sunwell Plateau",
+			playerLevel: 70,
+			nPlayers: 25,
+			location: "Isle of Quel\'Danas",
+			normalEncounters: 	[
+			{ name: "Kil\'jaeden", nKills: 1 }
+]
+		},
+		voa: {
+			name: "Vault of Archavon",
+			playerLevel: 80,
+			nPlayers: -10,
+			location: "Wintergrasp",
+			normalEncounters: 	[
+			{ name: "Archavon the Stone Watcher", nKills: 38 },
+			{ name: "Emalon the Storm Watcher", nKills: 28 },
+			{ name: "Koralon the Flame Watcher", nKills: 8 },
+			{ name: "Toravon the Ice Watcher", nKills: 30 }
+]
+		},
+		nax: {
+			name: "Naxxramas",
+			playerLevel: 80,
+			nPlayers: -10,
+			location: "Dragonblight",
+			normalEncounters: 	[
+			{ name: "Anub\'Rekhan", nKills: 28 },
+			{ name: "Grand Widow Faerlina", nKills: 26 },
+			{ name: "Maexxna", nKills: 26 },
+			{ name: "Patchwerk", nKills: 35 },
+			{ name: "Grobbulus", nKills: 28 },
+			{ name: "Gluth", nKills: 27 },
+			{ name: "Thaddius", nKills: 27 },
+			{ name: "Noth the Plaguebringer", nKills: 35 },
+			{ name: "Heigan the Unclean", nKills: 29 },
+			{ name: "Loatheb", nKills: 28 },
+			{ name: "Instructor Razuvious", nKills: 31 },
+			{ name: "Gothik the Harvester", nKills: 27 },
+			{ name: "The Four Horsemen", nKills: 25 },
+			{ name: "Sapphiron", nKills: 26 },
+			{ name: "Kel\'Thuzad", nKills: 25 }
+]
+		},
+		os: {
+			name: "The Obsidian Sanctum",
+			playerLevel: 80,
+			nPlayers: -10,
+			location: "Dragonblight",
+			normalEncounters: 	[
+			{ name: "Sartharion", nKills: 26 }
+]
+		},
+		eoe: {
+			name: "The Eye of Eternity",
+			playerLevel: 80,
+			nPlayers: -10,
+			location: "Borean Tundra",
+			normalEncounters: 	[
+			{ name: "Malygos", nKills: 22 }
+]
+		},
+		uld: {
+			name: "Ulduar",
+			playerLevel: 80,
+			nPlayers: -10,
+			location: "The Storm Peaks",
+			normalEncounters: 	[
+			{ name: "Flame Leviathan", nKills: 41 },
+			{ name: "Razorscale", nKills: 24 },
+			{ name: "XT-002 Deconstructor", nKills: 36 },
+			{ name: "Ignis the Furnace Master", nKills: 17 },
+			{ name: "Assembly of Iron", nKills: 24 },
+			{ name: "Kologarn", nKills: 34 },
+			{ name: "Auriaya", nKills: 32 },
+			{ name: "Thorim", nKills: 20 },
+			{ name: "Freya", nKills: 22 },
+			{ name: "Leviathan Mk II", nKills: 16 },
+			{ name: "General Vezax", nKills: 10 },
+			{ name: "Yogg-Saron", nKills: 4 },
+			{ name: "Algalon the Observer", nKills: 0, optional: true }
+]
+		},
+		ony: {
+			name: "Onyxia\'s Lair",
+			playerLevel: 80,
+			nPlayers: -10,
+			location: "Dustwallow Marsh",
+			normalEncounters: 	[
+			{ name: "Onyxia", nKills: 13 }
+]
+		},
+		toc: {
+			name: "Trial of the Crusader",
+			playerLevel: 80,
+			nPlayers: -10,
+			location: "Icecrown",
+			normalEncounters: 	[
+			{ name: "Icehowl", nKills: 25 },
+			{ name: "Lord Jaraxxus", nKills: 22 },
+			{ name: "Defeat the Faction Champions", nKills: 20 },
+			{ name: "Eydis Darkbane", nKills: 19 },
+			{ name: "Anub\'arak", nKills: 16 }
+],
+			heroicEncounters: 	[
+			{ name: "Icehowl", nKills: 19 },
+			{ name: "Lord Jaraxxus", nKills: 18 },
+			{ name: "Defeat the Faction Champions", nKills: 15 },
+			{ name: "Eydis Darkbane", nKills: 14 },
+			{ name: "Anub\'arak", nKills: 12 }
+]
+		},
+		icc: {
+			name: "Icecrown Citadel",
+			playerLevel: 80,
+			nPlayers: -10,
+			location: "Icecrown",
+			normalEncounters: 	[
+			{ name: "Lord Marrowgar", nKills: 33 },
+			{ name: "Lady Deathwhisper", nKills: 39 },
+			{ name: "Claim victory in the Gunship Battle", nKills: 31 },
+			{ name: "The Deathbringer", nKills: 37 },
+			{ name: "Festergut", nKills: 27 },
+			{ name: "Rotface", nKills: 23 },
+			{ name: "Professor Putricide", nKills: 26 },
+			{ name: "Prince Valanar", nKills: 20 },
+			{ name: "Blood-Queen Lana\'thel", nKills: 15 },
+			{ name: "Rescue Valithria Dreamwalker", nKills: 17 },
+			{ name: "Sindragosa", nKills: 18 },
+			{ name: "The Lich King", nKills: 10 }
+],
+			heroicEncounters: 	[
+			{ name: "Lord Marrowgar", nKills: 29 },
+			{ name: "Lady Deathwhisper", nKills: 24 },
+			{ name: "Claim victory in the Gunship Battle", nKills: 32 },
+			{ name: "The Deathbringer", nKills: 26 },
+			{ name: "Festergut", nKills: 23 },
+			{ name: "Rotface", nKills: 25 },
+			{ name: "Professor Putricide", nKills: 13 },
+			{ name: "Prince Valanar", nKills: 24 },
+			{ name: "Blood-Queen Lana\'thel", nKills: 22 },
+			{ name: "Rescue Valithria Dreamwalker", nKills: 17 },
+			{ name: "Sindragosa", nKills: 8 },
+			{ name: "The Lich King", nKills: 1 }
+]
+		},
+		rs: {
+			name: "The Ruby Sanctum",
+			playerLevel: 80,
+			nPlayers: -10,
+			location: "Dragonblight",
+			normalEncounters: 	[
+			{ name: "Halion", nKills: 12 }
+],
+			heroicEncounters: 	[
+			{ name: "Halion", nKills: 1 }
+]
+		},
+		bh: {
+			name: "Baradin Hold",
+			playerLevel: 85,
+			nPlayers: -10,
+			location: "Tol Barad",
+			normalEncounters: 	[
+			{ name: "Argaloth", nKills: 0 }
+]
+		},
+		bd: {
+			name: "Blackwing Descent",
+			playerLevel: 85,
+			nPlayers: -10,
+			location: "Blackrock Mountain",
+			normalEncounters: 	[
+			{ name: "Magmaw", nKills: 0 },
+			{ name: "Toxitron", nKills: 0 },
+			{ name: "Maloriak", nKills: 0 },
+			{ name: "Atramedes", nKills: 0 },
+			{ name: "Chimaeron", nKills: 0 },
+			{ name: "Nefarian", nKills: 0 }
+],
+			heroicEncounters: 	[
+			{ name: "Magmaw", nKills: 0 },
+			{ name: "Toxitron", nKills: 0 },
+			{ name: "Maloriak", nKills: 0 },
+			{ name: "Atramedes", nKills: 0 },
+			{ name: "Chimaeron", nKills: 0 },
+			{ name: "Nefarian", nKills: 0 }
+]
+		},
+		tfw: {
+			name: "Throne of the Four Winds",
+			playerLevel: 85,
+			nPlayers: -10,
+			location: "Uldum",
+			normalEncounters: 	[
+			{ name: "Conclave of Wind", nKills: 0 },
+			{ name: "Al\'Akir", nKills: 0 }
+],
+			heroicEncounters: 	[
+			{ name: "Conclave of Wind", nKills: 0 },
+			{ name: "Al\'Akir", nKills: 0 }
+]
+		},
+		bot: {
+			name: "The Bastion of Twilight",
+			playerLevel: 85,
+			nPlayers: -10,
+			location: "Twilight Highlands",
+			normalEncounters: 	[
+			{ name: "Halfus Wyrmbreaker", nKills: 0 },
+			{ name: "Valiona", nKills: 0 },
+			{ name: "Elementium Monstrosity", nKills: 0 },
+			{ name: "Cho\'gall", nKills: 0 }
+],
+			heroicEncounters: 	[
+			{ name: "Halfus Wyrmbreaker", nKills: 0 },
+			{ name: "Valiona", nKills: 0 },
+			{ name: "Elementium Monstrosity", nKills: 0 },
+			{ name: "Cho\'gall", nKills: 0 },
+			{ name: "Sinestra", nKills: 0, optional: true }
+]
+		}
+			});
+		});
+	//]]>
+                      </script>
+                    </div>
+                  </div>
+
+                  <div class="summary-arena">
+                    <h3 class="category">Arena</h3>
+                    <div class="profile-box-full">
+
+                      <div class="arena-columns">
+
+                        <div class="arena-column column-disabled">
+                          <div class="cell-top">
+                            <div class="cell-top-inner">
+                              <h2>5v5</h2>
+                            </div>
+                          </div>
+
+                        </div>
+
+
+
+                        <div class="arena-column">
+                          <div class="cell-top">
+                            <div class="cell-top-inner">
+                              <h2>3v3</h2>
+                              <div class="rating">
+                                <span class="tip" onmouseover="Tooltip.show(this, 'Personal rating');">0</span>
+
+                              </div>
+                              <span class="gameswon">0</span> &#8211;
+                              <span class="gameslost">0</span>
+                              <span class="percentwon">(0% wins)</span>
+                            </div>
+                          </div>
+
+                          <div class="cell-mid">
+                            <a href="/wow/en/armory?url=team-info.xml?t=Insert%20more%20coins&amp;select=Insert%20more%20coins&amp;ts=3&amp;r=Chants%20%C3%A9ternels">Insert more coins</a>
+                            <div class="rating">
+                              <span class="tip" onmouseover="Tooltip.show(this, 'Team rating');">0</span>
+                            </div>
+
+                            <a href="/wow/en/character/chants-eternels/kahorie/" rel="allow">
+                              <img src="/wow/static/images/icons/class/6.gif" alt="" class="icon" />
+
+                            </a>
+                            <a href="/wow/en/character/chants-eternels/chrislink/" rel="allow">
+                              <img src="/wow/static/images/icons/class/11.gif" alt="" class="icon" />
+                            </a>
+                          </div>
+
+                        </div>
+
+
+
+                        <div class="arena-column">
+
+                          <div class="cell-top">
+                            <div class="cell-top-inner">
+                              <h2>2v2</h2>
+                              <div class="rating">
+                                <span class="tip" onmouseover="Tooltip.show(this, 'Personal rating');">0</span>
+                              </div>
+                              <span class="gameswon">0</span> &#8211;
+
+                              <span class="gameslost">0</span>
+                              <span class="percentwon">(0% wins)</span>
+                            </div>
+                          </div>
+
+                          <div class="cell-mid">
+                            <a href="/wow/en/armory?url=team-info.xml?t=Insert%20coin&amp;select=Insert%20coin&amp;ts=2&amp;r=Chants%20%C3%A9ternels">Insert coin</a>
+                            <div class="rating">
+
+                              <span class="tip" onmouseover="Tooltip.show(this, 'Team rating');">0</span>
+                            </div>
+
+                            <a href="/wow/en/character/chants-eternels/kahorie/" rel="allow">
+                              <img src="/wow/static/images/icons/class/6.gif" alt="" class="icon" />
+                            </a>
+                            <a href="/wow/en/character/chants-eternels/chrislink/" rel="allow">
+                              <img src="/wow/static/images/icons/class/11.gif" alt="" class="icon" />
+                            </a>
+
+                          </div>
+
+                        </div>
+                        <span class="clear">
+                          <!-- -->
+                        </span>
+                      </div>
+
+                    </div>
+                  </div>
+                  <span class="clear">
+                    <!-- -->
+                  </span>
+
+                  <div class="summary-lastupdate">
+                    Last updated on 08/12/2010
+                  </div>
+
+                </div>
+
+
+              </div>
+
+              <span class="clear">
+                <!-- -->
+              </span>
+            </div>
+
+            <script type="text/javascript">
+              //<![CDATA[
+		var MsgProfile = {
+			tooltip: {
+				feature: {
+					notYetAvailable: "This feature is not yet available."
+				},
+				vault: {
+					character: "This section is only accessible if you are logged in as this character.",
+					guild: "This section is only accessible if you are logged in as a character belonging to this guild."
+				}
+			}
+		};
+	//]]>
+            </script>
+
+            <script type="text/javascript">
+              //<![CDATA[
+		var MsgSummary = {
+			viewOptions: {
+				threed: {
+					title: "3D View"
+				}
+			},
+			inventory: {
+				slots: {
+					1: "Head",
+					2: "Neck",
+					3: "Shoulder",
+					4: "Shirt",
+					5: "Chest",
+					6: "Waist",
+					7: "Legs",
+					8: "Feet",
+					9: "Wrist",
+					10: "Hands",
+					11: "Finger",
+					12: "Trinket",
+					15: "Ranged",
+					16: "Back",
+					19: "Tabard",
+					21: "Main Hand",
+					22: "Off Hand",
+					28: "Relic",
+					empty: "This slot is empty."
+				}
+			},
+			audit: {
+				whatIsThis: "This feature makes recommendations on how this character can be improved. The following is verified:<br /\><br /\>- Empty glyph slots<br /\>- Unspent talent points<br /\>- Unenchanted items<br /\>- Empty sockets<br /\>- Non-optimal armour<br /\>- Missing belt buckle<br /\>- Unused profession perks",
+				missing: "Missing {0}",
+				enchants: {
+					tooltip: "Unenchanted"
+				},
+				sockets: {
+					singular: "empty socket",
+					plural: "empty sockets"
+				},
+				armor: {
+					tooltip: "Non-{0}",
+					1: "Cloth",
+					2: "Leather",
+					3: "Mail",
+					4: "Plate"
+				},
+				lowLevel: {
+					tooltip: "Low level"	
+				},
+				blacksmithing: {
+					name: "Blacksmithing",
+					tooltip: "Missing socket"
+				},
+				enchanting: {
+					name: "Enchanting",
+					tooltip: "Unenchanted"
+				},
+				engineering: {
+					name: "Engineering",
+					tooltip: "Missing tinker"
+				},
+				inscription: {
+					name: "Inscription",
+					tooltip: "Missing enchant"
+				},
+				leatherworking: {
+					name: "Leatherworking",
+					tooltip: "Missing enchant"
+				}
+			},
+			talents: {
+				specTooltip: {
+					title: "Talent Specializations",
+					primary: "Primary:",
+					secondary: "Secondary:",
+					active: "Active"
+				}
+			},
+			stats: {
+				toggle: {
+					all: "Show all stats",
+					core: "Show core stats only"
+				},
+				increases: {
+					attackPower: "Increases Attack Power by {0}.",
+					critChance: "Increases Crit chance by {0}%.",
+					spellCritChance: "Increases Spell Crit chance by {0}%.",
+					health: "Increases Health by {0}.",
+					mana: "Increases Mana by {0}.",
+					manaRegen: "Increases mana regeneration by {0} every 5 seconds while not casting.",
+					meleeDps: "Increases damage with melee weapons by {0} damage per second.",
+					rangedDps: "Increases damage with ranged weapons by {0} damage per second.",
+					petArmor: "Increases your petâ€™s Armour by {0}.",
+					petAttackPower: "Increases your petâ€™s Attack Power by {0}.",
+					petSpellDamage: "Increases your petâ€™s Spell Damage by {0}.",
+					petAttackPowerSpellDamage: "Increases your petâ€™s Attack Power by {0} and Spell Damage by {1}."
+				},
+				decreases: {
+					damageTaken: "Reduces Physical Damage taken by {0}%.",
+					enemyRes: "Reduces enemy resistances by {0}.",
+					dodgeParry: "Reduces chance to be dodged or parried by {0}%."
+				},
+				noBenefits: "Provides no benefit for your class.",
+				beforeReturns: "(Before diminishing returns)",
+				damage: {
+					speed: "Attack speed (seconds):",
+					damage: "Damage:",
+					dps: "Damage per second:"
+				},
+				averageItemLevel: {
+					title: "Item Level {0}",
+					description: "The average item level of your best equipment. Increasing this will allow you to enter more difficult dungeons using Dungeon Finder."
+				},
+				health: {
+					title: "Health {0}",
+					description: "Your maximum amount of health. If your health reaches zero, you will die."
+				},
+				mana: {
+					title: "Mana {0}",
+					description: "Your maximum mana. Mana allows you to cast spells."
+				},
+				rage: {
+					title: "Rage {0}",
+					description: "Your maximum rage. Rage is consumed when using abilities and is restored by attacking enemies or being damaged in combat."
+				},
+				focus: {
+					title: "Focus {0}",
+					description: "Your maximum focus. Focus is consumed when using abilities and is restored automatically over time."
+				},
+				energy: {
+					title: "Energy {0}",
+					description: "Your maximum energy. Energy is consumed when using abilities and is restored automatically over time."
+				},
+				runic: {
+					title: "Runic {0}",
+					description: "Your maximum Runic Power."
+				},
+				strength: {
+					title: "Strength {0}"
+				},
+				agility: {
+					title: "Agility {0}"
+				},
+				stamina: {
+					title: "Stamina {0}"
+				},
+				intellect: {
+					title: "Intellect {0}"
+				},
+				spirit: {
+					title: "Spirit {0}"
+				},
+				mastery: {
+					title: "Mastery {0}",
+					description: "Mastery rating of {0} adds {1} Mastery.",
+					unknown: "You must learn Mastery from your trainer before this will have an effect.",
+					unspecced: "You must select a talent specialization in order to activate Mastery."
+				},
+				meleeDps: {
+					title: "Damage per Second"
+				},
+				meleeAttackPower: {
+					title: "Melee Attack Power {0}"
+				},
+				meleeSpeed: {
+					title: "Melee Attack Speed {0}"
+				},
+				meleeHaste: {
+					title: "Melee Haste {0}%",
+					description: "Haste rating of {0} adds {1}% Haste.",
+					description2: "Increases melee attack speed."
+				},
+				meleeHit: {
+					title: "Melee Hit Chance {0}%",
+					description: "Hit rating of {0} adds {1}% Hit chance."
+				},
+				meleeCrit: {
+					title: "Melee Crit Chance {0}%",
+					description: "Crit rating of {0} adds {1}% Crit chance.",
+					description2: "Chance of melee attacks doing extra damage."
+				},
+				expertise: {
+					title: "Expertise {0}",
+					description: "Expertise rating of {0} adds {1} Expertise."
+				},
+				rangedDps: {
+					title: "Damage per Second"
+				},
+				rangedAttackPower: {
+					title: "Ranged Attack Power {0}"
+				},
+				rangedSpeed: {
+					title: "Ranged Attack Speed {0}"
+				},
+				rangedHaste: {
+					title: "Ranged Haste {0}%",
+					description: "Haste rating of {0} adds {1}% Haste.",
+					description2: "Increases ranged attack speed."
+				},
+				rangedHit: {
+					title: "Ranged Hit Chance {0}%",
+					description: "Hit rating of {0} adds {1}% Hit chance."
+				},
+				rangedCrit: {
+					title: "Ranged Crit Chance {0}%",
+					description: "Crit rating of {0} adds {1}% Crit chance.",
+					description2: "Chance of ranged attacks doing extra damage."
+				},
+				spellPower: {
+					title: "Spell Power {0}",
+					description: "Increases the damage and healing of spells."
+				},
+				spellHaste: {
+					title: "Spell Haste {0}%",
+					description: "Haste rating of {0} adds {1}% Haste.",
+					description2: "Increases spell casting speed."
+				},
+				spellHit: {
+					title: "Spell Hit Chance {0}%",
+					description: "Hit rating of {0} adds {1}% Hit chance."
+				},
+				spellCrit: {
+					title: "Spell Crit Chance {0}%",
+					description: "Crit rating of {0} adds {1}% Crit chance.",
+					description2: "Chance of spells doing extra damage or healing."
+				},
+				spellPenetration: {
+					title: "Spell Penetration {0}"
+				},
+				manaRegen: {
+					title: "Mana Regen",
+					description: "{0} mana regenerated every 5 seconds while not in combat."
+				},
+				combatRegen: {
+					title: "Combat Regen",
+					description: "{0} mana regenerated every 5 seconds while in combat."
+				},
+				armor: {
+					title: "Armour {0}"
+				},
+				dodge: {
+					title: "Dodge Chance {0}%",
+					description: "Dodge rating of {0} adds {1}% Dodge chance."
+				},
+				parry: {
+					title: "Parry Chance {0}%",
+					description: "Parry rating of {0} adds {1}% Parry chance."
+				},
+				block: {
+					title: "Block Chance {0}%",
+					description: "Block rating of {0} adds {1}% Block chance.",
+					description2: "Your block stops {0}% of incoming damage."
+				},
+				resilience: {
+					title: "Resilience {0}",
+					description: "Provides {0}% damage reduction against all damage done by players and their pets or minions."
+				},
+				arcaneRes: {
+					title: "Arcane Resistance {0}",
+					description: "Reduces Arcane damage taken by an average of {0}%."
+				},
+				fireRes: {
+					title: "Fire Resistance {0}",
+					description: "Reduces Fire damage taken by an average of {0}%."
+				},
+				frostRes: {
+					title: "Frost Resistance {0}",
+					description: "Reduces Frost damage taken by an average of {0}%."
+				},
+				natureRes: {
+					title: "Nature Resistance {0}",
+					description: "Reduces Nature damage taken by an average of {0}%."
+				},
+				shadowRes: {
+					title: "Shadow Resistance {0}",
+					description: "Reduces Shadow damage taken by an average of {0}%."
+				}
+			},
+			recentActivity: {
+				subscribe: "Subscribe to this feed"
+			},
+			raid: {
+				tooltip: {
+					normal: "(Normal)",
+					heroic: "(Heroic)",
+					players: "{0} players",
+					complete: "{0}% complete ({1}/{2})",
+					optional: "(optional)"
+				},
+				expansions: {
+						0: "Classic",  	
+						1: "The Burning Crusade",  	
+						2: "Wrath of the Lich King",  	
+						3: "Cataclysm"  	
+				}
+			}
+		};
+	//]]>
+            </script>
+
+          </div>
+        </div>
+      </div>
+      <div id="footer">
+        <div id="sitemap" class="footer-ads">
+          <div class="column">
+            <h3 class="bnet">
+              <a href="http://eu.battle.net/" tabindex="100">Battle.net Home</a>
+
+            </h3>
+            <ul>
+              <li>
+                <a href="http://eu.battle.net/what-is/">What is Battle.net?</a>
+              </li>
+              <li>
+                <a href="https://eu.battle.net/account/management/get-a-game.html">Buy Games</a>
+              </li>
+              <li>
+                <a href="http://eu.battle.net/sc2/community/esports/">E-Sports</a>
+              </li>
+              <li>
+                <a href="https://eu.battle.net/account/management/?lnk=3">Account</a>
+              </li>
+              <li>
+                <a href="http://eu.blizzard.com/support/">Support</a>
+              </li>
+              <li>
+                <a href="http://eu.battle.net/realid/">Real ID</a>
+              </li>
+            </ul>
+          </div>
+          <div class="column">
+
+            <h3 class="games">
+              <a href="http://eu.battle.net/" tabindex="100">Games</a>
+            </h3>
+            <ul>
+              <li>
+                <a href="http://eu.battle.net/sc2/">StarCraftÂ II</a>
+              </li>
+              <li>
+                <a href="http://eu.battle.net/wow/">World of Warcraft</a>
+              </li>
+              <li>
+                <a href="http://eu.battle.net/games/d3">DiabloÂ III</a>
+              </li>
+              <li>
+                <a href="http://eu.battle.net/games/classic">Classic Games</a>
+              </li>
+              <li>
+                <a href="https://eu.battle.net/account/download/">Game Client Downloads</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="column">
+            <h3 class="account">
+              <a href="https://eu.battle.net/account/management/?lnk=4" tabindex="100">Account</a>
+            </h3>
+            <ul>
+              <li>
+                <a href="https://eu.battle.net/account/support/password-reset.html">Canâ€™t log in?</a>
+              </li>
+              <li>
+                <a href="https://eu.battle.net/account/creation/tos.html">Create Account</a>
+              </li>
+              <li>
+                <a href="https://eu.battle.net/account/management/?lnk=5">Account Summary</a>
+              </li>
+              <li>
+                <a href="https://eu.battle.net/account/management/authenticator.html">Account Security</a>
+              </li>
+              <li>
+                <a href="https://eu.battle.net/account/management/add-game.html">Add a Game</a>
+              </li>
+              <li>
+                <a href="https://eu.battle.net/account/management/redemption/redeem.html">Redeem Promo Codes</a>
+              </li>
+
+            </ul>
+          </div>
+          <div class="column">
+            <h3 class="support">
+              <a href="http://eu.blizzard.com/support/" tabindex="100">Support</a>
+            </h3>
+            <ul>
+              <li>
+                <a href="http://eu.blizzard.com/support/">Support Articles</a>
+              </li>
+              <li>
+                <a href="https://eu.battle.net/account/parental-controls/index.html">Parental Controls</a>
+              </li>
+              <li>
+                <a href="http://eu.battle.net/security/">Protect Your Account</a>
+              </li>
+              <li>
+                <a href="http://eu.battle.net/security/help">Help! I got hacked!</a>
+              </li>
+            </ul>
+
+          </div>
+          <div id="footer-ad">
+            <div class="sidebar-content"></div>
+            <script type="text/javascript">
+              //<![CDATA[
+$(function() {
+BnetAds.init('#footer-ad', '300x100');
+});
+//]]>
+            </script>
+          </div>
+          <span class="clear">
+            <!-- -->
+          </span>
+        </div>
+        <div id="copyright">
+          <a href="javascript:;" tabindex="100" id="change-language">
+            <span>Europe - English (EU)</span>
+          </a>
+          Â©2010 Blizzard Entertainment, Inc. All rights reserved
+          <a onclick="return Core.open(this);" href="http://eu.blizzard.com/company/legal/" tabindex="100">Legal</a>
+          <a onclick="return Core.open(this);" href="http://eu.blizzard.com/company/about/privacy.html" tabindex="100">Privacy Policy</a>
+
+          <a onclick="return Core.open(this);" href="http://eu.blizzard.com/company/about/infringementnotice.html" tabindex="100">Copyright Infringement</a>
+        </div>
+        <div id="international"></div>
+        <div id="legal">
+          <div id="legal-ratings" class="png-fix">
+            <a href="http://www.pegi.info/" onclick="return Core.open(this);">
+              <img class="legal-image" alt="" src="/wow/static/local-common/images/legal/eu/pegi-wow.png" />
+            </a>
+          </div>
+          <div id="blizzard" class="png-fix">
+            <a href="http://blizzard.com" tabindex="100">
+              <img src="/wow/static/local-common/images/logos/blizz-wow.png" alt="" />
+            </a>
+          </div>
+          <span class="clear">
+            <!-- -->
+          </span>
+        </div>
+      </div>
+      <div id="service">
+
+        <ul class="service-bar">
+          <li class="service-cell service-home">
+            <a href="http://eu.battle.net/" tabindex="50" accesskey="1" title="Battle.net Home">Â </a>
+          </li>
+          <li class="service-cell service-welcome">
+            <a href="?login" onclick="return Login.open('https://eu.battle.net/login/login.frag')">Log in</a> or <a href="https://eu.battle.net/account/creation/tos.html">Create an Account</a>
+          </li>
+          <li class="service-cell service-account">
+            <a href="https://eu.battle.net/account/management/?lnk=1" class="service-link" tabindex="50" accesskey="3">Account</a>
+          </li>
+          <li class="service-cell service-support">
+            <a href="http://eu.blizzard.com/support/" class="service-link" tabindex="50" accesskey="4">Support</a>
+          </li>
+          <li class="service-cell service-explore">
+            <a href="#explore" tabindex="50" accesskey="5" class="dropdown" id="explore-link" onclick="return false" style="cursor: progress" rel="javascript">Explore</a>
+
+            <div class="explore-menu" id="explore-menu" style="display:none;">
+              <div class="explore-primary">
+                <ul class="explore-nav">
+                  <li>
+                    <a href="http://eu.battle.net/" tabindex="55">
+                      <strong class="explore-caption">Battle.net Home</strong>
+                      Connect. Play. Unite.
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://eu.battle.net/account/management/?lnk=2" tabindex="55">
+                      <strong class="explore-caption">Account</strong>
+                      Manage your Account
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="http://eu.blizzard.com/support/" tabindex="55">
+                      <strong class="explore-caption">Support</strong>
+                      Get Support and explore the knowledgebase.
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://eu.battle.net/account/management/get-a-game.html" tabindex="55">
+                      <strong class="explore-caption">Buy Games</strong>
+                      Digital Games for Download
+                    </a>
+                  </li>
+                </ul>
+                <div class="explore-links">
+                  <h2 class="explore-caption">More</h2>
+
+                  <ul>
+                    <li>
+                      <a href="http://eu.battle.net/what-is/" tabindex="55">What is Battle.net?</a>
+                    </li>
+                    <li>
+                      <a href="http://eu.battle.net/realid/" tabindex="55">What is Real ID?</a>
+                    </li>
+                    <li>
+                      <a href="https://eu.battle.net/account/parental-controls/index.html" tabindex="55">Parental Controls</a>
+                    </li>
+                    <li>
+                      <a href="http://eu.battle.net/security/" tabindex="55">Account Security</a>
+                    </li>
+                    <li>
+                      <a href="http://eu.battle.net/games/classic" tabindex="55">Classic Games</a>
+                    </li>
+                    <li>
+                      <a href="https://eu.battle.net/account/support/index.html" tabindex="55">Account Support</a>
+                    </li>
+                  </ul>
+                </div>
+                <span class="clear">
+                  <!-- -->
+                </span>
+              </div>
+
+              <ul class="explore-secondary">
+                <li class="explore-game explore-game-sc2">
+                  <a href="http://eu.battle.net/sc2/" tabindex="55">
+                    <strong class="explore-caption">StarCraftÂ II</strong>
+                    <span>Community Site</span>
+                    <span>Forum Discussions</span>
+                    <span>Character Profiles and moreâ€¦</span>
+                  </a>
+                </li>
+                <li class="explore-game explore-game-wow">
+                  <a href="http://eu.battle.net/wow/" tabindex="55">
+                    <strong class="explore-caption">World of Warcraft</strong>
+
+                    <span>Community Site</span>
+                    <span>Forum Discussions</span>
+                    <span>Character Profiles and moreâ€¦</span>
+                  </a>
+                </li>
+                <li class="explore-game explore-game-d3">
+                  <a href="http://eu.battle.net/games/d3" tabindex="55">
+                    <strong class="explore-caption">DiabloÂ III</strong>
+                    <span>Under Development, visit the Announcement Site</span>
+                  </a>
+                </li>
+              </ul>
+
+            </div>
+          </li>
+        </ul>
+        <div id="warnings-wrapper">
+          <script type="text/javascript">
+            //<![CDATA[
+$(function() {
+App.saveCookie('html5Warning');
+App.resetCookie('browserWarning');
+});
+//]]>
+          </script>
+          <!--[if lt IE 8]>
+<div id="browser-warning" class="warning warning-red">
+<div class="warning-inner2">
+You are using an outdated web browser.<br />
+<a href="http://eu.blizzard.com/support/article/browserupdate">Upgrade</a> or <a href="http://www.google.com/chromeframe/?hl=en-GB" id="chrome-frame-link">install Google Chrome Frame</a>.
+<a href="#close" class="warning-close" onclick="App.closeWarning('#browser-warning', 'browserWarning'); return false;"></a>
+</div>
+</div>
+<![endif]-->
+          <!--[if lte IE 8]>
+<script type="text/javascript" src="/wow/static/local-common/js/third-party/CFInstall.min.js?v15"></script>
+<script type="text/javascript">
+//<![CDATA[
+$(function() {
+var age = 365 * 24 * 60 * 60 * 1000;
+var src = 'https://www.google.com/chromeframe/?hl=en-GB';
+if ('http:' == document.location.protocol) {
+src = 'http://www.google.com/chromeframe/?hl=en-GB';
+}
+document.cookie = "disableGCFCheck=0;path=/;max-age="+age;
+$('#chrome-frame-link').bind({
+'click': function() {
+App.closeWarning('#browser-warning');
+CFInstall.check({
+mode: 'overlay',
+url: src
+});
+return false;
+}
+});
+});
+//]]>
+</script>
+<![endif]-->
+          <noscript>
+            <div id="javascript-warning" class="warning warning-red">
+              <div class="warning-inner2">
+                JavaScript must be enabled to use this site.
+              </div>
+            </div>
+          </noscript>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      //<![CDATA[
+var xsToken = '';
+var Msg = {
+cms: {
+requestError: 'Your request cannot be completed.',
+ignoreNot: 'Not ignoring this user',
+ignoreAlready: 'Already ignoring this user',
+stickyRequested: 'Sticky requested',
+postAdded: 'Post added to tracker',
+postRemoved: 'Post removed from tracker',
+userAdded: 'User added to tracker',
+userRemoved: 'User removed from tracker',
+validationError: 'A required field is incomplete',
+characterExceed: 'The post body exceeds XXXXXX characters.',
+searchFor: "Search for",
+searchTags: "Articles tagged:",
+characterAjaxError: "You may have become logged out. Please refresh the page and try again.",
+ilvl: "Item Lvl",
+shortQuery: "Search requests must be at least two characters long."
+},
+bml: {
+bold: 'Bold',
+italics: 'Italics',
+underline: 'Underline',
+list: 'Unordered List',
+listItem: 'List Item',
+quote: 'Quote',
+quoteBy: 'Posted by {0}',
+unformat: 'Remove Formating',
+cleanup: 'Fix Linebreaks',
+item: 'WoW Item',
+itemPrompt: 'Item ID:',
+url: 'URL',
+urlPrompt: 'URL Address:'
+},
+ui: {
+viewInGallery: 'View in gallery',
+loading: 'Loadingâ€¦',
+unexpectedError: 'An error has occurred',
+fansiteFind: 'Find this onâ€¦',
+fansiteFindType: 'Find {0} onâ€¦',
+fansiteNone: 'No fansites available.'
+},
+grammar: {
+colon: '{0}:'
+},
+fansite: {
+achievement: 'achievement',
+character: 'character',
+faction: 'faction',
+'class': 'class',
+object: 'object',
+talentcalc: 'talents',
+skill: 'skill',
+quest: 'quest',
+spell: 'spell',
+event: 'event',
+title: 'title',
+arena: 'arena',
+guild: 'guild',
+zone: 'zone',
+item: 'item',
+race: 'race',
+npc: 'NPC',
+pet: 'pet'
+}
+};
+//]]>
+    </script>
+    <script type="text/javascript" src="/wow/static/local-common/js/menu.js?v15"></script>
+
+    <script type="text/javascript" src="/wow/static/js/wow.js?v2"></script>
+    <script type="text/javascript">
+      friendData = [];
+      $(function(){
+      Menu.initialize('/data/menu.json');
+      Search.init('/ta/lookup');
+      });
+    </script>
+    <!--[if lt IE 8]> <script type="text/javascript" src="/wow/static/local-common/js/third-party/jquery.pngFix.pack.js?v15"></script>
+<script type="text/javascript">$('.png-fix').pngFix();</script>
+<![endif]-->
+    <script type="text/javascript" src="/wow/static/js/profile.js?v2"></script>
+    <script type="text/javascript" src="/wow/static/js/character/summary.js?v2"></script>
+    <script type="text/javascript">
+      //<![CDATA[
+Core.load("/wow/static/local-common/js/third-party/jquery-ui-1.8.6.custom.min.js?v15");
+Core.load("/wow/static/local-common/js/overlay.js?v15");
+Core.load("/wow/static/local-common/js/search.js?v15");
+Core.load("/wow/static/local-common/js/login.js?v15");
+//]]>
+    </script>
+    <script type="text/javascript">
+      //<![CDATA[
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-544112-16']);
+_gaq.push(['_setDomainName', '.battle.net']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script');
+var src = "https://ssl.google-analytics.com/ga.js";
+if ('http:' == document.location.protocol) {
+src = "http://www.google-analytics.com/ga.js";
+}
+ga.type = 'text/javascript';
+ga.setAttribute('async', 'true');
+ga.src = src;
+var s = document.getElementsByTagName('script');
+s = s[s.length-1];
+s.parentNode.insertBefore(ga, s.nextSibling);
+})();
+//]]>
+    </script>
+  </body>
+</html>

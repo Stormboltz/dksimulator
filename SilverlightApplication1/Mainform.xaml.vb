@@ -1954,4 +1954,8 @@ refreshRating:
         Dim s As New EnchantEditor
         s.Show()
     End Sub
+
+    Private Sub cmdFakeArmory_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdFakeArmory.Click
+        Me.GearSelector.ImportMyXMLCharacter("")
+    End Sub
 End Class
