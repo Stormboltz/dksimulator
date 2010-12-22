@@ -205,8 +205,11 @@
 
     Class AttackPower
         Inherits CalculatedStat
+        Friend WithEvents SecondPrimaryStat As PrimaryStat
         Sub New(ByVal s As Sim, ByVal PrimaryStat As PrimaryStat)
             MyBase.New(s, PrimaryStat)
+
+            SecondPrimaryStat = s.Character.Strength
             If sim.level85 Then
                 RatingRatio = 179.28
             Else
@@ -214,6 +217,11 @@
             End If
             CalculateCurrentValue()
         End Sub
+
+        Overrides Sub On_PrimaryStat_Update() Handles PrimaryStat.ValueModifed, SecondPrimaryStat.ValueModifed
+            CalculateCurrentValue()
+        End Sub
+
         Overrides Sub CalculateCurrentValue()
             Dim tmp As Double
             tmp = sim.Character.AttackPower.Value()

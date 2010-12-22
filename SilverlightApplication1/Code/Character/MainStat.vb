@@ -634,12 +634,12 @@ Namespace Simulator.Character
             If target Is Nothing Then target = Sim.Targets.MainTarget
             Dim tmp As Integer
             tmp = 17
-            tmp = tmp - Sim.Character.Talents.Talent("Virulence").Value * 2
+            tmp = tmp - Sim.Character.Talents.Talent("Virulence").Value * 3
             If XmlCharacter.<character>.<racials>.<Dreani>.Value = True Then
                 tmp = tmp - 1
             End If
 
-            tmp = tmp * 26.232
+            tmp = tmp * 102.446
             Return tmp
         End Function
         Function GetExpertiseRatingCap() As Double
@@ -655,7 +655,7 @@ Namespace Simulator.Character
                 tmp = tmp - 1
             End If
             tmp = tmp - Sim.Character.Talents.Talent("NervesofColdSteel").Value
-            tmp = tmp * 30.7548
+            tmp = tmp * 120.109
             Return tmp
         End Function
 
