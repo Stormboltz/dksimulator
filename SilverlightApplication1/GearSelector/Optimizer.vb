@@ -328,7 +328,7 @@ processNext:
         End Property
 
         Sub Report()
-            Dim t As String
+            Dim t As String = ""
             t = t & "	Me.Strength	" & Me.Strength & vbCrLf
             t = t & "	Me.HasteRating	" & Me.HasteRating & vbCrLf
             t = t & "	Me.CritRating	" & Me.CritRating & vbCrLf

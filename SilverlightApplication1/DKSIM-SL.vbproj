@@ -468,6 +468,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Content Include="GearSelector\macrotrinket.xml" />
     <Content Include="GearSelector\SetBonus.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -227,6 +227,7 @@
             tmp = sim.Character.AttackPower.Value()
             tmp = tmp + sim.Character.Strength.Value() * 2
             tmp = tmp + 550
+            tmp += AdditiveBuff
             tmp *= MultiplicativeBuff
             CurrentValue = tmp
         End Sub
