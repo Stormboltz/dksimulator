@@ -31,7 +31,10 @@ Module GlobalFunction
 
         End Try
     End Function
+    Function Todouble(ByVal s As String) As Double
 
+        Return s.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
+    End Function
     Function toDDecimal(ByVal d As Double) As Decimal
         Dim dec As Decimal
         Try

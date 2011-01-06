@@ -28,7 +28,7 @@
   <trinket name='DeathChoiceHeroic' id='47464' fullname='DeathChoiceHeroic' procon='OnDamage' internalcd='45' procchance='0.35' procstat='Strength' procvalue='510' proclenght='15' damagetype='' maxstack='1' ></trinket>
   <trinket name='DeathChoice' id='47115' fullname='DeathChoice' procon='OnDamage' internalcd='45' procchance='0.35' procstat='Strength' procvalue='450' proclenght='15' damagetype='' maxstack='1' ></trinket>
   <trinket name='DeathChoiceHeroic' id='47131' fullname='DeathChoiceHeroic' procon='OnDamage' internalcd='45' procchance='0.35' procstat='Strength' procvalue='510' proclenght='15' damagetype='' maxstack='1' ></trinket>
-  <trinket name='TinyAbomination' id='50351' fullname='TinyAbomination' procon='OnHit' internalcd='0.5' procchance='0.5' procstat='' procvalue='0' proclenght='0' damagetype='TinyAbomination' maxstack='1' ></trinket>
+  <trinket name='TinyAbomination' id='50351' fullname='TinyAbomination' procon='OnHit' internalcd='1' procchance='0.5' procstat='' procvalue='0' proclenght='0' damagetype='TinyAbomination' maxstack='1' ></trinket>
   <trinket name='SharpenedTwilightScale' id='54569' fullname='SharpenedTwilightScale' procon='OnDamage' internalcd='45' procchance='0.35' procstat='AP' procvalue='1304' proclenght='15' damagetype='' maxstack='1' ></trinket>
   <trinket name='SharpenedTwilightScaleHeroic' id='54590' fullname='SharpenedTwilightScaleHeroic' procon='OnDamage' internalcd='45' procchance='0.35' procstat='AP' procvalue='1742' proclenght='15' damagetype='' maxstack='1' ></trinket>
   <trinket name='ZabroksLuckyTooth' id='63745' fullname='ZabroksLuckyTooth' procon='OnHit' internalcd='90' procchance='0.5' procstat='Mast' procvalue='1095' proclenght='15' damagetype='' maxstack='1' ></trinket>

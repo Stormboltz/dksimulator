@@ -325,13 +325,10 @@ Namespace Simulator.Character
             SpellHaste = New CalculatedStats.SpellHaste(Sim, HasteRating)
             SpellHaste._Name = "Spell Haste"
             If Sim.Character.Buff.SpellHaste Then SpellHaste.AddMulti(1.05)
-
-
             ArmorPenetration = New CalculatedStats.CalculatedStat(Sim, ArmorPenetrationRating, 90)
-            Mastery = New CalculatedStats.CalculatedStat(Sim, MasteryRating, 179.28)
-            Hit = New CalculatedStats.CalculatedStat(Sim, HitRating, 120.109)
-            SpellHit = New CalculatedStats.CalculatedStat(Sim, HitRating, 102.446)
-
+                Mastery = New CalculatedStats.CalculatedStat(Sim, MasteryRating, 179.28)
+                Hit = New CalculatedStats.CalculatedStat(Sim, HitRating, 120.109)
+                SpellHit = New CalculatedStats.CalculatedStat(Sim, HitRating, 102.446)
             Mastery.Add(0.08)
             ArmorPenetration._Name = "ArmorPenetration"
             Mastery._Name = "Mastery"
@@ -348,7 +345,7 @@ Namespace Simulator.Character
                 SpellHit.Add(1 / 100)
             End If
 
-            SpellHit.Add(Sim.Character.Talents.Talent("Virulence").Value * 2 / 100)
+            SpellHit.Add(Sim.Character.Talents.Talent("Virulence").Value * 3 / 100)
 
 
             If XmlCharacter.<character>.<racials>.<Worgen>.Value = True Then
@@ -377,7 +374,7 @@ Namespace Simulator.Character
             Strength.AddMulti(1 + Talents.Talent("AbominationMight").Value / 100)
 
             If Talents.Talent("UnholyMight").Value <> 0 Then
-                Strength.AddMulti(1.15)
+                Strength.AddMulti(1.1)
             End If
 
 
@@ -456,10 +453,11 @@ Namespace Simulator.Character
                             Sim.Trinkets(TkName).Equip()
                         End If
                        
-            Catch ex As Exception
-                Diagnostics.Debug.WriteLine(TkName & " is not implemented")
-                Log.Log(TkName & " is not implemented", logging.Level.ERR)
-            End Try
+                    Catch ex As Exception
+                        Diagnostics.Debug.WriteLine(TkName & " is not implemented")
+                        Log.Log(TkName & " is not implemented", logging.Level.ERR)
+                    End Try
+
                 Else
                     For Each el In XmlCharacter.Element("character").Element("trinket").Elements
                         Try
@@ -633,14 +631,13 @@ Namespace Simulator.Character
             If XmlCharacter.<character>.<racials>.<Dreani>.Value = True Then
                 tmp = tmp - 1
             End If
-
             tmp = tmp * 102.446
             Return tmp
         End Function
         Function GetExpertiseRatingCap() As Double
             Dim tmp As Double = 26
             tmp /= 25
-            tmp *= 30.7548
+            tmp *= 120.109
             Return tmp
         End Function
         Function HitCapRating() As Integer
