@@ -3,11 +3,9 @@
         Inherits Strike
         Sub New(ByVal S As Sim)
             MyBase.New(S)
-            If S.level85 Then
-                BaseDamage = 560
-            Else
-                BaseDamage = 503
-            End If
+
+            BaseDamage = 560
+
 
             Coeficient = 1.5
             Multiplicator = 1

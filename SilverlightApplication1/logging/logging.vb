@@ -3,7 +3,7 @@ Imports System.IO
 
 Public Class logging
 
-    Public LoggingLevel As Level = Level.ERR
+    Public LoggingLevel As Level = Level.WARNING
 
 
     Enum Level As Integer

@@ -1,261 +1,269 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <character>
   <race>Night Elf</race>
-  <skill1>Enchanting</skill1>
+  <skill1>Blacksmithing</skill1>
   <skill2>Jewelcrafting</skill2>
-  <food />
-  <flask />
-  <DW>False</DW>
-  <TwoHand>True<id>49623</id><gem1>40111</gem1><gem2>40111</gem2><gem3>40111</gem3><enchant>3368</enchant><reforge><from /><to /><value>0</value></reforge></TwoHand>
+  <food>Strength Food</food>
+  <flask>Flask of Endless Rage</flask>
+  <DW>True</DW>
+  <TwoHand>
+    False<id>65003</id><gem1>0</gem1><gem2>0</gem2><gem3>0</gem3><enchant>3368</enchant><reforge>
+      <from>Hit</from>
+      <to>Haste</to>
+      <value>102</value>
+    </reforge>
+  </TwoHand>
+  <ManualInput>false</ManualInput>
   <Head>
-    <id>51127</id>
-    <gem1>41398</gem1>
-    <gem2>42142</gem2>
+    <id>65181</id>
+    <gem1>52291</gem1>
+    <gem2>52266</gem2>
     <gem3>0</gem3>
-    <enchant>3817</enchant>
+    <enchant>4208</enchant>
     <reforge>
-      <from />
-      <to />
-      <value>0</value>
+      <from>Haste</from>
+      <to>Mast</to>
+      <value>102</value>
     </reforge>
   </Head>
   <Neck>
-    <id>50728</id>
-    <gem1>40142</gem1>
+    <id>65025</id>
+    <gem1>0</gem1>
     <gem2>0</gem2>
     <gem3>0</gem3>
     <enchant>0</enchant>
     <reforge>
-      <from />
-      <to />
-      <value>0</value>
+      <from>Hit</from>
+      <to>Exp</to>
+      <value>57</value>
     </reforge>
   </Neck>
   <Shoulder>
-    <id>51125</id>
-    <gem1>40111</gem1>
+    <id>65183</id>
+    <gem1>42142</gem1>
     <gem2>0</gem2>
     <gem3>0</gem3>
-    <enchant>3808</enchant>
+    <enchant>4202</enchant>
     <reforge>
-      <from />
-      <to />
-      <value>0</value>
+      <from>Haste</from>
+      <to>Mast</to>
+      <value>76</value>
     </reforge>
   </Shoulder>
   <Back>
-    <id>51912</id>
-    <gem1>40111</gem1>
+    <id>65117</id>
+    <gem1>0</gem1>
     <gem2>0</gem2>
     <gem3>0</gem3>
-    <enchant>3831</enchant>
+    <enchant>4100</enchant>
     <reforge>
-      <from />
-      <to />
-      <value>0</value>
+      <from>Haste</from>
+      <to>Exp</to>
+      <value>57</value>
     </reforge>
   </Back>
   <Chest>
-    <id>51310</id>
-    <gem1>42142</gem1>
-    <gem2>49110</gem2>
+    <id>65179</id>
+    <gem1>52260</gem1>
+    <gem2>52264</gem2>
     <gem3>0</gem3>
-    <enchant>3832</enchant>
+    <enchant>4102</enchant>
     <reforge>
-      <from />
-      <to />
-      <value>0</value>
+      <from>Haste</from>
+      <to>Mast</to>
+      <value>86</value>
     </reforge>
   </Chest>
   <Wrist>
-    <id>50002</id>
-    <gem1>40142</gem1>
+    <id>65085</id>
+    <gem1>42142</gem1>
     <gem2>0</gem2>
     <gem3>0</gem3>
-    <enchant>3845</enchant>
+    <enchant>4101</enchant>
     <reforge>
-      <from />
-      <to />
-      <value>0</value>
+      <from>Haste</from>
+      <to>Mast</to>
+      <value>57</value>
     </reforge>
   </Wrist>
   <TwoHand />
   <MainHand>
-    <id>0</id>
+    <id>65047</id>
     <gem1>0</gem1>
     <gem2>0</gem2>
     <gem3>0</gem3>
-    <enchant>0</enchant>
+    <enchant>3368</enchant>
     <reforge>
-      <from />
-      <to />
-      <value>0</value>
+      <from>Haste</from>
+      <to>Mast</to>
+      <value>44</value>
     </reforge>
   </MainHand>
   <OffHand>
-    <id>0</id>
+    <id>65047</id>
     <gem1>0</gem1>
     <gem2>0</gem2>
     <gem3>0</gem3>
-    <enchant>0</enchant>
+    <enchant>4099</enchant>
     <reforge>
-      <from />
-      <to />
-      <value>0</value>
+      <from>Haste</from>
+      <to>Mast</to>
+      <value>44</value>
     </reforge>
   </OffHand>
   <Sigil>
-    <id>50459</id>
+    <id>64674</id>
     <gem1>0</gem1>
     <gem2>0</gem2>
     <gem3>0</gem3>
     <enchant>0</enchant>
     <reforge>
-      <from />
-      <to />
-      <value>0</value>
+      <from>Crit</from>
+      <to>Mast</to>
+      <value>28</value>
     </reforge>
   </Sigil>
   <Hand>
-    <id>51128</id>
-    <gem1>40142</gem1>
-    <gem2>0</gem2>
+    <id>65180</id>
+    <gem1>52264</gem1>
+    <gem2>40111</gem2>
     <gem3>0</gem3>
-    <enchant>3234</enchant>
+    <enchant>4106</enchant>
     <reforge>
-      <from />
-      <to />
-      <value>0</value>
+      <from>Haste</from>
+      <to>Hit</to>
+      <value>76</value>
     </reforge>
   </Hand>
   <Waist>
-    <id>50620</id>
-    <gem1>40162</gem1>
-    <gem2>40111</gem2>
-    <gem3>40111</gem3>
+    <id>65040</id>
+    <gem1>52260</gem1>
+    <gem2>52260</gem2>
+    <gem3>0</gem3>
     <enchant>0</enchant>
     <reforge>
-      <from />
-      <to />
-      <value>0</value>
+      <from>Crit</from>
+      <to>Mast</to>
+      <value>76</value>
     </reforge>
   </Waist>
   <Legs>
-    <id>50624</id>
-    <gem1>40111</gem1>
-    <gem2>40111</gem2>
-    <gem3>42142</gem3>
-    <enchant>3823</enchant>
+    <id>65182</id>
+    <gem1>52222</gem1>
+    <gem2>52222</gem2>
+    <gem3>0</gem3>
+    <enchant>4126</enchant>
     <reforge>
-      <from />
-      <to />
-      <value>0</value>
+      <from>Hit</from>
+      <to>Exp</to>
+      <value>86</value>
     </reforge>
   </Legs>
   <Feets>
-    <id>50639</id>
-    <gem1>40143</gem1>
-    <gem2>40111</gem2>
+    <id>65012</id>
+    <gem1>52222</gem1>
+    <gem2>0</gem2>
     <gem3>0</gem3>
-    <enchant>3826</enchant>
+    <enchant>4092</enchant>
     <reforge>
-      <from />
-      <to />
-      <value>0</value>
+      <from>Haste</from>
+      <to>Mast</to>
+      <value>68</value>
     </reforge>
   </Feets>
   <Finger1>
-    <id>50693</id>
-    <gem1>40142</gem1>
-    <gem2>0</gem2>
-    <gem3>0</gem3>
-    <enchant>3839</enchant>
-    <reforge>
-      <from />
-      <to />
-      <value>0</value>
-    </reforge>
-  </Finger1>
-  <Finger2>
-    <id>52572</id>
-    <gem1>40142</gem1>
-    <gem2>0</gem2>
-    <gem3>0</gem3>
-    <enchant>3839</enchant>
-    <reforge>
-      <from />
-      <to />
-      <value>0</value>
-    </reforge>
-  </Finger2>
-  <Trinket1>
-    <id>50363</id>
+    <id>65106</id>
     <gem1>0</gem1>
     <gem2>0</gem2>
     <gem3>0</gem3>
     <enchant>0</enchant>
     <reforge>
-      <from />
-      <to />
+      <from>Haste</from>
+      <to>Exp</to>
+      <value>57</value>
+    </reforge>
+  </Finger1>
+  <Finger2>
+    <id>60226</id>
+    <gem1>52222</gem1>
+    <gem2>0</gem2>
+    <gem3>0</gem3>
+    <enchant>0</enchant>
+    <reforge>
+      <from>Crit</from>
+      <to>Exp</to>
+      <value>45</value>
+    </reforge>
+  </Finger2>
+  <Trinket1>
+    <id>62049</id>
+    <gem1>0</gem1>
+    <gem2>0</gem2>
+    <gem3>0</gem3>
+    <enchant>0</enchant>
+    <reforge>
+      <from>Crit</from>
+      <to>Mast</to>
       <value>0</value>
     </reforge>
   </Trinket1>
   <Trinket2>
-    <id>47131</id>
+    <id>65118</id>
     <gem1>0</gem1>
     <gem2>0</gem2>
     <gem3>0</gem3>
     <enchant>0</enchant>
     <reforge>
-      <from />
-      <to />
+      <from></from>
+      <to></to>
       <value>0</value>
     </reforge>
   </Trinket2>
   <stat>
-    <Strength>2171</Strength>
-    <Agility>158</Agility>
+    <Strength>4919</Strength>
+    <Agility>137</Agility>
     <Intel>35</Intel>
-    <Armor>16419</Armor>
-    <AttackPower>843</AttackPower>
-    <HitRating>235</HitRating>
-    <CritRating>1377</CritRating>
-    <HasteRating>786</HasteRating>
+    <Stamina>5759</Stamina>
+    <Armor>21136</Armor>
+    <SpecialArmor>0</SpecialArmor>
+    <AttackPower>370</AttackPower>
+    <MasteryRating>1448</MasteryRating>
+    <HitRating>972</HitRating>
+    <CritRating>1459</CritRating>
+    <HasteRating>1039</HasteRating>
     <ArmorPenetrationRating>0</ArmorPenetrationRating>
-    <ExpertiseRating>62</ExpertiseRating>
+    <ExpertiseRating>772</ExpertiseRating>
   </stat>
   <weapon>
-    <count>1</count>
+    <count>2</count>
     <mainhand>
-      <dps>347.8</dps>
-      <speed>3.70</speed>
+      <dps>521.8</dps>
+      <speed>2.60</speed>
     </mainhand>
     <offhand>
-      <dps>0</dps>
-      <speed>0</speed>
+      <dps>521.8</dps>
+      <speed>2.60</speed>
     </offhand>
   </weapon>
   <Set>
-    <T104PDPS>1</T104PDPS>
-    <T102PDPS>1</T102PDPS>
+    <T114PDPS>1</T114PDPS>
+    <T112PDPS>1</T112PDPS>
   </Set>
   <trinket>
-    <DeathbringersWillHeroic>1</DeathbringersWillHeroic>
-    <DeathChoiceHeroic>1</DeathChoiceHeroic>
+    <DarkmoonCardHurricane>1</DarkmoonCardHurricane>
+    <CrushingWeightHeroic>1</CrushingWeightHeroic>
   </trinket>
-  <WeaponProc>
-    <MHShadowmourne>1</MHShadowmourne>
-  </WeaponProc>
+  <WeaponProc></WeaponProc>
   <misc>
     <HandMountedPyroRocket>false</HandMountedPyroRocket>
     <HyperspeedAccelerators>false</HyperspeedAccelerators>
-    <ChaoticSkyflareDiamond>true</ChaoticSkyflareDiamond>
+    <ChaoticSkyflareDiamond>false</ChaoticSkyflareDiamond>
     <TailorEnchant>false</TailorEnchant>
-    <AshenBand>true</AshenBand>
+    <AshenBand>false</AshenBand>
     <PrePullIndestructiblePotion>false</PrePullIndestructiblePotion>
-    <PrePullPotionofSpeed>false</PrePullPotionofSpeed>
+    <PrePullPotionofSpeed>true</PrePullPotionofSpeed>
     <IndestructiblePotion>false</IndestructiblePotion>
-    <PotionofSpeed>false</PotionofSpeed>
+    <PotionofSpeed>true</PotionofSpeed>
     <SaroniteBomb>false</SaroniteBomb>
     <SapperCharge>false</SapperCharge>
   </misc>
@@ -265,5 +273,8 @@
     <Orc>false</Orc>
     <Troll>false</Troll>
     <BloodElf>false</BloodElf>
+    <Dreani>false</Dreani>
+    <Worgen>false</Worgen>
+    <Goblin>false</Goblin>
   </racials>
 </character>

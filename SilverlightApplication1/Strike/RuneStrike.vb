@@ -37,11 +37,8 @@ Namespace Simulator.WowObjects.Strikes
         End Sub
 
         Overrides Function ApplyDamage(ByVal T As Long) As Boolean
-            If sim.level85 Then
                 BaseDamage = 15 * sim.Character.AP.CurrentValue / 100
-            Else
-                BaseDamage = 20 * sim.Character.AP.CurrentValue / 100
-            End If
+           
 
             trigger = False
             If Not OffHand Then UseGCD()

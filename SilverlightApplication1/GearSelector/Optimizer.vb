@@ -52,7 +52,58 @@ Public Class Optimizer
         End If
     End Sub
     Friend FinishedCount As Long
+    Sub Populate_alt()
+        For Each s In SlotList
+            s.GenerateVariation(True)
+        Next
 
+        Dim max As Long = 1
+        Dim r As Integer
+        For Each s In SlotList
+            r = s.ItemList.Count
+            max *= r
+        Next
+        Dim EPStatSet As New AllStat()
+        Dim EQ As New EquipementSet(EPStatSet)
+        unFinishedSet.Add(EQ)
+        Dim i As Integer = 1
+
+AddSet:
+
+
+        For Each EQ In unFinishedSet
+            WiPEquipementSetList.AddRange(EQ.CloneAddingThisSlot(SlotList.Item(EQ.ItemList.Count)))
+
+        Next
+        unFinishedSet = WiPEquipementSetList.ToList
+
+        If unFinishedSet.Count > 500000 Then
+            unFinishedSet = (From e In unFinishedSet Order By e.EPValue Descending Take 100000).ToList
+        End If
+        i += 1
+        ReportProgress(100 * i / SlotList.Count)
+        WiPEquipementSetList.Clear()
+        If unFinishedSet.Item(0).ItemList.Count = SlotList.Count Then
+            GoTo returnResult
+        End If
+        GoTo AddSet
+
+returnResult:
+
+
+
+
+        'end
+
+        FinishedSet = (From e In unFinishedSet
+                       Order By e.EPValue Descending).ToList
+
+
+        Dim ret As New RunWorkerCompletedEventArgs(FinishedSet.First, Nothing, False)
+        Me.OnRunWorkerCompleted(ret)
+
+
+    End Sub
     Sub Populate()
         For Each s In SlotList
             s.GenerateVariation(True)
@@ -159,7 +210,7 @@ processNext:
 
 
     Sub CleanupFinishedSet()
-
+        Exit Sub
         If FinishedSet.Count > 100000 Then
             FinishedSet = (From e In FinishedSet
                             Order By e.EPValue Descending

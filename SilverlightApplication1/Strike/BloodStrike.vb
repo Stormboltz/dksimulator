@@ -4,11 +4,7 @@ Namespace Simulator.WowObjects.Strikes
 
         Sub New(ByVal S As Sim)
             MyBase.New(S)
-            If S.level85 Then
                 BaseDamage = 850
-            Else
-                BaseDamage = 764
-            End If
 
             'If sim.Sigils.DarkRider Then BaseDamage += 90
             Coeficient = 0.8

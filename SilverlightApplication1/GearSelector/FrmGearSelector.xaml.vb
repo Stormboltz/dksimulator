@@ -190,24 +190,18 @@ Partial Public Class FrmGearSelector
     End Function
 
 
-    Sub ImportMyXMLCharacter(ByVal xmltext As String)
+  Sub ImportMyXMLCharacter(ByVal xmltext As String)
         Try
-
-            'Dim xmlChar As XDocument = XDocument.Parse(xmltext)
-            Dim xmlChar As XDocument = XDocument.Load("GearSelector/ArmoryImport/ArmoSample.xml")
+            Dim xmlChar As XDocument = XDocument.Parse(xmltext)
             Dim iSlot As VisualEquipSlot
             Me.InLoad = True
             Dim charfound As Boolean = False
             Dim tmp As String = ""
-            Dim xGearList As XElement
-
 
             InLoad = True
 
-            Dim aList = xmlChar.XPathSelectElements("//a").Count
-
             Try
-                ParentFrame.cmbRace.SelectedItem = (From el In xmlChar...<a> Where el.@class = "race").Value
+                ParentFrame.cmbRace.SelectedItem = xmlChar.Element("page").Element("characterInfo").Element("character").Attribute("race").Value
             Catch ex As Exception
                 Log.Log(ex.StackTrace, logging.Level.ERR)
             End Try
@@ -226,33 +220,23 @@ Partial Public Class FrmGearSelector
             Dim xItem As XElement
             ParentFrame.cmbSkill1.SelectedItem = Nothing
             ParentFrame.cmbSkill2.SelectedItem = Nothing
-            Dim l = (From el In xmlChar...<span> Where el.@class = "profession-details").ToList
-
-
-            For Each xItem In l
+            For Each xItem In xmlChar.Element("page").Element("characterInfo").Element("characterTab").Element("professions").Elements("skill")
                 If ParentFrame.cmbSkill1.SelectedItem <> "" Then
-                    ParentFrame.cmbSkill2.SelectedItem = (From el In xItem.<span> Where el.@<class> = "value").Value
+                    ParentFrame.cmbSkill2.SelectedItem = xItem.Attribute("name").Value
                 Else
-                    ParentFrame.cmbSkill1.SelectedItem = (From el In xItem.<span> Where el.@<class> = "value").Value
+                    ParentFrame.cmbSkill1.SelectedItem = xItem.Attribute("name").Value
                 End If
             Next
 
-            xGearList = (From el In xmlChar...<div>
-                   Where el.@class = "summary-inventory summary-inventory-advanced").First
-
             Try
                 Dim d As Boolean
-                Dim x = (From el In (From el In xGearList.<div> Where el.@<data-id> = 16)...<div>
-                         Where el.@<class> = "item-tooltip").Count
-                If x > 0 Then
-                    d = True
-                Else
-                    d = False
-                End If
-
+                d = ((From el As XElement In xmlChar.Element("page").Element("characterInfo").Element("characterTab").Element("items").Elements
+                        Where el.Attribute("slot") = "16"
+                        ).Count > 0)
                 If d Then
                     StatSummary.rDW.IsChecked = True
                     StatSummary.r2Hand.IsChecked = False
+
                     Me.rd2H.IsChecked = False
                     Me.rdDW.IsChecked = True
                 Else
@@ -269,41 +253,21 @@ Partial Public Class FrmGearSelector
                 Me.rdDW.IsChecked = False
             End Try
 
-            For Each xItem In xGearList.Elements
-
+            For Each xItem In xmlChar.Element("page").Element("characterInfo").Element("characterTab").Element("items").Elements("item")
                 charfound = True
                 For Each iSlot In Me.EquipmentList
-                    If iSlot.Text = ArmorySlot2MySlot(xItem.Attribute("data-id").Value) Then
+                    If iSlot.text = ArmorySlot2MySlot(xItem.Attribute("slot").Value) Then
                         Try
-                            Dim dataitem As String = (From el In xItem...<a>
-                                                      Where el.@<class> = "item").@<data-item>
-                            Dim Values = dataitem.Split("&amp;")
-                            Dim id As Integer = (From el In Values Where el.StartsWith("id=")).First.Replace("id=", "")
-                            iSlot.Item.LoadItem(id)
+                            iSlot.Item.LoadItem(xItem.Attribute("id").Value)
                             iSlot.DisplayItem()
-
-                            Dim gm As String = (From el In Values Where el.StartsWith("g1=")).First.Replace("g1=", "")
-                            iSlot.Item.gem1.Attach(gm)
-
-                            gm = 0
-                            gm = (From el In Values Where el.StartsWith("g2=")).First.Replace("g2=", "")
+                            iSlot.Item.gem1.Attach(xItem.Attribute("gem0Id").Value)
                             iSlot.Item.gem2.Attach(xItem.Attribute("gem1Id").Value)
-
-                            gm = 0
-                            gm = (From el In Values Where el.StartsWith("g3=")).First.Replace("g3=", "")
                             iSlot.Item.gem3.Attach(xItem.Attribute("gem2Id").Value)
 
-                            Dim ench As String = 0
-                            ench = (From el In Values Where el.StartsWith("e=")).First.Replace("e=", "")
                             iSlot.Item.Enchant.Attach(xItem.Attribute("permanentenchant").Value)
-                            Dim refId As String = (From el In Values Where el.StartsWith("re=")).First.Replace("re=", "")
-                            Dim refF As String = ""
-                            Dim refT As String = ""
-                            GetReforgeFromArmory(refId, refF, refT)
-                            iSlot.Item.ReForgingFrom = refF
-                            iSlot.Item.ReForgingTo = refT
+
                         Catch ex As System.Exception
-                            Diagnostics.Debug.WriteLine(ex.ToString)
+                            'Diagnostics.Debug.WriteLine (ex.ToString)
                         End Try
 
                     End If
@@ -319,6 +283,7 @@ Partial Public Class FrmGearSelector
             Me.InLoad = False
         End Try
     End Sub
+
     Sub GetReforgeFromArmory(ByVal ArmoryRef As Integer, ByRef refFrom As String, ByRef RefTo As String)
         Select Case ArmoryRef
             
@@ -473,7 +438,7 @@ Partial Public Class FrmGearSelector
 
     Sub ImportMyCharacter(ByVal region As String, ByVal realmName As String, ByVal characterName As String)
 
-        Dim url As String = "./newarmory.php?region=" & region.ToUpper & "&r=" & realmName & "&n=" & characterName
+        Dim url As String = "./armory.php?region=" & region.ToUpper & "&r=" & realmName & "&n=" & characterName
         Dim webClient As WebClient = New WebClient()
         AddHandler webClient.DownloadStringCompleted, AddressOf wc_OpenDonwloadCompleted
         Dim ur As New Uri(url, UriKind.Relative)
@@ -764,67 +729,7 @@ Partial Public Class FrmGearSelector
         ParentFrame.GetStats()
     End Sub
 
-    Sub Redraw()
-        'With HeadSlot
-        '    .Location = New System.Drawing.Point(space * 2, toolStrip1.Top + toolStrip1.Height + space)
-        'End With
-        'With NeckSlot
-        '    .Location = New System.Drawing.Point(HeadSlot.Left, HeadSlot.Top + HeadSlot.Height + space)
-        'End With
-        'With ShoulderSlot
-        '    .Location = New System.Drawing.Point(NeckSlot.Left, NeckSlot.Top + NeckSlot.Height + space)
-        'End With
-        'With BackSlot
-        '    .Location = New System.Drawing.Point(ShoulderSlot.Left, ShoulderSlot.Top + ShoulderSlot.Height + space)
-        'End With
-        'With ChestSlot
-        '    .Location = New System.Drawing.Point(BackSlot.Left, BackSlot.Top + BackSlot.Height + space)
-        'End With
-        'With WristSlot
-        '    .Location = New System.Drawing.Point(ChestSlot.Left, ChestSlot.Top + ChestSlot.Height + space)
-        'End With
-        'With TwoHWeapSlot
-        '    .Location = New System.Drawing.Point(WristSlot.Left, WristSlot.Top + WristSlot.Height + space)
-        'End With
-        'With MHWeapSlot
-        '    .Location = New System.Drawing.Point(WristSlot.Left, WristSlot.Top + WristSlot.Height + space)
-        'End With
-        'With OHWeapSlot
-        '    .Location = New System.Drawing.Point(MHWeapSlot.Left, MHWeapSlot.Top + MHWeapSlot.Height + space)
-        'End With
-        'With SigilSlot
-        '    .Location = New System.Drawing.Point(OHWeapSlot.left, OHWeapSlot.Top + OHWeapSlot.Height + space)
-        'End With
-        'With HandSlot
-        '    .Location = New System.Drawing.Point(HeadSlot.left + HeadSlot.Width + space, HeadSlot.Top)
-        'End With
-        'With BeltSlot
-        '    .Location = New System.Drawing.Point(HandSlot.left, HandSlot.Top + HandSlot.Height + space)
-        'End With
-        'With LegSlot
-        '    .Location = New System.Drawing.Point(BeltSlot.left, BeltSlot.Top + BeltSlot.Height + space)
-        'End With
-        'With FeetSlot
-        '    .Location = New System.Drawing.Point(LegSlot.left, LegSlot.Top + LegSlot.Height + space)
-        'End With
-        'With ring1Slot
-        '    .Location = New System.Drawing.Point(FeetSlot.left, FeetSlot.Top + FeetSlot.Height + space)
-        'End With
-        'With ring2Slot
-        '    .Location = New System.Drawing.Point(ring1Slot.left, ring1Slot.Top + ring1Slot.Height + space)
-        'End With
-        'With Trinket1Slot
-        '    .Location = New System.Drawing.Point(ring2Slot.left, ring2Slot.Top + ring2Slot.Height + space)
-        'End With
-        'With Trinket2Slot
-        '    .Location = New System.Drawing.Point(Trinket1Slot.left, Trinket1Slot.Top + Trinket1Slot.Height + space)
-        'End With
-        'groupBox1.Left = Trinket1Slot.left + Trinket1Slot.Width + space
-        'groupBox1.Top = HeadSlot.Top
-        'Me.Size = New Size(groupBox1.Left + groupBox1.Width + space, SigilSlot.Top + SigilSlot.Height + space)
-        'InLoad = False
-    End Sub
-
+ 
     Sub InitDisplay()
         InLoad = True
         If IsNothing(ParentFrame.ItemDB) Then ParentFrame.LoadDB()
@@ -1061,14 +966,6 @@ Partial Public Class FrmGearSelector
         'ImportMyCharacter
     End Sub
 
-
-
-
-
-
-
-
-
     Sub CmdSaveAsNewClick(ByVal sender As Object, ByVal e As EventArgs)
         Dim truc As New UserInput
         truc.Show()
@@ -1085,20 +982,10 @@ Partial Public Class FrmGearSelector
 
     End Sub
 
-
-
-
-
-
-
     Sub CmdArmoryImportClick(ByVal sender As Object, ByVal e As EventArgs) Handles cmdArmoryImport.Click
         'ImportMyCharacter("EU", "Chants Eternels", "Kahorie")
         ArmoryImport.Show()
     End Sub
-
-
-
-
 
     Private Sub cmdViewXml_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdViewXml.Click
         Dim oldPath As String = FilePath

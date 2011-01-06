@@ -32,6 +32,9 @@ Partial Public Class ItemEditor
         Me.SlotId = VSlot.SlotId
         Item = VSlot.Item
         Origin = VSlot.Name
+        'Item.ReForgingFrom = ""
+        'Item.ReForgingTo = ""
+
         DisplayItem()
         DisplayEnchant()
         DisplayGem()

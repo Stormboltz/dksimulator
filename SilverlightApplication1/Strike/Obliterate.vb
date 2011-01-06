@@ -14,11 +14,7 @@ Namespace Simulator.WowObjects.Strikes
         Sub New(ByVal S As Sim)
             MyBase.New(S)
             'TOTAL = (MHdamage+Base Damage)*coef* Multiplicator
-            If S.level85 Then
                 BaseDamage = 650
-            Else
-                BaseDamage = 584
-            End If
             Coeficient = 1.6
             Coeficient += sim.Character.Talents.Talent("Annihilation").Value * 15 / 100
             If sim.Character.Glyph("Obliterate") Then Coeficient += 0.25

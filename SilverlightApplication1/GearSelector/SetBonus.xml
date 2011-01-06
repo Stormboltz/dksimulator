@@ -42,7 +42,12 @@
     <id>-243</id>
     <id>-262</id>
   </set>
-
+  <set name='PVP' type='DPS'>
+    <id>-332</id>
+    <id>-316</id>
+    <id>924</id>
+  </set>
+    
   <set name='T11' type='DPS'>
     <id>925</id>
   </set>

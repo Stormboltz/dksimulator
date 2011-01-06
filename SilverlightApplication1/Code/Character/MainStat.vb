@@ -326,17 +326,12 @@ Namespace Simulator.Character
             SpellHaste._Name = "Spell Haste"
             If Sim.Character.Buff.SpellHaste Then SpellHaste.AddMulti(1.05)
 
-            If Sim.level85 Then
-                ArmorPenetration = New CalculatedStats.CalculatedStat(Sim, ArmorPenetrationRating, 90)
-                Mastery = New CalculatedStats.CalculatedStat(Sim, MasteryRating, 179.28)
-                Hit = New CalculatedStats.CalculatedStat(Sim, HitRating, 120.109)
-                SpellHit = New CalculatedStats.CalculatedStat(Sim, HitRating, 102.446)
-            Else
-                ArmorPenetration = New CalculatedStats.CalculatedStat(Sim, ArmorPenetrationRating, 22.55)
-                Mastery = New CalculatedStats.CalculatedStat(Sim, MasteryRating, 45.906)
-                Hit = New CalculatedStats.CalculatedStat(Sim, HitRating, 30.7548)
-                SpellHit = New CalculatedStats.CalculatedStat(Sim, HitRating, 26.232)
-            End If
+
+            ArmorPenetration = New CalculatedStats.CalculatedStat(Sim, ArmorPenetrationRating, 90)
+            Mastery = New CalculatedStats.CalculatedStat(Sim, MasteryRating, 179.28)
+            Hit = New CalculatedStats.CalculatedStat(Sim, HitRating, 120.109)
+            SpellHit = New CalculatedStats.CalculatedStat(Sim, HitRating, 102.446)
+
             Mastery.Add(0.08)
             ArmorPenetration._Name = "ArmorPenetration"
             Mastery._Name = "Mastery"

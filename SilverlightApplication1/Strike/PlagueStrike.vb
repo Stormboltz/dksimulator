@@ -3,11 +3,9 @@ Namespace Simulator.WowObjects.Strikes
         Inherits Strike
         Sub New(ByVal S As Sim)
             MyBase.New(S)
-            If S.level85 Then
-                BaseDamage = 420
-            Else
-                BaseDamage = 378
-            End If
+
+            BaseDamage = 420
+
 
             Coeficient = 1
             Coeficient += sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100

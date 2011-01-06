@@ -51,6 +51,9 @@ Partial Public Class VisualEquipSlot
         RemoveHandler GearS.Closing, AddressOf GearS_close
         If GearS.DialogResult = True Then
             If GearS.SelectedItem <> "-1" Then
+                Item.ReForgingFrom = ""
+                Item.ReForgingTo = ""
+                Item.ReForgingvalue = 0
                 Item.LoadItem(GearS.SelectedItem)
                 DisplayItem()
             End If

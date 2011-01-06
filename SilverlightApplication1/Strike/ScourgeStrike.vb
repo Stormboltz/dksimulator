@@ -20,13 +20,11 @@ Namespace Simulator.WowObjects.Strikes
             MagicTotal = 0
             logLevel = LogLevelEnum.Basic
 
-            If S.level85 Then
-                BaseDamage = 624
-            Else
-                BaseDamage = 561
-            End If
 
-            
+            BaseDamage = 624
+
+
+
             Coeficient = 1
 
             Coeficient += sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100

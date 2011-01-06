@@ -14,11 +14,7 @@ Namespace Simulator.WowObjects.Spells
 
         Sub New(ByVal S As Sim)
             MyBase.New(S)
-            If S.level85 Then
                 BaseDamage = 297 * 1.33
-            Else
-                BaseDamage = 200 * 1.33
-            End If
 
             Coeficient = (0.08)
             Multiplicator += sim.Character.Talents.Talent("CrimsonScourge").Value * 0.2

@@ -29,8 +29,8 @@ Partial Public Class ReportFrame
                     dgReport.Visibility = Windows.Visibility.Visible
                     Dim t As String = "[TABLE]"
                     t &= "Ability| Damage done|||| hits||| Crits||| Misses|| Glances|||TPS| Uptime" & vbCrLf
-                    t &= "|Total| %| #| Avg| #| %| Avg| #| %| Avg|  #| Avg| #| Avg| %|  %| " & vbCrLf
-
+                    't &= "|Total| %| #| Avg| #| %| Avg| #| %| Avg|  #| Avg| #| Avg| %|  %| " & vbCrLf
+                    t &= "|Total| %| #| Avg| #| Avg| %| #| Avg| %|  #| Avg| #| Avg| %|  %| " & vbCrLf
                     For Each r As ReportDisplayLine In Source
                         t = t & r.Ability & "|"
                         t = t & r.Damage_done_Total & "|"

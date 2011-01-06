@@ -161,7 +161,7 @@ Partial Public Class MainForm
 
         doc.Element("config").Add(New XElement("CharacterWithGear", cmbGearSelector.SelectedValue))
         doc.Element("config").Add(New XElement("template", cmbTemplate.SelectedValue))
-        doc.Element("config").Add(New XElement("lvl85", level85))
+        doc.Element("config").Add(New XElement("lvl85", True))
         doc.Element("config").Add(New XElement("mode", "priority"))
 
         doc.Element("config").Add(New XElement("intro", cmbIntro.SelectedValue))
@@ -348,8 +348,8 @@ Partial Public Class MainForm
                     isoStream.Close()
                     cmbGearSelector.SelectedValue = doc.Element("config").<CharacterWithGear>.Value
                     cmbTemplate.SelectedValue = doc.Element("config").<template>.Value
-                    level85 = doc.Element("config").<lvl85>.Value
-                    If level85 Then btlvl85.Content = "Set to level 80"
+
+
                     cmbPrio.IsEnabled = True
                     cmbIntro.SelectedValue = doc.Element("config").<intro>.Value
                     cmbPrio.SelectedValue = doc.Element("config").<priority>.Value
@@ -1475,8 +1475,15 @@ NextItem:
                     Loop
                 Loop
             End If
+            If StatSummary.cmbSetBonus2.Text = "PVP2PDPS" Or StatSummary.cmbSetBonus1.Text = "PVP2PDPS" Then
+                Strength += 70
+            End If
+            If StatSummary.cmbSetBonus2.Text = "PVP4PDPS" Or StatSummary.cmbSetBonus1.Text = "PVP4PDPS" Then
+                Strength += 180
+            End If
 
-            Armor += Agility * 2
+
+            'Armor += Agility * 2
             StatSummary.txtStr.Text = Strength
             StatSummary.txtAgi.Text = Agility
             '		BonusArmor
@@ -1498,21 +1505,14 @@ NextItem:
             StatSummary.txtParry.Text = ParryRating
             StatSummary.txtAddArmor.Text = BonusArmor
 refreshRating:
-            If level85 Then
-                StatSummary.lblHAste.Content = "Haste Rating (" & toDDecimal(StatSummary.txtHaste.Text / 128.05701) & "%)"
-                StatSummary.lblExp.Content = "Expertise Rating(" & (toDDecimal(StatSummary.txtExp.Text / 120.109)) * 4 & ")"
-                StatSummary.lblHit.Content = "Hit Rating(" & toDDecimal(StatSummary.txtHit.Text / 120.109) & "%)"
-                StatSummary.lblArP.Content = "ArP(" & toDDecimal(StatSummary.txtArP.Text / 13.99) & "%)"
-                StatSummary.lblCrit.Content = "CritRating(" & toDDecimal(StatSummary.txtCrit.Text / 179.28) & "%)"
-                StatSummary.lblMast.Content = "Mastery Rating(" & toDDecimal(StatSummary.txtMast.Text / 179.28) & "%)"
-            Else
-                StatSummary.lblHAste.Content = "Haste Rating (" & toDDecimal(StatSummary.txtHaste.Text / 32.79) & "%)"
-                StatSummary.lblExp.Content = "Expertise Rating(" & (toDDecimal(StatSummary.txtExp.Text / 30.7548)) * 4 & ")"
-                StatSummary.lblHit.Content = "Hit Rating(" & toDDecimal(StatSummary.txtHit.Text / 30.7548) & "%)"
-                StatSummary.lblArP.Content = "ArP(" & toDDecimal(StatSummary.txtArP.Text / 13.99) & ")"
-                StatSummary.lblCrit.Content = "CritRating(" & toDDecimal(StatSummary.txtCrit.Text / 45.906) & "%)"
-                StatSummary.lblMast.Content = "Mastery Rating(" & toDDecimal(StatSummary.txtMast.Text / 45.906) & "%)"
-            End If
+
+            StatSummary.lblHAste.Content = "Haste Rating (" & toDDecimal(StatSummary.txtHaste.Text / 128.05701) & "%)"
+            StatSummary.lblExp.Content = "Expertise Rating(" & (toDDecimal(StatSummary.txtExp.Text / 120.109)) * 4 & ")"
+            StatSummary.lblHit.Content = "Hit Rating(" & toDDecimal(StatSummary.txtHit.Text / 120.109) & "%)"
+            StatSummary.lblArP.Content = "ArP(" & toDDecimal(StatSummary.txtArP.Text / 13.99) & "%)"
+            StatSummary.lblCrit.Content = "CritRating(" & toDDecimal(StatSummary.txtCrit.Text / 179.28) & "%)"
+            StatSummary.lblMast.Content = "Mastery Rating(" & toDDecimal(StatSummary.txtMast.Text / 179.28) & "%)"
+
 
 
         Catch ex As Exception
@@ -1789,20 +1789,7 @@ refreshRating:
     Private Sub cmdRngSeeder_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles cmdRngSeeder.Click
         RNGSeeder += 1
     End Sub
-    Dim level85 As Boolean
-    Private Sub btlvl85_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs) Handles btlvl85.Click
-        If level85 Then
-            btlvl85.Content = "Set to level 85"
-            level85 = False
-            GetStats()
-        Else
-            btlvl85.Content = "Set to level 80"
-            level85 = True
-            GetStats()
-        End If
-
-    End Sub
-
+ 
     Sub CleanUp() Handles cmdCleanCache.Click
         Dim isoStore As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
 
@@ -1935,7 +1922,7 @@ refreshRating:
 
     Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs)
         Dim worker As Optimizer = CType(sender, Optimizer)
-        worker.Populate()
+        worker.Populate_alt()
     End Sub
 
 

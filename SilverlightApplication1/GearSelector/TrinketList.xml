@@ -55,8 +55,8 @@
   <trinket name='ImpatienceofYouth' id='62469' fullname='ImpatienceofYouth' procon='OnHit' internalcd='120' procchance='0.5' procstat='Strength' procvalue='1605' proclenght='20' damagetype='' maxstack='1' ></trinket>
   <trinket name='HeartofRage' id='59224' fullname='HeartofRage' procon='OnHit' internalcd='100' procchance='0.1' procstat='Strength' procvalue='1926' proclenght='20' damagetype='' maxstack='1' ></trinket>
   <trinket name='HeartofRageHeroic' id='65072' fullname='HeartofRageHeroic' procon='OnHit' internalcd='100' procchance='0.1' procstat='Strength' procvalue='2178' proclenght='20' damagetype='' maxstack='1' ></trinket>
-  <trinket name='FuryofAngerforge' id='59461' fullname='FuryofAngerforge' procon='OnHit' internalcd='120' procchance='0.1' procstat='Strength' procvalue='1926' proclenght='20' damagetype='' maxstack='1' ></trinket>
-  <trinket name='DarkmoonCardHurricane' id='62049' fullname='DarkmoonCardHurricane' procon='OnHit' internalcd='0' procchance='0.1' procstat='' procvalue='5000' proclenght='0' damagetype='arcane' maxstack='1' ></trinket>
+  <trinket name='FuryofAngerforge' id='59461' fullname='FuryofAngerforge' procon='OnHit' internalcd='180' procchance='0.1' procstat='Strength' procvalue='1926' proclenght='20' damagetype='' maxstack='1' ></trinket>
+  <trinket name='DarkmoonCardHurricane' id='62049' fullname='DarkmoonCardHurricane' procon='OnHit' internalcd='0' procchance='0.04' procstat='' procvalue='5000' proclenght='0' damagetype='arcane' maxstack='1' ></trinket>
   <trinket name='CrushingWeightHeroic' id='65118' fullname='CrushingWeightHeroic' procon='OnHit' internalcd='75' procchance='0.1' procstat='haste' procvalue='2178' proclenght='15' damagetype='' maxstack='1' ></trinket>
   <trinket name='CrushingWeight' id='59506' fullname='CrushingWeight' procon='OnHit' internalcd='75' procchance='0.1' procstat='haste' procvalue='1926' proclenght='15' damagetype='' maxstack='1' ></trinket>
 </TrinketList>

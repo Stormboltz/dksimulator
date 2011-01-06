@@ -14,11 +14,7 @@ Namespace Simulator.WowObjects.Spells
 
         Sub New(ByVal S As Sim)
             MyBase.New(S)
-            If s.level85 Then
                 BaseDamage = 46
-            Else
-                BaseDamage = 31
-            End If
 
             Coeficient = (0.0475)
             Multiplicator = 1

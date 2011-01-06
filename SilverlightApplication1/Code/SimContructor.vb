@@ -10,7 +10,7 @@ Imports DKSIMVB.Simulator
 Public Module SimConstructor
     Private StartTime As Date
     Dim MaxSimForScaling As Integer = 50
-
+    Dim EPBaseForScaling As Integer = 50
     Friend PetFriendly As Boolean
 
     ' Friend ReportPath As String
@@ -153,9 +153,8 @@ Public Module SimConstructor
                 Dim i As Integer
 
 
-                EPBase = 20
+                EPBase = EPBaseForScaling
                 For Each xNode In xNodelist.Elements
-
                     If xNode.Value = "true" Then
                         Dim l As New StatScallingLine(xNode.Name.ToString)
                         For i = 0 To MaxSimForScaling
@@ -809,7 +808,7 @@ skipTrinket:
         DPSs.Clear()
         ThreadCollection.Clear()
         simCollection.Clear()
-        EPBase = 50
+        EPBase = EPBaseForScaling
         _MainFrm = MainFrm
 
         _MainFrm.LoadBeforeSim()
@@ -829,7 +828,6 @@ skipTrinket:
 
 
         Dim simtime As Integer = Math.Min(Integer.Parse(CType(App.Current.RootVisual, MainForm).txtSimtime.Text), 100)
-        EPBase = 20
         For Each xNode In xNodelist.Elements
             If xNode.Value = "true" Then
                 For i = 0 To MaxSimForScaling

@@ -3,21 +3,11 @@ Namespace Simulator.WowObjects.Spells
         Inherits Spells.Spell
         Sub New(ByVal S As Sim)
             MyBase.New(S)
-            'If S.BloodPresence = 1 Then No more
-            '    ThreadMultiplicator = 7
-            'End If
-            If S.level85 Then
+        
                 BaseDamage = 505 + 547 / 2
-            Else
-                BaseDamage = 454 + 492 / 2
-            End If
 
-            'If Sim.Sigils.FrozenConscience Then BaseDamage += 111
             Coeficient = (0.2) 'Free Imp Icy Touch 
 
-            'If sim.Character.Talents.MainSpec = Character.Talents.Schools.Frost Then
-            '    Multiplicator = Multiplicator * 1.2 'Frozen Heart
-            'End If
             logLevel = LogLevelEnum.Basic
             DamageSchool = DamageSchoolEnum.Frost
             Dim rp As Integer = 10 + (sim.Character.Talents.Talent("ChillOfTheGrave").Value * 5)

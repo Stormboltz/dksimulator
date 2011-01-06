@@ -368,7 +368,6 @@
             </Grid.ColumnDefinitions>
             <Button Margin="32,5,31,5" Content="Start Simulation" Name="cmdStartSim"  Grid.Row="0" />
             <Button Margin="32,5,31,5" Content="Start EP"  Name="btEP"    Grid.Column="3" />
-            <Button Margin="32,5,31,5" Content="Switch to level 85"  Name="btlvl85"    Grid.Column="1" />
             <Button Margin="32,5,31,5" Content="Beginner Mode"  Name="cmdAdvancedMode" Grid.Column="2" />
             <ProgressBar  Margin="32,5,31,5" Name="ProgressBar1" Grid.ColumnSpan="4" Grid.Row="1" />
         </Grid>

@@ -72,11 +72,9 @@
         Inherits CalculatedStat
         Sub New(ByVal s As Sim, ByVal PrimaryStat As PrimaryStat)
             MyBase.New(s, PrimaryStat)
-            If sim.level85 Then
-                RatingRatio = 128.05701
-            Else
-                RatingRatio = 32.79
-            End If
+
+            RatingRatio = 128.05701
+
 
             AdditiveBuff = 1 '<= Very important
             CalculateCurrentValue()
@@ -86,11 +84,8 @@
         Inherits CalculatedStat
         Sub New(ByVal s As Sim, ByVal PrimaryStat As PrimaryStat)
             MyBase.New(s, PrimaryStat)
-            If sim.level85 Then
-                RatingRatio = 128.05701
-            Else
-                RatingRatio = 32.79
-            End If
+            RatingRatio = 128.05701
+
 
             AdditiveBuff = 1 '<= Very important
             CalculateCurrentValue()
@@ -100,11 +95,9 @@
         Inherits CalculatedStat
         Sub New(ByVal s As Sim, ByVal PrimaryStat As PrimaryStat)
             MyBase.New(s, PrimaryStat)
-            If sim.level85 Then
-                RatingRatio = 128.05701
-            Else
-                RatingRatio = 32.79
-            End If
+
+            RatingRatio = 128.05701
+
             AdditiveBuff = 1 '<= Very important
             CalculateCurrentValue()
         End Sub
@@ -113,11 +106,9 @@
         Inherits CalculatedStat
         Sub New(ByVal s As Sim, ByVal PrimaryStat As PrimaryStat)
             MyBase.New(s, PrimaryStat)
-            If sim.level85 Then
-                RatingRatio = 120.109
-            Else
-                RatingRatio = 26.769
-            End If
+
+            RatingRatio = 120.109
+
             AdditiveBuff = 0.25 * sim.Character.Talents.Talent("Vot3W").Value * 6
             CalculateCurrentValue()
         End Sub
@@ -126,11 +117,9 @@
         Inherits CalculatedStat
         Sub New(ByVal s As Sim, ByVal PrimaryStat As PrimaryStat)
             MyBase.New(s, PrimaryStat)
-            If sim.level85 Then
-                RatingRatio = 120.109
-            Else
-                RatingRatio = 26.769
-            End If
+
+            RatingRatio = 120.109
+
             AdditiveBuff = 0.25 * sim.Character.Talents.Talent("Vot3W").Value * 6 / 100
             AdditiveBuff += sim.Character.MHExpertiseBonus * 0.25 / 100
             CalculateCurrentValue()
@@ -140,11 +129,8 @@
         Inherits CalculatedStat
         Sub New(ByVal s As Sim, ByVal PrimaryStat As PrimaryStat)
             MyBase.New(s, PrimaryStat)
-            If sim.level85 Then
-                RatingRatio = 120.109
-            Else
-                RatingRatio = 26.769
-            End If
+
+            RatingRatio = 120.109
 
             AdditiveBuff = 0.25 * (sim.Character.Talents.Talent("Vot3W").Value * 6 / 100)
             AdditiveBuff += sim.Character.OHExpertiseBonus * 0.25 / 100
@@ -155,11 +141,9 @@
         Inherits CalculatedStat
         Sub New(ByVal s As Sim, ByVal PrimaryStat As PrimaryStat)
             MyBase.New(s, PrimaryStat)
-            If sim.level85 Then
-                RatingRatio = 179.28
-            Else
-                RatingRatio = 45.906
-            End If
+
+            RatingRatio = 179.28
+
             AdditiveBuff += 5 * sim.Character.Buff.Crit / 100
             AdditiveBuff += 5 * sim.Targets.MainTarget.Debuff.SpellCritTaken / 100
             AdditiveBuff -= 0.021 'Spell crit malus vs bosses
@@ -170,11 +154,9 @@
         Inherits CalculatedStat
         Sub New(ByVal s As Sim, ByVal PrimaryStat As PrimaryStat)
             MyBase.New(s, PrimaryStat)
-            If sim.level85 Then
-                RatingRatio = 179.28
-            Else
-                RatingRatio = 45.906
-            End If
+
+            RatingRatio = 179.28
+           
             AdditiveBuff += 5 * sim.Character.Buff.Crit / 100
             AdditiveBuff += 5 * sim.Targets.MainTarget.Debuff.SpellCritTaken / 100
             AdditiveBuff -= 0.048 'Crit malus vs bosses
@@ -210,11 +192,9 @@
             MyBase.New(s, PrimaryStat)
 
             SecondPrimaryStat = s.Character.Strength
-            If sim.level85 Then
-                RatingRatio = 179.28
-            Else
-                RatingRatio = 45.906
-            End If
+
+            RatingRatio = 179.28
+
             CalculateCurrentValue()
         End Sub
 

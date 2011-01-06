@@ -4,14 +4,7 @@ Namespace Simulator.WowObjects.Spells
         Sub New(ByVal S As Sim)
             MyBase.New(S)
             'Base Damage
-            If S.level85 Then
                 BaseDamage = 985
-            Else
-                BaseDamage = 885
-            End If
-
-            'If Sim.Sigils.VengefulHeart Then BaseDamage += 380
-            'If sim.Sigils.WildBuck Then BaseDamage += 80
             Resource = New Resource(S, Resource.ResourcesEnum.RunicPower, 40 - (3 * sim.Character.Talents.Talent("RunicCorruption").Value))
             Coeficient = 0.3
             Multiplicator += sim.Character.Talents.Talent("Morbidity").Value * 0.05

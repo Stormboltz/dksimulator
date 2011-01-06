@@ -10,11 +10,7 @@
         End Sub
 
         Public Overrides Function IsAvailable() As Boolean
-            If sim.level85 Then
                 Return (CD < sim.TimeStamp)
-            Else
-                Return False
-            End If
 
         End Function
 

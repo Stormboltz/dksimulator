@@ -14,7 +14,7 @@ Namespace Simulator
 
     Public Class Sim
         Friend CalculateUPtime As Boolean = True
-        Friend level85 As Boolean
+
         Dim Graphs As New List(Of StatScallingLine)
 
         Dim DPSLine As StatScallingLine
@@ -522,13 +522,15 @@ Namespace Simulator
             SimStart = Now
             Try
                 isoStore = IsolatedStorageFile.GetUserStoreForApplication()
+                Log.Log("Starting sim", logging.Level.WARNING)
             Catch ex As Exception
                 Diagnostics.Debug.WriteLine(ex.StackTrace)
                 RaiseEvent Sim_Closing(Me, EventArgs.Empty)
+                Log.Log("could not Get User Store For Application", logging.Level.ERR)
                 Return
             End Try
 
-
+            Log.Log("Loading config", logging.Level.WARNING)
             LoadConfig()
 
             Rnd(-1) 'Tell VB to initialize using Randomize's parameter
@@ -539,7 +541,7 @@ Namespace Simulator
 
 
             'Init
-
+            Log.Log("Initializing object", logging.Level.WARNING)
             Initialisation()
 
 
@@ -550,7 +552,7 @@ Namespace Simulator
             Rotation.LoadIntro()
             If Rotate Then Rotation.loadRotation()
             ' Pre Pull Activities
-
+            Log.Log("PrePulls stuff", logging.Level.WARNING)
             PrePull(TimeStamp)
 
             SoftReset()
@@ -565,37 +567,17 @@ Namespace Simulator
                 ProcessEvent(FE)
             Loop
 
+            Log.Log("Finishing", logging.Level.INFO)
             TotalDamageAlternative = TotalDamageAlternative + TotalDamage()
             TimeStampCounter = TimeStampCounter + TimeStamp
             TimeStamp = TimeStampCounter
 
 
-
-            'Dim obj As WowObject
-            'If ICCDamageBuff > 0 Then
-            '    For Each obj In DamagingObject
-            '        If obj.isGuardian = False Then
-            '            obj.total *= (1 + ICCDamageBuff / 100)
-            '            obj.TotalCrit *= (1 + ICCDamageBuff / 100)
-            '            obj.TotalHit *= (1 + ICCDamageBuff / 100)
-            '            obj.TotalGlance *= (1 + ICCDamageBuff / 100)
-            '        End If
-            '    Next
-            'End If
-
-
-            '
-
-            'If MultipleDamage.Count > 1 Then
-            '    MultipleDamage.Sort()
-            '    DPS = GetMedianValue() / FightLength
-            'Else
             DPS = 100 * TotalDamage() / TimeStamp
-            'End If
             Report()
             Diagnostics.Debug.WriteLine("DPS=" & DPS & " " & "TPS=" & TPS & " " & EPStat() & " hit=" & Character.Hit.Value & " sphit=" & Character.SpellHit.Value & " exp=" & Character.Expertise.Value)
-            'Diagnostics.Debug.WriteLine("Max events in queue " & me.FutureEventManager.Max )
             CombatLog.finish()
+
             'On Error Resume Next
             If Me.EPStat <> "" Then
                 If Me.BloodPresence = 1 Then
@@ -605,6 +587,7 @@ Namespace Simulator
                 End If
             End If
             'SimConstructor.simCollection.Remove(me)
+            Log.Log("Finished", logging.Level.WARNING)
             RaiseEvent Sim_Closing(Me, EventArgs.Empty)
         End Sub
 
@@ -871,24 +854,40 @@ Namespace Simulator
         End Sub
 
         Sub LoadConfig()
-            Using isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/config.xml", FileMode.Open, FileAccess.Read, isoStore)
+            Try
+                Dim isoStream As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/config.xml", FileMode.Open, FileAccess.Read, isoStore)
                 If IsNothing(XmlConfig) Then
                     XmlConfig = XDocument.Load(isoStream)
                     isoStream.Close()
                 End If
+            Catch ex As Exception
+                Log.Log("Could not read config.xml file", logging.Level.ERR)
+                Error 100
+            End Try
 
+            Try
                 Dim strCharacter As IsolatedStorageFileStream = New IsolatedStorageFileStream("KahoDKSim/CharactersWithGear/" & XmlConfig.Element("config").Element("CharacterWithGear").Value, FileMode.Open, FileAccess.Read, isoStore)
                 XmlCharacter = XDocument.Load(strCharacter)
                 strCharacter.Close()
+            Catch ex As Exception
+                Log.Log("Could not read character file", logging.Level.ERR)
+                Error 100
+            End Try
+            Try
                 IntroPath = "\Intro\" & XmlConfig.Element("config").Element("intro").Value
-
-                ScenarioPath = "\scenario\" & XmlConfig.Element("config").Element("scenario").Value
-
                 If System.IO.File.Exists(IntroPath) = False Then
                     IntroPath = "\Intro\NoIntro.xml"
                 End If
 
+            Catch ex As Exception
+                Log.Log("Could not read intro file", logging.Level.ERR)
+                Error 100
+            End Try
 
+            ScenarioPath = "\scenario\" & XmlConfig.Element("config").Element("scenario").Value
+
+
+            Try
                 If XmlConfig.Element("config").Element("mode").Value <> "priority" Then
                     Rotate = True
                     rotationPath = "\Rotation\" & XmlConfig.Element("config").Element("rotation").Value
@@ -896,78 +895,68 @@ Namespace Simulator
                     Rotate = False
                     loadPriority("\Priority\" & XmlConfig.Element("config").Element("priority").Value)
                 End If
+            Catch ex As Exception
+                Log.Log("Could not read Priority file into config file", logging.Level.ERR)
+                Error 100
+            End Try
 
+            Try
                 latency = XmlConfig.Element("config").Element("latency").Value
                 ShowProc = XmlConfig.Element("config").Element("ShowProc").Value
-                level85 = XmlConfig.Element("config").<lvl85>.Value
 
-                'Sigils = New Sigils_deprecated(Me)
-                'Sigils.WildBuck = False
-                'Sigils.FrozenConscience = False
-                'Sigils.DarkRider = False
-                'Sigils.ArthriticBinding = False
-                'Sigils.Awareness = False
-                'Sigils.Strife = False
-                'Sigils.HauntedDreams = False
-                'Sigils.VengefulHeart = False
-                'Sigils.Virulence = False
-                'Sigils.HangedMan = False
-                'Dim sigilId As Integer
-                'Try
-                '    sigilId = XmlCharacter.Element("character").Element("Sigil").Element("id").Value
-                'Catch ex As Exception
-                '    sigilId = 0
-                'End Try
+            Catch ex As Exception
+                Log.Log("Could not read misc config into config file", logging.Level.ERR)
+                Error 100
+            End Try
 
-                'Select Case sigilId
-                '    Case 3
-                '        Sigils.WildBuck = True
-                '    Case 4
-                '        Sigils.FrozenConscience = True
-                '    Case 1
-                '        Sigils.DarkRider = True
-                '    Case 2
-                '        Sigils.ArthriticBinding = True
-                '    Case 40207
-                '        Sigils.Awareness = True
-                '    Case 51417, 42619, 42620, 42621, 42622
-                '        ' Sigils.Strife = True
-                '    Case 40715
-                '        'Sigils.HauntedDreams = True
-                '    Case 45254
-                '        'Sigils.VengefulHeart = True
-                '    Case 47673
-                '        'Sigils.Virulence = True
-                '    Case 50459
-                '        'Sigils.HangedMan = True
-                'End Select
-
-
-
+            Try
                 proc = New ProcsManager(Me)
+            Catch ex As Exception
+                Log.Log("Could not init procs", logging.Level.ERR)
+                Error 100
+            End Try
 
+            Try
                 RuneForge = New RuneForge(Me)
+            Catch ex As Exception
+                Log.Log("Could not init RuneForge", logging.Level.ERR)
+                Error 100
+            End Try
 
 
+            Try
                 Character = New Character.MainStat(Me)
+            Catch ex As Exception
+                Log.Log("Could not init Character", logging.Level.ERR)
+                Error 100
+            End Try
 
+            Try
                 Dim targ As New Targets.Target(Me)
                 Targets.CurrentTarget = targ
                 Targets.MainTarget = targ
+            Catch ex As Exception
+                Log.Log("Could not init targets", logging.Level.ERR)
+                Error 100
+            End Try
 
+            Try
                 InitPresence()
                 Character.InitStats()
                 Character.InitTrinkets()
                 Character.InitSets()
+            Catch ex As Exception
+                Log.Log("Could not init presence and stats", logging.Level.ERR)
+                Error 100
+            End Try
 
+            Try
                 RunicPower = New RunicPower(Me)
-
                 Me.CombatLog.enable = XmlConfig.Element("config").Element("log").Value
                 Me.CombatLog.LogDetails = XmlConfig.Element("config").Element("logdetail").Value
                 MergeReport = XmlConfig.Element("config").Element("chkMergeReport").Value
                 ReportName = XmlConfig.Element("config").Element("txtReportName").Value
                 WaitForFallenCrusader = XmlConfig.Element("config").Element("WaitFC").Value
-
 
                 Select Case XmlConfig.Element("config").Element("BShOption").Value
                     Case "Instead of Blood Strike"
@@ -994,16 +983,13 @@ Namespace Simulator
                 Catch
                     BoneShieldTTL = 300
                 End Try
-            End Using
-
-
-
-
-
-
-
+            Catch ex As Exception
+                Log.Log("Could not init misc parameters part 2", logging.Level.ERR)
+                Error 100
+            End Try
             Exit Sub
 errH:
+            Log.Log("Error reading config file", logging.Level.ERR)
             msgBox("Error reading config file")
         End Sub
         Sub InitPresence()

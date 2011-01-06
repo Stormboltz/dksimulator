@@ -12,11 +12,7 @@ Namespace Simulator.WowObjects.Strikes
         Dim Glyphed As Boolean
         Sub New(ByVal S As Sim)
             MyBase.New(S)
-            If S.level85 Then
                 BaseDamage = 330
-            Else
-                BaseDamage = 297
-            End If
 
             Coeficient = 1.5
             Coeficient += sim.Character.Talents.Talent("ImprovedDeathStrike").Value * 15 / 100
