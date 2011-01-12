@@ -102,8 +102,15 @@ Namespace Simulator.WowObjects.Diseases
             tmp = Sim.Character.StandardMagicalDamageMultiplier(T)
             If Sim.RuneForge.CheckCinderglacier(False) > 0 Then tmp *= 1.2
             Multiplicator += sim.Character.Talents.Talent("EbonPlaguebringer").Value * 15 / 100
+
+
             If sim.Character.Talents.MainSpec = (Character.Talents.Schools.Unholy) Then
+                If Not sim.NextPatch Then
                     Multiplicator += 5 * sim.Character.Mastery.Value
+                Else
+                    Multiplicator += 0.1 * sim.Character.Talents("Virulence")
+                End If
+
             End If
             If target.Equals(sim.Targets.MainTarget) = False Then
                 tmp = tmp / 2

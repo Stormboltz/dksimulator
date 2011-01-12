@@ -50,7 +50,12 @@ Namespace Simulator.WowObjects.Spells
             MyBase.Use()
             UseGCD(sim.TimeStamp)
             sim.CombatLog.write(sim.TimeStamp & vbTab & "Bone Shield")
-            Charge = 3
+            If sim.NextPatch Then
+                Charge = 4
+            Else
+                Charge = 3
+            End If
+
             'If sim.Character.Glyph("BoneShield") Then Charge += 1
             HitCount += 1
             AddUptime(sim.TimeStamp)

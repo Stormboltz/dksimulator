@@ -21,6 +21,10 @@ Namespace Simulator.WowObjects.Strikes
             Dim c As Integer = 40
             If sim.Character.Glyph("froststrike") Then c -= 8
             Resource = New Resource(S, Resource.ResourcesEnum.RunicPower, c)
+            If sim.NextPatch Then
+                Dim n As Integer = sim.Character.Talents("MightOfFrozenWastes") * 4
+                Coeficient = 1.21 * (1 + n / 100)
+            End If
 
             AdditionalCritChance += 8 * sim.Character.T82PDPS / 100
             AdditionalCritChance += 5 * sim.Character.T112PDPS / 100

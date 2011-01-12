@@ -82,6 +82,7 @@ Namespace Simulator.WowObjects.Strikes
                 If sim.Character.Glyph("ScourgeStrike") Then Multiplicator += 0.3
                 Multiplicator += sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100
                 logLevel = LogLevelEnum.Basic
+                DamageSchool = DamageSchoolEnum.Shadow
                 Resource = New Resource(sim, Resource.ResourcesEnum.None)
             End Sub
 
@@ -98,10 +99,20 @@ Namespace Simulator.WowObjects.Strikes
 
             Public Overrides Function AvrgNonCrit(ByVal T As Long, ByVal target As Targets.Target) As Double
                 Dim tmpMagical As Integer
-                tmpMagical = tmpPhysical * (0.12 * target.NumDisease)
+                If sim.NextPatch Then
+                    tmpMagical = tmpPhysical * (0.18 * target.NumDisease)
+                Else
+                    tmpMagical = tmpPhysical * (0.12 * target.NumDisease)
+                End If
+
                 If sim.Character.T84PDPS = 1 Then tmpMagical = tmpMagical * 1.2
                 tmpMagical *= sim.Character.StandardMagicalDamageMultiplier(T, target)
                 If sim.RuneForge.CheckCinderglacier(True) > 0 Then tmpMagical *= 1.2
+                If sim.NextPatch Then
+                    If sim.Character.Talents.MainSpec = Character.Talents.Schools.Unholy Then
+                        tmpMagical *= 1 + sim.Character.Mastery.Value * 2.5
+                    End If
+                End If
                 tmpMagical *= Multiplicator
                 Return tmpMagical
             End Function

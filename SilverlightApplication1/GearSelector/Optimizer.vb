@@ -78,7 +78,7 @@ AddSet:
         unFinishedSet = WiPEquipementSetList.ToList
 
         If unFinishedSet.Count > 500000 Then
-            unFinishedSet = (From e In unFinishedSet Order By e.EPValue Descending Take 100000).ToList
+            unFinishedSet = (From e In unFinishedSet Order By e.EPValue Descending Take 250000).ToList
         End If
         i += 1
         ReportProgress(100 * i / SlotList.Count)
@@ -210,7 +210,7 @@ processNext:
 
 
     Sub CleanupFinishedSet()
-        Exit Sub
+        'Exit Sub
         If FinishedSet.Count > 100000 Then
             FinishedSet = (From e In FinishedSet
                             Order By e.EPValue Descending

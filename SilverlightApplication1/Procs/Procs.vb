@@ -112,7 +112,12 @@ Namespace Simulator.WowObjects.Procs
                 ._Name = "Crimson Scourge"
                 .ProcLenght = 30
                 '.ProcOn = ProcOnType.OnPlagueStrike
-                .ProcChance = Sim.Character.Talents.Talent("CrimsonScourge").Value / 2
+                If Sim.NextPatch Then
+                    .ProcOn = ProcOnType.OnHit
+                    .ProcChance = Sim.Character.Talents.Talent("CrimsonScourge").Value * 5 / 100
+                Else
+                    .ProcChance = Sim.Character.Talents.Talent("CrimsonScourge").Value / 2
+                End If
                 If .ProcChance > 0 Then .Equip()
             End With
 
@@ -199,8 +204,14 @@ Namespace Simulator.WowObjects.Procs
             SuddenDoom = New Proc(s)
             With SuddenDoom
                 ._Name = "SuddenDoom"
-                .ProcChance = Sim.Character.Talents.Talent("SuddenDoom").Value * 0.05
-                .ProcOn = ProcsManager.ProcOnType.OnWhitehit
+
+                If Sim.NextPatch Then
+                    .ProcChance = (Sim.Character.Talents.Talent("SuddenDoom").Value * 2) * s.Character.MHWeaponSpeed / 60
+                    .ProcOn = ProcsManager.ProcOnType.OnMHWhiteHit
+                Else
+                    .ProcChance = Sim.Character.Talents.Talent("SuddenDoom").Value * 0.05
+                    .ProcOn = ProcsManager.ProcOnType.OnWhitehit
+                End If
                 .ProcLenght = 20
                 If .ProcChance > 0 Then
                     .Equip()

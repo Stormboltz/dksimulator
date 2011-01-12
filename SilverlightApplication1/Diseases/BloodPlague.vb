@@ -8,6 +8,20 @@ Namespace Simulator.WowObjects.Diseases
             MyBase.New(S)
         End Sub
 
+        Overrides Function CalculateMultiplier(ByVal T As Long, ByVal target As Targets.Target) As Double
+            If target Is Nothing Then target = Sim.Targets.MainTarget
+            Dim tmp As Double
+            Multiplicator = 1
+            tmp = MyBase.CalculateMultiplier(T, target)
+            If sim.Character.Talents.MainSpec = (Character.Talents.Schools.Unholy) Then
+                If sim.NextPatch Then
+                    Multiplicator += sim.Character.Mastery.Value * 2.5
+                End If
+            End If
+            tmp *= Multiplicator
+            Return tmp
+        End Function
+
        
         Public Overloads Overrides Sub Merge()
             If Me.Equals(Sim.Targets.MainTarget.BloodPlague) = False Then

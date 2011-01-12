@@ -1,29 +1,5 @@
 <?xml version="1.0"?>
 <gems>
-  <item id="52206">
-    <id>52206</id>
-    <quality>3</quality>
-    <name>Bold Inferno Ruby</name>
-    <ilvl>85</ilvl>
-    <slot>0</slot>
-    <classs>3</classs>
-    <subclass>0</subclass>
-    <Stamina>0</Stamina>
-    <Dodge>0</Dodge>
-    <Parry>0</Parry>
-    <Strength>40</Strength>
-    <Agility>0</Agility>
-    <HasteRating>0</HasteRating>
-    <ExpertiseRating>0</ExpertiseRating>
-    <ArmorPenetrationRating>0</ArmorPenetrationRating>
-    <HitRating>0</HitRating>
-    <AttackPower>0</AttackPower>
-    <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
-    <reqskill>0</reqskill>
-    <keywords>Strenght</keywords>
-  </item>
-  
   <item id="59493">
     <id>59493</id>
     <quality>3</quality>
@@ -43,7 +19,7 @@
     <HitRating>208</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>202</reqskill>
     <keywords>HitRating</keywords>
   </item>
@@ -66,7 +42,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>202</reqskill>
     <keywords>ExpertiseRating</keywords>
   </item>
@@ -89,7 +65,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>202</reqskill>
     <keywords>HasteRating</keywords>
   </item>
@@ -112,7 +88,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>208</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>202</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -135,7 +111,7 @@
     <HitRating>67</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>755</reqskill>
     <keywords>HitRating</keywords>
   </item>
@@ -158,32 +134,9 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>755</reqskill>
     <keywords>ExpertiseRating</keywords>
-  </item>
-  <item id="52255">
-    <id>52255</id>
-    <quality>4</quality>
-    <name>Bold Chimera's Eye</name>
-    <ilvl>80</ilvl>
-    <slot>0</slot>
-    <classs>3</classs>
-    <subclass>0</subclass>
-    <Stamina>0</Stamina>
-    <Dodge>0</Dodge>
-    <Parry>0</Parry>
-    <Strength>67</Strength>
-    <Agility>0</Agility>
-    <HasteRating>0</HasteRating>
-    <ExpertiseRating>0</ExpertiseRating>
-    <ArmorPenetrationRating>0</ArmorPenetrationRating>
-    <HitRating>0</HitRating>
-    <AttackPower>0</AttackPower>
-    <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
-    <reqskill>755</reqskill>
-    <keywords>Strength</keywords>
   </item>
   <item id="42142">
     <id>42142</id>
@@ -204,7 +157,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>755</reqskill>
     <keywords>Strength</keywords>
   </item>
@@ -227,7 +180,7 @@
     <HitRating>20</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRatingStrength</keywords>
   </item>
@@ -250,7 +203,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>755</reqskill>
     <keywords>HasteRating</keywords>
   </item>
@@ -273,7 +226,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>67</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>755</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -296,7 +249,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>Strength</keywords>
   </item>
@@ -319,7 +272,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>20</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRatingStrength</keywords>
   </item>
@@ -342,7 +295,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>54</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -365,7 +318,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>54</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -388,7 +341,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>54</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -411,7 +364,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>54</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -434,7 +387,7 @@
     <HitRating>20</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRatingExpertiseRating</keywords>
   </item>
@@ -457,7 +410,7 @@
     <HitRating>20</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRatingHasteRating</keywords>
   </item>
@@ -480,7 +433,7 @@
     <HitRating>34</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>755</reqskill>
     <keywords>HitRating</keywords>
   </item>
@@ -503,7 +456,7 @@
     <HitRating>20</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>20</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRatingHitRating</keywords>
   </item>
@@ -526,7 +479,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>Strength</keywords>
   </item>
@@ -549,7 +502,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>Strength</keywords>
   </item>
@@ -572,7 +525,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>20</MasteryRating>
+    <Mastery>20</Mastery>
     <reqskill>0</reqskill>
     <keywords>MasteryStrength</keywords>
   </item>
@@ -595,7 +548,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>Strength</keywords>
   </item>
@@ -618,7 +571,7 @@
     <HitRating>15</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRatingExpertiseRating</keywords>
   </item>
@@ -641,7 +594,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>755</reqskill>
     <keywords>ExpertiseRating</keywords>
   </item>
@@ -664,7 +617,7 @@
     <HitRating>15</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>15</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRatingHitRating</keywords>
   </item>
@@ -687,7 +640,7 @@
     <HitRating>10</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRatingStrength</keywords>
   </item>
@@ -710,7 +663,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>755</reqskill>
     <keywords>HasteRating</keywords>
   </item>
@@ -733,7 +686,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>Strength</keywords>
   </item>
@@ -756,7 +709,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>34</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>755</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -779,7 +732,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>34</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>755</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -802,7 +755,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>ExpertiseRating</keywords>
   </item>
@@ -825,7 +778,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>Strength</keywords>
   </item>
@@ -848,34 +801,10 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>15</MasteryRating>
+    <Mastery>15</Mastery>
     <reqskill>0</reqskill>
     <keywords>MasteryStrength</keywords>
   </item>
-  <item id="52214">
-    <id>52214</id>
-    <quality>4</quality>
-    <name>Fierce Ember Topaz</name>
-    <ilvl>80</ilvl>
-    <slot>0</slot>
-    <classs>3</classs>
-    <subclass>5</subclass>
-    <Stamina>0</Stamina>
-    <Dodge>0</Dodge>
-    <Parry>0</Parry>
-    <Strength>20</Strength>
-    <Agility>0</Agility>
-    <HasteRating>20</HasteRating>
-    <ExpertiseRating>0</ExpertiseRating>
-    <ArmorPenetrationRating>0</ArmorPenetrationRating>
-    <HitRating>0</HitRating>
-    <AttackPower>0</AttackPower>
-    <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
-    <reqskill>0</reqskill>
-    <keywords>HasteRatingStrength</keywords>
-  </item>
-  
   <item id="40146">
     <id>40146</id>
     <quality>4</quality>
@@ -895,7 +824,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HasteRatingStrength</keywords>
   </item>
@@ -918,7 +847,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>10</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRatingStrength</keywords>
   </item>
@@ -941,7 +870,7 @@
     <HitRating>8</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRatingStrength</keywords>
   </item>
@@ -964,7 +893,7 @@
     <HitRating>20</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRating</keywords>
   </item>
@@ -987,7 +916,7 @@
     <HitRating>20</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRating</keywords>
   </item>
@@ -1010,7 +939,7 @@
     <HitRating>20</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRatingDodge</keywords>
   </item>
@@ -1033,7 +962,7 @@
     <HitRating>20</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRatingParry</keywords>
   </item>
@@ -1056,7 +985,7 @@
     <HitRating>20</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>20</MasteryRating>
+    <Mastery>20</Mastery>
     <reqskill>0</reqskill>
     <keywords>MasteryHitRating</keywords>
   </item>
@@ -1079,7 +1008,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HasteRatingStrength</keywords>
   </item>
@@ -1102,7 +1031,7 @@
     <HitRating>10</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRatingExpertiseRating</keywords>
   </item>
@@ -1125,7 +1054,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>8</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRatingStrength</keywords>
   </item>
@@ -1148,7 +1077,7 @@
     <HitRating>10</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRatingHasteRating</keywords>
   </item>
@@ -1171,7 +1100,7 @@
     <HitRating>10</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRatingHasteRating</keywords>
   </item>
@@ -1194,7 +1123,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>25</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -1217,7 +1146,7 @@
     <HitRating>16</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRating</keywords>
   </item>
@@ -1240,7 +1169,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>ExpertiseRating</keywords>
   </item>
@@ -1263,7 +1192,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>20</MasteryRating>
+    <Mastery>20</Mastery>
     <reqskill>0</reqskill>
     <keywords>MasteryExpertiseRating</keywords>
   </item>
@@ -1286,7 +1215,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HasteRating</keywords>
   </item>
@@ -1309,7 +1238,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>Strength</keywords>
   </item>
@@ -1332,7 +1261,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>StrengthDodge</keywords>
   </item>
@@ -1355,7 +1284,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>Strength</keywords>
   </item>
@@ -1378,7 +1307,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>AgilityStrength</keywords>
   </item>
@@ -1401,7 +1330,7 @@
     <HitRating>15</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRating</keywords>
   </item>
@@ -1424,7 +1353,7 @@
     <HitRating>15</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRatingDodge</keywords>
   </item>
@@ -1447,7 +1376,7 @@
     <HitRating>15</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>15</MasteryRating>
+    <Mastery>15</Mastery>
     <reqskill>0</reqskill>
     <keywords>MasteryHitRating</keywords>
   </item>
@@ -1470,7 +1399,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HasteRating</keywords>
   </item>
@@ -1493,7 +1422,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HasteRatingAgility</keywords>
   </item>
@@ -1516,7 +1445,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HasteRating</keywords>
   </item>
@@ -1539,7 +1468,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>21</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -1562,7 +1491,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>21</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -1585,7 +1514,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>21</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -1608,7 +1537,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>21</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -1631,7 +1560,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>21</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -1654,7 +1583,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>21</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -1677,7 +1606,7 @@
     <HitRating>8</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRatingExpertiseRating</keywords>
   </item>
@@ -1700,7 +1629,7 @@
     <HitRating>8</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRatingHasteRating</keywords>
   </item>
@@ -1723,7 +1652,7 @@
     <HitRating>8</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRatingHasteRating</keywords>
   </item>
@@ -1746,7 +1675,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>20</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -1769,7 +1698,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>20</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -1792,7 +1721,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>20</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -1815,7 +1744,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>ExpertiseRating</keywords>
   </item>
@@ -1838,7 +1767,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>Strength</keywords>
   </item>
@@ -1861,7 +1790,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>StrengthDodge</keywords>
   </item>
@@ -1884,7 +1813,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>Strength</keywords>
   </item>
@@ -1907,7 +1836,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HasteRating</keywords>
   </item>
@@ -1930,7 +1859,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>17</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -1953,7 +1882,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>17</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -1976,7 +1905,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>17</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -1999,7 +1928,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>17</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -2022,7 +1951,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>15</MasteryRating>
+    <Mastery>15</Mastery>
     <reqskill>0</reqskill>
     <keywords>MasteryExpertiseRating</keywords>
   </item>
@@ -2045,7 +1974,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>16</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -2068,7 +1997,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>16</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -2091,7 +2020,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HasteRating</keywords>
   </item>
@@ -2114,7 +2043,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HasteRating</keywords>
   </item>
@@ -2137,7 +2066,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>15</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRatingAgility</keywords>
   </item>
@@ -2160,7 +2089,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>15</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -2183,7 +2112,7 @@
     <HitRating>10</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRatingAgility</keywords>
   </item>
@@ -2206,7 +2135,7 @@
     <HitRating>10</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRatingAgility</keywords>
   </item>
@@ -2229,7 +2158,7 @@
     <HitRating>10</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRatingAgility</keywords>
   </item>
@@ -2252,7 +2181,7 @@
     <HitRating>10</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRating</keywords>
   </item>
@@ -2275,7 +2204,7 @@
     <HitRating>10</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRatingAgility</keywords>
   </item>
@@ -2298,7 +2227,7 @@
     <HitRating>10</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRatingDodge</keywords>
   </item>
@@ -2321,7 +2250,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>AgilityStrength</keywords>
   </item>
@@ -2344,7 +2273,7 @@
     <HitRating>8</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRatingAgility</keywords>
   </item>
@@ -2367,7 +2296,7 @@
     <HitRating>8</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRatingAgility</keywords>
   </item>
@@ -2390,7 +2319,7 @@
     <HitRating>8</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRatingAgility</keywords>
   </item>
@@ -2413,7 +2342,7 @@
     <HitRating>8</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRating</keywords>
   </item>
@@ -2436,7 +2365,7 @@
     <HitRating>8</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRatingAgility</keywords>
   </item>
@@ -2459,7 +2388,7 @@
     <HitRating>8</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HitRatingDodge</keywords>
   </item>
@@ -2482,7 +2411,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>ExpertiseRating</keywords>
   </item>
@@ -2505,7 +2434,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>ExpertiseRatingDodge</keywords>
   </item>
@@ -2528,7 +2457,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HasteRatingAgility</keywords>
   </item>
@@ -2551,7 +2480,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HasteRating</keywords>
   </item>
@@ -2574,7 +2503,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HasteRatingAgility</keywords>
   </item>
@@ -2597,7 +2526,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HasteRating</keywords>
   </item>
@@ -2620,7 +2549,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HasteRating</keywords>
   </item>
@@ -2643,7 +2572,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HasteRating</keywords>
   </item>
@@ -2666,7 +2595,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HasteRating</keywords>
   </item>
@@ -2689,7 +2618,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>10</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -2712,7 +2641,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>10</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRatingAgility</keywords>
   </item>
@@ -2735,7 +2664,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>10</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -2758,7 +2687,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>10</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRatingAgility</keywords>
   </item>
@@ -2781,7 +2710,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>10</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -2804,7 +2733,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>10</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -2827,7 +2756,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>10</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -2850,7 +2779,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>10</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -2873,7 +2802,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>10</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -2896,7 +2825,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>ExpertiseRating</keywords>
   </item>
@@ -2919,7 +2848,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>ExpertiseRatingDodge</keywords>
   </item>
@@ -2942,7 +2871,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>AgilityStrength</keywords>
   </item>
@@ -2965,7 +2894,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HasteRatingAgility</keywords>
   </item>
@@ -2988,7 +2917,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HasteRating</keywords>
   </item>
@@ -3011,7 +2940,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HasteRating</keywords>
   </item>
@@ -3034,7 +2963,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HasteRatingAgility</keywords>
   </item>
@@ -3057,7 +2986,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HasteRating</keywords>
   </item>
@@ -3080,7 +3009,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HasteRating</keywords>
   </item>
@@ -3103,7 +3032,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HasteRating</keywords>
   </item>
@@ -3126,7 +3055,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HasteRating</keywords>
   </item>
@@ -3149,7 +3078,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>8</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -3172,7 +3101,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>8</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRatingAgility</keywords>
   </item>
@@ -3195,7 +3124,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>8</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -3218,7 +3147,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>8</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRatingAgility</keywords>
   </item>
@@ -3241,7 +3170,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>8</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -3264,7 +3193,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>8</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -3287,7 +3216,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>8</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -3310,7 +3239,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>8</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -3333,7 +3262,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>8</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>CritRating</keywords>
   </item>
@@ -3356,7 +3285,7 @@
     <HitRating>0</HitRating>
     <AttackPower>0</AttackPower>
     <CritRating>0</CritRating>
-    <MasteryRating>0</MasteryRating>
+    <Mastery>0</Mastery>
     <reqskill>0</reqskill>
     <keywords>HasteRatingStrength</keywords>
   </item>
@@ -3713,6 +3642,469 @@
     <id>52299</id>
     <quality>3</quality>
     <name>Powerful Shadowspirit Diamond</name>
+    <ilvl>85</ilvl>
+    <slot>0</slot>
+    <classs>3</classs>
+    <subclass>6</subclass>
+    <Stamina>81</Stamina>
+    <Dodge>0</Dodge>
+    <Parry>0</Parry>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <MasteryRating>0</MasteryRating>
+    <reqskill>0</reqskill>
+    <keywords>
+    </keywords>
+  </item>
+  <item id="52255">
+    <id>52255</id>
+    <quality>4</quality>
+    <name>Bold Chimera's Eye</name>
+    <ilvl>85</ilvl>
+    <slot>0</slot>
+    <classs>3</classs>
+    <subclass>0</subclass>
+    <Stamina>0</Stamina>
+    <Dodge>0</Dodge>
+    <Parry>0</Parry>
+    <Strength>67</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <MasteryRating>0</MasteryRating>
+    <reqskill>755</reqskill>
+    <keywords>Strength</keywords>
+  </item>
+  <item id="52258">
+    <id>52258</id>
+    <quality>4</quality>
+    <name>Delicate Chimera's Eye</name>
+    <ilvl>85</ilvl>
+    <slot>0</slot>
+    <classs>3</classs>
+    <subclass>0</subclass>
+    <Stamina>0</Stamina>
+    <Dodge>0</Dodge>
+    <Parry>0</Parry>
+    <Strength>0</Strength>
+    <Agility>67</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <MasteryRating>0</MasteryRating>
+    <reqskill>755</reqskill>
+    <keywords>Agility</keywords>
+  </item>
+  <item id="52265">
+    <id>52265</id>
+    <quality>4</quality>
+    <name>Subtle Chimera's Eye</name>
+    <ilvl>85</ilvl>
+    <slot>0</slot>
+    <classs>3</classs>
+    <subclass>2</subclass>
+    <Stamina>0</Stamina>
+    <Dodge>67</Dodge>
+    <Parry>0</Parry>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <MasteryRating>0</MasteryRating>
+    <reqskill>755</reqskill>
+    <keywords>Dodge</keywords>
+  </item>
+  <item id="52206">
+    <id>52206</id>
+    <quality>3</quality>
+    <name>Bold Inferno Ruby</name>
+    <ilvl>85</ilvl>
+    <slot>0</slot>
+    <classs>3</classs>
+    <subclass>0</subclass>
+    <Stamina>0</Stamina>
+    <Dodge>0</Dodge>
+    <Parry>0</Parry>
+    <Strength>40</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <MasteryRating>0</MasteryRating>
+    <reqskill>0</reqskill>
+    <keywords>Strength</keywords>
+  </item>
+  <item id="52209">
+    <id>52209</id>
+    <quality>3</quality>
+    <name>Deadly Ember Topaz</name>
+    <ilvl>85</ilvl>
+    <slot>0</slot>
+    <classs>3</classs>
+    <subclass>5</subclass>
+    <Stamina>0</Stamina>
+    <Dodge>0</Dodge>
+    <Parry>0</Parry>
+    <Strength>0</Strength>
+    <Agility>20</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>20</CritRating>
+    <MasteryRating>0</MasteryRating>
+    <reqskill>0</reqskill>
+    <keywords>CritRatingAgility</keywords>
+  </item>
+  <item id="52214">
+    <id>52214</id>
+    <quality>3</quality>
+    <name>Fierce Ember Topaz</name>
+    <ilvl>85</ilvl>
+    <slot>0</slot>
+    <classs>3</classs>
+    <subclass>5</subclass>
+    <Stamina>0</Stamina>
+    <Dodge>0</Dodge>
+    <Parry>0</Parry>
+    <Strength>20</Strength>
+    <Agility>0</Agility>
+    <HasteRating>20</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <MasteryRating>0</MasteryRating>
+    <reqskill>0</reqskill>
+    <keywords>HasteRatingStrength</keywords>
+  </item>
+  <item id="52219">
+    <id>52219</id>
+    <quality>3</quality>
+    <name>Fractured Amberjewel</name>
+    <ilvl>85</ilvl>
+    <slot>0</slot>
+    <classs>3</classs>
+    <subclass>2</subclass>
+    <Stamina>0</Stamina>
+    <Dodge>0</Dodge>
+    <Parry>0</Parry>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <MasteryRating>40</MasteryRating>
+    <reqskill>0</reqskill>
+    <keywords>MasteryRating</keywords>
+  </item>
+  <item id="52220">
+    <id>52220</id>
+    <quality>3</quality>
+    <name>Glinting Demonseye</name>
+    <ilvl>85</ilvl>
+    <slot>0</slot>
+    <classs>3</classs>
+    <subclass>3</subclass>
+    <Stamina>0</Stamina>
+    <Dodge>0</Dodge>
+    <Parry>0</Parry>
+    <Strength>0</Strength>
+    <Agility>20</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <HitRating>20</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <MasteryRating>0</MasteryRating>
+    <reqskill>0</reqskill>
+    <keywords>HitRatingAgility</keywords>
+  </item>
+  <item id="52221">
+    <id>52221</id>
+    <quality>3</quality>
+    <name>Guardian's Demonseye</name>
+    <ilvl>85</ilvl>
+    <slot>0</slot>
+    <classs>3</classs>
+    <subclass>3</subclass>
+    <Stamina>30</Stamina>
+    <Dodge>0</Dodge>
+    <Parry>0</Parry>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>20</ExpertiseRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <MasteryRating>0</MasteryRating>
+    <reqskill>0</reqskill>
+    <keywords>ExpertiseRating</keywords>
+  </item>
+  <item id="52223">
+    <id>52223</id>
+    <quality>3</quality>
+    <name>Jagged Dream Emerald</name>
+    <ilvl>85</ilvl>
+    <slot>0</slot>
+    <classs>3</classs>
+    <subclass>4</subclass>
+    <Stamina>30</Stamina>
+    <Dodge>0</Dodge>
+    <Parry>0</Parry>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>20</CritRating>
+    <MasteryRating>0</MasteryRating>
+    <reqskill>0</reqskill>
+    <keywords>CritRating</keywords>
+  </item>
+  <item id="52229">
+    <id>52229</id>
+    <quality>3</quality>
+    <name>Polished Ember Topaz</name>
+    <ilvl>85</ilvl>
+    <slot>0</slot>
+    <classs>3</classs>
+    <subclass>5</subclass>
+    <Stamina>0</Stamina>
+    <Dodge>20</Dodge>
+    <Parry>0</Parry>
+    <Strength>0</Strength>
+    <Agility>20</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <MasteryRating>0</MasteryRating>
+    <reqskill>0</reqskill>
+    <keywords>AgilityDodge</keywords>
+  </item>
+  <item id="52230">
+    <id>52230</id>
+    <quality>3</quality>
+    <name>Precise Inferno Ruby</name>
+    <ilvl>85</ilvl>
+    <slot>0</slot>
+    <classs>3</classs>
+    <subclass>0</subclass>
+    <Stamina>0</Stamina>
+    <Dodge>0</Dodge>
+    <Parry>0</Parry>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>40</ExpertiseRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <MasteryRating>0</MasteryRating>
+    <reqskill>0</reqskill>
+    <keywords>ExpertiseRating</keywords>
+  </item>
+  <item id="52232">
+    <id>52232</id>
+    <quality>3</quality>
+    <name>Quick Amberjewel</name>
+    <ilvl>85</ilvl>
+    <slot>0</slot>
+    <classs>3</classs>
+    <subclass>2</subclass>
+    <Stamina>0</Stamina>
+    <Dodge>0</Dodge>
+    <Parry>0</Parry>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>40</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <MasteryRating>0</MasteryRating>
+    <reqskill>0</reqskill>
+    <keywords>HasteRating</keywords>
+  </item>
+  <item id="52235">
+    <id>52235</id>
+    <quality>3</quality>
+    <name>Rigid Ocean Sapphire</name>
+    <ilvl>85</ilvl>
+    <slot>0</slot>
+    <classs>3</classs>
+    <subclass>1</subclass>
+    <Stamina>0</Stamina>
+    <Dodge>0</Dodge>
+    <Parry>0</Parry>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <HitRating>40</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <MasteryRating>0</MasteryRating>
+    <reqskill>0</reqskill>
+    <keywords>HitRating</keywords>
+  </item>
+  <item id="52241">
+    <id>52241</id>
+    <quality>3</quality>
+    <name>Smooth Amberjewel</name>
+    <ilvl>85</ilvl>
+    <slot>0</slot>
+    <classs>3</classs>
+    <subclass>2</subclass>
+    <Stamina>0</Stamina>
+    <Dodge>0</Dodge>
+    <Parry>0</Parry>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>40</CritRating>
+    <MasteryRating>0</MasteryRating>
+    <reqskill>0</reqskill>
+    <keywords>CritRating</keywords>
+  </item>
+  <item id="52242">
+    <id>52242</id>
+    <quality>3</quality>
+    <name>Solid Ocean Sapphire</name>
+    <ilvl>85</ilvl>
+    <slot>0</slot>
+    <classs>3</classs>
+    <subclass>1</subclass>
+    <Stamina>60</Stamina>
+    <Dodge>0</Dodge>
+    <Parry>0</Parry>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <MasteryRating>0</MasteryRating>
+    <reqskill>0</reqskill>
+    <keywords>
+    </keywords>
+  </item>
+  <item id="52246">
+    <id>52246</id>
+    <quality>3</quality>
+    <name>Stormy Ocean Sapphire</name>
+    <ilvl>85</ilvl>
+    <slot>0</slot>
+    <classs>3</classs>
+    <subclass>1</subclass>
+    <Stamina>0</Stamina>
+    <Dodge>0</Dodge>
+    <Parry>0</Parry>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <MasteryRating>0</MasteryRating>
+    <reqskill>0</reqskill>
+    <keywords>
+    </keywords>
+  </item>
+  <item id="52247">
+    <id>52247</id>
+    <quality>3</quality>
+    <name>Subtle Amberjewel</name>
+    <ilvl>85</ilvl>
+    <slot>0</slot>
+    <classs>3</classs>
+    <subclass>2</subclass>
+    <Stamina>0</Stamina>
+    <Dodge>40</Dodge>
+    <Parry>0</Parry>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>0</ExpertiseRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <MasteryRating>0</MasteryRating>
+    <reqskill>0</reqskill>
+    <keywords>Dodge</keywords>
+  </item>
+  <item id="52249">
+    <id>52249</id>
+    <quality>3</quality>
+    <name>Resolute Ember Topaz</name>
+    <ilvl>85</ilvl>
+    <slot>0</slot>
+    <classs>3</classs>
+    <subclass>5</subclass>
+    <Stamina>0</Stamina>
+    <Dodge>20</Dodge>
+    <Parry>0</Parry>
+    <Strength>0</Strength>
+    <Agility>0</Agility>
+    <HasteRating>0</HasteRating>
+    <ExpertiseRating>20</ExpertiseRating>
+    <ArmorPenetrationRating>0</ArmorPenetrationRating>
+    <HitRating>0</HitRating>
+    <AttackPower>0</AttackPower>
+    <CritRating>0</CritRating>
+    <MasteryRating>0</MasteryRating>
+    <reqskill>0</reqskill>
+    <keywords>ExpertiseRatingDodge</keywords>
+  </item>
+  <item id="52295">
+    <id>52295</id>
+    <quality>3</quality>
+    <name>Effulgent Shadowspirit Diamond</name>
     <ilvl>85</ilvl>
     <slot>0</slot>
     <classs>3</classs>

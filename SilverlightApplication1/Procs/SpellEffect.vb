@@ -74,16 +74,28 @@
                 End Select
             End If
             
-
+            Dim LastFade As Integer = 0
             If Not IsNothing(FutureEvent) Then
+
                 If FutureEvent.T > T Then
+                    If sim.NextPatch Then
+                        If Effect = SpellEffectManager.SpeelEffectEnum.IncreaseRuneRegeneration Then
+                            LastFade = FutureEvent.T
+                        End If
+                    End If
                     sim.FutureEventManager.Remove(FutureEvent)
                 End If
             End If
             If Lenght <> 0 Then
-                FutureEvent = sim.FutureEventManager.Add(T + (Lenght * 100), "BuffFade", Me)
+                If LastFade <> 0 Then
+                    FutureEvent = sim.FutureEventManager.Add(LastFade + (Lenght * 100), "BuffFade", Me)
+                    AddUptime(LastFade)
+                Else
+                    FutureEvent = sim.FutureEventManager.Add(T + (Lenght * 100), "BuffFade", Me)
+                    AddUptime(T)
+                End If
             End If
-            AddUptime(T)
+
         End Sub
         Overrides Sub Fade()
             MyBase.Fade()

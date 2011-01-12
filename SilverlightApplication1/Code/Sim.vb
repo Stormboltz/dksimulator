@@ -34,6 +34,7 @@ Namespace Simulator
         Friend FightNumber As Integer
         Friend ScenarioPath As String
 
+        Friend NextPatch As Boolean = True
 
         'Friend Patch as Boolean
         Friend TotalDamageAlternative As Long
@@ -955,6 +956,7 @@ Namespace Simulator
                 Me.CombatLog.enable = XmlConfig.Element("config").Element("log").Value
                 Me.CombatLog.LogDetails = XmlConfig.Element("config").Element("logdetail").Value
                 MergeReport = XmlConfig.Element("config").Element("chkMergeReport").Value
+                NextPatch = XmlConfig.Element("config").<chkNextPatch>.Value
                 ReportName = XmlConfig.Element("config").Element("txtReportName").Value
                 WaitForFallenCrusader = XmlConfig.Element("config").Element("WaitFC").Value
 

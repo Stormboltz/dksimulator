@@ -35,11 +35,7 @@ Namespace Simulator.WowObjects.Spells
             If Sim.ExecuteRange Then tmp *= (1 + 0.06 * Sim.Character.Talents.Talent("MercilessCombat").Value)
             If Sim.RuneForge.CheckCinderglacier(True) > 0 Then tmp *= 1.2
             tmp *= sim.RuneForge.RazorIceMultiplier(T)
-            If sim.Character.Talents.MainSpec = Character.Talents.Schools.Frost Then
-                tmp *= 1 + sim.Character.Mastery.Value * 2
-            End If
-            'TODO: only on main target
-            Sim.Targets.MainTarget.FrostFever.Apply(T)
+            sim.Targets.MainTarget.FrostFever.Apply(T)
             'Moved this here as an IcyTouch with 1 CG charge left will reapply a CG buffed FF
             Return tmp
         End Function

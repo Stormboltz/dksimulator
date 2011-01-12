@@ -60,7 +60,7 @@
                         <sdk:Label Content="Scenario:"   Name="lblScenario" Grid.Row="9" HorizontalAlignment="Right" />
                         <ComboBox Name="cmbScenario"  Grid.Row="9" Grid.Column="1" />
                         <Button Content="Edit"  Name="cmdEditScenario" Grid.Row="9" Grid.Column="2" />
-
+                        <CheckBox Content="Patch 4.0.6" Grid.Column="1" Grid.Row="10" Name="chkNextPatch"  />
                     </Grid >
 
                 </sdk:TabItem>

@@ -15,10 +15,12 @@ Namespace Simulator.WowObjects.Diseases
             tmp = MyBase.CalculateMultiplier(T, target) * Sim.RuneForge.RazorIceMultiplier(T) 'TODO: only on main target
             If sim.Character.Glyph("IcyTouch") Then Multiplicator += 0.2
             If sim.Character.Talents.MainSpec = Character.Talents.Schools.Frost Then
-                Multiplicator += sim.Character.Mastery.Value * 2.5
+                Multiplicator += sim.Character.Mastery.Value * 2
             End If
             If sim.Character.Talents.MainSpec = (Character.Talents.Schools.Unholy) Then
-                Multiplicator += 5 * sim.Character.Mastery.Value
+                If Not sim.NextPatch Then
+                    Multiplicator += 5 * sim.Character.Mastery.Value
+                End If
             End If
 
             tmp *= Multiplicator

@@ -86,7 +86,12 @@ Namespace Simulator.WowObjects.Spells
             If sim.ExecuteRange Then tmp = tmp * (1 + 0.06 * sim.Character.Talents.Talent("MercilessCombat").Value)
             tmp *= sim.RuneForge.RazorIceMultiplier(T) 'TODO: only on main target
             If sim.RuneForge.CheckCinderglacier(True) > 0 Then tmp *= 1.2
-            tmp *= 1 + sim.Character.Mastery.Value * 2
+
+            If sim.NextPatch Then
+                If Not target.Equals(sim.Targets.MainTarget) Then
+                    tmp *= 0.6
+                End If
+            End If
             Return tmp
         End Function
 

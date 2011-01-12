@@ -102,7 +102,23 @@ Namespace Simulator.WowObjects.Spells
             Dim tmp As Double
             tmp = BaseDamage + sim.Character.AP.CurrentValue * Coeficient
             tmp = tmp * Multiplicator
-            tmp = tmp * Sim.Character.StandardMagicalDamageMultiplier(T)
+            tmp = tmp * sim.Character.StandardMagicalDamageMultiplier(T)
+            Select Case DamageSchool
+                Case DamageSchoolEnum.Frost
+                    If sim.Character.Talents.MainSpec = Character.Talents.Schools.Frost Then
+                        tmp *= 1 + sim.Character.Mastery.Value * 2
+                    End If
+                Case DamageSchoolEnum.Shadow
+                    If sim.NextPatch Then
+                        If sim.Character.Talents.MainSpec = Character.Talents.Schools.Unholy Then
+                            tmp *= 1 + sim.Character.Mastery.Value * 2.5
+                        End If
+                    End If
+                Case Else
+
+            End Select
+
+
             If DiseaseBonus <> 0 Then ' For BloodBloil
                 tmp = tmp * (1 + DiseaseBonus)
             End If

@@ -99,12 +99,17 @@ Namespace Simulator.Character
         Friend Buff As RaidBuffs
 
         Friend Glyph As Glyphs
+
+
+        Dim MightOfFrozenWastes As Integer
+
         Sub New(ByVal S As Sim)
 
             Sim = S
             Talents = New Talents(Sim)
             Buff = New RaidBuffs(S)
             XmlConfig = Sim.XmlConfig
+
             Try
                 Dim path As String
                 path = XmlConfig.Element("config").Element("CharacterWithGear").Value
@@ -114,7 +119,7 @@ Namespace Simulator.Character
                 msgBox("Error finding Character config file")
             End Try
             BossArmor = 10643
-
+            MightOfFrozenWastes = Talents("MightOfFrozenWastes")
             Sim.boss = New Boss(S)
 
             _Mitigation = 0
@@ -344,8 +349,12 @@ Namespace Simulator.Character
             If XmlCharacter.<character>.<racials>.<Dreani>.Value = True Then
                 SpellHit.Add(1 / 100)
             End If
+            If Sim.NextPatch Then
+                SpellHit.Add(9)
+            Else
+                SpellHit.Add(Sim.Character.Talents.Talent("Virulence").Value * 3 / 100)
+            End If
 
-            SpellHit.Add(Sim.Character.Talents.Talent("Virulence").Value * 3 / 100)
 
 
             If XmlCharacter.<character>.<racials>.<Worgen>.Value = True Then
@@ -374,7 +383,12 @@ Namespace Simulator.Character
             Strength.AddMulti(1 + Talents.Talent("AbominationMight").Value / 100)
 
             If Talents.Talent("UnholyMight").Value <> 0 Then
-                Strength.AddMulti(1.1)
+                If Sim.NextPatch Then
+                    Strength.AddMulti(1.05)
+                Else
+                    Strength.AddMulti(1.1)
+                End If
+
             End If
 
 
@@ -627,7 +641,12 @@ Namespace Simulator.Character
             If target Is Nothing Then target = Sim.Targets.MainTarget
             Dim tmp As Integer
             tmp = 17
-            tmp = tmp - Sim.Character.Talents.Talent("Virulence").Value * 3
+            If Sim.NextPatch Then
+                tmp = tmp - 9
+            Else
+                tmp = tmp - Sim.Character.Talents.Talent("Virulence").Value * 3
+            End If
+
             If XmlCharacter.<character>.<racials>.<Dreani>.Value = True Then
                 tmp = tmp - 1
             End If
@@ -725,6 +744,9 @@ Namespace Simulator.Character
             If target Is Nothing Then target = Sim.Targets.MainTarget
             Dim tmp As Double
             tmp = _BaseDamageMultiplier(T) * getMitigation()
+            If Sim.NextPatch Then
+                tmp *= (1 + MightOfFrozenWastes * 4 / 100)
+            End If
             tmp = tmp * (1 + 0.04 * target.Debuff.PhysicalVuln)
 
             'If Sim.Hysteria.IsActive(T) Then tmp = tmp * 1.2

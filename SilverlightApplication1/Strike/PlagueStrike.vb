@@ -23,10 +23,12 @@ Namespace Simulator.WowObjects.Strikes
 
             If OffHand = False Then
                 Use()
-
-                If sim.Targets.MainTarget.BloodPlague.isActive(T) Then
-                    sim.proc.CrimsonScourge.TryMe(T)
+                If Not sim.NextPatch Then
+                    If sim.Targets.MainTarget.BloodPlague.isActive(T) Then
+                        sim.proc.CrimsonScourge.TryMe(T)
+                    End If
                 End If
+
 
                 sim.Targets.MainTarget.BloodPlague.Apply(T)
                 If sim.DRW.IsActive(T) Then

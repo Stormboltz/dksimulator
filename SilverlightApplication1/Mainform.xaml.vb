@@ -186,6 +186,8 @@ Partial Public Class MainForm
 
         doc.Element("config").Add(New XElement("BloodSync", False))
         doc.Element("config").Add(New XElement("chkMergeReport", chkMergeReport.IsChecked))
+        doc.Element("config").Add(New XElement("chkNextPatch", chkNextPatch.IsChecked))
+
         doc.Element("config").Add(New XElement("BShOption", cmbBShOption.SelectedValue))
         doc.Element("config").Add(New XElement("ICCBuff", cmbICCBuff.SelectedValue))
 
@@ -372,6 +374,11 @@ Partial Public Class MainForm
                     txtAMSrp.Text = doc.Element("config").<txtAMSrp>.Value
                     txtAMScd.Text = doc.Element("config").<txtAMScd>.Value
                     chkMergeReport.IsChecked = doc.Element("config").<chkMergeReport>.Value
+                    Try
+                        chkNextPatch.IsChecked = doc.Element("config").<chkNextPatch>.Value
+                    Catch ex As Exception
+
+                    End Try
                     'txtReportName.Text = doc.Element("config").<txtReportName>.Value
                     'chkBloodSync.IsChecked = doc.Element("config").<BloodSync>.Value
                 End Using
@@ -1922,7 +1929,8 @@ refreshRating:
 
     Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs)
         Dim worker As Optimizer = CType(sender, Optimizer)
-        worker.Populate_alt()
+        'worker.Populate_alt()
+        worker.Populate()
     End Sub
 
 
