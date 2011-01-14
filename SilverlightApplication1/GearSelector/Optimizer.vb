@@ -30,26 +30,28 @@ Public Class Optimizer
         Dim slt As Slot
 
         slt = New Slot("Head", MainForm.GearSelector.HeadSlot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.HeadSlot.Item.Id).First, SlotList)
-        slt = New Slot("Neck", MainForm.GearSelector.NeckSlot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.NeckSlot.Item.Id).First, SlotList)
-        slt = New Slot("Shoulder", MainForm.GearSelector.ShoulderSlot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.ShoulderSlot.Item.Id).First, SlotList)
-        slt = New Slot("Back", MainForm.GearSelector.BackSlot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.BackSlot.Item.Id).First, SlotList)
         slt = New Slot("Chest", MainForm.GearSelector.ChestSlot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.ChestSlot.Item.Id).First, SlotList)
-        slt = New Slot("Wrist", MainForm.GearSelector.WristSlot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.WristSlot.Item.Id).First, SlotList)
-        slt = New Slot("Hand", MainForm.GearSelector.HandSlot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.HandSlot.Item.Id).First, SlotList)
-        slt = New Slot("Waist", MainForm.GearSelector.BeltSlot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.BeltSlot.Item.Id).First, SlotList)
         slt = New Slot("Pant", MainForm.GearSelector.LegSlot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.LegSlot.Item.Id).First, SlotList)
-        slt = New Slot("Feet", MainForm.GearSelector.FeetSlot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.FeetSlot.Item.Id).First, SlotList)
-        slt = New Slot("Ring1", MainForm.GearSelector.ring1Slot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.ring1Slot.Item.Id).First, SlotList)
-        slt = New Slot("Ring2", MainForm.GearSelector.ring2Slot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.ring2Slot.Item.Id).First, SlotList)
-        slt = New Slot("Trinket1", MainForm.GearSelector.Trinket1Slot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.Trinket1Slot.Item.Id).First, SlotList)
-        slt = New Slot("Trinket2", MainForm.GearSelector.Trinket2Slot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.Trinket2Slot.Item.Id).First, SlotList)
-        slt = New Slot("Sigil", MainForm.GearSelector.Trinket2Slot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.SigilSlot.Item.Id).First, SlotList)
+        slt = New Slot("Shoulder", MainForm.GearSelector.ShoulderSlot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.ShoulderSlot.Item.Id).First, SlotList)
+        slt = New Slot("Hand", MainForm.GearSelector.HandSlot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.HandSlot.Item.Id).First, SlotList)
         If DW Then
             slt = New Slot("MainHand", MainForm.GearSelector.MHWeapSlot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.MHWeapSlot.Item.Id).First, SlotList)
             slt = New Slot("OffHand", MainForm.GearSelector.OHWeapSlot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.OHWeapSlot.Item.Id).First, SlotList)
         Else
             slt = New Slot("TwoHand", MainForm.GearSelector.TwoHWeapSlot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.TwoHWeapSlot.Item.Id).First, SlotList)
         End If
+
+        slt = New Slot("Wrist", MainForm.GearSelector.WristSlot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.WristSlot.Item.Id).First, SlotList)
+        slt = New Slot("Waist", MainForm.GearSelector.BeltSlot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.BeltSlot.Item.Id).First, SlotList)
+
+        slt = New Slot("Feet", MainForm.GearSelector.FeetSlot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.FeetSlot.Item.Id).First, SlotList)
+        slt = New Slot("Trinket1", MainForm.GearSelector.Trinket1Slot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.Trinket1Slot.Item.Id).First, SlotList)
+        slt = New Slot("Trinket2", MainForm.GearSelector.Trinket2Slot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.Trinket2Slot.Item.Id).First, SlotList)
+        slt = New Slot("Back", MainForm.GearSelector.BackSlot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.BackSlot.Item.Id).First, SlotList)
+        slt = New Slot("Ring1", MainForm.GearSelector.ring1Slot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.ring1Slot.Item.Id).First, SlotList)
+        slt = New Slot("Ring2", MainForm.GearSelector.ring2Slot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.ring2Slot.Item.Id).First, SlotList)
+        slt = New Slot("Neck", MainForm.GearSelector.NeckSlot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.NeckSlot.Item.Id).First, SlotList)
+        slt = New Slot("Sigil", MainForm.GearSelector.Trinket2Slot, (From el In ItemDB.<items>.Elements Where el.<id>.Value = MainForm.GearSelector.SigilSlot.Item.Id).First, SlotList)
     End Sub
     Friend FinishedCount As Long
     Sub Populate_alt()

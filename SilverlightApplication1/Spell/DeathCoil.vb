@@ -14,6 +14,11 @@ Namespace Simulator.WowObjects.Spells
             AdditionalCritChance += 8 * sim.Character.T82PDPS / 100
             AdditionalCritChance += 5 * sim.Character.T112PDPS / 100
             logLevel = LogLevelEnum.Basic
+            DamageSchool = DamageSchoolEnum.Shadow
+            '10% nerf of 4.06
+            If sim.NextPatch Then
+                Multiplicator -= 0.1
+            End If
 
         End Sub
 

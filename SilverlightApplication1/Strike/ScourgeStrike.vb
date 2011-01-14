@@ -27,7 +27,12 @@ Namespace Simulator.WowObjects.Strikes
 
             Coeficient = 1
 
-            Coeficient += sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100
+            If sim.NextPatch Then
+                Coeficient += sim.Character.Talents.Talent("RageOfRivendare").Value * 12 / 100
+            Else
+                Coeficient += sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100
+            End If
+
 
             If sim.Character.T102PDPS <> 0 Then Coeficient += 0.1
             _CritCoef = (1 + 0.06 * sim.Character.CSD)
@@ -80,7 +85,13 @@ Namespace Simulator.WowObjects.Strikes
             Sub New(ByVal S As Sim)
                 MyBase.New(S)
                 If sim.Character.Glyph("ScourgeStrike") Then Multiplicator += 0.3
-                Multiplicator += sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100
+
+                If sim.NextPatch Then
+                    Multiplicator += sim.Character.Talents.Talent("RageOfRivendare").Value * 12 / 100
+                Else
+                    Multiplicator += sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100
+                End If
+
                 logLevel = LogLevelEnum.Basic
                 DamageSchool = DamageSchoolEnum.Shadow
                 Resource = New Resource(sim, Resource.ResourcesEnum.None)
@@ -108,11 +119,11 @@ Namespace Simulator.WowObjects.Strikes
                 If sim.Character.T84PDPS = 1 Then tmpMagical = tmpMagical * 1.2
                 tmpMagical *= sim.Character.StandardMagicalDamageMultiplier(T, target)
                 If sim.RuneForge.CheckCinderglacier(True) > 0 Then tmpMagical *= 1.2
-                If sim.NextPatch Then
-                    If sim.Character.Talents.MainSpec = Character.Talents.Schools.Unholy Then
-                        tmpMagical *= 1 + sim.Character.Mastery.Value * 2.5
-                    End If
-                End If
+                'If sim.NextPatch Then
+                '    If sim.Character.Talents.MainSpec = Character.Talents.Schools.Unholy Then
+                '        tmpMagical *= 1 + sim.Character.Mastery.Value * 2.5
+                '    End If
+                'End If
                 tmpMagical *= Multiplicator
                 Return tmpMagical
             End Function

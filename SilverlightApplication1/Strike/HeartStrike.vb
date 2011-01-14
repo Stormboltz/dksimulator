@@ -11,14 +11,25 @@ Namespace Simulator.WowObjects.Strikes
         Inherits Strike
         Sub New(ByVal S As Sim)
             MyBase.New(S)
-                BaseDamage = 819
-            Coeficient = 1
+            BaseDamage = 819
 
+
+            If sim.NextPatch Then
+                Coeficient = 1.75
+                DiseaseBonus = 0.15
+            Else
+                Coeficient = 1.2
+                DiseaseBonus = 0.1
+
+            End If
             If sim.Character.T92PTNK = 1 Then Coeficient += 0.05
             If sim.Character.T102PDPS <> 0 Then Coeficient += 0.07
             If sim.Character.Glyph("HeartStrike") Then Coeficient += 0.3
             Resource = New Resource(S, Resource.ResourcesEnum.BloodOrDeathRune, False, 10)
             logLevel = LogLevelEnum.Basic
+
+            
+
         End Sub
         Public Overrides Function ApplyDamage(ByVal T As Long) As Boolean
             If Not OffHand Then UseGCD()

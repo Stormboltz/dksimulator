@@ -23,6 +23,7 @@ Namespace Simulator.WowObjects.Spells
             Length = 1000
             If sim.Character.Glyph("DeathAndDecay") Then Length *= 1.5
             logLevel = LogLevelEnum.Basic
+            DamageSchool = DamageSchoolEnum.Shadow
             Resource = New Resource(sim, Resource.ResourcesEnum.UnholyRune, False, 10)
         End Sub
 

@@ -206,7 +206,7 @@ Namespace Simulator.WowObjects.Procs
                 ._Name = "SuddenDoom"
 
                 If Sim.NextPatch Then
-                    .ProcChance = (Sim.Character.Talents.Talent("SuddenDoom").Value * 2) * s.Character.MHWeaponSpeed / 60
+                    .ProcChance = (Sim.Character.Talents.Talent("SuddenDoom").Value * 1) * s.Character.MHWeaponSpeed / 60
                     .ProcOn = ProcsManager.ProcOnType.OnMHWhiteHit
                 Else
                     .ProcChance = Sim.Character.Talents.Talent("SuddenDoom").Value * 0.05

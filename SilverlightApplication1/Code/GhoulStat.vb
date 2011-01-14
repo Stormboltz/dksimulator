@@ -112,12 +112,21 @@ Namespace Simulator.WowObjects.PetsAndMinions
             If target Is Nothing Then target = Sim.Targets.MainTarget
             Dim tmp As Double
             tmp = Sim.Character.StandardPhysicalDamageMultiplier(T, target)
-            
-            If Sim.Ghoul.ShadowInfusion.IsActive Then
-                tmp = tmp * (1 + 0.1 * (Sim.Ghoul.ShadowInfusion.Stack))
-            End If
-            If Sim.DarkTransformation.DarkTransformationBuff.IsActive Then
-                tmp = tmp * (2)
+
+            If Sim.NextPatch Then
+                If Sim.Ghoul.ShadowInfusion.IsActive Then
+                    tmp = tmp * (1 + 0.08 * (Sim.Ghoul.ShadowInfusion.Stack))
+                End If
+                If Sim.DarkTransformation.DarkTransformationBuff.IsActive Then
+                    tmp = tmp * (1.8)
+                End If
+            Else
+                If Sim.Ghoul.ShadowInfusion.IsActive Then
+                    tmp = tmp * (1 + 0.1 * (Sim.Ghoul.ShadowInfusion.Stack))
+                End If
+                If Sim.DarkTransformation.DarkTransformationBuff.IsActive Then
+                    tmp = tmp * (2)
+                End If
             End If
 
             If Sim.Character.Orc Then tmp = tmp * 1.05
