@@ -86,11 +86,11 @@ Namespace Simulator.WowObjects.Strikes
                 MyBase.New(S)
                 If sim.Character.Glyph("ScourgeStrike") Then Multiplicator += 0.3
 
-                If sim.NextPatch Then
-                    Multiplicator += sim.Character.Talents.Talent("RageOfRivendare").Value * 12 / 100
-                Else
-                    Multiplicator += sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100
-                End If
+                'If sim.NextPatch Then
+                '    Multiplicator += sim.Character.Talents.Talent("RageOfRivendare").Value * 12 / 100
+                'Else
+                '    Multiplicator += sim.Character.Talents.Talent("RageOfRivendare").Value * 15 / 100
+                'End If
 
                 logLevel = LogLevelEnum.Basic
                 DamageSchool = DamageSchoolEnum.Shadow
